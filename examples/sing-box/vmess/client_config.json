@@ -1,0 +1,104 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "output": "C:\\sing-box-win-amd64\\sing-box.log",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "google",
+                "address": "tls://8.8.8.8"
+            },
+            {
+                "tag": "local",
+                "address": "223.5.5.5",
+                "detour": "direct"
+            }
+        ],
+        "rules": [
+            {
+                "domain": "servername.com",
+                "geosite": "cn",
+                "server": "local"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "inet4_address": "172.19.0.1/30",
+            "auto_route": true,
+            "mtu": 1500,
+            "sniff": true
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "vmess",
+            "tag": "vmess-out",
+            "server": "servername.com",
+            "server_port": 8443,
+            "uuid": "<uuid>",
+            "alter_id": 0,
+            "security": "auto",
+            "global_padding": false,
+            "authenticated_length": true,
+            "domain_strategy": "ipv4_only",
+            "tls": {
+                "enabled": true,
+                "disable_sni": false,
+                "server_name": "servername.com",
+                "insecure": false,
+                "alpn": [
+                    "http/1.1",
+                    "h2"
+                ]
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vmess"
+            },
+            "multiplex": {
+                "enabled": true,
+                "protocol": "smux",
+                "max_connections": 4,
+                "min_streams": 4,
+                "max_streams": 0
+            }
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns-out"
+            },
+            {
+                "geosite": "category-ads-all",
+                "outbound": "block"
+            },
+            {
+                "geosite": "cn",
+                "geoip": "cn",
+                "outbound": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "vmess-out"
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "output": "/usr/local/sing-box/sing-box.log",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "google-tls",
+                "address": "local",
+                "address_strategy": "prefer_ipv4",
+                "strategy": "ipv4_only",
+                "detour": "direct"
+            },
+            {
+                "tag": "google-udp",
+                "address": "8.8.8.8",
+                "address_strategy": "prefer_ipv4",
+                "strategy": "prefer_ipv4",
+                "detour": "direct"
+            }
+        ],
+        "strategy": "prefer_ipv4",
+        "disable_cache": false,
+        "disable_expire": false
+    },
+    "inbounds": [
+        {
+            "type": "tuic",
+            "tag": "tuic-in",
+            "listen": "0.0.0.0",
+            "listen_port": 12345,
+            "domain_strategy": "prefer_ipv4",
+            "users": [
+                {
+                    "name": "sekai",
+                    "uuid": "<uuid>",
+                    "password": "<pwd>"
+                }
+            ],
+            "congestion_control": "bbr",
+            "auth_timeout": "3s",
+            "zero_rtt_handshake": false,
+            "heartbeat": "10s",
+            "tls": {
+                "enabled": true,
+                "alpn": [
+                    "h3",
+                    "spdy/3.1"
+                ],
+                "server_name": "servername.com",
+                "certificate_path": "/root/fullchain.cer",
+                "key_path": "/root/private.key"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns-out"
+            },
+            {
+                "inbound": [
+                    "tuic-in"
+                ],
+                "geosite": [
+                    "cn",
+                    "category-ads-all"
+                ],
+                "geoip": "cn",
+                "outbound": "block"
+            }
+        ],
+        "geoip": {
+            "path": "geoip.db",
+            "download_url": "https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db",
+            "download_detour": "direct"
+        },
+        "geosite": {
+            "path": "geosite.db",
+            "download_url": "https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db",
+            "download_detour": "direct"
+        },
+        "final": "direct",
+        "auto_detect_interface": true
+    }
+}

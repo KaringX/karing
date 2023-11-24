@@ -1,0 +1,91 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "output": "C:\\sing-box-win-amd64\\sing-box.log",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "google",
+                "address": "tls://8.8.8.8"
+            },
+            {
+                "tag": "local",
+                "address": "223.5.5.5",
+                "detour": "direct"
+            }
+        ],
+        "rules": [
+            {
+                "domain": "servername.com",
+                "geosite": "cn",
+                "server": "local"
+            }
+        ],
+        "strategy": "ipv4_only"
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "inet4_address": "172.19.0.1/30",
+            "auto_route": true,
+            "mtu": 1500,
+            "sniff": true
+        }
+    ],
+    "outbounds": [
+        {
+            "server": "servername.com",
+            "server_port": 12345,
+            "tag": "tuic-out",
+            "type": "tuic",
+            "uuid": "<uuid>",
+            "password": "<pwd>",
+            "congestion_control": "bbr",
+            "udp_relay_mode": "quic",
+            "zero_rtt_handshake": false,
+            "tls": {
+                "enabled": true,
+                "disable_sni": false,
+                "server_name": "servername.com",
+                "insecure": true,
+                "alpn": [
+                    "h3"
+                ]
+            }
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns-out"
+            },
+            {
+                "geosite": "category-ads-all",
+                "outbound": "block"
+            },
+            {
+                "geosite": "cn",
+                "geoip": "cn",
+                "outbound": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "tuic-out"
+    }
+}
