@@ -1,0 +1,151 @@
+{
+    "log": {
+        "level": "error"
+    },
+    "dns": {
+        "servers": [
+            {
+                "tag": "local",
+                "address": "local"
+            },
+            {
+                "tag": "cloudflare",
+                "address": "https://1.1.1.1/dns-query",
+                "address_resolver": "local"
+            },
+            {
+                "tag": "dnspod",
+                "address": "https://1.12.12.12/dns-query",
+                "detour": "direct"
+            }
+        ],
+        "rules": [
+            {
+                "outbound": "any",
+                "server": "dnspod"
+            },
+            {
+                "clash_mode": "Direct",
+                "server": "dnspod"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "cloudflare"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "geosite": "google@cn",
+                        "invert": true
+                    },
+                    {
+                        "geosite": [
+                            "cn"
+                        ]
+                    }
+                ],
+                "server": "dnspod"
+            }
+        ],
+        "final": "cloudflare",
+        "strategy": "prefer_ipv6"
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "tag": "mixed_in",
+            "set_system_proxy": true,
+            "listen": "0.0.0.0",
+            "listen_port": 3067
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "selector",
+            "tag": "default",
+            "outbounds": [
+                "HongKong CN2 U11"
+            ]
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "block",
+            "tag": "block"
+        },
+        {
+            "type": "dns",
+            "tag": "dns"
+        },
+        {
+            "type": "shadowsocks",
+            "tag": "HongKong CN2 U11",
+            "server": "server ip",
+            "server_port": 12345,
+            "method": "chacha20-ietf-poly1305",
+            "password": "your password"
+        }
+    ],
+    "route": {
+        "geoip": {
+            "download_url": "https://github.com/SagerNet/sing-geoip/releases/download/20231112/geoip.db",
+            "download_detour": "direct"
+        },
+        "geosite": {
+            "download_url": "https://github.com/SagerNet/sing-geosite/releases/download/20231122065640/geosite.db",
+            "download_detour": "direct"
+        },
+        "rules": [
+            {
+                "protocol": "dns",
+                "outbound": "dns"
+            },
+            {
+                "network": "udp",
+                "port": 53,
+                "outbound": "dns"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "default"
+            },
+            {
+                "protocol": "stun",
+                "outbound": "block"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "geosite": "google@cn",
+                        "invert": true
+                    },
+                    {
+                        "geosite": [
+                            "cn"
+                        ],
+                        "geoip": [
+                            "cn",
+                            "private"
+                        ]
+                    }
+                ],
+                "outbound": "direct"
+            },
+            {
+                "geosite": "category-ads-all",
+                "outbound": "block"
+            }
+        ],
+        "auto_detect_interface": true
+    }
+}
