@@ -40,7 +40,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 ## Install
 - **Windows**:
   - https://github.com/KaringX/karing/releases/latest
-- **IOS TestFlight**:
+- **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 
 
