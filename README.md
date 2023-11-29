@@ -52,7 +52,6 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 
 ## Todos
 - Platform to be supported:
-  - macOS
   - tvOS（apple tv）
   - android
   - linux | [玲珑](https://linglong.dev/)
