@@ -12,7 +12,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 
 
 ## Features
-- Compatible with Clash, V2ray/V2fly, Sing-box, SS Subscriptions.
+- Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
 - Full `clash` config supported, Partial `clash.meta` config supported.
 - Simple UI and supports custom theme color.
 - Built-in support [sing-box](https://github.com/SagerNet/sing-box) core.
