@@ -55,6 +55,8 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
   - tvOS（apple tv）
   - android
   - linux | [玲珑](https://linglong.dev/)
+- Multi-language
+  - If you are willing to work with us to support Karing multi-language, please send an email to bdluking@gmail.com to apply to join us
 
 
 ## Screenshots
