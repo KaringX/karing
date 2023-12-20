@@ -66,8 +66,6 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
   </br>
   <img src="./assets/demo/2.png" alt="demo2" width="32%" />
     </br>
-  <img src="./assets/demo/7.png" alt="demo7" width="32%" />
-  </br>
   <img src="./assets/demo/3.png" alt="demo3" width="32%" />
   </br>
   <img src="./assets/demo/4.png" alt="demo4" width="32%" />
