@@ -43,7 +43,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 - **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **IOS/MacOS AppStore**:
-  - https://testflight.apple.com/join/RLU59OsJ
+  - https://apps.apple.com/us/app/karing/id6472431552
 
 
 
