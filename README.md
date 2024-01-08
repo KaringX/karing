@@ -42,7 +42,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
   - https://github.com/KaringX/karing/releases/latest
 - **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
-- **IOS/MacOS AppStore**:
+- **IOS/MacOS AppStore**: (Search Keywords: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 
 
