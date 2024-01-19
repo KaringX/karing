@@ -51,7 +51,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
   - If you are willing to work with us to support Karing globalization, please send an email to bdluking@gmail.com to apply
 
 
-## Screenshots
+## Screenshots (Windows version)
 
 <div align="center">
   <img src="./assets/demo/home.png" alt="demo1" width="32%" />
