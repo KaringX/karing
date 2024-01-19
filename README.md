@@ -54,17 +54,17 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 ## Screenshots (Windows version)
 
 <div align="center">
-  <img src="./assets/demo/home.png" alt="demo1" width="32%" />
+  <img src="./assets/demo/home.png" alt="demo1" width="50%" />
   </br></br>
-  <img src="./assets/demo/select_server.png" alt="demo2" width="32%" />
+  <img src="./assets/demo/select_server.png" alt="demo2" width="50%" />
     </br></br>
-  <img src="./assets/demo/connections.png" alt="demo3" width="32%" />
+  <img src="./assets/demo/connections.png" alt="demo3" width="50%" />
   </br></br>
-  <img src="./assets/demo/setting.png" alt="demo4" width="32%" />
+  <img src="./assets/demo/setting.png" alt="demo4" width="50%" />
   </br></br>
-  <img src="./assets/demo/routing_group.png" alt="demo5" width="32%" />
+  <img src="./assets/demo/routing_group.png" alt="demo5" width="50%" />
   </br></br>
-  <img src="./assets/demo/add_profile_link.png" alt="demo6" width="32%" />
+  <img src="./assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
 
