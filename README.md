@@ -21,20 +21,13 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 
 ## Promotion
 
-[跟斗云 —— 技术流机场 NovaCloud](https://xn--9kq147c4p2a.com/auth/register?code=71be1e9a1a)
+[NETZ](https://netz.run)
 
-- High-performance overseas VPN, free trial, support Hysteria2 and TUIC v5 protocol.
-- 高性能海外机场，免费试用，完美匹配sing-box客户端，支持主流QUIC协议
-  - Hysteria2
-  - TUIC v5
-- 使用 Karing 专属邀请链接注册送免费流量，试用链接：https://xn--9kq147c4p2a.com/auth/register?code=71be1e9a1a
+- High-performance overseas VPN, free trial, support trojan protocol.
+  - trojan
+- Free trial and purchase (no registration required)：[Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
 
-<details>
-<summary>Promotion Detail</summary>
-
-- Karing 小圈子**自用**【推荐】
-</details>
-
+ 
 <br />
 
 ## Install
