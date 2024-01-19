@@ -44,9 +44,9 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 
 ## Todos
 - Platform to be supported:
-  - tvOS（apple tv）
   - android
-  - linux | [玲珑](https://linglong.dev/)
+  - tvOS（apple tv）
+  - linux | [linglong](https://linglong.dev/)
 - Globalization(multi-language)
   - If you are willing to work with us to support Karing globalization, please send an email to bdluking@gmail.com to apply
 
