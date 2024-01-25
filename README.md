@@ -77,5 +77,5 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 Karing was based on or inspired by these projects and so on:
 
 - [flutter](https://flutter.dev/): makes it easy and fast to build beautiful apps for mobile and beyond.
-- [sing-box](https://sing-box.sagernet.org/): The universal proxy platform.
+- [singbox](https://sing-box.sagernet.org/): The universal proxy platform.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta docs
