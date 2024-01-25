@@ -7,7 +7,7 @@
 </h1>
 
 <h3 align="center">
-A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a href="https://github.com/flutter/flutter">flutter</a>.
+A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
 
@@ -15,7 +15,7 @@ A <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI based on <a hr
 - Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
 - Full `clash` config supported, Partial `clash.meta` config supported.
 - Simple UI and supports custom theme color.
-- Built-in support [sing-box](https://github.com/SagerNet/sing-box) core.
+- Built-in support [singbox](https://github.com/SagerNet/sing-box) core.
 - System proxy setting and guard.
 - Plan to support all platforms.
 
