@@ -28,7 +28,7 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 
 
 ## Install
-- **Windows**:
+- **Windows/Android**:
   - https://github.com/KaringX/karing/releases/latest
 - **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
@@ -44,7 +44,6 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 
 ## Todos
 - Platform to be supported:
-  - android
   - tvOS（apple tv）
   - linux | [linglong](https://linglong.dev/)
 - Globalization(multi-language)
