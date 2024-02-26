@@ -20,7 +20,11 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 - Plan to support all platforms.
 
 ## Promotion
+[跟斗云](https://跟斗云.com/auth/register?code=71be1e9a1a)
 
+- High-performance, support Trojan, Tuic(v5), Hysteria2, VMess protocol.
+- Free trial [跟斗云](https://跟斗云.com/auth/register?code=71be1e9a1a)
+  
 [NETZ](https://netz.run)
 
 - High-performance overseas VPN, free trial, support trojan protocol.
