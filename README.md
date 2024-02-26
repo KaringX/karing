@@ -30,7 +30,7 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 - High-performance overseas VPN, free trial, support trojan protocol.
 - Free trial and purchase (no registration required)：[Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
 
-## System Requirements
+## System Requirements(64-bit only)
 - Windows >= 10
 - Android >= 10
 - IOS >= 15
