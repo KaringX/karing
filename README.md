@@ -1,4 +1,3 @@
-
 <h1 align="center">
   <img src="./assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
@@ -10,6 +9,8 @@
 A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
+
+English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./README_fa.md)
 
 ## Features
 - Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
@@ -24,7 +25,7 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 
 - High-performance, support Trojan, Tuic(v5), Hysteria2, VMess protocol.
 - Free trial [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
-  
+
 [NETZ](https://netz.run)
 
 - High-performance overseas VPN, free trial, support trojan protocol.
