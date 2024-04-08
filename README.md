@@ -33,7 +33,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 
 ## System Requirements(64-bit only)
 - Windows >= 10
-- Android >= 10
+- Android >= 8
 - IOS >= 15
 - MacOS >= 12
 
