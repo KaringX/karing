@@ -57,7 +57,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
   - tvOS（apple tv）
   - linux | [linglong](https://linglong.dev/)
 - Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please send an email to bdluking@gmail.com to apply
+  - If you are willing to work with us to support Karing globalization, please send an email to gooringx@gmail.com to apply
 
 
 ## Screenshots (Windows version)
