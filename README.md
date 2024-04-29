@@ -88,3 +88,9 @@ Karing was based on or inspired by these projects and so on:
 - [flutter](https://flutter.dev/): makes it easy and fast to build beautiful apps for mobile and beyond.
 - [singbox](https://sing-box.sagernet.org/): The universal proxy platform.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta docs
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+
