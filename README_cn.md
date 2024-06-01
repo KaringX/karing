@@ -53,7 +53,7 @@
   - tvOS（Apple TV）
   - Linux | [linglong](https://linglong.dev/)
 - 全球化（多语言）
-  - 如果您愿意与我们合作支持 Karing 全球化，请发送电子邮件至 bdluking@gmail.com 申请
+  - 如果您愿意与我们合作支持 Karing 全球化，请联系 [Telegram](https://t.me/ovowe)
 
 ## 截图（Windows 版本）
 
