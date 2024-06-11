@@ -14,11 +14,22 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 
 ## Features
 - Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
-- Full `clash` config supported, Partial `clash.meta` config supported.
-- Simple UI and supports custom theme color.
-- Built-in support [singbox](https://github.com/SagerNet/sing-box) core.
-- System proxy setting and guard.
+  - Full `clash` config supported, Partial `clash.meta` config supported.
+
+- A set of routing rules applied to multiple subscription sources automatically selects efficient nodes.
+- Supports custom routing rule groups and node groups.
+  - Customizes default routing rule groups for novice users - ready to use right out of the box.
+  - Built-in geo-IP, geo-site, ACL, and [other rulesets](https://github.com/KaringX/karing-ruleset/)
+
+- Backup and synchronization, synchronizing multiple devices with a single configuration.
+  - Supports synchronization within the local area network.
+  - Supports WebDAV.
+  - Supports importing/exporting ZIP files.
+
+- Built-in support for [the modified sing-box core](https://github.com/KaringX/sing-box).
+- Introduces a beginner mode for simpler configuration.
 - Plan to support all platforms.
+
 
 ## Promotion
 <details>

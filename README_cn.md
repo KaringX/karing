@@ -13,10 +13,17 @@
 
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
-- 完全支持 `clash` 配置，部分支持 `clash.meta` 配置。
-- 简单的用户界面，支持自定义主题颜色。
-- 内置支持 [singbox](https://github.com/SagerNet/sing-box) 核心。
-- 系统代理设置和防护。
+  - 完全支持 `clash` 配置，部分支持 `clash.meta` 配置。
+- 一套路由规则应用于多个订阅源, 自动选择高效节点。
+- 支持自定义路由规则组、节点组
+  - 为小白用户定制默认路由规则组 - 开箱即用。
+  - 内置 geo-ip、geo-site、acl等[规则集](https://github.com/KaringX/karing-ruleset/)
+- 备份和同步, 一次配置多设备同步
+  - 支持局域网内同步
+  - 支持Webdav
+  - 支持zip文件导入/导出
+- 内置支持 [魔改版 singbox](https://github.com/KaringX/sing-box) 核心。
+- 增加新手模式 配置更简单。
 - 计划支持所有平台。
 
 ## 推广
