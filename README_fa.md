@@ -19,16 +19,13 @@
 - تنظیمات پروکسی سیستمی و نگهبان.
 - قصد پشتیبانی از تمامی پلتفرم‌ها.
 
-## تبلیغات
-[NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
+## Promotion
+<details>
+<summary>recommend
 
-- عملکرد بالا، پشتیبانی از پروتکل‌های Trojan، Tuic(v5)، Hysteria2، VMess.
-- آزمایش رایگان [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
-
-[NETZ](https://netz.run)
-
-- وی‌پی‌ان خارجی با عملکرد بالا، آزمایش رایگان، پشتیبانی از پروتکل trojan.
-- آزمایش رایگان و خرید (بدون نیاز به ثبت نام): [تلگرام بات](https://t.me/netzrun_bot?start=ref_karing)
+### VPN Providers Collaboration Announcement
+- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+</details>
 
 ## نیازمندی‌های سیستم (تنها 64 بیت)
 - Windows >= 10

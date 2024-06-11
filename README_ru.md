@@ -20,15 +20,20 @@
 - Планы поддержки всех платформ.
 
 ## Продвижение
-[NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
+<details>
+<summary>Продвижение
 
-- Высокопроизводительные, поддержка протоколов Trojan, Tuic(v5), Hysteria2, VMess.
-- Бесплатное испытание [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
-
-[NETZ](https://netz.run)
+[NETZ —— ISP in Russia](https://netz.run)
 
 - Высокопроизводственный зарубежный VPN, бесплатное испытание, поддержка протокола Trojan.
 - Бесплатное испытание и покупка (без регистрации): [Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
+
+
+### VPN Providers Collaboration Announcement
+- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+
+</summary>
+</details>
 
 ## Системные требования (только 64-битные)
 - Windows >= 10

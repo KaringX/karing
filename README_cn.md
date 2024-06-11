@@ -20,15 +20,48 @@
 - 计划支持所有平台。
 
 ## 推广
-[NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
+<details>
+<summary>查看所有推广
 
-- 高性能，支持 Trojan、Tuic(v5)、Hysteria2、VMess 协议。
-- 免费试用 [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
 
-[NETZ](https://netz.run)
 
-- 高性能海外 VPN，免费试用，支持 Trojan 协议。
-- 免费试用和购买（无需注册）：[Telegram 机器人](https://t.me/netzrun_bot?start=ref_karing)
+### ✈️推荐机场
+
+
+[狗狗加速 —— 技术流机场 Doggygo VPN](https://panel.dg6.top/#/register?code=lFH4ii9D)
+
+- 高性能海外机场，海外团队，无跑路风险
+- 专属链接注册送 3 天，每天 1G 流量免费试用: [狗狗加速.com](https://panel.dg6.top/#/register?code=lFH4ii9D)
+- 优惠套餐每月仅需 15.8 元，160G 流量，年付 8 折
+- 全球首家支持`Hysteria2` 协议，集群负载均衡设计，高速专线，极低延迟，无视晚高峰，4K 秒开
+- 解锁流媒体及 ChatGPT
+
+
+[跟斗云 —— 小众首选](https://跟斗云.com/auth/register?code=71be1e9a1a)
+</summary>
+
+- 高性能机场, 主推Tuic(v5) 更快更稳定。
+- 免费试用链接: [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
+- karing team 自用良好
+
+
+[NETZ —— ISP in Russia](https://netz.run)
+
+- High-performance overseas VPN, free trial, support trojan protocol.
+- Free trial and purchase (no registration required)：[Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
+
+
+### 🔥自建节点服务器
+- （美国免备案vps，配置2核2G仅需`20.98$`≈`145RMB`一年/支持支付宝付款） [👉🏻点我直达](https://my.racknerd.com/aff.php?aff=8405)
+- （美国到中国大陆最快的vps， CN2GIA优化网络）
+  - [👉🏻国外直达](https://bandwagonhost.com/aff.php?aff=75253&productFilter=1)
+  - [👉🏻国内点我](https://bwh81.net/aff.php?aff=75253&productFilter=1)
+
+
+### 🤝机场合作招募
+- 👉[联系方式与合作形式](https://karing.app/blog/isp/cooperation)👈
+</details>
+
 
 ## 系统要求（仅支持64位）
 - Windows >= 10
@@ -46,7 +79,7 @@
 
 ### 常见问题
 
-> 等待中...
+> https://karing.app/faq
 
 ## 待办事项
 - 待支持的平台：
