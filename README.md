@@ -121,6 +121,10 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 [welcome to report issue!](https://github.com/KaringX/karing/issues)
 
 
+## Donate
+![donate](./assets/img/donate-usdt.jpg)
+
+
 ## Acknowledgement
 
 Karing was based on or inspired by these projects and so on:

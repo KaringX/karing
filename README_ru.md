@@ -79,6 +79,9 @@
 ## Вклад
 [Добро пожаловать к сообщению об ошибке!](https://github.com/KaringX/karing/issues)
 
+## Donate
+![donate](./assets/img/donate-usdt.jpg)
+
 ## Признательность
 
 Karing был основан или вдохновлен следующими проектами и так далее:

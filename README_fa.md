@@ -71,6 +71,9 @@
 ## همکاری‌ها
 [خوشحال می‌شویم اگر مشکلی گزارش دهید!](https://github.com/KaringX/karing/issues)
 
+## Donate
+![donate](./assets/img/donate-usdt.jpg)
+
 ## قدردانی
 
 Karing بر اساس یا الهام‌گیری شده از این پروژه‌ها و غیره بوده است:

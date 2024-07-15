@@ -111,11 +111,13 @@
   <img src="./assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
-## 贡献
+## 提交需求/bug
 [欢迎报告问题！](https://github.com/KaringX/karing/issues)
 
-## 致谢
+## 捐赠
+![donate](./assets/img/donate-usdt.jpg)
 
+## 致谢
 Karing 基于或受到这些项目的启发：
 
 - [flutter](https://flutter.dev/)：使构建美观应用变得轻松快捷。
