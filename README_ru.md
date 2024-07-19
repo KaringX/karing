@@ -42,8 +42,11 @@
 - MacOS >= 12
 
 ## Установка
-- **Windows/Android**:
+- **Windows**:
   - https://github.com/KaringX/karing/releases/latest
+- **Android**:
+  - https://github.com/KaringX/karing/releases/latest
+  - APKPure https://apkpure.com/p/com.nebula.karing
 - **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **IOS/MacOS AppStore**: (Поиск по ключевым словам: karing vpn)

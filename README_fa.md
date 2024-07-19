@@ -34,8 +34,11 @@
 - MacOS >= 12
 
 ## نصب
-- **Windows/Android**:
+- **Windows**:
   - https://github.com/KaringX/karing/releases/latest
+- **Android**:
+  - https://github.com/KaringX/karing/releases/latest
+  - APKPure https://apkpure.com/p/com.nebula.karing
 - **IOS/MacOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **IOS/MacOS AppStore**: (جستجو با کلمات کلیدی: karing vpn)
