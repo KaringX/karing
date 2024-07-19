@@ -71,8 +71,8 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
 </details>
 
-## System Requirements(64-bit only)
-- Windows >= 10
+## System Requirements
+- Windows >= 10 (64-bit only)
 - Android >= 8
 - IOS >= 15
 - MacOS >= 12
