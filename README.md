@@ -46,15 +46,8 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - 解锁流媒体及 ChatGPT
 
 
-[跟斗云 —— 小众首选](https://跟斗云.com/auth/register?code=71be1e9a1a)
-</summary>
-
-- 高性能机场, 主推Tuic(v5) 更快更稳定。
-- 免费试用链接: [NovaCloud](https://跟斗云.com/auth/register?code=71be1e9a1a)
-- karing team 自用良好
-
-
 [NETZ —— ISP in Russia](https://netz.run)
+</summary>
 
 - High-performance overseas VPN, free trial, support trojan protocol.
 - Free trial and purchase (no registration required)：[Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
