@@ -42,15 +42,18 @@
 - MacOS >= 12
 
 ## Установка
-- **Windows**:
-  - https://github.com/KaringX/karing/releases/latest
+- **IOS/MacOS AppStore**: (Поиск по ключевым словам: karing vpn)
+  - https://apps.apple.com/us/app/karing/id6472431552
+- **IOS/MacOS TestFlight**:
+  - https://testflight.apple.com/join/RLU59OsJ
 - **Android**:
   - https://github.com/KaringX/karing/releases/latest
   - APKPure https://apkpure.com/p/com.nebula.karing
-- **IOS/MacOS TestFlight**:
-  - https://testflight.apple.com/join/RLU59OsJ
-- **IOS/MacOS AppStore**: (Поиск по ключевым словам: karing vpn)
-  - https://apps.apple.com/us/app/karing/id6472431552
+  - gh-proxy https://outpost.karing.app/client/android
+- **Windows**:
+  - https://github.com/KaringX/karing/releases/latest
+  - gh-proxy https://outpost.karing.app/client/win_x64
+
 
 ### ЧаВо
 
