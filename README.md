@@ -78,10 +78,10 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - **Android**:
   - https://github.com/KaringX/karing/releases/latest
   - APKPure https://apkpure.com/p/com.nebula.karing
-  - gh-proxy https://outpost.karing.app/client/android
+  - [gh-proxy of android backup](https://outpost.karing.app/client/android)
 - **Windows**:
   - https://github.com/KaringX/karing/releases/latest
-  - gh-proxy https://outpost.karing.app/client/win_x64
+  - [gh-proxy of win64 backup](https://outpost.karing.app/client/win_x64)
 
 
 ### FAQ
