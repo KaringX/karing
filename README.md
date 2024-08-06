@@ -22,13 +22,14 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
   - Built-in geo-IP, geo-site, ACL, and [other rulesets](https://github.com/KaringX/karing-ruleset/)
 
 - Backup and synchronization, synchronizing multiple devices with a single configuration.
+  - Supports iCloud synchronization [IOS/MacOS].
   - Supports synchronization within the local area network.
   - Supports WebDAV.
   - Supports importing/exporting ZIP files.
 
 - Built-in support for [the modified sing-box core](https://github.com/KaringX/sing-box).
 - Introduces a beginner mode for simpler configuration.
-- Plan to support all platforms.
+- Plan to support more platforms.
 
 
 ## Promotion
