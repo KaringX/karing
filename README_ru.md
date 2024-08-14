@@ -29,6 +29,10 @@
 - Бесплатное испытание и покупка (без регистрации): [Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
 
 
+[List of other ISPs](https://1.x31415926.top/ru.html)
+
+
+
 ### VPN Providers Collaboration Announcement
 - 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
 
@@ -56,7 +60,7 @@
 
 ### ЧаВо
 
-> Ожидается...
+> [FAQ|en](https://karing.app/en/faq/)
 
 ## Планы
 - Платформы, которые будут поддержаны:

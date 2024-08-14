@@ -34,24 +34,25 @@
 
 ### ✈️推荐机场
 
-
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://panel.dg6.top/#/register?code=lFH4ii9D)
+[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - 高性能海外机场，海外团队，无跑路风险
-- 专属链接注册送 3 天，每天 1G 流量免费试用: [狗狗加速.com](https://panel.dg6.top/#/register?code=lFH4ii9D)
+- 专属链接注册送 3 天，每天 1G 流量 [免费试用](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - 优惠套餐每月仅需 15.8 元，160G 流量，年付 8 折
 - 全球首家支持`Hysteria2` 协议，集群负载均衡设计，高速专线，极低延迟，无视晚高峰，4K 秒开
 - 解锁流媒体及 ChatGPT
 
+[紅杏 —— 8年老牌机场](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuaHg2NjYuaW5mby8jL3JlZ2lzdGVyP2NvZGU9aG41c1NKejA=&i=3fb&t=1723644028)
 
-[NETZ —— ISP in Russia](https://netz.run)
-</summary>
-
-- High-performance overseas VPN, free trial, support trojan protocol.
-- Free trial and purchase (no registration required)：[Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
-
+- 春色满园关不住，一枝红杏出墙来
+- BGP专线网格, 8K观影秒开,解锁全流媒体
+- 中国金融专线`跨境支持`，企业套餐可开发票 (提前咨询客服)
+- 八折优惠券：[hongxing666](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuaHg2NjYuaW5mby8jL3JlZ2lzdGVyP2NvZGU9aG41c1NKejA=&i=3fb&t=1723644028)
 
 ### 🔥自建节点服务器
+
+</summary>
+
 - （美国免备案vps，配置2核2G仅需`20.98$`≈`145RMB`一年/支持支付宝付款） [👉🏻点我直达](https://my.racknerd.com/aff.php?aff=8405)
 - （美国到中国大陆最快的vps， CN2GIA优化网络）
   - [👉🏻国外直达](https://bandwagonhost.com/aff.php?aff=75253&productFilter=1)
@@ -84,7 +85,7 @@
 
 ### 常见问题
 
-> https://karing.app/faq
+> [FAQ|cn](https://karing.app/en/faq/)
 
 ## 待办事项
 - 待支持的平台：

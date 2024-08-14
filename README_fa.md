@@ -24,7 +24,11 @@
 <summary>recommend
 
 ### VPN Providers Collaboration Announcement
+
+- [List of other ISPs](https://1.x31415926.top/ir.html)
+
 - 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+
 </details>
 
 ## نیازمندی‌های سیستم (تنها 64 بیت)
@@ -49,7 +53,7 @@
 
 ### سوالات متداول
 
-> در انتظار...
+> [FAQ|en](https://karing.app/en/faq/)
 
 ## کارهای باقی‌مانده
 - پلتفرم‌هایی که قرار است پشتیبانی شوند:
