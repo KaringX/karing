@@ -74,6 +74,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - Android >= 8
 - IOS >= 15
 - MacOS >= 12
+- TvOS >= 17 (Coming soon)
 
 ## Install
 - **IOS/MacOS AppStore**: (Search Keywords: karing vpn)
@@ -96,7 +97,6 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 
 ## Todos
 - Platform to be supported:
-  - tvOS（apple tv）
   - linux | [linglong](https://linglong.dev/)
 - Globalization(multi-language)
   - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
