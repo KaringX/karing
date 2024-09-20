@@ -69,6 +69,7 @@
 - Android >= 10
 - IOS >= 15
 - MacOS >= 12
+- TvOS >= 17 (即将上线)
 
 ## 安装
 - **IOS/MacOS AppStore**: （搜索关键词：karing vpn）
