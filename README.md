@@ -74,12 +74,12 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - Android >= 8
 - IOS >= 15
 - MacOS >= 12
-- TvOS >= 17 (Coming soon)
+- TvOS >= 17
 
 ## Install
 - **IOS/MacOS AppStore**: (Search Keywords: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
-- **IOS/MacOS TestFlight**:
+- **IOS/MacOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **Android**:
   - https://github.com/KaringX/karing/releases/latest
