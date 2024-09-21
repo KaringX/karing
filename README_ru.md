@@ -44,12 +44,12 @@
 - Android >= 10
 - IOS >= 15
 - MacOS >= 12
-- TvOS >= 17 (скоро)
+- TvOS >= 17
 
 ## Установка
 - **IOS/MacOS AppStore**: (Поиск по ключевым словам: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
-- **IOS/MacOS TestFlight**:
+- **IOS/MacOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **Android**:
   - https://github.com/KaringX/karing/releases/latest
