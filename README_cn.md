@@ -66,7 +66,7 @@
 
 ## 系统要求（仅支持64位）
 - Windows >= 10
-- Android >= 10
+- Android >= 8
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
