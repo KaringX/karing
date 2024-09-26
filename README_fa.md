@@ -33,7 +33,7 @@
 
 ## نیازمندی‌های سیستم (تنها 64 بیت)
 - Windows >= 10
-- Android >= 10
+- Android >= 8
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
