@@ -1,0 +1,594 @@
+// ignore_for_file: unused_catch_stack
+
+import 'package:android_package_manager/android_package_manager.dart';
+import 'package:app_settings/app_settings.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/common_widget.dart';
+import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/theme_config.dart';
+import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/widgets/framework.dart';
+
+class PackageInfoImpl extends PackageInfo {
+  PackageInfoImpl(
+    String packageName,
+  ) : super(
+            packageName: packageName,
+            installLocation: AndroidInstallLocation.unspecified);
+}
+
+class PerAppAndroidScreen extends LasyRenderingStatefulWidget {
+  static RouteSettings routSettings() {
+    return const RouteSettings(name: "PerAppAndroidScreen");
+  }
+
+  const PerAppAndroidScreen({super.key});
+
+  @override
+  State<PerAppAndroidScreen> createState() => _PerAppAndroidScreenState();
+}
+
+class PackageInfoEx {
+  late PackageInfo info;
+  String name = "";
+  Image? icon;
+}
+
+class _PerAppAndroidScreenState
+    extends LasyRenderingState<PerAppAndroidScreen> {
+  //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
+  static const int FLAG_SYSTEM = 1;
+  static const _removed = "[removed]";
+  AndroidPackageManager? _pkgMgr;
+  bool _loading = true;
+  final List<PackageInfoEx> _applicationInfoList = [];
+  final _searchController = TextEditingController();
+  List<PackageInfoEx> _searchedData = [];
+  bool _needPermission = false;
+
+  @override
+  void initState() {
+    _loading = true;
+    getInstalledPackages();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    SettingManager.saveConfig();
+  }
+
+  _loadSearch(String? textVal) {
+    if ((textVal != null) && textVal.isNotEmpty) {
+      String search = textVal.toLowerCase();
+      final data = _applicationInfoList.where((app) {
+        String name = app.name.toLowerCase();
+        String pkgName = app.info.packageName!.toLowerCase();
+        return name.contains(search) || pkgName.contains(search);
+      }).toList();
+      _searchedData = data;
+      setState(() {});
+    } else {
+      _searchedData = _applicationInfoList;
+      setState(() {});
+    }
+  }
+
+  _clearSearch() {
+    _searchController.clear();
+    _searchedData = _applicationInfoList;
+    setState(() {});
+  }
+
+  Future<void> getInstalledPackages() async {
+    _applicationInfoList.clear();
+    _searchedData.clear();
+    _pkgMgr ??= AndroidPackageManager();
+    _pkgMgr!
+        .getInstalledPackages(
+      flags: PackageInfoFlags(
+        {
+          PMFlag.getMetaData,
+        },
+      ),
+    )
+        .then((value) async {
+      if (!mounted) {
+        _loading = false;
+        setState(() {});
+        return;
+      }
+      if (value == null) {
+        return;
+      }
+
+      if (value.length <= 1) {
+        _needPermission = true;
+        _loading = false;
+        setState(() {});
+        return;
+      }
+      List<PackageInfoEx> notExists = [];
+      List<PackageInfoEx> added = [];
+      List<PackageInfoEx> notAdded = [];
+      Set<String> exists = {};
+      var perapp = SettingManager.getConfig().perapp;
+      for (var app in value) {
+        if (app.packageName == null || app.packageName == AppUtils.getId()) {
+          continue;
+        }
+
+        if (perapp.hideSystemApp) {
+          if ((app.applicationInfo != null) &&
+              (app.applicationInfo!.flags & FLAG_SYSTEM != 0)) {
+            continue;
+          }
+        }
+
+        exists.add(app.packageName!);
+        PackageInfoEx info = PackageInfoEx();
+        info.info = app;
+        info.name = await getAppName(app.packageName!);
+        if (!mounted) {
+          return;
+        }
+        if (perapp.list.contains(info.info.packageName!)) {
+          added.add(info);
+        } else {
+          notAdded.add(info);
+        }
+      }
+      for (var papp in perapp.list) {
+        if (!exists.contains(papp)) {
+          PackageInfoEx info = PackageInfoEx();
+          info.info = PackageInfoImpl(papp);
+          info.name = _removed;
+          info.icon = null;
+
+          notExists.add(info);
+        }
+      }
+      notExists.sort(sort);
+      added.sort(sort);
+      notAdded.sort(sort);
+      _applicationInfoList.addAll(notExists);
+      _applicationInfoList.addAll(added);
+      _applicationInfoList.addAll(notAdded);
+
+      _searchedData = _applicationInfoList;
+      _loading = false;
+      setState(() {});
+    });
+  }
+
+  Future<Image?> getInstalledPackageIcon(String packageName) async {
+    if (SettingManager.getConfig().perapp.hideAppIcon) {
+      return null;
+    }
+    for (var app in _applicationInfoList) {
+      if (app.info.packageName == packageName) {
+        if (app.icon != null) {
+          return app.icon;
+        }
+        if (app.name == _removed) {
+          return null;
+        }
+        Image? image = await getAppIcon(app.info.packageName);
+        if (!mounted) {
+          return null;
+        }
+        app.icon = image;
+        return app.icon;
+      }
+    }
+    return null;
+  }
+
+  int sort(PackageInfoEx a, PackageInfoEx b) {
+    return a.name.compareTo(b.name);
+  }
+
+  Future<String> getAppName(String? packageName) async {
+    if (_pkgMgr == null || packageName == null) {
+      return "";
+    }
+    try {
+      return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
+    } catch (err, stacktrace) {
+      return packageName;
+    }
+  }
+
+  Future<Image?> getAppIcon(String? packageName) async {
+    if (SettingManager.getConfig().perapp.hideAppIcon) {
+      return null;
+    }
+    if (_pkgMgr == null || packageName == null) {
+      return null;
+    }
+    try {
+      var data = await _pkgMgr!.getApplicationIcon(
+          packageName: packageName, format: BitmapCompressFormat.png);
+      if (data == null) {
+        return null;
+      }
+      return Image.memory(data);
+    } catch (err, stacktrace) {
+      return null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tcontext = Translations.of(context);
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          size: 26,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      tcontext.PerAppAndroidScreen.title,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        onTapMore();
+                      },
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(
+                          Icons.more_vert_outlined,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              FutureBuilder(
+                future: getGroupOptions(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<GroupItem>> snapshot) {
+                  List<GroupItem> data = snapshot.hasData ? snapshot.data! : [];
+                  return Column(
+                      children: GroupItemCreator.createGroups(context, data));
+                },
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 10,
+                ),
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                height: 44,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: ThemeDefine.kBorderRadius,
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: _loadSearch,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    icon: Icon(
+                      Icons.search_outlined,
+                      color: Colors.grey.shade400,
+                    ),
+                    hintText: tcontext.search,
+                    suffixIcon: _searchController.text.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear_outlined),
+                            onPressed: _clearSearch,
+                          )
+                        : null,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: _needPermission
+                    ? CommonWidget.createNeedPermission(context,
+                        tcontext.PerAppAndroidScreen.enableAppQueryPermission,
+                        () {
+                        AppSettings.openAppSettings(
+                            type: AppSettingsType.settings);
+                      }, () {
+                        _needPermission = false;
+                        _loading = true;
+                        getInstalledPackages();
+                        setState(() {});
+                      })
+                    : _loadListView(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _loadListView() {
+    if (_loading) {
+      return const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 26,
+              height: 26,
+              child: RepaintBoundary(
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            )
+          ]);
+    }
+    Size windowSize = MediaQuery.of(context).size;
+    return Scrollbar(
+        thumbVisibility: true,
+        child: ListView.builder(
+          itemCount: _searchedData.length,
+          itemExtent: 66,
+          itemBuilder: (BuildContext context, int index) {
+            PackageInfoEx current = _searchedData[index];
+            return createWidget(current, windowSize);
+          },
+        ));
+  }
+
+  Widget createWidget(PackageInfoEx current, Size windowSize) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      child: Material(
+        borderRadius: ThemeDefine.kBorderRadius,
+        child: InkWell(
+          onTap: () {},
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            width: double.infinity,
+            //height: 66,
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          SizedBox(
+                            width: ThemeConfig.kListItemHeight2,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: FutureBuilder(
+                              future: getInstalledPackageIcon(
+                                  current.info.packageName!),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Image?> snapshot) {
+                                if (!snapshot.hasData ||
+                                    snapshot.data == null) {
+                                  return const SizedBox.shrink();
+                                }
+                                return SizedBox(
+                                    width: ThemeConfig.kListItemHeight2,
+                                    height: ThemeConfig.kListItemHeight2,
+                                    child: snapshot.data);
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          SizedBox(
+                            width: windowSize.width - 140,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    current.name,
+                                    style: TextStyle(
+                                        fontSize:
+                                            ThemeConfig.kFontSizeGroupItem),
+                                  ),
+                                  current.name == current.info.packageName
+                                      ? const SizedBox.shrink()
+                                      : Text(
+                                          current.info.packageName!,
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                ]),
+                          ),
+                          Checkbox(
+                            tristate: true,
+                            value: SettingManager.getConfig()
+                                .perapp
+                                .list
+                                .contains(current.info.packageName!),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                SettingManager.getConfig()
+                                    .perapp
+                                    .list
+                                    .add(current.info.packageName!);
+                              } else {
+                                SettingManager.getConfig()
+                                    .perapp
+                                    .list
+                                    .remove(current.info.packageName!);
+                              }
+                              SettingManager.setDirty(true);
+                              setState(() {});
+                            },
+                          ),
+                        ]),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<List<GroupItem>> getGroupOptions() async {
+    final tcontext = Translations.of(context);
+
+    List<GroupItemOptions> options = [
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.enable,
+              switchValue: SettingManager.getConfig().perapp.enable,
+              onSwitch: (bool value) async {
+                SettingManager.getConfig().perapp.enable = value;
+                SettingManager.setDirty(true);
+                setState(() {});
+              })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.PerAppAndroidScreen.whiteListMode,
+              switchValue: SettingManager.getConfig().perapp.isInclude,
+              tips: tcontext.PerAppAndroidScreen.whiteListModeTip,
+              onSwitch: (bool value) async {
+                SettingManager.getConfig().perapp.isInclude = value;
+                SettingManager.setDirty(true);
+                setState(() {});
+              })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.PerAppAndroidScreen.hideSystemApp,
+              switchValue: SettingManager.getConfig().perapp.hideSystemApp,
+              onSwitch: (bool value) async {
+                SettingManager.getConfig().perapp.hideSystemApp = value;
+                _loading = true;
+                getInstalledPackages();
+                setState(() {});
+              })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.PerAppAndroidScreen.hideAppIcon,
+              switchValue: SettingManager.getConfig().perapp.hideAppIcon,
+              onSwitch: (bool value) async {
+                SettingManager.getConfig().perapp.hideAppIcon = value;
+                setState(() {});
+              })),
+    ];
+
+    return [GroupItem(options: options)];
+  }
+
+  void onTapMore() {
+    final tcontext = Translations.of(context);
+    showMenu(
+        context: context,
+        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
+        items: [
+          PopupMenuItem(
+              value: 1,
+              child: SizedBox(
+                height: 30,
+                child: Text(
+                  tcontext.importFromClipboard,
+                  style: const TextStyle(
+                      fontWeight: ThemeConfig.kFontWeightTitle,
+                      fontSize: ThemeConfig.kFontSizeTitle),
+                ),
+              ),
+              onTap: () async {
+                try {
+                  ClipboardData? data = await Clipboard.getData("text/plain");
+                  if (data == null || data.text == null || data.text!.isEmpty) {
+                    return;
+                  }
+                  List<String> list = data.text!.split("\n");
+                  if (list.isEmpty) {
+                    return;
+                  }
+                  for (var app in list) {
+                    app = app.trim();
+                    if (SettingManager.getConfig().perapp.list.contains(app)) {
+                      continue;
+                    }
+                    SettingManager.getConfig().perapp.list.add(app);
+                  }
+                  setState(() {});
+                } catch (err) {
+                  if (!mounted) {
+                    return;
+                  }
+                  DialogUtils.showAlertDialog(context, err.toString());
+                }
+              }),
+          PopupMenuItem(
+            value: 1,
+            child: SizedBox(
+              height: 30,
+              child: Text(
+                tcontext.exportToClipboard,
+                style: const TextStyle(
+                    fontWeight: ThemeConfig.kFontWeightTitle,
+                    fontSize: ThemeConfig.kFontSizeTitle),
+              ),
+            ),
+            onTap: () async {
+              try {
+                if (SettingManager.getConfig().perapp.list.isEmpty) {
+                  return;
+                }
+                String content =
+                    SettingManager.getConfig().perapp.list.join("\n");
+                await Clipboard.setData(ClipboardData(text: content));
+                if (!mounted) {
+                  return;
+                }
+              } catch (err) {
+                if (!mounted) {
+                  return;
+                }
+                DialogUtils.showAlertDialog(context, err.toString());
+              }
+            },
+          ),
+        ]);
+  }
+}

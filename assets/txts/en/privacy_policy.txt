@@ -1,0 +1,286 @@
+
+Security and privacy are at the heart of what we do. Accordingly, we think it’s important to be transparent about what we do with your information and how we handle it.  This Privacy Policy describes how we process and handle data provided to us in connection with your use of our products, services, apps, and websites that link to this policy (we refer to these collectively as our “services”).
+
+
+This policy uses the term “personal data” to refer to information that is related to an identified or identifiable natural person and is protected as personal data under applicable data protection law.
+
+
+This policy covers the data processing practices of karing
+
+
+In this policy, “we,” “us,” and “our” refers to the particular company from the list above that provides you with the services and is responsible for handling your data in accordance with this policy. For mobile apps, you can identify which company this is by looking at which company is listed as offering the app on the download page for that app or reviewing its terms of service. 
+
+
+1. What information do we collect about you?
+ 
+This section describes the various types of information we collect from and about you. This information is not collected in all situations, but only in specific situations. To understand the context in which collection occurs, see Section 2 (How do we use your information?).
+
+ 
+1.1. Information collected when you use our services
+ 
+●      Our App information. We collect information about which version app you interact with our services
+
+●      Usage information. We collect information about how you interact with our services, such as how much bandwidth you use, and when and for how long you use our services.
+
+●      Device information. We collect information from and about the device you use to access our services. For example, we may collect device identifiers, browser types, device types and settings, operating system versions, mobile, wireless, and other network information (such as internet service provider name, carrier name and signal strength), and application version numbers.
+
+●      Diagnostic information. We may collect information about the nature of the requests that you make to our servers (such as what is being requested, information about the device and app used to make the request, timestamps, and referring URLs). However, we do not log any information that associates your identity with your VPN browsing activity. We do not maintain any records that show what you were browsing or accessing through a VPN connection. 
+
+●      Location information. We may collect your location information based on a variety of sources, such as your IP address.
+
+ 
+You generally do not have a duty to disclose personal data to us unless you have a contractual obligation to us to do so. However, we need to collect and process certain information that is necessary or legally required in order to provide the services to you or otherwise perform our contractual relationships with you.
+
+
+2. How do we use your information?
+
+We use the information we collect for various purposes described below.
+
+●      To provide, maintain, troubleshoot, and support our services. We use your information for this purpose on the basis that it is required to fulfill our contractual obligations to you. Examples: using information about how much bandwidth you use and how long you use our services in order to provide the services in accordance with a plan to which you have subscribed; using threat and device information to determine whether certain items pose a potential security threat; using location information to connect you to the nearest and fastest VPN server; and using usage information to troubleshoot a problem you report with our services and to ensure the proper functioning of our services.
+
+●      To communicate with users and prospective users. We use your information to communicate with you, including by responding to your requests, and sending you information and updates about our services. We may do this in order to fulfill our contract with you, because you consented to the communication, or because we have a legitimate interest in providing you with information about our services.
+
+●      To improve our services. We want to offer you the best services and user experiences we can, so we have a legitimate interest in continually improving and optimizing our services. To do so, we use your information to understand how users interact with our services. Examples: we analyze certain usage, device, and diagnostic information to understand aggregated usage trends and user engagement with our services (and, for example, invest in technical infrastructure to better serve regions with increasing user demand); we may use device and threat information to conduct spam, threat, and other scientific research to improve our threat detection capabilities; we review customer feedback to understand what we could be doing better.
+
+●      To develop new services. We have a legitimate interest in using your information to plan for and develop new services. For example, we may use customer feedback to understand what new services users may want.
+
+●      To market and advertise our services. We may use your information to provide, measure, personalize, and enhance our advertising and marketing based on our legitimate interest in offering you services that may be of interest. Examples: we may use information such as who or what referred you to our services to understand how effective our advertising is; we may use information to administer promotional activities such as sweepstakes and referral programs. Our VPN products do not use your VPN browsing activity for these purposes and we do not maintain any records that show what you were browsing or accessing through a VPN connection.
+
+●      To prevent harm or liability. We may use information for security purposes (such as to investigate security issues or to monitor and prevent fraud) and to prevent abuse. We may do this to comply with our legal obligations, to protect an individual’s vital interests, or because we have a legitimate interest in preventing harm or liability to us and our users. For example, we may use account, usage, and device information to determine if an entity is engaging in abusive or unauthorized activity in connection with our services.
+
+●      For legal compliance. We internally use your information as required by applicable law, legal process, or regulation. To learn about our practices regarding sharing your information with third parties for legal compliance purposes, see Section 3.1 below. We also use your information to enforce our legal rights and resolve disputes.
+
+ 
+3. Who do we share your information with and why?
+ 
+3.1. In General
+ 
+We may disclose your information in the following circumstances:
+
+●      Affiliates and third party service providers. To help us provide some aspects of our services, we work with our affiliates and trusted third parties. To protect your data, we enter into appropriate confidentiality and data processing terms with these third parties, review their security practices, and limit information sharing to the scope of what they are helping us with. Examples of activities that third parties help us with include:
+
+○      providing analytics about our services
+
+○      providing sales and customer support
+
+○      maintaining the infrastructure required to provide our services
+
+○      delivering our marketing and advertising content
+
+○      serving advertising content
+
+●      To a new owner. If ownership or control of all or part of our services, assets, or business changes, we may transfer your information to the new owner.
+
+●      Aggregated or de-identified data. We may use and share aggregated data and data that is de-identified such that it no longer reveals the identity of an individual user for regulatory compliance, research and analysis, our own marketing and advertising activities and other legitimate business purposes.
+
+●      To comply with legal process and the law. We are fiercely protective of the privacy of our users. For our VPN products, we protect your privacy by ensuring that we do not log or record online activities that you conduct over a VPN connection in any way that can be tied back to you, meaning that we do not have any data to share with law enforcement and government agencies who make requests for information about what you were doing through a VPN connection. Subject to the foregoing, we may share your information if we are required to do so by applicable law; to comply with our legal obligations; to comply with legal process; and to respond to valid law enforcement requests relating to a criminal investigation, or alleged or suspected illegal activity that may expose us, you, or any of our other users to legal liability. If we share your information for these purposes, we limit the information shared to what is legally necessary, and challenge information requests that we believe are unlawful, overbroad, or otherwise invalid.
+
+●      To enforce our rights and prevent fraud and abuse. We may share limited amounts of your information to enforce and administer our agreements with customers and users, and to respond to claims asserted against us. We may also share your information in order to protect against fraud and abuse against us, our affiliates, users and others.
+
+ 
+3.2. Displaying Advertisements
+ 
+We may serve ads to users in certain regions. The ads we display in our services are supplied either by advertisers we have relationships with or by third party advertising networks such as Google. To display third party ads in our apps, we integrate into them a software development kit (SDK), which consists of software code provided by the ad network.
+
+We provide limited personal data about you to such third party advertising networks to enable them to provide their services. For example, some of these advertising networks may collect information through their SDKs, such as your mobile advertising identifier, IP address, and device information, for the purpose of serving you with “personalized” ads (ads that they think are more relevant to you) and measuring your response to those ads. If you are using a VPN connection, your IP address is hidden from ad networks and replaced with the IP address of our VPN servers. 
+
+Each advertising network collects this information according to their privacy policies. Where an AdChoices logo appears on an ad, you can click it to learn more about the ad network that provided the ad, its privacy policy, and your choices regarding opting out from any personalized advertising. If you opt out from personalized advertising, you may still see non-personalized ads.
+
+While we request you not to use ad blockers to prevent the display of third party ads because that is how we support our free services, our services are able to continue functioning if you do use ad blockers.
+
+ 
+4. Tracking Technologies
+ 
+4.1. About Tracking Technologies
+ 
+We use various technologies in our services to help us collect information. For convenience, we refer to these as “tracking technologies,” although they are not always used to track individuals and the information collected is in a non-identifiable form that does not reference any personal data. Tracking technologies include:
+ 
+SDKs
+
+SDKs or software development kits are software code provided by our business partners that let our software interact with the services those partners provide. For example, in certain of our mobile apps, we may use an SDK to enable our app to serve ads from an advertising network. Sometimes these interactions will involve that business partner collecting some information from the device on which the software is run.
+
+
+4.2. Third Parties
+ 
+We may allow our business partners to place certain tracking technologies in our services. These partners use these technologies for the following purposes:
+
+●      To provide our services. Some business partners who help us to provide our services may use these technologies to support those efforts.
+
+●      For Analytics. To help us understand how you use our services.
+
+●      For Marketing. To help us market and advertise our services to you, including on third party websites.
+
+●      To Serve Ads. Ad networks may use these technologies to display ads which they think will be more relevant to you. For more information, please see the “Displaying Advertisements” section above.
+
+
+
+5. Security
+ 
+We employ a range of administrative, organizational, technical, and physical safeguards designed to protect your data against unauthorized access, loss, or modification. We continuously work to improve such safeguards.
+
+
+6. International Data Transfers
+ 
+We may transfer your personal data to countries other than the one in which you reside. We do this to facilitate our operations, and transferees include our group companies, service providers, and partners. Laws in other countries may be different to those that apply where you reside. For example, personal data collected within Switzerland, United Kingdom or the European Economic Area (EEA) may be transferred and processed outside Switzerland, United Kingdom or the EEA for purposes described in this policy. However, we put in place appropriate safeguards that help to ensure that such data receives an adequate level of protection. You may contact us if you would like more information about such safeguards.
+
+
+7. Data Retention
+ 
+We generally retain your personal data for as long as is needed to provide the services to you, or for as long as you have an account with us. We may also retain personal data if required by law, or for our legitimate interests, such as abuse detection and prevention, and defending ourselves from legal claims. Residual copies of personal data may be stored in backup systems as a security measure to protect against data loss. Subject to the foregoing, where your personal data is no longer required, we will ensure it is either securely deleted or stored in a way that means it will no longer be usable by us.
+
+ 
+8. Your Rights
+ 
+Depending on your country of residence, you may have certain legal rights in relation to your personal data that we maintain. Subject to exceptions and limitations provided by applicable law, these may include the right to:
+
+●      access and receive a copy of your personal data;
+
+●      correct your personal data;
+
+●      restrict the processing of your personal data;
+
+●      object at any time to the processing of your personal data;
+
+●      have your personal data erased;
+
+●      data portability;
+
+●      withdraw any consent you previously gave to the processing of your data (such as opting out to marketing communications);
+
+●      lodge a complaint with a data protection authority;
+
+●      request that we provide you with the categories of personal data we collect, disclose or sell about you; the categories of sources of such information; the business or commercial purpose for collecting or selling your personal data; and the categories of third parties with whom we share personal data. This information may also be provided in this Privacy Policy.
+
+ 
+Please note your rights and choices vary depending upon your location, and some information may be exempt from certain requests under applicable law.
+
+You may be able to exercise some of these rights by using the settings and tools provided in our services. For example, you may be able to update your user account details via the relevant account settings screen of our apps. You may also be able to opt out from receiving marketing communications from us by clicking an “opt out” or “unsubscribe” link in such communications.
+
+Otherwise, if you wish to exercise any of these rights, you may contact us using the details in the “Contact Us” section below. As permitted by law, we may ask you to verify your identity before taking further action on your request.
+
+
+9. Your California Privacy Rights
+ 
+This Section applies solely to California residents. 
+
+ 
+9.1. Do Not Track Signals
+ 
+We currently do not respond to “Do Not Track” signals sent by browsers or mobile apps due to a lack of standardization regarding how that signal should be interpreted. Learn more about Do Not Track.
+
+ 
+9.2. Third Party Disclosure Requests
+ 
+California law permits users who are California residents to request and obtain from us once a year, free of charge, a list of the third parties to whom we have disclosed their “personal information” (if any) as defined under California Civil Code 1798.83 for their direct marketing purposes in the prior calendar year, as well as the type of personal information disclosed to those parties. See the “Contact Us” section below for where to send such requests. Note that we do not share personal information with third parties for their own direct marketing purposes without your prior consent.
+
+9.3 Opt-Out From Sale
+
+You may have the right to opt out of the “sale” of your personal information as defined by the California Consumer Privacy Act (CCPA). The CCPA broadly defines “sale” such that it may include allowing third parties to receive certain information, to deliver personalized advertising on our services.
+
+We do not “sell” (as defined by the CCPA) your personal information except in the context of certain versions of our products that are supported by personalized advertising. Advertising, including personalized advertising, enables us to provide certain of our products for free, to provide offers relevant to you, and, because we believe it’s important that everyone has the opportunity, regardless of their situation, to have secure and private access to the internet. Personalized advertising enables ads to be shown that are more relevant to you.
+
+Depending on the services you use and how you use them, we may “sell” (as defined by California law) the following categories of personal information for such advertising purposes:
+
+●      Identifiers (such as advertising identifiers)
+
+●      Internet or other network or device activity (such as which of our apps you’re using)
+
+●      Approximate geolocation information
+
+To opt out of our use of your information for such purposes, visit: Do Not Sell My Personal Information. Please note that we do not knowingly sell the personal information of minors under 16 years of age without legally-required affirmative authorization.
+
+
+9.4 Additional Rights
+
+California law may permit you to request that we:
+
+●      provide you the categories of personal information we have collected or disclosed about you in the last twelve months, the categories of sources of such information, the business or commercial purpose for collecting or selling your personal information, and the categories of third parties with whom we shared personal information. This information is provided in this Notice;
+
+●      provide access to, or a copy, of certain information we hold about you;
+
+●      delete certain information we have about you.
+
+You may also have the right to receive information about the financial incentives that we offer to you (if any), and the right to not be discriminated against (as provided for in the CCPA) for exercising certain of your rights.
+
+Certain information may be exempt from such requests under applicable law. For example, we need certain types of information so that we can provide the services to you and for compliance with applicable law.
+
+When you exercise certain rights, we may take reasonable steps to authenticate your identity before fulfilling your request (such as verifying your email address ). If you ask us to delete certain information, you may no longer be able to access or use our services.
+
+You are also permitted to designate an authorized agent to submit certain requests on your behalf. In order for an authorized agent to be verified, you must provide the authorized agent with a signed, written permission to make such requests, or a power of attorney. We may also follow up with you to verify your identity before processing the authorized agent’s request. 
+
+If you would like further information regarding your legal rights under California law or would like to exercise any of them, please contact us at the address listed under the Contact Us section below. 
+
+
+9.5. Summary of How we Handle your Personal Information
+
+The California Consumer Privacy Act (CCPA) requires that we make certain disclosures to California residents, including the categories of personal information we collect, the purposes for which we use that information, the categories of sources of personal information, and the categories of third parties with whom we share personal information. This section lays out this information in the manner specified by the CCPA, but it does not differ in substance from the information in the rest of this policy.
+
+Sources of Personal Information
+
+All the categories of personal information we collect come from the following categories of sources:
+
+●      You (either via voluntary submission or automatic collection, such as when you use our services)
+
+●      Third parties (such as service providers, other users or marketing partners who may refer you to our services)
+
+Categories of Personal Information Collected and with Whom we Share It
+
+●      Identifiers (such as name, account username, email address)
+
+●      Commercial information (such as transaction data)
+
+●      Internet or other network or device activity (such as app usage and interactions with our services)
+
+●      Geolocation information (e.g., your city and state based on IP address)
+
+●      Demographics and statistical information (such as age and gender)
+
+●      Customer service information (e.g. support requests)
+
+●      Survey responses and other research information
+
+●      Other information that identifies or can be reasonably associated with you
+
+Categories of Third Parties with Whom we Share Your Personal Information
+
+The categories of personal information collected, as described above, may be shared with the following categories of third parties:
+
+●      Our affiliates 
+
+●      Third party service providers that perform services on our behalf (e.g. payment processors, analytics providers)
+
+●      Third party ad networks (e.g. Google)
+
+●      Third parties for legal purposes (e.g. in response to legal process)
+
+●      Others with your consent or at your direction
+
+Categories of Business & Commercial Purposes for Which We Use Your Personal Information
+
+The categories of personal information collected, as described above, are used for the following categories of purposes:
+
+●      To provide, maintain, troubleshoot, and support our services.
+
+●      To communicate with users and prospective users.
+
+●      To improve our services.
+
+●      To develop new services.
+
+●      To market and advertise our services.
+
+●      To prevent harm or liability.
+
+●      For legal compliance.
+
+More information about these categories, including examples of use cases, is available in Section 2 above.
+
+ 
+10. Age Restrictions
+ 
+Our services are not intended for and may not be used by minors. In this context, minors are individuals under the age of 16 (or such lower age as may be applicable in a jurisdiction). We do not knowingly collect personal data from minors or allow them to use our services. If we discover that we have collected personal data from a minor, we may delete such data without notice.
+
+
+11. Privacy Policy Updates
+
+We may update this Privacy Policy from time to time in accordance with this section for reasons such as changes in laws, industry standards, and business practices. We will post updates to this page and update the “Last updated” date above. If we make updates that materially alter your privacy rights, we will also make reasonable efforts to provide you with advance notice, such as via email or through the services. If you disagree with such an update to this policy, you may cancel your services account. If you do not cancel your account before the date the update becomes effective, your continued use of our services will be subject to the updated Privacy Policy. 

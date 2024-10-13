@@ -1,0 +1,11 @@
+This application (Karing) collects limited data in order to provide you with fast and available web services
+
+Information we will collect when you use this application:
+
+● Hardware model, operating system type, operating system version, IP address, time zone, used to optimize application experience and network performance
+
+● Application platform, application version, desensitized application logs, crash reports, and aggregated anonymous activity data for analysis and improvement of our services
+
+● Payment information and optional email address when you purchase a paid plan
+
+● We will not share your information with any third parties

@@ -1,0 +1,193 @@
+{
+    "rules": [
+        {
+            "rule_set_build_in": [
+                "acl:BanAD",
+                "geosite:category-ads"
+            ],
+            "outbound": "block",
+            "name": "🛑 广告拦截",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:BanProgramAD",
+                "acl:BanADCompany"
+            ],
+            "outbound": "block",
+            "name": "🍃 应用净化",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:bing",
+                "geosite:bing"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ 微软Bing",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:onedrive"
+            ],
+            "outbound": "direct",
+            "name": "Ⓜ️ 微软云盘",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:microsoft",
+                "geosite:microsoft-dev",
+                "geosite:microsoft-pki"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ 微软服务",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:apple",
+                "geosite:apple-ads",
+                "geosite:apple-dev",
+                "geosite:apple-pki",
+                "geosite:apple-update"
+            ],
+            "outbound": "direct",
+            "name": "🍎 苹果服务",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:youtube"
+            ],
+            "outbound": "currentSelected",
+            "name": "📹 油管视频",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:google",
+                "geoip:google"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 Google",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:GoogleFCM"
+            ],
+            "outbound": "direct",
+            "name": "📢 谷歌FCM",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:telegram",
+                "geosite:telegram"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 电报消息",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:openai",
+                "geosite:openai"
+            ],
+            "outbound": "currentSelected",
+            "name": "💬 OpenAI",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:github",
+                "geosite:github"
+            ],
+            "outbound": "currentSelected",
+            "name": "🐱 GitHub",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:Epic",
+                "acl:Origin",
+                "acl:Sony",
+                "acl:Steam",
+                "acl:Nintendo"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎮 游戏平台",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:tiktok"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎧 TikTok",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:instagram"
+            ],
+            "outbound": "currentSelected",
+            "name": "📸 Instagram",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:netflix",
+                "geosite:netflix"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎥 奈飞视频",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:BilibiliHMT",
+                "acl:Bilibili"
+            ],
+            "outbound": "direct",
+            "name": "📺 哔哩哔哩",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
+                "acl:NetEaseMusic"
+            ],
+            "outbound": "direct",
+            "name": "🎶 网易音乐",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:ChinaIp",
+                "acl:ChinaDomain",
+                "acl:ChinaCompanyIp",
+                "acl:UnBan",
+                "acl:SteamCN",
+                "acl:Download",
+                "acl:ChinaMedia"
+            ],
+            "outbound": "direct",
+            "name": "🎯 国内直连",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:geolocation-!cn",
+                "geosite:google",
+                "geoip:google",
+                "acl:ProxyGFWlist",
+                "acl:ProxyMedia"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 国外穿墙",
+            "switch": true
+        }
+    ]
+}

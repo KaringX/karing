@@ -1,0 +1,264 @@
+name: karing
+description: karing
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: none # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.30+414
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+  flutter: ">=3.10.0"
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  icons_plus: ^5.0.0
+  flutter_emoji: ^2.5.1
+  dash_flags: ^0.1.1
+  flutter_svg: ^2.0.10+1
+  #fluentui_system_icons: ^1.1.258
+  sentry_flutter: 7.15.0 #7.15.0 7.16-^8.3.0 macos compile fail
+  #device_info_plus: ^9.1.1 #https://developer.apple.com/support/third-party-SDK-requirements/
+  #network_info_plus: ^4.0.1
+  #connectivity_plus: ^4.0.1
+  package_info_plus: ^5.0.1
+  #platform_device_id: ^1.0.1
+  class_to_string: ^1.0.0
+  ffi: ^2.1.3
+  url_launcher: ^6.3.0
+  web_socket_channel: ^2.4.0 #flutter_test
+  #sqlite3_flutter_libs: ^0.5.17
+  #sqlite_async: ^0.5.2
+  path_provider: ^2.1.4
+  flutter_secure_storage: ^9.2.2
+  protocol_handler: ^0.1.6 #^0.2.0 cause windows jam when exit
+  #syncfusion_flutter_charts: ^23.1.43
+  #dart_json_mapper: ^2.2.7
+  #dart_json_mapper_mobx: ^2.0.5
+  #json_path: ^0.7.4
+  #mobx: ^2.1.3
+  #flutter_mobx: ^2.0.6+5
+  #mobx_triple: ^1.1.3+1
+  #local_notifier: ^0.1.5
+  #flutter_modular
+  #permission_handler: ^10.4.3
+  #flutter_easy_permission: ^1.1.2
+  #processors: ^1.0.2
+  #combine: ^0.5.7-0.1.pre
+  #isolate_manager: ^4.1.5+1
+  #combine: ^0.5.7
+  launch_at_startup: ^0.2.2 #pc only 0.2.2 - 0.3.1 StartupApproved cause reg exceptions
+  provider: ^6.1.2
+  #fpdart: ^1.1.0
+  zxing2: ^0.2.3
+  qr_code_scanner: ^1.0.1
+  screen_capturer: ^0.2.2 #pc only
+  contextmenu: ^3.0.0
+  image: ^4.2.0
+  uuid: ^4.4.0 #flutter_test 
+  slang: ^3.31.1
+  slang_flutter: ^3.31.0
+  watcher: ^1.1.0
+  string_validator: ^1.1.0
+  #pay: ^1.1.0
+  #alipay_kit: ^5.0.0
+  yaml: ^3.1.2
+  country: ^4.1.8
+  scrollview_observer: ^1.21.0
+  after_layout: ^1.2.0
+  #animated_toggle_switch: ^0.8.0
+  install_referrer: ^1.2.1
+  windows_single_instance: ^1.0.1 #windows only
+  file_picker: ^6.1.1
+  images_picker: ^1.2.11 
+  tray_manager: ^0.2.3 # pc only
+  hotkey_manager: ^0.2.3  # pc only
+  #accessibility_tools: ^2.2.2
+  android_package_manager: ^0.7.1
+  logger: ^2.4.0
+  tuple: ^2.0.2
+  crypto: ^3.0.5
+  cryptography: ^2.7.0
+  cryptography_flutter: ^2.3.2
+  open_dir: ^0.0.1+6 # pc only
+  in_app_review: ^2.0.9
+  path: ^1.8.3 #flutter_test
+  characters: ^1.3.0
+  win32_registry: ^1.1.4
+  csv: ^6.0.0
+  #home_widget: ^0.4.1
+  share_plus: ^7.2.2
+  open_file: ^3.4.0
+  install_plugin: ^2.1.0
+  move_to_background: ^1.0.2
+  #dart_ping: ^9.0.1
+  #flutter_background_service: ^5.0.5
+  app_settings: ^5.1.1
+  #timezone_to_country: ^2.2.0
+  #local_auth: ^2.2.0
+  webdav_client: ^1.2.2
+  mime: ^1.0.4
+  http: ^1.2.0
+  http_parser: any
+  icloud_storage: ^2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
+  archive: ^3.6.1
+  #code_text_field: ^1.1.0
+  #flutter_speed_dial: ^7.0.0
+  flutter_inapp_notifications: ^1.0.0 
+  flutter_local_notifications: ^17.2.2
+  #awesome_notifications: ^0.9.2 
+  #flutter_shortcuts: ^1.3.0 
+  window_manager: #^0.3.7 #pc only
+    #path: ../window_manager/
+    git:
+      url: https://github.com/KaringX/window_manager.git
+      ref: 8d43187bde09a6020bfcf546b59380d75cc28ff9
+
+  vpn_service: #master ^0.12.15
+    path: ../vpn_service/
+    #git:
+    #url: https://github.com/vpn_service/vpn_service.git
+    #ref: master
+
+  flutter_ui_mode_manager: #master ^0.12.15
+    #path: ../../KaringX/flutter_ui_mode_manager/
+    git:
+      url: https://github.com/KaringX/flutter_ui_mode_manager.git
+      ref: 1a0d649a8feee2f500d82706391d11f1e626afb0
+
+dev_dependencies:
+  sentry_dart_plugin: 2.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^4.0.0
+  ffigen: ^12.0.0 # install llvm, https://pub.dev/packages/ffigen,build:dart run ffigen
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/txts/en/
+    - assets/fonts/
+    - assets/images/
+    - assets/icons/
+    - assets/datas/
+    - assets/datas/geosite/
+    - assets/datas/geoip/
+    - assets/datas/acl/
+    - assets/datas/preset/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # https://fonts.google.com/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+    - family: Emoji # from hiddify
+      fonts:
+        - asset: assets/fonts/Emoji.ttf
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
+ffigen:
+  llvm-path:
+    - D:/Program Files/LLVM
+    - /usr/lib/llvm-11
+    - /usr/local/opt/llvm
+
+#https://www.appicon.co/
+flutter_launcher_icons: #flutter pub run flutter_launcher_icons
+  android: ic_launcher
+  ios: true
+  image_path: logo-round.png
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  image_path_android: logo-round.png
+  image_path_ios: logo.png
+  remove_alpha_ios: true
+  windows:
+    generate: false 
+    image_path: logo-round.png
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: logo-round-macos.png #macos https://github.com/Yidadaa/ChatGPT-Next-Web/issues/156  1024 -> 854 -> 1024
+
+sentry: #sentry_dart_plugin
+  upload_debug_symbols: false
+  upload_source_maps: false
+  upload_sources: false
+  project:
+  org:
+  auth_token:
+  url:
+  wait_for_processing: false
+  log_level: error # possible values: trace, debug, info, warn, error
+  release:
+  web_build_path:
+  commits: auto
+  ignore_missing: true
+
+parts: #linux flutter_secure_storage
+  uet-lms:
+    source: .
+    plugin: flutter
+    #flutter-target: lib/main.dart
+    build-packages:
+      - libsecret-1-dev
+      - libjsoncpp-dev
+    stage-packages:
+      - libsecret-1-0
+      - libjsoncpp-dev
