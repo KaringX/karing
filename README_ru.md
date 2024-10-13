@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./assets/img/mascot.jpg" alt="Karing" width="256" />
+  <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
   Karing - Утилита прокси с простым и мощным интерфейсом
   <br>
@@ -72,24 +72,24 @@
 ## Скриншоты (версия для Windows)
 
 <div align="center">
-  <img src="./assets/demo/home.png" alt="demo1" width="50%" />
+  <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
   </br></br>
-  <img src="./assets/demo/select_server.png" alt="demo2" width="50%" />
+  <img src="./README_assets/demo/select_server.png" alt="demo2" width="50%" />
     </br></br>
-  <img src="./assets/demo/connections.png" alt="demo3" width="50%" />
+  <img src="./README_assets/demo/connections.png" alt="demo3" width="50%" />
   </br></br>
-  <img src="./assets/demo/setting.png" alt="demo4" width="50%" />
+  <img src="./README_assets/demo/setting.png" alt="demo4" width="50%" />
   </br></br>
-  <img src="./assets/demo/routing_group.png" alt="demo5" width="50%" />
+  <img src="./README_assets/demo/routing_group.png" alt="demo5" width="50%" />
   </br></br>
-  <img src="./assets/demo/add_profile_link.png" alt="demo6" width="50%" />
+  <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
 ## Вклад
 [Добро пожаловать к сообщению об ошибке!](https://github.com/KaringX/karing/issues)
 
 ## Donate
-![donate](./assets/img/donate-usdt.jpg)
+![donate](./README_assets/img/donate-usdt.jpg)
 
 ## Признательность
 

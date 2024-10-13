@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./assets/img/mascot.jpg" alt="Karing" width="256" />
+  <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
   Karing - 简单且强大的代理工具
   <br>
@@ -97,24 +97,24 @@
 ## 截图（Windows 版本）
 
 <div align="center">
-  <img src="./assets/demo/home.png" alt="demo1" width="50%" />
+  <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
   </br></br>
-  <img src="./assets/demo/select_server.png" alt="demo2" width="50%" />
+  <img src="./README_assets/demo/select_server.png" alt="demo2" width="50%" />
     </br></br>
-  <img src="./assets/demo/connections.png" alt="demo3" width="50%" />
+  <img src="./README_assets/demo/connections.png" alt="demo3" width="50%" />
   </br></br>
-  <img src="./assets/demo/setting.png" alt="demo4" width="50%" />
+  <img src="./README_assets/demo/setting.png" alt="demo4" width="50%" />
   </br></br>
-  <img src="./assets/demo/routing_group.png" alt="demo5" width="50%" />
+  <img src="./README_assets/demo/routing_group.png" alt="demo5" width="50%" />
   </br></br>
-  <img src="./assets/demo/add_profile_link.png" alt="demo6" width="50%" />
+  <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
 ## 提交需求/bug
 [欢迎报告问题！](https://github.com/KaringX/karing/issues)
 
 ## 捐赠
-![donate](./assets/img/donate-usdt.jpg)
+![donate](./README_assets/img/donate-usdt.jpg)
 
 ## 致谢
 Karing 基于或受到这些项目的启发：
