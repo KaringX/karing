@@ -46,6 +46,7 @@
 - **Android**:
   - https://github.com/KaringX/karing/releases/latest
   - APKPure https://apkpure.com/p/com.nebula.karing
+  - Amazon AppStore https://www.amazon.com/gp/product/B0DJSQDDM8
   - [gh-proxy of android backup](https://outpost.karing.app/client/android)
 - **Windows**:
   - https://github.com/KaringX/karing/releases/latest
