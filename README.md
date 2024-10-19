@@ -78,7 +78,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - TvOS >= 17
 
 ## Install
-- **IOS/MacOS AppStore**: (Search Keywords: karing vpn)
+- **IOS/MacOS/TvOS AppStore**: (Search Keywords: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/MacOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
