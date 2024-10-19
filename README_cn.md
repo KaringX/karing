@@ -73,7 +73,7 @@
 - TvOS >= 17
 
 ## 安装
-- **IOS/MacOS AppStore**: （搜索关键词：karing vpn）
+- **IOS/MacOS/TvOS AppStore**: （搜索关键词：karing vpn）
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/MacOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
