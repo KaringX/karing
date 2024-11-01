@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
@@ -15,8 +14,11 @@ import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/notice_manager.dart';
+import 'package:karing/app/modules/proxy_cluster.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/private/ads_banner_widget_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_scheme_utils.dart';
@@ -25,7 +27,7 @@ import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/diversion_custom_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/google_admob.dart';
+
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/local_notifications_utils.dart';
@@ -35,7 +37,6 @@ import 'package:karing/app/utils/main_channel_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
-import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
@@ -68,7 +69,6 @@ import 'package:move_to_background/move_to_background.dart';
 import 'package:path/path.dart' as path;
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:vpn_service/state.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -99,7 +99,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   static const String kLocalNotificationsIdNetState = "netState";
   static const String kLocalNotificationsIdVpnState = "vpnState";
+  final FocusNode _focusNodeSettings = FocusNode();
   final FocusNode _focusNodeSwitch = FocusNode();
+  final FocusNode _focusNodeSelect = FocusNode();
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
   bool _wsConnecting = false;
@@ -141,14 +143,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   ProxyConfig _currentServer = ProxyConfig();
   bool _inAppNotificationsShowing = false;
 
-  DateTime? _bannerExpire;
-
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
     protocolHandler.addListener(this);
+
     _init();
     Biz.initHomeFinish();
     ErrorReporterUtils.register(() {
@@ -156,7 +157,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return;
       }
       final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.HomeScreen.deviceNoSpace);
+      DialogUtils.showAlertDialog(context, tcontext.HomeScreen.deviceNoSpace,
+          showCopy: true, showFAQ: true, withVersion: true);
     });
 
     Future.delayed(const Duration(seconds: 0), () async {
@@ -164,11 +166,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
 
     LocalNotifications.init();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   Future<bool> futureBool(bool value) async {
@@ -182,12 +179,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       value = await LocalStorage.read(idKey);
     } catch (e) {
       DialogUtils.showAlertDialog(context, e.toString(),
-          showCopy: true, withVersion: true);
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
 
     if (value == null) {
-      final tcontext = Translations.of(context);
+      var tcontext = Translations.of(context);
       await Navigator.push(
           context,
           MaterialPageRoute(
@@ -204,6 +201,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     canGoBack: false,
                     nextText: tcontext.next,
                   )));
+      tcontext = Translations.of(context);
 
       await Navigator.push(
           context,
@@ -275,11 +273,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             "currentSelectorTag": _currentServerForSelector.now,
           });
 
-      String msg =
-          content.replaceAll("sing-box-clone", "").replaceAll("sing-box", "");
+      String msg = content.replaceAll("sing-box", "");
 
       await DialogUtils.showAlertDialog(context, msg,
-          showCopy: true, withVersion: true);
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -554,6 +551,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void _init() async {
     Biz.onInitFinish(() async {
+      DialogUtils.faqCallback = () async {
+        var remoteConfig = RemoteConfigManager.getConfig();
+        String queryParams = await KaringUrlUtils.getQueryParams();
+        return UrlLauncherUtils.reorganizationUrl(
+                remoteConfig.faq, queryParams) ??
+            remoteConfig.faq;
+      };
+
       checkError("onInitFinish");
 
       if (_currentServer.tag.isEmpty) {
@@ -898,7 +903,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         _canConnect = _isStarted;
       }
       _showNotify();
-      _loadBannerAd(true);
     });
 
     AppLifecycleStateNofityManager.onStatePaused(hashCode, () async {
@@ -908,8 +912,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
 
     if (Platform.isWindows) {
-      bool reg = await SystemSchemeUtils.isRegistered(
-          SystemSchemeUtils.getClashScheme());
+      bool reg =
+          SystemSchemeUtils.isRegistered(SystemSchemeUtils.getClashScheme());
       if (!reg) {
         SystemSchemeUtils.register(SystemSchemeUtils.getClashScheme());
       }
@@ -924,7 +928,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
     ReturnResultError? err = await VPNService.setServer(
-        _currentServer, options, SingboxExportType.karing, "", savePath);
+        _currentServer, options, SingboxExportType.karing, null, "", savePath);
     if (err != null) {
       return err;
     }
@@ -955,6 +959,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (!run) {
       return;
     }
+    await ProxyCluster.stop();
     _disconnectToCurrent();
     _disconnectToService();
     _currentServerForSelector.clear();
@@ -976,9 +981,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             parameters: {
               "err": err.message,
               "from": from,
+              "tunMode": await VPNService.getTunMode(),
               "currentSelectorTag": _currentServerForSelector.now,
             });
         CommonDialog.handleStartError(context, err.message);
+      }
+      if (PlatformUtils.isPC()) {
+        var settingConfig = SettingManager.getConfig();
+        if (settingConfig.proxy.enableCluster) {
+          String? error = await ProxyCluster.start();
+          if (error != null) {
+            DialogUtils.showAlertDialog(context, error,
+                showCopy: true, showFAQ: true, withVersion: true);
+          }
+        }
       }
     } else {
       _isStarting = false;
@@ -1051,6 +1067,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     return Material(
       color: Colors.grey.withOpacity(0.5),
       child: InkWell(
+        focusNode: _focusNodeSelect,
         onTap: setting.originSBProfile.isNotEmpty
             ? null
             : () async {
@@ -1127,7 +1144,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       setState(() {});
                                       if (err != null) {
                                         DialogUtils.showAlertDialog(
-                                            context, err.message);
+                                            context, err.message,
+                                            showCopy: true,
+                                            showFAQ: true,
+                                            withVersion: true);
                                       }
                                     });
                                   },
@@ -1437,14 +1457,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> onLongPressNetConnections() async {
-    var result = await ClashApi.resetOutboundConnections(
+    await ClashApi.resetOutboundConnections(
       SettingManager.getConfig().proxy.controlPort,
     );
-    if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message);
-    } else {
-      DialogUtils.showAlertDialog(context, "outbound connections reseted");
-    }
   }
 
   Future<void> onTapServerSelect() async {
@@ -1521,6 +1536,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   Future<void> stop() async {
     _currentServerForSelector.clear();
+    await ProxyCluster.stop();
     if (_currentServer.groupid == ServerManager.getUrltestGroupId()) {
       _currentServer.latency = "";
       _currentServerForSelector.history.clear();
@@ -1550,6 +1566,39 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   Future<ReturnResultError?> start(String from,
       {bool disableShowAlertDialog = false}) async {
     _currentServerForSelector.clear();
+    await ProxyCluster.stop();
+    if (Platform.isWindows) {
+      List<String> filePaths = [
+        PathUtils.serviceExePath(),
+      ];
+      List<String> dirPaths = [PathUtils.flutterAssetsDir()];
+      for (var filePath in filePaths) {
+        var file = File(filePath);
+        bool exist = await file.exists();
+        if (!exist) {
+          final tcontext = Translations.of(context);
+          if (!disableShowAlertDialog) {
+            DialogUtils.showAlertDialog(
+                context, tcontext.fileNotExistReinstall(p: filePath),
+                showCopy: true, showFAQ: true, withVersion: true);
+          }
+          return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
+        }
+      }
+      for (var filePath in dirPaths) {
+        var file = Directory(filePath);
+        bool exist = await file.exists();
+        if (!exist) {
+          final tcontext = Translations.of(context);
+          if (!disableShowAlertDialog) {
+            DialogUtils.showAlertDialog(
+                context, tcontext.fileNotExistReinstall(p: filePath),
+                showCopy: true, showFAQ: true, withVersion: true);
+          }
+          return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
+        }
+      }
+    }
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     if (noConfig) {
       Log.w("start failed: no server avaliable, from $from");
@@ -1578,6 +1627,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       Biz.vpnStateChanged(_isStarted);
       _canConnect = _isStarted;
       setState(() {});
+      AnalyticsUtils.logEvent(
+          analyticsEventType: analyticsEventTypeApp,
+          name: 'HSS_start',
+          parameters: {
+            "err": err.message,
+            "from": from,
+            "tunMode": await VPNService.getTunMode(),
+            "currentSelectorTag": _currentServerForSelector.now,
+          });
       if (!disableShowAlertDialog) {
         CommonDialog.handleStartError(context, err.message);
       }
@@ -1599,11 +1657,25 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         parameters: {
           "err": (err != null) ? err.message : null,
           "from": from,
+          "tunMode": await VPNService.getTunMode(),
           "currentSelectorTag": _currentServerForSelector.now,
         });
     if (err != null) {
       if (!disableShowAlertDialog) {
         CommonDialog.handleStartError(context, err.message);
+      }
+    } else {
+      if (PlatformUtils.isPC()) {
+        var settingConfig = SettingManager.getConfig();
+        if (settingConfig.proxy.enableCluster) {
+          String? error = await ProxyCluster.start();
+          if (error != null) {
+            if (!disableShowAlertDialog) {
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
+            }
+          }
+        }
       }
     }
     return err;
@@ -1629,14 +1701,24 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void installConfig(Uri uri) async {
-    String? name = uri.queryParameters["name"] ?? uri.fragment;
-    String? url = uri.queryParameters["url"];
-    String? ispName =
-        uri.queryParameters["isp-name"] ?? uri.queryParameters["Isp-Name"];
-    String? ispUrl =
-        uri.queryParameters["isp-url"] ?? uri.queryParameters["Isp-Url"];
-    String? ispFaq =
-        uri.queryParameters["isp-faq"] ?? uri.queryParameters["Isp-Faq"];
+    String? name;
+    String? url;
+    String? ispName;
+    String? ispUrl;
+    String? ispFaq;
+    try {
+      name = uri.queryParameters["name"];
+      url = uri.queryParameters["url"];
+      ispName =
+          uri.queryParameters["isp-name"] ?? uri.queryParameters["Isp-Name"];
+      ispUrl = uri.queryParameters["isp-url"] ?? uri.queryParameters["Isp-Url"];
+      ispFaq = uri.queryParameters["isp-faq"] ?? uri.queryParameters["Isp-Faq"];
+    } catch (err) {
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+      return;
+    }
+    name ??= uri.fragment;
     if (name.isNotEmpty) {
       try {
         name = Uri.decodeComponent(name);
@@ -1682,7 +1764,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     Navigator.pop(context);
     if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message);
+      DialogUtils.showAlertDialog(context, result.error!.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
@@ -1737,9 +1820,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
-    _rewardedAd?.dispose();
+    _focusNodeSettings.dispose();
     _focusNodeSwitch.dispose();
+    _focusNodeSelect.dispose();
     ErrorReporterUtils.register(null);
     _timer?.cancel();
     _timer = null;
@@ -1754,154 +1837,190 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
     AutoUpdateCheckVersion checkVersion = AutoUpdateManager.getVersionCheck();
     NoticeItem? noticeItem = NoticeManager.getNotice().getFirstUnread();
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
 
-    Size windowSize = MediaQuery.of(context).size;
+    var expire = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
+    bool showAds = expire == null || DateTime.now().isAfter(expire);
 
     var themes = Provider.of<Themes>(context, listen: false);
     Color? color = themes.getThemeHomeColor(context);
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            systemNavigationBarIconBrightness:
-                themes.getStatusBarIconBrightness(context),
-            systemNavigationBarColor: color,
-            systemNavigationBarDividerColor: Colors.transparent,
-            statusBarColor: color,
-            statusBarBrightness: themes.getStatusBarBrightness(context),
-            statusBarIconBrightness: themes.getStatusBarIconBrightness(context),
-          ),
-        ),
-      ),
-      backgroundColor: color,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    Tooltip(
-                        message: tcontext.setting,
-                        child: InkWell(
-                            onTap: () async {
-                              onTapSetting();
-                            },
-                            child: Stack(
-                              children: [
-                                const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.settings_outlined,
-                                    size: 26,
-                                  ),
-                                ),
-                                checkVersion.newVersion || noticeItem != null
-                                    ? Positioned(
-                                        left: 10,
-                                        top: 0,
-                                        child: Container(
-                                            width: 8,
-                                            height: 8,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.red,
-                                              shape: BoxShape.circle,
-                                            )),
-                                      )
-                                    : const SizedBox(
-                                        width: 0,
-                                      ),
-                              ],
-                            ))),
-                    Row(children: createToolbar()),
-                  ]),
-                  Tooltip(
-                    message: tcontext.SettingsScreen.theme,
-                    child: InkWell(
-                      onTap: () async {
-                        onTapSetTheme();
-                      },
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.color_lens_outlined,
-                          size: 26,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+    return Focus(
+        autofocus: true,
+        includeSemantics: true,
+        onKeyEvent: (FocusNode node, KeyEvent event) {
+          if (event is KeyDownEvent) {
+            switch (event.logicalKey) {
+              case LogicalKeyboardKey.contextMenu:
+                var focus = [
+                  _focusNodeSettings,
+                  _focusNodeSwitch,
+                  _focusNodeSelect
+                ];
+                int? focusIndex;
+                for (int i = 0; i < focus.length; ++i) {
+                  if (focus[i].hasFocus) {
+                    focusIndex = i;
+                    break;
+                  }
+                }
+                if (focusIndex == null) {
+                  _focusNodeSwitch.requestFocus();
+                } else {
+                  focus[(focusIndex + 1) % focus.length].requestFocus();
+                }
+
+                return KeyEventResult.handled;
+            }
+          }
+          return KeyEventResult.ignored;
+        },
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.zero,
+            child: AppBar(
+              backgroundColor: color,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                systemNavigationBarIconBrightness:
+                    themes.getStatusBarIconBrightness(context),
+                systemNavigationBarColor: color,
+                systemNavigationBarDividerColor: Colors.transparent,
+                statusBarColor: color,
+                statusBarBrightness: themes.getStatusBarBrightness(context),
+                statusBarIconBrightness:
+                    themes.getStatusBarIconBrightness(context),
               ),
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _bannerAdIsLoaded && _bannerAd != null
-                        ? SizedBox(
-                            height: _bannerAd!.size.height.toDouble(),
-                            width: _bannerAd!.size.width.toDouble(),
-                            child: AdWidget(ad: _bannerAd!))
-                        : const SizedBox.shrink(),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Stack(children: [
-                        SizedBox(
-                          width: 180,
-                          child: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Switch.adaptive(
-                              value: _isStarted,
-                              //autofocus: Platform.isAndroid,
-                              activeColor: ThemeDefine.kColorGreenBright,
-                              thumbColor:
-                                  WidgetStateProperty.resolveWith<Color>(
-                                      (Set<WidgetState> states) {
-                                return Colors.orange;
-                              }),
-                              inactiveTrackColor: noConfig
-                                  ? Colors.grey
-                                  : Colors.grey.withOpacity(0.5),
-                              onChanged: (bool newValue) async {
-                                if (noConfig) {
-                                  onTapToggleStart();
-                                } else {
-                                  if (!_isStarting && !_isStoping) {
-                                    onTapToggle();
-                                  }
-                                }
-                              },
+          ),
+          backgroundColor: color,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Tooltip(
+                                message: tcontext.setting,
+                                child: InkWell(
+                                    focusNode: _focusNodeSettings,
+                                    onTap: () async {
+                                      onTapSetting();
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        const SizedBox(
+                                          width: 50,
+                                          height: 30,
+                                          child: Icon(
+                                            Icons.settings_outlined,
+                                            size: 26,
+                                          ),
+                                        ),
+                                        checkVersion.newVersion ||
+                                                noticeItem != null
+                                            ? Positioned(
+                                                left: 10,
+                                                top: 0,
+                                                child: Container(
+                                                    width: 8,
+                                                    height: 8,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: Colors.red,
+                                                      shape: BoxShape.circle,
+                                                    )),
+                                              )
+                                            : const SizedBox(
+                                                width: 0,
+                                              ),
+                                      ],
+                                    ))),
+                            Row(children: createToolbar()),
+                          ]),
+                      Tooltip(
+                        message: tcontext.SettingsScreen.theme,
+                        child: InkWell(
+                          onTap: () async {
+                            onTapSetTheme();
+                          },
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.color_lens_outlined,
+                              size: 26,
                             ),
                           ),
                         ),
-                        SizedBox(
-                            width: 150,
-                            height: 150,
-                            child: _isStarting || _isStoping
-                                ? Container(
-                                    alignment: const Alignment(-0.25, 0),
-                                    child: const RepaintBoundary(
-                                        child: CircularProgressIndicator(
-                                            color:
-                                                ThemeDefine.kColorGreenBright)),
-                                  )
-                                : null),
-                      ]),
-                    ),
-                    /*AnimatedToggleSwitch<bool>.dual(
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        AdsBannerWidget(
+                          adWidth: windowSize.width,
+                          mask: showAds ? null : color,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Stack(children: [
+                            SizedBox(
+                              width: 180,
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                child: Switch.adaptive(
+                                  value: _isStarted,
+                                  focusNode: _focusNodeSwitch,
+                                  activeColor: ThemeDefine.kColorGreenBright,
+                                  thumbColor:
+                                      WidgetStateProperty.resolveWith<Color>(
+                                          (Set<WidgetState> states) {
+                                    return Colors.orange;
+                                  }),
+                                  inactiveTrackColor: noConfig
+                                      ? Colors.grey
+                                      : Colors.grey.withOpacity(0.5),
+                                  onChanged: (bool newValue) async {
+                                    if (noConfig) {
+                                      onTapToggleStart();
+                                    } else {
+                                      if (!_isStarting && !_isStoping) {
+                                        onTapToggle();
+                                      }
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                                width: 150,
+                                height: 150,
+                                child: _isStarting || _isStoping
+                                    ? Container(
+                                        alignment: const Alignment(-0.25, 0),
+                                        child: const RepaintBoundary(
+                                            child: CircularProgressIndicator(
+                                                color: ThemeDefine
+                                                    .kColorGreenBright)),
+                                      )
+                                    : null),
+                          ]),
+                        ),
+                        /*AnimatedToggleSwitch<bool>.dual(
                             current: _isStarted,
                             first: false,
                             second: true,
@@ -1964,142 +2083,147 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                           const SizedBox(
                             height: 35,
                           ),*/
-                    Column(
-                      children: [
-                        Platform.isWindows ||
-                                Platform.isMacOS ||
-                                Platform.isLinux
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                        Column(
+                          children: [
+                            Platform.isWindows ||
+                                    Platform.isMacOS ||
+                                    Platform.isLinux
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Tooltip(
-                                          message: tcontext.HomeScreen
-                                              .systemProxyTips(
-                                                  hp: settingConfig
-                                                      .proxy.mixedPort,
-                                                  sp: settingConfig
-                                                      .proxy.mixedPort),
-                                          child: InkWell(
-                                            onTap: () {
-                                              DialogUtils.showAlertDialog(
-                                                  context,
-                                                  tcontext.HomeScreen
-                                                      .systemProxyTips(
-                                                          hp: settingConfig
-                                                              .proxy.mixedPort,
-                                                          sp: settingConfig
-                                                              .proxy
-                                                              .mixedPort));
-                                            },
-                                            child: const Icon(
-                                              Icons.info_outlined,
-                                              size: 20,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Tooltip(
+                                              message: tcontext.HomeScreen
+                                                  .systemProxyTips(
+                                                      hp: settingConfig
+                                                          .proxy.mixedRulePort,
+                                                      sp: settingConfig
+                                                          .proxy.mixedRulePort),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  DialogUtils.showAlertDialog(
+                                                      context,
+                                                      tcontext.HomeScreen
+                                                          .systemProxyTips(
+                                                              hp: settingConfig
+                                                                  .proxy
+                                                                  .mixedRulePort,
+                                                              sp: settingConfig
+                                                                  .proxy
+                                                                  .mixedRulePort));
+                                                },
+                                                child: const Icon(
+                                                  Icons.info_outlined,
+                                                  size: 20,
+                                                ),
+                                              )),
+                                          const SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            tcontext.systemProxy,
+                                            style: const TextStyle(
+                                              fontSize:
+                                                  ThemeConfig.kFontSizeListItem,
                                             ),
-                                          )),
-                                      const SizedBox(
-                                        width: 15,
-                                      ),
-                                      Text(
-                                        tcontext.systemProxy,
-                                        style: const TextStyle(
-                                          fontSize:
-                                              ThemeConfig.kFontSizeListItem,
-                                        ),
-                                      ),
-                                      FutureBuilder(
-                                        future: getSystemProxy(),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<bool> snapshot) {
-                                          return Switch.adaptive(
-                                            value: snapshot.hasData &&
-                                                snapshot.data!,
-                                            activeColor:
-                                                ThemeDefine.kColorGreenBright,
-                                            onChanged: noConfig
-                                                ? null
-                                                : (bool newValue) {
-                                                    if (!_isStarting &&
-                                                        !_isStoping) {
-                                                      VPNService.setSystemProxy(
-                                                          newValue);
-                                                      setState(() {});
-                                                    }
-                                                  },
-                                          );
-                                        },
+                                          ),
+                                          FutureBuilder(
+                                            future: getSystemProxy(),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<bool> snapshot) {
+                                              return Switch.adaptive(
+                                                value: snapshot.hasData &&
+                                                    snapshot.data!,
+                                                activeColor: ThemeDefine
+                                                    .kColorGreenBright,
+                                                onChanged: noConfig
+                                                    ? null
+                                                    : (bool newValue) {
+                                                        if (!_isStarting &&
+                                                            !_isStoping) {
+                                                          VPNService
+                                                              .setSystemProxy(
+                                                                  newValue);
+                                                          setState(() {});
+                                                        }
+                                                      },
+                                              );
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ],
-                                  ),
+                                  )
+                                : const SizedBox.shrink(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              child: SegmentedButton<bool>(
+                                segments: <ButtonSegment<bool>>[
+                                  ButtonSegment<bool>(
+                                      value: false,
+                                      label: Text(
+                                        tcontext.rule,
+                                        style: const TextStyle(
+                                          fontSize:
+                                              ThemeConfig.kFontSizeListSubItem,
+                                        ),
+                                      )),
+                                  ButtonSegment<bool>(
+                                      value: true,
+                                      label: Text(
+                                        tcontext.global,
+                                        style: const TextStyle(
+                                          fontSize:
+                                              ThemeConfig.kFontSizeListSubItem,
+                                        ),
+                                      )),
                                 ],
-                              )
-                            : const SizedBox.shrink(),
-                        const SizedBox(
-                          height: 10,
+                                selected: {SettingManager.getConfig().proxyAll},
+                                onSelectionChanged:
+                                    (Set<bool> newSelection) async {
+                                  SettingManager.getConfig().proxyAll =
+                                      newSelection.first;
+                                  SettingManager.saveConfig();
+                                  setState(() {});
+                                  await setServerAndReload("proxyAll");
+                                },
+                                multiSelectionEnabled: false,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  createGroupTraffic(context),
+                                ]),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            createNetStatusChart(context),
+                          ],
                         ),
-                        SizedBox(
-                          child: SegmentedButton<bool>(
-                            segments: <ButtonSegment<bool>>[
-                              ButtonSegment<bool>(
-                                  value: false,
-                                  label: Text(
-                                    tcontext.rule,
-                                    style: const TextStyle(
-                                      fontSize:
-                                          ThemeConfig.kFontSizeListSubItem,
-                                    ),
-                                  )),
-                              ButtonSegment<bool>(
-                                  value: true,
-                                  label: Text(
-                                    tcontext.global,
-                                    style: const TextStyle(
-                                      fontSize:
-                                          ThemeConfig.kFontSizeListSubItem,
-                                    ),
-                                  )),
-                            ],
-                            selected: {SettingManager.getConfig().proxyAll},
-                            onSelectionChanged: (Set<bool> newSelection) async {
-                              SettingManager.getConfig().proxyAll =
-                                  newSelection.first;
-                              SettingManager.saveConfig();
-                              setState(() {});
-                              await setServerAndReload("proxyAll");
-                            },
-                            multiSelectionEnabled: false,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              createGroupTraffic(context),
-                            ]),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        createNetStatusChart(context),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Column(
+                  children: [createServerSelect(context)],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
-            Column(
-              children: [createServerSelect(context)],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   List<Widget> createToolbar() {
@@ -2323,12 +2447,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                   if (value != null) {
                     DialogUtils.showAlertDialog(
                         context, tcontext.updateFailed(p: value.message),
-                        showCopy: true, withVersion: true);
+                        showCopy: true, showFAQ: true, withVersion: true);
                   }
                 });
               } else {
                 DialogUtils.showAlertDialog(
-                    context, tcontext.updateFailed(p: value.error!.message));
+                    context, tcontext.updateFailed(p: value.error!.message),
+                    showCopy: true, showFAQ: true, withVersion: true);
               }
             }
           })

@@ -4,9 +4,10 @@ import 'dart:async';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
@@ -40,6 +41,7 @@ class _BackupAndSyncWebdavScreenState
   bool _connecting = true;
   bool _loading = true;
   bool _uploading = false;
+
   Client? _webdavClient;
   List<String> _fileList = [];
   final TextEditingController _urlController = TextEditingController();
@@ -91,6 +93,7 @@ class _BackupAndSyncWebdavScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -117,11 +120,16 @@ class _BackupAndSyncWebdavScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.webdav,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 3,
+                      child: Text(
+                        tcontext.webdav,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     Row(
                       children: [
@@ -309,9 +317,18 @@ class _BackupAndSyncWebdavScreenState
     _webdavClient = null;
     _fileList.clear();
     setState(() {});
-
-    var result = await WebdavUtils.connect(settingConfig.webdav.url,
-        settingConfig.webdav.user, settingConfig.webdav.password);
+    List<int?> ports = await VPNService.getPortsByPrefer(false);
+    late ReturnResult<Client> result;
+    for (var port in ports) {
+      result = await WebdavUtils.connect(port, settingConfig.webdav.url,
+          settingConfig.webdav.user, settingConfig.webdav.password);
+      if (!mounted) {
+        return;
+      }
+      if (result.error == null) {
+        break;
+      }
+    }
     if (!mounted) {
       return;
     }
@@ -322,7 +339,10 @@ class _BackupAndSyncWebdavScreenState
       DialogUtils.showAlertDialog(
           context,
           tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed +
-              result.error!.message);
+              result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true);
       return;
     }
     _webdavClient = result.data;
@@ -350,7 +370,10 @@ class _BackupAndSyncWebdavScreenState
       DialogUtils.showAlertDialog(
           context,
           tcontext.BackupAndSyncWebdavScreen.webdavListFailed +
-              result.error!.message);
+              result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true);
       return;
     }
     _fileList = result.data!;
@@ -371,13 +394,15 @@ class _BackupAndSyncWebdavScreenState
     try {
       String dir = await PathUtils.cacheDir();
       String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      var error = await ServerManager.backupToZip(filePath);
+      ReturnResultError? error = await ServerManager.backupToZip(filePath);
       if (!mounted) {
         FileUtils.deleteFileByPath(filePath);
         return;
       }
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message);
+        DialogUtils.showAlertDialog(context, error.message,
+            showCopy: true, showFAQ: true, withVersion: true);
+        return;
       }
       error = await WebdavUtils.upload(_webdavClient!,
           relativePath: path.basename(filePath), localPath: filePath);
@@ -389,7 +414,8 @@ class _BackupAndSyncWebdavScreenState
       _uploading = false;
       setState(() {});
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message);
+        DialogUtils.showAlertDialog(context, error.message,
+            showCopy: true, showFAQ: true, withVersion: true);
         return;
       }
       await list();
@@ -399,7 +425,8 @@ class _BackupAndSyncWebdavScreenState
       }
       _uploading = false;
       setState(() {});
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -484,11 +511,12 @@ class _BackupAndSyncWebdavScreenState
                       return false;
                     }
 
-                    SettingManager.getConfig().webdav.url = _urlController.text;
+                    SettingManager.getConfig().webdav.url =
+                        _urlController.text.trim();
                     SettingManager.getConfig().webdav.user =
-                        _userController.text;
+                        _userController.text.trim();
                     SettingManager.getConfig().webdav.password =
-                        _passwordController.text;
+                        _passwordController.text.trim();
                     SettingManager.saveConfig();
 
                     return true;
@@ -529,7 +557,8 @@ class _BackupAndSyncWebdavScreenState
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message);
+      DialogUtils.showAlertDialog(context, error.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
@@ -545,7 +574,8 @@ class _BackupAndSyncWebdavScreenState
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message);
+      DialogUtils.showAlertDialog(context, error.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await list();

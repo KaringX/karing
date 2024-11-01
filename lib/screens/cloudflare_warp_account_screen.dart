@@ -56,6 +56,7 @@ class _CloudflareWarpAccountScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
 
     return Scaffold(
@@ -84,11 +85,16 @@ class _CloudflareWarpAccountScreenState
                         ),
                       ),
                     ),
-                    const Text(
-                      "Account",
-                      style: TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: const Text(
+                        "Account",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     Row(
                       children: [
@@ -143,11 +149,14 @@ class _CloudflareWarpAccountScreenState
                                           .gen25PBWarpAccount();
 
                                   if (account.error != null) {
-                                    if (!context.mounted) {
+                                    if (!mounted) {
                                       return;
                                     }
                                     DialogUtils.showAlertDialog(
-                                        context, account.error!.message);
+                                        context, account.error!.message,
+                                        showCopy: true,
+                                        showFAQ: true,
+                                        withVersion: true);
                                   } else {
                                     settingConfig.warp.account = account.data!;
                                     SettingManager.saveConfig();

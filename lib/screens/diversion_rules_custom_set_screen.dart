@@ -85,8 +85,8 @@ class _DiversionRulesCustomSetScreenState
                                     ? 65
                                     : 50),
                             child: Text(
-                              textAlign: TextAlign.center,
                               widget.title,
+                              textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontWeight: ThemeConfig.kFontWeightTitle,

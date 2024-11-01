@@ -17,10 +17,18 @@ class DialogUtilsResult<T> {
 }
 
 class DialogUtils {
+  static Future<String> Function()? faqCallback;
+
   static Future<void> showAlertDialog(BuildContext context, String text,
-      {bool showCopy = false, bool withVersion = false}) async {
+      {bool showCopy = false,
+      bool showFAQ = false,
+      bool withVersion = false}) async {
     if (!context.mounted) {
       return;
+    }
+    double width = 60;
+    if (showCopy) {
+      width = 20;
     }
     if (withVersion) {
       text = "${AppUtils.getBuildinVersion()}\n$text";
@@ -62,6 +70,17 @@ class DialogUtils {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ElevatedButton(
+                  child: Text(tcontext.ok),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                showCopy
+                    ? SizedBox(
+                        width: width,
+                      )
+                    : const SizedBox.shrink(),
                 showCopy
                     ? ElevatedButton(
                         child: Text(tcontext.copy),
@@ -72,19 +91,24 @@ class DialogUtils {
                         },
                       )
                     : const SizedBox.shrink(),
-                showCopy
-                    ? const SizedBox(
-                        width: 60,
-                      )
-                    : const SizedBox.shrink(),
-                ElevatedButton(
-                  child: Text(tcontext.ok),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            showFAQ
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: ElevatedButton(
+                      child: Text(tcontext.faq),
+                      onPressed: () async {
+                        String? url = await faqCallback?.call();
+                        if (url != null) {
+                          UrlLauncherUtils.loadUrl(url);
+                        }
+                      },
+                    ))
+                : const SizedBox.shrink(),
           ],
         );
       },

@@ -14,7 +14,7 @@ enum StartFailedReason {
   invalidProfile(name: "invalidProfile"),
   invalidVersion(name: "invalidVersion"),
   systemVersionLow(name: "systemVersionLow"),
-  startFromUNC(name: "UNC");
+  invalidInstallPath(name: "invalidInstallPath");
 
   const StartFailedReason({required this.name});
   final String name;
@@ -91,8 +91,9 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
       error = tcontext.LaunchFailedScreen.invalidVersion;
     } else if (widget.startFailedReason == StartFailedReason.systemVersionLow) {
       error = tcontext.LaunchFailedScreen.systemVersionLow;
-    } else if (widget.startFailedReason == StartFailedReason.startFromUNC) {
-      error = tcontext.LaunchFailedScreen.startFromUNC;
+    } else if (widget.startFailedReason ==
+        StartFailedReason.invalidInstallPath) {
+      error = tcontext.LaunchFailedScreen.invalidInstallPath;
     } else {
       error = tcontext.LaunchFailedScreen.invalidProcess;
     }

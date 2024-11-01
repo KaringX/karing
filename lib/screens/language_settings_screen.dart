@@ -71,6 +71,7 @@ class _LanguageSettingsScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -102,11 +103,16 @@ class _LanguageSettingsScreenState
                             width: 50,
                             height: 30,
                           ),
-                    Text(
-                      tcontext.language,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.language,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     widget.nextText != null
                         ? SizedBox(
@@ -240,14 +246,9 @@ class _LanguageSettingsScreenState
 
   void onTapItem(dynamic current) {
     SettingManager.getConfig().languageTag = current.languageTag;
-
-    if (widget.nextText != null) {
-      LocaleSettings.setLocale(current);
-    } else {
+    LocaleSettings.setLocale(current);
+    if (widget.nextText == null) {
       Navigator.pop(context);
-      Future.delayed(const Duration(milliseconds: 300), () {
-        LocaleSettings.setLocale(current);
-      });
     }
   }
 }

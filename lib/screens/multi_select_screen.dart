@@ -79,6 +79,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -105,11 +106,16 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                         ),
                       ),
                     ),
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        widget.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () => Navigator.pop(context, widget.selectedData),

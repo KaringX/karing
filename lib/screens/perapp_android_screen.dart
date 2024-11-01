@@ -227,6 +227,7 @@ class _PerAppAndroidScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -253,11 +254,16 @@ class _PerAppAndroidScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.PerAppAndroidScreen.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.PerAppAndroidScreen.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
@@ -556,7 +562,8 @@ class _PerAppAndroidScreenState
                   if (!mounted) {
                     return;
                   }
-                  DialogUtils.showAlertDialog(context, err.toString());
+                  DialogUtils.showAlertDialog(context, err.toString(),
+                      showCopy: true, showFAQ: true, withVersion: true);
                 }
               }),
           PopupMenuItem(
@@ -585,7 +592,8 @@ class _PerAppAndroidScreenState
                 if (!mounted) {
                   return;
                 }
-                DialogUtils.showAlertDialog(context, err.toString());
+                DialogUtils.showAlertDialog(context, err.toString(),
+                    showCopy: true, showFAQ: true, withVersion: true);
               }
             },
           ),

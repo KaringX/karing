@@ -76,11 +76,16 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.scanQrcode,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.scanQrcode,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   SizedBox(
                     width: 50,
@@ -100,7 +105,8 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                         try {
                           await controller!.toggleFlash();
                         } catch (err) {
-                          DialogUtils.showAlertDialog(context, err.toString());
+                          DialogUtils.showAlertDialog(context, err.toString(),
+                              showCopy: true, showFAQ: true, withVersion: true);
                         }
 
                         setState(() {});

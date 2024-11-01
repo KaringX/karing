@@ -53,6 +53,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -79,11 +80,16 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.about,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.about,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     const SizedBox(
                       width: 50,
@@ -391,7 +397,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
             return;
           }
           DialogUtils.showAlertDialog(
-              context, cresult.error!.message.toString());
+              context, cresult.error!.message.toString(),
+              showCopy: true, showFAQ: true, withVersion: true);
           return;
         }
         SettingManager.getConfig().originSBProfile = filePath;
@@ -402,7 +409,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 }

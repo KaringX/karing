@@ -42,6 +42,7 @@ class _ServerSelectSearchSettingsScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -68,11 +69,16 @@ class _ServerSelectSearchSettingsScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.candidateWord,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.candidateWord,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
@@ -186,7 +192,7 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.keywordsOrRegx, "", null, null, (text) {
+        context, tcontext.keywordOrRegx, "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;
@@ -229,7 +235,7 @@ class _ServerSelectSearchSettingsScreenState
   void onLongPressEdit(int index, String text) async {
     final tcontext = Translations.of(context);
     String? newText = await DialogUtils.showTextInputDialog(
-        context, tcontext.keywordsOrRegx, text, null, null, (text) {
+        context, tcontext.keywordOrRegx, text, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;

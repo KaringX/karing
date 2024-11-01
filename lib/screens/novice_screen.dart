@@ -29,7 +29,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
-
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -51,11 +51,16 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
                           const SizedBox(
                             width: 50,
                           ),
-                          Text(
-                            tcontext.setting,
-                            style: const TextStyle(
-                                fontWeight: ThemeConfig.kFontWeightTitle,
-                                fontSize: ThemeConfig.kFontSizeTitle),
+                          SizedBox(
+                            width: windowSize.width - 50 * 2,
+                            child: Text(
+                              tcontext.setting,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: ThemeConfig.kFontWeightTitle,
+                                  fontSize: ThemeConfig.kFontSizeTitle),
+                            ),
                           ),
                           SizedBox(
                               width: 65,

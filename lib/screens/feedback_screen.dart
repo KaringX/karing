@@ -47,6 +47,7 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -71,11 +72,16 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.feedback,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.feedback,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   InkWell(
                     onTap: () async {

@@ -44,6 +44,7 @@ class _SentryTextToQrCodeScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -68,11 +69,16 @@ class _SentryTextToQrCodeScreenState
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.TextToQrCodeScreen.title,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.TextToQrCodeScreen.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   const SizedBox(
                     width: 50,
@@ -119,7 +125,10 @@ class _SentryTextToQrCodeScreenState
                                     var result = QrcodeUtils.toImage(text);
                                     if (result.error != null) {
                                       DialogUtils.showAlertDialog(
-                                          context, result.error!.message);
+                                          context, result.error!.message,
+                                          showCopy: true,
+                                          showFAQ: true,
+                                          withVersion: true);
                                     } else {
                                       _image = result.data;
                                     }

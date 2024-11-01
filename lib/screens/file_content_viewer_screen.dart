@@ -115,11 +115,16 @@ class FileContentViewerScreenState
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.FileContentViewerScreen.title,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.FileContentViewerScreen.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

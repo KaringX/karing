@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import "package:images_picker/images_picker.dart";
+import 'package:path/path.dart' as path;
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/qrcode_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -98,6 +99,7 @@ class _AddProfileByScanQrcodeScanScreenState
 
   List<Widget> buildBar(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     if (PlatformUtils.isMobile()) {
       return [
         InkWell(
@@ -111,11 +113,16 @@ class _AddProfileByScanQrcodeScanScreenState
             ),
           ),
         ),
-        Text(
-          tcontext.scanQrcode,
-          style: const TextStyle(
-              fontWeight: ThemeConfig.kFontWeightTitle,
-              fontSize: ThemeConfig.kFontSizeTitle),
+        SizedBox(
+          width: windowSize.width - 50 * 2 - (_scanFromFile ? 70 : 100),
+          child: Text(
+            tcontext.scanQrcode,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+                fontWeight: ThemeConfig.kFontWeightTitle,
+                fontSize: ThemeConfig.kFontSizeTitle),
+          ),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           _scanFromFile
@@ -152,7 +159,8 @@ class _AddProfileByScanQrcodeScanScreenState
                     try {
                       await controller!.toggleFlash();
                     } catch (err) {
-                      DialogUtils.showAlertDialog(context, err.toString());
+                      DialogUtils.showAlertDialog(context, err.toString(),
+                          showCopy: true, showFAQ: true, withVersion: true);
                     }
 
                     setState(() {});
@@ -195,11 +203,16 @@ class _AddProfileByScanQrcodeScanScreenState
           ),
         ),
       ),
-      Text(
-        tcontext.scanQrcode,
-        style: const TextStyle(
-            fontWeight: ThemeConfig.kFontWeightTitle,
-            fontSize: ThemeConfig.kFontSizeTitle),
+      SizedBox(
+        width: windowSize.width - 50 * 2,
+        child: Text(
+          tcontext.scanQrcode,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+              fontWeight: ThemeConfig.kFontWeightTitle,
+              fontSize: ThemeConfig.kFontSizeTitle),
+        ),
       ),
       InkWell(
         onTap: () async {
@@ -396,6 +409,13 @@ class _AddProfileByScanQrcodeScanScreenState
   }
 
   Future<void> onPressScanFromImageMobile() async {
+    if (Platform.isAndroid) {
+      //ImagesPicker impl error on android
+      return await onPressScanFromImagePC();
+    }
+    _image = null;
+    _qrContent = "";
+    setState(() {});
     final tcontext = Translations.of(context);
     List<Media>? result = await ImagesPicker.pick(
       count: 1,
@@ -432,7 +452,10 @@ class _AddProfileByScanQrcodeScanScreenState
         DialogUtils.showAlertDialog(
             context,
             tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-                p: err.toString()));
+                p: err.toString()),
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true);
       }
     }
   }
@@ -444,11 +467,21 @@ class _AddProfileByScanQrcodeScanScreenState
     setState(() {});
 
     try {
+      List<String> extensions = ['png', 'jpg'];
       FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['png', 'jpg'],
+        type: Platform.isAndroid ? FileType.any : FileType.custom,
+        allowedExtensions: Platform.isAndroid ? null : extensions,
       );
       if (result != null) {
+        String ext = path
+            .extension(result.files.first.name)
+            .replaceAll('.', '')
+            .toLowerCase();
+        if (!extensions.contains(ext)) {
+          DialogUtils.showAlertDialog(
+              context, tcontext.invalidFileType(p: ext));
+          return;
+        }
         String filePath = result.files.first.path!;
         var file = File(filePath);
         if (await file.exists()) {
@@ -473,7 +506,10 @@ class _AddProfileByScanQrcodeScanScreenState
       DialogUtils.showAlertDialog(
           context,
           tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-              p: err.toString()));
+              p: err.toString()),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true);
     }
   }
 
@@ -519,7 +555,10 @@ class _AddProfileByScanQrcodeScanScreenState
         DialogUtils.showAlertDialog(
             context,
             tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-                p: err.toString()));
+                p: err.toString()),
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true);
       }
     }
   }

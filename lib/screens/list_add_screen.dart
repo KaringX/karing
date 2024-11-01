@@ -14,12 +14,14 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
   final List<String> data;
   final String dialogTitle;
   final String dialogTextHit;
+  final Future<String?> Function()? onTapAdd;
   const ListAddScreen({
     super.key,
     required this.title,
     required this.data,
     this.dialogTitle = "",
     this.dialogTextHit = "",
+    this.onTapAdd,
   });
 
   @override
@@ -41,6 +43,7 @@ class _ServerSelectSearchSettingsScreenState
 
   @override
   Widget build(BuildContext context) {
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -67,11 +70,16 @@ class _ServerSelectSearchSettingsScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        widget.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
@@ -179,20 +187,26 @@ class _ServerSelectSearchSettingsScreenState
   }
 
   void onTapAdd() async {
-    final tcontext = Translations.of(context);
-    String? text = await DialogUtils.showTextInputDialog(
-        context,
-        widget.dialogTitle.isNotEmpty ? widget.dialogTitle : tcontext.add,
-        "",
-        widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
-        null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        return false;
-      }
+    String? text;
+    if (widget.onTapAdd != null) {
+      text = await widget.onTapAdd!();
+    } else {
+      final tcontext = Translations.of(context);
+      text = await DialogUtils.showTextInputDialog(
+          context,
+          widget.dialogTitle.isNotEmpty ? widget.dialogTitle : tcontext.add,
+          "",
+          widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
+          null, (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      });
+    }
+
     if (text == null) {
       return;
     }

@@ -52,6 +52,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _loading = false;
   bool _enableDiversionRules = false;
   String _compatible = "";
+  ProxyFilter _proxyFilter = ProxyFilter();
 
   Duration? _updateTimeInterval = const Duration(hours: 12);
   @override
@@ -178,6 +179,7 @@ class _AddProfileByLinkOrContentScreenState
         url,
         SubscriptionLinkType.unknown,
         _compatible,
+        _proxyFilter,
         _enableDiversionRules,
         _updateTimeInterval,
         ispName: widget.ispName,
@@ -217,12 +219,13 @@ class _AddProfileByLinkOrContentScreenState
 
     setState(() {});
     DialogUtils.showAlertDialog(context, err,
-        showCopy: true, withVersion: true);
+        showCopy: true, showFAQ: true, withVersion: true);
   }
 
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.zero,
@@ -247,11 +250,16 @@ class _AddProfileByLinkOrContentScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.AddProfileByLinkOrContentScreen.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.AddProfileByLinkOrContentScreen.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     _loading
                         ? const Row(
@@ -372,6 +380,12 @@ class _AddProfileByLinkOrContentScreenState
                 onTapUserAgent();
               })),
       GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+              name: tcontext.filter,
+              onPush: () async {
+                onTapFilter();
+              })),
+      GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.diversionRulesEnable,
               tips: tcontext.ispDiversionTips,
@@ -405,6 +419,11 @@ class _AddProfileByLinkOrContentScreenState
 
   void onTapUserAgent() async {
     _compatible = await GroupHelper.showUserAgent(context, _compatible);
+    setState(() {});
+  }
+
+  void onTapFilter() async {
+    _proxyFilter = await GroupHelper.showProxyFilter(context, _proxyFilter);
     setState(() {});
   }
 }

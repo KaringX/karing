@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/icloud_utils.dart';
@@ -54,6 +55,7 @@ class _BackupAndSyncIcloudScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -80,11 +82,16 @@ class _BackupAndSyncIcloudScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.iCloud,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.iCloud,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     Row(
                       children: [
@@ -255,7 +262,8 @@ class _BackupAndSyncIcloudScreenState
     setState(() {});
 
     if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message);
+      DialogUtils.showAlertDialog(context, result.error!.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     _fileList = result.data!;
@@ -270,13 +278,15 @@ class _BackupAndSyncIcloudScreenState
     try {
       String dir = await PathUtils.cacheDir();
       String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      var error = await ServerManager.backupToZip(filePath);
+      ReturnResultError? error = await ServerManager.backupToZip(filePath);
       if (!mounted) {
         FileUtils.deleteFileByPath(filePath);
         return;
       }
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message);
+        DialogUtils.showAlertDialog(context, error.message,
+            showCopy: true, showFAQ: true, withVersion: true);
+        return;
       }
       error = await ICloudUtils.upload(
           relativePath: path.basename(filePath), localPath: filePath);
@@ -288,7 +298,8 @@ class _BackupAndSyncIcloudScreenState
       _uploading = false;
       setState(() {});
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message);
+        DialogUtils.showAlertDialog(context, error.message,
+            showCopy: true, showFAQ: true, withVersion: true);
         return;
       }
       await list();
@@ -298,7 +309,8 @@ class _BackupAndSyncIcloudScreenState
       }
       _uploading = false;
       setState(() {});
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -311,13 +323,14 @@ class _BackupAndSyncIcloudScreenState
     }
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-    var error =
+    ReturnResultError? error =
         await ICloudUtils.download(relativePath: filename, localPath: filePath);
     if (!mounted) {
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message);
+      DialogUtils.showAlertDialog(context, error.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
@@ -330,7 +343,8 @@ class _BackupAndSyncIcloudScreenState
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message);
+      DialogUtils.showAlertDialog(context, error.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await list();

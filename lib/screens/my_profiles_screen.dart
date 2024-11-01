@@ -358,7 +358,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       if (value != null) {
                         DialogUtils.showAlertDialog(
                             context, tcontext.updateFailed(p: value.message),
-                            showCopy: true, withVersion: true);
+                            showCopy: true, showFAQ: true, withVersion: true);
                       }
                       if (!mounted) {
                         return;
@@ -534,7 +534,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       setState(() {});
 
                       DialogUtils.showAlertDialog(context, err.message,
-                          showCopy: true, withVersion: true);
+                          showCopy: true, showFAQ: true, withVersion: true);
                     }
                   }
                 });
@@ -590,12 +590,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     if (value != null) {
                       DialogUtils.showAlertDialog(
                           context, tcontext.updateFailed(p: value.message),
-                          showCopy: true, withVersion: true);
+                          showCopy: true, showFAQ: true, withVersion: true);
                     }
                   });
                 } else {
                   DialogUtils.showAlertDialog(
-                      context, tcontext.updateFailed(p: value.error!.message));
+                      context, tcontext.updateFailed(p: value.error!.message),
+                      showCopy: true, showFAQ: true, withVersion: true);
                 }
               }
             },
@@ -785,7 +786,10 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                         setState(() {});
 
                                         DialogUtils.showAlertDialog(
-                                            context, err.message);
+                                            context, err.message,
+                                            showCopy: true,
+                                            showFAQ: true,
+                                            withVersion: true);
                                       }
                                     }
                                   });
@@ -809,6 +813,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -846,11 +851,16 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                               : Icons.keyboard_double_arrow_down_outlined,
                           size: 26,
                         ),
-                        Text(
-                          tcontext.MyProfilesScreen.title,
-                          style: const TextStyle(
-                              fontWeight: ThemeConfig.kFontWeightTitle,
-                              fontSize: ThemeConfig.kFontSizeTitle),
+                        SizedBox(
+                          width: windowSize.width - 50 * 3 - 26,
+                          child: Text(
+                            tcontext.MyProfilesScreen.title,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontWeight: ThemeConfig.kFontWeightTitle,
+                                fontSize: ThemeConfig.kFontSizeTitle),
+                          ),
                         ),
                       ]),
                     ),
@@ -1249,7 +1259,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         SingboxOutboundType.hysteria2.name,
         SingboxOutboundType.wireguard.name,
         SingboxOutboundType.tuic.name,
-        //SingboxOutboundType.tor.name,
+        SingboxOutboundType.tor.name,
         SingboxOutboundType.ssh.name,
       ],
       SingboxOutboundType.socks.name,
@@ -1296,6 +1306,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       case "tuic":
         sbOptions.tuic = SingboxJsonOutboundTUICOptions();
         break;
+      case "tor":
+        sbOptions.tor = SingboxJsonOutboundTorOptions();
+        break;
       case "ssh":
         sbOptions.ssh = SingboxJsonOutboundSSHOptions();
         break;
@@ -1341,6 +1354,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     if (!mounted) {
                       return false;
                     }
+                    String? ret;
                     ProxyConfig server = ProxyConfig();
                     server.groupid = item.groupid;
                     server.index = item.servers.length;
@@ -1348,70 +1362,97 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     server.type = sbOptions.type;
                     switch (sbOptions.type) {
                       case "shadowsocks":
+                        ret = sbOptions.shadowsocks!.getRequired();
                         sbOptions.server = sbOptions.shadowsocks!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.shadowsocks!.server_port ?? 0;
                         break;
                       case "shadowsocksr":
+                        ret = sbOptions.shadowsocksr!.getRequired();
                         sbOptions.server = sbOptions.shadowsocksr!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.shadowsocksr!.server_port ?? 0;
                         break;
                       case "shadowtls":
+                        ret = sbOptions.shadowtls!.getRequired();
                         sbOptions.server = sbOptions.shadowtls!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.shadowtls!.server_port ?? 0;
                         break;
                       case "vmess":
+                        ret = sbOptions.vmess!.getRequired();
                         sbOptions.server = sbOptions.vmess!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.vmess!.server_port ?? 0;
                         break;
                       case "vless":
+                        ret = sbOptions.vless!.getRequired();
                         sbOptions.server = sbOptions.vless!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.vless!.server_port ?? 0;
                         break;
                       case "trojan":
+                        ret = sbOptions.trojan!.getRequired();
                         sbOptions.server = sbOptions.trojan!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.trojan!.server_port ?? 0;
                         break;
                       case "socks":
+                        ret = sbOptions.socks!.getRequired();
                         sbOptions.server = sbOptions.socks!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.socks!.server_port ?? 0;
                         break;
                       case "http":
+                        ret = sbOptions.http!.getRequired();
                         sbOptions.server = sbOptions.http!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.http!.server_port ?? 0;
                         break;
                       case "hysteria":
+                        ret = sbOptions.hysteria!.getRequired();
                         sbOptions.server = sbOptions.hysteria!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.hysteria!.server_port ?? 0;
                         break;
                       case "hysteria2":
+                        ret = sbOptions.hysteria2!.getRequired();
                         sbOptions.server = sbOptions.hysteria2!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.hysteria2!.server_port ?? 0;
                         break;
                       case "wireguard":
+                        ret = sbOptions.wg!.getRequired();
                         sbOptions.server = sbOptions.wg!.server ?? "";
                         sbOptions.server_port = sbOptions.wg!.server_port ?? 0;
                         break;
                       case "tuic":
+                        ret = sbOptions.tuic!.getRequired();
                         sbOptions.server = sbOptions.tuic!.server ?? "";
                         sbOptions.server_port =
                             sbOptions.tuic!.server_port ?? 0;
                         break;
+                      case "tor":
+                        ret = sbOptions.tor!.getRequired();
+                        sbOptions.server = sbOptions.tor!.server ?? "";
+                        sbOptions.server_port = sbOptions.tor!.server_port ?? 0;
+                        break;
                       case "ssh":
+                        ret = sbOptions.ssh!.getRequired();
                         sbOptions.server = sbOptions.ssh!.server ?? "";
                         sbOptions.server_port = sbOptions.ssh!.server_port ?? 0;
                         break;
                     }
-
+                    if (ret != null) {
+                      DialogUtils.showAlertDialog(
+                          context, "$ret ${tcontext.required}");
+                      return false;
+                    }
+                    if (sbOptions.tag.isEmpty) {
+                      DialogUtils.showAlertDialog(
+                          context, "tag ${tcontext.required}");
+                      return false;
+                    }
                     server.server = sbOptions.server;
                     server.serverport = sbOptions.server_port;
                     server.raw = sbOptions.toJson();
@@ -1454,7 +1495,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     config.dns =
         SingboxConfigBuilder.dns(false, SingboxExportType.singbox, null);
     config.inbounds = SingboxConfigBuilder.inbounds(
-        false, false, [], SingboxExportType.singbox);
+        false, false, [], SingboxExportType.singbox, null);
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
         inbound.inet4_address = ["172.19.0.1/30"];
@@ -1471,7 +1512,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         allOutBounds,
         null,
         {},
-        "",
+        [],
         SingboxExportType.singbox);
 
     var sitecodes = await RulesetCodesUtils.siteCodes();

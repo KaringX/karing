@@ -1,16 +1,15 @@
 // ignore_for_file: empty_catches, unused_catch_stack
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'dart:ui';
-
+import 'package:karing/app/private/ads_private.dart';
+import 'package:karing/app/utils/did.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
@@ -22,7 +21,7 @@ import 'package:karing/app/utils/app_args.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/geoip_subnet_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/google_admob.dart';
+
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -49,6 +48,13 @@ StartFailedReason? startFailedReason;
 String? startFailedReasonDesc;
 
 void main(List<String> args) async {
+  /* String dir = "E:\\dev\\KaringX\\karing-ruleset\\geo\\geoip";
+  String target = path.join(dir, "geoip_subnets.json");
+  var files = FileUtils.recursionFile(dir, filter: {".json"});
+  var subnets = await GeoipSubnetUtils.genClientSubnet(files);
+  await GeoipSubnetUtils.saveSubnets(subnets, target);
+  return;*/
+
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
   await RemoteConfigManager.init();
@@ -76,8 +82,11 @@ Future<void> run(List<String> args) async {
     startFailedReason = StartFailedReason.invalidProfile;
   }
   if (Platform.isWindows) {
-    if (exePath.contains("UNC/") || exePath.contains("UNC\\")) {
-      startFailedReason = StartFailedReason.startFromUNC;
+    var tmp = await getTemporaryDirectory();
+    if (exePath.contains("UNC/") ||
+        exePath.contains("UNC\\") ||
+        exePath.startsWith(tmp.absolute.path.toUpperCase())) {
+      startFailedReason = StartFailedReason.invalidInstallPath;
     }
     if (path.basename(exePath).toLowerCase() != AppUtils.getKaringExe()) {
       startFailedReason = StartFailedReason.invalidProcess;
@@ -141,6 +150,8 @@ Future<void> run(List<String> args) async {
       }
     }
   }
+  bool first = await Did.getFirstTime();
+  AdsPrivate.init(first);
 
   runApp(TranslationProvider(
     child: const MyApp(),
@@ -396,8 +407,6 @@ class MyAppState extends State<MyApp>
       });
 
       await Biz.init(_launchAtStartup);
-      VPNService.onServiceNotify(
-          (String cmd, Map<String, dynamic> params) async {});
     } else {
       firstShowWindow(true);
     }

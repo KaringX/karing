@@ -83,9 +83,9 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   String _startDurationNotify = "0 B/s";
 
   Function(List<Tracker>)? _trackerCallback;
-  bool _isStarting = false;
+  /*bool _isStarting = false;
   bool _isStarted = false;
-  bool _isStoping = false;
+  bool _isStoping = false;*/
   @override
   void initState() {
     super.initState();
@@ -191,11 +191,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
             _trackerCallback!(con.connections);
           }
         }, onDone: () {
-          print('ws channel closed');
           _disconnectToService();
-        }, onError: (error) {
-          print(error);
-        });
+        }, onError: (error) {});
       }
     } catch (err) {
       Log.w("_connectToService exception ${err.toString()}");
@@ -280,7 +277,6 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
-
     Size windowSize = MediaQuery.of(context).size;
     var themes = Provider.of<Themes>(context, listen: false);
     Color? color = themes.getThemeHomeColor(context);
@@ -314,11 +310,16 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.appleTV,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 3,
+                    child: Text(
+                      tcontext.appleTV,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -669,13 +670,14 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
     ReturnResultError? err = await VPNService.setServer(VPNService.getCurrent(),
-        options, SingboxExportType.tvos, widget.secret, savePath);
+        options, SingboxExportType.tvos, widget.host, widget.secret, savePath);
 
     if (err != null) {
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.message);
+      DialogUtils.showAlertDialog(context, err.message,
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     try {
@@ -688,11 +690,12 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       ReturnResult<String> result = await HttpUtils.httpPostRequest(url, null,
           headers, content, const Duration(seconds: 5), null, null, null);
 
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
       if (result.error != null) {
-        DialogUtils.showAlertDialog(context, result.error!.message);
+        DialogUtils.showAlertDialog(context, result.error!.message,
+            showCopy: true, showFAQ: true, withVersion: true);
       } else {
         if (result.data!.isNotEmpty) {
           DialogUtils.showAlertDialog(context, result.data!);
@@ -701,10 +704,11 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
         }
       }
     } catch (err) {
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -715,7 +719,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     if (del != true) {
       return;
     }
-    if (!context.mounted) {
+    if (!mounted) {
       return;
     }
 
@@ -725,11 +729,12 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       ReturnResult<String> result = await HttpUtils.httpGetRequest(
           url, null, null, const Duration(seconds: 5), null, null);
 
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
       if (result.error != null) {
-        DialogUtils.showAlertDialog(context, result.error!.message);
+        DialogUtils.showAlertDialog(context, result.error!.message,
+            showCopy: true, showFAQ: true, withVersion: true);
       } else {
         if (result.data!.isNotEmpty) {
           DialogUtils.showAlertDialog(context, result.data!);
@@ -739,10 +744,11 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
         }
       }
     } catch (err) {
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 }

@@ -356,8 +356,7 @@ class GroupItemCreator {
                             child: InkWell(
                               onTap: () {
                                 DialogUtils.showAlertDialog(
-                                    context, options.tips!,
-                                    showCopy: true, withVersion: true);
+                                    context, options.tips!);
                               },
                               child: const Icon(
                                 Icons.info_outlined,
@@ -836,8 +835,6 @@ class GroupItemCreator {
 
   Container _createGroupItemStringPicker(BuildContext context,
       double itemHeight, GroupItemStringPickerOptions options) {
-    Size windowSize = MediaQuery.of(context).size;
-    double textWidthPercent = options.textWidthPercent ?? 0.5;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -969,26 +966,6 @@ class GroupItemCreator {
         ),
       ),
     );
-  }
-
-  static List<DropdownMenuEntry<String>> _buildDropMenuList(
-      List<String>? data, List<Tuple2<String, String>>? dataTuple2) {
-    if (dataTuple2 != null) {
-      return dataTuple2.map((Tuple2 value) {
-        return DropdownMenuEntry<String>(
-          value: value.item1,
-          label: value.item2,
-        );
-      }).toList();
-    } else if (data != null) {
-      return data.map((String value) {
-        return DropdownMenuEntry<String>(
-          value: value,
-          label: value,
-        );
-      }).toList();
-    }
-    return [];
   }
 
   static List<DropdownMenuItem<String>> _buildDropButtonList(

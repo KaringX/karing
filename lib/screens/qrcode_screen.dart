@@ -88,11 +88,16 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.qrcode,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.qrcode,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   const SizedBox(
                     width: 50,

@@ -140,7 +140,8 @@ class _VersionUpdateScreenState
         }
         if (res['isSuccess'] != true &&
             res['errorMessage'] != "Install Cancel") {
-          DialogUtils.showAlertDialog(context, res['errorMessage']);
+          DialogUtils.showAlertDialog(context, res['errorMessage'],
+              showCopy: true, showFAQ: true, withVersion: true);
         }
       }
     } catch (err, stacktrace) {
@@ -148,7 +149,8 @@ class _VersionUpdateScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 }

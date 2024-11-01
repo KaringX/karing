@@ -440,6 +440,7 @@ class _NetConnectionsScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return PopScope(
         canPop: true,
         onPopInvokedWithResult: (didPop, result) {
@@ -471,11 +472,16 @@ class _NetConnectionsScreenState
                             ),
                           ),
                         ),
-                        Text(
-                          tcontext.NetConnectionsScreen.title,
-                          style: const TextStyle(
-                              fontWeight: ThemeConfig.kFontWeightTitle,
-                              fontSize: ThemeConfig.kFontSizeTitle),
+                        SizedBox(
+                          width: windowSize.width - 50 * 2,
+                          child: Text(
+                            tcontext.NetConnectionsScreen.title,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontWeight: ThemeConfig.kFontWeightTitle,
+                                fontSize: ThemeConfig.kFontSizeTitle),
+                          ),
                         ),
                         InkWell(
                           onTap: () async {

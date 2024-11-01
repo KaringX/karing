@@ -73,6 +73,7 @@ class _DiversionGroupCustomScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -99,11 +100,16 @@ class _DiversionGroupCustomScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.diversionCustomGroup,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.diversionCustomGroup,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () {
@@ -358,7 +364,8 @@ class _DiversionGroupCustomScreenState
           if (!mounted) {
             return;
           }
-          DialogUtils.showAlertDialog(context, result.error!.message);
+          DialogUtils.showAlertDialog(context, result.error!.message,
+              showCopy: true, showFAQ: true, withVersion: true);
         }
 
         if (!mounted) {
@@ -381,9 +388,12 @@ class _DiversionGroupCustomScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
-
+    if (!mounted) {
+      return;
+    }
     _buildData();
     setState(() {});
   }
@@ -430,7 +440,8 @@ class _DiversionGroupCustomScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 

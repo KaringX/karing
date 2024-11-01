@@ -53,6 +53,7 @@ class _NetConnectionsFilterScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -79,11 +80,16 @@ class _NetConnectionsFilterScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.NetConnectionsFilterScreen.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 3,
+                      child: Text(
+                        tcontext.NetConnectionsFilterScreen.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     Row(
                       children: [

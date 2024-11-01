@@ -48,6 +48,7 @@ class _UrlTestSettingsScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -74,11 +75,16 @@ class _UrlTestSettingsScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.UrlTestSettingsScreen.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.url,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
@@ -197,8 +203,7 @@ class _UrlTestSettingsScreenState
       text = text.trim();
       Uri? uri = Uri.tryParse(text);
       if (uri == null || uri.scheme != "https") {
-        DialogUtils.showAlertDialog(
-            context, tcontext.UrlTestSettingsScreen.error);
+        DialogUtils.showAlertDialog(context, tcontext.mustBeValidHttpsURL);
         return false;
       }
 

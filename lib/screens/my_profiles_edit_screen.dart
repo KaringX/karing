@@ -27,6 +27,7 @@ class _MyProfilesEditScreenState
   final _textControllerUrl = TextEditingController();
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
+  ProxyFilter _proxyFilter = ProxyFilter();
   bool _enableDiversionRules = false;
   bool _reloadAfterProfileUpdate = true;
   bool _testLatencyAfterProfileUpdate = false;
@@ -45,6 +46,7 @@ class _MyProfilesEditScreenState
       );
       _updateTimeInterval = item.updateDuration;
       _compatible = item.userAgentCompatible;
+      _proxyFilter = item.proxyFilter;
       _enableDiversionRules = item.enableDiversionRules;
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
@@ -59,8 +61,9 @@ class _MyProfilesEditScreenState
 
   @override
   Widget build(BuildContext context) {
-    ServerConfigGroupItem? item = ServerManager.getByGroupId(widget.groupid);
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
+    ServerConfigGroupItem? item = ServerManager.getByGroupId(widget.groupid);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -85,11 +88,16 @@ class _MyProfilesEditScreenState
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.MyProfilesEditScreen.title,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.MyProfilesEditScreen.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -182,6 +190,8 @@ class _MyProfilesEditScreenState
         item.urlOrPath == urlText &&
         item.updateDuration == _updateTimeInterval &&
         item.userAgentCompatible == _compatible &&
+        item.proxyFilter.method == _proxyFilter.method &&
+        item.proxyFilter.keywordOrRegx == _proxyFilter.keywordOrRegx &&
         item.enableDiversionRules == _enableDiversionRules &&
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
@@ -203,6 +213,7 @@ class _MyProfilesEditScreenState
     bool dirty = item.remark != remarkText;
     item.updateDuration = _updateTimeInterval;
     item.userAgentCompatible = _compatible;
+    item.proxyFilter = _proxyFilter;
     item.enableDiversionRules = _enableDiversionRules;
     item.reloadAfterProfileUpdate = _reloadAfterProfileUpdate;
     item.testLatencyAfterProfileUpdate = _testLatencyAfterProfileUpdate;
@@ -268,6 +279,12 @@ class _MyProfilesEditScreenState
                   }))
           : GroupItemOptions(),
       GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+              name: tcontext.filter,
+              onPush: () async {
+                onTapFilter();
+              })),
+      GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.diversionRulesEnable,
               tips: tcontext.ispDiversionTips,
@@ -287,7 +304,7 @@ class _MyProfilesEditScreenState
                       return;
                     }
                     if (duration != null && duration.inMinutes < 5) {
-                      duration = const Duration(days: 365);
+                      duration = const Duration(minutes: 5);
                     }
                     _updateTimeInterval = duration;
                     setState(() {});
@@ -329,6 +346,11 @@ class _MyProfilesEditScreenState
 
   void onTapUserAgent() async {
     _compatible = await GroupHelper.showUserAgent(context, _compatible);
+    setState(() {});
+  }
+
+  void onTapFilter() async {
+    _proxyFilter = await GroupHelper.showProxyFilter(context, _proxyFilter);
     setState(() {});
   }
 }

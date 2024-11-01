@@ -80,6 +80,6 @@ class CommonDialog {
     }
 
     DialogUtils.showAlertDialog(context, errMessage,
-        showCopy: true, withVersion: true);
+        showCopy: true, showFAQ: true, withVersion: true);
   }
 }

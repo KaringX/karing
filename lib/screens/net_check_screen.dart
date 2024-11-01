@@ -15,7 +15,6 @@ import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/common_dialog.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -648,7 +647,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       if (_domainAndPort.item2 == null) {
         result = await HttpUtils.httpGetRequest(
             "https://${_domainAndPort.item1}",
-            settingConfig.proxy.mixedPort,
+            settingConfig.proxy.mixedRulePort,
             null,
             timeout,
             null,
@@ -660,7 +659,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         if (result.error != null) {
           result = await HttpUtils.httpGetRequest(
               "http://${_domainAndPort.item1}",
-              settingConfig.proxy.mixedPort,
+              settingConfig.proxy.mixedRulePort,
               null,
               timeout,
               null,
@@ -670,7 +669,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       } else {
         result = await HttpUtils.httpGetRequest(
             "https://${_domainAndPort.item1}:${_domainAndPort.item2}",
-            settingConfig.proxy.mixedPort,
+            settingConfig.proxy.mixedRulePort,
             null,
             timeout,
             null,
@@ -682,7 +681,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         if (result.error != null) {
           result = await HttpUtils.httpGetRequest(
               "http://${_domainAndPort.item1}:${_domainAndPort.item2}",
-              settingConfig.proxy.mixedPort,
+              settingConfig.proxy.mixedRulePort,
               null,
               timeout,
               null,
@@ -717,6 +716,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -741,11 +741,16 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    tcontext.NetCheckScreen.title,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 3 - 26,
+                    child: Text(
+                      tcontext.NetCheckScreen.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   const SizedBox(
                     width: 50,

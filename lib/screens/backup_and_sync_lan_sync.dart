@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
@@ -66,13 +67,13 @@ class _BackupAndSyncLanSyncScreenState
       if (widget.syncUpload != true) {
         String dir = await PathUtils.cacheDir();
         _zipPath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-        var error = await ServerManager.backupToZip(_zipPath!);
+        ReturnResultError? error = await ServerManager.backupToZip(_zipPath!);
         if (error != null) {
           if (!mounted) {
             return;
           }
-          DialogUtils.showAlertDialog(context, error.toString(),
-              showCopy: true, withVersion: true);
+          DialogUtils.showAlertDialog(context, error.message,
+              showCopy: true, showFAQ: true, withVersion: true);
           return;
         }
       }
@@ -124,7 +125,7 @@ class _BackupAndSyncLanSyncScreenState
         return;
       }
       DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, withVersion: true);
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
 
@@ -233,8 +234,17 @@ class _BackupAndSyncLanSyncScreenState
       _sendNotFound(httpRequest.response);
       return;
     }
-
-    result.item2.call(httpRequest);
+    try {
+      result.item2.call(httpRequest);
+    } catch (err) {
+      Future.delayed(const Duration(microseconds: 10), () async {
+        if (!mounted) {
+          return;
+        }
+        DialogUtils.showAlertDialog(context, err.toString(),
+            showCopy: true, showFAQ: true, withVersion: true);
+      });
+    }
   }
 
   Future<void> restoreFromZip(String zipPath) async {
@@ -245,6 +255,7 @@ class _BackupAndSyncLanSyncScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -271,11 +282,16 @@ class _BackupAndSyncLanSyncScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      widget.title!,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        widget.title!,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     const SizedBox(
                       width: 50,

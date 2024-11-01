@@ -1,6 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/private/ads_banner_widget_private.dart';
+import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -29,7 +32,8 @@ class GroupScreen extends LasyRenderingStatefulWidget {
 }
 
 class GroupScreenState extends LasyRenderingState<GroupScreen> {
-  //final FocusNode _focusNode = FocusNode();
+  static int _adsCount = 0;
+  bool _hasAds = false;
   @override
   void initState() {
     super.initState();
@@ -37,33 +41,17 @@ class GroupScreenState extends LasyRenderingState<GroupScreen> {
 
   @override
   void dispose() {
-    //_focusNode.dispose();
+    if (_hasAds) {
+      --GroupScreenState._adsCount;
+      _hasAds = false;
+    }
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
-    /*return KeyboardListener(
-        focusNode: _focusNode,
-        onKeyEvent: (KeyEvent event) {
-          if (event is KeyDownEvent) {
-            switch (event.logicalKey) {
-              case LogicalKeyboardKey.arrowDown:
-                break;
-              case LogicalKeyboardKey.arrowLeft:
-                break;
-              case LogicalKeyboardKey.arrowRight:
-                break;
-              case LogicalKeyboardKey.arrowUp:
-                break;
-              case LogicalKeyboardKey.enter: //KEY_UP
-                //FocusScope.of(context).requestFocus(_focusNode);
-                break;
-            }
-          } else if (event is KeyUpEvent) {}
-        },
-        child:*/
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -99,6 +87,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen> {
                       child: Text(
                         widget.title,
                         textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontWeight: ThemeConfig.kFontWeightTitle,
                             fontSize: ThemeConfig.kFontSizeTitle),
@@ -149,14 +138,31 @@ class GroupScreenState extends LasyRenderingState<GroupScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   child: FutureBuilder(
-                    future: getGroupOptions(),
+                    future: getGroupOptionsWithTryCatch(),
                     builder: (BuildContext context,
                         AsyncSnapshot<List<GroupItem>> snapshot) {
                       List<GroupItem> data =
                           snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
+                      List<Widget> children = [];
+                      if (AdsPrivate.getEnable() &&
+                          (_hasAds || GroupScreenState._adsCount < 1)) {
+                        if (!_hasAds) {
+                          ++GroupScreenState._adsCount;
+                          _hasAds = true;
+                        }
+                        var settingConfig = SettingManager.getConfig();
+                        var expire = DateTime.tryParse(
+                            settingConfig.ads.bannerRewardExpire);
+                        if (expire == null || DateTime.now().isAfter(expire)) {
+                          children.add(AdsBannerWidget(
+                              adWidth: windowSize.width,
+                              bannerName: "banner3"));
+                          children.add(const SizedBox(height: 20));
+                        }
+                      }
+                      children
+                          .addAll(GroupItemCreator.createGroups(context, data));
+                      return Column(children: children);
                     },
                   ),
                 ),
@@ -166,7 +172,20 @@ class GroupScreenState extends LasyRenderingState<GroupScreen> {
         ),
       ),
     );
-    //);
+  }
+
+  Future<List<GroupItem>> getGroupOptionsWithTryCatch() async {
+    try {
+      return await getGroupOptions();
+    } catch (err, stacktrace) {
+      if (!mounted) {
+        return [];
+      }
+      DialogUtils.showAlertDialog(
+          context, "${err.toString()}\n${stacktrace.toString()}",
+          showCopy: true, showFAQ: true, withVersion: true);
+      return [];
+    }
   }
 
   Future<List<GroupItem>> getGroupOptions() async {

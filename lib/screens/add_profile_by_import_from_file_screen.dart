@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
+import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
@@ -36,6 +38,7 @@ class _AddProfileByImportFromFileScreenState
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
   bool _enableDiversionRules = false;
+  ProxyFilter _proxyFilter = ProxyFilter();
   @override
   void initState() {
     super.initState();
@@ -72,7 +75,7 @@ class _AddProfileByImportFromFileScreenState
     setState(() {});
 
     ReturnResultError? error = await ServerManager.addLocalConfig(
-        text, _filePath, widget.type, _enableDiversionRules);
+        text, _filePath, widget.type, _proxyFilter, _enableDiversionRules);
 
     if (!mounted) {
       return;
@@ -89,7 +92,7 @@ class _AddProfileByImportFromFileScreenState
       });
     } else {
       DialogUtils.showAlertDialog(context, tcontext.addFailed(p: error.message),
-              showCopy: true, withVersion: true)
+              showCopy: true, showFAQ: true, withVersion: true)
           .then((value) {});
     }
   }
@@ -97,6 +100,7 @@ class _AddProfileByImportFromFileScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -121,13 +125,18 @@ class _AddProfileByImportFromFileScreenState
                       ),
                     ),
                   ),
-                  Text(
-                    widget.title.isNotEmpty
-                        ? widget.title
-                        : tcontext.AddProfileByImportFromFileScreen.title,
-                    style: const TextStyle(
-                        fontWeight: ThemeConfig.kFontWeightTitle,
-                        fontSize: ThemeConfig.kFontSizeTitle),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      widget.title.isNotEmpty
+                          ? widget.title
+                          : tcontext.AddProfileByImportFromFileScreen.title,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle),
+                    ),
                   ),
                   _loading
                       ? const Row(
@@ -270,7 +279,8 @@ class _AddProfileByImportFromFileScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -278,6 +288,12 @@ class _AddProfileByImportFromFileScreenState
     final tcontext = Translations.of(context);
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
+      GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+              name: tcontext.filter,
+              onPush: () async {
+                onTapFilter();
+              })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.diversionRulesEnable,
@@ -290,5 +306,10 @@ class _AddProfileByImportFromFileScreenState
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;
+  }
+
+  void onTapFilter() async {
+    _proxyFilter = await GroupHelper.showProxyFilter(context, _proxyFilter);
+    setState(() {});
   }
 }

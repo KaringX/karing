@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:tuple/tuple.dart';
 
-class MapListAddScreen extends LasyRenderingStatefulWidget {
+class MapStringAndStringAddScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
-    return const RouteSettings(name: "MapListAddScreen");
+    return const RouteSettings(name: "MapStringAndStringAddScreen");
   }
 
   final String title;
-  final List<Tuple2<String, List<String>>> data;
+  final List<Tuple2<String, String>> data;
   final String dialogTitle1;
   final String dialogTextHit1;
   final String dialogTitle2;
   final String dialogTextHit2;
-  const MapListAddScreen(
+  const MapStringAndStringAddScreen(
       {super.key,
       required this.title,
       required this.data,
@@ -28,12 +27,12 @@ class MapListAddScreen extends LasyRenderingStatefulWidget {
       this.dialogTextHit2 = ""});
 
   @override
-  State<MapListAddScreen> createState() =>
+  State<MapStringAndStringAddScreen> createState() =>
       _ServerSelectSearchSettingsScreenState();
 }
 
 class _ServerSelectSearchSettingsScreenState
-    extends LasyRenderingState<MapListAddScreen> {
+    extends LasyRenderingState<MapStringAndStringAddScreen> {
   @override
   void initState() {
     super.initState();
@@ -46,6 +45,7 @@ class _ServerSelectSearchSettingsScreenState
 
   @override
   Widget build(BuildContext context) {
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -72,11 +72,16 @@ class _ServerSelectSearchSettingsScreenState
                         ),
                       ),
                     ),
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        widget.title,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     InkWell(
                       onTap: () async {
@@ -123,7 +128,7 @@ class _ServerSelectSearchSettingsScreenState
   }
 
   Widget createWidget(
-      int index, Tuple2<String, List<String>> current, Size windowSize) {
+      int index, Tuple2<String, String> current, Size windowSize) {
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
@@ -133,16 +138,7 @@ class _ServerSelectSearchSettingsScreenState
         borderRadius: ThemeDefine.kBorderRadius,
         child: InkWell(
           onTap: () async {
-            await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    settings: ListAddScreen.routSettings(current.item1),
-                    builder: (context) => ListAddScreen(
-                          title: current.item1,
-                          data: current.item2,
-                          dialogTitle: widget.dialogTitle2,
-                          dialogTextHit: widget.dialogTextHit2,
-                        )));
+            onTapEditItem(current);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -194,14 +190,33 @@ class _ServerSelectSearchSettingsScreenState
     );
   }
 
+  void onTapEditItem(Tuple2<String, String> current) async {
+    String? text = await DialogUtils.showTextInputDialog(
+        context, current.item1, current.item2, "", null, (text) {
+      text = text.trim();
+      if (text.isEmpty) {
+        return false;
+      }
+
+      return true;
+    });
+    if (text == null || text.isEmpty) {
+      return;
+    }
+    for (var i = 0; i < widget.data.length; ++i) {
+      if (widget.data[i].item1 == current.item1) {
+        widget.data[i] = Tuple2(current.item1, text);
+        break;
+      }
+    }
+
+    setState(() {});
+  }
+
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context,
-        widget.dialogTitle1.isNotEmpty ? widget.dialogTitle1 : tcontext.add,
-        "",
-        widget.dialogTextHit1.isNotEmpty ? widget.dialogTextHit1 : "",
-        null, (text) {
+        context, tcontext.add, "", "", null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;
@@ -218,7 +233,7 @@ class _ServerSelectSearchSettingsScreenState
       }
     }
 
-    widget.data.add(Tuple2(text, []));
+    widget.data.add(Tuple2(text, ""));
     setState(() {});
   }
 

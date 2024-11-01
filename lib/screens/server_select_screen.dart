@@ -804,7 +804,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                         if (value != null) {
                           DialogUtils.showAlertDialog(
                               context, tcontext.updateFailed(p: value.message),
-                              showCopy: true, withVersion: true);
+                              showCopy: true, showFAQ: true, withVersion: true);
                         }
                         if (!mounted) {
                           return;
@@ -874,7 +874,10 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                           if (mounted) {
                             setState(() {});
 
-                            DialogUtils.showAlertDialog(context, err.message);
+                            DialogUtils.showAlertDialog(context, err.message,
+                                showCopy: true,
+                                showFAQ: true,
+                                withVersion: true);
                           }
                         }
                       });
@@ -931,12 +934,15 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                           if (value != null) {
                             DialogUtils.showAlertDialog(context,
                                 tcontext.updateFailed(p: value.message),
-                                showCopy: true, withVersion: true);
+                                showCopy: true,
+                                showFAQ: true,
+                                withVersion: true);
                           }
                         });
                       } else {
                         DialogUtils.showAlertDialog(context,
-                            tcontext.updateFailed(p: value.error!.message));
+                            tcontext.updateFailed(p: value.error!.message),
+                            showCopy: true, showFAQ: true, withVersion: true);
                       }
                     }
 
@@ -1264,7 +1270,10 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                         setState(() {});
 
                                         DialogUtils.showAlertDialog(
-                                            context, err.message);
+                                            context, err.message,
+                                            showCopy: true,
+                                            showFAQ: true,
+                                            withVersion: true);
                                       }
                                     }
                                   });
@@ -1407,6 +1416,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -1453,13 +1463,18 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                               : Icons.keyboard_double_arrow_down_outlined,
                           size: 26,
                         ),
-                        Text(
-                          widget.title != null && widget.title!.isNotEmpty
-                              ? widget.title!
-                              : tcontext.ServerSelectScreen.title,
-                          style: const TextStyle(
-                              fontWeight: ThemeConfig.kFontWeightTitle,
-                              fontSize: ThemeConfig.kFontSizeTitle),
+                        SizedBox(
+                          width: windowSize.width - 50 * 3 - 26,
+                          child: Text(
+                            widget.title != null && widget.title!.isNotEmpty
+                                ? widget.title!
+                                : tcontext.ServerSelectScreen.title,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontWeight: ThemeConfig.kFontWeightTitle,
+                                fontSize: ThemeConfig.kFontSizeTitle),
+                          ),
                         ),
                       ]),
                     ),

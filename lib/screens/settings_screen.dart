@@ -11,20 +11,21 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/notice_manager.dart';
-import 'package:karing/app/modules/proxy_cluster.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/private/ads_banner_widget_private.dart';
+import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/apple_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/google_admob.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/karing_url_utils.dart';
+import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -45,16 +46,17 @@ import 'package:karing/screens/net_interfaces_screen.dart';
 import 'package:karing/screens/perapp_android_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
-import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/speedtest_settings_screen.dart';
 import 'package:karing/screens/text_to_qrcode_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_settings_screen.dart';
+import 'package:karing/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vpn_service/vpn_service.dart';
 
 class SettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -108,6 +110,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -134,11 +137,16 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         ),
                       ),
                     ),
-                    Text(
-                      tcontext.setting,
-                      style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.setting,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle),
+                      ),
                     ),
                     const SizedBox(
                       width: 50,
@@ -157,9 +165,21 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         AsyncSnapshot<List<GroupItem>> snapshot) {
                       List<GroupItem> data =
                           snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
+                      List<Widget> children = [];
+                      if (AdsPrivate.getEnable()) {
+                        var settingConfig = SettingManager.getConfig();
+                        var expire = DateTime.tryParse(
+                            settingConfig.ads.bannerRewardExpire);
+                        if (expire == null || DateTime.now().isAfter(expire)) {
+                          children.add(AdsBannerWidget(
+                              adWidth: windowSize.width,
+                              bannerName: "banner2"));
+                          children.add(const SizedBox(height: 20));
+                        }
+                      }
+                      children
+                          .addAll(GroupItemCreator.createGroups(context, data));
+                      return Column(children: children);
                     },
                   ),
                 ),
@@ -180,7 +200,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       }
       DialogUtils.showAlertDialog(
           context, "${err.toString()}\n${stacktrace.toString()}",
-          showCopy: true, withVersion: true);
+          showCopy: true, showFAQ: true, withVersion: true);
       return [];
     }
   }
@@ -313,15 +333,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           : GroupItemOptions(),
     ]));
 
-    /*if (GoogleAdmob.getEnable()) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.howToRemoveAds,
-                onPush: () async {})),
-      ]));
-    }*/
-
     if (!settingConfig.novice) {
       groupOptions.add(GroupItem(options: [
         (PlatformUtils.isPC() || Platform.isAndroid) &&
@@ -364,6 +375,20 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           settings: TextToQrCodeScreen.routSettings(),
                           builder: (context) => const TextToQrCodeScreen()));
                 })),
+        Platform.isWindows
+            ? GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                    name: tcontext.uwpExemption,
+                    onPush: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              settings: UWPLoopbackExemptionWindowsScreen
+                                  .routSettings(),
+                              builder: (context) =>
+                                  const UWPLoopbackExemptionWindowsScreen()));
+                    }))
+            : GroupItemOptions(),
       ]));
       groupOptions.add(GroupItem(options: [
         GroupItemOptions(
@@ -382,16 +407,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.UrlTestSettingsScreen.title,
-                text: settingConfig.urlTest,
+                name: tcontext.latencyTest,
                 textWidthPercent: 0.4,
                 onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: UrlTestSettingsScreen.routSettings(),
-                          builder: (context) => const UrlTestSettingsScreen()));
-                  setState(() {});
+                  onTapLatencyTest();
                 })),
       ]));
     }
@@ -554,14 +573,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
 
     if (!settingConfig.novice) {
-      String frontProxy = settingConfig.frontProxy;
-      if (settingConfig.frontProxy.isNotEmpty) {
-        ProxyConfig? currentServer =
-            ServerManager.getConfig().getByTag(settingConfig.frontProxy);
-        if (currentServer == null) {
-          frontProxy = "";
-        }
-      }
       groupOptions.add(GroupItem(options: [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -570,47 +581,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             await onTapNetShare();
           },
         )),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.frontProxy,
-                tips: tcontext.SettingsScreen.frontProxyTips,
-                text: frontProxy,
-                style: TextStyle(
-                  fontFamily: Platform.isWindows ? 'Emoji' : null,
-                ),
-                onPush: () async {
-                  ProxyConfig? currentServer =
-                      settingConfig.frontProxy.isNotEmpty
-                          ? ServerManager.getConfig()
-                              .getByTag(settingConfig.frontProxy)
-                          : ProxyConfig();
-                  ProxyConfig? result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: ServerSelectScreen.routSettings(),
-                          builder: (context) => ServerSelectScreen(
-                                singleSelect:
-                                    ServerSelectScreenSingleSelectedOption(
-                                  selectedServer:
-                                      currentServer ?? ProxyConfig(),
-                                  showNone: true,
-                                  showAutoSelect: false,
-                                  showUrltestGroup: false,
-                                  showFav: false,
-                                  showRecommend: false,
-                                  showRecent: false,
-                                  showTranffic: false,
-                                  showUpdate: false,
-                                ),
-                                multiSelect: null,
-                              )));
-                  if (result != null &&
-                      result.tag != settingConfig.frontProxy) {
-                    settingConfig.frontProxy = result.tag;
-                    ServerManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
       ]));
     }
     groupOptions.add(GroupItem(options: [
@@ -685,7 +655,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           onSwitch: (bool value) async {
             ReturnResultError? err = await VPNService.setLaunchAtStartup(value);
             if (err != null) {
-              DialogUtils.showAlertDialog(context, err.message);
+              DialogUtils.showAlertDialog(context, err.message,
+                  showCopy: true, showFAQ: true, withVersion: true);
             }
             setState(() {});
           },
@@ -723,23 +694,22 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
 
     //////////////////////
-    if (Platform.isIOS /*|| Platform.isAndroid */ || Platform.isMacOS) {
-      //android不支持删除
+    if (Platform.isIOS || Platform.isMacOS /*|| Platform.isAndroid */) {
       groupOptions.add(GroupItem(options: [
         (Platform.isIOS || Platform.isMacOS)
             ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.SettingsScreen.removeSystemVPNConfig,
-                    onPush: () async {
-                      bool? del = await DialogUtils.showConfirmDialog(
-                          context, tcontext.removeConfirm);
-                      if (del == true) {
-                        ReturnResultError? err = await VPNService.uninstall();
-                        if (err != null) {
-                          DialogUtils.showAlertDialog(context, err.message);
-                        }
-                      }
-                    }))
+                switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.alwayOnVPN,
+                switchValue: settingConfig.alwayOn,
+                onSwitch: (bool value) async {
+                  settingConfig.alwayOn = value;
+                  if (!value) {
+                    FlutterVpnService.setAlwaysOn(value);
+                  }
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                },
+              ))
             : GroupItemOptions(),
         /*(Platform.isIOS || Platform.isAndroid)
               ? GroupItemOptions(
@@ -751,6 +721,25 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       }))
               : GroupItemOptions(),*/
       ]));
+      //android不支持删除
+      if (Platform.isIOS || Platform.isMacOS) {
+        groupOptions.add(GroupItem(options: [
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.removeSystemVPNConfig,
+                  onPush: () async {
+                    bool? del = await DialogUtils.showConfirmDialog(
+                        context, tcontext.removeConfirm);
+                    if (del == true) {
+                      ReturnResultError? err = await VPNService.uninstall();
+                      if (err != null) {
+                        DialogUtils.showAlertDialog(context, err.message,
+                            showCopy: true, showFAQ: true, withVersion: true);
+                      }
+                    }
+                  })),
+        ]));
+      }
     }
     //语言设置
     groupOptions.add(
@@ -918,7 +907,38 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             : GroupItemOptions(),
       ]));
     }
+    if (AdsPrivate.getEnable()) {
+      groupOptions.add(GroupItem(options: [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.removeBannerAds,
+                onPush: () async {
+                  AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'adsReward');
 
+                  bool? ok = await DialogUtils.showConfirmDialog(
+                      context, tcontext.removeBannerAdsByReward);
+                  if (ok == true) {
+                    DialogUtils.showLoadingDialog(context, text: "");
+                    AdsRewardWidget.loadGoogleRewardedAd((AdsRewardError? err) {
+                      Navigator.pop(context);
+                      if (err == null) {
+                        settingConfig.ads.bannerRewardExpire = DateTime.now()
+                            .add(const Duration(days: 7))
+                            .toString();
+                        setState(() {});
+                        DialogUtils.showAlertDialog(
+                            context, tcontext.removeBannerAdsByRewardDone);
+                      } else {
+                        DialogUtils.showAlertDialog(context, err.toString(),
+                            showCopy: true, showFAQ: true, withVersion: true);
+                      }
+                    });
+                  }
+                }))
+      ]));
+    }
     String? rateUrl = AppleUtils.getRateUrl();
     //其他设置
     groupOptions.add(GroupItem(options: [
@@ -1154,6 +1174,48 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     setState(() {});
   }
 
+  Future<void> onTapLatencyTest() async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(BuildContext context) async {
+      var settingConfig = SettingManager.getConfig();
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.url,
+                text: settingConfig.urlTest,
+                textWidthPercent: 0.4,
+                onPush: () async {
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          settings: UrlTestSettingsScreen.routSettings(),
+                          builder: (context) => const UrlTestSettingsScreen()));
+                  setState(() {});
+                })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+          name: tcontext.latencyTestResolveIP,
+          switchValue: settingConfig.latencyCheckResoveIP,
+          onSwitch: (bool value) async {
+            settingConfig.latencyCheckResoveIP = value;
+            setState(() {});
+          },
+        )),
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: GroupScreen.routSettings("latencyTest"),
+            builder: (context) => GroupScreen(
+                  title: tcontext.latencyTest,
+                  getOptions: getOptions,
+                )));
+    setState(() {});
+  }
+
   Future<void> onTapPort() async {
     final tcontext = Translations.of(context);
     const int minPort = 2048;
@@ -1164,16 +1226,29 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.portSettingRule,
-                text: settingConfig.proxy.mixedPort.toString(),
+                text: settingConfig.proxy.mixedRulePort.toString(),
                 onPush: () async {
                   int? p = await DialogUtils.showIntInputDialog(
                       context,
                       tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedPort,
+                      settingConfig.proxy.mixedRulePort,
                       minPort,
                       maxPort);
+
                   if (p != null) {
-                    settingConfig.proxy.mixedPort = p;
+                    List<int> ports = [
+                      //settingConfig.proxy.mixedRulePort,
+                      settingConfig.proxy.mixedDirectPort,
+                      settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                    ];
+                    if (ports.contains(p)) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
+                    settingConfig.proxy.mixedRulePort = p;
                     SettingManager.setDirty(true);
                     setState(() {});
                   }
@@ -1190,6 +1265,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       minPort,
                       maxPort);
                   if (p != null) {
+                    List<int> ports = [
+                      settingConfig.proxy.mixedRulePort,
+                      //settingConfig.proxy.mixedDirectPort,
+                      settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                    ];
+                    if (ports.contains(p)) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
                     settingConfig.proxy.mixedDirectPort = p;
                     SettingManager.setDirty(true);
                     setState(() {});
@@ -1207,6 +1294,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       minPort,
                       maxPort);
                   if (p != null) {
+                    List<int> ports = [
+                      settingConfig.proxy.mixedRulePort,
+                      settingConfig.proxy.mixedDirectPort,
+                      //settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                    ];
+                    if (ports.contains(p)) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
                     settingConfig.proxy.mixedForwordPort = p;
                     SettingManager.setDirty(true);
                     setState(() {});
@@ -1224,6 +1323,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       minPort,
                       maxPort);
                   if (p != null) {
+                    List<int> ports = [
+                      settingConfig.proxy.mixedRulePort,
+                      settingConfig.proxy.mixedDirectPort,
+                      settingConfig.proxy.mixedForwordPort,
+                      //settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                    ];
+                    if (ports.contains(p)) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
                     settingConfig.proxy.controlPort = p;
                     SettingManager.setDirty(true);
                     setState(() {});
@@ -1242,6 +1353,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           minPort,
                           maxPort);
                       if (p != null) {
+                        List<int> ports = [
+                          settingConfig.proxy.mixedRulePort,
+                          settingConfig.proxy.mixedDirectPort,
+                          settingConfig.proxy.mixedForwordPort,
+                          settingConfig.proxy.controlPort,
+                          //settingConfig.proxy.clusterPort,
+                        ];
+                        if (ports.contains(p)) {
+                          await DialogUtils.showAlertDialog(context,
+                              tcontext.SettingsScreen.modifyPortOccupied);
+                          return;
+                        }
                         settingConfig.proxy.clusterPort = p;
                         SettingManager.setDirty(true);
                         setState(() {});
@@ -1924,6 +2047,23 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       var settingConfig = SettingManager.getConfig();
+
+      String ipLocal = "127.0.0.1";
+      String ipInterface = ipLocal;
+      if (settingConfig.proxy.getAllowAllInbounds() ||
+          settingConfig.proxy.getClusterAllowAllInbounds()) {
+        List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces(
+            addressType: InternetAddressType.IPv4);
+        if (interfaces.isNotEmpty) {
+          ipInterface = interfaces.first.address;
+        }
+        for (var interf in interfaces) {
+          if (interf.name.startsWith("en") || interf.name.startsWith("wlan")) {
+            ipInterface = interf.address;
+            break;
+          }
+        }
+      }
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1942,11 +2082,15 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.SettingsScreen.allowOtherHostsConnect,
                 // ignore: prefer_interpolation_to_compose_strings
-                tips: tcontext.SettingsScreen.portSettingRule +
+                tips: (settingConfig.proxy.getAllowAllInbounds()
+                        ? ipInterface
+                        : ipLocal) +
+                    "\n" +
+                    tcontext.SettingsScreen.portSettingRule +
                     ":" +
                     tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedPort,
-                        sp: settingConfig.proxy.mixedPort) +
+                        hp: settingConfig.proxy.mixedRulePort,
+                        sp: settingConfig.proxy.mixedRulePort) +
                     "\n" +
                     tcontext.SettingsScreen.portSettingDirectAll +
                     ":" +
@@ -1977,25 +2121,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     switchValue: settingConfig.proxy.enableCluster,
                     onSwitch: (bool value) async {
                       settingConfig.proxy.enableCluster = value;
-
                       SettingManager.setDirty(true);
 
-                      if (value) {
-                        bool? del = await DialogUtils.showConfirmDialog(
-                            context, tcontext.SettingsScreen.clusterConfirm);
-                        if (del == true) {
-                          String? err = await ProxyCluster.start();
-                          if (err != null) {
-                            DialogUtils.showAlertDialog(
-                                context, err.toString());
-                          }
-                        } else {
-                          settingConfig.proxy.enableCluster = false;
-                          setState(() {});
-                        }
-                      } else {
-                        await ProxyCluster.stop();
-                      }
                       setState(() {});
                     }))
             : GroupItemOptions(),
@@ -2005,7 +2132,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
                     tips: tcontext.SettingsScreen
                         .clusterAllowOtherHostsConnectTips(
-                            hp: settingConfig.proxy.clusterPort),
+                            ip: settingConfig.proxy.getClusterAllowAllInbounds()
+                                ? ipInterface
+                                : ipLocal,
+                            port: settingConfig.proxy.clusterPort),
                     switchValue:
                         settingConfig.proxy.getClusterAllowAllInbounds(),
                     onSwitch: (bool value) async {
@@ -2205,7 +2335,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.SettingsScreen.handleKaringScheme,
-          switchValue: await SystemSchemeUtils.isRegistered(
+          switchValue: SystemSchemeUtils.isRegistered(
               SystemSchemeUtils.getKaringScheme()),
           onSwitch: (bool value) async {
             String? error;
@@ -2213,11 +2343,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               error = await SystemSchemeUtils.register(
                   SystemSchemeUtils.getKaringScheme());
             } else {
-              error = await SystemSchemeUtils.unregister(
+              error = SystemSchemeUtils.unregister(
                   SystemSchemeUtils.getKaringScheme());
             }
             if (error != null) {
-              DialogUtils.showAlertDialog(context, error);
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
             }
             setState(() {});
           },
@@ -2225,7 +2356,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.SettingsScreen.handleClashScheme,
-          switchValue: await SystemSchemeUtils.isRegistered(
+          switchValue: SystemSchemeUtils.isRegistered(
               SystemSchemeUtils.getClashScheme()),
           onSwitch: (bool value) async {
             String? error;
@@ -2233,11 +2364,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               error = await SystemSchemeUtils.register(
                   SystemSchemeUtils.getClashScheme());
             } else {
-              error = await SystemSchemeUtils.unregister(
+              error = SystemSchemeUtils.unregister(
                   SystemSchemeUtils.getClashScheme());
             }
             if (error != null) {
-              DialogUtils.showAlertDialog(context, error);
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
             }
             setState(() {});
           },
@@ -2245,7 +2377,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.SettingsScreen.handleSingboxScheme,
-          switchValue: await SystemSchemeUtils.isRegistered(
+          switchValue: SystemSchemeUtils.isRegistered(
               SystemSchemeUtils.getSingboxScheme()),
           onSwitch: (bool value) async {
             String? error;
@@ -2253,11 +2385,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               error = await SystemSchemeUtils.register(
                   SystemSchemeUtils.getSingboxScheme());
             } else {
-              error = await SystemSchemeUtils.unregister(
+              error = SystemSchemeUtils.unregister(
                   SystemSchemeUtils.getSingboxScheme());
             }
             if (error != null) {
-              DialogUtils.showAlertDialog(context, error);
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
             }
             setState(() {});
           },
@@ -2370,7 +2503,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!exist && created) {
         await dir!.delete();
       }
-      DialogUtils.showAlertDialog(context, err.toString());
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
     await VPNService.uninit();
