@@ -11,7 +11,6 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 
 
 English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./README_fa.md)
-### Note: The UI part is open source, and other dependencies will be open sourced in due course
 
 ## Features
 - Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
