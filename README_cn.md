@@ -10,7 +10,6 @@
 </h3>
 
 [英语](./README.md) | 中文 | [俄语](./README_ru.md) | [波斯文](./README_fa.md)
-### 注意:UI部分已开源,其他依赖将会陆续开源
 
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
