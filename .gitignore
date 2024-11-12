@@ -43,7 +43,6 @@ app.*.map.json
 /android/app/src/debug
 /android/app/src/profile
 /android/app/src/release
-/rust/target
 /logs
 /.vs
 /dist/*.apk

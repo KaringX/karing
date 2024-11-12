@@ -1,0 +1,16 @@
+appId: com.nebula.karing
+# relative path to the application's icon
+icon: logo-round.png
+
+script:
+
+include: []
+exclude: []
+# its true by default
+default_excludes: false
+
+files:
+  include: []
+  exclude: []
+  # its true by default
+  default_excludes: true
