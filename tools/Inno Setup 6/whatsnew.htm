@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Inno Setup 6 Revision History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style type="text/css">
+    body         { font: small verdana, arial, sans-serif; color: black; background-color: white }
+    a:link       { color: #264b99; background-color: white }
+    a:active     { color: #7799dd; background-color: white }
+    a:visited    { color: #5e85d7; background-color: white }
+    tt           { font: small "courier new", monospace }
+    li           { margin-top: 0.15em; margin-bottom: 0.15em }
+    div.bluehead { text-align: center; color: white; background-color: #264b99; padding: 5px; font-weight: bold }
+    .date        { font-size: x-small; font-weight: bold }
+    .head1       { font-size: xx-large }
+    .head2       { font-size: large }
+    .ver         { font-size: large; font-weight: bold }
+</style>
+</head>
+<body>
+
+<div class="bluehead"><span class="head1">Inno Setup 6</span><br /><span class="head2">Revision History</span></div>
+
+<p>Copyright &copy; 1997-2023 <a href="https://jrsoftware.org/">Jordan Russell</a>. All rights reserved.<br />
+Portions Copyright &copy; 2000-2023 Martijn Laan. All rights reserved.<br />
+For conditions of distribution and use, see <a href="https://jrsoftware.org/files/is/license.txt">LICENSE.TXT</a>.
+</p>
+
+<p><b>Want to be notified by e-mail of new Inno Setup releases?</b> <a href="https://jrsoftware.org/ismail.php">Subscribe</a> to the Inno Setup Mailing List!</p>
+
+<p><a name="6.2.2"></a><span class="ver">6.2.2 </span><span class="date">(2023-02-15)</span></p>
+<ul>
+  <li>Changes to further help protect against potential DLL preloading attacks, contributed by Johannes Schindelin from the Git for Windows team.</li>
+  <li>Pascal Scripting changes: Improved support for downloads using basic authentication, contributed by Christian Beck.
+  <ul>
+    <li>Added new <tt>AddEx</tt> function to the <tt>TDownloadWizardPage</tt> support class.</li>
+    <li>Added new <tt>SetDownloadCredentials</tt> support function.</li>
+  </ul>
+  <li>Added official Hungarian translation.</li>
+</ul>
+
+<p><a name="6.2.1"></a><span class="ver">6.2.1 </span><span class="date">(2022-04-14)</span></p>
+<ul>
+  <li>Changes to further help protect against potential DLL preloading attacks when running installers or uninstallers under the SYSTEM account, contributed by Johannes Schindelin from the Git for Windows team.</li>
+  <li>Fixed a cosmetic issue if the icon file specified by the [Setup] section directive <tt>SetupIconFile</tt> contains more than 13 icons. Thanks to Wilenty and Martin Prikryl for the initial investigation.</li>
+</ul>
+
+<p><a name="6.2.0"></a><span class="ver">6.2.0 </span><span class="date">(2021-06-03)</span></p>
+<p><span class="head2">Graphics modernized</span></p>
+<ul>
+  <li>Updated all Compiler IDE's toolbar icons and the wizard images used by the Compiler IDE's New Script Wizard wizard.</li>
+  <li>Updated the default application icon used by Setup and Uninstall if [Setup] section directive <tt>SetupIconFile</tt> is not set. To use the old icon again set <tt>SetupIconFile</tt> to <tt>compiler:SetupClassicIcon.ico</tt>.</li>
+  <li>[Setup] section directives <tt>WizardImageFile</tt> and <tt>WizardSmallImageFile</tt> now default to a blank value which makes Setup use new built-in wizard images.  To use the old wizard images again set <tt>WizardImageFile</tt> and <tt>WizardSmallImageFile</tt> to <tt>compiler:WizClassicImage.bmp</tt> and <tt>compiler:WizClassicSmallImage.bmp</tt> respectively.</li>
+  <li>Updated Uninstall's default small wizard image if [Setup] section directive <tt>SetupIconFile</tt> is not set. Before it would use Setup's default application icon in this case.</li>
+  <li>Updated the folder, group, and stop icons used by Setup's <i>Select Destination Location</i>, <i>Select Start Menu Folder</i>, and <i>Preparing to Install</i> wizard pages.</li>
+  <li>Updated the disk icon used by Setup's <i>Setup Needs the Next Disk</i> form.</li>
+  <li>Pascal Scripting change: Added new <tt>InitializeBitmapImageFromIcon</tt> support function.</li>
+</ul>
+<p>All these icon and images updates include the automatic use of higher quality versions (which were not available before) on higher DPI settings. This includes new automatic use of higher quality icons for the icon on Setup's <i>Select Setup Language</i> form and Uninstall's small wizard image if <tt>SetupIconFile</tt> is set.</p>
+<p>Example screenshots:</p>
+<ul>
+  <li>Setup wizard pages <a href="https://jrsoftware.org/images/is-welcome-org.png">Select Destination Location</a> and <a href="https://jrsoftware.org/images/is-finished-org.png">Setup Completed</a> at 100% DPI.</li>
+  <li>Setup wizard pages <a href="https://jrsoftware.org/images/is-welcome-org-175.png">Select Destination Location</a> and <a href="https://jrsoftware.org/images/is-finished-org-175.png">Setup Completed</a> at 175% DPI.</li>
+  <li>Compiler IDE themes <a href="https://jrsoftware.org/images/is-ide-org.png">Light</a> and <a href="https://jrsoftware.org/images/is-ide-dark-org.png">Dark</a> at 100% DPI.</li>
+</ul>
+<p>Comparison screenshots of the *previous* version:</p>
+<ul>
+  <li>Setup wizard pages <a href="https://jrsoftware.org/images/is-welcome-org-175-old.png">Select Destination Location</a> and <a href="https://jrsoftware.org/images/is-finished-org-175-old.png">Setup Completed</a> at 175% DPI in version 6.1.2.</li>
+</ul>
+<p><span class="head2">Other changes</span></p>
+<ul>
+  <li>Links displayed by [Setup] section directives <tt>LicenseFile</tt>, <tt>InfoBeforeFile</tt> and <tt>InfoAfterFile</tt> are now executed as the original user if possible when clicked.</li>
+  <li>Added new [Setup] section directives <tt>MissingMessagesWarning</tt> and <tt>NotRecognizedMessagesWarning</tt> to disable warnings about messages missing or not recognized for a language.</li>
+  <li>/LOG: Now logs more uninstaller actions.</li>
+  <li>The <tt>{localappdata}</tt> constant can now correctly trigger a <a href="https://jrsoftware.org/ishelp/index.php?topic=setup_useduserareaswarning">used user areas warning</a>.</li>
+  <li>Compiler IDE change: <i>Fix:</i> Autocomplete support for event functions listed some procedures as functions.</li>
+  <li>Pascal Scripting changes:
+  <ul>
+    <li>Added new <tt>CreateOutputMarqueeProgressPage</tt> support function to show marquee progress to the user. See the <i><a href="https://jrsoftware.github.io/issrc/Examples/AllPagesExample.iss">AllPagesExample.iss</a></i> example script for an example.</li>
+    <li>Added new <tt>ItemFontStyle</tt> and <tt>SubItemFontStyle</tt> properties to the <tt>TNewCheckListBox</tt> support class. See the <i><a href="https://jrsoftware.github.io/issrc/Examples/CodeClasses.iss">CodeClasses.iss</a></i> example script for an example.</li>
+    <li>Added new <tt>IsMsiProductInstalled</tt> and <tt>StrToVersion</tt> support functions.</li>
+    <li>Added new <tt>AbortedByUser</tt> property to the <tt>TDownloadWizardPage</tt> support class.</li>
+    <li><i>Fix:</i> <tt>CreateDownloadPage</tt>'s progress bar now supports files larger than 2 GB.</li>
+    <li>Support functions <tt>ParamCount</tt> and <tt>ParamStr</tt> now exclude undocumented internal parameters used by Setup and Uninstall.</li>
+    <li>The built-in download support now allows the download of files for which the server does not specify the file size and its hash checking is no longer case sensitive.</li>
+  </ul>
+  </li>
+  <li>ISPP change: Added new <tt>StrToVersion</tt> support function.</li>
+  <li>Added official Bulgarian translation.</li>
+  <li>Various documentation improvements.</li>
+  <li>Minor tweaks.</li>
+</ul>
+<p><span class="head2">Inno Setup FAQ updated</span></p>
+<ul>
+  <li>The <a href="https://jrsoftware.org/isfaq.php">Inno Setup FAQ</a> has been updated with updated versions of articles taken from the Inno Setup Knowledge Base which is now hidden from the website.</li>
+  <li>The content of the FAQ is now <a href="https://github.com/jrsoftware/isfaq/blob/main/isfaq.html">available on GitHub</a> where you can suggest new entries or other improvements using the Edit button.</li>
+</ul>
+<p><span class="head2">QuickStart Pack removed</span></p>
+<ul>
+  <li>The QuickStart Pack installer has been removed because of a lack of added value.</li>
+  <li>The standard Inno Setup installer now offers to download encryption support if it's missing, like the QuickStart Pack installer did before. If you used the QuickStart Pack installer before, you can use the standard installer to update your installation.</li>
+</ul>
+
+<p>Contributions via <a href="https://github.com/jrsoftware/issrc" target="_blank">GitHub</a>: <b>Thanks to Sergii Leonov and Dom Gries for their contributions.</b></p>
+
+<p><a href="https://jrsoftware.org/files/is6.1-whatsnew.htm">Inno Setup 6.1 Revision History</a></p >
+
+</body>
+</html>

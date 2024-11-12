@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -23,6 +24,7 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/net_connections_screen.dart';
+import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
@@ -41,13 +43,15 @@ class HomeTVOSScreen extends LasyRenderingStatefulWidget {
   final String cport;
   final String uuid;
   final String secret;
+  final String version;
   const HomeTVOSScreen(
       {super.key,
       required this.host,
       required this.port,
       required this.cport,
       required this.uuid,
-      required this.secret});
+      required this.secret,
+      required this.version});
 
   @override
   State<HomeTVOSScreen> createState() => _HomeTVOSScreenState();
@@ -311,7 +315,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                     ),
                   ),
                   SizedBox(
-                    width: windowSize.width - 50 * 3,
+                    width: windowSize.width - 50 * 4,
                     child: Text(
                       tcontext.appleTV,
                       textAlign: TextAlign.center,
@@ -355,6 +359,22 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                                   children: [
                                     Icon(Icons.remove_circle_outlined,
                                         size: 26, color: Colors.red),
+                                  ]),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                          child: Tooltip(
+                            message: "",
+                            child: InkWell(
+                              onTap: () async {
+                                onTapMore();
+                              },
+                              child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.more_vert_outlined, size: 26),
                                   ]),
                             ),
                           ),
@@ -661,6 +681,36 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     );
   }
 
+  Future<void> GetFile(String fileName) async {
+    var setting = SettingManager.getConfig();
+
+    String url =
+        "http://${widget.host}:${widget.port}/${AppSchemeUtils.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
+    ReturnResult<String> result = await HttpUtils.httpGetRequest(
+        url, setting.proxy.mixedDirectPort, null, null, null, null);
+    if (result.error != null) {
+      if (!mounted) {
+        return;
+      }
+      if (result.error!.message.contains("404")) {
+        final tcontext = Translations.of(context);
+        DialogUtils.showAlertDialog(
+            context, tcontext.appleTV404(p: widget.version));
+      } else {
+        DialogUtils.showAlertDialog(context, result.error!.message);
+      }
+
+      return;
+    }
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: RichtextViewScreen.routSettings(),
+            builder: (context) => RichtextViewScreen(
+                title: fileName, file: "", content: result.data!)));
+  }
+
   Future<void> onTapSyncCoreConfig() async {
     final tcontext = Translations.of(context);
     String savePath = path.join(await PathUtils.cacheDir(), 'tvos_sync.json');
@@ -750,5 +800,32 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
     }
+  }
+
+  void onTapMore() {
+    showMenu(
+        context: context,
+        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
+        items: [
+          PopupMenuItem(
+            value: 1,
+            child: Text(PathUtils.serviceCoreConfigFileName()),
+            onTap: () async {
+              return await GetFile(PathUtils.serviceCoreConfigFileName());
+            },
+          ),
+          PopupMenuItem(
+              value: 1,
+              child: Text(PathUtils.serviceLogFileName()),
+              onTap: () async {
+                await GetFile(PathUtils.serviceLogFileName());
+              }),
+          PopupMenuItem(
+              value: 1,
+              child: Text(PathUtils.serviceStdErrorFileName()),
+              onTap: () async {
+                await GetFile(PathUtils.serviceStdErrorFileName());
+              }),
+        ]);
   }
 }

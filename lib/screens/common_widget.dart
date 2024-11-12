@@ -257,7 +257,7 @@ class CommonWidget {
     return await showDialog<void>(
         context: context,
         routeSettings: const RouteSettings(name: "showISPOpDialog"),
-        barrierDismissible: false, //点击遮罩不关闭对话框
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return SimpleDialog(
             children: [

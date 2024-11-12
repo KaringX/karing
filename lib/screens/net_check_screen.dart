@@ -355,7 +355,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       }
     }
     ReturnResult<String> result = await ClashApi.getDelay(
-        settingConfig.proxy.controlPort, realTag,
+        settingConfig.proxy.controlPort, realTag, settingConfig.urlTestTimeout,
         url: SettingManager.getConfig().urlTest);
     if (!mounted) {
       return false;
@@ -367,7 +367,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     String strategy = settingConfig.ipStrategy.name;
     if (NetworkUtils.isDomain(domain, false)) {
       ReturnResult<String> resultDns = await ClashApi.dnsQueryWithDefaultRouter(
-          settingConfig.proxy.controlPort, domain, strategy); //sb内默认为10s
+          settingConfig.proxy.controlPort, domain, strategy);
       if (!mounted) {
         return false;
       }

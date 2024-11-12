@@ -111,7 +111,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       ),
                     ),
                     SizedBox(
-                      width: windowSize.width - 50 * 2,
+                      width: windowSize.width - 50 * 3,
                       child: Text(
                         widget.title,
                         textAlign: TextAlign.center,

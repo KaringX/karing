@@ -52,7 +52,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
                             width: 50,
                           ),
                           SizedBox(
-                            width: windowSize.width - 50 * 2,
+                            width: windowSize.width - 50 - 65,
                             child: Text(
                               tcontext.setting,
                               textAlign: TextAlign.center,

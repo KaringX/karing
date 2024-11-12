@@ -430,10 +430,16 @@ class _DiversionGroupCustomScreenState
               return;
             }
             final box = context.findRenderObject() as RenderBox?;
-            Share.shareXFiles([XFile(filePath)],
+            await Share.shareXFiles([XFile(filePath)],
                 sharePositionOrigin:
                     box!.localToGlobal(Offset.zero) & box.size);
-          } catch (err) {}
+          } catch (err) {
+            if (!mounted) {
+              return;
+            }
+            DialogUtils.showAlertDialog(context, err.toString(),
+                showCopy: true, showFAQ: true, withVersion: true);
+          }
         }
       }
     } catch (err, stacktrace) {

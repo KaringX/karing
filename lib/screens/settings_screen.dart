@@ -166,17 +166,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       List<GroupItem> data =
                           snapshot.hasData ? snapshot.data! : [];
                       List<Widget> children = [];
-                      if (AdsPrivate.getEnable()) {
+                      /*if (AdsPrivate.getEnable()) {
                         var settingConfig = SettingManager.getConfig();
                         var expire = DateTime.tryParse(
                             settingConfig.ads.bannerRewardExpire);
                         if (expire == null || DateTime.now().isAfter(expire)) {
                           children.add(AdsBannerWidget(
+                              fixedHeight: false,
                               adWidth: windowSize.width,
                               bannerName: "banner2"));
                           children.add(const SizedBox(height: 20));
                         }
-                      }
+                      }*/
                       children
                           .addAll(GroupItemCreator.createGroups(context, data));
                       return Column(children: children);
@@ -414,7 +415,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 })),
       ]));
     }
-    //添加配置
+
     groupOptions.add(GroupItem(options: [
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
@@ -601,9 +602,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
     //
     if (PlatformUtils.isPC()) {
-      // inbound变更需要重启服务
-      //代理出口为 "outbounds": [ { "protocol": "redirect"  }]
-      //系统代理
       groupOptions.add(GroupItem(options: [
         Platform.isWindows
             ? GroupItemOptions(
@@ -647,7 +645,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
     if (Platform.isWindows) {
       groupOptions.add(GroupItem(options: [
-        // 开机启动 macos 沙盒无法使用开机启动
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
           name: tcontext.SettingsScreen.launchAtStartup,
@@ -721,7 +718,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       }))
               : GroupItemOptions(),*/
       ]));
-      //android不支持删除
+
       if (Platform.isIOS || Platform.isMacOS) {
         groupOptions.add(GroupItem(options: [
           GroupItemOptions(
@@ -741,7 +738,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ]));
       }
     }
-    //语言设置
+
     groupOptions.add(
       GroupItem(options: [
         GroupItemOptions(
@@ -839,7 +836,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ]),
     );
 
-    //testFlight ;appstore
     bool showTestFlight =
         AppleUtils.getTestFlightUrl().isNotEmpty && (appStore == false);
     bool showAppStore = AppleUtils.getAppStoreUrl().isNotEmpty;
@@ -908,39 +904,59 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ]));
     }
     if (AdsPrivate.getEnable()) {
+      String expireTime = "";
+      DateTime? date = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
+      if (date != null) {
+        if (!DateTime.now().isAfter(date)) {
+          try {
+            expireTime = DateFormat.yMd(settingConfig.languageTag).format(date);
+          } catch (e) {}
+        }
+      }
+
       groupOptions.add(GroupItem(options: [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.removeBannerAds,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'adsReward');
+                text: expireTime,
+                onPush: expireTime.isNotEmpty
+                    ? null
+                    : () async {
+                        AnalyticsUtils.logEvent(
+                            analyticsEventType: analyticsEventTypeUA,
+                            name: 'adsReward');
 
-                  bool? ok = await DialogUtils.showConfirmDialog(
-                      context, tcontext.removeBannerAdsByReward);
-                  if (ok == true) {
-                    DialogUtils.showLoadingDialog(context, text: "");
-                    AdsRewardWidget.loadGoogleRewardedAd((AdsRewardError? err) {
-                      Navigator.pop(context);
-                      if (err == null) {
-                        settingConfig.ads.bannerRewardExpire = DateTime.now()
-                            .add(const Duration(days: 7))
-                            .toString();
-                        setState(() {});
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.removeBannerAdsByRewardDone);
-                      } else {
-                        DialogUtils.showAlertDialog(context, err.toString(),
-                            showCopy: true, showFAQ: true, withVersion: true);
-                      }
-                    });
-                  }
-                }))
+                        bool? ok = await DialogUtils.showConfirmDialog(
+                            context, tcontext.removeBannerAdsByReward);
+                        if (ok == true) {
+                          DialogUtils.showLoadingDialog(context, text: "");
+                          AdsRewardWidget.loadGoogleRewardedAd(
+                              (AdsRewardError? err) {
+                            if (!mounted) {
+                              return;
+                            }
+                            Navigator.pop(context);
+                            if (err == null) {
+                              settingConfig.ads.bannerRewardExpire =
+                                  DateTime.now()
+                                      .add(const Duration(days: 7))
+                                      .toString();
+                              setState(() {});
+                              DialogUtils.showAlertDialog(context,
+                                  tcontext.removeBannerAdsByRewardDone);
+                            } else {
+                              DialogUtils.showAlertDialog(
+                                  context, err.toString(),
+                                  showCopy: true,
+                                  showFAQ: true,
+                                  withVersion: true);
+                            }
+                          });
+                        }
+                      }))
       ]));
     }
     String? rateUrl = AppleUtils.getRateUrl();
-    //其他设置
     groupOptions.add(GroupItem(options: [
       follow.isNotEmpty
           ? GroupItemOptions(
@@ -1103,7 +1119,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 fullscreenDialog: true,
                 builder: (context) => const VersionUpdateScreen(force: false)));
       } else {
-        //android下需要使用系统浏览器打开下载,karing内置打开的无法正常安装
         UrlLauncherUtils.loadUrl(versionCheck.url,
             mode: Platform.isAndroid
                 ? LaunchMode.externalApplication
@@ -1190,6 +1205,24 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       MaterialPageRoute(
                           settings: UrlTestSettingsScreen.routSettings(),
                           builder: (context) => const UrlTestSettingsScreen()));
+                  setState(() {});
+                })),
+        GroupItemOptions(
+            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+                name: tcontext.latencyTestTimeout,
+                duration: Duration(seconds: settingConfig.urlTestTimeout),
+                showDays: false,
+                showHours: false,
+                showMinutes: false,
+                showDisable: false,
+                onPicker: (bool canceled, Duration? duration) async {
+                  if (canceled || duration == null) {
+                    return;
+                  }
+                  if (duration.inSeconds < 2 || duration.inSeconds > 10) {
+                    duration = const Duration(seconds: 8);
+                  }
+                  settingConfig.urlTestTimeout = duration.inSeconds;
                   setState(() {});
                 })),
         GroupItemOptions(
@@ -1459,7 +1492,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                     name: "UDP ${tcontext.timeout}",
                     duration: settingConfig.tun.udpTimeout,
-                    notShowDisable: true,
+                    showDisable: false,
                     onPicker: (bool canceled, Duration? duration) async {
                       if (canceled) {
                         return;
@@ -1715,7 +1748,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItem(options: options0),
         GroupItem(options: options1),
         GroupItem(options: options2),
-        GroupItem(options: options3) //todo 开启后无法正常连接
+        GroupItem(options: options3)
       ];
     }
 
@@ -1947,7 +1980,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 name: tcontext.SettingsScreen.autoSelectServerInterval,
                 tips: tcontext.SettingsScreen.autoSelectServerIntervalTips,
                 duration: settingConfig.autoSelect.timerInterval,
-                notShowDisable: true,
+                showDisable: false,
                 onPicker: (bool canceled, Duration? duration) async {
                   if (canceled) {
                     return;
@@ -2110,7 +2143,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
                   setState(() {});
                 })),
-        //GroupItemOptions(type: "push", text: "Socks代理认证设置", onPush: () {}),
       ];
 
       List<GroupItemOptions> options2 = [
@@ -2294,7 +2326,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   }
 
   Future<String> onTapFilterInvalidServerNum() async {
-    //如果返回Future<void>, 代码在执行await DialogUtils.showTextInputDialog后就直接返回了,不会继续等下面代码执行完后再返回,会导致数据没有刷新
     final tcontext = Translations.of(context);
 
     String? text = await DialogUtils.showTextInputDialog(

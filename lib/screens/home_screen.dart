@@ -19,6 +19,7 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/ads_banner_widget_private.dart';
+import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_scheme_utils.dart';
@@ -65,10 +66,12 @@ import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/user_agreement_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/segmented_button.dart';
 import 'package:move_to_background/move_to_background.dart';
 import 'package:path/path.dart' as path;
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 import 'package:vpn_service/state.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -76,7 +79,8 @@ class Header {
   String tooltip = "";
   IconData? iconData;
   VoidCallback? onTap;
-  Header(this.tooltip, this.iconData, this.onTap);
+  FocusNode focus;
+  Header(this.tooltip, this.iconData, this.onTap, this.focus);
 }
 
 class HomeScreen extends LasyRenderingStatefulWidget {
@@ -100,8 +104,27 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   static const String kLocalNotificationsIdNetState = "netState";
   static const String kLocalNotificationsIdVpnState = "vpnState";
   final FocusNode _focusNodeSettings = FocusNode();
+  final FocusNode _focusNodeTheme = FocusNode();
   final FocusNode _focusNodeSwitch = FocusNode();
   final FocusNode _focusNodeSelect = FocusNode();
+
+  final FocusNode _focusNodeSystemProxyTips = FocusNode();
+  final FocusNode _focusNodeSystemProxy = FocusNode();
+  final FocusNode _focusNodeRule = FocusNode();
+  final FocusNode _focusNodeGlobal = FocusNode();
+  final FocusNode _focusNodeConnections = FocusNode();
+
+  final FocusNode _focusNodeMyProfiles = FocusNode();
+  final FocusNode _focusNodeAddProfile = FocusNode();
+  final FocusNode _focusNodeDNS = FocusNode();
+  final FocusNode _focusNodeDeversion = FocusNode();
+  final FocusNode _focusNodeNetcheck = FocusNode();
+  final FocusNode _focusNodeSpeedtest = FocusNode();
+  final FocusNode _focusNodeMyLink = FocusNode();
+  final FocusNode _focusNodeAppleTV = FocusNode();
+  final FocusNode _focusNodeMore = FocusNode();
+  List<FocusNode> _focusNodeToolbar = [];
+
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
   bool _wsConnecting = false;
@@ -264,19 +287,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String errorPath = await PathUtils.serviceStdErrorFilePath();
     String? content = await FileUtils.readAndDelete(errorPath);
     if (content != null && content.isNotEmpty) {
-      AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeApp,
-          name: 'HSS_checkError',
-          parameters: {
-            "err": content,
-            "from": from,
-            "currentSelectorTag": _currentServerForSelector.now,
-          });
-
-      String msg = content.replaceAll("sing-box", "");
-
-      await DialogUtils.showAlertDialog(context, msg,
-          showCopy: true, showFAQ: true, withVersion: true);
+      content = content.replaceAll("sing-box", "");
+      if (!content.contains("Config expired, Please start from app")) {
+        AnalyticsUtils.logEvent(
+            analyticsEventType: analyticsEventTypeApp,
+            name: 'HSS_checkError',
+            parameters: {
+              "err": content,
+              "from": from,
+              "currentSelectorTag": _currentServerForSelector.now,
+            });
+        await DialogUtils.showAlertDialog(context, content,
+            showCopy: true, showFAQ: true, withVersion: true);
+      }
     }
   }
 
@@ -552,6 +575,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   void _init() async {
     Biz.onInitFinish(() async {
       DialogUtils.faqCallback = () async {
+        AnalyticsUtils.logEvent(
+            analyticsEventType: analyticsEventTypeUA,
+            name: 'SSS_faq',
+            parameters: {"from": "DialogUtils"});
         var remoteConfig = RemoteConfigManager.getConfig();
         String queryParams = await KaringUrlUtils.getQueryParams();
         return UrlLauncherUtils.reorganizationUrl(
@@ -920,7 +947,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
   }
 
-  Future<ReturnResultError?> setServer() async {
+  Future<Tuple2<ReturnResultError?, int?>> setServer() async {
     final tcontext = Translations.of(context);
     String savePath = await PathUtils.serviceCoreConfigFilePath();
     VPNServiceSetServerOptions options = VPNServiceSetServerOptions();
@@ -930,7 +957,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ReturnResultError? err = await VPNService.setServer(
         _currentServer, options, SingboxExportType.karing, null, "", savePath);
     if (err != null) {
-      return err;
+      return Tuple2(err, options.allOutboundsTags.length);
     }
     if (Platform.isIOS) {
       const int maxCount = 1500;
@@ -951,7 +978,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
 
-    return null;
+    return Tuple2(null, options.allOutboundsTags.length);
   }
 
   Future<void> setServerAndReload(String from) async {
@@ -967,9 +994,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _isStarted = false;
     _canConnect = _isStarted;
     setState(() {});
-    ReturnResultError? err = await setServer();
-    if (err == null) {
-      err = await VPNService.reload();
+    var result = await setServer();
+    bool tunMode = await VPNService.getTunMode();
+    if (result.item1 == null) {
+      var err = await VPNService.reload(
+          VPNService.getTimeoutByOutboundCount(result.item2!));
       _isStarting = false;
       _isStarted = err == null;
       _canConnect = _isStarted;
@@ -981,7 +1010,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             parameters: {
               "err": err.message,
               "from": from,
-              "tunMode": await VPNService.getTunMode(),
+              "tunMode": tunMode,
+              "count": result.item2,
               "currentSelectorTag": _currentServerForSelector.now,
             });
         CommonDialog.handleStartError(context, err.message);
@@ -1620,30 +1650,36 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _isStarted = false;
     _canConnect = _isStarted;
     setState(() {});
-    ReturnResultError? err = await setServer();
-    if (err != null) {
+    var result = await setServer();
+    bool tunMode = await VPNService.getTunMode();
+    if (result.item1 != null) {
       _isStarting = false;
       _isStarted = false;
       Biz.vpnStateChanged(_isStarted);
       _canConnect = _isStarted;
       setState(() {});
-      AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeApp,
-          name: 'HSS_start',
-          parameters: {
-            "err": err.message,
-            "from": from,
-            "tunMode": await VPNService.getTunMode(),
-            "currentSelectorTag": _currentServerForSelector.now,
-          });
-      if (!disableShowAlertDialog) {
-        CommonDialog.handleStartError(context, err.message);
+      if (result.item1!.report) {
+        AnalyticsUtils.logEvent(
+            analyticsEventType: analyticsEventTypeApp,
+            name: 'HSS_start',
+            parameters: {
+              "err": result.item1!.message,
+              "from": from,
+              "tunMode": tunMode,
+              "count": result.item2,
+              "currentSelectorTag": _currentServerForSelector.now,
+            });
       }
-      return err;
+
+      if (!disableShowAlertDialog) {
+        CommonDialog.handleStartError(context, result.item1!.message);
+      }
+      return result.item1;
     }
     ServerManager.setDirty(false);
     SettingManager.setDirty(false);
-    err = await VPNService.start();
+    var err = await VPNService.start(
+        VPNService.getTimeoutByOutboundCount(result.item2!));
     _isStarting = false;
     _isStarted = err == null;
     Biz.vpnStateChanged(_isStarted);
@@ -1657,7 +1693,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         parameters: {
           "err": (err != null) ? err.message : null,
           "from": from,
-          "tunMode": await VPNService.getTunMode(),
+          "tunMode": tunMode,
+          "count": result.item2,
           "currentSelectorTag": _currentServerForSelector.now,
         });
     if (err != null) {
@@ -1821,8 +1858,27 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   @override
   void dispose() {
     _focusNodeSettings.dispose();
+    _focusNodeTheme.dispose();
     _focusNodeSwitch.dispose();
     _focusNodeSelect.dispose();
+
+    _focusNodeSystemProxyTips.dispose();
+    _focusNodeSystemProxy.dispose();
+    _focusNodeRule.dispose();
+    _focusNodeGlobal.dispose();
+    _focusNodeConnections.dispose();
+
+    _focusNodeToolbar.clear();
+    _focusNodeMyProfiles.dispose();
+    _focusNodeAddProfile.dispose();
+    _focusNodeDNS.dispose();
+    _focusNodeDeversion.dispose();
+    _focusNodeNetcheck.dispose();
+    _focusNodeSpeedtest.dispose();
+    _focusNodeMyLink.dispose();
+    _focusNodeAppleTV.dispose();
+    _focusNodeMore.dispose();
+
     ErrorReporterUtils.register(null);
     _timer?.cancel();
     _timer = null;
@@ -1842,42 +1898,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     AutoUpdateCheckVersion checkVersion = AutoUpdateManager.getVersionCheck();
     NoticeItem? noticeItem = NoticeManager.getNotice().getFirstUnread();
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    bool showAds = false;
+    if (AdsPrivate.getEnable()) {
+      var expire = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
+      showAds = expire == null || DateTime.now().isAfter(expire);
+    }
 
-    var expire = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
-    bool showAds = expire == null || DateTime.now().isAfter(expire);
-
+    double height =
+        AdsBannerWidget.getRealHeight(true, showAds, AdsBannerWidget.adHeight);
     var themes = Provider.of<Themes>(context, listen: false);
     Color? color = themes.getThemeHomeColor(context);
-    return Focus(
-        autofocus: true,
-        includeSemantics: true,
-        onKeyEvent: (FocusNode node, KeyEvent event) {
-          if (event is KeyDownEvent) {
-            switch (event.logicalKey) {
-              case LogicalKeyboardKey.contextMenu:
-                var focus = [
-                  _focusNodeSettings,
-                  _focusNodeSwitch,
-                  _focusNodeSelect
-                ];
-                int? focusIndex;
-                for (int i = 0; i < focus.length; ++i) {
-                  if (focus[i].hasFocus) {
-                    focusIndex = i;
-                    break;
-                  }
-                }
-                if (focusIndex == null) {
-                  _focusNodeSwitch.requestFocus();
-                } else {
-                  focus[(focusIndex + 1) % focus.length].requestFocus();
-                }
 
-                return KeyEventResult.handled;
-            }
-          }
-          return KeyEventResult.ignored;
-        },
+    return Focus(
+        autofocus: false,
+        includeSemantics: true,
+        onKeyEvent: onKeyEvent,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.zero,
@@ -1948,6 +1983,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                       Tooltip(
                         message: tcontext.SettingsScreen.theme,
                         child: InkWell(
+                          focusNode: _focusNodeTheme,
                           onTap: () async {
                             onTapSetTheme();
                           },
@@ -1971,10 +2007,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                         const SizedBox(
                           height: 20,
                         ),
-                        AdsBannerWidget(
-                          adWidth: windowSize.width,
-                          mask: showAds ? null : color,
-                        ),
+                        showAds
+                            ? AdsBannerWidget(
+                                fixedHeight: true,
+                                adWidth: windowSize.width,
+                              )
+                            : SizedBox(
+                                height: height,
+                              ),
                         Container(
                           alignment: Alignment.center,
                           child: Stack(children: [
@@ -2104,6 +2144,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                                       sp: settingConfig
                                                           .proxy.mixedRulePort),
                                               child: InkWell(
+                                                focusNode:
+                                                    _focusNodeSystemProxyTips,
                                                 onTap: () {
                                                   DialogUtils.showAlertDialog(
                                                       context,
@@ -2136,6 +2178,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                             builder: (BuildContext context,
                                                 AsyncSnapshot<bool> snapshot) {
                                               return Switch.adaptive(
+                                                focusNode:
+                                                    _focusNodeSystemProxy,
                                                 value: snapshot.hasData &&
                                                     snapshot.data!,
                                                 activeColor: ThemeDefine
@@ -2163,10 +2207,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                               height: 10,
                             ),
                             SizedBox(
-                              child: SegmentedButton<bool>(
-                                segments: <ButtonSegment<bool>>[
-                                  ButtonSegment<bool>(
+                              child: SegmentedButtonEx<bool>(
+                                segments: <ButtonSegmentEx<bool>>[
+                                  ButtonSegmentEx<bool>(
                                       value: false,
+                                      focusNode: _focusNodeRule,
                                       label: Text(
                                         tcontext.rule,
                                         style: const TextStyle(
@@ -2174,8 +2219,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                               ThemeConfig.kFontSizeListSubItem,
                                         ),
                                       )),
-                                  ButtonSegment<bool>(
+                                  ButtonSegmentEx<bool>(
                                       value: true,
+                                      focusNode: _focusNodeGlobal,
                                       label: Text(
                                         tcontext.global,
                                         style: const TextStyle(
@@ -2226,6 +2272,90 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         ));
   }
 
+  KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent) {
+      List<List<FocusNode>> nodes = [];
+      List<FocusNode> node1 = [_focusNodeSettings];
+      node1.addAll(_focusNodeToolbar);
+      node1.add(_focusNodeTheme);
+      nodes.add(node1);
+      nodes.add([_focusNodeSwitch]);
+      if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+        nodes.add([_focusNodeSystemProxyTips, _focusNodeSystemProxy]);
+      }
+      nodes.add([_focusNodeRule, _focusNodeGlobal]);
+      nodes.add([_focusNodeConnections]);
+      nodes.add([_focusNodeSelect]);
+
+      switch (event.logicalKey) {
+        case LogicalKeyboardKey.contextMenu:
+          var focus = [_focusNodeSettings, _focusNodeSwitch, _focusNodeSelect];
+          int? focusIndex;
+          for (int i = 0; i < focus.length; ++i) {
+            if (focus[i].hasFocus) {
+              focusIndex = i;
+              break;
+            }
+          }
+          if (focusIndex == null) {
+            _focusNodeSwitch.requestFocus();
+          } else {
+            focus[(focusIndex + 1) % focus.length].requestFocus();
+          }
+          return KeyEventResult.handled;
+        case LogicalKeyboardKey.arrowUp:
+          for (int i = 1; i < nodes.length; ++i) {
+            List<FocusNode> node = nodes[i];
+            for (int j = 0; j < node.length; ++j) {
+              if (node[j].hasFocus) {
+                nodes[i - 1][0].requestFocus();
+                return KeyEventResult.handled;
+              }
+            }
+          }
+
+          return KeyEventResult.handled;
+        case LogicalKeyboardKey.arrowDown:
+          for (int i = 0; i < nodes.length - 1; ++i) {
+            List<FocusNode> node = nodes[i];
+            for (int j = 0; j < node.length; ++j) {
+              if (node[j].hasFocus) {
+                nodes[i + 1][0].requestFocus();
+                return KeyEventResult.handled;
+              }
+            }
+          }
+
+          return KeyEventResult.handled;
+        case LogicalKeyboardKey.arrowLeft:
+          for (int i = 0; i < nodes.length; ++i) {
+            List<FocusNode> node = nodes[i];
+            for (int j = 1; j < node.length; ++j) {
+              if (node[j].hasFocus) {
+                node[j - 1].requestFocus();
+                return KeyEventResult.handled;
+              }
+            }
+          }
+
+          return KeyEventResult.handled;
+        case LogicalKeyboardKey.arrowRight:
+          for (int i = 0; i < nodes.length; ++i) {
+            List<FocusNode> node = nodes[i];
+            for (int j = 0; j < node.length - 1; ++j) {
+              if (node[j].hasFocus) {
+                node[j + 1].requestFocus();
+                return KeyEventResult.handled;
+              }
+            }
+          }
+
+          return KeyEventResult.handled;
+      }
+    }
+    return KeyEventResult.ignored;
+  }
+
   List<Widget> createToolbar() {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
@@ -2236,37 +2366,39 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (maxCount < 0) {
       maxCount = 7;
     }
+
     List<Header> headerWidgets = [];
     if (settingConfig.uiScreen.homeShowMyProfiles) {
       headerWidgets.add(Header(tcontext.MyProfilesScreen.title,
-          Icons.list_alt_outlined, onTapMyProfiles));
+          Icons.list_alt_outlined, onTapMyProfiles, _focusNodeMyProfiles));
     }
     if (settingConfig.uiScreen.homeShowAddProfile) {
-      headerWidgets.add(
-          Header(tcontext.addProfile, Icons.add_outlined, onTapAddProfile));
+      headerWidgets.add(Header(tcontext.addProfile, Icons.add_outlined,
+          onTapAddProfile, _focusNodeAddProfile));
     }
     if (settingConfig.uiScreen.homeShowDNS) {
-      headerWidgets.add(Header(tcontext.dns, Icons.dns_outlined, onTapDNS));
+      headerWidgets.add(
+          Header(tcontext.dns, Icons.dns_outlined, onTapDNS, _focusNodeDNS));
     }
     if (settingConfig.uiScreen.homeShowDeversion) {
-      headerWidgets.add(
-          Header(tcontext.diversion, Icons.alt_route_outlined, onTapDiversion));
+      headerWidgets.add(Header(tcontext.diversion, Icons.alt_route_outlined,
+          onTapDiversion, _focusNodeDeversion));
     }
     if (settingConfig.uiScreen.homeShowNetcheck) {
       headerWidgets.add(Header(tcontext.NetCheckScreen.title,
-          Icons.network_check_outlined, onTapNetCheck));
+          Icons.network_check_outlined, onTapNetCheck, _focusNodeNetcheck));
     }
     if (settingConfig.uiScreen.homeShowSpeedtest) {
       headerWidgets.add(Header(tcontext.SettingsScreen.speedTest,
-          Icons.speed_outlined, onTapSpeedTest));
+          Icons.speed_outlined, onTapSpeedTest, _focusNodeSpeedtest));
     }
     if (settingConfig.uiScreen.homeShowMyLink) {
-      headerWidgets.add(Header(
-          tcontext.SettingsScreen.myLink, Icons.link_outlined, onTapLink));
+      headerWidgets.add(Header(tcontext.SettingsScreen.myLink,
+          Icons.link_outlined, onTapLink, _focusNodeMyLink));
     }
     if (settingConfig.uiScreen.homeShowAppleTV && PlatformUtils.isMobile()) {
-      headerWidgets
-          .add(Header(tcontext.appleTV, Icons.live_tv_outlined, onTapAppleTV));
+      headerWidgets.add(Header(tcontext.appleTV, Icons.live_tv_outlined,
+          onTapAppleTV, _focusNodeAppleTV));
     }
     List<Header> visibleWidgets = [];
     List<Header> moreWidgets = [];
@@ -2277,11 +2409,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       visibleWidgets = headerWidgets;
     }
     List<Widget> widgets = [];
-
+    _focusNodeToolbar.clear();
     for (var widget in visibleWidgets) {
+      _focusNodeToolbar.add(widget.focus);
       widgets.add(Tooltip(
           message: widget.tooltip,
           child: InkWell(
+              focusNode: widget.focus,
               onTap: widget.onTap,
               child: Stack(
                 children: [
@@ -2297,9 +2431,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               ))));
     }
     if (moreWidgets.isNotEmpty) {
+      _focusNodeToolbar.add(_focusNodeMore);
       widgets.add(Tooltip(
           message: tcontext.more,
           child: InkWell(
+              focusNode: _focusNodeMore,
               onTap: () async {
                 onTapToolbarMore(moreWidgets);
               },
@@ -2511,6 +2647,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             child: Tooltip(
                 message: tcontext.NetConnectionsScreen.title,
                 child: InkWell(
+                    focusNode: _focusNodeConnections,
                     onTap: () async {
                       await onTapNetConnections();
                     },

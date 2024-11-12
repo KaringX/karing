@@ -58,9 +58,10 @@ void main(List<String> args) async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
   await RemoteConfigManager.init();
-  await RemoteISPConfigManager.init();
   await SentryUtilsPrivate.init();
-  LocaleSettings.useDeviceLocale();
+  await PlatformUtils.init();
+  await RemoteISPConfigManager.init();
+  await LocaleSettings.useDeviceLocale();
   //runZonedGuarded(() async {// Zone mismatch
   await run(args);
   //}, (exception, stackTrace) async {
@@ -104,7 +105,7 @@ Future<void> run(List<String> args) async {
       startFailedReasonDesc = "Android >= 8.0";
     }
   }
-  String version = await AppUtils.getVersion();
+  String version = await AppUtils.getPackgetVersion();
   if (AppUtils.getBuildinVersion() != version) {
     startFailedReason = StartFailedReason.invalidVersion;
   }
@@ -140,7 +141,7 @@ Future<void> run(List<String> args) async {
         DeviceOrientation.landscapeRight
       ]);
     } else {
-      if (await PlatformUtils.isTV()) {
+      if (PlatformUtils.isTV()) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight
@@ -151,7 +152,7 @@ Future<void> run(List<String> args) async {
     }
   }
   bool first = await Did.getFirstTime();
-  AdsPrivate.init(first);
+  await AdsPrivate.init(first);
 
   runApp(TranslationProvider(
     child: const MyApp(),

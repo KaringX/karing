@@ -11,6 +11,7 @@ import 'package:karing/app/utils/qrcode_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
@@ -203,12 +204,22 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                           _content, savePath);
 
                                       try {
-                                        Share.shareXFiles([XFile(savePath)],
+                                        await Share.shareXFiles(
+                                            [XFile(savePath)],
                                             sharePositionOrigin: box!
                                                     .localToGlobal(
                                                         Offset.zero) &
                                                 box.size);
-                                      } catch (err) {}
+                                      } catch (err) {
+                                        if (!context.mounted) {
+                                          return;
+                                        }
+                                        DialogUtils.showAlertDialog(
+                                            context, err.toString(),
+                                            showCopy: true,
+                                            showFAQ: true,
+                                            withVersion: true);
+                                      }
                                     },
                                   ))
                               : const SizedBox.shrink(),

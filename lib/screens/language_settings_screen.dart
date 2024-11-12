@@ -104,7 +104,7 @@ class _LanguageSettingsScreenState
                             height: 30,
                           ),
                     SizedBox(
-                      width: windowSize.width - 50 * 2,
+                      width: windowSize.width - 50 - 65,
                       child: Text(
                         tcontext.language,
                         textAlign: TextAlign.center,

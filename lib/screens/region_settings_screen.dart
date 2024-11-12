@@ -164,7 +164,7 @@ class _RegionSetingsScreenState
                             height: 30,
                           ),
                     SizedBox(
-                      width: windowSize.width - 50 * 2,
+                      width: windowSize.width - 50 - 65,
                       child: Text(
                         tcontext.RegionSettingsScreen.title,
                         textAlign: TextAlign.center,

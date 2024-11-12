@@ -119,68 +119,61 @@ class _BackupAndSyncLanSyncScreenState
       _image = QrcodeUtils.toImage(url).data;
 
       _server = await HttpServer.bind(SettingConfigItemProxy.hostNetwork, port);
-      setState(() {});
-    } catch (err, stacktrace) {
-      if (!mounted) {
-        return;
-      }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
-      return;
-    }
-
-    _server!.listen((req) async {
-      switch (req.method) {
-        case "GET":
-        case "POST":
-          await _routing(path: req.uri.path, httpRequest: req);
-          break;
-        default:
-          req.response.statusCode = HttpStatus.methodNotAllowed;
-          req.response.close();
-      }
-    });
-
-    if (widget.syncUpload == true) {
-      _onRouting("/${AppSchemeUtils.syncUploadAction()}", "POST",
-          (HttpRequest httpRequest) async {
-        String dir = await PathUtils.cacheDir();
-        var contentType =
-            MediaType.parse(httpRequest.headers.value('content-type')!);
-        var boundary = contentType.parameters['boundary']!;
-        var transformer = MimeMultipartTransformer(boundary);
-        var parts = await transformer.bind(httpRequest).toList();
-        String err = "";
-        String zipPath = "";
-        if (parts.length == 1) {
-          var part = parts[0];
-          var contentDisp = part.headers['content-disposition']!;
-          var filename = _extractFilename(contentDisp);
-          if (filename != null) {
-            var filepath = path.join(dir, filename);
-            try {
-              await _saveFile(part, filepath);
-              zipPath = filepath;
-            } catch (e) {
-              err = e.toString();
-            }
-          } else {
-            err = "filename is empty";
-          }
-        } else {
-          err = "too much files";
-        }
-        httpRequest.response.statusCode = HttpStatus.ok;
-        httpRequest.response.write('{"error":"$err"}');
-        httpRequest.response.close();
-        if (zipPath.isNotEmpty) {
-          restoreFromZip(zipPath);
+      _server!.listen((req) async {
+        switch (req.method) {
+          case "GET":
+          case "POST":
+            await _routing(path: req.uri.path, httpRequest: req);
+            break;
+          default:
+            req.response.statusCode = HttpStatus.methodNotAllowed;
+            req.response.close();
         }
       });
-    } else {
-      _onRouting("/${AppSchemeUtils.syncDownloadAction()}", "GET",
-          (HttpRequest httpRequest) async {
-        try {
+
+      _onRouting("/", "GET", (HttpRequest httpRequest) async {
+        httpRequest.response.statusCode = HttpStatus.ok;
+        httpRequest.response.close();
+      });
+      if (widget.syncUpload == true) {
+        _onRouting("/${AppSchemeUtils.syncUploadAction()}", "POST",
+            (HttpRequest httpRequest) async {
+          String dir = await PathUtils.cacheDir();
+          var contentType =
+              MediaType.parse(httpRequest.headers.value('content-type')!);
+          var boundary = contentType.parameters['boundary']!;
+          var transformer = MimeMultipartTransformer(boundary);
+          var parts = await transformer.bind(httpRequest).toList();
+          String err = "";
+          String zipPath = "";
+          if (parts.length == 1) {
+            var part = parts[0];
+            var contentDisp = part.headers['content-disposition']!;
+            var filename = _extractFilename(contentDisp);
+            if (filename != null) {
+              var filepath = path.join(dir, filename);
+              try {
+                await _saveFile(part, filepath);
+                zipPath = filepath;
+              } catch (e) {
+                err = e.toString();
+              }
+            } else {
+              err = "filename is empty";
+            }
+          } else {
+            err = "too much files";
+          }
+          httpRequest.response.statusCode = HttpStatus.ok;
+          httpRequest.response.write('{"error":"$err"}');
+          httpRequest.response.close();
+          if (zipPath.isNotEmpty) {
+            restoreFromZip(zipPath);
+          }
+        });
+      } else {
+        _onRouting("/${AppSchemeUtils.syncDownloadAction()}", "GET",
+            (HttpRequest httpRequest) async {
           var file = File(_zipPath!);
           bool found = await file.exists();
           if (!found) {
@@ -190,8 +183,16 @@ class _BackupAndSyncLanSyncScreenState
           var stream = file.openRead();
           await stream.pipe(httpRequest.response).catchError((e) {});
           httpRequest.response.close();
-        } catch (err, stacktrace) {}
-      });
+        });
+      }
+      setState(() {});
+    } catch (err, stacktrace) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+      return;
     }
   }
 

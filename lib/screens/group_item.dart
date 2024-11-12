@@ -131,7 +131,11 @@ class GroupItemTimerIntervalPickerOptions {
     this.tips,
     this.reddot,
     this.duration,
-    this.notShowDisable,
+    this.showDays = true,
+    this.showHours = true,
+    this.showMinutes = true,
+    this.showSeconds = true,
+    this.showDisable = true,
     this.onPicker,
   });
 
@@ -139,8 +143,12 @@ class GroupItemTimerIntervalPickerOptions {
   final String? tips;
   final bool? reddot;
   Duration? duration;
-  final bool? notShowDisable;
 
+  final bool showDays;
+  final bool showHours;
+  final bool showMinutes;
+  final bool showSeconds;
+  final bool showDisable;
   Future<void> Function(bool, Duration?)? onPicker;
 }
 
@@ -248,12 +256,12 @@ class GroupItemCreator {
     if (group.name == null || group.name!.isEmpty) {
       return const SizedBox.shrink();
     }
-
+    Size windowSize = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
       ),
-      width: double.infinity,
+      width: windowSize.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +292,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -344,7 +352,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -435,7 +443,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -539,7 +547,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: padding,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -636,6 +644,7 @@ class GroupItemCreator {
   Container _createGroupItemTimePicker(BuildContext context, double itemHeight,
       GroupItemTimerPickerOptions options) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -645,7 +654,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -738,6 +747,7 @@ class GroupItemCreator {
   Container _createGroupItemTimeIntervalPicker(BuildContext context,
       double itemHeight, GroupItemTimerIntervalPickerOptions options) {
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -748,7 +758,12 @@ class GroupItemCreator {
               : () async {
                   DialogUtilsResult<Duration>? result =
                       await DialogUtils.showTimeIntervalPickerDialog(
-                          context, options.duration, options.notShowDisable);
+                          context, options.duration,
+                          showDays: options.showDays,
+                          showHours: options.showHours,
+                          showMinutes: options.showMinutes,
+                          showSeconds: options.showSeconds,
+                          showDisable: options.showDisable);
                   if (result != null) {
                     options.duration = result.data;
                   }
@@ -759,7 +774,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [
@@ -835,6 +850,7 @@ class GroupItemCreator {
 
   Container _createGroupItemStringPicker(BuildContext context,
       double itemHeight, GroupItemStringPickerOptions options) {
+    Size windowSize = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -844,7 +860,7 @@ class GroupItemCreator {
             padding: const EdgeInsets.symmetric(
               horizontal: 4,
             ),
-            width: double.infinity,
+            width: windowSize.width,
             height: itemHeight,
             child: Row(
               children: [

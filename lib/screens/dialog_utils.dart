@@ -73,6 +73,9 @@ class DialogUtils {
                 ElevatedButton(
                   child: Text(tcontext.ok),
                   onPressed: () {
+                    if (!context.mounted) {
+                      return;
+                    }
                     Navigator.pop(context);
                   },
                 ),
@@ -140,6 +143,9 @@ class DialogUtils {
                   ElevatedButton(
                     child: Text(tcontext.ok),
                     onPressed: () {
+                      if (!context.mounted) {
+                        return;
+                      }
                       Navigator.pop(context, true);
                     },
                   ),
@@ -149,6 +155,9 @@ class DialogUtils {
                   ElevatedButton(
                     child: Text(tcontext.cancel),
                     onPressed: () {
+                      if (!context.mounted) {
+                        return;
+                      }
                       Navigator.pop(context, false);
                     },
                   ),
@@ -206,6 +215,9 @@ class DialogUtils {
                   ElevatedButton(
                       child: Text(tcontext.ok),
                       onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
                         Text newText = Text(textController.text);
                         if ((newText.data != null) && callback(newText.data!)) {
                           Navigator.pop(context, newText.data!);
@@ -216,7 +228,12 @@ class DialogUtils {
                   ),
                   ElevatedButton(
                     child: Text(tcontext.cancel),
-                    onPressed: () => Navigator.pop(context, null),
+                    onPressed: () {
+                      if (!context.mounted) {
+                        return;
+                      }
+                      Navigator.pop(context, null);
+                    },
                   ),
                 ],
               )
@@ -300,6 +317,9 @@ class DialogUtils {
                   ElevatedButton(
                       child: Text(tcontext.ok),
                       onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
                         Text newTextL = Text(textControllerL.text);
                         Text newTextR = Text(textControllerR.text);
                         if ((newTextL.data != null) &&
@@ -319,7 +339,12 @@ class DialogUtils {
                   ),
                   ElevatedButton(
                     child: Text(tcontext.cancel),
-                    onPressed: () => Navigator.pop(context, null),
+                    onPressed: () {
+                      if (!context.mounted) {
+                        return;
+                      }
+                      Navigator.pop(context, null);
+                    },
                   ),
                 ],
               )
@@ -373,7 +398,14 @@ class DialogUtils {
   }
 
   static Future<DialogUtilsResult<Duration>?> showTimeIntervalPickerDialog(
-      BuildContext context, Duration? duration, bool? notShowDisable) async {
+    BuildContext context,
+    Duration? duration, {
+    bool showDays = true,
+    bool showHours = true,
+    bool showMinutes = true,
+    bool showSeconds = true,
+    bool showDisable = true,
+  }) async {
     if (!context.mounted) {
       return null;
     }
@@ -383,13 +415,21 @@ class DialogUtils {
     String hours = "h(${tcontext.hours})";
     String minutes = "m(${tcontext.minutes})";
     String seconds = "s(${tcontext.seconds})";
-    List<String> data = [
-      days,
-      hours,
-      minutes,
-      seconds,
-    ];
-    if (notShowDisable != true) {
+    List<String> data = [];
+
+    if (showDays) {
+      data.add(days);
+    }
+    if (showHours) {
+      data.add(hours);
+    }
+    if (showMinutes) {
+      data.add(minutes);
+    }
+    if (showSeconds) {
+      data.add(seconds);
+    }
+    if (showDisable) {
       data.add(tcontext.disable);
     }
     String selected = data.first;
@@ -465,6 +505,9 @@ class DialogUtils {
                       ElevatedButton(
                           child: Text(tcontext.ok),
                           onPressed: () {
+                            if (!context.mounted) {
+                              return;
+                            }
                             int? value = int.tryParse(textController.text);
                             if (value == null) {
                               Navigator.pop(context, null);
@@ -488,7 +531,12 @@ class DialogUtils {
                       ),
                       ElevatedButton(
                         child: Text(tcontext.cancel),
-                        onPressed: () => Navigator.pop(context, null),
+                        onPressed: () {
+                          if (!context.mounted) {
+                            return;
+                          }
+                          Navigator.pop(context, null);
+                        },
                       ),
                     ],
                   ),
@@ -549,6 +597,9 @@ class DialogUtils {
                       ElevatedButton(
                           child: Text(tcontext.ok),
                           onPressed: () {
+                            if (!context.mounted) {
+                              return;
+                            }
                             Navigator.pop(context, DialogUtilsResult(selected));
                           }),
                       const SizedBox(
@@ -556,7 +607,12 @@ class DialogUtils {
                       ),
                       ElevatedButton(
                         child: Text(tcontext.cancel),
-                        onPressed: () => Navigator.pop(context, null),
+                        onPressed: () {
+                          if (!context.mounted) {
+                            return;
+                          }
+                          Navigator.pop(context, null);
+                        },
                       ),
                     ],
                   ),
@@ -640,7 +696,12 @@ class DialogUtils {
               ),
               TextButton(
                 child: Text(tcontext.add),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  if (!context.mounted) {
+                    return;
+                  }
+                  Navigator.pop(context);
+                },
               ),
             ])
           ],

@@ -1549,9 +1549,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     try {
-      Share.shareXFiles([XFile(savePath)],
+      await Share.shareXFiles([XFile(savePath)],
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
-    } catch (err) {}
+    } catch (err) {
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+    }
   }
 
   void onTapUrl(ServerConfigGroupItem item) {

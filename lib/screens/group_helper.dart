@@ -28,7 +28,7 @@ import 'package:karing/screens/add_profile_by_import_from_file_screen.dart';
 import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
 import 'package:karing/screens/add_profile_by_scan_qrcode_screen.dart';
 import 'package:karing/screens/backup_and_sync_icloud_screen.dart';
-import 'package:karing/screens/backup_and_sync_lan_sync.dart';
+import 'package:karing/screens/backup_and_sync_lan_sync_screen.dart';
 import 'package:karing/screens/backup_and_sync_webdav_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/diversion_rule_detect_screen.dart';
@@ -44,6 +44,7 @@ import 'package:karing/screens/map_string_and_list_add_screen.dart';
 import 'package:karing/screens/qrcode_scan_screen.dart';
 import 'package:karing/screens/region_settings_screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
+import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_group_custom_screen.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
@@ -466,7 +467,7 @@ class GroupHelper {
             timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                 name: "TTL",
                 duration: settingConfig.dns.ttl,
-                notShowDisable: true,
+                showDisable: false,
                 onPicker: (bool canceled, Duration? duration) async {
                   if (canceled) {
                     return;
@@ -1058,30 +1059,154 @@ class GroupHelper {
                 )));
   }
 
+  static Future<Set<String>?> showImportConfirmDialog(
+      BuildContext context) async {
+    if (!context.mounted) {
+      return null;
+    }
+    final tcontext = Translations.of(context);
+    Set<String> whiteList = {};
+    bool myprofiles = true;
+    bool diversion = true;
+    bool settings = true;
+    Future<List<GroupItem>> getGroupOptions(StateSetter setState) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.MyProfilesScreen.title,
+                switchValue: myprofiles,
+                onSwitch: (bool value) async {
+                  myprofiles = value;
+                  setState(() {});
+                })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.diversion,
+                switchValue: diversion,
+                onSwitch: (bool value) async {
+                  diversion = value;
+                  setState(() {});
+                })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.setting,
+                switchValue: settings,
+                onSwitch: (bool value) async {
+                  settings = value;
+                  setState(() {});
+                })),
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    bool? ok = await showDialog<bool>(
+        context: context,
+        routeSettings: const RouteSettings(name: "showImportConfirmDialog"),
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return StatefulBuilder(builder: (stfContext, stfSetState) {
+            return SimpleDialog(
+              title: Text(
+                tcontext.SettingsScreen.rewriteConfirm,
+                style: const TextStyle(
+                  fontSize: ThemeConfig.kFontSizeListSubItem,
+                ),
+              ),
+              children: [
+                FutureBuilder(
+                  future: getGroupOptions(stfSetState),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<GroupItem>> snapshot) {
+                    List<GroupItem> data =
+                        snapshot.hasData ? snapshot.data! : [];
+                    return Column(
+                        children: GroupItemCreator.createGroups(context, data));
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      child: Text(tcontext.ok),
+                      onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
+
+                        Navigator.pop(context, true);
+                      },
+                    ),
+                    const SizedBox(
+                      width: 60,
+                    ),
+                    ElevatedButton(
+                      child: Text(tcontext.cancel),
+                      onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.pop(context, false);
+                      },
+                    ),
+                  ],
+                )
+              ],
+            );
+          });
+        });
+    if (ok != true) {
+      return null;
+    }
+    if (myprofiles) {
+      whiteList.add(PathUtils.subscribeFileName());
+    }
+    if (diversion) {
+      whiteList.add(PathUtils.diversionGroupFileName());
+      whiteList.add(PathUtils.subscribeUseFileName());
+    }
+    if (settings) {
+      whiteList.add(PathUtils.settingFileName());
+    }
+
+    return whiteList;
+  }
+
   static Future<void> backupRestoreFromZip(BuildContext context, String zipPath,
       {bool confirm = false}) async {
     if (!context.mounted) {
       return;
     }
     final tcontext = Translations.of(context);
-    bool? ok = true;
+    Set<String>? whiteList;
     if (confirm) {
-      ok = await DialogUtils.showConfirmDialog(
-          context, tcontext.SettingsScreen.rewriteConfirm);
+      whiteList = await showImportConfirmDialog(context);
+    } else {
+      whiteList = {
+        PathUtils.subscribeFileName(),
+        PathUtils.diversionGroupFileName(),
+        PathUtils.subscribeUseFileName(),
+        PathUtils.settingFileName()
+      };
     }
 
-    if (ok == true) {
-      var error = await ServerManager.reloadFromZip(zipPath);
-      if (!context.mounted) {
-        return;
-      }
-      if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message,
-            showCopy: true, showFAQ: true, withVersion: true);
-      } else {
-        DialogUtils.showAlertDialog(
-            context, tcontext.SettingsScreen.importSuccess);
-      }
+    if (whiteList == null || whiteList.isEmpty) {
+      return;
+    }
+
+    var error =
+        await ServerManager.reloadFromZip(zipPath, whiteList: whiteList);
+    if (!context.mounted) {
+      return;
+    }
+    if (error != null) {
+      DialogUtils.showAlertDialog(context, error.message,
+          showCopy: true, showFAQ: true, withVersion: true);
+    } else {
+      DialogUtils.showAlertDialog(
+          context, tcontext.SettingsScreen.importSuccess);
     }
   }
 
@@ -1107,14 +1232,20 @@ class GroupHelper {
     if (ips.isEmpty || port.isEmpty) {
       return;
     }
+    var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+
     List<String> hosts = ips.split(",");
     int iPort = int.parse(port);
     String? targetHost;
-    ReturnResult<int>? result;
+    ReturnResult<String>? result;
+
     for (String host in hosts) {
       if (host.isNotEmpty) {
-        result = await NetworkUtils.testConnectLatency(host, iPort, null);
-        if (result.error == null) {
+        result = await HttpUtils.httpGetRequest("http://$host:$iPort/",
+            proxyPort, null, const Duration(seconds: 1), null, null);
+        if (result.error == null || result.error!.message.contains("404")) {
           targetHost = host;
           break;
         }
@@ -1138,6 +1269,7 @@ class GroupHelper {
     if (!context.mounted) {
       return;
     }
+
     if (uri.host == AppSchemeUtils.syncDownloadAction()) {
       if (send) {
         DialogUtils.showAlertDialog(
@@ -1158,7 +1290,7 @@ class GroupHelper {
       String zipPath = path.join(dir, filename);
       String url = "http://$targetHost:$iPort/${uri.host}";
       ReturnResult<HttpHeaders> result = await HttpUtils.httpDownload(
-          Uri.parse(url), zipPath, null, null, null);
+          Uri.parse(url), zipPath, proxyPort, null, null);
       if (result.error != null) {
         if (!context.mounted) {
           return;
@@ -1196,7 +1328,7 @@ class GroupHelper {
       }
       String url = "http://$targetHost:$iPort/${uri.host}";
       ReturnResultError? err =
-          await HttpUtils.httpUpload(Uri.parse(url), zipPath, null, null);
+          await HttpUtils.httpUpload(Uri.parse(url), zipPath, proxyPort, null);
       FileUtils.deleteFileByPath(zipPath);
       if (!context.mounted) {
         return;
@@ -1325,11 +1457,13 @@ class GroupHelper {
         MaterialPageRoute(
             settings: HomeTVOSScreen.routSettings(),
             builder: (context) => HomeTVOSScreen(
-                host: targetHost!,
-                port: targetPort,
-                cport: cport,
-                uuid: uuid,
-                secret: secret)));
+                  host: targetHost!,
+                  port: targetPort,
+                  cport: cport,
+                  uuid: uuid,
+                  secret: secret,
+                  version: version,
+                )));
   }
 
   static Future<void> onTapImportExport(BuildContext context) async {
@@ -1430,10 +1564,16 @@ class GroupHelper {
         if (PlatformUtils.isMobile()) {
           try {
             final box = context.findRenderObject() as RenderBox?;
-            Share.shareXFiles([XFile(filePath)],
+            await Share.shareXFiles([XFile(filePath)],
                 sharePositionOrigin:
                     box!.localToGlobal(Offset.zero) & box.size);
-          } catch (err) {}
+          } catch (err) {
+            if (!context.mounted) {
+              return;
+            }
+            DialogUtils.showAlertDialog(context, err.toString(),
+                showCopy: true, showFAQ: true, withVersion: true);
+          }
         }
       }
     } catch (err, stacktrace) {

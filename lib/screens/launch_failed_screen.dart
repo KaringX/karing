@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -134,13 +135,15 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                     ),
                     SizedBox(
                         height: 45.0,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.logout_outlined),
-                          label: Text(tcontext.quit),
-                          onPressed: () async {
-                            Biz.quit();
-                          },
-                        )),
+                        child: !Platform.isIOS
+                            ? ElevatedButton.icon(
+                                icon: const Icon(Icons.logout_outlined),
+                                label: Text(tcontext.quit),
+                                onPressed: () async {
+                                  Biz.quit();
+                                },
+                              )
+                            : null),
                   ],
                 )
               ],

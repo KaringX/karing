@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -24,6 +25,7 @@ import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
+import 'package:advertising_id/advertising_id.dart';
 
 class AboutScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -235,6 +237,13 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     var dev = settingConfig.dev;
+    String advertisingId = "";
+    if (Platform.isIOS || Platform.isAndroid) {
+      try {
+        advertisingId = (await AdvertisingId.id(true)) ?? "";
+      } catch (err) {}
+    }
+
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA, name: 'SSS_devOptions');
     Future<List<GroupItem>> getOptions(BuildContext context) async {
@@ -308,10 +317,28 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     }))
             : GroupItemOptions(),
       ];
+      List<GroupItemOptions> options3 = [
+        (Platform.isIOS || Platform.isAndroid) &&
+                dev.devMode &&
+                !settingConfig.novice
+            ? GroupItemOptions(
+                textOptions: GroupItemTextOptions(
+                    name: "Advertising Id",
+                    text: advertisingId,
+                    textWidthPercent: 0.5,
+                    onPush: () async {
+                      try {
+                        await Clipboard.setData(
+                            ClipboardData(text: advertisingId));
+                      } catch (err) {}
+                    }))
+            : GroupItemOptions(),
+      ];
       return [
         GroupItem(options: options),
         GroupItem(options: options1),
-        GroupItem(options: options2)
+        GroupItem(options: options2),
+        GroupItem(options: options3)
       ];
     }
 
