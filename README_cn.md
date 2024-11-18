@@ -10,7 +10,7 @@
 </h3>
 
 [英语](./README.md) | 中文 | [俄语](./README_ru.md) | [波斯文](./README_fa.md)
-
+### 注意: Karing未在任何平台开设过有关Karing的任何频道
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
   - 完全支持 `clash` 配置，部分支持 `clash.meta` 配置。
