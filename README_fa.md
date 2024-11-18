@@ -10,7 +10,7 @@
 </h3>
 
 [انگلیسی](./README.md) | [چینی](./README_cn.md) | [روسی](./README_ru.md) | فارسی
-
+### ملاحظة: لم يفتح Karing أي قناة خاصة بـ Karing على أي منصة.
 ## ویژگی‌ها
 - سازگار با Clash، V2ray/V2fly، Sing-box، Shadowsocks، Sub و Github Subscriptions.
 - پشتیبانی کامل از تنظیمات `clash`، پشتیبانی جزئی از تنظیمات `clash.meta`.
