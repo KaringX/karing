@@ -11,6 +11,7 @@ A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a hre
 
 
 English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./README_fa.md)
+### Note: Karing has not opened any channel related to Karing on any platform
 
 ## Features
 - Compatible with Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github Subscriptions.
