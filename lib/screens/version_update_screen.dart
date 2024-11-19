@@ -39,7 +39,8 @@ class _VersionUpdateScreenState
         name: 'USS',
         parameters: {
           "platform": Platform.operatingSystem,
-        });
+        },
+        repeatable: true);
   }
 
   @override

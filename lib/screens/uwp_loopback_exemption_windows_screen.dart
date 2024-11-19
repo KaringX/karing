@@ -278,12 +278,13 @@ class _UWPLoopbackExemptionWindowsScreenState
   }
 
   Future<void> onTapDone() async {
+    var netIsolation = _netIsolation.toSet();
     if (_checked.isEmpty) {
-      await UWPUtils.SetNetIsolation(_netIsolation, false);
+      await UWPUtils.SetNetIsolation(netIsolation, false);
       //await UWPUtils.ClearNetIsolation();
     } else if (_checked.isNotEmpty) {
-      Set<String> inset = _checked.intersection(_netIsolation);
-      Set<String> remove = _netIsolation.difference(inset);
+      Set<String> inset = _checked.intersection(netIsolation);
+      Set<String> remove = netIsolation.difference(inset);
       Set<String> add = _checked.difference(inset);
       await UWPUtils.SetNetIsolation(remove, false);
       await UWPUtils.SetNetIsolation(add, true);

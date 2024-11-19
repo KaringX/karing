@@ -1219,14 +1219,14 @@ class _NetConnectionsScreenState
   }
 
   int sortCompareProcess(NetConnectionState a, NetConnectionState b) {
-    return b.process.compareTo(a.process);
+    return a.process.compareTo(b.process);
   }
 
   int sortCompareHost(NetConnectionState a, NetConnectionState b) {
-    return b.host.compareTo(a.host);
+    return a.host.compareTo(b.host);
   }
 
   int sortCompareIp(NetConnectionState a, NetConnectionState b) {
-    return b.ip.compareTo(a.ip);
+    return a.ip.compareTo(b.ip);
   }
 }

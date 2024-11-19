@@ -222,9 +222,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get latencyTestResolveIP => 'When manually checking, resolve the outlet IP';
 	String get latencyTestTimeout => 'Timeout';
 	String get uwpExemption => 'UWP Network Isolation Exemptions';
-	String get removeBannerAds => 'Remove ads';
-	String get removeBannerAdsByReward => 'Watch a few seconds of advertising and you will get 7 days of ad-free rewards';
-	String get removeBannerAdsByRewardDone => 'Received 7 days of ad-free reward';
+	String get ads => 'Remove ads';
+	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
+	String get removeBannerAdsByReward => 'Watch an ad to remove ads';
+	String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
+	String removeBannerAdsByRewardTip({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
+	String removeBannerAdsDone({required Object p}) => 'Received ${p} days of ad-free rewards';
 	Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -412,8 +415,8 @@ class TranslationsHomeScreenEn {
 
 	// Translations
 	String get toSelectServer => 'Please Select a Server';
-	String get invalidServer => 'is invalid, please choose again';
-	String get disabledServer => 'is disabled, please choose again';
+	String get invalidServer => 'is invalid, please select again';
+	String get disabledServer => 'is disabled, please select again';
 	String get expiredServer => 'No servers available, profiles may be expired or disabled';
 	String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	String get trafficTotal => 'Traffic Total';
@@ -892,8 +895,8 @@ extension on Translations {
 			case 'FileContentViewerScreen.clearFileContent': return 'Are you sure to clear the content of the file?';
 			case 'FileContentViewerScreen.clearFileContentTips': return 'Are you sure to clear the content of the Profile file? Clearing the Profile file may cause data loss or abnormal application functions, please operate with caution';
 			case 'HomeScreen.toSelectServer': return 'Please Select a Server';
-			case 'HomeScreen.invalidServer': return 'is invalid, please choose again';
-			case 'HomeScreen.disabledServer': return 'is disabled, please choose again';
+			case 'HomeScreen.invalidServer': return 'is invalid, please select again';
+			case 'HomeScreen.disabledServer': return 'is disabled, please select again';
 			case 'HomeScreen.expiredServer': return 'No servers available, profiles may be expired or disabled';
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'HomeScreen.trafficTotal': return 'Traffic Total';
@@ -1274,9 +1277,12 @@ extension on Translations {
 			case 'latencyTestResolveIP': return 'When manually checking, resolve the outlet IP';
 			case 'latencyTestTimeout': return 'Timeout';
 			case 'uwpExemption': return 'UWP Network Isolation Exemptions';
-			case 'removeBannerAds': return 'Remove ads';
-			case 'removeBannerAdsByReward': return 'Watch a few seconds of advertising and you will get 7 days of ad-free rewards';
-			case 'removeBannerAdsByRewardDone': return 'Received 7 days of ad-free reward';
+			case 'ads': return 'Remove ads';
+			case 'removeBannerAdsByShare': return 'Share [Karing] to remove ads';
+			case 'removeBannerAdsByReward': return 'Watch an ad to remove ads';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
+			case 'removeBannerAdsDone': return ({required Object p}) => 'Received ${p} days of ad-free rewards';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

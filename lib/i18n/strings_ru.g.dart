@@ -218,9 +218,12 @@ class TranslationsRu implements Translations {
 	@override String get latencyTestResolveIP => 'При ручном определении также анализируется экспортный IP-адрес.';
 	@override String get latencyTestTimeout => 'тайм-аут';
 	@override String get uwpExemption => 'Исключение из изоляции сети UWP';
-	@override String get removeBannerAds => 'Удалить рекламу';
-	@override String get removeBannerAdsByReward => 'Посмотрите несколько секунд рекламы, и вы будете вознаграждены 7 днями без рекламы.';
-	@override String get removeBannerAdsByRewardDone => 'Получил награду в течение 7 дней без рекламы';
+	@override String get ads => 'Удалить рекламу';
+	@override String get removeBannerAdsByShare => 'Поделиться[Karing]Перейти к объявлениям';
+	@override String get removeBannerAdsByReward => 'Смотреть рекламу Перейти к рекламе';
+	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
+	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
+	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1270,9 +1273,12 @@ extension on TranslationsRu {
 			case 'latencyTestResolveIP': return 'При ручном определении также анализируется экспортный IP-адрес.';
 			case 'latencyTestTimeout': return 'тайм-аут';
 			case 'uwpExemption': return 'Исключение из изоляции сети UWP';
-			case 'removeBannerAds': return 'Удалить рекламу';
-			case 'removeBannerAdsByReward': return 'Посмотрите несколько секунд рекламы, и вы будете вознаграждены 7 днями без рекламы.';
-			case 'removeBannerAdsByRewardDone': return 'Получил награду в течение 7 дней без рекламы';
+			case 'ads': return 'Удалить рекламу';
+			case 'removeBannerAdsByShare': return 'Поделиться[Karing]Перейти к объявлениям';
+			case 'removeBannerAdsByReward': return 'Смотреть рекламу Перейти к рекламе';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
+			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

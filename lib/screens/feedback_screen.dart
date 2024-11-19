@@ -147,7 +147,8 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
         name: 'feedback',
         parameters: {
           "content": content.data!,
-        });
+        },
+        repeatable: true);
 
     Navigator.pop(context);
   }

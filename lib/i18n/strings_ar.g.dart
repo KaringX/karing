@@ -218,9 +218,12 @@ class TranslationsAr implements Translations {
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 	@override String get latencyTestTimeout => 'نفذ الوقت';
 	@override String get uwpExemption => 'إعفاء عزل شبكة UWP';
-	@override String get removeBannerAds => 'إزالة الإعلانات';
-	@override String get removeBannerAdsByReward => 'شاهد بضع ثوانٍ من الإعلانات التجارية وستتم مكافأتك بـ 7 أيام من عدم وجود إعلانات تجارية';
-	@override String get removeBannerAdsByRewardDone => 'حصلت على مكافأة خالية من الإعلانات لمدة 7 أيام';
+	@override String get ads => 'إزالة الإعلانات';
+	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
+	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
+	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
+	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
+	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1270,9 +1273,12 @@ extension on TranslationsAr {
 			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 			case 'latencyTestTimeout': return 'نفذ الوقت';
 			case 'uwpExemption': return 'إعفاء عزل شبكة UWP';
-			case 'removeBannerAds': return 'إزالة الإعلانات';
-			case 'removeBannerAdsByReward': return 'شاهد بضع ثوانٍ من الإعلانات التجارية وستتم مكافأتك بـ 7 أيام من عدم وجود إعلانات تجارية';
-			case 'removeBannerAdsByRewardDone': return 'حصلت على مكافأة خالية من الإعلانات لمدة 7 أيام';
+			case 'ads': return 'إزالة الإعلانات';
+			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
+			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
+			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

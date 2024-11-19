@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
+import 'package:flutter/rendering.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/did.dart';
 import 'package:path_provider/path_provider.dart';
@@ -63,6 +64,9 @@ void main(List<String> args) async {
   await RemoteISPConfigManager.init();
   await LocaleSettings.useDeviceLocale();
   //runZonedGuarded(() async {// Zone mismatch
+  if (PlatformDispatcher.instance.semanticsEnabled) {
+    SemanticsBinding.instance.ensureSemantics();
+  }
   await run(args);
   //}, (exception, stackTrace) async {
   //  await Sentry.captureException(exception, stackTrace: stackTrace);
@@ -70,44 +74,50 @@ void main(List<String> args) async {
 }
 
 Future<void> run(List<String> args) async {
-  String exePath = Platform.resolvedExecutable.toUpperCase();
-
-  String profile = "";
   try {
-    profile = await PathUtils.profileDir();
+    do {
+      String profile = await PathUtils.profileDir();
+      if (profile.isEmpty) {
+        startFailedReason = StartFailedReason.invalidProfile;
+        break;
+      }
+      if (Platform.isWindows) {
+        var tmp = await getTemporaryDirectory();
+        String exePath = Platform.resolvedExecutable.toUpperCase();
+        if (exePath.contains("UNC/") ||
+            exePath.contains("UNC\\") ||
+            exePath.startsWith(tmp.absolute.path.toUpperCase())) {
+          startFailedReason = StartFailedReason.invalidInstallPath;
+          break;
+        }
+        if (path.basename(exePath).toLowerCase() != AppUtils.getKaringExe()) {
+          startFailedReason = StartFailedReason.invalidProcess;
+          break;
+        }
+        if (VersionHelper.instance.majorVersion != 0 &&
+            VersionHelper.instance.majorVersion < 10) {
+          startFailedReason = StartFailedReason.systemVersionLow;
+          startFailedReasonDesc = "Windows >= 10.0";
+          break;
+        }
+      } else if (Platform.isAndroid) {
+        String version = await FlutterVpnService.getSystemVersion();
+        int? v = int.tryParse(version);
+        if (v != null && v < 26) {
+          startFailedReason = StartFailedReason.systemVersionLow;
+          startFailedReasonDesc = "Android >= 8.0";
+          break;
+        }
+      }
+      String version = await AppUtils.getPackgetVersion();
+      if (AppUtils.getBuildinVersion() != version) {
+        startFailedReason = StartFailedReason.invalidVersion;
+        break;
+      }
+    } while (false);
   } catch (err, stacktrace) {
+    startFailedReason = StartFailedReason.exception;
     startFailedReasonDesc = err.toString();
-  }
-
-  if (profile.isEmpty) {
-    startFailedReason = StartFailedReason.invalidProfile;
-  }
-  if (Platform.isWindows) {
-    var tmp = await getTemporaryDirectory();
-    if (exePath.contains("UNC/") ||
-        exePath.contains("UNC\\") ||
-        exePath.startsWith(tmp.absolute.path.toUpperCase())) {
-      startFailedReason = StartFailedReason.invalidInstallPath;
-    }
-    if (path.basename(exePath).toLowerCase() != AppUtils.getKaringExe()) {
-      startFailedReason = StartFailedReason.invalidProcess;
-    }
-    if (VersionHelper.instance.majorVersion != 0 &&
-        VersionHelper.instance.majorVersion < 10) {
-      startFailedReason = StartFailedReason.systemVersionLow;
-      startFailedReasonDesc = "Windows >= 10.0";
-    }
-  } else if (Platform.isAndroid) {
-    String version = await FlutterVpnService.getSystemVersion();
-    int? v = int.tryParse(version);
-    if (v != null && v < 26) {
-      startFailedReason = StartFailedReason.systemVersionLow;
-      startFailedReasonDesc = "Android >= 8.0";
-    }
-  }
-  String version = await AppUtils.getPackgetVersion();
-  if (AppUtils.getBuildinVersion() != version) {
-    startFailedReason = StartFailedReason.invalidVersion;
   }
 
   if (PlatformUtils.isPC()) {
@@ -152,7 +162,7 @@ Future<void> run(List<String> args) async {
     }
   }
   bool first = await Did.getFirstTime();
-  await AdsPrivate.init(first);
+  AdsPrivate.init(first);
 
   runApp(TranslationProvider(
     child: const MyApp(),

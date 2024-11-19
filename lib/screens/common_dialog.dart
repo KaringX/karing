@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 
@@ -78,8 +82,32 @@ class CommonDialog {
         return;
       }
     }
-
+    loadFAQByError(errMessage);
     DialogUtils.showAlertDialog(context, errMessage,
         showCopy: true, showFAQ: true, withVersion: true);
+  }
+
+  static void loadFAQByError(String error) async {
+    if (!PlatformUtils.isPC()) {
+      return;
+    }
+    var remoteConfig = RemoteConfigManager.getConfig();
+    for (var anchor in remoteConfig.faqAnchor) {
+      late String anchorNew;
+      try {
+        anchorNew = utf8.decode(base64.decode(anchor));
+      } catch (err) {
+        continue;
+      }
+      if (anchorNew.isEmpty) {
+        continue;
+      }
+      if (error.contains(anchorNew)) {
+        UrlLauncherUtils.reorganizationAndLoadUrl(remoteConfig.faq,
+            anchor: anchor.hashCode.toString());
+
+        break;
+      }
+    }
   }
 }

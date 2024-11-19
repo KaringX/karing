@@ -11,6 +11,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 enum StartFailedReason {
+  exception(name: "exception"),
   invalidProcess(name: "invalidProcess"),
   invalidProfile(name: "invalidProfile"),
   invalidVersion(name: "invalidVersion"),
@@ -85,7 +86,7 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     String host = RemoteConfigManager.getConfig().host;
-    String error = "Unknown Error";
+    String error = "";
     if (widget.startFailedReason == StartFailedReason.invalidProfile) {
       error = tcontext.LaunchFailedScreen.invalidProfile;
     } else if (widget.startFailedReason == StartFailedReason.invalidVersion) {
@@ -95,8 +96,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
     } else if (widget.startFailedReason ==
         StartFailedReason.invalidInstallPath) {
       error = tcontext.LaunchFailedScreen.invalidInstallPath;
-    } else {
-      error = tcontext.LaunchFailedScreen.invalidProcess;
+    } else if (widget.startFailedReason == StartFailedReason.exception) {
+      error = "Exception";
     }
     return Scaffold(
       appBar: PreferredSize(
@@ -126,7 +127,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                           onPressed: () async {
                             AnalyticsUtils.logEvent(
                                 analyticsEventType: analyticsEventTypeUA,
-                                name: 'LFS_website');
+                                name: 'LFS_website',
+                                repeatable: true);
                             UrlLauncherUtils.loadUrl("https://$host");
                           },
                         )),

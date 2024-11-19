@@ -4,10 +4,10 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -23,9 +23,10 @@ import 'package:karing/screens/file_content_viewer_screen.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
+import 'package:karing/screens/hash_string_screen.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
-import 'package:advertising_id/advertising_id.dart';
+//import 'package:advertising_id/advertising_id.dart';
 
 class AboutScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -193,7 +194,15 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
             pushOptions: GroupItemPushOptions(
                 name: tcontext.privacyPolicy,
                 onPush: () async {
-                  DialogUtils.showPrivacyPolicy(context);
+                  var remoteConfig = RemoteConfigManager.getConfig();
+                  ReturnResultError? error = await UrlLauncherUtils.loadUrl(
+                      remoteConfig.privacyPolicy);
+                  if (error != null) {
+                    if (!mounted) {
+                      return;
+                    }
+                    DialogUtils.showPrivacyPolicy(context);
+                  }
                 })),
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -207,7 +216,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                         AnalyticsUtils.logEvent(
                             analyticsEventType: analyticsEventTypeUA,
                             name: 'SSS_diableUAReport',
-                            parameters: {"value": value});
+                            parameters: {"value": value},
+                            repeatable: true);
 
                         AnalyticsUtils.setEventType(value
                             ? analyticsEventTypeNoUA
@@ -237,15 +247,17 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     var dev = settingConfig.dev;
-    String advertisingId = "";
+    /*String advertisingId = "";
     if (Platform.isIOS || Platform.isAndroid) {
       try {
         advertisingId = (await AdvertisingId.id(true)) ?? "";
       } catch (err) {}
-    }
+    }*/
 
     AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA, name: 'SSS_devOptions');
+        analyticsEventType: analyticsEventTypeUA,
+        name: 'SSS_devOptions',
+        repeatable: true);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       List<GroupItemOptions> options = [
         !settingConfig.novice
@@ -317,7 +329,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     }))
             : GroupItemOptions(),
       ];
-      List<GroupItemOptions> options3 = [
+      /*List<GroupItemOptions> options3 = [
         (Platform.isIOS || Platform.isAndroid) &&
                 dev.devMode &&
                 !settingConfig.novice
@@ -333,12 +345,27 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                       } catch (err) {}
                     }))
             : GroupItemOptions(),
+      ];*/
+      List<GroupItemOptions> options4 = [
+        (Platform.isWindows) && dev.devMode && !settingConfig.novice
+            ? GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                    name: "Hash String",
+                    onPush: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              settings: HashStringScreen.routSettings(),
+                              builder: (context) => const HashStringScreen()));
+                    }))
+            : GroupItemOptions(),
       ];
       return [
         GroupItem(options: options),
         GroupItem(options: options1),
         GroupItem(options: options2),
-        GroupItem(options: options3)
+        //GroupItem(options: options3)
+        GroupItem(options: options4),
       ];
     }
 

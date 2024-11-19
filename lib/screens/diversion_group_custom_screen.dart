@@ -366,6 +366,7 @@ class _DiversionGroupCustomScreenState
           }
           DialogUtils.showAlertDialog(context, result.error!.message,
               showCopy: true, showFAQ: true, withVersion: true);
+          return;
         }
 
         if (!mounted) {

@@ -11,6 +11,7 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/notice_manager.dart';
+import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -24,7 +25,6 @@ import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
-import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -54,6 +54,7 @@ import 'package:karing/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
+import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn_service/vpn_service.dart';
@@ -280,7 +281,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   AnalyticsUtils.logEvent(
                       analyticsEventType: analyticsEventTypeUA,
                       name: 'SSS_isp',
-                      parameters: {"name": isp!.name, "url": isp.url});
+                      parameters: {"name": isp!.name, "url": isp.url},
+                      repeatable: true);
 
                   UrlLauncherUtils.loadUrl(isp.url);
                 })),
@@ -292,7 +294,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
                           name: 'SSS_isp_faq',
-                          parameters: {"name": isp!.name, "url": isp.faq});
+                          parameters: {"name": isp!.name, "url": isp.faq},
+                          repeatable: true);
 
                       UrlLauncherUtils.loadUrl(isp.faq);
                     }))
@@ -348,7 +351,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       }
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_htmlBoard');
+                          name: 'SSS_htmlBoard',
+                          repeatable: true);
                       String url = await ClashApi.getHtmlBoardUrl(
                           remoteConfig.htmlboard,
                           settingConfig.proxy.controlPort);
@@ -362,7 +366,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     onPush: () async {
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_dnsLeakDetection');
+                          name: 'SSS_dnsLeakDetection',
+                          repeatable: true);
                       UrlLauncherUtils.loadUrl(remoteConfig.dnsLeakDetection);
                     }))
             : GroupItemOptions(),
@@ -778,7 +783,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           DeviceOrientation.landscapeRight
                         ]);
                       } else {
-                        if (await PlatformUtils.isTV()) {
+                        if (PlatformUtils.isTV()) {
                           SystemChrome.setPreferredOrientations([
                             DeviceOrientation.landscapeLeft,
                             DeviceOrientation.landscapeRight
@@ -848,7 +853,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     onPush: () async {
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_appleTestFlight');
+                          name: 'SSS_appleTestFlight',
+                          repeatable: true);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -864,7 +870,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     onPush: () async {
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_appleAppstore');
+                          name: 'SSS_appleAppstore',
+                          repeatable: true);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -880,7 +887,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     onPush: () async {
                       AnalyticsUtils.logEvent(
                           analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_download');
+                          name: 'SSS_download',
+                          repeatable: true);
 
                       Navigator.push(
                           context,
@@ -889,14 +897,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                             builder: (context) => QrcodeScreen(
                                 content: download,
                                 callback: () async {
-                                  String queryParams =
-                                      await KaringUrlUtils.getQueryParams();
-                                  String newUrl =
-                                      UrlLauncherUtils.reorganizationUrl(
-                                              download, queryParams) ??
-                                          download;
-
-                                  UrlLauncherUtils.loadUrl(newUrl);
+                                  UrlLauncherUtils.reorganizationAndLoadUrl(
+                                      download);
                                 }),
                           ));
                     }))
@@ -904,56 +906,13 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ]));
     }
     if (AdsPrivate.getEnable()) {
-      String expireTime = "";
-      DateTime? date = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
-      if (date != null) {
-        if (!DateTime.now().isAfter(date)) {
-          try {
-            expireTime = DateFormat.yMd(settingConfig.languageTag).format(date);
-          } catch (e) {}
-        }
-      }
-
       groupOptions.add(GroupItem(options: [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.removeBannerAds,
-                text: expireTime,
-                onPush: expireTime.isNotEmpty
-                    ? null
-                    : () async {
-                        AnalyticsUtils.logEvent(
-                            analyticsEventType: analyticsEventTypeUA,
-                            name: 'adsReward');
-
-                        bool? ok = await DialogUtils.showConfirmDialog(
-                            context, tcontext.removeBannerAdsByReward);
-                        if (ok == true) {
-                          DialogUtils.showLoadingDialog(context, text: "");
-                          AdsRewardWidget.loadGoogleRewardedAd(
-                              (AdsRewardError? err) {
-                            if (!mounted) {
-                              return;
-                            }
-                            Navigator.pop(context);
-                            if (err == null) {
-                              settingConfig.ads.bannerRewardExpire =
-                                  DateTime.now()
-                                      .add(const Duration(days: 7))
-                                      .toString();
-                              setState(() {});
-                              DialogUtils.showAlertDialog(context,
-                                  tcontext.removeBannerAdsByRewardDone);
-                            } else {
-                              DialogUtils.showAlertDialog(
-                                  context, err.toString(),
-                                  showCopy: true,
-                                  showFAQ: true,
-                                  withVersion: true);
-                            }
-                          });
-                        }
-                      }))
+                name: tcontext.ads,
+                onPush: () async {
+                  onTapAd();
+                }))
       ]));
     }
     String? rateUrl = AppleUtils.getRateUrl();
@@ -965,7 +924,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   onPush: () async {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_follow');
+                        name: 'SSS_follow',
+                        repeatable: true);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -981,7 +941,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   onPush: () async {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_contactUs');
+                        name: 'SSS_contactUs',
+                        repeatable: true);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -1011,7 +972,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   onPush: () async {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_rateInApp');
+                        name: 'SSS_rateInApp',
+                        repeatable: true);
                     final InAppReview inAppReview = InAppReview.instance;
                     inAppReview.requestReview();
                   }))
@@ -1023,7 +985,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   onPush: () async {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_rateInAppStore');
+                        name: 'SSS_rateInAppStore',
+                        repeatable: true);
                     UrlLauncherUtils.loadUrl(rateUrl);
                   }))
           : GroupItemOptions(),
@@ -1062,15 +1025,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   AnalyticsUtils.logEvent(
                       analyticsEventType: analyticsEventTypeUA,
                       name: 'SSS_notice',
-                      parameters: {"title": item.title});
+                      parameters: {"title": item.title},
+                      repeatable: true);
 
                   if (item.url.isNotEmpty) {
-                    String queryParams = await KaringUrlUtils.getQueryParams();
-                    String newUrl = UrlLauncherUtils.reorganizationUrl(
-                            item.url, queryParams) ??
-                        item.url;
-
-                    UrlLauncherUtils.loadUrl(newUrl);
+                    UrlLauncherUtils.reorganizationAndLoadUrl(item.url);
                   } else {
                     await Navigator.push(
                         context,
@@ -1107,7 +1066,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
         name: 'SSS_hasNewVersion',
-        parameters: {"version": versionCheck.version});
+        parameters: {"version": versionCheck.version},
+        repeatable: true);
     //item-beta://testflight.apple.com/join/RLU59OsJ or https://testflight.apple.com/join/RLU59OsJ
     if (AutoUpdateManager.isSupport()) {
       String? installerNew = await AutoUpdateManager.checkReplace();
@@ -2540,5 +2500,141 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
     await VPNService.uninit();
     await ServicesBinding.instance.exitApplication(AppExitType.required);
+  }
+
+  Future<void> onTapAd() async {
+    final tcontext = Translations.of(context);
+
+    Future<List<GroupItem>> getOptions(BuildContext context) async {
+      var settingConfig = SettingManager.getConfig();
+      String rewardAdExpireTime =
+          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
+      String shareExpireTime =
+          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.removeBannerAdsByReward,
+                text: rewardAdExpireTime,
+                onPush: rewardAdExpireTime.isNotEmpty
+                    ? null
+                    : () async {
+                        AnalyticsUtils.logEvent(
+                            analyticsEventType: analyticsEventTypeUA,
+                            name: 'adsReward',
+                            repeatable: true);
+
+                        bool? ok = await DialogUtils.showConfirmDialog(
+                            context,
+                            tcontext.removeBannerAdsByRewardTip(
+                                p: SettingConfigItemAds.rewardDays));
+                        if (ok == true) {
+                          DialogUtils.showLoadingDialog(context, text: "");
+                          AdsRewardWidget.loadGoogleRewardedAd(
+                              (AdsRewardError? err) {
+                            if (!mounted) {
+                              return;
+                            }
+                            Navigator.pop(context);
+                            if (err == null) {
+                              settingConfig.ads.bannerRewardAdExpire =
+                                  DateTime.now()
+                                      .add(const Duration(
+                                          days:
+                                              SettingConfigItemAds.rewardDays))
+                                      .toString();
+                              setState(() {});
+                              DialogUtils.showAlertDialog(
+                                  context,
+                                  tcontext.removeBannerAdsDone(
+                                      p: SettingConfigItemAds.rewardDays));
+                            } else {
+                              DialogUtils.showAlertDialog(
+                                  context, err.toString(),
+                                  showCopy: true,
+                                  showFAQ: true,
+                                  withVersion: true);
+                            }
+                          });
+                        }
+                      })),
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.removeBannerAdsByShare,
+                text: shareExpireTime,
+                onPush: () async {
+                  AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'adsShare',
+                      repeatable: true);
+
+                  final box = context.findRenderObject() as RenderBox?;
+                  bool? ok = await DialogUtils.showConfirmDialog(
+                      context,
+                      tcontext.removeBannerAdsByShareTip(
+                          p: SettingConfigItemAds.rewardDays,
+                          d: SettingConfigItemAds.rewardDays *
+                              SettingConfigItemAds.shareRewardTimes));
+                  if (ok == true) {
+                    try {
+                      RemoteConfig config = RemoteConfigManager.getConfig();
+                      String content = '''Karing
+
+ Simple & Powerful, rule-based network proxy utility
+ Support Clash,V2ray,Stash,Singbox,Shadowsocks,Github,Sub Subscription configuration
+
+ Download/Install
+   iOS/macOS/tvOS AppStore: ${AppleUtils.getAppStoreUrl()}
+   Android: ${config.download} or https://apkpure.com/p/com.nebula.karing
+   Windows: ${config.download}''';
+                      ShareResult result = await Share.shareWithResult(content,
+                          sharePositionOrigin:
+                              box!.localToGlobal(Offset.zero) & box.size);
+                      if (result.status == ShareResultStatus.success) {
+                        DateTime? date = DateTime.tryParse(
+                            settingConfig.ads.bannerShareExpire);
+                        if (date != null) {
+                          var newDate = date.add(
+                              Duration(days: SettingConfigItemAds.rewardDays));
+                          if ((newDate.difference(DateTime.now()).inDays /
+                                      SettingConfigItemAds.rewardDays)
+                                  .ceil() >
+                              SettingConfigItemAds.shareRewardTimes) {
+                            return;
+                          }
+                          settingConfig.ads.bannerShareExpire =
+                              newDate.toString();
+                        } else {
+                          settingConfig.ads.bannerShareExpire = DateTime.now()
+                              .add(const Duration(
+                                  days: SettingConfigItemAds.rewardDays))
+                              .toString();
+                        }
+
+                        setState(() {});
+                        DialogUtils.showAlertDialog(
+                            context,
+                            tcontext.removeBannerAdsDone(
+                                p: SettingConfigItemAds.rewardDays));
+                      }
+                    } catch (err) {
+                      DialogUtils.showAlertDialog(context, err.toString(),
+                          showCopy: true, showFAQ: true, withVersion: true);
+                    }
+                  }
+                })),
+      ];
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: GroupScreen.routSettings("ads"),
+            builder: (context) => GroupScreen(
+                  title: tcontext.ads,
+                  getOptions: getOptions,
+                )));
+    setState(() {});
   }
 }

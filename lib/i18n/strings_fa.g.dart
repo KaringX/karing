@@ -218,9 +218,12 @@ class TranslationsFa implements Translations {
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 	@override String get latencyTestTimeout => 'تایم اوت';
 	@override String get uwpExemption => 'معافیت جداسازی شبکه UWP';
-	@override String get removeBannerAds => 'تبلیغات را حذف کنید';
-	@override String get removeBannerAdsByReward => 'چند ثانیه تبلیغات را تماشا کنید و 7 روز بدون تبلیغات پاداش خواهید گرفت';
-	@override String get removeBannerAdsByRewardDone => 'یک پاداش 7 روزه بدون آگهی دریافت کرد';
+	@override String get ads => 'تبلیغات را حذف کنید';
+	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
+	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
+	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
+	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
+	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1270,9 +1273,12 @@ extension on TranslationsFa {
 			case 'latencyTestResolveIP': return 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 			case 'latencyTestTimeout': return 'تایم اوت';
 			case 'uwpExemption': return 'معافیت جداسازی شبکه UWP';
-			case 'removeBannerAds': return 'تبلیغات را حذف کنید';
-			case 'removeBannerAdsByReward': return 'چند ثانیه تبلیغات را تماشا کنید و 7 روز بدون تبلیغات پاداش خواهید گرفت';
-			case 'removeBannerAdsByRewardDone': return 'یک پاداش 7 روزه بدون آگهی دریافت کرد';
+			case 'ads': return 'تبلیغات را حذف کنید';
+			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
+			case 'removeBannerAdsByReward': return 'تماشای تبلیغات برو به تبلیغات';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
+			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

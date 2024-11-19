@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
-import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item.dart';
@@ -33,13 +32,9 @@ class GroupOptionsHelper {
                 AnalyticsUtils.logEvent(
                     analyticsEventType: analyticsEventTypeUA,
                     name: 'SSS_getTranffic',
-                    parameters: {"from": from});
-                String queryParams = await KaringUrlUtils.getQueryParams();
-                String newUrl = UrlLauncherUtils.reorganizationUrl(
-                        getTranffic, queryParams) ??
-                    getTranffic;
-
-                UrlLauncherUtils.loadUrl(newUrl);
+                    parameters: {"from": from},
+                    repeatable: true);
+                UrlLauncherUtils.reorganizationAndLoadUrl(getTranffic);
               })),
       tutorial.isNotEmpty
           ? GroupItemOptions(
@@ -49,13 +44,9 @@ class GroupOptionsHelper {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
                         name: 'SSS_tutorial',
-                        parameters: {"from": from});
-                    String queryParams = await KaringUrlUtils.getQueryParams();
-                    String newUrl = UrlLauncherUtils.reorganizationUrl(
-                            tutorial, queryParams) ??
-                        tutorial;
-
-                    UrlLauncherUtils.loadUrl(newUrl);
+                        parameters: {"from": from},
+                        repeatable: true);
+                    UrlLauncherUtils.reorganizationAndLoadUrl(tutorial);
                   }))
           : GroupItemOptions(),
       faq.isNotEmpty
@@ -66,13 +57,9 @@ class GroupOptionsHelper {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
                         name: 'SSS_faq',
-                        parameters: {"from": from});
-                    String queryParams = await KaringUrlUtils.getQueryParams();
-                    String newUrl =
-                        UrlLauncherUtils.reorganizationUrl(faq, queryParams) ??
-                            faq;
-
-                    UrlLauncherUtils.loadUrl(newUrl);
+                        parameters: {"from": from},
+                        repeatable: true);
+                    UrlLauncherUtils.reorganizationAndLoadUrl(faq);
                   }))
           : GroupItemOptions(),
       remoteConfig.rulesets.isNotEmpty
@@ -83,7 +70,8 @@ class GroupOptionsHelper {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
                         name: 'SSS_commonlyUsedRulesets',
-                        parameters: {"from": from});
+                        parameters: {"from": from},
+                        repeatable: true);
 
                     UrlLauncherUtils.loadUrl(remoteConfig.rulesets);
                   }))

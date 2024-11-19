@@ -218,9 +218,12 @@ class TranslationsZhCn implements Translations {
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
 	@override String get latencyTestTimeout => '超时时间';
 	@override String get uwpExemption => 'UWP网络隔离豁免';
-	@override String get removeBannerAds => '去除广告';
-	@override String get removeBannerAdsByReward => '观看一段数秒广告,将会获得7天无广告奖励';
-	@override String get removeBannerAdsByRewardDone => '已获得7天无广告奖励';
+	@override String get ads => '广告';
+	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
+	@override String get removeBannerAdsByReward => '观看广告去广告';
+	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
+	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
+	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1270,9 +1273,12 @@ extension on TranslationsZhCn {
 			case 'latencyTestResolveIP': return '手动检测时,同时解析出口IP';
 			case 'latencyTestTimeout': return '超时时间';
 			case 'uwpExemption': return 'UWP网络隔离豁免';
-			case 'removeBannerAds': return '去除广告';
-			case 'removeBannerAdsByReward': return '观看一段数秒广告,将会获得7天无广告奖励';
-			case 'removeBannerAdsByRewardDone': return '已获得7天无广告奖励';
+			case 'ads': return '广告';
+			case 'removeBannerAdsByShare': return '分享[Karing]去广告';
+			case 'removeBannerAdsByReward': return '观看广告去广告';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
+			case 'removeBannerAdsDone': return ({required Object p}) => '已获得${p}天无广告奖励';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

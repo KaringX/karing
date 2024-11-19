@@ -17,7 +17,7 @@ class DialogUtilsResult<T> {
 }
 
 class DialogUtils {
-  static Future<String> Function()? faqCallback;
+  static Future<void> Function(String text)? faqCallback;
 
   static Future<void> showAlertDialog(BuildContext context, String text,
       {bool showCopy = false,
@@ -105,10 +105,7 @@ class DialogUtils {
                     child: ElevatedButton(
                       child: Text(tcontext.faq),
                       onPressed: () async {
-                        String? url = await faqCallback?.call();
-                        if (url != null) {
-                          UrlLauncherUtils.loadUrl(url);
-                        }
+                        faqCallback?.call(text);
                       },
                     ))
                 : const SizedBox.shrink(),

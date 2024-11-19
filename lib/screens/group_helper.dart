@@ -1449,9 +1449,9 @@ class GroupHelper {
       return;
     }
     AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeUA,
-      name: 'appletv',
-    );
+        analyticsEventType: analyticsEventTypeUA,
+        name: 'appletv',
+        repeatable: true);
     Navigator.push(
         context,
         MaterialPageRoute(

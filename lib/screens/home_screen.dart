@@ -30,7 +30,6 @@ import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/local_notifications_utils.dart';
 import 'package:karing/app/utils/local_storeage.dart';
 import 'package:karing/app/utils/log.dart';
@@ -123,7 +122,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   final FocusNode _focusNodeMyLink = FocusNode();
   final FocusNode _focusNodeAppleTV = FocusNode();
   final FocusNode _focusNodeMore = FocusNode();
-  List<FocusNode> _focusNodeToolbar = [];
+  final List<FocusNode> _focusNodeToolbar = [];
 
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
@@ -268,6 +267,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (noConfig) {
         onTapAddProfileByAgreement();
       }
+      if (PlatformUtils.isPC()) {
+        var remoteConfig = RemoteConfigManager.getConfig();
+        await UrlLauncherUtils.reorganizationAndLoadUrl(
+            remoteConfig.getTranffic);
+        await UrlLauncherUtils.reorganizationAndLoadUrl(remoteConfig.tutorial);
+      }
     } else {
       String? installer = await AutoUpdateManager.checkReplace();
       if (installer != null) {
@@ -295,7 +300,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             parameters: {
               "err": content,
               "from": from,
-              "currentSelectorTag": _currentServerForSelector.now,
+              "current": _currentServer.tag,
             });
         await DialogUtils.showAlertDialog(context, content,
             showCopy: true, showFAQ: true, withVersion: true);
@@ -533,12 +538,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (setting.dns.clientSubnet.isNotEmpty) {
       if (last != null) {
         Duration dur = now.difference(last);
-        if (dur < const Duration(hours: 8)) {
+        if (dur < const Duration(hours: 1)) {
           return;
         }
       }
     }
-
     setting.dns.clientSubnetLatestUpdate = now.toString();
     ReturnResult<String> result = await HttpUtils.httpGetRequest(
         "https://checkip.amazonaws.com/",
@@ -551,6 +555,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (result.error != null) {
       return;
     }
+
     setting.dns.clientSubnet = result.data!.trim();
     SettingManager.saveConfig();
   }
@@ -574,16 +579,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void _init() async {
     Biz.onInitFinish(() async {
-      DialogUtils.faqCallback = () async {
+      DialogUtils.faqCallback = (String text) async {
         AnalyticsUtils.logEvent(
             analyticsEventType: analyticsEventTypeUA,
             name: 'SSS_faq',
-            parameters: {"from": "DialogUtils"});
-        var remoteConfig = RemoteConfigManager.getConfig();
-        String queryParams = await KaringUrlUtils.getQueryParams();
-        return UrlLauncherUtils.reorganizationUrl(
-                remoteConfig.faq, queryParams) ??
-            remoteConfig.faq;
+            parameters: {"from": "DialogUtils"},
+            repeatable: true);
+        CommonDialog.loadFAQByError(text);
       };
 
       checkError("onInitFinish");
@@ -716,7 +718,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             name: 'HSS_serviceQuit',
             parameters: {
               "code": code,
-              "currentSelectorTag": _currentServerForSelector.now,
+              "current": _currentServer.tag,
             });
       }
     });
@@ -998,7 +1000,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 == null) {
       var err = await VPNService.reload(
-          VPNService.getTimeoutByOutboundCount(result.item2!));
+          VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
       _isStarting = false;
       _isStarted = err == null;
       _canConnect = _isStarted;
@@ -1012,17 +1014,18 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               "from": from,
               "tunMode": tunMode,
               "count": result.item2,
-              "currentSelectorTag": _currentServerForSelector.now,
+              "current": _currentServer.tag,
             });
         CommonDialog.handleStartError(context, err.message);
-      }
-      if (PlatformUtils.isPC()) {
-        var settingConfig = SettingManager.getConfig();
-        if (settingConfig.proxy.enableCluster) {
-          String? error = await ProxyCluster.start();
-          if (error != null) {
-            DialogUtils.showAlertDialog(context, error,
-                showCopy: true, showFAQ: true, withVersion: true);
+      } else {
+        if (PlatformUtils.isPC()) {
+          var settingConfig = SettingManager.getConfig();
+          if (settingConfig.proxy.enableCluster) {
+            String? error = await ProxyCluster.start();
+            if (error != null) {
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
+            }
           }
         }
       }
@@ -1443,17 +1446,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
         name: 'HSS_notice',
-        parameters: {"title": noticeItem.title});
+        parameters: {"title": noticeItem.title},
+        repeatable: true);
 
     InAppNotifications.dismiss();
     _inAppNotificationsShowing = false;
     if (noticeItem.url.isNotEmpty) {
-      String queryParams = await KaringUrlUtils.getQueryParams();
-      String newUrl =
-          UrlLauncherUtils.reorganizationUrl(noticeItem.url, queryParams) ??
-              noticeItem.url;
-
-      UrlLauncherUtils.loadUrl(newUrl);
+      UrlLauncherUtils.reorganizationAndLoadUrl(noticeItem.url);
     } else {
       await Navigator.push(
           context,
@@ -1667,7 +1666,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               "from": from,
               "tunMode": tunMode,
               "count": result.item2,
-              "currentSelectorTag": _currentServerForSelector.now,
+              "current": _currentServer.tag,
             });
       }
 
@@ -1679,7 +1678,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ServerManager.setDirty(false);
     SettingManager.setDirty(false);
     var err = await VPNService.start(
-        VPNService.getTimeoutByOutboundCount(result.item2!));
+        VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
     _isStarting = false;
     _isStarted = err == null;
     Biz.vpnStateChanged(_isStarted);
@@ -1695,7 +1694,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           "from": from,
           "tunMode": tunMode,
           "count": result.item2,
-          "currentSelectorTag": _currentServerForSelector.now,
+          "current": _currentServer.tag,
         });
     if (err != null) {
       if (!disableShowAlertDialog) {
@@ -1900,8 +1899,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     bool showAds = false;
     if (AdsPrivate.getEnable()) {
-      var expire = DateTime.tryParse(settingConfig.ads.bannerRewardExpire);
-      showAds = expire == null || DateTime.now().isAfter(expire);
+      String rewardAdExpireTime =
+          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
+      String shareExpireTime =
+          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
+
+      showAds = rewardAdExpireTime.isEmpty && shareExpireTime.isEmpty;
     }
 
     double height =
@@ -2363,7 +2366,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Size windowSize = MediaQuery.of(context).size;
 
     int maxCount = ((windowSize.width - 100) / 35).toInt();
-    if (maxCount < 0) {
+    if (maxCount <= 0) {
       maxCount = 7;
     }
 

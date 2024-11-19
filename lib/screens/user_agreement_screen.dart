@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -114,8 +117,18 @@ class _UserAgreementScreenState
                               tcontext.privacyPolicy,
                               style: const TextStyle(color: Colors.blueAccent),
                             ),
-                            onTap: () {
-                              DialogUtils.showPrivacyPolicy(context);
+                            onTap: () async {
+                              var remoteConfig =
+                                  RemoteConfigManager.getConfig();
+                              ReturnResultError? error =
+                                  await UrlLauncherUtils.loadUrl(
+                                      remoteConfig.privacyPolicy);
+                              if (error != null) {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                DialogUtils.showPrivacyPolicy(context);
+                              }
                             }),
                       ],
                     )

@@ -38,13 +38,16 @@ class AppRouteObserver extends RouteObserver<ModalRoute<dynamic>> {
       String action, Route<dynamic> route, Route<dynamic>? preRoute) {
     if (route.settings.name != null) {
       AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeApp,
-          name: "screen_view",
-          parameters: {
-            "action": action,
-            "name": route.settings.name,
-            "pre_name": preRoute != null ? preRoute.settings.name ?? "" : null
-          }).catchError(
+              analyticsEventType: analyticsEventTypeApp,
+              name: "screen_view",
+              parameters: {
+                "action": action,
+                "name": route.settings.name,
+                "pre_name":
+                    preRoute != null ? preRoute.settings.name ?? "" : null
+              },
+              repeatable: true)
+          .catchError(
         (Object error) {},
         test: (Object error) => error is PlatformException,
       );

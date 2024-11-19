@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -681,7 +680,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     );
   }
 
-  Future<void> GetFile(String fileName) async {
+  Future<void> getFile(String fileName) async {
     var setting = SettingManager.getConfig();
 
     String url =
@@ -811,20 +810,20 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
             value: 1,
             child: Text(PathUtils.serviceCoreConfigFileName()),
             onTap: () async {
-              return await GetFile(PathUtils.serviceCoreConfigFileName());
+              return await getFile(PathUtils.serviceCoreConfigFileName());
             },
           ),
           PopupMenuItem(
               value: 1,
               child: Text(PathUtils.serviceLogFileName()),
               onTap: () async {
-                await GetFile(PathUtils.serviceLogFileName());
+                await getFile(PathUtils.serviceLogFileName());
               }),
           PopupMenuItem(
               value: 1,
               child: Text(PathUtils.serviceStdErrorFileName()),
               onTap: () async {
-                await GetFile(PathUtils.serviceStdErrorFileName());
+                await getFile(PathUtils.serviceStdErrorFileName());
               }),
         ]);
   }
