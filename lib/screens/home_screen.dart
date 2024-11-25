@@ -292,7 +292,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String errorPath = await PathUtils.serviceStdErrorFilePath();
     String? content = await FileUtils.readAndDelete(errorPath);
     if (content != null && content.isNotEmpty) {
-      content = content.replaceAll("sing-box", "");
       if (!content.contains("Config expired, Please start from app")) {
         AnalyticsUtils.logEvent(
             analyticsEventType: analyticsEventTypeApp,

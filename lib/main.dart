@@ -81,19 +81,28 @@ Future<void> run(List<String> args) async {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
+      String version = await AppUtils.getPackgetVersion();
+      if (AppUtils.getBuildinVersion() != version) {
+        startFailedReason = StartFailedReason.invalidVersion;
+        break;
+      }
+      String exePath = Platform.resolvedExecutable.toUpperCase();
+      if (PlatformUtils.isPC()) {
+        if (path.basename(exePath).toLowerCase() !=
+            AppUtils.getKaringExe().toLowerCase()) {
+          startFailedReason = StartFailedReason.invalidProcess;
+          break;
+        }
+      }
       if (Platform.isWindows) {
         var tmp = await getTemporaryDirectory();
-        String exePath = Platform.resolvedExecutable.toUpperCase();
         if (exePath.contains("UNC/") ||
             exePath.contains("UNC\\") ||
             exePath.startsWith(tmp.absolute.path.toUpperCase())) {
           startFailedReason = StartFailedReason.invalidInstallPath;
           break;
         }
-        if (path.basename(exePath).toLowerCase() != AppUtils.getKaringExe()) {
-          startFailedReason = StartFailedReason.invalidProcess;
-          break;
-        }
+
         if (VersionHelper.instance.majorVersion != 0 &&
             VersionHelper.instance.majorVersion < 10) {
           startFailedReason = StartFailedReason.systemVersionLow;
@@ -108,11 +117,6 @@ Future<void> run(List<String> args) async {
           startFailedReasonDesc = "Android >= 8.0";
           break;
         }
-      }
-      String version = await AppUtils.getPackgetVersion();
-      if (AppUtils.getBuildinVersion() != version) {
-        startFailedReason = StartFailedReason.invalidVersion;
-        break;
       }
     } while (false);
   } catch (err, stacktrace) {

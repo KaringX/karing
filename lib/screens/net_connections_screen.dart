@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -219,6 +220,19 @@ class NetConnectionState {
     }
 
     return process;
+  }
+
+  String getMacosAppName() {
+    if (!Platform.isMacOS) {
+      return "";
+    }
+    List<String> parts = process.split("/");
+    for (var part in parts) {
+      if (part.endsWith(".app")) {
+        return part.replaceAll(".app", "");
+      }
+    }
+    return "";
   }
 }
 
@@ -646,7 +660,12 @@ class _NetConnectionsScreenState
         padding * 2 * 2 -
         arrow_forward_ios_rounded;
     double height = 90;
-    if (current.showProcess.isNotEmpty) {
+    String processName = current.showProcess;
+    if (processName.isNotEmpty) {
+      String appName = current.getMacosAppName();
+      if (appName.isNotEmpty) {
+        processName = "$appName[$processName]";
+      }
       height += 18;
     }
     if (current.package.isNotEmpty) {
@@ -656,6 +675,7 @@ class _NetConnectionsScreenState
         current.getUpload() - current.getLastUpload());
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
         current.getDownload() - current.getLastDownload());
+
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -739,10 +759,11 @@ class _NetConnectionsScreenState
                               ),
                             ),
                           ]),
-                          current.showProcess.isNotEmpty
+                          processName.isNotEmpty
                               ? Row(children: [
                                   Text(
-                                    current.showProcess,
+                                    processName,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 12,
                                     ),
@@ -753,6 +774,7 @@ class _NetConnectionsScreenState
                               ? Row(children: [
                                   Text(
                                     current.package,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 12,
                                     ),
@@ -1109,8 +1131,9 @@ class _NetConnectionsScreenState
                               DiversionGroupCustomScreen(options: options)));
                 })));
       }
-      if (Platform.isWindows && current.process.isNotEmpty) {
+      if (PlatformUtils.isPC() && current.process.isNotEmpty) {
         String processName = current.getProcessName();
+
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.processName,
@@ -1172,11 +1195,13 @@ class _NetConnectionsScreenState
         return true;
       }
     }
-    if (Platform.isWindows) {
-      if (current.getProcessName() == AppUtils.getKaringExe()) {
+    if (PlatformUtils.isPC()) {
+      if (current.process.toLowerCase() ==
+          Platform.resolvedExecutable.toLowerCase()) {
         return true;
       }
     }
+
     if (Platform.isAndroid) {
       if (current.package == AppUtils.getId()) {
         return true;
@@ -1198,9 +1223,7 @@ class _NetConnectionsScreenState
         break;
       }
     }
-    var sortMethod = Platform.isIOS || Platform.isMacOS
-        ? sortCompareHost
-        : sortCompareProcess;
+    var sortMethod = Platform.isIOS ? sortCompareHost : sortCompareProcess;
     if (index != -1) {
       var nlc = list.take(index + 1).toList();
       var nlnc = list.skip(index + 1).toList();

@@ -50,6 +50,7 @@ app.*.map.json
 /dist/*.apk
 /dist/*.exe
 /dist/*.zip
+/dist/*.xcarchive
 /bind/apple/Libbox.xcframework
 /bind/android
 /bind/windows

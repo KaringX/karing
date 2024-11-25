@@ -87,7 +87,9 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
     final tcontext = Translations.of(context);
     String host = RemoteConfigManager.getConfig().host;
     String error = "";
-    if (widget.startFailedReason == StartFailedReason.invalidProfile) {
+    if (widget.startFailedReason == StartFailedReason.invalidProcess) {
+      error = tcontext.LaunchFailedScreen.invalidProcess;
+    } else if (widget.startFailedReason == StartFailedReason.invalidProfile) {
       error = tcontext.LaunchFailedScreen.invalidProfile;
     } else if (widget.startFailedReason == StartFailedReason.invalidVersion) {
       error = tcontext.LaunchFailedScreen.invalidVersion;

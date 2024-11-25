@@ -4,6 +4,7 @@ import 'package:android_package_manager/android_package_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -253,7 +254,7 @@ class _DiversionGroupCustomEditScreenState
         }
       }
     }
-    if (Platform.isWindows) {
+    if (PlatformUtils.isPC()) {
       if (widget.options.processName != null) {
         if (group.processName.isNotEmpty) {
           _textControllerLinkProcessName.text = group.processName.join("\n");
@@ -266,6 +267,7 @@ class _DiversionGroupCustomEditScreenState
           _textControllerLinkProcessName.text += "\n";
         }
       }
+
       if (widget.options.processPath != null) {
         if (group.processPath.isNotEmpty) {
           _textControllerLinkProcessPath.text = group.processPath.join("\n");
@@ -443,26 +445,29 @@ class _DiversionGroupCustomEditScreenState
         _listViewParts.add(item);
       }
     }
-    if (Platform.isWindows) {
+    if (PlatformUtils.isPC()) {
       if (widget.options.processName != null) {
         ListViewMultiPartsItem item = ListViewMultiPartsItem();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-
+          String processName = Platform.isWindows
+              ? "Telegram.exe\nchrome.com"
+              : "Google Chrome Helper\nCode Helper";
           return createTextField(_textControllerLinkProcessName,
-              tcontext.processName, "Telegram.exe\nchrome.com");
+              tcontext.processName, processName);
         };
         _listViewParts.add(item);
       }
+
       if (widget.options.processPath != null) {
         ListViewMultiPartsItem item = ListViewMultiPartsItem();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-
-          return createTextField(
-              _textControllerLinkProcessPath,
-              tcontext.processPath,
-              "C:\\Program Files (x86)\\Telegram Desktop\\Telegram.exe\nC:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
+          String processPath = Platform.isWindows
+              ? "C:\\Program Files (x86)\\Telegram Desktop\\Telegram.exe\nC:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+              : "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/130.0.6723.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper\n/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper";
+          return createTextField(_textControllerLinkProcessPath,
+              tcontext.processPath, processPath);
         };
         _listViewParts.add(item);
       }
@@ -848,11 +853,12 @@ class _DiversionGroupCustomEditScreenState
           newGroup.package = convertToList(_textControllerLinkPackage.text);
         }
       }
-      if (Platform.isWindows) {
+      if (PlatformUtils.isPC()) {
         if (widget.options.processName != null) {
           newGroup.processName =
               convertToList(_textControllerLinkProcessName.text);
         }
+
         if (widget.options.processPath != null) {
           newGroup.processPath =
               convertToList(_textControllerLinkProcessPath.text);
