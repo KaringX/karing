@@ -82,6 +82,7 @@ class TranslationsFa implements Translations {
 	@override String get edit => 'ویرایش کنید';
 	@override String get view => 'بررسی';
 	@override String get more => 'بیشتر';
+	@override String get getProfile => 'پیکربندی را دریافت کنید';
 	@override String get addProfile => 'افزودن پروفایل';
 	@override String get addSuccess => 'با‌موفقیت اضافه شد';
 	@override String addSuccessThen({required Object p}) => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${p}] بروید';
@@ -202,7 +203,7 @@ class TranslationsFa implements Translations {
 	@override String get importFromClipboard => 'افزودن از کلیپ‌برد';
 	@override String get exportToClipboard => 'صادرات به کلیپ بورد';
 	@override String get server => 'سرور';
-	@override String get appleTVConnectTurnOfprivateDirect => 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
+	@override String get turnOffPrivateDirect => 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
 	@override String targetConnectFailed({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
 	@override String get appleTVSync => 'همگام سازی پیکربندی هسته فعلی با Apple TV - Karing';
 	@override String get appleTVSyncDone => 'همگام سازی کامل شد، لطفاً برای باز کردن/راه اندازی مجدد اتصال به Apple TV - Karing بروید';
@@ -224,6 +225,7 @@ class TranslationsFa implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
+	@override String get edgeRuntimeNotInstalled => 'دستگاه فعلی Edge یا Edge WebView2 را نصب نکرده است، بنابراین صفحه نمی تواند نمایش داده شود، لطفاً Edge WebView2 (x64) را دانلود و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1137,6 +1139,7 @@ extension on TranslationsFa {
 			case 'edit': return 'ویرایش کنید';
 			case 'view': return 'بررسی';
 			case 'more': return 'بیشتر';
+			case 'getProfile': return 'پیکربندی را دریافت کنید';
 			case 'addProfile': return 'افزودن پروفایل';
 			case 'addSuccess': return 'با‌موفقیت اضافه شد';
 			case 'addSuccessThen': return ({required Object p}) => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${p}] بروید';
@@ -1257,7 +1260,7 @@ extension on TranslationsFa {
 			case 'importFromClipboard': return 'افزودن از کلیپ‌برد';
 			case 'exportToClipboard': return 'صادرات به کلیپ بورد';
 			case 'server': return 'سرور';
-			case 'appleTVConnectTurnOfprivateDirect': return 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
+			case 'turnOffPrivateDirect': return 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
 			case 'targetConnectFailed': return ({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
 			case 'appleTVSync': return 'همگام سازی پیکربندی هسته فعلی با Apple TV - Karing';
 			case 'appleTVSyncDone': return 'همگام سازی کامل شد، لطفاً برای باز کردن/راه اندازی مجدد اتصال به Apple TV - Karing بروید';
@@ -1279,6 +1282,7 @@ extension on TranslationsFa {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
+			case 'edgeRuntimeNotInstalled': return 'دستگاه فعلی Edge یا Edge WebView2 را نصب نکرده است، بنابراین صفحه نمی تواند نمایش داده شود، لطفاً Edge WebView2 (x64) را دانلود و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

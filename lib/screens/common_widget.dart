@@ -10,6 +10,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:provider/provider.dart';
 
 class CommonWidget {
@@ -268,14 +269,15 @@ class CommonWidget {
                     children: [
                       ElevatedButton(
                         child: Text(tcontext.SettingsScreen.openISP),
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.pop(context, null);
                           ServerConfigGroupItem? item =
                               ServerManager.getByGroupId(groupid);
                           if (item != null) {
                             SubscriptionISP? isp = item.getISP();
                             if (isp != null) {
-                              UrlLauncherUtils.loadUrl(isp.url);
+                              await WebviewHelper.loadUrl(context, isp.url,
+                                  title: isp.name);
                             }
                           }
                         },

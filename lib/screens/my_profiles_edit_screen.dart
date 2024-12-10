@@ -124,7 +124,9 @@ class _MyProfilesEditScreenState
                       children: [
                         TextField(
                           controller: _textControllerRemark,
-                          textInputAction: TextInputAction.done,
+                          textInputAction: item != null && item.isRemote()
+                              ? TextInputAction.next
+                              : TextInputAction.done,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             labelText: tcontext.remark,

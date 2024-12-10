@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/utils/app_utils.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -198,6 +198,7 @@ class DialogUtils {
                 child: TextField(
                   controller: textController,
                   inputFormatters: inputFormatters,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                     labelText: labelText,
                   ),
@@ -282,6 +283,7 @@ class DialogUtils {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
+                          textInputAction: TextInputAction.next,
                         ),
                       )),
                   const Text(
@@ -299,6 +301,7 @@ class DialogUtils {
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
                         ],
+                        textInputAction: TextInputAction.done,
                       ),
                     ),
                   ),
@@ -479,6 +482,7 @@ class DialogUtils {
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
                           ],
+                          textInputAction: TextInputAction.done,
                           controller: textController,
                         ),
                       ),
@@ -715,11 +719,7 @@ class DialogUtils {
             settings: RichtextViewScreen.routSettings(),
             builder: (context) => RichtextViewScreen(
                 title: tcontext.privacyPolicy,
-                file: "assets/txts/en/privacy_policy.txt",
+                file: AssetsUtils.privacyPolicyPath(),
                 content: "")));
-  }
-
-  static void showTermsofService(BuildContext context) async {
-    UrlLauncherUtils.loadUrl(AppUtils.getTermsOfServiceUrl());
   }
 }

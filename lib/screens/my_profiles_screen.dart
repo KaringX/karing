@@ -37,6 +37,7 @@ import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
@@ -155,7 +156,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       url = "$newUrl&url=${Uri.encodeQueryComponent(url)}}";
     }
 
-    UrlLauncherUtils.loadUrl(url);
+    await WebviewHelper.loadUrl(context, url);
   }
 
   void _buildData() {
@@ -281,7 +282,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   SizedBox(
                     width: centerWidth - 2 * 2 - 15 - 26 - 2,
                     child: Text(
-                      item.remark,
+                      "${item.remark}[${item.servers.length}]",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: ThemeConfig.kFontSizeListItem,
@@ -667,6 +668,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                 : centerWidth - 30,
                             child: Text(
                               server.tag,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
                               style: TextStyle(
                                 fontSize: ThemeConfig.kFontSizeListSubItem,
                                 fontFamily: Platform.isWindows ? 'Emoji' : null,
@@ -1192,7 +1195,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   void onTapAddProfile() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, false);
     setState(() {});
   }
 
@@ -1515,17 +1518,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         [],
         SingboxExportType.singbox);
 
-    var sitecodes = await RulesetCodesUtils.siteCodes();
-    var ipcodes = await RulesetCodesUtils.ipCodes();
-    var aclcodes = await RulesetCodesUtils.aclCodes();
+    var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();
+    var ipcodesHashCode = await RulesetCodesUtils.ipCodesHashCode();
+    var aclcodesHashCode = await RulesetCodesUtils.aclCodesHashCode();
 
     config.route = SingboxConfigBuilder.route(
         "",
         "",
         "",
-        sitecodes,
-        ipcodes,
-        aclcodes,
+        sitecodesHashCode,
+        ipcodesHashCode,
+        aclcodesHashCode,
         false,
         allOutBounds,
         {},

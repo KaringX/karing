@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/app_scheme_utils.dart';
+import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -87,8 +87,8 @@ class _BackupAndSyncLanSyncScreenState
 
       if (Platform.isWindows) {
         FlutterVpnService.firewallAddApp(
-            Platform.resolvedExecutable, AppUtils.getKaringExe());
-        FlutterVpnService.firewallAddPorts([port], AppUtils.getKaringExe());
+            Platform.resolvedExecutable, PathUtils.getExeName());
+        FlutterVpnService.firewallAddPorts([port], PathUtils.getExeName());
       }
 
       List<String> ips = [];
@@ -108,8 +108,8 @@ class _BackupAndSyncLanSyncScreenState
       }
 
       String action = (widget.syncUpload == true
-          ? AppSchemeUtils.syncUploadAction()
-          : AppSchemeUtils.syncDownloadAction());
+          ? AppSchemeActions.syncUploadAction()
+          : AppSchemeActions.syncDownloadAction());
 
       String url =
           "karing://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$port";
@@ -136,7 +136,7 @@ class _BackupAndSyncLanSyncScreenState
         httpRequest.response.close();
       });
       if (widget.syncUpload == true) {
-        _onRouting("/${AppSchemeUtils.syncUploadAction()}", "POST",
+        _onRouting("/${AppSchemeActions.syncUploadAction()}", "POST",
             (HttpRequest httpRequest) async {
           String dir = await PathUtils.cacheDir();
           var contentType =
@@ -172,7 +172,7 @@ class _BackupAndSyncLanSyncScreenState
           }
         });
       } else {
-        _onRouting("/${AppSchemeUtils.syncDownloadAction()}", "GET",
+        _onRouting("/${AppSchemeActions.syncDownloadAction()}", "GET",
             (HttpRequest httpRequest) async {
           var file = File(_zipPath!);
           bool found = await file.exists();

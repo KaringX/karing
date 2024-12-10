@@ -45,7 +45,7 @@ class NetCheckScreen extends LasyRenderingStatefulWidget {
 
 class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   final List<ListViewMultiPartsItem> _listViewParts = [];
-  final FocusNode _focusNode = FocusNode();
+
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
   final _textControllerHost = TextEditingController();
@@ -70,7 +70,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
 
   @override
   void dispose() {
-    _focusNode.dispose();
     _disconnectLog();
     super.dispose();
   }
@@ -84,8 +83,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     if (inProduction) {
       return;
     }
-    String secret = await ClashApi.getSecret();
-    Map<String, String> headers = ClashApi.getHeaders(secret);
+
     String url = await ClashApi.getLogsUrl(
         SettingManager.getConfig().proxy.controlPort, "info");
 
@@ -98,11 +96,11 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       _httpClient!.findProxy = (Uri uri) => "DIRECT";
 
       {
-        WebSocket webSocket = await WebSocket.connect(url,
-            headers: headers, customClient: _httpClient);
+        WebSocket webSocket =
+            await WebSocket.connect(url, customClient: _httpClient);
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
-          //print(message);
+          // print(message);
         }, onDone: () {}, onError: (error) {});
       }
     } catch (err) {
@@ -777,7 +775,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         child: Column(
           children: [
             TextField(
-              focusNode: _focusNode,
               controller: _textControllerHost,
               textInputAction: TextInputAction.done,
               cursorColor: Colors.black,
@@ -882,10 +879,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   Future<void> onPressCheck() async {
     if (!mounted) {
       return;
-    }
-
-    if (_focusNode.hasFocus) {
-      _focusNode.unfocus();
     }
 
     final tcontext = Translations.of(context);

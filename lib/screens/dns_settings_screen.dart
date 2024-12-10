@@ -511,7 +511,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: TextField(
                   controller: textControllerISP,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     labelText: tcontext.isp,

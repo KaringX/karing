@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
@@ -18,17 +19,14 @@ import 'package:karing/app/modules/proxy_cluster.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/private/ads_banner_widget_private.dart';
+import 'package:karing/app/modules/yacd.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
-import 'package:karing/app/utils/app_scheme_utils.dart';
-import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/diversion_custom_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/local_notifications_utils.dart';
 import 'package:karing/app/utils/local_storeage.dart';
@@ -41,7 +39,6 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
 import 'package:karing/screens/common_dialog.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -54,6 +51,7 @@ import 'package:karing/screens/net_connections_screen.dart';
 import 'package:karing/screens/novice_screen.dart';
 import 'package:karing/screens/region_settings_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
+import 'package:karing/screens/scheme_handler.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/settings_screen.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -64,6 +62,8 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/user_agreement_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
+import 'package:karing/screens/webview_helper.dart';
+import 'package:karing/screens/widgets/ads_banner_widget.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/segmented_button.dart';
 import 'package:move_to_background/move_to_background.dart';
@@ -95,7 +95,7 @@ class HomeScreen extends LasyRenderingStatefulWidget {
 }
 
 class _HomeScreenState extends LasyRenderingState<HomeScreen>
-    with WidgetsBindingObserver, ProtocolListener {
+    with WidgetsBindingObserver, ProtocolListener, AfterLayoutMixin {
   static const double kMaxWidth = 500;
   static const int kLocalNotificationsIdVpnStateId = 1;
   static const int kLocalNotificationsIdNetStateId = 2;
@@ -190,6 +190,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     LocalNotifications.init();
   }
 
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    if (PlatformUtils.maybeTV()) {
+      _focusNodeSettings.requestFocus();
+    }
+  }
+
   Future<bool> futureBool(bool value) async {
     return value;
   }
@@ -220,8 +227,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               settings: LanguageSettingsScreen.routSettings(),
               fullscreenDialog: true,
               builder: (context) => LanguageSettingsScreen(
+                    canPop: false,
                     canGoBack: false,
-                    nextText: tcontext.next,
+                    nextText: () {
+                      var tcontext = Translations.of(context);
+                      return tcontext.next;
+                    },
                   )));
       tcontext = Translations.of(context);
 
@@ -231,6 +242,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               settings: RegionSettingsScreen.routSettings(),
               fullscreenDialog: true,
               builder: (context) => RegionSettingsScreen(
+                    canPop: false,
                     canGoBack: false,
                     nextText: tcontext.next,
                   )));
@@ -248,6 +260,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               settings: DiversionRulesCustomSetScreen.routSettings(),
               fullscreenDialog: true,
               builder: (context) => DiversionRulesCustomSetScreen(
+                    canPop: false,
                     title: tcontext.diversionCustomGroupPreset,
                     canGoBack: false,
                     nextText: tcontext.next,
@@ -269,9 +282,24 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       if (PlatformUtils.isPC()) {
         var remoteConfig = RemoteConfigManager.getConfig();
-        await UrlLauncherUtils.reorganizationAndLoadUrl(
-            remoteConfig.getTranffic);
-        await UrlLauncherUtils.reorganizationAndLoadUrl(remoteConfig.tutorial);
+        {
+          String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+              remoteConfig.getTranffic);
+          if (!context.mounted) {
+            return;
+          }
+          await WebviewHelper.loadUrl(context, url,
+              title: tcontext.SettingsScreen.getTranffic);
+        }
+        {
+          String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+              remoteConfig.tutorial);
+          if (!context.mounted) {
+            return;
+          }
+          await WebviewHelper.loadUrl(context, url,
+              title: tcontext.SettingsScreen.tutorial);
+        }
       }
     } else {
       String? installer = await AutoUpdateManager.checkReplace();
@@ -299,7 +327,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             parameters: {
               "err": content,
               "from": from,
-              "current": _currentServer.tag,
             });
         await DialogUtils.showAlertDialog(context, content,
             showCopy: true, showFAQ: true, withVersion: true);
@@ -309,6 +336,46 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void updateTile() {
     //MainChannel.call("tile.update", {"started": _isStarting || _isStarted});
+  }
+  void _startCheckTimer() {
+    const Duration duration = Duration(seconds: 1);
+    _timer ??= Timer.periodic(duration, (timer) async {
+      if (!_isStarting && !_isStoping) {
+        if (AppLifecycleStateNofityManager.isPaused()) {
+          return;
+        }
+        bool started = await VPNService.started();
+        if (started != _isStarted) {
+          _isStarted = started;
+          Biz.vpnStateChanged(_isStarted);
+          setState(() {});
+        }
+        if (!_isStarted) {
+          _canConnect = false;
+        }
+        updateTile();
+
+        if (_canConnect) {
+          _connectToCurrent();
+          _connectToService();
+        } else {
+          _disconnectToCurrent();
+          _disconnectToService();
+        }
+      }
+      if (PlatformUtils.isPC()) {
+        bool systemProxyset = await VPNService.getSystemProxy();
+        if (systemProxyset != _isSystemProxySet) {
+          _isSystemProxySet = systemProxyset;
+          setState(() {});
+        }
+      }
+    });
+  }
+
+  void _stopCheckTimer() {
+    _timer?.cancel();
+    _timer = null;
   }
 
   void _connectToCurrent() async {
@@ -331,7 +398,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
     //Log.w("_connectToCurrent");
-    _wstimer ??= Timer.periodic(const Duration(seconds: 5), (timer) async {
+    _wstimer ??= Timer.periodic(const Duration(seconds: 3), (timer) async {
       bool started = await VPNService.started();
       if (!started) {
         if (_currentServerForSelector.now.isNotEmpty ||
@@ -404,8 +471,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     //Log.w("_connectToService");
     _wsConnecting = true;
-    String secret = await ClashApi.getSecret();
-    Map<String, String> headers = ClashApi.getHeaders(secret);
+
     String connectionsUrl = await ClashApi.getConnectionsUrl(
         SettingManager.getConfig().proxy.controlPort);
 
@@ -418,13 +484,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       _httpClient!.findProxy = (Uri uri) => "DIRECT";
 
       {
-        WebSocket webSocket = await WebSocket.connect(connectionsUrl,
-            headers: headers, customClient: _httpClient);
+        WebSocket webSocket =
+            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
           Connection con = Connection();
-          con.fromJson(obj);
+          con.fromJson(obj, _trackerCallback != null);
           if (con.startTime != null) {
             _startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
@@ -584,7 +650,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             name: 'SSS_faq',
             parameters: {"from": "DialogUtils"},
             repeatable: true);
-        CommonDialog.loadFAQByError(text);
+        CommonDialog.loadFAQByError(context, text);
       };
 
       checkError("onInitFinish");
@@ -622,37 +688,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         _connectToService();
         _updateWanIP();
       }
-
-      const Duration duration = Duration(seconds: 1);
-      _timer ??= Timer.periodic(duration, (timer) async {
-        if (!_isStarting && !_isStoping) {
-          bool started = await VPNService.started();
-          if (started != _isStarted) {
-            _isStarted = started;
-            Biz.vpnStateChanged(_isStarted);
-            setState(() {});
-          }
-          if (!_isStarted) {
-            _canConnect = false;
-          }
-          updateTile();
-
-          if (_canConnect) {
-            _connectToCurrent();
-            _connectToService();
-          } else {
-            _disconnectToCurrent();
-            _disconnectToService();
-          }
-        }
-        if (PlatformUtils.isPC()) {
-          bool systemProxyset = await VPNService.getSystemProxy();
-          if (systemProxyset != _isSystemProxySet) {
-            _isSystemProxySet = systemProxyset;
-            setState(() {});
-          }
-        }
-      });
+      _startCheckTimer();
 
       if (PlatformUtils.isPC()) {
         if (SettingManager.getConfig().autoConnectAfterLaunch) {
@@ -677,6 +713,22 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Biz.onRequestStartVPN((String from) async {
       return await start(from, disableShowAlertDialog: true);
     });
+    SchemeHandler.vpnConnect = () {
+      Future.delayed(const Duration(seconds: 0), () async {
+        await start("scheme");
+      });
+    };
+    SchemeHandler.vpnDisconnect = () {
+      Future.delayed(const Duration(seconds: 0), () async {
+        await stop();
+      });
+    };
+    SchemeHandler.vpnReconnect = () {
+      Future.delayed(const Duration(seconds: 0), () async {
+        await stop();
+        await start("scheme");
+      });
+    };
     VPNService.onStateChanged(
         (FlutterVpnServiceStateChangeReason reason, int code) async {
       if (!_isStarting && !_isStoping) {
@@ -717,7 +769,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             name: 'HSS_serviceQuit',
             parameters: {
               "code": code,
-              "current": _currentServer.tag,
             });
       }
     });
@@ -930,13 +981,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         }
         _canConnect = _isStarted;
       }
+      _startCheckTimer();
       _showNotify();
+
+      if (PlatformUtils.maybeTV()) {
+        _focusNodeSettings.requestFocus();
+      }
     });
 
     AppLifecycleStateNofityManager.onStatePaused(hashCode, () async {
       if (!_isStarting) {
         _canConnect = false;
       }
+      _stopCheckTimer();
+      _disconnectToCurrent();
+      _disconnectToService();
     });
 
     if (Platform.isWindows) {
@@ -1013,7 +1072,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               "from": from,
               "tunMode": tunMode,
               "count": result.item2,
-              "current": _currentServer.tag,
             });
         CommonDialog.handleStartError(context, err.message);
       } else {
@@ -1037,6 +1095,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await VPNService.stop();
       _isStoping = false;
       setState(() {});
+      await Yacd.stop();
     }
   }
 
@@ -1230,15 +1289,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void onTapToggleStart() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, false);
     await checkAndReload("onTapToggleStart");
     setState(() {});
   }
 
   void onTapSpeedTest() async {
+    final tcontext = Translations.of(context);
     var setting = SettingManager.getConfig();
-    UrlLauncherUtils.loadUrl(
-        !setting.novice ? setting.speedTest : SettingConfig.kSpeedTestList[0]);
+    await WebviewHelper.loadUrl(context,
+        !setting.novice ? setting.speedTest : SettingConfig.kSpeedTestList[0],
+        title: tcontext.SettingsScreen.speedTest);
   }
 
   void onTapLink() async {
@@ -1247,7 +1308,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await DialogUtils.showAlertDialog(
           context, tcontext.HomeScreen.myLinkEmpty);
     } else {
-      UrlLauncherUtils.loadUrl(SettingManager.getConfig().uiScreen.myLink);
+      await WebviewHelper.loadUrl(
+          context, SettingManager.getConfig().uiScreen.myLink,
+          title: SettingManager.getConfig().uiScreen.myLink);
     }
   }
 
@@ -1266,19 +1329,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void onTapAddProfile() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, false);
     await checkAndReload("onTapAddProfile");
     setState(() {});
   }
 
   void onTapAddProfileByAgreement() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, true);
     await checkAndReload("onTapAddProfileByAgreement");
     setState(() {});
   }
 
   void onTapAddProfileByStart() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, false);
     await checkAndReload("onTapAddProfileByStart");
     setState(() {});
   }
@@ -1451,7 +1514,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     InAppNotifications.dismiss();
     _inAppNotificationsShowing = false;
     if (noticeItem.url.isNotEmpty) {
-      UrlLauncherUtils.reorganizationAndLoadUrl(noticeItem.url);
+      String url =
+          await UrlLauncherUtils.reorganizationUrlWithAnchor(noticeItem.url);
+      if (!context.mounted) {
+        return;
+      }
+      await WebviewHelper.loadUrl(context, url, title: noticeItem.title);
     } else {
       await Navigator.push(
           context,
@@ -1565,6 +1633,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   Future<void> stop() async {
     _currentServerForSelector.clear();
     await ProxyCluster.stop();
+    await Yacd.stop();
     if (_currentServer.groupid == ServerManager.getUrltestGroupId()) {
       _currentServer.latency = "";
       _currentServerForSelector.history.clear();
@@ -1595,6 +1664,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       {bool disableShowAlertDialog = false}) async {
     _currentServerForSelector.clear();
     await ProxyCluster.stop();
+
     if (Platform.isWindows) {
       List<String> filePaths = [
         PathUtils.serviceExePath(),
@@ -1665,7 +1735,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               "from": from,
               "tunMode": tunMode,
               "count": result.item2,
-              "current": _currentServer.tag,
             });
       }
 
@@ -1693,7 +1762,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           "from": from,
           "tunMode": tunMode,
           "count": result.item2,
-          "current": _currentServer.tag,
         });
     if (err != null) {
       if (!disableShowAlertDialog) {
@@ -1716,141 +1784,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     return err;
   }
 
-  void addConfigBySubscriptionLink(String? installUrl, String? name,
-      String? ispName, String? ispUrl, String? ispFaq) {
-    int kMaxPush = 2;
-    if (installUrl != null &&
-        AddProfileByLinkOrContentScreen.pushed <= kMaxPush) {
-      UrlLauncherUtils.closeWebview();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: AddProfileByLinkOrContentScreen.routSettings(),
-              builder: (context) => AddProfileByLinkOrContentScreen(
-                  name: name,
-                  linkUrl: installUrl,
-                  ispName: ispName,
-                  ispUrl: ispUrl,
-                  ispFaq: ispFaq)));
-    }
-  }
-
-  void installConfig(Uri uri) async {
-    String? name;
-    String? url;
-    String? ispName;
-    String? ispUrl;
-    String? ispFaq;
-    try {
-      name = uri.queryParameters["name"];
-      url = uri.queryParameters["url"];
-      ispName =
-          uri.queryParameters["isp-name"] ?? uri.queryParameters["Isp-Name"];
-      ispUrl = uri.queryParameters["isp-url"] ?? uri.queryParameters["Isp-Url"];
-      ispFaq = uri.queryParameters["isp-faq"] ?? uri.queryParameters["Isp-Faq"];
-    } catch (err) {
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
-      return;
-    }
-    name ??= uri.fragment;
-    if (name.isNotEmpty) {
-      try {
-        name = Uri.decodeComponent(name);
-      } catch (err) {}
-    }
-    if (url != null) {
-      try {
-        url = Uri.decodeComponent(url);
-      } catch (err) {}
-    }
-
-    addConfigBySubscriptionLink(url, name, ispName, ispUrl, ispFaq);
-  }
-
-  void restoreBackup(Uri uri) async {
-    String? url = uri.queryParameters["url"];
-    if (url != null) {
-      try {
-        url = Uri.decodeComponent(url);
-      } catch (err) {}
-    }
-    if (url == null || url.isEmpty) {
-      return;
-    }
-    Uri? downloadUri = Uri.tryParse(url);
-    if (downloadUri == null) {
-      return;
-    }
-    final tcontext = Translations.of(context);
-    bool? ok = await DialogUtils.showConfirmDialog(
-        context, tcontext.SettingsScreen.rewriteConfirm);
-    if (ok != true) {
-      return;
-    }
-    DialogUtils.showLoadingDialog(context, text: "");
-    String dir = await PathUtils.cacheDir();
-    String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-    var result = await HttpUtils.httpDownload(
-        downloadUri, filePath, null, null, const Duration(seconds: 10));
-
-    if (!mounted) {
-      return;
-    }
-    Navigator.pop(context);
-    if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
-      return;
-    }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
-    await FileUtils.deleteFileByPath(filePath);
-  }
-
   @override
   void onProtocolUrlReceived(String url) {
-    //clash://install-config?url=https://xxxxx.com/clash/config
-    //stash://install-config?url=https%3A%2F%2Fwww.xxxxx.gay%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D&name=stars
-    //sing-box://import-remote-profile?url=https://xxxxx:8443/proxy/fgram.json#mcivip%F0%9F%87%B9%F0%9F%87%B73%7CArefgram
-    //karing://install-config?url=xxx&name=xxx&&isp-name=xxx&isp-url=xxx&isp-faq=xxx ;connect; disconnect; reconnect;
-    //karing://install-config?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash&name=gdy&&isp-name=%E8%B7%9F%E6%96%97%E4%BA%91&isp-url=https%3A%2F%2Fxn--9kq147c4p2a.com%2Fuser&isp-faq=
-    //karing://restore-backup?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash
-    //karing://tvos?ips=192.168.1.102&port=4040&uuid=728EC1AB-7AC8-4E8F-8406-3856F6C70506&cport=3057&secret=0191eee9f89d7cd29fda94c0b663efb2&version=1.0.29.293
-    Uri? uri = Uri.tryParse(url);
-    if (uri != null) {
-      if (uri.isScheme(SystemSchemeUtils.getClashScheme())) {
-        if (uri.host == "install-config") {
-          installConfig(uri);
-        }
-      } else if (uri.isScheme(SystemSchemeUtils.getSingboxScheme())) {
-        if (uri.host == "import-remote-profile") {
-          installConfig(uri);
-        }
-      } else if (uri.isScheme(SystemSchemeUtils.getKaringScheme())) {
-        if (uri.host == AppSchemeUtils.connectAction()) {
-          Future.delayed(const Duration(seconds: 0), () async {
-            await start("scheme");
-          });
-        } else if (uri.host == AppSchemeUtils.disconnectAction()) {
-          Future.delayed(const Duration(seconds: 0), () async {
-            await stop();
-          });
-        } else if (uri.host == AppSchemeUtils.reconnectAction()) {
-          Future.delayed(const Duration(seconds: 0), () async {
-            await stop();
-            await start("scheme");
-          });
-        } else if (uri.host == AppSchemeUtils.installConfigAction()) {
-          installConfig(uri);
-        } else if (uri.host == AppSchemeUtils.restoreBackup()) {
-          restoreBackup(uri);
-        } else if (uri.host == AppSchemeUtils.appleTVHost()) {
-          if (PlatformUtils.isMobile()) {
-            GroupHelper.showAppleTVByUrl(context, url);
-          }
-        }
-      }
-    }
+    SchemeHandler.handle(context, url);
   }
 
   @override
@@ -1878,8 +1814,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _focusNodeMore.dispose();
 
     ErrorReporterUtils.register(null);
-    _timer?.cancel();
-    _timer = null;
+    _stopCheckTimer();
+
     _disconnectToService();
     _disconnectToCurrent();
 
@@ -1912,7 +1848,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Color? color = themes.getThemeHomeColor(context);
 
     return Focus(
-        autofocus: false,
         includeSemantics: true,
         onKeyEvent: onKeyEvent,
         child: Scaffold(
@@ -1947,6 +1882,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             Tooltip(
                                 message: tcontext.setting,
                                 child: InkWell(
+                                    autofocus: PlatformUtils.maybeTV(),
                                     focusNode: _focusNodeSettings,
                                     onTap: () async {
                                       onTapSetting();
@@ -2316,7 +2252,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             }
           }
 
-          return KeyEventResult.handled;
         case LogicalKeyboardKey.arrowDown:
           for (int i = 0; i < nodes.length - 1; ++i) {
             List<FocusNode> node = nodes[i];
@@ -2328,7 +2263,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             }
           }
 
-          return KeyEventResult.handled;
         case LogicalKeyboardKey.arrowLeft:
           for (int i = 0; i < nodes.length; ++i) {
             List<FocusNode> node = nodes[i];
@@ -2340,7 +2274,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             }
           }
 
-          return KeyEventResult.handled;
         case LogicalKeyboardKey.arrowRight:
           for (int i = 0; i < nodes.length; ++i) {
             List<FocusNode> node = nodes[i];
@@ -2351,8 +2284,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               }
             }
           }
-
-          return KeyEventResult.handled;
       }
     }
     return KeyEventResult.ignored;

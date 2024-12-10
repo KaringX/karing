@@ -10,7 +10,7 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/app_scheme_utils.dart';
+import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -116,14 +116,25 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     }
     //Log.w("_connectToService");
 
-    var result = await NetworkUtils.testConnectLatency(widget.host,
-        int.parse(widget.cport), const Duration(milliseconds: 500));
+    var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+
+    ReturnResult<String>? result = await HttpUtils.httpGetRequest(
+        "http://${widget.host}:${widget.cport}/",
+        proxyPort,
+        null,
+        const Duration(milliseconds: 500),
+        null,
+        null);
+
     if (result.error != null) {
-      return;
+      if (!result.error!.message.contains("401") &&
+          !result.error!.message.contains("404")) {
+        return;
+      }
     }
     _wsConnecting = true;
-    String secret = await ClashApi.getSecret();
-    Map<String, String> headers = ClashApi.getHeaders(secret);
     String connectionsUrl =
         'ws://${widget.host}:${widget.cport}/connections/?token=${widget.secret}';
 
@@ -133,16 +144,18 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       _httpClient ??= HttpClient();
       _httpClient!.userAgent = await HttpUtils.getUserAgent();
       _httpClient!.connectionTimeout = const Duration(seconds: 3);
-      _httpClient!.findProxy = (Uri uri) => "DIRECT";
+      if ((proxyPort != null) && (proxyPort != 0)) {
+        _httpClient!.findProxy = (Uri uri) => "DIRECT";
+      }
 
       {
-        WebSocket webSocket = await WebSocket.connect(connectionsUrl,
-            headers: headers, customClient: _httpClient);
+        WebSocket webSocket =
+            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
           Connection con = Connection();
-          con.fromJson(obj);
+          con.fromJson(obj, _trackerCallback != null);
           if (con.startTime != null) {
             _startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
@@ -682,11 +695,13 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
   Future<void> getFile(String fileName) async {
     var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
 
     String url =
-        "http://${widget.host}:${widget.port}/${AppSchemeUtils.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
-    ReturnResult<String> result = await HttpUtils.httpGetRequest(
-        url, setting.proxy.mixedDirectPort, null, null, null, null);
+        "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
+    ReturnResult<String> result =
+        await HttpUtils.httpGetRequest(url, proxyPort, null, null, null, null);
     if (result.error != null) {
       if (!mounted) {
         return;
@@ -729,15 +744,25 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
           showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
+    var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
     try {
       String content = await File(savePath).readAsString();
       var headers = {
         HttpHeaders.contentTypeHeader: "application/json; charset=UTF-8",
       };
       String url =
-          "http://${widget.host}:${widget.port}/${AppSchemeUtils.appleTVSyncUploadAction()}?uuid=${widget.uuid}&type=json"; //type=url
-      ReturnResult<String> result = await HttpUtils.httpPostRequest(url, null,
-          headers, content, const Duration(seconds: 5), null, null, null);
+          "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVSyncUploadAction()}?uuid=${widget.uuid}&type=json"; //type=url
+      ReturnResult<String> result = await HttpUtils.httpPostRequest(
+          url,
+          proxyPort,
+          headers,
+          content,
+          const Duration(seconds: 5),
+          null,
+          null,
+          null);
 
       if (!mounted) {
         return;
@@ -772,11 +797,14 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       return;
     }
 
+    var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
     try {
       String url =
-          "http://${widget.host}:${widget.port}/${AppSchemeUtils.appleTVDeleteCoreConfigAction()}?uuid=${widget.uuid}";
+          "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVDeleteCoreConfigAction()}?uuid=${widget.uuid}";
       ReturnResult<String> result = await HttpUtils.httpGetRequest(
-          url, null, null, const Duration(seconds: 5), null, null);
+          url, proxyPort, null, const Duration(seconds: 5), null, null);
 
       if (!mounted) {
         return;

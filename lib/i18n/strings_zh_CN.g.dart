@@ -82,6 +82,7 @@ class TranslationsZhCn implements Translations {
 	@override String get edit => '编辑';
 	@override String get view => '查看';
 	@override String get more => '更多';
+	@override String get getProfile => '获取配置';
 	@override String get addProfile => '添加配置';
 	@override String get addSuccess => '添加成功';
 	@override String addSuccessThen({required Object p}) => '配置生成成功,请到[${p}]查看';
@@ -202,7 +203,7 @@ class TranslationsZhCn implements Translations {
 	@override String get importFromClipboard => '从剪贴板导入';
 	@override String get exportToClipboard => '导出到剪贴板';
 	@override String get server => '服务器';
-	@override String get appleTVConnectTurnOfprivateDirect => '请先开启[私有网络直连]';
+	@override String get turnOffPrivateDirect => '请先开启[私有网络直连]';
 	@override String targetConnectFailed({required Object p}) => '连接[${p}]失败,请确保设备在同一个局域网内';
 	@override String get appleTVSync => '同步当前核心配置到Apple TV - Karing';
 	@override String get appleTVSyncDone => '同步完成,请到Apple TV - Karing开启连接/重启连接';
@@ -224,6 +225,7 @@ class TranslationsZhCn implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
+	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge或Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启app再试';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1137,6 +1139,7 @@ extension on TranslationsZhCn {
 			case 'edit': return '编辑';
 			case 'view': return '查看';
 			case 'more': return '更多';
+			case 'getProfile': return '获取配置';
 			case 'addProfile': return '添加配置';
 			case 'addSuccess': return '添加成功';
 			case 'addSuccessThen': return ({required Object p}) => '配置生成成功,请到[${p}]查看';
@@ -1257,7 +1260,7 @@ extension on TranslationsZhCn {
 			case 'importFromClipboard': return '从剪贴板导入';
 			case 'exportToClipboard': return '导出到剪贴板';
 			case 'server': return '服务器';
-			case 'appleTVConnectTurnOfprivateDirect': return '请先开启[私有网络直连]';
+			case 'turnOffPrivateDirect': return '请先开启[私有网络直连]';
 			case 'targetConnectFailed': return ({required Object p}) => '连接[${p}]失败,请确保设备在同一个局域网内';
 			case 'appleTVSync': return '同步当前核心配置到Apple TV - Karing';
 			case 'appleTVSyncDone': return '同步完成,请到Apple TV - Karing开启连接/重启连接';
@@ -1279,6 +1282,7 @@ extension on TranslationsZhCn {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 			case 'removeBannerAdsDone': return ({required Object p}) => '已获得${p}天无广告奖励';
+			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge或Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启app再试';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

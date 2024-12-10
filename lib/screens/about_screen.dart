@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -24,6 +23,7 @@ import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/hash_string_screen.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 //import 'package:advertising_id/advertising_id.dart';
@@ -187,7 +187,10 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 pushOptions: GroupItemPushOptions(
                     name: tcontext.termOfUse,
                     onPush: () async {
-                      DialogUtils.showTermsofService(context);
+                      await WebviewHelper.loadUrl(
+                          context, AppUtils.getTermsOfServiceUrl(),
+                          title: tcontext.termOfUse,
+                          useInappWebViewForPC: true);
                     }))
             : GroupItemOptions(),
         GroupItemOptions(
@@ -195,9 +198,12 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 name: tcontext.privacyPolicy,
                 onPush: () async {
                   var remoteConfig = RemoteConfigManager.getConfig();
-                  ReturnResultError? error = await UrlLauncherUtils.loadUrl(
-                      remoteConfig.privacyPolicy);
-                  if (error != null) {
+                  bool ok = await WebviewHelper.loadUrl(
+                      context, remoteConfig.privacyPolicy,
+                      title: tcontext.privacyPolicy,
+                      useInappWebViewForPC: true);
+
+                  if (!ok) {
                     if (!mounted) {
                       return;
                     }
@@ -324,8 +330,9 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 pushOptions: GroupItemPushOptions(
                     name: tcontext.AboutScreen.pprofPanel,
                     onPush: () async {
-                      UrlLauncherUtils.loadUrl(
-                          "http://localhost:${SettingManager.getConfig().dev.pprofPort}/debug/pprof/");
+                      await WebviewHelper.loadUrl(context,
+                          "http://localhost:${SettingManager.getConfig().dev.pprofPort}/debug/pprof/",
+                          title: tcontext.AboutScreen.pprofPanel);
                     }))
             : GroupItemOptions(),
       ];

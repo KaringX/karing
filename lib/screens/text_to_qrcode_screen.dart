@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'package:karing/app/utils/qrcode_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -26,9 +23,6 @@ class _SentryTextToQrCodeScreenState
   @override
   void initState() {
     super.initState();
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.pauseAppHangTracking();
-    }
   }
 
   @override
@@ -36,9 +30,6 @@ class _SentryTextToQrCodeScreenState
     _textController.dispose();
 
     super.dispose();
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.resumeAppHangTracking();
-    }
   }
 
   @override
@@ -100,7 +91,6 @@ class _SentryTextToQrCodeScreenState
                           child: TextField(
                             maxLines: 6,
                             textInputAction: TextInputAction.done,
-                            autofocus: false,
                             controller: _textController,
                             cursorColor: Colors.black,
                             decoration: const InputDecoration(

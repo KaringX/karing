@@ -29,7 +29,7 @@ class DiversionRuleDetectScreen extends LasyRenderingStatefulWidget {
 class _DiversionRuleDetectScreenState
     extends LasyRenderingState<DiversionRuleDetectScreen> {
   final _textControllerHost = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
+
   bool _checking = false;
   final ValueNotifier<String> _rule = ValueNotifier<String>("");
   final ValueNotifier<String> _chain = ValueNotifier<String>("");
@@ -43,7 +43,6 @@ class _DiversionRuleDetectScreenState
 
   @override
   void dispose() {
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -159,7 +158,6 @@ class _DiversionRuleDetectScreenState
                     child: Column(
                       children: [
                         TextField(
-                          focusNode: _focusNode,
                           controller: _textControllerHost,
                           textInputAction: TextInputAction.done,
                           cursorColor: Colors.black,
@@ -243,9 +241,6 @@ class _DiversionRuleDetectScreenState
   Future<void> onPressCheck() async {
     if (!mounted) {
       return;
-    }
-    if (_focusNode.hasFocus) {
-      _focusNode.unfocus();
     }
 
     final tcontext = Translations.of(context);

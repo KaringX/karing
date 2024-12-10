@@ -86,6 +86,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get edit => 'Edit';
 	String get view => 'View';
 	String get more => 'More';
+	String get getProfile => 'Get Profile';
 	String get addProfile => 'Add Profile';
 	String get addSuccess => 'Added successfully';
 	String addSuccessThen({required Object p}) => 'Profile generated successfully, please go to [${p}] to view';
@@ -206,7 +207,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get importFromClipboard => 'Import From Clipboard';
 	String get exportToClipboard => 'Export to Clipboard';
 	String get server => 'Server';
-	String get appleTVConnectTurnOfprivateDirect => 'Please turn on [Private network direct connection] first';
+	String get turnOffPrivateDirect => 'Please turn on [Private network direct connection] first';
 	String targetConnectFailed({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
 	String get appleTVSync => 'Synchronize the current core configuration to Apple TV - Karing';
 	String get appleTVSyncDone => 'Synchronization is complete. Please go to Apple TV - Karing to start the connection/restart the connection';
@@ -228,6 +229,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
 	String removeBannerAdsByRewardTip({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 	String removeBannerAdsDone({required Object p}) => 'Received ${p} days of ad-free rewards';
+	String get edgeRuntimeNotInstalled => 'The current device has not installed Edge or Edge WebView2 runtime, so the page cannot be displayed. Please download and install Edge WebView2 runtime (x64), restart the app and try again.';
 	Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1141,6 +1143,7 @@ extension on Translations {
 			case 'edit': return 'Edit';
 			case 'view': return 'View';
 			case 'more': return 'More';
+			case 'getProfile': return 'Get Profile';
 			case 'addProfile': return 'Add Profile';
 			case 'addSuccess': return 'Added successfully';
 			case 'addSuccessThen': return ({required Object p}) => 'Profile generated successfully, please go to [${p}] to view';
@@ -1261,7 +1264,7 @@ extension on Translations {
 			case 'importFromClipboard': return 'Import From Clipboard';
 			case 'exportToClipboard': return 'Export to Clipboard';
 			case 'server': return 'Server';
-			case 'appleTVConnectTurnOfprivateDirect': return 'Please turn on [Private network direct connection] first';
+			case 'turnOffPrivateDirect': return 'Please turn on [Private network direct connection] first';
 			case 'targetConnectFailed': return ({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
 			case 'appleTVSync': return 'Synchronize the current core configuration to Apple TV - Karing';
 			case 'appleTVSyncDone': return 'Synchronization is complete. Please go to Apple TV - Karing to start the connection/restart the connection';
@@ -1283,6 +1286,7 @@ extension on Translations {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Received ${p} days of ad-free rewards';
+			case 'edgeRuntimeNotInstalled': return 'The current device has not installed Edge or Edge WebView2 runtime, so the page cannot be displayed. Please download and install Edge WebView2 runtime (x64), restart the app and try again.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

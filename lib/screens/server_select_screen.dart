@@ -705,6 +705,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
   Row createGroupTitle(ServerConfigGroupItem item, bool showTestLatency,
       {String itemName = ""}) {
+    itemName = itemName.isNotEmpty ? itemName : item.remark;
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     int count =
@@ -778,7 +779,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               SizedBox(
                 width: centerWidth - 2 * 2 - 26,
                 child: Text(
-                  itemName.isNotEmpty ? itemName : item.remark,
+                  "$itemName[${item.servers.length}]",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: ThemeConfig.kFontSizeListItem,
@@ -1157,6 +1158,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                             width: tagWidth,
                             child: Text(
                               tag,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
                               style: TextStyle(
                                 fontSize: ThemeConfig.kFontSizeListSubItem,
                                 fontFamily: Platform.isWindows ? 'Emoji' : null,

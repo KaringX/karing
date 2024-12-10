@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:country/country.dart' as country;
 import 'package:file_picker/file_picker.dart';
+import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,16 +14,18 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/app_scheme_utils.dart';
+import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/did.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
+import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/add_profile_by_import_from_file_screen.dart';
 import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
@@ -39,6 +42,7 @@ import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/group_options_helper.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/home_tvos_screen.dart';
+import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/map_string_and_list_add_screen.dart';
 import 'package:karing/screens/qrcode_scan_screen.dart';
@@ -154,7 +158,10 @@ class GroupHelper {
     return pf;
   }
 
-  static Future<void> showAddProfile(BuildContext context) async {
+  static Future<void> showAddProfile(
+      BuildContext context, bool popGetProfile) async {
+    var settingConfig = SettingManager.getConfig();
+    var remoteConfig = RemoteConfigManager.getConfig();
     Map<String, int> tagSets = {};
     for (var item in ServerManager.getConfig().items) {
       tagSets[item.remark] = 0;
@@ -327,16 +334,55 @@ class GroupHelper {
           },
         )),
       ]);
-
-      return [
+      List<GroupItem> items = [
         GroupItem(
-            options: GroupOptionsHelper.getOutlinkOptions(
-                context, "showAddProfile")),
-        GroupItem(options: options),
-        backup
+            options:
+                GroupOptionsHelper.getOutlinkOptions(context, "showAddProfile"))
       ];
+
+      RemoteConfigGetProfile? profile =
+          remoteConfig.getProfileByRegionCode(settingConfig.regionCode);
+      if (profile != null) {
+        items.add(GroupItem(options: [
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.getProfile,
+                  onPush: () async {
+                    onTapGetProfile(
+                        context,
+                        profile.title.isEmpty
+                            ? tcontext.getProfile
+                            : profile.title,
+                        profile.url);
+                  })),
+        ]));
+      }
+
+      items.addAll([GroupItem(options: options), backup]);
+      return items;
     }
 
+    Future<void> Function(BuildContext context)? onFirstLayout;
+    /*if (popGetProfile && InAppWebViewScreen.isAvailable()) {
+      RemoteConfigGetProfile? profile =
+          remoteConfig.getProfileByRegionCode(settingConfig.regionCode);
+      if (profile != null) {
+        onFirstLayout = (context) async {
+          bool? ok = await DialogUtils.showConfirmDialog(
+              context, "Click [${tcontext.ok}] ${tcontext.getProfile}");
+          if (ok == true) {
+            if (!context.mounted) {
+              return;
+            }
+            final tcontext = Translations.of(context);
+            onTapGetProfile(
+                context,
+                profile.title.isEmpty ? tcontext.getProfile : profile.title,
+                profile.url);
+          }
+        };
+      }
+    }*/
     await Navigator.push(
         context,
         MaterialPageRoute(
@@ -344,6 +390,7 @@ class GroupHelper {
             builder: (context) => GroupScreen(
                   title: tcontext.addProfile,
                   getOptions: getOptions,
+                  onFirstLayout: onFirstLayout,
                 )));
   }
 
@@ -537,6 +584,7 @@ class GroupHelper {
                       MaterialPageRoute(
                           settings: RegionSettingsScreen.routSettings(),
                           builder: (context) => const RegionSettingsScreen(
+                                canPop: true,
                                 canGoBack: true,
                                 nextText: null,
                               )));
@@ -883,6 +931,47 @@ class GroupHelper {
     }
   }
 
+  static Future<void> onTapGetProfile(
+      BuildContext context, String title, String url) async {
+    if (!await InAppWebViewScreen.makeSureEnvironmentCreated()) {
+      if (!context.mounted) {
+        return;
+      }
+      await DialogUtils.showAlertDialog(
+          context, "webviewEnvironment create failed");
+      return;
+    }
+
+    Uri? uri = Uri.tryParse(url);
+    if (uri == null) {
+      return;
+    }
+    AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeUA,
+        name: 'get_profile',
+        parameters: {"title": title, "url": url},
+        repeatable: true);
+    var remoteConfig = RemoteConfigManager.getConfig();
+    if (uri.host.toLowerCase() == remoteConfig.host.toLowerCase()) {
+      String queryParams = await KaringUrlUtils.getQueryParams();
+      url = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: InAppWebViewScreen.routSettings(),
+            builder: (context) => InAppWebViewScreen(
+                  title: title,
+                  url: url,
+                  showGoBackGoForward: true,
+                  setJSWindowObject: true,
+                )));
+  }
+
   static Future<void> showBackupAndSync(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
@@ -1217,12 +1306,12 @@ class GroupHelper {
       return;
     }
     Uri? uri = Uri.tryParse(qrcode);
-    if (uri == null || uri.scheme != AppSchemeUtils.scheme()) {
+    if (uri == null || uri.scheme != AppSchemeActions.scheme()) {
       return;
     }
 
-    if (uri.host != AppSchemeUtils.syncDownloadAction() &&
-        uri.host != AppSchemeUtils.syncUploadAction()) {
+    if (uri.host != AppSchemeActions.syncDownloadAction() &&
+        uri.host != AppSchemeActions.syncUploadAction()) {
       return;
     }
 
@@ -1237,17 +1326,19 @@ class GroupHelper {
     int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
 
     List<String> hosts = ips.split(",");
-    int iPort = int.parse(port);
+    int targetPort = int.parse(port);
     String? targetHost;
     ReturnResult<String>? result;
 
     for (String host in hosts) {
       if (host.isNotEmpty) {
-        result = await HttpUtils.httpGetRequest("http://$host:$iPort/",
-            proxyPort, null, const Duration(seconds: 1), null, null);
-        if (result.error == null || result.error!.message.contains("404")) {
-          targetHost = host;
-          break;
+        if (NetworkUtils.isIpv4(host)) {
+          result = await HttpUtils.httpGetRequest("http://$host:$targetPort/",
+              proxyPort, null, const Duration(seconds: 1), null, null);
+          if (result.error == null || result.error!.message.contains("404")) {
+            targetHost = host;
+            break;
+          }
         }
       }
     }
@@ -1270,7 +1361,7 @@ class GroupHelper {
       return;
     }
 
-    if (uri.host == AppSchemeUtils.syncDownloadAction()) {
+    if (uri.host == AppSchemeActions.syncDownloadAction()) {
       if (send) {
         DialogUtils.showAlertDialog(
             context, tcontext.sendOrReceiveNotMatch(p: tcontext.receive),
@@ -1288,7 +1379,7 @@ class GroupHelper {
       }
       String dir = await PathUtils.cacheDir();
       String zipPath = path.join(dir, filename);
-      String url = "http://$targetHost:$iPort/${uri.host}";
+      String url = "http://$targetHost:$targetPort/${uri.host}";
       ReturnResult<HttpHeaders> result = await HttpUtils.httpDownload(
           Uri.parse(url), zipPath, proxyPort, null, null);
       if (result.error != null) {
@@ -1303,7 +1394,7 @@ class GroupHelper {
         return;
       }
       await backupRestoreFromZip(context, zipPath, confirm: false);
-    } else if (uri.host == AppSchemeUtils.syncUploadAction()) {
+    } else if (uri.host == AppSchemeActions.syncUploadAction()) {
       if (!send) {
         DialogUtils.showAlertDialog(
             context, tcontext.sendOrReceiveNotMatch(p: tcontext.send),
@@ -1326,7 +1417,7 @@ class GroupHelper {
             showCopy: true, showFAQ: true, withVersion: true);
         return;
       }
-      String url = "http://$targetHost:$iPort/${uri.host}";
+      String url = "http://$targetHost:$targetPort/${uri.host}";
       ReturnResultError? err =
           await HttpUtils.httpUpload(Uri.parse(url), zipPath, proxyPort, null);
       FileUtils.deleteFileByPath(zipPath);
@@ -1370,29 +1461,27 @@ class GroupHelper {
     if (!context.mounted) {
       return;
     }
-    return await showAppleTVByUrl(context, qrcode);
+    await showAppleTVByUrl(context, qrcode);
   }
 
-  static Future<void> showAppleTVByUrl(
+  static Future<ReturnResultError?> showAppleTVByUrl(
       BuildContext context, String qrcode) async {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     if (!settingConfig.privateDirect) {
       bool started = await VPNService.started();
       if (!context.mounted) {
-        return;
+        return ReturnResultError("page unmounted");
       }
       if (started) {
-        DialogUtils.showAlertDialog(
-            context, tcontext.appleTVConnectTurnOfprivateDirect);
-        return;
+        DialogUtils.showAlertDialog(context, tcontext.turnOffPrivateDirect);
+        return ReturnResultError(tcontext.turnOffPrivateDirect);
       }
     }
-
     Uri? uri = Uri.tryParse(qrcode);
-    if (uri == null || uri.host != AppSchemeUtils.appleTVHost()) {
+    if (uri == null || uri.host != AppSchemeActions.appleTVHost()) {
       DialogUtils.showAlertDialog(context, tcontext.appleTVUrlInvalid);
-      return;
+      return ReturnResultError(tcontext.appleTVUrlInvalid);
     }
     String ips = uri.queryParameters['ips'] ?? '';
     String port = uri.queryParameters['port'] ?? '';
@@ -1401,52 +1490,60 @@ class GroupHelper {
     String cport = uri.queryParameters['cport'] ?? '';
     String secret = uri.queryParameters['secret'] ?? '';
     if (ips.isEmpty) {
-      DialogUtils.showAlertDialog(context,
-          "${tcontext.urlInvalid}: params [ips] is empty, Please make sure that your Apple TV is connected to the Internet.");
-      return;
+      String err =
+          "${tcontext.urlInvalid}: params [ips] is empty, Please make sure that your Apple TV is connected to the Internet.";
+      DialogUtils.showAlertDialog(context, err);
+      return ReturnResultError(err);
     }
     if (port.isEmpty) {
-      DialogUtils.showAlertDialog(
-          context, "${tcontext.urlInvalid}: params [port] is empty");
-      return;
+      String err = "${tcontext.urlInvalid}: params [port] is empty";
+      DialogUtils.showAlertDialog(context, err);
+      return ReturnResultError(err);
     }
     if (version.isEmpty) {
-      DialogUtils.showAlertDialog(
-          context, "${tcontext.urlInvalid}: params [version] is empty");
-      return;
+      String err = "${tcontext.urlInvalid}: params [version] is empty";
+      DialogUtils.showAlertDialog(context, err);
+      return ReturnResultError(err);
     }
     if (secret.isEmpty) {
       secret = Did.newUUID();
     }
+    var setting = SettingManager.getConfig();
+    bool run = await VPNService.running();
+    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
 
     List<String> hosts = ips.split(",");
     int targetPort = int.parse(port);
     String? targetHost;
-    ReturnResult<int>? result;
+    ReturnResult<String>? result;
+
     for (String host in hosts) {
       if (host.isNotEmpty) {
-        result = await NetworkUtils.testConnectLatency(host, targetPort, null);
-        if (result.error == null) {
-          targetHost = host;
-          break;
+        if (NetworkUtils.isIpv4(host)) {
+          result = await HttpUtils.httpGetRequest("http://$host:$targetPort/",
+              proxyPort, null, const Duration(seconds: 1), null, null);
+          if (result.error == null || result.error!.message.contains("404")) {
+            targetHost = host;
+            break;
+          }
         }
       }
     }
+
     if (!context.mounted) {
-      return;
+      return ReturnResultError("page unmounted");
     }
     if (targetHost == null) {
+      String err = "";
       if (result != null && result.error != null) {
-        DialogUtils.showAlertDialog(
-            context, tcontext.targetConnectFailed(p: result.error!.message),
-            showCopy: true, showFAQ: true, withVersion: true);
+        err = tcontext.targetConnectFailed(p: result.error!.message);
       } else {
-        DialogUtils.showAlertDialog(
-            context, tcontext.targetConnectFailed(p: ips),
-            showCopy: true, showFAQ: true, withVersion: true);
+        err = tcontext.targetConnectFailed(p: ips);
       }
+      DialogUtils.showAlertDialog(context, err,
+          showCopy: true, showFAQ: true, withVersion: true);
 
-      return;
+      return ReturnResultError(err);
     }
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
@@ -1464,6 +1561,7 @@ class GroupHelper {
                   secret: secret,
                   version: version,
                 )));
+    return null;
   }
 
   static Future<void> onTapImportExport(BuildContext context) async {

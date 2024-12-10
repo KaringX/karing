@@ -14,14 +14,6 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
-class PackageInfoImpl extends PackageInfo {
-  PackageInfoImpl(
-    String packageName,
-  ) : super(
-            packageName: packageName,
-            installLocation: AndroidInstallLocation.unspecified);
-}
-
 class PerAppAndroidScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
     return const RouteSettings(name: "PerAppAndroidScreen");
@@ -31,6 +23,14 @@ class PerAppAndroidScreen extends LasyRenderingStatefulWidget {
 
   @override
   State<PerAppAndroidScreen> createState() => _PerAppAndroidScreenState();
+}
+
+class PackageInfoImpl extends PackageInfo {
+  PackageInfoImpl(
+    String packageName,
+  ) : super(
+            packageName: packageName,
+            installLocation: AndroidInstallLocation.unspecified);
 }
 
 class PackageInfoEx {
@@ -100,10 +100,9 @@ class _PerAppAndroidScreenState
     )
         .then((value) async {
       if (!mounted) {
-        _loading = false;
-        setState(() {});
         return;
       }
+      _loading = false;
       if (value == null) {
         return;
       }
@@ -306,6 +305,7 @@ class _PerAppAndroidScreenState
                 ),
                 child: TextField(
                   controller: _searchController,
+                  textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(

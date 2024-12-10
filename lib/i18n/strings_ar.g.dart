@@ -82,6 +82,7 @@ class TranslationsAr implements Translations {
 	@override String get edit => 'يحرر';
 	@override String get view => 'يفحص';
 	@override String get more => 'أكثر';
+	@override String get getProfile => 'احصل على التكوين';
 	@override String get addProfile => 'إضافة ملف تعريف';
 	@override String get addSuccess => 'اضيف بنجاح';
 	@override String addSuccessThen({required Object p}) => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${p}] للعرض';
@@ -202,7 +203,7 @@ class TranslationsAr implements Translations {
 	@override String get importFromClipboard => 'استيراد من الحافظة';
 	@override String get exportToClipboard => 'تصدير إلى الحافظة';
 	@override String get server => 'الخادم';
-	@override String get appleTVConnectTurnOfprivateDirect => 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
+	@override String get turnOffPrivateDirect => 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 	@override String targetConnectFailed({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
 	@override String get appleTVSync => 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing';
 	@override String get appleTVSyncDone => 'اكتملت المزامنة، برجاء الانتقال إلى Apple TV - Karing لفتح/إعادة تشغيل الاتصال';
@@ -224,6 +225,7 @@ class TranslationsAr implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
+	@override String get edgeRuntimeNotInstalled => 'لم يقم الجهاز الحالي بتثبيت وقت تشغيل Edge أو Edge WebView2، لذلك لا يمكن عرض الصفحة، يرجى تنزيل Edge WebView2 runtime (x64) وتثبيته، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1137,6 +1139,7 @@ extension on TranslationsAr {
 			case 'edit': return 'يحرر';
 			case 'view': return 'يفحص';
 			case 'more': return 'أكثر';
+			case 'getProfile': return 'احصل على التكوين';
 			case 'addProfile': return 'إضافة ملف تعريف';
 			case 'addSuccess': return 'اضيف بنجاح';
 			case 'addSuccessThen': return ({required Object p}) => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${p}] للعرض';
@@ -1257,7 +1260,7 @@ extension on TranslationsAr {
 			case 'importFromClipboard': return 'استيراد من الحافظة';
 			case 'exportToClipboard': return 'تصدير إلى الحافظة';
 			case 'server': return 'الخادم';
-			case 'appleTVConnectTurnOfprivateDirect': return 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
+			case 'turnOffPrivateDirect': return 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 			case 'targetConnectFailed': return ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
 			case 'appleTVSync': return 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing';
 			case 'appleTVSyncDone': return 'اكتملت المزامنة، برجاء الانتقال إلى Apple TV - Karing لفتح/إعادة تشغيل الاتصال';
@@ -1279,6 +1282,7 @@ extension on TranslationsAr {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
+			case 'edgeRuntimeNotInstalled': return 'لم يقم الجهاز الحالي بتثبيت وقت تشغيل Edge أو Edge WebView2، لذلك لا يمكن عرض الصفحة، يرجى تنزيل Edge WebView2 runtime (x64) وتثبيته، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

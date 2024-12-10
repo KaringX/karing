@@ -8,7 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   open_dir_linux
   open_file_linux
   screen_capturer_linux
-  screen_retriever
+  screen_retriever_linux
   sentry_flutter
   tray_manager
   url_launcher_linux

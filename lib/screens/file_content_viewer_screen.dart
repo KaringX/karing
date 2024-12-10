@@ -222,7 +222,6 @@ class FileContentViewerScreenState
                                   : windowSize.height - 180,
                               child: TextField(
                                 readOnly: true,
-                                autofocus: false,
                                 expands: true,
                                 maxLines: null,
                                 minLines: null,

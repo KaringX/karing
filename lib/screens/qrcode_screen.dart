@@ -8,11 +8,11 @@ import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/qrcode_utils.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
@@ -176,7 +176,8 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                       if (widget.callback != null) {
                                         widget.callback!();
                                       } else {
-                                        UrlLauncherUtils.loadUrl(_content);
+                                        await WebviewHelper.loadUrl(
+                                            context, _content);
                                       }
                                     },
                                   ))

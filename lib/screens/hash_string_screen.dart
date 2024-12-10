@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/utils/platform_utils.dart';
-import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
@@ -29,16 +26,10 @@ class _SentryHashStringScreenState
     if (widget.content != null) {
       _textController.text = widget.content!;
     }
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.pauseAppHangTracking();
-    }
   }
 
   @override
   void dispose() {
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.resumeAppHangTracking();
-    }
     _textController.dispose();
 
     super.dispose();
@@ -110,7 +101,7 @@ class _SentryHashStringScreenState
                         child: TextField(
                           maxLines: PlatformUtils.isPC() ? 14 : 8,
                           maxLength: 500,
-                          autofocus: false,
+                          textInputAction: TextInputAction.done,
                           controller: _textController,
                           cursorColor: Colors.black,
                           //style: TextStyle(color: Colors.red),

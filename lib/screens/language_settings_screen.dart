@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -10,11 +12,13 @@ class LanguageSettingsScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "LanguageSettingsScreen");
   }
 
+  final bool canPop;
   final bool? canGoBack;
-  final String? nextText;
+  final String Function()? nextText;
 
   const LanguageSettingsScreen({
     super.key,
+    required this.canPop,
     required this.canGoBack,
     this.nextText,
   });
@@ -25,6 +29,7 @@ class LanguageSettingsScreen extends LasyRenderingStatefulWidget {
 
 class _LanguageSettingsScreenState
     extends LasyRenderingState<LanguageSettingsScreen> {
+  final FocusNode _focusNodeNext = FocusNode();
   final List _langData = [];
   List _searchedData = [];
 
@@ -63,6 +68,7 @@ class _LanguageSettingsScreenState
 
   @override
   void dispose() {
+    _focusNodeNext.dispose();
     _searchController.dispose();
     super.dispose();
     SettingManager.saveConfig();
@@ -72,115 +78,137 @@ class _LanguageSettingsScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    widget.canGoBack == true
-                        ? InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: const SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Icon(
-                                Icons.arrow_back_ios_outlined,
-                                size: 26,
-                              ),
-                            ),
-                          )
-                        : const SizedBox(
-                            width: 50,
-                            height: 30,
-                          ),
-                    SizedBox(
-                      width: windowSize.width - 50 - 65,
-                      child: Text(
-                        tcontext.language,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
-                      ),
-                    ),
-                    widget.nextText != null
-                        ? SizedBox(
-                            width: 65,
-                            height: 30,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
+    return PopScope(
+        canPop: widget.canPop,
+        child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.zero,
+              child: AppBar(),
+            ),
+            body: Focus(
+              includeSemantics: true,
+              onKeyEvent: onKeyEvent,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            widget.canGoBack == true
+                                ? InkWell(
+                                    onTap: () => Navigator.pop(context),
+                                    child: const SizedBox(
+                                      width: 50,
+                                      height: 30,
+                                      child: Icon(
+                                        Icons.arrow_back_ios_outlined,
+                                        size: 26,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(
+                                    width: 50,
+                                    height: 30,
+                                  ),
+                            SizedBox(
+                              width: windowSize.width - 50 - 65,
                               child: Text(
+                                tcontext.language,
                                 textAlign: TextAlign.center,
-                                widget.nextText ?? "",
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    fontWeight: ThemeConfig.kFontWeightListItem,
-                                    fontSize: ThemeConfig.kFontSizeListItem),
+                                    fontWeight: ThemeConfig.kFontWeightTitle,
+                                    fontSize: ThemeConfig.kFontSizeTitle),
                               ),
-                            ))
-                        : const SizedBox(
-                            width: 50,
+                            ),
+                            widget.nextText != null
+                                ? SizedBox(
+                                    width: 65,
+                                    height: 30,
+                                    child: InkWell(
+                                      autofocus: PlatformUtils.maybeTV(),
+                                      focusNode: _focusNodeNext,
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        widget.nextText!.call(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontWeight:
+                                                ThemeConfig.kFontWeightListItem,
+                                            fontSize:
+                                                ThemeConfig.kFontSizeListItem),
+                                      ),
+                                    ))
+                                : const SizedBox(
+                                    width: 50,
+                                  ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 10,
+                        ),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        height: 44,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: ThemeDefine.kBorderRadius,
+                        ),
+                        child: TextField(
+                          controller: _searchController,
+                          textInputAction: TextInputAction.done,
+                          onChanged: _loadSearch,
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            icon: Icon(
+                              Icons.search_outlined,
+                              color: Colors.grey.shade400,
+                            ),
+                            hintText: tcontext.search,
+                            suffixIcon: _searchController.text.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(Icons.clear_outlined),
+                                    onPressed: _clearSearch,
+                                  )
+                                : null,
                           ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                ),
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                height: 44,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: ThemeDefine.kBorderRadius,
-                ),
-                child: TextField(
-                  controller: _searchController,
-                  textInputAction: TextInputAction.done,
-                  onChanged: _loadSearch,
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    icon: Icon(
-                      Icons.search_outlined,
-                      color: Colors.grey.shade400,
-                    ),
-                    hintText: tcontext.search,
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(Icons.clear_outlined),
-                            onPressed: _clearSearch,
-                          )
-                        : null,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: _loadListView(),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            )));
+  }
+
+  KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent) {
+      switch (event.logicalKey) {
+        case LogicalKeyboardKey.arrowRight:
+          if (widget.nextText != null) {
+            _focusNodeNext.requestFocus();
+            return KeyEventResult.handled;
+          }
+      }
+    }
+    return KeyEventResult.ignored;
   }
 
   Widget _loadListView() {
@@ -244,10 +272,13 @@ class _LanguageSettingsScreenState
     );
   }
 
-  void onTapItem(dynamic current) {
+  Future<void> onTapItem(dynamic current) async {
     SettingManager.getConfig().languageTag = current.languageTag;
-    LocaleSettings.setLocale(current);
+    await LocaleSettings.setLocale(current);
     if (widget.nextText == null) {
+      if (!mounted) {
+        return;
+      }
       Navigator.pop(context);
     }
   }

@@ -9,8 +9,8 @@
 
 LONG __stdcall UnhandledException(PEXCEPTION_POINTERS pExceptionInfo)
 {
-  ExitProcess(1);
-  //return EXCEPTION_EXECUTE_HANDLER;
+  TerminateProcess(GetCurrentProcess(), 1);
+  return EXCEPTION_EXECUTE_HANDLER;
 }
 void uninitializeWindow(FlutterWindow* window) {
   SetUnhandledExceptionFilter(UnhandledException);
@@ -20,7 +20,7 @@ void uninitializeWindow(FlutterWindow* window) {
   }
   __except(EXCEPTION_EXECUTE_HANDLER)
   {
-    ExitProcess(1);
+    TerminateProcess(GetCurrentProcess(), 1);
   }
 }
 

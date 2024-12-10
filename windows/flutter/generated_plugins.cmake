@@ -3,12 +3,13 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  flutter_inappwebview_windows
   flutter_secure_storage_windows
   hotkey_manager_windows
   open_dir_windows
   protocol_handler
   screen_capturer_windows
-  screen_retriever
+  screen_retriever_windows
   sentry_flutter
   share_plus
   tray_manager

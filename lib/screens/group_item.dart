@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -40,6 +41,7 @@ class GroupItemTextFieldOptions {
     this.enabled,
     this.autoFocus = false,
     this.focusNode,
+    this.textInputAction,
     this.textWidthPercent,
     this.controller,
     this.onChanged,
@@ -58,6 +60,7 @@ class GroupItemTextFieldOptions {
   final bool? enabled;
   final bool autoFocus;
   final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
   final double? textWidthPercent;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
@@ -363,6 +366,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },
@@ -398,7 +404,7 @@ class GroupItemCreator {
                   child: TextField(
                     style: options.style,
                     controller: controller,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: options.textInputAction,
                     cursorColor: Colors.black,
                     obscureText: options.obscureText,
                     decoration: InputDecoration(
@@ -454,6 +460,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },
@@ -558,6 +567,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },
@@ -665,6 +677,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },
@@ -785,6 +800,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },
@@ -871,6 +889,9 @@ class GroupItemCreator {
                             message: options.tips,
                             child: InkWell(
                               onTap: () {
+                                AnalyticsUtils.logEvent(
+                                    analyticsEventType: analyticsEventTypeUA,
+                                    name: 'tips');
                                 DialogUtils.showAlertDialog(
                                     context, options.tips!);
                               },

@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/did.dart';
+import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,7 +61,6 @@ void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await RemoteConfigManager.init();
   await SentryUtilsPrivate.init();
-  await PlatformUtils.init();
   await RemoteISPConfigManager.init();
   await LocaleSettings.useDeviceLocale();
   //runZonedGuarded(() async {// Zone mismatch
@@ -89,7 +89,7 @@ Future<void> run(List<String> args) async {
       String exePath = Platform.resolvedExecutable.toUpperCase();
       if (PlatformUtils.isPC()) {
         if (path.basename(exePath).toLowerCase() !=
-            AppUtils.getKaringExe().toLowerCase()) {
+            PathUtils.getExeName().toLowerCase()) {
           startFailedReason = StartFailedReason.invalidProcess;
           break;
         }
@@ -128,11 +128,11 @@ Future<void> run(List<String> args) async {
     await windowManager.ensureInitialized();
     const inProduction = bool.fromEnvironment("dart.vm.product");
     if (inProduction) {
-      windowManager.setResizable(false);
-      windowManager.setMaximizable(false);
+      await windowManager.setResizable(false);
+      await windowManager.setMaximizable(false);
     }
 
-    windowManager.center();
+    await windowManager.center();
   }
 
   if (Platform.isWindows) {
@@ -141,7 +141,7 @@ Future<void> run(List<String> args) async {
       if (await windowManager.isMinimized()) {
         await windowManager.restore();
       }
-      windowManager.focus();
+      await windowManager.focus();
     });
   }
 
@@ -155,17 +155,11 @@ Future<void> run(List<String> args) async {
         DeviceOrientation.landscapeRight
       ]);
     } else {
-      if (PlatformUtils.isTV()) {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.landscapeRight
-        ]);
-      } else {
-        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-      }
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     }
   }
   bool first = await Did.getFirstTime();
+  await InAppWebViewScreen.init();
   AdsPrivate.init(first);
 
   runApp(TranslationProvider(
@@ -393,7 +387,7 @@ class MyAppState extends State<MyApp>
         if (forceShow ||
             (Platform.isWindows &&
                 !SettingManager.getConfig().ui.hideAfterLaunch)) {
-          windowManager.show();
+          await windowManager.show();
           onWindowRestore();
         }
       });
@@ -477,7 +471,7 @@ class MyAppState extends State<MyApp>
     if (await windowManager.isMinimized()) {
       await windowManager.restore();
     } else {
-      windowManager.show();
+      await windowManager.show();
       onWindowRestore();
     }
   }
@@ -508,7 +502,7 @@ class MyAppState extends State<MyApp>
       if (await windowManager.isMinimized()) {
         await windowManager.restore();
       } else {
-        windowManager.show();
+        await windowManager.show();
         onWindowRestore();
       }
     }

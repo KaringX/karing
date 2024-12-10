@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 enum StartFailedReason {
@@ -47,7 +47,10 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
         analyticsEventType: analyticsEventTypeErr,
         name: 'LFS',
         parameters: {
-          "start_failed_reason": widget.startFailedReason.name,
+          "reason": widget.startFailedReason.name,
+          "desc": widget.startFailedReason == StartFailedReason.exception
+              ? widget.startFailedReasonDesc
+              : null,
         });
 
     Future.delayed(const Duration(seconds: 1), () {
@@ -131,7 +134,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                                 analyticsEventType: analyticsEventTypeUA,
                                 name: 'LFS_website',
                                 repeatable: true);
-                            UrlLauncherUtils.loadUrl("https://$host");
+                            await WebviewHelper.loadUrl(
+                                context, "https://$host");
                           },
                         )),
                     const SizedBox(

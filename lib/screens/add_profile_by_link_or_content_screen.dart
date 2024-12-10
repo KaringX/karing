@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, empty_catches
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -42,9 +40,6 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
 
 class _AddProfileByLinkOrContentScreenState
     extends LasyRenderingState<AddProfileByLinkOrContentScreen> {
-  final FocusNode _focusNodeProfile = FocusNode();
-  final FocusNode _focusNodeRemark = FocusNode();
-  final FocusNode _focusNodeAdd = FocusNode();
   String _name = "";
   String linkUrl = "";
   final _textControllerLink = TextEditingController();
@@ -71,19 +66,10 @@ class _AddProfileByLinkOrContentScreenState
     }
     _compatible = HttpUtils.getUserAgentsString();
     super.initState();
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.pauseAppHangTracking();
-    }
   }
 
   @override
   void dispose() {
-    _focusNodeProfile.dispose();
-    _focusNodeRemark.dispose();
-    _focusNodeAdd.dispose();
-    if (Platform.isIOS || Platform.isMacOS) {
-      //SentrySDK.resumeAppHangTracking();
-    }
     --AddProfileByLinkOrContentScreen.pushed;
     _textControllerLink.dispose();
     _textControllerRemark.dispose();
@@ -195,7 +181,7 @@ class _AddProfileByLinkOrContentScreenState
       if (!mounted) {
         return;
       }
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       return;
     }
     if (!mounted) {
@@ -281,7 +267,6 @@ class _AddProfileByLinkOrContentScreenState
                             ],
                           )
                         : InkWell(
-                            focusNode: _focusNodeAdd,
                             onTap: () async {
                               await onAdd(context);
                             },
@@ -317,31 +302,25 @@ class _AddProfileByLinkOrContentScreenState
                       padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                       child: SingleChildScrollView(
                         child: TextField(
-                            autofocus: false,
-                            focusNode: _focusNodeProfile,
-                            maxLines: PlatformUtils.isPC() ? 12 : 4,
-                            controller: _textControllerLink,
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                                labelText: tcontext
-                                    .AddProfileByLinkOrContentScreen
-                                    .profileLinkContent,
-                                hintText: tcontext
-                                    .AddProfileByLinkOrContentScreen
-                                    .profileLinkContentHit),
-                            onChanged: (text) {
-                              updateRemarkByText();
-                            },
-                            onSubmitted: (String? text) {
-                              _focusNodeRemark.requestFocus();
-                            }),
+                          textInputAction: TextInputAction.next,
+                          maxLines: PlatformUtils.isPC() ? 12 : 4,
+                          controller: _textControllerLink,
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                              labelText: tcontext
+                                  .AddProfileByLinkOrContentScreen
+                                  .profileLinkContent,
+                              hintText: tcontext.AddProfileByLinkOrContentScreen
+                                  .profileLinkContentHit),
+                          onChanged: (text) {
+                            updateRemarkByText();
+                          },
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                       child: TextField(
-                        autofocus: false,
-                        focusNode: _focusNodeRemark,
                         textInputAction: TextInputAction.done,
                         controller: _textControllerRemark,
                         cursorColor: Colors.black,
@@ -351,7 +330,7 @@ class _AddProfileByLinkOrContentScreenState
                           prefixIcon: const Icon(Icons.edit_note_outlined),
                         ),
                         onSubmitted: (String? text) {
-                          _focusNodeAdd.requestFocus();
+                          FocusScope.of(context).nextFocus();
                         },
                       ),
                     ),

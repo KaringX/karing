@@ -1,7 +1,9 @@
 // ignore_for_file: unused_catch_stack
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -19,6 +21,7 @@ class NoviceScreen extends LasyRenderingStatefulWidget {
 }
 
 class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
+  final FocusNode _focusNodeNext = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -27,87 +30,115 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
   }
 
   @override
+  void dispose() {
+    _focusNodeNext.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const SizedBox(
-                            width: 50,
-                          ),
-                          SizedBox(
-                            width: windowSize.width - 50 - 65,
-                            child: Text(
-                              tcontext.setting,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontWeight: ThemeConfig.kFontWeightTitle,
-                                  fontSize: ThemeConfig.kFontSizeTitle),
-                            ),
-                          ),
-                          SizedBox(
-                              width: 65,
-                              height: 30,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  tcontext.done,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: ThemeConfig.kFontWeightListItem,
-                                    fontSize: ThemeConfig.kFontSizeListItem,
+    return PopScope(
+        canPop: false,
+        child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.zero,
+              child: AppBar(),
+            ),
+            body: Focus(
+              includeSemantics: true,
+              onKeyEvent: onKeyEvent,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(
+                                    width: 50,
                                   ),
+                                  SizedBox(
+                                    width: windowSize.width - 50 - 65,
+                                    child: Text(
+                                      tcontext.setting,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontWeight:
+                                              ThemeConfig.kFontWeightTitle,
+                                          fontSize: ThemeConfig.kFontSizeTitle),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      width: 65,
+                                      height: 30,
+                                      child: InkWell(
+                                        autofocus: PlatformUtils.maybeTV(),
+                                        focusNode: _focusNodeNext,
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          textAlign: TextAlign.center,
+                                          tcontext.done,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontWeight:
+                                                ThemeConfig.kFontWeightListItem,
+                                            fontSize:
+                                                ThemeConfig.kFontSizeListItem,
+                                          ),
+                                        ),
+                                      ))
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: FutureBuilder(
+                                  future: getGroupOptions(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<List<GroupItem>> snapshot) {
+                                    List<GroupItem> data =
+                                        snapshot.hasData ? snapshot.data! : [];
+                                    return Column(
+                                        children: GroupItemCreator.createGroups(
+                                            context, data));
+                                  },
                                 ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: FutureBuilder(
-                          future: getGroupOptions(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<GroupItem>> snapshot) {
-                            List<GroupItem> data =
-                                snapshot.hasData ? snapshot.data! : [];
-                            return Column(
-                                children: GroupItemCreator.createGroups(
-                                    context, data));
-                          },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            )));
+  }
+
+  KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent) {
+      switch (event.logicalKey) {
+        case LogicalKeyboardKey.arrowRight:
+          _focusNodeNext.requestFocus();
+          return KeyEventResult.handled;
+      }
+    }
+    return KeyEventResult.ignored;
   }
 
   Future<List<GroupItem>> getGroupOptions() async {

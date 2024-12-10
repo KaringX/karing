@@ -38,7 +38,7 @@ class Connection {
   num threadCount = 0;
   num memory = 0;
 
-  void fromJson(Map<String, dynamic>? map) {
+  void fromJson(Map<String, dynamic>? map, bool withConnectsions) {
     if (map == null) {
       return;
     }
@@ -54,7 +54,7 @@ class Connection {
     connectionsIn = map["connectionsIn"] ?? 0;
     goroutines = map["goroutines"] ?? 0;
     threadCount = map["threadCount"] ?? 0;
-    if (map["connections"] != null) {
+    if (withConnectsions && map["connections"] != null) {
       for (var i in map["connections"]) {
         Tracker tr = Tracker();
         tr.fromJson(i);

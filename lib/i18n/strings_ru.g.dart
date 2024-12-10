@@ -82,6 +82,7 @@ class TranslationsRu implements Translations {
 	@override String get edit => 'Редактировать';
 	@override String get view => 'Просмотр';
 	@override String get more => 'Больше';
+	@override String get getProfile => 'Получить конфигурацию';
 	@override String get addProfile => 'Добавить профиль';
 	@override String get addSuccess => 'Добавлено успешно';
 	@override String addSuccessThen({required Object p}) => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${p}]';
@@ -202,7 +203,7 @@ class TranslationsRu implements Translations {
 	@override String get importFromClipboard => 'Импорт из буфера обмена';
 	@override String get exportToClipboard => 'Экспорт в буфер обмена';
 	@override String get server => 'Сервер';
-	@override String get appleTVConnectTurnOfprivateDirect => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
+	@override String get turnOffPrivateDirect => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 	@override String targetConnectFailed({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
 	@override String get appleTVSync => 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
 	@override String get appleTVSyncDone => 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.';
@@ -224,6 +225,7 @@ class TranslationsRu implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+	@override String get edgeRuntimeNotInstalled => 'На текущем устройстве не установлена ​​среда выполнения Edge или Edge WebView2, поэтому страница не отображается. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -1137,6 +1139,7 @@ extension on TranslationsRu {
 			case 'edit': return 'Редактировать';
 			case 'view': return 'Просмотр';
 			case 'more': return 'Больше';
+			case 'getProfile': return 'Получить конфигурацию';
 			case 'addProfile': return 'Добавить профиль';
 			case 'addSuccess': return 'Добавлено успешно';
 			case 'addSuccessThen': return ({required Object p}) => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${p}]';
@@ -1257,7 +1260,7 @@ extension on TranslationsRu {
 			case 'importFromClipboard': return 'Импорт из буфера обмена';
 			case 'exportToClipboard': return 'Экспорт в буфер обмена';
 			case 'server': return 'Сервер';
-			case 'appleTVConnectTurnOfprivateDirect': return 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
+			case 'turnOffPrivateDirect': return 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 			case 'targetConnectFailed': return ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
 			case 'appleTVSync': return 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
 			case 'appleTVSyncDone': return 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.';
@@ -1279,6 +1282,7 @@ extension on TranslationsRu {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+			case 'edgeRuntimeNotInstalled': return 'На текущем устройстве не установлена ​​среда выполнения Edge или Edge WebView2, поэтому страница не отображается. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

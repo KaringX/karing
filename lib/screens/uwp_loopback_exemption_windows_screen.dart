@@ -1,6 +1,7 @@
 // ignore_for_file: unused_catch_stack
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/uwp_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -62,12 +63,17 @@ class _UWPLoopbackExemptionWindowsScreenState
     }
     _checked.clear();
     _netIsolation.clear();
-    Set<String> data = await UWPUtils.getNetIsolation();
+    ReturnResult<Set<String>> result = await UWPUtils.getNetIsolation();
     if (!mounted) {
       return;
     }
-    _netIsolation.addAll(data);
-    _checked.addAll(data);
+    if (result.error != null) {
+      DialogUtils.showAlertDialog(context, result.error!.message,
+          showCopy: true, showFAQ: true, withVersion: true);
+      return;
+    }
+    _netIsolation.addAll(result.data!);
+    _checked.addAll(result.data!);
     setState(() {});
   }
 

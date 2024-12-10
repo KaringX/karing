@@ -16,7 +16,7 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/private/ads_banner_widget_private.dart';
+import 'package:karing/app/modules/yacd.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
@@ -40,10 +40,12 @@ import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/group_options_helper.dart';
 import 'package:karing/screens/group_screen.dart';
+import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/language_settings_screen.dart';
 import 'package:karing/screens/my_profiles_screen.dart';
 import 'package:karing/screens/net_interfaces_screen.dart';
 import 'package:karing/screens/perapp_android_screen.dart';
+import 'package:karing/screens/perapp_macos_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/speedtest_settings_screen.dart';
@@ -52,6 +54,8 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_settings_screen.dart';
 import 'package:karing/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
+import 'package:karing/screens/webview_helper.dart';
+import 'package:karing/screens/widgets/ads_banner_widget.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
@@ -284,7 +288,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       parameters: {"name": isp!.name, "url": isp.url},
                       repeatable: true);
 
-                  UrlLauncherUtils.loadUrl(isp.url);
+                  await WebviewHelper.loadUrl(context, isp.url,
+                      title: isp.name);
                 })),
         isp.faq.isNotEmpty
             ? GroupItemOptions(
@@ -296,8 +301,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           name: 'SSS_isp_faq',
                           parameters: {"name": isp!.name, "url": isp.faq},
                           repeatable: true);
-
-                      UrlLauncherUtils.loadUrl(isp.faq);
+                      await WebviewHelper.loadUrl(context, isp.faq,
+                          title: tcontext.SettingsScreen.ispFaq(p: isp.name));
                     }))
             : GroupItemOptions(),
         GroupItemOptions(
@@ -339,26 +344,31 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
     if (!settingConfig.novice) {
       groupOptions.add(GroupItem(options: [
-        (PlatformUtils.isPC() || Platform.isAndroid) &&
-                remoteConfig.htmlboard.isNotEmpty
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.SettingsScreen.htmlBoard,
-                    onPush: () async {
-                      bool ok = await startVPN();
-                      if (!ok) {
-                        return;
-                      }
-                      AnalyticsUtils.logEvent(
-                          analyticsEventType: analyticsEventTypeUA,
-                          name: 'SSS_htmlBoard',
-                          repeatable: true);
-                      String url = await ClashApi.getHtmlBoardUrl(
-                          remoteConfig.htmlboard,
-                          settingConfig.proxy.controlPort);
-                      UrlLauncherUtils.loadUrl(url);
-                    }))
-            : GroupItemOptions(),
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.htmlBoard,
+                onPush: () async {
+                  bool ok = await startVPN();
+                  if (!ok) {
+                    return;
+                  }
+                  AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_htmlBoard',
+                      repeatable: true);
+                  ReturnResultError? err = await Yacd.start();
+                  if (err != null) {
+                    DialogUtils.showAlertDialog(context, err.message);
+                    return;
+                  }
+                  String url = await Yacd.getUrl();
+                  await WebviewHelper.loadUrl(context, url,
+                      title: tcontext.SettingsScreen.htmlBoard,
+                      inappWebViewOpenExternal: false);
+                  if (PlatformUtils.isMobile()) {
+                    await Yacd.stop();
+                  }
+                })),
         remoteConfig.dnsLeakDetection.isNotEmpty
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
@@ -368,7 +378,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           analyticsEventType: analyticsEventTypeUA,
                           name: 'SSS_dnsLeakDetection',
                           repeatable: true);
-                      UrlLauncherUtils.loadUrl(remoteConfig.dnsLeakDetection);
+                      await WebviewHelper.loadUrl(
+                          context, remoteConfig.dnsLeakDetection,
+                          title: tcontext.SettingsScreen.dnsLeakDetection);
                     }))
             : GroupItemOptions(),
         GroupItemOptions(
@@ -756,8 +768,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       context,
                       MaterialPageRoute(
                           settings: LanguageSettingsScreen.routSettings(),
-                          builder: (context) =>
-                              const LanguageSettingsScreen(canGoBack: true)));
+                          builder: (context) => const LanguageSettingsScreen(
+                              canPop: true, canGoBack: true)));
                 })),
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -783,15 +795,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           DeviceOrientation.landscapeRight
                         ]);
                       } else {
-                        if (PlatformUtils.isTV()) {
-                          SystemChrome.setPreferredOrientations([
-                            DeviceOrientation.landscapeLeft,
-                            DeviceOrientation.landscapeRight
-                          ]);
-                        } else {
-                          SystemChrome.setPreferredOrientations(
-                              [DeviceOrientation.portraitUp]);
-                        }
+                        SystemChrome.setPreferredOrientations(
+                            [DeviceOrientation.portraitUp]);
                       }
                       setState(() {});
                     }))
@@ -820,16 +825,21 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 onPush: () async {
                   bool started = await VPNService.started();
 
-                  FileUtils.deleteDirByPath(await PathUtils.cacheDir(),
+                  await FileUtils.deleteDirByPath(await PathUtils.cacheDir(),
                       recursive: true);
-                  FileUtils.deleteDirByPath(await PathUtils.profileDataDir(),
+                  await FileUtils.deleteDirByPath(
+                      await PathUtils.profileDataDir(),
                       recursive: true);
 
                   if (!started) {
-                    FileUtils.deleteFileByPath(
+                    await FileUtils.deleteFileByPath(
                         await PathUtils.cacheDBFilePath());
-                    FileUtils.deleteFileByPath(
+                    await FileUtils.deleteFileByPath(
                         await PathUtils.serviceLogFilePath());
+                  }
+                  if (!InAppWebViewScreen.hasActiveWebview()) {
+                    String dir = await PathUtils.webviewCacheDir();
+                    await FileUtils.deleteDirByPath(dir, recursive: true);
                   }
                   if (!mounted) {
                     return;
@@ -897,8 +907,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                             builder: (context) => QrcodeScreen(
                                 content: download,
                                 callback: () async {
-                                  UrlLauncherUtils.reorganizationAndLoadUrl(
-                                      download);
+                                  String url = await UrlLauncherUtils
+                                      .reorganizationUrlWithAnchor(download);
+                                  await WebviewHelper.loadUrl(context, url,
+                                      title: tcontext.download);
                                 }),
                           ));
                     }))
@@ -987,7 +999,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         analyticsEventType: analyticsEventTypeUA,
                         name: 'SSS_rateInAppStore',
                         repeatable: true);
-                    UrlLauncherUtils.loadUrl(rateUrl);
+                    await WebviewHelper.loadUrl(context, rateUrl,
+                        title: tcontext.SettingsScreen.rateInAppStore);
                   }))
           : GroupItemOptions(),
       GroupItemOptions(
@@ -1029,7 +1042,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       repeatable: true);
 
                   if (item.url.isNotEmpty) {
-                    UrlLauncherUtils.reorganizationAndLoadUrl(item.url);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            item.url);
+                    await WebviewHelper.loadUrl(context, url,
+                        title: item.title);
                   } else {
                     await Navigator.push(
                         context,
@@ -1079,18 +1096,20 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 fullscreenDialog: true,
                 builder: (context) => const VersionUpdateScreen(force: false)));
       } else {
-        UrlLauncherUtils.loadUrl(versionCheck.url,
-            mode: Platform.isAndroid
-                ? LaunchMode.externalApplication
-                : LaunchMode.platformDefault);
+        if (Platform.isAndroid) {
+          await UrlLauncherUtils.loadUrl(versionCheck.url,
+              mode: LaunchMode.externalApplication);
+        } else {
+          await WebviewHelper.loadUrl(context, versionCheck.url);
+        }
       }
     } else {
-      UrlLauncherUtils.loadUrl(versionCheck.url);
+      await WebviewHelper.loadUrl(context, versionCheck.url);
     }
   }
 
   Future<void> onTapAddProfile() async {
-    await GroupHelper.showAddProfile(context);
+    await GroupHelper.showAddProfile(context, false);
     setState(() {});
   }
 
@@ -1546,20 +1565,30 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                             setState(() {});
                           }))
             : GroupItemOptions(),
-        Platform.isAndroid
+        Platform.isAndroid /*|| Platform.isMacOS*/
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
                     name: tcontext.PerAppAndroidScreen.title,
                     onPush: !tunMode
                         ? null
                         : () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    settings:
-                                        PerAppAndroidScreen.routSettings(),
-                                    builder: (context) =>
-                                        const PerAppAndroidScreen()));
+                            if (Platform.isAndroid) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      settings:
+                                          PerAppAndroidScreen.routSettings(),
+                                      builder: (context) =>
+                                          const PerAppAndroidScreen()));
+                            } else if (Platform.isMacOS) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      settings:
+                                          PerAppMacosScreen.routSettings(),
+                                      builder: (context) =>
+                                          const PerAppMacosScreen()));
+                            }
                           }))
             : GroupItemOptions(),
         !settingConfig.novice && PlatformUtils.isMobile()
@@ -2587,7 +2616,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
    iOS/macOS/tvOS AppStore: ${AppleUtils.getAppStoreUrl()}
    Android: ${config.download} or https://apkpure.com/p/com.nebula.karing
    Windows: ${config.download}''';
-                      ShareResult result = await Share.shareWithResult(content,
+                      ShareResult result = await Share.share(content,
                           sharePositionOrigin:
                               box!.localToGlobal(Offset.zero) & box.size);
                       if (result.status == ShareResultStatus.success) {

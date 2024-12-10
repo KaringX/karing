@@ -47,9 +47,6 @@ class _BackupAndSyncWebdavScreenState
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FocusNode _focusNodeUrl = FocusNode();
-  final FocusNode _focusNodeUser = FocusNode();
-  final FocusNode _focusNodePassword = FocusNode();
 
   @override
   void initState() {
@@ -68,9 +65,6 @@ class _BackupAndSyncWebdavScreenState
 
   @override
   void dispose() {
-    _focusNodeUrl.dispose();
-    _focusNodeUser.dispose();
-    _focusNodePassword.dispose();
     _urlController.dispose();
     _userController.dispose();
     _passwordController.dispose();
@@ -437,26 +431,22 @@ class _BackupAndSyncWebdavScreenState
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
-                keyboardType: TextInputType.url,
-                hint: "${tcontext.required}[https://xxxx/webdav]",
-                textWidthPercent: 0.6,
-                controller: _urlController,
-                autoFocus: true,
-                focusNode: _focusNodeUrl,
-                onSubmitted: (String value) {
-                  _focusNodeUser.requestFocus();
-                })),
+          name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
+          keyboardType: TextInputType.url,
+          hint: "${tcontext.required}[https://xxxx/webdav]",
+          textWidthPercent: 0.6,
+          controller: _urlController,
+          autoFocus: true,
+          textInputAction: TextInputAction.next,
+        )),
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.account,
-                hint: tcontext.required,
-                textWidthPercent: 0.6,
-                controller: _userController,
-                focusNode: _focusNodeUser,
-                onSubmitted: (String value) {
-                  _focusNodePassword.requestFocus();
-                })),
+          name: tcontext.account,
+          hint: tcontext.required,
+          textWidthPercent: 0.6,
+          controller: _userController,
+          textInputAction: TextInputAction.next,
+        )),
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.password,
@@ -464,7 +454,7 @@ class _BackupAndSyncWebdavScreenState
                 textWidthPercent: 0.6,
                 obscureText: true,
                 controller: _passwordController,
-                focusNode: _focusNodePassword,
+                textInputAction: TextInputAction.done,
                 onSubmitted: (String value) {
                   FocusScope.of(context).nextFocus();
                 })),

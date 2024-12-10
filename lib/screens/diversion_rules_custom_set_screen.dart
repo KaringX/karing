@@ -1,7 +1,9 @@
 // ignore_for_file: unused_catch_stack
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/utils/diversion_custom_utils.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -12,6 +14,7 @@ class DiversionRulesCustomSetScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "DiversionRulesCustomSetScreen");
   }
 
+  final bool canPop;
   final String title;
   final bool? canGoBack;
 
@@ -21,6 +24,7 @@ class DiversionRulesCustomSetScreen extends LasyRenderingStatefulWidget {
 
   const DiversionRulesCustomSetScreen(
       {super.key,
+      required this.canPop,
       required this.title,
       required this.canGoBack,
       required this.nextText,
@@ -34,9 +38,16 @@ class DiversionRulesCustomSetScreen extends LasyRenderingStatefulWidget {
 
 class _DiversionRulesCustomSetScreenState
     extends LasyRenderingState<DiversionRulesCustomSetScreen> {
+  final FocusNode _focusNodeNext = FocusNode();
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNodeNext.dispose();
+    super.dispose();
   }
 
   @override
@@ -48,121 +59,148 @@ class _DiversionRulesCustomSetScreenState
         preferredSize: Size.zero,
         child: AppBar(),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          widget.canGoBack == true
-                              ? InkWell(
-                                  onTap: () => Navigator.pop(context),
-                                  child: const SizedBox(
-                                    width: 50,
-                                    height: 30,
-                                    child: Icon(
-                                      Icons.arrow_back_ios_outlined,
-                                      size: 26,
+      body: PopScope(
+          canPop: widget.canPop,
+          child: Focus(
+              includeSemantics: true,
+              onKeyEvent: onKeyEvent,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  widget.canGoBack == true
+                                      ? InkWell(
+                                          onTap: () => Navigator.pop(context),
+                                          child: const SizedBox(
+                                            width: 50,
+                                            height: 30,
+                                            child: Icon(
+                                              Icons.arrow_back_ios_outlined,
+                                              size: 26,
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox(
+                                          width: 50,
+                                          height: 30,
+                                        ),
+                                  SizedBox(
+                                    width: windowSize.width -
+                                        50 -
+                                        (widget.nextText != null ||
+                                                widget.nextIcon != null
+                                            ? 65
+                                            : 50),
+                                    child: Text(
+                                      widget.title,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontWeight:
+                                              ThemeConfig.kFontWeightTitle,
+                                          fontSize: ThemeConfig.kFontSizeTitle),
                                     ),
                                   ),
-                                )
-                              : const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                ),
-                          SizedBox(
-                            width: windowSize.width -
-                                50 -
-                                (widget.nextText != null ||
-                                        widget.nextIcon != null
-                                    ? 65
-                                    : 50),
-                            child: Text(
-                              widget.title,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontWeight: ThemeConfig.kFontWeightTitle,
-                                  fontSize: ThemeConfig.kFontSizeTitle),
-                            ),
-                          ),
-                          widget.nextText != null || widget.nextIcon != null
-                              ? SizedBox(
-                                  width: widget.nextText != null ? 65 : 50,
-                                  height: 30,
-                                  child: InkWell(
-                                    onTap: () {
-                                      onTapDone();
-                                    },
-                                    child: widget.nextText != null
-                                        ? Text(
-                                            textAlign: TextAlign.center,
-                                            widget.nextText ?? "",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontWeight: ThemeConfig
-                                                    .kFontWeightListItem,
-                                                fontSize: ThemeConfig
-                                                    .kFontSizeListItem),
-                                          )
-                                        : Icon(
-                                            widget.nextIcon,
-                                            size: 26,
+                                  widget.nextText != null ||
+                                          widget.nextIcon != null
+                                      ? SizedBox(
+                                          width:
+                                              widget.nextText != null ? 65 : 50,
+                                          height: 30,
+                                          child: InkWell(
+                                            autofocus: PlatformUtils.maybeTV(),
+                                            focusNode: _focusNodeNext,
+                                            onTap: () {
+                                              onTapDone();
+                                            },
+                                            child: widget.nextText != null
+                                                ? Text(
+                                                    textAlign: TextAlign.center,
+                                                    widget.nextText ?? "",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        fontWeight: ThemeConfig
+                                                            .kFontWeightListItem,
+                                                        fontSize: ThemeConfig
+                                                            .kFontSizeListItem),
+                                                  )
+                                                : Icon(
+                                                    widget.nextIcon,
+                                                    size: 26,
+                                                  ),
                                           ),
-                                  ),
-                                )
-                              : const SizedBox(
-                                  width: 50,
+                                        )
+                                      : const SizedBox(
+                                          width: 50,
+                                        ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Text(
+                                tcontext.diversionCustomGroupPresetTips,
+                                style: const TextStyle(
+                                  fontSize: ThemeConfig.kFontSizeListSubItem,
+                                  fontWeight:
+                                      ThemeConfig.kFontWeightListSubItem,
                                 ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Text(
-                        tcontext.diversionCustomGroupPresetTips,
-                        style: const TextStyle(
-                          fontSize: ThemeConfig.kFontSizeListSubItem,
-                          fontWeight: ThemeConfig.kFontWeightListSubItem,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: FutureBuilder(
+                                  future: getGroupOptions(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<List<GroupItem>> snapshot) {
+                                    List<GroupItem> data =
+                                        snapshot.hasData ? snapshot.data! : [];
+                                    return Column(children: [
+                                      ...GroupItemCreator.createGroups(
+                                          context, data)
+                                    ]);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: FutureBuilder(
-                          future: getGroupOptions(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<GroupItem>> snapshot) {
-                            List<GroupItem> data =
-                                snapshot.hasData ? snapshot.data! : [];
-                            return Column(children: [
-                              ...GroupItemCreator.createGroups(context, data)
-                            ]);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              ))),
     );
+  }
+
+  KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
+    if (event is KeyDownEvent) {
+      switch (event.logicalKey) {
+        case LogicalKeyboardKey.arrowRight:
+          if (widget.nextText != null) {
+            _focusNodeNext.requestFocus();
+            return KeyEventResult.handled;
+          }
+      }
+    }
+    return KeyEventResult.ignored;
   }
 
   Future<List<GroupItem>> getGroupOptions() async {

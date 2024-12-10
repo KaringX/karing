@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+//import 'package:icons_plus/icons_plus.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -13,6 +13,7 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/antdesign.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/diversion_group_custom_edit_screen.dart';
 import 'package:karing/screens/diversion_rules_custom_set_screen.dart';
@@ -300,6 +301,7 @@ class _DiversionGroupCustomScreenState
                     MaterialPageRoute(
                         settings: DiversionRulesCustomSetScreen.routSettings(),
                         builder: (context) => DiversionRulesCustomSetScreen(
+                            canPop: true,
                             title: tcontext.diversionCustomGroupPreset,
                             canGoBack: true,
                             nextText: null,
@@ -378,6 +380,7 @@ class _DiversionGroupCustomScreenState
                 settings: DiversionRulesCustomSetScreen.routSettings(),
                 fullscreenDialog: true,
                 builder: (context) => DiversionRulesCustomSetScreen(
+                      canPop: true,
                       title: tcontext.import,
                       canGoBack: true,
                       nextText: null,

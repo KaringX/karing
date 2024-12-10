@@ -7,6 +7,7 @@ import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/webview_helper.dart';
 
 class GroupOptionsHelper {
   static List<GroupItemOptions> getOutlinkOptions(
@@ -34,7 +35,13 @@ class GroupOptionsHelper {
                     name: 'SSS_getTranffic',
                     parameters: {"from": from},
                     repeatable: true);
-                UrlLauncherUtils.reorganizationAndLoadUrl(getTranffic);
+                String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                    getTranffic);
+                if (!context.mounted) {
+                  return;
+                }
+                await WebviewHelper.loadUrl(context, url,
+                    title: tcontext.SettingsScreen.getTranffic);
               })),
       tutorial.isNotEmpty
           ? GroupItemOptions(
@@ -46,7 +53,14 @@ class GroupOptionsHelper {
                         name: 'SSS_tutorial',
                         parameters: {"from": from},
                         repeatable: true);
-                    UrlLauncherUtils.reorganizationAndLoadUrl(tutorial);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            tutorial);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url,
+                        title: tcontext.SettingsScreen.tutorial);
                   }))
           : GroupItemOptions(),
       faq.isNotEmpty
@@ -59,7 +73,13 @@ class GroupOptionsHelper {
                         name: 'SSS_faq',
                         parameters: {"from": from},
                         repeatable: true);
-                    UrlLauncherUtils.reorganizationAndLoadUrl(faq);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(faq);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url,
+                        title: tcontext.faq);
                   }))
           : GroupItemOptions(),
       remoteConfig.rulesets.isNotEmpty
@@ -73,7 +93,14 @@ class GroupOptionsHelper {
                         parameters: {"from": from},
                         repeatable: true);
 
-                    UrlLauncherUtils.loadUrl(remoteConfig.rulesets);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.rulesets);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url,
+                        title: tcontext.SettingsScreen.commonlyUsedRulesets);
                   }))
           : GroupItemOptions(),
     ]);

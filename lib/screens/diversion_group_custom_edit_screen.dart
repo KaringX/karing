@@ -74,6 +74,10 @@ class _DiversionGroupCustomEditScreenState
   final _textControllerLinkProcessName = TextEditingController();
   final _textControllerLinkProcessPath = TextEditingController();
 
+  List<String>? _sitecodes;
+  List<String>? _ipcodes;
+  List<String>? _aclcodes;
+
   @override
   void initState() {
     super.initState();
@@ -392,18 +396,18 @@ class _DiversionGroupCustomEditScreenState
                   builder: (context) => MultiSelectScreen(
                         title: 'Rule Set(build-in)',
                         getData: () async {
-                          var sitecodes = await RulesetCodesUtils.siteCodes();
-                          var ipcodes = await RulesetCodesUtils.ipCodes();
-                          var aclcodes = await RulesetCodesUtils.aclCodes();
+                          _sitecodes ??= await RulesetCodesUtils.siteCodes();
+                          _ipcodes ??= await RulesetCodesUtils.ipCodes();
+                          _aclcodes ??= await RulesetCodesUtils.aclCodes();
                           List<Tuple2<String, String>> allData = [];
-                          for (var code in sitecodes) {
+                          for (var code in _sitecodes!) {
                             allData
                                 .add(Tuple2("geosite:$code", "geosite:$code"));
                           }
-                          for (var code in ipcodes) {
+                          for (var code in _ipcodes!) {
                             allData.add(Tuple2("geoip:$code", "geoip:$code"));
                           }
-                          for (var code in aclcodes) {
+                          for (var code in _aclcodes!) {
                             allData.add(Tuple2("acl:$code", "acl:$code"));
                           }
                           return allData;
@@ -614,7 +618,7 @@ class _DiversionGroupCustomEditScreenState
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: SingleChildScrollView(
             child: TextField(
-              autofocus: false,
+              textInputAction: TextInputAction.next,
               maxLines: 6,
               controller: textControllerLink,
               cursorColor: Colors.black,
@@ -645,7 +649,7 @@ class _DiversionGroupCustomEditScreenState
                   width: windowSize.width - 10 * 2 - 50,
                   child: SingleChildScrollView(
                     child: TextField(
-                      autofocus: false,
+                      textInputAction: TextInputAction.next,
                       maxLines: 6,
                       controller: textControllerLink,
                       cursorColor: Colors.black,
@@ -692,9 +696,9 @@ class _DiversionGroupCustomEditScreenState
 
     ServerDiversionGroupItem diversionItem =
         ServerManager.getDiversionCustomGroup();
-    var sitecodes = await RulesetCodesUtils.siteCodes();
-    var ipcodes = await RulesetCodesUtils.ipCodes();
-    var aclcodes = await RulesetCodesUtils.aclCodes();
+    var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();
+    var ipcodesHashCode = await RulesetCodesUtils.ipCodesHashCode();
+    var aclcodesHashCode = await RulesetCodesUtils.aclCodesHashCode();
     if (!mounted) {
       return;
     }
@@ -813,7 +817,7 @@ class _DiversionGroupCustomEditScreenState
 
           switch (parts[0]) {
             case "geosite":
-              if (!sitecodes.contains(parts[1])) {
+              if (!sitecodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
                     context,
                     tcontext.DiversionGroupCustomEditScreen
@@ -822,7 +826,7 @@ class _DiversionGroupCustomEditScreenState
               }
               break;
             case "geoip":
-              if (!ipcodes.contains(parts[1])) {
+              if (!ipcodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
                     context,
                     tcontext.DiversionGroupCustomEditScreen
@@ -831,7 +835,7 @@ class _DiversionGroupCustomEditScreenState
               }
               break;
             case "acl":
-              if (!aclcodes.contains(parts[1])) {
+              if (!aclcodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
                     context,
                     tcontext.DiversionGroupCustomEditScreen

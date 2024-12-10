@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:after_layout/after_layout.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/private/ads_banner_widget_private.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item.dart';
@@ -19,19 +21,22 @@ class GroupScreen extends LasyRenderingStatefulWidget {
   final bool hasReturn;
   final Future<bool> Function(BuildContext context)? onDone;
   final String? tipsIfNoOnDone;
+  final Future<void> Function(BuildContext context)? onFirstLayout;
   const GroupScreen(
       {super.key,
       required this.title,
       required this.getOptions,
       this.hasReturn = true,
       this.onDone,
-      this.tipsIfNoOnDone});
+      this.tipsIfNoOnDone,
+      this.onFirstLayout});
 
   @override
   State<GroupScreen> createState() => GroupScreenState();
 }
 
-class GroupScreenState extends LasyRenderingState<GroupScreen> {
+class GroupScreenState extends LasyRenderingState<GroupScreen>
+    with AfterLayoutMixin {
   static int _adsCount = 0;
   bool _hasAds = false;
   @override
@@ -47,6 +52,13 @@ class GroupScreenState extends LasyRenderingState<GroupScreen> {
     }
 
     super.dispose();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    if (widget.onFirstLayout != null) {
+      widget.onFirstLayout!.call(context);
+    }
   }
 
   @override

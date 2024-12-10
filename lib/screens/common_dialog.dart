@@ -10,6 +10,7 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/webview_helper.dart';
 
 class CommonDialog {
   static void handleStartError(BuildContext context, String errMessage) async {
@@ -82,15 +83,16 @@ class CommonDialog {
         return;
       }
     }
-    loadFAQByError(errMessage);
+    loadFAQByError(context, errMessage);
     DialogUtils.showAlertDialog(context, errMessage,
         showCopy: true, showFAQ: true, withVersion: true);
   }
 
-  static void loadFAQByError(String error) async {
+  static void loadFAQByError(BuildContext context, String error) async {
     if (!PlatformUtils.isPC()) {
       return;
     }
+    final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
     for (var anchor in remoteConfig.faqAnchor) {
       late String anchorNew;
@@ -103,8 +105,13 @@ class CommonDialog {
         continue;
       }
       if (error.contains(anchorNew)) {
-        UrlLauncherUtils.reorganizationAndLoadUrl(remoteConfig.faq,
+        String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+            remoteConfig.faq,
             anchor: anchor.hashCode.toString());
+        if (!context.mounted) {
+          return;
+        }
+        await WebviewHelper.loadUrl(context, url, title: tcontext.faq);
 
         break;
       }
