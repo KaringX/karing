@@ -282,24 +282,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       if (PlatformUtils.isPC()) {
         var remoteConfig = RemoteConfigManager.getConfig();
-        {
-          String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-              remoteConfig.getTranffic);
-          if (!context.mounted) {
-            return;
-          }
-          await WebviewHelper.loadUrl(context, url,
-              title: tcontext.SettingsScreen.getTranffic);
+        String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+            remoteConfig.tutorial);
+        if (!context.mounted) {
+          return;
         }
-        {
-          String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-              remoteConfig.tutorial);
-          if (!context.mounted) {
-            return;
-          }
-          await WebviewHelper.loadUrl(context, url,
-              title: tcontext.SettingsScreen.tutorial);
-        }
+        await WebviewHelper.loadUrl(context, url,
+            title: tcontext.SettingsScreen.tutorial);
       }
     } else {
       String? installer = await AutoUpdateManager.checkReplace();
