@@ -32,8 +32,8 @@
 </details>
 
 ## نیازمندی‌های سیستم (تنها 64 بیت)
-- Windows >= 10
-- Android >= 8
+- Windows >= 10 (64bits only)
+- Android >= 8 (arm64-v8a, armeabi-v7a)
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
