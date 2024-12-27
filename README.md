@@ -72,7 +72,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 
 ## System Requirements
 - Windows >= 10 (64-bit only)
-- Android >= 8
+- Android >= 8 (arm64-v8a, armeabi-v7a)
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
