@@ -64,9 +64,9 @@
 </details>
 
 
-## 系统要求（仅支持64位）
-- Windows >= 10
-- Android >= 8
+## 系统要求
+- Windows >= 10 （仅支持64位）
+- Android >= 8  (arm64-v8a, armeabi-v7a)
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
