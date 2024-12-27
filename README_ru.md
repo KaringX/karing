@@ -39,9 +39,9 @@
 </summary>
 </details>
 
-## Системные требования (только 64-битные)
-- Windows >= 10
-- Android >= 8
+## Системные требования
+- Windows >= 10 (только 64-битные)
+- Android >= 8 (arm64-v8a, armeabi-v7a)
 - IOS >= 15
 - MacOS >= 12
 - TvOS >= 17
