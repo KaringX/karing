@@ -233,22 +233,17 @@ class MyAppState extends State<MyApp>
 
     switch (state) {
       case AppLifecycleState.resumed:
-        Log.d("AppLifecycleState.resumed");
         AppLifecycleStateNofityManager.stateResumed("resumed");
         break;
       case AppLifecycleState.inactive:
-        Log.d("AppLifecycleState.inactive");
         AppLifecycleStateNofityManager.stateInactive("inactive");
         break;
       case AppLifecycleState.detached:
-        Log.d("AppLifecycleState.detached");
         break;
       case AppLifecycleState.paused:
-        Log.d("AppLifecycleState.paused");
         AppLifecycleStateNofityManager.statePaused("paused");
         break;
       case AppLifecycleState.hidden:
-        Log.d("AppLifecycleState.hidden");
         AppLifecycleStateNofityManager.stateInactive("hidden");
         break;
     }
@@ -260,8 +255,8 @@ class MyAppState extends State<MyApp>
       windowManager.hide();
       return AppExitResponse.cancel;
     }
-    _quit();
-    return AppExitResponse.exit;
+    await _quit();
+    return AppExitResponse.cancel;
   }
 
   @override
@@ -408,8 +403,9 @@ class MyAppState extends State<MyApp>
       }
     });
     if (startFailedReason == null) {
+      String profileDir = await PathUtils.profileDir();
       Log.w(
-          'launch ${Platform.resolvedExecutable}, $processArgs, ${Directory.current.absolute.path}');
+          'launch ${Platform.resolvedExecutable}, $processArgs, ${Directory.current.absolute.path}, $profileDir');
 
       Biz.onInitHomeFinish(() {
         firstShowWindow(false);
@@ -432,7 +428,9 @@ class MyAppState extends State<MyApp>
 
   Future<void> _quit() async {
     await _uninit();
-    await ServicesBinding.instance.exitApplication(AppExitType.required);
+    Future.delayed(const Duration(seconds: 0), () async {
+      await ServicesBinding.instance.exitApplication(AppExitType.required);
+    });
   }
 
   void _setTray(bool grey, bool destroy, bool quitIfFailed) {

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "tv - App Icon - AppStore - Front -1280 x 768 pt.png",
+      "idiom" : "tv"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

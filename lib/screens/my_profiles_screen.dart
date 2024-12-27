@@ -7,21 +7,17 @@ import 'dart:io';
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/biz.dart';
-import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/date_time_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/singbox_json.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
@@ -37,7 +33,6 @@ import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
-import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
@@ -138,25 +133,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
   Future<bool> startVPN() async {
     return await Biz.startVPN(context, true, "MyProfilesScreen");
-  }
-
-  Future<void> _launchUrl(String url) async {
-    var remoteConfig = RemoteConfigManager.getConfig();
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    var getTranfficFrom = remoteISPConfig.getTranfficFrom.isNotEmpty
-        ? remoteISPConfig.getTranfficFrom
-        : remoteConfig.getTranfficFrom;
-
-    if (getTranfficFrom.isNotEmpty) {
-      String queryParams = await KaringUrlUtils.getQueryParams();
-      String newUrl =
-          UrlLauncherUtils.reorganizationUrl(getTranfficFrom, queryParams) ??
-              getTranfficFrom;
-
-      url = "$newUrl&url=${Uri.encodeQueryComponent(url)}}";
-    }
-
-    await WebviewHelper.loadUrl(context, url);
   }
 
   void _buildData() {
@@ -462,26 +438,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
               const SizedBox(
                 width: 10,
               )
-            ])
-          : const SizedBox.shrink(),
-      (((item.isp != null) && (item.isp!.url.isNotEmpty)) ||
-              item.site.isNotEmpty ||
-              item.isRemote())
-          ? Row(children: [
-              InkWell(
-                onTap: () {
-                  onTapUrl(item);
-                },
-                child: Icon(
-                  (item.site.isNotEmpty || item.isRemote())
-                      ? Icons.webhook_rounded
-                      : null,
-                  size: 26,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
             ])
           : const SizedBox.shrink(),
       item.groupid != ServerManager.getCustomGroupId()
@@ -1557,27 +1513,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
-    }
-  }
-
-  void onTapUrl(ServerConfigGroupItem item) {
-    if (item.isp != null) {
-      if (item.isp!.url.isNotEmpty) {
-        _launchUrl(item.isp!.url);
-        return;
-      }
-    }
-    if (item.site.isNotEmpty) {
-      _launchUrl(item.site);
-      return;
-    }
-    Uri? uri = Uri.tryParse(item.urlOrPath);
-    if (uri != null) {
-      String url = "${uri.scheme}://${uri.host}";
-      if (uri.hasPort) {
-        url += ":${uri.port}";
-      }
-      _launchUrl(url);
     }
   }
 

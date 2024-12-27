@@ -20,6 +20,7 @@
 928plus
 9news
 9to5
+aamgame
 abc
 abema
 accuweather
@@ -62,6 +63,7 @@ aisiku
 aixcoder
 akamai
 akamai@cn
+akiko
 ali213
 alibaba-ads
 alibaba-ads@ads
@@ -205,6 +207,7 @@ boomerang
 bootcdn
 bootcss
 bootstrap
+borneoschematics
 boslife
 boxun
 boylove
@@ -310,9 +313,11 @@ category-insurance-ir
 category-ipfs
 category-ir
 category-media-cn
+category-media-cn@ads
 category-media-ir
 category-media
 category-media@cn
+category-mobile-repair
 category-mooc-cn
 category-netdisk-cn
 category-network-security-cn
@@ -323,6 +328,7 @@ category-ntp-cn@cn
 category-ntp-jp
 category-ntp
 category-ntp@cn
+category-number-verification-cn
 category-olympiad-in-informatics
 category-orgs
 category-payment-ir
@@ -344,6 +350,7 @@ category-social-media-!cn
 category-social-media-!cn@ads
 category-social-media-!cn@cn
 category-social-media-cn
+category-social-media-cn@!cn
 category-social-media-cn@ads
 category-social-media-ir
 category-tech-ir
@@ -440,6 +447,7 @@ ctrip@!cn
 cugbonline
 cuinc
 curseforge
+cursor
 cuttly
 cybertrust
 cygames
@@ -578,6 +586,7 @@ firebase
 firebase@cn
 firefox
 flatpak
+flibusta
 flickr
 flowus
 flurry-ads
@@ -705,6 +714,7 @@ hotstar
 hoyoverse
 hp
 hp@cn
+hpe
 hsbc-cn
 hsbc
 httpdns
@@ -722,6 +732,8 @@ hujiang
 hulu
 hunantv-ads
 hunantv-ads@ads
+hunantv
+hunantv@ads
 huobi
 hupu
 hupun
@@ -808,6 +820,7 @@ jinrishici
 jinshuju
 jiyukobo
 jkf
+jlc
 johren
 jquery
 jsdelivr
@@ -851,8 +864,10 @@ kucoin
 kugou-ads
 kugou-ads@ads
 kugou
+kugou@ads
 kurogames
 kurogames@cn
+kuwo
 kyodonews
 lagou
 landian
@@ -866,6 +881,7 @@ launchpad
 lavteam
 ldmnq
 le
+le@ads
 leanplum-ads
 leanplum-ads@ads
 lenovo
@@ -926,6 +942,7 @@ meadjohnson
 meadjohnson@cn
 mediachinesegroup
 medium
+meduza
 mega
 meitu
 meituan
@@ -957,6 +974,8 @@ mini
 miniso
 miniso@cn
 miraheze
+misskey-universe
+misskey
 mit
 mixpanel-ads
 mixpanel-ads@ads
@@ -1000,6 +1019,7 @@ nationalgeographic
 naver
 nbcuniversal
 neowin
+netcup
 netease-ads
 netease-ads@ads
 netease
@@ -1075,6 +1095,7 @@ openwrt
 openx-ads
 openx-ads@ads
 oppo
+oppo@!cn
 oracle
 oreilly
 oreilly@cn
@@ -1161,6 +1182,7 @@ qihoo360-ads
 qihoo360-ads@ads
 qihoo360
 qihoo360@ads
+qimao
 qingcloud
 qingtingfm
 qiniu
@@ -1254,12 +1276,14 @@ signal
 sina-ads
 sina-ads@ads
 sina
+sina@!cn
 sina@ads
 singtaonewscorp
 sinopec
 sitepoint
 skillshare
 sky
+sky@cn
 skyperfect
 slack
 slideshare
@@ -1271,6 +1295,7 @@ snap
 snap@ads
 snapcraft
 snapp
+snk
 snodehome
 social
 softbank
@@ -1279,6 +1304,7 @@ sogou
 sohu-ads
 sohu-ads@ads
 sohu
+sohu@ads
 solidot
 sony
 sonypictures
@@ -1327,6 +1353,7 @@ subscene
 suishouji
 sumkoo
 suning
+supercell
 supersonic-ads
 supersonic-ads@ads
 surflite
@@ -1338,6 +1365,8 @@ swift@cn
 swisssign
 sxl
 symantec
+synology
+synology@cn
 taboola
 tagtic-ads
 tagtic-ads@ads
@@ -1553,6 +1582,7 @@ xiaohongshu
 xiaomi-ads
 xiaomi-ads@ads
 xiaomi
+xiaomi@!cn
 xiaomi@ads
 ximalaya-ads
 ximalaya-ads@ads
@@ -1574,6 +1604,7 @@ yamibo
 yandex
 ycombinator
 yinxiang
+ymtc
 ynet
 ynoproject
 yomiuri
@@ -1594,6 +1625,7 @@ yunfanjiasu
 yunlaopo
 yy
 z-library
+z3x-team
 zaobao
 zb
 zdns

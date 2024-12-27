@@ -15,35 +15,41 @@ class GroupOptionsHelper {
     final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    var getTranffic = remoteISPConfig.getTranffic.isNotEmpty
-        ? remoteISPConfig.getTranffic
-        : remoteConfig.getTranffic;
-    var tutorial = remoteISPConfig.tutorial.isNotEmpty
-        ? remoteISPConfig.tutorial
-        : remoteConfig.tutorial;
-    var faq =
-        remoteISPConfig.faq.isNotEmpty ? remoteISPConfig.faq : remoteConfig.faq;
+    String getTranffic = remoteConfig.getTranffic;
+
+    if (remoteISPConfig.id.isNotEmpty) {
+      if (remoteISPConfig.getTranffic.isNotEmpty) {
+        getTranffic = remoteISPConfig.getTranffic;
+      }
+    }
+
     List<GroupItemOptions> options = [];
     options.addAll([
       //PathUtils.macosDir().isEmpty && remoteConfig.getTranffic.isNotEmpty
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.SettingsScreen.getTranffic,
-              onPush: () async {
-                AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_getTranffic',
-                    parameters: {"from": from},
-                    repeatable: true);
-                String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                    getTranffic);
-                if (!context.mounted) {
-                  return;
-                }
-                await WebviewHelper.loadUrl(context, url,
-                    title: tcontext.SettingsScreen.getTranffic);
-              })),
-      tutorial.isNotEmpty
+      getTranffic.isNotEmpty
+          ? GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.getTranffic,
+                  onPush: () async {
+                    AnalyticsUtils.logEvent(
+                        analyticsEventType: analyticsEventTypeUA,
+                        name: 'SSS_getTranffic',
+                        parameters: {
+                          "from": from,
+                          "isp_id": remoteISPConfig.id
+                        },
+                        repeatable: true);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            getTranffic);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url,
+                        title: tcontext.SettingsScreen.getTranffic);
+                  }))
+          : GroupItemOptions(),
+      remoteConfig.tutorial.isNotEmpty
           ? GroupItemOptions(
               pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.tutorial,
@@ -55,7 +61,7 @@ class GroupOptionsHelper {
                         repeatable: true);
                     String url =
                         await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                            tutorial);
+                            remoteConfig.tutorial);
                     if (!context.mounted) {
                       return;
                     }
@@ -63,7 +69,7 @@ class GroupOptionsHelper {
                         title: tcontext.SettingsScreen.tutorial);
                   }))
           : GroupItemOptions(),
-      faq.isNotEmpty
+      remoteConfig.faq.isNotEmpty
           ? GroupItemOptions(
               pushOptions: GroupItemPushOptions(
                   name: tcontext.faq,
@@ -74,7 +80,8 @@ class GroupOptionsHelper {
                         parameters: {"from": from},
                         repeatable: true);
                     String url =
-                        await UrlLauncherUtils.reorganizationUrlWithAnchor(faq);
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.faq);
                     if (!context.mounted) {
                       return;
                     }

@@ -770,6 +770,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
 
   Widget _createHeadField() {
     final tcontext = Translations.of(context);
+    var currentCountry = SettingManager.getConfig().currentCountry();
     return Padding(
         padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
         child: Column(
@@ -810,6 +811,20 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
               tcontext.NetCheckScreen.warn,
               style:
                   const TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Text(
+                  "${tcontext.RegionSettingsScreen.title}:${currentCountry!.isoShortNameByLocale[SettingConfig.languageTagForCountry()] ?? ""}",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                  ),
+                ),
+              ],
             )
           ],
         ));

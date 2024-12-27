@@ -501,7 +501,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
           return createGroupProfile(group, false,
-              itemName: tcontext.urlTestCustomGroup);
+              itemName: tcontext.urlTestCustomGroup,
+              replaceCount: _urltests.length);
         };
         _listViewParts.add(item);
 
@@ -704,7 +705,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   }
 
   Row createGroupTitle(ServerConfigGroupItem item, bool showTestLatency,
-      {String itemName = ""}) {
+      {String itemName = "", int? replaceCount}) {
     itemName = itemName.isNotEmpty ? itemName : item.remark;
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
@@ -779,7 +780,9 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               SizedBox(
                 width: centerWidth - 2 * 2 - 26,
                 child: Text(
-                  "$itemName[${item.servers.length}]",
+                  replaceCount == null
+                      ? "$itemName[${item.servers.length}]"
+                      : "$itemName[$replaceCount]",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: ThemeConfig.kFontSizeListItem,
@@ -897,7 +900,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   }
 
   Column createGroupProfile(ServerConfigGroupItem item, bool showTestLatency,
-      {String itemName = ""}) {
+      {String itemName = "", int? replaceCount}) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Column(children: [
@@ -907,7 +910,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
           const SizedBox(
             width: 5,
           ),
-          createGroupTitle(item, showTestLatency, itemName: itemName),
+          createGroupTitle(item, showTestLatency,
+              itemName: itemName, replaceCount: replaceCount),
           widget.singleSelect != null && widget.singleSelect!.showTranffic
               ? CommonWidget.createGroupTraffic(
                   context,

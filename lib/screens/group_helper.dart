@@ -20,12 +20,12 @@ import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/did.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/karing_url_utils.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/zip_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/add_profile_by_import_from_file_screen.dart';
 import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
@@ -181,7 +181,9 @@ class GroupHelper {
                               AddProfileByLinkOrContentScreen.routSettings(),
                           builder: (context) =>
                               const AddProfileByLinkOrContentScreen(
-                                  name: null, linkUrl: "")));
+                                name: null,
+                                urlOrContent: "",
+                              )));
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -210,7 +212,7 @@ class GroupHelper {
                           settings:
                               AddProfileByLinkOrContentScreen.routSettings(),
                           builder: (context) => AddProfileByLinkOrContentScreen(
-                              name: null, linkUrl: data!.text!)));
+                              name: null, urlOrContent: data!.text!)));
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -249,7 +251,8 @@ class GroupHelper {
                                   .routSettings(),
                               builder: (context) =>
                                   AddProfileByLinkOrContentScreen(
-                                      name: null, linkUrl: value.qrcode!)));
+                                      name: null,
+                                      urlOrContent: value.qrcode!)));
                     }
                   });
                 })),
@@ -571,13 +574,13 @@ class GroupHelper {
     var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       country.Country? currentCountry =
-          RegionSettingsScreen.getCurrentCountry();
+          SettingManager.getConfig().currentCountry();
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.RegionSettingsScreen.title,
-                text: currentCountry!
-                    .isoShortNameByLocale[RegionSettingsScreen.languageTag()],
+                text: currentCountry!.isoShortNameByLocale[
+                    SettingConfig.languageTagForCountry()],
                 onPush: () async {
                   await Navigator.push(
                       context,
@@ -933,15 +936,6 @@ class GroupHelper {
 
   static Future<void> onTapGetProfile(
       BuildContext context, String title, String url) async {
-    if (!await InAppWebViewScreen.makeSureEnvironmentCreated()) {
-      if (!context.mounted) {
-        return;
-      }
-      await DialogUtils.showAlertDialog(
-          context, "webviewEnvironment create failed");
-      return;
-    }
-
     Uri? uri = Uri.tryParse(url);
     if (uri == null) {
       return;
@@ -951,10 +945,10 @@ class GroupHelper {
         name: 'get_profile',
         parameters: {"title": title, "url": url},
         repeatable: true);
+
     var remoteConfig = RemoteConfigManager.getConfig();
     if (uri.host.toLowerCase() == remoteConfig.host.toLowerCase()) {
-      String queryParams = await KaringUrlUtils.getQueryParams();
-      url = UrlLauncherUtils.reorganizationUrl(url, queryParams) ?? url;
+      url = await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
     }
 
     if (!context.mounted) {
@@ -1149,7 +1143,15 @@ class GroupHelper {
   }
 
   static Future<Set<String>?> showImportConfirmDialog(
-      BuildContext context) async {
+      BuildContext context, String zipPath) async {
+    if (!context.mounted) {
+      return null;
+    }
+    var result = await ZipUtils.list(zipPath);
+    bool hasISP = false;
+    if (result.error == null) {
+      hasISP = result.data!.contains(PathUtils.remoteISPConfigFileName());
+    }
     if (!context.mounted) {
       return null;
     }
@@ -1158,6 +1160,7 @@ class GroupHelper {
     bool myprofiles = true;
     bool diversion = true;
     bool settings = true;
+    bool isp = true;
     Future<List<GroupItem>> getGroupOptions(StateSetter setState) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -1184,6 +1187,16 @@ class GroupHelper {
                   settings = value;
                   setState(() {});
                 })),
+        hasISP
+            ? GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                    name: tcontext.isp,
+                    switchValue: isp,
+                    onSwitch: (bool value) async {
+                      isp = value;
+                      setState(() {});
+                    }))
+            : GroupItemOptions(),
       ];
       return [GroupItem(options: options)];
     }
@@ -1259,6 +1272,9 @@ class GroupHelper {
     if (settings) {
       whiteList.add(PathUtils.settingFileName());
     }
+    if (isp) {
+      whiteList.add(PathUtils.remoteISPConfigFileName());
+    }
 
     return whiteList;
   }
@@ -1271,13 +1287,14 @@ class GroupHelper {
     final tcontext = Translations.of(context);
     Set<String>? whiteList;
     if (confirm) {
-      whiteList = await showImportConfirmDialog(context);
+      whiteList = await showImportConfirmDialog(context, zipPath);
     } else {
       whiteList = {
         PathUtils.subscribeFileName(),
         PathUtils.diversionGroupFileName(),
         PathUtils.subscribeUseFileName(),
-        PathUtils.settingFileName()
+        PathUtils.settingFileName(),
+        PathUtils.remoteISPConfigFileName(),
       };
     }
 
@@ -1548,7 +1565,7 @@ class GroupHelper {
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
         name: 'appletv',
-        repeatable: true);
+        repeatable: false);
     Navigator.push(
         context,
         MaterialPageRoute(

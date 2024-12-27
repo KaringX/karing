@@ -120,6 +120,7 @@ class TranslationsAr implements Translations {
 	@override String get none => 'لا أحد';
 	@override String get reset => 'إعادة ضبط';
 	@override String get submit => 'يُقدِّم';
+	@override String get user => 'مستخدم';
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
 	@override String get required => 'مطلوب';
@@ -139,6 +140,12 @@ class TranslationsAr implements Translations {
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
 	@override String get isp => 'ISP';
+	@override String get ispBind => '[ISP] ملزمة';
+	@override String ispUnbind({required Object p}) => 'فك الارتباط[${p}]';
+	@override String ispFaq({required Object p}) => 'الأسئلة الشائعة[${p}]';
+	@override String ispCustomerService({required Object p}) => 'خدمة العملاء[${p}]';
+	@override String ispFollow({required Object p}) => 'متابعة[${p}]';
+	@override String get ispInvalidOrExpired => '[ISP]غير صالح أو منتهية الصلاحية';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'URL غير صالح';
@@ -220,12 +227,14 @@ class TranslationsAr implements Translations {
 	@override String get latencyTestTimeout => 'نفذ الوقت';
 	@override String get uwpExemption => 'إعفاء عزل شبكة UWP';
 	@override String get ads => 'إزالة الإعلانات';
+	@override String get adsBanner => 'إعلانات البانر';
+	@override String get donate => 'يتبرع';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
 	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
-	@override String get edgeRuntimeNotInstalled => 'لم يقم الجهاز الحالي بتثبيت وقت تشغيل Edge أو Edge WebView2، لذلك لا يمكن عرض الصفحة، يرجى تنزيل Edge WebView2 runtime (x64) وتثبيته، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
+	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -243,6 +252,7 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 
 	// Translations
 	@override String get installRefer => 'تثبيت الرجوع';
+	@override String get installTime => 'وقت التثبيت';
 	@override String get versionChannel => 'تحديث القنوات تلقائيا';
 	@override String get disableUAReport => 'قم بإيقاف تشغيل تقرير بيانات الإجراء';
 	@override String get disableUAReportTip => 'تساعدنا تقارير البيانات السلوكية على تحسين تجربة المنتج؛ ستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع تقارير البيانات تلقائيًا (باستثناء [تنشيط التطبيق])';
@@ -602,16 +612,13 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String ispFaq({required Object p}) => 'أسئلة مكررة[${p}]';
-	@override String cleanISP({required Object p}) => 'ISP واضح[${p}]';
-	@override String get openISP => 'فتح ISP رابط';
-	@override String get cleanISPNoParam => 'مسح معلومات مزود خدمة الإنترنت ';
 	@override String get getTranffic => 'احصل على حركة المرور';
 	@override String get tutorial => 'درس تعليمي';
 	@override String get commonlyUsedRulesets => 'مجموعات القواعد شائعة الاستخدام';
 	@override String get howToRemoveAds => 'كيفية إزالة الإعلانات';
 	@override String get htmlBoard => 'لوحة على الانترنت';
 	@override String get dnsLeakDetection => 'كشف تسرب DNS';
+	@override String get proxyLeakDetection => 'كشف تسرب الوكيل';
 	@override String get speedTest => 'اختبار السرعة';
 	@override String get downloadProfilePreferProxy => 'تفضل الوكيل لتنزيل الملف الشخصي';
 	@override String get downloadProfilePreferProxyTips => 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
@@ -661,7 +668,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String inboundDomainResolveTips({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]';
 	@override String get useRomoteRes => 'استخدم الموارد البعيدة';
 	@override String get autoSelect => 'اختيار آلي';
-	@override String get autoSelectServerIgnorePerProxyServer => 'تجاهل الخادم الوكيل [الوكيل الأمامي].';
+	@override String get autoSelectServerIgnorePerProxyServer => 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 	@override String get autoSelectServerInterval => 'فاصل الشيكات الكمون';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'إعادة اكتشاف متى تتغير الشبكة';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير';
@@ -691,8 +698,8 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get importSuccess => 'استيراد نجاح ';
 	@override String get rewriteConfirm => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
 	@override String get networkShare => 'مشاركة الشبكة';
-	@override String get frontProxy => 'الوكيل الأمامي';
-	@override String frontProxyTips({required Object p}) => 'البيانات->الخادم الوكيل الأمامي [خوادم بروكسي أمامية متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
+	@override String get frontProxy => 'الوكيل الأمامي/السلسلة';
+	@override String frontProxyTips({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
 	@override String get allowOtherHostsConnect => 'اسمح للآخرين بالاتصال';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get tunAutoRoute => 'Auto Route';
@@ -730,6 +737,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String hasNewVersion({required Object p}) => 'تحديث الإصدار ${p}';
 	@override String get follow => 'تابعنا';
 	@override String get contactUs => 'اتصل بنا';
+	@override String get supportUs => 'ادعمنا';
 	@override String get rateInApp => 'قيمنا';
 	@override String get rateInAppStore => 'قيمنا في متجر التطبيقات';
 }
@@ -831,6 +839,7 @@ extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'AboutScreen.installRefer': return 'تثبيت الرجوع';
+			case 'AboutScreen.installTime': return 'وقت التثبيت';
 			case 'AboutScreen.versionChannel': return 'تحديث القنوات تلقائيا';
 			case 'AboutScreen.disableUAReport': return 'قم بإيقاف تشغيل تقرير بيانات الإجراء';
 			case 'AboutScreen.disableUAReportTip': return 'تساعدنا تقارير البيانات السلوكية على تحسين تجربة المنتج؛ ستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع تقارير البيانات تلقائيًا (باستثناء [تنشيط التطبيق])';
@@ -974,16 +983,13 @@ extension on TranslationsAr {
 			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'الخادم المحدد هو عنوان IPv6 ويتطلب [تمكين IPv6]';
 			case 'ServerSelectScreen.selectDisabled': return 'تم تعطيل هذا الخادم';
 			case 'ServerSelectScreen.error404': return 'واجه اكتشاف الكمون خطأ ، يرجى التحقق مما إذا كان هناك تكوين مع نفس المحتوى';
-			case 'SettingsScreen.ispFaq': return ({required Object p}) => 'أسئلة مكررة[${p}]';
-			case 'SettingsScreen.cleanISP': return ({required Object p}) => 'ISP واضح[${p}]';
-			case 'SettingsScreen.openISP': return 'فتح ISP رابط';
-			case 'SettingsScreen.cleanISPNoParam': return 'مسح معلومات مزود خدمة الإنترنت ';
 			case 'SettingsScreen.getTranffic': return 'احصل على حركة المرور';
 			case 'SettingsScreen.tutorial': return 'درس تعليمي';
 			case 'SettingsScreen.commonlyUsedRulesets': return 'مجموعات القواعد شائعة الاستخدام';
 			case 'SettingsScreen.howToRemoveAds': return 'كيفية إزالة الإعلانات';
 			case 'SettingsScreen.htmlBoard': return 'لوحة على الانترنت';
 			case 'SettingsScreen.dnsLeakDetection': return 'كشف تسرب DNS';
+			case 'SettingsScreen.proxyLeakDetection': return 'كشف تسرب الوكيل';
 			case 'SettingsScreen.speedTest': return 'اختبار السرعة';
 			case 'SettingsScreen.downloadProfilePreferProxy': return 'تفضل الوكيل لتنزيل الملف الشخصي';
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
@@ -1033,7 +1039,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'استخدم الموارد البعيدة';
 			case 'SettingsScreen.autoSelect': return 'اختيار آلي';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'تجاهل الخادم الوكيل [الوكيل الأمامي].';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 			case 'SettingsScreen.autoSelectServerInterval': return 'فاصل الشيكات الكمون';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'إعادة اكتشاف متى تتغير الشبكة';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير';
@@ -1063,8 +1069,8 @@ extension on TranslationsAr {
 			case 'SettingsScreen.importSuccess': return 'استيراد نجاح ';
 			case 'SettingsScreen.rewriteConfirm': return 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
 			case 'SettingsScreen.networkShare': return 'مشاركة الشبكة';
-			case 'SettingsScreen.frontProxy': return 'الوكيل الأمامي';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي [خوادم بروكسي أمامية متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
+			case 'SettingsScreen.frontProxy': return 'الوكيل الأمامي/السلسلة';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'اسمح للآخرين بالاتصال';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1102,6 +1108,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'تحديث الإصدار ${p}';
 			case 'SettingsScreen.follow': return 'تابعنا';
 			case 'SettingsScreen.contactUs': return 'اتصل بنا';
+			case 'SettingsScreen.supportUs': return 'ادعمنا';
 			case 'SettingsScreen.rateInApp': return 'قيمنا';
 			case 'SettingsScreen.rateInAppStore': return 'قيمنا في متجر التطبيقات';
 			case 'SpeedTestSettingsScreen.title': return 'URL اختبار السرعة';
@@ -1177,6 +1184,7 @@ extension on TranslationsAr {
 			case 'none': return 'لا أحد';
 			case 'reset': return 'إعادة ضبط';
 			case 'submit': return 'يُقدِّم';
+			case 'user': return 'مستخدم';
 			case 'account': return 'حساب';
 			case 'password': return 'كلمة المرور';
 			case 'required': return 'مطلوب';
@@ -1196,6 +1204,12 @@ extension on TranslationsAr {
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
 			case 'isp': return 'ISP';
+			case 'ispBind': return '[ISP] ملزمة';
+			case 'ispUnbind': return ({required Object p}) => 'فك الارتباط[${p}]';
+			case 'ispFaq': return ({required Object p}) => 'الأسئلة الشائعة[${p}]';
+			case 'ispCustomerService': return ({required Object p}) => 'خدمة العملاء[${p}]';
+			case 'ispFollow': return ({required Object p}) => 'متابعة[${p}]';
+			case 'ispInvalidOrExpired': return '[ISP]غير صالح أو منتهية الصلاحية';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'URL غير صالح';
@@ -1277,12 +1291,14 @@ extension on TranslationsAr {
 			case 'latencyTestTimeout': return 'نفذ الوقت';
 			case 'uwpExemption': return 'إعفاء عزل شبكة UWP';
 			case 'ads': return 'إزالة الإعلانات';
+			case 'adsBanner': return 'إعلانات البانر';
+			case 'donate': return 'يتبرع';
 			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
 			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
-			case 'edgeRuntimeNotInstalled': return 'لم يقم الجهاز الحالي بتثبيت وقت تشغيل Edge أو Edge WebView2، لذلك لا يمكن عرض الصفحة، يرجى تنزيل Edge WebView2 runtime (x64) وتثبيته، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
+			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

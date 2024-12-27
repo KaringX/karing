@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by user on 8/10/2024.
+  
+*/
+"userAgreement" = "此应用(Karing)不会收集任何数据";
+"agree" = "接受并继续";
+"scanQrPart1" = "请使用安装有Karing的移动设备";
+"scanQrPart2" = "扫描下方二维码";
+"profileUrl" = "配置链接(sing-box json 格式) [必填]";
+"invalidURL" = "无效的配置连接";
+"downloadError" = "下载失败";
+"updateError" = "更新失败";
+"saveError" = "文件存储失败";
+"vpnInstallError" = "VPN 安装失败";
+"vpnStartError" = "VPN 启动失败";
+"error" = "错误";
+"alwayOn" = "始终开启连接";

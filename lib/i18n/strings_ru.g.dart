@@ -120,6 +120,7 @@ class TranslationsRu implements Translations {
 	@override String get none => 'Ничего не делать';
 	@override String get reset => 'Перезагрузить';
 	@override String get submit => 'Отправить';
+	@override String get user => 'пользователь';
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
 	@override String get required => 'Необходимо';
@@ -139,6 +140,12 @@ class TranslationsRu implements Translations {
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
 	@override String get isp => 'ISP';
+	@override String get ispBind => '[ISP]Привязка';
+	@override String ispUnbind({required Object p}) => 'Отвязать[${p}]';
+	@override String ispFaq({required Object p}) => 'Часто задаваемые вопросы[${p}]';
+	@override String ispCustomerService({required Object p}) => 'Служба поддержки клиентов[${p}]';
+	@override String ispFollow({required Object p}) => 'Следуйте[${p}]';
+	@override String get ispInvalidOrExpired => '[ISP]Недействительно или срок действия истек';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'Неверный URL';
@@ -220,12 +227,14 @@ class TranslationsRu implements Translations {
 	@override String get latencyTestTimeout => 'тайм-аут';
 	@override String get uwpExemption => 'Исключение из изоляции сети UWP';
 	@override String get ads => 'Удалить рекламу';
+	@override String get adsBanner => 'баннерная реклама';
+	@override String get donate => 'Пожертвовать';
 	@override String get removeBannerAdsByShare => 'Поделиться[Karing]Перейти к объявлениям';
 	@override String get removeBannerAdsByReward => 'Смотреть рекламу Перейти к рекламе';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
-	@override String get edgeRuntimeNotInstalled => 'На текущем устройстве не установлена ​​среда выполнения Edge или Edge WebView2, поэтому страница не отображается. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
+	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -243,6 +252,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 
 	// Translations
 	@override String get installRefer => 'Ссылка на установку';
+	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
 	@override String get disableUAReport => 'Отключить аналитику';
 	@override String get disableUAReportTip => 'Данные отчётов о поведении программы помогают нам улучшить её работу; версии младше основной автоматически отключают все отчеты (кроме [Запуска приложения]).';
@@ -602,16 +612,13 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String ispFaq({required Object p}) => 'FAQ[${p}]';
-	@override String cleanISP({required Object p}) => 'Очистить ISP[${p}]';
-	@override String get openISP => 'Открыть ссылку на провайдера';
-	@override String get cleanISPNoParam => 'Очистить информацию об интернет-провайдере';
 	@override String get getTranffic => 'Получить трафик';
 	@override String get tutorial => 'Руководство';
 	@override String get commonlyUsedRulesets => 'Коллекция наборов правил';
 	@override String get howToRemoveAds => 'Как удалить рекламу';
 	@override String get htmlBoard => 'Веб-панель';
 	@override String get dnsLeakDetection => 'Тест утечки DNS';
+	@override String get proxyLeakDetection => 'Обнаружение утечки агента';
 	@override String get speedTest => 'Тест скорости';
 	@override String get downloadProfilePreferProxy => 'Настройка приоритетного выбора прокси-сервера';
 	@override String get downloadProfilePreferProxyTips => 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
@@ -661,7 +668,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String inboundDomainResolveTips({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 	@override String get useRomoteRes => 'Использовать удаленные ресурсы';
 	@override String get autoSelect => 'Автовыбор';
-	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать прокси-сервер [передний прокси]';
+	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать [фронтированные/привязанные] прокси-серверы';
 	@override String get autoSelectServerInterval => 'Интервал проверок задержки';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'Перетестировать после смены сети';
 	@override String get autoSelectServerIntervalTips => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
@@ -691,8 +698,8 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get importSuccess => 'Импорт выполнен успешно';
 	@override String get rewriteConfirm => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 	@override String get networkShare => 'Общий доступ к сети';
-	@override String get frontProxy => 'Цепочка прокси';
-	@override String frontProxyTips({required Object p}) => 'Запрос -> Фронт-прокси ->[Цепочка прокси-серверов в порядке cверху вниз]-Выходной прокси [${p}] - Целевой сервер';
+	@override String get frontProxy => 'Фронтальный/цепной прокси';
+	@override String frontProxyTips({required Object p}) => 'Данные->Фронтальный/цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]->Прокси-сервер [${p}]->Целевой сервер';
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get tunAutoRoute => 'Auto Route';
@@ -730,6 +737,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String hasNewVersion({required Object p}) => 'Обновить версию ${p}';
 	@override String get follow => 'Подписаться на нас';
 	@override String get contactUs => 'Связаться с нами';
+	@override String get supportUs => 'поддержите нас';
 	@override String get rateInApp => 'Оценить нас';
 	@override String get rateInAppStore => 'Оценить нас в App Store';
 }
@@ -831,6 +839,7 @@ extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'AboutScreen.installRefer': return 'Ссылка на установку';
+			case 'AboutScreen.installTime': return 'Время установки';
 			case 'AboutScreen.versionChannel': return 'Канал автоматического обновления';
 			case 'AboutScreen.disableUAReport': return 'Отключить аналитику';
 			case 'AboutScreen.disableUAReportTip': return 'Данные отчётов о поведении программы помогают нам улучшить её работу; версии младше основной автоматически отключают все отчеты (кроме [Запуска приложения]).';
@@ -974,16 +983,13 @@ extension on TranslationsRu {
 			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'Выбранный сервер имеет адрес IPv6 и требует [Включить IPv6]';
 			case 'ServerSelectScreen.selectDisabled': return 'Сервер отключен';
 			case 'ServerSelectScreen.error404': return 'При  измерении задержки произошла ошибка. Проверьте, существует ли профиль с таким содержимым.';
-			case 'SettingsScreen.ispFaq': return ({required Object p}) => 'FAQ[${p}]';
-			case 'SettingsScreen.cleanISP': return ({required Object p}) => 'Очистить ISP[${p}]';
-			case 'SettingsScreen.openISP': return 'Открыть ссылку на провайдера';
-			case 'SettingsScreen.cleanISPNoParam': return 'Очистить информацию об интернет-провайдере';
 			case 'SettingsScreen.getTranffic': return 'Получить трафик';
 			case 'SettingsScreen.tutorial': return 'Руководство';
 			case 'SettingsScreen.commonlyUsedRulesets': return 'Коллекция наборов правил';
 			case 'SettingsScreen.howToRemoveAds': return 'Как удалить рекламу';
 			case 'SettingsScreen.htmlBoard': return 'Веб-панель';
 			case 'SettingsScreen.dnsLeakDetection': return 'Тест утечки DNS';
+			case 'SettingsScreen.proxyLeakDetection': return 'Обнаружение утечки агента';
 			case 'SettingsScreen.speedTest': return 'Тест скорости';
 			case 'SettingsScreen.downloadProfilePreferProxy': return 'Настройка приоритетного выбора прокси-сервера';
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
@@ -1033,7 +1039,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'Использовать удаленные ресурсы';
 			case 'SettingsScreen.autoSelect': return 'Автовыбор';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать прокси-сервер [передний прокси]';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронтированные/привязанные] прокси-серверы';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Интервал проверок задержки';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Перетестировать после смены сети';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
@@ -1063,8 +1069,8 @@ extension on TranslationsRu {
 			case 'SettingsScreen.importSuccess': return 'Импорт выполнен успешно';
 			case 'SettingsScreen.rewriteConfirm': return 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 			case 'SettingsScreen.networkShare': return 'Общий доступ к сети';
-			case 'SettingsScreen.frontProxy': return 'Цепочка прокси';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Запрос -> Фронт-прокси ->[Цепочка прокси-серверов в порядке cверху вниз]-Выходной прокси [${p}] - Целевой сервер';
+			case 'SettingsScreen.frontProxy': return 'Фронтальный/цепной прокси';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные->Фронтальный/цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]->Прокси-сервер [${p}]->Целевой сервер';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'Разрешить подключение по локальной сети';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1102,6 +1108,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'Обновить версию ${p}';
 			case 'SettingsScreen.follow': return 'Подписаться на нас';
 			case 'SettingsScreen.contactUs': return 'Связаться с нами';
+			case 'SettingsScreen.supportUs': return 'поддержите нас';
 			case 'SettingsScreen.rateInApp': return 'Оценить нас';
 			case 'SettingsScreen.rateInAppStore': return 'Оценить нас в App Store';
 			case 'SpeedTestSettingsScreen.title': return 'URL-адрес теста скорости';
@@ -1177,6 +1184,7 @@ extension on TranslationsRu {
 			case 'none': return 'Ничего не делать';
 			case 'reset': return 'Перезагрузить';
 			case 'submit': return 'Отправить';
+			case 'user': return 'пользователь';
 			case 'account': return 'Аккаунт';
 			case 'password': return 'Пароль';
 			case 'required': return 'Необходимо';
@@ -1196,6 +1204,12 @@ extension on TranslationsRu {
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
 			case 'isp': return 'ISP';
+			case 'ispBind': return '[ISP]Привязка';
+			case 'ispUnbind': return ({required Object p}) => 'Отвязать[${p}]';
+			case 'ispFaq': return ({required Object p}) => 'Часто задаваемые вопросы[${p}]';
+			case 'ispCustomerService': return ({required Object p}) => 'Служба поддержки клиентов[${p}]';
+			case 'ispFollow': return ({required Object p}) => 'Следуйте[${p}]';
+			case 'ispInvalidOrExpired': return '[ISP]Недействительно или срок действия истек';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'Неверный URL';
@@ -1277,12 +1291,14 @@ extension on TranslationsRu {
 			case 'latencyTestTimeout': return 'тайм-аут';
 			case 'uwpExemption': return 'Исключение из изоляции сети UWP';
 			case 'ads': return 'Удалить рекламу';
+			case 'adsBanner': return 'баннерная реклама';
+			case 'donate': return 'Пожертвовать';
 			case 'removeBannerAdsByShare': return 'Поделиться[Karing]Перейти к объявлениям';
 			case 'removeBannerAdsByReward': return 'Смотреть рекламу Перейти к рекламе';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
-			case 'edgeRuntimeNotInstalled': return 'На текущем устройстве не установлена ​​среда выполнения Edge или Edge WebView2, поэтому страница не отображается. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
+			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

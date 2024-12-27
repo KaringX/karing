@@ -1,0 +1,28 @@
+# Uncomment this line to define a global platform for your project
+platform :tvos, '17.0'
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+target 'Runner' do
+  use_frameworks!
+  use_modular_headers!
+end
+
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['TVOS_DEPLOYMENT_TARGET'] = '17.0'
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+    end
+  end
+end
+
+

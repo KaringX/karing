@@ -13,11 +13,10 @@ class TextToQrCodeScreen extends LasyRenderingStatefulWidget {
   const TextToQrCodeScreen({super.key});
 
   @override
-  State<TextToQrCodeScreen> createState() => _SentryTextToQrCodeScreenState();
+  State<TextToQrCodeScreen> createState() => _TextToQrCodeScreenState();
 }
 
-class _SentryTextToQrCodeScreenState
-    extends LasyRenderingState<TextToQrCodeScreen> {
+class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
   final _textController = TextEditingController();
   Image? _image;
   @override

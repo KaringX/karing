@@ -5,7 +5,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:install_plugin/install_plugin.dart';
+import 'package:app_installer/app_installer.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
@@ -40,7 +40,7 @@ class _VersionUpdateScreenState
         parameters: {
           "platform": Platform.operatingSystem,
         },
-        repeatable: true);
+        repeatable: false);
   }
 
   @override
@@ -135,15 +135,7 @@ class _VersionUpdateScreenState
         await OpenFile.open(installer, type: "application/octet-stream");
         await ServicesBinding.instance.exitApplication(AppExitType.required);
       } else if (Platform.isAndroid) {
-        final res = await InstallPlugin.install(installer);
-        if (!mounted) {
-          return;
-        }
-        if (res['isSuccess'] != true &&
-            res['errorMessage'] != "Install Cancel") {
-          DialogUtils.showAlertDialog(context, res['errorMessage'],
-              showCopy: true, showFAQ: true, withVersion: true);
-        }
+        await AppInstaller.installApk(installer);
       }
     } catch (err, stacktrace) {
       Log.w("VersionUpdateScreen.checkReplace exception ${err.toString()}");

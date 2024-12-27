@@ -1,14 +1,19 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:android_package_manager/android_package_manager.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -22,6 +27,7 @@ import 'package:karing/screens/net_connections_filter_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:web_socket_channel/io.dart';
 
 class Connection {
   DateTime? startTime;
@@ -241,9 +247,8 @@ class NetConnectionsScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "NetConnectionsScreen");
   }
 
-  final void Function(Function(List<Tracker>)?) regTrack;
-
-  const NetConnectionsScreen({super.key, required this.regTrack});
+  final String connectionsUrl;
+  const NetConnectionsScreen({super.key, required this.connectionsUrl});
 
   @override
   State<NetConnectionsScreen> createState() => _NetConnectionsScreenState();
@@ -260,6 +265,8 @@ class _NetConnectionsScreenState
   final Map<String, NetConnectionState> _states = {};
   List<NetConnectionState> _statesList = [];
   AndroidPackageManager? _pkgMgr;
+  HttpClient? _httpClient;
+  StreamSubscription<dynamic>? _subscriptions;
   final Map<String, PackageInfoEx> _applicationInfoList = {};
   bool _pause = false;
   NetConnectionFilter _filter = NetConnectionFilter();
@@ -273,7 +280,7 @@ class _NetConnectionsScreenState
         ServerManager.getDiversionCustomGroup();
 
     itemDiversion.remark = t.custom;
-
+    _connectToService();
     if (Platform.isAndroid) {
       _pkgMgr = AndroidPackageManager();
       _pkgMgr!
@@ -307,7 +314,6 @@ class _NetConnectionsScreenState
         }
       });
     }
-    widget.regTrack(track);
 
     super.initState();
   }
@@ -447,7 +453,7 @@ class _NetConnectionsScreenState
 
   @override
   void dispose() {
-    widget.regTrack(null);
+    _disconnectToService();
     super.dispose();
   }
 
@@ -457,9 +463,7 @@ class _NetConnectionsScreenState
     Size windowSize = MediaQuery.of(context).size;
     return PopScope(
         canPop: true,
-        onPopInvokedWithResult: (didPop, result) {
-          widget.regTrack(null);
-        },
+        onPopInvokedWithResult: (didPop, result) {},
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.zero,
@@ -634,6 +638,55 @@ class _NetConnectionsScreenState
             return createWidget(current, index + 1, windowSize);
           },
         ));
+  }
+
+  Future<void> _connectToService() async {
+    bool started = await VPNService.started();
+    if (!started) {
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+    if (_httpClient != null) {
+      return;
+    }
+
+    String connectionsUrl = widget.connectionsUrl;
+    if (!mounted) {
+      return;
+    }
+    try {
+      await _subscriptions?.cancel();
+      _httpClient?.close(force: true);
+      _httpClient ??= HttpClient();
+      _httpClient!.userAgent = await HttpUtils.getUserAgent();
+      _httpClient!.connectionTimeout = const Duration(seconds: 3);
+      _httpClient!.findProxy = (Uri uri) => "DIRECT";
+
+      {
+        WebSocket webSocket =
+            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
+        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+          var obj = jsonDecode(message);
+          Connection con = Connection();
+          con.fromJson(obj, true);
+          track(con.connections);
+        }, onDone: () {
+          _disconnectToService();
+        }, onError: (error) {});
+      }
+    } catch (err) {
+      Log.w("_connectToService exception ${err.toString()}");
+      _disconnectToService();
+    }
+  }
+
+  Future<void> _disconnectToService() async {
+    await _subscriptions?.cancel();
+    _subscriptions = null;
+    _httpClient?.close();
+    _httpClient = null;
   }
 
   Widget createWidget(NetConnectionState current, int index, Size windowSize) {

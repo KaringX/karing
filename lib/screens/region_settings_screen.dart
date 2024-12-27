@@ -30,24 +30,6 @@ class RegionSettingsScreen extends LasyRenderingStatefulWidget {
 
   @override
   State<RegionSettingsScreen> createState() => _RegionSetingsScreenState();
-
-  static country.Country? getCurrentCountry() {
-    final data = country.Countries.values.where((country) {
-      if (country.alpha2 == SettingManager.getConfig().regionCode) {
-        return true;
-      }
-
-      return false;
-    }).toList();
-    if (data.isEmpty) {
-      return null;
-    }
-    return data[0];
-  }
-
-  static String languageTag() {
-    return LocaleSettings.currentLocale.languageTag.replaceAll("-", "_");
-  }
 }
 
 class _RegionSetingsScreenState
@@ -93,7 +75,7 @@ class _RegionSetingsScreenState
     }
 
     _searchedData = country.Countries.values;
-    _currentCountry = RegionSettingsScreen.getCurrentCountry();
+    _currentCountry = SettingManager.getConfig().currentCountry();
     if (!mounted) {
       return;
     }
@@ -116,7 +98,7 @@ class _RegionSetingsScreenState
         }
 
         var name =
-            country.isoShortNameByLocale[RegionSettingsScreen.languageTag()];
+            country.isoShortNameByLocale[SettingConfig.languageTagForCountry()];
         if (name != null) {
           return name.toUpperCase().startsWith(textVal);
         }
@@ -288,7 +270,8 @@ class _RegionSetingsScreenState
                                 ),
                                 Text(
                                   _currentCountry!.isoShortNameByLocale[
-                                          RegionSettingsScreen.languageTag()] ??
+                                          SettingConfig
+                                              .languageTagForCountry()] ??
                                       "",
                                   style: TextStyle(
                                     fontSize: ThemeConfig.kFontSizeGroupItem,
@@ -393,7 +376,7 @@ class _RegionSetingsScreenState
                             ),
                             Text(
                               current.isoShortNameByLocale[
-                                      RegionSettingsScreen.languageTag()] ??
+                                      SettingConfig.languageTagForCountry()] ??
                                   "",
                               style: TextStyle(
                                 fontSize: ThemeConfig.kFontSizeGroupItem,
@@ -419,7 +402,7 @@ class _RegionSetingsScreenState
     SettingManager.getConfig().dns.clientSubnetLatestUpdate = "";
 
     if (widget.nextText != null) {
-      _currentCountry = RegionSettingsScreen.getCurrentCountry();
+      _currentCountry = SettingManager.getConfig().currentCountry();
       setState(() {});
     } else {
       SettingManager.setDirty(true);

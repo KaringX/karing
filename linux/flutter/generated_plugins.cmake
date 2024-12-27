@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  build_info_linux
+  file_selector_linux
   flutter_secure_storage_linux
   hotkey_manager_linux
   open_dir_linux

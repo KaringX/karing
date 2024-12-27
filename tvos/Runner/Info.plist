@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.nebula.karing.sync_profiles</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>${MY_BUNDLE_DISPLAY_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${MY_BUNDLE_DISPLAY_NAME}</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.37</string>
+	<key>CFBundleVersion</key>
+	<string>498</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>AppIcon.icns</string>
+			<key>CFBundleURLName</key>
+			<string>karing</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>karing</string>
+			</array>
+		</dict>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>NSApplicationServices</key>
+	<dict>
+		<key>Browses</key>
+		<array>
+			<dict>
+				<key>NSApplicationServiceIdentifier</key>
+				<string>profile</string>
+				<key>NSApplicationServicePlatformSupport</key>
+				<array>
+					<string>iOS</string>
+					<string>iPadOS</string>
+				</array>
+				<key>NSApplicationServiceUsageDescription</key>
+				<string>Import profile from other devices</string>
+			</dict>
+		</array>
+	</dict>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+</dict>
+</plist>

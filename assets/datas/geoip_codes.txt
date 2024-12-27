@@ -244,6 +244,7 @@ tl
 tm
 tn
 to
+tor
 tr
 tt
 tv

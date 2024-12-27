@@ -7,7 +7,6 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
-import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/network_utils.dart';

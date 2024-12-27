@@ -11,12 +11,10 @@ import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
-import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/log.dart';
-import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -135,8 +133,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       }
     }
     _wsConnecting = true;
-    String connectionsUrl =
-        'ws://${widget.host}:${widget.cport}/connections/?token=${widget.secret}';
+    String connectionsUrl = getConnectionsUrl(true);
 
     try {
       _subscriptions?.cancel();
@@ -253,15 +250,18 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     setState(() {});
   }
 
+  String getConnectionsUrl(bool noConnections) {
+    return 'ws://${widget.host}:${widget.cport}/connections/?token=${widget.secret}&noConnections=$noConnections';
+  }
+
   Future<void> onTapNetConnections() async {
+    String connectionsUrl = getConnectionsUrl(false);
     await Navigator.push(
         context,
         MaterialPageRoute(
             settings: NetConnectionsScreen.routSettings(),
-            builder: (context) => NetConnectionsScreen(
-                    regTrack: (Function(List<Tracker>)? tracker) {
-                  _trackerCallback = tracker;
-                })));
+            builder: (context) =>
+                NetConnectionsScreen(connectionsUrl: connectionsUrl)));
   }
 
   Future<void> onTapToggle() async {

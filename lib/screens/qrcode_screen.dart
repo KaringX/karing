@@ -22,10 +22,12 @@ class QrcodeScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "QrcodeScreen");
   }
 
+  final String title;
   final String content;
   final void Function()? callback;
   const QrcodeScreen({
     super.key,
+    this.title = "",
     required this.content,
     this.callback,
   });
@@ -92,7 +94,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                   SizedBox(
                     width: windowSize.width - 50 * 2,
                     child: Text(
-                      tcontext.qrcode,
+                      widget.title.isEmpty ? tcontext.qrcode : widget.title,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

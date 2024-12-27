@@ -7,13 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
+import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/antdesign.dart';
-import 'package:karing/screens/scheme_handler.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,17 +22,43 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static bool _available = false;
+  static bool _enableWebViewEnvironmentDebug = kDebugMode;
   static WebViewEnvironment? _webViewEnvironment;
   static int _webViewEnvironmentRef = 0;
+  static String? _defaultUserAgent;
+  static String _defaultUserAgentWithKaring = "";
   static Future<void> init() async {
     if (Platform.isWindows) {
       final availableVersion = await WebViewEnvironment.getAvailableVersion();
       _available = availableVersion != null;
     } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
       if (Platform.isAndroid) {
-        await InAppWebViewController.setWebContentsDebuggingEnabled(kDebugMode);
+        await InAppWebViewController.setWebContentsDebuggingEnabled(
+            _enableWebViewEnvironmentDebug);
       }
       _available = true;
+    }
+    if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+      _defaultUserAgent = await InAppWebViewController.getDefaultUserAgent();
+      if (Platform.isAndroid) {
+        _defaultUserAgent = _defaultUserAgent!.replaceFirst("; wv)", ")");
+      } else if (Platform.isIOS || Platform.isMacOS) {
+        _defaultUserAgent = "$_defaultUserAgent Safari/605.1.15";
+      }
+      _defaultUserAgentWithKaring =
+          "$_defaultUserAgent Karing/${AppUtils.getBuildinVersion()}";
+    } else {
+      late String userAgent;
+      String edgeVer = "131";
+      if (Platform.isWindows) {
+        userAgent =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/$edgeVer.0.0.0 Safari/537.36 Edg/$edgeVer.0.0.0";
+      } else {
+        userAgent =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/$edgeVer.0.0.0 Safari/537.36";
+      }
+      _defaultUserAgentWithKaring =
+          "$userAgent Karing/${AppUtils.getBuildinVersion()}";
     }
   }
 
@@ -55,6 +80,14 @@ class InAppWebViewScreen extends StatefulWidget {
     }
   }
 
+  static Future<void> setWebViewEnvironmentDebug(bool enable) async {
+    _enableWebViewEnvironmentDebug = enable;
+    if (Platform.isAndroid) {
+      await InAppWebViewController.setWebContentsDebuggingEnabled(
+          _enableWebViewEnvironmentDebug);
+    }
+  }
+
   static Future<bool> makeSureEnvironmentCreated() async {
     if (!_available) {
       return false;
@@ -62,7 +95,7 @@ class InAppWebViewScreen extends StatefulWidget {
     if (Platform.isWindows) {
       _webViewEnvironment ??= await WebViewEnvironment.create(
           settings: WebViewEnvironmentSettings(
-              additionalBrowserArguments: kDebugMode
+              additionalBrowserArguments: _enableWebViewEnvironmentDebug
                   ? '--enable-features=msEdgeDevToolsWdpRemoteDebugging'
                   : null,
               userDataFolder: await PathUtils.webviewCacheDir()));
@@ -103,17 +136,26 @@ class InAppWebViewScreen extends StatefulWidget {
 
   final String title;
   final String url;
-
+  final bool enableDebug;
   final bool showGoBackGoForward;
   final bool showOpenExternal;
   final bool setJSWindowObject;
+  final bool appendKaringToUseragent;
+  final String appendMoreKaringToUseragent;
+  final Map<String, Function> javaScriptHandlers;
+  final dynamic javaScriptHandlerArgument;
   const InAppWebViewScreen({
     super.key,
     required this.title,
     required this.url,
+    this.enableDebug = kDebugMode,
     this.showGoBackGoForward = false,
     this.showOpenExternal = false,
     this.setJSWindowObject = false,
+    this.appendKaringToUseragent = false,
+    this.appendMoreKaringToUseragent = "",
+    this.javaScriptHandlers = const {},
+    this.javaScriptHandlerArgument,
   });
 
   @override
@@ -124,24 +166,31 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? _webViewController;
-  final InAppWebViewSettings _settings = InAppWebViewSettings(
-    isInspectable: kDebugMode,
-    mediaPlaybackRequiresUserGesture: false,
-    allowsInlineMediaPlayback: true,
-    //iframeAllow: "camera; microphone",
-    iframeAllowFullscreen: false,
-  );
-
+  late InAppWebViewSettings _settings;
   PullToRefreshController? _pullToRefreshController;
 
   // late ContextMenu _contextMenu;
-  // String _url = "";
+  String _url = "";
   double _progress = 0;
 
   @override
   void initState() {
     super.initState();
-
+    String useragent = InAppWebViewScreen._defaultUserAgentWithKaring;
+    if (widget.appendMoreKaringToUseragent.isNotEmpty) {
+      useragent =
+          "${InAppWebViewScreen._defaultUserAgentWithKaring} ${widget.appendMoreKaringToUseragent}";
+    }
+    _settings = InAppWebViewSettings(
+      isInspectable: widget.enableDebug,
+      mediaPlaybackRequiresUserGesture: false,
+      allowsInlineMediaPlayback: true,
+      //iframeAllow: "camera; microphone",
+      iframeAllowFullscreen: false,
+      userAgent: widget.appendKaringToUseragent
+          ? useragent
+          : InAppWebViewScreen._defaultUserAgent,
+    );
     /* _contextMenu = ContextMenu(
         menuItems: [
           ContextMenuItem(
@@ -311,90 +360,129 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                   child: InAppWebViewScreen.isAvailable() || !Platform.isWindows
                       ? Stack(
                           children: [
-                            InAppWebView(
-                              key: webViewKey,
-                              webViewEnvironment:
-                                  InAppWebViewScreen._webViewEnvironment,
-                              initialUrlRequest:
-                                  URLRequest(url: WebUri(widget.url)),
-                              // initialUrlRequest:
-                              // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
-                              // initialFile: "assets/index.html",
-                              initialUserScripts:
-                                  UnmodifiableListView(widget.setJSWindowObject
-                                      ? [
-                                          //for js: window.flutter_inappwebview
-                                          UserScript(
-                                              source:
-                                                  "window.addEventListener('DOMContentLoaded', function(event) {window.karing = window.flutter_inappwebview;});",
-                                              injectionTime:
-                                                  UserScriptInjectionTime
-                                                      .AT_DOCUMENT_START)
-                                        ]
-                                      : []),
-                              initialSettings: _settings,
-                              //contextMenu: _contextMenu,
-                              pullToRefreshController: _pullToRefreshController,
-                              onWebViewCreated: (controller) async {
-                                _webViewController = controller;
-                                setJavaScriptHandler();
-                              },
-                              onLoadStart: (controller, url) async {
-                                //  _url = url.toString();
-                              },
-                              onPermissionRequest: (controller, request) async {
-                                return PermissionResponse(
-                                    resources: request.resources,
-                                    action: PermissionResponseAction.GRANT);
-                              },
-                              shouldOverrideUrlLoading:
-                                  (controller, navigationAction) async {
-                                var uri = navigationAction.request.url!;
+                            FutureBuilder(
+                              future: InAppWebViewScreen
+                                  .makeSureEnvironmentCreated(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<bool> snapshot) {
+                                return snapshot.hasData && snapshot.data!
+                                    ? InAppWebView(
+                                        key: webViewKey,
+                                        webViewEnvironment: InAppWebViewScreen
+                                            ._webViewEnvironment,
+                                        initialUrlRequest:
+                                            URLRequest(url: WebUri(widget.url)),
+                                        // initialUrlRequest:
+                                        // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
+                                        // initialFile: "assets/index.html",
+                                        initialUserScripts:
+                                            UnmodifiableListView(
+                                                widget.setJSWindowObject
+                                                    ? [
+                                                        //for js: window.flutter_inappwebview
+                                                        UserScript(
+                                                            source:
+                                                                "window.addEventListener('DOMContentLoaded', function(event) {window.karing = window.flutter_inappwebview;});",
+                                                            injectionTime:
+                                                                UserScriptInjectionTime
+                                                                    .AT_DOCUMENT_START)
+                                                      ]
+                                                    : []),
+                                        initialSettings: _settings,
+                                        //contextMenu: _contextMenu,
+                                        pullToRefreshController:
+                                            _pullToRefreshController,
+                                        onWebViewCreated: (controller) async {
+                                          _webViewController = controller;
+                                          setJavaScriptHandler();
+                                        },
+                                        onLoadStart: (controller, url) async {
+                                          _url = url.toString();
+                                        },
+                                        onPermissionRequest:
+                                            (controller, request) async {
+                                          //https://webcamtests.com/
+                                          final Set<PermissionResourceType>
+                                              values = {
+                                            PermissionResourceType.CAMERA,
+                                            PermissionResourceType
+                                                .CAMERA_AND_MICROPHONE,
+                                            PermissionResourceType.GEOLOCATION,
+                                            PermissionResourceType.MICROPHONE,
+                                          };
+                                          Set<PermissionResourceType>
+                                              intersection =
+                                              values.intersection(
+                                                  request.resources.toSet());
+                                          if (intersection.isNotEmpty) {
+                                            return PermissionResponse(
+                                                resources: request.resources,
+                                                action: PermissionResponseAction
+                                                    .DENY);
+                                          }
+                                          return PermissionResponse(
+                                              resources: request.resources,
+                                              action: PermissionResponseAction
+                                                  .GRANT);
+                                        },
+                                        shouldOverrideUrlLoading: (controller,
+                                            navigationAction) async {
+                                          var uri =
+                                              navigationAction.request.url!;
 
-                                if (![
-                                  "http",
-                                  "https",
-                                  "file",
-                                  "chrome",
-                                  "data",
-                                  "javascript",
-                                  "about"
-                                ].contains(uri.scheme)) {
-                                  if (await canLaunchUrl(uri)) {
-                                    // Launch the App
-                                    await launchUrl(
-                                      uri,
-                                    );
-                                    // and cancel the request
-                                    return NavigationActionPolicy.CANCEL;
-                                  }
-                                }
+                                          if (![
+                                            "http",
+                                            "https",
+                                            "file",
+                                            "chrome",
+                                            "data",
+                                            "javascript",
+                                            "about"
+                                          ].contains(uri.scheme)) {
+                                            if (await canLaunchUrl(uri)) {
+                                              await launchUrl(
+                                                uri,
+                                              );
 
-                                return NavigationActionPolicy.ALLOW;
-                              },
-                              onLoadStop: (controller, url) async {
-                                _pullToRefreshController?.endRefreshing();
-                                // _url = url.toString();
-                              },
-                              onReceivedError: (controller, request, error) {
-                                _pullToRefreshController?.endRefreshing();
-                              },
-                              onProgressChanged: (controller, progress) {
-                                if (progress == 100) {
-                                  _pullToRefreshController?.endRefreshing();
-                                }
-                                setState(() {
-                                  _progress = progress / 100;
-                                });
-                              },
-                              onUpdateVisitedHistory:
-                                  (controller, url, isReload) {
-                                // _url = url.toString();
-                              },
-                              onConsoleMessage: (controller, consoleMessage) {
-                                if (kDebugMode) {
-                                  print(consoleMessage);
-                                }
+                                              return NavigationActionPolicy
+                                                  .CANCEL;
+                                            }
+                                          }
+
+                                          return NavigationActionPolicy.ALLOW;
+                                        },
+                                        onLoadStop: (controller, url) async {
+                                          _pullToRefreshController
+                                              ?.endRefreshing();
+                                          _url = url.toString();
+                                        },
+                                        onReceivedError:
+                                            (controller, request, error) {
+                                          _pullToRefreshController
+                                              ?.endRefreshing();
+                                        },
+                                        onProgressChanged:
+                                            (controller, progress) {
+                                          if (progress == 100) {
+                                            _pullToRefreshController
+                                                ?.endRefreshing();
+                                          }
+                                          setState(() {
+                                            _progress = progress / 100;
+                                          });
+                                        },
+                                        onUpdateVisitedHistory:
+                                            (controller, url, isReload) {
+                                          _url = url.toString();
+                                        },
+                                        onConsoleMessage:
+                                            (controller, consoleMessage) {
+                                          if (kDebugMode) {
+                                            print(consoleMessage);
+                                          }
+                                        },
+                                      )
+                                    : const SizedBox.shrink();
                               },
                             ),
                             _progress < 1.0
@@ -462,6 +550,26 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
       return;
     }
     /*
+    window.karing.callHandler('close').then(function(result) {
+        console.log(result);
+        return result;
+    }).catch(function() {
+        var event = new Event('error');
+        self.dispatchEvent(event);
+        if (self.onerror != null) {
+          self.onerror(event);
+        }
+    });
+    window.karing.callHandler('version').then(function(result) {
+        console.log(result);
+        return result;
+    }).catch(function() {
+        var event = new Event('error');
+        self.dispatchEvent(event);
+        if (self.onerror != null) {
+          self.onerror(event);
+        }
+    });
     window.karing.callHandler('openUrl', 'karing://install-config?url=dHJvamFuOi8vNDFiZWM0OTItY2Q3OS00YjU3LTlhMTUtN2QyYmIwMGZjZmNhQDE2My4xMjMuMTkyLjU3OjQ0Mz9hbGxvd0luc2VjdXJlPTEjJUYwJTlGJTg3JUJBJUYwJTlGJTg3JUI4JTIwX1VTXyVFNyVCRSU4RSVFNSU5QiVCRHx0cm9qYW46Ly9hOGY1NGY0ZS0xZDlkLTQ0ZTQtOWVmNy01MGVlN2JhODk1NjFAamsuamtrLmtpc3NraXNzLnBybzoxODg3P2FsbG93SW5zZWN1cmU9MSMlRjAlOUYlODclQjAlRjAlOUYlODclQjclMjBfS1JfJUU5JTlGJUE5JUU1JTlCJUJE#testname').then(function(result) {
         console.log(result);
         return result;
@@ -483,6 +591,12 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
         }
     });
     */
+    /*_webViewController?.addJavaScriptHandler(
+      handlerName: '*',
+      callback: (arguments) async {
+        return "Unimplemented";
+      },
+    );*/
     _webViewController?.addJavaScriptHandler(
       handlerName: 'close',
       callback: (arguments) async {
@@ -490,6 +604,12 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
       },
     );
     _webViewController?.addJavaScriptHandler(
+      handlerName: 'version',
+      callback: (arguments) async {
+        return AppUtils.getBuildinVersion();
+      },
+    );
+    /*_webViewController?.addJavaScriptHandler(
       handlerName: 'openUrl',
       callback: (arguments) async {
         if (arguments.length != 1) {
@@ -503,13 +623,27 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
           return err.toString();
         }
       },
-    );
+    );*/
+    widget.javaScriptHandlers.forEach((key, value) {
+      _webViewController?.addJavaScriptHandler(
+        handlerName: key,
+        callback: (arguments) {
+          return value(
+              context, _url, widget.javaScriptHandlerArgument, arguments);
+        },
+      );
+    });
   }
 
   void resetJavaScriptHandler() {
     if (!widget.setJSWindowObject) {
       return;
     }
-    _webViewController?.removeJavaScriptHandler(handlerName: 'openUrl');
+    _webViewController?.removeJavaScriptHandler(handlerName: 'close');
+    _webViewController?.removeJavaScriptHandler(handlerName: 'version');
+    //_webViewController?.removeJavaScriptHandler(handlerName: 'openUrl');
+    widget.javaScriptHandlers.forEach((key, value) {
+      _webViewController?.removeJavaScriptHandler(handlerName: key);
+    });
   }
 }

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/remote_isp_config.dart';
+import 'package:karing/app/modules/remote_isp_config_manager.dart';
+import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
+import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -15,20 +20,20 @@ import 'package:karing/screens/group_helper.dart';
 import 'package:path/path.dart' as path;
 
 class SchemeHandler {
-  static void Function()? vpnConnect;
-  static void Function()? vpnDisconnect;
-  static void Function()? vpnReconnect;
+  static void Function(bool)? vpnConnect;
+  static void Function(bool)? vpnDisconnect;
+  static void Function(bool)? vpnReconnect;
   static Future<ReturnResultError?> handle(
       BuildContext context, String url) async {
     //clash://install-config?url=trojan://41bec492-cd79-4b57-9a15-7d2bb00fcfca@163.123.192.57:443?allowInsecure=1#%F0%9F%87%BA%F0%9F%87%B8%20_US_%E7%BE%8E%E5%9B%BD|trojan://a8f54f4e-1d9d-44e4-9ef7-50ee7ba89561@jk.jkk.kisskiss.pro:1887?allowInsecure=1#%F0%9F%87%B0%F0%9F%87%B7%20_KR_%E9%9F%A9%E5%9B%BD
     //clash://install-config?url=https://xxxxx.com/clash/config
     //stash://install-config?url=https%3A%2F%2Fwww.xxxxx.gay%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D&name=stars
     //sing-box://import-remote-profile?url=https://xxxxx:8443/proxy/fgram.json#mcivip%F0%9F%87%B9%F0%9F%87%B73%7CArefgram
-    //karing://connect
-    //karing://disconnect
-    //karing://reconnect
-    //karing://install-config?url=xxx&name=xxx&&isp-name=xxx&isp-url=xxx&isp-faq=xxx ;connect; disconnect; reconnect;
-    //karing://install-config?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash&name=gdy&&isp-name=%E8%B7%9F%E6%96%97%E4%BA%91&isp-url=https%3A%2F%2Fxn--9kq147c4p2a.com%2Fuser&isp-faq=
+    //karing://connect?background=false
+    //karing://disconnect?background=false
+    //karing://reconnect?background=false
+    //karing://install-config?url=xxx&name=xxx&&isp-name=xxx&isp-code=xxx;connect; disconnect; reconnect;
+    //karing://install-config?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash&name=gdy&&isp-name=%E8%B7%9F%E6%96%97%E4%BA%91&isp-code=https%3A%2F%2Fxn--9kq147c4p2a.com%2Fuser
     //karing://restore-backup?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash
     //karing://tvos?ips=192.168.1.102&port=4040&uuid=728EC1AB-7AC8-4E8F-8406-3856F6C70506&cport=3057&secret=0191eee9f89d7cd29fda94c0b663efb2&version=1.0.29.293
     Uri? uri = Uri.tryParse(url);
@@ -46,17 +51,29 @@ class SchemeHandler {
     } else if (uri.isScheme(SystemSchemeUtils.getKaringScheme())) {
       if (uri.host == AppSchemeActions.connectAction()) {
         if (vpnConnect != null) {
-          vpnConnect!.call();
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnConnect!.call(background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.disconnectAction()) {
         if (vpnDisconnect != null) {
-          vpnDisconnect!.call();
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnDisconnect!.call(background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.reconnectAction()) {
         if (vpnReconnect != null) {
-          vpnReconnect!.call();
+          bool background = false;
+          try {
+            background = uri.queryParameters["background"] == "true";
+          } catch (err) {}
+          vpnReconnect!.call(background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.installConfigAction()) {
@@ -78,16 +95,14 @@ class SchemeHandler {
       BuildContext context, Uri uri) async {
     String? name;
     String? url;
-    String? ispName;
-    String? ispUrl;
-    String? ispFaq;
+    String? ispId;
+    String? ispUser;
+
     try {
       name = uri.queryParameters["name"];
       url = uri.queryParameters["url"];
-      ispName =
-          uri.queryParameters["isp-name"] ?? uri.queryParameters["Isp-Name"];
-      ispUrl = uri.queryParameters["isp-url"] ?? uri.queryParameters["Isp-Url"];
-      ispFaq = uri.queryParameters["isp-faq"] ?? uri.queryParameters["Isp-Faq"];
+      ispId = uri.queryParameters["isp-id"];
+      ispUser = uri.queryParameters["isp-user"];
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
@@ -104,9 +119,22 @@ class SchemeHandler {
         url = Uri.decodeComponent(url);
       } catch (err) {}
     }
+    if (ispId != null) {
+      try {
+        ispId = Uri.decodeComponent(ispId);
+      } catch (err) {}
+    }
+    if (ispUser != null) {
+      try {
+        ispUser = Uri.decodeComponent(ispUser);
+      } catch (err) {}
+    }
+    if (url == null || url.isEmpty) {
+      return ReturnResultError("url empty");
+    }
 
-    return await _addConfigBySubscriptionLink(
-        context, url, name, ispName, ispUrl, ispFaq);
+    return await addConfigBySubscriptionLink(
+        context, url, name, ispId, ispUser, true);
   }
 
   static Future<ReturnResultError?> _restoreBackup(
@@ -153,32 +181,65 @@ class SchemeHandler {
     return null;
   }
 
-  static Future<ReturnResultError?> _addConfigBySubscriptionLink(
+  static Future<ReturnResultError?> addConfigBySubscriptionLink(
       BuildContext context,
-      String? installUrl,
+      String urlOrContent,
       String? name,
-      String? ispName,
-      String? ispUrl,
-      String? ispFaq) async {
+      String? ispId,
+      String? ispUser,
+      bool autoAdd) async {
     int kMaxPush = 1;
-    if (installUrl != null &&
-        AddProfileByLinkOrContentScreen.pushed <= kMaxPush) {
-      UrlLauncherUtils.closeWebview();
-      bool? ok = await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: AddProfileByLinkOrContentScreen.routSettings(),
-              builder: (context) => AddProfileByLinkOrContentScreen(
-                  name: name,
-                  linkUrl: installUrl,
-                  ispName: ispName,
-                  ispUrl: ispUrl,
-                  ispFaq: ispFaq)));
-      if (ok != true) {
-        return ReturnResultError("addprofile failed or canceled by user");
+    RemoteISPConfig? ispConfig;
+    if (ispId != null && ispId.isNotEmpty) {
+      ReturnResult<RemoteISPConfig> isp =
+          await KaringUtils.getRemoteISPConfig(ispId);
+      if (isp.error == null) {
+        if (isp.data!.id.isNotEmpty) {
+          ispConfig = isp.data!;
+        }
       }
+    }
+    ServerConfigGroupItem? item =
+        ServerManager.getGroupByUrlOrPath(urlOrContent);
+    if (item != null) {
+      if (ispId != null && ispId.isNotEmpty) {
+        item.isp ??= SubscriptionISP();
+        item.isp!.id = ispId;
+        item.isp!.user = ispUser ?? "";
+      } else {
+        item.isp = null;
+      }
+      ServerManager.saveServerConfig();
+      RemoteISPConfigManager.reset(ispConfig ?? RemoteISPConfig());
       return null;
     }
-    return ReturnResultError("addprofile request already exists");
+
+    if (AddProfileByLinkOrContentScreen.pushed >= kMaxPush) {
+      return ReturnResultError("addprofile request already exists");
+    }
+    UrlLauncherUtils.closeWebview();
+    if (!context.mounted) {
+      return null;
+    }
+
+    bool? ok = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: AddProfileByLinkOrContentScreen.routSettings(),
+            builder: (context) => AddProfileByLinkOrContentScreen(
+                  urlOrContent: urlOrContent,
+                  name: name,
+                  ispId: ispId,
+                  ispUser: ispUser,
+                  autoAdd: autoAdd,
+                )));
+    if (ok != true) {
+      return ReturnResultError("addprofile failed or canceled by user");
+    }
+    if (ispConfig != null) {
+      RemoteISPConfigManager.reset(ispConfig);
+    }
+
+    return null;
   }
 }

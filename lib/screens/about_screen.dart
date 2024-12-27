@@ -1,7 +1,7 @@
 // ignore_for_file: unused_catch_stack
 
 import 'dart:io';
-
+import 'package:build_info/build_info.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
@@ -15,7 +15,6 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_json_utils.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/file_content_viewer_screen.dart';
@@ -26,7 +25,6 @@ import 'package:karing/screens/hash_string_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
-//import 'package:advertising_id/advertising_id.dart';
 
 class AboutScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -146,10 +144,14 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
-
+    var settingConfig = SettingManager.getConfig();
+    var dev = settingConfig.dev;
     String termOfUse = AppUtils.getTermsOfServiceUrl();
     List<GroupItem> groupOptions = [];
-
+    late BuildInfoData? buildInfo;
+    if (!Platform.isLinux) {
+      buildInfo = await BuildInfo.fromPlatform();
+    }
     {
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -167,6 +169,13 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
           name: tcontext.AboutScreen.installRefer,
           text: await InstallReferrerUtils.getString(),
         )),
+        dev.devMode && buildInfo != null
+            ? GroupItemOptions(
+                textOptions: GroupItemTextOptions(
+                name: tcontext.AboutScreen.installTime,
+                text: buildInfo.installDate.toString(),
+              ))
+            : GroupItemOptions(),
         AutoUpdateManager.isSupport()
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
@@ -223,7 +232,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                             analyticsEventType: analyticsEventTypeUA,
                             name: 'SSS_diableUAReport',
                             parameters: {"value": value},
-                            repeatable: true);
+                            repeatable: false);
 
                         AnalyticsUtils.setEventType(value
                             ? analyticsEventTypeNoUA
@@ -253,17 +262,11 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     var dev = settingConfig.dev;
-    /*String advertisingId = "";
-    if (Platform.isIOS || Platform.isAndroid) {
-      try {
-        advertisingId = (await AdvertisingId.id(true)) ?? "";
-      } catch (err) {}
-    }*/
 
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
         name: 'SSS_devOptions',
-        repeatable: true);
+        repeatable: false);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       List<GroupItemOptions> options = [
         !settingConfig.novice
@@ -336,23 +339,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     }))
             : GroupItemOptions(),
       ];
-      /*List<GroupItemOptions> options3 = [
-        (Platform.isIOS || Platform.isAndroid) &&
-                dev.devMode &&
-                !settingConfig.novice
-            ? GroupItemOptions(
-                textOptions: GroupItemTextOptions(
-                    name: "Advertising Id",
-                    text: advertisingId,
-                    textWidthPercent: 0.5,
-                    onPush: () async {
-                      try {
-                        await Clipboard.setData(
-                            ClipboardData(text: advertisingId));
-                      } catch (err) {}
-                    }))
-            : GroupItemOptions(),
-      ];*/
+
       List<GroupItemOptions> options4 = [
         (Platform.isWindows) && dev.devMode && !settingConfig.novice
             ? GroupItemOptions(

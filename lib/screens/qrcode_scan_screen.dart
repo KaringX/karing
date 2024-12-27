@@ -8,7 +8,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class QrcodeScanScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -95,7 +95,7 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                           future: getFlashState(),
                           builder: (BuildContext context,
                               AsyncSnapshot<bool> snapshot) {
-                            return snapshot.data == true
+                            return snapshot.hasData && snapshot.data!
                                 ? const Icon(Icons.flash_on_outlined,
                                     color: ThemeDefine.kColorBlue)
                                 : const Icon(Icons.flash_off_outlined);

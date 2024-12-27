@@ -149,7 +149,7 @@ class _CloudflareWarpAccountScreenState
                                           .gen25PBWarpAccount();
 
                                   if (account.error != null) {
-                                    if (!mounted) {
+                                    if (!context.mounted) {
                                       return;
                                     }
                                     DialogUtils.showAlertDialog(

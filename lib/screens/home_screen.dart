@@ -20,7 +20,6 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/modules/yacd.dart';
-import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
@@ -73,6 +72,7 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:vpn_service/state.dart';
 import 'package:web_socket_channel/io.dart';
+import 'package:window_manager/window_manager.dart';
 
 class Header {
   String tooltip = "";
@@ -148,8 +148,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   String _trafficUpSpeedNotify = "0 B/s";
   String _trafficDownSpeedNotify = "0 B/s";
   String _startDurationNotify = "0 B/s";
-
-  Function(List<Tracker>)? _trackerCallback;
 
   bool _isStarting = false;
   bool _isStarted = false;
@@ -461,11 +459,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     //Log.w("_connectToService");
     _wsConnecting = true;
 
-    String connectionsUrl = await ClashApi.getConnectionsUrl(
-        SettingManager.getConfig().proxy.controlPort);
+    String connectionsUrl = await getConnectionsUrl(true);
 
     try {
-      _subscriptions?.cancel();
+      await _subscriptions?.cancel();
       _httpClient?.close(force: true);
       _httpClient ??= HttpClient();
       _httpClient!.userAgent = await HttpUtils.getUserAgent();
@@ -479,7 +476,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
           Connection con = Connection();
-          con.fromJson(obj, _trackerCallback != null);
+          con.fromJson(obj, false);
           if (con.startTime != null) {
             _startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
@@ -527,9 +524,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             }
           }
 
-          if (_trackerCallback != null) {
-            _trackerCallback!(con.connections);
-          }
           _updateNetStateLocalNotifications();
         }, onDone: () {
           _disconnectToService();
@@ -545,11 +539,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   Future<void> _disconnectToService() async {
     _removeNetStateLocalNotifications();
     //Log.w("_disconnectToService");
-    if (_trackerCallback != null) {
-      return;
-    }
 
-    _subscriptions?.cancel();
+    await _subscriptions?.cancel();
     _subscriptions = null;
     _httpClient?.close();
     _httpClient = null;
@@ -639,7 +630,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             name: 'SSS_faq',
             parameters: {"from": "DialogUtils"},
             repeatable: true);
-        CommonDialog.loadFAQByError(context, text);
+        CommonDialog.loadFAQByError(context, text, true);
       };
 
       checkError("onInitFinish");
@@ -690,7 +681,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         if (command == "connect") {
           ReturnResultError? err = await start("launch");
           if (err == null) {
-            MoveToBackground.moveTaskToBack();
+            moveToBackground();
           }
         }
       }
@@ -702,20 +693,33 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Biz.onRequestStartVPN((String from) async {
       return await start(from, disableShowAlertDialog: true);
     });
-    SchemeHandler.vpnConnect = () {
+    SchemeHandler.vpnConnect = (bool background) {
       Future.delayed(const Duration(seconds: 0), () async {
-        await start("scheme");
+        ReturnResultError? error = await start("scheme");
+        if (error == null) {
+          if (background) {
+            moveToBackground();
+          }
+        }
       });
     };
-    SchemeHandler.vpnDisconnect = () {
+    SchemeHandler.vpnDisconnect = (bool background) {
       Future.delayed(const Duration(seconds: 0), () async {
         await stop();
+        if (background) {
+          moveToBackground();
+        }
       });
     };
-    SchemeHandler.vpnReconnect = () {
+    SchemeHandler.vpnReconnect = (bool background) {
       Future.delayed(const Duration(seconds: 0), () async {
         await stop();
-        await start("scheme");
+        ReturnResultError? error = await start("scheme");
+        if (error == null) {
+          if (background) {
+            moveToBackground();
+          }
+        }
       });
     };
     VPNService.onStateChanged(
@@ -1529,15 +1533,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
   }
 
+  Future<String> getConnectionsUrl(bool noConnections) async {
+    return await ClashApi.getConnectionsUrl(
+        SettingManager.getConfig().proxy.controlPort,
+        noConnections: noConnections);
+  }
+
   Future<void> onTapNetConnections() async {
+    String connectionsUrl = await getConnectionsUrl(false);
     await Navigator.push(
         context,
         MaterialPageRoute(
             settings: NetConnectionsScreen.routSettings(),
             builder: (context) => NetConnectionsScreen(
-                    regTrack: (Function(List<Tracker>)? tracker) {
-                  _trackerCallback = tracker;
-                })));
+                  connectionsUrl: connectionsUrl,
+                )));
     await checkAndReload("onTapNetConnections");
   }
 
@@ -1701,7 +1711,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     bool run = await VPNService.running();
     if (run) {
-      return ReturnResultError("start failed: already runing");
+      return null;
     }
     _isStarting = true;
     _isStarted = false;
@@ -1819,17 +1829,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
     AutoUpdateCheckVersion checkVersion = AutoUpdateManager.getVersionCheck();
-    NoticeItem? noticeItem = NoticeManager.getNotice().getFirstUnread();
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-    bool showAds = false;
-    if (AdsPrivate.getEnable()) {
-      String rewardAdExpireTime =
-          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
-      String shareExpireTime =
-          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
-
-      showAds = rewardAdExpireTime.isEmpty && shareExpireTime.isEmpty;
+    List<Notice> notices = NoticeManager.getNotices();
+    NoticeItem? noticeItem;
+    for (var notice in notices) {
+      noticeItem = notice.getFirstUnread();
+      if (noticeItem != null) {
+        break;
+      }
     }
+
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    bool showAds = AdsBannerWidget.getEnable();
 
     double height =
         AdsBannerWidget.getRealHeight(true, showAds, AdsBannerWidget.adHeight);
@@ -2766,7 +2776,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (_inAppNotificationsShowing) {
       return;
     }
-    NoticeItem? noticeItem = NoticeManager.getNotice().getFirstUnread();
+    List<Notice> notices = NoticeManager.getNotices();
+    NoticeItem? noticeItem;
+    for (var notice in notices) {
+      noticeItem = notice.getFirstUnread();
+      if (noticeItem != null) {
+        break;
+      }
+    }
+
     if (noticeItem == null) {
       return;
     }
@@ -2777,7 +2795,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         duration: const Duration(seconds: 60),
         description: noticeItem.title,
         onTap: () {
-          onTapNotice(noticeItem);
+          onTapNotice(noticeItem!);
         });
+  }
+
+  Future<void> moveToBackground() async {
+    if (PlatformUtils.isMobile()) {
+      await MoveToBackground.moveTaskToBack();
+    } else if (PlatformUtils.isPC()) {
+      await windowManager.hide();
+    }
   }
 }

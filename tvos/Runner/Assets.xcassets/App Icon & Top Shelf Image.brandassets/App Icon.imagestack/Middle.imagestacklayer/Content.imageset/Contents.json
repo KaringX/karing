@@ -1,0 +1,18 @@
+{
+  "images" : [
+    {
+      "filename" : "tv- App Icon Small - Front - 400 x 240 pt.png",
+      "idiom" : "tv",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "tv - App Icon Small - Front - 400 x 240 pt@2x.png",
+      "idiom" : "tv",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

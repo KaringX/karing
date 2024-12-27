@@ -618,7 +618,7 @@ class _DiversionGroupCustomEditScreenState
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: SingleChildScrollView(
             child: TextField(
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.newline,
               maxLines: 6,
               controller: textControllerLink,
               cursorColor: Colors.black,
@@ -649,7 +649,7 @@ class _DiversionGroupCustomEditScreenState
                   width: windowSize.width - 10 * 2 - 50,
                   child: SingleChildScrollView(
                     child: TextField(
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.newline,
                       maxLines: 6,
                       controller: textControllerLink,
                       cursorColor: Colors.black,

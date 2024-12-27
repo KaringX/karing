@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
-import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
-import 'package:karing/screens/webview_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 class CommonWidget {
   static const double kLatencyWidget = 60;
@@ -104,20 +102,10 @@ class CommonWidget {
       return const Row();
     }
     var settings = SettingManager.getConfig();
-    bool expiring = false;
-    String expireTime = traffic.expire;
-    if (expireTime.isNotEmpty) {
-      DateTime? date = DateTime.tryParse(expireTime);
-      if (date != null) {
-        try {
-          var dif = date.difference(DateTime.now());
-          if (dif.inDays <= 14) {
-            expiring = true;
-          }
-          expireTime = DateFormat.yMd(settings.languageTag).format(date);
-        } catch (e) {}
-      }
-    }
+
+    Tuple2<bool, String> exp = traffic.getExpireTime(settings.languageTag);
+    bool expiring = exp.item1;
+    String expireTime = exp.item2;
 
     double fontSize =
         windowWidth >= 335 ? ThemeConfig.kFontSizeListSubItem : 12;
@@ -180,15 +168,6 @@ class CommonWidget {
               reloadFinish(groupId, value);
             });
             reloadStart(groupId);
-            if (showISPIfExpiring && expiring) {
-              ServerConfigGroupItem? item = ServerManager.getByGroupId(groupId);
-              if (item != null) {
-                SubscriptionISP? isp = item.getISP();
-                if (isp != null) {
-                  showISPOpDialog(context, groupId);
-                }
-              }
-            }
           },
           child: Row(
             children: [
@@ -250,62 +229,5 @@ class CommonWidget {
         ],
       ),
     );
-  }
-
-  static Future<void> showISPOpDialog(
-      BuildContext context, String groupid) async {
-    final tcontext = Translations.of(context);
-    return await showDialog<void>(
-        context: context,
-        routeSettings: const RouteSettings(name: "showISPOpDialog"),
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            children: [
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        child: Text(tcontext.SettingsScreen.openISP),
-                        onPressed: () async {
-                          Navigator.pop(context, null);
-                          ServerConfigGroupItem? item =
-                              ServerManager.getByGroupId(groupid);
-                          if (item != null) {
-                            SubscriptionISP? isp = item.getISP();
-                            if (isp != null) {
-                              await WebviewHelper.loadUrl(context, isp.url,
-                                  title: isp.name);
-                            }
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        child: Text(tcontext.SettingsScreen.cleanISPNoParam),
-                        onPressed: () {
-                          ServerManager.disableISP(groupid);
-                          ServerManager.saveServerConfig();
-                          Navigator.pop(context, null);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        child: Text(tcontext.cancel),
-                        onPressed: () {
-                          Navigator.pop(context, null);
-                        },
-                      ),
-                    ],
-                  )),
-            ],
-          );
-        });
   }
 }

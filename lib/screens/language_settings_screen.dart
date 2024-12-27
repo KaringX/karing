@@ -152,7 +152,7 @@ class _LanguageSettingsScreenState
                           ],
                         ),
                       ),
-                      Container(
+                      /*Container(
                         margin: const EdgeInsets.only(
                           top: 10,
                         ),
@@ -184,7 +184,7 @@ class _LanguageSettingsScreenState
                                 : null,
                           ),
                         ),
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 10,
                       ),

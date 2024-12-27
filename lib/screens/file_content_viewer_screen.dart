@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -63,7 +64,7 @@ class FileContentViewerScreenState
   }
 
   List<String> getFileList() {
-    return [
+    var list = [
       "",
       PathUtils.logFileName(),
       PathUtils.serviceLogFileName(),
@@ -80,6 +81,13 @@ class FileContentViewerScreenState
       PathUtils.noticeFileName(),
       PathUtils.storageFileName()
     ];
+    if (RemoteISPConfigManager.getConfig().id.isNotEmpty) {
+      list.addAll([
+        PathUtils.remoteISPConfigFileName(),
+        PathUtils.ispNoticeFileName(),
+      ]);
+    }
+    return list;
   }
 
   @override

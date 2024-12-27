@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Runner
+
+  Created by user on 8/10/2024.
+  
+*/
+"userAgreement" = "This app (Karing) does not collect any data";
+"agree" = "Accept and Continue";
+"scanQrPart1" = "Scan the QR code below using your";
+"scanQrPart2" = "mobile device with Karing installed";
+"profileUrl" = "Profile URL (sing-box json format) [Required]";
+"invalidURL" = "Invalid Profile URL";
+"downloadError" = "Download VPN Config Failed";
+"updateError" = "Update VPN Config Failed";
+"saveError" = "SaveConfig Failed";
+"vpnInstallError" = "Install VPN Config Failed";
+"vpnStartError" = "Start VPN Failed";
+"error" = "Error";
+"alwayOn" = "Always-on Connection";

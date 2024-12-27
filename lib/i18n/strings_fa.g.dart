@@ -120,6 +120,7 @@ class TranslationsFa implements Translations {
 	@override String get none => 'هیچ‌کدام';
 	@override String get reset => 'ریست';
 	@override String get submit => 'ارسال';
+	@override String get user => 'کاربر';
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
 	@override String get required => 'الزامی';
@@ -139,6 +140,12 @@ class TranslationsFa implements Translations {
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
 	@override String get isp => 'ISP';
+	@override String get ispBind => '[ISP]صحافی';
+	@override String ispUnbind({required Object p}) => 'لغو پیوند[${p}]';
+	@override String ispFaq({required Object p}) => 'سوالات متداول[${p}]';
+	@override String ispCustomerService({required Object p}) => 'خدمات مشتری[${p}]';
+	@override String ispFollow({required Object p}) => 'دنبال کردن[${p}]';
+	@override String get ispInvalidOrExpired => '[ISP]نامعتبر یا منقضی شده است';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'URL نامعتبر';
@@ -220,12 +227,14 @@ class TranslationsFa implements Translations {
 	@override String get latencyTestTimeout => 'تایم اوت';
 	@override String get uwpExemption => 'معافیت جداسازی شبکه UWP';
 	@override String get ads => 'تبلیغات را حذف کنید';
+	@override String get adsBanner => 'تبلیغات بنری';
+	@override String get donate => 'اهدا کنید';
 	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
-	@override String get edgeRuntimeNotInstalled => 'دستگاه فعلی Edge یا Edge WebView2 را نصب نکرده است، بنابراین صفحه نمی تواند نمایش داده شود، لطفاً Edge WebView2 (x64) را دانلود و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
+	@override String get edgeRuntimeNotInstalled => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -243,6 +252,7 @@ class _TranslationsAboutScreenFa implements TranslationsAboutScreenEn {
 
 	// Translations
 	@override String get installRefer => 'مرجع نصب';
+	@override String get installTime => 'زمان نصب';
 	@override String get versionChannel => 'کانال به‌روزرسانی خودکار';
 	@override String get disableUAReport => 'خاموش کردن گزارش اطلاعات عملکرد';
 	@override String get disableUAReportTip => 'گزارش‌دهی داده‌های رفتاری به ما کمک می‌کند تا نسخه‌های پایین‌تر از نسخه اصلی را بهبود بخشیم، همه گزارش‌های داده را به‌طور خودکار خاموش می‌کند (به‌جز [فعال‌سازی برنامه]).';
@@ -602,16 +612,13 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String ispFaq({required Object p}) => 'سوالات متداول[${p}]';
-	@override String cleanISP({required Object p}) => 'پاک‌سازی ISP [${p}]';
-	@override String get openISP => 'بازکردن لینک ISP';
-	@override String get cleanISPNoParam => 'پاک‌سازی اطلاعات ISP';
 	@override String get getTranffic => 'دریافت ترافیک';
 	@override String get tutorial => 'آموزش';
 	@override String get commonlyUsedRulesets => 'قوانین رایج';
 	@override String get howToRemoveAds => 'نحوه حذف تبلیغات';
 	@override String get htmlBoard => 'پنل آنلاین';
 	@override String get dnsLeakDetection => 'تشخیص نشت DNS';
+	@override String get proxyLeakDetection => 'تشخیص نشت عامل';
 	@override String get speedTest => 'تست سرعت';
 	@override String get downloadProfilePreferProxy => 'برای دانلود پروفایل پروکسی را ترجیح بده';
 	@override String get downloadProfilePreferProxyTips => 'اگر اکنون متصل هستین، پروفایل ابتدا از پروکسی متصل دانلود می‌شود';
@@ -661,7 +668,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String inboundDomainResolveTips({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].';
 	@override String get useRomoteRes => 'از منابع راه‌دور استفاده کنید';
 	@override String get autoSelect => 'انتخاب خودکار';
-	@override String get autoSelectServerIgnorePerProxyServer => 'سرور پروکسی [پراکسی جلو] را نادیده بگیرید';
+	@override String get autoSelectServerIgnorePerProxyServer => 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید';
 	@override String get autoSelectServerInterval => 'بازه زمانی بررسی تاخیر';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'شناسایی مجدد زمانی که شبکه تغییر می کند';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید';
@@ -691,8 +698,8 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get importSuccess => 'افزودن موفق بود';
 	@override String get rewriteConfirm => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
 	@override String get networkShare => 'اشتراک‌گذاری شبکه';
-	@override String get frontProxy => 'پروکسی جلو';
-	@override String frontProxyTips({required Object p}) => 'داده-> سرور پروکسی جلویی [پراکسی سرورهای چندگانه: بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
+	@override String get frontProxy => 'پروکسی جلو/زنجیره';
+	@override String frontProxyTips({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
 	@override String get allowOtherHostsConnect => 'اجازه اتصال دیگران';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get tunAutoRoute => 'Auto Route';
@@ -730,6 +737,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String hasNewVersion({required Object p}) => 'به‌روزرسانی نسخه ${p} ';
 	@override String get follow => 'مارو دنبال کنید';
 	@override String get contactUs => 'ارتباط باما';
+	@override String get supportUs => 'از ما حمایت کنید';
 	@override String get rateInApp => 'امتیاز به ما';
 	@override String get rateInAppStore => 'به ما در اپ‌استور امتیاز بدین';
 }
@@ -831,6 +839,7 @@ extension on TranslationsFa {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'AboutScreen.installRefer': return 'مرجع نصب';
+			case 'AboutScreen.installTime': return 'زمان نصب';
 			case 'AboutScreen.versionChannel': return 'کانال به‌روزرسانی خودکار';
 			case 'AboutScreen.disableUAReport': return 'خاموش کردن گزارش اطلاعات عملکرد';
 			case 'AboutScreen.disableUAReportTip': return 'گزارش‌دهی داده‌های رفتاری به ما کمک می‌کند تا نسخه‌های پایین‌تر از نسخه اصلی را بهبود بخشیم، همه گزارش‌های داده را به‌طور خودکار خاموش می‌کند (به‌جز [فعال‌سازی برنامه]).';
@@ -974,16 +983,13 @@ extension on TranslationsFa {
 			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'سرور انتخاب شده یک آدرس IPv6 است و نیاز به [فعال‌سازی IPv6] دارد';
 			case 'ServerSelectScreen.selectDisabled': return 'این سرور غیرفعال شده است';
 			case 'ServerSelectScreen.error404': return 'تشخیص تاخیر با یک اخطار مواجه شده‌است، لطفا بررسی کنید که کانفیگی با محتویات یکسان وجود دارد یا خیر';
-			case 'SettingsScreen.ispFaq': return ({required Object p}) => 'سوالات متداول[${p}]';
-			case 'SettingsScreen.cleanISP': return ({required Object p}) => 'پاک‌سازی ISP [${p}]';
-			case 'SettingsScreen.openISP': return 'بازکردن لینک ISP';
-			case 'SettingsScreen.cleanISPNoParam': return 'پاک‌سازی اطلاعات ISP';
 			case 'SettingsScreen.getTranffic': return 'دریافت ترافیک';
 			case 'SettingsScreen.tutorial': return 'آموزش';
 			case 'SettingsScreen.commonlyUsedRulesets': return 'قوانین رایج';
 			case 'SettingsScreen.howToRemoveAds': return 'نحوه حذف تبلیغات';
 			case 'SettingsScreen.htmlBoard': return 'پنل آنلاین';
 			case 'SettingsScreen.dnsLeakDetection': return 'تشخیص نشت DNS';
+			case 'SettingsScreen.proxyLeakDetection': return 'تشخیص نشت عامل';
 			case 'SettingsScreen.speedTest': return 'تست سرعت';
 			case 'SettingsScreen.downloadProfilePreferProxy': return 'برای دانلود پروفایل پروکسی را ترجیح بده';
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'اگر اکنون متصل هستین، پروفایل ابتدا از پروکسی متصل دانلود می‌شود';
@@ -1033,7 +1039,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].';
 			case 'SettingsScreen.useRomoteRes': return 'از منابع راه‌دور استفاده کنید';
 			case 'SettingsScreen.autoSelect': return 'انتخاب خودکار';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'سرور پروکسی [پراکسی جلو] را نادیده بگیرید';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید';
 			case 'SettingsScreen.autoSelectServerInterval': return 'بازه زمانی بررسی تاخیر';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'شناسایی مجدد زمانی که شبکه تغییر می کند';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید';
@@ -1063,8 +1069,8 @@ extension on TranslationsFa {
 			case 'SettingsScreen.importSuccess': return 'افزودن موفق بود';
 			case 'SettingsScreen.rewriteConfirm': return 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
 			case 'SettingsScreen.networkShare': return 'اشتراک‌گذاری شبکه';
-			case 'SettingsScreen.frontProxy': return 'پروکسی جلو';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'داده-> سرور پروکسی جلویی [پراکسی سرورهای چندگانه: بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
+			case 'SettingsScreen.frontProxy': return 'پروکسی جلو/زنجیره';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'اجازه اتصال دیگران';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1102,6 +1108,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'به‌روزرسانی نسخه ${p} ';
 			case 'SettingsScreen.follow': return 'مارو دنبال کنید';
 			case 'SettingsScreen.contactUs': return 'ارتباط باما';
+			case 'SettingsScreen.supportUs': return 'از ما حمایت کنید';
 			case 'SettingsScreen.rateInApp': return 'امتیاز به ما';
 			case 'SettingsScreen.rateInAppStore': return 'به ما در اپ‌استور امتیاز بدین';
 			case 'SpeedTestSettingsScreen.title': return 'URL تست سرعت';
@@ -1177,6 +1184,7 @@ extension on TranslationsFa {
 			case 'none': return 'هیچ‌کدام';
 			case 'reset': return 'ریست';
 			case 'submit': return 'ارسال';
+			case 'user': return 'کاربر';
 			case 'account': return 'نام‌کاربری';
 			case 'password': return 'رمز‌عبور';
 			case 'required': return 'الزامی';
@@ -1196,6 +1204,12 @@ extension on TranslationsFa {
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
 			case 'isp': return 'ISP';
+			case 'ispBind': return '[ISP]صحافی';
+			case 'ispUnbind': return ({required Object p}) => 'لغو پیوند[${p}]';
+			case 'ispFaq': return ({required Object p}) => 'سوالات متداول[${p}]';
+			case 'ispCustomerService': return ({required Object p}) => 'خدمات مشتری[${p}]';
+			case 'ispFollow': return ({required Object p}) => 'دنبال کردن[${p}]';
+			case 'ispInvalidOrExpired': return '[ISP]نامعتبر یا منقضی شده است';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'URL نامعتبر';
@@ -1277,12 +1291,14 @@ extension on TranslationsFa {
 			case 'latencyTestTimeout': return 'تایم اوت';
 			case 'uwpExemption': return 'معافیت جداسازی شبکه UWP';
 			case 'ads': return 'تبلیغات را حذف کنید';
+			case 'adsBanner': return 'تبلیغات بنری';
+			case 'donate': return 'اهدا کنید';
 			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 			case 'removeBannerAdsByReward': return 'تماشای تبلیغات برو به تبلیغات';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
-			case 'edgeRuntimeNotInstalled': return 'دستگاه فعلی Edge یا Edge WebView2 را نصب نکرده است، بنابراین صفحه نمی تواند نمایش داده شود، لطفاً Edge WebView2 (x64) را دانلود و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
+			case 'edgeRuntimeNotInstalled': return 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

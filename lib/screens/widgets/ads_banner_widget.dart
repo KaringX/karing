@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as google;
 import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/ads_private.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 
 class AdsBannerWidget extends StatefulWidget {
@@ -30,6 +33,24 @@ class AdsBannerWidget extends StatefulWidget {
     return height;
   }
 
+  static bool getEnable() {
+    var settingConfig = SettingManager.getConfig();
+    var remoteConfig = RemoteConfigManager.getConfig();
+    if (remoteConfig.adManualEnable && settingConfig.ads.bannerEnable) {
+      return PlatformUtils.isMobile();
+    }
+    if (AdsPrivate.getEnable()) {
+      String rewardAdExpireTime =
+          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
+      String shareExpireTime =
+          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
+
+      return rewardAdExpireTime.isEmpty && shareExpireTime.isEmpty;
+    }
+
+    return false;
+  }
+
   @override
   State<AdsBannerWidget> createState() => _AdsBannerWidgetState();
 }
@@ -40,17 +61,15 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   bool _googleBannerAdIsLoading = false;
   bool _googleBannerAdIsLoaded = false;
   google.BannerAd? _googleBannerAd;
+  bool _clicked = false;
 
   @override
   void initState() {
     adSize = google.AdSize(
         height: AdsBannerWidget.adHeight, width: widget.adWidth.toInt());
     AppLifecycleStateNofityManager.onStateResumed(hashCode, () async {
-      if (AdsPrivate.getEnable()) {
+      if (AdsBannerWidget.getEnable()) {
         _loadGoogleBannerAd(false);
-      } else {
-        _disposeGoogleBannerAd();
-        setState(() {});
       }
     });
     super.initState();
@@ -73,7 +92,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
     return Container(
         height: height,
         alignment: Alignment.center,
-        child: AdsPrivate.getEnable()
+        child: AdsBannerWidget.getEnable()
             ? Stack(
                 children: [
                   Visibility(
@@ -90,7 +109,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (AdsPrivate.getEnable()) {
+    if (AdsBannerWidget.getEnable()) {
       _loadGoogleBannerAd(true);
     }
   }
@@ -108,6 +127,9 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
 
   Future<void> _loadGoogleBannerAd(bool forceReload) async {
     if (!mounted) {
+      return;
+    }
+    if (_clicked) {
       return;
     }
 
@@ -157,7 +179,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
             if (!mounted) {
               return;
             }
-
+            _clicked = true;
             _disposeGoogleBannerAd();
             setState(() {});
           },

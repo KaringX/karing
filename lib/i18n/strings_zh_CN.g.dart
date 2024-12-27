@@ -120,25 +120,32 @@ class TranslationsZhCn implements Translations {
 	@override String get none => '无';
 	@override String get reset => '重置';
 	@override String get submit => '提交';
+	@override String get user => '用户';
 	@override String get account => '账号';
 	@override String get password => '密码';
 	@override String get required => '必填';
 	@override String get diversion => '分流';
 	@override String get diversionRules => '分流规则';
-	@override String get diversionRulesEnable => '启用[ISP]分流规则';
+	@override String get diversionRulesEnable => '启用[ISP/机场]分流规则';
 	@override String get diversionCustomGroup => '自定义分流组';
 	@override String get diversionCustomGroupPreset => '预置[自定义分流组]';
 	@override String get diversionCustomGroupPresetTips => '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 	@override String get diversionCustomGroupAddTips => '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
 	@override String get urlTestCustomGroup => '自定义代理组';
 	@override String get rulesetEnableTips => '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
-	@override String get ispUserAgentTips => '[ISP]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
-	@override String get ispDiversionTips => '[ISP]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
+	@override String get ispUserAgentTips => '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
+	@override String get ispDiversionTips => '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
 	@override String get staticIP => '静态IP';
 	@override String get other => '其他';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
-	@override String get isp => 'ISP';
+	@override String get isp => 'ISP/机场';
+	@override String get ispBind => '[ISP/机场]绑定';
+	@override String ispUnbind({required Object p}) => '解除绑定[${p}]';
+	@override String ispFaq({required Object p}) => '常见问题[${p}]';
+	@override String ispCustomerService({required Object p}) => '客服[${p}]';
+	@override String ispFollow({required Object p}) => '关注[${p}]';
+	@override String get ispInvalidOrExpired => '[ISP/机场]无效或已过期';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => '无效URL';
@@ -220,12 +227,14 @@ class TranslationsZhCn implements Translations {
 	@override String get latencyTestTimeout => '超时时间';
 	@override String get uwpExemption => 'UWP网络隔离豁免';
 	@override String get ads => '广告';
+	@override String get adsBanner => '横幅广告';
+	@override String get donate => '捐助';
 	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
 	@override String get removeBannerAdsByReward => '观看广告去广告';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
-	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge或Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启app再试';
+	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -243,6 +252,7 @@ class _TranslationsAboutScreenZhCn implements TranslationsAboutScreenEn {
 
 	// Translations
 	@override String get installRefer => '安装参考';
+	@override String get installTime => '安装时间';
 	@override String get versionChannel => '自动更新通道';
 	@override String get disableUAReport => '关闭行为数据上报';
 	@override String get disableUAReportTip => '行为数据上报有助于我们改进产品体验;低于主版本的版本将自动关闭的所有数据上报([应用激活]除外)';
@@ -374,7 +384,7 @@ class _TranslationsDnsSettingsScreenZhCn implements TranslationsDnsSettingsScree
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get ispCanNotEmpty => 'ISP 不能为空';
+	@override String get ispCanNotEmpty => 'ISP/机场 不能为空';
 	@override String get urlCanNotEmpty => 'URL 不能为空';
 	@override String error({required Object p}) => '不支持的类型:${p}';
 	@override String get dnsDesc => '第一列延迟数据为直连查询延迟;\n第二列:开启[[代理流量]通过代理服务器解析DNS]:延迟数据为通过当前代理服务器转发的查询延迟;未开启[[代理流量]通过代理服务器解析DNS]:延迟数据为直连查询延迟';
@@ -602,16 +612,13 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String ispFaq({required Object p}) => 'FAQ[${p}]';
-	@override String cleanISP({required Object p}) => '清除ISP[${p}]';
-	@override String get openISP => '打开ISP链接';
-	@override String get cleanISPNoParam => '清除ISP信息';
 	@override String get getTranffic => '获取流量';
 	@override String get tutorial => '使用教程';
 	@override String get commonlyUsedRulesets => '常用规则集';
 	@override String get howToRemoveAds => '如何移除广告';
 	@override String get htmlBoard => '在线面板';
 	@override String get dnsLeakDetection => 'DNS泄露检测';
+	@override String get proxyLeakDetection => '代理泄露检测';
 	@override String get speedTest => '测速';
 	@override String get downloadProfilePreferProxy => '优先使用代理下载配置';
 	@override String get downloadProfilePreferProxyTips => '如果当前已连接,则优先通过已连接的代理下载配置';
@@ -661,7 +668,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String inboundDomainResolveTips({required Object p}) => '某些未配置分流规则的域名需要解析后才可能命中基于IP的分流规则;此功能影响代理端口[${p}]的入站请求';
 	@override String get useRomoteRes => '使用远程资源';
 	@override String get autoSelect => '自动选择';
-	@override String get autoSelectServerIgnorePerProxyServer => '忽略[前置代理]代理服务器';
+	@override String get autoSelectServerIgnorePerProxyServer => '忽略[前置/链式]代理服务器';
 	@override String get autoSelectServerInterval => '延迟检测时间间隔';
 	@override String get autoSelectServerReTestIfNetworkUpdate => '网络变化时重新检测';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => '手动延时检测后更新当前服务器';
@@ -691,8 +698,8 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get importSuccess => '导入成功';
 	@override String get rewriteConfirm => '该文件将覆盖本地已有配置,是否继续?';
 	@override String get networkShare => '网络共享';
-	@override String get frontProxy => '前置代理';
-	@override String frontProxyTips({required Object p}) => '数据->前置代理服务器[多个前置代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
+	@override String get frontProxy => '前置/链式代理';
+	@override String frontProxyTips({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
 	@override String get allowOtherHostsConnect => '允许其他主机接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get tunAutoRoute => 'Auto Route';
@@ -730,6 +737,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String hasNewVersion({required Object p}) => '更新版本 ${p}';
 	@override String get follow => '关注我们';
 	@override String get contactUs => '联系我们';
+	@override String get supportUs => '支持我们';
 	@override String get rateInApp => '评分';
 	@override String get rateInAppStore => '在App Store上评分';
 }
@@ -831,6 +839,7 @@ extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'AboutScreen.installRefer': return '安装参考';
+			case 'AboutScreen.installTime': return '安装时间';
 			case 'AboutScreen.versionChannel': return '自动更新通道';
 			case 'AboutScreen.disableUAReport': return '关闭行为数据上报';
 			case 'AboutScreen.disableUAReportTip': return '行为数据上报有助于我们改进产品体验;低于主版本的版本将自动关闭的所有数据上报([应用激活]除外)';
@@ -881,7 +890,7 @@ extension on TranslationsZhCn {
 			case 'DiversionRuleDetectScreen.rule': return '规则:';
 			case 'DiversionRuleDetectScreen.outbound': return '代理服务器:';
 			case 'DiversionRulesScreen.diversionRulesMatchTips': return '提示:从上到下依次尝试匹配规则,如果没有匹配到规则,则使用[final]';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP 不能为空';
+			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP/机场 不能为空';
 			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL 不能为空';
 			case 'DnsSettingsScreen.error': return ({required Object p}) => '不支持的类型:${p}';
 			case 'DnsSettingsScreen.dnsDesc': return '第一列延迟数据为直连查询延迟;\n第二列:开启[[代理流量]通过代理服务器解析DNS]:延迟数据为通过当前代理服务器转发的查询延迟;未开启[[代理流量]通过代理服务器解析DNS]:延迟数据为直连查询延迟';
@@ -974,16 +983,13 @@ extension on TranslationsZhCn {
 			case 'ServerSelectScreen.selectRequireEnableIPv6': return '所选服务器为IPv6地址,需要[启用IPv6]';
 			case 'ServerSelectScreen.selectDisabled': return '该服务器已被禁用';
 			case 'ServerSelectScreen.error404': return '延迟检测遇到错误,请检查是否存在内容相同的配置';
-			case 'SettingsScreen.ispFaq': return ({required Object p}) => 'FAQ[${p}]';
-			case 'SettingsScreen.cleanISP': return ({required Object p}) => '清除ISP[${p}]';
-			case 'SettingsScreen.openISP': return '打开ISP链接';
-			case 'SettingsScreen.cleanISPNoParam': return '清除ISP信息';
 			case 'SettingsScreen.getTranffic': return '获取流量';
 			case 'SettingsScreen.tutorial': return '使用教程';
 			case 'SettingsScreen.commonlyUsedRulesets': return '常用规则集';
 			case 'SettingsScreen.howToRemoveAds': return '如何移除广告';
 			case 'SettingsScreen.htmlBoard': return '在线面板';
 			case 'SettingsScreen.dnsLeakDetection': return 'DNS泄露检测';
+			case 'SettingsScreen.proxyLeakDetection': return '代理泄露检测';
 			case 'SettingsScreen.speedTest': return '测速';
 			case 'SettingsScreen.downloadProfilePreferProxy': return '优先使用代理下载配置';
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return '如果当前已连接,则优先通过已连接的代理下载配置';
@@ -1033,7 +1039,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => '某些未配置分流规则的域名需要解析后才可能命中基于IP的分流规则;此功能影响代理端口[${p}]的入站请求';
 			case 'SettingsScreen.useRomoteRes': return '使用远程资源';
 			case 'SettingsScreen.autoSelect': return '自动选择';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return '忽略[前置代理]代理服务器';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return '忽略[前置/链式]代理服务器';
 			case 'SettingsScreen.autoSelectServerInterval': return '延迟检测时间间隔';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return '网络变化时重新检测';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return '手动延时检测后更新当前服务器';
@@ -1063,8 +1069,8 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.importSuccess': return '导入成功';
 			case 'SettingsScreen.rewriteConfirm': return '该文件将覆盖本地已有配置,是否继续?';
 			case 'SettingsScreen.networkShare': return '网络共享';
-			case 'SettingsScreen.frontProxy': return '前置代理';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => '数据->前置代理服务器[多个前置代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
+			case 'SettingsScreen.frontProxy': return '前置/链式代理';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
 			case 'SettingsScreen.allowOtherHostsConnect': return '允许其他主机接入';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1102,6 +1108,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => '更新版本 ${p}';
 			case 'SettingsScreen.follow': return '关注我们';
 			case 'SettingsScreen.contactUs': return '联系我们';
+			case 'SettingsScreen.supportUs': return '支持我们';
 			case 'SettingsScreen.rateInApp': return '评分';
 			case 'SettingsScreen.rateInAppStore': return '在App Store上评分';
 			case 'SpeedTestSettingsScreen.title': return '测速URL';
@@ -1177,25 +1184,32 @@ extension on TranslationsZhCn {
 			case 'none': return '无';
 			case 'reset': return '重置';
 			case 'submit': return '提交';
+			case 'user': return '用户';
 			case 'account': return '账号';
 			case 'password': return '密码';
 			case 'required': return '必填';
 			case 'diversion': return '分流';
 			case 'diversionRules': return '分流规则';
-			case 'diversionRulesEnable': return '启用[ISP]分流规则';
+			case 'diversionRulesEnable': return '启用[ISP/机场]分流规则';
 			case 'diversionCustomGroup': return '自定义分流组';
 			case 'diversionCustomGroupPreset': return '预置[自定义分流组]';
 			case 'diversionCustomGroupPresetTips': return '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 			case 'diversionCustomGroupAddTips': return '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
 			case 'urlTestCustomGroup': return '自定义代理组';
 			case 'rulesetEnableTips': return '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
-			case 'ispUserAgentTips': return '[ISP]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
-			case 'ispDiversionTips': return '[ISP]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
+			case 'ispUserAgentTips': return '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
+			case 'ispDiversionTips': return '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
 			case 'staticIP': return '静态IP';
 			case 'other': return '其他';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP';
+			case 'isp': return 'ISP/机场';
+			case 'ispBind': return '[ISP/机场]绑定';
+			case 'ispUnbind': return ({required Object p}) => '解除绑定[${p}]';
+			case 'ispFaq': return ({required Object p}) => '常见问题[${p}]';
+			case 'ispCustomerService': return ({required Object p}) => '客服[${p}]';
+			case 'ispFollow': return ({required Object p}) => '关注[${p}]';
+			case 'ispInvalidOrExpired': return '[ISP/机场]无效或已过期';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return '无效URL';
@@ -1277,12 +1291,14 @@ extension on TranslationsZhCn {
 			case 'latencyTestTimeout': return '超时时间';
 			case 'uwpExemption': return 'UWP网络隔离豁免';
 			case 'ads': return '广告';
+			case 'adsBanner': return '横幅广告';
+			case 'donate': return '捐助';
 			case 'removeBannerAdsByShare': return '分享[Karing]去广告';
 			case 'removeBannerAdsByReward': return '观看广告去广告';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 			case 'removeBannerAdsDone': return ({required Object p}) => '已获得${p}天无广告奖励';
-			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge或Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启app再试';
+			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

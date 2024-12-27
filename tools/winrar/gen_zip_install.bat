@@ -17,8 +17,8 @@ del /s /Q %DestPath3%
 del /s /Q %DestPdbPath%
 
 winrar.exe a -ep1 -r -ibck -o+ %DestPath% %SrcPath% 
-winrar.exe D %DestPath% *.pdb
-winrar.exe D %DestPath% *.lib
+winrar.exe D -y %DestPath% *.pdb
+winrar.exe D -y %DestPath% *.lib
 
 winrar.exe a -ep1 -r -ibck -o+ %DestPdbPath% %SrcPdbPath% 
 

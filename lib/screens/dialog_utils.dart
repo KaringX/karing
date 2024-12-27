@@ -1,7 +1,10 @@
 // ignore_for_file: empty_catches
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -9,6 +12,7 @@ import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/dropdown.dart';
 import 'package:tuple/tuple.dart';
+import 'package:vpn_service/vpn_service.dart';
 
 //flutter showdialog setstate https://stackoverflow.com/questions/58977815/flutter-setstate-on-showdialog
 class DialogUtilsResult<T> {
@@ -39,9 +43,23 @@ class DialogUtils {
       text = text.substring(0,
           kMaxLength); //android https://www.cnblogs.com/yyhimmy/p/12583251.html
     }
+    var remoteISPConfig = RemoteISPConfigManager.getConfig();
+    if (showFAQ) {
+      showFAQ = remoteISPConfig.faq.isNotEmpty;
+      if (showFAQ && Platform.isAndroid) {
+        String version = await FlutterVpnService.getSystemVersion();
+        int? v = int.tryParse(version);
+        if (v != null && v == 27) {
+          //android 8.1 flutter_inappwebview_android exception:AbstractMethodError: abstract method "void android.webkit.WebSettings.setSafeBrowsingEnabled(boolean)"
+          showFAQ = false;
+        }
+        if (!context.mounted) {
+          return;
+        }
+      }
+    }
 
     final tcontext = Translations.of(context);
-
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -105,7 +123,7 @@ class DialogUtils {
                     child: ElevatedButton(
                       child: Text(tcontext.faq),
                       onPressed: () async {
-                        faqCallback?.call(text);
+                        await faqCallback?.call(text);
                       },
                     ))
                 : const SizedBox.shrink(),

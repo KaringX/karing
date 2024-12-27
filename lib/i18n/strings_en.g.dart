@@ -124,6 +124,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get none => 'None';
 	String get reset => 'Reset';
 	String get submit => 'Submit';
+	String get user => 'User';
 	String get account => 'Account';
 	String get password => 'Password';
 	String get required => 'Required';
@@ -143,6 +144,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get dns => 'DNS';
 	String get url => 'URL';
 	String get isp => 'ISP';
+	String get ispBind => '[ISP] Bind';
+	String ispUnbind({required Object p}) => 'Unbind[${p}]';
+	String ispFaq({required Object p}) => 'FAQ[${p}]';
+	String ispCustomerService({required Object p}) => 'Telegram[${p}]';
+	String ispFollow({required Object p}) => 'Follow[${p}]';
+	String get ispInvalidOrExpired => '[ISP] Invalid or expired';
 	String get tls => 'TLS';
 	String get userAgent => 'UserAgent';
 	String get urlInvalid => 'Invalid URL';
@@ -224,12 +231,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get latencyTestTimeout => 'Timeout';
 	String get uwpExemption => 'UWP Network Isolation Exemptions';
 	String get ads => 'Remove ads';
+	String get adsBanner => 'Banner ads';
+	String get donate => 'Donate';
 	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
 	String get removeBannerAdsByReward => 'Watch an ad to remove ads';
 	String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
 	String removeBannerAdsByRewardTip({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 	String removeBannerAdsDone({required Object p}) => 'Received ${p} days of ad-free rewards';
-	String get edgeRuntimeNotInstalled => 'The current device has not installed Edge or Edge WebView2 runtime, so the page cannot be displayed. Please download and install Edge WebView2 runtime (x64), restart the app and try again.';
+	String get edgeRuntimeNotInstalled => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
 	Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -247,6 +256,7 @@ class TranslationsAboutScreenEn {
 
 	// Translations
 	String get installRefer => 'Install Refer';
+	String get installTime => 'Install Time';
 	String get versionChannel => 'Auto Update Channel';
 	String get disableUAReport => 'Turn Off Action Data Report';
 	String get disableUAReportTip => 'Behavioral data reporting helps us improve the product experience; versions lower than the main version will automatically turn off all data reporting (except [App Activation])';
@@ -606,16 +616,13 @@ class TranslationsSettingsScreenEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String ispFaq({required Object p}) => 'FAQ[${p}]';
-	String cleanISP({required Object p}) => 'Clear ISP[${p}]';
-	String get openISP => 'Open ISP link';
-	String get cleanISPNoParam => 'Clear ISP Info';
 	String get getTranffic => 'Get Traffic';
 	String get tutorial => 'Tutorial';
 	String get commonlyUsedRulesets => 'Commonly Used Rulesets';
 	String get howToRemoveAds => 'How to remove ads';
 	String get htmlBoard => 'Online Panel';
 	String get dnsLeakDetection => 'DNS Leaks Detection';
+	String get proxyLeakDetection => 'Proxy Leaks Detection';
 	String get speedTest => 'Speed Test';
 	String get downloadProfilePreferProxy => 'Prefer Proxy to Download Profile';
 	String get downloadProfilePreferProxyTips => 'If currently connected, the profile will be downloaded through the connected proxy first';
@@ -665,7 +672,7 @@ class TranslationsSettingsScreenEn {
 	String inboundDomainResolveTips({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]';
 	String get useRomoteRes => 'Use Remote Resources';
 	String get autoSelect => 'Auto Select';
-	String get autoSelectServerIgnorePerProxyServer => 'Ignore [Per-Proxy] proxy server';
+	String get autoSelectServerIgnorePerProxyServer => 'Ignore [Front/Chaine] Proxy Servers';
 	String get autoSelectServerInterval => 'Latency Checks Interval';
 	String get autoSelectServerReTestIfNetworkUpdate => 'Re-check Latency when Network Changes';
 	String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Update the Current Server after Manual Latency Check';
@@ -695,8 +702,8 @@ class TranslationsSettingsScreenEn {
 	String get importSuccess => 'Import Success';
 	String get rewriteConfirm => 'This file will overwrite the existing local configuration. Do you want to continue?';
 	String get networkShare => 'Network Sharing';
-	String get frontProxy => 'Per-Proxy';
-	String frontProxyTips({required Object p}) => 'Data->Pre-Proxy Server [Multiple Pre-Proxy Servers: from top to bottom]->Proxy Server [${p}]->Target Server';
+	String get frontProxy => 'Front/Chain Proxy';
+	String frontProxyTips({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
 	String get allowOtherHostsConnect => 'Allow Others to Connect';
 	String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	String get tunAutoRoute => 'Auto Route';
@@ -734,6 +741,7 @@ class TranslationsSettingsScreenEn {
 	String hasNewVersion({required Object p}) => 'Update Version ${p}';
 	String get follow => 'Follow Us';
 	String get contactUs => 'Contact Us';
+	String get supportUs => 'Support Us';
 	String get rateInApp => 'Rate Us';
 	String get rateInAppStore => 'Rate Us in AppStore';
 }
@@ -835,6 +843,7 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'AboutScreen.installRefer': return 'Install Refer';
+			case 'AboutScreen.installTime': return 'Install Time';
 			case 'AboutScreen.versionChannel': return 'Auto Update Channel';
 			case 'AboutScreen.disableUAReport': return 'Turn Off Action Data Report';
 			case 'AboutScreen.disableUAReportTip': return 'Behavioral data reporting helps us improve the product experience; versions lower than the main version will automatically turn off all data reporting (except [App Activation])';
@@ -978,16 +987,13 @@ extension on Translations {
 			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'The selected server is an IPv6 address and requires [Enable IPv6]';
 			case 'ServerSelectScreen.selectDisabled': return 'This server has been disabled';
 			case 'ServerSelectScreen.error404': return 'Latency detection encountered an error, please check if there is a configuration with the same content';
-			case 'SettingsScreen.ispFaq': return ({required Object p}) => 'FAQ[${p}]';
-			case 'SettingsScreen.cleanISP': return ({required Object p}) => 'Clear ISP[${p}]';
-			case 'SettingsScreen.openISP': return 'Open ISP link';
-			case 'SettingsScreen.cleanISPNoParam': return 'Clear ISP Info';
 			case 'SettingsScreen.getTranffic': return 'Get Traffic';
 			case 'SettingsScreen.tutorial': return 'Tutorial';
 			case 'SettingsScreen.commonlyUsedRulesets': return 'Commonly Used Rulesets';
 			case 'SettingsScreen.howToRemoveAds': return 'How to remove ads';
 			case 'SettingsScreen.htmlBoard': return 'Online Panel';
 			case 'SettingsScreen.dnsLeakDetection': return 'DNS Leaks Detection';
+			case 'SettingsScreen.proxyLeakDetection': return 'Proxy Leaks Detection';
 			case 'SettingsScreen.speedTest': return 'Speed Test';
 			case 'SettingsScreen.downloadProfilePreferProxy': return 'Prefer Proxy to Download Profile';
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'If currently connected, the profile will be downloaded through the connected proxy first';
@@ -1037,7 +1043,7 @@ extension on Translations {
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'Use Remote Resources';
 			case 'SettingsScreen.autoSelect': return 'Auto Select';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Ignore [Per-Proxy] proxy server';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Ignore [Front/Chaine] Proxy Servers';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Latency Checks Interval';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Re-check Latency when Network Changes';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Update the Current Server after Manual Latency Check';
@@ -1067,8 +1073,8 @@ extension on Translations {
 			case 'SettingsScreen.importSuccess': return 'Import Success';
 			case 'SettingsScreen.rewriteConfirm': return 'This file will overwrite the existing local configuration. Do you want to continue?';
 			case 'SettingsScreen.networkShare': return 'Network Sharing';
-			case 'SettingsScreen.frontProxy': return 'Per-Proxy';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Data->Pre-Proxy Server [Multiple Pre-Proxy Servers: from top to bottom]->Proxy Server [${p}]->Target Server';
+			case 'SettingsScreen.frontProxy': return 'Front/Chain Proxy';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'Allow Others to Connect';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1106,6 +1112,7 @@ extension on Translations {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'Update Version ${p}';
 			case 'SettingsScreen.follow': return 'Follow Us';
 			case 'SettingsScreen.contactUs': return 'Contact Us';
+			case 'SettingsScreen.supportUs': return 'Support Us';
 			case 'SettingsScreen.rateInApp': return 'Rate Us';
 			case 'SettingsScreen.rateInAppStore': return 'Rate Us in AppStore';
 			case 'SpeedTestSettingsScreen.title': return 'Speed Test URL';
@@ -1181,6 +1188,7 @@ extension on Translations {
 			case 'none': return 'None';
 			case 'reset': return 'Reset';
 			case 'submit': return 'Submit';
+			case 'user': return 'User';
 			case 'account': return 'Account';
 			case 'password': return 'Password';
 			case 'required': return 'Required';
@@ -1200,6 +1208,12 @@ extension on Translations {
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
 			case 'isp': return 'ISP';
+			case 'ispBind': return '[ISP] Bind';
+			case 'ispUnbind': return ({required Object p}) => 'Unbind[${p}]';
+			case 'ispFaq': return ({required Object p}) => 'FAQ[${p}]';
+			case 'ispCustomerService': return ({required Object p}) => 'Telegram[${p}]';
+			case 'ispFollow': return ({required Object p}) => 'Follow[${p}]';
+			case 'ispInvalidOrExpired': return '[ISP] Invalid or expired';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'Invalid URL';
@@ -1281,12 +1295,14 @@ extension on Translations {
 			case 'latencyTestTimeout': return 'Timeout';
 			case 'uwpExemption': return 'UWP Network Isolation Exemptions';
 			case 'ads': return 'Remove ads';
+			case 'adsBanner': return 'Banner ads';
+			case 'donate': return 'Donate';
 			case 'removeBannerAdsByShare': return 'Share [Karing] to remove ads';
 			case 'removeBannerAdsByReward': return 'Watch an ad to remove ads';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Received ${p} days of ad-free rewards';
-			case 'edgeRuntimeNotInstalled': return 'The current device has not installed Edge or Edge WebView2 runtime, so the page cannot be displayed. Please download and install Edge WebView2 runtime (x64), restart the app and try again.';
+			case 'edgeRuntimeNotInstalled': return 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

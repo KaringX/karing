@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import "package:images_picker/images_picker.dart";
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/qrcode_utils.dart';
@@ -13,7 +13,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:screen_capturer/screen_capturer.dart';
 
 class QrcodeScanResult {
@@ -149,7 +149,7 @@ class _AddProfileByScanQrcodeScanScreenState
                       future: getFlashState(),
                       builder:
                           (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        return snapshot.data == true
+                        return snapshot.hasData && snapshot.data!
                             ? const Icon(Icons.flash_on_outlined,
                                 color: ThemeDefine.kColorBlue)
                             : const Icon(Icons.flash_off_outlined);
@@ -417,14 +417,11 @@ class _AddProfileByScanQrcodeScanScreenState
     _qrContent = "";
     setState(() {});
     final tcontext = Translations.of(context);
-    List<Media>? result = await ImagesPicker.pick(
-      count: 1,
-      pickType: PickType.image,
-      gif: false,
-      maxSize: 1024,
-    );
-    if ((result != null) && result.isNotEmpty) {
-      String filePath = result[0].path;
+    final ImagePicker picker = ImagePicker();
+    final XFile? result = await picker.pickImage(source: ImageSource.gallery);
+
+    if ((result != null) && result.path.isNotEmpty) {
+      String filePath = result.path;
       var file = File(filePath);
       if (await file.exists()) {
         _image = Image.file(file);

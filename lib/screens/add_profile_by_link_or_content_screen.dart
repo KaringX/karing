@@ -1,5 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, empty_catches
 
+import 'dart:async';
+
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -20,18 +23,20 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
   }
 
   static int pushed = 0;
+  final String urlOrContent;
   final String? name;
-  final String linkUrl;
-  final String? ispName;
-  final String? ispUrl;
-  final String? ispFaq;
-  const AddProfileByLinkOrContentScreen(
-      {super.key,
-      required this.name,
-      required this.linkUrl,
-      this.ispName,
-      this.ispUrl,
-      this.ispFaq});
+  final String? ispId;
+  final String? ispUser;
+  final bool? autoAdd;
+
+  const AddProfileByLinkOrContentScreen({
+    super.key,
+    required this.urlOrContent,
+    this.name,
+    this.ispId,
+    this.ispUser,
+    this.autoAdd,
+  });
 
   @override
   State<AddProfileByLinkOrContentScreen> createState() =>
@@ -39,9 +44,10 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
 }
 
 class _AddProfileByLinkOrContentScreenState
-    extends LasyRenderingState<AddProfileByLinkOrContentScreen> {
+    extends LasyRenderingState<AddProfileByLinkOrContentScreen>
+    with AfterLayoutMixin {
   String _name = "";
-  String linkUrl = "";
+  String _urlOrContent = "";
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
@@ -54,18 +60,23 @@ class _AddProfileByLinkOrContentScreenState
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
     _name = widget.name != null ? widget.name!.trim() : "";
-    if (_name.isEmpty) {
-      _name = widget.ispName != null ? widget.ispName!.trim() : "";
-    }
-    linkUrl = widget.linkUrl.trim();
-    _textControllerLink.text = linkUrl;
+
+    _urlOrContent = widget.urlOrContent.trim();
+    _textControllerLink.text = _urlOrContent;
     if (_name.isNotEmpty) {
       _textControllerRemark.text = _name;
-    } else if (linkUrl.isNotEmpty) {
+    } else if (_urlOrContent.isNotEmpty) {
       updateRemarkByText();
     }
     _compatible = HttpUtils.getUserAgentsString();
     super.initState();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    if (widget.autoAdd == true) {
+      onAdd(context);
+    }
   }
 
   @override
@@ -160,17 +171,17 @@ class _AddProfileByLinkOrContentScreenState
     setState(() {});
 
     error = await ServerManager.addRemoteConfig(
-        "",
-        remark,
-        url,
-        SubscriptionLinkType.unknown,
-        _compatible,
-        _proxyFilter,
-        _enableDiversionRules,
-        _updateTimeInterval,
-        ispName: widget.ispName,
-        ispUrl: widget.ispUrl,
-        ispFaq: widget.ispFaq);
+      "",
+      remark,
+      url,
+      SubscriptionLinkType.unknown,
+      _compatible,
+      _proxyFilter,
+      _enableDiversionRules,
+      _updateTimeInterval,
+      ispId: widget.ispId,
+      ispUser: widget.ispUser,
+    );
 
     if (!mounted) {
       return;

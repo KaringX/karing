@@ -83,15 +83,19 @@ class CommonDialog {
         return;
       }
     }
-    loadFAQByError(context, errMessage);
+    loadFAQByError(context, errMessage, false);
     DialogUtils.showAlertDialog(context, errMessage,
         showCopy: true, showFAQ: true, withVersion: true);
   }
 
-  static void loadFAQByError(BuildContext context, String error) async {
-    if (!PlatformUtils.isPC()) {
-      return;
+  static void loadFAQByError(
+      BuildContext context, String error, bool forceOpen) async {
+    if (!forceOpen) {
+      if (!PlatformUtils.isPC()) {
+        return;
+      }
     }
+
     final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
     for (var anchor in remoteConfig.faqAnchor) {
@@ -113,8 +117,11 @@ class CommonDialog {
         }
         await WebviewHelper.loadUrl(context, url, title: tcontext.faq);
 
-        break;
+        return;
       }
     }
+
+    await WebviewHelper.loadUrl(context, remoteConfig.faq,
+        title: tcontext.ispFaq(p: tcontext.faq));
   }
 }

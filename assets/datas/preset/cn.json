@@ -67,6 +67,14 @@
         },
         {
             "rule_set_build_in": [
+                "geosite:google-play"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 Google Play",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
                 "geosite:google",
                 "geoip:google"
             ],
