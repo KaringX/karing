@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
  
-def signPropFile = "../private/karing/android/sign/key.properties"
+def signPropFile = "./key.properties"
 def sentryPropFile = "../private/karing/android/sign/sentry.properties"
 def buildTypeIsRelease = false
 android {
