@@ -23,8 +23,8 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
  
-def signPropFile = "./sign/key.properties"
-def sentryPropFile = "./sign/sentry.properties"
+def signPropFile = "../private/karing/android/sign/key.properties"
+def sentryPropFile = "../private/karing/android/sign/sentry.properties"
 def buildTypeIsRelease = false
 android {
     namespace "com.nebula.karing"
