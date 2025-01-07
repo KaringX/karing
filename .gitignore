@@ -60,3 +60,5 @@ app.*.map.json
 /android/sign/sentry.properties
 /android/sign/karing.release.keystore
 /.sentry-native
+/dist/ios
+/dist/macos

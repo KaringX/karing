@@ -1243,7 +1243,8 @@ class _NetConnectionsScreenState
   bool isSelf(NetConnectionState current) {
     var remoteConfig = RemoteConfigManager.getConfig();
     if (current.host.isNotEmpty) {
-      if (current.host.contains(remoteConfig.host) ||
+      if (current.host == remoteConfig.host ||
+          current.host.contains(".${remoteConfig.host}") ||
           current.host.contains(remoteConfig.sentry)) {
         return true;
       }

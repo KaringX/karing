@@ -223,8 +223,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.AboutScreen.disableUAReport,
                 tips: tcontext.AboutScreen.disableUAReportTip,
-                switchValue: RemoteConfigManager.rejectAnalyticsSubmit() ||
-                    SettingManager.getConfig().disableUAReport,
+                switchValue: !(RemoteConfigManager.rejectAnalyticsSubmit() ||
+                    SettingManager.getConfig().disableUAReport),
                 onSwitch: RemoteConfigManager.rejectAnalyticsSubmit()
                     ? null
                     : (bool value) async {
@@ -237,7 +237,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                         AnalyticsUtils.setEventType(value
                             ? analyticsEventTypeNoUA
                             : analyticsEventTypeAll);
-                        SettingManager.getConfig().disableUAReport = value;
+                        SettingManager.getConfig().disableUAReport = !value;
                         SettingManager.saveConfig();
                         setState(() {});
                       })),

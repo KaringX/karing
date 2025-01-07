@@ -375,6 +375,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         },
                         repeatable: false);
                     RemoteISPConfigManager.reset(RemoteISPConfig());
+                    NoticeManager.resetISP();
                     setState(() {});
                   }))
         ]));
@@ -1057,7 +1058,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     bool ads = PlatformUtils.isMobile() &&
         !AdsPrivate.getEnable() &&
         remoteConfig.adManualEnable;
-    bool donate = remoteConfig.donateUrl.isNotEmpty;
+    bool donate = !Platform.isIOS &&
+        !Platform.isMacOS &&
+        remoteConfig.donateUrl.isNotEmpty;
     bool showSupportUs = ads || donate;
     String rateUrl = await AppleUtils.getRateUrl();
     groupOptions.add(GroupItem(options: [
@@ -1184,7 +1187,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
                         name: 'SSS_notice',
-                        parameters: {"title": item.title},
+                        parameters: {"title": item.title, "isp_id": item.ispId},
                         repeatable: true);
 
                     if (item.url.isNotEmpty) {
@@ -2832,7 +2835,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             : GroupItemOptions(),
       ];
 
-      if (remoteConfig.donateUrl.isNotEmpty) {
+      if (!Platform.isIOS &&
+          !Platform.isMacOS &&
+          remoteConfig.donateUrl.isNotEmpty) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.donate,

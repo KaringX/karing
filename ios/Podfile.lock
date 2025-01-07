@@ -1,0 +1,246 @@
+PODS:
+  - app_installer (1.3.1):
+    - Flutter
+  - app_settings (5.1.1):
+    - Flutter
+  - build_info_ios (0.0.1):
+    - Flutter
+  - cryptography_flutter (0.2.0):
+    - Flutter
+  - DKImagePickerController/Core (4.3.9):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.9)
+  - DKImagePickerController/PhotoGallery (4.3.9):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.9)
+  - DKPhotoGallery (0.0.19):
+    - DKPhotoGallery/Core (= 0.0.19)
+    - DKPhotoGallery/Model (= 0.0.19)
+    - DKPhotoGallery/Preview (= 0.0.19)
+    - DKPhotoGallery/Resource (= 0.0.19)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.19):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.19):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_inappwebview_ios (0.0.1):
+    - Flutter
+    - flutter_inappwebview_ios/Core (= 0.0.1)
+    - OrderedSet (~> 6.0.3)
+  - flutter_inappwebview_ios/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 6.0.3)
+  - flutter_install_referrer (2.0.1):
+    - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - Google-Mobile-Ads-SDK (11.10.0):
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - google_mobile_ads (5.2.0):
+    - Flutter
+    - Google-Mobile-Ads-SDK (~> 11.10.0)
+    - webview_flutter_wkwebview
+  - GoogleUserMessagingPlatform (2.7.0)
+  - icloud_storage (0.0.1):
+    - Flutter
+  - image_picker_ios (0.0.1):
+    - Flutter
+  - in_app_review (0.2.0):
+    - Flutter
+  - move_to_background (0.0.1):
+    - Flutter
+  - MTBBarcodeScanner (5.0.11)
+  - open_file_ios (0.0.1):
+    - Flutter
+  - OrderedSet (6.0.3)
+  - package_info_plus (0.4.5):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - protocol_handler (0.0.1):
+    - Flutter
+  - qr_code_scanner_plus (0.2.6):
+    - Flutter
+    - MTBBarcodeScanner
+  - SDWebImage (5.20.0):
+    - SDWebImage/Core (= 5.20.0)
+  - SDWebImage/Core (5.20.0)
+  - Sentry (8.41.0):
+    - Sentry/Core (= 8.41.0)
+  - Sentry/Core (8.41.0)
+  - Sentry/HybridSDK (8.41.0)
+  - sentry_flutter (8.11.2):
+    - Flutter
+    - FlutterMacOS
+    - Sentry/HybridSDK (= 8.41.0)
+  - share_plus (0.0.1):
+    - Flutter
+  - SwiftyGif (5.4.5)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+  - vpn_service (0.1.0):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - app_installer (from `.symlinks/plugins/app_installer/ios`)
+  - app_settings (from `.symlinks/plugins/app_settings/ios`)
+  - build_info_ios (from `.symlinks/plugins/build_info_ios/ios`)
+  - cryptography_flutter (from `.symlinks/plugins/cryptography_flutter/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
+  - flutter_install_referrer (from `.symlinks/plugins/flutter_install_referrer/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
+  - icloud_storage (from `.symlinks/plugins/icloud_storage/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
+  - move_to_background (from `.symlinks/plugins/move_to_background/ios`)
+  - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - protocol_handler (from `.symlinks/plugins/protocol_handler/ios`)
+  - qr_code_scanner_plus (from `.symlinks/plugins/qr_code_scanner_plus/ios`)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.41.0`)
+  - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - vpn_service (from `.symlinks/plugins/vpn_service/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - DKImagePickerController
+    - DKPhotoGallery
+    - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
+    - MTBBarcodeScanner
+    - OrderedSet
+    - SDWebImage
+    - SwiftyGif
+
+EXTERNAL SOURCES:
+  app_installer:
+    :path: ".symlinks/plugins/app_installer/ios"
+  app_settings:
+    :path: ".symlinks/plugins/app_settings/ios"
+  build_info_ios:
+    :path: ".symlinks/plugins/build_info_ios/ios"
+  cryptography_flutter:
+    :path: ".symlinks/plugins/cryptography_flutter/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
+  Flutter:
+    :path: Flutter
+  flutter_inappwebview_ios:
+    :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
+  flutter_install_referrer:
+    :path: ".symlinks/plugins/flutter_install_referrer/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  google_mobile_ads:
+    :path: ".symlinks/plugins/google_mobile_ads/ios"
+  icloud_storage:
+    :path: ".symlinks/plugins/icloud_storage/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
+  in_app_review:
+    :path: ".symlinks/plugins/in_app_review/ios"
+  move_to_background:
+    :path: ".symlinks/plugins/move_to_background/ios"
+  open_file_ios:
+    :path: ".symlinks/plugins/open_file_ios/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  protocol_handler:
+    :path: ".symlinks/plugins/protocol_handler/ios"
+  qr_code_scanner_plus:
+    :path: ".symlinks/plugins/qr_code_scanner_plus/ios"
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 8.41.0
+  sentry_flutter:
+    :path: ".symlinks/plugins/sentry_flutter/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+  vpn_service:
+    :path: ".symlinks/plugins/vpn_service/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
+
+CHECKOUT OPTIONS:
+  Sentry:
+    :git: https://github.com/getsentry/sentry-cocoa.git
+    :tag: 8.41.0
+
+SPEC CHECKSUMS:
+  app_installer: 33dc04135cd44cbeadf243d332a717b2bc761a6c
+  app_settings: 017320c6a680cdc94c799949d95b84cb69389ebc
+  build_info_ios: 4fbaf3371c327dd0f8e93f787c3c42125384ce40
+  cryptography_flutter: 381bdacc984abcfbe3ca45ef7c76566ff061614c
+  DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
+  DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
+  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_inappwebview_ios: 6f63631e2c62a7c350263b13fa5427aedefe81d4
+  flutter_install_referrer: 37a7755603b4a9a94099a03755ec6d9584c3b099
+  flutter_local_notifications: df98d66e515e1ca797af436137b4459b160ad8c9
+  flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
+  Google-Mobile-Ads-SDK: 13e6e98edfd78ad8d8a791edb927658cc260a56f
+  google_mobile_ads: 2a538d8e42b1813809782792e48f8cf4374c2180
+  GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  icloud_storage: d9ac7a33ced81df08ba7ea1bf3099cc0ee58f60a
+  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  in_app_review: 318597b3a06c22bb46dc454d56828c85f444f99d
+  move_to_background: 39a5b79b26d577b0372cbe8a8c55e7aa9fcd3a2d
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  open_file_ios: 461db5853723763573e140de3193656f91990d9e
+  OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  protocol_handler: ae9efcf3b307f3fdffcd9d5252775b9f7d9f0d09
+  qr_code_scanner_plus: 3bfe4deb7f28996a63a2a580819d49dae80d5ed3
+  SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
+  Sentry: 54d0fe6c0df448497c8ed4cce66ccf7027e1823e
+  sentry_flutter: f8796ae209d02920fa58f9cfd4eae00ec685bf37
+  share_plus: 8b6f8b3447e494cca5317c8c3073de39b3600d1f
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  vpn_service: 7a8c070413ddc14ad196d03c4538133384332f0d
+  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
+
+PODFILE CHECKSUM: ce0ad4af2dce639014ab05ae1464b2c8d9aca064
+
+COCOAPODS: 1.16.2

@@ -169,8 +169,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     WidgetsBinding.instance.addObserver(this);
     protocolHandler.addListener(this);
-
     _init();
+    LocalNotifications.init();
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
     Biz.initHomeFinish();
     ErrorReporterUtils.register(() {
       if (!mounted) {
@@ -184,12 +188,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Future.delayed(const Duration(seconds: 0), () async {
       showAgreement();
     });
-
-    LocalNotifications.init();
-  }
-
-  @override
-  FutureOr<void> afterFirstLayout(BuildContext context) async {
     if (PlatformUtils.maybeTV()) {
       _focusNodeSettings.requestFocus();
     }
@@ -308,11 +306,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String? content = await FileUtils.readAndDelete(errorPath);
     if (content != null && content.isNotEmpty) {
       if (!content.contains("Config expired, Please start from app")) {
+        const int maxLength = 5000;
         AnalyticsUtils.logEvent(
             analyticsEventType: analyticsEventTypeApp,
             name: 'HSS_checkError',
             parameters: {
-              "err": content,
+              "err": content.length > maxLength
+                  ? content.substring(0, maxLength)
+                  : content,
               "from": from,
             });
         await DialogUtils.showAlertDialog(context, content,
@@ -623,7 +624,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void _init() async {
-    Biz.onInitFinish(() async {
+    Biz.onInitAllFinish(() async {
       DialogUtils.faqCallback = (String text) async {
         AnalyticsUtils.logEvent(
             analyticsEventType: analyticsEventTypeUA,
@@ -633,7 +634,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         CommonDialog.loadFAQByError(context, text, true);
       };
 
-      checkError("onInitFinish");
+      checkError("onInitHomeFinish");
 
       if (_currentServer.tag.isEmpty) {
         ProxyConfig? config = ServerManager.getMostRecent();
@@ -1501,14 +1502,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeUA,
         name: 'HSS_notice',
-        parameters: {"title": noticeItem.title},
+        parameters: {"title": noticeItem.title, "isp_id": noticeItem.ispId},
         repeatable: true);
 
     InAppNotifications.dismiss();
     _inAppNotificationsShowing = false;
     if (noticeItem.url.isNotEmpty) {
-      String url =
-          await UrlLauncherUtils.reorganizationUrlWithAnchor(noticeItem.url);
+      String url = noticeItem.ispId.isNotEmpty
+          ? noticeItem.url
+          : await UrlLauncherUtils.reorganizationUrlWithAnchor(noticeItem.url);
       if (!context.mounted) {
         return;
       }

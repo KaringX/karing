@@ -59,13 +59,14 @@ class _RegionSetingsScreenState
     if (Platform.isWindows) {
       for (var region in country.Countries.values) {
         var c = country_flags.Country.fromCode(region.alpha2);
-        String flutterAssetsPath = path.join(PathUtils.flutterAssetsDir(),
-            "packages/dash_flags/assets/svgs/flags/countries/country_${c.name}.svg");
-        var file = File(flutterAssetsPath);
-
+        String asset =
+            "packages/dash_flags/assets/svgs/flags/countries/country_${c.name}.svg";
         try {
-          _countriesAssets[c.name] = await file.exists();
-        } catch (e) {}
+          await rootBundle.load(asset);
+          _countriesAssets[c.name] = true;
+        } catch (e) {
+          break;
+        }
       }
     } else {
       for (var region in country.Countries.values) {

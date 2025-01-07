@@ -413,24 +413,26 @@ class _AddProfileByScanQrcodeScanScreenState
       //ImagesPicker impl error on android
       return await onPressScanFromImagePC();
     }
-    _image = null;
-    _qrContent = "";
-    setState(() {});
     final tcontext = Translations.of(context);
-    final ImagePicker picker = ImagePicker();
-    final XFile? result = await picker.pickImage(source: ImageSource.gallery);
-
-    if ((result != null) && result.path.isNotEmpty) {
-      String filePath = result.path;
-      var file = File(filePath);
-      if (await file.exists()) {
-        _image = Image.file(file);
-      }
-      if (!mounted) {
-        return;
-      }
+    try {
+      _image = null;
+      _qrContent = "";
       setState(() {});
-      try {
+
+      final ImagePicker picker = ImagePicker();
+      final XFile? result = await picker.pickImage(source: ImageSource.gallery);
+
+      if ((result != null) && result.path.isNotEmpty) {
+        String filePath = result.path;
+        var file = File(filePath);
+        if (await file.exists()) {
+          _image = Image.file(file);
+        }
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+
         String? qrcode = await QrcodeUtils.scanFromFile(filePath);
         if (!mounted) {
           return;
@@ -442,18 +444,13 @@ class _AddProfileByScanQrcodeScanScreenState
           _qrContent = qrcode;
           setState(() {});
         }
-      } catch (err, _) {
-        if (!mounted) {
-          return;
-        }
-        DialogUtils.showAlertDialog(
-            context,
-            tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-                p: err.toString()),
-            showCopy: true,
-            showFAQ: true,
-            withVersion: true);
       }
+    } catch (err, _) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -500,13 +497,8 @@ class _AddProfileByScanQrcodeScanScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-          context,
-          tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-              p: err.toString()),
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true);
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
     }
   }
 
@@ -549,13 +541,8 @@ class _AddProfileByScanQrcodeScanScreenState
           }
         }
       } catch (err, _) {
-        DialogUtils.showAlertDialog(
-            context,
-            tcontext.AddProfileByScanQrcodeScanScreen.scanException(
-                p: err.toString()),
-            showCopy: true,
-            showFAQ: true,
-            withVersion: true);
+        DialogUtils.showAlertDialog(context, err.toString(),
+            showCopy: true, showFAQ: true, withVersion: true);
       }
     }
   }

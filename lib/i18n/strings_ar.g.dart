@@ -131,7 +131,7 @@ class TranslationsAr implements Translations {
 	@override String get diversionCustomGroupPreset => 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 	@override String get diversionCustomGroupPresetTips => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 	@override String get diversionCustomGroupAddTips => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
-	@override String get urlTestCustomGroup => 'مجموعة الوكيل المخصصة';
+	@override String get urlTestCustomGroup => 'التحديد التلقائي المخصص';
 	@override String get rulesetEnableTips => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
 	@override String get ispUserAgentTips => 'سيقدم [ISP] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
 	@override String get ispDiversionTips => 'قواعد التفريغ التي يوفرها [ISP]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
@@ -254,8 +254,8 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'تثبيت الرجوع';
 	@override String get installTime => 'وقت التثبيت';
 	@override String get versionChannel => 'تحديث القنوات تلقائيا';
-	@override String get disableUAReport => 'قم بإيقاف تشغيل تقرير بيانات الإجراء';
-	@override String get disableUAReportTip => 'تساعدنا تقارير البيانات السلوكية على تحسين تجربة المنتج؛ ستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع تقارير البيانات تلقائيًا (باستثناء [تنشيط التطبيق])';
+	@override String get disableUAReport => 'تطبيق بيانات التحسين';
+	@override String get disableUAReportTip => 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]';
 	@override String get devOptions => 'خيارات للمطور';
 	@override String get enableDebugLog => 'تمكين سجل التصحيح';
 	@override String get viewFilsContent => 'عرض الملفات';
@@ -312,7 +312,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenAr implements TranslationsAdd
 	@override String get scanFromImage => 'مسح من الصورة';
 	@override String get scanNoResult => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
 	@override String get scanEmptyResult => 'نتيجة الفحص فارغة';
-	@override String scanException({required Object p}) => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح: ${p}';
 }
 
 // Path: BackupAndSyncLanSyncScreen
@@ -841,8 +840,8 @@ extension on TranslationsAr {
 			case 'AboutScreen.installRefer': return 'تثبيت الرجوع';
 			case 'AboutScreen.installTime': return 'وقت التثبيت';
 			case 'AboutScreen.versionChannel': return 'تحديث القنوات تلقائيا';
-			case 'AboutScreen.disableUAReport': return 'قم بإيقاف تشغيل تقرير بيانات الإجراء';
-			case 'AboutScreen.disableUAReportTip': return 'تساعدنا تقارير البيانات السلوكية على تحسين تجربة المنتج؛ ستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع تقارير البيانات تلقائيًا (باستثناء [تنشيط التطبيق])';
+			case 'AboutScreen.disableUAReport': return 'تطبيق بيانات التحسين';
+			case 'AboutScreen.disableUAReportTip': return 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]';
 			case 'AboutScreen.devOptions': return 'خيارات للمطور';
 			case 'AboutScreen.enableDebugLog': return 'تمكين سجل التصحيح';
 			case 'AboutScreen.viewFilsContent': return 'عرض الملفات';
@@ -872,7 +871,6 @@ extension on TranslationsAr {
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'مسح من الصورة';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
 			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'نتيجة الفحص فارغة';
-			case 'AddProfileByScanQrcodeScanScreen.scanException': return ({required Object p}) => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح: ${p}';
 			case 'BackupAndSyncLanSyncScreen.title': return 'LAN SYNC';
 			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
@@ -1195,7 +1193,7 @@ extension on TranslationsAr {
 			case 'diversionCustomGroupPreset': return 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 			case 'diversionCustomGroupPresetTips': return 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 			case 'diversionCustomGroupAddTips': return 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
-			case 'urlTestCustomGroup': return 'مجموعة الوكيل المخصصة';
+			case 'urlTestCustomGroup': return 'التحديد التلقائي المخصص';
 			case 'rulesetEnableTips': return 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
 			case 'ispUserAgentTips': return 'سيقدم [ISP] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
 			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [ISP]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';

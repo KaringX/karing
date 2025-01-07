@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/notice_manager.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config.dart';
+import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/karing_utils.dart';
@@ -84,6 +87,12 @@ class WebviewISPHelper {
         ispConfig.follow = isp.data!.follow;
         ispConfig.notice = isp.data!.notice;
         ispConfig.noticeUpdateInterval = isp.data!.noticeUpdateInterval;
+
+        var remoteConfig = RemoteConfigManager.getConfig();
+        if (!remoteConfig.ispBindNeedConnect) {
+          RemoteISPConfigManager.reset(ispConfig);
+          NoticeManager.resetISP();
+        }
       } catch (err) {
         result = err.toString();
       }
@@ -156,10 +165,15 @@ class WebviewISPHelper {
         }
         ReturnResultError? error =
             await SchemeHandler.addConfigBySubscriptionLink(
-                context, urlOrContent, name, ispConfig.id, ispUser, true);
+                context, urlOrContent, name, ispUser, ispConfig, true);
         if (error != null) {
           result = error.message;
           break;
+        }
+        var remoteConfig = RemoteConfigManager.getConfig();
+        if (remoteConfig.ispBindNeedConnect) {
+          RemoteISPConfigManager.reset(ispConfig);
+          NoticeManager.resetISP();
         }
       } catch (err) {
         result = err.toString();

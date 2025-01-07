@@ -135,7 +135,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get diversionCustomGroupPreset => 'Preset [Custom Diversion Group]';
 	String get diversionCustomGroupPresetTips => 'Note: Enabled items will be added/overwritten to [Custom Diversion Group] and [Diversion Rules]';
 	String get diversionCustomGroupAddTips => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect';
-	String get urlTestCustomGroup => 'Custom Proxy Group';
+	String get urlTestCustomGroup => 'Custom Auto Select';
 	String get rulesetEnableTips => 'Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect';
 	String get ispUserAgentTips => '[ISP] will send data of different subscription types based on [UserAgent] in [HTTP] request';
 	String get ispDiversionTips => '[ISP] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
@@ -258,8 +258,8 @@ class TranslationsAboutScreenEn {
 	String get installRefer => 'Install Refer';
 	String get installTime => 'Install Time';
 	String get versionChannel => 'Auto Update Channel';
-	String get disableUAReport => 'Turn Off Action Data Report';
-	String get disableUAReportTip => 'Behavioral data reporting helps us improve the product experience; versions lower than the main version will automatically turn off all data reporting (except [App Activation])';
+	String get disableUAReport => 'Application Improvement Data';
+	String get disableUAReportTip => '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]';
 	String get devOptions => 'Developer Options';
 	String get enableDebugLog => 'Enable Debug Log';
 	String get viewFilsContent => 'View Files';
@@ -316,7 +316,6 @@ class TranslationsAddProfileByScanQrcodeScanScreenEn {
 	String get scanFromImage => 'Scan From Image';
 	String get scanNoResult => 'Failed to parse the image, please make sure the screenshot is a valid QR code';
 	String get scanEmptyResult => 'Scan Result is empty';
-	String scanException({required Object p}) => 'Failed to parse the image, please make sure the screenshot is a valid QR code:${p}';
 }
 
 // Path: BackupAndSyncLanSyncScreen
@@ -845,8 +844,8 @@ extension on Translations {
 			case 'AboutScreen.installRefer': return 'Install Refer';
 			case 'AboutScreen.installTime': return 'Install Time';
 			case 'AboutScreen.versionChannel': return 'Auto Update Channel';
-			case 'AboutScreen.disableUAReport': return 'Turn Off Action Data Report';
-			case 'AboutScreen.disableUAReportTip': return 'Behavioral data reporting helps us improve the product experience; versions lower than the main version will automatically turn off all data reporting (except [App Activation])';
+			case 'AboutScreen.disableUAReport': return 'Application Improvement Data';
+			case 'AboutScreen.disableUAReportTip': return '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]';
 			case 'AboutScreen.devOptions': return 'Developer Options';
 			case 'AboutScreen.enableDebugLog': return 'Enable Debug Log';
 			case 'AboutScreen.viewFilsContent': return 'View Files';
@@ -876,7 +875,6 @@ extension on Translations {
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'Scan From Image';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'Failed to parse the image, please make sure the screenshot is a valid QR code';
 			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'Scan Result is empty';
-			case 'AddProfileByScanQrcodeScanScreen.scanException': return ({required Object p}) => 'Failed to parse the image, please make sure the screenshot is a valid QR code:${p}';
 			case 'BackupAndSyncLanSyncScreen.title': return 'LAN Sync';
 			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'Do not exit this interface before synchronization is completed';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Server Url';
@@ -1199,7 +1197,7 @@ extension on Translations {
 			case 'diversionCustomGroupPreset': return 'Preset [Custom Diversion Group]';
 			case 'diversionCustomGroupPresetTips': return 'Note: Enabled items will be added/overwritten to [Custom Diversion Group] and [Diversion Rules]';
 			case 'diversionCustomGroupAddTips': return 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect';
-			case 'urlTestCustomGroup': return 'Custom Proxy Group';
+			case 'urlTestCustomGroup': return 'Custom Auto Select';
 			case 'rulesetEnableTips': return 'Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect';
 			case 'ispUserAgentTips': return '[ISP] will send data of different subscription types based on [UserAgent] in [HTTP] request';
 			case 'ispDiversionTips': return '[ISP] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';

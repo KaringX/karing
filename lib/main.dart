@@ -81,6 +81,11 @@ Future<void> run(List<String> args) async {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
+      String cache = await PathUtils.cacheDir();
+      if (cache.isEmpty) {
+        startFailedReason = StartFailedReason.invalidProfile;
+        break;
+      }
       String version = await AppUtils.getPackgetVersion();
       if (AppUtils.getBuildinVersion() != version) {
         startFailedReason = StartFailedReason.invalidVersion;
@@ -119,48 +124,49 @@ Future<void> run(List<String> args) async {
         }
       }
     } while (false);
+    if (PlatformUtils.isPC()) {
+      await windowManager.ensureInitialized();
+      const inProduction = bool.fromEnvironment("dart.vm.product");
+      if (inProduction) {
+        await windowManager.setResizable(false);
+        await windowManager.setMaximizable(false);
+      }
+
+      await windowManager.center();
+    }
+
+    if (Platform.isWindows) {
+      await WindowsSingleInstance.ensureSingleInstance(
+          args, "karing_single_identifier", onSecondWindow: (args) async {
+        if (await windowManager.isMinimized()) {
+          await windowManager.restore();
+        }
+        await windowManager.focus();
+      });
+    }
+
+    await SettingManager.init();
+    if (PlatformUtils.isMobile()) {
+      if (SettingManager.getConfig().ui.autoOrientation) {
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.portraitDown,
+          DeviceOrientation.landscapeRight
+        ]);
+      } else {
+        SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      }
+    }
+    bool first = await Did.getFirstTime();
+    await InAppWebViewScreen.init();
+    AdsPrivate.init(first);
   } catch (err, stacktrace) {
     startFailedReason = StartFailedReason.exception;
     startFailedReasonDesc = err.toString();
+    Log.w("main.run exception: ${err.toString()}");
+    SentryUtils.captureException('main.run.exception', [], err, stacktrace);
   }
-
-  if (PlatformUtils.isPC()) {
-    await windowManager.ensureInitialized();
-    const inProduction = bool.fromEnvironment("dart.vm.product");
-    if (inProduction) {
-      await windowManager.setResizable(false);
-      await windowManager.setMaximizable(false);
-    }
-
-    await windowManager.center();
-  }
-
-  if (Platform.isWindows) {
-    await WindowsSingleInstance.ensureSingleInstance(
-        args, "karing_single_identifier", onSecondWindow: (args) async {
-      if (await windowManager.isMinimized()) {
-        await windowManager.restore();
-      }
-      await windowManager.focus();
-    });
-  }
-
-  await SettingManager.init();
-  if (PlatformUtils.isMobile()) {
-    if (SettingManager.getConfig().ui.autoOrientation) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.portraitDown,
-        DeviceOrientation.landscapeRight
-      ]);
-    } else {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    }
-  }
-  bool first = await Did.getFirstTime();
-  await InAppWebViewScreen.init();
-  AdsPrivate.init(first);
 
   runApp(TranslationProvider(
     child: const MyApp(),
@@ -451,7 +457,7 @@ class MyAppState extends State<MyApp>
         }
         _trayGrey = grey;
       } catch (err, stacktrace) {
-        Log.w("setIcon failed: ${err.toString()}");
+        Log.w("setIcon exception: ${err.toString()}");
         if (quitIfFailed) {
           Future.delayed(const Duration(milliseconds: 1000), () async {
             _quit();

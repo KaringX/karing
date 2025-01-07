@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/notice_manager.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -132,9 +134,41 @@ class SchemeHandler {
     if (url == null || url.isEmpty) {
       return ReturnResultError("url empty");
     }
+    RemoteISPConfig? ispConfig;
+    var remoteConfig = RemoteConfigManager.getConfig();
+    if (remoteConfig.ispBind && ispId != null && ispId.isNotEmpty) {
+      var remoteISPConfig = RemoteISPConfigManager.getConfig();
+      if (remoteISPConfig.id.isEmpty) {
+        ReturnResult<RemoteISPConfig> isp =
+            await KaringUtils.getRemoteISPConfig(ispId);
+        if (isp.error == null) {
+          if (isp.data!.id.isNotEmpty) {
+            ispConfig = isp.data!;
+          }
+        }
+      }
+    }
+    if (ispConfig != null) {
+      if (!remoteConfig.ispBindNeedConnect) {
+        RemoteISPConfigManager.reset(ispConfig);
+        NoticeManager.resetISP();
+      }
+    }
+    if (!context.mounted) {
+      return null;
+    }
+    ReturnResultError? result = await addConfigBySubscriptionLink(
+        context, url, name, ispUser, ispConfig, true);
+    if (result == null) {
+      if (ispConfig != null) {
+        if (remoteConfig.ispBindNeedConnect) {
+          RemoteISPConfigManager.reset(ispConfig);
+          NoticeManager.resetISP();
+        }
+      }
+    }
 
-    return await addConfigBySubscriptionLink(
-        context, url, name, ispId, ispUser, true);
+    return result;
   }
 
   static Future<ReturnResultError?> _restoreBackup(
@@ -185,35 +219,15 @@ class SchemeHandler {
       BuildContext context,
       String urlOrContent,
       String? name,
-      String? ispId,
       String? ispUser,
+      RemoteISPConfig? ispConfig,
       bool autoAdd) async {
-    int kMaxPush = 1;
-    RemoteISPConfig? ispConfig;
-    if (ispId != null && ispId.isNotEmpty) {
-      ReturnResult<RemoteISPConfig> isp =
-          await KaringUtils.getRemoteISPConfig(ispId);
-      if (isp.error == null) {
-        if (isp.data!.id.isNotEmpty) {
-          ispConfig = isp.data!;
-        }
-      }
-    }
     ServerConfigGroupItem? item =
         ServerManager.getGroupByUrlOrPath(urlOrContent);
     if (item != null) {
-      if (ispId != null && ispId.isNotEmpty) {
-        item.isp ??= SubscriptionISP();
-        item.isp!.id = ispId;
-        item.isp!.user = ispUser ?? "";
-      } else {
-        item.isp = null;
-      }
-      ServerManager.saveServerConfig();
-      RemoteISPConfigManager.reset(ispConfig ?? RemoteISPConfig());
       return null;
     }
-
+    int kMaxPush = 1;
     if (AddProfileByLinkOrContentScreen.pushed >= kMaxPush) {
       return ReturnResultError("addprofile request already exists");
     }
@@ -229,15 +243,12 @@ class SchemeHandler {
             builder: (context) => AddProfileByLinkOrContentScreen(
                   urlOrContent: urlOrContent,
                   name: name,
-                  ispId: ispId,
+                  ispId: ispConfig?.id,
                   ispUser: ispUser,
                   autoAdd: autoAdd,
                 )));
     if (ok != true) {
       return ReturnResultError("addprofile failed or canceled by user");
-    }
-    if (ispConfig != null) {
-      RemoteISPConfigManager.reset(ispConfig);
     }
 
     return null;

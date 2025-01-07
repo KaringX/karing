@@ -3,8 +3,8 @@
     "installRefer": "Install Refer",
     "installTime": "Install Time",
     "versionChannel": "Auto Update Channel",
-    "disableUAReport": "Turn Off Action Data Report",
-    "disableUAReportTip": "Behavioral data reporting helps us improve the product experience; versions lower than the main version will automatically turn off all data reporting (except [App Activation])",
+    "disableUAReport": "Application Improvement Data",
+    "disableUAReportTip": "[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]",
     "devOptions": "Developer Options",
     "enableDebugLog": "Enable Debug Log",
     "viewFilsContent": "View Files",
@@ -39,8 +39,7 @@
     "screenshot": "Screenshot",
     "scanFromImage": "Scan From Image",
     "scanNoResult": "Failed to parse the image, please make sure the screenshot is a valid QR code",
-    "scanEmptyResult": "Scan Result is empty",
-    "scanException": "Failed to parse the image, please make sure the screenshot is a valid QR code:$p"
+    "scanEmptyResult": "Scan Result is empty"
   },
   "BackupAndSyncLanSyncScreen": {
     "title": "LAN Sync",
@@ -422,7 +421,7 @@
   "diversionCustomGroupPreset": "Preset [Custom Diversion Group]",
   "diversionCustomGroupPresetTips": "Note: Enabled items will be added/overwritten to [Custom Diversion Group] and [Diversion Rules]",
   "diversionCustomGroupAddTips": "Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect",
-  "urlTestCustomGroup": "Custom Proxy Group",
+  "urlTestCustomGroup": "Custom Auto Select",
   "rulesetEnableTips": "Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect",
   "ispUserAgentTips": "[ISP] will send data of different subscription types based on [UserAgent] in [HTTP] request",
   "ispDiversionTips": "[ISP] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules",

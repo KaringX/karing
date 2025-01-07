@@ -366,24 +366,30 @@ class _AddProfileByLinkOrContentScreenState
               text: HttpUtils.getUserAgentsStringShort(_compatible),
               textWidthPercent: 0.24,
               tips: tcontext.ispUserAgentTips,
-              onPush: () async {
-                onTapUserAgent();
-              })),
+              onPush: _loading
+                  ? null
+                  : () async {
+                      onTapUserAgent();
+                    })),
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
               name: tcontext.filter,
-              onPush: () async {
-                onTapFilter();
-              })),
+              onPush: _loading
+                  ? null
+                  : () async {
+                      onTapFilter();
+                    })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.diversionRulesEnable,
               tips: tcontext.ispDiversionTips,
               switchValue: _enableDiversionRules,
-              onSwitch: (bool value) async {
-                _enableDiversionRules = value;
-                setState(() {});
-              })),
+              onSwitch: _loading
+                  ? null
+                  : (bool value) async {
+                      _enableDiversionRules = value;
+                      setState(() {});
+                    })),
       GroupItemOptions(
           timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
               name:
@@ -391,17 +397,19 @@ class _AddProfileByLinkOrContentScreenState
               tips: tcontext
                   .AddProfileByLinkOrContentScreen.updateTimerIntervalTips,
               duration: _updateTimeInterval,
-              onPicker: (bool canceled, Duration? duration) async {
-                if (canceled) {
-                  return;
-                }
-                if (duration != null && duration.inMinutes < 5) {
-                  duration = const Duration(minutes: 5);
-                }
-                _updateTimeInterval = duration;
+              onPicker: _loading
+                  ? null
+                  : (bool canceled, Duration? duration) async {
+                      if (canceled) {
+                        return;
+                      }
+                      if (duration != null && duration.inMinutes < 5) {
+                        duration = const Duration(minutes: 5);
+                      }
+                      _updateTimeInterval = duration;
 
-                setState(() {});
-              })),
+                      setState(() {});
+                    })),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

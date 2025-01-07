@@ -131,7 +131,7 @@ class TranslationsZhCn implements Translations {
 	@override String get diversionCustomGroupPreset => '预置[自定义分流组]';
 	@override String get diversionCustomGroupPresetTips => '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 	@override String get diversionCustomGroupAddTips => '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
-	@override String get urlTestCustomGroup => '自定义代理组';
+	@override String get urlTestCustomGroup => '自定义自动选择';
 	@override String get rulesetEnableTips => '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
 	@override String get ispUserAgentTips => '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
 	@override String get ispDiversionTips => '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
@@ -254,8 +254,8 @@ class _TranslationsAboutScreenZhCn implements TranslationsAboutScreenEn {
 	@override String get installRefer => '安装参考';
 	@override String get installTime => '安装时间';
 	@override String get versionChannel => '自动更新通道';
-	@override String get disableUAReport => '关闭行为数据上报';
-	@override String get disableUAReportTip => '行为数据上报有助于我们改进产品体验;低于主版本的版本将自动关闭的所有数据上报([应用激活]除外)';
+	@override String get disableUAReport => '应用改进数据';
+	@override String get disableUAReportTip => '[应用改进数据]有助于我们改进产品体验; 低于主版本的版本将自动关闭除[应用激活]以外的所有[应用改进数据]';
 	@override String get devOptions => '开发者选项';
 	@override String get enableDebugLog => '开启调试日志';
 	@override String get viewFilsContent => '查看文件';
@@ -312,7 +312,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenZhCn implements TranslationsA
 	@override String get scanFromImage => '打开二维码图片';
 	@override String get scanNoResult => '解析图片失败,请确保截图为有效的二维码';
 	@override String get scanEmptyResult => '扫描结果为空';
-	@override String scanException({required Object p}) => '解析图片异常,请确保截图为有效的二维码:${p}';
 }
 
 // Path: BackupAndSyncLanSyncScreen
@@ -841,8 +840,8 @@ extension on TranslationsZhCn {
 			case 'AboutScreen.installRefer': return '安装参考';
 			case 'AboutScreen.installTime': return '安装时间';
 			case 'AboutScreen.versionChannel': return '自动更新通道';
-			case 'AboutScreen.disableUAReport': return '关闭行为数据上报';
-			case 'AboutScreen.disableUAReportTip': return '行为数据上报有助于我们改进产品体验;低于主版本的版本将自动关闭的所有数据上报([应用激活]除外)';
+			case 'AboutScreen.disableUAReport': return '应用改进数据';
+			case 'AboutScreen.disableUAReportTip': return '[应用改进数据]有助于我们改进产品体验; 低于主版本的版本将自动关闭除[应用激活]以外的所有[应用改进数据]';
 			case 'AboutScreen.devOptions': return '开发者选项';
 			case 'AboutScreen.enableDebugLog': return '开启调试日志';
 			case 'AboutScreen.viewFilsContent': return '查看文件';
@@ -872,7 +871,6 @@ extension on TranslationsZhCn {
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return '打开二维码图片';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return '解析图片失败,请确保截图为有效的二维码';
 			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return '扫描结果为空';
-			case 'AddProfileByScanQrcodeScanScreen.scanException': return ({required Object p}) => '解析图片异常,请确保截图为有效的二维码:${p}';
 			case 'BackupAndSyncLanSyncScreen.title': return '局域网同步';
 			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return '同步完成前请勿退出此界面';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return '服务器地址';
@@ -1195,7 +1193,7 @@ extension on TranslationsZhCn {
 			case 'diversionCustomGroupPreset': return '预置[自定义分流组]';
 			case 'diversionCustomGroupPresetTips': return '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 			case 'diversionCustomGroupAddTips': return '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
-			case 'urlTestCustomGroup': return '自定义代理组';
+			case 'urlTestCustomGroup': return '自定义自动选择';
 			case 'rulesetEnableTips': return '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
 			case 'ispUserAgentTips': return '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
 			case 'ispDiversionTips': return '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';

@@ -947,7 +947,7 @@ class GroupHelper {
         repeatable: true);
 
     var remoteConfig = RemoteConfigManager.getConfig();
-    if (uri.host.toLowerCase() == remoteConfig.host.toLowerCase()) {
+    if (RemoteConfig.isSelfHost(url, remoteConfig.host)) {
       url = await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
     }
 

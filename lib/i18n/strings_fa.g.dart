@@ -131,7 +131,7 @@ class TranslationsFa implements Translations {
 	@override String get diversionCustomGroupPreset => 'از پیش تنظیم شده [گروه انحراف سفارشی]';
 	@override String get diversionCustomGroupPresetTips => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد';
 	@override String get diversionCustomGroupAddTips => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.';
-	@override String get urlTestCustomGroup => 'گروه پروکسی سفارشی';
+	@override String get urlTestCustomGroup => 'انتخاب خودکار سفارشی';
 	@override String get rulesetEnableTips => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
 	@override String get ispUserAgentTips => '[ISP] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
 	@override String get ispDiversionTips => 'قوانین بارگذاری ارائه شده توسط [ISP]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
@@ -254,8 +254,8 @@ class _TranslationsAboutScreenFa implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'مرجع نصب';
 	@override String get installTime => 'زمان نصب';
 	@override String get versionChannel => 'کانال به‌روزرسانی خودکار';
-	@override String get disableUAReport => 'خاموش کردن گزارش اطلاعات عملکرد';
-	@override String get disableUAReportTip => 'گزارش‌دهی داده‌های رفتاری به ما کمک می‌کند تا نسخه‌های پایین‌تر از نسخه اصلی را بهبود بخشیم، همه گزارش‌های داده را به‌طور خودکار خاموش می‌کند (به‌جز [فعال‌سازی برنامه]).';
+	@override String get disableUAReport => 'داده های بهبود را اعمال کنید';
+	@override String get disableUAReportTip => '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.';
 	@override String get devOptions => 'تنظیمات توسعه‌دهندگان';
 	@override String get enableDebugLog => 'فعال‌سازی گزارش اشکال‌زدایی';
 	@override String get viewFilsContent => 'مشاهده فایل‌ها';
@@ -312,7 +312,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenFa implements TranslationsAdd
 	@override String get scanFromImage => 'اسکن از عکس';
 	@override String get scanNoResult => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
 	@override String get scanEmptyResult => 'نتیجه اسکن خالی است';
-	@override String scanException({required Object p}) => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است: ${p}';
 }
 
 // Path: BackupAndSyncLanSyncScreen
@@ -841,8 +840,8 @@ extension on TranslationsFa {
 			case 'AboutScreen.installRefer': return 'مرجع نصب';
 			case 'AboutScreen.installTime': return 'زمان نصب';
 			case 'AboutScreen.versionChannel': return 'کانال به‌روزرسانی خودکار';
-			case 'AboutScreen.disableUAReport': return 'خاموش کردن گزارش اطلاعات عملکرد';
-			case 'AboutScreen.disableUAReportTip': return 'گزارش‌دهی داده‌های رفتاری به ما کمک می‌کند تا نسخه‌های پایین‌تر از نسخه اصلی را بهبود بخشیم، همه گزارش‌های داده را به‌طور خودکار خاموش می‌کند (به‌جز [فعال‌سازی برنامه]).';
+			case 'AboutScreen.disableUAReport': return 'داده های بهبود را اعمال کنید';
+			case 'AboutScreen.disableUAReportTip': return '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.';
 			case 'AboutScreen.devOptions': return 'تنظیمات توسعه‌دهندگان';
 			case 'AboutScreen.enableDebugLog': return 'فعال‌سازی گزارش اشکال‌زدایی';
 			case 'AboutScreen.viewFilsContent': return 'مشاهده فایل‌ها';
@@ -872,7 +871,6 @@ extension on TranslationsFa {
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'اسکن از عکس';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
 			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'نتیجه اسکن خالی است';
-			case 'AddProfileByScanQrcodeScanScreen.scanException': return ({required Object p}) => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است: ${p}';
 			case 'BackupAndSyncLanSyncScreen.title': return 'LAN Sync';
 			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'قبل از تکمیل همگام‌سازی از این قسمت خارج نشوید';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'آدرس URL سرور';
@@ -1195,7 +1193,7 @@ extension on TranslationsFa {
 			case 'diversionCustomGroupPreset': return 'از پیش تنظیم شده [گروه انحراف سفارشی]';
 			case 'diversionCustomGroupPresetTips': return 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد';
 			case 'diversionCustomGroupAddTips': return 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.';
-			case 'urlTestCustomGroup': return 'گروه پروکسی سفارشی';
+			case 'urlTestCustomGroup': return 'انتخاب خودکار سفارشی';
 			case 'rulesetEnableTips': return 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
 			case 'ispUserAgentTips': return '[ISP] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
 			case 'ispDiversionTips': return 'قوانین بارگذاری ارائه شده توسط [ISP]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';

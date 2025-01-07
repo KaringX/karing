@@ -3,8 +3,8 @@
     "installRefer": "安装参考",
     "installTime": "安装时间",
     "versionChannel": "自动更新通道",
-    "disableUAReport": "关闭行为数据上报",
-    "disableUAReportTip": "行为数据上报有助于我们改进产品体验;低于主版本的版本将自动关闭的所有数据上报([应用激活]除外)",
+    "disableUAReport": "应用改进数据",
+    "disableUAReportTip": "[应用改进数据]有助于我们改进产品体验; 低于主版本的版本将自动关闭除[应用激活]以外的所有[应用改进数据]",
     "devOptions": "开发者选项",
     "enableDebugLog": "开启调试日志",
     "viewFilsContent": "查看文件",
@@ -39,8 +39,7 @@
     "screenshot": "截图",
     "scanFromImage": "打开二维码图片",
     "scanNoResult": "解析图片失败,请确保截图为有效的二维码",
-    "scanEmptyResult": "扫描结果为空",
-    "scanException": "解析图片异常,请确保截图为有效的二维码:$p"
+    "scanEmptyResult": "扫描结果为空"
   },
   "BackupAndSyncLanSyncScreen": {
     "title": "局域网同步",
@@ -422,7 +421,7 @@
   "diversionCustomGroupPreset": "预置[自定义分流组]",
   "diversionCustomGroupPresetTips": "注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]",
   "diversionCustomGroupAddTips": "注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效",
-  "urlTestCustomGroup": "自定义代理组",
+  "urlTestCustomGroup": "自定义自动选择",
   "rulesetEnableTips": "提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效",
   "ispUserAgentTips": "[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据",
   "ispDiversionTips": "[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则",

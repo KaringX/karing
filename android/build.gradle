@@ -1,0 +1,63 @@
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 34  //fix error: android:attr/lStar not found
+                ndkVersion "23.1.7779620"
+            }
+            buildscript {
+                ext.kotlin_version = '1.8.0'
+                dependencies {
+                    classpath 'com.android.tools.build:gradle:8.7.0'
+                    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+                }
+            }
+        }
+        if (project.plugins.hasPlugin("com.android.library")) {
+            project.android {
+                if (namespace == null) {
+                    namespace project.group
+                }
+            }
+        }
+    }
+}
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+/*tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class) {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_7
+        targetCompatibility JavaVersion.VERSION_7
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_7
+    }
+}*/
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

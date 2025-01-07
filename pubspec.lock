@@ -618,7 +618,7 @@ packages:
     source: hosted
     version: "3.1.2"
   flutter_svg:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_svg
       sha256: "54900a1a1243f3c4a5506d853a2b5c2dbc38d5f27e52a52618a8054401431123"
@@ -1651,7 +1651,7 @@ packages:
   vpn_service:
     dependency: "direct main"
     description:
-      path: "../vpn_service"
+      path: "../vpn-service"
       relative: true
     source: path
     version: "0.12.15"

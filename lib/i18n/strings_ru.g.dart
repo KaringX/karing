@@ -131,7 +131,7 @@ class TranslationsRu implements Translations {
 	@override String get diversionCustomGroupPreset => 'Шаблоны личных правил';
 	@override String get diversionCustomGroupPresetTips => 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
 	@override String get diversionCustomGroupAddTips => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
-	@override String get urlTestCustomGroup => 'Личная группа прокси-серверов';
+	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
 	@override String get rulesetEnableTips => 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
 	@override String get ispUserAgentTips => '[ISP] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
 	@override String get ispDiversionTips => 'Правила перенаправления, предоставляемые подписками [ISP] типа [V2Ray], не поддерживаются.';
@@ -254,8 +254,8 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Ссылка на установку';
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
-	@override String get disableUAReport => 'Отключить аналитику';
-	@override String get disableUAReportTip => 'Данные отчётов о поведении программы помогают нам улучшить её работу; версии младше основной автоматически отключают все отчеты (кроме [Запуска приложения]).';
+	@override String get disableUAReport => 'Применить данные улучшения';
+	@override String get disableUAReportTip => '[Данные об улучшении приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные об улучшении приложения], кроме [Активации приложения].';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get enableDebugLog => 'Включить debug-лог';
 	@override String get viewFilsContent => 'Посмотреть файлы';
@@ -312,7 +312,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenRu implements TranslationsAdd
 	@override String get scanFromImage => 'Открыть';
 	@override String get scanNoResult => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
 	@override String get scanEmptyResult => 'Пустой результат сканирования.';
-	@override String scanException({required Object p}) => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код:${p}';
 }
 
 // Path: BackupAndSyncLanSyncScreen
@@ -841,8 +840,8 @@ extension on TranslationsRu {
 			case 'AboutScreen.installRefer': return 'Ссылка на установку';
 			case 'AboutScreen.installTime': return 'Время установки';
 			case 'AboutScreen.versionChannel': return 'Канал автоматического обновления';
-			case 'AboutScreen.disableUAReport': return 'Отключить аналитику';
-			case 'AboutScreen.disableUAReportTip': return 'Данные отчётов о поведении программы помогают нам улучшить её работу; версии младше основной автоматически отключают все отчеты (кроме [Запуска приложения]).';
+			case 'AboutScreen.disableUAReport': return 'Применить данные улучшения';
+			case 'AboutScreen.disableUAReportTip': return '[Данные об улучшении приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные об улучшении приложения], кроме [Активации приложения].';
 			case 'AboutScreen.devOptions': return 'Параметры разработчика';
 			case 'AboutScreen.enableDebugLog': return 'Включить debug-лог';
 			case 'AboutScreen.viewFilsContent': return 'Посмотреть файлы';
@@ -872,7 +871,6 @@ extension on TranslationsRu {
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'Открыть';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
 			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'Пустой результат сканирования.';
-			case 'AddProfileByScanQrcodeScanScreen.scanException': return ({required Object p}) => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код:${p}';
 			case 'BackupAndSyncLanSyncScreen.title': return 'Синхронизация по локальной сети';
 			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
@@ -1195,7 +1193,7 @@ extension on TranslationsRu {
 			case 'diversionCustomGroupPreset': return 'Шаблоны личных правил';
 			case 'diversionCustomGroupPresetTips': return 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
 			case 'diversionCustomGroupAddTips': return 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
-			case 'urlTestCustomGroup': return 'Личная группа прокси-серверов';
+			case 'urlTestCustomGroup': return 'Пользовательский автоматический выбор';
 			case 'rulesetEnableTips': return 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
 			case 'ispUserAgentTips': return '[ISP] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
 			case 'ispDiversionTips': return 'Правила перенаправления, предоставляемые подписками [ISP] типа [V2Ray], не поддерживаются.';

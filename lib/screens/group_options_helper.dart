@@ -1,6 +1,7 @@
 // ignore_for_file: unused_catch_stack, empty_catches
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
@@ -17,7 +18,7 @@ class GroupOptionsHelper {
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
     String getTranffic = remoteConfig.getTranffic;
 
-    if (remoteISPConfig.id.isNotEmpty) {
+    if (remoteConfig.ispBind && remoteISPConfig.id.isNotEmpty) {
       if (remoteISPConfig.getTranffic.isNotEmpty) {
         getTranffic = remoteISPConfig.getTranffic;
       }
@@ -36,12 +37,18 @@ class GroupOptionsHelper {
                         name: 'SSS_getTranffic',
                         parameters: {
                           "from": from,
-                          "isp_id": remoteISPConfig.id
+                          "isp_id": remoteConfig.ispBind &&
+                                  remoteISPConfig.id.isNotEmpty
+                              ? remoteISPConfig.id
+                              : ""
                         },
                         repeatable: true);
-                    String url =
-                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                            getTranffic);
+                    String url = getTranffic;
+                    if (RemoteConfig.isSelfHost(url, remoteConfig.host)) {
+                      url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                          url);
+                    }
+
                     if (!context.mounted) {
                       return;
                     }
