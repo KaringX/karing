@@ -28,7 +28,7 @@ class SchemeHandler {
   static Future<ReturnResultError?> handle(
       BuildContext context, String url) async {
     //clash://install-config?url=trojan://41bec492-cd79-4b57-9a15-7d2bb00fcfca@163.123.192.57:443?allowInsecure=1#%F0%9F%87%BA%F0%9F%87%B8%20_US_%E7%BE%8E%E5%9B%BD|trojan://a8f54f4e-1d9d-44e4-9ef7-50ee7ba89561@jk.jkk.kisskiss.pro:1887?allowInsecure=1#%F0%9F%87%B0%F0%9F%87%B7%20_KR_%E9%9F%A9%E5%9B%BD
-    //clash://install-config?url=https://xxxxx.com/clash/config
+    //karing://install-config?url=https://xxxxx.com/clash/config
     //stash://install-config?url=https%3A%2F%2Fwww.xxxxx.gay%2Fapi%2Fv1%2Fclient%2Fsubscribe%3Ftoken%3D&name=stars
     //sing-box://import-remote-profile?url=https://xxxxx:8443/proxy/fgram.json#mcivip%F0%9F%87%B9%F0%9F%87%B73%7CArefgram
     //karing://connect?background=false
@@ -103,8 +103,10 @@ class SchemeHandler {
     try {
       name = uri.queryParameters["name"];
       url = uri.queryParameters["url"];
-      ispId = uri.queryParameters["isp-id"];
-      ispUser = uri.queryParameters["isp-user"];
+      if (uri.scheme == SystemSchemeUtils.getKaringScheme()) {
+        ispId = uri.queryParameters["isp-id"];
+        ispUser = uri.queryParameters["isp-user"];
+      }
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
@@ -158,7 +160,7 @@ class SchemeHandler {
       return null;
     }
     ReturnResultError? result = await addConfigBySubscriptionLink(
-        context, url, name, ispUser, ispConfig, true);
+        context, url, name, ispUser, ispConfig, false);
     if (result == null) {
       if (ispConfig != null) {
         if (remoteConfig.ispBindNeedConnect) {

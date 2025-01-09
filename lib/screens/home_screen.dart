@@ -87,7 +87,7 @@ class HomeScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "/");
   }
 
-  final String launchUrl;
+  final String launchUrl; // await protocolHandler.getInitialUrl();
   const HomeScreen({super.key, required this.launchUrl});
 
   @override
@@ -162,6 +162,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   ProxyConfig _currentServer = ProxyConfig();
   bool _inAppNotificationsShowing = false;
+  bool _onInitAllFinished = false;
+  String _initUrl = "";
 
   @override
   void initState() {
@@ -169,6 +171,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     WidgetsBinding.instance.addObserver(this);
     protocolHandler.addListener(this);
+    _initUrl = widget.launchUrl;
     _init();
     LocalNotifications.init();
   }
@@ -301,7 +304,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
   }
 
-  void checkError(String from) async {
+  void checkError(String from, {bool showAlert = true}) async {
     String errorPath = await PathUtils.serviceStdErrorFilePath();
     String? content = await FileUtils.readAndDelete(errorPath);
     if (content != null && content.isNotEmpty) {
@@ -316,8 +319,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                   : content,
               "from": from,
             });
-        await DialogUtils.showAlertDialog(context, content,
-            showCopy: true, showFAQ: true, withVersion: true);
+        if (showAlert) {
+          await DialogUtils.showAlertDialog(context, content,
+              showCopy: true, showFAQ: true, withVersion: true);
+        }
       }
     }
   }
@@ -625,258 +630,29 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void _init() async {
     Biz.onInitAllFinish(() async {
-      DialogUtils.faqCallback = (String text) async {
-        AnalyticsUtils.logEvent(
-            analyticsEventType: analyticsEventTypeUA,
-            name: 'SSS_faq',
-            parameters: {"from": "DialogUtils"},
-            repeatable: true);
-        CommonDialog.loadFAQByError(context, text, true);
-      };
+      await _onInitAllFinish();
+    });
+  }
 
-      checkError("onInitHomeFinish");
-
-      if (_currentServer.tag.isEmpty) {
-        ProxyConfig? config = ServerManager.getMostRecent();
-        if (config != null) {
-          _currentServer = config;
-          if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
-            ProxyConfig? server =
-                ServerManager.getConfig().getByTag(_currentServer.tag);
-            if (server != null) {
-              _currentServer = server;
-            }
-          } else {
-            _currentServer.latency = "";
-          }
-          VPNService.setCurrent(_currentServer);
-          _currentServerForSelector.clear();
-        } else {
-          if (ServerManager.getConfig().getServersCount(false) > 0) {
-            _currentServer = ServerManager.getUrltest();
-            VPNService.setCurrent(_currentServer);
-            _currentServerForSelector.clear();
-            ServerManager.addRecent(_currentServer);
-            ServerManager.saveUse();
-          }
-        }
-      }
-      _isStarted = await VPNService.started();
-      Biz.vpnStateChanged(_isStarted);
-      _canConnect = _isStarted;
-      if (_canConnect) {
-        _connectToCurrent();
-        _connectToService();
-        _updateWanIP();
-      }
-      _startCheckTimer();
-
-      if (PlatformUtils.isPC()) {
-        if (SettingManager.getConfig().autoConnectAfterLaunch) {
-          Future.delayed(const Duration(milliseconds: 500), () async {
-            await start("launch");
-          });
-        }
-      } else if (Platform.isAndroid) {
-        String? command = await MainChannel.call("getCommand", {});
-        if (command == "connect") {
-          ReturnResultError? err = await start("launch");
-          if (err == null) {
-            moveToBackground();
-          }
-        }
-      }
-      if (widget.launchUrl.isNotEmpty) {
-        onProtocolUrlReceived(widget.launchUrl);
-      }
+  Future<void> _onInitAllFinish() async {
+    NoticeManager.onCheck(() {
       setState(() {});
     });
-    Biz.onRequestStartVPN((String from) async {
-      return await start(from, disableShowAlertDialog: true);
-    });
-    SchemeHandler.vpnConnect = (bool background) {
-      Future.delayed(const Duration(seconds: 0), () async {
-        ReturnResultError? error = await start("scheme");
-        if (error == null) {
-          if (background) {
-            moveToBackground();
-          }
-        }
-      });
-    };
-    SchemeHandler.vpnDisconnect = (bool background) {
-      Future.delayed(const Duration(seconds: 0), () async {
-        await stop();
-        if (background) {
-          moveToBackground();
-        }
-      });
-    };
-    SchemeHandler.vpnReconnect = (bool background) {
-      Future.delayed(const Duration(seconds: 0), () async {
-        await stop();
-        ReturnResultError? error = await start("scheme");
-        if (error == null) {
-          if (background) {
-            moveToBackground();
-          }
-        }
-      });
-    };
-    VPNService.onStateChanged(
-        (FlutterVpnServiceStateChangeReason reason, int code) async {
-      if (!_isStarting && !_isStoping) {
-        if (reason == FlutterVpnServiceStateChangeReason.start) {
-          _updateVpnStateLocalNotifications("start");
-          if (_canConnect) {
-            _connectToCurrent();
-            _connectToService();
-            _updateWanIP();
-          }
-        } else if (reason == FlutterVpnServiceStateChangeReason.restart) {
-          _updateVpnStateLocalNotifications("restart");
-          _disconnectToCurrent();
-          _disconnectToService();
-
-          if (_canConnect) {
-            _connectToCurrent();
-            _connectToService();
-            _updateWanIP();
-          }
-        } else if (reason == FlutterVpnServiceStateChangeReason.stop ||
-            reason == FlutterVpnServiceStateChangeReason.processexit) {
-          _updateVpnStateLocalNotifications("stop");
-          _disconnectToCurrent();
-          _disconnectToService();
-
-          checkError("onStateChanged");
-        } else if (reason == FlutterVpnServiceStateChangeReason.syncstate) {
-          return;
-        }
-        updateTile();
-      }
-
-      if (reason == FlutterVpnServiceStateChangeReason.processexit &&
-          code != 0) {
-        AnalyticsUtils.logEvent(
-            analyticsEventType: analyticsEventTypeApp,
-            name: 'HSS_serviceQuit',
-            parameters: {
-              "code": code,
-            });
-      }
-    });
-    ServerManager.onAddConfig((ServerConfigGroupItem item) async {
-      if (_currentServer.groupid.isEmpty) {
-        _currentServer = ServerManager.getUrltest();
-        VPNService.setCurrent(_currentServer);
-
-        ServerManager.addRecent(_currentServer);
-        ServerManager.saveUse();
-      }
-      await setServerAndReload("onAddConfig");
-    });
-    ServerManager.onUpdateConfig((List<ServerConfigGroupItem> groups) async {
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        setState(() {});
-        return;
-      }
-      bool reload = false;
-      for (var group in groups) {
-        if (group.enable && group.reloadAfterProfileUpdate) {
-          reload = true;
-          break;
-        }
-      }
-      if (!reload) {
-        setState(() {});
-        return;
-      }
-
-      await setServerAndReload("onUpdateConfig");
-    });
-    ServerManager.onLatencyUpdateConfig(
-        (Set<ServerConfigGroupItem> groups) async {
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        setState(() {});
-        return;
-      }
-      bool reload = false;
-      for (var group in groups) {
-        if (group.enable && group.testLatencyAutoRemove) {
-          reload = true;
-          break;
-        }
-      }
-      if (!reload) {
-        setState(() {});
-        return;
-      }
-
-      await setServerAndReload("onLatencyUpdateConfig");
-    });
-    /*ServerManager.onRemoveConfig(
-        (String groupid, bool enable, bool hasDeviersionGroup) async {
-      if (!enable) {
-        return;
-      }
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        _currentServer = ProxyConfig();
-        VPNService.setCurrent(_currentServer);
-
-        await stop();
-
-        return;
-      }
-      if (groupid == _currentServer.groupid) {
-        _currentServer = ServerManager.getUrltest();
-        VPNService.setCurrent(_currentServer);
-
-        ServerManager.addRecent(_currentServer);
-        ServerManager.saveUse();
-      }
-      await setServerAndReload("onRemoveConfig");
-    });*/
-    ServerManager.onEnableConfig((String groupid, bool enable) async {
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        _currentServer = ProxyConfig();
-        VPNService.setCurrent(_currentServer);
-
-        await stop();
-
-        return;
-      }
-      if (!enable) {
-        return;
-      }
-      if (groupid == _currentServer.groupid) {
-        _currentServer = ServerManager.getUrltest();
-        VPNService.setCurrent(_currentServer);
-
-        ServerManager.addRecent(_currentServer);
-        ServerManager.saveUse();
-      }
-      await setServerAndReload("onEnableConfig");
-    });
-    ServerManager.onRemoteTrafficReload((String groupid) {
-      setState(() {});
-    }, (String groupid) {
+    AutoUpdateManager.onCheck(() {
       setState(() {});
     });
-    ServerManager.onReloadFromZipConfigs(() async {
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        _currentServer = ProxyConfig();
-        VPNService.setCurrent(_currentServer);
+    DialogUtils.faqCallback = (String text) async {
+      AnalyticsUtils.logEvent(
+          analyticsEventType: analyticsEventTypeUA,
+          name: 'SSS_faq',
+          parameters: {"from": "DialogUtils"},
+          repeatable: true);
+      CommonDialog.loadFAQByError(context, text, true);
+    };
 
-        await stop();
+    checkError("_onInitAllFinish", showAlert: false);
 
-        return;
-      }
+    if (_currentServer.tag.isEmpty) {
       ProxyConfig? config = ServerManager.getMostRecent();
       if (config != null) {
         _currentServer = config;
@@ -886,111 +662,43 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           if (server != null) {
             _currentServer = server;
           }
+        } else {
+          _currentServer.latency = "";
         }
-
         VPNService.setCurrent(_currentServer);
+        _currentServerForSelector.clear();
       } else {
-        _currentServer = ServerManager.getUrltest();
-        VPNService.setCurrent(_currentServer);
-
-        ServerManager.addRecent(_currentServer);
-        ServerManager.saveUse();
-      }
-
-      setState(() {});
-    });
-
-    ServerManager.onTestLatency(hashCode,
-        (String groupid, String tag, bool start, bool finish) async {
-      if (!mounted) {
-        return;
-      }
-
-      if ((groupid == _currentServer.groupid && tag == _currentServer.tag) ||
-          (tag == _currentServerForSelector.now)) {
-        ServerConfigGroupItem? item = ServerManager.getByGroupId(groupid);
-        if (item != null) {
-          ProxyConfig? ppc = item.getByTag(tag);
-          if (ppc != null) {
-            _currentServer.latency = ppc.latency;
-            setState(() {});
-          }
+        if (ServerManager.getConfig().getServersCount(false) > 0) {
+          _currentServer = ServerManager.getUrltest();
+          VPNService.setCurrent(_currentServer);
+          _currentServerForSelector.clear();
+          ServerManager.addRecent(_currentServer);
+          ServerManager.saveUse();
         }
       }
-      if (finish) {
-        if (ServerManager.getUrltestGroupId() == _currentServer.groupid) {
-          if (SettingManager.getConfig()
-              .autoSelect
-              .updateCurrentServerAfterManualUrltest) {
-            await ClashApi.updateUrltestCheck(
-                SettingManager.getConfig().proxy.controlPort);
-            ReturnResult<CurrentServerForSelector> result =
-                await ClashApi.getCurrentServerForUrltest(
-                    ServerManager.getUrltestTagForCustom(_currentServer.tag),
-                    SettingManager.getConfig().proxy.controlPort);
+    }
 
-            if (result.error != null) {
-              _currentServerForSelector.clear();
-            } else {
-              _currentServerForSelector = result.data!;
-              _currentServer.latency =
-                  _currentServerForSelector.history.delay > 0
-                      ? _currentServerForSelector.history.delay.toString()
-                      : _currentServerForSelector.history.error;
+    SchemeHandler.vpnConnect = _vpnSchemeConnect;
+    SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
+    SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
 
-              ProxyConfig? proxy = ServerManager.getConfig()
-                  .getByTag(_currentServerForSelector.now);
-              if (proxy != null) {
-                proxy.latency = _currentServer.latency;
-              }
-              if (_currentServer.groupid == ServerManager.getUrltestGroupId() &&
-                  _currentServer.tag == kOutboundTagUrltest) {
-                if (ServerManager.getUse().selectDefault !=
-                    _currentServerForSelector.now) {
-                  ServerManager.getUse().selectDefault =
-                      _currentServerForSelector.now;
-                  ServerManager.saveUse();
-                }
-              }
-            }
-          }
-        }
-      }
-    });
+    Biz.onRequestStartVPN(_onRequestStartVPN);
 
-    NoticeManager.onCheck(() {
+    VPNService.onStateChanged(_onStateChanged);
+    ServerManager.onAddConfig(_onAddConfig);
+    ServerManager.onUpdateConfig(_onUpdateConfig);
+    ServerManager.onLatencyUpdateConfig(_onLatencyUpdateConfig);
+    //ServerManager.onRemoveConfig(_onRemoveConfig);
+    ServerManager.onEnableConfig(_onEnableConfig);
+    ServerManager.onRemoteTrafficReload((String groupid) {
+      setState(() {});
+    }, (String groupid) {
       setState(() {});
     });
-    AutoUpdateManager.onCheck(() {
-      setState(() {});
-    });
-
-    AppLifecycleStateNofityManager.onStateResumed(hashCode, () async {
-      if (!_isStarting && !_isStoping) {
-        bool started = await VPNService.started();
-        if (started != _isStarted) {
-          _isStarted = started;
-          Biz.vpnStateChanged(_isStarted);
-          setState(() {});
-        }
-        _canConnect = _isStarted;
-      }
-      _startCheckTimer();
-      _showNotify();
-
-      if (PlatformUtils.maybeTV()) {
-        _focusNodeSettings.requestFocus();
-      }
-    });
-
-    AppLifecycleStateNofityManager.onStatePaused(hashCode, () async {
-      if (!_isStarting) {
-        _canConnect = false;
-      }
-      _stopCheckTimer();
-      _disconnectToCurrent();
-      _disconnectToService();
-    });
+    ServerManager.onReloadFromZipConfigs(_onReloadFromZipConfigs);
+    ServerManager.onTestLatency(hashCode, _onTestLatency);
+    AppLifecycleStateNofityManager.onStateResumed(hashCode, _onStateResumed);
+    AppLifecycleStateNofityManager.onStatePaused(hashCode, _onStatePaused);
 
     if (Platform.isWindows) {
       bool reg =
@@ -999,6 +707,331 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         SystemSchemeUtils.register(SystemSchemeUtils.getClashScheme());
       }
     }
+    _onInitAllFinished = true;
+    _isStarted = await VPNService.started();
+    Biz.vpnStateChanged(_isStarted);
+    _canConnect = _isStarted;
+    if (_canConnect) {
+      _connectToCurrent();
+      _connectToService();
+      _updateWanIP();
+    }
+
+    setState(() {});
+    if (PlatformUtils.isPC()) {
+      if (SettingManager.getConfig().autoConnectAfterLaunch) {
+        await start("launch");
+      }
+    } else if (Platform.isAndroid) {
+      String? command = await MainChannel.call("getCommand", {});
+      if (command == "connect") {
+        ReturnResultError? err = await start("launch");
+        if (err == null) {
+          moveToBackground();
+        }
+      }
+    }
+    if (_initUrl.isNotEmpty) {
+      await SchemeHandler.handle(context, _initUrl);
+      _initUrl = "";
+    }
+    _startCheckTimer();
+    setState(() {});
+  }
+
+  Future<void> _vpnSchemeConnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      ReturnResultError? error = await start("scheme");
+      if (error == null) {
+        if (background) {
+          moveToBackground();
+        }
+      }
+    });
+  }
+
+  Future<void> _vpnSchemeDisconnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      await stop();
+      if (background) {
+        moveToBackground();
+      }
+    });
+  }
+
+  Future<void> _vpnSchemeReconnect(bool background) async {
+    Future.delayed(const Duration(seconds: 0), () async {
+      await stop();
+      ReturnResultError? error = await start("scheme");
+      if (error == null) {
+        if (background) {
+          moveToBackground();
+        }
+      }
+    });
+  }
+
+  Future<ReturnResultError?> _onRequestStartVPN(String from) async {
+    return await start(from, disableShowAlertDialog: true);
+  }
+
+  Future<void> _onStateChanged(
+      FlutterVpnServiceStateChangeReason reason, int code) async {
+    if (!_isStarting && !_isStoping) {
+      if (reason == FlutterVpnServiceStateChangeReason.start) {
+        _updateVpnStateLocalNotifications("start");
+        if (_canConnect) {
+          _connectToCurrent();
+          _connectToService();
+          _updateWanIP();
+        }
+      } else if (reason == FlutterVpnServiceStateChangeReason.restart) {
+        _updateVpnStateLocalNotifications("restart");
+        _disconnectToCurrent();
+        _disconnectToService();
+
+        if (_canConnect) {
+          _connectToCurrent();
+          _connectToService();
+          _updateWanIP();
+        }
+      } else if (reason == FlutterVpnServiceStateChangeReason.stop ||
+          reason == FlutterVpnServiceStateChangeReason.processexit) {
+        _updateVpnStateLocalNotifications("stop");
+        _disconnectToCurrent();
+        _disconnectToService();
+
+        checkError("onStateChanged");
+      } else if (reason == FlutterVpnServiceStateChangeReason.syncstate) {
+        return;
+      }
+      updateTile();
+    }
+
+    if (reason == FlutterVpnServiceStateChangeReason.processexit && code != 0) {
+      AnalyticsUtils.logEvent(
+          analyticsEventType: analyticsEventTypeApp,
+          name: 'HSS_serviceQuit',
+          parameters: {
+            "code": code,
+          });
+    }
+  }
+
+  Future<void> _onAddConfig(ServerConfigGroupItem item) async {
+    if (_currentServer.groupid.isEmpty) {
+      _currentServer = ServerManager.getUrltest();
+      VPNService.setCurrent(_currentServer);
+
+      ServerManager.addRecent(_currentServer);
+      ServerManager.saveUse();
+    }
+    await setServerAndReload("onAddConfig");
+  }
+
+  Future<void> _onUpdateConfig(List<ServerConfigGroupItem> groups) async {
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      setState(() {});
+      return;
+    }
+    bool reload = false;
+    for (var group in groups) {
+      if (group.enable && group.reloadAfterProfileUpdate) {
+        reload = true;
+        break;
+      }
+    }
+    if (!reload) {
+      setState(() {});
+      return;
+    }
+
+    await setServerAndReload("onUpdateConfig");
+  }
+
+  Future<void> _onLatencyUpdateConfig(Set<ServerConfigGroupItem> groups) async {
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      setState(() {});
+      return;
+    }
+    bool reload = false;
+    for (var group in groups) {
+      if (group.enable && group.testLatencyAutoRemove) {
+        reload = true;
+        break;
+      }
+    }
+    if (!reload) {
+      setState(() {});
+      return;
+    }
+
+    await setServerAndReload("onLatencyUpdateConfig");
+  }
+
+  Future<void> _onRemoveConfig(
+      String groupid, bool enable, bool hasDeviersionGroup) async {
+    if (!enable) {
+      return;
+    }
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      _currentServer = ProxyConfig();
+      VPNService.setCurrent(_currentServer);
+
+      await stop();
+
+      return;
+    }
+    if (groupid == _currentServer.groupid) {
+      _currentServer = ServerManager.getUrltest();
+      VPNService.setCurrent(_currentServer);
+
+      ServerManager.addRecent(_currentServer);
+      ServerManager.saveUse();
+    }
+    await setServerAndReload("onRemoveConfig");
+  }
+
+  Future<void> _onEnableConfig(String groupid, bool enable) async {
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      _currentServer = ProxyConfig();
+      VPNService.setCurrent(_currentServer);
+
+      await stop();
+
+      return;
+    }
+    if (!enable) {
+      return;
+    }
+    if (groupid == _currentServer.groupid) {
+      _currentServer = ServerManager.getUrltest();
+      VPNService.setCurrent(_currentServer);
+
+      ServerManager.addRecent(_currentServer);
+      ServerManager.saveUse();
+    }
+    await setServerAndReload("onEnableConfig");
+  }
+
+  Future<void> _onReloadFromZipConfigs() async {
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      _currentServer = ProxyConfig();
+      VPNService.setCurrent(_currentServer);
+
+      await stop();
+      return;
+    }
+    ProxyConfig? config = ServerManager.getMostRecent();
+    if (config != null) {
+      _currentServer = config;
+      if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
+        ProxyConfig? server =
+            ServerManager.getConfig().getByTag(_currentServer.tag);
+        if (server != null) {
+          _currentServer = server;
+        }
+      }
+
+      VPNService.setCurrent(_currentServer);
+    } else {
+      _currentServer = ServerManager.getUrltest();
+      VPNService.setCurrent(_currentServer);
+
+      ServerManager.addRecent(_currentServer);
+      ServerManager.saveUse();
+    }
+
+    setState(() {});
+  }
+
+  Future<void> _onTestLatency(
+      String groupid, String tag, bool start, bool finish) async {
+    if (!mounted) {
+      return;
+    }
+
+    if ((groupid == _currentServer.groupid && tag == _currentServer.tag) ||
+        (tag == _currentServerForSelector.now)) {
+      ServerConfigGroupItem? item = ServerManager.getByGroupId(groupid);
+      if (item != null) {
+        ProxyConfig? ppc = item.getByTag(tag);
+        if (ppc != null) {
+          _currentServer.latency = ppc.latency;
+          setState(() {});
+        }
+      }
+    }
+    if (finish) {
+      if (ServerManager.getUrltestGroupId() == _currentServer.groupid) {
+        if (SettingManager.getConfig()
+            .autoSelect
+            .updateCurrentServerAfterManualUrltest) {
+          await ClashApi.updateUrltestCheck(
+              SettingManager.getConfig().proxy.controlPort);
+          ReturnResult<CurrentServerForSelector> result =
+              await ClashApi.getCurrentServerForUrltest(
+                  ServerManager.getUrltestTagForCustom(_currentServer.tag),
+                  SettingManager.getConfig().proxy.controlPort);
+
+          if (result.error != null) {
+            _currentServerForSelector.clear();
+          } else {
+            _currentServerForSelector = result.data!;
+            _currentServer.latency = _currentServerForSelector.history.delay > 0
+                ? _currentServerForSelector.history.delay.toString()
+                : _currentServerForSelector.history.error;
+
+            ProxyConfig? proxy = ServerManager.getConfig()
+                .getByTag(_currentServerForSelector.now);
+            if (proxy != null) {
+              proxy.latency = _currentServer.latency;
+            }
+            if (_currentServer.groupid == ServerManager.getUrltestGroupId() &&
+                _currentServer.tag == kOutboundTagUrltest) {
+              if (ServerManager.getUse().selectDefault !=
+                  _currentServerForSelector.now) {
+                ServerManager.getUse().selectDefault =
+                    _currentServerForSelector.now;
+                ServerManager.saveUse();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  Future<void> _onStateResumed() async {
+    if (!_isStarting && !_isStoping) {
+      bool started = await VPNService.started();
+      if (started != _isStarted) {
+        _isStarted = started;
+        Biz.vpnStateChanged(_isStarted);
+        setState(() {});
+      }
+      _canConnect = _isStarted;
+    }
+    _startCheckTimer();
+    _showNotify();
+
+    if (PlatformUtils.maybeTV()) {
+      _focusNodeSettings.requestFocus();
+    }
+  }
+
+  Future<void> _onStatePaused() async {
+    if (!_isStarting) {
+      _canConnect = false;
+    }
+    _stopCheckTimer();
+    _disconnectToCurrent();
+    _disconnectToService();
   }
 
   Future<Tuple2<ReturnResultError?, int?>> setServer() async {
@@ -1787,6 +1820,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   @override
   void onProtocolUrlReceived(String url) {
+    Log.i("onProtocolUrlReceived: $url");
+    if (!mounted) {
+      return;
+    }
+    if (!_onInitAllFinished) {
+      _initUrl = url;
+      return;
+    }
     SchemeHandler.handle(context, url);
   }
 

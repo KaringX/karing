@@ -12,6 +12,7 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
 
   final String title;
   final List<String> data;
+  final Set<String> invalidData;
   final String dialogTitle;
   final String dialogTextHit;
   final Future<String?> Function()? onTapAdd;
@@ -19,6 +20,7 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
     super.key,
     required this.title,
     required this.data,
+    this.invalidData = const {},
     this.dialogTitle = "",
     this.dialogTextHit = "",
     this.onTapAdd,
@@ -157,6 +159,9 @@ class _ServerSelectSearchSettingsScreenState
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: ThemeConfig.kFontSizeGroupItem,
+                                color: widget.invalidData.contains(current)
+                                    ? Colors.red
+                                    : null,
                               ),
                             ),
                           ),

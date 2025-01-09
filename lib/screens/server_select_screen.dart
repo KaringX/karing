@@ -29,6 +29,7 @@ import 'package:tuple/tuple.dart';
 
 class ServerSelectScreenSingleSelectedOption {
   final ProxyConfig selectedServer;
+  final bool selectedServerInvalid;
 
   final bool showNone;
   final bool showCurrentSelect;
@@ -47,6 +48,7 @@ class ServerSelectScreenSingleSelectedOption {
 
   const ServerSelectScreenSingleSelectedOption({
     required this.selectedServer,
+    this.selectedServerInvalid = false,
     this.showNone = false,
     this.showCurrentSelect = false,
     this.showAutoSelect = true,
@@ -1060,6 +1062,13 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     bool noFavGroup = server.groupid == ServerManager.getUrltestGroupId() ||
         server.groupid == ServerManager.getDirectGroupId() ||
         server.groupid == ServerManager.getBlockGroupId();
+    late bool singleSelectCurrent;
+    late bool singleSelectCurrentInvalid;
+    if (widget.singleSelect != null) {
+      singleSelectCurrent = server.isSame(widget.singleSelect!.selectedServer);
+      singleSelectCurrentInvalid =
+          singleSelectCurrent && widget.singleSelect!.selectedServerInvalid;
+    }
 
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
@@ -1112,8 +1121,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               padding: const EdgeInsets.symmetric(
                 horizontal: padding,
               ),
-              color: widget.singleSelect != null &&
-                      server.isSame(widget.singleSelect!.selectedServer)
+              color: singleSelectCurrent
                   ? ThemeDefine.kColorBlue
                   : disabled
                       ? Colors.grey
@@ -1136,7 +1144,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                     Expanded(
                                       child: Text(
                                         index.toString(),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -1165,9 +1173,12 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 3,
                               style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeListSubItem,
-                                fontFamily: Platform.isWindows ? 'Emoji' : null,
-                              ),
+                                  fontSize: ThemeConfig.kFontSizeListSubItem,
+                                  fontFamily:
+                                      Platform.isWindows ? 'Emoji' : null,
+                                  color: singleSelectCurrentInvalid
+                                      ? Colors.red
+                                      : null),
                             ),
                           ),
                           server.attach.isEmpty

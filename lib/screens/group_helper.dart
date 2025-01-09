@@ -602,9 +602,16 @@ class GroupHelper {
                   await onTapRuleset(context);
                 })),
       ];
+      Set<String> allOutboundsTags = {};
+      VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null, null);
+      Set<String> invalidOutbounds = {};
       String frontProxy = "";
-
       if (settingConfig.frontProxy.isNotEmpty) {
+        for (var f in settingConfig.frontProxy) {
+          if (!allOutboundsTags.contains(f)) {
+            invalidOutbounds.add(f);
+          }
+        }
         frontProxy = settingConfig.frontProxy.length == 1
             ? settingConfig.frontProxy[0]
             : "${settingConfig.frontProxy[0]}...";
@@ -619,6 +626,7 @@ class GroupHelper {
                     text: frontProxy,
                     style: TextStyle(
                       fontFamily: Platform.isWindows ? 'Emoji' : null,
+                      color: invalidOutbounds.isNotEmpty ? Colors.red : null,
                     ),
                     onPush: () async {
                       String oldData = settingConfig.frontProxy.join(",");
@@ -631,6 +639,7 @@ class GroupHelper {
                               builder: (context) => ListAddScreen(
                                   title: tcontext.server,
                                   data: chain,
+                                  invalidData: invalidOutbounds,
                                   onTapAdd: () async {
                                     ProxyConfig? result = await Navigator.push(
                                         context,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -27,6 +28,7 @@ class DiversionRulesScreen extends LasyRenderingStatefulWidget {
 
 class DiversionRulesScreenState
     extends LasyRenderingState<DiversionRulesScreen> {
+  final Set<String> _allOutboundsTags = {};
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class DiversionRulesScreenState
         ServerManager.getDiversionCustomGroup();
 
     itemDiversion.remark = t.custom;
+    VPNService.getOutboundsWithoutUrltest(_allOutboundsTags, null, null, null);
   }
 
   @override
@@ -218,13 +221,25 @@ class DiversionRulesScreenState
             continue;
           }
         }
+        String text = "";
+        bool invalid = false;
+        if (selected.item2.isNotEmpty) {
+          text = selected.item2;
+        } else {
+          text = selected.item1.tag;
+          if (!_allOutboundsTags.contains(selected.item1.tag)) {
+            invalid = true;
+          }
+        }
+
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
           name: getDiversionShortName(item.name),
-          text: selected.item2.isNotEmpty ? selected.item2 : selected.item1.tag,
+          text: text,
+          textColor: invalid ? Colors.red : null,
           textWidthPercent: 0.4,
           onPush: () async {
-            onTapItem(item, selected.item1);
+            onTapItem(item, selected.item1, invalid: invalid);
           },
           onLongPress: () async {
             onTapItemName(item);
@@ -386,7 +401,7 @@ class DiversionRulesScreenState
   }
 
   Future<void> onTapItem(DiversionRulesGroup group, ProxyConfig selected,
-      {bool deleteIfSelectNone = false}) async {
+      {bool deleteIfSelectNone = false, bool invalid = false}) async {
     ProxyConfig? result = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -395,6 +410,7 @@ class DiversionRulesScreenState
                   title: getDiversionShortName(group.name),
                   singleSelect: ServerSelectScreenSingleSelectedOption(
                     selectedServer: selected,
+                    selectedServerInvalid: invalid,
                     showNone: true,
                     showCurrentSelect: true,
                     showAutoSelect: true,

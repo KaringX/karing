@@ -81,6 +81,7 @@ Future<void> run(List<String> args) async {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
+      await FileLogOutput.initLog();
       String cache = await PathUtils.cacheDir();
       if (cache.isEmpty) {
         startFailedReason = StartFailedReason.invalidProfile;
@@ -409,9 +410,10 @@ class MyAppState extends State<MyApp>
       }
     });
     if (startFailedReason == null) {
+      String version = AppUtils.getBuildinVersion();
       String profileDir = await PathUtils.profileDir();
       Log.w(
-          'launch ${Platform.resolvedExecutable}, $processArgs, ${Directory.current.absolute.path}, $profileDir');
+          'launch $version ${Platform.resolvedExecutable}, $processArgs, ${Directory.current.absolute.path}, $profileDir');
 
       Biz.onInitHomeFinish(() {
         firstShowWindow(false);

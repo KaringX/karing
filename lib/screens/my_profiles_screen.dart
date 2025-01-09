@@ -918,6 +918,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           child: Text(tcontext.share),
           onTap: () {
             const JsonEncoder encoder = JsonEncoder.withIndent('');
+
             String configContent =
                 encoder.convert(SingboxConfigBuilder.buildOutbound(server));
             Codec<String, String> stringToBase64 = utf8.fuse(base64);
@@ -935,8 +936,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           child: Text(tcontext.view),
           onTap: () {
             const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-            String content =
-                encoder.convert(SingboxConfigBuilder.buildOutbound(server));
+            String content = server.raw != null
+                ? encoder.convert(server.raw)
+                : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
             Navigator.push(
                 context,
                 MaterialPageRoute(
