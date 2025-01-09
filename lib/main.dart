@@ -56,20 +56,21 @@ void main(List<String> args) async {
   var subnets = await GeoipSubnetUtils.genClientSubnet(files);
   await GeoipSubnetUtils.saveSubnets(subnets, target);
   return;*/
-
+  //runZonedGuarded(() async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
   await RemoteConfigManager.init();
   await SentryUtilsPrivate.init();
   await RemoteISPConfigManager.init();
   await LocaleSettings.useDeviceLocale();
-  //runZonedGuarded(() async {// Zone mismatch
+
   if (PlatformDispatcher.instance.semanticsEnabled) {
     SemanticsBinding.instance.ensureSemantics();
   }
   await run(args);
   //}, (exception, stackTrace) async {
-  //  await Sentry.captureException(exception, stackTrace: stackTrace);
+  //  print("$exception, ${stackTrace.toString()}");
+  //await Sentry.captureException(exception, stackTrace: stackTrace);
   //});
 }
 

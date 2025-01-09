@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.0.38+506
+version: 1.0.38+507
 
 environment:
   sdk: ">=3.2.3 <4.0.0"
@@ -37,7 +37,7 @@ dependencies:
     #path: ../../KaringX/flutter_inappwebview/flutter_inappwebview
     git: 
       url: https://github.com/GooRingX/flutter_inappwebview.git
-      ref: 8940c33bc7f6d629fe8c78104f28295e737472bf #v6.2.0-beta.3
+      ref: fa225bf8a5f330ea32c95fa644c3c433aa5bc8fd #v6.2.0-beta.3
       path: flutter_inappwebview
   #flutter_inappwebview: 6.2.0-beta.2
   web_socket_channel: 2.4.0 #flutter_test

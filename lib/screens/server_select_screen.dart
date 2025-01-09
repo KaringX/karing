@@ -1062,8 +1062,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     bool noFavGroup = server.groupid == ServerManager.getUrltestGroupId() ||
         server.groupid == ServerManager.getDirectGroupId() ||
         server.groupid == ServerManager.getBlockGroupId();
-    late bool singleSelectCurrent;
-    late bool singleSelectCurrentInvalid;
+    bool singleSelectCurrent = false;
+    bool singleSelectCurrentInvalid = false;
     if (widget.singleSelect != null) {
       singleSelectCurrent = server.isSame(widget.singleSelect!.selectedServer);
       singleSelectCurrentInvalid =
