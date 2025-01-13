@@ -355,6 +355,9 @@ class _NetConnectionsScreenState
   }
 
   void track(List<Tracker> trackers) {
+    if (!mounted) {
+      return;
+    }
     if (_pause) {
       return;
     }

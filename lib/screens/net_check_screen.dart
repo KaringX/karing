@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -50,6 +51,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   StreamSubscription<dynamic>? _subscriptions;
   final _textControllerHost = TextEditingController();
   Tuple2<String, int?> _domainAndPort = const Tuple2("", null);
+  String _domain = "";
   bool _checking = false;
   NetCheckItem? _netCheckItemConnectivity;
   NetCheckItem? _netCheckItemRemoteRulesets;
@@ -825,6 +827,30 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    try {
+                      await Clipboard.setData(ClipboardData(text: _domain));
+                    } catch (e) {}
+                  },
+                  child: Text(
+                    "Domain: $_domain",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: ThemeConfig.kFontSizeGroupItem,
+                      color: _domain != _domainAndPort.item1
+                          ? Colors.yellow
+                          : null,
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ));
@@ -895,22 +921,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     if (!mounted) {
       return;
     }
-
-    final tcontext = Translations.of(context);
     _domainAndPort = getDomainAndPort();
-
-    if (!NetworkUtils.isDomain(_domainAndPort.item1, false)) {
-      DialogUtils.showAlertDialog(
-          context, tcontext.NetCheckScreen.invalidDomain);
-      return;
-    }
-    _disconnectLog();
-    _connectLog();
-    bool ok = await startVPN();
-    if (!ok) {
-      return;
-    }
-    _checking = true;
+    _domain = "";
 
     _netCheckItemConnectivity = null;
     _netCheckItemRemoteRulesets = null;
@@ -921,6 +933,21 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     _netCheckItemHostConnectivity = null;
     _buildData();
     setState(() {});
+    if (!NetworkUtils.isDomain(_domainAndPort.item1, false)) {
+      final tcontext = Translations.of(context);
+      DialogUtils.showAlertDialog(
+          context, tcontext.NetCheckScreen.invalidDomain);
+      return;
+    }
+    _domain = NetworkUtils.getRealDomain(_domainAndPort.item1) ??
+        _domainAndPort.item1;
+    _disconnectLog();
+    _connectLog();
+    bool ok = await startVPN();
+    if (!ok) {
+      return;
+    }
+    _checking = true;
     List<Future<bool> Function()> callbacks = [
       _checkConnectivity,
       _checkRemoteRulesets,

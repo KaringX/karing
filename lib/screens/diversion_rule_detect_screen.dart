@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -31,6 +32,8 @@ class _DiversionRuleDetectScreenState
   final _textControllerHost = TextEditingController();
 
   bool _checking = false;
+  String _domain = "";
+  final ValueNotifier<String> _encoded = ValueNotifier<String>("");
   final ValueNotifier<String> _rule = ValueNotifier<String>("");
   final ValueNotifier<String> _chain = ValueNotifier<String>("");
   final ValueNotifier<String> _ruleset = ValueNotifier<String>("");
@@ -195,6 +198,29 @@ class _DiversionRuleDetectScreenState
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            InkWell(
+                              onTap: () async {
+                                try {
+                                  await Clipboard.setData(
+                                      ClipboardData(text: _encoded.value));
+                                } catch (e) {}
+                              },
+                              child: Text("Domain"),
+                            ),
+                            ValueListenableBuilder<String>(
+                              builder: _encoded.value != _domain
+                                  ? _buildWithValueYellow
+                                  : _buildWithValue,
+                              valueListenable: _encoded,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Text(t.DiversionRuleDetectScreen.rule),
                             ValueListenableBuilder<String>(
                               builder: _buildWithValue,
@@ -244,20 +270,17 @@ class _DiversionRuleDetectScreenState
     }
 
     final tcontext = Translations.of(context);
+    _encoded.value = "";
     _rule.value = "";
     _chain.value = "";
     _ruleset.value = "";
-    String domain = _textControllerHost.text.toString().trim();
-    Uri? uri = Uri.tryParse(domain);
-    if (uri != null && uri.host.isNotEmpty) {
-      domain = uri.host;
-    }
-
-    if (!NetworkUtils.isDomain(domain, false)) {
+    _domain = _textControllerHost.text.toString().trim();
+    if (!NetworkUtils.isDomain(_domain, false)) {
       DialogUtils.showAlertDialog(
           context, tcontext.NetCheckScreen.invalidDomain);
       return;
     }
+    _encoded.value = NetworkUtils.getRealDomain(_domain) ?? _domain;
     bool ok = await startVPN();
     if (!ok) {
       return;
@@ -269,7 +292,7 @@ class _DiversionRuleDetectScreenState
     if (!setting.novice && setting.dns.enableInboundDomainResolve) {
       ReturnResult<String> resultDns = await ClashApi.dnsQueryWithDefaultRouter(
           SettingManager.getConfig().proxy.controlPort,
-          domain,
+          _domain,
           setting.ipStrategy.name);
       if (resultDns.error == null) {
         var config = jsonDecode(resultDns.data!);
@@ -284,7 +307,7 @@ class _DiversionRuleDetectScreenState
     }
 
     ReturnResult<String> outboundResult =
-        await ClashApi.outboundQuery(setting.proxy.controlPort, domain, ip);
+        await ClashApi.outboundQuery(setting.proxy.controlPort, _domain, ip);
 
     if (outboundResult.error == null) {
       try {
@@ -348,8 +371,22 @@ class _DiversionRuleDetectScreenState
       width: 200,
       child: Text(
         value,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: ThemeConfig.kFontSizeListSubItem,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWithValueYellow(
+      BuildContext context, String value, Widget? child) {
+    return SizedBox(
+      width: 200,
+      child: Text(
+        value,
+        style: TextStyle(
+          fontSize: ThemeConfig.kFontSizeListSubItem,
+          color: Colors.yellow,
         ),
       ),
     );

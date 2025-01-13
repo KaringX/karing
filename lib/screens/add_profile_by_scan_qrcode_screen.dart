@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:karing/app/utils/platform_utils.dart';
@@ -42,6 +43,7 @@ class _AddProfileByScanQrcodeScanScreenState
   Image? _image;
   String _qrContent = "";
   bool _scanFromFile = false;
+  bool _showSnackBarShowed = false;
 
   @override
   void reassemble() {
@@ -68,33 +70,40 @@ class _AddProfileByScanQrcodeScanScreenState
   @override
   Widget build(BuildContext context) {
     //Size windowSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: buildBar(context),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              PlatformUtils.isMobile()
-                  ? _scanFromFile
-                      ? buildForMobileScanByImport(context)
-                      : buildForMobile(context)
-                  : buildForPC(context),
-            ],
+    return PopScope(
+        canPop: true,
+        onPopInvokedWithResult: (didPop, result) {
+          if (_showSnackBarShowed) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          }
+        },
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.zero,
+            child: AppBar(),
           ),
-        ),
-      ),
-    );
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: buildBar(context),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  PlatformUtils.isMobile()
+                      ? _scanFromFile
+                          ? buildForMobileScanByImport(context)
+                          : buildForMobile(context)
+                      : buildForPC(context),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
   List<Widget> buildBar(BuildContext context) {
@@ -387,11 +396,21 @@ class _AddProfileByScanQrcodeScanScreenState
     });
   }
 
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    //  log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+  void _onPermissionSet(
+      BuildContext context, QRViewController ctrl, bool p) async {
     if (!p) {
+      if (!mounted) {
+        return;
+      }
+      if (_showSnackBarShowed) {
+        return;
+      }
+      _showSnackBarShowed = true;
+      final tcontext = Translations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        SnackBar(
+            showCloseIcon: true,
+            content: Text(tcontext.requestCameraPermission)),
       );
     }
   }
@@ -511,8 +530,7 @@ class _AddProfileByScanQrcodeScanScreenState
     if (Platform.isMacOS) {
       bool allowed = await ScreenCapturer.instance.isAccessAllowed();
       if (!allowed) {
-        DialogUtils.showAlertDialog(context,
-            tcontext.AddProfileByScanQrcodeScanScreen.requestScreenAccess);
+        DialogUtils.showAlertDialog(context, tcontext.requestScreenAccess);
         ScreenCapturer.instance.requestAccess(onlyOpenPrefPane: true);
         return;
       }

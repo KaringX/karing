@@ -126,26 +126,26 @@ class TranslationsZhCn implements Translations {
 	@override String get required => '必填';
 	@override String get diversion => '分流';
 	@override String get diversionRules => '分流规则';
-	@override String get diversionRulesEnable => '启用[ISP/机场]分流规则';
+	@override String get diversionRulesEnable => '启用[机场]分流规则';
 	@override String get diversionCustomGroup => '自定义分流组';
 	@override String get diversionCustomGroupPreset => '预置[自定义分流组]';
 	@override String get diversionCustomGroupPresetTips => '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 	@override String get diversionCustomGroupAddTips => '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
 	@override String get urlTestCustomGroup => '自定义自动选择';
 	@override String get rulesetEnableTips => '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
-	@override String get ispUserAgentTips => '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
-	@override String get ispDiversionTips => '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
+	@override String get ispUserAgentTips => '[机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
+	@override String get ispDiversionTips => '[机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
 	@override String get staticIP => '静态IP';
 	@override String get other => '其他';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
-	@override String get isp => 'ISP/机场';
-	@override String get ispBind => '[ISP/机场]绑定';
+	@override String get isp => '机场';
+	@override String get ispBind => '绑定到[机场]';
 	@override String ispUnbind({required Object p}) => '解除绑定[${p}]';
 	@override String ispFaq({required Object p}) => '常见问题[${p}]';
 	@override String ispCustomerService({required Object p}) => '客服[${p}]';
 	@override String ispFollow({required Object p}) => '关注[${p}]';
-	@override String get ispInvalidOrExpired => '[ISP/机场]无效或已过期';
+	@override String get ispInvalidOrExpired => '[机场]无效或已过期';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => '无效URL';
@@ -173,7 +173,7 @@ class TranslationsZhCn implements Translations {
 	@override String get domainRegex => '域名正则';
 	@override String get ip => 'IP';
 	@override String get port => '端口';
-	@override String get appPackage => '应用包名';
+	@override String get appPackage => '应用包Id';
 	@override String get processName => '进程名称';
 	@override String get processPath => '进程路径';
 	@override String get systemProxy => '系统代理';
@@ -235,6 +235,9 @@ class TranslationsZhCn implements Translations {
 	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
 	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
+	@override String get requestCameraPermission => '请开启[摄像头]权限';
+	@override String get requestScreenAccess => '请开启[屏幕录制]权限';
+	@override String get requestAppQuery => '请开启[获取应用列表]权限';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -306,8 +309,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenZhCn implements TranslationsA
 	// Translations
 	@override String get copy => '拷贝链接';
 	@override String get open => '打开链接';
-	@override String get requestCameraPermission => '请开启摄像头权限';
-	@override String get requestScreenAccess => '请到系统设置-隐私与安全-屏幕录制 为本应用添加权限';
 	@override String get screenshot => '截图';
 	@override String get scanFromImage => '打开二维码图片';
 	@override String get scanNoResult => '解析图片失败,请确保截图为有效的二维码';
@@ -383,7 +384,7 @@ class _TranslationsDnsSettingsScreenZhCn implements TranslationsDnsSettingsScree
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get ispCanNotEmpty => 'ISP/机场 不能为空';
+	@override String get ispCanNotEmpty => 'ISP 不能为空';
 	@override String get urlCanNotEmpty => 'URL 不能为空';
 	@override String error({required Object p}) => '不支持的类型:${p}';
 	@override String get dnsDesc => '第一列延迟数据为直连查询延迟;\n第二列:开启[[代理流量]通过代理服务器解析DNS]:延迟数据为通过当前代理服务器转发的查询延迟;未开启[[代理流量]通过代理服务器解析DNS]:延迟数据为直连查询延迟';
@@ -623,7 +624,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get downloadProfilePreferProxyTips => '如果当前已连接,则优先通过已连接的代理下载配置';
 	@override String get rulesetDirectDownlad => 'Rule Set直连下载';
 	@override String get hideUnusedDiversionGroup => '隐藏未启用的分流组';
-	@override String get disableISPDiversionGroup => '禁用ISP分流规则';
+	@override String get disableISPDiversionGroup => '禁用[机场]分流规则';
 	@override String get portSetting => '端口';
 	@override String get portSettingRule => '基于规则';
 	@override String get portSettingDirectAll => '全直连';
@@ -865,8 +866,6 @@ extension on TranslationsZhCn {
 			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => '添加失败:${p}, 请打开代理或者修改当前代理节点后重试';
 			case 'AddProfileByScanQrcodeScanScreen.copy': return '拷贝链接';
 			case 'AddProfileByScanQrcodeScanScreen.open': return '打开链接';
-			case 'AddProfileByScanQrcodeScanScreen.requestCameraPermission': return '请开启摄像头权限';
-			case 'AddProfileByScanQrcodeScanScreen.requestScreenAccess': return '请到系统设置-隐私与安全-屏幕录制 为本应用添加权限';
 			case 'AddProfileByScanQrcodeScanScreen.screenshot': return '截图';
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return '打开二维码图片';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return '解析图片失败,请确保截图为有效的二维码';
@@ -888,7 +887,7 @@ extension on TranslationsZhCn {
 			case 'DiversionRuleDetectScreen.rule': return '规则:';
 			case 'DiversionRuleDetectScreen.outbound': return '代理服务器:';
 			case 'DiversionRulesScreen.diversionRulesMatchTips': return '提示:从上到下依次尝试匹配规则,如果没有匹配到规则,则使用[final]';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP/机场 不能为空';
+			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP 不能为空';
 			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL 不能为空';
 			case 'DnsSettingsScreen.error': return ({required Object p}) => '不支持的类型:${p}';
 			case 'DnsSettingsScreen.dnsDesc': return '第一列延迟数据为直连查询延迟;\n第二列:开启[[代理流量]通过代理服务器解析DNS]:延迟数据为通过当前代理服务器转发的查询延迟;未开启[[代理流量]通过代理服务器解析DNS]:延迟数据为直连查询延迟';
@@ -993,7 +992,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return '如果当前已连接,则优先通过已连接的代理下载配置';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'Rule Set直连下载';
 			case 'SettingsScreen.hideUnusedDiversionGroup': return '隐藏未启用的分流组';
-			case 'SettingsScreen.disableISPDiversionGroup': return '禁用ISP分流规则';
+			case 'SettingsScreen.disableISPDiversionGroup': return '禁用[机场]分流规则';
 			case 'SettingsScreen.portSetting': return '端口';
 			case 'SettingsScreen.portSettingRule': return '基于规则';
 			case 'SettingsScreen.portSettingDirectAll': return '全直连';
@@ -1188,26 +1187,26 @@ extension on TranslationsZhCn {
 			case 'required': return '必填';
 			case 'diversion': return '分流';
 			case 'diversionRules': return '分流规则';
-			case 'diversionRulesEnable': return '启用[ISP/机场]分流规则';
+			case 'diversionRulesEnable': return '启用[机场]分流规则';
 			case 'diversionCustomGroup': return '自定义分流组';
 			case 'diversionCustomGroupPreset': return '预置[自定义分流组]';
 			case 'diversionCustomGroupPresetTips': return '注意:启用的项会添加/覆盖到[自定义分流组]和[分流规则]';
 			case 'diversionCustomGroupAddTips': return '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效';
 			case 'urlTestCustomGroup': return '自定义自动选择';
 			case 'rulesetEnableTips': return '提示:开启选项后,请到[分流规则]设置相关规则,否则不会生效';
-			case 'ispUserAgentTips': return '[ISP/机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
-			case 'ispDiversionTips': return '[ISP/机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
+			case 'ispUserAgentTips': return '[机场]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据';
+			case 'ispDiversionTips': return '[机场]提供的分流规则;[V2Ray]类型的订阅不支持分流规则';
 			case 'staticIP': return '静态IP';
 			case 'other': return '其他';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP/机场';
-			case 'ispBind': return '[ISP/机场]绑定';
+			case 'isp': return '机场';
+			case 'ispBind': return '绑定到[机场]';
 			case 'ispUnbind': return ({required Object p}) => '解除绑定[${p}]';
 			case 'ispFaq': return ({required Object p}) => '常见问题[${p}]';
 			case 'ispCustomerService': return ({required Object p}) => '客服[${p}]';
 			case 'ispFollow': return ({required Object p}) => '关注[${p}]';
-			case 'ispInvalidOrExpired': return '[ISP/机场]无效或已过期';
+			case 'ispInvalidOrExpired': return '[机场]无效或已过期';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return '无效URL';
@@ -1235,7 +1234,7 @@ extension on TranslationsZhCn {
 			case 'domainRegex': return '域名正则';
 			case 'ip': return 'IP';
 			case 'port': return '端口';
-			case 'appPackage': return '应用包名';
+			case 'appPackage': return '应用包Id';
 			case 'processName': return '进程名称';
 			case 'processPath': return '进程路径';
 			case 'systemProxy': return '系统代理';
@@ -1297,6 +1296,9 @@ extension on TranslationsZhCn {
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 			case 'removeBannerAdsDone': return ({required Object p}) => '已获得${p}天无广告奖励';
 			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
+			case 'requestCameraPermission': return '请开启[摄像头]权限';
+			case 'requestScreenAccess': return '请开启[屏幕录制]权限';
+			case 'requestAppQuery': return '请开启[获取应用列表]权限';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

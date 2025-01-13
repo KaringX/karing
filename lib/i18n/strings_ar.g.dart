@@ -126,26 +126,26 @@ class TranslationsAr implements Translations {
 	@override String get required => 'مطلوب';
 	@override String get diversion => 'تحويل';
 	@override String get diversionRules => 'قواعد التحويل';
-	@override String get diversionRulesEnable => 'تمكين قواعد تفريغ [ISP]';
+	@override String get diversionRulesEnable => 'تمكين قواعد تفريغ [مزود VPN]';
 	@override String get diversionCustomGroup => 'مجموعة تحويل مخصصة';
 	@override String get diversionCustomGroupPreset => 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 	@override String get diversionCustomGroupPresetTips => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 	@override String get diversionCustomGroupAddTips => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
 	@override String get urlTestCustomGroup => 'التحديد التلقائي المخصص';
 	@override String get rulesetEnableTips => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
-	@override String get ispUserAgentTips => 'سيقدم [ISP] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
-	@override String get ispDiversionTips => 'قواعد التفريغ التي يوفرها [ISP]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
+	@override String get ispUserAgentTips => 'سيقدم [مزود VPN] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
+	@override String get ispDiversionTips => 'قواعد التفريغ التي يوفرها [مزود VPN]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
 	@override String get staticIP => 'رقم تعريف حاسوب ثابت';
 	@override String get other => 'آخر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
-	@override String get isp => 'ISP';
-	@override String get ispBind => '[ISP] ملزمة';
+	@override String get isp => 'مزود VPN';
+	@override String get ispBind => 'الارتباط بـ [مزود VPN]';
 	@override String ispUnbind({required Object p}) => 'فك الارتباط[${p}]';
 	@override String ispFaq({required Object p}) => 'الأسئلة الشائعة[${p}]';
 	@override String ispCustomerService({required Object p}) => 'خدمة العملاء[${p}]';
 	@override String ispFollow({required Object p}) => 'متابعة[${p}]';
-	@override String get ispInvalidOrExpired => '[ISP]غير صالح أو منتهية الصلاحية';
+	@override String get ispInvalidOrExpired => '[مزود VPN]غير صالح أو منتهية الصلاحية';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'URL غير صالح';
@@ -173,7 +173,7 @@ class TranslationsAr implements Translations {
 	@override String get domainRegex => 'انتظام اسم المجال';
 	@override String get ip => 'IP';
 	@override String get port => 'ميناء';
-	@override String get appPackage => 'اسم حزمة التطبيق';
+	@override String get appPackage => 'معرف حزمة التطبيق';
 	@override String get processName => 'اسم العملية';
 	@override String get processPath => 'مسار العملية';
 	@override String get systemProxy => 'وكيل النظام';
@@ -235,6 +235,9 @@ class TranslationsAr implements Translations {
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
+	@override String get requestCameraPermission => 'الرجاء تفعيل إذن [الكاميرا]';
+	@override String get requestScreenAccess => 'يرجى تمكين إذن [تسجيل الشاشة]';
+	@override String get requestAppQuery => 'يرجى تمكين إذن [الحصول على قائمة التطبيقات]';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -306,8 +309,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenAr implements TranslationsAdd
 	// Translations
 	@override String get copy => 'Copy Link';
 	@override String get open => 'Open Link';
-	@override String get requestCameraPermission => 'يرجى تمكين إذن الكاميرا';
-	@override String get requestScreenAccess => 'يرجى الانتقال إلى إعدادات النظام - الخصوصية والأمان - تسجيل الشاشة لإضافة أذونات لهذا التطبيق';
 	@override String get screenshot => 'لقطة شاشة';
 	@override String get scanFromImage => 'مسح من الصورة';
 	@override String get scanNoResult => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
@@ -623,7 +624,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get downloadProfilePreferProxyTips => 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
 	@override String get rulesetDirectDownlad => 'مجموعة القواعد تحميل مباشر';
 	@override String get hideUnusedDiversionGroup => 'إخفاء مجموعات التحويل غير المستخدمة';
-	@override String get disableISPDiversionGroup => 'تعطيل قواعد تحويل ISP';
+	@override String get disableISPDiversionGroup => 'تعطيل قواعد تحويل [مزود VPN]';
 	@override String get portSetting => 'ميناء';
 	@override String get portSettingRule => 'القاعدة القائمة';
 	@override String get portSettingDirectAll => 'توجيه كل شيء';
@@ -865,8 +866,6 @@ extension on TranslationsAr {
 			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
 			case 'AddProfileByScanQrcodeScanScreen.copy': return 'Copy Link';
 			case 'AddProfileByScanQrcodeScanScreen.open': return 'Open Link';
-			case 'AddProfileByScanQrcodeScanScreen.requestCameraPermission': return 'يرجى تمكين إذن الكاميرا';
-			case 'AddProfileByScanQrcodeScanScreen.requestScreenAccess': return 'يرجى الانتقال إلى إعدادات النظام - الخصوصية والأمان - تسجيل الشاشة لإضافة أذونات لهذا التطبيق';
 			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'لقطة شاشة';
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'مسح من الصورة';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
@@ -993,7 +992,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'مجموعة القواعد تحميل مباشر';
 			case 'SettingsScreen.hideUnusedDiversionGroup': return 'إخفاء مجموعات التحويل غير المستخدمة';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'تعطيل قواعد تحويل ISP';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'تعطيل قواعد تحويل [مزود VPN]';
 			case 'SettingsScreen.portSetting': return 'ميناء';
 			case 'SettingsScreen.portSettingRule': return 'القاعدة القائمة';
 			case 'SettingsScreen.portSettingDirectAll': return 'توجيه كل شيء';
@@ -1188,26 +1187,26 @@ extension on TranslationsAr {
 			case 'required': return 'مطلوب';
 			case 'diversion': return 'تحويل';
 			case 'diversionRules': return 'قواعد التحويل';
-			case 'diversionRulesEnable': return 'تمكين قواعد تفريغ [ISP]';
+			case 'diversionRulesEnable': return 'تمكين قواعد تفريغ [مزود VPN]';
 			case 'diversionCustomGroup': return 'مجموعة تحويل مخصصة';
 			case 'diversionCustomGroupPreset': return 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 			case 'diversionCustomGroupPresetTips': return 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 			case 'diversionCustomGroupAddTips': return 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
 			case 'urlTestCustomGroup': return 'التحديد التلقائي المخصص';
 			case 'rulesetEnableTips': return 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
-			case 'ispUserAgentTips': return 'سيقدم [ISP] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
-			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [ISP]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
+			case 'ispUserAgentTips': return 'سيقدم [مزود VPN] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
+			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [مزود VPN]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
 			case 'staticIP': return 'رقم تعريف حاسوب ثابت';
 			case 'other': return 'آخر';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP';
-			case 'ispBind': return '[ISP] ملزمة';
+			case 'isp': return 'مزود VPN';
+			case 'ispBind': return 'الارتباط بـ [مزود VPN]';
 			case 'ispUnbind': return ({required Object p}) => 'فك الارتباط[${p}]';
 			case 'ispFaq': return ({required Object p}) => 'الأسئلة الشائعة[${p}]';
 			case 'ispCustomerService': return ({required Object p}) => 'خدمة العملاء[${p}]';
 			case 'ispFollow': return ({required Object p}) => 'متابعة[${p}]';
-			case 'ispInvalidOrExpired': return '[ISP]غير صالح أو منتهية الصلاحية';
+			case 'ispInvalidOrExpired': return '[مزود VPN]غير صالح أو منتهية الصلاحية';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'URL غير صالح';
@@ -1235,7 +1234,7 @@ extension on TranslationsAr {
 			case 'domainRegex': return 'انتظام اسم المجال';
 			case 'ip': return 'IP';
 			case 'port': return 'ميناء';
-			case 'appPackage': return 'اسم حزمة التطبيق';
+			case 'appPackage': return 'معرف حزمة التطبيق';
 			case 'processName': return 'اسم العملية';
 			case 'processPath': return 'مسار العملية';
 			case 'systemProxy': return 'وكيل النظام';
@@ -1297,6 +1296,9 @@ extension on TranslationsAr {
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
+			case 'requestCameraPermission': return 'الرجاء تفعيل إذن [الكاميرا]';
+			case 'requestScreenAccess': return 'يرجى تمكين إذن [تسجيل الشاشة]';
+			case 'requestAppQuery': return 'يرجى تمكين إذن [الحصول على قائمة التطبيقات]';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

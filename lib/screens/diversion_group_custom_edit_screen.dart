@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:android_package_manager/android_package_manager.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
@@ -16,6 +17,7 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:tuple/tuple.dart';
+import 'package:path/path.dart' as path;
 
 class DiversionGroupCustomEditOptions {
   bool showLogicOperations = false;
@@ -77,6 +79,7 @@ class _DiversionGroupCustomEditScreenState
   List<String>? _sitecodes;
   List<String>? _ipcodes;
   List<String>? _aclcodes;
+  bool _showSnackBarShowed = false;
 
   @override
   void initState() {
@@ -426,25 +429,35 @@ class _DiversionGroupCustomEditScreenState
           return createTextFieldWithSelect(
               _textControllerLinkPackage,
               tcontext.appPackage,
-              "com.google.chrome\ncom.facebook.katana",
-              _installedApps.isEmpty
-                  ? null
-                  : () async {
-                      List<String> selectedData =
-                          convertToList(_textControllerLinkPackage.text);
-                      return await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: MultiSelectScreen.routSettings(),
-                              builder: (context) => MultiSelectScreen(
-                                    title: tcontext.appPackage,
-                                    getData: () async {
-                                      return _installedApps;
-                                    },
-                                    selectedData: selectedData,
-                                    showKey: true,
-                                  )));
-                    });
+              "com.google.chrome\ncom.facebook.katana", () async {
+            if (_installedApps.isEmpty) {
+              _showSnackBarShowed = true;
+              final tcontext = Translations.of(context);
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    showCloseIcon: true,
+                    content: Text(tcontext.requestAppQuery)),
+              );
+
+              return null;
+            }
+
+            List<String> selectedData =
+                convertToList(_textControllerLinkPackage.text);
+            return await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    settings: MultiSelectScreen.routSettings(),
+                    builder: (context) => MultiSelectScreen(
+                          title: tcontext.appPackage,
+                          getData: () async {
+                            return _installedApps;
+                          },
+                          selectedData: selectedData,
+                          showKey: true,
+                        )));
+          });
         };
         _listViewParts.add(item);
       }
@@ -457,6 +470,30 @@ class _DiversionGroupCustomEditScreenState
           String processName = Platform.isWindows
               ? "Telegram.exe\nchrome.com"
               : "Google Chrome Helper\nCode Helper";
+          if (Platform.isWindows) {
+            return createTextFieldWithSelect(_textControllerLinkProcessName,
+                tcontext.processName, processName, () async {
+              try {
+                List<String> extensions = Platform.isWindows ? ["exe"] : [""];
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: extensions,
+                );
+                if (result != null) {
+                  String filePath = result.files.first.path!;
+                  return [path.basename(filePath)];
+                }
+              } catch (err, stacktrace) {
+                if (!mounted) {
+                  return null;
+                }
+                DialogUtils.showAlertDialog(context, err.toString(),
+                    showCopy: true, showFAQ: true, withVersion: true);
+              }
+              return null;
+            });
+          }
+
           return createTextField(_textControllerLinkProcessName,
               tcontext.processName, processName);
         };
@@ -470,6 +507,30 @@ class _DiversionGroupCustomEditScreenState
           String processPath = Platform.isWindows
               ? "C:\\Program Files (x86)\\Telegram Desktop\\Telegram.exe\nC:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
               : "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/130.0.6723.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper\n/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper";
+          if (Platform.isWindows) {
+            return createTextFieldWithSelect(_textControllerLinkProcessPath,
+                tcontext.processPath, processPath, () async {
+              try {
+                List<String> extensions = Platform.isWindows ? ["exe"] : [""];
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: extensions,
+                );
+                if (result != null) {
+                  String filePath = result.files.first.path!;
+                  return [filePath];
+                }
+              } catch (err, stacktrace) {
+                if (!mounted) {
+                  return null;
+                }
+                DialogUtils.showAlertDialog(context, err.toString(),
+                    showCopy: true, showFAQ: true, withVersion: true);
+              }
+              return null;
+            });
+          }
+
           return createTextField(_textControllerLinkProcessPath,
               tcontext.processPath, processPath);
         };
@@ -488,124 +549,131 @@ class _DiversionGroupCustomEditScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: windowSize.width - 50 * 2,
-                      child: Text(
-                        widget.name,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        onTapSave();
-                      },
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.done_outlined,
-                          size: 26,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: Text(
-                  tcontext.DiversionGroupCustomEditScreen.setDiversionRule,
-                  style: const TextStyle(
-                    fontSize: ThemeConfig.kFontSizeListSubItem,
-                    fontWeight: ThemeConfig.kFontWeightListSubItem,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              widget.options.showLogicOperations
-                  ? Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Row(
-                        children: [
-                          Text(tcontext.logicOperation),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: 120,
-                            child: ListTile(
-                              title: const Text('OR'),
-                              leading: Radio(
-                                value: LogicOperations.or,
-                                groupValue: _logicOperation,
-                                onChanged: (LogicOperations? value) {
-                                  _logicOperation = value;
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 120,
-                            child: ListTile(
-                              title: const Text('AND'),
-                              leading: Radio(
-                                value: LogicOperations.and,
-                                groupValue: _logicOperation,
-                                onChanged: (LogicOperations? value) {
-                                  _logicOperation = value;
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              Expanded(
-                child: ListViewMultiPartsBuilder.build(_listViewParts),
-              ),
-            ],
+    return PopScope(
+        canPop: true,
+        onPopInvokedWithResult: (didPop, result) {
+          if (_showSnackBarShowed) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          }
+        },
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.zero,
+            child: AppBar(),
           ),
-        ),
-      ),
-    );
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.arrow_back_ios_outlined,
+                              size: 26,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 50 * 2,
+                          child: Text(
+                            widget.name,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontWeight: ThemeConfig.kFontWeightTitle,
+                                fontSize: ThemeConfig.kFontSizeTitle),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            onTapSave();
+                          },
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.done_outlined,
+                              size: 26,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Text(
+                      tcontext.DiversionGroupCustomEditScreen.setDiversionRule,
+                      style: const TextStyle(
+                        fontSize: ThemeConfig.kFontSizeListSubItem,
+                        fontWeight: ThemeConfig.kFontWeightListSubItem,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  widget.options.showLogicOperations
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Row(
+                            children: [
+                              Text(tcontext.logicOperation),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: ListTile(
+                                  title: const Text('OR'),
+                                  leading: Radio(
+                                    value: LogicOperations.or,
+                                    groupValue: _logicOperation,
+                                    onChanged: (LogicOperations? value) {
+                                      _logicOperation = value;
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                                child: ListTile(
+                                  title: const Text('AND'),
+                                  leading: Radio(
+                                    value: LogicOperations.and,
+                                    groupValue: _logicOperation,
+                                    onChanged: (LogicOperations? value) {
+                                      _logicOperation = value;
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                  Expanded(
+                    child: ListViewMultiPartsBuilder.build(_listViewParts),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget createTextField(

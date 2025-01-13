@@ -18,15 +18,16 @@ class GroupOptionsHelper {
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
     String getTranffic = remoteConfig.getTranffic;
 
+    bool isp = false;
     if (remoteConfig.ispBind && remoteISPConfig.id.isNotEmpty) {
       if (remoteISPConfig.getTranffic.isNotEmpty) {
+        isp = true;
         getTranffic = remoteISPConfig.getTranffic;
       }
     }
 
     List<GroupItemOptions> options = [];
     options.addAll([
-      //PathUtils.macosDir().isEmpty && remoteConfig.getTranffic.isNotEmpty
       getTranffic.isNotEmpty
           ? GroupItemOptions(
               pushOptions: GroupItemPushOptions(
@@ -44,7 +45,7 @@ class GroupOptionsHelper {
                         },
                         repeatable: true);
                     String url = getTranffic;
-                    if (RemoteConfig.isSelfHost(url, remoteConfig.host)) {
+                    if (!isp) {
                       url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
                           url);
                     }

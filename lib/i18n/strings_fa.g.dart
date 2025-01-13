@@ -126,26 +126,26 @@ class TranslationsFa implements Translations {
 	@override String get required => 'الزامی';
 	@override String get diversion => 'انحراف';
 	@override String get diversionRules => 'قوانین انحراف';
-	@override String get diversionRulesEnable => 'قوانین بارگیری [ISP] را فعال کنید';
+	@override String get diversionRulesEnable => 'قوانین بارگیری [ارائه دهنده VPN] را فعال کنید';
 	@override String get diversionCustomGroup => 'گروه انحراف سفارشی';
 	@override String get diversionCustomGroupPreset => 'از پیش تنظیم شده [گروه انحراف سفارشی]';
 	@override String get diversionCustomGroupPresetTips => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد';
 	@override String get diversionCustomGroupAddTips => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.';
 	@override String get urlTestCustomGroup => 'انتخاب خودکار سفارشی';
 	@override String get rulesetEnableTips => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
-	@override String get ispUserAgentTips => '[ISP] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
-	@override String get ispDiversionTips => 'قوانین بارگذاری ارائه شده توسط [ISP]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
+	@override String get ispUserAgentTips => '[ارائه دهنده VPN] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
+	@override String get ispDiversionTips => 'قوانین بارگذاری ارائه شده توسط [ارائه دهنده VPN]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
 	@override String get staticIP => 'IP استاتیک';
 	@override String get other => 'دیگر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
-	@override String get isp => 'ISP';
-	@override String get ispBind => '[ISP]صحافی';
+	@override String get isp => 'ارائه دهنده VPN';
+	@override String get ispBind => 'اتصال به [ارائه‌دهنده VPN]';
 	@override String ispUnbind({required Object p}) => 'لغو پیوند[${p}]';
 	@override String ispFaq({required Object p}) => 'سوالات متداول[${p}]';
 	@override String ispCustomerService({required Object p}) => 'خدمات مشتری[${p}]';
 	@override String ispFollow({required Object p}) => 'دنبال کردن[${p}]';
-	@override String get ispInvalidOrExpired => '[ISP]نامعتبر یا منقضی شده است';
+	@override String get ispInvalidOrExpired => '[ارائه دهنده VPN]نامعتبر یا منقضی شده است';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'URL نامعتبر';
@@ -173,7 +173,7 @@ class TranslationsFa implements Translations {
 	@override String get domainRegex => 'عبارات باقاعده ی دامنه (Regex)';
 	@override String get ip => 'IP';
 	@override String get port => 'پورت';
-	@override String get appPackage => 'نام بسته‌ی برنامه';
+	@override String get appPackage => 'شناسه بسته برنامه';
 	@override String get processName => 'نام اجرایی پروسه';
 	@override String get processPath => 'مسیر پروسه';
 	@override String get systemProxy => 'پروکسی سیستم';
@@ -235,6 +235,9 @@ class TranslationsFa implements Translations {
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
 	@override String get edgeRuntimeNotInstalled => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
+	@override String get requestCameraPermission => 'لطفاً مجوز [دوربین] را فعال کنید';
+	@override String get requestScreenAccess => 'لطفاً مجوز [ضبط صفحه] را فعال کنید';
+	@override String get requestAppQuery => 'لطفاً مجوز [Get Application List] را فعال کنید';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -306,8 +309,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenFa implements TranslationsAdd
 	// Translations
 	@override String get copy => 'کپی‌کردن لینک';
 	@override String get open => 'بازکردن لینک';
-	@override String get requestCameraPermission => 'لطفا مجوز دسترسی دوربین را فعال کنید';
-	@override String get requestScreenAccess => 'لطفا به تنظیمات دستگاه - حریم‌خصوصی و امنیت - ظبط صفحه بروین تا مجوز‌های این نرم‌افزار را اضافه کنید';
 	@override String get screenshot => 'اسکرین‌شات';
 	@override String get scanFromImage => 'اسکن از عکس';
 	@override String get scanNoResult => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
@@ -623,7 +624,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get downloadProfilePreferProxyTips => 'اگر اکنون متصل هستین، پروفایل ابتدا از پروکسی متصل دانلود می‌شود';
 	@override String get rulesetDirectDownlad => 'دانلود مستقیم مجموعه قوانین';
 	@override String get hideUnusedDiversionGroup => 'مخفی‌کردن گروه‌های انحراف به‌کار نرفته';
-	@override String get disableISPDiversionGroup => 'قوانین انحراف ISP را غیرفعال کنید';
+	@override String get disableISPDiversionGroup => 'قوانین انحراف [ارائه دهنده VPN] را غیرفعال کنید';
 	@override String get portSetting => 'پورت';
 	@override String get portSettingRule => 'قانون محور';
 	@override String get portSettingDirectAll => 'مستقیم‌شدن همه';
@@ -865,8 +866,6 @@ extension on TranslationsFa {
 			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید';
 			case 'AddProfileByScanQrcodeScanScreen.copy': return 'کپی‌کردن لینک';
 			case 'AddProfileByScanQrcodeScanScreen.open': return 'بازکردن لینک';
-			case 'AddProfileByScanQrcodeScanScreen.requestCameraPermission': return 'لطفا مجوز دسترسی دوربین را فعال کنید';
-			case 'AddProfileByScanQrcodeScanScreen.requestScreenAccess': return 'لطفا به تنظیمات دستگاه - حریم‌خصوصی و امنیت - ظبط صفحه بروین تا مجوز‌های این نرم‌افزار را اضافه کنید';
 			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'اسکرین‌شات';
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'اسکن از عکس';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
@@ -993,7 +992,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'اگر اکنون متصل هستین، پروفایل ابتدا از پروکسی متصل دانلود می‌شود';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'دانلود مستقیم مجموعه قوانین';
 			case 'SettingsScreen.hideUnusedDiversionGroup': return 'مخفی‌کردن گروه‌های انحراف به‌کار نرفته';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'قوانین انحراف ISP را غیرفعال کنید';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'قوانین انحراف [ارائه دهنده VPN] را غیرفعال کنید';
 			case 'SettingsScreen.portSetting': return 'پورت';
 			case 'SettingsScreen.portSettingRule': return 'قانون محور';
 			case 'SettingsScreen.portSettingDirectAll': return 'مستقیم‌شدن همه';
@@ -1188,26 +1187,26 @@ extension on TranslationsFa {
 			case 'required': return 'الزامی';
 			case 'diversion': return 'انحراف';
 			case 'diversionRules': return 'قوانین انحراف';
-			case 'diversionRulesEnable': return 'قوانین بارگیری [ISP] را فعال کنید';
+			case 'diversionRulesEnable': return 'قوانین بارگیری [ارائه دهنده VPN] را فعال کنید';
 			case 'diversionCustomGroup': return 'گروه انحراف سفارشی';
 			case 'diversionCustomGroupPreset': return 'از پیش تنظیم شده [گروه انحراف سفارشی]';
 			case 'diversionCustomGroupPresetTips': return 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد';
 			case 'diversionCustomGroupAddTips': return 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.';
 			case 'urlTestCustomGroup': return 'انتخاب خودکار سفارشی';
 			case 'rulesetEnableTips': return 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
-			case 'ispUserAgentTips': return '[ISP] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
-			case 'ispDiversionTips': return 'قوانین بارگذاری ارائه شده توسط [ISP]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
+			case 'ispUserAgentTips': return '[ارائه دهنده VPN] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
+			case 'ispDiversionTips': return 'قوانین بارگذاری ارائه شده توسط [ارائه دهنده VPN]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
 			case 'staticIP': return 'IP استاتیک';
 			case 'other': return 'دیگر';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP';
-			case 'ispBind': return '[ISP]صحافی';
+			case 'isp': return 'ارائه دهنده VPN';
+			case 'ispBind': return 'اتصال به [ارائه‌دهنده VPN]';
 			case 'ispUnbind': return ({required Object p}) => 'لغو پیوند[${p}]';
 			case 'ispFaq': return ({required Object p}) => 'سوالات متداول[${p}]';
 			case 'ispCustomerService': return ({required Object p}) => 'خدمات مشتری[${p}]';
 			case 'ispFollow': return ({required Object p}) => 'دنبال کردن[${p}]';
-			case 'ispInvalidOrExpired': return '[ISP]نامعتبر یا منقضی شده است';
+			case 'ispInvalidOrExpired': return '[ارائه دهنده VPN]نامعتبر یا منقضی شده است';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'URL نامعتبر';
@@ -1235,7 +1234,7 @@ extension on TranslationsFa {
 			case 'domainRegex': return 'عبارات باقاعده ی دامنه (Regex)';
 			case 'ip': return 'IP';
 			case 'port': return 'پورت';
-			case 'appPackage': return 'نام بسته‌ی برنامه';
+			case 'appPackage': return 'شناسه بسته برنامه';
 			case 'processName': return 'نام اجرایی پروسه';
 			case 'processPath': return 'مسیر پروسه';
 			case 'systemProxy': return 'پروکسی سیستم';
@@ -1297,6 +1296,9 @@ extension on TranslationsFa {
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
 			case 'edgeRuntimeNotInstalled': return 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
+			case 'requestCameraPermission': return 'لطفاً مجوز [دوربین] را فعال کنید';
+			case 'requestScreenAccess': return 'لطفاً مجوز [ضبط صفحه] را فعال کنید';
+			case 'requestAppQuery': return 'لطفاً مجوز [Get Application List] را فعال کنید';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

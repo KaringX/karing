@@ -130,26 +130,26 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get required => 'Required';
 	String get diversion => 'Diversion';
 	String get diversionRules => 'Diversion Rules';
-	String get diversionRulesEnable => 'Enable [ISP] Diversion Rules';
+	String get diversionRulesEnable => 'Enable [VPN Provider] Diversion Rules';
 	String get diversionCustomGroup => 'Custom Diversion Group';
 	String get diversionCustomGroupPreset => 'Preset [Custom Diversion Group]';
 	String get diversionCustomGroupPresetTips => 'Note: Enabled items will be added/overwritten to [Custom Diversion Group] and [Diversion Rules]';
 	String get diversionCustomGroupAddTips => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect';
 	String get urlTestCustomGroup => 'Custom Auto Select';
 	String get rulesetEnableTips => 'Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect';
-	String get ispUserAgentTips => '[ISP] will send data of different subscription types based on [UserAgent] in [HTTP] request';
-	String get ispDiversionTips => '[ISP] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
+	String get ispUserAgentTips => '[VPN Provider] will send data of different subscription types based on [UserAgent] in [HTTP] request';
+	String get ispDiversionTips => '[VPN Provider] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
 	String get staticIP => 'Static IP';
 	String get other => 'Other';
 	String get dns => 'DNS';
 	String get url => 'URL';
-	String get isp => 'ISP';
-	String get ispBind => '[ISP] Bind';
+	String get isp => 'VPN Provider';
+	String get ispBind => 'Bind To [VPN Provider] ';
 	String ispUnbind({required Object p}) => 'Unbind[${p}]';
 	String ispFaq({required Object p}) => 'FAQ[${p}]';
 	String ispCustomerService({required Object p}) => 'Telegram[${p}]';
 	String ispFollow({required Object p}) => 'Follow[${p}]';
-	String get ispInvalidOrExpired => '[ISP] Invalid or expired';
+	String get ispInvalidOrExpired => '[VPN Provider] Invalid or expired';
 	String get tls => 'TLS';
 	String get userAgent => 'UserAgent';
 	String get urlInvalid => 'Invalid URL';
@@ -177,7 +177,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get domainRegex => 'Domain Regex';
 	String get ip => 'IP';
 	String get port => 'Port';
-	String get appPackage => 'App Package Name';
+	String get appPackage => 'App Package Id';
 	String get processName => 'Process Name';
 	String get processPath => 'Process Path';
 	String get systemProxy => 'System Proxy';
@@ -239,6 +239,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String removeBannerAdsByRewardTip({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 	String removeBannerAdsDone({required Object p}) => 'Received ${p} days of ad-free rewards';
 	String get edgeRuntimeNotInstalled => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
+	String get requestCameraPermission => 'Please enable [Camera] permission';
+	String get requestScreenAccess => 'Please enable [Screen Recording] permission';
+	String get requestAppQuery => 'Please enable the [Get Application List] permission';
 	Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -310,8 +313,6 @@ class TranslationsAddProfileByScanQrcodeScanScreenEn {
 	// Translations
 	String get copy => 'Copy Link';
 	String get open => 'Open Link';
-	String get requestCameraPermission => 'Please enable camera permission';
-	String get requestScreenAccess => 'Please go to System Settings - Privacy and Security - Screen Recording to add permissions for this application';
 	String get screenshot => 'Screenshot';
 	String get scanFromImage => 'Scan From Image';
 	String get scanNoResult => 'Failed to parse the image, please make sure the screenshot is a valid QR code';
@@ -627,7 +628,7 @@ class TranslationsSettingsScreenEn {
 	String get downloadProfilePreferProxyTips => 'If currently connected, the profile will be downloaded through the connected proxy first';
 	String get rulesetDirectDownlad => 'Rule Set Direct Download';
 	String get hideUnusedDiversionGroup => 'Hide Unused Diversion Groups';
-	String get disableISPDiversionGroup => 'Disable ISP Diversion Rules';
+	String get disableISPDiversionGroup => 'Disable [VPN Provider] Diversion Rules';
 	String get portSetting => 'Port';
 	String get portSettingRule => 'Rule Based';
 	String get portSettingDirectAll => 'Direct All';
@@ -869,8 +870,6 @@ extension on Translations {
 			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again';
 			case 'AddProfileByScanQrcodeScanScreen.copy': return 'Copy Link';
 			case 'AddProfileByScanQrcodeScanScreen.open': return 'Open Link';
-			case 'AddProfileByScanQrcodeScanScreen.requestCameraPermission': return 'Please enable camera permission';
-			case 'AddProfileByScanQrcodeScanScreen.requestScreenAccess': return 'Please go to System Settings - Privacy and Security - Screen Recording to add permissions for this application';
 			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'Screenshot';
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'Scan From Image';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'Failed to parse the image, please make sure the screenshot is a valid QR code';
@@ -997,7 +996,7 @@ extension on Translations {
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'If currently connected, the profile will be downloaded through the connected proxy first';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'Rule Set Direct Download';
 			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Hide Unused Diversion Groups';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'Disable ISP Diversion Rules';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'Disable [VPN Provider] Diversion Rules';
 			case 'SettingsScreen.portSetting': return 'Port';
 			case 'SettingsScreen.portSettingRule': return 'Rule Based';
 			case 'SettingsScreen.portSettingDirectAll': return 'Direct All';
@@ -1192,26 +1191,26 @@ extension on Translations {
 			case 'required': return 'Required';
 			case 'diversion': return 'Diversion';
 			case 'diversionRules': return 'Diversion Rules';
-			case 'diversionRulesEnable': return 'Enable [ISP] Diversion Rules';
+			case 'diversionRulesEnable': return 'Enable [VPN Provider] Diversion Rules';
 			case 'diversionCustomGroup': return 'Custom Diversion Group';
 			case 'diversionCustomGroupPreset': return 'Preset [Custom Diversion Group]';
 			case 'diversionCustomGroupPresetTips': return 'Note: Enabled items will be added/overwritten to [Custom Diversion Group] and [Diversion Rules]';
 			case 'diversionCustomGroupAddTips': return 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect';
 			case 'urlTestCustomGroup': return 'Custom Auto Select';
 			case 'rulesetEnableTips': return 'Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect';
-			case 'ispUserAgentTips': return '[ISP] will send data of different subscription types based on [UserAgent] in [HTTP] request';
-			case 'ispDiversionTips': return '[ISP] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
+			case 'ispUserAgentTips': return '[VPN Provider] will send data of different subscription types based on [UserAgent] in [HTTP] request';
+			case 'ispDiversionTips': return '[VPN Provider] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
 			case 'staticIP': return 'Static IP';
 			case 'other': return 'Other';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP';
-			case 'ispBind': return '[ISP] Bind';
+			case 'isp': return 'VPN Provider';
+			case 'ispBind': return 'Bind To [VPN Provider] ';
 			case 'ispUnbind': return ({required Object p}) => 'Unbind[${p}]';
 			case 'ispFaq': return ({required Object p}) => 'FAQ[${p}]';
 			case 'ispCustomerService': return ({required Object p}) => 'Telegram[${p}]';
 			case 'ispFollow': return ({required Object p}) => 'Follow[${p}]';
-			case 'ispInvalidOrExpired': return '[ISP] Invalid or expired';
+			case 'ispInvalidOrExpired': return '[VPN Provider] Invalid or expired';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'Invalid URL';
@@ -1239,7 +1238,7 @@ extension on Translations {
 			case 'domainRegex': return 'Domain Regex';
 			case 'ip': return 'IP';
 			case 'port': return 'Port';
-			case 'appPackage': return 'App Package Name';
+			case 'appPackage': return 'App Package Id';
 			case 'processName': return 'Process Name';
 			case 'processPath': return 'Process Path';
 			case 'systemProxy': return 'System Proxy';
@@ -1301,6 +1300,9 @@ extension on Translations {
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Received ${p} days of ad-free rewards';
 			case 'edgeRuntimeNotInstalled': return 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
+			case 'requestCameraPermission': return 'Please enable [Camera] permission';
+			case 'requestScreenAccess': return 'Please enable [Screen Recording] permission';
+			case 'requestAppQuery': return 'Please enable the [Get Application List] permission';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

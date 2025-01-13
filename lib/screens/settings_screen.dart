@@ -2846,7 +2846,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       analyticsEventType: analyticsEventTypeUA,
                       name: "donate",
                       repeatable: false);
-                  await WebviewHelper.loadUrl(context, remoteConfig.donateUrl,
+                  String url =
+                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                          remoteConfig.donateUrl);
+                  await WebviewHelper.loadUrl(context, url,
                       title: tcontext.donate);
                 })));
       }

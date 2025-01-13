@@ -126,26 +126,26 @@ class TranslationsRu implements Translations {
 	@override String get required => 'Необходимо';
 	@override String get diversion => 'Правила';
 	@override String get diversionRules => 'Правила перенаправления';
-	@override String get diversionRulesEnable => 'Включить правила перенаправления [ISP]';
+	@override String get diversionRulesEnable => 'Включить правила перенаправления [VPN-провайдер]';
 	@override String get diversionCustomGroup => 'Личные правила';
 	@override String get diversionCustomGroupPreset => 'Шаблоны личных правил';
 	@override String get diversionCustomGroupPresetTips => 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
 	@override String get diversionCustomGroupAddTips => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
 	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
 	@override String get rulesetEnableTips => 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
-	@override String get ispUserAgentTips => '[ISP] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
-	@override String get ispDiversionTips => 'Правила перенаправления, предоставляемые подписками [ISP] типа [V2Ray], не поддерживаются.';
+	@override String get ispUserAgentTips => '[VPN-провайдер] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
+	@override String get ispDiversionTips => 'Правила перенаправления, предоставляемые подписками [VPN-провайдер] типа [V2Ray], не поддерживаются.';
 	@override String get staticIP => 'Статический IP';
 	@override String get other => 'Другой';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
-	@override String get isp => 'ISP';
-	@override String get ispBind => '[ISP]Привязка';
+	@override String get isp => 'VPN-провайдер';
+	@override String get ispBind => 'Привязать к [VPN-провайдеру]';
 	@override String ispUnbind({required Object p}) => 'Отвязать[${p}]';
 	@override String ispFaq({required Object p}) => 'Часто задаваемые вопросы[${p}]';
 	@override String ispCustomerService({required Object p}) => 'Служба поддержки клиентов[${p}]';
 	@override String ispFollow({required Object p}) => 'Следуйте[${p}]';
-	@override String get ispInvalidOrExpired => '[ISP]Недействительно или срок действия истек';
+	@override String get ispInvalidOrExpired => '[VPN-провайдер]Недействительно или срок действия истек';
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get urlInvalid => 'Неверный URL';
@@ -173,7 +173,7 @@ class TranslationsRu implements Translations {
 	@override String get domainRegex => 'Регулярные выражения для имен доменов';
 	@override String get ip => 'IP';
 	@override String get port => 'Порт';
-	@override String get appPackage => 'Имя пакета приложения';
+	@override String get appPackage => 'Идентификатор пакета приложения';
 	@override String get processName => 'Имя процесса';
 	@override String get processPath => 'Путь к процессу';
 	@override String get systemProxy => 'Системный прокси';
@@ -235,6 +235,9 @@ class TranslationsRu implements Translations {
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
+	@override String get requestCameraPermission => 'Пожалуйста, включите разрешение [Камера]';
+	@override String get requestScreenAccess => 'Пожалуйста, включите разрешение [Запись экрана]';
+	@override String get requestAppQuery => 'Пожалуйста, включите разрешение [Получить список приложений]';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -306,8 +309,6 @@ class _TranslationsAddProfileByScanQrcodeScanScreenRu implements TranslationsAdd
 	// Translations
 	@override String get copy => 'Скопировать ссылку';
 	@override String get open => 'Открыть ссылку';
-	@override String get requestCameraPermission => 'Пожалуйста, разрешите приложению доступ к камере';
-	@override String get requestScreenAccess => 'Пожалуйста, перейдите в «Настройки системы» — «Конфиденциальность и безопасность» — «Запись экрана», чтобы добавить разрешения для этого приложения';
 	@override String get screenshot => 'Скриншот';
 	@override String get scanFromImage => 'Открыть';
 	@override String get scanNoResult => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
@@ -623,7 +624,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get downloadProfilePreferProxyTips => 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
 	@override String get rulesetDirectDownlad => 'Правила прямой загрузки';
 	@override String get hideUnusedDiversionGroup => 'Скрыть неактивные правила перенаправления';
-	@override String get disableISPDiversionGroup => 'Отключить правила перенаправления ISP';
+	@override String get disableISPDiversionGroup => 'Отключить правила перенаправления [VPN всегда включен]';
 	@override String get portSetting => 'Используемые порты';
 	@override String get portSettingRule => 'Действуют все правила';
 	@override String get portSettingDirectAll => 'Всё подключено напрямую';
@@ -865,8 +866,6 @@ extension on TranslationsRu {
 			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
 			case 'AddProfileByScanQrcodeScanScreen.copy': return 'Скопировать ссылку';
 			case 'AddProfileByScanQrcodeScanScreen.open': return 'Открыть ссылку';
-			case 'AddProfileByScanQrcodeScanScreen.requestCameraPermission': return 'Пожалуйста, разрешите приложению доступ к камере';
-			case 'AddProfileByScanQrcodeScanScreen.requestScreenAccess': return 'Пожалуйста, перейдите в «Настройки системы» — «Конфиденциальность и безопасность» — «Запись экрана», чтобы добавить разрешения для этого приложения';
 			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'Скриншот';
 			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'Открыть';
 			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
@@ -993,7 +992,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'Правила прямой загрузки';
 			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Скрыть неактивные правила перенаправления';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'Отключить правила перенаправления ISP';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'Отключить правила перенаправления [VPN всегда включен]';
 			case 'SettingsScreen.portSetting': return 'Используемые порты';
 			case 'SettingsScreen.portSettingRule': return 'Действуют все правила';
 			case 'SettingsScreen.portSettingDirectAll': return 'Всё подключено напрямую';
@@ -1188,26 +1187,26 @@ extension on TranslationsRu {
 			case 'required': return 'Необходимо';
 			case 'diversion': return 'Правила';
 			case 'diversionRules': return 'Правила перенаправления';
-			case 'diversionRulesEnable': return 'Включить правила перенаправления [ISP]';
+			case 'diversionRulesEnable': return 'Включить правила перенаправления [VPN-провайдер]';
 			case 'diversionCustomGroup': return 'Личные правила';
 			case 'diversionCustomGroupPreset': return 'Шаблоны личных правил';
 			case 'diversionCustomGroupPresetTips': return 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
 			case 'diversionCustomGroupAddTips': return 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
 			case 'urlTestCustomGroup': return 'Пользовательский автоматический выбор';
 			case 'rulesetEnableTips': return 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
-			case 'ispUserAgentTips': return '[ISP] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
-			case 'ispDiversionTips': return 'Правила перенаправления, предоставляемые подписками [ISP] типа [V2Ray], не поддерживаются.';
+			case 'ispUserAgentTips': return '[VPN-провайдер] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
+			case 'ispDiversionTips': return 'Правила перенаправления, предоставляемые подписками [VPN-провайдер] типа [V2Ray], не поддерживаются.';
 			case 'staticIP': return 'Статический IP';
 			case 'other': return 'Другой';
 			case 'dns': return 'DNS';
 			case 'url': return 'URL';
-			case 'isp': return 'ISP';
-			case 'ispBind': return '[ISP]Привязка';
+			case 'isp': return 'VPN-провайдер';
+			case 'ispBind': return 'Привязать к [VPN-провайдеру]';
 			case 'ispUnbind': return ({required Object p}) => 'Отвязать[${p}]';
 			case 'ispFaq': return ({required Object p}) => 'Часто задаваемые вопросы[${p}]';
 			case 'ispCustomerService': return ({required Object p}) => 'Служба поддержки клиентов[${p}]';
 			case 'ispFollow': return ({required Object p}) => 'Следуйте[${p}]';
-			case 'ispInvalidOrExpired': return '[ISP]Недействительно или срок действия истек';
+			case 'ispInvalidOrExpired': return '[VPN-провайдер]Недействительно или срок действия истек';
 			case 'tls': return 'TLS';
 			case 'userAgent': return 'UserAgent';
 			case 'urlInvalid': return 'Неверный URL';
@@ -1235,7 +1234,7 @@ extension on TranslationsRu {
 			case 'domainRegex': return 'Регулярные выражения для имен доменов';
 			case 'ip': return 'IP';
 			case 'port': return 'Порт';
-			case 'appPackage': return 'Имя пакета приложения';
+			case 'appPackage': return 'Идентификатор пакета приложения';
 			case 'processName': return 'Имя процесса';
 			case 'processPath': return 'Путь к процессу';
 			case 'systemProxy': return 'Системный прокси';
@@ -1297,6 +1296,9 @@ extension on TranslationsRu {
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
+			case 'requestCameraPermission': return 'Пожалуйста, включите разрешение [Камера]';
+			case 'requestScreenAccess': return 'Пожалуйста, включите разрешение [Запись экрана]';
+			case 'requestAppQuery': return 'Пожалуйста, включите разрешение [Получить список приложений]';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';
