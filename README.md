@@ -55,16 +55,12 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - 中国金融专线`跨境支持`，企业套餐可开发票 (提前咨询客服)
 - 八折优惠券：[hongxing666](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuaHg2NjYuaW5mby8jL3JlZ2lzdGVyP2NvZGU9aG41c1NKejA=&i=3fb&t=1723644028)
 
+### 🔥大流量电话卡推荐
 
-### 🔥自建节点服务器
+- 电信星年卡 **19元 180G** 全国流量首月免月租 [👉🏻正规电信卡，放心使用](https://ym.ksjhaoka.com/show?id=82341893&s=QBWYsYh0345026)
+- 广电双佰卡 **19元** 100G+100分钟 + **流量可结转** [👉🏻中国广电 官方发货](https://ym.ksjhaoka.com/show?id=82341794&s=QBWYsYh0345026)
 
 </summary>
-
-- （美国免备案vps，配置2核2G仅需`20.98$`≈`145RMB`一年/支持支付宝付款） [👉🏻点我直达](https://my.racknerd.com/aff.php?aff=8405)
-- （美国到中国大陆最快的vps， CN2GIA优化网络）
-  - [👉🏻国外直达](https://bandwagonhost.com/aff.php?aff=75253&productFilter=1)
-  - [👉🏻国内点我](https://bwh81.net/aff.php?aff=75253&productFilter=1)
-
 
 ### 🤝VPN Providers Collaboration Announcement
 - 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
