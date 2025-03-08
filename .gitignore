@@ -47,6 +47,7 @@ app.*.map.json
 /android/app/src/release
 /logs
 /.vs
+/*.zip
 /dist/*.apk
 /dist/*.exe
 /dist/*.zip
@@ -60,3 +61,4 @@ app.*.map.json
 /.sentry-native
 /dist/ios
 /dist/macos
+/todo.txt

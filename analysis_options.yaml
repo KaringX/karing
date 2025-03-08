@@ -10,6 +10,7 @@
 analyzer:
   errors:
     empty_catches: ignore
+    unnecessary_overrides: ignore
     unused_catch_stack: ignore
 include: package:flutter_lints/flutter.yaml
 

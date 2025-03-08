@@ -69,7 +69,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
                                   SizedBox(
                                     width: windowSize.width - 50 - 65,
                                     child: Text(
-                                      tcontext.setting,
+                                      tcontext.meta.setting,
                                       textAlign: TextAlign.center,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
@@ -89,7 +89,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
                                         },
                                         child: Text(
                                           textAlign: TextAlign.center,
-                                          tcontext.done,
+                                          tcontext.meta.done,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                             fontWeight:
@@ -149,7 +149,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
     List<GroupItemOptions> options0 = [
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-        name: tcontext.novice,
+        name: tcontext.meta.novice,
         switchValue: settingConfig.novice,
         onSwitch: (bool value) async {
           settingConfig.novice = value;

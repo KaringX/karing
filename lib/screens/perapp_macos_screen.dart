@@ -242,7 +242,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                       Icons.search_outlined,
                       color: Colors.grey.shade400,
                     ),
-                    hintText: tcontext.search,
+                    hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear_outlined),
@@ -400,7 +400,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     List<GroupItemOptions> options = [
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.enable,
+              name: tcontext.meta.enable,
               switchValue: SettingManager.getConfig().perapp.enable,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.enable = value;
@@ -409,7 +409,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.PerAppAndroidScreen.hideSystemApp,
+              name: tcontext.meta.hideSystemApp,
               switchValue: SettingManager.getConfig().perapp.hideSystemApp,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.hideSystemApp = value;
@@ -419,7 +419,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.PerAppAndroidScreen.hideAppIcon,
+              name: tcontext.meta.hideAppIcon,
               switchValue: SettingManager.getConfig().perapp.hideAppIcon,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.hideAppIcon = value;
@@ -441,7 +441,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
               child: SizedBox(
                 height: 30,
                 child: Text(
-                  tcontext.importFromClipboard,
+                  tcontext.meta.importFromClipboard,
                   style: const TextStyle(
                       fontWeight: ThemeConfig.kFontWeightTitle,
                       fontSize: ThemeConfig.kFontSizeTitle),
@@ -478,7 +478,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
             child: SizedBox(
               height: 30,
               child: Text(
-                tcontext.exportToClipboard,
+                tcontext.meta.exportToClipboard,
                 style: const TextStyle(
                     fontWeight: ThemeConfig.kFontWeightTitle,
                     fontSize: ThemeConfig.kFontSizeTitle),

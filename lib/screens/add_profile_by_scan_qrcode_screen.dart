@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:karing/app/utils/platform_utils.dart';
@@ -125,7 +124,7 @@ class _AddProfileByScanQrcodeScanScreenState
         SizedBox(
           width: windowSize.width - 50 * 2 - (_scanFromFile ? 70 : 100),
           child: Text(
-            tcontext.scanQrcode,
+            tcontext.meta.qrcodeScan,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
@@ -178,8 +177,8 @@ class _AddProfileByScanQrcodeScanScreenState
           InkWell(
             onTap: () async {
               if (_qrContent.isEmpty) {
-                DialogUtils.showAlertDialog(context,
-                    tcontext.AddProfileByScanQrcodeScanScreen.scanEmptyResult);
+                DialogUtils.showAlertDialog(
+                    context, tcontext.meta.qrcodeScanResultEmpty);
                 return;
               }
               if (!mounted) {
@@ -215,7 +214,7 @@ class _AddProfileByScanQrcodeScanScreenState
       SizedBox(
         width: windowSize.width - 50 * 2,
         child: Text(
-          tcontext.scanQrcode,
+          tcontext.meta.qrcodeScan,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -226,8 +225,8 @@ class _AddProfileByScanQrcodeScanScreenState
       InkWell(
         onTap: () async {
           if (_qrContent.isEmpty) {
-            DialogUtils.showAlertDialog(context,
-                tcontext.AddProfileByScanQrcodeScanScreen.scanEmptyResult);
+            DialogUtils.showAlertDialog(
+                context, tcontext.meta.qrcodeScanResultEmpty);
             return;
           }
           _result.qrcode = _qrContent;
@@ -279,8 +278,7 @@ class _AddProfileByScanQrcodeScanScreenState
               height: 45.0,
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.file_open_outlined),
-                  label: Text(
-                      tcontext.AddProfileByScanQrcodeScanScreen.scanFromImage),
+                  label: Text(tcontext.meta.qrcodeScanFromImage),
                   onPressed: () async {
                     await onPressScanFromImageMobile();
                   }),
@@ -320,8 +318,7 @@ class _AddProfileByScanQrcodeScanScreenState
               height: 45.0,
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.fit_screen_outlined),
-                  label: Text(
-                      tcontext.AddProfileByScanQrcodeScanScreen.screenshot),
+                  label: Text(tcontext.meta.screenshot),
                   onPressed: () async {
                     await onPressScreenshot();
                   }),
@@ -333,8 +330,7 @@ class _AddProfileByScanQrcodeScanScreenState
               height: 45.0,
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.file_open_outlined),
-                  label: Text(
-                      tcontext.AddProfileByScanQrcodeScanScreen.scanFromImage),
+                  label: Text(tcontext.meta.qrcodeScanFromImage),
                   onPressed: () async {
                     await onPressScanFromImagePC();
                   }),
@@ -410,7 +406,8 @@ class _AddProfileByScanQrcodeScanScreenState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             showCloseIcon: true,
-            content: Text(tcontext.requestCameraPermission)),
+            content: Text(tcontext.permission
+                .requestNeed(p: tcontext.permission.camera))),
       );
     }
   }
@@ -458,7 +455,7 @@ class _AddProfileByScanQrcodeScanScreenState
         }
         if (qrcode == null) {
           DialogUtils.showAlertDialog(
-              context, tcontext.AddProfileByScanQrcodeScanScreen.scanNoResult);
+              context, tcontext.meta.qrcodeScanResultFailed);
         } else {
           _qrContent = qrcode;
           setState(() {});
@@ -492,7 +489,7 @@ class _AddProfileByScanQrcodeScanScreenState
             .toLowerCase();
         if (!extensions.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.invalidFileType(p: ext));
+              context, tcontext.meta.fileTypeInvalid(p: ext));
           return;
         }
         String filePath = result.files.first.path!;
@@ -504,8 +501,8 @@ class _AddProfileByScanQrcodeScanScreenState
         String? qrcode = await QrcodeUtils.scanFromFile(filePath);
         if (mounted) {
           if (qrcode == null) {
-            DialogUtils.showAlertDialog(context,
-                tcontext.AddProfileByScanQrcodeScanScreen.scanNoResult);
+            DialogUtils.showAlertDialog(
+                context, tcontext.meta.qrcodeScanResultFailed);
           } else {
             _qrContent = qrcode;
             setState(() {});
@@ -530,7 +527,8 @@ class _AddProfileByScanQrcodeScanScreenState
     if (Platform.isMacOS) {
       bool allowed = await ScreenCapturer.instance.isAccessAllowed();
       if (!allowed) {
-        DialogUtils.showAlertDialog(context, tcontext.requestScreenAccess);
+        DialogUtils.showAlertDialog(context,
+            tcontext.permission.requestNeed(p: tcontext.permission.screen));
         ScreenCapturer.instance.requestAccess(onlyOpenPrefPane: true);
         return;
       }
@@ -551,8 +549,8 @@ class _AddProfileByScanQrcodeScanScreenState
             await QrcodeUtils.scanFromImageData(capturedData.imageBytes!);
         if (mounted) {
           if (qrcode == null) {
-            DialogUtils.showAlertDialog(context,
-                tcontext.AddProfileByScanQrcodeScanScreen.scanNoResult);
+            DialogUtils.showAlertDialog(
+                context, tcontext.meta.qrcodeScanResultFailed);
           } else {
             _qrContent = qrcode;
             setState(() {});

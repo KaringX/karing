@@ -2,6 +2,7 @@
 1337x
 17zuoye
 18comic
+2ch
 2kgames
 36kr
 3dm
@@ -91,6 +92,7 @@ anaconda
 anandtech
 android
 anime
+annas-archive
 anon-v
 anthropic
 antutu
@@ -107,6 +109,7 @@ apple-ads@ads
 apple-cn
 apple-dev
 apple-dev@cn
+apple-intelligence
 apple-pki
 apple-pki@cn
 apple-update
@@ -135,6 +138,7 @@ att@cn
 attwatchtv
 authy
 autodesk
+available-only-inside@ru
 avaxhome
 avmoo
 awempire
@@ -155,6 +159,7 @@ baltamatica
 bamtech
 bandcamp
 bandwagonhost
+bangumi
 barrons
 bbc
 bcy
@@ -184,6 +189,7 @@ bitwarden
 bjyouth
 blender
 blizzard
+blocked@ru
 blogspot
 bloomberg
 bluearchive
@@ -665,6 +671,7 @@ gracg
 gravatar
 greatfire
 gree
+groq
 growingio-ads
 growingio-ads@ads
 gucci
@@ -851,6 +858,7 @@ knovel
 kodi
 konachan
 koolearn
+kraken
 ku6
 kuaikan
 kuaishou-ads
@@ -1007,6 +1015,7 @@ musixmatch
 muwai
 mxplayer-ads
 mxplayer-ads@ads
+mxroute
 mydirtyhobby
 myfonts
 myradio
@@ -1105,6 +1114,7 @@ oschina
 osdn
 osu
 oup
+ozon
 pagecdn
 panasonic
 panasonic@cn
@@ -1215,6 +1225,7 @@ rebrandly
 reddit
 redhat
 redis
+redotpay
 redtube
 remirepo
 renren
@@ -1442,6 +1453,7 @@ topcoder
 tor
 torproject
 tracker
+trackernetwork
 translatewiki
 trello
 trustwave

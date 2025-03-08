@@ -117,6 +117,7 @@ class _PerAppAndroidScreenState
       List<PackageInfoEx> added = [];
       List<PackageInfoEx> notAdded = [];
       Set<String> exists = {};
+      Set<String> existsSystem = {};
       var perapp = SettingManager.getConfig().perapp;
       for (var app in value) {
         if (app.packageName == null || app.packageName == AppUtils.getId()) {
@@ -126,6 +127,7 @@ class _PerAppAndroidScreenState
         if (perapp.hideSystemApp) {
           if ((app.applicationInfo != null) &&
               (app.applicationInfo!.flags & FLAG_SYSTEM != 0)) {
+            existsSystem.add(app.packageName!);
             continue;
           }
         }
@@ -144,7 +146,7 @@ class _PerAppAndroidScreenState
         }
       }
       for (var papp in perapp.list) {
-        if (!exists.contains(papp)) {
+        if (!exists.contains(papp) && !existsSystem.contains(papp)) {
           PackageInfoEx info = PackageInfoEx();
           info.info = PackageInfoImpl(papp);
           info.name = _removed;
@@ -315,7 +317,7 @@ class _PerAppAndroidScreenState
                       Icons.search_outlined,
                       color: Colors.grey.shade400,
                     ),
-                    hintText: tcontext.search,
+                    hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear_outlined),
@@ -330,9 +332,10 @@ class _PerAppAndroidScreenState
               ),
               Expanded(
                 child: _needPermission
-                    ? CommonWidget.createNeedPermission(context,
-                        tcontext.PerAppAndroidScreen.enableAppQueryPermission,
-                        () {
+                    ? CommonWidget.createNeedPermission(
+                        context,
+                        tcontext.permission
+                            .request(p: tcontext.permission.appQuery), () {
                         AppSettings.openAppSettings(
                             type: AppSettingsType.settings);
                       }, () {
@@ -483,7 +486,7 @@ class _PerAppAndroidScreenState
     List<GroupItemOptions> options = [
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.enable,
+              name: tcontext.meta.enable,
               switchValue: SettingManager.getConfig().perapp.enable,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.enable = value;
@@ -502,7 +505,7 @@ class _PerAppAndroidScreenState
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.PerAppAndroidScreen.hideSystemApp,
+              name: tcontext.meta.hideSystemApp,
               switchValue: SettingManager.getConfig().perapp.hideSystemApp,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.hideSystemApp = value;
@@ -512,7 +515,7 @@ class _PerAppAndroidScreenState
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.PerAppAndroidScreen.hideAppIcon,
+              name: tcontext.meta.hideAppIcon,
               switchValue: SettingManager.getConfig().perapp.hideAppIcon,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().perapp.hideAppIcon = value;
@@ -534,7 +537,7 @@ class _PerAppAndroidScreenState
               child: SizedBox(
                 height: 30,
                 child: Text(
-                  tcontext.importFromClipboard,
+                  tcontext.meta.importFromClipboard,
                   style: const TextStyle(
                       fontWeight: ThemeConfig.kFontWeightTitle,
                       fontSize: ThemeConfig.kFontSizeTitle),
@@ -571,7 +574,7 @@ class _PerAppAndroidScreenState
             child: SizedBox(
               height: 30,
               child: Text(
-                tcontext.exportToClipboard,
+                tcontext.meta.exportToClipboard,
                 style: const TextStyle(
                     fontWeight: ThemeConfig.kFontWeightTitle,
                     fontSize: ThemeConfig.kFontSizeTitle),

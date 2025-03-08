@@ -7,9 +7,10 @@ import 'dart:io';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 //import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 
 import 'package:karing/app/modules/auto_update_manager.dart';
@@ -19,7 +20,7 @@ import 'package:karing/app/modules/proxy_cluster.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/modules/yacd.dart';
+import 'package:karing/app/modules/zashboard.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
@@ -28,9 +29,10 @@ import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/local_notifications_utils.dart';
-import 'package:karing/app/utils/local_storeage.dart';
+import 'package:karing/app/utils/local_storage.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/main_channel_utils.dart';
+import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -96,6 +98,7 @@ class HomeScreen extends LasyRenderingStatefulWidget {
 
 class _HomeScreenState extends LasyRenderingState<HomeScreen>
     with WidgetsBindingObserver, ProtocolListener, AfterLayoutMixin {
+  static const String userAgreementAgreedIdKey = 'userAgreementAgreedKey';
   static const double kMaxWidth = 500;
   static const int kLocalNotificationsIdVpnStateId = 1;
   static const int kLocalNotificationsIdNetStateId = 2;
@@ -124,6 +127,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   final FocusNode _focusNodeMore = FocusNode();
   final List<FocusNode> _focusNodeToolbar = [];
 
+  bool _agreementApproved = false;
+
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
   bool _wsConnecting = false;
@@ -149,16 +154,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   String _trafficDownSpeedNotify = "0 B/s";
   String _startDurationNotify = "0 B/s";
 
-  bool _isStarting = false;
-  bool _isStarted = false;
-  bool _isStoping = false;
+  FlutterVpnServiceState _state = FlutterVpnServiceState.disconnected;
   bool _isSystemProxySet = false;
 
-  bool _canConnect = false;
-  Timer? _timer;
-  Timer? _wstimer;
-  CurrentServerForSelector _currentServerForSelector =
-      CurrentServerForSelector();
+  Timer? _timerStateChecker;
+  Timer? _timerSystemProxyChecker;
+  Timer? _timerCurrentUrltest;
+  CurrentServerForUrltest _currentServerForUrltest = CurrentServerForUrltest();
 
   ProxyConfig _currentServer = ProxyConfig();
   bool _inAppNotificationsShowing = false;
@@ -184,16 +186,30 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return;
       }
       final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.HomeScreen.deviceNoSpace,
+      DialogUtils.showAlertDialog(context, tcontext.meta.deviceNoSpace,
           showCopy: true, showFAQ: true, withVersion: true);
     });
 
     Future.delayed(const Duration(seconds: 0), () async {
       showAgreement();
     });
-    if (PlatformUtils.maybeTV()) {
-      _focusNodeSettings.requestFocus();
-    }
+
+    Future.delayed(const Duration(seconds: 0), () async {
+      if (Platform.isMacOS) {
+        await hotKeyManager.unregisterAll();
+        HotKey hotKey = HotKey(
+          key: PhysicalKeyboardKey.keyW,
+          modifiers: [HotKeyModifier.meta],
+          scope: HotKeyScope.inapp,
+        );
+        await hotKeyManager.register(
+          hotKey,
+          keyDownHandler: (hotKey) {
+            windowManager.hide();
+          },
+        );
+      }
+    });
   }
 
   Future<bool> futureBool(bool value) async {
@@ -201,24 +217,34 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void showAgreement() async {
-    const String idKey = 'userAgreementAgreedKey';
-    String? value;
+    String? agreement;
     try {
-      value = await LocalStorage.read(idKey);
+      agreement = await LocalStorage.read(userAgreementAgreedIdKey);
     } catch (e) {
       DialogUtils.showAlertDialog(context, e.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
 
-    if (value == null) {
+    if (agreement == null) {
       var tcontext = Translations.of(context);
+
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_agreement',
+      );
+
       await Navigator.push(
           context,
           MaterialPageRoute(
               settings: UserAgreementScreen.routSettings(),
               fullscreenDialog: true,
               builder: (context) => const UserAgreementScreen()));
+
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_language',
+      );
 
       await Navigator.push(
           context,
@@ -230,10 +256,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     canGoBack: false,
                     nextText: () {
                       var tcontext = Translations.of(context);
-                      return tcontext.next;
+                      return tcontext.meta.next;
                     },
                   )));
       tcontext = Translations.of(context);
+
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_region',
+      );
 
       await Navigator.push(
           context,
@@ -243,7 +274,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               builder: (context) => RegionSettingsScreen(
                     canPop: false,
                     canGoBack: false,
-                    nextText: tcontext.next,
+                    nextText: tcontext.meta.next,
                   )));
 
       var settingConfig = SettingManager.getConfig();
@@ -252,6 +283,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       DiversionCustomRules rules =
           (await DiversionCustomRulesPreset.getPreset(regionCode)) ??
               DiversionCustomRules();
+
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_diversion_rules_customset',
+      );
 
       await Navigator.push(
           context,
@@ -262,10 +298,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     canPop: false,
                     title: tcontext.diversionCustomGroupPreset,
                     canGoBack: false,
-                    nextText: tcontext.next,
+                    nextText: tcontext.meta.next,
                     nextIcon: null,
                     rules: rules,
                   )));
+
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_novice',
+      );
 
       await Navigator.push(
           context,
@@ -274,7 +315,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               fullscreenDialog: true,
               builder: (context) => const NoviceScreen()));
 
-      LocalStorage.write(idKey, "true");
+      AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_guide_done',
+      );
+      _agreementApproved = true;
+      LocalStorage.write(userAgreementAgreedIdKey, "true");
       bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
       if (noConfig) {
         onTapAddProfileByAgreement();
@@ -286,10 +332,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         if (!context.mounted) {
           return;
         }
-        await WebviewHelper.loadUrl(context, url,
+        await WebviewHelper.loadUrl(context, url, "HSS_guide_done",
             title: tcontext.SettingsScreen.tutorial);
       }
     } else {
+      _agreementApproved = true;
       String? installer = await AutoUpdateManager.checkReplace();
       if (installer != null) {
         await Navigator.push(
@@ -306,8 +353,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void checkError(String from, {bool showAlert = true}) async {
     String errorPath = await PathUtils.serviceStdErrorFilePath();
-    String? content = await FileUtils.readAndDelete(errorPath);
-    if (content != null && content.isNotEmpty) {
+    //String? content = await FileUtils.readAndDelete(errorPath);
+    String? content;
+    try {
+      var file = File(errorPath);
+      if (await file.exists()) {
+        content = await file.readAsString();
+      }
+    } catch (e) {}
+
+    if (content != null && content.trim().isNotEmpty) {
+      bool isPanic = content.contains("panic:");
+      if (!isPanic) {
+        await FileUtils.deletePath(errorPath);
+      }
       if (!content.contains("Config expired, Please start from app")) {
         const int maxLength = 5000;
         AnalyticsUtils.logEvent(
@@ -327,48 +386,53 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
   }
 
-  void updateTile() {
-    //MainChannel.call("tile.update", {"started": _isStarting || _isStarted});
-  }
-  void _startCheckTimer() {
+  void _startStateCheckTimer() {
     const Duration duration = Duration(seconds: 1);
-    _timer ??= Timer.periodic(duration, (timer) async {
-      if (!_isStarting && !_isStoping) {
-        if (AppLifecycleStateNofityManager.isPaused()) {
-          return;
-        }
-        bool started = await VPNService.started();
-        if (started != _isStarted) {
-          _isStarted = started;
-          Biz.vpnStateChanged(_isStarted);
-          setState(() {});
-        }
-        if (!_isStarted) {
-          _canConnect = false;
-        }
-        updateTile();
-
-        if (_canConnect) {
-          _connectToCurrent();
-          _connectToService();
-        } else {
-          _disconnectToCurrent();
-          _disconnectToService();
-        }
+    _timerStateChecker ??= Timer.periodic(duration, (timer) async {
+      if (AppLifecycleStateNofity.isPaused()) {
+        return;
       }
-      if (PlatformUtils.isPC()) {
-        bool systemProxyset = await VPNService.getSystemProxy();
-        if (systemProxyset != _isSystemProxySet) {
-          _isSystemProxySet = systemProxyset;
-          setState(() {});
-        }
-      }
+      await _checkState();
     });
   }
 
-  void _stopCheckTimer() {
-    _timer?.cancel();
-    _timer = null;
+  void _stopStateCheckTimer() {
+    _timerStateChecker?.cancel();
+    _timerStateChecker = null;
+  }
+
+  void _startSystemProxyCheckTimer() {
+    if (!Platform.isWindows) {
+      return;
+    }
+    const Duration duration = Duration(seconds: 1);
+    _timerSystemProxyChecker ??= Timer.periodic(duration, (timer) async {
+      if (AppLifecycleStateNofity.isPaused()) {
+        return;
+      }
+
+      await _checkSystemProxy();
+    });
+  }
+
+  void _stopSystemProxyCheckTimer() {
+    _timerSystemProxyChecker?.cancel();
+    _timerSystemProxyChecker = null;
+  }
+
+  Future<void> _checkState() async {
+    var state = await VPNService.getState();
+    await _onStateChanged(state, {});
+  }
+
+  Future<void> _checkSystemProxy() async {
+    if (VPNService.getSupportSystemProxy()) {
+      bool systemProxyset = await VPNService.getSystemProxy();
+      if (systemProxyset != _isSystemProxySet) {
+        _isSystemProxySet = systemProxyset;
+        setState(() {});
+      }
+    }
   }
 
   void _connectToCurrent() async {
@@ -376,66 +440,63 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    bool started = await VPNService.started();
+    bool started = await VPNService.getStarted();
     if (!started) {
-      String now = _currentServerForSelector.now;
-      int delay = _currentServerForSelector.history.delay;
-      _currentServerForSelector.clear();
-      if (_currentServerForSelector.now != now ||
-          _currentServerForSelector.history.delay != delay) {
+      String now = _currentServerForUrltest.now;
+      int delay = _currentServerForUrltest.history.delay;
+      _currentServerForUrltest.clear();
+      if (_currentServerForUrltest.now != now ||
+          _currentServerForUrltest.history.delay != delay) {
         setState(() {});
       }
       return;
     }
-    if (_wstimer != null) {
+    if (_timerCurrentUrltest != null) {
       return;
     }
     //Log.w("_connectToCurrent");
-    _wstimer ??= Timer.periodic(const Duration(seconds: 3), (timer) async {
-      bool started = await VPNService.started();
+    _timerCurrentUrltest ??=
+        Timer.periodic(const Duration(seconds: 3), (timer) async {
+      bool started = await VPNService.getStarted();
       if (!started) {
-        if (_currentServerForSelector.now.isNotEmpty ||
-            _currentServerForSelector.history.delay != 0) {
-          _currentServerForSelector.clear();
+        if (_currentServerForUrltest.now.isNotEmpty ||
+            _currentServerForUrltest.history.delay != 0) {
+          _currentServerForUrltest.clear();
           setState(() {});
         }
 
         return;
       }
-      ReturnResult<CurrentServerForSelector> result =
+      ReturnResult<CurrentServerForUrltest> result =
           await ClashApi.getCurrentServerForUrltest(
               ServerManager.getUrltestTagForCustom(_currentServer.tag),
               SettingManager.getConfig().proxy.controlPort);
-      String now = _currentServerForSelector.now;
-      int delay = _currentServerForSelector.history.delay;
+      String now = _currentServerForUrltest.now;
+      int delay = _currentServerForUrltest.history.delay;
       if (result.error != null) {
-        _currentServerForSelector.clear();
+        _currentServerForUrltest.clear();
       } else {
-        _currentServerForSelector = result.data!;
-        _currentServer.latency = _currentServerForSelector.history.delay > 0
-            ? _currentServerForSelector.history.delay.toString()
-            : _currentServerForSelector.history.error;
+        _currentServerForUrltest = result.data!;
+        _currentServer.latency = _currentServerForUrltest.history.delay > 0
+            ? _currentServerForUrltest.history.delay.toString()
+            : _currentServerForUrltest.history.error;
 
         ProxyConfig? proxy =
-            ServerManager.getConfig().getByTag(_currentServerForSelector.now);
+            ServerManager.getConfig().getByTag(_currentServerForUrltest.now);
         if (proxy != null) {
           proxy.latency = _currentServer.latency;
         }
         if (_currentServer.groupid == ServerManager.getUrltestGroupId() &&
             _currentServer.tag == kOutboundTagUrltest) {
           if (ServerManager.getUse().selectDefault !=
-              _currentServerForSelector.now) {
-            ServerManager.getUse().selectDefault =
-                _currentServerForSelector.now;
+              _currentServerForUrltest.now) {
+            ServerManager.getUse().selectDefault = _currentServerForUrltest.now;
             ServerManager.saveUse();
           }
         }
       }
-      if (_currentServerForSelector.now != now ||
-          _currentServerForSelector.history.delay != delay) {
-        Future.delayed(const Duration(seconds: 1), () async {
-          ServerManager.updateLatencyByHistory();
-        });
+      if (_currentServerForUrltest.now != now ||
+          _currentServerForUrltest.history.delay != delay) {
         setState(() {});
       }
     });
@@ -443,16 +504,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void _disconnectToCurrent() {
     //Log.w("_disconnectToCurrent");
-    if (!_isStarted) {
-      _currentServerForSelector.clear();
+    if (_state != FlutterVpnServiceState.connected) {
+      _currentServerForUrltest.clear();
     }
 
-    _wstimer?.cancel();
-    _wstimer = null;
+    _timerCurrentUrltest?.cancel();
+    _timerCurrentUrltest = null;
   }
 
   Future<void> _connectToService() async {
-    bool started = await VPNService.started();
+    bool started = await VPNService.getStarted();
     if (!started) {
       return;
     }
@@ -481,14 +542,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
-          Connection con = Connection();
+          Connections con = Connections();
           con.fromJson(obj, false);
           if (con.startTime != null) {
             _startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
                 .toString()
                 .split(".")[0];
-            if (!AppLifecycleStateNofityManager.isPaused()) {
+            if (!AppLifecycleStateNofity.isPaused()) {
               _startDuration.value = _startDurationNotify;
             }
           }
@@ -509,7 +570,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
                   "/s";
 
-          if (!AppLifecycleStateNofityManager.isPaused()) {
+          if (!AppLifecycleStateNofity.isPaused()) {
             _trafficUpTotal.value = _trafficUpTotalNotify;
             _trafficDownTotal.value = _trafficDownTotalNotify;
 
@@ -524,9 +585,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
             if (SettingManager.getConfig().dev.devMode) {
               _connInboundCount.value =
-                  "${con.connectionsIn}/${con.connectionsOut}/${con.goroutines}/${con.threadCount}";
+                  "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
             } else {
-              _connInboundCount.value = con.connectionsIn.toString();
+              _connInboundCount.value = con.connectionsInCount.toString();
             }
           }
 
@@ -606,9 +667,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (result.error != null) {
       return;
     }
-
-    setting.dns.clientSubnet = result.data!.trim();
-    SettingManager.saveConfig();
+    String ip = result.data!.trim();
+    if (NetworkUtils.isIpv4(ip) || NetworkUtils.isIpv6(ip)) {
+      setting.dns.clientSubnet = ip;
+      SettingManager.saveConfig();
+    }
   }
 
   void _updateNetStateLocalNotifications() {
@@ -666,12 +729,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           _currentServer.latency = "";
         }
         VPNService.setCurrent(_currentServer);
-        _currentServerForSelector.clear();
+        _currentServerForUrltest.clear();
       } else {
         if (ServerManager.getConfig().getServersCount(false) > 0) {
           _currentServer = ServerManager.getUrltest();
           VPNService.setCurrent(_currentServer);
-          _currentServerForSelector.clear();
+          _currentServerForUrltest.clear();
           ServerManager.addRecent(_currentServer);
           ServerManager.saveUse();
         }
@@ -688,7 +751,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ServerManager.onAddConfig(_onAddConfig);
     ServerManager.onUpdateConfig(_onUpdateConfig);
     ServerManager.onLatencyUpdateConfig(_onLatencyUpdateConfig);
-    //ServerManager.onRemoveConfig(_onRemoveConfig);
+    ServerManager.onRemoveConfig(_onRemoveConfig);
     ServerManager.onEnableConfig(_onEnableConfig);
     ServerManager.onRemoteTrafficReload((String groupid) {
       setState(() {});
@@ -697,8 +760,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
     ServerManager.onReloadFromZipConfigs(_onReloadFromZipConfigs);
     ServerManager.onTestLatency(hashCode, _onTestLatency);
-    AppLifecycleStateNofityManager.onStateResumed(hashCode, _onStateResumed);
-    AppLifecycleStateNofityManager.onStatePaused(hashCode, _onStatePaused);
+    AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
+    AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
 
     if (Platform.isWindows) {
       bool reg =
@@ -708,19 +771,22 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
     _onInitAllFinished = true;
-    _isStarted = await VPNService.started();
-    Biz.vpnStateChanged(_isStarted);
-    _canConnect = _isStarted;
-    if (_canConnect) {
-      _connectToCurrent();
-      _connectToService();
-      _updateWanIP();
-    }
 
     setState(() {});
+    if (!AppLifecycleStateNofity.isPaused()) {
+      _onStateResumed();
+    }
+
     if (PlatformUtils.isPC()) {
       if (SettingManager.getConfig().autoConnectAfterLaunch) {
-        await start("launch");
+        bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+        if (!noConfig) {
+          var state = await VPNService.getState();
+          if (state == FlutterVpnServiceState.invalid ||
+              state == FlutterVpnServiceState.disconnected) {
+            await start("launch");
+          }
+        }
       }
     } else if (Platform.isAndroid) {
       String? command = await MainChannel.call("getCommand", {});
@@ -735,7 +801,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await SchemeHandler.handle(context, _initUrl);
       _initUrl = "";
     }
-    _startCheckTimer();
+
     setState(() {});
   }
 
@@ -776,44 +842,52 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onStateChanged(
-      FlutterVpnServiceStateChangeReason reason, int code) async {
-    if (!_isStarting && !_isStoping) {
-      if (reason == FlutterVpnServiceStateChangeReason.start) {
-        _updateVpnStateLocalNotifications("start");
-        if (_canConnect) {
-          _connectToCurrent();
-          _connectToService();
-          _updateWanIP();
-        }
-      } else if (reason == FlutterVpnServiceStateChangeReason.restart) {
-        _updateVpnStateLocalNotifications("restart");
-        _disconnectToCurrent();
-        _disconnectToService();
-
-        if (_canConnect) {
-          _connectToCurrent();
-          _connectToService();
-          _updateWanIP();
-        }
-      } else if (reason == FlutterVpnServiceStateChangeReason.stop ||
-          reason == FlutterVpnServiceStateChangeReason.processexit) {
-        _updateVpnStateLocalNotifications("stop");
-        _disconnectToCurrent();
-        _disconnectToService();
-
-        checkError("onStateChanged");
-      } else if (reason == FlutterVpnServiceStateChangeReason.syncstate) {
-        return;
+      FlutterVpnServiceState state, Map<String, String> params) async {
+    if (_state == state) {
+      return;
+    }
+    //print("_onStateChanged $_state->$state");
+    _state = state;
+    if (state == FlutterVpnServiceState.disconnected) {
+      _checkSystemProxy();
+      _disconnectToCurrent();
+      _disconnectToService();
+      Biz.vpnStateChanged(false);
+      _updateVpnStateLocalNotifications("stop");
+      checkError("onStateChanged");
+    } else if (state == FlutterVpnServiceState.connecting) {
+    } else if (state == FlutterVpnServiceState.connected) {
+      if (!AppLifecycleStateNofity.isPaused()) {
+        _checkSystemProxy();
+        _connectToCurrent();
+        _connectToService();
+        _updateWanIP();
       }
-      updateTile();
+
+      Biz.vpnStateChanged(true);
+      _updateVpnStateLocalNotifications("start");
+    } else if (state == FlutterVpnServiceState.reasserting) {
+      _disconnectToCurrent();
+      _disconnectToService();
+      _updateVpnStateLocalNotifications("restart");
+    } else if (state == FlutterVpnServiceState.disconnecting) {
+      _stopStateCheckTimer();
+    } else {
+      _disconnectToCurrent();
+      _disconnectToService();
+      Biz.vpnStateChanged(false);
+      _stopStateCheckTimer();
     }
 
-    if (reason == FlutterVpnServiceStateChangeReason.processexit && code != 0) {
+    setState(() {});
+
+    if (Platform.isWindows && params.isNotEmpty) {
+      Log.w("VPNService process exit :${params.toString()}");
       AnalyticsUtils.logEvent(
           analyticsEventType: analyticsEventTypeApp,
           name: 'HSS_serviceQuit',
           parameters: {
-            "code": code,
+            "params": params,
           });
     }
   }
@@ -825,6 +899,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
       ServerManager.addRecent(_currentServer);
       ServerManager.saveUse();
+    }
+    var settingConfig = SettingManager.getConfig();
+    if (settingConfig.autoBackup.addProfile) {
+      _autoBackup();
     }
     await setServerAndReload("onAddConfig");
   }
@@ -873,7 +951,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   Future<void> _onRemoveConfig(
       String groupid, bool enable, bool hasDeviersionGroup) async {
-    if (!enable) {
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    var settingConfig = SettingManager.getConfig();
+    if (settingConfig.autoBackup.removeProfile && !noConfig) {
+      _autoBackup();
+    }
+    /*if (!enable) {
       return;
     }
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
@@ -892,7 +975,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       ServerManager.addRecent(_currentServer);
       ServerManager.saveUse();
     }
-    await setServerAndReload("onRemoveConfig");
+    await setServerAndReload("onRemoveConfig");*/
   }
 
   Future<void> _onEnableConfig(String groupid, bool enable) async {
@@ -957,7 +1040,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     if ((groupid == _currentServer.groupid && tag == _currentServer.tag) ||
-        (tag == _currentServerForSelector.now)) {
+        (tag == _currentServerForUrltest.now)) {
       ServerConfigGroupItem? item = ServerManager.getByGroupId(groupid);
       if (item != null) {
         ProxyConfig? ppc = item.getByTag(tag);
@@ -974,30 +1057,30 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             .updateCurrentServerAfterManualUrltest) {
           await ClashApi.updateUrltestCheck(
               SettingManager.getConfig().proxy.controlPort);
-          ReturnResult<CurrentServerForSelector> result =
+          ReturnResult<CurrentServerForUrltest> result =
               await ClashApi.getCurrentServerForUrltest(
                   ServerManager.getUrltestTagForCustom(_currentServer.tag),
                   SettingManager.getConfig().proxy.controlPort);
 
           if (result.error != null) {
-            _currentServerForSelector.clear();
+            _currentServerForUrltest.clear();
           } else {
-            _currentServerForSelector = result.data!;
-            _currentServer.latency = _currentServerForSelector.history.delay > 0
-                ? _currentServerForSelector.history.delay.toString()
-                : _currentServerForSelector.history.error;
+            _currentServerForUrltest = result.data!;
+            _currentServer.latency = _currentServerForUrltest.history.delay > 0
+                ? _currentServerForUrltest.history.delay.toString()
+                : _currentServerForUrltest.history.error;
 
             ProxyConfig? proxy = ServerManager.getConfig()
-                .getByTag(_currentServerForSelector.now);
+                .getByTag(_currentServerForUrltest.now);
             if (proxy != null) {
               proxy.latency = _currentServer.latency;
             }
             if (_currentServer.groupid == ServerManager.getUrltestGroupId() &&
                 _currentServer.tag == kOutboundTagUrltest) {
               if (ServerManager.getUse().selectDefault !=
-                  _currentServerForSelector.now) {
+                  _currentServerForUrltest.now) {
                 ServerManager.getUse().selectDefault =
-                    _currentServerForSelector.now;
+                    _currentServerForUrltest.now;
                 ServerManager.saveUse();
               }
             }
@@ -1008,30 +1091,47 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onStateResumed() async {
-    if (!_isStarting && !_isStoping) {
-      bool started = await VPNService.started();
-      if (started != _isStarted) {
-        _isStarted = started;
-        Biz.vpnStateChanged(_isStarted);
-        setState(() {});
-      }
-      _canConnect = _isStarted;
-    }
-    _startCheckTimer();
-    _showNotify();
+    _checkState();
 
+    _startStateCheckTimer();
+    _startSystemProxyCheckTimer();
+
+    _checkSystemProxy();
+    _connectToCurrent();
+    _connectToService();
+    _updateWanIP();
+
+    _showNotify();
     if (PlatformUtils.maybeTV()) {
       _focusNodeSettings.requestFocus();
     }
   }
 
   Future<void> _onStatePaused() async {
-    if (!_isStarting) {
-      _canConnect = false;
-    }
-    _stopCheckTimer();
+    _stopStateCheckTimer();
+    _stopSystemProxyCheckTimer();
     _disconnectToCurrent();
     _disconnectToService();
+  }
+
+  Future<void> _autoBackup() async {
+    var now = DateTime.now();
+    String dir = await PathUtils.backupDir();
+    String fileName =
+        "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}.zip";
+    String filePath = path.join(dir, fileName);
+    await ServerManager.backupToZip(context, filePath);
+
+    var files = FileUtils.recursionFile(dir, extensionFilter: {".zip"});
+    if (files.length < SettingConfigItemAutobackup.kMaxCount) {
+      return;
+    }
+
+    files.sort((a, b) => b.compareTo(a));
+    files.removeRange(0, SettingConfigItemAutobackup.kMaxCount);
+    for (var file in files) {
+      await FileUtils.deletePath(file);
+    }
   }
 
   Future<Tuple2<ReturnResultError?, int?>> setServer() async {
@@ -1050,7 +1150,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       const int maxCount = 1500;
       if (options.allOutboundsTags.length > maxCount) {
         InAppNotifications.show(
-            title: tcontext.tips,
+            title: tcontext.meta.tips,
             duration: const Duration(seconds: 3),
             leading: const Icon(
               Icons.warning,
@@ -1069,27 +1169,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> setServerAndReload(String from) async {
-    bool run = await VPNService.running();
-    if (!run) {
+    if (_state != FlutterVpnServiceState.connected) {
       return;
     }
     await ProxyCluster.stop();
     _disconnectToCurrent();
     _disconnectToService();
-    _currentServerForSelector.clear();
-    _isStarting = true;
-    _isStarted = false;
-    _canConnect = _isStarted;
+    _currentServerForUrltest.clear();
+
     setState(() {});
     var result = await setServer();
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 == null) {
       var err = await VPNService.reload(
           VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
-      _isStarting = false;
-      _isStarted = err == null;
-      _canConnect = _isStarted;
-      setState(() {});
+
       if (err != null) {
         AnalyticsUtils.logEvent(
             analyticsEventType: analyticsEventTypeApp,
@@ -1114,24 +1208,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         }
       }
     } else {
-      _isStarting = false;
-      _isStarted = false;
-      _canConnect = _isStarted;
-      _isStoping = true;
-      setState(() {});
       await VPNService.stop();
-      _isStoping = false;
-      setState(() {});
-      await Yacd.stop();
+      await Zashboard.stop();
     }
-  }
-
-  Future<bool> getSystemProxy() async {
-    if (PlatformUtils.isPC()) {
-      _isSystemProxySet = await VPNService.getSystemProxy();
-      return _isSystemProxySet;
-    }
-    return false;
   }
 
   Material createServerSelect(BuildContext context) {
@@ -1143,29 +1222,29 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String groupid = "";
     String tag = "";
     if (noConfig) {
-      text = tcontext.addProfile;
+      text = tcontext.meta.addProfile;
     } else {
       if (_currentServer.groupid == ServerManager.getUrltestGroupId()) {
-        text = tcontext.outboundActionUrltest;
+        text = tcontext.outboundRuleMode.urltest;
         if (_currentServer.tag != kOutboundTagUrltest) {
           text += "[${_currentServer.tag}]";
         }
 
-        if (_currentServerForSelector.now.isNotEmpty) {
-          text += "[${_currentServerForSelector.now}]";
+        if (_currentServerForUrltest.now.isNotEmpty) {
+          text += "[${_currentServerForUrltest.now}]";
           ProxyConfig? proxy =
-              ServerManager.getConfig().getByTag(_currentServerForSelector.now);
+              ServerManager.getConfig().getByTag(_currentServerForUrltest.now);
           if (proxy != null) {
-            tag = _currentServerForSelector.now;
+            tag = _currentServerForUrltest.now;
             groupid = proxy.groupid;
           }
         }
       } else if (_currentServer.groupid == ServerManager.getDirectGroupId()) {
-        text = tcontext.outboundActionDirect;
+        text = tcontext.outboundRuleMode.direct;
         tag = _currentServer.tag;
         groupid = _currentServer.groupid;
       } else if (_currentServer.groupid == ServerManager.getBlockGroupId()) {
-        text = tcontext.outboundActionBlock;
+        text = tcontext.outboundRuleMode.block;
         tag = _currentServer.tag;
         groupid = _currentServer.groupid;
       } else {
@@ -1244,7 +1323,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             onTapLatencyReload: tag.isEmpty || groupid.isEmpty
                                 ? null
                                 : () async {
-                                    bool started = await VPNService.started();
+                                    bool started =
+                                        await VPNService.getStarted();
                                     if (!started) {
                                       var err = await start("latencyWidget",
                                           disableShowAlertDialog: false);
@@ -1315,17 +1395,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  void onTapToggleStart() async {
+  Future<void> onTapShowAddProfile() async {
     await GroupHelper.showAddProfile(context, false);
-    await checkAndReload("onTapToggleStart");
+    await checkAndReload("onTapShowAddProfile");
     setState(() {});
   }
 
   void onTapSpeedTest() async {
     final tcontext = Translations.of(context);
     var setting = SettingManager.getConfig();
-    await WebviewHelper.loadUrl(context,
+    await WebviewHelper.loadUrl(
+        context,
         !setting.novice ? setting.speedTest : SettingConfig.kSpeedTestList[0],
+        "HSS_speedTest",
         title: tcontext.SettingsScreen.speedTest);
   }
 
@@ -1336,7 +1418,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           context, tcontext.HomeScreen.myLinkEmpty);
     } else {
       await WebviewHelper.loadUrl(
-          context, SettingManager.getConfig().uiScreen.myLink,
+          context, SettingManager.getConfig().uiScreen.myLink, "HSS_myLink",
           title: SettingManager.getConfig().uiScreen.myLink);
     }
   }
@@ -1547,14 +1629,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!context.mounted) {
         return;
       }
-      await WebviewHelper.loadUrl(context, url, title: noticeItem.title);
+      await WebviewHelper.loadUrl(context, url, "HSS_notice",
+          title: noticeItem.title);
     } else {
       await Navigator.push(
           context,
           MaterialPageRoute(
               settings: RichtextViewScreen.routSettings(),
               builder: (context) => RichtextViewScreen(
-                  title: t.notice, file: "", content: noticeItem.content)));
+                  title: t.meta.notice,
+                  file: "",
+                  content: noticeItem.content)));
     }
     noticeItem.readed = true;
     NoticeManager.saveConfig();
@@ -1605,11 +1690,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     showUrltestGroup: true,
                   ),
                   multiSelect: null,
+                  autoUpdateLatencyHistory: _currentServer.groupid ==
+                      ServerManager.getUrltestGroupId(),
                 )));
     if (result != null) {
       if (!_currentServer.isSame(result) || ServerManager.getDirty()) {
         _currentServer = result;
-        _currentServerForSelector.clear();
+        _currentServerForUrltest.clear();
         ServerManager.addRecent(result);
         var use = ServerManager.getUse();
         if (use.selectDefault != result.tag &&
@@ -1629,7 +1716,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> checkAndReload(String from) async {
-    if (!_isStarted && !_isStarting) {
+    if (_state != FlutterVpnServiceState.connected) {
       return;
     }
     if (SettingManager.getDirty() || ServerManager.getDirty()) {
@@ -1656,8 +1743,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> onTapToggle() async {
-    bool run = await VPNService.running();
-    if (run) {
+    bool started = await VPNService.getStarted();
+    if (started) {
       await stop();
     } else {
       await start("switch");
@@ -1665,39 +1752,31 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> stop() async {
-    _currentServerForSelector.clear();
+    _currentServerForUrltest.clear();
     await ProxyCluster.stop();
-    await Yacd.stop();
+    await Zashboard.stop();
     if (_currentServer.groupid == ServerManager.getUrltestGroupId()) {
       _currentServer.latency = "";
-      _currentServerForSelector.history.clear();
+      _currentServerForUrltest.history.clear();
     }
-
-    _isStarting = false;
-    _isStarted = false;
-    setState(() {});
-    Biz.vpnStateChanged(_isStarted);
-    bool run = await VPNService.running();
-    if (run) {
-      AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeApp,
-          name: 'HSS_stop',
-          parameters: {
-            "server": _currentServer.server,
-            "type": _currentServer.type,
-          });
-      _isStoping = true;
-      setState(() {});
-      await VPNService.stop();
-      _isStoping = false;
-      setState(() {});
-    }
+    await VPNService.stop();
+    AnalyticsUtils.logEvent(
+        analyticsEventType: analyticsEventTypeApp,
+        name: 'HSS_stop',
+        parameters: {
+          "server": _currentServer.server,
+          "type": _currentServer.type,
+        });
   }
 
   Future<ReturnResultError?> start(String from,
       {bool disableShowAlertDialog = false}) async {
-    _currentServerForSelector.clear();
+    _currentServerForUrltest.clear();
     await ProxyCluster.stop();
+
+    if (!_agreementApproved) {
+      return ReturnResultError("agreement");
+    }
 
     if (Platform.isWindows) {
       List<String> filePaths = [
@@ -1714,6 +1793,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 context, tcontext.fileNotExistReinstall(p: filePath),
                 showCopy: true, showFAQ: true, withVersion: true);
           }
+          Log.w("start failed: ${tcontext.fileNotExistReinstall(p: filePath)}");
           return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
         }
       }
@@ -1727,38 +1807,56 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 context, tcontext.fileNotExistReinstall(p: filePath),
                 showCopy: true, showFAQ: true, withVersion: true);
           }
+          Log.w("start failed: ${tcontext.fileNotExistReinstall(p: filePath)}");
           return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
         }
       }
     }
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     if (noConfig) {
-      Log.w("start failed: no server avaliable, from $from");
+      if (!disableShowAlertDialog) {
+        DialogUtils.showAlertDialog(
+            context, "start failed: no server avaliable",
+            showCopy: true, showFAQ: true, withVersion: true);
+      }
+      Log.w("start failed: no server avaliable");
       return ReturnResultError("start failed: no server avaliable");
     }
     if (_currentServer.groupid.isEmpty) {
+      if (!disableShowAlertDialog) {
+        DialogUtils.showAlertDialog(context, "start failed: groupid is empty",
+            showCopy: true, showFAQ: true, withVersion: true);
+      }
       Log.w("start failed: groupid is empty, from $from");
       return ReturnResultError("start failed: groupid is empty");
     }
-    if (_isStarting) {
-      Log.w("start failed: starting, from $from");
-      return ReturnResultError("start failed: starting");
+    if (_state == FlutterVpnServiceState.connecting ||
+        _state == FlutterVpnServiceState.disconnecting ||
+        _state == FlutterVpnServiceState.reasserting) {
+      if (!disableShowAlertDialog) {
+        DialogUtils.showAlertDialog(
+            context, "start failed: wrong state $_state",
+            showCopy: true, showFAQ: true, withVersion: true);
+      }
+      Log.w("start failed: wrong state $_state");
+      return ReturnResultError("start failed: wrong state $_state");
     }
-    bool run = await VPNService.running();
-    if (run) {
-      return null;
+    var state = await VPNService.getState();
+    if (state != FlutterVpnServiceState.disconnected &&
+        state != FlutterVpnServiceState.invalid) {
+      if (!disableShowAlertDialog) {
+        DialogUtils.showAlertDialog(
+            context, "start failed: wrong state $_state",
+            showCopy: true, showFAQ: true, withVersion: true);
+      }
+      Log.w("start failed: wrong state $_state");
+      return ReturnResultError("start failed: wrong state $_state");
     }
-    _isStarting = true;
-    _isStarted = false;
-    _canConnect = _isStarted;
+
     setState(() {});
     var result = await setServer();
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 != null) {
-      _isStarting = false;
-      _isStarted = false;
-      Biz.vpnStateChanged(_isStarted);
-      _canConnect = _isStarted;
       setState(() {});
       if (result.item1!.report) {
         AnalyticsUtils.logEvent(
@@ -1781,10 +1879,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     SettingManager.setDirty(false);
     var err = await VPNService.start(
         VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
-    _isStarting = false;
-    _isStarted = err == null;
-    Biz.vpnStateChanged(_isStarted);
-    _canConnect = _isStarted;
 
     setState(() {});
 
@@ -1856,7 +1950,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _focusNodeMore.dispose();
 
     ErrorReporterUtils.register(null);
-    _stopCheckTimer();
+    _stopStateCheckTimer();
+    _stopSystemProxyCheckTimer();
 
     _disconnectToService();
     _disconnectToCurrent();
@@ -1922,7 +2017,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Tooltip(
-                                message: tcontext.setting,
+                                message: tcontext.meta.setting,
                                 child: InkWell(
                                     autofocus: PlatformUtils.maybeTV(),
                                     focusNode: _focusNodeSettings,
@@ -2003,7 +2098,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                               child: FittedBox(
                                 fit: BoxFit.fill,
                                 child: Switch.adaptive(
-                                  value: _isStarted,
+                                  value: _state ==
+                                      FlutterVpnServiceState.connected,
                                   focusNode: _focusNodeSwitch,
                                   activeColor: ThemeDefine.kColorGreenBright,
                                   thumbColor:
@@ -2015,12 +2111,25 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       ? Colors.grey
                                       : Colors.grey.withOpacity(0.5),
                                   onChanged: (bool newValue) async {
+                                    if (_state ==
+                                            FlutterVpnServiceState.connecting ||
+                                        _state ==
+                                            FlutterVpnServiceState
+                                                .disconnecting ||
+                                        _state ==
+                                            FlutterVpnServiceState
+                                                .reasserting) {
+                                      return;
+                                    }
                                     if (noConfig) {
-                                      onTapToggleStart();
-                                    } else {
-                                      if (!_isStarting && !_isStoping) {
-                                        onTapToggle();
+                                      if (_state ==
+                                          FlutterVpnServiceState.connected) {
+                                        await stop();
+                                      } else {
+                                        await onTapShowAddProfile();
                                       }
+                                    } else {
+                                      await onTapToggle();
                                     }
                                   },
                                 ),
@@ -2029,7 +2138,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             SizedBox(
                                 width: 150,
                                 height: 150,
-                                child: _isStarting || _isStoping
+                                child: _state ==
+                                            FlutterVpnServiceState.connecting ||
+                                        _state ==
+                                            FlutterVpnServiceState
+                                                .disconnecting ||
+                                        _state ==
+                                            FlutterVpnServiceState.reasserting
                                     ? Container(
                                         alignment: const Alignment(-0.25, 0),
                                         child: const RepaintBoundary(
@@ -2077,7 +2192,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                         global.position)),
                             onChanged: (b) async {
                               if (noConfig) {
-                                 onTapToggleStart();
+                                 onTapShowAddProfile();
                               } else {
                                 if (!_isStarting) {
                                   setState(() {});
@@ -2105,9 +2220,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                           ),*/
                         Column(
                           children: [
-                            Platform.isWindows ||
-                                    Platform.isMacOS ||
-                                    Platform.isLinux
+                            VPNService.getSupportSystemProxy()
                                 ? Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -2147,36 +2260,33 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                             width: 15,
                                           ),
                                           Text(
-                                            tcontext.systemProxy,
+                                            tcontext.meta.systemProxy,
                                             style: const TextStyle(
                                               fontSize:
                                                   ThemeConfig.kFontSizeListItem,
                                             ),
                                           ),
-                                          FutureBuilder(
-                                            future: getSystemProxy(),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<bool> snapshot) {
-                                              return Switch.adaptive(
-                                                focusNode:
-                                                    _focusNodeSystemProxy,
-                                                value: snapshot.hasData &&
-                                                    snapshot.data!,
-                                                activeColor: ThemeDefine
-                                                    .kColorGreenBright,
-                                                onChanged: noConfig
-                                                    ? null
-                                                    : (bool newValue) {
-                                                        if (!_isStarting &&
-                                                            !_isStoping) {
-                                                          VPNService
-                                                              .setSystemProxy(
-                                                                  newValue);
-                                                          setState(() {});
-                                                        }
-                                                      },
-                                              );
-                                            },
+                                          Switch.adaptive(
+                                            focusNode: _focusNodeSystemProxy,
+                                            value: _isSystemProxySet,
+                                            activeColor:
+                                                ThemeDefine.kColorGreenBright,
+                                            onChanged: noConfig ||
+                                                    _state ==
+                                                        FlutterVpnServiceState
+                                                            .connecting ||
+                                                    _state ==
+                                                        FlutterVpnServiceState
+                                                            .disconnecting ||
+                                                    _state ==
+                                                        FlutterVpnServiceState
+                                                            .reasserting
+                                                ? null
+                                                : (bool newValue) {
+                                                    VPNService.setSystemProxy(
+                                                        newValue);
+                                                    setState(() {});
+                                                  },
                                           ),
                                         ],
                                       ),
@@ -2193,7 +2303,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       value: false,
                                       focusNode: _focusNodeRule,
                                       label: Text(
-                                        tcontext.rule,
+                                        tcontext.meta.rule,
                                         style: const TextStyle(
                                           fontSize:
                                               ThemeConfig.kFontSizeListSubItem,
@@ -2203,7 +2313,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       value: true,
                                       focusNode: _focusNodeGlobal,
                                       label: Text(
-                                        tcontext.global,
+                                        tcontext.meta.global,
                                         style: const TextStyle(
                                           fontSize:
                                               ThemeConfig.kFontSizeListSubItem,
@@ -2211,14 +2321,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       )),
                                 ],
                                 selected: {SettingManager.getConfig().proxyAll},
-                                onSelectionChanged:
-                                    (Set<bool> newSelection) async {
-                                  SettingManager.getConfig().proxyAll =
-                                      newSelection.first;
-                                  SettingManager.saveConfig();
-                                  setState(() {});
-                                  await setServerAndReload("proxyAll");
-                                },
+                                onSelectionChanged: _state ==
+                                            FlutterVpnServiceState.connecting ||
+                                        _state ==
+                                            FlutterVpnServiceState
+                                                .disconnecting ||
+                                        _state ==
+                                            FlutterVpnServiceState.reasserting
+                                    ? null
+                                    : (Set<bool> newSelection) async {
+                                        SettingManager.getConfig().proxyAll =
+                                            newSelection.first;
+                                        SettingManager.saveConfig();
+                                        setState(() {});
+                                        await setServerAndReload("proxyAll");
+                                      },
                                 multiSelectionEnabled: false,
                               ),
                             ),
@@ -2344,20 +2461,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     List<Header> headerWidgets = [];
     if (settingConfig.uiScreen.homeShowMyProfiles) {
-      headerWidgets.add(Header(tcontext.MyProfilesScreen.title,
+      headerWidgets.add(Header(tcontext.meta.myProfiles,
           Icons.list_alt_outlined, onTapMyProfiles, _focusNodeMyProfiles));
     }
     if (settingConfig.uiScreen.homeShowAddProfile) {
-      headerWidgets.add(Header(tcontext.addProfile, Icons.add_outlined,
+      headerWidgets.add(Header(tcontext.meta.addProfile, Icons.add_outlined,
           onTapAddProfile, _focusNodeAddProfile));
     }
     if (settingConfig.uiScreen.homeShowDNS) {
-      headerWidgets.add(
-          Header(tcontext.dns, Icons.dns_outlined, onTapDNS, _focusNodeDNS));
+      headerWidgets.add(Header(
+          tcontext.meta.dns, Icons.dns_outlined, onTapDNS, _focusNodeDNS));
     }
     if (settingConfig.uiScreen.homeShowDeversion) {
-      headerWidgets.add(Header(tcontext.diversion, Icons.alt_route_outlined,
-          onTapDiversion, _focusNodeDeversion));
+      headerWidgets.add(Header(tcontext.meta.diversion,
+          Icons.alt_route_outlined, onTapDiversion, _focusNodeDeversion));
     }
     if (settingConfig.uiScreen.homeShowNetcheck) {
       headerWidgets.add(Header(tcontext.NetCheckScreen.title,
@@ -2372,7 +2489,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           Icons.link_outlined, onTapLink, _focusNodeMyLink));
     }
     if (settingConfig.uiScreen.homeShowAppleTV && PlatformUtils.isMobile()) {
-      headerWidgets.add(Header(tcontext.appleTV, Icons.live_tv_outlined,
+      headerWidgets.add(Header(tcontext.meta.appleTV, Icons.live_tv_outlined,
           onTapAppleTV, _focusNodeAppleTV));
     }
     List<Header> visibleWidgets = [];
@@ -2408,7 +2525,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (moreWidgets.isNotEmpty) {
       _focusNodeToolbar.add(_focusNodeMore);
       widgets.add(Tooltip(
-          message: tcontext.more,
+          message: tcontext.meta.more,
           child: InkWell(
               focusNode: _focusNodeMore,
               onTap: () async {
@@ -2466,7 +2583,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Size windowSize = MediaQuery.of(context).size;
     String groupid = _currentServer.groupid;
     const double height = 24 + 24 + 5;
-    if (!_isStarted || groupid.isEmpty) {
+    if (_state != FlutterVpnServiceState.connected || groupid.isEmpty) {
       return const SizedBox(
         height: height,
       );
@@ -2476,14 +2593,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (groupid == ServerManager.getUrltestGroupId()) {
       List<ServerConfigGroupItem> items = ServerManager.getConfig().items;
 
-      if (_currentServerForSelector.now.isNotEmpty) {
+      if (_currentServerForUrltest.now.isNotEmpty) {
         String newGroupId = "";
         for (var item in items) {
           if (!item.enable) {
             continue;
           }
           for (var server in item.servers) {
-            if (server.tag == _currentServerForSelector.now) {
+            if (server.tag == _currentServerForUrltest.now) {
               newGroupId = item.groupid;
               break;
             }
@@ -2557,13 +2674,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                   setState(() {});
                   if (value != null) {
                     DialogUtils.showAlertDialog(
-                        context, tcontext.updateFailed(p: value.message),
+                        context, tcontext.meta.updateFailed(p: value.message),
                         showCopy: true, showFAQ: true, withVersion: true);
                   }
                 });
               } else {
-                DialogUtils.showAlertDialog(
-                    context, tcontext.updateFailed(p: value.error!.message),
+                DialogUtils.showAlertDialog(context,
+                    tcontext.meta.updateFailed(p: value.error!.message),
                     showCopy: true, showFAQ: true, withVersion: true);
               }
             }
@@ -2652,7 +2769,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.HomeScreen.trafficTotal,
+                tcontext.meta.trafficTotal,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -2693,7 +2810,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.HomeScreen.trafficProxy,
+                tcontext.meta.trafficProxy,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -2734,7 +2851,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.netSpeed,
+                tcontext.meta.netSpeed,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -2813,7 +2930,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void _showNotify() {
-    if (AppLifecycleStateNofityManager.isPaused()) {
+    if (AppLifecycleStateNofity.isPaused()) {
       return;
     }
     if (_inAppNotificationsShowing) {
@@ -2834,7 +2951,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _inAppNotificationsShowing = true;
     final tcontext = Translations.of(context);
     InAppNotifications.show(
-        title: tcontext.notice,
+        title: tcontext.meta.notice,
         duration: const Duration(seconds: 60),
         description: noticeItem.title,
         onTap: () {

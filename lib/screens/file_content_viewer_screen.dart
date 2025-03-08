@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -31,7 +30,7 @@ class FileContentViewerScreen extends LasyRenderingStatefulWidget {
 
 class FileContentViewerScreenState
     extends LasyRenderingState<FileContentViewerScreen> {
-  final String _tip = t.FileContentViewerScreen.chooseFile;
+  final String _tip = t.meta.fileChoose;
   String _fileName = "";
   String _fileContent = "";
   final _editController = TextEditingController();
@@ -57,36 +56,43 @@ class FileContentViewerScreenState
       var file = File(filePath);
       if (await file.exists()) {
         _fileContent = await file.readAsString();
+      } else {
+        _fileContent = "";
       }
     }
 
     return _fileContent;
   }
 
+  Map<String, bool> getFileTupleList() {
+    return {
+      "": true,
+      PathUtils.logFileName(): true,
+      PathUtils.serviceLogFileName(): true,
+      PathUtils.serviceStdErrorFileName(): true,
+      PathUtils.serviceCoreConfigFileName(): true,
+      PathUtils.serviceConfigFileName(): true,
+      PathUtils.subscribeFileName(): false,
+      PathUtils.diversionGroupFileName(): false,
+      PathUtils.subscribeUseFileName(): true,
+      PathUtils.settingFileName(): true,
+      PathUtils.cloudflareWarpFileName(): true,
+      PathUtils.remoteConfigFileName(): true,
+      PathUtils.remoteISPConfigFileName(): true,
+      PathUtils.ispNoticeFileName(): true,
+      PathUtils.autoUpdateFileName(): true,
+      PathUtils.noticeFileName(): true,
+      PathUtils.storageFileName(): true,
+    };
+  }
+
   List<String> getFileList() {
-    var list = [
-      "",
-      PathUtils.logFileName(),
-      PathUtils.serviceLogFileName(),
-      PathUtils.serviceStdErrorFileName(),
-      PathUtils.serviceCoreConfigFileName(),
-      PathUtils.serviceConfigFileName(),
-      PathUtils.subscribeFileName(),
-      PathUtils.diversionGroupFileName(),
-      PathUtils.subscribeUseFileName(),
-      PathUtils.settingFileName(),
-      PathUtils.cloudflareWarpFileName(),
-      PathUtils.remoteConfigFileName(),
-      PathUtils.autoUpdateFileName(),
-      PathUtils.noticeFileName(),
-      PathUtils.storageFileName()
-    ];
-    if (RemoteISPConfigManager.getConfig().id.isNotEmpty) {
-      list.addAll([
-        PathUtils.remoteISPConfigFileName(),
-        PathUtils.ispNoticeFileName(),
-      ]);
-    }
+    List<String> list = [];
+    var files = getFileTupleList();
+    files.forEach((key, value) {
+      list.add(key);
+    });
+
     return list;
   }
 
@@ -271,6 +277,7 @@ class FileContentViewerScreenState
     if (_fileName == _tip) {
       return;
     }
+    bool canClear = getFileTupleList()[_fileName] == true;
     List<PopupMenuItem> items = [
       PopupMenuItem(
           value: 1,
@@ -321,22 +328,25 @@ class FileContentViewerScreenState
         ),
       );
     }
-    items.add(
-      PopupMenuItem(
-        value: 1,
-        child: const SizedBox(
-          width: 30,
-          height: 30,
-          child: Icon(
-            Icons.clear_outlined,
-            size: 30,
+    if (canClear) {
+      items.add(
+        PopupMenuItem(
+          value: 1,
+          child: const SizedBox(
+            width: 30,
+            height: 30,
+            child: Icon(
+              Icons.clear_outlined,
+              size: 30,
+            ),
           ),
+          onTap: () {
+            clearContent();
+          },
         ),
-        onTap: () {
-          clearContent();
-        },
-      ),
-    );
+      );
+    }
+
     showMenu(
         context: context,
         position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),

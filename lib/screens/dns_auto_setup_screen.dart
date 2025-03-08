@@ -34,7 +34,7 @@ class DnsAutoSetupScreen extends LasyRenderingStatefulWidget {
 
 class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
   static ParallelTaskQueue? _taskQueue;
-
+  static const int _kMaxTasks = 5;
   final List _searchedData = [];
   Timer? _timer;
 
@@ -174,7 +174,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     DnsSettingsScreen.getDirect().clear();
     DnsSettingsScreen.getCurrent().clear();
     setState(() {});
-    await _testConnectLatency(
+    _testConnectLatency(
         _searchedData,
         DnsSettingsScreen.getDirect(),
         DnsSettingsScreen.getCurrent(),
@@ -205,31 +205,23 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
             .setOutboundDns(getNonResolverDNS(bydDirect, true, tun));
         settingConfig.dns.setDirectDns(getNonResolverDNS(bydDirect, true, tun));
         settingConfig.dns.setResolverDns(getResolverDNS(bydDirect, tun));
-
-        if (!settingConfig.novice &&
-            settingConfig.dns.enableProxyResolveByProxy) {
+        bool enableProxyResolveByProxy = settingConfig.dns.proxyResolveMode ==
+            SettingConfigItemDNSProxyResolveMode.proxy;
+        if (!settingConfig.novice && enableProxyResolveByProxy) {
           settingConfig.dns
               .setProxyDns(getNonResolverDNS(byCurrent, false, tun));
         } else {
           settingConfig.dns
               .setProxyDns(getNonResolverDNS(bydDirect, false, tun));
         }
-        if (!settingConfig.novice &&
-            settingConfig.dns.enableFinalResolveByProxy) {
-          settingConfig.dns
-              .setFinalDns(getNonResolverDNS(byCurrent, false, tun));
-        } else {
-          settingConfig.dns
-              .setFinalDns(getNonResolverDNS(bydDirect, false, tun));
-        }
-        SettingManager.setDirty(true);
-      }
 
-      if (!mounted) {
-        return;
+        SettingManager.setDirty(true);
+        if (!mounted) {
+          return;
+        }
+        final tcontext = Translations.of(context);
+        DialogUtils.showAlertDialog(context, tcontext.meta.done);
       }
-      final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.done);
     });
 
     if (!mounted) {
@@ -259,7 +251,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
         ));
   }
 
-  static Future<void> _testConnectLatency(
+  static void _testConnectLatency(
       List items,
       Map<String, String> contectDirectLatency,
       Map<String, String> contectCurrentLatency,
@@ -268,18 +260,37 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
       Function(
         Map<String, String> contectDirectLatency,
         Map<String, String> contectCurrentLatency,
-      ) onfinish) async {
-    const int kMaxTasks = 5;
+      ) onfinish) {
     List<String> urls = [];
 
     for (var item in items) {
       String url = item["url"];
-      urls.add(url);
+      if (_taskQueue == null || !_taskQueue!.hasTask(url)) {
+        urls.add(url);
+      }
     }
-    _taskQueue = ParallelTaskQueue((url) async {
-      bool started = await VPNService.started();
+    _testConnectLatencyParallel(contectDirectLatency, contectCurrentLatency,
+        detourDirect, detourCurrent, urls, onfinish);
+  }
+
+  static void _testConnectLatencyParallel(
+      Map<String, String> contectDirectLatency,
+      Map<String, String> contectCurrentLatency,
+      String detourDirect,
+      String detourCurrent,
+      List<String> urls,
+      Function(
+        Map<String, String> contectDirectLatency,
+        Map<String, String> contectCurrentLatency,
+      ) onfinish) {
+    if (urls.isEmpty) {
+      return;
+    }
+    _taskQueue ??= ParallelTaskQueue((url) async {
+      bool started = await VPNService.getStarted();
       if (started) {
-        if (url == SettingConfigItemDNS.kDNSLocal) {
+        if (url == SettingConfigItemDNS.kDNSLocal ||
+            url == SettingConfigItemDNS.kDNSDHCP) {
           ReturnResult<int> resultDirect =
               await ServerManager.testDNSConnectLatency(
                   [url], detourDirect, null);
@@ -289,7 +300,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
             contectDirectLatency[url] = resultDirect.data.toString();
           }
 
-          contectCurrentLatency[url] = "timeout";
+          contectCurrentLatency[url] = "not support";
         } else {
           var value = await Future.wait([
             ServerManager.testDNSConnectLatency([url], detourDirect, null),
@@ -321,8 +332,8 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
           contectCurrentLatency,
         );
       }
-    }, kMaxTasks, urls);
-
+    }, _kMaxTasks, []);
+    _taskQueue!.addTasks(urls);
     _taskQueue!.run();
   }
 

@@ -29,7 +29,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:web_socket_channel/io.dart';
 
-class Connection {
+class Connections {
   DateTime? startTime;
   num downloadTotal = 0;
   num uploadTotal = 0;
@@ -37,9 +37,10 @@ class Connection {
   num uploadTotalDirect = 0;
   num downloadSpeed = 0;
   num uploadSpeed = 0;
-  List<Tracker> connections = [];
-  num connectionsOut = 0;
-  num connectionsIn = 0;
+  List<ConnectionIn> connectionsIn = [];
+  List<ConnectionOut> connectionsOut = [];
+  num connectionsOutCount = 0;
+  num connectionsInCount = 0;
   num goroutines = 0;
   num threadCount = 0;
   num memory = 0;
@@ -56,15 +57,24 @@ class Connection {
     downloadSpeed = map["downloadSpeed"] ?? 0;
     uploadSpeed = map["uploadSpeed"] ?? 0;
     memory = map["memory"] ?? 0;
-    connectionsOut = map["connectionsOut"] ?? 0;
-    connectionsIn = map["connectionsIn"] ?? 0;
+    connectionsOutCount = map["connectionsOutCount"] ?? 0;
+    connectionsInCount = map["connectionsInCount"] ?? 0;
     goroutines = map["goroutines"] ?? 0;
     threadCount = map["threadCount"] ?? 0;
-    if (withConnectsions && map["connections"] != null) {
-      for (var i in map["connections"]) {
-        Tracker tr = Tracker();
-        tr.fromJson(i);
-        connections.add(tr);
+    if (withConnectsions) {
+      if (map["connections"] != null) {
+        for (var i in map["connections"]) {
+          ConnectionIn tr = ConnectionIn();
+          tr.fromJson(i);
+          connectionsIn.add(tr);
+        }
+      }
+      if (map["connectionsOut"] != null) {
+        for (var i in map["connectionsOut"]) {
+          ConnectionOut tr = ConnectionOut();
+          tr.fromJson(i);
+          connectionsOut.add(tr);
+        }
       }
     }
   }
@@ -107,7 +117,28 @@ class TrackerMetaData {
   }
 }
 
-class Tracker {
+class ConnectionOut {
+  DateTime? startTime;
+  String network = "";
+  String source = "";
+  String destination = "";
+  String fqdn = "";
+  String outbound = "";
+
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    startTime = DateTime.tryParse(map["startTime"] ?? "");
+    network = map["network"] ?? "";
+    source = map["source"] ?? "";
+    destination = map["destination"] ?? "";
+    fqdn = map["fqdn"] ?? "";
+    outbound = map["outbound"] ?? "";
+  }
+}
+
+class ConnectionIn {
   bool connected = true;
   DateTime? lastConnected;
   List<String> chains = [];
@@ -146,7 +177,7 @@ class NetConnectionTranffic {
   num lastUpload = 0;
 }
 
-class NetConnectionState {
+class NetConnectionStateIn {
   String process = ""; //https://crates.io/crates/netstat2
   String package = "";
   String protocol = "";
@@ -242,6 +273,18 @@ class NetConnectionState {
   }
 }
 
+class NetConnectionStateOut {
+  DateTime? start;
+  String network = "";
+  String source = "";
+  String destination = "";
+  String fqdn = "";
+  String outbound = "";
+
+  NetConnectionStateOut(this.start, this.network, this.source, this.destination,
+      this.fqdn, this.outbound);
+}
+
 class NetConnectionsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
     return const RouteSettings(name: "NetConnectionsScreen");
@@ -262,25 +305,32 @@ class PackageInfoEx {
 
 class _NetConnectionsScreenState
     extends LasyRenderingState<NetConnectionsScreen> {
-  final Map<String, NetConnectionState> _states = {};
-  List<NetConnectionState> _statesList = [];
+  final Map<String, NetConnectionStateIn> _states = {};
+  List<NetConnectionStateIn> _connectionInList = [];
+  final List<NetConnectionStateOut> _connectionOutList = [];
   AndroidPackageManager? _pkgMgr;
   HttpClient? _httpClient;
   StreamSubscription<dynamic>? _subscriptions;
   final Map<String, PackageInfoEx> _applicationInfoList = {};
   bool _pause = false;
+  bool _showConnectionIn = true;
   NetConnectionFilter _filter = NetConnectionFilter();
 
   @override
   void initState() {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
-    item.remark = t.custom;
+    item.remark = t.meta.custom;
 
     ServerDiversionGroupItem? itemDiversion =
         ServerManager.getDiversionCustomGroup();
 
-    itemDiversion.remark = t.custom;
+    itemDiversion.remark = t.meta.custom;
     _connectToService();
+    getInstalledPackages();
+    super.initState();
+  }
+
+  Future<void> getInstalledPackages() async {
     if (Platform.isAndroid) {
       _pkgMgr = AndroidPackageManager();
       _pkgMgr!
@@ -314,8 +364,6 @@ class _NetConnectionsScreenState
         }
       });
     }
-
-    super.initState();
   }
 
   Future<String> getAppName(String? packageName) async {
@@ -325,49 +373,49 @@ class _NetConnectionsScreenState
     return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
   }
 
-  String getConnectionStateKey(Tracker tracker) {
-    return tracker.metadata.processPath +
-        tracker.metadata.packageName +
-        tracker.metadata.sourceIP +
-        tracker.metadata.host +
-        tracker.metadata.destinationIP +
-        //tracker.metadata.destinationPort +
-        tracker.metadata.network +
-        tracker.chains.join();
+  String getConnectionInStateKey(ConnectionIn connection) {
+    return connection.metadata.processPath +
+        connection.metadata.packageName +
+        connection.metadata.sourceIP +
+        connection.metadata.host +
+        connection.metadata.destinationIP +
+        //connection.metadata.destinationPort +
+        connection.metadata.network +
+        connection.chains.join();
   }
 
-  List<Tracker> merge(List<Tracker> trackers) {
-    Map<String, Tracker> newTrackers = {};
-    for (var tracker in trackers) {
-      String key = getConnectionStateKey(tracker);
+  List<ConnectionIn> mergeConnectionsIn(List<ConnectionIn> connections) {
+    Map<String, ConnectionIn> newTrackers = {};
+    for (var connection in connections) {
+      String key = getConnectionInStateKey(connection);
       var find = newTrackers[key];
       if (find == null) {
-        newTrackers[key] = tracker;
+        newTrackers[key] = connection;
       } else {
-        find.download += tracker.download;
-        find.upload += tracker.upload;
-        if (find.start.difference(tracker.start).inMilliseconds < 0) {
-          find.start = tracker.start;
+        find.download += connection.download;
+        find.upload += connection.upload;
+        if (find.start.difference(connection.start).inMilliseconds < 0) {
+          find.start = connection.start;
         }
       }
     }
     return newTrackers.values.toList();
   }
 
-  void track(List<Tracker> trackers) {
+  bool convertConnectionsIn(List<ConnectionIn> connections) {
     if (!mounted) {
-      return;
+      return false;
     }
     if (_pause) {
-      return;
+      return false;
     }
     _states.forEach((key, value) {
       var list = value.ids.keys.toList();
       for (int i = 0; i < list.length; i++) {
         var id = list[i];
         bool hasId = false;
-        for (var tracker in trackers) {
-          if (tracker.id == id) {
+        for (var connection in connections) {
+          if (connection.id == id) {
             hasId = true;
             break;
           }
@@ -385,23 +433,23 @@ class _NetConnectionsScreenState
       }
     });
 
-    for (var tracker in trackers) {
-      String key = getConnectionStateKey(tracker);
-      NetConnectionState? find = _states[key];
+    for (var connection in connections) {
+      String key = getConnectionInStateKey(connection);
+      NetConnectionStateIn? find = _states[key];
       if (find == null) {
-        NetConnectionState state = NetConnectionState();
-        state.process = tracker.metadata.processPath;
-        state.package = tracker.metadata.packageName;
-        state.protocol = tracker.metadata.protocol;
-        state.sourceip = tracker.metadata.sourceIP;
-        state.sourceport = tracker.metadata.sourcePort;
-        state.host = tracker.metadata.host;
-        state.ip = tracker.metadata.destinationIP;
-        state.port = tracker.metadata.destinationPort;
-        state.network = tracker.metadata.network;
-        state.chains = tracker.chains;
-        state.rule = tracker.rule;
-        state.start = tracker.start;
+        NetConnectionStateIn state = NetConnectionStateIn();
+        state.process = connection.metadata.processPath;
+        state.package = connection.metadata.packageName;
+        state.protocol = connection.metadata.protocol;
+        state.sourceip = connection.metadata.sourceIP;
+        state.sourceport = connection.metadata.sourcePort;
+        state.host = connection.metadata.host;
+        state.ip = connection.metadata.destinationIP;
+        state.port = connection.metadata.destinationPort;
+        state.network = connection.metadata.network;
+        state.chains = connection.chains;
+        state.rule = connection.rule;
+        state.start = connection.start;
         state.end = state.start;
 
         state.showHost =
@@ -411,32 +459,53 @@ class _NetConnectionsScreenState
         state.showRule = getRule(state.rule);
 
         NetConnectionTranffic tranffic = NetConnectionTranffic();
-        tranffic.lastDownload = tracker.download;
-        tranffic.lastUpload = tracker.upload;
-        tranffic.download = tracker.download;
-        tranffic.upload = tracker.upload;
-        state.ids[tracker.id] = tranffic;
+        tranffic.lastDownload = connection.download;
+        tranffic.lastUpload = connection.upload;
+        tranffic.download = connection.download;
+        tranffic.upload = connection.upload;
+        state.ids[connection.id] = tranffic;
 
         _states[key] = state;
       } else {
-        var id = find.ids[tracker.id];
+        var id = find.ids[connection.id];
         if (id == null) {
           NetConnectionTranffic tranffic = NetConnectionTranffic();
-          tranffic.lastDownload = tracker.download;
-          tranffic.lastUpload = tracker.upload;
-          tranffic.download = tracker.download;
-          tranffic.upload = tracker.upload;
-          find.ids[tracker.id] = tranffic;
+          tranffic.lastDownload = connection.download;
+          tranffic.lastUpload = connection.upload;
+          tranffic.download = connection.download;
+          tranffic.upload = connection.upload;
+          find.ids[connection.id] = tranffic;
         } else {
           id.lastDownload = id.download;
           id.lastUpload = id.upload;
-          id.download = tracker.download;
-          id.upload = tracker.upload;
+          id.download = connection.download;
+          id.upload = connection.upload;
         }
       }
     }
     ajustProcess();
-    setState(() {});
+    return true;
+  }
+
+  bool convertConnectionsOut(List<ConnectionOut> connections) {
+    if (!mounted) {
+      return false;
+    }
+    if (_pause) {
+      return false;
+    }
+    _connectionOutList.clear();
+    for (var connect in connections) {
+      _connectionOutList.add(NetConnectionStateOut(
+          connect.startTime,
+          connect.network,
+          connect.source,
+          connect.destination,
+          connect.fqdn,
+          getTagName(connect.outbound)));
+    }
+
+    return true;
   }
 
   void ajustProcess() {
@@ -524,7 +593,9 @@ class _NetConnectionsScreenState
                     height: 10,
                   ),
                   Expanded(
-                    child: _loadListView(context),
+                    child: _showConnectionIn
+                        ? _loadListViewConnectionsIn(context)
+                        : _loadListViewConnectionsOut(context),
                   ),
                 ],
               ),
@@ -544,16 +615,16 @@ class _NetConnectionsScreenState
   String getTagName(String tag) {
     final tcontext = Translations.of(context);
     if (tag == kOutboundTagUrltest) {
-      return tcontext.outboundActionUrltest;
+      return tcontext.outboundRuleMode.urltest;
     } else if (ServerManager.isUrltestTagForCustom(tag)) {
       tag = ServerManager.removeUrltestTagPrefixForCustom(tag);
-      return "${tcontext.outboundActionUrltest}[$tag]";
+      return "${tcontext.outboundRuleMode.urltest}[$tag]";
     } else if (tag == kOutboundTagDirect) {
-      return tcontext.outboundActionDirect;
+      return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
-      return tcontext.outboundActionBlock;
+      return tcontext.outboundRuleMode.block;
     } else if (tag == kOutboundTagDns) {
-      return tcontext.dns;
+      return tcontext.meta.dns;
     }
     return tag;
   }
@@ -580,71 +651,85 @@ class _NetConnectionsScreenState
     return parts[0].trim();
   }
 
-  Widget _loadListView(BuildContext context) {
+  Widget _loadListViewConnectionsIn(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
-    _statesList = _states.values.toList();
+    _connectionInList = _states.values.toList();
     if (_filter.networks.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.networks.contains(_statesList[i].network)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.networks.contains(_connectionInList[i].network)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
     if (_filter.hosts.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.hosts.contains(_statesList[i].showHost)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.hosts.contains(_connectionInList[i].showHost)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
     if (_filter.ports.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.ports.contains(_statesList[i].port)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.ports.contains(_connectionInList[i].port)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
     if (_filter.process.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.process.contains(_statesList[i].showProcess)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.process.contains(_connectionInList[i].showProcess)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
     if (_filter.chains.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.chains.contains(_statesList[i].showChain)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.chains.contains(_connectionInList[i].showChain)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
     if (_filter.rules.isNotEmpty) {
-      for (int i = 0; i < _statesList.length; ++i) {
-        if (!_filter.rules.contains(_statesList[i].showRule)) {
-          _statesList.removeAt(i);
+      for (int i = 0; i < _connectionInList.length; ++i) {
+        if (!_filter.rules.contains(_connectionInList[i].showRule)) {
+          _connectionInList.removeAt(i);
           --i;
         }
       }
     }
-    sort(_statesList);
+    sortConnectionIn(_connectionInList);
     return Scrollbar(
         thumbVisibility: true,
         child: ListView.builder(
-          itemCount: _statesList.length,
+          itemCount: _connectionInList.length,
           itemBuilder: (BuildContext context, int index) {
-            var current = _statesList[index];
-            return createWidget(current, index + 1, windowSize);
+            var current = _connectionInList[index];
+            return createWidgetConnectionIn(current, index + 1, windowSize);
+          },
+        ));
+  }
+
+  Widget _loadListViewConnectionsOut(BuildContext context) {
+    sortConnectionOut(_connectionOutList);
+    Size windowSize = MediaQuery.of(context).size;
+    return Scrollbar(
+        thumbVisibility: true,
+        child: ListView.builder(
+          itemCount: _connectionOutList.length,
+          itemBuilder: (BuildContext context, int index) {
+            var current = _connectionOutList[index];
+            return createWidgetConnectionOut(current, index + 1, windowSize);
           },
         ));
   }
 
   Future<void> _connectToService() async {
-    bool started = await VPNService.started();
+    bool started = await VPNService.getStarted();
     if (!started) {
       return;
     }
@@ -672,9 +757,16 @@ class _NetConnectionsScreenState
             await WebSocket.connect(connectionsUrl, customClient: _httpClient);
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
-          Connection con = Connection();
+          Connections con = Connections();
           con.fromJson(obj, true);
-          track(con.connections);
+          if (!mounted) {
+            return;
+          }
+          bool refreshIn = convertConnectionsIn(con.connectionsIn);
+          bool refreshOut = convertConnectionsOut(con.connectionsOut);
+          if (refreshIn || refreshOut) {
+            setState(() {});
+          }
         }, onDone: () {
           _disconnectToService();
         }, onError: (error) {});
@@ -692,7 +784,8 @@ class _NetConnectionsScreenState
     _httpClient = null;
   }
 
-  Widget createWidget(NetConnectionState current, int index, Size windowSize) {
+  Widget createWidgetConnectionIn(
+      NetConnectionStateIn current, int index, Size windowSize) {
     if (current.showProcess.isEmpty) {
       current.showProcess = current.getProcessName();
     }
@@ -716,6 +809,7 @@ class _NetConnectionsScreenState
         padding * 2 * 2 -
         arrow_forward_ios_rounded;
     double height = 90;
+    Image? processIcon;
     String processName = current.showProcess;
     if (processName.isNotEmpty) {
       String appName = current.getMacosAppName();
@@ -723,10 +817,18 @@ class _NetConnectionsScreenState
         processName = "$appName[$processName]";
       }
       height += 18;
+      if (Platform.isAndroid) {
+        if (current.package.isNotEmpty) {
+          processIcon = _applicationInfoList[current.package]?.icon;
+        }
+      } else if (Platform.isWindows) {
+      } else if (Platform.isMacOS) {
+      } else if (Platform.isLinux) {}
     }
     if (current.package.isNotEmpty) {
       height += 18;
     }
+
     String lastUpload = ProxyConfUtils.convertTrafficToStringDouble(
         current.getUpload() - current.getLastUpload());
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
@@ -780,10 +882,13 @@ class _NetConnectionsScreenState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(children: [
-                            Text(
-                              "${current.showHost}:${current.port}",
-                              style: const TextStyle(
-                                fontSize: 12,
+                            SizedBox(
+                              width: centerWidth - 5 - 40,
+                              child: Text(
+                                "${current.showHost}:${current.port}",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -817,6 +922,12 @@ class _NetConnectionsScreenState
                           ]),
                           processName.isNotEmpty
                               ? Row(children: [
+                                  processIcon != null
+                                      ? SizedBox(
+                                          width: 12,
+                                          height: 12,
+                                          child: processIcon)
+                                      : SizedBox.shrink(),
                                   Text(
                                     processName,
                                     overflow: TextOverflow.ellipsis,
@@ -968,52 +1079,169 @@ class _NetConnectionsScreenState
     );
   }
 
+  Widget createWidgetConnectionOut(
+      NetConnectionStateOut current, int index, Size windowSize) {
+    const double padding = 4;
+    double height = 60;
+    double centerWidth = windowSize.width - 5 - 30 - padding * 2 * 2;
+    String durTime = "";
+    if (current.start != null) {
+      Duration dur = DateTime.now().difference(current.start!);
+      durTime = dur.toString().split(".")[0];
+    }
+    return Container(
+        margin: const EdgeInsets.only(bottom: 1),
+        child: Material(
+            borderRadius: ThemeDefine.kBorderRadius,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: padding,
+              ),
+              width: double.infinity,
+              height: height,
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: 30,
+                        child: Text(
+                          index.toString(),
+                          style: const TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: centerWidth,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(children: [
+                              SizedBox(
+                                width: centerWidth - 5 - 40,
+                                child: Text(
+                                  current.fqdn.isEmpty
+                                      ? current.destination
+                                      : "${current.fqdn} [${current.destination}]",
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              SizedBox(
+                                child: Text(
+                                  durTime,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ]),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            SizedBox(
+                              child: Text(
+                                current.network,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              current.outbound,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )));
+  }
+
   void onTapMore() {
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: [
-          PopupMenuItem(
-              value: 1,
-              child: SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
-                  size: 30,
-                ),
-              ),
-              onTap: () {
-                onTapPause();
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.filter_list_alt,
-                  size: 30,
-                ),
-              ),
-              onTap: () {
-                onTapFilter();
-              }),
-          PopupMenuItem(
+    List<PopupMenuItem> items = [
+      PopupMenuItem(
+          value: 1,
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: Icon(
+              _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
+              size: 30,
+            ),
+          ),
+          onTap: () {
+            onTapPause();
+          }),
+      PopupMenuItem(
+          value: 1,
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: Icon(
+              Icons.exit_to_app_outlined,
+              size: 30,
+            ),
+          ),
+          onTap: () {
+            _showConnectionIn = !_showConnectionIn;
+            setState(() {});
+          }),
+    ];
+    if (_showConnectionIn) {
+      items.addAll([
+        PopupMenuItem(
             value: 1,
             child: const SizedBox(
               width: 30,
               height: 30,
               child: Icon(
-                Icons.copy,
+                Icons.filter_list_alt,
                 size: 30,
               ),
             ),
             onTap: () {
-              onTapCopy();
-            },
+              onTapFilter();
+            }),
+        PopupMenuItem(
+          value: 1,
+          child: const SizedBox(
+            width: 30,
+            height: 30,
+            child: Icon(
+              Icons.copy,
+              size: 30,
+            ),
           ),
-        ]);
+          onTap: () {
+            onTapCopy();
+          },
+        ),
+      ]);
+    }
+    showMenu(
+      context: context,
+      position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
+      items: items,
+    );
   }
 
   void onTapPause() {
@@ -1055,7 +1283,7 @@ class _NetConnectionsScreenState
   void onTapCopy() async {
     final tcontext = Translations.of(context);
     var list = _states.values.toList();
-    sort(list);
+    sortConnectionIn(list);
     List<List<dynamic>> list2 = [];
     for (var i in list) {
       List<dynamic> list3 = [];
@@ -1102,7 +1330,7 @@ class _NetConnectionsScreenState
         context, tcontext.NetConnectionsScreen.copyAsCSV);
   }
 
-  void onTapItem(NetConnectionState current) async {
+  void onTapItem(NetConnectionStateIn current) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       List<GroupItemOptions> options = [];
@@ -1110,7 +1338,7 @@ class _NetConnectionsScreenState
       if (current.host.isNotEmpty) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.domain,
+                name: tcontext.meta.domain,
                 text: current.host,
                 textWidthPercent: 0.33,
                 onPush: () async {
@@ -1130,7 +1358,7 @@ class _NetConnectionsScreenState
       if (current.ip.isNotEmpty) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.ip,
+                name: tcontext.meta.ip,
                 text: current.ip,
                 textWidthPercent: 0.33,
                 onPush: () async {
@@ -1150,7 +1378,7 @@ class _NetConnectionsScreenState
       if (current.port.isNotEmpty) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.port,
+                name: tcontext.meta.port,
                 text: current.port,
                 textWidthPercent: 0.33,
                 onPush: () async {
@@ -1170,7 +1398,7 @@ class _NetConnectionsScreenState
       if (Platform.isAndroid && current.package.isNotEmpty) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.appPackage,
+                name: tcontext.meta.appPackage,
                 text: current.package,
                 textWidthPercent: 0.33,
                 onPush: () async {
@@ -1192,7 +1420,7 @@ class _NetConnectionsScreenState
 
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.processName,
+                name: tcontext.meta.processName,
                 text: processName,
                 textWidthPercent: 0.33,
                 onPush: () async {
@@ -1211,7 +1439,7 @@ class _NetConnectionsScreenState
 
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.processPath,
+                name: tcontext.meta.processPath,
                 text: "${current.process[0]}:/.../$processName",
                 textWidthPercent: 0.4,
                 onPush: () async {
@@ -1243,7 +1471,7 @@ class _NetConnectionsScreenState
     setState(() {});
   }
 
-  bool isSelf(NetConnectionState current) {
+  bool isSelf(NetConnectionStateIn current) {
     var remoteConfig = RemoteConfigManager.getConfig();
     if (current.host.isNotEmpty) {
       if (current.host == remoteConfig.host ||
@@ -1271,7 +1499,11 @@ class _NetConnectionsScreenState
     return false;
   }
 
-  void sort(List<NetConnectionState> list) {
+  void sortConnectionOut(List<NetConnectionStateOut> list) {
+    list.sort(sortCompareAddress);
+  }
+
+  void sortConnectionIn(List<NetConnectionStateIn> list) {
     list.sort(sortCompareConnected);
     int index = -1;
     for (var i = 0; i < list.length; i++) {
@@ -1294,19 +1526,27 @@ class _NetConnectionsScreenState
     }
   }
 
-  int sortCompareConnected(NetConnectionState a, NetConnectionState b) {
+  int sortCompareAddress(NetConnectionStateOut a, NetConnectionStateOut b) {
+    String addrA =
+        a.fqdn.isEmpty ? a.destination : "${a.fqdn} [${a.destination}]";
+    String addrB =
+        b.fqdn.isEmpty ? b.destination : "${b.fqdn} [${b.destination}]";
+    return addrA.compareTo(addrB);
+  }
+
+  int sortCompareConnected(NetConnectionStateIn a, NetConnectionStateIn b) {
     return b.ids.length - a.ids.length;
   }
 
-  int sortCompareProcess(NetConnectionState a, NetConnectionState b) {
+  int sortCompareProcess(NetConnectionStateIn a, NetConnectionStateIn b) {
     return a.process.compareTo(b.process);
   }
 
-  int sortCompareHost(NetConnectionState a, NetConnectionState b) {
+  int sortCompareHost(NetConnectionStateIn a, NetConnectionStateIn b) {
     return a.host.compareTo(b.host);
   }
 
-  int sortCompareIp(NetConnectionState a, NetConnectionState b) {
+  int sortCompareIp(NetConnectionStateIn a, NetConnectionStateIn b) {
     return a.ip.compareTo(b.ip);
   }
 }

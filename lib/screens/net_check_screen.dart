@@ -64,7 +64,9 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   @override
   void initState() {
     super.initState();
-    _textControllerHost.value = const TextEditingValue(text: "google.com");
+    _domain = SettingManager.getConfig().ui.netCheckDomain;
+    _domainAndPort = Tuple2(_domain, null);
+    _textControllerHost.value = TextEditingValue(text: _domain);
 
     _buildData();
     _connectLog();
@@ -74,6 +76,11 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   void dispose() {
     _disconnectLog();
     super.dispose();
+    if (_domain.isNotEmpty &&
+        _domain != SettingManager.getConfig().ui.netCheckDomain) {
+      SettingManager.getConfig().ui.netCheckDomain = _domain;
+      SettingManager.saveConfig();
+    }
   }
 
   Future<bool> startVPN() async {
@@ -121,13 +128,13 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   String getTagName(String tag) {
     final tcontext = Translations.of(context);
     if (tag == kOutboundTagUrltest) {
-      return tcontext.outboundActionUrltest;
+      return tcontext.outboundRuleMode.urltest;
     } else if (tag == kOutboundTagDirect) {
-      return tcontext.outboundActionDirect;
+      return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
-      return tcontext.outboundActionBlock;
+      return tcontext.outboundRuleMode.block;
     } else if (tag == kOutboundTagDns) {
-      return tcontext.dns;
+      return tcontext.meta.dns;
     }
     return tag;
   }
@@ -146,9 +153,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         break;
       case kDnsTagDirect:
         data["tag"] = tcontext.SettingsScreen.dnsTypeDirect;
-        break;
-      case kDnsTagFinal:
-        data["tag"] = tcontext.routeFinal;
         break;
       case kDnsTagProxy:
         data["tag"] = tcontext.SettingsScreen.dnsTypeProxy;
@@ -264,12 +268,12 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       ipsv4.add(uri.host);
     }
     if (!ipv4Ok) {
-      _netCheckItemConnectivity!.values.add(ReturnResult(
+      _netCheckItemConnectivity?.values.add(ReturnResult(
           error: ReturnResultError(
               tcontext.NetCheckScreen.connectivityTestIpv4AllFailed(
                   p: ipsv4.toString()))));
     } else {
-      _netCheckItemConnectivity!.values.add(
+      _netCheckItemConnectivity?.values.add(
           ReturnResult(data: tcontext.NetCheckScreen.connectivityTestIpv4Ok));
     }
 
@@ -301,21 +305,21 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       }
 
       if (!ipv6Ok) {
-        _netCheckItemConnectivity!.values.add(ReturnResult(
+        _netCheckItemConnectivity?.values.add(ReturnResult(
             error: ReturnResultError(
                 tcontext.NetCheckScreen.connectivityTestIpv6AllFailed(
                     p: ipsv6.toString()))));
       } else {
-        _netCheckItemConnectivity!.values.add(
+        _netCheckItemConnectivity?.values.add(
             ReturnResult(data: tcontext.NetCheckScreen.connectivityTestIpv6Ok));
       }
     }
 
     if (ipv4Ok || (!setting.novice && ipv6Ok)) {
-      _netCheckItemConnectivity!.values
+      _netCheckItemConnectivity?.values
           .add(ReturnResult(data: tcontext.NetCheckScreen.connectivityTestOk));
     } else {
-      _netCheckItemConnectivity!.values.add(ReturnResult(
+      _netCheckItemConnectivity?.values.add(ReturnResult(
           error: ReturnResultError(
               tcontext.NetCheckScreen.connectivityTestFailed)));
     }
@@ -380,21 +384,21 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         var addrs = data["addr"];
         // List<dynamic>? addr = data["addr"];
         if (err == null) {
-          _netCheckItemOutbound!.values.add(ReturnResult(
+          _netCheckItemOutbound?.values.add(ReturnResult(
               data: tcontext.NetCheckScreen.dnsOk(
                   p1: domain,
                   p2: tag,
                   p3: latency ?? 0,
                   p4: addrs != null ? addrs.join(",") : "")));
         } else {
-          _netCheckItemOutbound!.values.add(ReturnResult(
+          _netCheckItemOutbound?.values.add(ReturnResult(
               error: ReturnResultError(tcontext.NetCheckScreen.dnsFailed(
                   p1: domain, p2: tag, p3: err))));
           return false;
         }
       } else {
         hasError = true;
-        _netCheckItemOutbound!.values.add(result);
+        _netCheckItemOutbound?.values.add(result);
       }
     }
     if (hasError) {
@@ -402,10 +406,10 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     }
 
     if (result.error == null) {
-      _netCheckItemOutbound!.values
+      _netCheckItemOutbound?.values
           .add(ReturnResult(data: tcontext.NetCheckScreen.outboundOk(p: name)));
     } else {
-      _netCheckItemOutbound!.values.add(ReturnResult(
+      _netCheckItemOutbound?.values.add(ReturnResult(
           error: ReturnResultError(tcontext.NetCheckScreen.outboundFailed(
               p1: name, p2: result.error!.message))));
     }
@@ -413,15 +417,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   }
 
   Future<bool> _checkNonOutboundDnsQuery() async {
-    late List<DNSType> dnsTypes;
-    var settingConfig = SettingManager.getConfig();
-    if (!settingConfig.novice && settingConfig.dns.enableRule) {
-      dnsTypes = [DNSType.dnsTypeProxy, DNSType.dnsTypeFinal];
-    } else {
-      dnsTypes = [DNSType.dnsTypeFinal];
-    }
     NetCheckItemWarpper warpper = NetCheckItemWarpper();
-    bool ok = await _checkDnsQuery(warpper, dnsTypes);
+    bool ok = await _checkDnsQuery(warpper, [DNSType.dnsTypeProxy]);
     if (!mounted) {
       return false;
     }
@@ -463,25 +460,14 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         }
         name = tcontext.SettingsScreen.dnsTypeProxy;
         if (!settingConfig.dns.enableRule ||
-            !settingConfig.dns.enableProxyResolveByProxy) {
+            (settingConfig.dns.proxyResolveMode !=
+                SettingConfigItemDNSProxyResolveMode.proxy)) {
           detour = kOutboundTagDirect;
         }
       } else if (dnsType == DNSType.dnsTypeResolver) {
         dnsAddress = settingConfig.dns.getResolverDns(regionCode, tunMode);
         detour = kOutboundTagDirect;
         name = tcontext.SettingsScreen.dnsTypeResolver;
-      } else if (dnsType == DNSType.dnsTypeFinal) {
-        dnsAddress = settingConfig.dns.getFinalDns(regionCode, tunMode);
-        detour = current.tag;
-        if (current.groupid == ServerManager.getUrltestGroupId()) {
-          if (detour != kOutboundTagUrltest) {
-            detour = ServerManager.getUrltestTagForCustom(detour);
-          }
-        }
-        name = tcontext.routeFinal;
-        if (!settingConfig.dns.enableFinalResolveByProxy) {
-          detour = kOutboundTagDirect;
-        }
       }
 
       ReturnResult<int> result =
@@ -505,7 +491,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     _netCheckItemDomainDNSQuery ??= NetCheckItem();
-    _netCheckItemDomainDNSQuery!.name = tcontext.dns;
+    _netCheckItemDomainDNSQuery!.name = tcontext.meta.dns;
 
     String strategy = settingConfig.ipStrategy.name;
     ReturnResult<String> result = await ClashApi.dnsQueryWithDefaultRouter(
@@ -531,24 +517,27 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       String addrsStr = addrs != null ? addrs.join(",") : "";
       String addrsStr1 = dnsResult.isNotEmpty ? dnsResult.join(",") : "";
 
-      _netCheckItemDomainDNSQuery!.values.add(ReturnResult(
-          data: settingConfig.dns.enableFakeIp ? "FakeIP[ON]" : "FakeIP[OFF]"));
+      _netCheckItemDomainDNSQuery?.values.add(ReturnResult(
+          data: (settingConfig.dns.proxyResolveMode ==
+                  SettingConfigItemDNSProxyResolveMode.fakeip)
+              ? "FakeIP[ON]"
+              : "FakeIP[OFF]"));
 
       if (err == null) {
-        _netCheckItemDomainDNSQuery!.values.add(ReturnResult(
+        _netCheckItemDomainDNSQuery?.values.add(ReturnResult(
             data: tcontext.NetCheckScreen.dnsOk(
                 p1: _domainAndPort.item1,
                 p2: tag,
                 p3: latency ?? 0,
                 p4: "$addrsStr/$addrsStr1")));
       } else {
-        _netCheckItemDomainDNSQuery!.values.add(ReturnResult(
+        _netCheckItemDomainDNSQuery?.values.add(ReturnResult(
             error: ReturnResultError(tcontext.NetCheckScreen.dnsFailed(
                 p1: _domainAndPort.item1, p2: tag, p3: err))));
         return false;
       }
     } else {
-      _netCheckItemDomainDNSQuery!.values.add(result);
+      _netCheckItemDomainDNSQuery?.values.add(result);
     }
 
     return result.error == null;
@@ -567,17 +556,17 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       final tcontext = Translations.of(context);
       result.data!.forEach((key, value) {
         if (value == 0) {
-          _netCheckItemRemoteRulesets!.values.add(ReturnResult(
+          _netCheckItemRemoteRulesets?.values.add(ReturnResult(
               error: ReturnResultError(
                   "$key: ${tcontext.NetCheckScreen.remoteRulesetsDownloadNotOk}")));
         }
       });
       if (_netCheckItemRemoteRulesets!.values.isEmpty) {
-        _netCheckItemRemoteRulesets!.values.add(ReturnResult(
+        _netCheckItemRemoteRulesets?.values.add(ReturnResult(
             data: tcontext.NetCheckScreen.remoteRulesetsDownloadOk));
       }
     } else {
-      _netCheckItemRemoteRulesets!.values
+      _netCheckItemRemoteRulesets?.values
           .add(ReturnResult(error: result.error));
     }
     return true;
@@ -595,10 +584,10 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       ReturnResult<int> result =
           await NetworkUtils.testConnectLatency(domain, 443, timeout);
       if (result.error == null) {
-        _netCheckItemHostConnectivity!.values
+        _netCheckItemHostConnectivity?.values
             .add(ReturnResult(data: "[$domain] ok"));
       } else {
-        _netCheckItemHostConnectivity!.values
+        _netCheckItemHostConnectivity?.values
             .add(ReturnResult(error: ReturnResultError(result.error!.message)));
       }
       ok = result.error == null;
@@ -634,9 +623,9 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       if (outboundResult.error == null) {
         Map<String, dynamic> data = jsonDecode(outboundResult.data!);
         rule = data["rule"] ?? "";
-        if (data["rulechain"] != null) {
+        if (data["chain"] != null) {
           List<String> chain = [];
-          for (var i in data["rulechain"]) {
+          for (var i in data["chain"]) {
             chain.add(i);
           }
           rulechain = getChain(chain);
@@ -693,16 +682,16 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       if (!mounted) {
         return false;
       }
-      _netCheckItemHostConnectivity!.values.add(ReturnResult(
+      _netCheckItemHostConnectivity?.values.add(ReturnResult(
           data: tcontext.NetCheckScreen.hostConnection(
               p1: _domainAndPort.item1, p2: rule, p3: rulechain)));
 
       if (result.error == null ||
           result.error!.message.contains("http statusCode:")) {
-        _netCheckItemHostConnectivity!.values
+        _netCheckItemHostConnectivity?.values
             .add(ReturnResult(data: tcontext.NetCheckScreen.hostConnectionOk));
       } else {
-        _netCheckItemHostConnectivity!.values.add(ReturnResult(
+        _netCheckItemHostConnectivity?.values.add(ReturnResult(
             error: ReturnResultError(
                 tcontext.NetCheckScreen.hostConnectionFailed(
                     p: result.error!.message))));
@@ -795,7 +784,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                     height: 45.0,
                     child: ElevatedButton.icon(
                         icon: const Icon(Icons.network_check_outlined),
-                        label: Text(tcontext.NetCheckScreen.check),
+                        label: Text(tcontext.meta.check),
                         onPressed: () async {
                           onPressCheck();
                         }))

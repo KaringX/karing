@@ -37,6 +37,8 @@
 		<string>http</string>
 		<string>https</string>
 		<string>itms-beta</string>
+		<string>karing</string>
+		<string>tg</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

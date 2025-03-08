@@ -216,7 +216,7 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.add, "", "", null, (text) {
+        context, tcontext.meta.add, "", "", null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;

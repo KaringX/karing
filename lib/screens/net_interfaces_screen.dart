@@ -63,7 +63,7 @@ class _NetInterfacesScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.netInterfaces,
+                        tcontext.meta.netInterfaces,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

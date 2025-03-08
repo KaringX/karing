@@ -48,7 +48,7 @@ class CommonWidget {
                   DialogUtils.showAlertDialog(context, latency);
                 } else {
                   bool? ok = await DialogUtils.showConfirmDialog(
-                      context, "$latency\n\n${tcontext.retry}");
+                      context, "$latency\n\n${tcontext.meta.retry}");
                   if (ok == true) {
                     onTapLatencyReload();
                   }
@@ -222,7 +222,7 @@ class CommonWidget {
             height: 20,
           ),
           ElevatedButton(
-              child: Text(tcontext.refresh),
+              child: Text(tcontext.meta.refresh),
               onPressed: () async {
                 onRefresh();
               }),

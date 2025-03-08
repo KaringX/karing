@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:android_package_manager/android_package_manager.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -12,12 +11,12 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/multi_select_screen.dart';
+import 'package:karing/screens/packageid_multi_select_android_screen.dart';
 import 'package:karing/screens/theme_config.dart';
-import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:tuple/tuple.dart';
 import 'package:path/path.dart' as path;
+import 'package:tuple/tuple.dart';
 
 class DiversionGroupCustomEditOptions {
   bool showLogicOperations = false;
@@ -33,6 +32,7 @@ class DiversionGroupCustomEditOptions {
   String? package;
   String? processName;
   String? processPath;
+  String? processDir;
 }
 
 class DiversionGroupCustomEditScreen extends LasyRenderingStatefulWidget {
@@ -59,8 +59,8 @@ enum LogicOperations { or, and }
 class _DiversionGroupCustomEditScreenState
     extends LasyRenderingState<DiversionGroupCustomEditScreen> {
   LogicOperations? _logicOperation;
-  AndroidPackageManager? _pkgMgr;
-  List<Tuple2<String, String>> _installedApps = [];
+  final List<PackageInfoEx> _installedApps = [];
+
   final List<ListViewMultiPartsItem> _listViewParts = [];
 
   final _textControllerLinkDomainSuffix = TextEditingController();
@@ -75,18 +75,16 @@ class _DiversionGroupCustomEditScreenState
   final _textControllerLinkPackage = TextEditingController();
   final _textControllerLinkProcessName = TextEditingController();
   final _textControllerLinkProcessPath = TextEditingController();
+  final _textControllerLinkProcessDir = TextEditingController();
 
   List<String>? _sitecodes;
   List<String>? _ipcodes;
   List<String>? _aclcodes;
-  bool _showSnackBarShowed = false;
 
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) {
-      getInstalledPackages();
-    }
+
     ServerDiversionGroupItem diversionItem =
         ServerManager.getDiversionCustomGroup();
     for (var group in diversionItem.groups) {
@@ -97,58 +95,6 @@ class _DiversionGroupCustomEditScreenState
       _buildData(group);
       break;
     }
-  }
-
-  Future<String> getAppName(String? packageName) async {
-    if (_pkgMgr == null || packageName == null) {
-      return "";
-    }
-    try {
-      return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
-    } catch (err, stacktrace) {
-      return packageName;
-    }
-  }
-
-  Future<void> getInstalledPackages() async {
-    if (widget.options.package == null) {
-      return;
-    }
-    _pkgMgr ??= AndroidPackageManager();
-    _pkgMgr!
-        .getInstalledPackages(
-      flags: PackageInfoFlags(
-        {
-          PMFlag.getMetaData,
-        },
-      ),
-    )
-        .then((value) async {
-      if (!mounted) {
-        return;
-      }
-      if (value == null) {
-        return;
-      }
-      if (value.length <= 1) {
-        return;
-      }
-      List<Tuple2<String, String>> installedApps = [];
-      for (var app in value) {
-        if (app.packageName == null || app.packageName == AppUtils.getId()) {
-          continue;
-        }
-        installedApps
-            .add(Tuple2(app.packageName!, await getAppName(app.packageName!)));
-
-        if (!mounted) {
-          return;
-        }
-      }
-      installedApps.sort(sort);
-      _installedApps = installedApps;
-      setState(() {});
-    });
   }
 
   int sort(Tuple2<String, String> a, Tuple2<String, String> b) {
@@ -287,6 +233,18 @@ class _DiversionGroupCustomEditScreenState
           _textControllerLinkProcessPath.text += "\n";
         }
       }
+      if (widget.options.processDir != null) {
+        if (group.processDir.isNotEmpty) {
+          _textControllerLinkProcessDir.text = group.processDir.join("\n");
+          _textControllerLinkProcessDir.text += "\n";
+        }
+
+        if (widget.options.processDir!.isNotEmpty &&
+            !group.processDir.contains(widget.options.processDir)) {
+          _textControllerLinkProcessDir.text += widget.options.processDir!;
+          _textControllerLinkProcessDir.text += "\n";
+        }
+      }
     }
   }
 
@@ -299,7 +257,7 @@ class _DiversionGroupCustomEditScreenState
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
         return createTextField(_textControllerLinkDomainSuffix,
-            tcontext.domainSuffix, ".google.com\n.facebook.com");
+            tcontext.meta.domainSuffix, ".google.com\n.facebook.com");
       };
       _listViewParts.add(item);
     }
@@ -307,7 +265,7 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkDomain, tcontext.domain,
+        return createTextField(_textControllerLinkDomain, tcontext.meta.domain,
             "ads.google.com\nad.facebook.com");
       };
       _listViewParts.add(item);
@@ -317,7 +275,7 @@ class _DiversionGroupCustomEditScreenState
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
         return createTextField(_textControllerLinkDomainKeyword,
-            tcontext.domainKeyword, "google\nfacebook");
+            tcontext.meta.domainKeyword, "google\nfacebook");
       };
       _listViewParts.add(item);
     }
@@ -326,7 +284,7 @@ class _DiversionGroupCustomEditScreenState
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
         return createTextField(_textControllerLinkDomainRegex,
-            tcontext.domainRegex, "^google\\..+\n^facebook\\..+");
+            tcontext.meta.domainRegex, "^google\\..+\n^facebook\\..+");
       };
       _listViewParts.add(item);
     }
@@ -343,7 +301,7 @@ class _DiversionGroupCustomEditScreenState
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
         return createTextField(
-            _textControllerLinkPort, tcontext.port, "443\n53");
+            _textControllerLinkPort, tcontext.meta.port, "443\n53");
       };
       _listViewParts.add(item);
     }
@@ -367,6 +325,10 @@ class _DiversionGroupCustomEditScreenState
                             const Tuple2("quic", "quic"),
                             const Tuple2("stun", "stun"),
                             const Tuple2("dns", "dns"),
+                            const Tuple2("bittorrent", "bittorrent"),
+                            const Tuple2("dtls", "dtls"),
+                            const Tuple2("ssh", "ssh"),
+                            const Tuple2("rdp", "rdp"),
                           ];
                         },
                         selectedData: selectedData,
@@ -428,34 +390,18 @@ class _DiversionGroupCustomEditScreenState
           final tcontext = Translations.of(context);
           return createTextFieldWithSelect(
               _textControllerLinkPackage,
-              tcontext.appPackage,
+              tcontext.meta.appPackage,
               "com.google.chrome\ncom.facebook.katana", () async {
-            if (_installedApps.isEmpty) {
-              _showSnackBarShowed = true;
-              final tcontext = Translations.of(context);
-              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    showCloseIcon: true,
-                    content: Text(tcontext.requestAppQuery)),
-              );
-
-              return null;
-            }
-
             List<String> selectedData =
                 convertToList(_textControllerLinkPackage.text);
+
             return await Navigator.push(
                 context,
                 MaterialPageRoute(
-                    settings: MultiSelectScreen.routSettings(),
-                    builder: (context) => MultiSelectScreen(
-                          title: tcontext.appPackage,
-                          getData: () async {
-                            return _installedApps;
-                          },
+                    settings: PackageIdMultiSelectAndroidScreen.routSettings(),
+                    builder: (context) => PackageIdMultiSelectAndroidScreen(
+                          installedApps: _installedApps,
                           selectedData: selectedData,
-                          showKey: true,
                         )));
           });
         };
@@ -472,7 +418,7 @@ class _DiversionGroupCustomEditScreenState
               : "Google Chrome Helper\nCode Helper";
           if (Platform.isWindows) {
             return createTextFieldWithSelect(_textControllerLinkProcessName,
-                tcontext.processName, processName, () async {
+                tcontext.meta.processName, processName, () async {
               try {
                 List<String> extensions = Platform.isWindows ? ["exe"] : [""];
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -495,7 +441,7 @@ class _DiversionGroupCustomEditScreenState
           }
 
           return createTextField(_textControllerLinkProcessName,
-              tcontext.processName, processName);
+              tcontext.meta.processName, processName);
         };
         _listViewParts.add(item);
       }
@@ -509,7 +455,7 @@ class _DiversionGroupCustomEditScreenState
               : "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/130.0.6723.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper\n/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper";
           if (Platform.isWindows) {
             return createTextFieldWithSelect(_textControllerLinkProcessPath,
-                tcontext.processPath, processPath, () async {
+                tcontext.meta.processPath, processPath, () async {
               try {
                 List<String> extensions = Platform.isWindows ? ["exe"] : [""];
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -532,7 +478,73 @@ class _DiversionGroupCustomEditScreenState
           }
 
           return createTextField(_textControllerLinkProcessPath,
-              tcontext.processPath, processPath);
+              tcontext.meta.processPath, processPath);
+        };
+        _listViewParts.add(item);
+      }
+
+      if (widget.options.processDir != null) {
+        ListViewMultiPartsItem item = ListViewMultiPartsItem();
+        item.creator = (data, index, bindNO) {
+          final tcontext = Translations.of(context);
+          String processDir = Platform.isWindows
+              ? "C:\\Program Files (x86)\\Telegram Desktop\nC:\\Program Files\\Google\\Chrome"
+              : "/Applications/Google Chrome.app\n/Applications/Visual Studio Code.app";
+          if (Platform.isMacOS) {
+            return createTextFieldWithSelect(_textControllerLinkProcessDir,
+                tcontext.meta.processDir, processDir, () async {
+              try {
+                List<String> extensions = ["app"];
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  type: FileType.custom,
+                  allowedExtensions: extensions,
+                );
+                if (result != null) {
+                  String filePath = result.files.first.path!;
+                  final dirs = ["/Applications/", "/Users/"];
+                  for (var dir in dirs) {
+                    int index = filePath.indexOf(dir);
+                    if (index > 0) {
+                      filePath = filePath.substring(index);
+                      break;
+                    }
+                  }
+
+                  return [filePath];
+                }
+              } catch (err, stacktrace) {
+                if (!mounted) {
+                  return null;
+                }
+                DialogUtils.showAlertDialog(context, err.toString(),
+                    showCopy: true, showFAQ: true, withVersion: true);
+              }
+              return null;
+            });
+          } else {
+            return createTextFieldWithSelect(_textControllerLinkProcessDir,
+                tcontext.meta.processDir, processDir, () async {
+              try {
+                String? result = await FilePicker.platform.getDirectoryPath(
+                  dialogTitle: tcontext.meta.processDir,
+                  lockParentWindow: false,
+                );
+                if (result != null) {
+                  return [result];
+                }
+              } catch (err, stacktrace) {
+                if (!mounted) {
+                  return null;
+                }
+                DialogUtils.showAlertDialog(context, err.toString(),
+                    showCopy: true, showFAQ: true, withVersion: true);
+              }
+              return null;
+            });
+          }
+
+          //return createTextField(_textControllerLinkProcessDir,
+          //  tcontext.meta.processDir, processDir);
         };
         _listViewParts.add(item);
       }
@@ -541,6 +553,7 @@ class _DiversionGroupCustomEditScreenState
 
   @override
   void dispose() {
+    _installedApps.clear();
     _listViewParts.clear();
     super.dispose();
   }
@@ -551,11 +564,7 @@ class _DiversionGroupCustomEditScreenState
     Size windowSize = MediaQuery.of(context).size;
     return PopScope(
         canPop: true,
-        onPopInvokedWithResult: (didPop, result) {
-          if (_showSnackBarShowed) {
-            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          }
-        },
+        onPopInvokedWithResult: (didPop, result) {},
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.zero,
@@ -630,7 +639,7 @@ class _DiversionGroupCustomEditScreenState
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Row(
                             children: [
-                              Text(tcontext.logicOperation),
+                              Text(tcontext.meta.logicOperation),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -923,6 +932,16 @@ class _DiversionGroupCustomEditScreenState
       if (Platform.isAndroid) {
         if (widget.options.package != null) {
           newGroup.package = convertToList(_textControllerLinkPackage.text);
+          for (int i = 0; i < newGroup.package.length; i++) {
+            if (newGroup.package[i].contains(RegExp(r':|\"|{|}|\[|\]|/')) ||
+                !newGroup.package[i].contains(".")) {
+              DialogUtils.showAlertDialog(
+                  context,
+                  tcontext.DiversionGroupCustomEditScreen.invalidPackageId(
+                      p: newGroup.package[i]));
+              return;
+            }
+          }
         }
       }
       if (PlatformUtils.isPC()) {
@@ -934,6 +953,11 @@ class _DiversionGroupCustomEditScreenState
         if (widget.options.processPath != null) {
           newGroup.processPath =
               convertToList(_textControllerLinkProcessPath.text);
+        }
+
+        if (widget.options.processDir != null) {
+          newGroup.processDir =
+              convertToList(_textControllerLinkProcessDir.text);
         }
       }
       group.or = _logicOperation == LogicOperations.or;
@@ -962,6 +986,7 @@ class _DiversionGroupCustomEditScreenState
       group.package = newGroup.package;
       group.processName = newGroup.processName;
       group.processPath = newGroup.processPath;
+      group.processDir = newGroup.processDir;
       ServerManager.saveDiversionGroupConfig();
       ServerManager.setDirty(true);
       break;

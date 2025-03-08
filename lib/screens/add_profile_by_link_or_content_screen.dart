@@ -16,6 +16,7 @@ import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:tuple/tuple.dart';
 
 class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -51,10 +52,10 @@ class _AddProfileByLinkOrContentScreenState
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
-  bool _enableDiversionRules = false;
+  bool _keepDiversionRules = false;
   String _compatible = "";
   ProxyFilter _proxyFilter = ProxyFilter();
-
+  ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   @override
   void initState() {
@@ -130,27 +131,25 @@ class _AddProfileByLinkOrContentScreenState
       BuildContext context, String remark, String url) {
     final tcontext = Translations.of(context);
     if (url.isEmpty) {
-      return ReturnResultError(
-          tcontext.AddProfileByLinkOrContentScreen.subscriptionCannotEmpty);
+      return ReturnResultError(tcontext.meta.profileUrlOrContentCannotEmpty);
     }
     /*const kUrlMaxLen = 8182;
     if ((url.startsWith("https://") || url.startsWith("http://")) &&
         url.length > kUrlMaxLen) {
       return ReturnResultError(
-          tcontext.AddProfileByLinkOrContentScreen.invalidUrl);
+          tcontext.meta.urlTooLong);
     }*/
     if (ServerManager.hasGroupByUrlOrPath(url)) {
-      return ReturnResultError(
-          tcontext.AddProfileByLinkOrContentScreen.configExist);
+      return ReturnResultError(tcontext.meta.profileExists);
     }
     if (remark.isEmpty) {
-      return ReturnResultError(tcontext.remarkCannotEmpty);
+      return ReturnResultError(tcontext.meta.remarkCannotEmpty);
     }
     if (remark.length > kRemarkMaxLength) {
-      return ReturnResultError(tcontext.remarkTooLong);
+      return ReturnResultError(tcontext.meta.remarkTooLong);
     }
     if (ServerManager.hasGroupByRemark(remark)) {
-      return ReturnResultError(tcontext.remarkExist);
+      return ReturnResultError(tcontext.meta.remarkExist);
     }
 
     return null;
@@ -177,7 +176,10 @@ class _AddProfileByLinkOrContentScreenState
       SubscriptionLinkType.unknown,
       _compatible,
       _proxyFilter,
-      _enableDiversionRules,
+      [],
+      _keepDiversionRules,
+      false,
+      _downloadMode,
       _updateTimeInterval,
       ispId: widget.ispId,
       ispUser: widget.ispUser,
@@ -187,8 +189,9 @@ class _AddProfileByLinkOrContentScreenState
       return;
     }
     _loading = false;
+    setState(() {});
     if (error == null) {
-      await DialogUtils.showAlertDialog(context, tcontext.addSuccess);
+      await DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess);
       if (!mounted) {
         return;
       }
@@ -201,20 +204,18 @@ class _AddProfileByLinkOrContentScreenState
     String err = error.message;
     if (error.message.contains("download profile failed:")) {
       if (error.message.contains("401") || error.message.contains("403")) {
-        err = tcontext.AddProfileByLinkOrContentScreen
-            .addFailedThenDownloadAndImport(p: error.message);
+        err = tcontext.meta
+            .profileAddFailedThenDownloadAndImport(p: error.message);
       } else if (error.message.contains("HandshakeException:")) {
-        err = tcontext.AddProfileByLinkOrContentScreen
-            .addFailedHandshakeException(p: error.message);
+        err =
+            tcontext.meta.profileAddFailedHandshakeException(p: error.message);
       }
     } else {
       if (error.message.contains("FormatException:")) {
-        err = tcontext.AddProfileByLinkOrContentScreen.addFailedFormatException(
-            p: error.message);
+        err = tcontext.meta.profileAddFailedFormatException(p: error.message);
       } /*else if (error.message.contains("Unexpected character")) {}*/ //clash
     }
 
-    setState(() {});
     DialogUtils.showAlertDialog(context, err,
         showCopy: true, showFAQ: true, withVersion: true);
   }
@@ -250,7 +251,7 @@ class _AddProfileByLinkOrContentScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.AddProfileByLinkOrContentScreen.title,
+                        tcontext.meta.profileAddUrlOrContent,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -318,11 +319,8 @@ class _AddProfileByLinkOrContentScreenState
                           controller: _textControllerLink,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
-                              labelText: tcontext
-                                  .AddProfileByLinkOrContentScreen
-                                  .profileLinkContent,
-                              hintText: tcontext.AddProfileByLinkOrContentScreen
-                                  .profileLinkContentHit),
+                              labelText: tcontext.meta.profileUrlOrContent,
+                              hintText: tcontext.meta.profileUrlOrContentHit),
                           onChanged: (text) {
                             updateRemarkByText();
                           },
@@ -336,8 +334,8 @@ class _AddProfileByLinkOrContentScreenState
                         controller: _textControllerRemark,
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
-                          labelText: tcontext.remark,
-                          hintText: tcontext.required,
+                          labelText: tcontext.meta.remark,
+                          hintText: tcontext.meta.required,
                           prefixIcon: const Icon(Icons.edit_note_outlined),
                         ),
                         onSubmitted: (String? text) {
@@ -358,11 +356,20 @@ class _AddProfileByLinkOrContentScreenState
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
+    List<Tuple2<String, String>> tupleStrings = [
+      Tuple2(
+          ProxyStrategy.preferProxy.name, tcontext.proxyStrategy.perferProxy),
+      Tuple2(
+          ProxyStrategy.preferDirect.name, tcontext.proxyStrategy.perferDirect),
+      Tuple2(ProxyStrategy.onlyProxy.name, tcontext.proxyStrategy.onlyProxy),
+      Tuple2(ProxyStrategy.onlyDirect.name, tcontext.proxyStrategy.onlyDirect),
+    ];
+
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-              name: tcontext.userAgent,
+              name: tcontext.meta.userAgent,
               text: HttpUtils.getUserAgentsStringShort(_compatible),
               textWidthPercent: 0.24,
               tips: tcontext.ispUserAgentTips,
@@ -373,7 +380,7 @@ class _AddProfileByLinkOrContentScreenState
                     })),
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-              name: tcontext.filter,
+              name: tcontext.meta.filter,
               onPush: _loading
                   ? null
                   : () async {
@@ -381,22 +388,47 @@ class _AddProfileByLinkOrContentScreenState
                     })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesEnable,
+              name: tcontext.diversionRulesKeep,
               tips: tcontext.ispDiversionTips,
-              switchValue: _enableDiversionRules,
+              switchValue: _keepDiversionRules,
               onSwitch: _loading
                   ? null
                   : (bool value) async {
-                      _enableDiversionRules = value;
+                      _keepDiversionRules = value;
+                      setState(() {});
+                    })),
+      GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+              name: tcontext.downloadProxyStrategy,
+              tips: tcontext.SettingsScreen.ipStrategyTips,
+              selected: _downloadMode.name,
+              tupleStrings: tupleStrings,
+              onPicker: _loading
+                  ? null
+                  : (String? selected) async {
+                      if (selected == null || selected == _downloadMode.name) {
+                        return;
+                      }
+                      if (selected == ProxyStrategy.preferProxy.name) {
+                        _downloadMode = ProxyStrategy.preferProxy;
+                      } else if (selected == ProxyStrategy.preferDirect.name) {
+                        _downloadMode = ProxyStrategy.preferDirect;
+                      } else if (selected == ProxyStrategy.onlyProxy.name) {
+                        _downloadMode = ProxyStrategy.onlyProxy;
+                      } else if (selected == ProxyStrategy.onlyDirect.name) {
+                        _downloadMode = ProxyStrategy.onlyDirect;
+                      } else {
+                        _downloadMode = ProxyStrategy.preferProxy;
+                      }
+
                       setState(() {});
                     })),
       GroupItemOptions(
           timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-              name:
-                  tcontext.AddProfileByLinkOrContentScreen.updateTimerInterval,
-              tips: tcontext
-                  .AddProfileByLinkOrContentScreen.updateTimerIntervalTips,
+              name: tcontext.meta.updateInterval,
+              tips: tcontext.meta.updateInterval5mTips,
               duration: _updateTimeInterval,
+              showSeconds: false,
               onPicker: _loading
                   ? null
                   : (bool canceled, Duration? duration) async {
@@ -407,7 +439,6 @@ class _AddProfileByLinkOrContentScreenState
                         duration = const Duration(minutes: 5);
                       }
                       _updateTimeInterval = duration;
-
                       setState(() {});
                     })),
     ];

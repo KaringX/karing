@@ -94,7 +94,9 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                   SizedBox(
                     width: windowSize.width - 50 * 2,
                     child: Text(
-                      widget.title.isEmpty ? tcontext.qrcode : widget.title,
+                      widget.title.isEmpty
+                          ? tcontext.meta.qrcode
+                          : widget.title,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -123,7 +125,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                 padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                                 child: _image ??
                                     Text(
-                                      tcontext.QrcodeScreen.tooLong,
+                                      tcontext.meta.qrcodeTooLong,
                                       style: const TextStyle(
                                           fontWeight:
                                               ThemeConfig.kFontWeightTitle,
@@ -157,7 +159,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                               height: 45.0,
                               child: ElevatedButton.icon(
                                 icon: const Icon(Icons.content_copy_outlined),
-                                label: Text(tcontext.QrcodeScreen.copy),
+                                label: Text(tcontext.meta.copyUrl),
                                 onPressed: () async {
                                   try {
                                     await Clipboard.setData(
@@ -173,13 +175,13 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                   height: 45.0,
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.file_open_outlined),
-                                    label: Text(tcontext.QrcodeScreen.open),
+                                    label: Text(tcontext.meta.openUrl),
                                     onPressed: () async {
                                       if (widget.callback != null) {
                                         widget.callback!();
                                       } else {
                                         await WebviewHelper.loadUrl(
-                                            context, _content);
+                                            context, _content, "qrcode");
                                       }
                                     },
                                   ))
@@ -196,13 +198,12 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                   height: 45.0,
                                   child: ElevatedButton.icon(
                                     icon: const Icon(Icons.share_outlined),
-                                    label: Text(t.QrcodeScreen.shareImage),
+                                    label: Text(t.meta.qrcodeShare),
                                     onPressed: () async {
                                       String savePath = path.join(
                                           await PathUtils.cacheDir(),
                                           'qrcode_share.png');
-                                      await FileUtils.deleteFileByPath(
-                                          savePath);
+                                      await FileUtils.deletePath(savePath);
                                       await QrcodeUtils.saveAsImage(
                                           _content, savePath);
 

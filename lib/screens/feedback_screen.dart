@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
+import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -20,6 +20,7 @@ class FeedbackScreen extends LasyRenderingStatefulWidget {
 
 class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
   final _textController = TextEditingController();
+  static bool _feedbacked = false;
 
   @override
   void initState() {
@@ -67,7 +68,7 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
                   SizedBox(
                     width: windowSize.width - 50 * 2,
                     child: Text(
-                      tcontext.feedback,
+                      tcontext.meta.feedback,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -75,19 +76,24 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
                           fontSize: ThemeConfig.kFontSizeTitle),
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      onTapFeedback();
-                    },
-                    child: const SizedBox(
-                      width: 50,
-                      height: 30,
-                      child: Icon(
-                        Icons.done_outlined,
-                        size: 26,
-                      ),
-                    ),
-                  ),
+                  !_feedbacked
+                      ? InkWell(
+                          onTap: () async {
+                            onTapFeedback();
+                          },
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.done_outlined,
+                              size: 26,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(
+                          width: 50,
+                          height: 30,
+                        ),
                 ],
               ),
               const SizedBox(
@@ -108,8 +114,8 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
                           cursorColor: Colors.black,
                           //style: TextStyle(color: Colors.red),
                           decoration: InputDecoration(
-                            labelText: tcontext.FeedbackScreen.content,
-                            hintText: tcontext.FeedbackScreen.contentHit,
+                            labelText: tcontext.meta.feedbackContent,
+                            hintText: tcontext.meta.feedbackContentHit,
                           ),
                         ),
                       ),
@@ -130,17 +136,18 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
 
     if (content.data!.isEmpty) {
       DialogUtils.showAlertDialog(
-          context, tcontext.FeedbackScreen.contentCannotEmpty);
+          context, tcontext.meta.feedbackContentCannotEmpty);
       return;
     }
-
-    AnalyticsUtils.logEvent(
+    _feedbacked = true;
+    SentryUtils.feedback(content.data!);
+    /*AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeApp,
         name: 'feedback',
         parameters: {
           "content": content.data!,
         },
-        repeatable: false);
+        repeatable: false);*/
 
     Navigator.pop(context);
   }

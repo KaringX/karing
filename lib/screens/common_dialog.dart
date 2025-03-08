@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
+import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -64,7 +65,7 @@ class CommonDialog {
         }
       }
       if (disableServers.isNotEmpty) {
-        String msg = tcontext.disable;
+        String msg = tcontext.meta.disable;
         for (var server in disableServers) {
           msg +=
               "[${server.tag};${server.type};${server.server};${server.serverport}]";
@@ -115,13 +116,16 @@ class CommonDialog {
         if (!context.mounted) {
           return;
         }
-        await WebviewHelper.loadUrl(context, url, title: tcontext.faq);
+        await WebviewHelper.loadUrl(context, url, "loadFAQByError.faq.anchor",
+            title: tcontext.meta.faq);
 
         return;
       }
     }
-
-    await WebviewHelper.loadUrl(context, remoteConfig.faq,
-        title: tcontext.ispFaq(p: tcontext.faq));
+    if (forceOpen) {
+      await WebviewHelper.loadUrl(
+          context, remoteConfig.faq, "loadFAQByError.faq",
+          title: tcontext.isp.faq(p: tcontext.meta.faq));
+    }
   }
 }

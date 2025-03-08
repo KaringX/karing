@@ -84,7 +84,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.about,
+                        tcontext.meta.about,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -101,38 +101,34 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(
-                child: Column(
-                  children: [
-                    InkWell(
-                      onDoubleTap: () {
-                        SettingManager.getConfig().dev.devMode = true;
+              InkWell(
+                onDoubleTap: () {
+                  SettingManager.getConfig().dev.devMode = true;
 
-                        setState(() {});
-                      },
-                      child: Image.asset(
-                        "assets/images/app_icon_128.png",
-                        width: 128,
-                        height: 128,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SingleChildScrollView(
-                      child: FutureBuilder(
-                        future: getGroupOptions(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<GroupItem>> snapshot) {
-                          List<GroupItem> data =
-                              snapshot.hasData ? snapshot.data! : [];
-                          return Column(
-                              children:
-                                  GroupItemCreator.createGroups(context, data));
-                        },
-                      ),
-                    ),
-                  ],
+                  setState(() {});
+                },
+                child: Image.asset(
+                  "assets/images/app_icon_128.png",
+                  width: 128,
+                  height: 128,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: FutureBuilder(
+                    future: getGroupOptions(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<GroupItem>> snapshot) {
+                      List<GroupItem> data =
+                          snapshot.hasData ? snapshot.data! : [];
+                      return Column(
+                          children:
+                              GroupItemCreator.createGroups(context, data));
+                    },
+                  ),
                 ),
               ),
             ],
@@ -156,12 +152,12 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textOptions: GroupItemTextOptions(
-          name: tcontext.name,
+          name: tcontext.meta.name,
           text: AppUtils.getName(),
         )),
         GroupItemOptions(
             textOptions: GroupItemTextOptions(
-          name: tcontext.version,
+          name: tcontext.meta.version,
           text: AppUtils.getBuildinVersion(),
         )),
         GroupItemOptions(
@@ -194,22 +190,22 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         termOfUse.isNotEmpty
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
-                    name: tcontext.termOfUse,
+                    name: tcontext.meta.termOfUse,
                     onPush: () async {
                       await WebviewHelper.loadUrl(
-                          context, AppUtils.getTermsOfServiceUrl(),
-                          title: tcontext.termOfUse,
+                          context, AppUtils.getTermsOfServiceUrl(), "termOfUse",
+                          title: tcontext.meta.termOfUse,
                           useInappWebViewForPC: true);
                     }))
             : GroupItemOptions(),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.privacyPolicy,
+                name: tcontext.meta.privacyPolicy,
                 onPush: () async {
                   var remoteConfig = RemoteConfigManager.getConfig();
                   bool ok = await WebviewHelper.loadUrl(
-                      context, remoteConfig.privacyPolicy,
-                      title: tcontext.privacyPolicy,
+                      context, remoteConfig.privacyPolicy, "privacyPolicy",
+                      title: tcontext.meta.privacyPolicy,
                       useInappWebViewForPC: true);
 
                   if (!ok) {
@@ -294,7 +290,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         PlatformUtils.isPC()
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
-                    name: tcontext.AboutScreen.openDir,
+                    name: tcontext.meta.openDir,
                     onPush: () async {
                       await FileUtils.openDirectory(
                           await PathUtils.profileDir());
@@ -333,8 +329,10 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 pushOptions: GroupItemPushOptions(
                     name: tcontext.AboutScreen.pprofPanel,
                     onPush: () async {
-                      await WebviewHelper.loadUrl(context,
+                      await WebviewHelper.loadUrl(
+                          context,
                           "http://localhost:${SettingManager.getConfig().dev.pprofPort}/debug/pprof/",
+                          "pprof",
                           title: tcontext.AboutScreen.pprofPanel);
                     }))
             : GroupItemOptions(),

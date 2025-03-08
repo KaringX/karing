@@ -657,6 +657,7 @@ class GroupItemCreator {
       GroupItemTimerPickerOptions options) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -743,7 +744,8 @@ class GroupItemCreator {
                             options.onPicker!(options.duration);
                           },
                     child: Text(
-                      _duratingToString(options.duration, tcontext.disable),
+                      _duratingToString(
+                          options.duration, tcontext.meta.disable),
                       style: TextStyle(
                         fontSize: ThemeConfig.kFontSizeGroupItem,
                         color: ThemeDefine.kColorBlue,
@@ -848,7 +850,7 @@ class GroupItemCreator {
                 const Spacer(),
                 Row(children: [
                   Text(
-                    _duratingToString(options.duration, tcontext.disable),
+                    _duratingToString(options.duration, tcontext.meta.disable),
                     style: TextStyle(
                       fontSize: ThemeConfig.kFontSizeGroupItem,
                       color: ThemeDefine.kColorBlue,
@@ -869,6 +871,9 @@ class GroupItemCreator {
   Container _createGroupItemStringPicker(BuildContext context,
       double itemHeight, GroupItemStringPickerOptions options) {
     Size windowSize = MediaQuery.of(context).size;
+
+    double textWidthPercent = options.textWidthPercent ?? 0.72;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -922,12 +927,16 @@ class GroupItemCreator {
                         SizedBox(
                           height: itemHeight,
                           child: Row(children: [
-                            Text(
-                              options.name,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
-                            ),
+                            ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: windowSize.width * textWidthPercent,
+                                ),
+                                child: Text(
+                                  options.name,
+                                  style: TextStyle(
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                  ),
+                                )),
                           ]),
                         ),
                       ],

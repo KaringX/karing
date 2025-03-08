@@ -37,7 +37,7 @@ class _AddProfileByImportFromFileScreenState
 
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
-  bool _enableDiversionRules = false;
+  bool _keepDiversionRules = false;
   ProxyFilter _proxyFilter = ProxyFilter();
   @override
   void initState() {
@@ -55,27 +55,26 @@ class _AddProfileByImportFromFileScreenState
     Text remarkText = Text(_textControllerRemark.text);
     String text = remarkText.data!.trim();
     if (text.isEmpty) {
-      DialogUtils.showAlertDialog(context, tcontext.remarkCannotEmpty);
+      DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
       return;
     }
     if (text.length > kRemarkMaxLength) {
-      DialogUtils.showAlertDialog(context, tcontext.remarkTooLong);
+      DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
       return;
     }
     if (ServerManager.hasGroupByRemark(text)) {
-      DialogUtils.showAlertDialog(context, tcontext.remarkExist);
+      DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
       return;
     }
     if (ServerManager.hasGroupByUrlOrPath(_filePath)) {
-      DialogUtils.showAlertDialog(
-          context, tcontext.AddProfileByImportFromFileScreen.configExist);
+      DialogUtils.showAlertDialog(context, tcontext.meta.profileExists);
       return;
     }
     _loading = true;
     setState(() {});
 
     ReturnResultError? error = await ServerManager.addLocalConfig(
-        text, _filePath, widget.type, _proxyFilter, _enableDiversionRules);
+        text, _filePath, widget.type, _proxyFilter, _keepDiversionRules);
 
     if (!mounted) {
       return;
@@ -84,14 +83,16 @@ class _AddProfileByImportFromFileScreenState
     setState(() {});
 
     if (error == null) {
-      DialogUtils.showAlertDialog(context, tcontext.addSuccess).then((value) {
+      DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess)
+          .then((value) {
         if (!mounted) {
           return;
         }
         Navigator.pop(context);
       });
     } else {
-      DialogUtils.showAlertDialog(context, tcontext.addFailed(p: error.message),
+      DialogUtils.showAlertDialog(
+              context, tcontext.meta.addFailed(p: error.message),
               showCopy: true, showFAQ: true, withVersion: true)
           .then((value) {});
     }
@@ -130,7 +131,7 @@ class _AddProfileByImportFromFileScreenState
                     child: Text(
                       widget.title.isNotEmpty
                           ? widget.title
-                          : tcontext.AddProfileByImportFromFileScreen.title,
+                          : tcontext.meta.addProfile,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -194,8 +195,7 @@ class _AddProfileByImportFromFileScreenState
                       height: 45.0,
                       child: ElevatedButton.icon(
                           icon: const Icon(Icons.file_open_outlined),
-                          label: Text(tcontext
-                              .AddProfileByImportFromFileScreen.chooseFile),
+                          label: Text(tcontext.meta.fileChoose),
                           onPressed: () async {
                             await onPressChooseFile();
                           }),
@@ -208,8 +208,8 @@ class _AddProfileByImportFromFileScreenState
                       textInputAction: TextInputAction.done,
                       cursorColor: Colors.black,
                       decoration: InputDecoration(
-                        labelText: tcontext.remark,
-                        hintText: tcontext.required,
+                        labelText: tcontext.meta.remark,
+                        hintText: tcontext.meta.required,
                         prefixIcon: const Icon(Icons.edit_note_outlined),
                       ),
                     ),
@@ -263,7 +263,7 @@ class _AddProfileByImportFromFileScreenState
             .toLowerCase();
         if (!extensionsAll.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.invalidFileType(p: ext));
+              context, tcontext.meta.fileTypeInvalid(p: ext));
           return;
         }
         _filePath = fresult.files.first.path!;
@@ -290,17 +290,17 @@ class _AddProfileByImportFromFileScreenState
     List<GroupItemOptions> options = [
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-              name: tcontext.filter,
+              name: tcontext.meta.filter,
               onPush: () async {
                 onTapFilter();
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesEnable,
+              name: tcontext.diversionRulesKeep,
               tips: tcontext.ispDiversionTips,
-              switchValue: _enableDiversionRules,
+              switchValue: _keepDiversionRules,
               onSwitch: (bool value) async {
-                _enableDiversionRules = value;
+                _keepDiversionRules = value;
                 setState(() {});
               })),
     ];

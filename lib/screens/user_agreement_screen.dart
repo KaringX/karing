@@ -99,14 +99,16 @@ class _UserAgreementScreenState
                             termOfUse.isNotEmpty
                                 ? InkWell(
                                     child: Text(
-                                      tcontext.termOfUse,
+                                      tcontext.meta.termOfUse,
                                       style: const TextStyle(
                                           color: Colors.blueAccent),
                                     ),
                                     onTap: () async {
-                                      await WebviewHelper.loadUrl(context,
+                                      await WebviewHelper.loadUrl(
+                                          context,
                                           AppUtils.getTermsOfServiceUrl(),
-                                          title: tcontext.termOfUse,
+                                          "termOfUse",
+                                          title: tcontext.meta.termOfUse,
                                           useInappWebViewForPC: true);
                                     })
                                 : const SizedBox(
@@ -121,7 +123,7 @@ class _UserAgreementScreenState
                                   ),
                             InkWell(
                                 child: Text(
-                                  tcontext.privacyPolicy,
+                                  tcontext.meta.privacyPolicy,
                                   style:
                                       const TextStyle(color: Colors.blueAccent),
                                 ),
@@ -129,8 +131,10 @@ class _UserAgreementScreenState
                                   var remoteConfig =
                                       RemoteConfigManager.getConfig();
                                   bool ok = await WebviewHelper.loadUrl(
-                                      context, remoteConfig.privacyPolicy,
-                                      title: tcontext.privacyPolicy,
+                                      context,
+                                      remoteConfig.privacyPolicy,
+                                      "privacyPolicy",
+                                      title: tcontext.meta.privacyPolicy,
                                       useInappWebViewForPC: true);
 
                                   if (!ok) {

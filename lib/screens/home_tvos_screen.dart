@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
@@ -83,7 +83,6 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   String _trafficDownSpeedNotify = "0 B/s";
   String _startDurationNotify = "0 B/s";
 
-  Function(List<Tracker>)? _trackerCallback;
   /*bool _isStarting = false;
   bool _isStarted = false;
   bool _isStoping = false;*/
@@ -115,8 +114,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     //Log.w("_connectToService");
 
     var setting = SettingManager.getConfig();
-    bool run = await VPNService.running();
-    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+    bool started = await VPNService.getStarted();
+    int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
 
     ReturnResult<String>? result = await HttpUtils.httpGetRequest(
         "http://${widget.host}:${widget.cport}/",
@@ -151,14 +150,14 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
           var obj = jsonDecode(message);
-          Connection con = Connection();
-          con.fromJson(obj, _trackerCallback != null);
+          Connections con = Connections();
+          con.fromJson(obj, false);
           if (con.startTime != null) {
             _startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
                 .toString()
                 .split(".")[0];
-            if (!AppLifecycleStateNofityManager.isPaused()) {
+            if (!AppLifecycleStateNofity.isPaused()) {
               _startDuration.value = _startDurationNotify;
             }
           }
@@ -179,7 +178,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
                   "/s";
 
-          if (!AppLifecycleStateNofityManager.isPaused()) {
+          if (!AppLifecycleStateNofity.isPaused()) {
             _trafficUpTotal.value = _trafficUpTotalNotify;
             _trafficDownTotal.value = _trafficDownTotalNotify;
 
@@ -194,14 +193,10 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
             if (SettingManager.getConfig().dev.devMode) {
               _connInboundCount.value =
-                  "${con.connectionsIn}/${con.connectionsOut}/${con.goroutines}/${con.threadCount}";
+                  "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
             } else {
-              _connInboundCount.value = con.connectionsIn.toString();
+              _connInboundCount.value = con.connectionsInCount.toString();
             }
-          }
-
-          if (_trackerCallback != null) {
-            _trackerCallback!(con.connections);
           }
         }, onDone: () {
           _disconnectToService();
@@ -215,10 +210,6 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   }
 
   Future<void> _disconnectToService() async {
-    if (_trackerCallback != null) {
-      return;
-    }
-
     _subscriptions?.cancel();
     _subscriptions = null;
     _httpClient?.close();
@@ -264,14 +255,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                 NetConnectionsScreen(connectionsUrl: connectionsUrl)));
   }
 
-  Future<void> onTapToggle() async {
-    bool run = await VPNService.running();
-    if (run) {
-      await stop();
-    } else {
-      await start();
-    }
-  }
+  Future<void> onTapToggle() async {}
 
   Future<void> stop() async {}
 
@@ -329,7 +313,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                   SizedBox(
                     width: windowSize.width - 50 * 4,
                     child: Text(
-                      tcontext.appleTV,
+                      tcontext.meta.appleTV,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -533,7 +517,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.HomeScreen.trafficTotal,
+                tcontext.meta.trafficTotal,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -574,7 +558,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.HomeScreen.trafficProxy,
+                tcontext.meta.trafficProxy,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -615,7 +599,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               width: itemWidth,
               child: Text(
                 textAlign: TextAlign.center,
-                tcontext.netSpeed,
+                tcontext.meta.netSpeed,
                 style: const TextStyle(
                   fontSize: ThemeConfig.kFontSizeListSubItem,
                 ),
@@ -695,8 +679,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
   Future<void> getFile(String fileName) async {
     var setting = SettingManager.getConfig();
-    bool run = await VPNService.running();
-    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+    bool started = await VPNService.getStarted();
+    int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
 
     String url =
         "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
@@ -728,7 +712,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   Future<void> onTapSyncCoreConfig() async {
     final tcontext = Translations.of(context);
     String savePath = path.join(await PathUtils.cacheDir(), 'tvos_sync.json');
-    await FileUtils.deleteFileByPath(savePath);
+    await FileUtils.deletePath(savePath);
     VPNServiceSetServerOptions options = VPNServiceSetServerOptions();
     options.disabledServerError = tcontext.HomeScreen.disabledServer;
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
@@ -745,8 +729,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       return;
     }
     var setting = SettingManager.getConfig();
-    bool run = await VPNService.running();
-    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+    bool started = await VPNService.getStarted();
+    int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
     try {
       String content = await File(savePath).readAsString();
       var headers = {
@@ -788,8 +772,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
   Future<void> onTapRemoveCoreConfig() async {
     final tcontext = Translations.of(context);
-    bool? del =
-        await DialogUtils.showConfirmDialog(context, tcontext.removeConfirm);
+    bool? del = await DialogUtils.showConfirmDialog(
+        context, tcontext.meta.removeConfirm);
     if (del != true) {
       return;
     }
@@ -798,8 +782,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     }
 
     var setting = SettingManager.getConfig();
-    bool run = await VPNService.running();
-    int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
+    bool started = await VPNService.getStarted();
+    int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
     try {
       String url =
           "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVDeleteCoreConfigAction()}?uuid=${widget.uuid}";

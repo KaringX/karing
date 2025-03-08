@@ -1,31 +1,25 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
     id "io.sentry.android.gradle" version "4.11.0"
 }
 
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+def dartEnvironmentVariables = [
+    publish: 'false',
+]
+if (project.hasProperty('dart-defines')) {
+    dartEnvironmentVariables = dartEnvironmentVariables + project.property('dart-defines')
+            .split(',')
+            .collectEntries { entry ->
+                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+                [(pair.first()): pair.last()]
+            }
 }
-
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
- 
 def signPropFile = "./key.properties"
 def sentryPropFile = "../private/karing/android/sign/sentry.properties"
-def buildTypeIsRelease = false
+def sentryPublish = false
 android {
     namespace "com.nebula.karing"
     compileSdkVersion 34
@@ -33,13 +27,11 @@ android {
     ndkVersion "26.3.11579264" //flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
         coreLibraryDesugaringEnabled true
     }
-    /*kotlin {
-        jvmToolchain(17)
-    }*/
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
     }
@@ -52,8 +44,8 @@ android {
         applicationId "com.nebula.karing"
         minSdkVersion 22
         targetSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
         // multiDexEnabled true
     }
     signingConfigs {
@@ -80,6 +72,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            minifyEnabled true
             ndk {
                 abiFilters "armeabi-v7a", 'arm64-v8a', 'x86_64'
             }
@@ -91,7 +84,7 @@ android {
             }
         }
         release {
-            buildTypeIsRelease = true
+            sentryPublish = dartEnvironmentVariables.publish == 'true' //flutter build apk --dart-define=publish=true
             //packagingOptions {
             //   doNotStrip '**/*.so'
             //} 
@@ -116,7 +109,7 @@ android {
 }
 
 flutter {
-    source '../..'
+    source = "../.."
 }
 
 dependencies {
@@ -149,10 +142,10 @@ sentry {
     debug.set(false)
 
     // The slug of the Sentry organization to use for uploading proguard mappings/source contexts.
-    org.set("nebula-mz")
+    org.set("gooringx")
 
     // The slug of the Sentry project to use for uploading proguard mappings/source contexts.
-    projectName.set("karing-flutter-android")
+    projectName.set("flutter-android")
 
     // The authentication token to use for uploading proguard mappings/source contexts.
     // WARNING: Do not expose this token in your build.gradle files, but rather set an environment
@@ -168,29 +161,29 @@ sentry {
     // uploading the mapping to Sentry. If disabled, all the logic
     // related to proguard mapping will be excluded.
     // Default is enabled.
-    includeProguardMapping.set(buildTypeIsRelease)
+    includeProguardMapping.set(sentryPublish)
 
     // Whether the plugin should attempt to auto-upload the mapping file to Sentry or not.
     // If disabled the plugin will run a dry-run and just generate a UUID.
     // The mapping file has to be uploaded manually via sentry-cli in this case.
     // Default is enabled.
-    autoUploadProguardMapping.set(buildTypeIsRelease)
+    autoUploadProguardMapping.set(sentryPublish)
 
     // Experimental flag to turn on support for GuardSquare's tools integration (Dexguard and External Proguard).
     // If enabled, the plugin will try to consume and upload the mapping file produced by Dexguard and External Proguard.
     // Default is disabled.
-    dexguardEnabled.set(buildTypeIsRelease)
+    dexguardEnabled.set(sentryPublish)
 
     // Disables or enables the automatic configuration of Native Symbols
     // for Sentry. This executes sentry-cli automatically so
     // you don't need to do it manually.
     // Default is disabled.
-    uploadNativeSymbols.set(buildTypeIsRelease)
+    uploadNativeSymbols.set(sentryPublish)
 
     // Whether the plugin should attempt to auto-upload the native debug symbols to Sentry or not.
     // If disabled the plugin will run a dry-run.
     // Default is enabled.
-    autoUploadNativeSymbols.set(buildTypeIsRelease)
+    autoUploadNativeSymbols.set(sentryPublish)
 
     // Does or doesn't include the source code of native code for Sentry.
     // This executes sentry-cli with the --include-sources param. automatically so
@@ -201,7 +194,7 @@ sentry {
     // Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
     // This enables source context, allowing you to see your source
     // code as part of your stack traces in Sentry.
-    includeSourceContext.set(buildTypeIsRelease)
+    includeSourceContext.set(sentryPublish)
 
     // Configure additional directories to be included in the source bundle which is used for
     // source context. The directories should be specified relative to the Gradle module/project's
@@ -249,7 +242,7 @@ sentry {
     // Default is enabled.
     // Only available v3.1.0 and above.
     autoInstallation {
-      enabled.set(buildTypeIsRelease)
+      enabled.set(sentryPublish)
 
       // Specifies a version of the sentry-android SDK and fragment, timber and okhttp integrations.
       //
@@ -270,11 +263,11 @@ sentry {
     //
     // Default is enabled.
     //
-    includeDependenciesReport.set(buildTypeIsRelease)
+    includeDependenciesReport.set(sentryPublish)
 
     // Whether the plugin should send telemetry data to Sentry.
     // If disabled the plugin won't send telemetry data.
     // This is auto disabled if running against a self hosted instance of Sentry.
     // Default is enabled.
-    telemetry.set(buildTypeIsRelease)
+    telemetry.set(sentryPublish)
 }

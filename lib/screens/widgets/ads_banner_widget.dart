@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as google;
-import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/ads_private.dart';
@@ -67,7 +67,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   void initState() {
     adSize = google.AdSize(
         height: AdsBannerWidget.adHeight, width: widget.adWidth.toInt());
-    AppLifecycleStateNofityManager.onStateResumed(hashCode, () async {
+    AppLifecycleStateNofity.onStateResumed(hashCode, () async {
       if (AdsBannerWidget.getEnable()) {
         _loadGoogleBannerAd(false);
       }
@@ -77,7 +77,7 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
 
   @override
   void dispose() {
-    AppLifecycleStateNofityManager.onStateResumed(hashCode, null);
+    AppLifecycleStateNofity.onStateResumed(hashCode, null);
     _disposeGoogleBannerAd();
     super.dispose();
   }

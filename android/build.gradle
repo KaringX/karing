@@ -24,7 +24,7 @@ subprojects {
         if (project.hasProperty("android")) {
             android {
                 compileSdkVersion 34  //fix error: android:attr/lStar not found
-                ndkVersion "23.1.7779620"
+                ndkVersion "26.3.11579264"
             }
             buildscript {
                 ext.kotlin_version = '1.8.0'
@@ -49,15 +49,7 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(":app")
 }
-/*tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile.class) {
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_7
-        targetCompatibility JavaVersion.VERSION_7
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_7
-    }
-}*/
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

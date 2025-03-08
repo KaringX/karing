@@ -8,6 +8,7 @@ import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:tuple/tuple.dart';
 
 class MyProfilesEditScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -25,10 +26,11 @@ class _MyProfilesEditScreenState
     extends LasyRenderingState<MyProfilesEditScreen> {
   final _textControllerRemark = TextEditingController();
   final _textControllerUrl = TextEditingController();
+  ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
   ProxyFilter _proxyFilter = ProxyFilter();
-  bool _enableDiversionRules = false;
+  bool _keepDiversionRules = false;
   bool _reloadAfterProfileUpdate = true;
   bool _testLatencyAfterProfileUpdate = false;
   bool _testLatencyAutoRemove = false;
@@ -44,10 +46,11 @@ class _MyProfilesEditScreenState
       _textControllerUrl.value = _textControllerUrl.value.copyWith(
         text: item.urlOrPath,
       );
+      _proxyStrategy = item.proxyStrategy;
       _updateTimeInterval = item.updateDuration;
       _compatible = item.userAgentCompatible;
       _proxyFilter = item.proxyFilter;
-      _enableDiversionRules = item.enableDiversionRules;
+      _keepDiversionRules = item.keepDiversionRules;
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
       _testLatencyAutoRemove = item.testLatencyAutoRemove;
@@ -91,7 +94,7 @@ class _MyProfilesEditScreenState
                   SizedBox(
                     width: windowSize.width - 50 * 2,
                     child: Text(
-                      tcontext.MyProfilesEditScreen.title,
+                      tcontext.meta.profileEdit,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -129,8 +132,8 @@ class _MyProfilesEditScreenState
                               : TextInputAction.done,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
-                            labelText: tcontext.remark,
-                            hintText: tcontext.remark,
+                            labelText: tcontext.meta.remark,
+                            hintText: tcontext.meta.remark,
                           ),
                         ),
                         item != null && item.isRemote()
@@ -144,8 +147,8 @@ class _MyProfilesEditScreenState
                                 controller: _textControllerUrl,
                                 cursorColor: Colors.black,
                                 decoration: InputDecoration(
-                                  labelText: tcontext.url,
-                                  hintText: tcontext.url,
+                                  labelText: tcontext.meta.url,
+                                  hintText: tcontext.meta.url,
                                 ),
                               )
                             : const SizedBox.shrink(),
@@ -190,11 +193,12 @@ class _MyProfilesEditScreenState
     urlText = urlText.trim();
     if (item.remark == remarkText &&
         item.urlOrPath == urlText &&
+        item.proxyStrategy == _proxyStrategy &&
         item.updateDuration == _updateTimeInterval &&
         item.userAgentCompatible == _compatible &&
         item.proxyFilter.method == _proxyFilter.method &&
         item.proxyFilter.keywordOrRegx == _proxyFilter.keywordOrRegx &&
-        item.enableDiversionRules == _enableDiversionRules &&
+        item.keepDiversionRules == _keepDiversionRules &&
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
         item.testLatencyAutoRemove == _testLatencyAutoRemove) {
@@ -213,10 +217,11 @@ class _MyProfilesEditScreenState
       return;
     }
     bool dirty = item.remark != remarkText;
+    item.proxyStrategy = _proxyStrategy;
     item.updateDuration = _updateTimeInterval;
     item.userAgentCompatible = _compatible;
     item.proxyFilter = _proxyFilter;
-    item.enableDiversionRules = _enableDiversionRules;
+    item.keepDiversionRules = _keepDiversionRules;
     item.reloadAfterProfileUpdate = _reloadAfterProfileUpdate;
     item.testLatencyAfterProfileUpdate = _testLatencyAfterProfileUpdate;
     item.testLatencyAutoRemove = _testLatencyAutoRemove;
@@ -235,13 +240,13 @@ class _MyProfilesEditScreenState
       return null;
     }
     if (remark.isEmpty) {
-      return tcontext.remarkCannotEmpty;
+      return tcontext.meta.remarkCannotEmpty;
     }
     if (remark.length > kRemarkMaxLength) {
-      return tcontext.remarkTooLong;
+      return tcontext.meta.remarkTooLong;
     }
     if (ServerManager.hasGroupByRemark(remark)) {
-      return tcontext.remarkExist;
+      return tcontext.meta.remarkExist;
     }
     return null;
   }
@@ -253,10 +258,10 @@ class _MyProfilesEditScreenState
     }
     Uri? uri = Uri.tryParse(url);
     if (uri == null || (uri.scheme != 'http' && uri.scheme != 'https')) {
-      return tcontext.urlInvalid;
+      return tcontext.meta.urlInvalid;
     }
     if (ServerManager.hasGroupByUrlOrPath(url)) {
-      return tcontext.MyProfilesEditScreen.urlExist;
+      return tcontext.meta.profileEditUrlExist;
     }
     return null;
   }
@@ -267,12 +272,20 @@ class _MyProfilesEditScreenState
       return [];
     }
     final tcontext = Translations.of(context);
+    List<Tuple2<String, String>> tupleStrings = [
+      Tuple2(
+          ProxyStrategy.preferProxy.name, tcontext.proxyStrategy.perferProxy),
+      Tuple2(
+          ProxyStrategy.preferDirect.name, tcontext.proxyStrategy.perferDirect),
+      Tuple2(ProxyStrategy.onlyProxy.name, tcontext.proxyStrategy.onlyProxy),
+      Tuple2(ProxyStrategy.onlyDirect.name, tcontext.proxyStrategy.onlyDirect),
+    ];
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       item.isRemote()
           ? GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-                  name: tcontext.userAgent,
+                  name: tcontext.meta.userAgent,
                   text: HttpUtils.getUserAgentsStringShort(_compatible),
                   textWidthPercent: 0.24,
                   tips: tcontext.ispUserAgentTips,
@@ -282,32 +295,64 @@ class _MyProfilesEditScreenState
           : GroupItemOptions(),
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-              name: tcontext.filter,
+              name: tcontext.meta.filter,
               onPush: () async {
                 onTapFilter();
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesEnable,
+              name: tcontext.diversionRulesKeep,
               tips: tcontext.ispDiversionTips,
-              switchValue: _enableDiversionRules,
+              switchValue: _keepDiversionRules,
               onSwitch: (bool value) async {
-                _enableDiversionRules = value;
+                _keepDiversionRules = value;
                 setState(() {});
               })),
       item.isRemote()
           ? GroupItemOptions(
+              stringPickerOptions: GroupItemStringPickerOptions(
+                  name: tcontext.downloadProxyStrategy,
+                  tips: tcontext.SettingsScreen.ipStrategyTips,
+                  selected: _proxyStrategy.name,
+                  tupleStrings: tupleStrings,
+                  onPicker: (String? selected) async {
+                    if (selected == null || selected == _proxyStrategy.name) {
+                      return;
+                    }
+                    if (selected == ProxyStrategy.preferProxy.name) {
+                      _proxyStrategy = ProxyStrategy.preferProxy;
+                    } else if (selected == ProxyStrategy.preferDirect.name) {
+                      _proxyStrategy = ProxyStrategy.preferDirect;
+                    } else if (selected == ProxyStrategy.onlyProxy.name) {
+                      _proxyStrategy = ProxyStrategy.onlyProxy;
+                    } else if (selected == ProxyStrategy.onlyDirect.name) {
+                      _proxyStrategy = ProxyStrategy.onlyDirect;
+                    } else {
+                      _proxyStrategy = ProxyStrategy.preferProxy;
+                    }
+
+                    setState(() {});
+                  }))
+          : GroupItemOptions(),
+      item.isRemote()
+          ? GroupItemOptions(
               timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                  name: tcontext.MyProfilesEditScreen.updateTimerInterval,
-                  tips: tcontext.MyProfilesEditScreen.updateTimerIntervalTips,
+                  name: tcontext.meta.updateInterval,
+                  tips: tcontext.meta.updateInterval5mTips,
                   duration: _updateTimeInterval,
                   onPicker: (bool canceled, Duration? duration) async {
                     if (canceled) {
                       return;
                     }
-                    if (duration != null && duration.inMinutes < 5) {
-                      duration = const Duration(minutes: 5);
+                    if (duration != null) {
+                      if (duration.inDays > 365) {
+                        duration = const Duration(days: 365);
+                      }
+                      if (duration.inMinutes < 5) {
+                        duration = const Duration(minutes: 5);
+                      }
                     }
+
                     _updateTimeInterval = duration;
                     setState(() {});
                   }))
@@ -315,7 +360,7 @@ class _MyProfilesEditScreenState
       item.isRemote()
           ? GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.MyProfilesEditScreen.reloadAfterProfileUpdate,
+                  name: tcontext.meta.profileEditReloadAfterProfileUpdate,
                   switchValue: _reloadAfterProfileUpdate,
                   onSwitch: (bool value) async {
                     _reloadAfterProfileUpdate = value;
@@ -324,9 +369,8 @@ class _MyProfilesEditScreenState
           : GroupItemOptions(),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.MyProfilesEditScreen.testLatencyAfterProfileUpdate,
-              tips: tcontext
-                  .MyProfilesEditScreen.testLatencyAfterProfileUpdateTips,
+              name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
+              tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
               switchValue: _testLatencyAfterProfileUpdate,
               onSwitch: (bool value) async {
                 _testLatencyAfterProfileUpdate = value;
@@ -334,8 +378,8 @@ class _MyProfilesEditScreenState
               })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-              name: tcontext.MyProfilesEditScreen.testLatencyAutoRemove,
-              tips: tcontext.MyProfilesEditScreen.testLatencyAutoRemoveTips,
+              name: tcontext.meta.profileEditTestLatencyAutoRemove,
+              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
               switchValue: _testLatencyAutoRemove,
               onSwitch: (bool value) async {
                 _testLatencyAutoRemove = value;

@@ -34,182 +34,46 @@ class TranslationsAr implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutScreenAr AboutScreen = _TranslationsAboutScreenAr._(_root);
-	@override late final _TranslationsAddProfileByImportFromFileScreenAr AddProfileByImportFromFileScreen = _TranslationsAddProfileByImportFromFileScreenAr._(_root);
-	@override late final _TranslationsAddProfileByLinkOrContentScreenAr AddProfileByLinkOrContentScreen = _TranslationsAddProfileByLinkOrContentScreenAr._(_root);
-	@override late final _TranslationsAddProfileByScanQrcodeScanScreenAr AddProfileByScanQrcodeScanScreen = _TranslationsAddProfileByScanQrcodeScanScreenAr._(_root);
-	@override late final _TranslationsBackupAndSyncLanSyncScreenAr BackupAndSyncLanSyncScreen = _TranslationsBackupAndSyncLanSyncScreenAr._(_root);
 	@override late final _TranslationsBackupAndSyncWebdavScreenAr BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenAr._(_root);
 	@override late final _TranslationsDiversionGroupCustomEditScreenAr DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenAr._(_root);
 	@override late final _TranslationsDiversionRuleDetectScreenAr DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenAr._(_root);
 	@override late final _TranslationsDiversionRulesScreenAr DiversionRulesScreen = _TranslationsDiversionRulesScreenAr._(_root);
 	@override late final _TranslationsDnsSettingsScreenAr DnsSettingsScreen = _TranslationsDnsSettingsScreenAr._(_root);
-	@override late final _TranslationsFeedbackScreenAr FeedbackScreen = _TranslationsFeedbackScreenAr._(_root);
 	@override late final _TranslationsFileContentViewerScreenAr FileContentViewerScreen = _TranslationsFileContentViewerScreenAr._(_root);
 	@override late final _TranslationsHomeScreenAr HomeScreen = _TranslationsHomeScreenAr._(_root);
 	@override late final _TranslationsLaunchFailedScreenAr LaunchFailedScreen = _TranslationsLaunchFailedScreenAr._(_root);
-	@override late final _TranslationsMyProfilesEditScreenAr MyProfilesEditScreen = _TranslationsMyProfilesEditScreenAr._(_root);
 	@override late final _TranslationsMyProfilesMergeScreenAr MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenAr._(_root);
-	@override late final _TranslationsMyProfilesScreenAr MyProfilesScreen = _TranslationsMyProfilesScreenAr._(_root);
 	@override late final _TranslationsNetCheckScreenAr NetCheckScreen = _TranslationsNetCheckScreenAr._(_root);
 	@override late final _TranslationsNetConnectionsFilterScreenAr NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenAr._(_root);
 	@override late final _TranslationsNetConnectionsScreenAr NetConnectionsScreen = _TranslationsNetConnectionsScreenAr._(_root);
 	@override late final _TranslationsPerAppAndroidScreenAr PerAppAndroidScreen = _TranslationsPerAppAndroidScreenAr._(_root);
-	@override late final _TranslationsQrcodeScreenAr QrcodeScreen = _TranslationsQrcodeScreenAr._(_root);
 	@override late final _TranslationsRegionSettingsScreenAr RegionSettingsScreen = _TranslationsRegionSettingsScreenAr._(_root);
 	@override late final _TranslationsServerSelectScreenAr ServerSelectScreen = _TranslationsServerSelectScreenAr._(_root);
 	@override late final _TranslationsSettingsScreenAr SettingsScreen = _TranslationsSettingsScreenAr._(_root);
-	@override late final _TranslationsSpeedTestSettingsScreenAr SpeedTestSettingsScreen = _TranslationsSpeedTestSettingsScreenAr._(_root);
-	@override late final _TranslationsTextToQrCodeScreenAr TextToQrCodeScreen = _TranslationsTextToQrCodeScreenAr._(_root);
 	@override late final _TranslationsUserAgreementScreenAr UserAgreementScreen = _TranslationsUserAgreementScreenAr._(_root);
 	@override late final _TranslationsVersionUpdateScreenAr VersionUpdateScreen = _TranslationsVersionUpdateScreenAr._(_root);
 	@override late final _TranslationsCommonWidgetAr CommonWidget = _TranslationsCommonWidgetAr._(_root);
-	@override late final _TranslationsServerManagerAr ServerManager = _TranslationsServerManagerAr._(_root);
 	@override late final _TranslationsMainAr main = _TranslationsMainAr._(_root);
-	@override String get enable => 'يُمكَِن';
-	@override String get disable => 'إبطال';
-	@override String get filter => 'فلتر';
-	@override String get filterMethod => 'طريقة التصفية';
-	@override String get include => 'يشمل';
-	@override String get exclude => 'استبعاد';
-	@override String get all => 'الجميع';
-	@override String get prefer => 'أولوية';
-	@override String get only => 'فقط';
-	@override String get open => 'يفتح';
-	@override String get close => 'إنهاء';
-	@override String get quit => 'يترك';
-	@override String get add => 'اضف إليه';
-	@override String get remove => 'يمسح';
-	@override String get edit => 'يحرر';
-	@override String get view => 'يفحص';
-	@override String get more => 'أكثر';
-	@override String get getProfile => 'احصل على التكوين';
-	@override String get addProfile => 'إضافة ملف تعريف';
-	@override String get addSuccess => 'اضيف بنجاح';
-	@override String addSuccessThen({required Object p}) => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${p}] للعرض';
-	@override String addFailed({required Object p}) => 'إضافة فشل:${p}';
-	@override String get removeConfirm => 'هل انت متأكد من الحذف؟';
-	@override String get tips => 'معلومات';
-	@override String get copy => 'ينسخ';
-	@override String get ok => 'نعم';
-	@override String get cancel => 'يلغي';
-	@override String get feedback => 'تعليق';
-	@override String get faq => 'أسئلة مكررة';
-	@override String get download => 'تحميل';
-	@override String get loading => 'تحميل...';
-	@override String updateFailed({required Object p}) => 'فشل التحديث:${p}';
-	@override String get days => 'أيام';
-	@override String get hours => 'ساعات';
-	@override String get minutes => 'دقائق';
-	@override String get seconds => 'ثانية';
-	@override String get protocol => 'بروتوكول';
-	@override String get search => 'يبحث';
-	@override String get custom => 'مخصص';
-	@override String get connect => 'يتصل';
-	@override String get disconnect => 'قطع الاتصال';
-	@override String get connected => 'متصل';
-	@override String get disconnected => 'انقطع الاتصال';
-	@override String get connecting => 'توصيل';
-	@override String get connectTimeout => 'ربط مهلة';
-	@override String get timeout => 'نفذ الوقت';
-	@override String get language => 'لغة';
-	@override String get next => 'التالي';
-	@override String get done => 'منتهي';
-	@override String get apply => 'يتقدم';
-	@override String get refresh => 'ينعش';
-	@override String get retry => 'إعادة المحاولة?';
-	@override String get none => 'لا أحد';
-	@override String get reset => 'إعادة ضبط';
-	@override String get submit => 'يُقدِّم';
-	@override String get user => 'مستخدم';
-	@override String get account => 'حساب';
-	@override String get password => 'كلمة المرور';
-	@override String get required => 'مطلوب';
-	@override String get diversion => 'تحويل';
-	@override String get diversionRules => 'قواعد التحويل';
-	@override String get diversionRulesEnable => 'تمكين قواعد تفريغ [مزود VPN]';
-	@override String get diversionCustomGroup => 'مجموعة تحويل مخصصة';
+	@override late final _TranslationsMetaAr meta = _TranslationsMetaAr._(_root);
+	@override String get diversionRulesKeep => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}';
 	@override String get diversionCustomGroupPreset => 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 	@override String get diversionCustomGroupPresetTips => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 	@override String get diversionCustomGroupAddTips => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
-	@override String get urlTestCustomGroup => 'التحديد التلقائي المخصص';
 	@override String get rulesetEnableTips => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
-	@override String get ispUserAgentTips => 'سيقدم [مزود VPN] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
-	@override String get ispDiversionTips => 'قواعد التفريغ التي يوفرها [مزود VPN]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
-	@override String get staticIP => 'رقم تعريف حاسوب ثابت';
-	@override String get other => 'آخر';
-	@override String get dns => 'DNS';
-	@override String get url => 'URL';
-	@override String get isp => 'مزود VPN';
-	@override String get ispBind => 'الارتباط بـ [مزود VPN]';
-	@override String ispUnbind({required Object p}) => 'فك الارتباط[${p}]';
-	@override String ispFaq({required Object p}) => 'الأسئلة الشائعة[${p}]';
-	@override String ispCustomerService({required Object p}) => 'خدمة العملاء[${p}]';
-	@override String ispFollow({required Object p}) => 'متابعة[${p}]';
-	@override String get ispInvalidOrExpired => '[مزود VPN]غير صالح أو منتهية الصلاحية';
-	@override String get tls => 'TLS';
-	@override String get userAgent => 'UserAgent';
-	@override String get urlInvalid => 'URL غير صالح';
-	@override String get outboundActionCurrentSelected => 'المحدد الحالي';
-	@override String get outboundActionUrltest => 'اختيار آلي';
-	@override String get outboundActionDirect => 'مباشر';
-	@override String get outboundActionBlock => 'حاجز';
+	@override String get ispUserAgentTips => 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
+	@override String get ispDiversionTips => 'قواعد التفريغ التي يوفرها [${_root.meta.isp}]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
+	@override late final _TranslationsIspAr isp = _TranslationsIspAr._(_root);
+	@override late final _TranslationsPermissionAr permission = _TranslationsPermissionAr._(_root);
+	@override late final _TranslationsTlsAr tls = _TranslationsTlsAr._(_root);
+	@override late final _TranslationsOutboundRuleModeAr outboundRuleMode = _TranslationsOutboundRuleModeAr._(_root);
+	@override late final _TranslationsDnsProxyResolveModeAr dnsProxyResolveMode = _TranslationsDnsProxyResolveModeAr._(_root);
+	@override late final _TranslationsProxyStrategyAr proxyStrategy = _TranslationsProxyStrategyAr._(_root);
+	@override String get downloadProxyStrategy => 'تحميل القناة';
+	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 	@override String get routeFinal => 'أخير';
-	@override String get rulesetGeoSite => 'GeoSite';
-	@override String get rulesetGeoIp => 'GeoIP';
-	@override String get rulesetAcl => 'ACL';
-	@override String get iCloud => 'iCloud';
-	@override String get appleTV => 'Apple TV';
-	@override String get webdav => 'Webdav';
-	@override String get setting => 'إعدادات';
 	@override String get protocolSniff => 'الكشف عن البروتوكول';
 	@override String get protocolSniffOverrideDestination => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
-	@override String get remark => 'ملاحظة';
-	@override String get remarkCannotEmpty => 'لا يمكن أن تكون الملاحظات فارغة';
-	@override String get remarkTooLong => 'ملاحظات تصل إلى 32 حرفًا';
-	@override String get remarkExist => 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
-	@override String get domainSuffix => 'لاحقة اسم المجال';
-	@override String get domain => 'اسم النطاق';
-	@override String get domainKeyword => 'الكلمات الرئيسية لاسم المجال';
-	@override String get domainRegex => 'انتظام اسم المجال';
-	@override String get ip => 'IP';
-	@override String get port => 'ميناء';
-	@override String get appPackage => 'معرف حزمة التطبيق';
-	@override String get processName => 'اسم العملية';
-	@override String get processPath => 'مسار العملية';
-	@override String get systemProxy => 'وكيل النظام';
-	@override String get netInterfaces => 'واجهات صافية';
-	@override String get netSpeed => 'سرعة';
-	@override String get website => 'موقع إلكتروني';
-	@override String get rule => 'قاعدة';
-	@override String get global => 'عالمي';
-	@override String get qrcode => 'رمز الاستجابة السريعة';
-	@override String get scanQrcode => 'مسح رمز الاستجابة السريعة';
-	@override String get scanResult => 'نتيجة المسح';
-	@override String get backupAndSync => 'النسخ الاحتياطي والمزامنة';
-	@override String get importAndExport => 'استيراد وتصدير';
-	@override String get import => 'يستورد';
-	@override String get export => 'يصدّر';
-	@override String get send => 'يرسل';
-	@override String get receive => 'تولي';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'الرجاء استخدام [${p}]';
-	@override String get sendConfirm => 'تأكيد الإرسال؟';
-	@override String get termOfUse => 'شرط الخدمة';
-	@override String get privacyPolicy => 'سياسة الخصوصية';
-	@override String get about => 'عن';
-	@override String get name => 'اسم';
-	@override String get version => 'إصدار';
-	@override String get notice => 'يلاحظ';
-	@override String get sort => 'إعادة ترتيب';
-	@override String get novice => 'وضع المبتدئ';
-	@override String get recommended => 'يوصي';
-	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
-	@override String get logicOperation => 'عملية منطقية';
-	@override String get share => 'يشارك';
-	@override String get candidateWord => 'كلمات المرشح';
-	@override String get keywordOrRegx => 'الكلمات الرئيسية/العادية';
-	@override String get importFromClipboard => 'استيراد من الحافظة';
-	@override String get exportToClipboard => 'تصدير إلى الحافظة';
-	@override String get server => 'الخادم';
 	@override String get turnOffPrivateDirect => 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 	@override String targetConnectFailed({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
 	@override String get appleTVSync => 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing';
@@ -219,25 +83,15 @@ class TranslationsAr implements Translations {
 	@override String get appleTVUrlInvalid => 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
 	@override String get remoteProfileEditConfirm => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
-	@override String invalidFileType({required Object p}) => 'نوع الملف غير صالح:${p}';
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
-	@override String get latencyTest => 'كشف التأخير';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
-	@override String get latencyTestTimeout => 'نفذ الوقت';
-	@override String get uwpExemption => 'إعفاء عزل شبكة UWP';
-	@override String get ads => 'إزالة الإعلانات';
-	@override String get adsBanner => 'إعلانات البانر';
-	@override String get donate => 'يتبرع';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
 	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
-	@override String get requestCameraPermission => 'الرجاء تفعيل إذن [الكاميرا]';
-	@override String get requestScreenAccess => 'يرجى تمكين إذن [تسجيل الشاشة]';
-	@override String get requestAppQuery => 'يرجى تمكين إذن [الحصول على قائمة التطبيقات]';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -264,66 +118,7 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => 'عرض الملفات';
 	@override String get enablePprof => 'يُمكَِن pprof';
 	@override String get pprofPanel => 'pprof لوحة';
-	@override String get openDir => 'فتح دليل الملف';
 	@override String get useOriginalSBProfile => 'استخدم تكوين صندوق الغناء الأصلي';
-}
-
-// Path: AddProfileByImportFromFileScreen
-class _TranslationsAddProfileByImportFromFileScreenAr implements TranslationsAddProfileByImportFromFileScreenEn {
-	_TranslationsAddProfileByImportFromFileScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'استيراد ملف الملف الشخصي';
-	@override String get chooseFile => 'حدد الملف';
-	@override String get configExist => 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
-}
-
-// Path: AddProfileByLinkOrContentScreen
-class _TranslationsAddProfileByLinkOrContentScreenAr implements TranslationsAddProfileByLinkOrContentScreenEn {
-	_TranslationsAddProfileByLinkOrContentScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'إضافة رابط ملف التعريف';
-	@override String get updateTimerInterval => 'الفاصل الزمني للتحديث';
-	@override String get updateTimerIntervalTips => 'الحد الأدنى: 5 م';
-	@override String get profileLinkContent => 'رابط/محتوى الملف الشخصي';
-	@override String get profileLinkContentHit => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
-	@override String get subscriptionCannotEmpty => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
-	@override String get configExist => 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
-	@override String get invalidUrl => 'رابط الملف الطويل جدًا';
-	@override String addFailedFormatException({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}';
-	@override String addFailedThenDownloadAndImport({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق';
-	@override String addFailedHandshakeException({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
-}
-
-// Path: AddProfileByScanQrcodeScanScreen
-class _TranslationsAddProfileByScanQrcodeScanScreenAr implements TranslationsAddProfileByScanQrcodeScanScreenEn {
-	_TranslationsAddProfileByScanQrcodeScanScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get copy => 'Copy Link';
-	@override String get open => 'Open Link';
-	@override String get screenshot => 'لقطة شاشة';
-	@override String get scanFromImage => 'مسح من الصورة';
-	@override String get scanNoResult => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
-	@override String get scanEmptyResult => 'نتيجة الفحص فارغة';
-}
-
-// Path: BackupAndSyncLanSyncScreen
-class _TranslationsBackupAndSyncLanSyncScreenAr implements TranslationsBackupAndSyncLanSyncScreenEn {
-	_TranslationsBackupAndSyncLanSyncScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'LAN SYNC';
-	@override String get lanSyncNotQuitTips => 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
 }
 
 // Path: BackupAndSyncWebdavScreen
@@ -351,6 +146,7 @@ class _TranslationsDiversionGroupCustomEditScreenAr implements TranslationsDiver
 	@override String invalidPort({required Object p}) => 'غير صالح [Port]:${p}';
 	@override String invalidRuleSet({required Object p}) => 'غير صالح [Rule Set]:${p}, يجب أن يكون عنوان URL عنوان URL HTTPS صالحًا وملفًا ثنائيًا مع ملحق الملف .SRS';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'غير صالح [Rule Set(build-in)]:${p} غير صالحة، التنسيق هو geosite:xxx أو geoip:xxx أو acl:xxx، ويجب أن يكون xxx اسم قاعدة صالحًا';
+	@override String invalidPackageId({required Object p}) => 'غير صالح [${_root.meta.appPackage}]:${p}';
 	@override String get setDiversionRule => 'نصيحة: بعد الحفظ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة، وإلا فلن تصبح سارية المفعول.';
 }
 
@@ -362,7 +158,6 @@ class _TranslationsDiversionRuleDetectScreenAr implements TranslationsDiversionR
 
 	// Translations
 	@override String get title => 'قاعدة التحويل اكتشف';
-	@override String get detect => 'يكشف';
 	@override String get rule => 'قاعدة:';
 	@override String get outbound => 'مخدم بروكسي:';
 }
@@ -390,18 +185,6 @@ class _TranslationsDnsSettingsScreenAr implements TranslationsDnsSettingsScreenE
 	@override String get dnsDesc => 'العمود الأول من بيانات التأخير هو تأخير استعلام الاتصال المباشر;\nالعمود الثاني: شغله [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير الاستعلام الذي تم إعادة توجيهه من خلال خادم الوكيل الحالي; إذا [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير استعلام الاتصال المباشر';
 }
 
-// Path: FeedbackScreen
-class _TranslationsFeedbackScreenAr implements TranslationsFeedbackScreenEn {
-	_TranslationsFeedbackScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get content => 'محتوى ردود الفعل';
-	@override String get contentHit => 'مطلوب ، ما يصل إلى 500 حرف';
-	@override String get contentCannotEmpty => 'لا يمكن أن يكون محتوى التعليقات فارغًا';
-}
-
 // Path: FileContentViewerScreen
 class _TranslationsFileContentViewerScreenAr implements TranslationsFileContentViewerScreenEn {
 	_TranslationsFileContentViewerScreenAr._(this._root);
@@ -410,7 +193,6 @@ class _TranslationsFileContentViewerScreenAr implements TranslationsFileContentV
 
 	// Translations
 	@override String get title => 'ملف محتوى الملف';
-	@override String get chooseFile => 'حدد الملف';
 	@override String get clearFileContent => 'هل أنت متأكد من مسح محتوى الملف؟';
 	@override String get clearFileContentTips => 'هل أنت متأكد من مسح محتوى ملف الملف الشخصي؟قد يتسبب تطهير ملف الملف الشخصي في فقدان البيانات أو وظائف التطبيق غير الطبيعية ، يرجى العمل بحذر';
 }
@@ -427,10 +209,7 @@ class _TranslationsHomeScreenAr implements TranslationsHomeScreenEn {
 	@override String get disabledServer => 'معطل ، الرجاء اختيار مرة أخرى';
 	@override String get expiredServer => 'لا يوجد خادم متاح: قد يكون التكوين قديمًا أو معطلاً';
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}';
-	@override String get trafficTotal => 'إجمالي حركة المرور';
-	@override String get trafficProxy => 'وكيل حركة المرور';
 	@override String get myLinkEmpty => 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه';
-	@override String get deviceNoSpace => 'مساحة غير كافيه في القرص';
 	@override String tooMuchServers({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.';
 }
 
@@ -448,24 +227,6 @@ class _TranslationsLaunchFailedScreenAr implements TranslationsLaunchFailedScree
 	@override String get invalidInstallPath => 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح';
 }
 
-// Path: MyProfilesEditScreen
-class _TranslationsMyProfilesEditScreenAr implements TranslationsMyProfilesEditScreenEn {
-	_TranslationsMyProfilesEditScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'تحرير الملف الشخصي';
-	@override String get urlExist => 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
-	@override String get updateTimerInterval => 'الفاصل الزمني للتحديث';
-	@override String get updateTimerIntervalTips => 'الحد الأدنى: 5 م';
-	@override String get reloadAfterProfileUpdate => 'إعادة التحميل بعد تحديث الملف الشخصي';
-	@override String get testLatencyAfterProfileUpdate => 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا';
-	@override String get testLatencyAfterProfileUpdateTips => 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]';
-	@override String get testLatencyAutoRemove => 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون';
-	@override String get testLatencyAutoRemoveTips => 'جرب ما يصل إلى 3 مرات';
-}
-
 // Path: MyProfilesMergeScreen
 class _TranslationsMyProfilesMergeScreenAr implements TranslationsMyProfilesMergeScreenEn {
 	_TranslationsMyProfilesMergeScreenAr._(this._root);
@@ -479,17 +240,6 @@ class _TranslationsMyProfilesMergeScreenAr implements TranslationsMyProfilesMerg
 	@override String get profilesMergeTips => 'نصيحة: سيتم تجاهل تحويل ملفات تعريف المصدر';
 }
 
-// Path: MyProfilesScreen
-class _TranslationsMyProfilesScreenAr implements TranslationsMyProfilesScreenEn {
-	_TranslationsMyProfilesScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'مظهر';
-	@override String get atLeastOneEnable => 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
-}
-
 // Path: NetCheckScreen
 class _TranslationsNetCheckScreenAr implements TranslationsNetCheckScreenEn {
 	_TranslationsNetCheckScreenAr._(this._root);
@@ -499,7 +249,6 @@ class _TranslationsNetCheckScreenAr implements TranslationsNetCheckScreenEn {
 	// Translations
 	@override String get title => 'فحص صافي';
 	@override String get warn => 'ملاحظة: نظرًا لتأثير بيئة الشبكة وقواعد التحويل ، فإن نتائج الاختبار ليست مكافئة تمامًا للنتائج الفعلية.';
-	@override String get check => 'يفحص';
 	@override String get invalidDomain => 'اسم النطاق غير صالح';
 	@override String get connectivity => 'اتصال الشبكة';
 	@override String connectivityTestIpv4AllFailed({required Object p}) => 'اختبار اتصال IPv4[${p}] كل شيء فشل';
@@ -558,23 +307,6 @@ class _TranslationsPerAppAndroidScreenAr implements TranslationsPerAppAndroidScr
 	@override String get title => 'لكل وكيل تطبيق';
 	@override String get whiteListMode => 'وضع القائمة البيضاء';
 	@override String get whiteListModeTip => 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء';
-	@override String get hideSystemApp => 'إخفاء تطبيقات النظام';
-	@override String get hideAppIcon => 'إخفاء أيقونة التطبيق';
-	@override String get enableAppQueryPermission => 'قم بتشغيل الإذن [استعلام قائمة التطبيقات]';
-}
-
-// Path: QrcodeScreen
-class _TranslationsQrcodeScreenAr implements TranslationsQrcodeScreenEn {
-	_TranslationsQrcodeScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get tooLong => 'النص طويل جدًا لعرضه';
-	@override String get copy => 'نسخ الوصلة';
-	@override String get open => 'افتح الرابط';
-	@override String get share => 'شارك الرابط';
-	@override String get shareImage => 'شارك رمز الاستجابة السريعة';
 }
 
 // Path: RegionSettingsScreen
@@ -620,12 +352,9 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get dnsLeakDetection => 'كشف تسرب DNS';
 	@override String get proxyLeakDetection => 'كشف تسرب الوكيل';
 	@override String get speedTest => 'اختبار السرعة';
-	@override String get downloadProfilePreferProxy => 'تفضل الوكيل لتنزيل الملف الشخصي';
-	@override String get downloadProfilePreferProxyTips => 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
 	@override String get rulesetDirectDownlad => 'مجموعة القواعد تحميل مباشر';
-	@override String get hideUnusedDiversionGroup => 'إخفاء مجموعات التحويل غير المستخدمة';
-	@override String get disableISPDiversionGroup => 'تعطيل قواعد تحويل [مزود VPN]';
-	@override String get portSetting => 'ميناء';
+	@override String get hideUnusedDiversionGroup => 'إخفاء قواعد تحويل حركة المرور غير النشطة';
+	@override String get disableISPDiversionGroup => 'تعطيل قواعد تحويل [${_root.meta.isp}]';
 	@override String get portSettingRule => 'القاعدة القائمة';
 	@override String get portSettingDirectAll => 'توجيه كل شيء';
 	@override String get portSettingProxyAll => 'وكيل الكل';
@@ -636,18 +365,9 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
 	@override String get tunAppendHttpProxy => 'إلحاق وكيل HTTP إلى VPN';
 	@override String get tunAppendHttpProxyTips => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
-	@override String get tlsInsecureEnable => 'تخطي التحقق من الشهادة';
-	@override String get tlsFragmentEnable => 'تمكين تجزئة TLS';
-	@override String get tlsFragmentSize => 'حجم شريحة TLS';
-	@override String get tlsFragmentSleep => 'TLS النوم المجزأ';
-	@override String get tlsMixedCaseSNIEnable => 'تمكين TLS الهجين SNI';
-	@override String get tlsPaddingEnable => 'تمكين الحشو TLS';
-	@override String get tlsPaddingSize => 'حجم الحشو TLS';
 	@override String get dnsEnableRule => 'تمكين قواعد تحويل DNS';
-	@override String get dnsEnableFakeIp => 'تمكين وهمية';
-	@override String get dnsEnableClientSubnet => 'تمكين ECS';
-	@override String get dnsEnableProxyResolveByProxy => '[حركة الوكيل] حل DNS من خلال خادم الوكيل';
-	@override String get dnsEnableFinalResolveByProxy => '[نهائي] حل DNS من خلال خادم الوكيل';
+	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
+	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
 	@override String get dnsTestDomain => 'مجال الاختبار';
 	@override String get dnsTestDomainInvalid => 'مجال غير صالح';
 	@override String get dnsTypeOutbound => 'مخدم بروكسي';
@@ -657,16 +377,16 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get dnsEnableRuleTips => 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل';
 	@override String get dnsEnableFakeIpTips => 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]';
 	@override String get dnsTypeOutboundTips => 'دقة اسم المجال لخادم الوكيل';
-	@override String get dnsTypeDirectTips => 'حل اسم المجال لحركة المرور المباشرة';
+	@override String get dnsTypeDirectTips => 'حل اسم المجال لـ [${_root.SettingsScreen.dnsTypeDirect}]';
 	@override String get dnsTypeProxyTips => 'حل اسم المجال لحركة المرور الوكيل';
 	@override String get dnsTypeResolverTips => 'دقة اسم المجال لخادم DNS الآخر';
-	@override String get dnsTypeFinalTips => 'حل اسم المجال لحركة المرور الأخرى';
 	@override String get dnsAutoSetServer => 'إعداد الخادم تلقائيا';
 	@override String get dnsResetServer => 'إعادة تعيين الخادم';
 	@override String get inboundDomainResolve => 'حل أسماء النطاقات الواردة';
 	@override String get privateDirect => 'اتصال مباشر بالشبكة الخاصة';
 	@override String inboundDomainResolveTips({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]';
 	@override String get useRomoteRes => 'استخدم الموارد البعيدة';
+	@override String get autoAppendRegion => 'إرفاق القواعد الأساسية تلقائيًا';
 	@override String get autoSelect => 'اختيار آلي';
 	@override String get autoSelectServerIgnorePerProxyServer => 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 	@override String get autoSelectServerInterval => 'فاصل الشيكات الكمون';
@@ -689,7 +409,6 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get homeScreen => 'الشاشة الرئيسية';
 	@override String get theme => 'Tالهيم';
 	@override String get myLink => 'ارتباط اختصار';
-	@override String get myLinkInvalid => 'URL غير صالح';
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
@@ -742,27 +461,6 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get rateInAppStore => 'قيمنا في متجر التطبيقات';
 }
 
-// Path: SpeedTestSettingsScreen
-class _TranslationsSpeedTestSettingsScreenAr implements TranslationsSpeedTestSettingsScreenEn {
-	_TranslationsSpeedTestSettingsScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL اختبار السرعة';
-}
-
-// Path: TextToQrCodeScreen
-class _TranslationsTextToQrCodeScreenAr implements TranslationsTextToQrCodeScreenEn {
-	_TranslationsTextToQrCodeScreenAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'رسالة نصية إلى رمز الاستجابة السريعة';
-	@override String get convert => 'يتحول';
-}
-
 // Path: UserAgreementScreen
 class _TranslationsUserAgreementScreenAr implements TranslationsUserAgreementScreenEn {
 	_TranslationsUserAgreementScreenAr._(this._root);
@@ -797,21 +495,6 @@ class _TranslationsCommonWidgetAr implements TranslationsCommonWidgetEn {
 	@override String get resetPort => 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.';
 }
 
-// Path: ServerManager
-class _TranslationsServerManagerAr implements TranslationsServerManagerEn {
-	_TranslationsServerManagerAr._(this._root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get noServerAvaliable => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة';
-	@override String get filePathCannotEmpty => 'لا يمكن أن يكون مسار الملف فارغًا';
-	@override String fileNotExist({required Object p}) => 'الملف غير موجود: ${p}';
-	@override String get urlCannotEmpty => 'لا يمكن أن يكون الرابط فارغًا';
-	@override String get invalidUrl => 'رابط ملف تعريف غير صالح';
-	@override String get parseFailed => 'فشل تحليل الملف الشخصي';
-}
-
 // Path: main
 class _TranslationsMainAr implements TranslationsMainEn {
 	_TranslationsMainAr._(this._root);
@@ -820,6 +503,288 @@ class _TranslationsMainAr implements TranslationsMainEn {
 
 	// Translations
 	@override late final _TranslationsMainTrayAr tray = _TranslationsMainTrayAr._(_root);
+}
+
+// Path: meta
+class _TranslationsMetaAr implements TranslationsMetaEn {
+	_TranslationsMetaAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get enable => 'يُمكَِن';
+	@override String get disable => 'إبطال';
+	@override String get filter => 'فلتر';
+	@override String get filterMethod => 'طريقة التصفية';
+	@override String get include => 'يشمل';
+	@override String get exclude => 'استبعاد';
+	@override String get all => 'الجميع';
+	@override String get prefer => 'أولوية';
+	@override String get only => 'فقط';
+	@override String get open => 'يفتح';
+	@override String get close => 'إنهاء';
+	@override String get quit => 'يترك';
+	@override String get add => 'اضف إليه';
+	@override String get addSuccess => 'اضيف بنجاح';
+	@override String addFailed({required Object p}) => 'إضافة فشل:${p}';
+	@override String get remove => 'يمسح';
+	@override String get removeConfirm => 'هل انت متأكد من الحذف؟';
+	@override String get edit => 'يحرر';
+	@override String get view => 'يفحص';
+	@override String get more => 'أكثر';
+	@override String get tips => 'معلومات';
+	@override String get copy => 'ينسخ';
+	@override String get ok => 'نعم';
+	@override String get cancel => 'يلغي';
+	@override String get feedback => 'تعليق';
+	@override String get feedbackContent => 'محتوى ردود الفعل';
+	@override String get feedbackContentHit => 'مطلوب ، ما يصل إلى 500 حرف';
+	@override String get feedbackContentCannotEmpty => 'لا يمكن أن يكون محتوى التعليقات فارغًا';
+	@override String get faq => 'أسئلة مكررة';
+	@override String get download => 'تحميل';
+	@override String get loading => 'تحميل...';
+	@override String get convert => 'يتحول';
+	@override String get check => 'يفحص';
+	@override String get detect => 'يكشف';
+	@override String get days => 'أيام';
+	@override String get hours => 'ساعات';
+	@override String get minutes => 'دقائق';
+	@override String get seconds => 'ثانية';
+	@override String get protocol => 'بروتوكول';
+	@override String get search => 'يبحث';
+	@override String get custom => 'مخصص';
+	@override String get connect => 'يتصل';
+	@override String get disconnect => 'قطع الاتصال';
+	@override String get connected => 'متصل';
+	@override String get disconnected => 'انقطع الاتصال';
+	@override String get connecting => 'توصيل';
+	@override String get connectTimeout => 'ربط مهلة';
+	@override String get timeout => 'نفذ الوقت';
+	@override String get timeoutDuration => 'مدة مهلة الانتظار';
+	@override String get latency => 'تأخير';
+	@override String get latencyTest => 'كشف التأخير';
+	@override String get language => 'لغة';
+	@override String get next => 'التالي';
+	@override String get done => 'منتهي';
+	@override String get apply => 'يتقدم';
+	@override String get refresh => 'ينعش';
+	@override String get retry => 'إعادة المحاولة?';
+	@override String get update => 'تجديد';
+	@override String get updateInterval => 'الفاصل الزمني للتحديث';
+	@override String get updateInterval5mTips => 'الحد الأدنى: 5 م';
+	@override String updateFailed({required Object p}) => 'فشل التحديث:${p}';
+	@override String get none => 'لا أحد';
+	@override String get reset => 'إعادة ضبط';
+	@override String get submit => 'يُقدِّم';
+	@override String get user => 'مستخدم';
+	@override String get account => 'حساب';
+	@override String get password => 'كلمة المرور';
+	@override String get required => 'مطلوب';
+	@override String get other => 'آخر';
+	@override String get dns => 'DNS';
+	@override String get url => 'URL';
+	@override String get urlInvalid => 'URL غير صالح';
+	@override String get urlCannotEmpty => 'لا يمكن أن يكون الرابط فارغًا';
+	@override String get urlTooLong => 'عنوان URL طويل جدًا (>8182)';
+	@override String get copyUrl => 'Copy Link';
+	@override String get openUrl => 'Open Link';
+	@override String get shareUrl => 'شارك الرابط';
+	@override String get speedTestUrl => 'URL اختبار السرعة';
+	@override String get tls => 'TLS';
+	@override String get userAgent => 'UserAgent';
+	@override String get staticIP => 'رقم تعريف حاسوب ثابت';
+	@override String get isp => 'مزودي VPN';
+	@override String get domainSuffix => 'لاحقة اسم المجال';
+	@override String get domain => 'اسم النطاق';
+	@override String get domainKeyword => 'الكلمات الرئيسية لاسم المجال';
+	@override String get domainRegex => 'انتظام اسم المجال';
+	@override String get ip => 'IP';
+	@override String get port => 'ميناء';
+	@override String get appPackage => 'معرف حزمة التطبيق';
+	@override String get processName => 'اسم العملية';
+	@override String get processPath => 'مسار العملية';
+	@override String get processDir => 'دليل العمليات';
+	@override String get systemProxy => 'وكيل النظام';
+	@override String get netInterfaces => 'واجهات صافية';
+	@override String get netSpeed => 'سرعة';
+	@override String get trafficTotal => 'إجمالي حركة المرور';
+	@override String get trafficProxy => 'وكيل حركة المرور';
+	@override String get website => 'موقع إلكتروني';
+	@override String get rule => 'قاعدة';
+	@override String get global => 'عالمي';
+	@override String get qrcode => 'رمز الاستجابة السريعة';
+	@override String get qrcodeTooLong => 'النص طويل جدًا لعرضه';
+	@override String get qrcodeShare => 'شارك رمز الاستجابة السريعة';
+	@override String get textToQrcode => 'رسالة نصية إلى رمز الاستجابة السريعة';
+	@override String get qrcodeScan => 'مسح رمز الاستجابة السريعة';
+	@override String get qrcodeScanResult => 'نتيجة المسح';
+	@override String get qrcodeScanFromImage => 'مسح من الصورة';
+	@override String get qrcodeScanResultFailed => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
+	@override String get qrcodeScanResultEmpty => 'نتيجة الفحص فارغة';
+	@override String get screenshot => 'لقطة شاشة';
+	@override String get backupAndSync => 'النسخ الاحتياطي والمزامنة';
+	@override String get autoBackup => 'النسخ الاحتياطي التلقائي';
+	@override String get autoBackupAddProfile => 'بعد إضافة التكوين';
+	@override String get autoBackupRemoveProfile => 'بعد حذف التكوين';
+	@override String get importAndExport => 'استيراد وتصدير';
+	@override String get import => 'يستورد';
+	@override String get export => 'يصدّر';
+	@override String get send => 'يرسل';
+	@override String get receive => 'تولي';
+	@override String get sendConfirm => 'تأكيد الإرسال؟';
+	@override String get termOfUse => 'شرط الخدمة';
+	@override String get privacyPolicy => 'سياسة الخصوصية';
+	@override String get about => 'عن';
+	@override String get name => 'اسم';
+	@override String get version => 'إصدار';
+	@override String get notice => 'يلاحظ';
+	@override String get sort => 'إعادة ترتيب';
+	@override String get novice => 'وضع المبتدئ';
+	@override String get recommended => 'يوصي';
+	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
+	@override String get logicOperation => 'عملية منطقية';
+	@override String get share => 'يشارك';
+	@override String get candidateWord => 'كلمات المرشح';
+	@override String get keywordOrRegx => 'الكلمات الرئيسية/العادية';
+	@override String get importFromClipboard => 'استيراد من الحافظة';
+	@override String get exportToClipboard => 'تصدير إلى الحافظة';
+	@override String get server => 'الخادم';
+	@override String get ads => 'أعلن';
+	@override String get adsRemove => 'إزالة الإعلانات';
+	@override String get adsBanner => 'إعلانات البانر';
+	@override String get donate => 'يتبرع';
+	@override String get diversion => 'تحويل';
+	@override String get diversionRules => 'قواعد التحويل';
+	@override String get diversionCustomGroup => 'مجموعة تحويل مخصصة';
+	@override String get urlTestCustomGroup => 'التحديد التلقائي المخصص';
+	@override String get setting => 'إعدادات';
+	@override String get iCloud => 'iCloud';
+	@override String get appleTV => 'Apple TV';
+	@override String get webdav => 'Webdav';
+	@override String get lanSync => 'LAN SYNC';
+	@override String get lanSyncNotQuitTips => 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
+	@override String get deviceNoSpace => 'مساحة غير كافيه في القرص';
+	@override String get hideSystemApp => 'إخفاء تطبيقات النظام';
+	@override String get hideAppIcon => 'إخفاء أيقونة التطبيق';
+	@override String get remark => 'ملاحظة';
+	@override String get remarkExist => 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
+	@override String get remarkCannotEmpty => 'لا يمكن أن تكون الملاحظات فارغة';
+	@override String get remarkTooLong => 'ملاحظات تصل إلى 32 حرفًا';
+	@override String get openDir => 'فتح دليل الملف';
+	@override String get fileChoose => 'حدد الملف';
+	@override String get filePathCannotEmpty => 'لا يمكن أن يكون مسار الملف فارغًا';
+	@override String fileNotExist({required Object p}) => 'الملف غير موجود: ${p}';
+	@override String fileTypeInvalid({required Object p}) => 'نوع الملف غير صالح:${p}';
+	@override String get uwpExemption => 'إعفاء عزل شبكة UWP';
+	@override String get rulesetGeoSite => 'GeoSite';
+	@override String get rulesetGeoIp => 'GeoIP';
+	@override String get rulesetAcl => 'ACL';
+	@override String get getProfile => 'احصل على التكوين';
+	@override String get addProfile => 'إضافة ملف تعريف';
+	@override String get myProfiles => 'مظهر';
+	@override String get myProfilesAtLeastOneReserveEnable => 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
+	@override String get profileEdit => 'تحرير الملف الشخصي';
+	@override String get profileEditUrlExist => 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
+	@override String get profileEditReloadAfterProfileUpdate => 'إعادة التحميل بعد تحديث الملف الشخصي';
+	@override String get profileEditTestLatencyAfterProfileUpdate => 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا';
+	@override String get profileEditTestLatencyAfterProfileUpdateTips => 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]';
+	@override String get profileEditTestLatencyAutoRemove => 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون';
+	@override String get profileEditTestLatencyAutoRemoveTips => 'جرب ما يصل إلى 3 مرات';
+	@override String get profileImport => 'استيراد ملف الملف الشخصي';
+	@override String get profileAddUrlOrContent => 'إضافة رابط ملف التعريف';
+	@override String get profileExists => 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
+	@override String get profileUrlOrContent => 'رابط/محتوى الملف الشخصي';
+	@override String get profileUrlOrContentHit => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
+	@override String get profileUrlOrContentCannotEmpty => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
+	@override String profileAddFailedFormatException({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}';
+	@override String profileAddFailedThenDownloadAndImport({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق';
+	@override String profileAddFailedHandshakeException({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
+	@override String get profileAddParseFailed => 'فشل تحليل الملف الشخصي';
+	@override String get profileAddNoServerAvaliable => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة';
+	@override String get profileAddWrapSuccess => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض';
+}
+
+// Path: isp
+class _TranslationsIspAr implements TranslationsIspEn {
+	_TranslationsIspAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get bind => 'الارتباط بـ [${_root.meta.isp}]';
+	@override String unbind({required Object p}) => 'فك الارتباط[${p}]';
+	@override String faq({required Object p}) => 'الأسئلة الشائعة[${p}]';
+	@override String customerService({required Object p}) => 'خدمة العملاء[${p}]';
+	@override String follow({required Object p}) => 'متابعة[${p}]';
+	@override String get invalidOrExpired => '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية';
+}
+
+// Path: permission
+class _TranslationsPermissionAr implements TranslationsPermissionEn {
+	_TranslationsPermissionAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get camera => 'الكاميرا';
+	@override String get screen => 'تسجيل الشاشة';
+	@override String get appQuery => 'الحصول على قائمة التطبيقات';
+	@override String request({required Object p}) => 'تمكين أذونات [${p}]';
+	@override String requestNeed({required Object p}) => 'الرجاء تفعيل إذن [${p}]';
+}
+
+// Path: tls
+class _TranslationsTlsAr implements TranslationsTlsEn {
+	_TranslationsTlsAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get insecure => 'تخطي التحقق من الشهادة';
+	@override String get fragmentEnable => 'تمكين تجزئة TLS';
+	@override String get fragmentSize => 'حجم شريحة TLS';
+	@override String get fragmentSleep => 'TLS النوم المجزأ';
+	@override String get mixedCaseSNIEnable => 'تمكين TLS الهجين SNI';
+	@override String get paddingEnable => 'تمكين الحشو TLS';
+	@override String get paddingSize => 'حجم الحشو TLS';
+}
+
+// Path: outboundRuleMode
+class _TranslationsOutboundRuleModeAr implements TranslationsOutboundRuleModeEn {
+	_TranslationsOutboundRuleModeAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get currentSelected => 'المحدد الحالي';
+	@override String get urltest => 'اختيار آلي';
+	@override String get direct => 'مباشر';
+	@override String get block => 'حاجز';
+}
+
+// Path: dnsProxyResolveMode
+class _TranslationsDnsProxyResolveModeAr implements TranslationsDnsProxyResolveModeEn {
+	_TranslationsDnsProxyResolveModeAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => _root.outboundRuleMode.currentSelected;
+	@override String get direct => _root.outboundRuleMode.direct;
+	@override String get fakeip => 'FakeIP';
+}
+
+// Path: proxyStrategy
+class _TranslationsProxyStrategyAr implements TranslationsProxyStrategyEn {
+	_TranslationsProxyStrategyAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get perferProxy => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
+	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
+	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
+	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
 // Path: main.tray
@@ -848,30 +813,7 @@ extension on TranslationsAr {
 			case 'AboutScreen.viewFilsContent': return 'عرض الملفات';
 			case 'AboutScreen.enablePprof': return 'يُمكَِن pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof لوحة';
-			case 'AboutScreen.openDir': return 'فتح دليل الملف';
 			case 'AboutScreen.useOriginalSBProfile': return 'استخدم تكوين صندوق الغناء الأصلي';
-			case 'AddProfileByImportFromFileScreen.title': return 'استيراد ملف الملف الشخصي';
-			case 'AddProfileByImportFromFileScreen.chooseFile': return 'حدد الملف';
-			case 'AddProfileByImportFromFileScreen.configExist': return 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
-			case 'AddProfileByLinkOrContentScreen.title': return 'إضافة رابط ملف التعريف';
-			case 'AddProfileByLinkOrContentScreen.updateTimerInterval': return 'الفاصل الزمني للتحديث';
-			case 'AddProfileByLinkOrContentScreen.updateTimerIntervalTips': return 'الحد الأدنى: 5 م';
-			case 'AddProfileByLinkOrContentScreen.profileLinkContent': return 'رابط/محتوى الملف الشخصي';
-			case 'AddProfileByLinkOrContentScreen.profileLinkContentHit': return 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
-			case 'AddProfileByLinkOrContentScreen.subscriptionCannotEmpty': return 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
-			case 'AddProfileByLinkOrContentScreen.configExist': return 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
-			case 'AddProfileByLinkOrContentScreen.invalidUrl': return 'رابط الملف الطويل جدًا';
-			case 'AddProfileByLinkOrContentScreen.addFailedFormatException': return ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}';
-			case 'AddProfileByLinkOrContentScreen.addFailedThenDownloadAndImport': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق';
-			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
-			case 'AddProfileByScanQrcodeScanScreen.copy': return 'Copy Link';
-			case 'AddProfileByScanQrcodeScanScreen.open': return 'Open Link';
-			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'لقطة شاشة';
-			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'مسح من الصورة';
-			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
-			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'نتيجة الفحص فارغة';
-			case 'BackupAndSyncLanSyncScreen.title': return 'LAN SYNC';
-			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'لايمكن ان يكون فارغا';
 			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'فشل تسجيل الدخول:';
@@ -881,9 +823,9 @@ extension on TranslationsAr {
 			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'غير صالح [Port]:${p}';
 			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'غير صالح [Rule Set]:${p}, يجب أن يكون عنوان URL عنوان URL HTTPS صالحًا وملفًا ثنائيًا مع ملحق الملف .SRS';
 			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'غير صالح [Rule Set(build-in)]:${p} غير صالحة، التنسيق هو geosite:xxx أو geoip:xxx أو acl:xxx، ويجب أن يكون xxx اسم قاعدة صالحًا';
+			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'غير صالح [${_root.meta.appPackage}]:${p}';
 			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'نصيحة: بعد الحفظ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة، وإلا فلن تصبح سارية المفعول.';
 			case 'DiversionRuleDetectScreen.title': return 'قاعدة التحويل اكتشف';
-			case 'DiversionRuleDetectScreen.detect': return 'يكشف';
 			case 'DiversionRuleDetectScreen.rule': return 'قاعدة:';
 			case 'DiversionRuleDetectScreen.outbound': return 'مخدم بروكسي:';
 			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'نصيحة: حاول مطابقة القواعد من الأعلى إلى الأسفل، إذا لم تتم مطابقة أي قاعدة، استخدم [نهائي]';
@@ -891,11 +833,7 @@ extension on TranslationsAr {
 			case 'DnsSettingsScreen.urlCanNotEmpty': return 'لا يمكن أن يكون عنوان URL فارغًا';
 			case 'DnsSettingsScreen.error': return ({required Object p}) => 'نوع غير مدعوم:${p}';
 			case 'DnsSettingsScreen.dnsDesc': return 'العمود الأول من بيانات التأخير هو تأخير استعلام الاتصال المباشر;\nالعمود الثاني: شغله [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير الاستعلام الذي تم إعادة توجيهه من خلال خادم الوكيل الحالي; إذا [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير استعلام الاتصال المباشر';
-			case 'FeedbackScreen.content': return 'محتوى ردود الفعل';
-			case 'FeedbackScreen.contentHit': return 'مطلوب ، ما يصل إلى 500 حرف';
-			case 'FeedbackScreen.contentCannotEmpty': return 'لا يمكن أن يكون محتوى التعليقات فارغًا';
 			case 'FileContentViewerScreen.title': return 'ملف محتوى الملف';
-			case 'FileContentViewerScreen.chooseFile': return 'حدد الملف';
 			case 'FileContentViewerScreen.clearFileContent': return 'هل أنت متأكد من مسح محتوى الملف؟';
 			case 'FileContentViewerScreen.clearFileContentTips': return 'هل أنت متأكد من مسح محتوى ملف الملف الشخصي؟قد يتسبب تطهير ملف الملف الشخصي في فقدان البيانات أو وظائف التطبيق غير الطبيعية ، يرجى العمل بحذر';
 			case 'HomeScreen.toSelectServer': return 'الرجاء تحديد خادم';
@@ -903,34 +841,19 @@ extension on TranslationsAr {
 			case 'HomeScreen.disabledServer': return 'معطل ، الرجاء اختيار مرة أخرى';
 			case 'HomeScreen.expiredServer': return 'لا يوجد خادم متاح: قد يكون التكوين قديمًا أو معطلاً';
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}';
-			case 'HomeScreen.trafficTotal': return 'إجمالي حركة المرور';
-			case 'HomeScreen.trafficProxy': return 'وكيل حركة المرور';
 			case 'HomeScreen.myLinkEmpty': return 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه';
-			case 'HomeScreen.deviceNoSpace': return 'مساحة غير كافيه في القرص';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.';
 			case 'LaunchFailedScreen.invalidProcess': return 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل';
 			case 'LaunchFailedScreen.invalidProfile': return 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق';
 			case 'LaunchFailedScreen.invalidVersion': return 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق';
 			case 'LaunchFailedScreen.systemVersionLow': return 'فشل بدء تشغيل التطبيق [إصدار النظام منخفض جدًا]';
 			case 'LaunchFailedScreen.invalidInstallPath': return 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح';
-			case 'MyProfilesEditScreen.title': return 'تحرير الملف الشخصي';
-			case 'MyProfilesEditScreen.urlExist': return 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
-			case 'MyProfilesEditScreen.updateTimerInterval': return 'الفاصل الزمني للتحديث';
-			case 'MyProfilesEditScreen.updateTimerIntervalTips': return 'الحد الأدنى: 5 م';
-			case 'MyProfilesEditScreen.reloadAfterProfileUpdate': return 'إعادة التحميل بعد تحديث الملف الشخصي';
-			case 'MyProfilesEditScreen.testLatencyAfterProfileUpdate': return 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا';
-			case 'MyProfilesEditScreen.testLatencyAfterProfileUpdateTips': return 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]';
-			case 'MyProfilesEditScreen.testLatencyAutoRemove': return 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون';
-			case 'MyProfilesEditScreen.testLatencyAutoRemoveTips': return 'جرب ما يصل إلى 3 مرات';
 			case 'MyProfilesMergeScreen.profilesMerge': return 'دمج الملامح';
 			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'ملف تعريف الهدف';
 			case 'MyProfilesMergeScreen.profilesMergeSource': return 'ملفات تعريف المصدر';
 			case 'MyProfilesMergeScreen.profilesMergeTips': return 'نصيحة: سيتم تجاهل تحويل ملفات تعريف المصدر';
-			case 'MyProfilesScreen.title': return 'مظهر';
-			case 'MyProfilesScreen.atLeastOneEnable': return 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
 			case 'NetCheckScreen.title': return 'فحص صافي';
 			case 'NetCheckScreen.warn': return 'ملاحظة: نظرًا لتأثير بيئة الشبكة وقواعد التحويل ، فإن نتائج الاختبار ليست مكافئة تمامًا للنتائج الفعلية.';
-			case 'NetCheckScreen.check': return 'يفحص';
 			case 'NetCheckScreen.invalidDomain': return 'اسم النطاق غير صالح';
 			case 'NetCheckScreen.connectivity': return 'اتصال الشبكة';
 			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'اختبار اتصال IPv4[${p}] كل شيء فشل';
@@ -962,14 +885,6 @@ extension on TranslationsAr {
 			case 'PerAppAndroidScreen.title': return 'لكل وكيل تطبيق';
 			case 'PerAppAndroidScreen.whiteListMode': return 'وضع القائمة البيضاء';
 			case 'PerAppAndroidScreen.whiteListModeTip': return 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء';
-			case 'PerAppAndroidScreen.hideSystemApp': return 'إخفاء تطبيقات النظام';
-			case 'PerAppAndroidScreen.hideAppIcon': return 'إخفاء أيقونة التطبيق';
-			case 'PerAppAndroidScreen.enableAppQueryPermission': return 'قم بتشغيل الإذن [استعلام قائمة التطبيقات]';
-			case 'QrcodeScreen.tooLong': return 'النص طويل جدًا لعرضه';
-			case 'QrcodeScreen.copy': return 'نسخ الوصلة';
-			case 'QrcodeScreen.open': return 'افتح الرابط';
-			case 'QrcodeScreen.share': return 'شارك الرابط';
-			case 'QrcodeScreen.shareImage': return 'شارك رمز الاستجابة السريعة';
 			case 'RegionSettingsScreen.title': return 'الدولة او المنطقة';
 			case 'RegionSettingsScreen.Regions': return '  نصيحة: يرجى تعيين بلدك أو منطقتك الحالية بشكل صحيح ، وإلا فقد يتسبب في مشاكل في تحويل الشبكة';
 			case 'ServerSelectScreen.title': return 'حدد الخادم';
@@ -988,12 +903,9 @@ extension on TranslationsAr {
 			case 'SettingsScreen.dnsLeakDetection': return 'كشف تسرب DNS';
 			case 'SettingsScreen.proxyLeakDetection': return 'كشف تسرب الوكيل';
 			case 'SettingsScreen.speedTest': return 'اختبار السرعة';
-			case 'SettingsScreen.downloadProfilePreferProxy': return 'تفضل الوكيل لتنزيل الملف الشخصي';
-			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'إذا كان متصلاً حاليًا ، فسيتم تنزيل الملف الشخصي من خلال الوكيل المتصالح أولاً';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'مجموعة القواعد تحميل مباشر';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'إخفاء مجموعات التحويل غير المستخدمة';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'تعطيل قواعد تحويل [مزود VPN]';
-			case 'SettingsScreen.portSetting': return 'ميناء';
+			case 'SettingsScreen.hideUnusedDiversionGroup': return 'إخفاء قواعد تحويل حركة المرور غير النشطة';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'تعطيل قواعد تحويل [${_root.meta.isp}]';
 			case 'SettingsScreen.portSettingRule': return 'القاعدة القائمة';
 			case 'SettingsScreen.portSettingDirectAll': return 'توجيه كل شيء';
 			case 'SettingsScreen.portSettingProxyAll': return 'وكيل الكل';
@@ -1004,18 +916,9 @@ extension on TranslationsAr {
 			case 'SettingsScreen.ipStrategyTips': return 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'إلحاق وكيل HTTP إلى VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
-			case 'SettingsScreen.tlsInsecureEnable': return 'تخطي التحقق من الشهادة';
-			case 'SettingsScreen.tlsFragmentEnable': return 'تمكين تجزئة TLS';
-			case 'SettingsScreen.tlsFragmentSize': return 'حجم شريحة TLS';
-			case 'SettingsScreen.tlsFragmentSleep': return 'TLS النوم المجزأ';
-			case 'SettingsScreen.tlsMixedCaseSNIEnable': return 'تمكين TLS الهجين SNI';
-			case 'SettingsScreen.tlsPaddingEnable': return 'تمكين الحشو TLS';
-			case 'SettingsScreen.tlsPaddingSize': return 'حجم الحشو TLS';
 			case 'SettingsScreen.dnsEnableRule': return 'تمكين قواعد تحويل DNS';
-			case 'SettingsScreen.dnsEnableFakeIp': return 'تمكين وهمية';
-			case 'SettingsScreen.dnsEnableClientSubnet': return 'تمكين ECS';
-			case 'SettingsScreen.dnsEnableProxyResolveByProxy': return '[حركة الوكيل] حل DNS من خلال خادم الوكيل';
-			case 'SettingsScreen.dnsEnableFinalResolveByProxy': return '[نهائي] حل DNS من خلال خادم الوكيل';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
 			case 'SettingsScreen.dnsTestDomain': return 'مجال الاختبار';
 			case 'SettingsScreen.dnsTestDomainInvalid': return 'مجال غير صالح';
 			case 'SettingsScreen.dnsTypeOutbound': return 'مخدم بروكسي';
@@ -1025,16 +928,16 @@ extension on TranslationsAr {
 			case 'SettingsScreen.dnsEnableRuleTips': return 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل';
 			case 'SettingsScreen.dnsEnableFakeIpTips': return 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'دقة اسم المجال لخادم الوكيل';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'حل اسم المجال لحركة المرور المباشرة';
+			case 'SettingsScreen.dnsTypeDirectTips': return 'حل اسم المجال لـ [${_root.SettingsScreen.dnsTypeDirect}]';
 			case 'SettingsScreen.dnsTypeProxyTips': return 'حل اسم المجال لحركة المرور الوكيل';
 			case 'SettingsScreen.dnsTypeResolverTips': return 'دقة اسم المجال لخادم DNS الآخر';
-			case 'SettingsScreen.dnsTypeFinalTips': return 'حل اسم المجال لحركة المرور الأخرى';
 			case 'SettingsScreen.dnsAutoSetServer': return 'إعداد الخادم تلقائيا';
 			case 'SettingsScreen.dnsResetServer': return 'إعادة تعيين الخادم';
 			case 'SettingsScreen.inboundDomainResolve': return 'حل أسماء النطاقات الواردة';
 			case 'SettingsScreen.privateDirect': return 'اتصال مباشر بالشبكة الخاصة';
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'استخدم الموارد البعيدة';
+			case 'SettingsScreen.autoAppendRegion': return 'إرفاق القواعد الأساسية تلقائيًا';
 			case 'SettingsScreen.autoSelect': return 'اختيار آلي';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 			case 'SettingsScreen.autoSelectServerInterval': return 'فاصل الشيكات الكمون';
@@ -1057,7 +960,6 @@ extension on TranslationsAr {
 			case 'SettingsScreen.homeScreen': return 'الشاشة الرئيسية';
 			case 'SettingsScreen.theme': return 'Tالهيم';
 			case 'SettingsScreen.myLink': return 'ارتباط اختصار';
-			case 'SettingsScreen.myLinkInvalid': return 'URL غير صالح';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
 			case 'SettingsScreen.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
 			case 'SettingsScreen.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
@@ -1108,9 +1010,6 @@ extension on TranslationsAr {
 			case 'SettingsScreen.supportUs': return 'ادعمنا';
 			case 'SettingsScreen.rateInApp': return 'قيمنا';
 			case 'SettingsScreen.rateInAppStore': return 'قيمنا في متجر التطبيقات';
-			case 'SpeedTestSettingsScreen.title': return 'URL اختبار السرعة';
-			case 'TextToQrCodeScreen.title': return 'رسالة نصية إلى رمز الاستجابة السريعة';
-			case 'TextToQrCodeScreen.convert': return 'يتحول';
 			case 'UserAgreementScreen.privacyFirst': return 'خصوصيتك تأتي أولا';
 			case 'UserAgreementScreen.agreeAndContinue': return 'قبول ومتابعة';
 			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'الإصدار الجديد [${p}] جاهز';
@@ -1118,159 +1017,240 @@ extension on TranslationsAr {
 			case 'VersionUpdateScreen.cancel': return 'ليس الآن';
 			case 'CommonWidget.diableAlwayOnVPN': return 'إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.';
 			case 'CommonWidget.resetPort': return 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.';
-			case 'ServerManager.noServerAvaliable': return 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة';
-			case 'ServerManager.filePathCannotEmpty': return 'لا يمكن أن يكون مسار الملف فارغًا';
-			case 'ServerManager.fileNotExist': return ({required Object p}) => 'الملف غير موجود: ${p}';
-			case 'ServerManager.urlCannotEmpty': return 'لا يمكن أن يكون الرابط فارغًا';
-			case 'ServerManager.invalidUrl': return 'رابط ملف تعريف غير صالح';
-			case 'ServerManager.parseFailed': return 'فشل تحليل الملف الشخصي';
 			case 'main.tray.menuOpen': return '    يفتح    ';
 			case 'main.tray.menuExit': return '    مخرج    ';
-			case 'enable': return 'يُمكَِن';
-			case 'disable': return 'إبطال';
-			case 'filter': return 'فلتر';
-			case 'filterMethod': return 'طريقة التصفية';
-			case 'include': return 'يشمل';
-			case 'exclude': return 'استبعاد';
-			case 'all': return 'الجميع';
-			case 'prefer': return 'أولوية';
-			case 'only': return 'فقط';
-			case 'open': return 'يفتح';
-			case 'close': return 'إنهاء';
-			case 'quit': return 'يترك';
-			case 'add': return 'اضف إليه';
-			case 'remove': return 'يمسح';
-			case 'edit': return 'يحرر';
-			case 'view': return 'يفحص';
-			case 'more': return 'أكثر';
-			case 'getProfile': return 'احصل على التكوين';
-			case 'addProfile': return 'إضافة ملف تعريف';
-			case 'addSuccess': return 'اضيف بنجاح';
-			case 'addSuccessThen': return ({required Object p}) => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${p}] للعرض';
-			case 'addFailed': return ({required Object p}) => 'إضافة فشل:${p}';
-			case 'removeConfirm': return 'هل انت متأكد من الحذف؟';
-			case 'tips': return 'معلومات';
-			case 'copy': return 'ينسخ';
-			case 'ok': return 'نعم';
-			case 'cancel': return 'يلغي';
-			case 'feedback': return 'تعليق';
-			case 'faq': return 'أسئلة مكررة';
-			case 'download': return 'تحميل';
-			case 'loading': return 'تحميل...';
-			case 'updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
-			case 'days': return 'أيام';
-			case 'hours': return 'ساعات';
-			case 'minutes': return 'دقائق';
-			case 'seconds': return 'ثانية';
-			case 'protocol': return 'بروتوكول';
-			case 'search': return 'يبحث';
-			case 'custom': return 'مخصص';
-			case 'connect': return 'يتصل';
-			case 'disconnect': return 'قطع الاتصال';
-			case 'connected': return 'متصل';
-			case 'disconnected': return 'انقطع الاتصال';
-			case 'connecting': return 'توصيل';
-			case 'connectTimeout': return 'ربط مهلة';
-			case 'timeout': return 'نفذ الوقت';
-			case 'language': return 'لغة';
-			case 'next': return 'التالي';
-			case 'done': return 'منتهي';
-			case 'apply': return 'يتقدم';
-			case 'refresh': return 'ينعش';
-			case 'retry': return 'إعادة المحاولة?';
-			case 'none': return 'لا أحد';
-			case 'reset': return 'إعادة ضبط';
-			case 'submit': return 'يُقدِّم';
-			case 'user': return 'مستخدم';
-			case 'account': return 'حساب';
-			case 'password': return 'كلمة المرور';
-			case 'required': return 'مطلوب';
-			case 'diversion': return 'تحويل';
-			case 'diversionRules': return 'قواعد التحويل';
-			case 'diversionRulesEnable': return 'تمكين قواعد تفريغ [مزود VPN]';
-			case 'diversionCustomGroup': return 'مجموعة تحويل مخصصة';
+			case 'meta.enable': return 'يُمكَِن';
+			case 'meta.disable': return 'إبطال';
+			case 'meta.filter': return 'فلتر';
+			case 'meta.filterMethod': return 'طريقة التصفية';
+			case 'meta.include': return 'يشمل';
+			case 'meta.exclude': return 'استبعاد';
+			case 'meta.all': return 'الجميع';
+			case 'meta.prefer': return 'أولوية';
+			case 'meta.only': return 'فقط';
+			case 'meta.open': return 'يفتح';
+			case 'meta.close': return 'إنهاء';
+			case 'meta.quit': return 'يترك';
+			case 'meta.add': return 'اضف إليه';
+			case 'meta.addSuccess': return 'اضيف بنجاح';
+			case 'meta.addFailed': return ({required Object p}) => 'إضافة فشل:${p}';
+			case 'meta.remove': return 'يمسح';
+			case 'meta.removeConfirm': return 'هل انت متأكد من الحذف؟';
+			case 'meta.edit': return 'يحرر';
+			case 'meta.view': return 'يفحص';
+			case 'meta.more': return 'أكثر';
+			case 'meta.tips': return 'معلومات';
+			case 'meta.copy': return 'ينسخ';
+			case 'meta.ok': return 'نعم';
+			case 'meta.cancel': return 'يلغي';
+			case 'meta.feedback': return 'تعليق';
+			case 'meta.feedbackContent': return 'محتوى ردود الفعل';
+			case 'meta.feedbackContentHit': return 'مطلوب ، ما يصل إلى 500 حرف';
+			case 'meta.feedbackContentCannotEmpty': return 'لا يمكن أن يكون محتوى التعليقات فارغًا';
+			case 'meta.faq': return 'أسئلة مكررة';
+			case 'meta.download': return 'تحميل';
+			case 'meta.loading': return 'تحميل...';
+			case 'meta.convert': return 'يتحول';
+			case 'meta.check': return 'يفحص';
+			case 'meta.detect': return 'يكشف';
+			case 'meta.days': return 'أيام';
+			case 'meta.hours': return 'ساعات';
+			case 'meta.minutes': return 'دقائق';
+			case 'meta.seconds': return 'ثانية';
+			case 'meta.protocol': return 'بروتوكول';
+			case 'meta.search': return 'يبحث';
+			case 'meta.custom': return 'مخصص';
+			case 'meta.connect': return 'يتصل';
+			case 'meta.disconnect': return 'قطع الاتصال';
+			case 'meta.connected': return 'متصل';
+			case 'meta.disconnected': return 'انقطع الاتصال';
+			case 'meta.connecting': return 'توصيل';
+			case 'meta.connectTimeout': return 'ربط مهلة';
+			case 'meta.timeout': return 'نفذ الوقت';
+			case 'meta.timeoutDuration': return 'مدة مهلة الانتظار';
+			case 'meta.latency': return 'تأخير';
+			case 'meta.latencyTest': return 'كشف التأخير';
+			case 'meta.language': return 'لغة';
+			case 'meta.next': return 'التالي';
+			case 'meta.done': return 'منتهي';
+			case 'meta.apply': return 'يتقدم';
+			case 'meta.refresh': return 'ينعش';
+			case 'meta.retry': return 'إعادة المحاولة?';
+			case 'meta.update': return 'تجديد';
+			case 'meta.updateInterval': return 'الفاصل الزمني للتحديث';
+			case 'meta.updateInterval5mTips': return 'الحد الأدنى: 5 م';
+			case 'meta.updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
+			case 'meta.none': return 'لا أحد';
+			case 'meta.reset': return 'إعادة ضبط';
+			case 'meta.submit': return 'يُقدِّم';
+			case 'meta.user': return 'مستخدم';
+			case 'meta.account': return 'حساب';
+			case 'meta.password': return 'كلمة المرور';
+			case 'meta.required': return 'مطلوب';
+			case 'meta.other': return 'آخر';
+			case 'meta.dns': return 'DNS';
+			case 'meta.url': return 'URL';
+			case 'meta.urlInvalid': return 'URL غير صالح';
+			case 'meta.urlCannotEmpty': return 'لا يمكن أن يكون الرابط فارغًا';
+			case 'meta.urlTooLong': return 'عنوان URL طويل جدًا (>8182)';
+			case 'meta.copyUrl': return 'Copy Link';
+			case 'meta.openUrl': return 'Open Link';
+			case 'meta.shareUrl': return 'شارك الرابط';
+			case 'meta.speedTestUrl': return 'URL اختبار السرعة';
+			case 'meta.tls': return 'TLS';
+			case 'meta.userAgent': return 'UserAgent';
+			case 'meta.staticIP': return 'رقم تعريف حاسوب ثابت';
+			case 'meta.isp': return 'مزودي VPN';
+			case 'meta.domainSuffix': return 'لاحقة اسم المجال';
+			case 'meta.domain': return 'اسم النطاق';
+			case 'meta.domainKeyword': return 'الكلمات الرئيسية لاسم المجال';
+			case 'meta.domainRegex': return 'انتظام اسم المجال';
+			case 'meta.ip': return 'IP';
+			case 'meta.port': return 'ميناء';
+			case 'meta.appPackage': return 'معرف حزمة التطبيق';
+			case 'meta.processName': return 'اسم العملية';
+			case 'meta.processPath': return 'مسار العملية';
+			case 'meta.processDir': return 'دليل العمليات';
+			case 'meta.systemProxy': return 'وكيل النظام';
+			case 'meta.netInterfaces': return 'واجهات صافية';
+			case 'meta.netSpeed': return 'سرعة';
+			case 'meta.trafficTotal': return 'إجمالي حركة المرور';
+			case 'meta.trafficProxy': return 'وكيل حركة المرور';
+			case 'meta.website': return 'موقع إلكتروني';
+			case 'meta.rule': return 'قاعدة';
+			case 'meta.global': return 'عالمي';
+			case 'meta.qrcode': return 'رمز الاستجابة السريعة';
+			case 'meta.qrcodeTooLong': return 'النص طويل جدًا لعرضه';
+			case 'meta.qrcodeShare': return 'شارك رمز الاستجابة السريعة';
+			case 'meta.textToQrcode': return 'رسالة نصية إلى رمز الاستجابة السريعة';
+			case 'meta.qrcodeScan': return 'مسح رمز الاستجابة السريعة';
+			case 'meta.qrcodeScanResult': return 'نتيجة المسح';
+			case 'meta.qrcodeScanFromImage': return 'مسح من الصورة';
+			case 'meta.qrcodeScanResultFailed': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
+			case 'meta.qrcodeScanResultEmpty': return 'نتيجة الفحص فارغة';
+			case 'meta.screenshot': return 'لقطة شاشة';
+			case 'meta.backupAndSync': return 'النسخ الاحتياطي والمزامنة';
+			case 'meta.autoBackup': return 'النسخ الاحتياطي التلقائي';
+			case 'meta.autoBackupAddProfile': return 'بعد إضافة التكوين';
+			case 'meta.autoBackupRemoveProfile': return 'بعد حذف التكوين';
+			case 'meta.importAndExport': return 'استيراد وتصدير';
+			case 'meta.import': return 'يستورد';
+			case 'meta.export': return 'يصدّر';
+			case 'meta.send': return 'يرسل';
+			case 'meta.receive': return 'تولي';
+			case 'meta.sendConfirm': return 'تأكيد الإرسال؟';
+			case 'meta.termOfUse': return 'شرط الخدمة';
+			case 'meta.privacyPolicy': return 'سياسة الخصوصية';
+			case 'meta.about': return 'عن';
+			case 'meta.name': return 'اسم';
+			case 'meta.version': return 'إصدار';
+			case 'meta.notice': return 'يلاحظ';
+			case 'meta.sort': return 'إعادة ترتيب';
+			case 'meta.novice': return 'وضع المبتدئ';
+			case 'meta.recommended': return 'يوصي';
+			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
+			case 'meta.logicOperation': return 'عملية منطقية';
+			case 'meta.share': return 'يشارك';
+			case 'meta.candidateWord': return 'كلمات المرشح';
+			case 'meta.keywordOrRegx': return 'الكلمات الرئيسية/العادية';
+			case 'meta.importFromClipboard': return 'استيراد من الحافظة';
+			case 'meta.exportToClipboard': return 'تصدير إلى الحافظة';
+			case 'meta.server': return 'الخادم';
+			case 'meta.ads': return 'أعلن';
+			case 'meta.adsRemove': return 'إزالة الإعلانات';
+			case 'meta.adsBanner': return 'إعلانات البانر';
+			case 'meta.donate': return 'يتبرع';
+			case 'meta.diversion': return 'تحويل';
+			case 'meta.diversionRules': return 'قواعد التحويل';
+			case 'meta.diversionCustomGroup': return 'مجموعة تحويل مخصصة';
+			case 'meta.urlTestCustomGroup': return 'التحديد التلقائي المخصص';
+			case 'meta.setting': return 'إعدادات';
+			case 'meta.iCloud': return 'iCloud';
+			case 'meta.appleTV': return 'Apple TV';
+			case 'meta.webdav': return 'Webdav';
+			case 'meta.lanSync': return 'LAN SYNC';
+			case 'meta.lanSyncNotQuitTips': return 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
+			case 'meta.deviceNoSpace': return 'مساحة غير كافيه في القرص';
+			case 'meta.hideSystemApp': return 'إخفاء تطبيقات النظام';
+			case 'meta.hideAppIcon': return 'إخفاء أيقونة التطبيق';
+			case 'meta.remark': return 'ملاحظة';
+			case 'meta.remarkExist': return 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
+			case 'meta.remarkCannotEmpty': return 'لا يمكن أن تكون الملاحظات فارغة';
+			case 'meta.remarkTooLong': return 'ملاحظات تصل إلى 32 حرفًا';
+			case 'meta.openDir': return 'فتح دليل الملف';
+			case 'meta.fileChoose': return 'حدد الملف';
+			case 'meta.filePathCannotEmpty': return 'لا يمكن أن يكون مسار الملف فارغًا';
+			case 'meta.fileNotExist': return ({required Object p}) => 'الملف غير موجود: ${p}';
+			case 'meta.fileTypeInvalid': return ({required Object p}) => 'نوع الملف غير صالح:${p}';
+			case 'meta.uwpExemption': return 'إعفاء عزل شبكة UWP';
+			case 'meta.rulesetGeoSite': return 'GeoSite';
+			case 'meta.rulesetGeoIp': return 'GeoIP';
+			case 'meta.rulesetAcl': return 'ACL';
+			case 'meta.getProfile': return 'احصل على التكوين';
+			case 'meta.addProfile': return 'إضافة ملف تعريف';
+			case 'meta.myProfiles': return 'مظهر';
+			case 'meta.myProfilesAtLeastOneReserveEnable': return 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
+			case 'meta.profileEdit': return 'تحرير الملف الشخصي';
+			case 'meta.profileEditUrlExist': return 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
+			case 'meta.profileEditReloadAfterProfileUpdate': return 'إعادة التحميل بعد تحديث الملف الشخصي';
+			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا';
+			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]';
+			case 'meta.profileEditTestLatencyAutoRemove': return 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون';
+			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'جرب ما يصل إلى 3 مرات';
+			case 'meta.profileImport': return 'استيراد ملف الملف الشخصي';
+			case 'meta.profileAddUrlOrContent': return 'إضافة رابط ملف التعريف';
+			case 'meta.profileExists': return 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
+			case 'meta.profileUrlOrContent': return 'رابط/محتوى الملف الشخصي';
+			case 'meta.profileUrlOrContentHit': return 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
+			case 'meta.profileUrlOrContentCannotEmpty': return 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
+			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}';
+			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق';
+			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
+			case 'meta.profileAddParseFailed': return 'فشل تحليل الملف الشخصي';
+			case 'meta.profileAddNoServerAvaliable': return 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة';
+			case 'meta.profileAddWrapSuccess': return 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض';
+			case 'diversionRulesKeep': return 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}';
 			case 'diversionCustomGroupPreset': return 'الإعداد المسبق [مجموعة تحويل مخصصة]';
 			case 'diversionCustomGroupPresetTips': return 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
 			case 'diversionCustomGroupAddTips': return 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
-			case 'urlTestCustomGroup': return 'التحديد التلقائي المخصص';
 			case 'rulesetEnableTips': return 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
-			case 'ispUserAgentTips': return 'سيقدم [مزود VPN] أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
-			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [مزود VPN]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
-			case 'staticIP': return 'رقم تعريف حاسوب ثابت';
-			case 'other': return 'آخر';
-			case 'dns': return 'DNS';
-			case 'url': return 'URL';
-			case 'isp': return 'مزود VPN';
-			case 'ispBind': return 'الارتباط بـ [مزود VPN]';
-			case 'ispUnbind': return ({required Object p}) => 'فك الارتباط[${p}]';
-			case 'ispFaq': return ({required Object p}) => 'الأسئلة الشائعة[${p}]';
-			case 'ispCustomerService': return ({required Object p}) => 'خدمة العملاء[${p}]';
-			case 'ispFollow': return ({required Object p}) => 'متابعة[${p}]';
-			case 'ispInvalidOrExpired': return '[مزود VPN]غير صالح أو منتهية الصلاحية';
-			case 'tls': return 'TLS';
-			case 'userAgent': return 'UserAgent';
-			case 'urlInvalid': return 'URL غير صالح';
-			case 'outboundActionCurrentSelected': return 'المحدد الحالي';
-			case 'outboundActionUrltest': return 'اختيار آلي';
-			case 'outboundActionDirect': return 'مباشر';
-			case 'outboundActionBlock': return 'حاجز';
+			case 'ispUserAgentTips': return 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
+			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [${_root.meta.isp}]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
+			case 'isp.bind': return 'الارتباط بـ [${_root.meta.isp}]';
+			case 'isp.unbind': return ({required Object p}) => 'فك الارتباط[${p}]';
+			case 'isp.faq': return ({required Object p}) => 'الأسئلة الشائعة[${p}]';
+			case 'isp.customerService': return ({required Object p}) => 'خدمة العملاء[${p}]';
+			case 'isp.follow': return ({required Object p}) => 'متابعة[${p}]';
+			case 'isp.invalidOrExpired': return '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية';
+			case 'permission.camera': return 'الكاميرا';
+			case 'permission.screen': return 'تسجيل الشاشة';
+			case 'permission.appQuery': return 'الحصول على قائمة التطبيقات';
+			case 'permission.request': return ({required Object p}) => 'تمكين أذونات [${p}]';
+			case 'permission.requestNeed': return ({required Object p}) => 'الرجاء تفعيل إذن [${p}]';
+			case 'tls.insecure': return 'تخطي التحقق من الشهادة';
+			case 'tls.fragmentEnable': return 'تمكين تجزئة TLS';
+			case 'tls.fragmentSize': return 'حجم شريحة TLS';
+			case 'tls.fragmentSleep': return 'TLS النوم المجزأ';
+			case 'tls.mixedCaseSNIEnable': return 'تمكين TLS الهجين SNI';
+			case 'tls.paddingEnable': return 'تمكين الحشو TLS';
+			case 'tls.paddingSize': return 'حجم الحشو TLS';
+			case 'outboundRuleMode.currentSelected': return 'المحدد الحالي';
+			case 'outboundRuleMode.urltest': return 'اختيار آلي';
+			case 'outboundRuleMode.direct': return 'مباشر';
+			case 'outboundRuleMode.block': return 'حاجز';
+			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
+			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
+			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
+			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
+			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
+			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
+			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'downloadProxyStrategy': return 'تحميل القناة';
+			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 			case 'routeFinal': return 'أخير';
-			case 'rulesetGeoSite': return 'GeoSite';
-			case 'rulesetGeoIp': return 'GeoIP';
-			case 'rulesetAcl': return 'ACL';
-			case 'iCloud': return 'iCloud';
-			case 'appleTV': return 'Apple TV';
-			case 'webdav': return 'Webdav';
-			case 'setting': return 'إعدادات';
 			case 'protocolSniff': return 'الكشف عن البروتوكول';
 			case 'protocolSniffOverrideDestination': return 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
-			case 'remark': return 'ملاحظة';
-			case 'remarkCannotEmpty': return 'لا يمكن أن تكون الملاحظات فارغة';
-			case 'remarkTooLong': return 'ملاحظات تصل إلى 32 حرفًا';
-			case 'remarkExist': return 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
-			case 'domainSuffix': return 'لاحقة اسم المجال';
-			case 'domain': return 'اسم النطاق';
-			case 'domainKeyword': return 'الكلمات الرئيسية لاسم المجال';
-			case 'domainRegex': return 'انتظام اسم المجال';
-			case 'ip': return 'IP';
-			case 'port': return 'ميناء';
-			case 'appPackage': return 'معرف حزمة التطبيق';
-			case 'processName': return 'اسم العملية';
-			case 'processPath': return 'مسار العملية';
-			case 'systemProxy': return 'وكيل النظام';
-			case 'netInterfaces': return 'واجهات صافية';
-			case 'netSpeed': return 'سرعة';
-			case 'website': return 'موقع إلكتروني';
-			case 'rule': return 'قاعدة';
-			case 'global': return 'عالمي';
-			case 'qrcode': return 'رمز الاستجابة السريعة';
-			case 'scanQrcode': return 'مسح رمز الاستجابة السريعة';
-			case 'scanResult': return 'نتيجة المسح';
-			case 'backupAndSync': return 'النسخ الاحتياطي والمزامنة';
-			case 'importAndExport': return 'استيراد وتصدير';
-			case 'import': return 'يستورد';
-			case 'export': return 'يصدّر';
-			case 'send': return 'يرسل';
-			case 'receive': return 'تولي';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'الرجاء استخدام [${p}]';
-			case 'sendConfirm': return 'تأكيد الإرسال؟';
-			case 'termOfUse': return 'شرط الخدمة';
-			case 'privacyPolicy': return 'سياسة الخصوصية';
-			case 'about': return 'عن';
-			case 'name': return 'اسم';
-			case 'version': return 'إصدار';
-			case 'notice': return 'يلاحظ';
-			case 'sort': return 'إعادة ترتيب';
-			case 'novice': return 'وضع المبتدئ';
-			case 'recommended': return 'يوصي';
-			case 'innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
-			case 'logicOperation': return 'عملية منطقية';
-			case 'share': return 'يشارك';
-			case 'candidateWord': return 'كلمات المرشح';
-			case 'keywordOrRegx': return 'الكلمات الرئيسية/العادية';
-			case 'importFromClipboard': return 'استيراد من الحافظة';
-			case 'exportToClipboard': return 'تصدير إلى الحافظة';
-			case 'server': return 'الخادم';
 			case 'turnOffPrivateDirect': return 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 			case 'targetConnectFailed': return ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
 			case 'appleTVSync': return 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing';
@@ -1280,25 +1260,15 @@ extension on TranslationsAr {
 			case 'appleTVUrlInvalid': return 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
 			case 'remoteProfileEditConfirm': return 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
-			case 'invalidFileType': return ({required Object p}) => 'نوع الملف غير صالح:${p}';
 			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
-			case 'latencyTest': return 'كشف التأخير';
 			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
-			case 'latencyTestTimeout': return 'نفذ الوقت';
-			case 'uwpExemption': return 'إعفاء عزل شبكة UWP';
-			case 'ads': return 'إزالة الإعلانات';
-			case 'adsBanner': return 'إعلانات البانر';
-			case 'donate': return 'يتبرع';
 			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
 			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
 			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
-			case 'requestCameraPermission': return 'الرجاء تفعيل إذن [الكاميرا]';
-			case 'requestScreenAccess': return 'يرجى تمكين إذن [تسجيل الشاشة]';
-			case 'requestAppQuery': return 'يرجى تمكين إذن [الحصول على قائمة التطبيقات]';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

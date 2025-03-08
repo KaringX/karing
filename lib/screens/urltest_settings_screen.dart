@@ -78,7 +78,7 @@ class _UrlTestSettingsScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.url,
+                        tcontext.meta.url,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -199,7 +199,7 @@ class _UrlTestSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.url, "", null, null, (text) {
+        context, tcontext.meta.url, "", null, null, (text) {
       text = text.trim();
       Uri? uri = Uri.tryParse(text);
       if (uri == null || uri.scheme != "https") {

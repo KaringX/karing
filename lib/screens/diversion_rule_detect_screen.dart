@@ -41,12 +41,18 @@ class _DiversionRuleDetectScreenState
   @override
   void initState() {
     super.initState();
-    _textControllerHost.value = const TextEditingValue(text: "google.com");
+    _domain = SettingManager.getConfig().ui.diversionRuleDetectDomain;
+    _textControllerHost.value = TextEditingValue(text: _domain);
   }
 
   @override
   void dispose() {
     super.dispose();
+    if (_domain.isNotEmpty &&
+        _domain != SettingManager.getConfig().ui.diversionRuleDetectDomain) {
+      SettingManager.getConfig().ui.diversionRuleDetectDomain = _domain;
+      SettingManager.saveConfig();
+    }
   }
 
   Future<bool> startVPN() async {
@@ -56,13 +62,13 @@ class _DiversionRuleDetectScreenState
   String getTagName(String tag) {
     final tcontext = Translations.of(context);
     if (tag == kOutboundTagUrltest) {
-      return tcontext.outboundActionUrltest;
+      return tcontext.outboundRuleMode.urltest;
     } else if (tag == kOutboundTagDirect) {
-      return tcontext.outboundActionDirect;
+      return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
-      return tcontext.outboundActionBlock;
+      return tcontext.outboundRuleMode.block;
     } else if (tag == kOutboundTagDns) {
-      return tcontext.dns;
+      return tcontext.meta.dns;
     }
     return tag;
   }
@@ -81,9 +87,6 @@ class _DiversionRuleDetectScreenState
         break;
       case kDnsTagDirect:
         data["tag"] = tcontext.SettingsScreen.dnsTypeDirect;
-        break;
-      case kDnsTagFinal:
-        data["tag"] = tcontext.routeFinal;
         break;
       case kDnsTagProxy:
         data["tag"] = tcontext.SettingsScreen.dnsTypeProxy;
@@ -179,8 +182,7 @@ class _DiversionRuleDetectScreenState
                                 child: ElevatedButton.icon(
                                     icon: const Icon(
                                         Icons.network_check_outlined),
-                                    label: Text(tcontext
-                                        .DiversionRuleDetectScreen.detect),
+                                    label: Text(tcontext.meta.detect),
                                     onPressed: () async {
                                       onPressCheck();
                                     }))
@@ -274,12 +276,13 @@ class _DiversionRuleDetectScreenState
     _rule.value = "";
     _chain.value = "";
     _ruleset.value = "";
-    _domain = _textControllerHost.text.toString().trim();
-    if (!NetworkUtils.isDomain(_domain, false)) {
+    var domain = _textControllerHost.text.toString().trim();
+    if (!NetworkUtils.isDomain(domain, false)) {
       DialogUtils.showAlertDialog(
           context, tcontext.NetCheckScreen.invalidDomain);
       return;
     }
+    _domain = domain;
     _encoded.value = NetworkUtils.getRealDomain(_domain) ?? _domain;
     bool ok = await startVPN();
     if (!ok) {
@@ -317,9 +320,9 @@ class _DiversionRuleDetectScreenState
           String rule = data["rule"] ?? "";
           String rulechain = "";
 
-          if (data["rulechain"] != null) {
+          if (data["chain"] != null) {
             List<String> chain = [];
-            for (var i in data["rulechain"]) {
+            for (var i in data["chain"]) {
               chain.add(i);
             }
             rulechain = getChain(chain);

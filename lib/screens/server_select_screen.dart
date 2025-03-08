@@ -84,6 +84,7 @@ class ServerSelectScreen extends LasyRenderingStatefulWidget {
   final ServerSelectScreenSingleSelectedOption? singleSelect;
   final ServerSelectScreenMultiSelectedOption? multiSelect;
   final bool showLantencyTest;
+  final bool autoUpdateLatencyHistory;
 
   const ServerSelectScreen({
     super.key,
@@ -91,6 +92,7 @@ class ServerSelectScreen extends LasyRenderingStatefulWidget {
     required this.singleSelect,
     required this.multiSelect,
     this.showLantencyTest = true,
+    this.autoUpdateLatencyHistory = false,
   });
 
   @override
@@ -107,17 +109,18 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   final List<ListViewMultiPartsItem> _listViewParts = [];
   final List<ProxyConfig> _recommend = [];
   Timer? _timer;
+  Timer? _updateLatencyByHistoryTimer;
   bool _rePaint = false;
   TapDownDetails _tapDownDetails = TapDownDetails();
   @override
   void initState() {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
-    item.remark = t.custom;
+    item.remark = t.meta.custom;
 
     ServerDiversionGroupItem? itemDiversion =
         ServerManager.getDiversionCustomGroup();
 
-    itemDiversion.remark = t.custom;
+    itemDiversion.remark = t.meta.custom;
 
     _loadRecommend();
     _buildData();
@@ -173,6 +176,16 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         setState(() {});
       }
     });
+    if (widget.autoUpdateLatencyHistory) {
+      _updateLatencyByHistoryTimer ??=
+          Timer.periodic(const Duration(seconds: 3), (timer) async {
+        if (ServerManager.hasTestOutboundServer()) {
+          return;
+        }
+        ServerManager.updateLatencyByHistory();
+      });
+      ServerManager.updateLatencyByHistory();
+    }
 
     super.initState();
   }
@@ -182,6 +195,11 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     _listViewParts.clear();
     _timer?.cancel();
     _timer = null;
+    if (_updateLatencyByHistoryTimer != null) {
+      ServerManager.saveServerConfig();
+    }
+    _updateLatencyByHistoryTimer?.cancel();
+    _updateLatencyByHistoryTimer = null;
     ServerManager.onTestLatencyRemove(hashCode);
     ServerManager.onLatencyHistoryUpdatedRemove(hashCode);
     super.dispose();
@@ -290,7 +308,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.data = ServerManager.getNone();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-          return createServerFake(data, tcontext.none, "");
+          return createServerFake(data, tcontext.meta.none, "");
         };
         _listViewParts.add(item);
       }
@@ -300,7 +318,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
           return createServerFake(
-              data, tcontext.outboundActionCurrentSelected, "");
+              data, tcontext.outboundRuleMode.currentSelected, "");
         };
         _listViewParts.add(item);
       }
@@ -309,7 +327,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.data = ServerManager.getUrltest();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-          return createServerFake(data, tcontext.outboundActionUrltest,
+          return createServerFake(data, tcontext.outboundRuleMode.urltest,
               tcontext.ServerSelectScreen.autoSelectServer);
         };
         _listViewParts.add(item);
@@ -319,7 +337,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.data = ServerManager.getDirect();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-          return createServerFake(data, tcontext.outboundActionDirect, "");
+          return createServerFake(data, tcontext.outboundRuleMode.direct, "");
         };
         _listViewParts.add(item);
       }
@@ -328,7 +346,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.data = ServerManager.getBlock();
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
-          return createServerFake(data, tcontext.outboundActionBlock, "");
+          return createServerFake(data, tcontext.outboundRuleMode.block, "");
         };
         _listViewParts.add(item);
       }
@@ -341,7 +359,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               item.creator = (data, index, bindIndexv) {
                 final tcontext = Translations.of(context);
                 return createGroupSimple(
-                    tcontext.recommended, null, null, null);
+                    tcontext.meta.recommended, null, null, null);
               };
               _listViewParts.add(item);
               for (int i = 0; i < _recommend.length; ++i) {
@@ -454,7 +472,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
       item.data = null;
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createGroupSimple(tcontext.candidateWord, null, null, null);
+        return createGroupSimple(tcontext.meta.candidateWord, null, null, null);
       };
       _listViewParts.add(item);
 
@@ -489,10 +507,11 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
         if (_allOutboundTagMap.isEmpty && _urltests.isEmpty) {
           Set<String> allOutboundsTags = {};
-          List<ProxyConfig> allOutboundProxys = [];
+          Tuple2<List<ProxyConfig>, List<dynamic>> allOutbounds =
+              Tuple2([], []);
           VPNService.getOutboundsWithoutUrltest(
-              allOutboundsTags, allOutboundProxys, null, null);
-          for (var proxy in allOutboundProxys) {
+              allOutboundsTags, allOutbounds, null);
+          for (var proxy in allOutbounds.item1) {
             _allOutboundTagMap[proxy.tag] = proxy;
           }
           _urltests = VPNService.getUrltests(allOutboundsTags,
@@ -503,7 +522,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
           return createGroupProfile(group, false,
-              itemName: tcontext.urlTestCustomGroup,
+              itemName: tcontext.meta.urlTestCustomGroup,
               replaceCount: _urltests.length);
         };
         _listViewParts.add(item);
@@ -629,7 +648,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         }
       }
       List<ProxyConfig> searchServers =
-          ServerManager.searchIn(servers, _searchText);
+          ServerManager.searchIn(servers, _searchText, true);
 
       for (int i = 0; i < searchServers.length; ++i) {
         ListViewMultiPartsItem item = ListViewMultiPartsItem();
@@ -760,7 +779,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                             }
                             List<ProxyConfig> searchServers =
                                 ServerManager.searchIn(
-                                    item.servers, _searchText);
+                                    item.servers, _searchText, true);
                             for (var server in searchServers) {
                               widget.multiSelect!.selectedServers.add(server);
                             }
@@ -808,8 +827,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                           return;
                         }
                         if (value != null) {
-                          DialogUtils.showAlertDialog(
-                              context, tcontext.updateFailed(p: value.message),
+                          DialogUtils.showAlertDialog(context,
+                              tcontext.meta.updateFailed(p: value.message),
                               showCopy: true, showFAQ: true, withVersion: true);
                         }
                         if (!mounted) {
@@ -940,7 +959,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                           setState(() {});
                           if (value != null) {
                             DialogUtils.showAlertDialog(context,
-                                tcontext.updateFailed(p: value.message),
+                                tcontext.meta.updateFailed(p: value.message),
                                 showCopy: true,
                                 showFAQ: true,
                                 withVersion: true);
@@ -948,7 +967,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                         });
                       } else {
                         DialogUtils.showAlertDialog(context,
-                            tcontext.updateFailed(p: value.error!.message),
+                            tcontext.meta.updateFailed(p: value.error!.message),
                             showCopy: true, showFAQ: true, withVersion: true);
                       }
                     }
@@ -1035,12 +1054,12 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
     if (server.groupid == ServerManager.getUrltestGroupId()) {
       tag = server.tag == kOutboundTagUrltest
-          ? tcontext.outboundActionUrltest
+          ? tcontext.outboundRuleMode.urltest
           : server.tag;
     } else if (server.groupid == ServerManager.getDirectGroupId()) {
-      tag = tcontext.outboundActionDirect;
+      tag = tcontext.outboundRuleMode.direct;
     } else if (server.groupid == ServerManager.getBlockGroupId()) {
-      tag = tcontext.outboundActionBlock;
+      tag = tcontext.outboundRuleMode.block;
     }
     bool isFav = false;
     for (var fav in ServerManager.getUse().fav) {
@@ -1337,7 +1356,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
             Icons.search_outlined,
             color: Colors.grey.shade400,
           ),
-          hintText: tcontext.search,
+          hintText: tcontext.meta.search,
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(
@@ -1650,7 +1669,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         MaterialPageRoute(
             settings: GroupScreen.routSettings("ServerSelectScreen.setting"),
             builder: (context) => GroupScreen(
-                  title: tcontext.setting,
+                  title: tcontext.meta.setting,
                   getOptions: getOptions,
                 )));
     _buildData();
@@ -1691,7 +1710,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     final tcontext = Translations.of(context);
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
-    String msg = disabled ? tcontext.enable : tcontext.disable;
+    String msg = disabled ? tcontext.meta.enable : tcontext.meta.disable;
     msg += "[${server.type};${server.server};${server.serverport}]";
 
     var items = [

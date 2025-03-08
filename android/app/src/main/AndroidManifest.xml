@@ -59,7 +59,7 @@
             android:value="ca-app-pub-3393064772563517~9750486292"/>
         <activity android:name=".MainActivity" 
             android:exported="true" 
-            android:launchMode="singleTop" 
+            android:launchMode="singleTask" 
             android:theme="@style/LaunchTheme" 
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true" 
@@ -99,7 +99,6 @@
             android:icon="@drawable/ic_tile"
             android:label="Karing" 
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:process=":bg"
             tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

@@ -78,7 +78,7 @@ class _UrlTestGroupCustomScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.urlTestCustomGroup,
+                        tcontext.meta.urlTestCustomGroup,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -204,21 +204,21 @@ class _UrlTestGroupCustomScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.remark, "", null, null, (text) {
+        context, tcontext.meta.remark, "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkCannotEmpty);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
         return false;
       }
 
       if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkTooLong);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
         return false;
       }
       ServerConfigGroupItem item = ServerManager.getCustomGroup();
       for (var i in item.urltests) {
         if (i.remark == text) {
-          DialogUtils.showAlertDialog(context, tcontext.remarkExist);
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
           return false;
         }
       }

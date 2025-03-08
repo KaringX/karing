@@ -4,8 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item.dart';
 import 'package:karing/screens/theme_config.dart';

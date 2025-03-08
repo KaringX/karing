@@ -85,7 +85,7 @@ class _BackupAndSyncIcloudScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.iCloud,
+                        tcontext.meta.iCloud,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -277,10 +277,14 @@ class _BackupAndSyncIcloudScreenState
     setState(() {});
     try {
       String dir = await PathUtils.cacheDir();
-      String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      ReturnResultError? error = await ServerManager.backupToZip(filePath);
       if (!mounted) {
-        FileUtils.deleteFileByPath(filePath);
+        return;
+      }
+      String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
+      ReturnResultError? error =
+          await ServerManager.backupToZip(context, filePath);
+      if (!mounted) {
+        FileUtils.deletePath(filePath);
         return;
       }
       if (error != null) {
@@ -291,7 +295,7 @@ class _BackupAndSyncIcloudScreenState
       error = await ICloudUtils.upload(
           relativePath: path.basename(filePath), localPath: filePath);
 
-      FileUtils.deleteFileByPath(filePath);
+      FileUtils.deletePath(filePath);
       if (!mounted) {
         return;
       }
@@ -334,7 +338,7 @@ class _BackupAndSyncIcloudScreenState
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
-    await FileUtils.deleteFileByPath(filePath);
+    await FileUtils.deletePath(filePath);
   }
 
   Future<void> onTapDelete(String filename) async {

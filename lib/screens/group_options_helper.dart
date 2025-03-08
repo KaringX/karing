@@ -1,7 +1,6 @@
 // ignore_for_file: unused_catch_stack, empty_catches
 
 import 'package:flutter/material.dart';
-import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
@@ -19,7 +18,7 @@ class GroupOptionsHelper {
     String getTranffic = remoteConfig.getTranffic;
 
     bool isp = false;
-    if (remoteConfig.ispBind && remoteISPConfig.id.isNotEmpty) {
+    if (remoteISPConfig.id.isNotEmpty) {
       if (remoteISPConfig.getTranffic.isNotEmpty) {
         isp = true;
         getTranffic = remoteISPConfig.getTranffic;
@@ -38,8 +37,7 @@ class GroupOptionsHelper {
                         name: 'SSS_getTranffic',
                         parameters: {
                           "from": from,
-                          "isp_id": remoteConfig.ispBind &&
-                                  remoteISPConfig.id.isNotEmpty
+                          "isp_id": remoteISPConfig.id.isNotEmpty
                               ? remoteISPConfig.id
                               : ""
                         },
@@ -53,7 +51,7 @@ class GroupOptionsHelper {
                     if (!context.mounted) {
                       return;
                     }
-                    await WebviewHelper.loadUrl(context, url,
+                    await WebviewHelper.loadUrl(context, url, "SSS_getTranffic",
                         title: tcontext.SettingsScreen.getTranffic);
                   }))
           : GroupItemOptions(),
@@ -73,14 +71,14 @@ class GroupOptionsHelper {
                     if (!context.mounted) {
                       return;
                     }
-                    await WebviewHelper.loadUrl(context, url,
+                    await WebviewHelper.loadUrl(context, url, "SSS_tutorial",
                         title: tcontext.SettingsScreen.tutorial);
                   }))
           : GroupItemOptions(),
       remoteConfig.faq.isNotEmpty
           ? GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-                  name: tcontext.faq,
+                  name: tcontext.meta.faq,
                   onPush: () async {
                     AnalyticsUtils.logEvent(
                         analyticsEventType: analyticsEventTypeUA,
@@ -93,8 +91,8 @@ class GroupOptionsHelper {
                     if (!context.mounted) {
                       return;
                     }
-                    await WebviewHelper.loadUrl(context, url,
-                        title: tcontext.faq);
+                    await WebviewHelper.loadUrl(context, url, "SSS_faq",
+                        title: tcontext.meta.faq);
                   }))
           : GroupItemOptions(),
       remoteConfig.rulesets.isNotEmpty
@@ -114,7 +112,8 @@ class GroupOptionsHelper {
                     if (!context.mounted) {
                       return;
                     }
-                    await WebviewHelper.loadUrl(context, url,
+                    await WebviewHelper.loadUrl(
+                        context, url, "SSS_commonlyUsedRulesets",
                         title: tcontext.SettingsScreen.commonlyUsedRulesets);
                   }))
           : GroupItemOptions(),

@@ -62,7 +62,7 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                   SizedBox(
                     width: windowSize.width - 50 * 2,
                     child: Text(
-                      tcontext.TextToQrCodeScreen.title,
+                      tcontext.meta.textToQrcode,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -104,8 +104,7 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                             height: 45.0,
                             child: ElevatedButton.icon(
                                 icon: const Icon(Icons.qr_code_outlined),
-                                label:
-                                    Text(tcontext.TextToQrCodeScreen.convert),
+                                label: Text(tcontext.meta.convert),
                                 onPressed: () async {
                                   String text = _textController.text.trim();
                                   if (text.isEmpty) {

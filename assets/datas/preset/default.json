@@ -28,33 +28,6 @@
             ],
             "outbound": "block",
             "name": "🛑 malware",
-            "switch": true
-        },
-        {
-            "rule_set_build_in": [
-                "geoip:bing",
-                "geosite:bing"
-            ],
-            "outbound": "currentSelected",
-            "name": "Ⓜ️ Bing",
-            "switch": false
-        },
-        {
-            "rule_set_build_in": [
-                "geosite:onedrive"
-            ],
-            "outbound": "direct",
-            "name": "Ⓜ️ OneDrive",
-            "switch": false
-        },
-        {
-            "rule_set_build_in": [
-                "geosite:microsoft",
-                "geosite:microsoft-dev",
-                "geosite:microsoft-pki"
-            ],
-            "outbound": "currentSelected",
-            "name": "Ⓜ️ Microsoft",
             "switch": false
         },
         {
@@ -73,8 +46,38 @@
             "rule_set_build_in": [
                 "geosite:youtube"
             ],
+            "package": [
+                "com.google.android.youtube"
+            ],
             "outbound": "currentSelected",
             "name": "📹 YouTube",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:Gemini"
+            ],
+            "outbound": "currentSelected",
+            "name": "♊️ Google Gemini",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:google-play"
+            ],
+            "package": [
+                "com.android.vending"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 Google Play",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:GoogleFCM"
+            ],
+            "outbound": "direct",
+            "name": "📢 Google FCM",
             "switch": false
         },
         {
@@ -116,6 +119,13 @@
                 "geoip:telegram",
                 "geosite:telegram"
             ],
+            "package": [
+                "org.telegram.messenger.web"
+            ],
+            "processName": [
+                "Telegram.exe",
+                "Telegram"
+            ],
             "outbound": "currentSelected",
             "name": "📲 Telegram",
             "switch": false
@@ -134,8 +144,40 @@
                 "geoip:github",
                 "geosite:github"
             ],
+            "processName": [
+                "GitHubDesktop.exe",
+                "GitHub Desktop Helper",
+                "GitHub Desktop"
+            ],
             "outbound": "currentSelected",
             "name": "🐱 GitHub",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:bing",
+                "geosite:bing"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ Bing",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:onedrive"
+            ],
+            "outbound": "direct",
+            "name": "Ⓜ️ OneDrive",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:microsoft",
+                "geosite:microsoft-dev",
+                "geosite:microsoft-pki"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ Microsoft",
             "switch": false
         },
         {

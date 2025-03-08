@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
@@ -52,7 +52,7 @@ String? startFailedReasonDesc;
 void main(List<String> args) async {
   /* String dir = "E:\\dev\\KaringX\\karing-ruleset\\geo\\geoip";
   String target = path.join(dir, "geoip_subnets.json");
-  var files = FileUtils.recursionFile(dir, filter: {".json"});
+  var files = FileUtils.recursiveFile(dir, filter: {".json"});
   var subnets = await GeoipSubnetUtils.genClientSubnet(files);
   await GeoipSubnetUtils.saveSubnets(subnets, target);
   return;*/
@@ -64,9 +64,8 @@ void main(List<String> args) async {
   await RemoteISPConfigManager.init();
   await LocaleSettings.useDeviceLocale();
 
-  if (PlatformDispatcher.instance.semanticsEnabled) {
-    SemanticsBinding.instance.ensureSemantics();
-  }
+  SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
+
   await run(args);
   //}, (exception, stackTrace) async {
   //  print("$exception, ${stackTrace.toString()}");
@@ -77,23 +76,27 @@ void main(List<String> args) async {
 Future<void> run(List<String> args) async {
   try {
     do {
-      String profile = await PathUtils.profileDir();
-      if (profile.isEmpty) {
+      String profileDir = await PathUtils.profileDir();
+      if (profileDir.isEmpty) {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
-      await FileLogOutput.initLog();
+      await Log.init();
+      String buildVersion = AppUtils.getBuildinVersion();
+      String exePath = Platform.resolvedExecutable;
+      Log.w(
+          'launch $buildVersion $exePath, $args, ${Directory.current.absolute.path}, $profileDir');
       String cache = await PathUtils.cacheDir();
       if (cache.isEmpty) {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
       String version = await AppUtils.getPackgetVersion();
-      if (AppUtils.getBuildinVersion() != version) {
+      if (buildVersion != version) {
         startFailedReason = StartFailedReason.invalidVersion;
         break;
       }
-      String exePath = Platform.resolvedExecutable.toUpperCase();
+      exePath = exePath.toUpperCase();
       if (PlatformUtils.isPC()) {
         if (path.basename(exePath).toLowerCase() !=
             PathUtils.getExeName().toLowerCase()) {
@@ -113,7 +116,8 @@ Future<void> run(List<String> args) async {
         if (VersionHelper.instance.majorVersion != 0 &&
             VersionHelper.instance.majorVersion < 10) {
           startFailedReason = StartFailedReason.systemVersionLow;
-          startFailedReasonDesc = "Windows >= 10.0";
+          startFailedReasonDesc =
+              "Current: ${VersionHelper.instance.majorVersion}\nMinimum required: >= 10.0";
           break;
         }
       } else if (Platform.isAndroid) {
@@ -121,7 +125,18 @@ Future<void> run(List<String> args) async {
         int? v = int.tryParse(version);
         if (v != null && v < 26) {
           startFailedReason = StartFailedReason.systemVersionLow;
-          startFailedReasonDesc = "Android >= 8.0";
+          String osVersion = "";
+          if (v == 25) {
+            osVersion = "7.1";
+          } else if (v == 24) {
+            osVersion = "7.0";
+          } else if (v == 23) {
+            osVersion = "6.0";
+          } else {
+            osVersion = "< 6.0";
+          }
+          startFailedReasonDesc =
+              "Current: $osVersion\nMinimum required: >= 8.0";
           break;
         }
       }
@@ -161,13 +176,14 @@ Future<void> run(List<String> args) async {
       }
     }
     bool first = await Did.getFirstTime();
-    await InAppWebViewScreen.init();
     AdsPrivate.init(first);
   } catch (err, stacktrace) {
     startFailedReason = StartFailedReason.exception;
     startFailedReasonDesc = err.toString();
-    Log.w("main.run exception: ${err.toString()}");
-    SentryUtils.captureException('main.run.exception', [], err, stacktrace);
+    String cmdline = args.toString();
+    Log.w("main.run exception: ${err.toString()}, $cmdline");
+    SentryUtils.captureException(
+        'main.run.exception', [cmdline], err, stacktrace);
   }
 
   runApp(TranslationProvider(
@@ -205,7 +221,7 @@ class MyAppState extends State<MyApp>
       trayManager.addListener(this);
       _setTray(true, false, true);
     }
-    AppLifecycleStateNofityManager.init();
+    AppLifecycleStateNofity.init();
     LocaleSettings.getLocaleStream().listen((event) {});
     String launchStartupArg = processArgs.firstWhere(
       (element) => element == AppArgs.launchStartup,
@@ -218,13 +234,13 @@ class MyAppState extends State<MyApp>
         parameters: {"value": _launchAtStartup},
         forceSubmit: true);
 
-    AppLifecycleStateNofityManager.stateLaunch(_launchAtStartup);
+    AppLifecycleStateNofity.stateLaunch(_launchAtStartup);
     _init();
   }
 
   @override
   void dispose() async {
-    AppLifecycleStateNofityManager.uninit();
+    AppLifecycleStateNofity.uninit();
     WidgetsBinding.instance.removeObserver(this);
     if (PlatformUtils.isPC()) {
       windowManager.removeListener(this);
@@ -241,18 +257,18 @@ class MyAppState extends State<MyApp>
 
     switch (state) {
       case AppLifecycleState.resumed:
-        AppLifecycleStateNofityManager.stateResumed("resumed");
+        AppLifecycleStateNofity.stateResumed("resumed");
         break;
       case AppLifecycleState.inactive:
-        AppLifecycleStateNofityManager.stateInactive("inactive");
+        AppLifecycleStateNofity.stateInactive("inactive");
         break;
       case AppLifecycleState.detached:
         break;
       case AppLifecycleState.paused:
-        AppLifecycleStateNofityManager.statePaused("paused");
+        AppLifecycleStateNofity.statePaused("paused");
         break;
       case AppLifecycleState.hidden:
-        AppLifecycleStateNofityManager.stateInactive("hidden");
+        AppLifecycleStateNofity.stateInactive("hidden");
         break;
     }
   }
@@ -297,6 +313,7 @@ class MyAppState extends State<MyApp>
                 SingleActivator(LogicalKeyboardKey.select): ActivateIntent()
               },
               child: MaterialApp(
+                showSemanticsDebugger: false,
                 debugShowCheckedModeBanner: false,
                 locale: TranslationProvider.of(context).flutterLocale,
                 supportedLocales: AppLocaleUtils.supportedLocales,
@@ -337,21 +354,21 @@ class MyAppState extends State<MyApp>
     Log.d("onWindowClose");
     windowManager.hide();
     _windowVisibleForMac = false;
-    AppLifecycleStateNofityManager.statePaused("close");
+    AppLifecycleStateNofity.statePaused("close");
   }
 
   @override
   void onWindowMinimize() {
     _windowVisibleForMac = false;
     Log.d("onWindowMinimize");
-    AppLifecycleStateNofityManager.statePaused("minimize");
+    AppLifecycleStateNofity.statePaused("minimize");
   }
 
   @override
   void onWindowRestore() {
     _windowVisibleForMac = true;
     Log.d("onWindowRestore");
-    AppLifecycleStateNofityManager.stateResumed("restore");
+    AppLifecycleStateNofity.stateResumed("restore");
   }
 
   @override
@@ -360,7 +377,7 @@ class MyAppState extends State<MyApp>
       if (!_windowVisibleForMac) {
         Log.d("onWindowFocus");
         _windowVisibleForMac = true;
-        AppLifecycleStateNofityManager.stateResumed("restore");
+        AppLifecycleStateNofity.stateResumed("restore");
       }
     }
   }
@@ -411,11 +428,6 @@ class MyAppState extends State<MyApp>
       }
     });
     if (startFailedReason == null) {
-      String version = AppUtils.getBuildinVersion();
-      String profileDir = await PathUtils.profileDir();
-      Log.w(
-          'launch $version ${Platform.resolvedExecutable}, $processArgs, ${Directory.current.absolute.path}, $profileDir');
-
       Biz.onInitHomeFinish(() {
         firstShowWindow(false);
       });
@@ -427,6 +439,9 @@ class MyAppState extends State<MyApp>
   }
 
   Future<void> _uninit() async {
+    if (PlatformUtils.isPC()) {
+      await windowManager.hide();
+    }
     if (startFailedReason == null) {
       await Biz.uninit();
     }
@@ -438,6 +453,7 @@ class MyAppState extends State<MyApp>
   Future<void> _quit() async {
     await _uninit();
     Future.delayed(const Duration(seconds: 0), () async {
+      await Log.uninit();
       await ServicesBinding.instance.exitApplication(AppExitType.required);
     });
   }

@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -44,8 +43,6 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
 
   @override
   void dispose() {
-    controller?.dispose();
-
     super.dispose();
   }
 
@@ -87,7 +84,7 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                       SizedBox(
                         width: windowSize.width - 50 * 2,
                         child: Text(
-                          tcontext.scanQrcode,
+                          tcontext.meta.qrcodeScan,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -201,7 +198,8 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
             showCloseIcon: true,
-            content: Text(tcontext.requestCameraPermission)),
+            content: Text(tcontext.permission
+                .requestNeed(p: tcontext.permission.camera))),
       );
     }
   }

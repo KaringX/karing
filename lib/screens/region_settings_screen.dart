@@ -5,13 +5,11 @@ import 'package:dash_flags/dash_flags.dart' as country_flags;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:path/path.dart' as path;
 
 class RegionSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -221,7 +219,7 @@ class _RegionSetingsScreenState
                               Icons.search_outlined,
                               color: Colors.grey.shade400,
                             ),
-                            hintText: tcontext.search,
+                            hintText: tcontext.meta.search,
                             suffixIcon: _searchController.text.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(Icons.clear_outlined),

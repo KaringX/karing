@@ -27,6 +27,8 @@ bi
 bing
 bj
 bl
+blocked-community@ru
+blocked@ru
 bm
 bn
 bo
@@ -84,6 +86,7 @@ fo
 fr
 ga
 gb
+gcore
 gd
 ge
 gf
@@ -206,6 +209,7 @@ pt
 pw
 py
 qa
+re-filter@ru
 re
 ro
 rs

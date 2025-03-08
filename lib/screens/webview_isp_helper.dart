@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/notice_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
@@ -15,6 +17,7 @@ class WebviewISPHelper {
     Map<String, Function(BuildContext, String, dynamic, dynamic)> handler = {};
     handler["ispPrepare"] = ispPrepare;
     handler["ispInstallConfig"] = ispInstallConfig;
+    handler["ispInfo"] = ispInfo;
     return handler;
   }
 
@@ -37,7 +40,18 @@ class WebviewISPHelper {
         if (self.onerror != null) {
           self.onerror(event);
         }
-  });*/
+  });
+   window.karing.callHandler('ispInfo').then(function(result) {
+        console.log(result);
+        return result;
+    }).catch(function() {
+        var event = new Event('error');
+        self.dispatchEvent(event);
+        if (self.onerror != null) {
+          self.onerror(event);
+        }
+  });
+  */
   static Future<String> ispPrepare(BuildContext context, String url,
       dynamic javaScriptHandlerArguments, dynamic arguments) async {
     String result = "";
@@ -64,7 +78,7 @@ class WebviewISPHelper {
         if (isp.data!.id.isEmpty) {
           if (context.mounted) {
             final tcontext = Translations.of(context);
-            result = tcontext.ispInvalidOrExpired;
+            result = tcontext.isp.invalidOrExpired;
           } else {
             result = "ISP id invalid or expired";
           }
@@ -87,6 +101,7 @@ class WebviewISPHelper {
         ispConfig.follow = isp.data!.follow;
         ispConfig.notice = isp.data!.notice;
         ispConfig.noticeUpdateInterval = isp.data!.noticeUpdateInterval;
+        ispConfig.panelSystem = isp.data!.panelSystem;
 
         var remoteConfig = RemoteConfigManager.getConfig();
         if (!remoteConfig.ispBindNeedConnect) {
@@ -138,26 +153,6 @@ class WebviewISPHelper {
             result = "ISP id not match";
             break;
           }
-        } else {
-          Uri? uri = Uri.tryParse(url);
-          if (uri == null) {
-            result = "parse url [$url] failed";
-            break;
-          }
-          if (ispConfig.connect.isEmpty) {
-            result = "isp.connect is empty";
-            break;
-          }
-          Uri? connect = Uri.tryParse(ispConfig.connect);
-          if (connect == null) {
-            result = "parse isp.connect url [${ispConfig.connect}] failed";
-            break;
-          }
-          if (!uri.host.endsWith(connect.host) &&
-              !connect.host.endsWith(uri.host)) {
-            result = "domain [${uri.host}] not match [${connect.host}]";
-            break;
-          }
         }
 
         if (name.isEmpty) {
@@ -189,6 +184,21 @@ class WebviewISPHelper {
         name: 'ispInstallConfig',
         parameters: {"name": ispName, "id": ispId, "error": result},
         repeatable: false);
+    return result;
+  }
+
+  static Future<String> ispInfo(BuildContext context, String url,
+      dynamic javaScriptHandlerArguments, dynamic arguments) async {
+    RemoteISPConfig ispConfig = javaScriptHandlerArguments as RemoteISPConfig;
+    String result = "";
+    do {
+      if (ispConfig.id.isEmpty) {
+        result = "IspPrepare not ready";
+        break;
+      }
+
+      result = JsonEncoder().convert(ispConfig);
+    } while (false);
     return result;
   }
 }

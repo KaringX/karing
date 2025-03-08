@@ -157,7 +157,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                       Icons.search_outlined,
                       color: Colors.grey.shade400,
                     ),
-                    hintText: tcontext.search,
+                    hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
                             icon: const Icon(Icons.clear_outlined),

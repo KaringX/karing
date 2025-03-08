@@ -1,0 +1,206 @@
+{
+    "rules": [
+        {
+            "rule_set_build_in": [
+                "acl:BanAD",
+                "geosite:category-ads"
+            ],
+            "outbound": "block",
+            "name": "🛑 Adblock",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:BanProgramAD",
+                "acl:BanADCompany"
+            ],
+            "outbound": "block",
+            "name": "🍃 AdblockPlus",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:malware",
+                "geoip:malware",
+                "geoip:phishing",
+                "geosite:phishing",
+                "geosite:cryptominers"
+            ],
+            "outbound": "block",
+            "name": "🛑 malware",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:apple",
+                "geosite:apple-ads",
+                "geosite:apple-dev",
+                "geosite:apple-pki",
+                "geosite:apple-update"
+            ],
+            "outbound": "direct",
+            "name": "🍎 Apple",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:youtube"
+            ],
+            "package": [
+                "com.google.android.youtube"
+            ],
+            "outbound": "currentSelected",
+            "name": "📹 YouTube",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:Gemini"
+            ],
+            "outbound": "currentSelected",
+            "name": "♊️ Google Gemini",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:google-play"
+            ],
+            "package": [
+                "com.android.vending"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 Google Play",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:GoogleFCM"
+            ],
+            "outbound": "direct",
+            "name": "📢 Google FCM",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:google",
+                "geoip:google"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 Google",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:tiktok"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎧 TikTok",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:instagram"
+            ],
+            "outbound": "currentSelected",
+            "name": "📸 Instagram",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:netflix",
+                "geosite:netflix"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎥 Netflix",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:telegram",
+                "geosite:telegram"
+            ],
+            "package": [
+                "org.telegram.messenger.web"
+            ],
+            "processName": [
+                "Telegram.exe",
+                "Telegram"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 Telegram",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:openai",
+                "geosite:openai"
+            ],
+            "outbound": "currentSelected",
+            "name": "💬 OpenAI",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:github",
+                "geosite:github"
+            ],
+            "processName": [
+                "GitHubDesktop.exe",
+                "GitHub Desktop Helper",
+                "GitHub Desktop"
+            ],
+            "outbound": "currentSelected",
+            "name": "🐱 GitHub",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:bing",
+                "geosite:bing"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ Bing",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:onedrive"
+            ],
+            "outbound": "direct",
+            "name": "Ⓜ️ OneDrive",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:microsoft",
+                "geosite:microsoft-dev",
+                "geosite:microsoft-pki"
+            ],
+            "outbound": "currentSelected",
+            "name": "Ⓜ️ Microsoft",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "acl:Epic",
+                "acl:Origin",
+                "acl:Sony",
+                "acl:Steam",
+                "acl:Nintendo"
+            ],
+            "outbound": "currentSelected",
+            "name": "🎮 Game",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geoip:blocked@ru",
+                "geoip:blocked-community@ru",
+                "geosite:blocked@ru"
+            ],
+            "outbound": "currentSelected",
+            "name": "🌏 GFW",
+            "switch": true
+        }
+    ]
+}

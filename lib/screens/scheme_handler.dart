@@ -138,7 +138,7 @@ class SchemeHandler {
     }
     RemoteISPConfig? ispConfig;
     var remoteConfig = RemoteConfigManager.getConfig();
-    if (remoteConfig.ispBind && ispId != null && ispId.isNotEmpty) {
+    if (ispId != null && ispId.isNotEmpty) {
       var remoteISPConfig = RemoteISPConfigManager.getConfig();
       if (remoteISPConfig.id.isEmpty) {
         ReturnResult<RemoteISPConfig> isp =
@@ -213,7 +213,7 @@ class SchemeHandler {
       return ReturnResultError(result.error!.message);
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
-    await FileUtils.deleteFileByPath(filePath);
+    await FileUtils.deletePath(filePath);
     return null;
   }
 

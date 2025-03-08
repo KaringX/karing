@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:karing/app/modules/app_lifecycle_state_notify_manager.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/screens/widgets/routes.dart';
 
 abstract class LasyRenderingStatefulWidget extends StatefulWidget {
@@ -14,7 +14,7 @@ abstract class LasyRenderingState<T extends LasyRenderingStatefulWidget>
   void initState() {
     super.initState();
     _hashCode = Object.hashAll([this, this]);
-    AppLifecycleStateNofityManager.onStateResumed(_hashCode, () async {
+    AppLifecycleStateNofity.onStateResumed(_hashCode, () async {
       _tryRedraw("onStateResumed");
     });
     AppRouteObserver.instance.pushRoute(hashCode);
@@ -25,7 +25,7 @@ abstract class LasyRenderingState<T extends LasyRenderingStatefulWidget>
 
   @override
   void dispose() {
-    AppLifecycleStateNofityManager.onStateResumed(_hashCode, null);
+    AppLifecycleStateNofity.onStateResumed(_hashCode, null);
     AppRouteObserver.instance.onRouteChanged(hashCode, null);
     AppRouteObserver.instance.popRoute(hashCode);
 
@@ -38,7 +38,7 @@ abstract class LasyRenderingState<T extends LasyRenderingStatefulWidget>
       return;
     }
     _needRedraw = true;
-    if (AppLifecycleStateNofityManager.isPaused()) {
+    if (AppLifecycleStateNofity.isPaused()) {
       _print("delay redraw by paused:${T.toString()} $hashCode ");
       return;
     }

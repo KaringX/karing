@@ -33,13 +33,13 @@ class DiversionRulesScreenState
   void initState() {
     super.initState();
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
-    item.remark = t.custom;
+    item.remark = t.meta.custom;
 
     ServerDiversionGroupItem itemDiversion =
         ServerManager.getDiversionCustomGroup();
 
-    itemDiversion.remark = t.custom;
-    VPNService.getOutboundsWithoutUrltest(_allOutboundsTags, null, null, null);
+    itemDiversion.remark = t.meta.custom;
+    VPNService.getOutboundsWithoutUrltest(_allOutboundsTags, null, null);
   }
 
   @override
@@ -83,7 +83,7 @@ class DiversionRulesScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.diversionRules,
+                        tcontext.meta.diversionRules,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -213,44 +213,58 @@ class DiversionRulesScreenState
           continue;
         }
       }
-      List<GroupItemOptions> options = [];
-      for (var item in group.groups) {
-        var selected = getSelected(item);
-        if (selected.item1.groupid.isEmpty) {
-          if (settingConfig.uiScreen.hideUnusedDiversionGroup) {
-            continue;
-          }
-        }
-        String text = "";
-        bool invalid = false;
-        if (selected.item2.isNotEmpty) {
-          text = selected.item2;
-        } else {
-          text = selected.item1.tag;
-          if (!_allOutboundsTags.contains(selected.item1.tag)) {
-            invalid = true;
-          }
-        }
 
-        options.add(GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-          name: getDiversionShortName(item.name),
-          text: text,
-          textColor: invalid ? Colors.red : null,
-          textWidthPercent: 0.4,
-          onPush: () async {
-            onTapItem(item, selected.item1, invalid: invalid);
-          },
-          onLongPress: () async {
-            onTapItemName(item);
-          },
-        )));
+      List<GroupItemOptions> options = [];
+      if (srg.enableDiversionRules) {
+        for (var item in group.groups) {
+          var selected = getSelected(item);
+          if (selected.item1.groupid.isEmpty) {
+            if (settingConfig.uiScreen.hideUnusedDiversionGroup) {
+              continue;
+            }
+          }
+          String text = "";
+          bool invalid = false;
+          if (selected.item2.isNotEmpty) {
+            text = selected.item2;
+          } else {
+            text = selected.item1.tag;
+            if (!_allOutboundsTags.contains(selected.item1.tag)) {
+              invalid = true;
+            }
+          }
+
+          options.add(GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+            name: getDiversionShortName(item.name),
+            text: text,
+            textColor: invalid ? Colors.red : null,
+            textWidthPercent: 0.4,
+            onPush: () async {
+              onTapItem(item, selected.item1, invalid: invalid);
+            },
+            onLongPress: () async {
+              onTapItemName(item);
+            },
+          )));
+        }
       }
-      groupOptions.add(GroupItem(
-          name: srg.remark == tcontext.custom
-              ? tcontext.diversionCustomGroup
-              : srg.remark,
-          options: options));
+
+      options.insert(
+          0,
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: srg.remark == tcontext.meta.custom
+                    ? tcontext.meta.diversionCustomGroup
+                    : srg.remark,
+                switchValue: srg.enableDiversionRules,
+                onSwitch: (value) async {
+                  srg.enableDiversionRules = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                }),
+          ));
+      groupOptions.add(GroupItem(options: options));
     }
     var use = ServerManager.getUse();
     //geosite
@@ -278,18 +292,19 @@ class DiversionRulesScreenState
           },
         )));
       }
-      if (regionCode.isNotEmpty) {
+      if (regionCode.isNotEmpty &&
+          settingConfig.ruleSets.autoAppendRegionGeoSite) {
         if (SettingConfigItemRuleSets.hasGeoSiteData(regionCode)) {
           options.add(GroupItemOptions(
               pushOptions: GroupItemPushOptions(
             name: regionCode,
-            text: tcontext.outboundActionDirect,
+            text: tcontext.outboundRuleMode.direct,
             textWidthPercent: 0.4,
           )));
         }
       }
       groupOptions
-          .add(GroupItem(name: tcontext.rulesetGeoSite, options: options));
+          .add(GroupItem(name: tcontext.meta.rulesetGeoSite, options: options));
     }
     //geoip
     if (settingConfig.ruleSets.enableGeoIp) {
@@ -316,16 +331,17 @@ class DiversionRulesScreenState
           },
         )));
       }
-      if (regionCode.isNotEmpty) {
+      if (regionCode.isNotEmpty &&
+          settingConfig.ruleSets.autoAppendRegionGeoIp) {
         options.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(
           name: regionCode,
-          text: tcontext.outboundActionDirect,
+          text: tcontext.outboundRuleMode.direct,
           textWidthPercent: 0.4,
         )));
       }
       groupOptions
-          .add(GroupItem(name: tcontext.rulesetGeoIp, options: options));
+          .add(GroupItem(name: tcontext.meta.rulesetGeoIp, options: options));
     }
     //acl
     if (settingConfig.ruleSets.enableAcl) {
@@ -351,7 +367,8 @@ class DiversionRulesScreenState
           },
         )));
       }
-      groupOptions.add(GroupItem(name: tcontext.rulesetAcl, options: options));
+      groupOptions
+          .add(GroupItem(name: tcontext.meta.rulesetAcl, options: options));
     }
     //final
     {
@@ -411,7 +428,7 @@ class DiversionRulesScreenState
                   singleSelect: ServerSelectScreenSingleSelectedOption(
                     selectedServer: selected,
                     selectedServerInvalid: invalid,
-                    showNone: true,
+                    showNone: group.groupid != ServerManager.getFinalGroupId(),
                     showCurrentSelect: true,
                     showAutoSelect: true,
                     showDirect: true,
@@ -478,18 +495,19 @@ class DiversionRulesScreenState
               rts.diversionName == group.name)) {
         if (rts.serverGroupId == ServerManager.getByCurrentSelected().groupid) {
           return Tuple2(ServerManager.getByCurrentSelected(),
-              tcontext.outboundActionCurrentSelected);
+              tcontext.outboundRuleMode.currentSelected);
         } else if (rts.serverGroupId == ServerManager.getUrltest().groupid) {
           return Tuple2(
               ServerManager.getUrltest(tag: rts.serverName),
               rts.serverName == kOutboundTagUrltest
-                  ? tcontext.outboundActionUrltest
+                  ? tcontext.outboundRuleMode.urltest
                   : rts.serverName);
         } else if (rts.serverGroupId == ServerManager.getDirect().groupid) {
           return Tuple2(
-              ServerManager.getDirect(), tcontext.outboundActionDirect);
+              ServerManager.getDirect(), tcontext.outboundRuleMode.direct);
         } else if (rts.serverGroupId == ServerManager.getBlock().groupid) {
-          return Tuple2(ServerManager.getBlock(), tcontext.outboundActionBlock);
+          return Tuple2(
+              ServerManager.getBlock(), tcontext.outboundRuleMode.block);
         } else if (rts.serverGroupId == ServerManager.getUrltestGroupId()) {
           ServerConfigGroupItem item = ServerManager.getCustomGroup();
           for (var urltest in item.urltests) {
@@ -516,6 +534,10 @@ class DiversionRulesScreenState
 
         break;
       }
+    }
+    if (group.groupid == ServerManager.getFinalGroupId()) {
+      return Tuple2(ServerManager.getByCurrentSelected(),
+          tcontext.outboundRuleMode.currentSelected);
     }
     return Tuple2(ServerManager.getNone(), "");
   }

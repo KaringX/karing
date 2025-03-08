@@ -158,7 +158,7 @@ class _NetConnectionsFilterScreenState
     _buildDataItem("tcp/udp", widget.options.networks, _filter.networks);
     _buildDataItem(t.NetConnectionsFilterScreen.hostIp, widget.options.hosts,
         _filter.hosts);
-    _buildDataItem(t.port, widget.options.ports, _filter.ports);
+    _buildDataItem(t.meta.port, widget.options.ports, _filter.ports);
     if (Platform.isWindows || Platform.isLinux || Platform.isAndroid) {
       _buildDataItem(t.NetConnectionsFilterScreen.app, widget.options.process,
           _filter.process);

@@ -117,7 +117,7 @@ class _BackupAndSyncWebdavScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 3,
                       child: Text(
-                        tcontext.webdav,
+                        tcontext.meta.webdav,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -387,10 +387,14 @@ class _BackupAndSyncWebdavScreenState
     setState(() {});
     try {
       String dir = await PathUtils.cacheDir();
-      String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      ReturnResultError? error = await ServerManager.backupToZip(filePath);
       if (!mounted) {
-        FileUtils.deleteFileByPath(filePath);
+        return;
+      }
+      String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
+      ReturnResultError? error =
+          await ServerManager.backupToZip(context, filePath);
+      if (!mounted) {
+        FileUtils.deletePath(filePath);
         return;
       }
       if (error != null) {
@@ -401,7 +405,7 @@ class _BackupAndSyncWebdavScreenState
       error = await WebdavUtils.upload(_webdavClient!,
           relativePath: path.basename(filePath), localPath: filePath);
 
-      FileUtils.deleteFileByPath(filePath);
+      FileUtils.deletePath(filePath);
       if (!mounted) {
         return;
       }
@@ -433,7 +437,7 @@ class _BackupAndSyncWebdavScreenState
             textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
           keyboardType: TextInputType.url,
-          hint: "${tcontext.required}[https://xxxx/webdav]",
+          hint: "${tcontext.meta.required}[https://xxxx/webdav]",
           textWidthPercent: 0.6,
           controller: _urlController,
           autoFocus: true,
@@ -441,16 +445,16 @@ class _BackupAndSyncWebdavScreenState
         )),
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.account,
-          hint: tcontext.required,
+          name: tcontext.meta.account,
+          hint: tcontext.meta.required,
           textWidthPercent: 0.6,
           controller: _userController,
           textInputAction: TextInputAction.next,
         )),
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.password,
-                hint: tcontext.required,
+                name: tcontext.meta.password,
+                hint: tcontext.meta.required,
                 textWidthPercent: 0.6,
                 obscureText: true,
                 controller: _passwordController,
@@ -463,7 +467,7 @@ class _BackupAndSyncWebdavScreenState
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.reset,
+                name: tcontext.meta.reset,
                 onPush: () async {
                   SettingManager.getConfig().webdav.url = "";
                   SettingManager.getConfig().webdav.user = "";
@@ -481,7 +485,7 @@ class _BackupAndSyncWebdavScreenState
         MaterialPageRoute(
             settings: GroupScreen.routSettings("webdav"),
             builder: (context) => GroupScreen(
-                  title: tcontext.webdav,
+                  title: tcontext.meta.webdav,
                   getOptions: getOptions,
                   onDone: (BuildContext context) async {
                     if (!mounted) {
@@ -497,7 +501,8 @@ class _BackupAndSyncWebdavScreenState
                     Uri? uri = Uri.tryParse(_urlController.text);
                     if (uri == null ||
                         (uri.scheme != "http" && uri.scheme != "https")) {
-                      DialogUtils.showAlertDialog(context, tcontext.urlInvalid);
+                      DialogUtils.showAlertDialog(
+                          context, tcontext.meta.urlInvalid);
                       return false;
                     }
 
@@ -552,7 +557,7 @@ class _BackupAndSyncWebdavScreenState
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
-    await FileUtils.deleteFileByPath(filePath);
+    await FileUtils.deletePath(filePath);
   }
 
   Future<void> onTapDelete(String filename) async {

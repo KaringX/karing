@@ -104,7 +104,7 @@ class _DiversionGroupCustomScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.diversionCustomGroup,
+                        tcontext.meta.diversionCustomGroup,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -357,7 +357,7 @@ class _DiversionGroupCustomScreenState
             return;
           }
           DialogUtils.showAlertDialog(
-              context, tcontext.invalidFileType(p: ext));
+              context, tcontext.meta.fileTypeInvalid(p: ext));
           return;
         }
         ReturnResult result =
@@ -381,7 +381,7 @@ class _DiversionGroupCustomScreenState
                 fullscreenDialog: true,
                 builder: (context) => DiversionRulesCustomSetScreen(
                       canPop: true,
-                      title: tcontext.import,
+                      title: tcontext.meta.import,
                       canGoBack: true,
                       nextText: null,
                       nextIcon: Icons.done_outlined,
@@ -458,22 +458,22 @@ class _DiversionGroupCustomScreenState
   void onTapAddCustom() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.remark, "", null, null, (text) {
+        context, tcontext.meta.remark, "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkCannotEmpty);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
         return false;
       }
 
       if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkTooLong);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
         return false;
       }
       ServerDiversionGroupItem diversionItem =
           ServerManager.getDiversionCustomGroup();
       for (var group in diversionItem.groups) {
         if (group.name == text) {
-          DialogUtils.showAlertDialog(context, tcontext.remarkExist);
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
           return false;
         }
       }
@@ -500,22 +500,22 @@ class _DiversionGroupCustomScreenState
   void onTapModifyName(String current) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.remark, current, null, null, (text) {
+        context, tcontext.meta.remark, current, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkCannotEmpty);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
         return false;
       }
 
       if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.remarkTooLong);
+        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
         return false;
       }
       ServerDiversionGroupItem diversionItem =
           ServerManager.getDiversionCustomGroup();
       for (var group in diversionItem.groups) {
         if (group.name == text) {
-          DialogUtils.showAlertDialog(context, tcontext.remarkExist);
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
           return false;
         }
       }
@@ -564,6 +564,7 @@ class _DiversionGroupCustomScreenState
     newOptions.package = "";
     newOptions.processName = "";
     newOptions.processPath = "";
+    newOptions.processDir = "";
 
     DiversionGroupCustomEditOptions options =
         widget.options == null ? newOptions : widget.options!;
@@ -578,8 +579,8 @@ class _DiversionGroupCustomScreenState
 
   void onTapDel(String current) async {
     final tcontext = Translations.of(context);
-    bool? del =
-        await DialogUtils.showConfirmDialog(context, tcontext.removeConfirm);
+    bool? del = await DialogUtils.showConfirmDialog(
+        context, tcontext.meta.removeConfirm);
     if (del == true) {
       ServerDiversionGroupItem diversionItem =
           ServerManager.getDiversionCustomGroup();

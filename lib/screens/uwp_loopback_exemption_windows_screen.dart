@@ -114,7 +114,7 @@ class _UWPLoopbackExemptionWindowsScreenState
                     SizedBox(
                       width: windowSize.width - 50 - 50 - 50,
                       child: Text(
-                        tcontext.uwpExemption,
+                        tcontext.meta.uwpExemption,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -301,6 +301,6 @@ class _UWPLoopbackExemptionWindowsScreenState
       return;
     }
     final tcontext = Translations.of(context);
-    DialogUtils.showAlertDialog(context, tcontext.done);
+    DialogUtils.showAlertDialog(context, tcontext.meta.done);
   }
 }

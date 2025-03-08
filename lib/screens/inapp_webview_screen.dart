@@ -14,28 +14,35 @@ import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/antdesign.dart';
 import 'package:karing/screens/theme_config.dart';
+import 'package:karing/app/utils/sentry_utils.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vpn_service/vpn_service.dart';
 
 class InAppWebViewScreen extends StatefulWidget {
-  static RouteSettings routSettings() {
-    return RouteSettings(name: "InAppWebViewScreen");
+  static RouteSettings routSettings(String viewTag) {
+    return RouteSettings(name: "InAppWebViewScreen:$viewTag");
   }
 
+  static bool _inited = false;
+  static bool _notSupportSubmited = true;
   static bool _available = false;
   static bool _enableWebViewEnvironmentDebug = kDebugMode;
   static WebViewEnvironment? _webViewEnvironment;
   static int _webViewEnvironmentRef = 0;
   static String? _defaultUserAgent;
   static String _defaultUserAgentWithKaring = "";
-  static Future<void> init() async {
+  static Future<void> _init() async {
+    if (_inited) {
+      return;
+    }
+    if (!await isSupported()) {
+      return;
+    }
     if (Platform.isWindows) {
       final availableVersion = await WebViewEnvironment.getAvailableVersion();
       _available = availableVersion != null;
     } else if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
-      if (Platform.isAndroid) {
-        await InAppWebViewController.setWebContentsDebuggingEnabled(
-            _enableWebViewEnvironmentDebug);
-      }
       _available = true;
     }
     if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
@@ -60,9 +67,30 @@ class InAppWebViewScreen extends StatefulWidget {
       _defaultUserAgentWithKaring =
           "$userAgent Karing/${AppUtils.getBuildinVersion()}";
     }
+    _inited = true;
+  }
+
+  static Future<bool> isSupported() async {
+    if (Platform.isAndroid) {
+      String version = await FlutterVpnService.getSystemVersion();
+      int? v = int.tryParse(version);
+      if (v != null && v <= 27) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  static Future<String> getNotInitedDesc() async {
+    if (!await isSupported()) {
+      return "webview is not supported! (Android <= 8.1)";
+    }
+
+    return "webview is not initialized!";
   }
 
   static Future<void> setProxy(String ip, int port) async {
+    await _init();
     if (Platform.isAndroid) {
       ProxyController proxyController = ProxyController.instance();
       await proxyController.clearProxyOverride();
@@ -74,6 +102,7 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static Future<void> clearProxy() async {
+    await _init();
     if (Platform.isAndroid) {
       ProxyController proxyController = ProxyController.instance();
       await proxyController.clearProxyOverride();
@@ -81,6 +110,7 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static Future<void> setWebViewEnvironmentDebug(bool enable) async {
+    await _init();
     _enableWebViewEnvironmentDebug = enable;
     if (Platform.isAndroid) {
       await InAppWebViewController.setWebContentsDebuggingEnabled(
@@ -89,6 +119,7 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static Future<bool> makeSureEnvironmentCreated() async {
+    await _init();
     if (!_available) {
       return false;
     }
@@ -126,6 +157,10 @@ class InAppWebViewScreen extends StatefulWidget {
     }
   }
 
+  static bool isInited() {
+    return _inited;
+  }
+
   static bool isAvailable() {
     return _available;
   }
@@ -140,11 +175,13 @@ class InAppWebViewScreen extends StatefulWidget {
   final bool showGoBackGoForward;
   final bool showOpenExternal;
   final bool setJSWindowObject;
+  final String injectJs;
   final bool appendKaringToUseragent;
   final String appendMoreKaringToUseragent;
   final Map<String, Function> javaScriptHandlers;
   final dynamic javaScriptHandlerArgument;
-  const InAppWebViewScreen({
+
+  InAppWebViewScreen({
     super.key,
     required this.title,
     required this.url,
@@ -152,11 +189,18 @@ class InAppWebViewScreen extends StatefulWidget {
     this.showGoBackGoForward = false,
     this.showOpenExternal = false,
     this.setJSWindowObject = false,
+    this.injectJs = "",
     this.appendKaringToUseragent = false,
     this.appendMoreKaringToUseragent = "",
     this.javaScriptHandlers = const {},
     this.javaScriptHandlerArgument,
-  });
+  }) {
+    if (!_inited && _notSupportSubmited) {
+      _notSupportSubmited = false;
+      SentryUtils.captureMessage(
+          "webview is not initialized!", [], SentryLevel.error);
+    }
+  }
 
   @override
   State<InAppWebViewScreen> createState() => _InAppWebViewScreenState();
@@ -172,10 +216,14 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   // late ContextMenu _contextMenu;
   String _url = "";
   double _progress = 0;
+  List<UserScript> _scripts = [];
 
   @override
   void initState() {
     super.initState();
+    if (!InAppWebViewScreen.isInited()) {
+      return;
+    }
     String useragent = InAppWebViewScreen._defaultUserAgentWithKaring;
     if (widget.appendMoreKaringToUseragent.isNotEmpty) {
       useragent =
@@ -237,6 +285,35 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
             },
           );
     InAppWebViewScreen.addRef();
+
+    if (widget.setJSWindowObject) {
+      _scripts.add(UserScript(
+          source:
+              "window.addEventListener('DOMContentLoaded', function(event) {window.karing = window.flutter_inappwebview;});",
+          injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START));
+    }
+
+    if (widget.injectJs.isNotEmpty) {
+      String source = '''
+          function loadKaringInjectScript(url) {
+            for (var i=0; i<document.scripts.length; i++) {
+                if (document.scripts[i].src == url) return false;
+            }
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            script.onload = function() {
+                console.log("Script loaded and executed:", url);
+            };
+            document.head.appendChild(script);
+            return true;
+          }
+          window.addEventListener('DOMContentLoaded', function(event) {loadKaringInjectScript("${widget.injectJs}");});''';
+
+      _scripts.add(UserScript(
+          source: source,
+          injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START));
+    }
   }
 
   @override
@@ -251,6 +328,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
     final tcontext = Translations.of(context);
+
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.zero,
@@ -356,189 +434,212 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                Expanded(
-                  child: InAppWebViewScreen.isAvailable() || !Platform.isWindows
-                      ? Stack(
-                          children: [
-                            FutureBuilder(
-                              future: InAppWebViewScreen
-                                  .makeSureEnvironmentCreated(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<bool> snapshot) {
-                                return snapshot.hasData && snapshot.data!
-                                    ? InAppWebView(
-                                        key: webViewKey,
-                                        webViewEnvironment: InAppWebViewScreen
-                                            ._webViewEnvironment,
-                                        initialUrlRequest:
-                                            URLRequest(url: WebUri(widget.url)),
-                                        // initialUrlRequest:
-                                        // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
-                                        // initialFile: "assets/index.html",
-                                        initialUserScripts:
-                                            UnmodifiableListView(
-                                                widget.setJSWindowObject
-                                                    ? [
-                                                        //for js: window.flutter_inappwebview
-                                                        UserScript(
-                                                            source:
-                                                                "window.addEventListener('DOMContentLoaded', function(event) {window.karing = window.flutter_inappwebview;});",
-                                                            injectionTime:
-                                                                UserScriptInjectionTime
-                                                                    .AT_DOCUMENT_START)
-                                                      ]
-                                                    : []),
-                                        initialSettings: _settings,
-                                        //contextMenu: _contextMenu,
-                                        pullToRefreshController:
-                                            _pullToRefreshController,
-                                        onWebViewCreated: (controller) async {
-                                          _webViewController = controller;
-                                          setJavaScriptHandler();
-                                        },
-                                        onLoadStart: (controller, url) async {
-                                          _url = url.toString();
-                                        },
-                                        onPermissionRequest:
-                                            (controller, request) async {
-                                          //https://webcamtests.com/
-                                          final Set<PermissionResourceType>
-                                              values = {
-                                            PermissionResourceType.CAMERA,
-                                            PermissionResourceType
-                                                .CAMERA_AND_MICROPHONE,
-                                            PermissionResourceType.GEOLOCATION,
-                                            PermissionResourceType.MICROPHONE,
-                                          };
-                                          Set<PermissionResourceType>
-                                              intersection =
-                                              values.intersection(
-                                                  request.resources.toSet());
-                                          if (intersection.isNotEmpty) {
-                                            return PermissionResponse(
-                                                resources: request.resources,
-                                                action: PermissionResponseAction
-                                                    .DENY);
-                                          }
-                                          return PermissionResponse(
-                                              resources: request.resources,
-                                              action: PermissionResponseAction
-                                                  .GRANT);
-                                        },
-                                        shouldOverrideUrlLoading: (controller,
-                                            navigationAction) async {
-                                          var uri =
-                                              navigationAction.request.url!;
+                InAppWebViewScreen.isInited()
+                    ? Expanded(
+                        child: InAppWebViewScreen.isAvailable() ||
+                                !Platform.isWindows
+                            ? Stack(
+                                children: [
+                                  FutureBuilder(
+                                    future: InAppWebViewScreen
+                                        .makeSureEnvironmentCreated(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<bool> snapshot) {
+                                      return snapshot.hasData && snapshot.data!
+                                          ? InAppWebView(
+                                              key: webViewKey,
+                                              webViewEnvironment:
+                                                  InAppWebViewScreen
+                                                      ._webViewEnvironment,
+                                              initialUrlRequest: URLRequest(
+                                                  url: WebUri(widget.url)),
+                                              // initialUrlRequest:
+                                              // URLRequest(url: WebUri(Uri.base.toString().replaceFirst("/#/", "/") + 'page.html')),
+                                              // initialFile: "assets/index.html",
+                                              initialUserScripts:
+                                                  UnmodifiableListView(
+                                                      _scripts),
+                                              initialSettings: _settings,
+                                              //contextMenu: _contextMenu,
+                                              pullToRefreshController:
+                                                  _pullToRefreshController,
+                                              onWebViewCreated:
+                                                  (controller) async {
+                                                _webViewController = controller;
+                                                setJavaScriptHandler();
+                                              },
+                                              onLoadStart:
+                                                  (controller, url) async {
+                                                /* controller
+                                                    .injectJavascriptFileFromUrl(
+                                                        urlFile: WebUri(
+                                                            "https://github.githubassets.com/assets/global-copilot-menu-11ae0289e00d.js"));*/
+                                                _url = url.toString();
+                                              },
+                                              onPermissionRequest:
+                                                  (controller, request) async {
+                                                //https://webcamtests.com/
+                                                final Set<
+                                                        PermissionResourceType>
+                                                    values = {
+                                                  PermissionResourceType.CAMERA,
+                                                  PermissionResourceType
+                                                      .CAMERA_AND_MICROPHONE,
+                                                  PermissionResourceType
+                                                      .GEOLOCATION,
+                                                  PermissionResourceType
+                                                      .MICROPHONE,
+                                                };
+                                                Set<PermissionResourceType>
+                                                    intersection =
+                                                    values.intersection(request
+                                                        .resources
+                                                        .toSet());
+                                                if (intersection.isNotEmpty) {
+                                                  return PermissionResponse(
+                                                      resources:
+                                                          request.resources,
+                                                      action:
+                                                          PermissionResponseAction
+                                                              .DENY);
+                                                }
+                                                return PermissionResponse(
+                                                    resources:
+                                                        request.resources,
+                                                    action:
+                                                        PermissionResponseAction
+                                                            .GRANT);
+                                              },
+                                              shouldOverrideUrlLoading:
+                                                  (controller,
+                                                      navigationAction) async {
+                                                var uri = navigationAction
+                                                    .request.url!;
 
-                                          if (![
-                                            "http",
-                                            "https",
-                                            "file",
-                                            "chrome",
-                                            "data",
-                                            "javascript",
-                                            "about"
-                                          ].contains(uri.scheme)) {
-                                            if (await canLaunchUrl(uri)) {
-                                              await launchUrl(
-                                                uri,
-                                              );
+                                                if (![
+                                                  "http",
+                                                  "https",
+                                                  "file",
+                                                  "chrome",
+                                                  "data",
+                                                  "javascript",
+                                                  "about"
+                                                ].contains(uri.scheme)) {
+                                                  if (await canLaunchUrl(uri)) {
+                                                    await launchUrl(
+                                                      uri,
+                                                    );
 
-                                              return NavigationActionPolicy
-                                                  .CANCEL;
-                                            }
-                                          }
+                                                    return NavigationActionPolicy
+                                                        .CANCEL;
+                                                  }
+                                                }
 
-                                          return NavigationActionPolicy.ALLOW;
-                                        },
-                                        onLoadStop: (controller, url) async {
-                                          _pullToRefreshController
-                                              ?.endRefreshing();
-                                          _url = url.toString();
-                                        },
-                                        onReceivedError:
-                                            (controller, request, error) {
-                                          _pullToRefreshController
-                                              ?.endRefreshing();
-                                        },
-                                        onProgressChanged:
-                                            (controller, progress) {
-                                          if (progress == 100) {
-                                            _pullToRefreshController
-                                                ?.endRefreshing();
-                                          }
-                                          setState(() {
-                                            _progress = progress / 100;
-                                          });
-                                        },
-                                        onUpdateVisitedHistory:
-                                            (controller, url, isReload) {
-                                          _url = url.toString();
-                                        },
-                                        onConsoleMessage:
-                                            (controller, consoleMessage) {
-                                          if (kDebugMode) {
-                                            print(consoleMessage);
-                                          }
-                                        },
-                                      )
-                                    : const SizedBox.shrink();
-                              },
-                            ),
-                            _progress < 1.0
-                                ? LinearProgressIndicator(value: _progress)
-                                : Container(),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  top: 20, left: 20, right: 20),
-                              alignment: Alignment.center,
-                              child: Column(
+                                                return NavigationActionPolicy
+                                                    .ALLOW;
+                                              },
+                                              onLoadStop:
+                                                  (controller, url) async {
+                                                _pullToRefreshController
+                                                    ?.endRefreshing();
+                                                _url = url.toString();
+                                              },
+                                              onReceivedError:
+                                                  (controller, request, error) {
+                                                _pullToRefreshController
+                                                    ?.endRefreshing();
+                                              },
+                                              onProgressChanged:
+                                                  (controller, progress) {
+                                                if (progress == 100) {
+                                                  _pullToRefreshController
+                                                      ?.endRefreshing();
+                                                }
+                                                setState(() {
+                                                  _progress = progress / 100;
+                                                });
+                                              },
+                                              onUpdateVisitedHistory:
+                                                  (controller, url, isReload) {
+                                                _url = url.toString();
+                                              },
+                                              onConsoleMessage:
+                                                  (controller, consoleMessage) {
+                                                if (kDebugMode) {
+                                                  print(consoleMessage);
+                                                }
+                                              },
+                                            )
+                                          : const SizedBox.shrink();
+                                    },
+                                  ),
+                                  _progress < 1.0
+                                      ? LinearProgressIndicator(
+                                          value: _progress)
+                                      : Container(),
+                                ],
+                              )
+                            : Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    tcontext.edgeRuntimeNotInstalled,
-                                    style: const TextStyle(
-                                      fontSize:
-                                          ThemeConfig.kFontSizeListSubItem,
-                                      color: Colors.red,
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 20, left: 20, right: 20),
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          tcontext.edgeRuntimeNotInstalled,
+                                          style: const TextStyle(
+                                            fontSize: ThemeConfig
+                                                .kFontSizeListSubItem,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        SizedBox(
+                                            height: 45.0,
+                                            child: ElevatedButton.icon(
+                                              label:
+                                                  Text(tcontext.meta.download),
+                                              onPressed: () async {
+                                                AnalyticsUtils.logEvent(
+                                                    analyticsEventType:
+                                                        analyticsEventTypeUA,
+                                                    name: 'IAW_download',
+                                                    repeatable: false);
+                                                String url =
+                                                    "https://developer.microsoft.com/en-us/microsoft-edge/webview2?cs=530857304&form=MA13LH#download";
+                                                if (SettingManager.getConfig()
+                                                        .languageTag
+                                                        .toLowerCase() ==
+                                                    "zh-cn") {
+                                                  url =
+                                                      "https://developer.microsoft.com/zh-cn/microsoft-edge/webview2?cs=530857304&form=MA13LH#download";
+                                                }
+                                                await UrlLauncherUtils.loadUrl(
+                                                    url);
+                                              },
+                                            )),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                      height: 45.0,
-                                      child: ElevatedButton.icon(
-                                        label: Text(tcontext.download),
-                                        onPressed: () async {
-                                          AnalyticsUtils.logEvent(
-                                              analyticsEventType:
-                                                  analyticsEventTypeUA,
-                                              name: 'IAW_download',
-                                              repeatable: false);
-                                          String url =
-                                              "https://developer.microsoft.com/en-us/microsoft-edge/webview2?cs=530857304&form=MA13LH#download";
-                                          if (SettingManager.getConfig()
-                                                  .languageTag
-                                                  .toLowerCase() ==
-                                              "zh-cn") {
-                                            url =
-                                                "https://developer.microsoft.com/zh-cn/microsoft-edge/webview2?cs=530857304&form=MA13LH#download";
-                                          }
-                                          await UrlLauncherUtils.loadUrl(url);
-                                        },
-                                      )),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                ),
+                      )
+                    : FutureBuilder(
+                        future: InAppWebViewScreen.getNotInitedDesc(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          return Text(snapshot.hasData && snapshot.data != null
+                              ? snapshot.data!
+                              : "");
+                        },
+                      ),
               ],
             ),
           ),

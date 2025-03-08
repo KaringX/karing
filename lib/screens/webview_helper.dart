@@ -5,7 +5,7 @@ import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/screens/inapp_webview_screen.dart';
 
 class WebviewHelper {
-  static Future<bool> loadUrl(BuildContext context, String url,
+  static Future<bool> loadUrl(BuildContext context, String url, String viewTag,
       {String? title,
       bool useInappWebViewForPC = false,
       bool inappWebViewOpenExternal = false}) async {
@@ -24,7 +24,7 @@ class WebviewHelper {
       await Navigator.push(
           context,
           MaterialPageRoute(
-              settings: InAppWebViewScreen.routSettings(),
+              settings: InAppWebViewScreen.routSettings(viewTag),
               builder: (context) => InAppWebViewScreen(
                     title: title ?? "",
                     url: url,

@@ -43,7 +43,7 @@ class DnsSettingsScreen extends LasyRenderingStatefulWidget {
 
 class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   static ParallelTaskQueue? _taskQueue;
-
+  static const int _kMaxTasks = 5;
   static Map<String, String> _contectDirectLatency = {};
   static Map<String, String> _contectCurrentLatency = {};
   final List _searchedData = [];
@@ -209,16 +209,13 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     _contectDirectLatency = {};
     _contectCurrentLatency = {};
     setState(() {});
-    await _testConnectLatency(
+    _testConnectLatency(
         _searchedData,
         _contectDirectLatency,
         _contectCurrentLatency,
         kOutboundTagDirect,
         VPNService.getCurrent().tag);
 
-    if (!mounted) {
-      return;
-    }
     setState(() {});
   }
 
@@ -246,8 +243,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
       dnsAddress = settingConfig.dns.getDirectDns(regionCode, tunMode);
     } else if (widget.dnsType == DNSType.dnsTypeProxy) {
       dnsAddress = settingConfig.dns.getProxyDns(regionCode, tunMode);
-    } else if (widget.dnsType == DNSType.dnsTypeFinal) {
-      dnsAddress = settingConfig.dns.getFinalDns(regionCode, tunMode);
     }
     if (Platform.isAndroid) {
       disabled.add(SettingConfigItemDNS.kDNSDHCP);
@@ -270,23 +265,38 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         ));
   }
 
-  static Future<void> _testConnectLatency(
+  static void _testConnectLatency(
       List items,
       Map<String, String> contectDirectLatency,
       Map<String, String> contectCurrentLatency,
       String detourDirect,
-      String detourCurrent) async {
-    const int kMaxTasks = 5;
+      String detourCurrent) {
     List<String> urls = [];
 
     for (var item in items) {
       String url = item["url"];
-      urls.add(url);
+      if (_taskQueue == null || !_taskQueue!.hasTask(url)) {
+        urls.add(url);
+      }
     }
-    _taskQueue = ParallelTaskQueue((url) async {
-      bool started = await VPNService.started();
+    _testConnectLatencyParallel(contectDirectLatency, contectCurrentLatency,
+        detourDirect, detourCurrent, urls);
+  }
+
+  static void _testConnectLatencyParallel(
+      Map<String, String> contectDirectLatency,
+      Map<String, String> contectCurrentLatency,
+      String detourDirect,
+      String detourCurrent,
+      List<String> urls) {
+    if (urls.isEmpty) {
+      return;
+    }
+    _taskQueue ??= ParallelTaskQueue((url) async {
+      bool started = await VPNService.getStarted();
       if (started) {
-        if (url == SettingConfigItemDNS.kDNSLocal) {
+        if (url == SettingConfigItemDNS.kDNSLocal ||
+            url == SettingConfigItemDNS.kDNSDHCP) {
           ReturnResult<int> resultDirect =
               await ServerManager.testDNSConnectLatency(
                   [url], detourDirect, null);
@@ -296,7 +306,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
             contectDirectLatency[url] = resultDirect.data.toString();
           }
 
-          contectCurrentLatency[url] = "timeout";
+          contectCurrentLatency[url] = "not support";
         } else {
           var value = await Future.wait([
             ServerManager.testDNSConnectLatency([url], detourDirect, null),
@@ -324,8 +334,8 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
       if (finish) {
         _taskQueue = null;
       }
-    }, kMaxTasks, urls);
-
+    }, _kMaxTasks, []);
+    _taskQueue!.addTasks(urls);
     _taskQueue!.run();
   }
 
@@ -395,13 +405,31 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       ThemeConfig.kListItemHeight,
                       _taskQueue != null && directLatenty == null,
                       _taskQueue != null && _taskQueue!.running(addr),
-                      directLatenty ?? ""),
+                      directLatenty ?? "", onTapLatencyReload: () async {
+                    _testConnectLatency(
+                        [current],
+                        _contectDirectLatency,
+                        _contectCurrentLatency,
+                        kOutboundTagDirect,
+                        VPNService.getCurrent().tag);
+
+                    setState(() {});
+                  }),
                   CommonWidget.createLatencyWidget(
                       context,
                       ThemeConfig.kListItemHeight,
                       _taskQueue != null && currentLatenty == null,
                       _taskQueue != null && _taskQueue!.running(addr),
-                      currentLatenty ?? ""),
+                      currentLatenty ?? "", onTapLatencyReload: () async {
+                    _testConnectLatency(
+                        [current],
+                        _contectDirectLatency,
+                        _contectCurrentLatency,
+                        kOutboundTagDirect,
+                        VPNService.getCurrent().tag);
+
+                    setState(() {});
+                  }),
                   Checkbox(
                     tristate: true,
                     value: dnsAddress.contains(addr),
@@ -424,11 +452,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                             } else if (widget.dnsType == DNSType.dnsTypeProxy) {
                               settingConfig.dns
                                   .addOrRemoveProxyDns(addr, value == true);
-                            } else if (widget.dnsType == DNSType.dnsTypeFinal) {
-                              settingConfig.dns
-                                  .addOrRemoveFinalDns(addr, value == true);
                             }
-
                             SettingManager.setDirty(true);
                             setState(() {});
                           },
@@ -514,8 +538,8 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
-                    labelText: tcontext.isp,
-                    hintText: tcontext.isp,
+                    labelText: "ISP",
+                    hintText: "ISP",
                   ),
                 ),
               ),
@@ -529,8 +553,8 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                   textInputAction: TextInputAction.done,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
-                    labelText: tcontext.url,
-                    hintText: tcontext.url,
+                    labelText: tcontext.meta.url,
+                    hintText: tcontext.meta.url,
                   ),
                 ),
               ),
@@ -539,7 +563,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 ElevatedButton(
-                    child: Text(tcontext.ok),
+                    child: Text(tcontext.meta.ok),
                     onPressed: () {
                       String? ispText = Text(textControllerISP.text).data;
                       String? urlText = Text(textControllerUrl.text).data;
@@ -563,7 +587,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       Uri? uri = Uri.tryParse(urlText);
                       if (uri == null) {
                         DialogUtils.showAlertDialog(
-                            context, tcontext.urlInvalid);
+                            context, tcontext.meta.urlInvalid);
                         return;
                       }
 
@@ -589,7 +613,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                   width: 60,
                 ),
                 ElevatedButton(
-                  child: Text(tcontext.cancel),
+                  child: Text(tcontext.meta.cancel),
                   onPressed: () => Navigator.pop(context),
                 ),
               ]),
@@ -604,7 +628,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     settingConfig.dns.addOrRemoveOutboundDns(url, false);
     settingConfig.dns.addOrRemoveDirectDns(url, false);
     settingConfig.dns.addOrRemoveProxyDns(url, false);
-    settingConfig.dns.addOrRemoveFinalDns(url, false);
 
     for (int i = 0; i < settingConfig.dns.list.length; ++i) {
       if (settingConfig.dns.list[i][SettingConfigItemDNS.kDNSUrl] == url) {

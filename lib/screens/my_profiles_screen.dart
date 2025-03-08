@@ -59,12 +59,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   @override
   void initState() {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
-    item.remark = t.custom;
+    item.remark = t.meta.custom;
 
     ServerDiversionGroupItem? itemDiversion =
         ServerManager.getDiversionCustomGroup();
 
-    itemDiversion.remark = t.custom;
+    itemDiversion.remark = t.meta.custom;
 
     _buildData();
 
@@ -290,7 +290,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             ? InkWell(
                 onTap: () async {
                   bool? del = await DialogUtils.showConfirmDialog(
-                      context, tcontext.removeConfirm);
+                      context, tcontext.meta.removeConfirm);
                   if (del == true) {
                     ServerManager.removeGroup(item.groupid, true);
                     if (item.enable) {
@@ -333,8 +333,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         return;
                       }
                       if (value != null) {
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.updateFailed(p: value.message),
+                        DialogUtils.showAlertDialog(context,
+                            tcontext.meta.updateFailed(p: value.message),
                             showCopy: true, showFAQ: true, withVersion: true);
                       }
                       if (!mounted) {
@@ -546,13 +546,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     setState(() {});
                     if (value != null) {
                       DialogUtils.showAlertDialog(
-                          context, tcontext.updateFailed(p: value.message),
+                          context, tcontext.meta.updateFailed(p: value.message),
                           showCopy: true, showFAQ: true, withVersion: true);
                     }
                   });
                 } else {
-                  DialogUtils.showAlertDialog(
-                      context, tcontext.updateFailed(p: value.error!.message),
+                  DialogUtils.showAlertDialog(context,
+                      tcontext.meta.updateFailed(p: value.error!.message),
                       showCopy: true, showFAQ: true, withVersion: true);
                 }
               }
@@ -813,7 +813,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         SizedBox(
                           width: windowSize.width - 50 * 3 - 26,
                           child: Text(
-                            tcontext.MyProfilesScreen.title,
+                            tcontext.meta.myProfiles,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -896,7 +896,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final tcontext = Translations.of(context);
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
-    String msg = disabled ? tcontext.enable : tcontext.disable;
+    String msg = disabled ? tcontext.meta.enable : tcontext.meta.disable;
     msg += "[${server.type};${server.server};${server.serverport}]";
 
     var items = [
@@ -915,7 +915,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           }),
       PopupMenuItem(
           value: 2,
-          child: Text(tcontext.share),
+          child: Text(tcontext.meta.share),
           onTap: () {
             const JsonEncoder encoder = JsonEncoder.withIndent('');
 
@@ -933,7 +933,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           }),
       PopupMenuItem(
           value: 3,
-          child: Text(tcontext.view),
+          child: Text(tcontext.meta.view),
           onTap: () {
             const JsonEncoder encoder = JsonEncoder.withIndent('  ');
             String content = server.raw != null
@@ -944,36 +944,41 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 MaterialPageRoute(
                     settings: RichtextViewScreen.routSettings(),
                     builder: (context) => RichtextViewScreen(
-                        title: tcontext.view, file: "", content: content)));
+                        title: tcontext.meta.view,
+                        file: "",
+                        content: content)));
           })
     ];
     if (!isTesting &&
         !isWaitTesting &&
         item.testLatency.isEmpty &&
         item.testLatencyIndepends.isEmpty) {
-      if (!item.isRemote()) {
-        items.add(PopupMenuItem(
-            value: 4,
-            child: Text(tcontext.remove),
-            onTap: () {
-              for (int i = 0; i < item.servers.length; ++i) {
-                if (item.servers[i].tag == server.tag) {
-                  item.servers.removeAt(i);
-                  if (item.enable) {
-                    ServerManager.setDirty(true);
-                  }
-                  _buildData();
-                  setState(() {});
-                  break;
+      items.add(PopupMenuItem(
+          value: 4,
+          child: Text(tcontext.meta.remove),
+          onTap: () {
+            for (int i = 0; i < item.servers.length; ++i) {
+              if (item.servers[i].tag == server.tag) {
+                item.servers.removeAt(i);
+                if (item.enable) {
+                  ServerManager.setDirty(true);
                 }
+                if (item.isRemote() &&
+                    !item.proxyFilterRemove.contains(server.tag)) {
+                  item.proxyFilterRemove.add(server.tag);
+                }
+                _buildData();
+                setState(() {});
+                break;
               }
-            }));
-      }
+            }
+          }));
+
       var settingConfig = SettingManager.getConfig();
       if (!settingConfig.novice) {
         items.add(PopupMenuItem(
             value: 5,
-            child: Text(tcontext.edit),
+            child: Text(tcontext.meta.edit),
             onTap: () async {
               onTapEditServer(item, server);
             }));
@@ -1110,7 +1115,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         MaterialPageRoute(
             settings: GroupScreen.routSettings("MyProfilesScreen.setting"),
             builder: (context) => GroupScreen(
-                  title: tcontext.setting,
+                  title: tcontext.meta.setting,
                   getOptions: getOptions,
                 )));
     _buildData();
@@ -1185,7 +1190,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
       if (count == 1) {
         DialogUtils.showAlertDialog(
-            context, tcontext.MyProfilesScreen.atLeastOneEnable);
+            context, tcontext.meta.myProfilesAtLeastOneReserveEnable);
         return;
       }
     }
@@ -1206,7 +1211,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final tcontext = Translations.of(context);
     DialogUtilsResult<String>? name = await DialogUtils.showStringPickerDialog(
       context,
-      tcontext.add,
+      tcontext.meta.add,
       [
         SingboxOutboundType.socks.name,
         SingboxOutboundType.http.name,
@@ -1283,7 +1288,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 name: "tag",
                 text: sbOptions.tag,
                 textWidthPercent: 0.6,
-                hint: tcontext.required,
+                hint: tcontext.meta.required,
                 onChanged: (String value) {
                   if (value.isEmpty) {
                     return;
@@ -1309,7 +1314,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         MaterialPageRoute(
             settings: GroupScreen.routSettings("add-edit:${sbOptions.type}"),
             builder: (context) => GroupScreen(
-                  title: tcontext.edit,
+                  title: tcontext.meta.edit,
                   getOptions: getOptions,
                   onDone: (BuildContext context) async {
                     if (!mounted) {
@@ -1406,12 +1411,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     }
                     if (ret != null) {
                       DialogUtils.showAlertDialog(
-                          context, "$ret ${tcontext.required}");
+                          context, "$ret ${tcontext.meta.required}");
                       return false;
                     }
                     if (sbOptions.tag.isEmpty) {
                       DialogUtils.showAlertDialog(
-                          context, "tag ${tcontext.required}");
+                          context, "tag ${tcontext.meta.required}");
                       return false;
                     }
                     server.server = sbOptions.server;
@@ -1437,7 +1442,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final box = context.findRenderObject() as RenderBox?;
     String savePath =
         path.join(await PathUtils.cacheDir(), 'profile_share.json');
-    await FileUtils.deleteFileByPath(savePath);
+    await FileUtils.deletePath(savePath);
     SingboxConfig config = SingboxConfig();
     dynamic selectOutbound =
         SingboxConfigBuilder.buildOutbound(ServerManager.getUrltest());
@@ -1459,7 +1464,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         false, false, [], SingboxExportType.singbox, null);
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
-        inbound.inet4_address = ["172.19.0.1/30"];
+        inbound.address = ["172.19.0.1/30"];
         inbound.include_package = [];
         inbound.exclude_package = [];
         break;
@@ -1555,7 +1560,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   fontFamily: Platform.isWindows ? 'Emoji' : null,
                 ),
                 textWidthPercent: 0.6,
-                hint: tcontext.required,
+                hint: tcontext.meta.required,
                 onChanged: (String value) {
                   if (value.isEmpty) {
                     return;
@@ -1599,7 +1604,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         MaterialPageRoute(
             settings: GroupScreen.routSettings("edit:${sbOptions.type}"),
             builder: (context) => GroupScreen(
-                  title: tcontext.edit,
+                  title: tcontext.meta.edit,
                   getOptions: getOptions,
                   onDone: (BuildContext context) async {
                     if (!mounted) {

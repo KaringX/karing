@@ -265,13 +265,13 @@ class MyProfilesMergeScreenState
                 )));
   }
 
-  void onTapSave() {
+  void onTapSave() async {
     List<String> sources = [];
     for (var i in _selectedSources) {
       sources.add(i.groupid);
     }
 
-    bool hasEnable = ServerManager.mergeGroup(sources, _target!.groupid);
+    bool hasEnable = await ServerManager.mergeGroup(sources, _target!.groupid);
     if (hasEnable) {
       ServerManager.setDirty(true);
     }

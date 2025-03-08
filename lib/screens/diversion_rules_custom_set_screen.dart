@@ -212,16 +212,16 @@ class _DiversionRulesCustomSetScreenState
       String outbound = "";
       switch (rule.outbound) {
         case DiversionCustomRules.kDirect:
-          outbound = tcontext.outboundActionDirect;
+          outbound = tcontext.outboundRuleMode.direct;
           break;
         case DiversionCustomRules.kBlock:
-          outbound = tcontext.outboundActionBlock;
+          outbound = tcontext.outboundRuleMode.block;
           break;
         case DiversionCustomRules.kUrltest:
-          outbound = tcontext.outboundActionUrltest;
+          outbound = tcontext.outboundRuleMode.urltest;
           break;
         case DiversionCustomRules.kCurrentSelected:
-          outbound = tcontext.outboundActionCurrentSelected;
+          outbound = tcontext.outboundRuleMode.currentSelected;
           break;
         default:
           rule.outbound = DiversionCustomRules.kNone;

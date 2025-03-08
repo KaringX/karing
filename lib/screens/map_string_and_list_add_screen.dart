@@ -204,7 +204,9 @@ class _ServerSelectSearchSettingsScreenState
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
         context,
-        widget.dialogTitle1.isNotEmpty ? widget.dialogTitle1 : tcontext.add,
+        widget.dialogTitle1.isNotEmpty
+            ? widget.dialogTitle1
+            : tcontext.meta.add,
         "",
         widget.dialogTextHit1.isNotEmpty ? widget.dialogTextHit1 : "",
         null, (text) {

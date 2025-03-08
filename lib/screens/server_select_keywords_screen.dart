@@ -72,7 +72,7 @@ class _ServerSelectSearchSettingsScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.candidateWord,
+                        tcontext.meta.candidateWord,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -192,7 +192,7 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.keywordOrRegx, "", null, null, (text) {
+        context, tcontext.meta.keywordOrRegx, "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;
@@ -235,7 +235,7 @@ class _ServerSelectSearchSettingsScreenState
   void onLongPressEdit(int index, String text) async {
     final tcontext = Translations.of(context);
     String? newText = await DialogUtils.showTextInputDialog(
-        context, tcontext.keywordOrRegx, text, null, null, (text) {
+        context, tcontext.meta.keywordOrRegx, text, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;

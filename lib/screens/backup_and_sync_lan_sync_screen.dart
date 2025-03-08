@@ -55,7 +55,7 @@ class _BackupAndSyncLanSyncScreenState
   void dispose() {
     stop();
     if (_zipPath != null) {
-      FileUtils.deleteFileByPath(_zipPath!);
+      FileUtils.deletePath(_zipPath!);
     }
 
     super.dispose();
@@ -65,8 +65,12 @@ class _BackupAndSyncLanSyncScreenState
     try {
       if (widget.syncUpload != true) {
         String dir = await PathUtils.cacheDir();
+        if (!mounted) {
+          return;
+        }
         _zipPath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-        ReturnResultError? error = await ServerManager.backupToZip(_zipPath!);
+        ReturnResultError? error =
+            await ServerManager.backupToZip(context, _zipPath!);
         if (error != null) {
           if (!mounted) {
             return;
@@ -76,18 +80,28 @@ class _BackupAndSyncLanSyncScreenState
           return;
         }
       }
-
-      ServerSocket serverSocket = await ServerSocket.bind(
-          InternetAddress(SettingConfigItemProxy.hostNetwork,
-              type: InternetAddressType.IPv4),
-          0);
-      int port = serverSocket.port;
-      serverSocket.close();
+      var proxy = SettingManager.getConfig().proxy;
+      var ports = [
+        proxy.mixedRulePort,
+        proxy.mixedDirectPort,
+        proxy.mixedForwordPort,
+        proxy.controlPort,
+        proxy.clusterPort,
+      ];
+      var listenPort = await NetworkUtils.getAvaliablePort(ports);
+      if (listenPort == 0) {
+        if (!mounted) {
+          return;
+        }
+        DialogUtils.showAlertDialog(
+            context, "BackupAndSyncLanSyncScreen.getAvaliablePort failed",
+            showCopy: true, showFAQ: true, withVersion: true);
+        return;
+      }
 
       if (Platform.isWindows) {
-        FlutterVpnService.firewallAddApp(
-            Platform.resolvedExecutable, PathUtils.getExeName());
-        FlutterVpnService.firewallAddPorts([port], PathUtils.getExeName());
+        FlutterVpnService.firewallAddPorts(
+            [listenPort], PathUtils.getExeName());
       }
 
       List<String> ips = [];
@@ -111,13 +125,14 @@ class _BackupAndSyncLanSyncScreenState
           : AppSchemeActions.syncDownloadAction());
 
       String url =
-          "karing://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$port";
+          "karing://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$listenPort";
       if (widget.syncUpload != true) {
         url += "&filename=${Uri.encodeComponent(path.basename(_zipPath!))}";
       }
       _image = QrcodeUtils.toImage(url).data;
 
-      _server = await HttpServer.bind(SettingConfigItemProxy.hostNetwork, port);
+      _server =
+          await HttpServer.bind(SettingConfigItemProxy.hostNetwork, listenPort);
       _server!.listen((req) async {
         switch (req.method) {
           case "GET":
@@ -249,7 +264,7 @@ class _BackupAndSyncLanSyncScreenState
 
   Future<void> restoreFromZip(String zipPath) async {
     await GroupHelper.backupRestoreFromZip(context, zipPath, confirm: true);
-    await FileUtils.deleteFileByPath(zipPath);
+    await FileUtils.deletePath(zipPath);
   }
 
   @override
@@ -307,7 +322,7 @@ class _BackupAndSyncLanSyncScreenState
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: Column(children: [
                       Text(
-                        tcontext.BackupAndSyncLanSyncScreen.lanSyncNotQuitTips,
+                        tcontext.meta.lanSyncNotQuitTips,
                         style: const TextStyle(
                             fontWeight: ThemeConfig.kFontWeightListSubItem,
                             fontSize: ThemeConfig.kFontSizeListSubItem),

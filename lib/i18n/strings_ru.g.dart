@@ -34,182 +34,46 @@ class TranslationsRu implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutScreenRu AboutScreen = _TranslationsAboutScreenRu._(_root);
-	@override late final _TranslationsAddProfileByImportFromFileScreenRu AddProfileByImportFromFileScreen = _TranslationsAddProfileByImportFromFileScreenRu._(_root);
-	@override late final _TranslationsAddProfileByLinkOrContentScreenRu AddProfileByLinkOrContentScreen = _TranslationsAddProfileByLinkOrContentScreenRu._(_root);
-	@override late final _TranslationsAddProfileByScanQrcodeScanScreenRu AddProfileByScanQrcodeScanScreen = _TranslationsAddProfileByScanQrcodeScanScreenRu._(_root);
-	@override late final _TranslationsBackupAndSyncLanSyncScreenRu BackupAndSyncLanSyncScreen = _TranslationsBackupAndSyncLanSyncScreenRu._(_root);
 	@override late final _TranslationsBackupAndSyncWebdavScreenRu BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenRu._(_root);
 	@override late final _TranslationsDiversionGroupCustomEditScreenRu DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenRu._(_root);
 	@override late final _TranslationsDiversionRuleDetectScreenRu DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenRu._(_root);
 	@override late final _TranslationsDiversionRulesScreenRu DiversionRulesScreen = _TranslationsDiversionRulesScreenRu._(_root);
 	@override late final _TranslationsDnsSettingsScreenRu DnsSettingsScreen = _TranslationsDnsSettingsScreenRu._(_root);
-	@override late final _TranslationsFeedbackScreenRu FeedbackScreen = _TranslationsFeedbackScreenRu._(_root);
 	@override late final _TranslationsFileContentViewerScreenRu FileContentViewerScreen = _TranslationsFileContentViewerScreenRu._(_root);
 	@override late final _TranslationsHomeScreenRu HomeScreen = _TranslationsHomeScreenRu._(_root);
 	@override late final _TranslationsLaunchFailedScreenRu LaunchFailedScreen = _TranslationsLaunchFailedScreenRu._(_root);
-	@override late final _TranslationsMyProfilesEditScreenRu MyProfilesEditScreen = _TranslationsMyProfilesEditScreenRu._(_root);
 	@override late final _TranslationsMyProfilesMergeScreenRu MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenRu._(_root);
-	@override late final _TranslationsMyProfilesScreenRu MyProfilesScreen = _TranslationsMyProfilesScreenRu._(_root);
 	@override late final _TranslationsNetCheckScreenRu NetCheckScreen = _TranslationsNetCheckScreenRu._(_root);
 	@override late final _TranslationsNetConnectionsFilterScreenRu NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenRu._(_root);
 	@override late final _TranslationsNetConnectionsScreenRu NetConnectionsScreen = _TranslationsNetConnectionsScreenRu._(_root);
 	@override late final _TranslationsPerAppAndroidScreenRu PerAppAndroidScreen = _TranslationsPerAppAndroidScreenRu._(_root);
-	@override late final _TranslationsQrcodeScreenRu QrcodeScreen = _TranslationsQrcodeScreenRu._(_root);
 	@override late final _TranslationsRegionSettingsScreenRu RegionSettingsScreen = _TranslationsRegionSettingsScreenRu._(_root);
 	@override late final _TranslationsServerSelectScreenRu ServerSelectScreen = _TranslationsServerSelectScreenRu._(_root);
 	@override late final _TranslationsSettingsScreenRu SettingsScreen = _TranslationsSettingsScreenRu._(_root);
-	@override late final _TranslationsSpeedTestSettingsScreenRu SpeedTestSettingsScreen = _TranslationsSpeedTestSettingsScreenRu._(_root);
-	@override late final _TranslationsTextToQrCodeScreenRu TextToQrCodeScreen = _TranslationsTextToQrCodeScreenRu._(_root);
 	@override late final _TranslationsUserAgreementScreenRu UserAgreementScreen = _TranslationsUserAgreementScreenRu._(_root);
 	@override late final _TranslationsVersionUpdateScreenRu VersionUpdateScreen = _TranslationsVersionUpdateScreenRu._(_root);
 	@override late final _TranslationsCommonWidgetRu CommonWidget = _TranslationsCommonWidgetRu._(_root);
-	@override late final _TranslationsServerManagerRu ServerManager = _TranslationsServerManagerRu._(_root);
 	@override late final _TranslationsMainRu main = _TranslationsMainRu._(_root);
-	@override String get enable => 'Включить';
-	@override String get disable => 'Запретить';
-	@override String get filter => 'Фильтр';
-	@override String get filterMethod => 'Метод фильтра';
-	@override String get include => 'Включать';
-	@override String get exclude => 'Исключать';
-	@override String get all => 'Все';
-	@override String get prefer => 'Приоритет';
-	@override String get only => 'Только';
-	@override String get open => 'Открыть';
-	@override String get close => 'Закрыть';
-	@override String get quit => 'Выйти';
-	@override String get add => 'Добавить';
-	@override String get remove => 'Удалить';
-	@override String get edit => 'Редактировать';
-	@override String get view => 'Просмотр';
-	@override String get more => 'Больше';
-	@override String get getProfile => 'Получить конфигурацию';
-	@override String get addProfile => 'Добавить профиль';
-	@override String get addSuccess => 'Добавлено успешно';
-	@override String addSuccessThen({required Object p}) => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${p}]';
-	@override String addFailed({required Object p}) => 'Ошибка при добавлении:${p}';
-	@override String get removeConfirm => 'Подтверждаете удаление?';
-	@override String get tips => 'Инфо';
-	@override String get copy => 'Скопировать';
-	@override String get ok => 'Ок';
-	@override String get cancel => 'Закрыть';
-	@override String get feedback => 'Обратная связь';
-	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
-	@override String get download => 'Скачать';
-	@override String get loading => 'Загрузка...';
-	@override String updateFailed({required Object p}) => 'Не удалось обновить:${p}';
-	@override String get days => 'дни';
-	@override String get hours => 'часы';
-	@override String get minutes => 'минуты';
-	@override String get seconds => 'Второй';
-	@override String get protocol => 'Протокол';
-	@override String get search => 'Поиск';
-	@override String get custom => 'Настроить самостоятельно';
-	@override String get connect => 'Соединить';
-	@override String get disconnect => 'Отключить';
-	@override String get connected => 'Подключено';
-	@override String get disconnected => 'Отключено';
-	@override String get connecting => 'Подключение';
-	@override String get connectTimeout => 'Таймаут при соединении';
-	@override String get timeout => 'Тайм-аут';
-	@override String get language => 'Язык';
-	@override String get next => 'Дальше';
-	@override String get done => 'Готово';
-	@override String get apply => 'Применить';
-	@override String get refresh => 'Обновить';
-	@override String get retry => 'Хотите попробовать еще раз?';
-	@override String get none => 'Ничего не делать';
-	@override String get reset => 'Перезагрузить';
-	@override String get submit => 'Отправить';
-	@override String get user => 'пользователь';
-	@override String get account => 'Аккаунт';
-	@override String get password => 'Пароль';
-	@override String get required => 'Необходимо';
-	@override String get diversion => 'Правила';
-	@override String get diversionRules => 'Правила перенаправления';
-	@override String get diversionRulesEnable => 'Включить правила перенаправления [VPN-провайдер]';
-	@override String get diversionCustomGroup => 'Личные правила';
-	@override String get diversionCustomGroupPreset => 'Шаблоны личных правил';
-	@override String get diversionCustomGroupPresetTips => 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
+	@override late final _TranslationsMetaRu meta = _TranslationsMetaRu._(_root);
+	@override String get diversionRulesKeep => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}';
+	@override String get diversionCustomGroupPreset => 'Шаблоны для личных правил';
+	@override String get diversionCustomGroupPresetTips => 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].';
 	@override String get diversionCustomGroupAddTips => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
-	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
-	@override String get rulesetEnableTips => 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
-	@override String get ispUserAgentTips => '[VPN-провайдер] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
-	@override String get ispDiversionTips => 'Правила перенаправления, предоставляемые подписками [VPN-провайдер] типа [V2Ray], не поддерживаются.';
-	@override String get staticIP => 'Статический IP';
-	@override String get other => 'Другой';
-	@override String get dns => 'DNS';
-	@override String get url => 'URL';
-	@override String get isp => 'VPN-провайдер';
-	@override String get ispBind => 'Привязать к [VPN-провайдеру]';
-	@override String ispUnbind({required Object p}) => 'Отвязать[${p}]';
-	@override String ispFaq({required Object p}) => 'Часто задаваемые вопросы[${p}]';
-	@override String ispCustomerService({required Object p}) => 'Служба поддержки клиентов[${p}]';
-	@override String ispFollow({required Object p}) => 'Следуйте[${p}]';
-	@override String get ispInvalidOrExpired => '[VPN-провайдер]Недействительно или срок действия истек';
-	@override String get tls => 'TLS';
-	@override String get userAgent => 'UserAgent';
-	@override String get urlInvalid => 'Неверный URL';
-	@override String get outboundActionCurrentSelected => 'Текущий сервер';
-	@override String get outboundActionUrltest => 'Автовыбор сервера';
-	@override String get outboundActionDirect => 'Напрямую';
-	@override String get outboundActionBlock => 'Блокировать';
+	@override String get rulesetEnableTips => 'Совет: После включения опции перейдите в [${_root.meta.diversionRules}] и установите их, иначе опция не будет действовать';
+	@override String get ispUserAgentTips => '[${_root.meta.isp}] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
+	@override String get ispDiversionTips => '${_root.meta.diversionRules}, предоставляемые подписками [${_root.meta.isp}] типа [V2Ray], не поддерживаются.';
+	@override late final _TranslationsIspRu isp = _TranslationsIspRu._(_root);
+	@override late final _TranslationsPermissionRu permission = _TranslationsPermissionRu._(_root);
+	@override late final _TranslationsTlsRu tls = _TranslationsTlsRu._(_root);
+	@override late final _TranslationsOutboundRuleModeRu outboundRuleMode = _TranslationsOutboundRuleModeRu._(_root);
+	@override late final _TranslationsDnsProxyResolveModeRu dnsProxyResolveMode = _TranslationsDnsProxyResolveModeRu._(_root);
+	@override late final _TranslationsProxyStrategyRu proxyStrategy = _TranslationsProxyStrategyRu._(_root);
+	@override String get downloadProxyStrategy => 'Скачать канал';
+	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 	@override String get routeFinal => 'Final';
-	@override String get rulesetGeoSite => 'GeoSite';
-	@override String get rulesetGeoIp => 'GeoIP';
-	@override String get rulesetAcl => 'ACL';
-	@override String get iCloud => 'iCloud';
-	@override String get appleTV => 'Apple TV';
-	@override String get webdav => 'Webdav';
-	@override String get setting => 'Настройки';
 	@override String get protocolSniff => 'Определение протокола';
 	@override String get protocolSniffOverrideDestination => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
-	@override String get remark => 'Примечание';
-	@override String get remarkCannotEmpty => 'Примечание не может быть пустым';
-	@override String get remarkTooLong => 'Примечания до 32 символов';
-	@override String get remarkExist => 'Примечание уже существует, используйте другое имя';
-	@override String get domainSuffix => 'Суффикс доменного имени';
-	@override String get domain => 'Имя домена';
-	@override String get domainKeyword => 'Ключевые слова в имени домена';
-	@override String get domainRegex => 'Регулярные выражения для имен доменов';
-	@override String get ip => 'IP';
-	@override String get port => 'Порт';
-	@override String get appPackage => 'Идентификатор пакета приложения';
-	@override String get processName => 'Имя процесса';
-	@override String get processPath => 'Путь к процессу';
-	@override String get systemProxy => 'Системный прокси';
-	@override String get netInterfaces => 'Сетевой интерфейс';
-	@override String get netSpeed => 'Скорость';
-	@override String get website => 'Веб-сайт';
-	@override String get rule => 'Правила';
-	@override String get global => 'Глобально';
-	@override String get qrcode => 'QR-код';
-	@override String get scanQrcode => 'Сканировать QR-код';
-	@override String get scanResult => 'Результат сканирования';
-	@override String get backupAndSync => 'Резервное копирование и синхронизация';
-	@override String get importAndExport => 'Импорт и экспорт';
-	@override String get import => 'Импорт';
-	@override String get export => 'Экспорт';
-	@override String get send => 'Передать';
-	@override String get receive => 'Принять';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'Пожалуйста, используйте [${p}]';
-	@override String get sendConfirm => 'Подтверждаете передачу?';
-	@override String get termOfUse => 'Условия использования';
-	@override String get privacyPolicy => 'Политика конфиденциальности';
-	@override String get about => 'О Karing';
-	@override String get name => 'Название';
-	@override String get version => 'Версия';
-	@override String get notice => 'Уведомления';
-	@override String get sort => 'Отсортировать';
-	@override String get novice => 'Режим новичка';
-	@override String get recommended => 'Рекомендуемые';
-	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
-	@override String get logicOperation => 'Логическая опреация';
-	@override String get share => 'Поделиться';
-	@override String get candidateWord => 'Ключевые слова';
-	@override String get keywordOrRegx => 'Ключевые слова/регулярные выражения';
-	@override String get importFromClipboard => 'Импорт из буфера обмена';
-	@override String get exportToClipboard => 'Экспорт в буфер обмена';
-	@override String get server => 'Сервер';
 	@override String get turnOffPrivateDirect => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 	@override String targetConnectFailed({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
 	@override String get appleTVSync => 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
@@ -219,25 +83,15 @@ class TranslationsRu implements Translations {
 	@override String get appleTVUrlInvalid => 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
 	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
-	@override String invalidFileType({required Object p}) => 'Неверный тип файла:${p}';
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
-	@override String get latencyTest => 'Обнаружение задержки';
-	@override String get latencyTestResolveIP => 'При ручном определении также анализируется экспортный IP-адрес.';
-	@override String get latencyTestTimeout => 'тайм-аут';
-	@override String get uwpExemption => 'Исключение из изоляции сети UWP';
-	@override String get ads => 'Удалить рекламу';
-	@override String get adsBanner => 'баннерная реклама';
-	@override String get donate => 'Пожертвовать';
-	@override String get removeBannerAdsByShare => 'Поделиться[Karing]Перейти к объявлениям';
-	@override String get removeBannerAdsByReward => 'Смотреть рекламу Перейти к рекламе';
-	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
-	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
-	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
+	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
+	@override String get removeBannerAdsByReward => 'Просмотреть рекламу для удаления новой рекламы';
+	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
+	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
+	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
-	@override String get requestCameraPermission => 'Пожалуйста, включите разрешение [Камера]';
-	@override String get requestScreenAccess => 'Пожалуйста, включите разрешение [Запись экрана]';
-	@override String get requestAppQuery => 'Пожалуйста, включите разрешение [Получить список приложений]';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -264,66 +118,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => 'Посмотреть файлы';
 	@override String get enablePprof => 'Включить pprof';
 	@override String get pprofPanel => 'pprof панель';
-	@override String get openDir => 'Открыть каталог файлов';
 	@override String get useOriginalSBProfile => 'Использовать исходную конфигурацию Sing-box';
-}
-
-// Path: AddProfileByImportFromFileScreen
-class _TranslationsAddProfileByImportFromFileScreenRu implements TranslationsAddProfileByImportFromFileScreenEn {
-	_TranslationsAddProfileByImportFromFileScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Импорт файла конфигурации';
-	@override String get chooseFile => 'Выбрать файл';
-	@override String get configExist => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
-}
-
-// Path: AddProfileByLinkOrContentScreen
-class _TranslationsAddProfileByLinkOrContentScreenRu implements TranslationsAddProfileByLinkOrContentScreenEn {
-	_TranslationsAddProfileByLinkOrContentScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Добавление подписки';
-	@override String get updateTimerInterval => 'Интервал обновления';
-	@override String get updateTimerIntervalTips => 'Минимум: 5 м';
-	@override String get profileLinkContent => 'Ссылка на подписку/содержание';
-	@override String get profileLinkContentHit => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
-	@override String get subscriptionCannotEmpty => 'Ссылка на подписку не может быть пустой';
-	@override String get configExist => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
-	@override String get invalidUrl => 'Ссылка на подписку слишком длинная';
-	@override String addFailedFormatException({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
-	@override String addFailedThenDownloadAndImport({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
-	@override String addFailedHandshakeException({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
-}
-
-// Path: AddProfileByScanQrcodeScanScreen
-class _TranslationsAddProfileByScanQrcodeScanScreenRu implements TranslationsAddProfileByScanQrcodeScanScreenEn {
-	_TranslationsAddProfileByScanQrcodeScanScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get copy => 'Скопировать ссылку';
-	@override String get open => 'Открыть ссылку';
-	@override String get screenshot => 'Скриншот';
-	@override String get scanFromImage => 'Открыть';
-	@override String get scanNoResult => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
-	@override String get scanEmptyResult => 'Пустой результат сканирования.';
-}
-
-// Path: BackupAndSyncLanSyncScreen
-class _TranslationsBackupAndSyncLanSyncScreenRu implements TranslationsBackupAndSyncLanSyncScreenEn {
-	_TranslationsBackupAndSyncLanSyncScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Синхронизация по локальной сети';
-	@override String get lanSyncNotQuitTips => 'Не выходите из этого окна до завершения синхронизации.';
 }
 
 // Path: BackupAndSyncWebdavScreen
@@ -351,7 +146,8 @@ class _TranslationsDiversionGroupCustomEditScreenRu implements TranslationsDiver
 	@override String invalidPort({required Object p}) => 'Неверный [Port]:${p}';
 	@override String invalidRuleSet({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.';
-	@override String get setDiversionRule => 'Совет: после сохранения перейдите в раздел [Правила перенаправления] и настройте их, иначе изменения не будут действовать.';
+	@override String invalidPackageId({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}';
+	@override String get setDiversionRule => 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.';
 }
 
 // Path: DiversionRuleDetectScreen
@@ -362,7 +158,6 @@ class _TranslationsDiversionRuleDetectScreenRu implements TranslationsDiversionR
 
 	// Translations
 	@override String get title => 'Тест правил перенаправления';
-	@override String get detect => 'Тест';
 	@override String get rule => 'Правило:';
 	@override String get outbound => 'Прокси-сервер:';
 }
@@ -390,18 +185,6 @@ class _TranslationsDnsSettingsScreenRu implements TranslationsDnsSettingsScreenE
 	@override String get dnsDesc => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.';
 }
 
-// Path: FeedbackScreen
-class _TranslationsFeedbackScreenRu implements TranslationsFeedbackScreenEn {
-	_TranslationsFeedbackScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get content => 'Содержание';
-	@override String get contentHit => 'Не более 500 символов';
-	@override String get contentCannotEmpty => 'Содержание не может быть пустым';
-}
-
 // Path: FileContentViewerScreen
 class _TranslationsFileContentViewerScreenRu implements TranslationsFileContentViewerScreenEn {
 	_TranslationsFileContentViewerScreenRu._(this._root);
@@ -410,7 +193,6 @@ class _TranslationsFileContentViewerScreenRu implements TranslationsFileContentV
 
 	// Translations
 	@override String get title => 'Просмотр содержимого файла';
-	@override String get chooseFile => 'Выберите файл';
 	@override String get clearFileContent => 'Вы уверены, что хотите очистить содержимое файла?';
 	@override String get clearFileContentTips => 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.';
 }
@@ -427,10 +209,7 @@ class _TranslationsHomeScreenRu implements TranslationsHomeScreenEn {
 	@override String get disabledServer => 'Был отключен. Пожалуйста, выберите другой';
 	@override String get expiredServer => 'Нет доступного сервера: возможно, профиль устарел или отключен';
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-	@override String get trafficTotal => 'Трафик всего';
-	@override String get trafficProxy => 'Трафик прокси';
 	@override String get myLinkEmpty => 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
-	@override String get deviceNoSpace => 'Недостаточно места на диске';
 	@override String tooMuchServers({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
 }
 
@@ -448,24 +227,6 @@ class _TranslationsLaunchFailedScreenRu implements TranslationsLaunchFailedScree
 	@override String get invalidInstallPath => 'Путь установки недействителен, переустановите его по допустимому пути';
 }
 
-// Path: MyProfilesEditScreen
-class _TranslationsMyProfilesEditScreenRu implements TranslationsMyProfilesEditScreenEn {
-	_TranslationsMyProfilesEditScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Редактирование профилей';
-	@override String get urlExist => 'URL-адрес уже существует, используйте другой URL-адрес';
-	@override String get updateTimerInterval => 'Интервал обновления';
-	@override String get updateTimerIntervalTips => 'Минимум: 5 м';
-	@override String get reloadAfterProfileUpdate => 'Перезагрузить после обновления профиля';
-	@override String get testLatencyAfterProfileUpdate => 'Начать тестирование задержек после обновления профиля';
-	@override String get testLatencyAfterProfileUpdateTips => 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
-	@override String get testLatencyAutoRemove => 'Автоматически удалять серверы, не прошедшие тесты на задержку';
-	@override String get testLatencyAutoRemoveTips => 'Попробуйте до 3 раз';
-}
-
 // Path: MyProfilesMergeScreen
 class _TranslationsMyProfilesMergeScreenRu implements TranslationsMyProfilesMergeScreenEn {
 	_TranslationsMyProfilesMergeScreenRu._(this._root);
@@ -479,17 +240,6 @@ class _TranslationsMyProfilesMergeScreenRu implements TranslationsMyProfilesMerg
 	@override String get profilesMergeTips => 'Совет: Настройки перенаправления для профиля - источника будут удалены.';
 }
 
-// Path: MyProfilesScreen
-class _TranslationsMyProfilesScreenRu implements TranslationsMyProfilesScreenEn {
-	_TranslationsMyProfilesScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Профили';
-	@override String get atLeastOneEnable => 'Невозможно отключить, оставьте включенным хотя бы один профиль';
-}
-
 // Path: NetCheckScreen
 class _TranslationsNetCheckScreenRu implements TranslationsNetCheckScreenEn {
 	_TranslationsNetCheckScreenRu._(this._root);
@@ -498,8 +248,7 @@ class _TranslationsNetCheckScreenRu implements TranslationsNetCheckScreenEn {
 
 	// Translations
 	@override String get title => 'Диагностика сети';
-	@override String get warn => 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны фактическим результатам.';
-	@override String get check => 'Тест';
+	@override String get warn => 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны реальным результатам.';
 	@override String get invalidDomain => 'Неверное имя домена';
 	@override String get connectivity => 'Подключение к сети';
 	@override String connectivityTestIpv4AllFailed({required Object p}) => 'Ipv4 Тест подключения[${p}] неудачен';
@@ -558,23 +307,6 @@ class _TranslationsPerAppAndroidScreenRu implements TranslationsPerAppAndroidScr
 	@override String get title => 'Проксируемые приложения';
 	@override String get whiteListMode => 'Режим белого списка';
 	@override String get whiteListModeTip => 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.';
-	@override String get hideSystemApp => 'Скрыть системные приложения';
-	@override String get hideAppIcon => 'Скрыть значок приложения';
-	@override String get enableAppQueryPermission => 'Включать разрешения [на запросы списка приложений]';
-}
-
-// Path: QrcodeScreen
-class _TranslationsQrcodeScreenRu implements TranslationsQrcodeScreenEn {
-	_TranslationsQrcodeScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get tooLong => 'Слишком большой текст для отображения';
-	@override String get copy => 'Скопировать ссылку';
-	@override String get open => 'Открыть ссылку';
-	@override String get share => 'Поделиться ссылкой';
-	@override String get shareImage => 'Поделиться QR-кодом';
 }
 
 // Path: RegionSettingsScreen
@@ -618,14 +350,11 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get howToRemoveAds => 'Как удалить рекламу';
 	@override String get htmlBoard => 'Веб-панель';
 	@override String get dnsLeakDetection => 'Тест утечки DNS';
-	@override String get proxyLeakDetection => 'Обнаружение утечки агента';
+	@override String get proxyLeakDetection => 'Обнаружение утечки наличия прокси';
 	@override String get speedTest => 'Тест скорости';
-	@override String get downloadProfilePreferProxy => 'Настройка приоритетного выбора прокси-сервера';
-	@override String get downloadProfilePreferProxyTips => 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
 	@override String get rulesetDirectDownlad => 'Правила прямой загрузки';
-	@override String get hideUnusedDiversionGroup => 'Скрыть неактивные правила перенаправления';
-	@override String get disableISPDiversionGroup => 'Отключить правила перенаправления [VPN всегда включен]';
-	@override String get portSetting => 'Используемые порты';
+	@override String get hideUnusedDiversionGroup => 'Скрыть неактивные правила перенаправления трафика';
+	@override String get disableISPDiversionGroup => 'Отключить правила перенаправления [${_root.meta.isp}]';
 	@override String get portSettingRule => 'Действуют все правила';
 	@override String get portSettingDirectAll => 'Всё подключено напрямую';
 	@override String get portSettingProxyAll => 'Всё идёт через прокси';
@@ -636,49 +365,40 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
 	@override String get tunAppendHttpProxy => 'Подключите HTTP-прокси к VPN';
 	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
-	@override String get tlsInsecureEnable => 'Пропустить проверку сертификата';
-	@override String get tlsFragmentEnable => 'Включить фрагментацию TLS';
-	@override String get tlsFragmentSize => 'Размер фрагмента TLS';
-	@override String get tlsFragmentSleep => 'Длина фрагмента паузы TLS';
-	@override String get tlsMixedCaseSNIEnable => 'Включить гибридный SNI TLS';
-	@override String get tlsPaddingEnable => 'Включить заполнение TLS';
-	@override String get tlsPaddingSize => 'Размер заполнения TLS';
-	@override String get dnsEnableRule => 'Включить правила DNS';
-	@override String get dnsEnableFakeIp => 'Включить FakeIP';
-	@override String get dnsEnableClientSubnet => 'Включить ECS';
-	@override String get dnsEnableProxyResolveByProxy => '[действующий поток] Разрешать DNS через прокси-сервер';
-	@override String get dnsEnableFinalResolveByProxy => '[final] Разрешать DNS через прокси-сервер';
+	@override String get dnsEnableRule => 'Включить правила для DNS';
+	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
+	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
 	@override String get dnsTestDomain => 'Тестовое доменное имя';
 	@override String get dnsTestDomainInvalid => 'Неверное доменное имя';
 	@override String get dnsTypeOutbound => 'Прокси-сервер';
 	@override String get dnsTypeDirect => 'Прямой поток';
-	@override String get dnsTypeProxy => 'Действующий поток';
+	@override String get dnsTypeProxy => 'Трафик через Proxy';
 	@override String get dnsTypeResolver => 'DNS-сервер';
 	@override String get dnsEnableRuleTips => 'После включения, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления.';
-	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение, эту функцию необходимо включить [Режим TUN];';
+	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режим TUN];';
 	@override String get dnsTypeOutboundTips => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
-	@override String get dnsTypeDirectTips => 'Разрешение доменных имен для прямого потока';
-	@override String get dnsTypeProxyTips => 'Разрешение доменных имен для действующего потока';
+	@override String get dnsTypeDirectTips => 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
+	@override String get dnsTypeProxyTips => 'Разрешение доменных имен для трафика через Proxy';
 	@override String get dnsTypeResolverTips => 'Разрешение доменных имен для DNS-серверов';
-	@override String get dnsTypeFinalTips => 'Разрешение доменных имен для потока Final';
 	@override String get dnsAutoSetServer => 'Автоматически настроить сервер';
 	@override String get dnsResetServer => 'Сбросить сервер';
 	@override String get inboundDomainResolve => 'Разрешение входящих доменных имен';
 	@override String get privateDirect => 'Прямое подключение к частной сети';
 	@override String inboundDomainResolveTips({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 	@override String get useRomoteRes => 'Использовать удаленные ресурсы';
+	@override String get autoAppendRegion => 'Автоматически прикреплять основные правила';
 	@override String get autoSelect => 'Автовыбор';
-	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать [фронтированные/привязанные] прокси-серверы';
+	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать [фронт/цепные] прокси-серверы';
 	@override String get autoSelectServerInterval => 'Интервал проверок задержки';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'Перетестировать после смены сети';
 	@override String get autoSelectServerIntervalTips => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
-	@override String get autoSelectServerFavFirst => 'Приоритетно [Мои избранные]';
+	@override String get autoSelectServerFavFirst => 'Предпочитать [Мои избранные]';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Обновить текущий сервер после измерения задержки вручную';
 	@override String get autoSelectServerFavFirstTips => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
 	@override String get autoSelectServerFilter => 'Отфильтровать сервера';
-	@override String autoSelectServerFilterTips({required Object p}) => 'Ошибки превышения задержки сервера будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
+	@override String autoSelectServerFilterTips({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
 	@override String get autoSelectServerLimitedNum => 'Максимальное количество серверов';
-	@override String get autoSelectServerLimitedNumTips => 'Серверы, превышающие это число, будут отфильтрованы.';
+	@override String get autoSelectServerLimitedNumTips => 'Если серверов больше этого числа, лишние будут отброшены.';
 	@override String get numInvalid => 'Неправильный номер';
 	@override String get hideInvalidServer => 'Скрыть нерабочие серверы';
 	@override String get sortServer => 'Сортировка серверов';
@@ -689,7 +409,6 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get homeScreen => 'Настройка главного экрана';
 	@override String get theme => 'Тема';
 	@override String get myLink => 'Быстрая ссылка';
-	@override String get myLinkInvalid => 'Неверный URL';
 	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
@@ -699,7 +418,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get rewriteConfirm => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 	@override String get networkShare => 'Общий доступ к сети';
 	@override String get frontProxy => 'Фронтальный/цепной прокси';
-	@override String frontProxyTips({required Object p}) => 'Данные->Фронтальный/цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]->Прокси-сервер [${p}]->Целевой сервер';
+	@override String frontProxyTips({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get tunAutoRoute => 'Auto Route';
@@ -742,27 +461,6 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get rateInAppStore => 'Оценить нас в App Store';
 }
 
-// Path: SpeedTestSettingsScreen
-class _TranslationsSpeedTestSettingsScreenRu implements TranslationsSpeedTestSettingsScreenEn {
-	_TranslationsSpeedTestSettingsScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'URL-адрес теста скорости';
-}
-
-// Path: TextToQrCodeScreen
-class _TranslationsTextToQrCodeScreenRu implements TranslationsTextToQrCodeScreenEn {
-	_TranslationsTextToQrCodeScreenRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Преобразование текста в QR-код';
-	@override String get convert => 'Конвертировать';
-}
-
 // Path: UserAgreementScreen
 class _TranslationsUserAgreementScreenRu implements TranslationsUserAgreementScreenEn {
 	_TranslationsUserAgreementScreenRu._(this._root);
@@ -797,21 +495,6 @@ class _TranslationsCommonWidgetRu implements TranslationsCommonWidgetEn {
 	@override String get resetPort => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.';
 }
 
-// Path: ServerManager
-class _TranslationsServerManagerRu implements TranslationsServerManagerEn {
-	_TranslationsServerManagerRu._(this._root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get noServerAvaliable => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
-	@override String get filePathCannotEmpty => 'Путь к файлу не может быть пустым';
-	@override String fileNotExist({required Object p}) => 'Файла не существует:${p}';
-	@override String get urlCannotEmpty => 'Ссылка не может быть пустой';
-	@override String get invalidUrl => 'Некорректная ссылка на подписку';
-	@override String get parseFailed => 'Получение подписки не удалось';
-}
-
 // Path: main
 class _TranslationsMainRu implements TranslationsMainEn {
 	_TranslationsMainRu._(this._root);
@@ -820,6 +503,288 @@ class _TranslationsMainRu implements TranslationsMainEn {
 
 	// Translations
 	@override late final _TranslationsMainTrayRu tray = _TranslationsMainTrayRu._(_root);
+}
+
+// Path: meta
+class _TranslationsMetaRu implements TranslationsMetaEn {
+	_TranslationsMetaRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get enable => 'Включить';
+	@override String get disable => 'Запретить';
+	@override String get filter => 'Фильтр';
+	@override String get filterMethod => 'Метод фильтра';
+	@override String get include => 'Включать';
+	@override String get exclude => 'Исключать';
+	@override String get all => 'Все';
+	@override String get prefer => 'Приоритет';
+	@override String get only => 'Только';
+	@override String get open => 'Открыть';
+	@override String get close => 'Закрыть';
+	@override String get quit => 'Выйти';
+	@override String get add => 'Добавить';
+	@override String get addSuccess => 'Добавлено успешно';
+	@override String addFailed({required Object p}) => 'Ошибка при добавлении:${p}';
+	@override String get remove => 'Удалить';
+	@override String get removeConfirm => 'Подтверждаете удаление?';
+	@override String get edit => 'Редактировать';
+	@override String get view => 'Просмотр';
+	@override String get more => 'Больше';
+	@override String get tips => 'Инфо';
+	@override String get copy => 'Скопировать';
+	@override String get ok => 'Ок';
+	@override String get cancel => 'Закрыть';
+	@override String get feedback => 'Обратная связь';
+	@override String get feedbackContent => 'Содержание';
+	@override String get feedbackContentHit => 'Не более 500 символов';
+	@override String get feedbackContentCannotEmpty => 'Содержание не может быть пустым';
+	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
+	@override String get download => 'Скачать';
+	@override String get loading => 'Загрузка...';
+	@override String get convert => 'Конвертировать';
+	@override String get check => 'Тест';
+	@override String get detect => 'Тест';
+	@override String get days => 'дни';
+	@override String get hours => 'часы';
+	@override String get minutes => 'минуты';
+	@override String get seconds => 'Второй';
+	@override String get protocol => 'Протокол';
+	@override String get search => 'Поиск';
+	@override String get custom => 'Настроить самостоятельно';
+	@override String get connect => 'Соединить';
+	@override String get disconnect => 'Отключить';
+	@override String get connected => 'Подключено';
+	@override String get disconnected => 'Отключено';
+	@override String get connecting => 'Подключение';
+	@override String get connectTimeout => 'Таймаут при соединении';
+	@override String get timeout => 'Тайм-аут';
+	@override String get timeoutDuration => 'Длительность тайм-аута';
+	@override String get latency => 'Задерживать';
+	@override String get latencyTest => 'Обнаружение задержки';
+	@override String get language => 'Язык';
+	@override String get next => 'Дальше';
+	@override String get done => 'Готово';
+	@override String get apply => 'Применить';
+	@override String get refresh => 'Обновить';
+	@override String get retry => 'Хотите попробовать еще раз?';
+	@override String get update => 'Обновить';
+	@override String get updateInterval => 'Интервал обновления';
+	@override String get updateInterval5mTips => 'Минимум: 5 м';
+	@override String updateFailed({required Object p}) => 'Не удалось обновить:${p}';
+	@override String get none => 'Ничего не делать';
+	@override String get reset => 'Перезагрузить';
+	@override String get submit => 'Отправить';
+	@override String get user => 'Пользователь';
+	@override String get account => 'Аккаунт';
+	@override String get password => 'Пароль';
+	@override String get required => 'Необходимо';
+	@override String get other => 'Другой';
+	@override String get dns => 'DNS';
+	@override String get url => 'URL';
+	@override String get urlInvalid => 'Неверный URL';
+	@override String get urlCannotEmpty => 'Ссылка не может быть пустой';
+	@override String get urlTooLong => 'URL слишком длинный (>8182)';
+	@override String get copyUrl => 'Скопировать ссылку';
+	@override String get openUrl => 'Открыть ссылку';
+	@override String get shareUrl => 'Поделиться ссылкой';
+	@override String get speedTestUrl => 'URL-адрес теста скорости';
+	@override String get tls => 'TLS';
+	@override String get userAgent => 'UserAgent';
+	@override String get staticIP => 'Статический IP';
+	@override String get isp => 'VPN-провайдер';
+	@override String get domainSuffix => 'Суффикс доменного имени';
+	@override String get domain => 'Имя домена';
+	@override String get domainKeyword => 'Ключевые слова в имени домена';
+	@override String get domainRegex => 'Регулярные выражения для имен доменов';
+	@override String get ip => 'IP';
+	@override String get port => 'Порт';
+	@override String get appPackage => 'Идентификатор пакета приложения';
+	@override String get processName => 'Имя процесса';
+	@override String get processPath => 'Путь к процессу';
+	@override String get processDir => 'Каталог процессов';
+	@override String get systemProxy => 'Системный прокси';
+	@override String get netInterfaces => 'Сетевой интерфейс';
+	@override String get netSpeed => 'Скорость';
+	@override String get trafficTotal => 'Трафик всего';
+	@override String get trafficProxy => 'Трафик прокси';
+	@override String get website => 'Веб-сайт';
+	@override String get rule => 'Правила';
+	@override String get global => 'Глобально';
+	@override String get qrcode => 'QR-код';
+	@override String get qrcodeTooLong => 'Слишком большой текст для отображения';
+	@override String get qrcodeShare => 'Поделиться QR-кодом';
+	@override String get textToQrcode => 'Преобразование текста в QR-код';
+	@override String get qrcodeScan => 'Сканировать QR-код';
+	@override String get qrcodeScanResult => 'Результат сканирования';
+	@override String get qrcodeScanFromImage => 'Открыть';
+	@override String get qrcodeScanResultFailed => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
+	@override String get qrcodeScanResultEmpty => 'Пустой результат сканирования.';
+	@override String get screenshot => 'Скриншот';
+	@override String get backupAndSync => 'Резервное копирование и синхронизация';
+	@override String get autoBackup => 'Автоматическое резервное копирование';
+	@override String get autoBackupAddProfile => 'После добавления конфигурации';
+	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
+	@override String get importAndExport => 'Импорт и экспорт';
+	@override String get import => 'Импорт';
+	@override String get export => 'Экспорт';
+	@override String get send => 'Передать';
+	@override String get receive => 'Принять';
+	@override String get sendConfirm => 'Подтверждаете передачу?';
+	@override String get termOfUse => 'Условия использования';
+	@override String get privacyPolicy => 'Политика конфиденциальности';
+	@override String get about => 'О Karing';
+	@override String get name => 'Название';
+	@override String get version => 'Версия';
+	@override String get notice => 'Уведомления';
+	@override String get sort => 'Отсортировать';
+	@override String get novice => 'Режим новичка';
+	@override String get recommended => 'Рекомендуемые';
+	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
+	@override String get logicOperation => 'Логическая опреация';
+	@override String get share => 'Поделиться';
+	@override String get candidateWord => 'Ключевые слова';
+	@override String get keywordOrRegx => 'Ключевые слова/регулярные выражения';
+	@override String get importFromClipboard => 'Импорт из буфера обмена';
+	@override String get exportToClipboard => 'Экспорт в буфер обмена';
+	@override String get server => 'Сервер';
+	@override String get ads => 'Удалять';
+	@override String get adsRemove => 'Удалить рекламу';
+	@override String get adsBanner => 'баннерная реклама';
+	@override String get donate => 'Пожертвовать';
+	@override String get diversion => 'Правила';
+	@override String get diversionRules => 'Правила перенаправления';
+	@override String get diversionCustomGroup => 'Личные правила';
+	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
+	@override String get setting => 'Настройки';
+	@override String get iCloud => 'iCloud';
+	@override String get appleTV => 'Apple TV';
+	@override String get webdav => 'Webdav';
+	@override String get lanSync => 'Синхронизация по локальной сети';
+	@override String get lanSyncNotQuitTips => 'Не выходите из этого окна до завершения синхронизации.';
+	@override String get deviceNoSpace => 'Недостаточно места на диске';
+	@override String get hideSystemApp => 'Скрыть системные приложения';
+	@override String get hideAppIcon => 'Скрыть значок приложения';
+	@override String get remark => 'Примечание';
+	@override String get remarkExist => 'Примечание уже существует, используйте другое имя';
+	@override String get remarkCannotEmpty => 'Примечание не может быть пустым';
+	@override String get remarkTooLong => 'Примечания до 32 символов';
+	@override String get openDir => 'Открыть каталог файлов';
+	@override String get fileChoose => 'Выбрать файл';
+	@override String get filePathCannotEmpty => 'Путь к файлу не может быть пустым';
+	@override String fileNotExist({required Object p}) => 'Файла не существует:${p}';
+	@override String fileTypeInvalid({required Object p}) => 'Неверный тип файла:${p}';
+	@override String get uwpExemption => 'Исключение из изоляции сети UWP';
+	@override String get rulesetGeoSite => 'GeoSite';
+	@override String get rulesetGeoIp => 'GeoIP';
+	@override String get rulesetAcl => 'ACL';
+	@override String get getProfile => 'Получить конфигурацию';
+	@override String get addProfile => 'Добавить профиль';
+	@override String get myProfiles => 'Профили';
+	@override String get myProfilesAtLeastOneReserveEnable => 'Невозможно отключить, оставьте включенным хотя бы один профиль';
+	@override String get profileEdit => 'Редактирование профилей';
+	@override String get profileEditUrlExist => 'URL-адрес уже существует, используйте другой URL-адрес';
+	@override String get profileEditReloadAfterProfileUpdate => 'Перезагрузить после обновления профиля';
+	@override String get profileEditTestLatencyAfterProfileUpdate => 'Начать тестирование задержек после обновления профиля';
+	@override String get profileEditTestLatencyAfterProfileUpdateTips => 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
+	@override String get profileEditTestLatencyAutoRemove => 'Автоматически удалять серверы, не прошедшие тесты на задержку';
+	@override String get profileEditTestLatencyAutoRemoveTips => 'Попробуйте до 3 раз';
+	@override String get profileImport => 'Импорт файла конфигурации';
+	@override String get profileAddUrlOrContent => 'Добавление подписки';
+	@override String get profileExists => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
+	@override String get profileUrlOrContent => 'Ссылка на подписку/содержание';
+	@override String get profileUrlOrContentHit => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
+	@override String get profileUrlOrContentCannotEmpty => 'Ссылка на подписку не может быть пустой';
+	@override String profileAddFailedFormatException({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
+	@override String profileAddFailedThenDownloadAndImport({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
+	@override String profileAddFailedHandshakeException({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
+	@override String get profileAddParseFailed => 'Получение подписки не удалось';
+	@override String get profileAddNoServerAvaliable => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
+	@override String get profileAddWrapSuccess => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]';
+}
+
+// Path: isp
+class _TranslationsIspRu implements TranslationsIspEn {
+	_TranslationsIspRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get bind => 'Привязать к [${_root.meta.isp}]';
+	@override String unbind({required Object p}) => 'Отвязать[${p}]';
+	@override String faq({required Object p}) => 'Часто задаваемые вопросы[${p}]';
+	@override String customerService({required Object p}) => 'Служба поддержки клиентов[${p}]';
+	@override String follow({required Object p}) => 'Следуйте[${p}]';
+	@override String get invalidOrExpired => '[${_root.meta.isp}]Недействительно, или срок действия истек';
+}
+
+// Path: permission
+class _TranslationsPermissionRu implements TranslationsPermissionEn {
+	_TranslationsPermissionRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get camera => 'Камера';
+	@override String get screen => 'Запись экрана';
+	@override String get appQuery => 'Получить список приложений';
+	@override String request({required Object p}) => 'Включить разрешения [${p}]';
+	@override String requestNeed({required Object p}) => 'Пожалуйста, включите разрешение [${p}]';
+}
+
+// Path: tls
+class _TranslationsTlsRu implements TranslationsTlsEn {
+	_TranslationsTlsRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get insecure => 'Пропустить проверку сертификата';
+	@override String get fragmentEnable => 'Включить фрагментацию TLS';
+	@override String get fragmentSize => 'Размер фрагмента TLS';
+	@override String get fragmentSleep => 'Длина фрагмента паузы TLS';
+	@override String get mixedCaseSNIEnable => 'Включить гибридный SNI TLS';
+	@override String get paddingEnable => 'Включить заполнение TLS';
+	@override String get paddingSize => 'Размер заполнения TLS';
+}
+
+// Path: outboundRuleMode
+class _TranslationsOutboundRuleModeRu implements TranslationsOutboundRuleModeEn {
+	_TranslationsOutboundRuleModeRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get currentSelected => 'Текущий сервер';
+	@override String get urltest => 'Автовыбор';
+	@override String get direct => 'Напрямую';
+	@override String get block => 'Блокировать';
+}
+
+// Path: dnsProxyResolveMode
+class _TranslationsDnsProxyResolveModeRu implements TranslationsDnsProxyResolveModeEn {
+	_TranslationsDnsProxyResolveModeRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => _root.outboundRuleMode.currentSelected;
+	@override String get direct => _root.outboundRuleMode.direct;
+	@override String get fakeip => 'FakeIP';
+}
+
+// Path: proxyStrategy
+class _TranslationsProxyStrategyRu implements TranslationsProxyStrategyEn {
+	_TranslationsProxyStrategyRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get perferProxy => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
+	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
+	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
+	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
 // Path: main.tray
@@ -848,30 +813,7 @@ extension on TranslationsRu {
 			case 'AboutScreen.viewFilsContent': return 'Посмотреть файлы';
 			case 'AboutScreen.enablePprof': return 'Включить pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof панель';
-			case 'AboutScreen.openDir': return 'Открыть каталог файлов';
 			case 'AboutScreen.useOriginalSBProfile': return 'Использовать исходную конфигурацию Sing-box';
-			case 'AddProfileByImportFromFileScreen.title': return 'Импорт файла конфигурации';
-			case 'AddProfileByImportFromFileScreen.chooseFile': return 'Выбрать файл';
-			case 'AddProfileByImportFromFileScreen.configExist': return 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
-			case 'AddProfileByLinkOrContentScreen.title': return 'Добавление подписки';
-			case 'AddProfileByLinkOrContentScreen.updateTimerInterval': return 'Интервал обновления';
-			case 'AddProfileByLinkOrContentScreen.updateTimerIntervalTips': return 'Минимум: 5 м';
-			case 'AddProfileByLinkOrContentScreen.profileLinkContent': return 'Ссылка на подписку/содержание';
-			case 'AddProfileByLinkOrContentScreen.profileLinkContentHit': return 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
-			case 'AddProfileByLinkOrContentScreen.subscriptionCannotEmpty': return 'Ссылка на подписку не может быть пустой';
-			case 'AddProfileByLinkOrContentScreen.configExist': return 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
-			case 'AddProfileByLinkOrContentScreen.invalidUrl': return 'Ссылка на подписку слишком длинная';
-			case 'AddProfileByLinkOrContentScreen.addFailedFormatException': return ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
-			case 'AddProfileByLinkOrContentScreen.addFailedThenDownloadAndImport': return ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
-			case 'AddProfileByLinkOrContentScreen.addFailedHandshakeException': return ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
-			case 'AddProfileByScanQrcodeScanScreen.copy': return 'Скопировать ссылку';
-			case 'AddProfileByScanQrcodeScanScreen.open': return 'Открыть ссылку';
-			case 'AddProfileByScanQrcodeScanScreen.screenshot': return 'Скриншот';
-			case 'AddProfileByScanQrcodeScanScreen.scanFromImage': return 'Открыть';
-			case 'AddProfileByScanQrcodeScanScreen.scanNoResult': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
-			case 'AddProfileByScanQrcodeScanScreen.scanEmptyResult': return 'Пустой результат сканирования.';
-			case 'BackupAndSyncLanSyncScreen.title': return 'Синхронизация по локальной сети';
-			case 'BackupAndSyncLanSyncScreen.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Не может быть пустым';
 			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'Ошибка входа:';
@@ -881,9 +823,9 @@ extension on TranslationsRu {
 			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'Неверный [Port]:${p}';
 			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json';
 			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.';
-			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'Совет: после сохранения перейдите в раздел [Правила перенаправления] и настройте их, иначе изменения не будут действовать.';
+			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}';
+			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.';
 			case 'DiversionRuleDetectScreen.title': return 'Тест правил перенаправления';
-			case 'DiversionRuleDetectScreen.detect': return 'Тест';
 			case 'DiversionRuleDetectScreen.rule': return 'Правило:';
 			case 'DiversionRuleDetectScreen.outbound': return 'Прокси-сервер:';
 			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'Совет: Правила применяются по очереди сверху вниз. Если ни одно соответствие не обнаружено, то действует правило [Final]';
@@ -891,11 +833,7 @@ extension on TranslationsRu {
 			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL не может быть пустой';
 			case 'DnsSettingsScreen.error': return ({required Object p}) => 'Неподдерживаемый тип:${p}';
 			case 'DnsSettingsScreen.dnsDesc': return 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.';
-			case 'FeedbackScreen.content': return 'Содержание';
-			case 'FeedbackScreen.contentHit': return 'Не более 500 символов';
-			case 'FeedbackScreen.contentCannotEmpty': return 'Содержание не может быть пустым';
 			case 'FileContentViewerScreen.title': return 'Просмотр содержимого файла';
-			case 'FileContentViewerScreen.chooseFile': return 'Выберите файл';
 			case 'FileContentViewerScreen.clearFileContent': return 'Вы уверены, что хотите очистить содержимое файла?';
 			case 'FileContentViewerScreen.clearFileContentTips': return 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.';
 			case 'HomeScreen.toSelectServer': return 'Выберите сервер';
@@ -903,34 +841,19 @@ extension on TranslationsRu {
 			case 'HomeScreen.disabledServer': return 'Был отключен. Пожалуйста, выберите другой';
 			case 'HomeScreen.expiredServer': return 'Нет доступного сервера: возможно, профиль устарел или отключен';
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'HomeScreen.trafficTotal': return 'Трафик всего';
-			case 'HomeScreen.trafficProxy': return 'Трафик прокси';
 			case 'HomeScreen.myLinkEmpty': return 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
-			case 'HomeScreen.deviceNoSpace': return 'Недостаточно места на диске';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
 			case 'LaunchFailedScreen.invalidProcess': return 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку';
 			case 'LaunchFailedScreen.invalidProfile': return 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение';
 			case 'LaunchFailedScreen.invalidVersion': return 'Не удалось запустить приложение [Неверная версия], переустановите приложение';
 			case 'LaunchFailedScreen.systemVersionLow': return 'Не удалось запустить приложение [Слишком низкая версия системы]';
 			case 'LaunchFailedScreen.invalidInstallPath': return 'Путь установки недействителен, переустановите его по допустимому пути';
-			case 'MyProfilesEditScreen.title': return 'Редактирование профилей';
-			case 'MyProfilesEditScreen.urlExist': return 'URL-адрес уже существует, используйте другой URL-адрес';
-			case 'MyProfilesEditScreen.updateTimerInterval': return 'Интервал обновления';
-			case 'MyProfilesEditScreen.updateTimerIntervalTips': return 'Минимум: 5 м';
-			case 'MyProfilesEditScreen.reloadAfterProfileUpdate': return 'Перезагрузить после обновления профиля';
-			case 'MyProfilesEditScreen.testLatencyAfterProfileUpdate': return 'Начать тестирование задержек после обновления профиля';
-			case 'MyProfilesEditScreen.testLatencyAfterProfileUpdateTips': return 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
-			case 'MyProfilesEditScreen.testLatencyAutoRemove': return 'Автоматически удалять серверы, не прошедшие тесты на задержку';
-			case 'MyProfilesEditScreen.testLatencyAutoRemoveTips': return 'Попробуйте до 3 раз';
 			case 'MyProfilesMergeScreen.profilesMerge': return 'Объединение профилей';
 			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'Целевой профиль';
 			case 'MyProfilesMergeScreen.profilesMergeSource': return 'Профиль - источник';
 			case 'MyProfilesMergeScreen.profilesMergeTips': return 'Совет: Настройки перенаправления для профиля - источника будут удалены.';
-			case 'MyProfilesScreen.title': return 'Профили';
-			case 'MyProfilesScreen.atLeastOneEnable': return 'Невозможно отключить, оставьте включенным хотя бы один профиль';
 			case 'NetCheckScreen.title': return 'Диагностика сети';
-			case 'NetCheckScreen.warn': return 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны фактическим результатам.';
-			case 'NetCheckScreen.check': return 'Тест';
+			case 'NetCheckScreen.warn': return 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны реальным результатам.';
 			case 'NetCheckScreen.invalidDomain': return 'Неверное имя домена';
 			case 'NetCheckScreen.connectivity': return 'Подключение к сети';
 			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'Ipv4 Тест подключения[${p}] неудачен';
@@ -962,14 +885,6 @@ extension on TranslationsRu {
 			case 'PerAppAndroidScreen.title': return 'Проксируемые приложения';
 			case 'PerAppAndroidScreen.whiteListMode': return 'Режим белого списка';
 			case 'PerAppAndroidScreen.whiteListModeTip': return 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.';
-			case 'PerAppAndroidScreen.hideSystemApp': return 'Скрыть системные приложения';
-			case 'PerAppAndroidScreen.hideAppIcon': return 'Скрыть значок приложения';
-			case 'PerAppAndroidScreen.enableAppQueryPermission': return 'Включать разрешения [на запросы списка приложений]';
-			case 'QrcodeScreen.tooLong': return 'Слишком большой текст для отображения';
-			case 'QrcodeScreen.copy': return 'Скопировать ссылку';
-			case 'QrcodeScreen.open': return 'Открыть ссылку';
-			case 'QrcodeScreen.share': return 'Поделиться ссылкой';
-			case 'QrcodeScreen.shareImage': return 'Поделиться QR-кодом';
 			case 'RegionSettingsScreen.title': return 'Страна или регион';
 			case 'RegionSettingsScreen.Regions': return 'Совет: Пожалуйста, правильно укажите текущую страну или регион. В противном случае это может вызвать проблемы с перенаправлением в сети';
 			case 'ServerSelectScreen.title': return 'Выбор сервера';
@@ -986,14 +901,11 @@ extension on TranslationsRu {
 			case 'SettingsScreen.howToRemoveAds': return 'Как удалить рекламу';
 			case 'SettingsScreen.htmlBoard': return 'Веб-панель';
 			case 'SettingsScreen.dnsLeakDetection': return 'Тест утечки DNS';
-			case 'SettingsScreen.proxyLeakDetection': return 'Обнаружение утечки агента';
+			case 'SettingsScreen.proxyLeakDetection': return 'Обнаружение утечки наличия прокси';
 			case 'SettingsScreen.speedTest': return 'Тест скорости';
-			case 'SettingsScreen.downloadProfilePreferProxy': return 'Настройка приоритетного выбора прокси-сервера';
-			case 'SettingsScreen.downloadProfilePreferProxyTips': return 'Если подключение установлено, профиль вначале будет загружен через подключенный прокси-сервер';
 			case 'SettingsScreen.rulesetDirectDownlad': return 'Правила прямой загрузки';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Скрыть неактивные правила перенаправления';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'Отключить правила перенаправления [VPN всегда включен]';
-			case 'SettingsScreen.portSetting': return 'Используемые порты';
+			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Скрыть неактивные правила перенаправления трафика';
+			case 'SettingsScreen.disableISPDiversionGroup': return 'Отключить правила перенаправления [${_root.meta.isp}]';
 			case 'SettingsScreen.portSettingRule': return 'Действуют все правила';
 			case 'SettingsScreen.portSettingDirectAll': return 'Всё подключено напрямую';
 			case 'SettingsScreen.portSettingProxyAll': return 'Всё идёт через прокси';
@@ -1004,49 +916,40 @@ extension on TranslationsRu {
 			case 'SettingsScreen.ipStrategyTips': return 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'Подключите HTTP-прокси к VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
-			case 'SettingsScreen.tlsInsecureEnable': return 'Пропустить проверку сертификата';
-			case 'SettingsScreen.tlsFragmentEnable': return 'Включить фрагментацию TLS';
-			case 'SettingsScreen.tlsFragmentSize': return 'Размер фрагмента TLS';
-			case 'SettingsScreen.tlsFragmentSleep': return 'Длина фрагмента паузы TLS';
-			case 'SettingsScreen.tlsMixedCaseSNIEnable': return 'Включить гибридный SNI TLS';
-			case 'SettingsScreen.tlsPaddingEnable': return 'Включить заполнение TLS';
-			case 'SettingsScreen.tlsPaddingSize': return 'Размер заполнения TLS';
-			case 'SettingsScreen.dnsEnableRule': return 'Включить правила DNS';
-			case 'SettingsScreen.dnsEnableFakeIp': return 'Включить FakeIP';
-			case 'SettingsScreen.dnsEnableClientSubnet': return 'Включить ECS';
-			case 'SettingsScreen.dnsEnableProxyResolveByProxy': return '[действующий поток] Разрешать DNS через прокси-сервер';
-			case 'SettingsScreen.dnsEnableFinalResolveByProxy': return '[final] Разрешать DNS через прокси-сервер';
+			case 'SettingsScreen.dnsEnableRule': return 'Включить правила для DNS';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
 			case 'SettingsScreen.dnsTestDomain': return 'Тестовое доменное имя';
 			case 'SettingsScreen.dnsTestDomainInvalid': return 'Неверное доменное имя';
 			case 'SettingsScreen.dnsTypeOutbound': return 'Прокси-сервер';
 			case 'SettingsScreen.dnsTypeDirect': return 'Прямой поток';
-			case 'SettingsScreen.dnsTypeProxy': return 'Действующий поток';
+			case 'SettingsScreen.dnsTypeProxy': return 'Трафик через Proxy';
 			case 'SettingsScreen.dnsTypeResolver': return 'DNS-сервер';
 			case 'SettingsScreen.dnsEnableRuleTips': return 'После включения, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления.';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение, эту функцию необходимо включить [Режим TUN];';
+			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режим TUN];';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменных имен для прямого потока';
-			case 'SettingsScreen.dnsTypeProxyTips': return 'Разрешение доменных имен для действующего потока';
+			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
+			case 'SettingsScreen.dnsTypeProxyTips': return 'Разрешение доменных имен для трафика через Proxy';
 			case 'SettingsScreen.dnsTypeResolverTips': return 'Разрешение доменных имен для DNS-серверов';
-			case 'SettingsScreen.dnsTypeFinalTips': return 'Разрешение доменных имен для потока Final';
 			case 'SettingsScreen.dnsAutoSetServer': return 'Автоматически настроить сервер';
 			case 'SettingsScreen.dnsResetServer': return 'Сбросить сервер';
 			case 'SettingsScreen.inboundDomainResolve': return 'Разрешение входящих доменных имен';
 			case 'SettingsScreen.privateDirect': return 'Прямое подключение к частной сети';
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'Использовать удаленные ресурсы';
+			case 'SettingsScreen.autoAppendRegion': return 'Автоматически прикреплять основные правила';
 			case 'SettingsScreen.autoSelect': return 'Автовыбор';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронтированные/привязанные] прокси-серверы';
+			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронт/цепные] прокси-серверы';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Интервал проверок задержки';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Перетестировать после смены сети';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
-			case 'SettingsScreen.autoSelectServerFavFirst': return 'Приоритетно [Мои избранные]';
+			case 'SettingsScreen.autoSelectServerFavFirst': return 'Предпочитать [Мои избранные]';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Обновить текущий сервер после измерения задержки вручную';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
 			case 'SettingsScreen.autoSelectServerFilter': return 'Отфильтровать сервера';
-			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'Ошибки превышения задержки сервера будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
+			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
 			case 'SettingsScreen.autoSelectServerLimitedNum': return 'Максимальное количество серверов';
-			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'Серверы, превышающие это число, будут отфильтрованы.';
+			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'Если серверов больше этого числа, лишние будут отброшены.';
 			case 'SettingsScreen.numInvalid': return 'Неправильный номер';
 			case 'SettingsScreen.hideInvalidServer': return 'Скрыть нерабочие серверы';
 			case 'SettingsScreen.sortServer': return 'Сортировка серверов';
@@ -1057,7 +960,6 @@ extension on TranslationsRu {
 			case 'SettingsScreen.homeScreen': return 'Настройка главного экрана';
 			case 'SettingsScreen.theme': return 'Тема';
 			case 'SettingsScreen.myLink': return 'Быстрая ссылка';
-			case 'SettingsScreen.myLinkInvalid': return 'Неверный URL';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
 			case 'SettingsScreen.hideAfterLaunch': return 'Скрыть окно после запуска';
 			case 'SettingsScreen.autoSetSystemProxy': return 'Установить системный прокси после подключения';
@@ -1067,7 +969,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.rewriteConfirm': return 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 			case 'SettingsScreen.networkShare': return 'Общий доступ к сети';
 			case 'SettingsScreen.frontProxy': return 'Фронтальный/цепной прокси';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные->Фронтальный/цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]->Прокси-сервер [${p}]->Целевой сервер';
+			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'Разрешить подключение по локальной сети';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
@@ -1108,9 +1010,6 @@ extension on TranslationsRu {
 			case 'SettingsScreen.supportUs': return 'поддержите нас';
 			case 'SettingsScreen.rateInApp': return 'Оценить нас';
 			case 'SettingsScreen.rateInAppStore': return 'Оценить нас в App Store';
-			case 'SpeedTestSettingsScreen.title': return 'URL-адрес теста скорости';
-			case 'TextToQrCodeScreen.title': return 'Преобразование текста в QR-код';
-			case 'TextToQrCodeScreen.convert': return 'Конвертировать';
 			case 'UserAgreementScreen.privacyFirst': return 'Ваша конфиденциальность превыше всего';
 			case 'UserAgreementScreen.agreeAndContinue': return 'Принять и продолжить';
 			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'Новая версия [${p}] доступна';
@@ -1118,159 +1017,240 @@ extension on TranslationsRu {
 			case 'VersionUpdateScreen.cancel': return 'Не сейчас';
 			case 'CommonWidget.diableAlwayOnVPN': return 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз';
 			case 'CommonWidget.resetPort': return 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.';
-			case 'ServerManager.noServerAvaliable': return 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
-			case 'ServerManager.filePathCannotEmpty': return 'Путь к файлу не может быть пустым';
-			case 'ServerManager.fileNotExist': return ({required Object p}) => 'Файла не существует:${p}';
-			case 'ServerManager.urlCannotEmpty': return 'Ссылка не может быть пустой';
-			case 'ServerManager.invalidUrl': return 'Некорректная ссылка на подписку';
-			case 'ServerManager.parseFailed': return 'Получение подписки не удалось';
 			case 'main.tray.menuOpen': return '    Открыть    ';
 			case 'main.tray.menuExit': return '    Выйти    ';
-			case 'enable': return 'Включить';
-			case 'disable': return 'Запретить';
-			case 'filter': return 'Фильтр';
-			case 'filterMethod': return 'Метод фильтра';
-			case 'include': return 'Включать';
-			case 'exclude': return 'Исключать';
-			case 'all': return 'Все';
-			case 'prefer': return 'Приоритет';
-			case 'only': return 'Только';
-			case 'open': return 'Открыть';
-			case 'close': return 'Закрыть';
-			case 'quit': return 'Выйти';
-			case 'add': return 'Добавить';
-			case 'remove': return 'Удалить';
-			case 'edit': return 'Редактировать';
-			case 'view': return 'Просмотр';
-			case 'more': return 'Больше';
-			case 'getProfile': return 'Получить конфигурацию';
-			case 'addProfile': return 'Добавить профиль';
-			case 'addSuccess': return 'Добавлено успешно';
-			case 'addSuccessThen': return ({required Object p}) => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${p}]';
-			case 'addFailed': return ({required Object p}) => 'Ошибка при добавлении:${p}';
-			case 'removeConfirm': return 'Подтверждаете удаление?';
-			case 'tips': return 'Инфо';
-			case 'copy': return 'Скопировать';
-			case 'ok': return 'Ок';
-			case 'cancel': return 'Закрыть';
-			case 'feedback': return 'Обратная связь';
-			case 'faq': return 'Часто задаваемые вопросы (FAQ)';
-			case 'download': return 'Скачать';
-			case 'loading': return 'Загрузка...';
-			case 'updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
-			case 'days': return 'дни';
-			case 'hours': return 'часы';
-			case 'minutes': return 'минуты';
-			case 'seconds': return 'Второй';
-			case 'protocol': return 'Протокол';
-			case 'search': return 'Поиск';
-			case 'custom': return 'Настроить самостоятельно';
-			case 'connect': return 'Соединить';
-			case 'disconnect': return 'Отключить';
-			case 'connected': return 'Подключено';
-			case 'disconnected': return 'Отключено';
-			case 'connecting': return 'Подключение';
-			case 'connectTimeout': return 'Таймаут при соединении';
-			case 'timeout': return 'Тайм-аут';
-			case 'language': return 'Язык';
-			case 'next': return 'Дальше';
-			case 'done': return 'Готово';
-			case 'apply': return 'Применить';
-			case 'refresh': return 'Обновить';
-			case 'retry': return 'Хотите попробовать еще раз?';
-			case 'none': return 'Ничего не делать';
-			case 'reset': return 'Перезагрузить';
-			case 'submit': return 'Отправить';
-			case 'user': return 'пользователь';
-			case 'account': return 'Аккаунт';
-			case 'password': return 'Пароль';
-			case 'required': return 'Необходимо';
-			case 'diversion': return 'Правила';
-			case 'diversionRules': return 'Правила перенаправления';
-			case 'diversionRulesEnable': return 'Включить правила перенаправления [VPN-провайдер]';
-			case 'diversionCustomGroup': return 'Личные правила';
-			case 'diversionCustomGroupPreset': return 'Шаблоны личных правил';
-			case 'diversionCustomGroupPresetTips': return 'Примечание. Включенные элементы будут добавлены в [Личные правила] и [Правила перенаправления].';
+			case 'meta.enable': return 'Включить';
+			case 'meta.disable': return 'Запретить';
+			case 'meta.filter': return 'Фильтр';
+			case 'meta.filterMethod': return 'Метод фильтра';
+			case 'meta.include': return 'Включать';
+			case 'meta.exclude': return 'Исключать';
+			case 'meta.all': return 'Все';
+			case 'meta.prefer': return 'Приоритет';
+			case 'meta.only': return 'Только';
+			case 'meta.open': return 'Открыть';
+			case 'meta.close': return 'Закрыть';
+			case 'meta.quit': return 'Выйти';
+			case 'meta.add': return 'Добавить';
+			case 'meta.addSuccess': return 'Добавлено успешно';
+			case 'meta.addFailed': return ({required Object p}) => 'Ошибка при добавлении:${p}';
+			case 'meta.remove': return 'Удалить';
+			case 'meta.removeConfirm': return 'Подтверждаете удаление?';
+			case 'meta.edit': return 'Редактировать';
+			case 'meta.view': return 'Просмотр';
+			case 'meta.more': return 'Больше';
+			case 'meta.tips': return 'Инфо';
+			case 'meta.copy': return 'Скопировать';
+			case 'meta.ok': return 'Ок';
+			case 'meta.cancel': return 'Закрыть';
+			case 'meta.feedback': return 'Обратная связь';
+			case 'meta.feedbackContent': return 'Содержание';
+			case 'meta.feedbackContentHit': return 'Не более 500 символов';
+			case 'meta.feedbackContentCannotEmpty': return 'Содержание не может быть пустым';
+			case 'meta.faq': return 'Часто задаваемые вопросы (FAQ)';
+			case 'meta.download': return 'Скачать';
+			case 'meta.loading': return 'Загрузка...';
+			case 'meta.convert': return 'Конвертировать';
+			case 'meta.check': return 'Тест';
+			case 'meta.detect': return 'Тест';
+			case 'meta.days': return 'дни';
+			case 'meta.hours': return 'часы';
+			case 'meta.minutes': return 'минуты';
+			case 'meta.seconds': return 'Второй';
+			case 'meta.protocol': return 'Протокол';
+			case 'meta.search': return 'Поиск';
+			case 'meta.custom': return 'Настроить самостоятельно';
+			case 'meta.connect': return 'Соединить';
+			case 'meta.disconnect': return 'Отключить';
+			case 'meta.connected': return 'Подключено';
+			case 'meta.disconnected': return 'Отключено';
+			case 'meta.connecting': return 'Подключение';
+			case 'meta.connectTimeout': return 'Таймаут при соединении';
+			case 'meta.timeout': return 'Тайм-аут';
+			case 'meta.timeoutDuration': return 'Длительность тайм-аута';
+			case 'meta.latency': return 'Задерживать';
+			case 'meta.latencyTest': return 'Обнаружение задержки';
+			case 'meta.language': return 'Язык';
+			case 'meta.next': return 'Дальше';
+			case 'meta.done': return 'Готово';
+			case 'meta.apply': return 'Применить';
+			case 'meta.refresh': return 'Обновить';
+			case 'meta.retry': return 'Хотите попробовать еще раз?';
+			case 'meta.update': return 'Обновить';
+			case 'meta.updateInterval': return 'Интервал обновления';
+			case 'meta.updateInterval5mTips': return 'Минимум: 5 м';
+			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
+			case 'meta.none': return 'Ничего не делать';
+			case 'meta.reset': return 'Перезагрузить';
+			case 'meta.submit': return 'Отправить';
+			case 'meta.user': return 'Пользователь';
+			case 'meta.account': return 'Аккаунт';
+			case 'meta.password': return 'Пароль';
+			case 'meta.required': return 'Необходимо';
+			case 'meta.other': return 'Другой';
+			case 'meta.dns': return 'DNS';
+			case 'meta.url': return 'URL';
+			case 'meta.urlInvalid': return 'Неверный URL';
+			case 'meta.urlCannotEmpty': return 'Ссылка не может быть пустой';
+			case 'meta.urlTooLong': return 'URL слишком длинный (>8182)';
+			case 'meta.copyUrl': return 'Скопировать ссылку';
+			case 'meta.openUrl': return 'Открыть ссылку';
+			case 'meta.shareUrl': return 'Поделиться ссылкой';
+			case 'meta.speedTestUrl': return 'URL-адрес теста скорости';
+			case 'meta.tls': return 'TLS';
+			case 'meta.userAgent': return 'UserAgent';
+			case 'meta.staticIP': return 'Статический IP';
+			case 'meta.isp': return 'VPN-провайдер';
+			case 'meta.domainSuffix': return 'Суффикс доменного имени';
+			case 'meta.domain': return 'Имя домена';
+			case 'meta.domainKeyword': return 'Ключевые слова в имени домена';
+			case 'meta.domainRegex': return 'Регулярные выражения для имен доменов';
+			case 'meta.ip': return 'IP';
+			case 'meta.port': return 'Порт';
+			case 'meta.appPackage': return 'Идентификатор пакета приложения';
+			case 'meta.processName': return 'Имя процесса';
+			case 'meta.processPath': return 'Путь к процессу';
+			case 'meta.processDir': return 'Каталог процессов';
+			case 'meta.systemProxy': return 'Системный прокси';
+			case 'meta.netInterfaces': return 'Сетевой интерфейс';
+			case 'meta.netSpeed': return 'Скорость';
+			case 'meta.trafficTotal': return 'Трафик всего';
+			case 'meta.trafficProxy': return 'Трафик прокси';
+			case 'meta.website': return 'Веб-сайт';
+			case 'meta.rule': return 'Правила';
+			case 'meta.global': return 'Глобально';
+			case 'meta.qrcode': return 'QR-код';
+			case 'meta.qrcodeTooLong': return 'Слишком большой текст для отображения';
+			case 'meta.qrcodeShare': return 'Поделиться QR-кодом';
+			case 'meta.textToQrcode': return 'Преобразование текста в QR-код';
+			case 'meta.qrcodeScan': return 'Сканировать QR-код';
+			case 'meta.qrcodeScanResult': return 'Результат сканирования';
+			case 'meta.qrcodeScanFromImage': return 'Открыть';
+			case 'meta.qrcodeScanResultFailed': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
+			case 'meta.qrcodeScanResultEmpty': return 'Пустой результат сканирования.';
+			case 'meta.screenshot': return 'Скриншот';
+			case 'meta.backupAndSync': return 'Резервное копирование и синхронизация';
+			case 'meta.autoBackup': return 'Автоматическое резервное копирование';
+			case 'meta.autoBackupAddProfile': return 'После добавления конфигурации';
+			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
+			case 'meta.importAndExport': return 'Импорт и экспорт';
+			case 'meta.import': return 'Импорт';
+			case 'meta.export': return 'Экспорт';
+			case 'meta.send': return 'Передать';
+			case 'meta.receive': return 'Принять';
+			case 'meta.sendConfirm': return 'Подтверждаете передачу?';
+			case 'meta.termOfUse': return 'Условия использования';
+			case 'meta.privacyPolicy': return 'Политика конфиденциальности';
+			case 'meta.about': return 'О Karing';
+			case 'meta.name': return 'Название';
+			case 'meta.version': return 'Версия';
+			case 'meta.notice': return 'Уведомления';
+			case 'meta.sort': return 'Отсортировать';
+			case 'meta.novice': return 'Режим новичка';
+			case 'meta.recommended': return 'Рекомендуемые';
+			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
+			case 'meta.logicOperation': return 'Логическая опреация';
+			case 'meta.share': return 'Поделиться';
+			case 'meta.candidateWord': return 'Ключевые слова';
+			case 'meta.keywordOrRegx': return 'Ключевые слова/регулярные выражения';
+			case 'meta.importFromClipboard': return 'Импорт из буфера обмена';
+			case 'meta.exportToClipboard': return 'Экспорт в буфер обмена';
+			case 'meta.server': return 'Сервер';
+			case 'meta.ads': return 'Удалять';
+			case 'meta.adsRemove': return 'Удалить рекламу';
+			case 'meta.adsBanner': return 'баннерная реклама';
+			case 'meta.donate': return 'Пожертвовать';
+			case 'meta.diversion': return 'Правила';
+			case 'meta.diversionRules': return 'Правила перенаправления';
+			case 'meta.diversionCustomGroup': return 'Личные правила';
+			case 'meta.urlTestCustomGroup': return 'Пользовательский автоматический выбор';
+			case 'meta.setting': return 'Настройки';
+			case 'meta.iCloud': return 'iCloud';
+			case 'meta.appleTV': return 'Apple TV';
+			case 'meta.webdav': return 'Webdav';
+			case 'meta.lanSync': return 'Синхронизация по локальной сети';
+			case 'meta.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
+			case 'meta.deviceNoSpace': return 'Недостаточно места на диске';
+			case 'meta.hideSystemApp': return 'Скрыть системные приложения';
+			case 'meta.hideAppIcon': return 'Скрыть значок приложения';
+			case 'meta.remark': return 'Примечание';
+			case 'meta.remarkExist': return 'Примечание уже существует, используйте другое имя';
+			case 'meta.remarkCannotEmpty': return 'Примечание не может быть пустым';
+			case 'meta.remarkTooLong': return 'Примечания до 32 символов';
+			case 'meta.openDir': return 'Открыть каталог файлов';
+			case 'meta.fileChoose': return 'Выбрать файл';
+			case 'meta.filePathCannotEmpty': return 'Путь к файлу не может быть пустым';
+			case 'meta.fileNotExist': return ({required Object p}) => 'Файла не существует:${p}';
+			case 'meta.fileTypeInvalid': return ({required Object p}) => 'Неверный тип файла:${p}';
+			case 'meta.uwpExemption': return 'Исключение из изоляции сети UWP';
+			case 'meta.rulesetGeoSite': return 'GeoSite';
+			case 'meta.rulesetGeoIp': return 'GeoIP';
+			case 'meta.rulesetAcl': return 'ACL';
+			case 'meta.getProfile': return 'Получить конфигурацию';
+			case 'meta.addProfile': return 'Добавить профиль';
+			case 'meta.myProfiles': return 'Профили';
+			case 'meta.myProfilesAtLeastOneReserveEnable': return 'Невозможно отключить, оставьте включенным хотя бы один профиль';
+			case 'meta.profileEdit': return 'Редактирование профилей';
+			case 'meta.profileEditUrlExist': return 'URL-адрес уже существует, используйте другой URL-адрес';
+			case 'meta.profileEditReloadAfterProfileUpdate': return 'Перезагрузить после обновления профиля';
+			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'Начать тестирование задержек после обновления профиля';
+			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
+			case 'meta.profileEditTestLatencyAutoRemove': return 'Автоматически удалять серверы, не прошедшие тесты на задержку';
+			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'Попробуйте до 3 раз';
+			case 'meta.profileImport': return 'Импорт файла конфигурации';
+			case 'meta.profileAddUrlOrContent': return 'Добавление подписки';
+			case 'meta.profileExists': return 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
+			case 'meta.profileUrlOrContent': return 'Ссылка на подписку/содержание';
+			case 'meta.profileUrlOrContentHit': return 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
+			case 'meta.profileUrlOrContentCannotEmpty': return 'Ссылка на подписку не может быть пустой';
+			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
+			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
+			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
+			case 'meta.profileAddParseFailed': return 'Получение подписки не удалось';
+			case 'meta.profileAddNoServerAvaliable': return 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
+			case 'meta.profileAddWrapSuccess': return 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]';
+			case 'diversionRulesKeep': return 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}';
+			case 'diversionCustomGroupPreset': return 'Шаблоны для личных правил';
+			case 'diversionCustomGroupPresetTips': return 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].';
 			case 'diversionCustomGroupAddTips': return 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
-			case 'urlTestCustomGroup': return 'Пользовательский автоматический выбор';
-			case 'rulesetEnableTips': return 'Совет: После включения опции перейдите в [Правила перенаправления] и установите их, иначе опция не будет действовать';
-			case 'ispUserAgentTips': return '[VPN-провайдер] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
-			case 'ispDiversionTips': return 'Правила перенаправления, предоставляемые подписками [VPN-провайдер] типа [V2Ray], не поддерживаются.';
-			case 'staticIP': return 'Статический IP';
-			case 'other': return 'Другой';
-			case 'dns': return 'DNS';
-			case 'url': return 'URL';
-			case 'isp': return 'VPN-провайдер';
-			case 'ispBind': return 'Привязать к [VPN-провайдеру]';
-			case 'ispUnbind': return ({required Object p}) => 'Отвязать[${p}]';
-			case 'ispFaq': return ({required Object p}) => 'Часто задаваемые вопросы[${p}]';
-			case 'ispCustomerService': return ({required Object p}) => 'Служба поддержки клиентов[${p}]';
-			case 'ispFollow': return ({required Object p}) => 'Следуйте[${p}]';
-			case 'ispInvalidOrExpired': return '[VPN-провайдер]Недействительно или срок действия истек';
-			case 'tls': return 'TLS';
-			case 'userAgent': return 'UserAgent';
-			case 'urlInvalid': return 'Неверный URL';
-			case 'outboundActionCurrentSelected': return 'Текущий сервер';
-			case 'outboundActionUrltest': return 'Автовыбор сервера';
-			case 'outboundActionDirect': return 'Напрямую';
-			case 'outboundActionBlock': return 'Блокировать';
+			case 'rulesetEnableTips': return 'Совет: После включения опции перейдите в [${_root.meta.diversionRules}] и установите их, иначе опция не будет действовать';
+			case 'ispUserAgentTips': return '[${_root.meta.isp}] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
+			case 'ispDiversionTips': return '${_root.meta.diversionRules}, предоставляемые подписками [${_root.meta.isp}] типа [V2Ray], не поддерживаются.';
+			case 'isp.bind': return 'Привязать к [${_root.meta.isp}]';
+			case 'isp.unbind': return ({required Object p}) => 'Отвязать[${p}]';
+			case 'isp.faq': return ({required Object p}) => 'Часто задаваемые вопросы[${p}]';
+			case 'isp.customerService': return ({required Object p}) => 'Служба поддержки клиентов[${p}]';
+			case 'isp.follow': return ({required Object p}) => 'Следуйте[${p}]';
+			case 'isp.invalidOrExpired': return '[${_root.meta.isp}]Недействительно, или срок действия истек';
+			case 'permission.camera': return 'Камера';
+			case 'permission.screen': return 'Запись экрана';
+			case 'permission.appQuery': return 'Получить список приложений';
+			case 'permission.request': return ({required Object p}) => 'Включить разрешения [${p}]';
+			case 'permission.requestNeed': return ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]';
+			case 'tls.insecure': return 'Пропустить проверку сертификата';
+			case 'tls.fragmentEnable': return 'Включить фрагментацию TLS';
+			case 'tls.fragmentSize': return 'Размер фрагмента TLS';
+			case 'tls.fragmentSleep': return 'Длина фрагмента паузы TLS';
+			case 'tls.mixedCaseSNIEnable': return 'Включить гибридный SNI TLS';
+			case 'tls.paddingEnable': return 'Включить заполнение TLS';
+			case 'tls.paddingSize': return 'Размер заполнения TLS';
+			case 'outboundRuleMode.currentSelected': return 'Текущий сервер';
+			case 'outboundRuleMode.urltest': return 'Автовыбор';
+			case 'outboundRuleMode.direct': return 'Напрямую';
+			case 'outboundRuleMode.block': return 'Блокировать';
+			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
+			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
+			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
+			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
+			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
+			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
+			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'downloadProxyStrategy': return 'Скачать канал';
+			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 			case 'routeFinal': return 'Final';
-			case 'rulesetGeoSite': return 'GeoSite';
-			case 'rulesetGeoIp': return 'GeoIP';
-			case 'rulesetAcl': return 'ACL';
-			case 'iCloud': return 'iCloud';
-			case 'appleTV': return 'Apple TV';
-			case 'webdav': return 'Webdav';
-			case 'setting': return 'Настройки';
 			case 'protocolSniff': return 'Определение протокола';
 			case 'protocolSniffOverrideDestination': return 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
-			case 'remark': return 'Примечание';
-			case 'remarkCannotEmpty': return 'Примечание не может быть пустым';
-			case 'remarkTooLong': return 'Примечания до 32 символов';
-			case 'remarkExist': return 'Примечание уже существует, используйте другое имя';
-			case 'domainSuffix': return 'Суффикс доменного имени';
-			case 'domain': return 'Имя домена';
-			case 'domainKeyword': return 'Ключевые слова в имени домена';
-			case 'domainRegex': return 'Регулярные выражения для имен доменов';
-			case 'ip': return 'IP';
-			case 'port': return 'Порт';
-			case 'appPackage': return 'Идентификатор пакета приложения';
-			case 'processName': return 'Имя процесса';
-			case 'processPath': return 'Путь к процессу';
-			case 'systemProxy': return 'Системный прокси';
-			case 'netInterfaces': return 'Сетевой интерфейс';
-			case 'netSpeed': return 'Скорость';
-			case 'website': return 'Веб-сайт';
-			case 'rule': return 'Правила';
-			case 'global': return 'Глобально';
-			case 'qrcode': return 'QR-код';
-			case 'scanQrcode': return 'Сканировать QR-код';
-			case 'scanResult': return 'Результат сканирования';
-			case 'backupAndSync': return 'Резервное копирование и синхронизация';
-			case 'importAndExport': return 'Импорт и экспорт';
-			case 'import': return 'Импорт';
-			case 'export': return 'Экспорт';
-			case 'send': return 'Передать';
-			case 'receive': return 'Принять';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'Пожалуйста, используйте [${p}]';
-			case 'sendConfirm': return 'Подтверждаете передачу?';
-			case 'termOfUse': return 'Условия использования';
-			case 'privacyPolicy': return 'Политика конфиденциальности';
-			case 'about': return 'О Karing';
-			case 'name': return 'Название';
-			case 'version': return 'Версия';
-			case 'notice': return 'Уведомления';
-			case 'sort': return 'Отсортировать';
-			case 'novice': return 'Режим новичка';
-			case 'recommended': return 'Рекомендуемые';
-			case 'innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
-			case 'logicOperation': return 'Логическая опреация';
-			case 'share': return 'Поделиться';
-			case 'candidateWord': return 'Ключевые слова';
-			case 'keywordOrRegx': return 'Ключевые слова/регулярные выражения';
-			case 'importFromClipboard': return 'Импорт из буфера обмена';
-			case 'exportToClipboard': return 'Экспорт в буфер обмена';
-			case 'server': return 'Сервер';
 			case 'turnOffPrivateDirect': return 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 			case 'targetConnectFailed': return ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
 			case 'appleTVSync': return 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
@@ -1280,25 +1260,15 @@ extension on TranslationsRu {
 			case 'appleTVUrlInvalid': return 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
 			case 'remoteProfileEditConfirm': return 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
-			case 'invalidFileType': return ({required Object p}) => 'Неверный тип файла:${p}';
 			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
-			case 'latencyTest': return 'Обнаружение задержки';
-			case 'latencyTestResolveIP': return 'При ручном определении также анализируется экспортный IP-адрес.';
-			case 'latencyTestTimeout': return 'тайм-аут';
-			case 'uwpExemption': return 'Исключение из изоляции сети UWP';
-			case 'ads': return 'Удалить рекламу';
-			case 'adsBanner': return 'баннерная реклама';
-			case 'donate': return 'Пожертвовать';
-			case 'removeBannerAdsByShare': return 'Поделиться[Karing]Перейти к объявлениям';
-			case 'removeBannerAdsByReward': return 'Смотреть рекламу Перейти к рекламе';
-			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных вознаграждений (можно суммировать до ${d} дней)';
-			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите награду за дни без рекламы в размере ${p} (не суммируется).';
-			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+			case 'latencyTestResolveIP': return 'При ручном определении анализируется исходящий IP-адрес';
+			case 'removeBannerAdsByShare': return 'Поделиться [Karing] для удаления рекламы';
+			case 'removeBannerAdsByReward': return 'Просмотреть рекламу для удаления новой рекламы';
+			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
+			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
+			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
 			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
-			case 'requestCameraPermission': return 'Пожалуйста, включите разрешение [Камера]';
-			case 'requestScreenAccess': return 'Пожалуйста, включите разрешение [Запись экрана]';
-			case 'requestAppQuery': return 'Пожалуйста, включите разрешение [Получить список приложений]';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';
 			case 'locales.ar': return 'عربي';

@@ -117,7 +117,7 @@ class _LanguageSettingsScreenState
                             SizedBox(
                               width: windowSize.width - 50 - 65,
                               child: Text(
-                                tcontext.language,
+                                tcontext.meta.language,
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(

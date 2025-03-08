@@ -43,19 +43,16 @@ class DialogUtils {
       text = text.substring(0,
           kMaxLength); //android https://www.cnblogs.com/yyhimmy/p/12583251.html
     }
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    if (showFAQ) {
-      showFAQ = remoteISPConfig.faq.isNotEmpty;
-      if (showFAQ && Platform.isAndroid) {
-        String version = await FlutterVpnService.getSystemVersion();
-        int? v = int.tryParse(version);
-        if (v != null && v == 27) {
-          //android 8.1 flutter_inappwebview_android exception:AbstractMethodError: abstract method "void android.webkit.WebSettings.setSafeBrowsingEnabled(boolean)"
-          showFAQ = false;
-        }
-        if (!context.mounted) {
-          return;
-        }
+
+    if (showFAQ && Platform.isAndroid) {
+      String version = await FlutterVpnService.getSystemVersion();
+      int? v = int.tryParse(version);
+      if (v != null && v == 27) {
+        //android 8.1 flutter_inappwebview_android exception:AbstractMethodError: abstract method "void android.webkit.WebSettings.setSafeBrowsingEnabled(boolean)"
+        showFAQ = false;
+      }
+      if (!context.mounted) {
+        return;
       }
     }
 
@@ -67,7 +64,7 @@ class DialogUtils {
       builder: (context) {
         return SimpleDialog(
           title: Text(
-            tcontext.tips,
+            tcontext.meta.tips,
             style: const TextStyle(
               fontSize: ThemeConfig.kFontSizeListSubItem,
             ),
@@ -89,7 +86,7 @@ class DialogUtils {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  child: Text(tcontext.ok),
+                  child: Text(tcontext.meta.ok),
                   onPressed: () {
                     if (!context.mounted) {
                       return;
@@ -104,7 +101,7 @@ class DialogUtils {
                     : const SizedBox.shrink(),
                 showCopy
                     ? ElevatedButton(
-                        child: Text(tcontext.copy),
+                        child: Text(tcontext.meta.copy),
                         onPressed: () async {
                           try {
                             await Clipboard.setData(ClipboardData(text: text));
@@ -121,7 +118,7 @@ class DialogUtils {
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: ElevatedButton(
-                      child: Text(tcontext.faq),
+                      child: Text(tcontext.meta.faq),
                       onPressed: () async {
                         await faqCallback?.call(text);
                       },
@@ -156,7 +153,7 @@ class DialogUtils {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    child: Text(tcontext.ok),
+                    child: Text(tcontext.meta.ok),
                     onPressed: () {
                       if (!context.mounted) {
                         return;
@@ -168,7 +165,7 @@ class DialogUtils {
                     width: 60,
                   ),
                   ElevatedButton(
-                    child: Text(tcontext.cancel),
+                    child: Text(tcontext.meta.cancel),
                     onPressed: () {
                       if (!context.mounted) {
                         return;
@@ -229,7 +226,7 @@ class DialogUtils {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      child: Text(tcontext.ok),
+                      child: Text(tcontext.meta.ok),
                       onPressed: () {
                         if (!context.mounted) {
                           return;
@@ -243,7 +240,7 @@ class DialogUtils {
                     width: 60,
                   ),
                   ElevatedButton(
-                    child: Text(tcontext.cancel),
+                    child: Text(tcontext.meta.cancel),
                     onPressed: () {
                       if (!context.mounted) {
                         return;
@@ -333,7 +330,7 @@ class DialogUtils {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      child: Text(tcontext.ok),
+                      child: Text(tcontext.meta.ok),
                       onPressed: () {
                         if (!context.mounted) {
                           return;
@@ -356,7 +353,7 @@ class DialogUtils {
                     width: 60,
                   ),
                   ElevatedButton(
-                    child: Text(tcontext.cancel),
+                    child: Text(tcontext.meta.cancel),
                     onPressed: () {
                       if (!context.mounted) {
                         return;
@@ -429,10 +426,10 @@ class DialogUtils {
     }
     final tcontext = Translations.of(context);
     final textController = TextEditingController();
-    String days = "d(${tcontext.days})";
-    String hours = "h(${tcontext.hours})";
-    String minutes = "m(${tcontext.minutes})";
-    String seconds = "s(${tcontext.seconds})";
+    String days = "d(${tcontext.meta.days})";
+    String hours = "h(${tcontext.meta.hours})";
+    String minutes = "m(${tcontext.meta.minutes})";
+    String seconds = "s(${tcontext.meta.seconds})";
     List<String> data = [];
 
     if (showDays) {
@@ -448,7 +445,7 @@ class DialogUtils {
       data.add(seconds);
     }
     if (showDisable) {
-      data.add(tcontext.disable);
+      data.add(tcontext.meta.disable);
     }
     String selected = data.first;
     if (duration != null) {
@@ -470,7 +467,7 @@ class DialogUtils {
             textController.value.copyWith(text: duration.inSeconds.toString());
       }
     } else {
-      selected = tcontext.disable;
+      selected = tcontext.meta.disable;
       textController.value = textController.value.copyWith(text: "");
     }
 
@@ -522,7 +519,7 @@ class DialogUtils {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                          child: Text(tcontext.ok),
+                          child: Text(tcontext.meta.ok),
                           onPressed: () {
                             if (!context.mounted) {
                               return;
@@ -541,7 +538,7 @@ class DialogUtils {
                               duration = Duration(minutes: value);
                             } else if (selected == seconds) {
                               duration = Duration(seconds: value);
-                            } else if (selected == tcontext.disable) {}
+                            } else if (selected == tcontext.meta.disable) {}
 
                             Navigator.pop(context, DialogUtilsResult(duration));
                           }),
@@ -549,7 +546,7 @@ class DialogUtils {
                         width: 60,
                       ),
                       ElevatedButton(
-                        child: Text(tcontext.cancel),
+                        child: Text(tcontext.meta.cancel),
                         onPressed: () {
                           if (!context.mounted) {
                             return;
@@ -614,7 +611,7 @@ class DialogUtils {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                          child: Text(tcontext.ok),
+                          child: Text(tcontext.meta.ok),
                           onPressed: () {
                             if (!context.mounted) {
                               return;
@@ -625,7 +622,7 @@ class DialogUtils {
                         width: 60,
                       ),
                       ElevatedButton(
-                        child: Text(tcontext.cancel),
+                        child: Text(tcontext.meta.cancel),
                         onPressed: () {
                           if (!context.mounted) {
                             return;
@@ -675,7 +672,7 @@ class DialogUtils {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 26.0),
-                child: Text(text ?? tcontext.loading),
+                child: Text(text ?? tcontext.meta.loading),
               )
             ],
           ),
@@ -697,7 +694,7 @@ class DialogUtils {
       builder: (context) {
         return SimpleDialog(
           title: Text(
-            tcontext.scanResult,
+            tcontext.meta.qrcodeScanResult,
             style: const TextStyle(
               fontSize: ThemeConfig.kFontSizeListSubItem,
             ),
@@ -714,7 +711,7 @@ class DialogUtils {
                 height: 20,
               ),
               TextButton(
-                child: Text(tcontext.add),
+                child: Text(tcontext.meta.add),
                 onPressed: () {
                   if (!context.mounted) {
                     return;
@@ -736,7 +733,7 @@ class DialogUtils {
         MaterialPageRoute(
             settings: RichtextViewScreen.routSettings(),
             builder: (context) => RichtextViewScreen(
-                title: tcontext.privacyPolicy,
+                title: tcontext.meta.privacyPolicy,
                 file: AssetsUtils.privacyPolicyPath(),
                 content: "")));
   }

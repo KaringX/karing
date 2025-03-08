@@ -128,14 +128,14 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                         height: 45.0,
                         child: ElevatedButton.icon(
                           icon: const Icon(Icons.webhook_rounded),
-                          label: Text(tcontext.website),
+                          label: Text(tcontext.meta.website),
                           onPressed: () async {
                             AnalyticsUtils.logEvent(
                                 analyticsEventType: analyticsEventTypeUA,
                                 name: 'LFS_website',
                                 repeatable: true);
                             await WebviewHelper.loadUrl(
-                                context, "https://$host");
+                                context, "https://$host", "LFS_website");
                           },
                         )),
                     const SizedBox(
@@ -146,7 +146,7 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                         child: !Platform.isIOS
                             ? ElevatedButton.icon(
                                 icon: const Icon(Icons.logout_outlined),
-                                label: Text(tcontext.quit),
+                                label: Text(tcontext.meta.quit),
                                 onPressed: () async {
                                   Biz.quit();
                                 },

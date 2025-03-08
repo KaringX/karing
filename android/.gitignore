@@ -4,6 +4,5 @@
 /gradlew.bat
 /local.properties
 
-
 **/*.keystore
 **/*.jks

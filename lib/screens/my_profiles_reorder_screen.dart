@@ -91,7 +91,7 @@ class MyProfilesReorderScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 2,
                       child: Text(
-                        tcontext.sort,
+                        tcontext.meta.sort,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
