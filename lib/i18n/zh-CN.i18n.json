@@ -10,6 +10,8 @@
         "viewFilsContent": "查看文件",
         "enablePprof": "启用pprof",
         "pprofPanel": "pprof面板",
+        "allowRemoteAccessPprof": "允许远程访问@:{AboutScreen.pprofPanel}",
+        "allowRemoteAccessHtmlBoard": "允许远程访问@:{SettingsScreen.htmlBoard}",
         "useOriginalSBProfile": "使用原始sing-box配置"
     },
     "BackupAndSyncWebdavScreen": {
@@ -282,6 +284,7 @@
         "more": "更多",
         "tips": "提示",
         "copy": "拷贝",
+        "save": "保存",
         "ok": "确定",
         "cancel": "取消",
         "feedback": "反馈",
@@ -301,6 +304,8 @@
         "protocol": "协议",
         "search": "搜索",
         "custom": "自定义",
+        "inbound": "入站",
+        "outbound": "出站",
         "connect": "连接",
         "disconnect": "断开",
         "connected": "已连接",
@@ -322,6 +327,8 @@
         "updateInterval5mTips": "最小:5m",
         "updateFailed": "更新失败:$p",
         "none": "无",
+        "start": "开始",
+        "pause": "暂停",
         "reset": "重置",
         "submit": "提交",
         "user": "用户",
@@ -475,6 +482,7 @@
     },
     "tls": {
         "insecure": "跳过证书验证",
+        "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "启用TLS分段",
         "fragmentSize": "TLS分段大小",
         "fragmentSleep": "TLS分段休眠",

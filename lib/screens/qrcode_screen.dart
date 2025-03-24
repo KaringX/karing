@@ -157,9 +157,8 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                         child: Column(children: [
                           SizedBox(
                               height: 45.0,
-                              child: ElevatedButton.icon(
-                                icon: const Icon(Icons.content_copy_outlined),
-                                label: Text(tcontext.meta.copyUrl),
+                              child: ElevatedButton(
+                                child: Text(tcontext.meta.copyUrl),
                                 onPressed: () async {
                                   try {
                                     await Clipboard.setData(
@@ -173,9 +172,8 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                           _url != null
                               ? SizedBox(
                                   height: 45.0,
-                                  child: ElevatedButton.icon(
-                                    icon: const Icon(Icons.file_open_outlined),
-                                    label: Text(tcontext.meta.openUrl),
+                                  child: ElevatedButton(
+                                    child: Text(tcontext.meta.openUrl),
                                     onPressed: () async {
                                       if (widget.callback != null) {
                                         widget.callback!();
@@ -196,9 +194,8 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                               .isWindows10RS5OrGreater))
                               ? SizedBox(
                                   height: 45.0,
-                                  child: ElevatedButton.icon(
-                                    icon: const Icon(Icons.share_outlined),
-                                    label: Text(t.meta.qrcodeShare),
+                                  child: ElevatedButton(
+                                    child: Text(t.meta.qrcodeShare),
                                     onPressed: () async {
                                       String savePath = path.join(
                                           await PathUtils.cacheDir(),

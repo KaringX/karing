@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
+import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -274,36 +275,41 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           width: 40,
           child: FittedBox(
             fit: BoxFit.fill,
-            child: Switch.adaptive(
-              value: item.enable,
-              activeColor: ThemeDefine.kColorGreenBright,
-              onChanged: (bool newValue) async {
-                await onChangedGroup(item.groupid, newValue);
-              },
-            ),
+            child: Tooltip(
+                message:
+                    item.enable ? tcontext.meta.enable : tcontext.meta.disable,
+                child: Switch.adaptive(
+                  value: item.enable,
+                  activeColor: ThemeDefine.kColorGreenBright,
+                  onChanged: (bool newValue) async {
+                    await onChangedGroup(item.groupid, newValue);
+                  },
+                )),
           ),
         ),
         const SizedBox(
           width: 15,
         ),
         item.groupid != ServerManager.getCustomGroupId()
-            ? InkWell(
-                onTap: () async {
-                  bool? del = await DialogUtils.showConfirmDialog(
-                      context, tcontext.meta.removeConfirm);
-                  if (del == true) {
-                    ServerManager.removeGroup(item.groupid, true);
-                    if (item.enable) {
-                      ServerManager.setDirty(true);
-                    }
+            ? Tooltip(
+                message: tcontext.meta.remove,
+                child: InkWell(
+                  onTap: () async {
+                    bool? del = await DialogUtils.showConfirmDialog(
+                        context, tcontext.meta.removeConfirm);
+                    if (del == true) {
+                      ServerManager.removeGroup(item.groupid, true);
+                      if (item.enable) {
+                        ServerManager.setDirty(true);
+                      }
 
-                    _buildData();
-                    setState(() {});
-                  }
-                },
-                child: const Icon(Icons.remove_circle_outlined,
-                    size: 26, color: Colors.red),
-              )
+                      _buildData();
+                      setState(() {});
+                    }
+                  },
+                  child: const Icon(Icons.remove_circle_outlined,
+                      size: 26, color: Colors.red),
+                ))
             : const SizedBox(
                 width: 26,
               ),
@@ -326,58 +332,62 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       item.isRemote()
           ? Row(
               children: [
-                InkWell(
-                  onTap: () async {
-                    ServerManager.reload(item.groupid).then((value) {
-                      if (!mounted) {
-                        return;
-                      }
-                      if (value != null) {
-                        DialogUtils.showAlertDialog(context,
-                            tcontext.meta.updateFailed(p: value.message),
-                            showCopy: true, showFAQ: true, withVersion: true);
-                      }
-                      if (!mounted) {
-                        return;
-                      }
-                      _buildData();
-                      setState(() {});
-                    });
-                    setState(() {});
-                  },
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          Icons.access_time_outlined,
-                          size: 26,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          DateTimeUtils.dateTimeToDate(item.updateTime),
-                          style: const TextStyle(
-                            fontSize: ThemeConfig.kFontSizeListSubItem,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ServerManager.isReloading(item.groupid)
-                            ? const SizedBox(
-                                height: 26,
-                                width: 26,
-                                child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
-                                ),
-                              )
-                            : const Icon(
-                                Icons.cloud_download_outlined,
-                                size: 26,
+                Tooltip(
+                  message: tcontext.meta.update,
+                  child: InkWell(
+                      onTap: () async {
+                        ServerManager.reload(item.groupid).then((value) {
+                          if (!mounted) {
+                            return;
+                          }
+                          if (value != null) {
+                            DialogUtils.showAlertDialog(context,
+                                tcontext.meta.updateFailed(p: value.message),
+                                showCopy: true,
+                                showFAQ: true,
+                                withVersion: true);
+                          }
+                          if (!mounted) {
+                            return;
+                          }
+                          _buildData();
+                          setState(() {});
+                        });
+                        setState(() {});
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.access_time_outlined,
+                              size: 26,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              DateTimeUtils.dateTimeToDate(item.updateTime),
+                              style: const TextStyle(
+                                fontSize: ThemeConfig.kFontSizeListSubItem,
                               ),
-                      ]),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            ServerManager.isReloading(item.groupid)
+                                ? const SizedBox(
+                                    height: 26,
+                                    width: 26,
+                                    child: RepaintBoundary(
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2),
+                                    ),
+                                  )
+                                : const Icon(
+                                    Icons.cloud_download_outlined,
+                                    size: 26,
+                                  ),
+                          ])),
                 ),
                 const SizedBox(
                   width: 10,
@@ -387,20 +397,22 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           : const SizedBox.shrink(),
       item.isRemote()
           ? Row(children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
-                          builder: (context) =>
-                              QrcodeScreen(content: item.urlOrPath)));
-                },
-                child: const Icon(
-                  Icons.qr_code_scanner_outlined,
-                  size: 26,
-                ),
-              ),
+              Tooltip(
+                  message: tcontext.meta.qrcode,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              settings: QrcodeScreen.routSettings(),
+                              builder: (context) =>
+                                  QrcodeScreen(content: item.urlOrPath)));
+                    },
+                    child: const Icon(
+                      Icons.qr_code_scanner_outlined,
+                      size: 26,
+                    ),
+                  )),
               const SizedBox(
                 width: 10,
               )
@@ -408,15 +420,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           : const SizedBox.shrink(),
       !item.isRemote()
           ? Row(children: [
-              InkWell(
-                onTap: () {
-                  onTapAdd(item);
-                },
-                child: const Icon(
-                  Icons.add_outlined,
-                  size: 26,
-                ),
-              ),
+              Tooltip(
+                  message: tcontext.meta.add,
+                  child: InkWell(
+                    onTap: () {
+                      onTapAdd(item);
+                    },
+                    child: const Icon(
+                      Icons.add_outlined,
+                      size: 26,
+                    ),
+                  )),
               const SizedBox(
                 width: 10,
               )
@@ -426,15 +440,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
               (Platform.isWindows &&
                   VersionHelper.instance.isWindows10RS5OrGreater)
           ? Row(children: [
-              InkWell(
-                onTap: () {
-                  onTapShare(item);
-                },
-                child: const Icon(
-                  Icons.share_outlined,
-                  size: 26,
-                ),
-              ),
+              Tooltip(
+                  message: tcontext.meta.share,
+                  child: InkWell(
+                    onTap: () {
+                      onTapShare(item);
+                    },
+                    child: const Icon(
+                      Icons.share_outlined,
+                      size: 26,
+                    ),
+                  )),
               const SizedBox(
                 width: 10,
               )
@@ -442,12 +458,14 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           : const SizedBox.shrink(),
       item.groupid != ServerManager.getCustomGroupId()
           ? Row(children: [
-              InkWell(
-                onTap: () async {
-                  onTapEdit(item);
-                },
-                child: const Icon(Icons.edit_outlined, size: 26),
-              ),
+              Tooltip(
+                  message: tcontext.meta.edit,
+                  child: InkWell(
+                    onTap: () async {
+                      onTapEdit(item);
+                    },
+                    child: const Icon(Icons.edit_outlined, size: 26),
+                  )),
               const SizedBox(
                 width: 10,
               ),
@@ -478,31 +496,33 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 )
               ],
             )
-          : InkWell(
-              onTap: () async {
-                bool ok = await startVPN();
-                if (!ok) {
-                  return;
-                }
-                ServerManager.testOutboundLatencyForGroup(item.groupid)
-                    .then((err) {
-                  if (err != null) {
-                    if (mounted) {
-                      setState(() {});
-
-                      DialogUtils.showAlertDialog(context, err.message,
-                          showCopy: true, showFAQ: true, withVersion: true);
-                    }
+          : Tooltip(
+              message: tcontext.meta.latencyTest,
+              child: InkWell(
+                onTap: () async {
+                  bool ok = await startVPN();
+                  if (!ok) {
+                    return;
                   }
-                });
-              },
-              child: item.enable
-                  ? const Icon(
-                      Icons.network_ping_outlined,
-                      size: 26,
-                    )
-                  : const SizedBox.shrink(),
-            ),
+                  ServerManager.testOutboundLatencyForGroup(item.groupid)
+                      .then((err) {
+                    if (err != null) {
+                      if (mounted) {
+                        setState(() {});
+
+                        DialogUtils.showAlertDialog(context, err.message,
+                            showCopy: true, showFAQ: true, withVersion: true);
+                      }
+                    }
+                  });
+                },
+                child: item.enable
+                    ? const Icon(
+                        Icons.bolt_outlined,
+                        size: 26,
+                      )
+                    : const SizedBox.shrink(),
+              )),
     ]);
   }
 
@@ -664,7 +684,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                             height: 20,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.whitewithValues(alpha: 0.8),
                             ),
                             child: const Icon(Icons.qr_code_scanner_outlined,
                                 size: 20, color: Colors.black),
@@ -695,7 +715,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                         height: 20,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.white.withOpacity(0.8),
+                                          color: Colors.white
+                                              .withValues(alpha: 0.8),
                                         ),
                                         child: Icon(
                                           Icons.star_outlined,
@@ -826,31 +847,35 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              onTapTestOutboundLatencyAll();
-                            },
-                            child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.network_ping_outlined,
-                                  size: 30,
-                                )),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              onTapMore();
-                            },
-                            child: const SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Icon(
-                                Icons.more_vert_outlined,
-                                size: 30,
-                              ),
-                            ),
-                          ),
+                          Tooltip(
+                              message: tcontext.meta.latencyTest,
+                              child: InkWell(
+                                onTap: () async {
+                                  onTapTestOutboundLatencyAll();
+                                },
+                                child: const SizedBox(
+                                    width: 50,
+                                    height: 30,
+                                    child: Icon(
+                                      Icons.bolt_outlined,
+                                      size: 30,
+                                    )),
+                              )),
+                          Tooltip(
+                              message: tcontext.meta.more,
+                              child: InkWell(
+                                onTap: () async {
+                                  onTapMore();
+                                },
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 30,
+                                  child: Icon(
+                                    Icons.more_vert_outlined,
+                                    size: 30,
+                                  ),
+                                ),
+                              )),
                         ])
                   ],
                 ),
@@ -999,73 +1024,104 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   void onTapMore() {
+    final tcontext = Translations.of(context);
     showMenu(
         context: context,
         position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
         items: [
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.settings_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.settings_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.setting,
+                ),
+              ]),
               onTap: () {
                 onTapSetting();
               }),
           PopupMenuItem(
             value: 1,
-            child: const SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                Icons.add_outlined,
-                size: 30,
+            child: Row(children: [
+              const SizedBox(
+                width: 30,
+                height: 30,
+                child: Icon(
+                  Icons.add_outlined,
+                  size: 30,
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              Text(
+                tcontext.meta.addProfile,
+              ),
+            ]),
             onTap: () {
               onTapAddProfile();
             },
           ),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.cloud_download_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.cloud_download_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.update,
+                ),
+              ]),
               onTap: () {
                 onTapReloadAll();
               }),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.sort_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.sort_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.sort,
+                ),
+              ]),
               onTap: () {
                 onTapSort();
               }),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.merge_type_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.merge_type_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.MyProfilesMergeScreen.profilesMerge,
+                ),
+              ]),
               onTap: () {
                 onTapMerge();
               }),
@@ -1545,7 +1601,14 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
     }
     SingboxJsonOptions sbOptions = SingboxJsonOptions();
-    sbOptions.fromJson(server.raw);
+    try {
+      sbOptions.fromJson(server.raw);
+    } catch (err) {
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+      return;
+    }
+
     if (!sbOptions.isValid()) {
       return;
     }

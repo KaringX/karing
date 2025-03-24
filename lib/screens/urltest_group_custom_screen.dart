@@ -38,6 +38,7 @@ class _UrlTestGroupCustomScreenState
     for (var urltest in item.urltests) {
       _groupData.add(urltest.remark);
     }
+    _groupData.sort((a, b) => a.compareTo(b));
   }
 
   @override

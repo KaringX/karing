@@ -577,14 +577,16 @@ class _NetConnectionsScreenState
                           onTap: () async {
                             onTapMore();
                           },
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.more_vert_outlined,
-                              size: 30,
-                            ),
-                          ),
+                          child: Tooltip(
+                              message: tcontext.meta.more,
+                              child: const SizedBox(
+                                width: 50,
+                                height: 30,
+                                child: Icon(
+                                  Icons.more_vert_outlined,
+                                  size: 30,
+                                ),
+                              )),
                         ),
                       ],
                     ),
@@ -833,7 +835,7 @@ class _NetConnectionsScreenState
         current.getUpload() - current.getLastUpload());
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
         current.getDownload() - current.getLastDownload());
-
+    String noSpeed = "0 B";
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
       child: Material(
@@ -886,6 +888,7 @@ class _NetConnectionsScreenState
                               width: centerWidth - 5 - 40,
                               child: Text(
                                 "${current.showHost}:${current.port}",
+                                maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
                                 ),
@@ -931,6 +934,7 @@ class _NetConnectionsScreenState
                                   Text(
                                     processName,
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                     style: const TextStyle(
                                       fontSize: 12,
                                     ),
@@ -942,6 +946,7 @@ class _NetConnectionsScreenState
                                   Text(
                                     current.package,
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                     style: const TextStyle(
                                       fontSize: 12,
                                     ),
@@ -995,37 +1000,49 @@ class _NetConnectionsScreenState
                             const SizedBox(
                               width: 5,
                             ),
-                            current.ids.isNotEmpty
+                            current.ids.isNotEmpty && (lastUpload != noSpeed)
                                 ? const Icon(
                                     Icons.upload,
                                     size: 10,
+                                    color: Colors.green,
                                   )
                                 : const SizedBox(
                                     width: 0,
                                   ),
-                            Text(
-                              current.ids.isNotEmpty ? "$lastUpload/s" : "",
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
+                            current.ids.isNotEmpty && (lastUpload != noSpeed)
+                                ? Text(
+                                    "$lastUpload/s",
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.green,
+                                    ),
+                                  )
+                                : const SizedBox(
+                                    width: 0,
+                                  ),
                             const SizedBox(
                               width: 5,
                             ),
-                            current.ids.isNotEmpty
+                            current.ids.isNotEmpty && (lastDownload != noSpeed)
                                 ? const Icon(
                                     Icons.download,
                                     size: 10,
+                                    color: Colors.green,
                                   )
                                 : const SizedBox(
                                     width: 0,
                                   ),
-                            Text(
-                              current.ids.isNotEmpty ? "$lastDownload/s" : "",
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
+                            current.ids.isNotEmpty && (lastDownload != noSpeed)
+                                ? Text(
+                                    "$lastDownload/s",
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.green,
+                                    ),
+                                  )
+                                : const SizedBox(
+                                    width: 0,
+                                  ),
                           ]),
                           Row(
                             children: [
@@ -1034,6 +1051,7 @@ class _NetConnectionsScreenState
                                 child: Text(
                                   current.showRule,
                                   overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
@@ -1048,6 +1066,7 @@ class _NetConnectionsScreenState
                                 child: Text(
                                   current.showChain,
                                   overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),
@@ -1177,30 +1196,45 @@ class _NetConnectionsScreenState
   }
 
   void onTapMore() {
+    final tcontext = Translations.of(context);
     List<PopupMenuItem> items = [
       PopupMenuItem(
           value: 1,
-          child: SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
-              size: 30,
+          child: Row(children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: Icon(
+                _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
+                size: 30,
+              ),
             ),
-          ),
+            const SizedBox(width: 10),
+            Text(
+              _pause ? tcontext.meta.start : tcontext.meta.pause,
+            ),
+          ]),
           onTap: () {
             onTapPause();
           }),
       PopupMenuItem(
           value: 1,
-          child: SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.exit_to_app_outlined,
-              size: 30,
+          child: Row(children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: Icon(
+                Icons.exit_to_app_outlined,
+                size: 30,
+              ),
             ),
-          ),
+            const SizedBox(width: 10),
+            Text(
+              _showConnectionIn
+                  ? tcontext.meta.outbound
+                  : tcontext.meta.inbound,
+            ),
+          ]),
           onTap: () {
             _showConnectionIn = !_showConnectionIn;
             setState(() {});
@@ -1210,27 +1244,39 @@ class _NetConnectionsScreenState
       items.addAll([
         PopupMenuItem(
             value: 1,
-            child: const SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                Icons.filter_list_alt,
-                size: 30,
+            child: Row(children: [
+              SizedBox(
+                width: 30,
+                height: 30,
+                child: Icon(
+                  Icons.filter_list_alt,
+                  size: 30,
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              Text(
+                tcontext.meta.filter,
+              ),
+            ]),
             onTap: () {
               onTapFilter();
             }),
         PopupMenuItem(
           value: 1,
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.copy,
-              size: 30,
+          child: Row(children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: Icon(
+                Icons.copy,
+                size: 30,
+              ),
             ),
-          ),
+            const SizedBox(width: 10),
+            Text(
+              tcontext.meta.copy,
+            ),
+          ]),
           onTap: () {
             onTapCopy();
           },

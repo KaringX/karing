@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
@@ -418,9 +419,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                                 enableDebug: debug,
                                 showGoBackGoForward: false,
                                 setJSWindowObject: true,
-                                injectJs: remoteConfig.ispPanelJs.isNotEmpty
-                                    ? "${remoteConfig.ispPanelJs}${DateTime.now().millisecondsSinceEpoch.toString()}"
-                                    : "",
+                                injectJs: remoteConfig.getPanelJs(),
                                 javaScriptHandlers:
                                     WebviewISPHelper.getJavaScriptHandlers(),
                                 javaScriptHandlerArgument: RemoteISPConfig(),
@@ -449,7 +448,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   reddot: versionCheck.newVersion,
                   reddotColor: installer != null
                       ? Colors.red
-                      : Colors.red.withOpacity(0.5),
+                      : Colors.red.withValues(alpha: 0.5),
                   onPush: () async {
                     await onTapNewVersion();
                   }))
@@ -1814,6 +1813,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.tls.fragmentEnable,
+                tips: tcontext.tls.affectProtocolTips,
                 switchValue: settingConfig.tls.enableFragment,
                 onSwitch: (bool value) async {
                   settingConfig.tls.enableFragment = value;
@@ -1824,7 +1824,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.tls.fragmentSize,
                 text: settingConfig.tls.fragmentSize,
-                hint: "1-256",
+                hint: SettingConfigItemTLS.kFragmentSize,
                 enabled: settingConfig.tls.enableFragment,
                 textWidthPercent: 0.5,
                 onChanged: (String value) {
@@ -1845,7 +1845,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.tls.fragmentSleep,
                 text: settingConfig.tls.fragmentSleep,
-                hint: "0-1000",
+                hint: SettingConfigItemTLS.kFragmentSleep,
                 enabled: settingConfig.tls.enableFragment,
                 textWidthPercent: 0.5,
                 onChanged: (String value) {
@@ -1867,6 +1867,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.tls.mixedCaseSNIEnable,
+                tips: tcontext.tls.affectProtocolTips,
                 switchValue: settingConfig.tls.enableMixedCaseSNI,
                 onSwitch: (bool value) async {
                   settingConfig.tls.enableMixedCaseSNI = value;
@@ -1878,6 +1879,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.tls.paddingEnable,
+                tips: tcontext.tls.affectProtocolTips,
                 switchValue: settingConfig.tls.enablePadding,
                 onSwitch: (bool value) async {
                   settingConfig.tls.enablePadding = value;
@@ -1888,7 +1890,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: tcontext.tls.paddingSize,
                 text: settingConfig.tls.paddingSize,
-                hint: "1-1500",
+                hint: SettingConfigItemTLS.kPaddingSize,
                 textWidthPercent: 0.5,
                 enabled: settingConfig.tls.enablePadding,
                 onChanged: (String value) {

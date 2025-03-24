@@ -10,6 +10,8 @@
         "viewFilsContent": "مشاهده فایل‌ها",
         "enablePprof": "فعال‌سازی pprof",
         "pprofPanel": "پنل pprof",
+        "allowRemoteAccessPprof": "اجازه دسترسی از راه دور به @:{AboutScreen.pprofPanel}",
+        "allowRemoteAccessHtmlBoard": "اجازه دسترسی از راه دور@:{SettingsScreen.htmlBoard}",
         "useOriginalSBProfile": "استفاده از پروفایل اصلی سینگ‌باکس"
     },
     "BackupAndSyncWebdavScreen": {
@@ -282,6 +284,7 @@
         "more": "بیشتر",
         "tips": "اطلاعات",
         "copy": "کپی",
+        "save": "ذخیره کنید",
         "ok": "خُب",
         "cancel": "لغو",
         "feedback": "بازخورد",
@@ -301,6 +304,8 @@
         "protocol": "پروتکل",
         "search": "جستجو",
         "custom": "سفارشی",
+        "inbound": "ورودی",
+        "outbound": "خارج شوید",
         "connect": "اتصال",
         "disconnect": "قطع‌ اتصال",
         "connected": "وصل شد",
@@ -322,6 +327,8 @@
         "updateInterval5mTips": "حداقل: 5 متر",
         "updateFailed": "به‌روزرسانی ناموفق بود:$p",
         "none": "هیچ‌کدام",
+        "start": "شروع کنید",
+        "pause": "مکث",
         "reset": "ریست",
         "submit": "ارسال",
         "user": "کاربر",
@@ -475,6 +482,7 @@
     },
     "tls": {
         "insecure": "رد شدن از تأیید گواهی",
+        "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "بخش بندی TLS را فعال کنید",
         "fragmentSize": "اندازه بخش TLS",
         "fragmentSleep": "خواب بخش‌بندی شده TLS",

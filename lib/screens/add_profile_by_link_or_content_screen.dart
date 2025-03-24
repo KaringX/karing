@@ -57,6 +57,7 @@ class _AddProfileByLinkOrContentScreenState
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
+  bool _testLatencyAutoRemove = false;
   @override
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
@@ -179,6 +180,7 @@ class _AddProfileByLinkOrContentScreenState
       [],
       _keepDiversionRules,
       false,
+      _testLatencyAutoRemove,
       _downloadMode,
       _updateTimeInterval,
       ispId: widget.ispId,
@@ -282,14 +284,16 @@ class _AddProfileByLinkOrContentScreenState
                             onTap: () async {
                               await onAdd(context);
                             },
-                            child: const SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Icon(
-                                Icons.done,
-                                size: 26,
-                              ),
-                            ),
+                            child: Tooltip(
+                                message: tcontext.meta.save,
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 30,
+                                  child: Icon(
+                                    Icons.done,
+                                    size: 26,
+                                  ),
+                                )),
                           ),
                   ],
                 ),
@@ -441,6 +445,15 @@ class _AddProfileByLinkOrContentScreenState
                       _updateTimeInterval = duration;
                       setState(() {});
                     })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.profileEditTestLatencyAutoRemove,
+              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
+              switchValue: _testLatencyAutoRemove,
+              onSwitch: (bool value) async {
+                _testLatencyAutoRemove = value;
+                setState(() {});
+              })),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

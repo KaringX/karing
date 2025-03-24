@@ -29,7 +29,6 @@ class VpnServiceCoreConfig: Codable {
 
 class VpnServiceConfig: Codable {
     var control_port: Int32 = 0
-    var pprof_port: Int32 = 0
     var base_dir: String = ""
     var work_dir: String = ""
     var cache_dir: String = ""
@@ -495,7 +494,6 @@ public struct DashboardView: View {
             print("loadConfig \(DashboardView.configFile) exception:\(error.localizedDescription)")
         }
 
-        DashboardView.config.pprof_port = 0
         DashboardView.config.base_dir = DashboardView.defaultSharedDirectory.path()
         DashboardView.config.work_dir = DashboardView.defaultSharedDirectory.path()
         DashboardView.config.cache_dir = DashboardView.cacheDirectory.path()

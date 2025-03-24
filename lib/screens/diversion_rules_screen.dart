@@ -45,7 +45,7 @@ class DiversionRulesScreenState
   @override
   void dispose() {
     super.dispose();
-
+    ServerManager.saveServerConfig();
     ServerManager.saveDiversionGroupConfig();
     ServerManager.saveUse();
   }

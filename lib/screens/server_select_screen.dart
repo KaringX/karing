@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
+import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -359,7 +360,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               item.creator = (data, index, bindIndexv) {
                 final tcontext = Translations.of(context);
                 return createGroupSimple(
-                    tcontext.meta.recommended, null, null, null);
+                    tcontext.meta.recommended, null, null, null, null);
               };
               _listViewParts.add(item);
               for (int i = 0; i < _recommend.length; ++i) {
@@ -382,8 +383,11 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               item.data = null;
               item.creator = (data, index, bindNO) {
                 final tcontext = Translations.of(context);
-                return createGroupSimple(tcontext.ServerSelectScreen.recentUse,
-                    Icons.remove_circle_outlined, Colors.red, () {
+                return createGroupSimple(
+                    tcontext.ServerSelectScreen.recentUse,
+                    Icons.remove_circle_outlined,
+                    tcontext.meta.remove,
+                    Colors.red, () {
                   ServerManager.clearRecent();
                   _buildData();
                   setState(() {});
@@ -419,8 +423,11 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               item.data = null;
               item.creator = (data, index, bindNO) {
                 final tcontext = Translations.of(context);
-                return createGroupSimple(tcontext.ServerSelectScreen.myFav,
-                    Icons.network_ping_outlined, null, () async {
+                return createGroupSimple(
+                    tcontext.ServerSelectScreen.myFav,
+                    Icons.bolt_outlined,
+                    tcontext.meta.latencyTest,
+                    null, () async {
                   if (!await startVPN()) {
                     return;
                   }
@@ -472,7 +479,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
       item.data = null;
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createGroupSimple(tcontext.meta.candidateWord, null, null, null);
+        return createGroupSimple(
+            tcontext.meta.candidateWord, null, null, null, null);
       };
       _listViewParts.add(item);
 
@@ -820,38 +828,43 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 item.isRemote()
             ? Row(
                 children: [
-                  InkWell(
-                    onTap: () async {
-                      ServerManager.reload(item.groupid).then((value) {
-                        if (!mounted) {
-                          return;
-                        }
-                        if (value != null) {
-                          DialogUtils.showAlertDialog(context,
-                              tcontext.meta.updateFailed(p: value.message),
-                              showCopy: true, showFAQ: true, withVersion: true);
-                        }
-                        if (!mounted) {
-                          return;
-                        }
-                        _buildData();
-                        setState(() {});
-                      });
-                      setState(() {});
-                    },
-                    child: ServerManager.isReloading(item.groupid)
-                        ? const SizedBox(
-                            height: 26,
-                            width: 26,
-                            child: RepaintBoundary(
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            ),
-                          )
-                        : const Icon(
-                            Icons.cloud_download_outlined,
-                            size: 26,
-                          ),
-                  ),
+                  Tooltip(
+                      message: tcontext.meta.update,
+                      child: InkWell(
+                        onTap: () async {
+                          ServerManager.reload(item.groupid).then((value) {
+                            if (!mounted) {
+                              return;
+                            }
+                            if (value != null) {
+                              DialogUtils.showAlertDialog(context,
+                                  tcontext.meta.updateFailed(p: value.message),
+                                  showCopy: true,
+                                  showFAQ: true,
+                                  withVersion: true);
+                            }
+                            if (!mounted) {
+                              return;
+                            }
+                            _buildData();
+                            setState(() {});
+                          });
+                          setState(() {});
+                        },
+                        child: ServerManager.isReloading(item.groupid)
+                            ? const SizedBox(
+                                height: 26,
+                                width: 26,
+                                child: RepaintBoundary(
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.cloud_download_outlined,
+                                size: 26,
+                              ),
+                      )),
                   const SizedBox(
                     width: 10,
                   ),
@@ -887,31 +900,33 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                       )
                     ],
                   )
-                : InkWell(
-                    onTap: () async {
-                      bool ok = await startVPN();
-                      if (!ok) {
-                        return;
-                      }
-                      ServerManager.testOutboundLatencyForGroup(item.groupid)
-                          .then((err) {
-                        if (err != null) {
-                          if (mounted) {
-                            setState(() {});
-
-                            DialogUtils.showAlertDialog(context, err.message,
-                                showCopy: true,
-                                showFAQ: true,
-                                withVersion: true);
-                          }
+                : Tooltip(
+                    message: tcontext.meta.latencyTest,
+                    child: InkWell(
+                      onTap: () async {
+                        bool ok = await startVPN();
+                        if (!ok) {
+                          return;
                         }
-                      });
-                    },
-                    child: const Icon(
-                      Icons.network_ping_outlined,
-                      size: 26,
-                    ),
-                  )
+                        ServerManager.testOutboundLatencyForGroup(item.groupid)
+                            .then((err) {
+                          if (err != null) {
+                            if (mounted) {
+                              setState(() {});
+
+                              DialogUtils.showAlertDialog(context, err.message,
+                                  showCopy: true,
+                                  showFAQ: true,
+                                  withVersion: true);
+                            }
+                          }
+                        });
+                      },
+                      child: const Icon(
+                        Icons.bolt_outlined,
+                        size: 26,
+                      ),
+                    ))
             : const SizedBox.shrink(),
         const SizedBox(
           width: 15,
@@ -984,8 +999,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     ]);
   }
 
-  Column createGroupSimple(
-      String remark, IconData? icon, Color? iconColor, Function? onIconTap) {
+  Column createGroupSimple(String remark, IconData? icon, String? iconTips,
+      Color? iconColor, Function? onIconTap) {
     Size windowSize = MediaQuery.of(context).size;
     return Column(children: [
       const SizedBox(
@@ -1019,7 +1034,9 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                       onTap: () async {
                         onIconTap();
                       },
-                      child: Icon(icon, size: 26, color: iconColor),
+                      child: Tooltip(
+                          message: iconTips ?? "",
+                          child: Icon(icon, size: 26, color: iconColor)),
                     )
                   : const SizedBox.shrink(),
               const SizedBox(
@@ -1258,7 +1275,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: Colors.white
-                                                    .withOpacity(0.8),
+                                                    .withValues(alpha: 0.8),
                                               ),
                                               child: Icon(
                                                 Icons.star_outlined,
@@ -1365,11 +1382,13 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                   ),
                   onPressed: _clearSearch,
                 )
-              : IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios_outlined,
-                      color: Colors.black),
-                  onPressed: _pushSearchSelect,
-                ),
+              : Tooltip(
+                  message: tcontext.meta.candidateWord,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios_outlined,
+                        color: Colors.black),
+                    onPressed: _pushSearchSelect,
+                  )),
         ),
       ),
     );
@@ -1533,31 +1552,35 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                     ),
                                   ),
                                 )
-                              : InkWell(
-                                  onTap: () async {
-                                    onTapTestOutboundLatencyAll();
-                                  },
-                                  child: const SizedBox(
-                                      width: 50,
-                                      height: 30,
-                                      child: Icon(
-                                        Icons.network_ping_outlined,
-                                        size: 30,
-                                      )),
+                              : Tooltip(
+                                  message: tcontext.meta.latencyTest,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      onTapTestOutboundLatencyAll();
+                                    },
+                                    child: const SizedBox(
+                                        width: 50,
+                                        height: 30,
+                                        child: Icon(
+                                          Icons.bolt_outlined,
+                                          size: 30,
+                                        )),
+                                  )),
+                          Tooltip(
+                              message: tcontext.meta.setting,
+                              child: InkWell(
+                                onTap: () async {
+                                  onTapSetting();
+                                },
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 30,
+                                  child: Icon(
+                                    Icons.settings_outlined,
+                                    size: 30,
+                                  ),
                                 ),
-                          InkWell(
-                            onTap: () async {
-                              onTapSetting();
-                            },
-                            child: const SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Icon(
-                                Icons.settings_outlined,
-                                size: 30,
-                              ),
-                            ),
-                          ),
+                              )),
                         ])
                   ],
                 ),

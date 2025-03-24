@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
+import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 //import 'package:animated_toggle_switch/animated_toggle_switch.dart';
@@ -439,7 +440,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
       return;
     }
-
+    if (AppLifecycleStateNofity.isPaused()) {
+      return;
+    }
     bool started = await VPNService.getStarted();
     if (!started) {
       String now = _currentServerForUrltest.now;
@@ -517,6 +520,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (!started) {
       return;
     }
+    if (AppLifecycleStateNofity.isPaused()) {
+      return;
+    }
     if (_httpClient != null) {
       return;
     }
@@ -541,6 +547,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             await WebSocket.connect(connectionsUrl, customClient: _httpClient);
 
         _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+          if (AppLifecycleStateNofity.isPaused()) {
+            Future.delayed(const Duration(seconds: 0), () async {
+              _disconnectToService();
+            });
+            return;
+          }
           var obj = jsonDecode(message);
           Connections con = Connections();
           con.fromJson(obj, false);
@@ -549,9 +561,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 .difference(con.startTime!)
                 .toString()
                 .split(".")[0];
-            if (!AppLifecycleStateNofity.isPaused()) {
-              _startDuration.value = _startDurationNotify;
-            }
+
+            _startDuration.value = _startDurationNotify;
           }
           _trafficUpTotalNotify =
               ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
@@ -570,25 +581,23 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
                   "/s";
 
-          if (!AppLifecycleStateNofity.isPaused()) {
-            _trafficUpTotal.value = _trafficUpTotalNotify;
-            _trafficDownTotal.value = _trafficDownTotalNotify;
+          _trafficUpTotal.value = _trafficUpTotalNotify;
+          _trafficDownTotal.value = _trafficDownTotalNotify;
 
-            _trafficUpTotalProxy.value = _trafficUpTotalProxyNotify;
-            _trafficDownTotalProxy.value = _trafficDownTotalProxyNotify;
+          _trafficUpTotalProxy.value = _trafficUpTotalProxyNotify;
+          _trafficDownTotalProxy.value = _trafficDownTotalProxyNotify;
 
-            _trafficUpSpeed.value = _trafficUpSpeedNotify;
-            _trafficDownSpeed.value = _trafficDownSpeedNotify;
+          _trafficUpSpeed.value = _trafficUpSpeedNotify;
+          _trafficDownSpeed.value = _trafficDownSpeedNotify;
 
-            _memory.value =
-                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
+          _memory.value =
+              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
 
-            if (SettingManager.getConfig().dev.devMode) {
-              _connInboundCount.value =
-                  "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
-            } else {
-              _connInboundCount.value = con.connectionsInCount.toString();
-            }
+          if (SettingManager.getConfig().dev.devMode) {
+            _connInboundCount.value =
+                "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
+          } else {
+            _connInboundCount.value = con.connectionsInCount.toString();
           }
 
           _updateNetStateLocalNotifications();
@@ -1262,7 +1271,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     Size windowSize = MediaQuery.of(context).size;
     return Material(
-      color: Colors.grey.withOpacity(0.5),
+      color: Colors.grey.withValues(alpha: 0.5),
       child: InkWell(
         focusNode: _focusNodeSelect,
         onTap: setting.originSBProfile.isNotEmpty
@@ -2109,7 +2118,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                   }),
                                   inactiveTrackColor: noConfig
                                       ? Colors.grey
-                                      : Colors.grey.withOpacity(0.5),
+                                      : Colors.grey.withValues(alpha: 0.5),
                                   onChanged: (bool newValue) async {
                                     if (_state ==
                                             FlutterVpnServiceState.connecting ||
@@ -2298,6 +2307,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             ),
                             SizedBox(
                               child: SegmentedButtonEx<bool>(
+                                selectedIcon: Icon(Icons.check,
+                                    color: themes
+                                        .getTheme(context)
+                                        .iconTheme
+                                        .color),
                                 segments: <ButtonSegmentEx<bool>>[
                                   ButtonSegmentEx<bool>(
                                       value: false,

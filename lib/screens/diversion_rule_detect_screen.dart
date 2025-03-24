@@ -179,10 +179,8 @@ class _DiversionRuleDetectScreenState
                         !_checking
                             ? SizedBox(
                                 height: 45.0,
-                                child: ElevatedButton.icon(
-                                    icon: const Icon(
-                                        Icons.network_check_outlined),
-                                    label: Text(tcontext.meta.detect),
+                                child: ElevatedButton(
+                                    child: Text(tcontext.meta.detect),
                                     onPressed: () async {
                                       onPressCheck();
                                     }))

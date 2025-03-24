@@ -13,9 +13,9 @@ import 'strings.g.dart';
 class TranslationsAr implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ar,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +31,9 @@ class TranslationsAr implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsAr _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsAr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsAr(meta: meta ?? this.$meta);
 
 	// Translations
 	@override late final _TranslationsAboutScreenAr AboutScreen = _TranslationsAboutScreenAr._(_root);
@@ -118,6 +121,8 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => 'عرض الملفات';
 	@override String get enablePprof => 'يُمكَِن pprof';
 	@override String get pprofPanel => 'pprof لوحة';
+	@override String get allowRemoteAccessPprof => 'السماح بالوصول عن بعد إلى ${_root.AboutScreen.pprofPanel}';
+	@override String get allowRemoteAccessHtmlBoard => 'السماح بالوصول عن بعد${_root.SettingsScreen.htmlBoard}';
 	@override String get useOriginalSBProfile => 'استخدم تكوين صندوق الغناء الأصلي';
 }
 
@@ -534,6 +539,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get more => 'أكثر';
 	@override String get tips => 'معلومات';
 	@override String get copy => 'ينسخ';
+	@override String get save => 'يحفظ';
 	@override String get ok => 'نعم';
 	@override String get cancel => 'يلغي';
 	@override String get feedback => 'تعليق';
@@ -553,6 +559,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get protocol => 'بروتوكول';
 	@override String get search => 'يبحث';
 	@override String get custom => 'مخصص';
+	@override String get inbound => 'وارد';
+	@override String get outbound => 'مخرج';
 	@override String get connect => 'يتصل';
 	@override String get disconnect => 'قطع الاتصال';
 	@override String get connected => 'متصل';
@@ -574,6 +582,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get updateInterval5mTips => 'الحد الأدنى: 5 م';
 	@override String updateFailed({required Object p}) => 'فشل التحديث:${p}';
 	@override String get none => 'لا أحد';
+	@override String get start => 'يبدأ';
+	@override String get pause => 'يوقف';
 	@override String get reset => 'إعادة ضبط';
 	@override String get submit => 'يُقدِّم';
 	@override String get user => 'مستخدم';
@@ -741,6 +751,7 @@ class _TranslationsTlsAr implements TranslationsTlsEn {
 
 	// Translations
 	@override String get insecure => 'تخطي التحقق من الشهادة';
+	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'تمكين تجزئة TLS';
 	@override String get fragmentSize => 'حجم شريحة TLS';
 	@override String get fragmentSleep => 'TLS النوم المجزأ';
@@ -813,6 +824,8 @@ extension on TranslationsAr {
 			case 'AboutScreen.viewFilsContent': return 'عرض الملفات';
 			case 'AboutScreen.enablePprof': return 'يُمكَِن pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof لوحة';
+			case 'AboutScreen.allowRemoteAccessPprof': return 'السماح بالوصول عن بعد إلى ${_root.AboutScreen.pprofPanel}';
+			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'السماح بالوصول عن بعد${_root.SettingsScreen.htmlBoard}';
 			case 'AboutScreen.useOriginalSBProfile': return 'استخدم تكوين صندوق الغناء الأصلي';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'لايمكن ان يكون فارغا';
@@ -1041,6 +1054,7 @@ extension on TranslationsAr {
 			case 'meta.more': return 'أكثر';
 			case 'meta.tips': return 'معلومات';
 			case 'meta.copy': return 'ينسخ';
+			case 'meta.save': return 'يحفظ';
 			case 'meta.ok': return 'نعم';
 			case 'meta.cancel': return 'يلغي';
 			case 'meta.feedback': return 'تعليق';
@@ -1060,6 +1074,8 @@ extension on TranslationsAr {
 			case 'meta.protocol': return 'بروتوكول';
 			case 'meta.search': return 'يبحث';
 			case 'meta.custom': return 'مخصص';
+			case 'meta.inbound': return 'وارد';
+			case 'meta.outbound': return 'مخرج';
 			case 'meta.connect': return 'يتصل';
 			case 'meta.disconnect': return 'قطع الاتصال';
 			case 'meta.connected': return 'متصل';
@@ -1081,6 +1097,8 @@ extension on TranslationsAr {
 			case 'meta.updateInterval5mTips': return 'الحد الأدنى: 5 م';
 			case 'meta.updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
 			case 'meta.none': return 'لا أحد';
+			case 'meta.start': return 'يبدأ';
+			case 'meta.pause': return 'يوقف';
 			case 'meta.reset': return 'إعادة ضبط';
 			case 'meta.submit': return 'يُقدِّم';
 			case 'meta.user': return 'مستخدم';
@@ -1228,6 +1246,7 @@ extension on TranslationsAr {
 			case 'permission.request': return ({required Object p}) => 'تمكين أذونات [${p}]';
 			case 'permission.requestNeed': return ({required Object p}) => 'الرجاء تفعيل إذن [${p}]';
 			case 'tls.insecure': return 'تخطي التحقق من الشهادة';
+			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
 			case 'tls.fragmentEnable': return 'تمكين تجزئة TLS';
 			case 'tls.fragmentSize': return 'حجم شريحة TLS';
 			case 'tls.fragmentSleep': return 'TLS النوم المجزأ';

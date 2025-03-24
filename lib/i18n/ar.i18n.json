@@ -10,6 +10,8 @@
         "viewFilsContent": "عرض الملفات",
         "enablePprof": "يُمكَِن pprof",
         "pprofPanel": "pprof لوحة",
+        "allowRemoteAccessPprof": "السماح بالوصول عن بعد إلى @:{AboutScreen.pprofPanel}",
+        "allowRemoteAccessHtmlBoard": "السماح بالوصول عن بعد@:{SettingsScreen.htmlBoard}",
         "useOriginalSBProfile": "استخدم تكوين صندوق الغناء الأصلي"
     },
     "BackupAndSyncWebdavScreen": {
@@ -282,6 +284,7 @@
         "more": "أكثر",
         "tips": "معلومات",
         "copy": "ينسخ",
+        "save": "يحفظ",
         "ok": "نعم",
         "cancel": "يلغي",
         "feedback": "تعليق",
@@ -301,6 +304,8 @@
         "protocol": "بروتوكول",
         "search": "يبحث",
         "custom": "مخصص",
+        "inbound": "وارد",
+        "outbound": "مخرج",
         "connect": "يتصل",
         "disconnect": "قطع الاتصال",
         "connected": "متصل",
@@ -322,6 +327,8 @@
         "updateInterval5mTips": "الحد الأدنى: 5 م",
         "updateFailed": "فشل التحديث:$p",
         "none": "لا أحد",
+        "start": "يبدأ",
+        "pause": "يوقف",
         "reset": "إعادة ضبط",
         "submit": "يُقدِّم",
         "user": "مستخدم",
@@ -475,6 +482,7 @@
     },
     "tls": {
         "insecure": "تخطي التحقق من الشهادة",
+        "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "تمكين تجزئة TLS",
         "fragmentSize": "حجم شريحة TLS",
         "fragmentSleep": "TLS النوم المجزأ",

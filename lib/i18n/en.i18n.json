@@ -10,6 +10,8 @@
         "viewFilsContent": "View Files",
         "enablePprof": "Enable pprof",
         "pprofPanel": "pprof Panel",
+        "allowRemoteAccessPprof": "Allow remote access to @:{AboutScreen.pprofPanel}",
+        "allowRemoteAccessHtmlBoard": "Allow remote access@:{SettingsScreen.htmlBoard}",
         "useOriginalSBProfile": "Use original sing-box Profile"
     },
     "BackupAndSyncWebdavScreen": {
@@ -282,6 +284,7 @@
         "more": "More",
         "tips": "Info",
         "copy": "Copy",
+        "save": "Save",
         "ok": "Ok",
         "cancel": "Cancel",
         "feedback": "Feedback",
@@ -301,6 +304,8 @@
         "protocol": "Protocol",
         "search": "Search",
         "custom": "Custom",
+        "inbound": "Inbound",
+        "outbound": "Outbound",
         "connect": "Connect",
         "disconnect": "Disconnect",
         "connected": "Connected",
@@ -322,6 +327,8 @@
         "updateFailed": "Update failed:$p",
         "updateInterval5mTips": "Minimum: 5m",
         "none": "None",
+        "start": "Start",
+        "pause": "Pause",
         "reset": "Reset",
         "submit": "Submit",
         "user": "User",
@@ -475,6 +482,7 @@
     },
     "tls": {
         "insecure": "Skip Certificate Verification",
+        "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Enable TLS Fragment",
         "fragmentSize": "TLS Fragment Size",
         "fragmentSleep": "TLS Fragment Sleep",

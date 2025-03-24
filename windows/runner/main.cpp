@@ -1,11 +1,12 @@
 #include <flutter/dart_project.h>
 #include <flutter/flutter_view_controller.h>
 #include <windows.h>
+#include <winuser.h>
 #include <protocol_handler/protocol_handler_plugin.h>
-//#include <protocol_handler_windows/protocol_handler_windows_plugin_c_api.h>
+// #include <protocol_handler_windows/protocol_handler_windows_plugin_c_api.h>
 #include "flutter_window.h"
 #include "utils.h"
-//#include <sentry.h>
+// #include <sentry.h>
 
 LONG __stdcall UnhandledException(PEXCEPTION_POINTERS pExceptionInfo)
 {
@@ -35,7 +36,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   sentry_init(options);*/
   
 
-  const wchar_t* kWindowName = L"Karing";
+  const wchar_t *kWindowName = L"Karing";
   HWND hwnd = ::FindWindow(L"FLUTTER_RUNNER_WIN32_WINDOW", kWindowName);
   if (hwnd != NULL) {
     DispatchToProtocolHandler(hwnd);
@@ -61,13 +62,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
 
-  FlutterWindow* window = new FlutterWindow(project);
-  //FlutterWindow window(project);
+  FlutterWindow *window = new FlutterWindow(project);
+  // FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(400, 700);
   if (!window->Create(kWindowName, origin, size)) {
     return EXIT_FAILURE;
   }
+  ::ChangeWindowMessageFilterEx(window->GetHandle(), WM_COPYDATA, MSGFLT_ALLOW, NULL);
   window->SetQuitOnClose(false);
   ::MSG msg;
   while (::GetMessage(&msg, nullptr, 0, 0)) {
@@ -76,9 +78,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   }
 
   ::CoUninitialize();
-  //sentry_close();
+  // sentry_close();
   uninitializeWindow(window);
 
   return EXIT_SUCCESS;
 }
-

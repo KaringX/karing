@@ -101,6 +101,7 @@ class CommonWidget {
     if (traffic == null) {
       return const Row();
     }
+    final tcontext = Translations.of(context);
     var settings = SettingManager.getConfig();
 
     Tuple2<bool, String> exp = traffic.getExpireTime(settings.languageTag);
@@ -192,10 +193,12 @@ class CommonWidget {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       ),
                     )
-                  : const Icon(
-                      Icons.refresh_outlined,
-                      size: 26,
-                    )
+                  : Tooltip(
+                      message: tcontext.meta.refresh,
+                      child: const Icon(
+                        Icons.refresh_outlined,
+                        size: 26,
+                      ))
             ],
           ),
         ),

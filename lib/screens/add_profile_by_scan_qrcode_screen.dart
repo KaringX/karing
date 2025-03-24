@@ -187,14 +187,16 @@ class _AddProfileByScanQrcodeScanScreenState
               _result.qrcode = _qrContent;
               Navigator.pop(context, _result);
             },
-            child: const SizedBox(
-              width: 50,
-              height: 30,
-              child: Icon(
-                Icons.done,
-                size: 26,
-              ),
-            ),
+            child: Tooltip(
+                message: tcontext.meta.save,
+                child: const SizedBox(
+                  width: 50,
+                  height: 30,
+                  child: Icon(
+                    Icons.done,
+                    size: 26,
+                  ),
+                )),
           ),
         ]),
       ];
@@ -232,14 +234,16 @@ class _AddProfileByScanQrcodeScanScreenState
           _result.qrcode = _qrContent;
           Navigator.pop(context, _result);
         },
-        child: const SizedBox(
-          width: 50,
-          height: 30,
-          child: Icon(
-            Icons.done,
-            size: 26,
-          ),
-        ),
+        child: Tooltip(
+            message: tcontext.meta.save,
+            child: const SizedBox(
+              width: 50,
+              height: 30,
+              child: Icon(
+                Icons.done,
+                size: 26,
+              ),
+            )),
       ),
     ];
   }
@@ -276,9 +280,8 @@ class _AddProfileByScanQrcodeScanScreenState
           children: [
             SizedBox(
               height: 45.0,
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.file_open_outlined),
-                  label: Text(tcontext.meta.qrcodeScanFromImage),
+              child: ElevatedButton(
+                  child: Text(tcontext.meta.qrcodeScanFromImage),
                   onPressed: () async {
                     await onPressScanFromImageMobile();
                   }),
@@ -316,9 +319,8 @@ class _AddProfileByScanQrcodeScanScreenState
           children: [
             SizedBox(
               height: 45.0,
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.fit_screen_outlined),
-                  label: Text(tcontext.meta.screenshot),
+              child: ElevatedButton(
+                  child: Text(tcontext.meta.screenshot),
                   onPressed: () async {
                     await onPressScreenshot();
                   }),
@@ -328,9 +330,8 @@ class _AddProfileByScanQrcodeScanScreenState
             ),
             SizedBox(
               height: 45.0,
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.file_open_outlined),
-                  label: Text(tcontext.meta.qrcodeScanFromImage),
+              child: ElevatedButton(
+                  child: Text(tcontext.meta.qrcodeScanFromImage),
                   onPressed: () async {
                     await onPressScanFromImagePC();
                   }),

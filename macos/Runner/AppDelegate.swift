@@ -28,4 +28,8 @@ class AppDelegate: FlutterAppDelegate {
             token = nil
         }
     }
+
+    override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        return true
+    }
 }

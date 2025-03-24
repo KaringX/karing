@@ -13,9 +13,9 @@ import 'strings.g.dart';
 class TranslationsFa implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.fa,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +31,9 @@ class TranslationsFa implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsFa _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsFa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFa(meta: meta ?? this.$meta);
 
 	// Translations
 	@override late final _TranslationsAboutScreenFa AboutScreen = _TranslationsAboutScreenFa._(_root);
@@ -118,6 +121,8 @@ class _TranslationsAboutScreenFa implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => 'مشاهده فایل‌ها';
 	@override String get enablePprof => 'فعال‌سازی pprof';
 	@override String get pprofPanel => 'پنل pprof';
+	@override String get allowRemoteAccessPprof => 'اجازه دسترسی از راه دور به ${_root.AboutScreen.pprofPanel}';
+	@override String get allowRemoteAccessHtmlBoard => 'اجازه دسترسی از راه دور${_root.SettingsScreen.htmlBoard}';
 	@override String get useOriginalSBProfile => 'استفاده از پروفایل اصلی سینگ‌باکس';
 }
 
@@ -534,6 +539,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get more => 'بیشتر';
 	@override String get tips => 'اطلاعات';
 	@override String get copy => 'کپی';
+	@override String get save => 'ذخیره کنید';
 	@override String get ok => 'خُب';
 	@override String get cancel => 'لغو';
 	@override String get feedback => 'بازخورد';
@@ -553,6 +559,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get protocol => 'پروتکل';
 	@override String get search => 'جستجو';
 	@override String get custom => 'سفارشی';
+	@override String get inbound => 'ورودی';
+	@override String get outbound => 'خارج شوید';
 	@override String get connect => 'اتصال';
 	@override String get disconnect => 'قطع‌ اتصال';
 	@override String get connected => 'وصل شد';
@@ -574,6 +582,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get updateInterval5mTips => 'حداقل: 5 متر';
 	@override String updateFailed({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
 	@override String get none => 'هیچ‌کدام';
+	@override String get start => 'شروع کنید';
+	@override String get pause => 'مکث';
 	@override String get reset => 'ریست';
 	@override String get submit => 'ارسال';
 	@override String get user => 'کاربر';
@@ -741,6 +751,7 @@ class _TranslationsTlsFa implements TranslationsTlsEn {
 
 	// Translations
 	@override String get insecure => 'رد شدن از تأیید گواهی';
+	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'بخش بندی TLS را فعال کنید';
 	@override String get fragmentSize => 'اندازه بخش TLS';
 	@override String get fragmentSleep => 'خواب بخش‌بندی شده TLS';
@@ -813,6 +824,8 @@ extension on TranslationsFa {
 			case 'AboutScreen.viewFilsContent': return 'مشاهده فایل‌ها';
 			case 'AboutScreen.enablePprof': return 'فعال‌سازی pprof';
 			case 'AboutScreen.pprofPanel': return 'پنل pprof';
+			case 'AboutScreen.allowRemoteAccessPprof': return 'اجازه دسترسی از راه دور به ${_root.AboutScreen.pprofPanel}';
+			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'اجازه دسترسی از راه دور${_root.SettingsScreen.htmlBoard}';
 			case 'AboutScreen.useOriginalSBProfile': return 'استفاده از پروفایل اصلی سینگ‌باکس';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'آدرس URL سرور';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'نمی‌تواند خالی باشد';
@@ -1041,6 +1054,7 @@ extension on TranslationsFa {
 			case 'meta.more': return 'بیشتر';
 			case 'meta.tips': return 'اطلاعات';
 			case 'meta.copy': return 'کپی';
+			case 'meta.save': return 'ذخیره کنید';
 			case 'meta.ok': return 'خُب';
 			case 'meta.cancel': return 'لغو';
 			case 'meta.feedback': return 'بازخورد';
@@ -1060,6 +1074,8 @@ extension on TranslationsFa {
 			case 'meta.protocol': return 'پروتکل';
 			case 'meta.search': return 'جستجو';
 			case 'meta.custom': return 'سفارشی';
+			case 'meta.inbound': return 'ورودی';
+			case 'meta.outbound': return 'خارج شوید';
 			case 'meta.connect': return 'اتصال';
 			case 'meta.disconnect': return 'قطع‌ اتصال';
 			case 'meta.connected': return 'وصل شد';
@@ -1081,6 +1097,8 @@ extension on TranslationsFa {
 			case 'meta.updateInterval5mTips': return 'حداقل: 5 متر';
 			case 'meta.updateFailed': return ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
 			case 'meta.none': return 'هیچ‌کدام';
+			case 'meta.start': return 'شروع کنید';
+			case 'meta.pause': return 'مکث';
 			case 'meta.reset': return 'ریست';
 			case 'meta.submit': return 'ارسال';
 			case 'meta.user': return 'کاربر';
@@ -1228,6 +1246,7 @@ extension on TranslationsFa {
 			case 'permission.request': return ({required Object p}) => 'مجوزهای [${p}] را فعال کنید';
 			case 'permission.requestNeed': return ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید';
 			case 'tls.insecure': return 'رد شدن از تأیید گواهی';
+			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
 			case 'tls.fragmentEnable': return 'بخش بندی TLS را فعال کنید';
 			case 'tls.fragmentSize': return 'اندازه بخش TLS';
 			case 'tls.fragmentSleep': return 'خواب بخش‌بندی شده TLS';

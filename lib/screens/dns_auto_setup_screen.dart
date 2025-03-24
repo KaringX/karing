@@ -127,7 +127,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                                 width: 50,
                                 height: 30,
                                 child: Icon(
-                                  Icons.network_ping_outlined,
+                                  Icons.bolt_outlined,
                                   size: 26,
                                 ),
                               ),

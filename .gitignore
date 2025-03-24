@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -52,6 +54,7 @@ app.*.map.json
 /dist/*.exe
 /dist/*.zip
 /dist/*.xcarchive
+/dist/karing_*
 /bind/apple/Libbox.xcframework
 /bind/android
 /bind/windows
@@ -62,3 +65,4 @@ app.*.map.json
 /dist/ios
 /dist/macos
 /todo.txt
+/android/app/.cxx

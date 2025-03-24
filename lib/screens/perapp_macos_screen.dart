@@ -192,18 +192,20 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () async {
-                        onTapMore();
-                      },
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.more_vert_outlined,
-                          size: 30,
-                        ),
-                      ),
-                    ),
+                        onTap: () async {
+                          onTapMore();
+                        },
+                        child: Tooltip(
+                          message: tcontext.meta.more,
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.more_vert_outlined,
+                              size: 30,
+                            ),
+                          ),
+                        )),
                   ],
                 ),
               ),

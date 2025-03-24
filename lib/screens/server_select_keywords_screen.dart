@@ -37,6 +37,7 @@ class _ServerSelectSearchSettingsScreenState
 
   void _buildData() {
     _allData = ServerManager.getUse().serverSelectSearchSelect;
+    _allData.sort((a, b) => a.compareTo(b));
   }
 
   @override

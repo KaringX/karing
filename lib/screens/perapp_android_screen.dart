@@ -270,13 +270,15 @@ class _PerAppAndroidScreenState
                       onTap: () async {
                         onTapMore();
                       },
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.more_vert_outlined,
-                          size: 30,
-                        ),
+                      child: Tooltip(
+                        message: tcontext.meta.more,
+                        child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.more_vert_outlined,
+                              size: 30,
+                            )),
                       ),
                     ),
                   ],

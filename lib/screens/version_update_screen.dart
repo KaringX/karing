@@ -83,9 +83,8 @@ class _VersionUpdateScreenState
                     ),
                     SizedBox(
                         height: 45.0,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.restart_alt_outlined),
-                          label: Text(tcontext.VersionUpdateScreen.update),
+                        child: ElevatedButton(
+                          child: Text(tcontext.VersionUpdateScreen.update),
                           onPressed: () async {
                             await checkReplace();
                           },
@@ -99,9 +98,8 @@ class _VersionUpdateScreenState
                           )
                         : SizedBox(
                             height: 45.0,
-                            child: ElevatedButton.icon(
-                              icon: const Icon(Icons.cancel_outlined),
-                              label: Text(tcontext.VersionUpdateScreen.cancel),
+                            child: ElevatedButton(
+                              child: Text(tcontext.VersionUpdateScreen.cancel),
                               onPressed: () async {
                                 Navigator.pop(context);
                               },

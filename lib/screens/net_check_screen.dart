@@ -441,33 +441,47 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     for (var dnsType in dnsTypes) {
       List<String> dnsAddress = [];
       String detour = "";
+      String detourName = "";
       String name = "";
+
       if (dnsType == DNSType.dnsTypeOutbound) {
         dnsAddress = settingConfig.dns.getOutboundDns(regionCode, tunMode);
-        detour = kOutboundTagDirect;
         name = tcontext.SettingsScreen.dnsTypeOutbound;
+        detour = kOutboundTagDirect;
       } else if (dnsType == DNSType.dnsTypeDirect) {
         dnsAddress = settingConfig.dns.getDirectDns(regionCode, tunMode);
-        detour = kOutboundTagDirect;
         name = tcontext.SettingsScreen.dnsTypeDirect;
+        detour = kOutboundTagDirect;
       } else if (dnsType == DNSType.dnsTypeProxy) {
         dnsAddress = settingConfig.dns.getProxyDns(regionCode, tunMode);
-        detour = current.tag;
-        if (current.groupid == ServerManager.getUrltestGroupId()) {
-          if (detour != kOutboundTagUrltest) {
-            detour = ServerManager.getUrltestTagForCustom(detour);
-          }
-        }
         name = tcontext.SettingsScreen.dnsTypeProxy;
-        if (!settingConfig.dns.enableRule ||
-            (settingConfig.dns.proxyResolveMode !=
-                SettingConfigItemDNSProxyResolveMode.proxy)) {
+        switch (settingConfig.dns.proxyResolveMode) {
+          case SettingConfigItemDNSProxyResolveMode.proxy:
+            detourName = tcontext.dnsProxyResolveMode.proxy;
+            break;
+          case SettingConfigItemDNSProxyResolveMode.direct:
+            detourName = tcontext.dnsProxyResolveMode.direct;
+            break;
+          case SettingConfigItemDNSProxyResolveMode.fakeip:
+            detourName = tcontext.dnsProxyResolveMode.fakeip;
+            break;
+        }
+
+        if (settingConfig.dns.proxyResolveMode ==
+            SettingConfigItemDNSProxyResolveMode.direct) {
           detour = kOutboundTagDirect;
+        } else {
+          detour = current.tag;
+          if (current.groupid == ServerManager.getUrltestGroupId()) {
+            if (detour != kOutboundTagUrltest) {
+              detour = ServerManager.getUrltestTagForCustom(detour);
+            }
+          }
         }
       } else if (dnsType == DNSType.dnsTypeResolver) {
         dnsAddress = settingConfig.dns.getResolverDns(regionCode, tunMode);
-        detour = kOutboundTagDirect;
         name = tcontext.SettingsScreen.dnsTypeResolver;
+        detour = kOutboundTagDirect;
       }
 
       ReturnResult<int> result =
@@ -476,12 +490,16 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         return false;
       }
       if (result.error == null) {
-        wrapper.item!.values
-            .add(ReturnResult(data: "$name:[${result.data} ms]"));
+        wrapper.item!.values.add(ReturnResult(
+            data: detourName.isNotEmpty
+                ? "$name[$detourName]:[${result.data} ms]"
+                : "$name:[${result.data} ms]"));
       } else {
         hasError = true;
         wrapper.item!.values.add(ReturnResult(
-            error: ReturnResultError("$name:${result.error!.message}")));
+            error: ReturnResultError(detourName.isNotEmpty
+                ? "$name[$detourName]:${result.error!.message}"
+                : "$name:${result.error!.message}")));
       }
     }
     return !hasError;
@@ -782,9 +800,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
             !_checking
                 ? SizedBox(
                     height: 45.0,
-                    child: ElevatedButton.icon(
-                        icon: const Icon(Icons.network_check_outlined),
-                        label: Text(tcontext.meta.check),
+                    child: ElevatedButton(
+                        child: Text(tcontext.meta.check),
                         onPressed: () async {
                           onPressCheck();
                         }))

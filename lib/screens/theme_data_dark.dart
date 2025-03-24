@@ -14,11 +14,11 @@ class ThemeDataDark {
       //fontFamily: 'Roboto',
       primaryColor: mainColor,
       primaryColorDark: mainColor,
-      dialogBackgroundColor: Colors.white,
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor,
         brightness: Brightness.dark,
       ),
+
       appBarTheme: const AppBarTheme(
         elevation: 0,
         backgroundColor: mainBgColor,

@@ -126,9 +126,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                     ),
                     SizedBox(
                         height: 45.0,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.webhook_rounded),
-                          label: Text(tcontext.meta.website),
+                        child: ElevatedButton(
+                          child: Text(tcontext.meta.website),
                           onPressed: () async {
                             AnalyticsUtils.logEvent(
                                 analyticsEventType: analyticsEventTypeUA,
@@ -144,9 +143,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                     SizedBox(
                         height: 45.0,
                         child: !Platform.isIOS
-                            ? ElevatedButton.icon(
-                                icon: const Icon(Icons.logout_outlined),
-                                label: Text(tcontext.meta.quit),
+                            ? ElevatedButton(
+                                child: Text(tcontext.meta.quit),
                                 onPressed: () async {
                                   Biz.quit();
                                 },

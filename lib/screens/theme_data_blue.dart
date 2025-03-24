@@ -14,7 +14,6 @@ class ThemeDataBlue {
       //fontFamily: 'Roboto',
       primaryColor: mainColor,
       primaryColorLight: mainColor,
-      dialogBackgroundColor: Colors.white,
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor,
         brightness: Brightness.light,

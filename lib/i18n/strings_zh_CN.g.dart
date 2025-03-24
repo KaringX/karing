@@ -13,9 +13,9 @@ import 'strings.g.dart';
 class TranslationsZhCn implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.zhCn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +31,9 @@ class TranslationsZhCn implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsZhCn _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsZhCn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhCn(meta: meta ?? this.$meta);
 
 	// Translations
 	@override late final _TranslationsAboutScreenZhCn AboutScreen = _TranslationsAboutScreenZhCn._(_root);
@@ -118,6 +121,8 @@ class _TranslationsAboutScreenZhCn implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => '查看文件';
 	@override String get enablePprof => '启用pprof';
 	@override String get pprofPanel => 'pprof面板';
+	@override String get allowRemoteAccessPprof => '允许远程访问${_root.AboutScreen.pprofPanel}';
+	@override String get allowRemoteAccessHtmlBoard => '允许远程访问${_root.SettingsScreen.htmlBoard}';
 	@override String get useOriginalSBProfile => '使用原始sing-box配置';
 }
 
@@ -534,6 +539,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get more => '更多';
 	@override String get tips => '提示';
 	@override String get copy => '拷贝';
+	@override String get save => '保存';
 	@override String get ok => '确定';
 	@override String get cancel => '取消';
 	@override String get feedback => '反馈';
@@ -553,6 +559,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get protocol => '协议';
 	@override String get search => '搜索';
 	@override String get custom => '自定义';
+	@override String get inbound => '入站';
+	@override String get outbound => '出站';
 	@override String get connect => '连接';
 	@override String get disconnect => '断开';
 	@override String get connected => '已连接';
@@ -574,6 +582,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get updateInterval5mTips => '最小:5m';
 	@override String updateFailed({required Object p}) => '更新失败:${p}';
 	@override String get none => '无';
+	@override String get start => '开始';
+	@override String get pause => '暂停';
 	@override String get reset => '重置';
 	@override String get submit => '提交';
 	@override String get user => '用户';
@@ -741,6 +751,7 @@ class _TranslationsTlsZhCn implements TranslationsTlsEn {
 
 	// Translations
 	@override String get insecure => '跳过证书验证';
+	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => '启用TLS分段';
 	@override String get fragmentSize => 'TLS分段大小';
 	@override String get fragmentSleep => 'TLS分段休眠';
@@ -813,6 +824,8 @@ extension on TranslationsZhCn {
 			case 'AboutScreen.viewFilsContent': return '查看文件';
 			case 'AboutScreen.enablePprof': return '启用pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof面板';
+			case 'AboutScreen.allowRemoteAccessPprof': return '允许远程访问${_root.AboutScreen.pprofPanel}';
+			case 'AboutScreen.allowRemoteAccessHtmlBoard': return '允许远程访问${_root.SettingsScreen.htmlBoard}';
 			case 'AboutScreen.useOriginalSBProfile': return '使用原始sing-box配置';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return '服务器地址';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return '不能为空';
@@ -1041,6 +1054,7 @@ extension on TranslationsZhCn {
 			case 'meta.more': return '更多';
 			case 'meta.tips': return '提示';
 			case 'meta.copy': return '拷贝';
+			case 'meta.save': return '保存';
 			case 'meta.ok': return '确定';
 			case 'meta.cancel': return '取消';
 			case 'meta.feedback': return '反馈';
@@ -1060,6 +1074,8 @@ extension on TranslationsZhCn {
 			case 'meta.protocol': return '协议';
 			case 'meta.search': return '搜索';
 			case 'meta.custom': return '自定义';
+			case 'meta.inbound': return '入站';
+			case 'meta.outbound': return '出站';
 			case 'meta.connect': return '连接';
 			case 'meta.disconnect': return '断开';
 			case 'meta.connected': return '已连接';
@@ -1081,6 +1097,8 @@ extension on TranslationsZhCn {
 			case 'meta.updateInterval5mTips': return '最小:5m';
 			case 'meta.updateFailed': return ({required Object p}) => '更新失败:${p}';
 			case 'meta.none': return '无';
+			case 'meta.start': return '开始';
+			case 'meta.pause': return '暂停';
 			case 'meta.reset': return '重置';
 			case 'meta.submit': return '提交';
 			case 'meta.user': return '用户';
@@ -1228,6 +1246,7 @@ extension on TranslationsZhCn {
 			case 'permission.request': return ({required Object p}) => '开启[${p}]权限';
 			case 'permission.requestNeed': return ({required Object p}) => '请开启[${p}]权限';
 			case 'tls.insecure': return '跳过证书验证';
+			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
 			case 'tls.fragmentEnable': return '启用TLS分段';
 			case 'tls.fragmentSize': return 'TLS分段大小';
 			case 'tls.fragmentSleep': return 'TLS分段休眠';

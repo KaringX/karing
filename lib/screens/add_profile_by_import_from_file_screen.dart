@@ -38,6 +38,7 @@ class _AddProfileByImportFromFileScreenState
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
   bool _keepDiversionRules = false;
+  bool _testLatencyAutoRemove = false;
   ProxyFilter _proxyFilter = ProxyFilter();
   @override
   void initState() {
@@ -74,7 +75,13 @@ class _AddProfileByImportFromFileScreenState
     setState(() {});
 
     ReturnResultError? error = await ServerManager.addLocalConfig(
-        text, _filePath, widget.type, _proxyFilter, _keepDiversionRules);
+      text,
+      _filePath,
+      widget.type,
+      _proxyFilter,
+      _keepDiversionRules,
+      _testLatencyAutoRemove,
+    );
 
     if (!mounted) {
       return;
@@ -102,6 +109,7 @@ class _AddProfileByImportFromFileScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -162,15 +170,17 @@ class _AddProfileByImportFromFileScreenState
                           onTap: () async {
                             await onAdd(context);
                           },
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.done,
-                              size: 26,
+                          child: Tooltip(
+                            message: tcontext.meta.save,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.done,
+                                size: 26,
+                              ),
                             ),
-                          ),
-                        ),
+                          )),
                 ],
               ),
               const SizedBox(
@@ -193,9 +203,8 @@ class _AddProfileByImportFromFileScreenState
                     padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
                     child: SizedBox(
                       height: 45.0,
-                      child: ElevatedButton.icon(
-                          icon: const Icon(Icons.file_open_outlined),
-                          label: Text(tcontext.meta.fileChoose),
+                      child: ElevatedButton(
+                          child: Text(tcontext.meta.fileChoose),
                           onPressed: () async {
                             await onPressChooseFile();
                           }),
@@ -301,6 +310,15 @@ class _AddProfileByImportFromFileScreenState
               switchValue: _keepDiversionRules,
               onSwitch: (bool value) async {
                 _keepDiversionRules = value;
+                setState(() {});
+              })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.profileEditTestLatencyAutoRemove,
+              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
+              switchValue: _testLatencyAutoRemove,
+              onSwitch: (bool value) async {
+                _testLatencyAutoRemove = value;
                 setState(() {});
               })),
     ];

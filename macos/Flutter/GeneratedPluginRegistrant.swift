@@ -6,6 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import app_installer
+import app_settings
 import build_info_macos
 import cryptography_flutter
 import file_picker
@@ -33,6 +34,7 @@ import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AppInstallerPlugin.register(with: registry.registrar(forPlugin: "AppInstallerPlugin"))
+  AppSettingsPlugin.register(with: registry.registrar(forPlugin: "AppSettingsPlugin"))
   BuildInfoPlugin.register(with: registry.registrar(forPlugin: "BuildInfoPlugin"))
   CryptographyFlutterPlugin.register(with: registry.registrar(forPlugin: "CryptographyFlutterPlugin"))
   FilePickerPlugin.register(with: registry.registrar(forPlugin: "FilePickerPlugin"))

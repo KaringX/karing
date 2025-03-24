@@ -96,7 +96,6 @@ Future<void> run(List<String> args) async {
         startFailedReason = StartFailedReason.invalidVersion;
         break;
       }
-      exePath = exePath.toUpperCase();
       if (PlatformUtils.isPC()) {
         if (path.basename(exePath).toLowerCase() !=
             PathUtils.getExeName().toLowerCase()) {
@@ -513,7 +512,7 @@ class MyAppState extends State<MyApp>
         ),
       ];
       await trayManager.setContextMenu(Menu(items: items));
-      await trayManager.popUpContextMenu();
+      await trayManager.popUpContextMenu(bringAppToFront: true);
     }
   }
 

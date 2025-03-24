@@ -10,6 +10,8 @@
         "viewFilsContent": "Посмотреть файлы",
         "enablePprof": "Включить pprof",
         "pprofPanel": "pprof панель",
+        "allowRemoteAccessPprof": "Разрешить удаленный доступ к @:{AboutScreen.pprofPanel}",
+        "allowRemoteAccessHtmlBoard": "Разрешить удаленный доступ@:{SettingsScreen.htmlBoard}",
         "useOriginalSBProfile": "Использовать исходную конфигурацию Sing-box"
     },
     "BackupAndSyncWebdavScreen": {
@@ -282,6 +284,7 @@
         "more": "Больше",
         "tips": "Инфо",
         "copy": "Скопировать",
+        "save": "сохранять",
         "ok": "Ок",
         "cancel": "Закрыть",
         "feedback": "Обратная связь",
@@ -301,6 +304,8 @@
         "protocol": "Протокол",
         "search": "Поиск",
         "custom": "Настроить самостоятельно",
+        "inbound": "Входящий",
+        "outbound": "Выход",
         "connect": "Соединить",
         "disconnect": "Отключить",
         "connected": "Подключено",
@@ -322,6 +327,8 @@
         "updateInterval5mTips": "Минимум: 5 м",
         "updateFailed": "Не удалось обновить:$p",
         "none": "Ничего не делать",
+        "start": "начинать",
+        "pause": "пауза",
         "reset": "Перезагрузить",
         "submit": "Отправить",
         "user": "Пользователь",
@@ -475,6 +482,7 @@
     },
     "tls": {
         "insecure": "Пропустить проверку сертификата",
+        "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Включить фрагментацию TLS",
         "fragmentSize": "Размер фрагмента TLS",
         "fragmentSleep": "Длина фрагмента паузы TLS",

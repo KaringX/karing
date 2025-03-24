@@ -147,14 +147,16 @@ class _UWPLoopbackExemptionWindowsScreenState
                           onTap: () async {
                             onTapDone();
                           },
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.done,
-                              size: 26,
-                            ),
-                          ),
+                          child: Tooltip(
+                              message: tcontext.meta.save,
+                              child: const SizedBox(
+                                width: 50,
+                                height: 30,
+                                child: Icon(
+                                  Icons.done,
+                                  size: 26,
+                                ),
+                              )),
                         ),
                       ],
                     ),

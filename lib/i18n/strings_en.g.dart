@@ -17,9 +17,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -35,6 +35,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
+
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
 	late final TranslationsAboutScreenEn AboutScreen = TranslationsAboutScreenEn._(_root);
@@ -122,6 +124,8 @@ class TranslationsAboutScreenEn {
 	String get viewFilsContent => 'View Files';
 	String get enablePprof => 'Enable pprof';
 	String get pprofPanel => 'pprof Panel';
+	String get allowRemoteAccessPprof => 'Allow remote access to ${_root.AboutScreen.pprofPanel}';
+	String get allowRemoteAccessHtmlBoard => 'Allow remote access${_root.SettingsScreen.htmlBoard}';
 	String get useOriginalSBProfile => 'Use original sing-box Profile';
 }
 
@@ -538,6 +542,7 @@ class TranslationsMetaEn {
 	String get more => 'More';
 	String get tips => 'Info';
 	String get copy => 'Copy';
+	String get save => 'Save';
 	String get ok => 'Ok';
 	String get cancel => 'Cancel';
 	String get feedback => 'Feedback';
@@ -557,6 +562,8 @@ class TranslationsMetaEn {
 	String get protocol => 'Protocol';
 	String get search => 'Search';
 	String get custom => 'Custom';
+	String get inbound => 'Inbound';
+	String get outbound => 'Outbound';
 	String get connect => 'Connect';
 	String get disconnect => 'Disconnect';
 	String get connected => 'Connected';
@@ -578,6 +585,8 @@ class TranslationsMetaEn {
 	String updateFailed({required Object p}) => 'Update failed:${p}';
 	String get updateInterval5mTips => 'Minimum: 5m';
 	String get none => 'None';
+	String get start => 'Start';
+	String get pause => 'Pause';
 	String get reset => 'Reset';
 	String get submit => 'Submit';
 	String get user => 'User';
@@ -745,6 +754,7 @@ class TranslationsTlsEn {
 
 	// Translations
 	String get insecure => 'Skip Certificate Verification';
+	String get affectProtocolTips => 'vless, vmess, trojan';
 	String get fragmentEnable => 'Enable TLS Fragment';
 	String get fragmentSize => 'TLS Fragment Size';
 	String get fragmentSleep => 'TLS Fragment Sleep';
@@ -817,6 +827,8 @@ extension on Translations {
 			case 'AboutScreen.viewFilsContent': return 'View Files';
 			case 'AboutScreen.enablePprof': return 'Enable pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof Panel';
+			case 'AboutScreen.allowRemoteAccessPprof': return 'Allow remote access to ${_root.AboutScreen.pprofPanel}';
+			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'Allow remote access${_root.SettingsScreen.htmlBoard}';
 			case 'AboutScreen.useOriginalSBProfile': return 'Use original sing-box Profile';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Server Url';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Can not be empty';
@@ -1045,6 +1057,7 @@ extension on Translations {
 			case 'meta.more': return 'More';
 			case 'meta.tips': return 'Info';
 			case 'meta.copy': return 'Copy';
+			case 'meta.save': return 'Save';
 			case 'meta.ok': return 'Ok';
 			case 'meta.cancel': return 'Cancel';
 			case 'meta.feedback': return 'Feedback';
@@ -1064,6 +1077,8 @@ extension on Translations {
 			case 'meta.protocol': return 'Protocol';
 			case 'meta.search': return 'Search';
 			case 'meta.custom': return 'Custom';
+			case 'meta.inbound': return 'Inbound';
+			case 'meta.outbound': return 'Outbound';
 			case 'meta.connect': return 'Connect';
 			case 'meta.disconnect': return 'Disconnect';
 			case 'meta.connected': return 'Connected';
@@ -1085,6 +1100,8 @@ extension on Translations {
 			case 'meta.updateFailed': return ({required Object p}) => 'Update failed:${p}';
 			case 'meta.updateInterval5mTips': return 'Minimum: 5m';
 			case 'meta.none': return 'None';
+			case 'meta.start': return 'Start';
+			case 'meta.pause': return 'Pause';
 			case 'meta.reset': return 'Reset';
 			case 'meta.submit': return 'Submit';
 			case 'meta.user': return 'User';
@@ -1232,6 +1249,7 @@ extension on Translations {
 			case 'permission.request': return ({required Object p}) => 'Turn on [${p}] permission';
 			case 'permission.requestNeed': return ({required Object p}) => 'Please Turn on [${p}] permission';
 			case 'tls.insecure': return 'Skip Certificate Verification';
+			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
 			case 'tls.fragmentEnable': return 'Enable TLS Fragment';
 			case 'tls.fragmentSize': return 'TLS Fragment Size';
 			case 'tls.fragmentSleep': return 'TLS Fragment Sleep';

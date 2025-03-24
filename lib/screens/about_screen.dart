@@ -5,6 +5,7 @@ import 'package:build_info/build_info.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
+import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
@@ -103,15 +104,30 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
               ),
               InkWell(
                 onDoubleTap: () {
-                  SettingManager.getConfig().dev.devMode = true;
+                  SettingManager.getConfig().dev.devMode =
+                      !SettingManager.getConfig().dev.devMode;
 
                   setState(() {});
                 },
-                child: Image.asset(
-                  "assets/images/app_icon_128.png",
-                  width: 128,
-                  height: 128,
-                ),
+                child: Stack(children: [
+                  Image.asset(
+                    "assets/images/app_icon_128.png",
+                    width: 128,
+                    height: 128,
+                  ),
+                  SettingManager.getConfig().dev.devMode
+                      ? Positioned(
+                          left: 100,
+                          top: 100,
+                          child: Icon(
+                            Icons.logo_dev,
+                            size: 26,
+                          ),
+                        )
+                      : const SizedBox(
+                          width: 0,
+                        ),
+                ]),
               ),
               const SizedBox(
                 height: 10,
@@ -136,6 +152,10 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> startVPN() async {
+    return await Biz.startVPN(context, true, "AboutScreen");
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
@@ -265,17 +285,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         repeatable: false);
     Future<List<GroupItem>> getOptions(BuildContext context) async {
       List<GroupItemOptions> options = [
-        !settingConfig.novice
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.AboutScreen.enableDebugLog,
-                    switchValue: dev.enableDebugLog,
-                    onSwitch: (bool value) async {
-                      dev.enableDebugLog = value;
-                      SettingManager.setDirty(true);
-                      setState(() {});
-                    }))
-            : GroupItemOptions(),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.AboutScreen.viewFilsContent,
@@ -297,66 +306,107 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     }))
             : GroupItemOptions(),
       ];
-      List<GroupItemOptions> options1 = [
-        !settingConfig.novice
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.AboutScreen.useOriginalSBProfile,
-                    text: path
-                        .basename(SettingManager.getConfig().originSBProfile),
-                    textWidthPercent: 0.4,
-                    onPush: () async {
-                      await onTapUseOriginSBProfile();
-                    }))
-            : GroupItemOptions(),
-      ];
-      List<GroupItemOptions> options2 = [
-        dev.devMode && !settingConfig.novice
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.AboutScreen.enablePprof,
-                    switchValue: SettingManager.getConfig().dev.pprofPort ==
-                        SettingConfigItemDev.pprofPortDefault,
-                    onSwitch: (bool value) async {
-                      SettingManager.getConfig().dev.pprofPort =
-                          value ? SettingConfigItemDev.pprofPortDefault : 0;
-                      SettingManager.setDirty(true);
-                      setState(() {});
-                    }))
-            : GroupItemOptions(),
-        dev.devMode && !settingConfig.novice
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.AboutScreen.pprofPanel,
-                    onPush: () async {
-                      await WebviewHelper.loadUrl(
-                          context,
-                          "http://localhost:${SettingManager.getConfig().dev.pprofPort}/debug/pprof/",
-                          "pprof",
-                          title: tcontext.AboutScreen.pprofPanel);
-                    }))
-            : GroupItemOptions(),
-      ];
 
-      List<GroupItemOptions> options4 = [
-        (Platform.isWindows) && dev.devMode && !settingConfig.novice
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: "Hash String",
-                    onPush: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: HashStringScreen.routSettings(),
-                              builder: (context) => const HashStringScreen()));
-                    }))
-            : GroupItemOptions(),
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.AboutScreen.useOriginalSBProfile,
+                text: path.basename(settingConfig.originSBProfile),
+                textWidthPercent: 0.4,
+                onPush: () async {
+                  await onTapUseOriginSBProfile();
+                }))
       ];
+      List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.AboutScreen.enableDebugLog,
+                switchValue: dev.enableDebugLog,
+                onSwitch: (bool value) async {
+                  dev.enableDebugLog = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                }))
+      ];
+      if (!dev.devMode) {
+        return [
+          GroupItem(options: options),
+          GroupItem(options: options0),
+          GroupItem(options: options1),
+        ];
+      }
+      List<GroupItemOptions> options2 = [];
+      List<GroupItemOptions> options3 = [];
+      List<GroupItemOptions> options4 = [];
+
+      options2.add(GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.AboutScreen.enablePprof,
+              switchValue: settingConfig.dev.pprofPort ==
+                  SettingConfigItemDev.pprofPortDefault,
+              onSwitch: (bool value) async {
+                settingConfig.dev.pprofPort =
+                    value ? SettingConfigItemDev.pprofPortDefault : 0;
+                SettingManager.setDirty(true);
+                setState(() {});
+              })));
+      if (settingConfig.dev.pprofPort != 0) {
+        options2.add(GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.AboutScreen.allowRemoteAccessPprof,
+                switchValue: settingConfig.dev.allowRemoteAccessPprof,
+                onSwitch: (bool value) async {
+                  settingConfig.dev.allowRemoteAccessPprof = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                })));
+        options2.add(GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.AboutScreen.pprofPanel,
+                onPush: () async {
+                  bool ok = await startVPN();
+                  if (!ok) {
+                    return;
+                  }
+                  if (!context.mounted) {
+                    return;
+                  }
+                  await WebviewHelper.loadUrl(
+                      context,
+                      "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
+                      "pprof",
+                      title: tcontext.AboutScreen.pprofPanel);
+                })));
+      }
+      options3.add(GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.AboutScreen.allowRemoteAccessHtmlBoard,
+              switchValue: settingConfig.dev.allowRemoteAccessHtmlBoard,
+              onSwitch: (bool value) async {
+                settingConfig.dev.allowRemoteAccessHtmlBoard = value;
+                SettingManager.setDirty(true);
+                setState(() {});
+              })));
+
+      if (Platform.isWindows) {
+        options4.add(GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: "Hash String",
+                onPush: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          settings: HashStringScreen.routSettings(),
+                          builder: (context) => const HashStringScreen()));
+                })));
+      }
+
       return [
         GroupItem(options: options),
+        GroupItem(options: options0),
         GroupItem(options: options1),
         GroupItem(options: options2),
-        //GroupItem(options: options3)
+        GroupItem(options: options3),
         GroupItem(options: options4),
       ];
     }

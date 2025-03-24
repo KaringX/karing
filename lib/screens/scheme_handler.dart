@@ -20,6 +20,7 @@ import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:path/path.dart' as path;
+import 'package:window_manager/window_manager.dart';
 
 class SchemeHandler {
   static void Function(bool)? vpnConnect;
@@ -95,6 +96,9 @@ class SchemeHandler {
 
   static Future<ReturnResultError?> _installConfig(
       BuildContext context, Uri uri) async {
+    if (PlatformUtils.isPC()) {
+      await windowManager.show();
+    }
     String? name;
     String? url;
     String? ispId;
@@ -175,6 +179,9 @@ class SchemeHandler {
 
   static Future<ReturnResultError?> _restoreBackup(
       BuildContext context, Uri uri) async {
+    if (PlatformUtils.isPC()) {
+      await windowManager.show();
+    }
     String? url = uri.queryParameters["url"];
     if (url != null) {
       try {

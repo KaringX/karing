@@ -84,6 +84,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
+    final tcontext = Translations.of(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -145,27 +146,31 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                               onTap: () async {
                                 checkLatency();
                               },
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.network_ping_outlined,
-                                  size: 26,
-                                ),
-                              ),
+                              child: Tooltip(
+                                  message: tcontext.meta.latencyTest,
+                                  child: const SizedBox(
+                                    width: 50,
+                                    height: 30,
+                                    child: Icon(
+                                      Icons.bolt_outlined,
+                                      size: 26,
+                                    ),
+                                  )),
                             ),
                       InkWell(
                         onTap: () async {
                           onTapMore();
                         },
-                        child: const SizedBox(
-                          width: 50,
-                          height: 30,
-                          child: Icon(
-                            Icons.more_vert_outlined,
-                            size: 30,
-                          ),
-                        ),
+                        child: Tooltip(
+                            message: tcontext.meta.more,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.more_vert_outlined,
+                                size: 30,
+                              ),
+                            )),
                       ),
                     ]),
                   ],
@@ -492,28 +497,40 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         items: [
           PopupMenuItem(
             value: 1,
-            child: const SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                Icons.add_outlined,
-                size: 30,
+            child: Row(children: [
+              const SizedBox(
+                width: 30,
+                height: 30,
+                child: Icon(
+                  Icons.add_outlined,
+                  size: 30,
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              Text(
+                tcontext.meta.add,
+              ),
+            ]),
             onTap: () {
               onTapAdd();
             },
           ),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.info_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.info_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.tips,
+                ),
+              ]),
               onTap: () {
                 DialogUtils.showAlertDialog(
                     context, tcontext.DnsSettingsScreen.dnsDesc);
@@ -585,7 +602,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                         return;
                       }
                       Uri? uri = Uri.tryParse(urlText);
-                      if (uri == null) {
+                      if (uri == null || !uri.hasScheme) {
                         DialogUtils.showAlertDialog(
                             context, tcontext.meta.urlInvalid);
                         return;

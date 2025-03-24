@@ -102,9 +102,8 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                           padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
                           child: SizedBox(
                             height: 45.0,
-                            child: ElevatedButton.icon(
-                                icon: const Icon(Icons.qr_code_outlined),
-                                label: Text(tcontext.meta.convert),
+                            child: ElevatedButton(
+                                child: Text(tcontext.meta.convert),
                                 onPressed: () async {
                                   String text = _textController.text.trim();
                                   if (text.isEmpty) {

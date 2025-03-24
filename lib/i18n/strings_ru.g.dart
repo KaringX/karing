@@ -13,9 +13,9 @@ import 'strings.g.dart';
 class TranslationsRu implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ru,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -31,6 +31,9 @@ class TranslationsRu implements Translations {
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsRu _root = this; // ignore: unused_field
+
+	@override 
+	TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
 
 	// Translations
 	@override late final _TranslationsAboutScreenRu AboutScreen = _TranslationsAboutScreenRu._(_root);
@@ -118,6 +121,8 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get viewFilsContent => 'Посмотреть файлы';
 	@override String get enablePprof => 'Включить pprof';
 	@override String get pprofPanel => 'pprof панель';
+	@override String get allowRemoteAccessPprof => 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}';
+	@override String get allowRemoteAccessHtmlBoard => 'Разрешить удаленный доступ${_root.SettingsScreen.htmlBoard}';
 	@override String get useOriginalSBProfile => 'Использовать исходную конфигурацию Sing-box';
 }
 
@@ -534,6 +539,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
 	@override String get copy => 'Скопировать';
+	@override String get save => 'сохранять';
 	@override String get ok => 'Ок';
 	@override String get cancel => 'Закрыть';
 	@override String get feedback => 'Обратная связь';
@@ -553,6 +559,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
 	@override String get custom => 'Настроить самостоятельно';
+	@override String get inbound => 'Входящий';
+	@override String get outbound => 'Выход';
 	@override String get connect => 'Соединить';
 	@override String get disconnect => 'Отключить';
 	@override String get connected => 'Подключено';
@@ -574,6 +582,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get updateInterval5mTips => 'Минимум: 5 м';
 	@override String updateFailed({required Object p}) => 'Не удалось обновить:${p}';
 	@override String get none => 'Ничего не делать';
+	@override String get start => 'начинать';
+	@override String get pause => 'пауза';
 	@override String get reset => 'Перезагрузить';
 	@override String get submit => 'Отправить';
 	@override String get user => 'Пользователь';
@@ -741,6 +751,7 @@ class _TranslationsTlsRu implements TranslationsTlsEn {
 
 	// Translations
 	@override String get insecure => 'Пропустить проверку сертификата';
+	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Включить фрагментацию TLS';
 	@override String get fragmentSize => 'Размер фрагмента TLS';
 	@override String get fragmentSleep => 'Длина фрагмента паузы TLS';
@@ -813,6 +824,8 @@ extension on TranslationsRu {
 			case 'AboutScreen.viewFilsContent': return 'Посмотреть файлы';
 			case 'AboutScreen.enablePprof': return 'Включить pprof';
 			case 'AboutScreen.pprofPanel': return 'pprof панель';
+			case 'AboutScreen.allowRemoteAccessPprof': return 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}';
+			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'Разрешить удаленный доступ${_root.SettingsScreen.htmlBoard}';
 			case 'AboutScreen.useOriginalSBProfile': return 'Использовать исходную конфигурацию Sing-box';
 			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
 			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Не может быть пустым';
@@ -1041,6 +1054,7 @@ extension on TranslationsRu {
 			case 'meta.more': return 'Больше';
 			case 'meta.tips': return 'Инфо';
 			case 'meta.copy': return 'Скопировать';
+			case 'meta.save': return 'сохранять';
 			case 'meta.ok': return 'Ок';
 			case 'meta.cancel': return 'Закрыть';
 			case 'meta.feedback': return 'Обратная связь';
@@ -1060,6 +1074,8 @@ extension on TranslationsRu {
 			case 'meta.protocol': return 'Протокол';
 			case 'meta.search': return 'Поиск';
 			case 'meta.custom': return 'Настроить самостоятельно';
+			case 'meta.inbound': return 'Входящий';
+			case 'meta.outbound': return 'Выход';
 			case 'meta.connect': return 'Соединить';
 			case 'meta.disconnect': return 'Отключить';
 			case 'meta.connected': return 'Подключено';
@@ -1081,6 +1097,8 @@ extension on TranslationsRu {
 			case 'meta.updateInterval5mTips': return 'Минимум: 5 м';
 			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
 			case 'meta.none': return 'Ничего не делать';
+			case 'meta.start': return 'начинать';
+			case 'meta.pause': return 'пауза';
 			case 'meta.reset': return 'Перезагрузить';
 			case 'meta.submit': return 'Отправить';
 			case 'meta.user': return 'Пользователь';
@@ -1228,6 +1246,7 @@ extension on TranslationsRu {
 			case 'permission.request': return ({required Object p}) => 'Включить разрешения [${p}]';
 			case 'permission.requestNeed': return ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]';
 			case 'tls.insecure': return 'Пропустить проверку сертификата';
+			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
 			case 'tls.fragmentEnable': return 'Включить фрагментацию TLS';
 			case 'tls.fragmentSize': return 'Размер фрагмента TLS';
 			case 'tls.fragmentSleep': return 'Длина фрагмента паузы TLS';

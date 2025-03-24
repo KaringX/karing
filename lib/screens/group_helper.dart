@@ -133,16 +133,19 @@ class GroupHelper {
                     pf.method = ProxyFilterMethod.exclude;
                   }
                 })),
-        GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.meta.keywordOrRegx,
-                text:
-                    pf.method != ProxyFilterMethod.all ? pf.keywordOrRegx : "",
-                textWidthPercent: 0.6,
-                enabled: pf.method != ProxyFilterMethod.all,
-                onChanged: (String value) {
-                  pf.keywordOrRegx = value.trim();
-                })),
+        pf.method != ProxyFilterMethod.all
+            ? GroupItemOptions(
+                textFormFieldOptions: GroupItemTextFieldOptions(
+                    name: tcontext.meta.keywordOrRegx,
+                    text: pf.method != ProxyFilterMethod.all
+                        ? pf.keywordOrRegx
+                        : "",
+                    textWidthPercent: 0.6,
+                    enabled: pf.method != ProxyFilterMethod.all,
+                    onChanged: (String value) {
+                      pf.keywordOrRegx = value.trim();
+                    }))
+            : GroupItemOptions(),
       ]);
 
       return [options];
@@ -314,6 +317,7 @@ class GroupHelper {
                           "",
                           ProxyFilter(),
                           [],
+                          false,
                           false,
                           false,
                           ProxyStrategy.preferProxy,

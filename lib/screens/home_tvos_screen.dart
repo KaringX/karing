@@ -361,18 +361,17 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                         ),
                         SizedBox(
                           width: 50,
-                          child: Tooltip(
-                            message: "",
-                            child: InkWell(
-                              onTap: () async {
-                                onTapMore();
-                              },
-                              child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.more_vert_outlined, size: 26),
-                                  ]),
-                            ),
+                          child: InkWell(
+                            onTap: () async {
+                              onTapMore();
+                            },
+                            child: Tooltip(
+                                message: tcontext.meta.more,
+                                child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.more_vert_outlined, size: 26),
+                                    ])),
                           ),
                         ),
                       ]),
@@ -402,7 +401,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                                       return Colors.orange;
                                     }),
                                     inactiveTrackColor:
-                                        Colors.grey.withOpacity(0.5),
+                                        Colors.greywithValues(alpha: 0.5),
                                     onChanged: (bool newValue) async {
                                       if (!_isStarting && !_isStoping) {
                                         onTapToggle();

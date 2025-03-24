@@ -116,14 +116,16 @@ class _DiversionGroupCustomScreenState
                       onTap: () {
                         onTapMore();
                       },
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.more_vert_outlined,
-                          size: 26,
-                        ),
-                      ),
+                      child: Tooltip(
+                          message: tcontext.meta.more,
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(
+                              Icons.more_vert_outlined,
+                              size: 26,
+                            ),
+                          )),
                     ),
                   ],
                 ),
@@ -259,33 +261,46 @@ class _DiversionGroupCustomScreenState
   }
 
   void onTapMore() {
+    final tcontext = Translations.of(context);
     showMenu(
         context: context,
         position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
         items: [
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.add,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.add,
+                ),
+              ]),
               onTap: () async {
                 onTapAddCustom();
               }),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.playlist_add_outlined,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    Icons.playlist_add_outlined,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.add,
+                ),
+              ]),
               onTap: () async {
                 final tcontext = Translations.of(context);
                 var settingConfig = SettingManager.getConfig();
@@ -312,27 +327,39 @@ class _DiversionGroupCustomScreenState
               }),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  AntDesign.import_outline,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    AntDesign.import_outline,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.import,
+                ),
+              ]),
               onTap: () async {
                 onTapAddImport();
               }),
           PopupMenuItem(
               value: 1,
-              child: const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  AntDesign.export_outline,
-                  size: 30,
+              child: Row(children: [
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Icon(
+                    AntDesign.export_outline,
+                    size: 30,
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  tcontext.meta.export,
+                ),
+              ]),
               onTap: () async {
                 onTapExport();
               }),

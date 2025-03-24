@@ -367,15 +367,18 @@ class _MyProfilesEditScreenState
                     setState(() {});
                   }))
           : GroupItemOptions(),
-      GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
-              tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
-              switchValue: _testLatencyAfterProfileUpdate,
-              onSwitch: (bool value) async {
-                _testLatencyAfterProfileUpdate = value;
-                setState(() {});
-              })),
+      item.isRemote()
+          ? GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
+                  tips: tcontext
+                      .meta.profileEditTestLatencyAfterProfileUpdateTips,
+                  switchValue: _testLatencyAfterProfileUpdate,
+                  onSwitch: (bool value) async {
+                    _testLatencyAfterProfileUpdate = value;
+                    setState(() {});
+                  }))
+          : GroupItemOptions(),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.meta.profileEditTestLatencyAutoRemove,

@@ -1,6 +1,8 @@
 PODS:
   - app_installer (1.3.1):
     - FlutterMacOS
+  - app_settings (5.1.1):
+    - FlutterMacOS
   - build_info_macos (0.0.1):
     - FlutterMacOS
   - cryptography_flutter (0.2.0):
@@ -41,14 +43,14 @@ PODS:
     - FlutterMacOS
   - screen_retriever_macos (0.0.1):
     - FlutterMacOS
-  - Sentry (8.44.0):
-    - Sentry/Core (= 8.44.0)
-  - Sentry/Core (8.44.0)
-  - Sentry/HybridSDK (8.44.0)
-  - sentry_flutter (8.13.0):
+  - Sentry (8.46.0):
+    - Sentry/Core (= 8.46.0)
+  - Sentry/Core (8.46.0)
+  - Sentry/HybridSDK (8.46.0)
+  - sentry_flutter (8.14.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.44.0)
+    - Sentry/HybridSDK (= 8.46.0)
   - share_plus (0.0.1):
     - FlutterMacOS
   - tray_manager (0.0.1):
@@ -65,6 +67,7 @@ PODS:
 
 DEPENDENCIES:
   - app_installer (from `Flutter/ephemeral/.symlinks/plugins/app_installer/macos`)
+  - app_settings (from `Flutter/ephemeral/.symlinks/plugins/app_settings/macos`)
   - build_info_macos (from `Flutter/ephemeral/.symlinks/plugins/build_info_macos/macos`)
   - cryptography_flutter (from `Flutter/ephemeral/.symlinks/plugins/cryptography_flutter/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
@@ -83,7 +86,7 @@ DEPENDENCIES:
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer_macos/macos`)
   - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.44.0`)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.46.0`)
   - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
@@ -100,6 +103,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_installer:
     :path: Flutter/ephemeral/.symlinks/plugins/app_installer/macos
+  app_settings:
+    :path: Flutter/ephemeral/.symlinks/plugins/app_settings/macos
   build_info_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/build_info_macos/macos
   cryptography_flutter:
@@ -138,7 +143,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.44.0
+    :tag: 8.46.0
   sentry_flutter:
     :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
   share_plus:
@@ -157,10 +162,11 @@ EXTERNAL SOURCES:
 CHECKOUT OPTIONS:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.44.0
+    :tag: 8.46.0
 
 SPEC CHECKSUMS:
   app_installer: d13942d306e251bbf1e4ddc480d365e80560c103
+  app_settings: 140be3a9c0fc1f681e44afe9f549ab037b3aa3a2
   build_info_macos: 46f955b67b56a5cf0e03b686b333fee6371ca9f9
   cryptography_flutter: c9fa581b52e6fe19475432b6f44489c387f61e19
   file_picker: e716a70a9fe5fd9e09ebc922d7541464289443af
@@ -181,8 +187,8 @@ SPEC CHECKSUMS:
   protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
   screen_capturer_macos: e91a66e1eeefd5e4fe068bb1bffc053cc34b63b8
   screen_retriever_macos: 776e0fa5d42c6163d2bf772d22478df4b302b161
-  Sentry: 0f9bc9adfc0b960e7f3bb5ec67e9a3d8193f3bdb
-  sentry_flutter: c4c3e7feec83e061daf829f6f9359efefab00d87
+  Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
+  sentry_flutter: 187f9b6b06f00f36b4930ec7ea9f34c254095d15
   share_plus: 1fa619de8392a4398bfaf176d441853922614e89
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: c82c93949963e55b228a30115bd219499a6fe404
@@ -190,6 +196,6 @@ SPEC CHECKSUMS:
   webview_flutter_wkwebview: a4af96a051138e28e29f60101d094683b9f82188
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 
-PODFILE CHECKSUM: b91b0f9f85949fc4c0a8cbec9941d8e5e9776f2f
+PODFILE CHECKSUM: 207f529d73be7ad1c57d378f01499ca0f393fff6
 
 COCOAPODS: 1.16.2

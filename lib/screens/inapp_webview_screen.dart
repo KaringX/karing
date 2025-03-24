@@ -216,7 +216,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   // late ContextMenu _contextMenu;
   String _url = "";
   double _progress = 0;
-  List<UserScript> _scripts = [];
+  final List<UserScript> _scripts = [];
 
   @override
   void initState() {
@@ -603,8 +603,8 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                         ),
                                         SizedBox(
                                             height: 45.0,
-                                            child: ElevatedButton.icon(
-                                              label:
+                                            child: ElevatedButton(
+                                              child:
                                                   Text(tcontext.meta.download),
                                               onPressed: () async {
                                                 AnalyticsUtils.logEvent(

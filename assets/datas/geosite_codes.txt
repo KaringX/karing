@@ -169,6 +169,7 @@ beats@cn
 bestbuy
 bestbuy@cn
 bestore
+bestv
 bethesda
 betterexplained
 bilibili-game
@@ -469,6 +470,7 @@ debian
 decryptipastore
 dedao
 deepin
+deepseek
 dell
 dell@cn
 demonoid
@@ -555,6 +557,7 @@ epicgames@cn
 epochmediagroup
 erji
 erolabs
+escapefromtarkov
 espn
 espressif
 esri
@@ -638,6 +641,7 @@ gimy
 gitbook
 gitee
 github
+github1s
 gitlab
 gitv
 globalsign
@@ -681,6 +685,7 @@ guokr
 hacpai
 haier
 hainanairlines
+haitang
 hamivideo
 hanyi
 harpercollins
@@ -735,6 +740,7 @@ huaweicloud
 huaweicloud@!cn
 hubblephone
 huffpost
+hugecore
 hujiang
 hulu
 hunantv-ads
@@ -746,6 +752,7 @@ hupu
 hupun
 hurricaneelectric
 huya
+ibkr
 ibm
 icbc
 icbc@!cn
@@ -960,6 +967,7 @@ meta-ads
 meta-ads@ads
 meta
 meta@ads
+metabrainz
 metart
 mfuns
 miaomiaozhe
@@ -969,6 +977,7 @@ microsoft-dev@cn
 microsoft-pki
 microsoft-pki@cn
 microsoft
+microsoft@ads
 microsoft@cn
 midea
 mihoyo-cn
@@ -982,6 +991,7 @@ mini
 miniso
 miniso@cn
 miraheze
+missav
 misskey-universe
 misskey
 mit
@@ -1042,6 +1052,7 @@ newrelic-ads@ads
 newscorp
 newsmax
 nexitally
+nexo
 nexon
 nga
 nginx
@@ -1246,9 +1257,11 @@ ruleoflaw
 rumble
 rust
 ruten
+rutracker
 salesforce
 samsung
 samsung@cn
+sanctioned
 sankei
 sb
 scala
@@ -1350,6 +1363,7 @@ starbucks@cn
 starfieldtech
 starplus
 startpage
+starworld
 staticfile
 steam
 steam@cn
@@ -1460,6 +1474,7 @@ trustwave
 truyen-hentai
 tsquare
 tube8
+tubi
 tumblr
 tutanota
 tvb
@@ -1539,6 +1554,7 @@ walmart@cn
 wanfang
 wangsu
 wantmedia
+wasu
 watchout
 weathercn
 webex
