@@ -185,6 +185,14 @@ flutter:
       fonts:
         - asset: assets/fonts/AntDesign.ttf
 
+# ------------ VazirMatn Persian font ------------
+    - family: Vazirmatn
+      fonts:
+        - asset: assets/fonts/Vazirmatn-Regular.ttf
+        - asset: assets/fonts/Vazirmatn-Bold.ttf
+          weight: 700
+
+
 ffigen:
   llvm-path:
     - D:/Program Files/LLVM
