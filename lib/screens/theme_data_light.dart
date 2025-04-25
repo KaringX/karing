@@ -11,7 +11,9 @@ class ThemeDataLight {
     return ThemeData(
       useMaterial3: true,
       platform: TargetPlatform.iOS,
-      //fontFamily: 'Roboto',
+      fontFamily: Localizations.localeOf(context).languageCode == 'fa'
+          ? 'Vazirmatn'   // Use Vazirmatn when the UI language is Persian
+          : null,         // Defer to the platform’s default font otherwise
       primaryColor: mainColor,
       primaryColorLight: mainColor,
       colorScheme: ColorScheme.fromSeed(
