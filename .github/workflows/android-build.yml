@@ -1,4 +1,3 @@
-# .github/workflows/android-build.yml
 name: Build Flutter Android APK
 
 on:
@@ -10,20 +9,31 @@ jobs:
   build-release-apk:
     runs-on: ubuntu-latest
     steps:
+      # 1. Checkout your code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Flutter (latest stable)
+      # 2. Allow git clones (including private repos) to use GITHUB_TOKEN
+      - name: Setup .netrc for GitHub authentication
+        run: |
+          echo -e "machine github.com\nlogin ${{ github.actor }}\npassword ${{ secrets.GITHUB_TOKEN }}" > ~/.netrc
+          chmod 600 ~/.netrc
+
+      # 3. Install Flutter (latest stable channel)
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
+      # 4. Fetch Dart/Flutter dependencies (this will now succeed even با private git deps)
       - name: Get dependencies
         run: flutter pub get
 
+      # 5. Build a release APK
       - name: Build APK (release)
         run: flutter build apk --release
 
+      # 6. Upload the APK so you can download it from Actions → Artifacts
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
