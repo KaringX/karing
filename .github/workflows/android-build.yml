@@ -1,45 +1,44 @@
 # .github/workflows/android-build.yml
-name: Build Karing Android APK
+name: Build Flutter Android APK
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build-release-apk:
     runs-on: ubuntu-latest
-    env:
-      # این Secret را در Settings → Secrets تعریف کن
-      VPN_PAT: ${{ secrets.VPN_PAT }}
 
     steps:
-      # 1) چک‌اوت سورس اصلی
-      - name: Checkout Karing
+      # 1) چک‌اوت سورس شما
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2) کلون پلاگین خصوصی vpn-service در مسیر ../vpn-service
-      - name: Clone private vpn-service plugin
+      # 2) تنظیم Git برای درج توکن در همه‌ی URL‌های https://github.com/
+      #    تا pub get بتواند مخازن خصوصی را clone کند
+      - name: Configure Git for private deps
         run: |
-          git clone https://$VPN_PAT@github.com/KaringX/vpn-service.git ../vpn-service
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/" 
+        # این خط باعث می‌شود هر clone از github.com با توکن اجرا شود 0
 
-      # 3) نصب Flutter (آخرین نسخه‌ی پایدار)
+      # 3) نصب Flutter (آخرین نسخهٔ stable)
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      # 4) دریافت وابستگی‌ها (حالا vpn-service موجود است)
+      # 4) دریافت تمام وابستگی‌ها (شامل مخازن خصوصی)
       - name: Get dependencies
         run: flutter pub get
 
-      # 5) بیلد APK نسخه‌ی Release (یک APK «fat»)
+      # 5) ساخت APK نسخهٔ release
       - name: Build APK (release)
         run: flutter build apk --release
 
-      # 6) آپلود APK به عنوان Artifact
+      # 6) آپلود APK به عنوان Artifact برای دانلود
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: karing-release-apk
+          name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
