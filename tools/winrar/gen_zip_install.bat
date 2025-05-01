@@ -25,6 +25,6 @@ winrar.exe a -ep1 -r -ibck -o+ %DestPdbPath% %SrcPdbPath%
 
 winrar.exe x %DestPath% *.* %DestPath2%
 
-"../Inno Setup 6/ISCC.exe" /f"karing_%version%_windows_x64" /d"MyAppVersion=%version%" "../innosetup/install.iss"
+"ISCC.exe" /f"karing_%version%_windows_x64" /d"MyAppVersion=%version%" "../innosetup/install.iss"
 rd /s /Q %DestPath2%
  
