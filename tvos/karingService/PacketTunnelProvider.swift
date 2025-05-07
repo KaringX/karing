@@ -1,4 +1,4 @@
 import Foundation
-import LibRing
+import LibVpnCore
 
 class PacketTunnelProvider: ExtensionProvider {}

@@ -24,7 +24,8 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/my_profiles_edit_screen.dart';
@@ -69,7 +70,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
     _buildData();
 
-    ServerManager.onTestLatency(hashCode,
+    ServerManager.onEventTestLatency(hashCode,
         (String groupid, String tag, bool start, bool finish) {
       if (!mounted) {
         return;
@@ -88,21 +89,23 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       _buildData();
       setState(() {});
     });
-    ServerManager.onAddConfig((ServerConfigGroupItem item) async {
+    ServerManager.onEventAddConfig(hashCode,
+        (ServerConfigGroupItem item) async {
       if (!mounted) {
         return;
       }
       _buildData();
       setState(() {});
     });
-    ServerManager.onUpdateConfig((List<ServerConfigGroupItem> groups) async {
+    ServerManager.onEventUpdateConfig(hashCode,
+        (List<ServerConfigGroupItem> groups) async {
       if (!mounted) {
         return;
       }
       _buildData();
       setState(() {});
     });
-    ServerManager.onRemoveConfig(
+    ServerManager.onEventRemoveConfig(hashCode,
         (String groupid, bool enable, bool hasDeviersionGroup) async {
       if (!mounted) {
         return;
@@ -124,8 +127,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     _listViewParts.clear();
     _timer?.cancel();
     _timer = null;
-    ServerManager.onTestLatencyRemove(hashCode);
-    ServerManager.onLatencyHistoryUpdatedRemove(hashCode);
+    ServerManager.removeListener(hashCode);
+
     super.dispose();
     ServerManager.saveServerConfig();
     ServerManager.saveDiversionGroupConfig();
@@ -1140,7 +1143,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
   void onTapSetting() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
@@ -1337,7 +1341,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       default:
         return;
     }
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
@@ -1361,7 +1366,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       ];
       List<GroupItem> allOptions = [GroupItem(options: options)];
 
-      allOptions.addAll(await sbOptions.getWidgetOptions(context));
+      allOptions.addAll(await sbOptions.getWidgetOptions(context, setstate));
       return allOptions;
     }
 
@@ -1495,7 +1500,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       return;
     }
 
-    final box = context.findRenderObject() as RenderBox?;
     String savePath =
         path.join(await PathUtils.cacheDir(), 'profile_share.json');
     await FileUtils.deletePath(savePath);
@@ -1571,8 +1575,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     try {
-      await Share.shareXFiles([XFile(savePath)],
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      await Share.shareXFiles([XFile(savePath)]);
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
@@ -1613,13 +1616,14 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       return;
     }
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: "tag",
                 text: sbOptions.tag,
-                style: TextStyle(
+                textStyle: TextStyle(
                   fontFamily: Platform.isWindows ? 'Emoji' : null,
                 ),
                 textWidthPercent: 0.6,
@@ -1641,7 +1645,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             textFormFieldOptions: GroupItemTextFieldOptions(
                 name: "detour",
                 text: sbOptions.dialer?.detour ?? "",
-                style: TextStyle(
+                textStyle: TextStyle(
                   fontFamily: Platform.isWindows ? 'Emoji' : null,
                 ),
                 textWidthPercent: 0.6,
@@ -1658,7 +1662,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       ];
       List<GroupItem> allOptions = [GroupItem(options: options)];
 
-      allOptions.addAll(await sbOptions.getWidgetOptions(context));
+      allOptions.addAll(await sbOptions.getWidgetOptions(context, setstate));
       return allOptions;
     }
 

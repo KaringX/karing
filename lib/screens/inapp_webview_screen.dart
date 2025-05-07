@@ -12,9 +12,9 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/antdesign.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
+import 'package:karing/screens/theme_define.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn_service/vpn_service.dart';
@@ -272,7 +272,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
         ? null
         : PullToRefreshController(
             settings: PullToRefreshSettings(
-              color: Colors.blue,
+              color: ThemeDefine.kColorBlue,
             ),
             onRefresh: () async {
               if (defaultTargetPlatform == TargetPlatform.android) {
@@ -421,7 +421,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                   width: 50,
                                   height: 30,
                                   child: Icon(
-                                    AntDesign.export_outline,
+                                    Icons.open_in_new_outlined,
                                     size: 26,
                                   ),
                                 ),

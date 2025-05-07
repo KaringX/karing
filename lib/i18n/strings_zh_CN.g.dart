@@ -370,6 +370,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => '启用前,请先确认你的网络已支持IPv6,否则某些流量无法正常访问';
 	@override String get tunAppendHttpProxy => '附加HTTP代理到VPN';
 	@override String get tunAppendHttpProxyTips => '一些App会绕过虚拟网卡设备直连HTTP代理';
+	@override String get tunAllowBypassHttpProxyDomain => '允许绕过HTTP代理的域名';
 	@override String get dnsEnableRule => '启用DNS分流规则';
 	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}]解析通道';
 	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}]启用ECS';
@@ -650,6 +651,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get notice => '通知';
 	@override String get sort => '排序';
 	@override String get novice => '新手模式';
+	@override String get tvMode => 'TV模式';
 	@override String get recommended => '推荐';
 	@override String innerError({required Object p}) => '内部错误:${p}';
 	@override String get logicOperation => '逻辑运算';
@@ -929,6 +931,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.ipStrategyTips': return '启用前,请先确认你的网络已支持IPv6,否则某些流量无法正常访问';
 			case 'SettingsScreen.tunAppendHttpProxy': return '附加HTTP代理到VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return '一些App会绕过虚拟网卡设备直连HTTP代理';
+			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return '允许绕过HTTP代理的域名';
 			case 'SettingsScreen.dnsEnableRule': return '启用DNS分流规则';
 			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}]解析通道';
 			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}]启用ECS';
@@ -1165,6 +1168,7 @@ extension on TranslationsZhCn {
 			case 'meta.notice': return '通知';
 			case 'meta.sort': return '排序';
 			case 'meta.novice': return '新手模式';
+			case 'meta.tvMode': return 'TV模式';
 			case 'meta.recommended': return '推荐';
 			case 'meta.innerError': return ({required Object p}) => '内部错误:${p}';
 			case 'meta.logicOperation': return '逻辑运算';

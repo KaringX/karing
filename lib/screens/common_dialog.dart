@@ -8,6 +8,7 @@ import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/windows_tun_fix_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/webview_helper.dart';
@@ -49,6 +50,10 @@ class CommonDialog {
     } else if (errMessage.contains(
         "check port failed:SocketException: Failed to create server socket")) {
       errMessage += "\n\n${tcontext.CommonWidget.resetPort}";
+    } else if (errMessage.contains("wintun: Failed to setup adapter")) {
+      if (Platform.isWindows) {
+        WindowsTunFixUtils.getDriverList();
+      }
     }
     if (disableTags.isNotEmpty) {
       List<ProxyConfig> disableServers = [];

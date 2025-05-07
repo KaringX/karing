@@ -33,9 +33,9 @@ public class MainChannelManager : MethodCallHandler {
         }
 
         public fun sendEvent(
-            event: String,
-            args: Map<String, String>?,
-            result: MethodChannel.Result,
+                event: String,
+                args: Map<String, String>?,
+                result: MethodChannel.Result,
         ): Boolean {
             if (sharedInstance == null) {
                 return false
@@ -45,15 +45,16 @@ public class MainChannelManager : MethodCallHandler {
         }
 
         public fun registerCallback(
-            method: String,
-            callback: (args: Map<String, *>, result: MethodChannel.Result) -> Unit,
+                method: String,
+                callback: (args: Map<String, *>, result: MethodChannel.Result) -> Unit,
         ) {
             sharedInstance?.callbackMap?.put(method, callback)
         }
     }
 
     private lateinit var channel: MethodChannel
-    private var callbackMap = TreeMap<String, (args: Map<String, *>, result: MethodChannel.Result) -> Unit>()
+    private var callbackMap =
+            TreeMap<String, (args: Map<String, *>, result: MethodChannel.Result) -> Unit>()
 
     private fun initChannels(flutterEngine: FlutterEngine) {
         channel = MethodChannel(flutterEngine.getDartExecutor(), "channel_main_method")
@@ -65,14 +66,14 @@ public class MainChannelManager : MethodCallHandler {
     }
 
     override fun onMethodCall(
-        call: MethodCall,
-        result: MethodChannel.Result,
+            call: MethodCall,
+            result: MethodChannel.Result,
     ) {
         val callback = callbackMap.get(call.method)
         if (callback == null) {
             result.success(null)
             return
         }
-        callback?.invoke(call.arguments as Map<String, *>, result)
+        callback.invoke(call.arguments as Map<String, *>, result)
     }
 }

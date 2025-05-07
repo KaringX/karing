@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,17 +10,17 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
-import 'package:web_socket_channel/io.dart';
 
 class NetCheckItem {
   String name = "";
@@ -47,8 +46,7 @@ class NetCheckScreen extends LasyRenderingStatefulWidget {
 class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   final List<ListViewMultiPartsItem> _listViewParts = [];
 
-  HttpClient? _httpClient;
-  StreamSubscription<dynamic>? _subscriptions;
+  Websocket? _websocket;
   final _textControllerHost = TextEditingController();
   Tuple2<String, int?> _domainAndPort = const Tuple2("", null);
   String _domain = "";
@@ -92,37 +90,25 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     if (inProduction) {
       return;
     }
-
     String url = await ClashApi.getLogsUrl(
         SettingManager.getConfig().proxy.controlPort, "info");
-
-    try {
-      _subscriptions?.cancel();
-      _httpClient?.close(force: true);
-      _httpClient ??= HttpClient();
-      _httpClient!.userAgent = await HttpUtils.getUserAgent();
-      _httpClient!.connectionTimeout = const Duration(seconds: 3);
-      _httpClient!.findProxy = (Uri uri) => "DIRECT";
-
-      {
-        WebSocket webSocket =
-            await WebSocket.connect(url, customClient: _httpClient);
-
-        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+    _websocket ??= Websocket(
+        url: url,
+        userAgent: await HttpUtils.getUserAgent(),
+        onMessage: (String message) {
           // print(message);
-        }, onDone: () {}, onError: (error) {});
-      }
-    } catch (err) {
-      Log.w("_connectLog exception ${err.toString()}");
-      _disconnectLog();
-    }
+        },
+        onDone: () {
+          _disconnectLog();
+        },
+        onError: (err) {
+          _disconnectLog();
+        });
+    await _websocket!.connect();
   }
 
   void _disconnectLog() async {
-    _subscriptions?.cancel();
-    _subscriptions = null;
-    _httpClient?.close();
-    _httpClient = null;
+    await _websocket?.disconnect();
   }
 
   String getTagName(String tag) {
@@ -784,7 +770,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
         child: Column(
           children: [
-            TextField(
+            TextFieldEx(
               controller: _textControllerHost,
               textInputAction: TextInputAction.done,
               cursorColor: Colors.black,

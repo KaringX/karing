@@ -2,12 +2,16 @@
 
 import 'dart:async';
 
+import 'package:karing/screens/group_item_options.dart';
+
 import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class GroupScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings(String viewTag) {
@@ -15,10 +19,12 @@ class GroupScreen extends LasyRenderingStatefulWidget {
   }
 
   final String title;
-  final Future<List<GroupItem>> Function(BuildContext context) getOptions;
+  final Future<List<GroupItem>> Function(
+      BuildContext context, SetStateCallback? setstate) getOptions;
   final bool hasReturn;
   final Future<bool> Function(BuildContext context)? onDone;
   final String? tipsIfNoOnDone;
+  final IconData? onDoneIcon;
   final Future<void> Function(BuildContext context)? onFirstLayout;
   const GroupScreen(
       {super.key,
@@ -27,6 +33,7 @@ class GroupScreen extends LasyRenderingStatefulWidget {
       this.hasReturn = true,
       this.onDone,
       this.tipsIfNoOnDone,
+      this.onDoneIcon,
       this.onFirstLayout});
 
   @override
@@ -62,6 +69,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
   @override
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -109,12 +117,13 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                               if (await widget.onDone!(context)) {
                                 Navigator.pop(context, true);
                               }
+                              setState(() {});
                             },
-                            child: const SizedBox(
+                            child: SizedBox(
                               width: 50,
                               height: 30,
                               child: Icon(
-                                Icons.done_outlined,
+                                widget.onDoneIcon ?? Icons.done_outlined,
                                 size: 26,
                               ),
                             ),
@@ -146,15 +155,19 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                 height: 10,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: FutureBuilder(
-                    future: getGroupOptionsWithTryCatch(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      List<Widget> children = [];
-                      /*if (AdsPrivate.getEnable() &&
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: FutureBuilder(
+                        future: getGroupOptionsWithTryCatch(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<GroupItem>> snapshot) {
+                          List<GroupItem> data =
+                              snapshot.hasData ? snapshot.data! : [];
+                          List<Widget> children = [];
+                          /*if (AdsPrivate.getEnable() &&
                           (_hasAds || GroupScreenState._adsCount < 1)) {
                         if (!_hasAds) {
                           ++GroupScreenState._adsCount;
@@ -171,10 +184,12 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                           children.add(const SizedBox(height: 20));
                         }
                       }*/
-                      children
-                          .addAll(GroupItemCreator.createGroups(context, data));
-                      return Column(children: children);
-                    },
+                          children.addAll(
+                              GroupItemCreator.createGroups(context, data));
+                          return Column(children: children);
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -200,10 +215,22 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
-    var groups = await widget.getOptions(context);
+    var groups = await widget.getOptions(context, () {
+      setState(() {});
+    });
     for (var group in groups) {
       for (var option in group.options) {
-        if ((option.switchOptions != null) &&
+        if ((option.textOptions != null) &&
+            (option.textOptions!.onPush != null)) {
+          var callback = option.textOptions!.onPush;
+          option.textOptions!.onPush = () async {
+            await callback!();
+            if (!mounted) {
+              return;
+            }
+            setState(() {});
+          };
+        } else if ((option.switchOptions != null) &&
             (option.switchOptions!.onSwitch != null)) {
           var callback = option.switchOptions!.onSwitch;
           option.switchOptions!.onSwitch = (bool value) async {
@@ -218,16 +245,6 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
           var callback = option.pushOptions!.onPush;
           option.pushOptions!.onPush = () async {
             await callback!();
-            if (!mounted) {
-              return;
-            }
-            setState(() {});
-          };
-        } else if ((option.timerPickerOptions != null) &&
-            (option.timerPickerOptions!.onPicker != null)) {
-          var callback = option.timerPickerOptions!.onPicker;
-          option.timerPickerOptions!.onPicker = (Duration? value) async {
-            await callback!(value);
             if (!mounted) {
               return;
             }

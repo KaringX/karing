@@ -7,10 +7,12 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class PackageIdMultiSelectAndroidScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -311,7 +313,7 @@ class _PackageIdMultiSelectAndroidScreenState
                   color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
-                child: TextField(
+                child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,

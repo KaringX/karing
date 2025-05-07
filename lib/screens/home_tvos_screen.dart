@@ -14,10 +14,10 @@ import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/net_connections_screen.dart';
@@ -28,7 +28,6 @@ import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
-import 'package:web_socket_channel/io.dart';
 
 class HomeTVOSScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -58,9 +57,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     with WidgetsBindingObserver {
   static const double kMaxWidth = 500;
 
-  HttpClient? _httpClient;
-  StreamSubscription<dynamic>? _subscriptions;
-  bool _wsConnecting = false;
+  Websocket? _websocket;
   Timer? _timer;
   final ValueNotifier<String> _trafficUpTotal = ValueNotifier<String>("0 B");
   final ValueNotifier<String> _trafficDownTotal = ValueNotifier<String>("0 B");
@@ -90,7 +87,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   void initState() {
     super.initState();
     _timer ??= Timer.periodic(const Duration(seconds: 1), (timer) async {
-      if (_httpClient != null || _subscriptions != null || _wsConnecting) {
+      if (_websocket != null && _websocket!.connected()) {
         return;
       }
       _connectToService();
@@ -105,13 +102,6 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     if (widget.cport.isEmpty) {
       return;
     }
-    if (_httpClient != null) {
-      return;
-    }
-    if (_wsConnecting) {
-      return;
-    }
-    //Log.w("_connectToService");
 
     var setting = SettingManager.getConfig();
     bool started = await VPNService.getStarted();
@@ -131,24 +121,10 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
         return;
       }
     }
-    _wsConnecting = true;
-    String connectionsUrl = getConnectionsUrl(true);
-
-    try {
-      _subscriptions?.cancel();
-      _httpClient?.close(force: true);
-      _httpClient ??= HttpClient();
-      _httpClient!.userAgent = await HttpUtils.getUserAgent();
-      _httpClient!.connectionTimeout = const Duration(seconds: 3);
-      if ((proxyPort != null) && (proxyPort != 0)) {
-        _httpClient!.findProxy = (Uri uri) => "DIRECT";
-      }
-
-      {
-        WebSocket webSocket =
-            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
-
-        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+    _websocket ??= Websocket(
+        url: getConnectionsUrl(true),
+        userAgent: await HttpUtils.getUserAgent(),
+        onMessage: (String message) {
           var obj = jsonDecode(message);
           Connections con = Connections();
           con.fromJson(obj, false);
@@ -198,22 +174,19 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               _connInboundCount.value = con.connectionsInCount.toString();
             }
           }
-        }, onDone: () {
+        },
+        onDone: () {
           _disconnectToService();
-        }, onError: (error) {});
-      }
-    } catch (err) {
-      Log.w("_connectToService exception ${err.toString()}");
-      _disconnectToService();
-    }
-    _wsConnecting = false;
+        },
+        onError: (err) {
+          _disconnectToService();
+        });
+
+    await _websocket!.connect();
   }
 
   Future<void> _disconnectToService() async {
-    _subscriptions?.cancel();
-    _subscriptions = null;
-    _httpClient?.close();
-    _httpClient = null;
+    await _websocket?.disconnect();
 
     _connInboundCount.value = "";
 

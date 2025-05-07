@@ -1,6 +1,7 @@
 //import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
@@ -48,6 +49,7 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -92,14 +94,16 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
                                   ClipboardData(text: widget.content));
                             } catch (e) {}
                           },
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.copy,
-                              size: 26,
-                            ),
-                          ),
+                          child: Tooltip(
+                              message: tcontext.meta.copy,
+                              child: const SizedBox(
+                                width: 50,
+                                height: 30,
+                                child: Icon(
+                                  Icons.copy,
+                                  size: 26,
+                                ),
+                              )),
                         )
                       : const SizedBox(width: 50),
                 ],

@@ -37,11 +37,12 @@ import 'package:karing/screens/about_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/feedback_screen.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
-import 'package:karing/screens/group_options_helper.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/language_settings_screen.dart';
+import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/my_profiles_screen.dart';
 import 'package:karing/screens/net_interfaces_screen.dart';
 import 'package:karing/screens/perapp_android_screen.dart';
@@ -59,6 +60,7 @@ import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/webview_isp_helper.dart';
 import 'package:karing/screens/widgets/ads_banner_widget.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
@@ -82,16 +84,20 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   void initState() {
     super.initState();
 
-    NoticeManager.onCheck(() {
-      if (mounted) {
-        setState(() {});
-      }
-    });
-    AutoUpdateManager.onCheck(() {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    NoticeManager.onEventCheck.add(onNotice);
+    AutoUpdateManager.onEventCheck.add(onUpdate);
+  }
+
+  void onNotice() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void onUpdate() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<bool> getInAppRate() async {
@@ -111,6 +117,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   @override
   void dispose() {
+    NoticeManager.onEventCheck.remove(onNotice);
+    AutoUpdateManager.onEventCheck.remove(onUpdate);
     super.dispose();
     SettingManager.saveConfig();
   }
@@ -166,15 +174,17 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 height: 10,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: FutureBuilder(
-                    future: getGroupOptionsWithTryCatch(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      List<Widget> children = [];
-                      /*if (AdsPrivate.getEnable()) {
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: FutureBuilder(
+                      future: getGroupOptionsWithTryCatch(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<GroupItem>> snapshot) {
+                        List<GroupItem> data =
+                            snapshot.hasData ? snapshot.data! : [];
+                        List<Widget> children = [];
+                        /*if (AdsPrivate.getEnable()) {
                         var settingConfig = SettingManager.getConfig();
                         var expire = DateTime.tryParse(
                             settingConfig.ads.bannerRewardExpire);
@@ -186,10 +196,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           children.add(const SizedBox(height: 20));
                         }
                       }*/
-                      children
-                          .addAll(GroupItemCreator.createGroups(context, data));
-                      return Column(children: children);
-                    },
+                        children.addAll(
+                            GroupItemCreator.createGroups(context, data));
+                        return Column(children: children);
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -429,8 +440,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ]));
     }
 
-    groupOptions.add(GroupItem(
-        options: GroupOptionsHelper.getOutlinkOptions(context, "settings")));
+    groupOptions.add(
+        GroupItem(options: GroupHelper.getOutlinkOptions(context, "settings")));
 
     groupOptions.add(GroupItem(options: [
       GroupItemOptions(
@@ -865,15 +876,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 },
               ))
             : GroupItemOptions(),
-        /*(Platform.isIOS || Platform.isAndroid)
-              ? GroupItemOptions(
-                  pushOptions: GroupItemPushOptions(
-                      name: tcontext.SettingsScreen.timeConnectOrDisconnect,
-                      tips: tcontext.SettingsScreen.timeConnectOrDisconnectTips,
-                      onPush: () async {
-                        onTapTimeConnectOrDisconnect();
-                      }))
-              : GroupItemOptions(),*/
       ]));
 
       if (Platform.isIOS || Platform.isMacOS) {
@@ -920,6 +922,17 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   settingConfig.ui.disableFontScaler = value;
                   setState(() {});
                 })),
+        Platform.isAndroid
+            ? GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                    name: tcontext.meta.tvMode,
+                    switchValue: settingConfig.ui.tvMode,
+                    onSwitch: (bool value) async {
+                      settingConfig.ui.tvMode = value;
+                      TextFieldEx.popupEdit = settingConfig.ui.tvMode;
+                      setState(() {});
+                    }))
+            : GroupItemOptions(),
         PlatformUtils.isMobile()
             ? GroupItemOptions(
                 switchOptions: GroupItemSwitchOptions(
@@ -927,7 +940,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     switchValue: settingConfig.ui.autoOrientation,
                     onSwitch: (bool value) async {
                       settingConfig.ui.autoOrientation = value;
-                      if (SettingManager.getConfig().ui.autoOrientation) {
+                      if (value) {
                         SystemChrome.setPreferredOrientations([
                           DeviceOrientation.portraitUp,
                           DeviceOrientation.landscapeLeft,
@@ -1183,7 +1196,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapNotice() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
       List<Notice> notices = NoticeManager.getNotices();
       for (var notice in notices) {
@@ -1281,7 +1295,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapWarp() async {
     var settingConfig = SettingManager.getConfig();
     String license = settingConfig.warp.license;
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
@@ -1335,7 +1350,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapLatencyTest() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -1397,7 +1413,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
     const int minPort = 2048;
     const int maxPort = 65535;
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -1566,7 +1583,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapNTP() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
@@ -1610,7 +1628,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapTun() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       bool tunMode = await VPNService.getTunMode();
       List<GroupItemOptions> options = [
@@ -1778,6 +1797,37 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                             setState(() {});
                           }))
             : GroupItemOptions(),
+        !settingConfig.novice && PlatformUtils.isMobile()
+            ? GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                    name: tcontext.SettingsScreen.tunAllowBypassHttpProxyDomain,
+                    onPush: !tunMode
+                        ? null
+                        : () async {
+                            String oldData = settingConfig
+                                .tun.allowBypassHttpProxyDomains
+                                .join(",");
+                            List<String> chain = settingConfig
+                                .tun.allowBypassHttpProxyDomains
+                                .toList();
+                            await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    settings: ListAddScreen.routSettings(
+                                        "tunAllowBypassHttpProxyDomain"),
+                                    builder: (context) => ListAddScreen(
+                                          title: tcontext.SettingsScreen
+                                              .tunAllowBypassHttpProxyDomain,
+                                          data: chain,
+                                        )));
+                            String newData = chain.join(",");
+                            if (oldData != newData) {
+                              settingConfig.tun.allowBypassHttpProxyDomains =
+                                  chain;
+                              SettingManager.setDirty(true);
+                            }
+                          }))
+            : GroupItemOptions(),
       ];
 
       return [GroupItem(options: options)];
@@ -1796,7 +1846,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapTLS() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options0 = [
         GroupItemOptions(
@@ -1929,7 +1980,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapMux() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -2084,7 +2136,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapSniff() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -2136,7 +2189,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapAutoSelect() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -2248,7 +2302,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapNetShare() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
 
       String ipLocal = "127.0.0.1";
@@ -2374,7 +2429,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapHomeScreen() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -2530,7 +2586,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapHandleScheme() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -2610,69 +2667,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     setState(() {});
   }
 
-  Future<void> onTapTimeConnectOrDisconnect() async {
-    //todo android https://www.eolink.com/news/post/51689.html   https://www.jianshu.com/p/d6a02839ff27
-    final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
-      var settingConfig = SettingManager.getConfig();
-      List<GroupItemOptions> options = [
-        GroupItemOptions(
-            timerPickerOptions: GroupItemTimerPickerOptions(
-                name: tcontext.meta.connect,
-                duration: settingConfig.timeConnect,
-                onPicker: (Duration? duration) async {
-                  if (duration != null &&
-                      settingConfig.timeDisconnect != null) {
-                    var dif = (duration - settingConfig.timeDisconnect!).abs();
-                    if (dif.inMinutes < 5) {
-                      DialogUtils.showAlertDialog(
-                          context,
-                          tcontext.SettingsScreen
-                              .timeConnectAndDisconnectInterval(p: 5));
-                      return;
-                    }
-                  }
-                  settingConfig.timeConnect = duration;
-                  SettingManager.setDirty(true);
-                  SettingManager.saveConfig();
-                  setState(() {});
-                })),
-        GroupItemOptions(
-            timerPickerOptions: GroupItemTimerPickerOptions(
-                name: tcontext.meta.disconnect,
-                duration: settingConfig.timeDisconnect,
-                onPicker: (Duration? duration) async {
-                  if (duration != null &&
-                      settingConfig.timeDisconnect != null) {
-                    var dif = (duration - settingConfig.timeConnect!).abs();
-                    if (dif.inMinutes < 5) {
-                      DialogUtils.showAlertDialog(
-                          context,
-                          tcontext.SettingsScreen
-                              .timeConnectAndDisconnectInterval(p: 5));
-                      return;
-                    }
-                  }
-                  settingConfig.timeDisconnect = duration;
-                  SettingManager.setDirty(true);
-                  SettingManager.saveConfig();
-                  setState(() {});
-                })),
-      ];
-      return [GroupItem(options: options)];
-    }
-
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("autoSelect"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.autoSelect,
-                  getOptions: getOptions,
-                )));
-    setState(() {});
-  }
-
   Future<void> onTapPortableModeOn() async {
     Directory? dir;
     bool exist = false;
@@ -2714,7 +2708,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapAdRemove() async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       String rewardAdExpireTime =
           settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
@@ -2850,7 +2845,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapSupportUS() async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [

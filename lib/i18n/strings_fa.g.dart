@@ -370,6 +370,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند';
 	@override String get tunAppendHttpProxy => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
 	@override String get tunAppendHttpProxyTips => 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
+	@override String get tunAllowBypassHttpProxyDomain => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
 	@override String get dnsEnableRule => 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
 	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] کانال رزولوشن';
 	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] ECS را فعال کنید';
@@ -650,6 +651,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get notice => 'اطلاعیه';
 	@override String get sort => 'مرتب‌سازی';
 	@override String get novice => 'حالت مبتدی';
+	@override String get tvMode => 'حالت تلویزیون';
 	@override String get recommended => 'پیشنهادی';
 	@override String innerError({required Object p}) => 'خطای داخلی: ${p}';
 	@override String get logicOperation => 'عملیات منطقی';
@@ -929,6 +931,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.ipStrategyTips': return 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
+			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
 			case 'SettingsScreen.dnsEnableRule': return 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
 			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] کانال رزولوشن';
 			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] ECS را فعال کنید';
@@ -1165,6 +1168,7 @@ extension on TranslationsFa {
 			case 'meta.notice': return 'اطلاعیه';
 			case 'meta.sort': return 'مرتب‌سازی';
 			case 'meta.novice': return 'حالت مبتدی';
+			case 'meta.tvMode': return 'حالت تلویزیون';
 			case 'meta.recommended': return 'پیشنهادی';
 			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
 			case 'meta.logicOperation': return 'عملیات منطقی';

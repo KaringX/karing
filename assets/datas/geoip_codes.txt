@@ -24,7 +24,6 @@ bf
 bg
 bh
 bi
-bing
 bj
 bl
 blocked-community@ru
@@ -121,6 +120,7 @@ io
 iq
 ir
 iranserver
+irgfw-other-injected-ips
 is
 it
 je

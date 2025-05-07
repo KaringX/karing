@@ -10,6 +10,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class RegionSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -207,7 +208,7 @@ class _RegionSetingsScreenState
                           color: Colors.white,
                           borderRadius: ThemeDefine.kBorderRadius,
                         ),
-                        child: TextField(
+                        child: TextFieldEx(
                           controller: _searchController,
                           textInputAction: TextInputAction.done,
                           onChanged: _loadSearch,

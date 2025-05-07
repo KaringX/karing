@@ -370,6 +370,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
 	@override String get tunAppendHttpProxy => 'إلحاق وكيل HTTP إلى VPN';
 	@override String get tunAppendHttpProxyTips => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
+	@override String get tunAllowBypassHttpProxyDomain => 'المجالات المسموح لها بتجاوز وكيل HTTP';
 	@override String get dnsEnableRule => 'تمكين قواعد تحويل DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
 	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
@@ -650,6 +651,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get notice => 'يلاحظ';
 	@override String get sort => 'إعادة ترتيب';
 	@override String get novice => 'وضع المبتدئ';
+	@override String get tvMode => 'وضع التلفزيون';
 	@override String get recommended => 'يوصي';
 	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
 	@override String get logicOperation => 'عملية منطقية';
@@ -929,6 +931,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.ipStrategyTips': return 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'إلحاق وكيل HTTP إلى VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
+			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'المجالات المسموح لها بتجاوز وكيل HTTP';
 			case 'SettingsScreen.dnsEnableRule': return 'تمكين قواعد تحويل DNS';
 			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
 			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
@@ -1165,6 +1168,7 @@ extension on TranslationsAr {
 			case 'meta.notice': return 'يلاحظ';
 			case 'meta.sort': return 'إعادة ترتيب';
 			case 'meta.novice': return 'وضع المبتدئ';
+			case 'meta.tvMode': return 'وضع التلفزيون';
 			case 'meta.recommended': return 'يوصي';
 			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
 			case 'meta.logicOperation': return 'عملية منطقية';

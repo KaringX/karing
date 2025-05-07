@@ -126,8 +126,9 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                     ),
                     SizedBox(
                         height: 45.0,
-                        child: ElevatedButton(
-                          child: Text(tcontext.meta.website),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.webhook_rounded),
+                          label: Text(tcontext.meta.website),
                           onPressed: () async {
                             AnalyticsUtils.logEvent(
                                 analyticsEventType: analyticsEventTypeUA,

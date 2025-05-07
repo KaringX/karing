@@ -6,7 +6,6 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/did.dart';
-import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -414,11 +413,11 @@ class MyAppState extends State<MyApp>
   }
 
   Future<void> _init() async {
-    Biz.onQuit(() {
+    Biz.onEventExit = (() {
       _quit();
     });
 
-    Biz.onVPNStateChanged((bool connected) {
+    Biz.onEventVPNStateChanged = ((bool connected) {
       if (PlatformUtils.isPC()) {
         if (_trayGrey == !connected) {
           return;
@@ -427,7 +426,7 @@ class MyAppState extends State<MyApp>
       }
     });
     if (startFailedReason == null) {
-      Biz.onInitHomeFinish(() {
+      Biz.onEventInitHomeFinish.add(() {
         firstShowWindow(false);
       });
 

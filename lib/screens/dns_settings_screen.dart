@@ -18,6 +18,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class DnsSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -550,7 +551,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextField(
+                child: TextFieldEx(
                   controller: textControllerISP,
                   textInputAction: TextInputAction.next,
                   cursorColor: Colors.black,
@@ -565,7 +566,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextField(
+                child: TextFieldEx(
                   controller: textControllerUrl,
                   textInputAction: TextInputAction.done,
                   cursorColor: Colors.black,

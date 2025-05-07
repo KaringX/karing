@@ -11,9 +11,11 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
 
 class AddProfileByImportFromFileScreen extends LasyRenderingStatefulWidget {
@@ -212,7 +214,7 @@ class _AddProfileByImportFromFileScreenState
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
-                    child: TextField(
+                    child: TextFieldEx(
                       controller: _textControllerRemark,
                       textInputAction: TextInputAction.done,
                       cursorColor: Colors.black,

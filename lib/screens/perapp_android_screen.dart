@@ -9,10 +9,12 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class PerAppAndroidScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -44,6 +46,7 @@ class _PerAppAndroidScreenState
   //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
   static const int FLAG_SYSTEM = 1;
   static const _removed = "[removed]";
+
   AndroidPackageManager? _pkgMgr;
   bool _loading = true;
   final List<PackageInfoEx> _applicationInfoList = [];
@@ -307,14 +310,13 @@ class _PerAppAndroidScreenState
                   color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
-                child: TextField(
+                child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
                       color: Colors.grey.shade400,

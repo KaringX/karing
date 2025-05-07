@@ -5,9 +5,11 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
 class MyProfilesEditScreen extends LasyRenderingStatefulWidget {
@@ -125,7 +127,7 @@ class _MyProfilesEditScreenState
                     padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                     child: Column(
                       children: [
-                        TextField(
+                        TextFieldEx(
                           controller: _textControllerRemark,
                           textInputAction: item != null && item.isRemote()
                               ? TextInputAction.next
@@ -142,7 +144,7 @@ class _MyProfilesEditScreenState
                               )
                             : const SizedBox.shrink(),
                         item != null && item.isRemote()
-                            ? TextField(
+                            ? TextFieldEx(
                                 maxLines: 4,
                                 controller: _textControllerUrl,
                                 cursorColor: Colors.black,

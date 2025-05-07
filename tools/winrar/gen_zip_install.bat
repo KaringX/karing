@@ -10,7 +10,7 @@ set DestPdbPath="../../dist/karing_%version%_windows_x64_pdb.zip"
 set DestPath2="../../dist/karing_%version%_windows_x64/"
 set DestPath3="../../dist/karing_%version%_windows_x64.exe"
  
-rem winrar https://blog.csdn.net/frank_liuxing/article/details/44495755 https://www.cnblogs.com/fetty/p/4769279.html
+
 del /s /Q %DestPath%
 rd /s /Q %DestPath2%
 del /s /Q %DestPath3%

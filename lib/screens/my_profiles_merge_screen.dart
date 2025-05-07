@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -220,7 +221,8 @@ class MyProfilesMergeScreenState
 
   void onTapTargetProfile() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
       for (var group in ServerManager.getConfig().items) {
         if (group.isRemote()) {

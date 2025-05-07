@@ -163,7 +163,7 @@ class _LanguageSettingsScreenState
                           color: Colors.white,
                           borderRadius: ThemeDefine.kBorderRadius,
                         ),
-                        child: TextField(
+                        child: TextFieldEx(
                           controller: _searchController,
                           textInputAction: TextInputAction.done,
                           onChanged: _loadSearch,

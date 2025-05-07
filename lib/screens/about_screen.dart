@@ -19,7 +19,8 @@ import 'package:karing/app/utils/singbox_json_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/file_content_viewer_screen.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/hash_string_screen.dart';
@@ -244,12 +245,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 onSwitch: RemoteConfigManager.rejectAnalyticsSubmit()
                     ? null
                     : (bool value) async {
-                        AnalyticsUtils.logEvent(
-                            analyticsEventType: analyticsEventTypeUA,
-                            name: 'SSS_diableUAReport',
-                            parameters: {"value": value},
-                            repeatable: false);
-
                         AnalyticsUtils.setEventType(value
                             ? analyticsEventTypeNoUA
                             : analyticsEventTypeAll);
@@ -283,7 +278,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         analyticsEventType: analyticsEventTypeUA,
         name: 'SSS_devOptions',
         repeatable: false);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -425,7 +421,8 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   void onTapAutoUpdateChannel() async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
 
       for (var channel in AutoUpdateManager.updateChannels()) {

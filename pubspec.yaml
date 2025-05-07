@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.1.2+601
+version: 1.1.3+703
 environment:
   sdk: ">=3.2.3 <4.0.0"
   flutter: ">=3.24.0"
@@ -49,6 +49,9 @@ dependencies:
   #dart_json_mapper: 2.2.7
   #dart_json_mapper_mobx: 2.0.5
   #json_path: 0.7.4
+  json_annotation: 4.9.0
+  re_editor: 0.6.0
+  re_highlight: 0.0.3
   #mobx: 2.1.3
   #flutter_mobx: 2.0.6+5
   #mobx_triple: 1.1.3+1
@@ -103,7 +106,7 @@ dependencies:
   #home_widget: 0.4.1
   share_plus: 10.1.4 #sentry_flutter
   open_file: 3.5.10 #sentry_flutter
-  app_installer: ^1.3.1
+  app_installer: 1.3.1
   #dart_ping: 9.0.1
   #flutter_background_service: 5.0.5
   app_settings: 5.2.0
@@ -142,10 +145,10 @@ dependencies:
       ref: f0a01b386c45c4a3513811720e2b5fc765ca45f2
       path: packages/window_manager
   vpn_service:
-    #path: ../vpn-service/
-    git:
-      url: https://github.com/KaringX/vpn-service.git
-      ref: main
+    path: ../vpn-service/
+    #git:
+      #url: https://github.com/KaringX/vpn-service.git
+      #ref: main
 
 dev_dependencies:
   sentry_dart_plugin: 2.4.1
@@ -153,8 +156,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
-  ffigen: ^18.0.0 # install llvm, https://pub.dev/packages/ffigen,build:dart run ffigen
+  flutter_lints: 5.0.0
+  ffigen: 18.0.0 # install llvm, https://pub.dev/packages/ffigen,build:dart run ffigen
+  #build_runner: 2.4.15
+  #json_serializable: 6.9.0 #dart run build_runner build --delete-conflicting-outputs
 
 
 flutter:
@@ -173,11 +178,6 @@ flutter:
     - assets/datas/preset/
 
   fonts:
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
-        - asset: assets/fonts/Roboto-Bold.ttf
-          weight: 700
     - family: Emoji # from hiddify
       fonts:
         - asset: assets/fonts/Emoji.ttf

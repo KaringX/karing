@@ -17,6 +17,7 @@
 5ch
 6park
 75team
+800best
 8btc
 928plus
 9news
@@ -53,8 +54,10 @@ adobe@cn
 ads
 aerogard
 aerogard@cn
+af
 afdian
 afp
+agilebits
 agora
 aiqicha
 airchina
@@ -112,6 +115,7 @@ apple-dev@cn
 apple-intelligence
 apple-pki
 apple-pki@cn
+apple-tvplus
 apple-update
 apple
 apple@ads
@@ -166,6 +170,7 @@ bcy
 bdsmhub
 beats
 beats@cn
+beisen
 bestbuy
 bestbuy@cn
 bestore
@@ -218,12 +223,15 @@ borneoschematics
 boslife
 boxun
 boylove
+br
 braveux
 brazzers
 bridgestone
 bridgestone@cn
 brightcove
 brilliant
+broadcom
+broadcom@cn
 btdig
 bttzyw
 buymeacoffee
@@ -237,6 +245,7 @@ bytedance@ads
 bytedance@cn
 c-span
 cabletv
+cainiao
 calgoncarbon
 calgoncarbon@cn
 cambridge
@@ -254,6 +263,8 @@ category-ads-all@ads
 category-ads-ir
 category-ads
 category-ads@ads
+category-ai-!cn
+category-ai-!cn@ads
 category-ai-chat-!cn
 category-ai-chat-!cn@ads
 category-ai-cn
@@ -291,6 +302,7 @@ category-ecommerce@ads
 category-ecommerce@cn
 category-education-cn
 category-education-ir
+category-emby
 category-enhance-gaming
 category-enhance-gaming@cn
 category-enterprise-query-platform-cn
@@ -308,6 +320,8 @@ category-food-cn
 category-forums-ir
 category-forums
 category-game-accelerator-cn
+category-game-platforms-download
+category-game-platforms-download@cn
 category-games
 category-games@!cn
 category-games@cn
@@ -319,9 +333,11 @@ category-httpdns-cn@ads
 category-insurance-ir
 category-ipfs
 category-ir
+category-logistics-cn
 category-media-cn
 category-media-cn@ads
 category-media-ir
+category-media-ru
 category-media
 category-media@cn
 category-mobile-repair
@@ -338,6 +354,7 @@ category-ntp@cn
 category-number-verification-cn
 category-olympiad-in-informatics
 category-orgs
+category-password-management
 category-payment-ir
 category-porn
 category-porn@ads
@@ -360,6 +377,10 @@ category-social-media-cn
 category-social-media-cn@!cn
 category-social-media-cn@ads
 category-social-media-ir
+category-speedtest
+category-speedtest@!cn
+category-speedtest@ads
+category-speedtest@cn
 category-tech-ir
 category-tech-media
 category-tech-media@cn
@@ -474,6 +495,7 @@ deepseek
 dell
 dell@cn
 demonoid
+deppon
 deribit
 dettol
 dettol@cn
@@ -492,6 +514,7 @@ discord
 discoveryplus
 discuz
 disney
+disney@ads
 disqus
 divar
 dji
@@ -551,6 +574,7 @@ emojipedia
 enfa
 entermediadb
 entrust
+entrust@cn
 epicbrowser
 epicgames
 epicgames@cn
@@ -581,6 +605,7 @@ faronics
 fastlane
 fastly
 faststone
+fcbox
 fedora
 feedly
 feishu
@@ -719,6 +744,7 @@ homebrew
 homedepot
 hongdunwang
 hongkongpost
+honor
 hooligapps
 hotjar-ads
 hotjar-ads@ads
@@ -741,6 +767,7 @@ huaweicloud@!cn
 hubblephone
 huffpost
 hugecore
+huggingface
 hujiang
 hulu
 hunantv-ads
@@ -759,7 +786,9 @@ icbc@!cn
 icloud
 icloud@cn
 icloudprivaterelay
+id
 identrust
+idg
 ieee
 ifanr
 ifast
@@ -796,6 +825,7 @@ intel-dev
 intel
 intel@cn
 intercom
+intsig
 ipip
 ipip@!cn
 iqiyi-ads
@@ -805,8 +835,11 @@ iqiyi@!cn
 iqiyi@ads
 ir
 isgd
+ishumei
+itchio
 itunes
 itunes@cn
+ixsystems
 iyf
 j-test
 jable
@@ -838,6 +871,7 @@ jlc
 johren
 jquery
 jsdelivr
+jtexpress
 juejin
 jushuitan
 justav
@@ -859,6 +893,7 @@ kindle4rss
 kindle@cn
 kingkonglive
 kingsoft
+kinopub
 kkbox
 kktv
 knovel
@@ -867,6 +902,7 @@ konachan
 koolearn
 kraken
 ku6
+kuaidi100
 kuaikan
 kuaishou-ads
 kuaishou-ads@ads
@@ -892,6 +928,7 @@ laracasts
 lark-global
 lark
 lastfm
+lastpass
 launchpad
 lavteam
 ldmnq
@@ -930,6 +967,7 @@ londonreal
 longbridge
 lowiro
 ltn
+lumion
 lysol
 lysol@cn
 madshi
@@ -1015,6 +1053,7 @@ movefree@cn
 moxing
 mozilla
 mpv
+msi
 msn
 msn@cn
 mucinex
@@ -1047,6 +1086,7 @@ netflav
 netflix
 netlify
 neuralink
+newegg
 newrelic-ads
 newrelic-ads@ads
 newscorp
@@ -1250,6 +1290,7 @@ rockstar
 roku
 rsshub
 rthk
+ru
 ruanmei
 ruby
 rubychina
@@ -1336,6 +1377,7 @@ soundcloud
 soundofhope
 sourceforge
 sourcehut
+soyjakparty
 spacemail
 spaceship
 spacex
@@ -1369,6 +1411,7 @@ steam
 steam@cn
 steamunlocked
 steemit
+sto-express
 streamable
 strepsils
 strepsils@cn
@@ -1389,6 +1432,7 @@ swift
 swift@cn
 swisssign
 sxl
+symantec-pki
 symantec
 synology
 synology@cn
@@ -1406,6 +1450,7 @@ taylorfrancis
 teambition
 teamviewer
 teamviewer@cn
+techpowerup
 techtimes
 ted
 telegram
@@ -1466,6 +1511,7 @@ tongfang
 topcoder
 tor
 torproject
+tr
 tracker
 trackernetwork
 translatewiki
@@ -1512,6 +1558,7 @@ unity-ads@ads
 unity
 unity@ads
 upai
+usersdrive
 uu-chat
 v2ray
 v8
@@ -1522,6 +1569,7 @@ vaptcha
 veet
 veet@cn
 vercel
+verisign-pki
 verisign
 verizon
 verizon@ads
@@ -1602,6 +1650,7 @@ xbox@cn
 xd
 xda
 xdty
+xedge
 xhamster-ads
 xhamster-ads@ads
 xhamster
@@ -1645,10 +1694,12 @@ youquan
 youtube
 youtube@cn
 youzan
+yto-express
 yuanbei
 yuanfudao
 yuewen
 yuketang
+yundaex
 yunfanjiasu
 yunlaopo
 yy
@@ -1671,6 +1722,7 @@ zoho
 zoom
 zte
 zte@!cn
+zto-express
 zuoyebang
 zynga-ads
 zynga-ads@ads

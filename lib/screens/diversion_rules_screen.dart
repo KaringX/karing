@@ -8,7 +8,8 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/diversion_group_custom_screen.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -124,17 +125,20 @@ class DiversionRulesScreenState
                 height: 10,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: FutureBuilder(
-                    future: getGroupOptions(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
-                    },
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: FutureBuilder(
+                      future: getGroupOptions(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<GroupItem>> snapshot) {
+                        List<GroupItem> data =
+                            snapshot.hasData ? snapshot.data! : [];
+                        return Column(
+                            children:
+                                GroupItemCreator.createGroups(context, data));
+                      },
+                    ),
                   ),
                 ),
               ),

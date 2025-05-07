@@ -19,13 +19,15 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/server_select_keywords_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
 class ServerSelectScreenSingleSelectedOption {
@@ -126,7 +128,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     _loadRecommend();
     _buildData();
 
-    ServerManager.onTestLatency(hashCode,
+    ServerManager.onEventTestLatency(hashCode,
         (String groupid, String tag, bool start, bool finish) {
       if (!mounted) {
         return;
@@ -150,7 +152,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
       setState(() {});
     });
-    ServerManager.onAddConfig((ServerConfigGroupItem item) async {
+    ServerManager.onEventAddConfig(hashCode,
+        (ServerConfigGroupItem item) async {
       if (!mounted) {
         return;
       }
@@ -158,7 +161,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
       _buildData();
       setState(() {});
     });
-    ServerManager.onRemoveConfig(
+    ServerManager.onEventRemoveConfig(hashCode,
         (String groupid, bool enable, bool hasDeviersionGroup) async {
       if (!enable) {
         return;
@@ -201,8 +204,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     }
     _updateLatencyByHistoryTimer?.cancel();
     _updateLatencyByHistoryTimer = null;
-    ServerManager.onTestLatencyRemove(hashCode);
-    ServerManager.onLatencyHistoryUpdatedRemove(hashCode);
+    ServerManager.removeListener(hashCode);
+
     super.dispose();
     ServerManager.saveUse();
   }
@@ -1361,7 +1364,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         color: Colors.white,
         borderRadius: ThemeDefine.kBorderRadius,
       ),
-      child: TextField(
+      child: TextFieldEx(
         controller: _searchController,
         textInputAction: TextInputAction.done,
         onChanged: _loadSearch,
@@ -1622,7 +1625,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
   void onTapSetting() async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [];
       if (widget.singleSelect != null) {

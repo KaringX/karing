@@ -6,13 +6,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.VpnService
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
-import org.json.JSONObject
 import java.io.File
+import org.json.JSONObject
 
 @RequiresApi(24)
 class TileService : TileService() {
@@ -27,19 +26,19 @@ class TileService : TileService() {
 
     private var receiverRegistered = false
     private val receiver =
-        object : BroadcastReceiver() {
-            override fun onReceive(
-                context: Context,
-                intent: Intent,
-            ) {
-                when (intent.action) {
-                    ACTION_START_RESULT -> {
-                        val err = intent.getStringExtra("err")
-                        updateTile(err == "")
+            object : BroadcastReceiver() {
+                override fun onReceive(
+                        context: Context,
+                        intent: Intent,
+                ) {
+                    when (intent.action) {
+                        ACTION_START_RESULT -> {
+                            val err = intent.getStringExtra("err")
+                            updateTile(err == "")
+                        }
                     }
                 }
             }
-        }
 
     override fun onCreate() {
         if (!receiverRegistered) {
@@ -71,28 +70,21 @@ class TileService : TileService() {
             intent.setClassName(getPackageName(), service_class_name)
             intent.putExtra("exitProcess", true)
             startService(intent)
-            //stopService(intent)
+            // stopService(intent)
             updateTile(false)
             return
         }
 
         try {
-            val context = this as Context
-            val intent = VpnService.prepare(context)
-            if (intent != null) {
-                return
-            }
             val content = serviceFile().readText()
             if (!content.isBlank()) {
                 val jsonObj = JSONObject(content)
                 val expired_time = jsonObj.getLong("expired_time")
-                if (expired_time != null) {
-                    val currentTimestamp = System.currentTimeMillis()
-                    if (currentTimestamp < expired_time) {
-                        updateTile(true)
-                        startByService()
-                        return
-                    }
+                val currentTimestamp = System.currentTimeMillis()
+                if (currentTimestamp < expired_time) {
+                    updateTile(true)
+                    startByService()
+                    return
                 }
             }
         } catch (e: Exception) {
@@ -137,11 +129,11 @@ class TileService : TileService() {
     private fun updateTile(active: Boolean?) {
         qsTile?.apply {
             state =
-                when (active) {
-                    true -> Tile.STATE_ACTIVE
-                    false -> Tile.STATE_INACTIVE
-                    else -> Tile.STATE_UNAVAILABLE
-                }
+                    when (active) {
+                        true -> Tile.STATE_ACTIVE
+                        false -> Tile.STATE_INACTIVE
+                        else -> Tile.STATE_UNAVAILABLE
+                    }
             updateTile()
         }
     }
@@ -164,7 +156,9 @@ class TileService : TileService() {
         if (Build.VERSION.SDK_INT < 34) {
             startActivityAndCollapse(intent)
         } else {
-            startActivityAndCollapse(PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE))
+            startActivityAndCollapse(
+                    PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            )
         }
     }
 
@@ -215,7 +209,7 @@ class TileService : TileService() {
     private fun serviceFile(): File {
         val context = this as Context
         return File(context.getFilesDir(), service_file_name)
-    } 
+    }
 
     private fun profileFile(): File {
         val context = this as Context

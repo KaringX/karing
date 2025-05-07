@@ -66,7 +66,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
     if (height > windowSize.width) {
       height = windowSize.width;
     }
-    final box = context.findRenderObject() as RenderBox?;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -206,11 +206,8 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
 
                                       try {
                                         await Share.shareXFiles(
-                                            [XFile(savePath)],
-                                            sharePositionOrigin: box!
-                                                    .localToGlobal(
-                                                        Offset.zero) &
-                                                box.size);
+                                          [XFile(savePath)],
+                                        );
                                       } catch (err) {
                                         if (!context.mounted) {
                                           return;

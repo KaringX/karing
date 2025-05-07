@@ -460,10 +460,8 @@ class _DiversionGroupCustomScreenState
             if (!mounted) {
               return;
             }
-            final box = context.findRenderObject() as RenderBox?;
-            await Share.shareXFiles([XFile(filePath)],
-                sharePositionOrigin:
-                    box!.localToGlobal(Offset.zero) & box.size);
+
+            await Share.shareXFiles([XFile(filePath)]);
           } catch (err) {
             if (!mounted) {
               return;

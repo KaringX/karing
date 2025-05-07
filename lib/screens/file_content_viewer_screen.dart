@@ -359,12 +359,11 @@ class FileContentViewerScreenState
     if (!mounted) {
       return;
     }
-    final box = context.findRenderObject() as RenderBox?;
+
     String filePath = await PathUtils.profileDir();
     filePath = path.join(filePath, _fileName);
     try {
-      await Share.shareXFiles([XFile(filePath)],
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+      await Share.shareXFiles([XFile(filePath)]);
     } catch (err) {
       if (!mounted) {
         return;

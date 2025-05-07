@@ -13,21 +13,21 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/diversion_group_custom_edit_screen.dart';
 import 'package:karing/screens/diversion_group_custom_screen.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/net_connections_filter_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:web_socket_channel/io.dart';
 
 class Connections {
   DateTime? startTime;
@@ -139,8 +139,6 @@ class ConnectionOut {
 }
 
 class ConnectionIn {
-  bool connected = true;
-  DateTime? lastConnected;
   List<String> chains = [];
   num download = 0;
   num upload = 0;
@@ -309,8 +307,7 @@ class _NetConnectionsScreenState
   List<NetConnectionStateIn> _connectionInList = [];
   final List<NetConnectionStateOut> _connectionOutList = [];
   AndroidPackageManager? _pkgMgr;
-  HttpClient? _httpClient;
-  StreamSubscription<dynamic>? _subscriptions;
+  Websocket? _websocket;
   final Map<String, PackageInfoEx> _applicationInfoList = {};
   bool _pause = false;
   bool _showConnectionIn = true;
@@ -738,26 +735,10 @@ class _NetConnectionsScreenState
     if (!mounted) {
       return;
     }
-    if (_httpClient != null) {
-      return;
-    }
-
-    String connectionsUrl = widget.connectionsUrl;
-    if (!mounted) {
-      return;
-    }
-    try {
-      await _subscriptions?.cancel();
-      _httpClient?.close(force: true);
-      _httpClient ??= HttpClient();
-      _httpClient!.userAgent = await HttpUtils.getUserAgent();
-      _httpClient!.connectionTimeout = const Duration(seconds: 3);
-      _httpClient!.findProxy = (Uri uri) => "DIRECT";
-
-      {
-        WebSocket webSocket =
-            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
-        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+    _websocket ??= Websocket(
+        url: widget.connectionsUrl,
+        userAgent: await HttpUtils.getUserAgent(),
+        onMessage: (String message) {
           var obj = jsonDecode(message);
           Connections con = Connections();
           con.fromJson(obj, true);
@@ -769,21 +750,18 @@ class _NetConnectionsScreenState
           if (refreshIn || refreshOut) {
             setState(() {});
           }
-        }, onDone: () {
+        },
+        onDone: () {
           _disconnectToService();
-        }, onError: (error) {});
-      }
-    } catch (err) {
-      Log.w("_connectToService exception ${err.toString()}");
-      _disconnectToService();
-    }
+        },
+        onError: (err) {
+          _disconnectToService();
+        });
+    await _websocket!.connect();
   }
 
   Future<void> _disconnectToService() async {
-    await _subscriptions?.cancel();
-    _subscriptions = null;
-    _httpClient?.close();
-    _httpClient = null;
+    await _websocket?.disconnect();
   }
 
   Widget createWidgetConnectionIn(
@@ -1378,7 +1356,8 @@ class _NetConnectionsScreenState
 
   void onTapItem(NetConnectionStateIn current) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
 
       if (current.host.isNotEmpty) {

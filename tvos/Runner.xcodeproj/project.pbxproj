@@ -13,7 +13,7 @@
 		CE4C01682CA654A700BD22EC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C01672CA654A700BD22EC /* String+Extension.swift */; };
 		CE5637312C941E1D004B58DE /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE5637302C941E1D004B58DE /* KeychainSwift */; };
 		CE85581F2AF49C5E0024DA42 /* Libbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C5332AF1F21D005C5724 /* Libbox.xcframework */; };
-		CE8558212AF49F430024DA42 /* LibRing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */; };
+		CE8558212AF49F430024DA42 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */; };
 		CE8558262AF4A0450024DA42 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C53B2AF1FF75005C5724 /* libresolv.tbd */; };
 		CE9A1DAC2D12880200F8F537 /* VpnServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */; };
 		CE9F8D092CB4D0DB0004522A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9F8D0B2CB4D0DB0004522A /* Localizable.strings */; };
@@ -22,12 +22,12 @@
 		CED44C9329F7AE560051B3B6 /* karingService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CED44C8A29F7AE560051B3B6 /* karingService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CED776BA2C4A2F53009CCC4B /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED776B92C4A2F53009CCC4B /* Application.swift */; };
 		CED776BC2C4A2F62009CCC4B /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED776BB2C4A2F61009CCC4B /* ApplicationDelegate.swift */; };
-		CEE0DC342AF49B5F00C4E874 /* LibRing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */; };
-		CEE0DC352AF49B5F00C4E874 /* LibRing.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEE0DC342AF49B5F00C4E874 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */; };
+		CEE0DC352AF49B5F00C4E874 /* LibVpnCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEEC1A1F2B1430B20076CA70 /* Extension+RunBlocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A1B2B1430B20076CA70 /* Extension+RunBlocking.swift */; };
 		CEEC1A202B1430B20076CA70 /* ExtensionPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A1C2B1430B20076CA70 /* ExtensionPlatformInterface.swift */; };
 		CEEC1A212B1430B20076CA70 /* ExtensionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A1D2B1430B20076CA70 /* ExtensionProvider.swift */; };
-		CEEC1A222B1430B20076CA70 /* LibRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A1E2B1430B20076CA70 /* LibRing.swift */; };
+		CEEC1A222B1430B20076CA70 /* LibVpnCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A1E2B1430B20076CA70 /* LibVpnCore.swift */; };
 		CEF736E42C4DF35F005918A1 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF736E32C4DF35F005918A1 /* DashboardView.swift */; };
 		CEF736EB2C4DF3ED005918A1 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = CEF736EA2C4DF3ED005918A1 /* QRCode */; };
 		CEF736F12C4DF3ED005918A1 /* QRCodeStatic in Frameworks */ = {isa = PBXBuildFile; productRef = CEF736F02C4DF3ED005918A1 /* QRCodeStatic */; };
@@ -64,7 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEE0DC352AF49B5F00C4E874 /* LibRing.framework in Embed Frameworks */,
+				CEE0DC352AF49B5F00C4E874 /* LibVpnCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,7 +113,7 @@
 		CE65C5332AF1F21D005C5724 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
 		CE65C53B2AF1FF75005C5724 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		CE8558272AF4A2410024DA42 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
-		CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnServiceHandler.swift; path = ../../bind/apple/LibRing/VpnServiceHandler.swift; sourceTree = "<group>"; };
+		CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnServiceHandler.swift; path = ../../bind/apple/LibVpnCore/VpnServiceHandler.swift; sourceTree = "<group>"; };
 		CE9F8D0A2CB4D0DB0004522A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE9F8D0C2CB4D0DD0004522A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CED44C8A29F7AE560051B3B6 /* karingService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = karingService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,12 +122,12 @@
 		CED44C9029F7AE560051B3B6 /* karingService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = karingService.entitlements; sourceTree = "<group>"; };
 		CED776B92C4A2F53009CCC4B /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		CED776BB2C4A2F61009CCC4B /* ApplicationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
-		CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibRing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibVpnCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		CEEC1A1B2B1430B20076CA70 /* Extension+RunBlocking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+RunBlocking.swift"; sourceTree = "<group>"; };
 		CEEC1A1C2B1430B20076CA70 /* ExtensionPlatformInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionPlatformInterface.swift; sourceTree = "<group>"; };
 		CEEC1A1D2B1430B20076CA70 /* ExtensionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionProvider.swift; sourceTree = "<group>"; };
-		CEEC1A1E2B1430B20076CA70 /* LibRing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibRing.swift; sourceTree = "<group>"; };
+		CEEC1A1E2B1430B20076CA70 /* LibVpnCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibVpnCore.swift; sourceTree = "<group>"; };
 		CEF736E32C4DF35F005918A1 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		E8FC4A59790E5171B66CA0C2 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE5637312C941E1D004B58DE /* KeychainSwift in Frameworks */,
-				CEE0DC342AF49B5F00C4E874 /* LibRing.framework in Frameworks */,
+				CEE0DC342AF49B5F00C4E874 /* LibVpnCore.framework in Frameworks */,
 				4DB4E3E383A82D1FC55BBCC1 /* Pods_Runner.framework in Frameworks */,
 				CEF736EB2C4DF3ED005918A1 /* QRCode in Frameworks */,
 				CE057ABC2C4FAB2C005C70FE /* Swifter in Frameworks */,
@@ -151,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED44C8B29F7AE560051B3B6 /* NetworkExtension.framework in Frameworks */,
-				CE8558212AF49F430024DA42 /* LibRing.framework in Frameworks */,
+				CE8558212AF49F430024DA42 /* LibVpnCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +185,7 @@
 				CE8558272AF4A2410024DA42 /* Libbox.xcframework */,
 				97C146F01CF9000F007C117D /* Runner */,
 				CED44C8C29F7AE560051B3B6 /* karingService */,
-				CEE0DC2F2AF49B5F00C4E874 /* LibRing */,
+				CEE0DC2F2AF49B5F00C4E874 /* LibVpnCore */,
 				97C146EF1CF9000F007C117D /* Products */,
 				26D481E5F3BF75FC5947265A /* Frameworks */,
 				EEC3920188611F0DA2B3EEFE /* Pods */,
@@ -197,7 +197,7 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Karing.app */,
 				CED44C8A29F7AE560051B3B6 /* karingService.appex */,
-				CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */,
+				CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,16 +227,16 @@
 			path = karingService;
 			sourceTree = "<group>";
 		};
-		CEE0DC2F2AF49B5F00C4E874 /* LibRing */ = {
+		CEE0DC2F2AF49B5F00C4E874 /* LibVpnCore */ = {
 			isa = PBXGroup;
 			children = (
 				CEEC1A1B2B1430B20076CA70 /* Extension+RunBlocking.swift */,
 				CEEC1A1C2B1430B20076CA70 /* ExtensionPlatformInterface.swift */,
 				CEEC1A1D2B1430B20076CA70 /* ExtensionProvider.swift */,
-				CEEC1A1E2B1430B20076CA70 /* LibRing.swift */,
+				CEEC1A1E2B1430B20076CA70 /* LibVpnCore.swift */,
 			);
-			name = LibRing;
-			path = ../bind/apple/LibRing;
+			name = LibVpnCore;
+			path = ../bind/apple/LibVpnCore;
 			sourceTree = "<group>";
 		};
 		EEC3920188611F0DA2B3EEFE /* Pods */ = {
@@ -312,9 +312,9 @@
 			productReference = CED44C8A29F7AE560051B3B6 /* karingService.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		CEE0DC2D2AF49B5F00C4E874 /* LibRing */ = {
+		CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEE0DC362AF49B6000C4E874 /* Build configuration list for PBXNativeTarget "LibRing" */;
+			buildConfigurationList = CEE0DC362AF49B6000C4E874 /* Build configuration list for PBXNativeTarget "LibVpnCore" */;
 			buildPhases = (
 				CEE0DC292AF49B5F00C4E874 /* Headers */,
 				CEE0DC2A2AF49B5F00C4E874 /* Sources */,
@@ -325,9 +325,9 @@
 			);
 			dependencies = (
 			);
-			name = LibRing;
+			name = LibVpnCore;
 			productName = Library;
-			productReference = CEE0DC2E2AF49B5F00C4E874 /* LibRing.framework */;
+			productReference = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -375,7 +375,7 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				CED44C8929F7AE560051B3B6 /* karingService */,
-				CEE0DC2D2AF49B5F00C4E874 /* LibRing */,
+				CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */,
 			);
 		};
 /* End PBXProject section */
@@ -491,7 +491,7 @@
 				CEEC1A202B1430B20076CA70 /* ExtensionPlatformInterface.swift in Sources */,
 				CEEC1A1F2B1430B20076CA70 /* Extension+RunBlocking.swift in Sources */,
 				CEEC1A212B1430B20076CA70 /* ExtensionProvider.swift in Sources */,
-				CEEC1A222B1430B20076CA70 /* LibRing.swift in Sources */,
+				CEEC1A222B1430B20076CA70 /* LibVpnCore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +500,7 @@
 /* Begin PBXTargetDependency section */
 		CE8558242AF49F430024DA42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEE0DC2D2AF49B5F00C4E874 /* LibRing */;
+			target = CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */;
 			targetProxy = CE8558232AF49F430024DA42 /* PBXContainerItemProxy */;
 		};
 		CED44C9229F7AE560051B3B6 /* PBXTargetDependency */ = {
@@ -510,7 +510,7 @@
 		};
 		CEE0DC332AF49B5F00C4E874 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEE0DC2D2AF49B5F00C4E874 /* LibRing */;
+			target = CEE0DC2D2AF49B5F00C4E874 /* LibVpnCore */;
 			targetProxy = CEE0DC322AF49B5F00C4E874 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -591,7 +591,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 601;
+				CURRENT_PROJECT_VERSION = 606;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -750,7 +750,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 601;
+				CURRENT_PROJECT_VERSION = 606;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -795,7 +795,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 601;
+				CURRENT_PROJECT_VERSION = 606;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -1152,7 +1152,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEE0DC362AF49B6000C4E874 /* Build configuration list for PBXNativeTarget "LibRing" */ = {
+		CEE0DC362AF49B6000C4E874 /* Build configuration list for PBXNativeTarget "LibVpnCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEE0DC372AF49B6000C4E874 /* Debug */,

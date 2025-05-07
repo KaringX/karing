@@ -13,9 +13,11 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
 class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
@@ -47,8 +49,6 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
 class _AddProfileByLinkOrContentScreenState
     extends LasyRenderingState<AddProfileByLinkOrContentScreen>
     with AfterLayoutMixin {
-  String _name = "";
-  String _urlOrContent = "";
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
@@ -61,13 +61,12 @@ class _AddProfileByLinkOrContentScreenState
   @override
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
-    _name = widget.name != null ? widget.name!.trim() : "";
-
-    _urlOrContent = widget.urlOrContent.trim();
-    _textControllerLink.text = _urlOrContent;
-    if (_name.isNotEmpty) {
-      _textControllerRemark.text = _name;
-    } else if (_urlOrContent.isNotEmpty) {
+    String name = widget.name != null ? widget.name!.trim() : "";
+    String urlOrContent = widget.urlOrContent.trim();
+    _textControllerLink.text = urlOrContent;
+    if (name.isNotEmpty) {
+      _textControllerRemark.text = name;
+    } else if (urlOrContent.isNotEmpty) {
       updateRemarkByText();
     }
     _compatible = HttpUtils.getUserAgentsString();
@@ -317,7 +316,7 @@ class _AddProfileByLinkOrContentScreenState
                     Padding(
                       padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                       child: SingleChildScrollView(
-                        child: TextField(
+                        child: TextFieldEx(
                           textInputAction: TextInputAction.next,
                           maxLines: PlatformUtils.isPC() ? 12 : 4,
                           controller: _textControllerLink,
@@ -333,7 +332,7 @@ class _AddProfileByLinkOrContentScreenState
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                      child: TextField(
+                      child: TextFieldEx(
                         textInputAction: TextInputAction.done,
                         controller: _textControllerRemark,
                         cursorColor: Colors.black,
@@ -450,10 +449,12 @@ class _AddProfileByLinkOrContentScreenState
               name: tcontext.meta.profileEditTestLatencyAutoRemove,
               tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
               switchValue: _testLatencyAutoRemove,
-              onSwitch: (bool value) async {
-                _testLatencyAutoRemove = value;
-                setState(() {});
-              })),
+              onSwitch: _loading
+                  ? null
+                  : (bool value) async {
+                      _testLatencyAutoRemove = value;
+                      setState(() {});
+                    })),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

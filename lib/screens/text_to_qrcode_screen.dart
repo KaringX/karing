@@ -4,6 +4,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class TextToQrCodeScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -87,7 +88,7 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 0),
-                          child: TextField(
+                          child: TextFieldEx(
                             maxLines: 6,
                             textInputAction: TextInputAction.done,
                             controller: _textController,

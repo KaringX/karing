@@ -373,6 +373,7 @@ class TranslationsSettingsScreenEn {
 	String get ipStrategyTips => 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.';
 	String get tunAppendHttpProxy => 'Append HTTP Proxy to VPN';
 	String get tunAppendHttpProxyTips => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy';
+	String get tunAllowBypassHttpProxyDomain => 'Domains allowed to bypass HTTP proxy';
 	String get dnsEnableRule => 'Enable DNS Diversion rules';
 	String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] Resolve Channel';
 	String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] Enable ECS';
@@ -653,6 +654,7 @@ class TranslationsMetaEn {
 	String get notice => 'Notice';
 	String get sort => 'Reorder';
 	String get novice => 'Novice Mode';
+	String get tvMode => 'TV Mode';
 	String get recommended => 'Recommend';
 	String innerError({required Object p}) => 'Inner Error:${p}';
 	String get logicOperation => 'Logic Operation';
@@ -932,6 +934,7 @@ extension on Translations {
 			case 'SettingsScreen.ipStrategyTips': return 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'Append HTTP Proxy to VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy';
+			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'Domains allowed to bypass HTTP proxy';
 			case 'SettingsScreen.dnsEnableRule': return 'Enable DNS Diversion rules';
 			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] Resolve Channel';
 			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] Enable ECS';
@@ -1168,6 +1171,7 @@ extension on Translations {
 			case 'meta.notice': return 'Notice';
 			case 'meta.sort': return 'Reorder';
 			case 'meta.novice': return 'Novice Mode';
+			case 'meta.tvMode': return 'TV Mode';
 			case 'meta.recommended': return 'Recommend';
 			case 'meta.innerError': return ({required Object p}) => 'Inner Error:${p}';
 			case 'meta.logicOperation': return 'Logic Operation';

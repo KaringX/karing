@@ -1,6 +1,7 @@
 // ignore_for_file: empty_catches
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -34,6 +35,7 @@ class _NetInterfacesScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    final setting = SettingManager.getConfig();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -82,7 +84,8 @@ class _NetInterfacesScreenState
               ),
               Expanded(
                 child: FutureBuilder(
-                  future: NetworkUtils.getInterfaces(),
+                  future:
+                      NetworkUtils.getInterfaces(filter: !setting.dev.devMode),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<NetInterfacesInfo>> snapshot) {
                     List<NetInterfacesInfo> data =

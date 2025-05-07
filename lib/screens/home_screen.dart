@@ -40,6 +40,7 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_dialog.dart';
 import 'package:karing/screens/common_widget.dart';
@@ -74,7 +75,6 @@ import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:vpn_service/state.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:window_manager/window_manager.dart';
 
 class Header {
@@ -130,9 +130,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   bool _agreementApproved = false;
 
-  HttpClient? _httpClient;
-  StreamSubscription<dynamic>? _subscriptions;
-  bool _wsConnecting = false;
+  Websocket? _websocket;
 
   final ValueNotifier<String> _trafficUpTotal = ValueNotifier<String>("0 B");
   final ValueNotifier<String> _trafficDownTotal = ValueNotifier<String>("0 B");
@@ -154,7 +152,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   String _trafficUpSpeedNotify = "0 B/s";
   String _trafficDownSpeedNotify = "0 B/s";
   String _startDurationNotify = "0 B/s";
-
+  bool _working = false;
   FlutterVpnServiceState _state = FlutterVpnServiceState.disconnected;
   bool _isSystemProxySet = false;
 
@@ -221,123 +219,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String? agreement;
     try {
       agreement = await LocalStorage.read(userAgreementAgreedIdKey);
-    } catch (e) {
-      DialogUtils.showAlertDialog(context, e.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
-      return;
-    }
-
-    if (agreement == null) {
-      var tcontext = Translations.of(context);
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_agreement',
-      );
-
-      await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: UserAgreementScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => const UserAgreementScreen()));
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_language',
-      );
-
-      await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: LanguageSettingsScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => LanguageSettingsScreen(
-                    canPop: false,
-                    canGoBack: false,
-                    nextText: () {
-                      var tcontext = Translations.of(context);
-                      return tcontext.meta.next;
-                    },
-                  )));
-      tcontext = Translations.of(context);
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_region',
-      );
-
-      await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: RegionSettingsScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => RegionSettingsScreen(
-                    canPop: false,
-                    canGoBack: false,
-                    nextText: tcontext.meta.next,
-                  )));
-
-      var settingConfig = SettingManager.getConfig();
-      var regionCode = settingConfig.regionCode.toLowerCase();
-
-      DiversionCustomRules rules =
-          (await DiversionCustomRulesPreset.getPreset(regionCode)) ??
-              DiversionCustomRules();
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_diversion_rules_customset',
-      );
-
-      await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: DiversionRulesCustomSetScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => DiversionRulesCustomSetScreen(
-                    canPop: false,
-                    title: tcontext.diversionCustomGroupPreset,
-                    canGoBack: false,
-                    nextText: tcontext.meta.next,
-                    nextIcon: null,
-                    rules: rules,
-                  )));
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_novice',
-      );
-
-      await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: NoviceScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => const NoviceScreen()));
-
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_done',
-      );
-      _agreementApproved = true;
-      LocalStorage.write(userAgreementAgreedIdKey, "true");
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        onTapAddProfileByAgreement();
-      }
-      if (PlatformUtils.isPC()) {
-        var remoteConfig = RemoteConfigManager.getConfig();
-        String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-            remoteConfig.tutorial);
-        if (!context.mounted) {
-          return;
-        }
-        await WebviewHelper.loadUrl(context, url, "HSS_guide_done",
-            title: tcontext.SettingsScreen.tutorial);
-      }
-    } else {
-      _agreementApproved = true;
+    } catch (e) {}
+    _agreementApproved = true;
+    if (agreement != null) {
       String? installer = await AutoUpdateManager.checkReplace();
       if (installer != null) {
         await Navigator.push(
@@ -349,6 +233,114 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                       force: true,
                     )));
       }
+      return;
+    }
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_agreement',
+    );
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: UserAgreementScreen.routSettings(),
+            fullscreenDialog: true,
+            builder: (context) => const UserAgreementScreen()));
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_language',
+    );
+    var tcontext = Translations.of(context);
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: LanguageSettingsScreen.routSettings(),
+            fullscreenDialog: true,
+            builder: (context) => LanguageSettingsScreen(
+                  canPop: false,
+                  canGoBack: false,
+                  nextText: () {
+                    var tcontext = Translations.of(context);
+                    return tcontext.meta.next;
+                  },
+                )));
+    tcontext = Translations.of(context);
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_region',
+    );
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: RegionSettingsScreen.routSettings(),
+            fullscreenDialog: true,
+            builder: (context) => RegionSettingsScreen(
+                  canPop: false,
+                  canGoBack: false,
+                  nextText: tcontext.meta.next,
+                )));
+
+    var settingConfig = SettingManager.getConfig();
+    var regionCode = settingConfig.regionCode.toLowerCase();
+
+    DiversionCustomRules rules =
+        (await DiversionCustomRulesPreset.getPreset(regionCode)) ??
+            DiversionCustomRules();
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_diversion_rules_customset',
+    );
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: DiversionRulesCustomSetScreen.routSettings(),
+            fullscreenDialog: true,
+            builder: (context) => DiversionRulesCustomSetScreen(
+                  canPop: false,
+                  title: tcontext.diversionCustomGroupPreset,
+                  canGoBack: false,
+                  nextText: tcontext.meta.next,
+                  nextIcon: null,
+                  rules: rules,
+                )));
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_novice',
+    );
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: NoviceScreen.routSettings(),
+            fullscreenDialog: true,
+            builder: (context) => const NoviceScreen()));
+
+    AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'HSS_guide_done',
+    );
+
+    LocalStorage.write(userAgreementAgreedIdKey, "true");
+    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    if (noConfig) {
+      onTapAddProfileByAgreement();
+    }
+    if (PlatformUtils.isPC()) {
+      var remoteConfig = RemoteConfigManager.getConfig();
+      String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+          remoteConfig.tutorial);
+      if (!context.mounted) {
+        return;
+      }
+      await WebviewHelper.loadUrl(context, url, "HSS_guide_done",
+          title: tcontext.SettingsScreen.tutorial);
     }
   }
 
@@ -369,16 +361,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         await FileUtils.deletePath(errorPath);
       }
       if (!content.contains("Config expired, Please start from app")) {
-        const int maxLength = 5000;
-        AnalyticsUtils.logEvent(
-            analyticsEventType: analyticsEventTypeApp,
-            name: 'HSS_checkError',
-            parameters: {
-              "err": content.length > maxLength
-                  ? content.substring(0, maxLength)
-                  : content,
-              "from": from,
-            });
         if (showAlert) {
           await DialogUtils.showAlertDialog(context, content,
               showCopy: true, showFAQ: true, withVersion: true);
@@ -523,30 +505,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (AppLifecycleStateNofity.isPaused()) {
       return;
     }
-    if (_httpClient != null) {
-      return;
-    }
-    if (_wsConnecting) {
-      return;
-    }
-    //Log.w("_connectToService");
-    _wsConnecting = true;
 
-    String connectionsUrl = await getConnectionsUrl(true);
-
-    try {
-      await _subscriptions?.cancel();
-      _httpClient?.close(force: true);
-      _httpClient ??= HttpClient();
-      _httpClient!.userAgent = await HttpUtils.getUserAgent();
-      _httpClient!.connectionTimeout = const Duration(seconds: 3);
-      _httpClient!.findProxy = (Uri uri) => "DIRECT";
-
-      {
-        WebSocket webSocket =
-            await WebSocket.connect(connectionsUrl, customClient: _httpClient);
-
-        _subscriptions = IOWebSocketChannel(webSocket).stream.listen((message) {
+    _websocket ??= Websocket(
+        url: await getConnectionsUrl(true),
+        userAgent: await HttpUtils.getUserAgent(),
+        onMessage: (String message) {
           if (AppLifecycleStateNofity.isPaused()) {
             Future.delayed(const Duration(seconds: 0), () async {
               _disconnectToService();
@@ -601,25 +564,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           }
 
           _updateNetStateLocalNotifications();
-        }, onDone: () {
+        },
+        onDone: () {
           _disconnectToService();
-        }, onError: (error) {});
-      }
-    } catch (err) {
-      Log.w("_connectToService exception ${err.toString()}");
-      _disconnectToService();
-    }
-    _wsConnecting = false;
+        },
+        onError: (err) {
+          _disconnectToService();
+        });
+    await _websocket!.connect();
   }
 
   Future<void> _disconnectToService() async {
     _removeNetStateLocalNotifications();
     //Log.w("_disconnectToService");
 
-    await _subscriptions?.cancel();
-    _subscriptions = null;
-    _httpClient?.close();
-    _httpClient = null;
+    await _websocket?.disconnect();
 
     _connInboundCount.value = "";
 
@@ -701,24 +660,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void _init() async {
-    Biz.onInitAllFinish(() async {
+    Biz.onEventInitAllFinish.add(() async {
       await _onInitAllFinish();
     });
   }
 
   Future<void> _onInitAllFinish() async {
-    NoticeManager.onCheck(() {
+    NoticeManager.onEventCheck.add(() {
       setState(() {});
     });
-    AutoUpdateManager.onCheck(() {
+    AutoUpdateManager.onEventCheck.add(() {
       setState(() {});
     });
     DialogUtils.faqCallback = (String text) async {
-      AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeUA,
-          name: 'SSS_faq',
-          parameters: {"from": "DialogUtils"},
-          repeatable: true);
       CommonDialog.loadFAQByError(context, text, true);
     };
 
@@ -754,21 +708,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
     SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
 
-    Biz.onRequestStartVPN(_onRequestStartVPN);
+    Biz.onEventRequestStartVPN = _onRequestStartVPN;
 
-    VPNService.onStateChanged(_onStateChanged);
-    ServerManager.onAddConfig(_onAddConfig);
-    ServerManager.onUpdateConfig(_onUpdateConfig);
-    ServerManager.onLatencyUpdateConfig(_onLatencyUpdateConfig);
-    ServerManager.onRemoveConfig(_onRemoveConfig);
-    ServerManager.onEnableConfig(_onEnableConfig);
-    ServerManager.onRemoteTrafficReload((String groupid) {
+    VPNService.onEventStateChanged.add(_onStateChanged);
+    ServerManager.onEventAddConfig(hashCode, _onAddConfig);
+    ServerManager.onEventUpdateConfig(hashCode, _onUpdateConfig);
+    ServerManager.onEventLatencyUpdateConfig(hashCode, _onLatencyUpdateConfig);
+    ServerManager.onEventRemoveConfig(hashCode, _onRemoveConfig);
+    ServerManager.onEventEnableConfig(hashCode, _onEnableConfig);
+    ServerManager.onEventRemoteTrafficReload(hashCode, (String groupid) {
       setState(() {});
     }, (String groupid) {
       setState(() {});
     });
-    ServerManager.onReloadFromZipConfigs(_onReloadFromZipConfigs);
-    ServerManager.onTestLatency(hashCode, _onTestLatency);
+    ServerManager.onReloadFromZipConfigs(hashCode, _onReloadFromZipConfigs);
+    ServerManager.onEventTestLatency(hashCode, _onTestLatency);
     AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
 
@@ -892,12 +846,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     if (Platform.isWindows && params.isNotEmpty) {
       Log.w("VPNService process exit :${params.toString()}");
-      AnalyticsUtils.logEvent(
-          analyticsEventType: analyticsEventTypeApp,
-          name: 'HSS_serviceQuit',
-          parameters: {
-            "params": params,
-          });
     }
   }
 
@@ -913,7 +861,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (settingConfig.autoBackup.addProfile) {
       _autoBackup();
     }
-    await setServerAndReload("onAddConfig");
+    await setServerAndReload("onEventAddConfig");
   }
 
   Future<void> _onUpdateConfig(List<ServerConfigGroupItem> groups) async {
@@ -934,7 +882,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    await setServerAndReload("onUpdateConfig");
+    await setServerAndReload("onEventUpdateConfig");
   }
 
   Future<void> _onLatencyUpdateConfig(Set<ServerConfigGroupItem> groups) async {
@@ -955,7 +903,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    await setServerAndReload("onLatencyUpdateConfig");
+    await setServerAndReload("onEventLatencyUpdateConfig");
   }
 
   Future<void> _onRemoveConfig(
@@ -984,7 +932,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       ServerManager.addRecent(_currentServer);
       ServerManager.saveUse();
     }
-    await setServerAndReload("onRemoveConfig");*/
+    await setServerAndReload("onEventRemoveConfig");*/
   }
 
   Future<void> _onEnableConfig(String groupid, bool enable) async {
@@ -1007,7 +955,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       ServerManager.addRecent(_currentServer);
       ServerManager.saveUse();
     }
-    await setServerAndReload("onEnableConfig");
+    await setServerAndReload("onEventEnableConfig");
   }
 
   Future<void> _onReloadFromZipConfigs() async {
@@ -1129,7 +1077,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String fileName =
         "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}.zip";
     String filePath = path.join(dir, fileName);
-    await ServerManager.backupToZip(context, filePath);
+    final err = await ServerManager.backupToZip(context, filePath);
+    if (err != null) {
+      Log.w("autoBackup failed: ${err.toString()}");
+    }
 
     var files = FileUtils.recursionFile(dir, extensionFilter: {".zip"});
     if (files.length < SettingConfigItemAutobackup.kMaxCount) {
@@ -1156,7 +1107,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return Tuple2(err, options.allOutboundsTags.length);
     }
     if (Platform.isIOS) {
-      const int maxCount = 1500;
+      const int maxCount = 3000;
       if (options.allOutboundsTags.length > maxCount) {
         InAppNotifications.show(
             title: tcontext.meta.tips,
@@ -1194,15 +1145,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
 
       if (err != null) {
-        AnalyticsUtils.logEvent(
-            analyticsEventType: analyticsEventTypeApp,
-            name: 'HSS_reload',
-            parameters: {
-              "err": err.message,
-              "from": from,
-              "tunMode": tunMode,
-              "count": result.item2,
-            });
         CommonDialog.handleStartError(context, err.message);
       } else {
         if (PlatformUtils.isPC()) {
@@ -1769,13 +1711,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       _currentServerForUrltest.history.clear();
     }
     await VPNService.stop();
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_stop',
-        parameters: {
-          "server": _currentServer.server,
-          "type": _currentServer.type,
-        });
   }
 
   Future<ReturnResultError?> start(String from,
@@ -1867,17 +1802,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 != null) {
       setState(() {});
-      if (result.item1!.report) {
-        AnalyticsUtils.logEvent(
-            analyticsEventType: analyticsEventTypeApp,
-            name: 'HSS_start',
-            parameters: {
-              "err": result.item1!.message,
-              "from": from,
-              "tunMode": tunMode,
-              "count": result.item2,
-            });
-      }
 
       if (!disableShowAlertDialog) {
         CommonDialog.handleStartError(context, result.item1!.message);
@@ -1891,15 +1815,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     setState(() {});
 
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_start',
-        parameters: {
-          "err": (err != null) ? err.message : null,
-          "from": from,
-          "tunMode": tunMode,
-          "count": result.item2,
-        });
     if (err != null) {
       if (!disableShowAlertDialog) {
         CommonDialog.handleStartError(context, err.message);
@@ -2120,7 +2035,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       ? Colors.grey
                                       : Colors.grey.withValues(alpha: 0.5),
                                   onChanged: (bool newValue) async {
-                                    if (_state ==
+                                    if (_working ||
+                                        _state ==
                                             FlutterVpnServiceState.connecting ||
                                         _state ==
                                             FlutterVpnServiceState
@@ -2130,6 +2046,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                                 .reasserting) {
                                       return;
                                     }
+                                    _working = true;
+
                                     if (noConfig) {
                                       if (_state ==
                                           FlutterVpnServiceState.connected) {
@@ -2140,6 +2058,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                     } else {
                                       await onTapToggle();
                                     }
+                                    _working = false;
+                                    setState(() {});
                                   },
                                 ),
                               ),
@@ -2147,7 +2067,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             SizedBox(
                                 width: 150,
                                 height: 150,
-                                child: _state ==
+                                child: _working ||
+                                        _state ==
                                             FlutterVpnServiceState.connecting ||
                                         _state ==
                                             FlutterVpnServiceState
@@ -2281,6 +2202,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                             activeColor:
                                                 ThemeDefine.kColorGreenBright,
                                             onChanged: noConfig ||
+                                                    _working ||
                                                     _state ==
                                                         FlutterVpnServiceState
                                                             .connecting ||
@@ -2335,7 +2257,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       )),
                                 ],
                                 selected: {SettingManager.getConfig().proxyAll},
-                                onSelectionChanged: _state ==
+                                onSelectionChanged: _working ||
+                                        _state ==
                                             FlutterVpnServiceState.connecting ||
                                         _state ==
                                             FlutterVpnServiceState
@@ -2344,11 +2267,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                             FlutterVpnServiceState.reasserting
                                     ? null
                                     : (Set<bool> newSelection) async {
+                                        _working = true;
                                         SettingManager.getConfig().proxyAll =
                                             newSelection.first;
                                         SettingManager.saveConfig();
-                                        setState(() {});
+
                                         await setServerAndReload("proxyAll");
+                                        _working = false;
+                                        setState(() {});
                                       },
                                 multiSelectionEnabled: false,
                               ),

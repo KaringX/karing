@@ -8,10 +8,12 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:vpn_service/vpn_service.dart';
 
 class PerAppMacosScreen extends LasyRenderingStatefulWidget {
@@ -232,7 +234,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                   color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
-                child: TextField(
+                child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class HashStringScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -98,7 +99,7 @@ class _SentryHashStringScreenState
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 0),
-                        child: TextField(
+                        child: TextFieldEx(
                           maxLines: PlatformUtils.isPC() ? 14 : 8,
                           maxLength: 500,
                           textInputAction: TextInputAction.done,

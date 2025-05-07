@@ -15,6 +15,7 @@ import 'package:karing/screens/packageid_multi_select_android_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
 import 'package:tuple/tuple.dart';
 
@@ -694,7 +695,7 @@ class _DiversionGroupCustomEditScreenState
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: SingleChildScrollView(
-            child: TextField(
+            child: TextFieldEx(
               textInputAction: TextInputAction.newline,
               maxLines: 6,
               controller: textControllerLink,
@@ -725,7 +726,7 @@ class _DiversionGroupCustomEditScreenState
                 SizedBox(
                   width: windowSize.width - 10 * 2 - 50,
                   child: SingleChildScrollView(
-                    child: TextField(
+                    child: TextFieldEx(
                       textInputAction: TextInputAction.newline,
                       maxLines: 6,
                       controller: textControllerLink,

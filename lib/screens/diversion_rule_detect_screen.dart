@@ -14,6 +14,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 
 class DiversionRuleDetectScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -163,7 +164,7 @@ class _DiversionRuleDetectScreenState
                     padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                     child: Column(
                       children: [
-                        TextField(
+                        TextFieldEx(
                           controller: _textControllerHost,
                           textInputAction: TextInputAction.done,
                           cursorColor: Colors.black,

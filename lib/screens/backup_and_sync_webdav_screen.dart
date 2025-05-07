@@ -15,7 +15,8 @@ import 'package:karing/app/utils/webdav_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:karing/screens/group_item.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -431,7 +432,8 @@ class _BackupAndSyncWebdavScreenState
   Future<void> onTapSetting() async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(

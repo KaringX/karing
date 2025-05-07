@@ -71,7 +71,7 @@ class TranslationsRu implements Translations {
 	@override late final _TranslationsOutboundRuleModeRu outboundRuleMode = _TranslationsOutboundRuleModeRu._(_root);
 	@override late final _TranslationsDnsProxyResolveModeRu dnsProxyResolveMode = _TranslationsDnsProxyResolveModeRu._(_root);
 	@override late final _TranslationsProxyStrategyRu proxyStrategy = _TranslationsProxyStrategyRu._(_root);
-	@override String get downloadProxyStrategy => 'Скачать канал';
+	@override String get downloadProxyStrategy => 'Канал загрузки';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 	@override String get routeFinal => 'Final';
 	@override String get protocolSniff => 'Определение протокола';
@@ -115,7 +115,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
 	@override String get disableUAReport => 'Применить данные улучшения';
-	@override String get disableUAReportTip => '[Данные об улучшении приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные об улучшении приложения], кроме [Активации приложения].';
+	@override String get disableUAReportTip => '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get enableDebugLog => 'Включить debug-лог';
 	@override String get viewFilsContent => 'Посмотреть файлы';
@@ -370,6 +370,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get ipStrategyTips => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
 	@override String get tunAppendHttpProxy => 'Подключите HTTP-прокси к VPN';
 	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
+	@override String get tunAllowBypassHttpProxyDomain => 'Домены, которым разрешено обходить HTTP-прокси';
 	@override String get dnsEnableRule => 'Включить правила для DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
 	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
@@ -379,8 +380,8 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeDirect => 'Прямой поток';
 	@override String get dnsTypeProxy => 'Трафик через Proxy';
 	@override String get dnsTypeResolver => 'DNS-сервер';
-	@override String get dnsEnableRuleTips => 'После включения, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления.';
-	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режим TUN];';
+	@override String get dnsEnableRuleTips => 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
+	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
 	@override String get dnsTypeOutboundTips => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
 	@override String get dnsTypeDirectTips => 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
 	@override String get dnsTypeProxyTips => 'Разрешение доменных имен для трафика через Proxy';
@@ -391,7 +392,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get privateDirect => 'Прямое подключение к частной сети';
 	@override String inboundDomainResolveTips({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 	@override String get useRomoteRes => 'Использовать удаленные ресурсы';
-	@override String get autoAppendRegion => 'Автоматически прикреплять основные правила';
+	@override String get autoAppendRegion => 'Автоматически добавлять основные правила';
 	@override String get autoSelect => 'Автовыбор';
 	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать [фронт/цепные] прокси-серверы';
 	@override String get autoSelectServerInterval => 'Интервал проверок задержки';
@@ -461,7 +462,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String hasNewVersion({required Object p}) => 'Обновить версию ${p}';
 	@override String get follow => 'Подписаться на нас';
 	@override String get contactUs => 'Связаться с нами';
-	@override String get supportUs => 'поддержите нас';
+	@override String get supportUs => 'Поддержите нас';
 	@override String get rateInApp => 'Оценить нас';
 	@override String get rateInAppStore => 'Оценить нас в App Store';
 }
@@ -539,7 +540,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
 	@override String get copy => 'Скопировать';
-	@override String get save => 'сохранять';
+	@override String get save => 'Сохранить';
 	@override String get ok => 'Ок';
 	@override String get cancel => 'Закрыть';
 	@override String get feedback => 'Обратная связь';
@@ -558,7 +559,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get seconds => 'Второй';
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
-	@override String get custom => 'Настроить самостоятельно';
+	@override String get custom => 'Самостоятельная настройка';
 	@override String get inbound => 'Входящий';
 	@override String get outbound => 'Выход';
 	@override String get connect => 'Соединить';
@@ -579,11 +580,11 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get retry => 'Хотите попробовать еще раз?';
 	@override String get update => 'Обновить';
 	@override String get updateInterval => 'Интервал обновления';
-	@override String get updateInterval5mTips => 'Минимум: 5 м';
+	@override String get updateInterval5mTips => 'Минимум: 5 мин';
 	@override String updateFailed({required Object p}) => 'Не удалось обновить:${p}';
 	@override String get none => 'Ничего не делать';
-	@override String get start => 'начинать';
-	@override String get pause => 'пауза';
+	@override String get start => 'Начать';
+	@override String get pause => 'Пауза';
 	@override String get reset => 'Перезагрузить';
 	@override String get submit => 'Отправить';
 	@override String get user => 'Пользователь';
@@ -636,7 +637,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get autoBackup => 'Автоматическое резервное копирование';
 	@override String get autoBackupAddProfile => 'После добавления конфигурации';
 	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
-	@override String get importAndExport => 'Импорт и экспорт';
+	@override String get importAndExport => 'Импорт и экспорт в файл';
 	@override String get import => 'Импорт';
 	@override String get export => 'Экспорт';
 	@override String get send => 'Передать';
@@ -650,6 +651,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get notice => 'Уведомления';
 	@override String get sort => 'Отсортировать';
 	@override String get novice => 'Режим новичка';
+	@override String get tvMode => 'Режим ТВ';
 	@override String get recommended => 'Рекомендуемые';
 	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
 	@override String get logicOperation => 'Логическая опреация';
@@ -671,7 +673,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
 	@override String get webdav => 'Webdav';
-	@override String get lanSync => 'Синхронизация по локальной сети';
+	@override String get lanSync => 'Синхронизация локально (QR-код)';
 	@override String get lanSyncNotQuitTips => 'Не выходите из этого окна до завершения синхронизации.';
 	@override String get deviceNoSpace => 'Недостаточно места на диске';
 	@override String get hideSystemApp => 'Скрыть системные приложения';
@@ -818,7 +820,7 @@ extension on TranslationsRu {
 			case 'AboutScreen.installTime': return 'Время установки';
 			case 'AboutScreen.versionChannel': return 'Канал автоматического обновления';
 			case 'AboutScreen.disableUAReport': return 'Применить данные улучшения';
-			case 'AboutScreen.disableUAReportTip': return '[Данные об улучшении приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные об улучшении приложения], кроме [Активации приложения].';
+			case 'AboutScreen.disableUAReportTip': return '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].';
 			case 'AboutScreen.devOptions': return 'Параметры разработчика';
 			case 'AboutScreen.enableDebugLog': return 'Включить debug-лог';
 			case 'AboutScreen.viewFilsContent': return 'Посмотреть файлы';
@@ -929,6 +931,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.ipStrategyTips': return 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
 			case 'SettingsScreen.tunAppendHttpProxy': return 'Подключите HTTP-прокси к VPN';
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
+			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'Домены, которым разрешено обходить HTTP-прокси';
 			case 'SettingsScreen.dnsEnableRule': return 'Включить правила для DNS';
 			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
 			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
@@ -938,8 +941,8 @@ extension on TranslationsRu {
 			case 'SettingsScreen.dnsTypeDirect': return 'Прямой поток';
 			case 'SettingsScreen.dnsTypeProxy': return 'Трафик через Proxy';
 			case 'SettingsScreen.dnsTypeResolver': return 'DNS-сервер';
-			case 'SettingsScreen.dnsEnableRuleTips': return 'После включения, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления.';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режим TUN];';
+			case 'SettingsScreen.dnsEnableRuleTips': return 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
+			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
 			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
 			case 'SettingsScreen.dnsTypeProxyTips': return 'Разрешение доменных имен для трафика через Proxy';
@@ -950,7 +953,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.privateDirect': return 'Прямое подключение к частной сети';
 			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
 			case 'SettingsScreen.useRomoteRes': return 'Использовать удаленные ресурсы';
-			case 'SettingsScreen.autoAppendRegion': return 'Автоматически прикреплять основные правила';
+			case 'SettingsScreen.autoAppendRegion': return 'Автоматически добавлять основные правила';
 			case 'SettingsScreen.autoSelect': return 'Автовыбор';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронт/цепные] прокси-серверы';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Интервал проверок задержки';
@@ -1020,7 +1023,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'Обновить версию ${p}';
 			case 'SettingsScreen.follow': return 'Подписаться на нас';
 			case 'SettingsScreen.contactUs': return 'Связаться с нами';
-			case 'SettingsScreen.supportUs': return 'поддержите нас';
+			case 'SettingsScreen.supportUs': return 'Поддержите нас';
 			case 'SettingsScreen.rateInApp': return 'Оценить нас';
 			case 'SettingsScreen.rateInAppStore': return 'Оценить нас в App Store';
 			case 'UserAgreementScreen.privacyFirst': return 'Ваша конфиденциальность превыше всего';
@@ -1054,7 +1057,7 @@ extension on TranslationsRu {
 			case 'meta.more': return 'Больше';
 			case 'meta.tips': return 'Инфо';
 			case 'meta.copy': return 'Скопировать';
-			case 'meta.save': return 'сохранять';
+			case 'meta.save': return 'Сохранить';
 			case 'meta.ok': return 'Ок';
 			case 'meta.cancel': return 'Закрыть';
 			case 'meta.feedback': return 'Обратная связь';
@@ -1073,7 +1076,7 @@ extension on TranslationsRu {
 			case 'meta.seconds': return 'Второй';
 			case 'meta.protocol': return 'Протокол';
 			case 'meta.search': return 'Поиск';
-			case 'meta.custom': return 'Настроить самостоятельно';
+			case 'meta.custom': return 'Самостоятельная настройка';
 			case 'meta.inbound': return 'Входящий';
 			case 'meta.outbound': return 'Выход';
 			case 'meta.connect': return 'Соединить';
@@ -1094,11 +1097,11 @@ extension on TranslationsRu {
 			case 'meta.retry': return 'Хотите попробовать еще раз?';
 			case 'meta.update': return 'Обновить';
 			case 'meta.updateInterval': return 'Интервал обновления';
-			case 'meta.updateInterval5mTips': return 'Минимум: 5 м';
+			case 'meta.updateInterval5mTips': return 'Минимум: 5 мин';
 			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
 			case 'meta.none': return 'Ничего не делать';
-			case 'meta.start': return 'начинать';
-			case 'meta.pause': return 'пауза';
+			case 'meta.start': return 'Начать';
+			case 'meta.pause': return 'Пауза';
 			case 'meta.reset': return 'Перезагрузить';
 			case 'meta.submit': return 'Отправить';
 			case 'meta.user': return 'Пользователь';
@@ -1151,7 +1154,7 @@ extension on TranslationsRu {
 			case 'meta.autoBackup': return 'Автоматическое резервное копирование';
 			case 'meta.autoBackupAddProfile': return 'После добавления конфигурации';
 			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
-			case 'meta.importAndExport': return 'Импорт и экспорт';
+			case 'meta.importAndExport': return 'Импорт и экспорт в файл';
 			case 'meta.import': return 'Импорт';
 			case 'meta.export': return 'Экспорт';
 			case 'meta.send': return 'Передать';
@@ -1165,6 +1168,7 @@ extension on TranslationsRu {
 			case 'meta.notice': return 'Уведомления';
 			case 'meta.sort': return 'Отсортировать';
 			case 'meta.novice': return 'Режим новичка';
+			case 'meta.tvMode': return 'Режим ТВ';
 			case 'meta.recommended': return 'Рекомендуемые';
 			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
 			case 'meta.logicOperation': return 'Логическая опреация';
@@ -1186,7 +1190,7 @@ extension on TranslationsRu {
 			case 'meta.iCloud': return 'iCloud';
 			case 'meta.appleTV': return 'Apple TV';
 			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'Синхронизация по локальной сети';
+			case 'meta.lanSync': return 'Синхронизация локально (QR-код)';
 			case 'meta.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
 			case 'meta.deviceNoSpace': return 'Недостаточно места на диске';
 			case 'meta.hideSystemApp': return 'Скрыть системные приложения';
@@ -1264,7 +1268,7 @@ extension on TranslationsRu {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
-			case 'downloadProxyStrategy': return 'Скачать канал';
+			case 'downloadProxyStrategy': return 'Канал загрузки';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 			case 'routeFinal': return 'Final';
 			case 'protocolSniff': return 'Определение протокола';

@@ -40,8 +40,8 @@ import 'package:karing/screens/diversion_rule_detect_screen.dart';
 import 'package:karing/screens/diversion_rules_screen.dart';
 import 'package:karing/screens/dns_auto_setup_screen.dart';
 import 'package:karing/screens/dns_settings_screen.dart';
-import 'package:karing/screens/group_item.dart';
-import 'package:karing/screens/group_options_helper.dart';
+import 'package:karing/screens/group_item_creator.dart';
+import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/home_tvos_screen.dart';
 import 'package:karing/screens/inapp_webview_screen.dart';
@@ -52,18 +52,131 @@ import 'package:karing/screens/region_settings_screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_group_custom_screen.dart';
+import 'package:karing/screens/webview_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 import 'package:karing/app/utils/tag_gen.dart';
 
 class GroupHelper {
+  static List<GroupItemOptions> getOutlinkOptions(
+      BuildContext context, String from) {
+    final tcontext = Translations.of(context);
+    var remoteConfig = RemoteConfigManager.getConfig();
+    var remoteISPConfig = RemoteISPConfigManager.getConfig();
+    String getTranffic = remoteConfig.getTranffic;
+
+    bool isp = false;
+    if (remoteISPConfig.id.isNotEmpty) {
+      if (remoteISPConfig.getTranffic.isNotEmpty) {
+        isp = true;
+        getTranffic = remoteISPConfig.getTranffic;
+      }
+    }
+
+    List<GroupItemOptions> options = [];
+    options.addAll([
+      getTranffic.isNotEmpty
+          ? GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.getTranffic,
+                  onPush: () async {
+                    AnalyticsUtils.logEvent(
+                        analyticsEventType: analyticsEventTypeUA,
+                        name: 'SSS_getTranffic',
+                        parameters: {
+                          "from": from,
+                          "isp_id": remoteISPConfig.id.isNotEmpty
+                              ? remoteISPConfig.id
+                              : ""
+                        },
+                        repeatable: true);
+                    String url = getTranffic;
+                    if (!isp) {
+                      url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                          url);
+                    }
+
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url, "SSS_getTranffic",
+                        title: tcontext.SettingsScreen.getTranffic);
+                  }))
+          : GroupItemOptions(),
+      remoteConfig.tutorial.isNotEmpty
+          ? GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.tutorial,
+                  onPush: () async {
+                    AnalyticsUtils.logEvent(
+                        analyticsEventType: analyticsEventTypeUA,
+                        name: 'SSS_tutorial',
+                        parameters: {"from": from},
+                        repeatable: true);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.tutorial);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url, "SSS_tutorial",
+                        title: tcontext.SettingsScreen.tutorial);
+                  }))
+          : GroupItemOptions(),
+      remoteConfig.faq.isNotEmpty
+          ? GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.faq,
+                  onPush: () async {
+                    AnalyticsUtils.logEvent(
+                        analyticsEventType: analyticsEventTypeUA,
+                        name: 'SSS_faq',
+                        parameters: {"from": from},
+                        repeatable: true);
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.faq);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(context, url, "SSS_faq",
+                        title: tcontext.meta.faq);
+                  }))
+          : GroupItemOptions(),
+      remoteConfig.rulesets.isNotEmpty
+          ? GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.commonlyUsedRulesets,
+                  onPush: () async {
+                    AnalyticsUtils.logEvent(
+                        analyticsEventType: analyticsEventTypeUA,
+                        name: 'SSS_commonlyUsedRulesets',
+                        parameters: {"from": from},
+                        repeatable: true);
+
+                    String url =
+                        await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.rulesets);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await WebviewHelper.loadUrl(
+                        context, url, "SSS_commonlyUsedRulesets",
+                        title: tcontext.SettingsScreen.commonlyUsedRulesets);
+                  }))
+          : GroupItemOptions(),
+    ]);
+    return options;
+  }
+
   static Future<String> showUserAgent(
       BuildContext context, String compatible) async {
     final tcontext = Translations.of(context);
     List<String> userAgents = HttpUtils.getUserAgents();
     List<String> userAgent = compatible.split(";");
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       GroupItem options = GroupItem(options: []);
       for (var ua in userAgents) {
         options.options.add(GroupItemOptions(
@@ -112,7 +225,8 @@ class GroupHelper {
     ProxyFilter pf = ProxyFilter();
     pf.method = filter.method;
     pf.keywordOrRegx = filter.keywordOrRegx;
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<Tuple2<String, String>> tupleStrings = [
         Tuple2(ProxyFilterMethod.all.name, tcontext.meta.all),
         Tuple2(ProxyFilterMethod.include.name, tcontext.meta.include),
@@ -174,7 +288,8 @@ class GroupHelper {
     }
     var tagGen = TagGen(tags: tagSets);
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -347,8 +462,7 @@ class GroupHelper {
       ]);
       List<GroupItem> items = [
         GroupItem(
-            options:
-                GroupOptionsHelper.getOutlinkOptions(context, "showAddProfile"))
+            options: GroupHelper.getOutlinkOptions(context, "showAddProfile"))
       ];
 
       RemoteConfigGetProfile? profile =
@@ -387,7 +501,8 @@ class GroupHelper {
 
   static Future<void> showDns(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<Tuple2<String, String>> tupleStrings = [
         Tuple2(SettingConfigItemDNSProxyResolveMode.proxy.name,
@@ -573,7 +688,8 @@ class GroupHelper {
   static Future<void> showDeversion(BuildContext context) async {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       country.Country? currentCountry =
           SettingManager.getConfig().currentCountry();
       List<GroupItemOptions> options = [
@@ -625,7 +741,7 @@ class GroupHelper {
                     tips: tcontext.SettingsScreen.frontProxyTips(
                         p: tcontext.outboundRuleMode.currentSelected),
                     text: frontProxy,
-                    style: TextStyle(
+                    textStyle: TextStyle(
                       fontFamily: Platform.isWindows ? 'Emoji' : null,
                       color: invalidOutbounds.isNotEmpty ? Colors.red : null,
                     ),
@@ -734,7 +850,8 @@ class GroupHelper {
 
   static Future<void> onTapRuleset(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -779,7 +896,8 @@ class GroupHelper {
 
   static Future<void> onTapGeoSite(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
@@ -825,7 +943,8 @@ class GroupHelper {
 
   static Future<void> onTapGeoIP(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
@@ -871,7 +990,8 @@ class GroupHelper {
 
   static Future<void> onTapAcl(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
@@ -909,7 +1029,8 @@ class GroupHelper {
 
   static Future<void> onTapRuleSetDirectDownload(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
       List<String> hosts = [];
       var remoteConfig = RemoteConfigManager.getConfig();
@@ -998,7 +1119,8 @@ class GroupHelper {
 
   static Future<void> showBackupAndSync(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         Platform.isIOS || Platform.isMacOS
             ? GroupItemOptions(
@@ -1066,7 +1188,8 @@ class GroupHelper {
 
   static Future<void> onTapLanSyncSendTo(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1106,7 +1229,8 @@ class GroupHelper {
 
   static Future<void> onTapLanSyncReceiveFrom(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1147,7 +1271,8 @@ class GroupHelper {
   static Future<void> onTapLanSync(BuildContext context) async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1624,7 +1749,8 @@ class GroupHelper {
   static Future<void> onTapImportExport(BuildContext context) async {
     final tcontext = Translations.of(context);
 
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1720,10 +1846,7 @@ class GroupHelper {
         }
         if (PlatformUtils.isMobile()) {
           try {
-            final box = context.findRenderObject() as RenderBox?;
-            await Share.shareXFiles([XFile(filePath)],
-                sharePositionOrigin:
-                    box!.localToGlobal(Offset.zero) & box.size);
+            await Share.shareXFiles([XFile(filePath)]);
           } catch (err) {
             if (!context.mounted) {
               return;
@@ -1752,7 +1875,8 @@ class GroupHelper {
 
   static Future<void> onTapDNSStaticIP(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
@@ -1822,7 +1946,8 @@ class GroupHelper {
 
   static Future<void> onTapDNSServer(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(BuildContext context) async {
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       bool tunMode = await VPNService.getTunMode();
 

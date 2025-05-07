@@ -6,6 +6,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
 class MultiSelectScreen extends LasyRenderingStatefulWidget {
@@ -145,7 +146,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                   color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
-                child: TextField(
+                child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
