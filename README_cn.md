@@ -42,12 +42,7 @@
 - 全球首家支持`Hysteria2` 协议，集群负载均衡设计，高速专线，极低延迟，无视晚高峰，4K 秒开
 - 解锁流媒体及 ChatGPT
 
-[紅杏 —— 8年老牌机场](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuaHg2NjYuaW5mby8jL3JlZ2lzdGVyP2NvZGU9aG41c1NKejA=&i=3fb&t=1723644028)
-
-- 春色满园关不住，一枝红杏出墙来
-- BGP专线网格, 8K观影秒开,解锁全流媒体
-- 中国金融专线`跨境支持`，企业套餐可开发票 (提前咨询客服)
-- 八折优惠券：[hongxing666](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuaHg2NjYuaW5mby8jL3JlZ2lzdGVyP2NvZGU9aG41c1NKejA=&i=3fb&t=1723644028)
+[👉更多机场优惠 每日更新](https://1.x31415926.top/)
 
 </summary>
 
