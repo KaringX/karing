@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/utils/app_utils.dart';
-import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/dropdown.dart';
 import 'package:tuple/tuple.dart';
@@ -216,6 +214,7 @@ class DialogUtils {
                   decoration: InputDecoration(
                     labelText: labelText,
                   ),
+                  textAlign: TextAlign.end,
                 ),
               ),
               const SizedBox(
@@ -230,9 +229,9 @@ class DialogUtils {
                         if (!context.mounted) {
                           return;
                         }
-                        Text newText = Text(textController.text);
-                        if ((newText.data != null) && callback(newText.data!)) {
-                          Navigator.pop(context, newText.data!);
+
+                        if (callback(textController.text)) {
+                          Navigator.pop(context, textController.text);
                         }
                       }),
                   const SizedBox(
@@ -298,6 +297,7 @@ class DialogUtils {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           textInputAction: TextInputAction.next,
+                          textAlign: TextAlign.end,
                         ),
                       )),
                   const Text(
@@ -316,6 +316,7 @@ class DialogUtils {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         textInputAction: TextInputAction.done,
+                        textAlign: TextAlign.end,
                       ),
                     ),
                   ),
@@ -334,18 +335,15 @@ class DialogUtils {
                         if (!context.mounted) {
                           return;
                         }
-                        Text newTextL = Text(textControllerL.text);
-                        Text newTextR = Text(textControllerR.text);
-                        if ((newTextL.data != null) &&
-                            newTextL.data!.isNotEmpty &&
-                            (newTextR.data != null) &&
-                            newTextR.data!.isNotEmpty &&
-                            callback(Tuple2(int.parse(newTextL.data!),
-                                int.parse(newTextR.data!)))) {
+
+                        if (textControllerL.text.isNotEmpty &&
+                            textControllerR.text.isNotEmpty &&
+                            callback(Tuple2(int.parse(textControllerL.text),
+                                int.parse(textControllerR.text)))) {
                           Navigator.pop(
                               context,
-                              Tuple2(int.parse(newTextL.data!),
-                                  int.parse(newTextR.data!)));
+                              Tuple2(int.parse(textControllerL.text),
+                                  int.parse(textControllerR.text)));
                         }
                       }),
                   const SizedBox(
@@ -498,6 +496,7 @@ class DialogUtils {
                           ],
                           textInputAction: TextInputAction.done,
                           controller: textController,
+                          textAlign: TextAlign.end,
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -723,17 +722,5 @@ class DialogUtils {
         );
       },
     );
-  }
-
-  static void showPrivacyPolicy(BuildContext context) {
-    final tcontext = Translations.of(context);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: RichtextViewScreen.routSettings(),
-            builder: (context) => RichtextViewScreen(
-                title: tcontext.meta.privacyPolicy,
-                file: AssetsUtils.privacyPolicyPath(),
-                content: "")));
   }
 }

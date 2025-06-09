@@ -211,7 +211,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "ServerSelectScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "ServerSelectScreen");
   }
 
   void _loadRecommend() {
@@ -836,6 +836,9 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                       child: InkWell(
                         onTap: () async {
                           ServerManager.reload(item.groupid).then((value) {
+                            if (item.enable && item.reloadAfterProfileUpdate) {
+                              ServerManager.setDirty(true);
+                            }
                             if (!mounted) {
                               return;
                             }
@@ -971,6 +974,9 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                     if (value.error != null) {
                       if (value.error!.message.contains("405")) {
                         ServerManager.reload(item.groupid).then((value) {
+                          if (item.enable && item.reloadAfterProfileUpdate) {
+                            ServerManager.setDirty(true);
+                          }
                           if (!mounted) {
                             return;
                           }

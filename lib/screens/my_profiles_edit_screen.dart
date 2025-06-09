@@ -185,14 +185,8 @@ class _MyProfilesEditScreenState
       return;
     }
 
-    String? remarkText = Text(_textControllerRemark.text).data;
-    String? urlText = Text(_textControllerUrl.text).data;
-    if (remarkText == null || urlText == null) {
-      Navigator.pop(context);
-      return;
-    }
-    remarkText = remarkText.trim();
-    urlText = urlText.trim();
+    String remarkText = _textControllerRemark.text.trim();
+    String urlText = _textControllerUrl.text.trim();
     if (item.remark == remarkText &&
         item.urlOrPath == urlText &&
         item.proxyStrategy == _proxyStrategy &&
@@ -231,7 +225,10 @@ class _MyProfilesEditScreenState
     ServerManager.modifyRemark(item.groupid, remarkText);
     ServerManager.modifyUrl(item.groupid, urlText);
 
-    ServerManager.setDirty(dirty);
+    if (dirty) {
+      ServerManager.setDirty(true);
+    }
+
     Navigator.pop(context, true);
   }
 
@@ -289,7 +286,7 @@ class _MyProfilesEditScreenState
               pushOptions: GroupItemPushOptions(
                   name: tcontext.meta.userAgent,
                   text: HttpUtils.getUserAgentsStringShort(_compatible),
-                  textWidthPercent: 0.24,
+                  textWidthPercent: 0.5,
                   tips: tcontext.ispUserAgentTips,
                   onPush: () async {
                     onTapUserAgent();

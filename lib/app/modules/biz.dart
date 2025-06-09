@@ -1,14 +1,12 @@
 //import 'package:device_info_plus/device_info_plus.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/runtime/return_result.dart';
-
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/server_manager.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/notice_manager.dart';
+import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/main_channel_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -76,29 +74,14 @@ class Biz {
     }
   }
 
-  static Future<bool> startVPN(
-      BuildContext context, bool reloadIfDirty, String from) async {
-    bool started = await VPNService.getStarted();
-    if (!context.mounted) {
-      return false;
-    }
-    if (started && reloadIfDirty) {
-      if (ServerManager.getDirty() || SettingManager.getDirty()) {
-        ServerManager.setDirty(false);
-        SettingManager.setDirty(false);
-        await VPNService.stop();
-        started = false;
-      }
-    }
-    if (started) {
-      return true;
-    }
+  static Future<bool> startOrRestartIfDirtyVPN(
+      BuildContext context, String from) async {
     if (!context.mounted) {
       return false;
     }
     final tcontext = Translations.of(context);
     DialogUtils.showLoadingDialog(context, text: tcontext.meta.connecting);
-    ReturnResultError? err = await Biz._startVPN(from);
+    ReturnResultError? err = await Biz._startOrRestartIfDirtyVPN(from);
     if (!context.mounted) {
       return false;
     }
@@ -111,11 +94,12 @@ class Biz {
     return true;
   }
 
-  static Future<ReturnResultError?> _startVPN(String from) async {
+  static Future<ReturnResultError?> _startOrRestartIfDirtyVPN(
+      String from) async {
     if (onEventRequestStartVPN != null) {
       return await onEventRequestStartVPN!(from);
     }
-    return ReturnResultError("startVPN failed: no provider");
+    return ReturnResultError("startOrRestartIfDirtyVPN failed: no provider");
   }
 
   static void quit() {

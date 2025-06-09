@@ -6,7 +6,7 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
@@ -141,7 +141,7 @@ class _UserAgreementScreenState
                                     if (!context.mounted) {
                                       return;
                                     }
-                                    DialogUtils.showPrivacyPolicy(context);
+                                    GroupHelper.showPrivacyPolicy(context);
                                   }
                                 }),
                           ],

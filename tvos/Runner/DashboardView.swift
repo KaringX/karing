@@ -429,7 +429,8 @@ public struct DashboardView: View {
 
     private func getUrl()->String {
         let ips = DashboardView.getLocalIPAddress()
-        return "karing://tvos?ips=\(ips.joined(separator: ","))&port=\(httpPort)&uuid=\(DashboardView.uuid)&cport=\(DashboardView.config.control_port)&secret=\(DashboardView.config.secret)&version=\(DashboardView.version)"
+        let coreVersion = "1.12.0"
+        return "karing://tvos?ips=\(ips.joined(separator: ","))&port=\(httpPort)&uuid=\(DashboardView.uuid)&cport=\(DashboardView.config.control_port)&secret=\(DashboardView.config.secret)&version=\(DashboardView.version)&coreversion=\(coreVersion)"
     }
 
     static func getAgree()->Bool {

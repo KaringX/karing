@@ -29,7 +29,7 @@ import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
-import 'package:karing/app/utils/singbox_json.dart';
+import 'package:karing/app/utils/singbox_outbound.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -112,7 +112,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "SettingsScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "SettingsScreen");
   }
 
   @override
@@ -419,6 +419,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   bool debug = PlatformUtils.isPC() &&
                       SettingManager.getConfig().dev.devMode;
                   await InAppWebViewScreen.setWebViewEnvironmentDebug(debug);
+                  if (!context.mounted) {
+                    return;
+                  }
                   await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -559,7 +562,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.userAgent,
-                textWidthPercent: 0.4,
                 onPush: () async {
                   await Navigator.push(
                       context,
@@ -688,14 +690,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     await onTapMux();
                   }))
           : GroupItemOptions(),
-      !settingConfig.novice
-          ? GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.protocolSniff,
-                  onPush: () async {
-                    await onTapSniff();
-                  }))
-          : GroupItemOptions(),
       GroupItemOptions(
           pushOptions: GroupItemPushOptions(
               name: tcontext.meta.diversion,
@@ -799,6 +793,24 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   settingConfig.proxy.autoSetSystemProxy = value;
                   setState(() {});
                 })),
+        PlatformUtils.isPC()
+            ? GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                    name: tcontext.SettingsScreen.bypassSystemProxy,
+                    onPush: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              settings: ListAddScreen.routSettings(
+                                  "systemProxyBypassDomain"),
+                              builder: (context) => ListAddScreen(
+                                    title: tcontext
+                                        .SettingsScreen.bypassSystemProxy,
+                                    data: settingConfig
+                                        .proxy.systemProxyBypassDomain,
+                                  )));
+                    }))
+            : GroupItemOptions(),
         PlatformUtils.isPC()
             ? GroupItemOptions(
                 switchOptions: GroupItemSwitchOptions(
@@ -2134,49 +2146,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     setState(() {});
   }
 
-  Future<void> onTapSniff() async {
-    final tcontext = Translations.of(context);
-    Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
-      var settingConfig = SettingManager.getConfig();
-      List<GroupItemOptions> options = [
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.sniff.enable,
-                onSwitch: (bool value) async {
-                  settingConfig.sniff.enable = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.protocolSniffOverrideDestination,
-                switchValue: settingConfig.sniff.overrideDestination,
-                onSwitch: !settingConfig.sniff.enable
-                    ? null
-                    : (bool value) async {
-                        settingConfig.sniff.overrideDestination = value;
-                        SettingManager.setDirty(true);
-                        setState(() {});
-                      })),
-      ];
-
-      return [GroupItem(options: options)];
-    }
-
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("protocolSniff"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.protocolSniff,
-                  getOptions: getOptions,
-                  tipsIfNoOnDone: null,
-                )));
-    setState(() {});
-  }
-
   Future<void> onTapDns() async {
     await GroupHelper.showDns(context);
     setState(() {});
@@ -2688,14 +2657,36 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               continue;
             }
             var newFilePath = path.join(portableProfileDir, basename);
-
             await f.copy(newFilePath);
+          } else if (f is Directory) {
+            String fbasename = path.basename(f.path);
+            if (fbasename == "cache" || fbasename == "webviewCache") {
+              continue;
+            }
+            final newDirPath = path.join(portableProfileDir, fbasename);
+            var newDir = Directory(newDirPath);
+            await newDir.create(recursive: false);
+            var fileList = f.listSync(followLinks: false);
+            for (var ff in fileList) {
+              if (ff is File) {
+                String ext = path.extension(ff.path);
+                String basename = path.basename(ff.path);
+                if (ext == ".log") {
+                  continue;
+                }
+                var newFilePath = path.join(newDirPath, basename);
+                await ff.copy(newFilePath);
+              }
+            }
           }
         }
       }
     } catch (err, stacktrace) {
       if (!exist && created) {
         await dir!.delete();
+      }
+      if (!context.mounted) {
+        return;
       }
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);

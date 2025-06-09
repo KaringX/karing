@@ -75,7 +75,6 @@ class TranslationsAr implements Translations {
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 	@override String get routeFinal => 'أخير';
 	@override String get protocolSniff => 'الكشف عن البروتوكول';
-	@override String get protocolSniffOverrideDestination => 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'الرجاء استخدام [${p}]';
 	@override String get turnOffPrivateDirect => 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 	@override String targetConnectFailed({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
@@ -85,6 +84,7 @@ class TranslationsAr implements Translations {
 	@override String get appleTVRemoveCoreConfigDone => 'Apple TV - تم حذف الملف التعريفي الأساسي لـ Karing؛ وتم قطع اتصال خدمة VPN';
 	@override String get appleTVUrlInvalid => 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
+	@override String appleCoreVersionNotMatch({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى';
 	@override String get remoteProfileEditConfirm => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
@@ -418,6 +418,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
+	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 	@override String get disconnectWhenQuit => 'افصل عندما يخرج التطبيق';
 	@override String get allowBypass => 'السماح للتطبيقات بتجاوز VPN';
 	@override String get importSuccess => 'استيراد نجاح ';
@@ -438,6 +439,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get tunModeTips => 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
 	@override String get tunModeRunAsAdmin => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
 	@override String get tunStack => 'Stack';
+	@override String get tunHijackTips => 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل';
 	@override String get launchAtStartup => 'إطلاق عند بدء التشغيل';
 	@override String get quitWhenSwitchSystemUser => 'خروج تطبيق عند تبديل مستخدمي النظام';
 	@override String get handleScheme => 'مكالمة مخطط النظام';
@@ -639,6 +641,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get autoBackupRemoveProfile => 'بعد حذف التكوين';
 	@override String get importAndExport => 'استيراد وتصدير';
 	@override String get import => 'يستورد';
+	@override String get importFromUrl => 'الاستيراد من عنوان URL';
 	@override String get export => 'يصدّر';
 	@override String get send => 'يرسل';
 	@override String get receive => 'تولي';
@@ -979,6 +982,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
 			case 'SettingsScreen.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
 			case 'SettingsScreen.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
+			case 'SettingsScreen.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 			case 'SettingsScreen.disconnectWhenQuit': return 'افصل عندما يخرج التطبيق';
 			case 'SettingsScreen.allowBypass': return 'السماح للتطبيقات بتجاوز VPN';
 			case 'SettingsScreen.importSuccess': return 'استيراد نجاح ';
@@ -999,6 +1003,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.tunModeTips': return 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
 			case 'SettingsScreen.tunStack': return 'Stack';
+			case 'SettingsScreen.tunHijackTips': return 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل';
 			case 'SettingsScreen.launchAtStartup': return 'إطلاق عند بدء التشغيل';
 			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'خروج تطبيق عند تبديل مستخدمي النظام';
 			case 'SettingsScreen.handleScheme': return 'مكالمة مخطط النظام';
@@ -1156,6 +1161,7 @@ extension on TranslationsAr {
 			case 'meta.autoBackupRemoveProfile': return 'بعد حذف التكوين';
 			case 'meta.importAndExport': return 'استيراد وتصدير';
 			case 'meta.import': return 'يستورد';
+			case 'meta.importFromUrl': return 'الاستيراد من عنوان URL';
 			case 'meta.export': return 'يصدّر';
 			case 'meta.send': return 'يرسل';
 			case 'meta.receive': return 'تولي';
@@ -1272,7 +1278,6 @@ extension on TranslationsAr {
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 			case 'routeFinal': return 'أخير';
 			case 'protocolSniff': return 'الكشف عن البروتوكول';
-			case 'protocolSniffOverrideDestination': return 'يغطي اسم المجال المكتشف عنوان هدف الاتصال';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'الرجاء استخدام [${p}]';
 			case 'turnOffPrivateDirect': return 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
 			case 'targetConnectFailed': return ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
@@ -1282,6 +1287,7 @@ extension on TranslationsAr {
 			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - تم حذف الملف التعريفي الأساسي لـ Karing؛ وتم قطع اتصال خدمة VPN';
 			case 'appleTVUrlInvalid': return 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
+			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى';
 			case 'remoteProfileEditConfirm': return 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
 			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';

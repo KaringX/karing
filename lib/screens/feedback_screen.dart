@@ -133,15 +133,14 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
 
   void onTapFeedback() {
     final tcontext = Translations.of(context);
-    Text content = Text(_textController.text);
 
-    if (content.data!.isEmpty) {
+    if (_textController.text.isEmpty) {
       DialogUtils.showAlertDialog(
           context, tcontext.meta.feedbackContentCannotEmpty);
       return;
     }
     _feedbacked = true;
-    SentryUtils.feedback(content.data!);
+    SentryUtils.feedback(_textController.text);
     /*AnalyticsUtils.logEvent(
         analyticsEventType: analyticsEventTypeApp,
         name: 'feedback',

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DB4E3E383A82D1FC55BBCC1 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		CE057ABC2C4FAB2C005C70FE /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = CE057ABB2C4FAB2C005C70FE /* Swifter */; };
 		CE4C01682CA654A700BD22EC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C01672CA654A700BD22EC /* String+Extension.swift */; };
@@ -107,7 +106,6 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A808D3E2D94D9D1DEE8D2124 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
-		AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4B133229ED20B8006E81E6 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		CE4C01672CA654A700BD22EC /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		CE65C5332AF1F21D005C5724 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 			files = (
 				CE5637312C941E1D004B58DE /* KeychainSwift in Frameworks */,
 				CEE0DC342AF49B5F00C4E874 /* LibVpnCore.framework in Frameworks */,
-				4DB4E3E383A82D1FC55BBCC1 /* Pods_Runner.framework in Frameworks */,
 				CEF736EB2C4DF3ED005918A1 /* QRCode in Frameworks */,
 				CE057ABC2C4FAB2C005C70FE /* Swifter in Frameworks */,
 				CEF736F12C4DF3ED005918A1 /* QRCodeStatic in Frameworks */,
@@ -172,7 +169,6 @@
 			children = (
 				CE65C53B2AF1FF75005C5724 /* libresolv.tbd */,
 				CE65C5332AF1F21D005C5724 /* Libbox.xcframework */,
-				AFCB9FCD5D76BA2D6004A1A4 /* Pods_Runner.framework */,
 				CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
@@ -591,7 +587,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 606;
+				CURRENT_PROJECT_VERSION = 727;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -606,7 +602,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -750,7 +746,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 606;
+				CURRENT_PROJECT_VERSION = 727;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -765,7 +761,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -795,7 +791,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 606;
+				CURRENT_PROJECT_VERSION = 727;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -810,7 +806,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";

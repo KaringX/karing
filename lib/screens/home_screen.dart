@@ -728,9 +728,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     if (Platform.isWindows) {
       bool reg =
-          SystemSchemeUtils.isRegistered(SystemSchemeUtils.getClashScheme());
+          SystemSchemeUtils.isRegistered(SystemSchemeUtils.getKaringScheme());
       if (!reg) {
-        SystemSchemeUtils.register(SystemSchemeUtils.getClashScheme());
+        SystemSchemeUtils.register(SystemSchemeUtils.getKaringScheme());
       }
     }
     _onInitAllFinished = true;
@@ -801,7 +801,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<ReturnResultError?> _onRequestStartVPN(String from) async {
-    return await start(from, disableShowAlertDialog: true);
+    if (_state == FlutterVpnServiceState.connected) {
+      return await checkAndReload(from, disableShowAlertDialog: true);
+    }
+    if (_state == FlutterVpnServiceState.disconnected) {
+      return await start(from, disableShowAlertDialog: true);
+    }
+    return null;
   }
 
   Future<void> _onStateChanged(
@@ -936,7 +942,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onEnableConfig(String groupid, bool enable) async {
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+    /*bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     if (noConfig) {
       _currentServer = ProxyConfig();
       VPNService.setCurrent(_currentServer);
@@ -955,7 +961,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       ServerManager.addRecent(_currentServer);
       ServerManager.saveUse();
     }
-    await setServerAndReload("onEventEnableConfig");
+    await setServerAndReload("onEventEnableConfig");*/
   }
 
   Future<void> _onReloadFromZipConfigs() async {
@@ -1128,9 +1134,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     return Tuple2(null, options.allOutboundsTags.length);
   }
 
-  Future<void> setServerAndReload(String from) async {
+  Future<ReturnResultError?> setServerAndReload(String from,
+      {bool disableShowAlertDialog = false}) async {
     if (_state != FlutterVpnServiceState.connected) {
-      return;
+      return null;
     }
     await ProxyCluster.stop();
     _disconnectToCurrent();
@@ -1145,15 +1152,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
 
       if (err != null) {
-        CommonDialog.handleStartError(context, err.message);
+        if (!disableShowAlertDialog) {
+          CommonDialog.handleStartError(context, err.message);
+        }
+        return err;
       } else {
         if (PlatformUtils.isPC()) {
           var settingConfig = SettingManager.getConfig();
           if (settingConfig.proxy.enableCluster) {
             String? error = await ProxyCluster.start();
             if (error != null) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
+              if (!disableShowAlertDialog) {
+                DialogUtils.showAlertDialog(context, error,
+                    showCopy: true, showFAQ: true, withVersion: true);
+              }
+              return ReturnResultError(error);
             }
           }
         }
@@ -1162,6 +1175,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await VPNService.stop();
       await Zashboard.stop();
     }
+    return null;
   }
 
   Material createServerSelect(BuildContext context) {
@@ -1666,9 +1680,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  Future<void> checkAndReload(String from) async {
+  Future<ReturnResultError?> checkAndReload(String from,
+      {bool disableShowAlertDialog = false}) async {
     if (_state != FlutterVpnServiceState.connected) {
-      return;
+      return null;
     }
     if (SettingManager.getDirty() || ServerManager.getDirty()) {
       if (_currentServer.groupid.isEmpty) {
@@ -1687,10 +1702,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
       if (noConfig) {
         await stop();
-        return;
+        return null;
       }
-      await setServerAndReload(from);
+      return await setServerAndReload(from,
+          disableShowAlertDialog: disableShowAlertDialog);
     }
+    return null;
   }
 
   Future<void> onTapToggle() async {

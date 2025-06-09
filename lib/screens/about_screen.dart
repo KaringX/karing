@@ -16,9 +16,11 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_json_utils.dart';
+import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/file_content_viewer_screen.dart';
+import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
@@ -156,7 +158,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "AboutScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "AboutScreen");
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
@@ -165,9 +167,16 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     var dev = settingConfig.dev;
     String termOfUse = AppUtils.getTermsOfServiceUrl();
     List<GroupItem> groupOptions = [];
-    late BuildInfoData? buildInfo;
+    String installDate = "";
+
     if (!Platform.isLinux) {
+      late BuildInfoData? buildInfo;
       buildInfo = await BuildInfo.fromPlatform();
+      installDate = buildInfo!.installDate.toString();
+      int pos = installDate.indexOf(" ");
+      if (pos > 0) {
+        installDate = installDate.substring(0, pos);
+      }
     }
     {
       List<GroupItemOptions> options = [
@@ -186,11 +195,11 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
           name: tcontext.AboutScreen.installRefer,
           text: await InstallReferrerUtils.getString(),
         )),
-        dev.devMode && buildInfo != null
+        dev.devMode && installDate.isNotEmpty
             ? GroupItemOptions(
                 textOptions: GroupItemTextOptions(
                 name: tcontext.AboutScreen.installTime,
-                text: buildInfo.installDate.toString(),
+                text: installDate,
               ))
             : GroupItemOptions(),
         AutoUpdateManager.isSupport()
@@ -233,7 +242,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     if (!mounted) {
                       return;
                     }
-                    DialogUtils.showPrivacyPolicy(context);
+                    GroupHelper.showPrivacyPolicy(context);
                   }
                 })),
         GroupItemOptions(
@@ -367,11 +376,9 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                   if (!context.mounted) {
                     return;
                   }
-                  await WebviewHelper.loadUrl(
-                      context,
-                      "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
-                      "pprof",
-                      title: tcontext.AboutScreen.pprofPanel);
+                  await UrlLauncherUtils.loadUrl(
+                    "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
+                  );
                 })));
       }
       options3.add(GroupItemOptions(

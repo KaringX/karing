@@ -19,6 +19,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
+import 'package:karing/app/utils/uri_utils.dart';
 
 class DnsSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -197,7 +198,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "DnsSettingsScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "DnsSettingsScreen");
   }
 
   void checkLatency() async {
@@ -583,14 +584,8 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 ElevatedButton(
                     child: Text(tcontext.meta.ok),
                     onPressed: () {
-                      String? ispText = Text(textControllerISP.text).data;
-                      String? urlText = Text(textControllerUrl.text).data;
-                      if (ispText == null || urlText == null) {
-                        Navigator.pop(context);
-                        return;
-                      }
-                      ispText = ispText.trim();
-                      urlText = urlText.trim();
+                      String ispText = textControllerISP.text.trim();
+                      String urlText = textControllerUrl.text.trim();
 
                       if (ispText.isEmpty) {
                         DialogUtils.showAlertDialog(
@@ -602,14 +597,15 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                             context, tcontext.DnsSettingsScreen.urlCanNotEmpty);
                         return;
                       }
-                      Uri? uri = Uri.tryParse(urlText);
+
+                      Uri? uri = UriUtils.parseUrlFixIPV6(urlText);
                       if (uri == null || !uri.hasScheme) {
                         DialogUtils.showAlertDialog(
                             context, tcontext.meta.urlInvalid);
                         return;
                       }
 
-                      if (!SettingConfigItemDNS.isDNSValidScheme(urlText)) {
+                      if (!SettingConfigItemDNS.isDNSValidScheme(uri.scheme)) {
                         DialogUtils.showAlertDialog(context,
                             tcontext.DnsSettingsScreen.error(p: urlText));
                         return;

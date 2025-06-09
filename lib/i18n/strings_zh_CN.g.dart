@@ -75,7 +75,6 @@ class TranslationsZhCn implements Translations {
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]:通过代理服务器连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.direct}]:直接连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.fakeip}]:由代理服务器代为解析域名;如果断开VPN连接,你的应用可能需要重启;仅对[TUN]入站的流量生效';
 	@override String get routeFinal => 'final';
 	@override String get protocolSniff => '协议探测';
-	@override String get protocolSniffOverrideDestination => '探测的域名覆盖连接目标地址';
 	@override String sendOrReceiveNotMatch({required Object p}) => '请使用[${p}]';
 	@override String get turnOffPrivateDirect => '请先开启[私有网络直连]';
 	@override String targetConnectFailed({required Object p}) => '连接[${p}]失败,请确保设备在同一个局域网内';
@@ -85,6 +84,7 @@ class TranslationsZhCn implements Translations {
 	@override String get appleTVRemoveCoreConfigDone => 'Apple TV - Karing的核心配置文件已删除;VPN服务已断开连接';
 	@override String get appleTVUrlInvalid => '无效的URL,请打开Apple TV - Karing,扫描Karing显示的二维码';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}]无此功能,请升级后再试';
+	@override String appleCoreVersionNotMatch({required Object p}) => '核心主版本不匹配,请升级[${p}]后再试';
 	@override String get remoteProfileEditConfirm => '配置更新后,节点的修改将会被还原,是否继续?';
 	@override String get mustBeValidHttpsURL => '必须为有效的 https URL';
 	@override String fileNotExistReinstall({required Object p}) => '文件缺失[${p}],请重新安装';
@@ -418,6 +418,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get autoConnectAfterLaunch => '启动后自动连接';
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
+	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
 	@override String get disconnectWhenQuit => '退出应用时关闭连接';
 	@override String get allowBypass => '允许应用绕过VPN';
 	@override String get importSuccess => '导入成功';
@@ -438,6 +439,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get tunModeTips => 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]';
 	@override String get tunModeRunAsAdmin => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
 	@override String get tunStack => '网络栈';
+	@override String get tunHijackTips => '关闭后,来自TUN的DNS请求将会被直接转发给对应的DNS服务器';
 	@override String get launchAtStartup => '开机启动';
 	@override String get quitWhenSwitchSystemUser => '切换系统用户时退出应用';
 	@override String get handleScheme => '系统Scheme调用';
@@ -639,6 +641,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get autoBackupRemoveProfile => '删除配置后';
 	@override String get importAndExport => '导入/导出';
 	@override String get import => '导入';
+	@override String get importFromUrl => '从URL导入';
 	@override String get export => '导出';
 	@override String get send => '发送';
 	@override String get receive => '接收';
@@ -979,6 +982,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.autoConnectAfterLaunch': return '启动后自动连接';
 			case 'SettingsScreen.hideAfterLaunch': return '启动后隐藏窗口';
 			case 'SettingsScreen.autoSetSystemProxy': return '连接后自动设置系统代理';
+			case 'SettingsScreen.bypassSystemProxy': return '允许绕过系统代理的域名';
 			case 'SettingsScreen.disconnectWhenQuit': return '退出应用时关闭连接';
 			case 'SettingsScreen.allowBypass': return '允许应用绕过VPN';
 			case 'SettingsScreen.importSuccess': return '导入成功';
@@ -999,6 +1003,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.tunModeTips': return 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
 			case 'SettingsScreen.tunStack': return '网络栈';
+			case 'SettingsScreen.tunHijackTips': return '关闭后,来自TUN的DNS请求将会被直接转发给对应的DNS服务器';
 			case 'SettingsScreen.launchAtStartup': return '开机启动';
 			case 'SettingsScreen.quitWhenSwitchSystemUser': return '切换系统用户时退出应用';
 			case 'SettingsScreen.handleScheme': return '系统Scheme调用';
@@ -1156,6 +1161,7 @@ extension on TranslationsZhCn {
 			case 'meta.autoBackupRemoveProfile': return '删除配置后';
 			case 'meta.importAndExport': return '导入/导出';
 			case 'meta.import': return '导入';
+			case 'meta.importFromUrl': return '从URL导入';
 			case 'meta.export': return '导出';
 			case 'meta.send': return '发送';
 			case 'meta.receive': return '接收';
@@ -1272,7 +1278,6 @@ extension on TranslationsZhCn {
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]:通过代理服务器连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.direct}]:直接连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.fakeip}]:由代理服务器代为解析域名;如果断开VPN连接,你的应用可能需要重启;仅对[TUN]入站的流量生效';
 			case 'routeFinal': return 'final';
 			case 'protocolSniff': return '协议探测';
-			case 'protocolSniffOverrideDestination': return '探测的域名覆盖连接目标地址';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => '请使用[${p}]';
 			case 'turnOffPrivateDirect': return '请先开启[私有网络直连]';
 			case 'targetConnectFailed': return ({required Object p}) => '连接[${p}]失败,请确保设备在同一个局域网内';
@@ -1282,6 +1287,7 @@ extension on TranslationsZhCn {
 			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - Karing的核心配置文件已删除;VPN服务已断开连接';
 			case 'appleTVUrlInvalid': return '无效的URL,请打开Apple TV - Karing,扫描Karing显示的二维码';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}]无此功能,请升级后再试';
+			case 'appleCoreVersionNotMatch': return ({required Object p}) => '核心主版本不匹配,请升级[${p}]后再试';
 			case 'remoteProfileEditConfirm': return '配置更新后,节点的修改将会被还原,是否继续?';
 			case 'mustBeValidHttpsURL': return '必须为有效的 https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => '文件缺失[${p}],请重新安装';

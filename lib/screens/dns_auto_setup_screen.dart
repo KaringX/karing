@@ -156,7 +156,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "DnsAutoSetupScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "DnsAutoSetupScreen");
   }
 
   void checkLatency() async {

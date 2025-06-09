@@ -120,13 +120,12 @@ class _SentryHashStringScreenState
   }
 
   void onTapHashString() async {
-    Text content = Text(_textController.text);
-    if (content.data!.isEmpty) {
+    if (_textController.text.isEmpty) {
       return;
     }
     try {
       await Clipboard.setData(
-          ClipboardData(text: content.data!.hashCode.toString()));
+          ClipboardData(text: _textController.text.hashCode.toString()));
     } catch (e) {}
   }
 }

@@ -302,6 +302,7 @@ category-ecommerce@ads
 category-ecommerce@cn
 category-education-cn
 category-education-ir
+category-electronic-cn
 category-emby
 category-enhance-gaming
 category-enhance-gaming@cn
@@ -354,6 +355,7 @@ category-ntp@cn
 category-number-verification-cn
 category-olympiad-in-informatics
 category-orgs
+category-outsource-cn
 category-password-management
 category-payment-ir
 category-porn
@@ -385,6 +387,7 @@ category-tech-ir
 category-tech-media
 category-tech-media@cn
 category-travel-ir
+category-voip
 category-vpnservices
 category-wiki-cn
 cavporn
@@ -404,6 +407,7 @@ cheetahmobile
 chegg
 chinabroadnet
 chinamobile
+chinamobile@!cn
 chinanews
 chinapower
 chinaso
@@ -457,6 +461,7 @@ comodo
 connectivity-check
 contentful
 coolapk
+copymanga
 corel
 costco
 coupang
@@ -500,6 +505,7 @@ deribit
 dettol
 dettol@cn
 deviantart
+dewu
 dgtle
 dida365
 didi
@@ -582,6 +588,8 @@ epochmediagroup
 erji
 erolabs
 escapefromtarkov
+eset
+eset@cn
 espn
 espressif
 esri
@@ -612,6 +620,7 @@ feishu
 fengxing
 fflogs
 fflogs@cn
+fibank
 figma
 filimo
 finish
@@ -642,6 +651,7 @@ ft
 ftv
 fzdm
 gamersky
+gamersky@ads
 gandi
 ganji
 gannett
@@ -956,6 +966,7 @@ linkedin
 linkedin@cn
 linotype
 linux
+linuxdo
 lisiku
 litv
 lizhi
@@ -997,6 +1008,7 @@ mediachinesegroup
 medium
 meduza
 mega
+meipian
 meitu
 meituan
 meizu
@@ -1056,6 +1068,7 @@ mpv
 msi
 msn
 msn@cn
+mubi
 mucinex
 mudvod
 muji
@@ -1070,6 +1083,7 @@ myfonts
 myradio
 mytvsuper
 mzed
+n26
 n3ro
 narwal
 nat-test
@@ -1129,6 +1143,7 @@ ogury-ads@ads
 ok
 okaapps
 okaapps@cn
+okjike
 okx
 okx@cn
 olevod
@@ -1149,6 +1164,7 @@ opencollective
 openjsfoundation
 openjsfoundation@cn
 opensourceinsights
+openspeedtest
 openstreetmap
 openweather
 openwrt
@@ -1301,6 +1317,7 @@ ruten
 rutracker
 salesforce
 samsung
+samsung@ads
 samsung@cn
 sanctioned
 sankei
@@ -1441,6 +1458,7 @@ tagtic-ads
 tagtic-ads@ads
 taikang
 tailscale
+talkatone
 taomee
 tappx-ads
 tappx-ads@ads
@@ -1516,6 +1534,7 @@ tracker
 trackernetwork
 translatewiki
 trello
+trustwallet
 trustwave
 truyen-hentai
 tsquare
@@ -1595,6 +1614,7 @@ volvo
 volvo@cn
 voxmedia
 vpngate
+vrzwk
 vultr
 w3schools
 walmart

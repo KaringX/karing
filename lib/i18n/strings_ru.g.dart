@@ -75,7 +75,6 @@ class TranslationsRu implements Translations {
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 	@override String get routeFinal => 'Final';
 	@override String get protocolSniff => 'Определение протокола';
-	@override String get protocolSniffOverrideDestination => 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'Пожалуйста, используйте [${p}]';
 	@override String get turnOffPrivateDirect => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 	@override String targetConnectFailed({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
@@ -85,6 +84,7 @@ class TranslationsRu implements Translations {
 	@override String get appleTVRemoveCoreConfigDone => 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;';
 	@override String get appleTVUrlInvalid => 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
+	@override String appleCoreVersionNotMatch({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз';
 	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
@@ -418,6 +418,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
+	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
 	@override String get importSuccess => 'Импорт выполнен успешно';
@@ -438,6 +439,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get tunModeTips => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
 	@override String get tunModeRunAsAdmin => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
 	@override String get tunStack => 'Stack';
+	@override String get tunHijackTips => 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
 	@override String get launchAtStartup => 'Запуск при включении';
 	@override String get quitWhenSwitchSystemUser => 'Выйти из приложения при переключении пользователя';
 	@override String get handleScheme => 'Схемы системного вызова';
@@ -639,6 +641,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
 	@override String get importAndExport => 'Импорт и экспорт в файл';
 	@override String get import => 'Импорт';
+	@override String get importFromUrl => 'Импорт из URL';
 	@override String get export => 'Экспорт';
 	@override String get send => 'Передать';
 	@override String get receive => 'Принять';
@@ -979,6 +982,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
 			case 'SettingsScreen.hideAfterLaunch': return 'Скрыть окно после запуска';
 			case 'SettingsScreen.autoSetSystemProxy': return 'Установить системный прокси после подключения';
+			case 'SettingsScreen.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
 			case 'SettingsScreen.disconnectWhenQuit': return 'Отключаться при выходе из приложения';
 			case 'SettingsScreen.allowBypass': return 'Разрешить приложениям обходить VPN';
 			case 'SettingsScreen.importSuccess': return 'Импорт выполнен успешно';
@@ -999,6 +1003,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.tunModeTips': return 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
 			case 'SettingsScreen.tunStack': return 'Stack';
+			case 'SettingsScreen.tunHijackTips': return 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
 			case 'SettingsScreen.launchAtStartup': return 'Запуск при включении';
 			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'Выйти из приложения при переключении пользователя';
 			case 'SettingsScreen.handleScheme': return 'Схемы системного вызова';
@@ -1156,6 +1161,7 @@ extension on TranslationsRu {
 			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
 			case 'meta.importAndExport': return 'Импорт и экспорт в файл';
 			case 'meta.import': return 'Импорт';
+			case 'meta.importFromUrl': return 'Импорт из URL';
 			case 'meta.export': return 'Экспорт';
 			case 'meta.send': return 'Передать';
 			case 'meta.receive': return 'Принять';
@@ -1272,7 +1278,6 @@ extension on TranslationsRu {
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 			case 'routeFinal': return 'Final';
 			case 'protocolSniff': return 'Определение протокола';
-			case 'protocolSniffOverrideDestination': return 'Обнаруженное имя домена перезаписывает целевой адрес подключения.';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'Пожалуйста, используйте [${p}]';
 			case 'turnOffPrivateDirect': return 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
 			case 'targetConnectFailed': return ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
@@ -1282,6 +1287,7 @@ extension on TranslationsRu {
 			case 'appleTVRemoveCoreConfigDone': return 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;';
 			case 'appleTVUrlInvalid': return 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
+			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз';
 			case 'remoteProfileEditConfirm': return 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
 			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';

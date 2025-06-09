@@ -295,7 +295,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
 
     if (widget.injectJs.isNotEmpty) {
       String source = '''
-          function loadKaringInjectScript(url) {
+          function loadInjectScript(url) {
             for (var i=0; i<document.scripts.length; i++) {
                 if (document.scripts[i].src == url) return false;
             }
@@ -308,7 +308,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
             document.head.appendChild(script);
             return true;
           }
-          window.addEventListener('DOMContentLoaded', function(event) {loadKaringInjectScript("${widget.injectJs}");});''';
+          window.addEventListener('DOMContentLoaded', function(event) {loadInjectScript("${widget.injectJs}");});''';
 
       _scripts.add(UserScript(
           source: source,

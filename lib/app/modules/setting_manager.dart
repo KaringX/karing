@@ -18,6 +18,7 @@ import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/widgets/text_field.dart';
+import 'package:vpn_service/proxy_manager.dart';
 
 //UI选项
 class SettingConfigItemUICloudflareWarp {
@@ -404,6 +405,7 @@ class SettingConfigItemTUN {
   bool appendHttpProxy =
       getAppendHttp(); //android, ios有些app会直连代理绕过tun软路由,这里开启代理
   List<String> allowBypassHttpProxyDomains = [];
+  bool hijackDns = true;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -416,6 +418,7 @@ class SettingConfigItemTUN {
       'allow_bypass': allowBypass,
       'append_http_proxy': appendHttpProxy,
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
+      'hijack_dns': hijackDns,
     };
     return ret;
   }
@@ -449,6 +452,7 @@ class SettingConfigItemTUN {
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
     allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
         map["allow_bypass_httpproxy_domains"], true, [])!;
+    hijackDns = map["hijack_dns"] ?? true;
   }
 
   static SettingConfigItemTUN fromJsonStatic(Map<String, dynamic>? map) {
@@ -706,13 +710,13 @@ class SettingConfigItemDNS {
     var dips = map["static_ips"] ?? {};
     var dl = map["list"] ?? map["dns_list"] ?? [];
 
-    true;
     for (var i in dl) {
       if (i is Map) {
         var isp = i[kDNSIsp];
         var addr = i[kDNSUrl];
         if (isp is String && addr is String) {
-          if (isDNSValidScheme(addr)) {
+          Uri? uri = Uri.tryParse(addr);
+          if (uri != null && isDNSValidScheme(uri.scheme)) {
             list.add({
               kDNSIsp: isp,
               kDNSUrl: addr,
@@ -735,16 +739,8 @@ class SettingConfigItemDNS {
     return config;
   }
 
-  static bool isDNSValidScheme(String addr) {
-    if (addr.startsWith("udp") ||
-        addr.startsWith("tcp") ||
-        addr.startsWith("tls") ||
-        addr.startsWith("https") ||
-        addr.startsWith("quic") ||
-        addr.startsWith("h3")) {
-      return true;
-    }
-    return false;
+  static bool isDNSValidScheme(String scheme) {
+    return ["udp", "tcp", "tls", "https", "quic", "h3"].contains(scheme);
   }
 
   static bool containsDNSURL(String url) {
@@ -977,36 +973,6 @@ class SettingConfigItemMux {
   }
 }
 
-class SettingConfigItemSniff {
-  bool enable = true;
-  bool overrideDestination = false;
-
-  List<String> outboundTypes = []; //vmess,vless,trojan,shadowsocks
-
-  Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {
-      'enable': enable,
-      'override_destination': overrideDestination,
-    };
-    return ret;
-  }
-
-  void fromJson(Map<String, dynamic>? map) {
-    if (map == null) {
-      return;
-    }
-
-    enable = map["enable"] ?? true;
-    overrideDestination = map["override_destination"] ?? false;
-  }
-
-  static SettingConfigItemSniff fromJsonStatic(Map<String, dynamic>? map) {
-    SettingConfigItemSniff config = SettingConfigItemSniff();
-    config.fromJson(map);
-    return config;
-  }
-}
-
 class SettingConfigItemProxy {
   static const String hostDefault = '127.0.0.1';
   static const String hostNetwork = '0.0.0.0';
@@ -1025,6 +991,7 @@ class SettingConfigItemProxy {
   int controlPort = controlPortDefault;
   int clusterPort = clusterPortDefault;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
+  List<String> systemProxyBypassDomain = [];
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
   bool enableCluster = false;
 
@@ -1054,6 +1021,7 @@ class SettingConfigItemProxy {
         'control_port': controlPort,
         'cluster_port': clusterPort,
         'auto_set_system_proxy': autoSetSystemProxy,
+        'system_proxy_bypass_domain': systemProxyBypassDomain,
         'disconnect_when_quit': disconnectWhenQuit,
       };
   void fromJson(Map<String, dynamic>? map) {
@@ -1086,6 +1054,10 @@ class SettingConfigItemProxy {
     }
     autoSetSystemProxy =
         map["auto_set_system_proxy"] ?? getAutoSetSystemProxyDefault();
+    systemProxyBypassDomain = ConvertUtils.getListStringFromDynamic(
+        map["system_proxy_bypass_domain"],
+        true,
+        ProxyBypassDoaminsDefault.toList())!;
     disconnectWhenQuit =
         map["disconnect_when_quit"] ?? getDisconnectWhenQuitDefault();
   }
@@ -1324,6 +1296,7 @@ enum IPStrategy {
 }
 
 class SettingConfig {
+  static const String kCoreVersion = "1.12.0";
   static const List<String> kSpeedTestList = [
     "https://speed.cloudflare.com/",
     "https://speedtest.net/",
@@ -1340,8 +1313,9 @@ class SettingConfig {
   ];
 
   static const List<String> kUserAgentList = [
+    "sing-box $kCoreVersion",
+    "mihomo/1.19.9",
     "ClashMeta",
-    "sing-box",
     "clash-verge",
     "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)",
     "HiddifyNext",
@@ -1361,7 +1335,6 @@ class SettingConfig {
   SettingConfigItemDNS dns = SettingConfigItemDNS();
   SettingConfigItemTLS tls = SettingConfigItemTLS();
   SettingConfigItemMux mux = SettingConfigItemMux();
-  SettingConfigItemSniff sniff = SettingConfigItemSniff();
   SettingConfigItemRuleSets ruleSets = SettingConfigItemRuleSets();
   SettingConfigItemPerapp perapp = SettingConfigItemPerapp();
   SettingConfigItemAutoSelect autoSelect = SettingConfigItemAutoSelect();
@@ -1405,7 +1378,6 @@ class SettingConfig {
         'dns': dns,
         'tls': tls,
         'mux': mux,
-        'sniff': sniff,
         'rule_sets': ruleSets,
         'perapp': perapp,
         'auto_select': autoSelect,
@@ -1460,7 +1432,6 @@ class SettingConfig {
     dns = SettingConfigItemDNS.fromJsonStatic(map["dns"] ?? map);
     tls = SettingConfigItemTLS.fromJsonStatic(map["tls"]);
     mux = SettingConfigItemMux.fromJsonStatic(map["mux"]);
-    sniff = SettingConfigItemSniff.fromJsonStatic(map["sniff"]);
     ruleSets = SettingConfigItemRuleSets.fromJsonStatic(
         map["rule_sets"] ?? map, regionCode);
     if (map["perapp"] is Map) {
@@ -1667,7 +1638,7 @@ class SettingManager {
     } catch (err, stacktrace) {
       SentryUtils.captureException(
           'SettingManager.loadConfig.exception', [content], err, stacktrace,
-          attachments: [filePath]);
+          attachments: {filePath: content});
       Log.w("SettingManager.loadConfig exception $filePath ${err.toString()}");
     }
   }

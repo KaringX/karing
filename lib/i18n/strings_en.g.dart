@@ -78,7 +78,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
 	String get routeFinal => 'final';
 	String get protocolSniff => 'Protocol Sniff';
-	String get protocolSniffOverrideDestination => 'The Sniff domain name override the connection target address';
 	String sendOrReceiveNotMatch({required Object p}) => 'Please use [${p}]';
 	String get turnOffPrivateDirect => 'Please turn on [Private network direct connection] first';
 	String targetConnectFailed({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
@@ -88,6 +87,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get appleTVRemoveCoreConfigDone => 'Apple TV - Karing\'s Core Configuration deleted; VPN service disconnected';
 	String get appleTVUrlInvalid => 'Invalid URL, please open Apple TV - Karing and scan the QR code displayed by Karing';
 	String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] does not have this function, please upgrade and try again';
+	String appleCoreVersionNotMatch({required Object p}) => 'The core major version does not match, please upgrade [${p}] and try again';
 	String get remoteProfileEditConfirm => 'After the Profile is updated, the node changes will be restored. Continue?';
 	String get mustBeValidHttpsURL => 'Must be Valid https URL';
 	String fileNotExistReinstall({required Object p}) => 'File missing [${p}], please reinstall';
@@ -421,6 +421,7 @@ class TranslationsSettingsScreenEn {
 	String get autoConnectAfterLaunch => 'Auto Connection after Launch';
 	String get hideAfterLaunch => 'Hide window after startup';
 	String get autoSetSystemProxy => 'Auto Set System Proxy when Connected';
+	String get bypassSystemProxy => 'Domain names that are allowed to bypass the system proxy';
 	String get disconnectWhenQuit => 'Disconnect when App Exits';
 	String get allowBypass => 'Allow Apps to Bypass VPN';
 	String get importSuccess => 'Import Success';
@@ -441,6 +442,7 @@ class TranslationsSettingsScreenEn {
 	String get tunModeTips => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
 	String get tunModeRunAsAdmin => 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
 	String get tunStack => 'Stack';
+	String get tunHijackTips => 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server';
 	String get launchAtStartup => 'Launch at Startup';
 	String get quitWhenSwitchSystemUser => 'Exit App when Switch System Users';
 	String get handleScheme => 'System Scheme Call';
@@ -642,6 +644,7 @@ class TranslationsMetaEn {
 	String get autoBackupRemoveProfile => 'After deleting the Profile';
 	String get importAndExport => 'Import and Export';
 	String get import => 'Import';
+	String get importFromUrl => 'Import from URL';
 	String get export => 'Export';
 	String get send => 'Send';
 	String get receive => 'Receive';
@@ -982,6 +985,7 @@ extension on Translations {
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'Auto Connection after Launch';
 			case 'SettingsScreen.hideAfterLaunch': return 'Hide window after startup';
 			case 'SettingsScreen.autoSetSystemProxy': return 'Auto Set System Proxy when Connected';
+			case 'SettingsScreen.bypassSystemProxy': return 'Domain names that are allowed to bypass the system proxy';
 			case 'SettingsScreen.disconnectWhenQuit': return 'Disconnect when App Exits';
 			case 'SettingsScreen.allowBypass': return 'Allow Apps to Bypass VPN';
 			case 'SettingsScreen.importSuccess': return 'Import Success';
@@ -1002,6 +1006,7 @@ extension on Translations {
 			case 'SettingsScreen.tunModeTips': return 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
 			case 'SettingsScreen.tunStack': return 'Stack';
+			case 'SettingsScreen.tunHijackTips': return 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server';
 			case 'SettingsScreen.launchAtStartup': return 'Launch at Startup';
 			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'Exit App when Switch System Users';
 			case 'SettingsScreen.handleScheme': return 'System Scheme Call';
@@ -1159,6 +1164,7 @@ extension on Translations {
 			case 'meta.autoBackupRemoveProfile': return 'After deleting the Profile';
 			case 'meta.importAndExport': return 'Import and Export';
 			case 'meta.import': return 'Import';
+			case 'meta.importFromUrl': return 'Import from URL';
 			case 'meta.export': return 'Export';
 			case 'meta.send': return 'Send';
 			case 'meta.receive': return 'Receive';
@@ -1275,7 +1281,6 @@ extension on Translations {
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
 			case 'routeFinal': return 'final';
 			case 'protocolSniff': return 'Protocol Sniff';
-			case 'protocolSniffOverrideDestination': return 'The Sniff domain name override the connection target address';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'Please use [${p}]';
 			case 'turnOffPrivateDirect': return 'Please turn on [Private network direct connection] first';
 			case 'targetConnectFailed': return ({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
@@ -1285,6 +1290,7 @@ extension on Translations {
 			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - Karing\'s Core Configuration deleted; VPN service disconnected';
 			case 'appleTVUrlInvalid': return 'Invalid URL, please open Apple TV - Karing and scan the QR code displayed by Karing';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] does not have this function, please upgrade and try again';
+			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'The core major version does not match, please upgrade [${p}] and try again';
 			case 'remoteProfileEditConfirm': return 'After the Profile is updated, the node changes will be restored. Continue?';
 			case 'mustBeValidHttpsURL': return 'Must be Valid https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'File missing [${p}], please reinstall';

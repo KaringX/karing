@@ -127,7 +127,8 @@ class GroupItemTextField extends StatelessWidget {
               inputFormatters: options.inputFormatters,
               focusNode: options.focusNode,
               autocorrect: false,
-              enableSuggestions: false,
+              enableSuggestions:
+                  true, //Non-English input methods cannot be used after disabling
               autofocus: options.autoFocus,
               onChanged: options.onChanged,
               enabled: options.enabled,
@@ -408,9 +409,13 @@ class GroupItemStringPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String selectedText = options.selected ?? "";
     var widgets = [];
     if (options.tupleStrings != null) {
       for (var key in options.tupleStrings!) {
+        if (options.selected == key.item1) {
+          selectedText = key.item2;
+        }
         widgets.add(ListTile(
           title: Text(
             key.item2,
@@ -517,7 +522,7 @@ class GroupItemStringPicker extends StatelessWidget {
               child: Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Text(
-                    options.selected ?? "",
+                    selectedText,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   )),

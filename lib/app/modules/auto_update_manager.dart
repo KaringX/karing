@@ -271,7 +271,7 @@ class AutoUpdateManager {
       }
       _duration = const Duration(hours: 3);
       if (items.data!.isNotEmpty) {
-        List<String> abis = VPNService.getABIs();
+        final abis = VPNService.getABIs();
 
         String channel = await InstallReferrerUtils.getString();
         String version = AppUtils.getBuildinVersion();

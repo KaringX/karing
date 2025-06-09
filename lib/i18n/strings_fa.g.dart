@@ -75,7 +75,6 @@ class TranslationsFa implements Translations {
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
 	@override String get routeFinal => 'نهایی';
 	@override String get protocolSniff => 'تشخیص پروتکل';
-	@override String get protocolSniffOverrideDestination => 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد';
 	@override String sendOrReceiveNotMatch({required Object p}) => 'لطفا از [${p}] استفاده کنید';
 	@override String get turnOffPrivateDirect => 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
 	@override String targetConnectFailed({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
@@ -85,6 +84,7 @@ class TranslationsFa implements Translations {
 	@override String get appleTVRemoveCoreConfigDone => 'Apple TV - نمایه اصلی کارینگ حذف شد';
 	@override String get appleTVUrlInvalid => 'URL نامعتبر است، لطفاً Apple TV - Karing را باز کنید، کد QR نمایش داده شده توسط Karing را اسکن کنید';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] این عملکرد را ندارد، لطفا ارتقا دهید و دوباره امتحان کنید';
+	@override String appleCoreVersionNotMatch({required Object p}) => 'نسخه اصلی اصلی مطابقت ندارد، لطفاً [${p}] را ارتقا دهید و دوباره امتحان کنید';
 	@override String get remoteProfileEditConfirm => 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟';
 	@override String get mustBeValidHttpsURL => 'باید یک URL معتبر https باشد';
 	@override String fileNotExistReinstall({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
@@ -418,6 +418,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get autoConnectAfterLaunch => 'اتصال خودکار پس‌از راه‌اندازی';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
+	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 	@override String get disconnectWhenQuit => 'قطع اتصال هنگام خروج از نرم‌افزار';
 	@override String get allowBypass => 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
 	@override String get importSuccess => 'افزودن موفق بود';
@@ -438,6 +439,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get tunModeTips => 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
 	@override String get tunModeRunAsAdmin => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 	@override String get tunStack => 'Stack';
+	@override String get tunHijackTips => 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود';
 	@override String get launchAtStartup => 'اجرا در راه‌اندازی';
 	@override String get quitWhenSwitchSystemUser => 'خروج از نرم‌افزار هنگام تعویض کاربران سیستم';
 	@override String get handleScheme => 'فراخوانی Scheme سیستم';
@@ -639,6 +641,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get autoBackupRemoveProfile => 'پس از حذف تنظیمات';
 	@override String get importAndExport => 'وارد‌کردن و خروجی‌گرفتن';
 	@override String get import => 'وارد‌کردن';
+	@override String get importFromUrl => 'وارد کردن از URL';
 	@override String get export => 'خروجی‌گرفتن';
 	@override String get send => 'ارسال کنید';
 	@override String get receive => 'تصاحب';
@@ -979,6 +982,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال خودکار پس‌از راه‌اندازی';
 			case 'SettingsScreen.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
 			case 'SettingsScreen.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
+			case 'SettingsScreen.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 			case 'SettingsScreen.disconnectWhenQuit': return 'قطع اتصال هنگام خروج از نرم‌افزار';
 			case 'SettingsScreen.allowBypass': return 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
 			case 'SettingsScreen.importSuccess': return 'افزودن موفق بود';
@@ -999,6 +1003,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.tunModeTips': return 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 			case 'SettingsScreen.tunStack': return 'Stack';
+			case 'SettingsScreen.tunHijackTips': return 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود';
 			case 'SettingsScreen.launchAtStartup': return 'اجرا در راه‌اندازی';
 			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'خروج از نرم‌افزار هنگام تعویض کاربران سیستم';
 			case 'SettingsScreen.handleScheme': return 'فراخوانی Scheme سیستم';
@@ -1156,6 +1161,7 @@ extension on TranslationsFa {
 			case 'meta.autoBackupRemoveProfile': return 'پس از حذف تنظیمات';
 			case 'meta.importAndExport': return 'وارد‌کردن و خروجی‌گرفتن';
 			case 'meta.import': return 'وارد‌کردن';
+			case 'meta.importFromUrl': return 'وارد کردن از URL';
 			case 'meta.export': return 'خروجی‌گرفتن';
 			case 'meta.send': return 'ارسال کنید';
 			case 'meta.receive': return 'تصاحب';
@@ -1272,7 +1278,6 @@ extension on TranslationsFa {
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
 			case 'routeFinal': return 'نهایی';
 			case 'protocolSniff': return 'تشخیص پروتکل';
-			case 'protocolSniffOverrideDestination': return 'نام دامنه شناسایی شده آدرس هدف اتصال را پوشش می دهد';
 			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'لطفا از [${p}] استفاده کنید';
 			case 'turnOffPrivateDirect': return 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
 			case 'targetConnectFailed': return ({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
@@ -1282,6 +1287,7 @@ extension on TranslationsFa {
 			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - نمایه اصلی کارینگ حذف شد';
 			case 'appleTVUrlInvalid': return 'URL نامعتبر است، لطفاً Apple TV - Karing را باز کنید، کد QR نمایش داده شده توسط Karing را اسکن کنید';
 			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] این عملکرد را ندارد، لطفا ارتقا دهید و دوباره امتحان کنید';
+			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'نسخه اصلی اصلی مطابقت ندارد، لطفاً [${p}] را ارتقا دهید و دوباره امتحان کنید';
 			case 'remoteProfileEditConfirm': return 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟';
 			case 'mustBeValidHttpsURL': return 'باید یک URL معتبر https باشد';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';

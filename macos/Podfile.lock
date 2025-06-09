@@ -47,7 +47,7 @@ PODS:
     - Sentry/Core (= 8.46.0)
   - Sentry/Core (8.46.0)
   - Sentry/HybridSDK (8.46.0)
-  - sentry_flutter (8.14.0):
+  - sentry_flutter (8.14.2):
     - Flutter
     - FlutterMacOS
     - Sentry/HybridSDK (= 8.46.0)
@@ -188,7 +188,7 @@ SPEC CHECKSUMS:
   screen_capturer_macos: e91a66e1eeefd5e4fe068bb1bffc053cc34b63b8
   screen_retriever_macos: 776e0fa5d42c6163d2bf772d22478df4b302b161
   Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
-  sentry_flutter: 187f9b6b06f00f36b4930ec7ea9f34c254095d15
+  sentry_flutter: 2df8b0aab7e4aba81261c230cbea31c82a62dd1b
   share_plus: 1fa619de8392a4398bfaf176d441853922614e89
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: c82c93949963e55b228a30115bd219499a6fe404

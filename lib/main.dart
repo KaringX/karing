@@ -465,11 +465,11 @@ class MyAppState extends State<MyApp>
       try {
         if (Platform.isWindows) {
           await trayManager.setIcon(
-            grey ? 'assets/icons/grey_tray.ico' : 'assets/icons/tray.ico',
+            grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
           );
         } else {
           await trayManager.setIcon(
-            grey ? 'assets/icons/grey_tray.png' : 'assets/icons/tray.png',
+            grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
           );
         }
         _trayGrey = grey;

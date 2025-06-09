@@ -35,6 +35,7 @@ class Zashboard {
       if (_port == 0) {
         return ReturnResultError("Zashboard.getAvaliablePort failed");
       }
+
       try {
         _server = await HttpServer.bind("127.0.0.1", _port);
       } catch (err, stacktrace) {

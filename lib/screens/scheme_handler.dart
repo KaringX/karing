@@ -6,20 +6,14 @@ import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
-import 'package:karing/app/utils/backup_and_sync_utils.dart';
-import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/karing_utils.dart';
-import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
-import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
-import 'package:path/path.dart' as path;
 import 'package:window_manager/window_manager.dart';
 
 class SchemeHandler {
@@ -191,37 +185,10 @@ class SchemeHandler {
     if (url == null || url.isEmpty) {
       return ReturnResultError("decode query param url failed");
     }
-    Uri? downloadUri = Uri.tryParse(url);
-    if (downloadUri == null) {
-      return ReturnResultError("parse query param url failed");
-    }
-    final tcontext = Translations.of(context);
-    bool? ok = await DialogUtils.showConfirmDialog(
-        context, tcontext.SettingsScreen.rewriteConfirm);
-    if (ok != true) {
-      return ReturnResultError("user reject to overwrite");
-    }
     if (!context.mounted) {
       return ReturnResultError("page unmounted");
     }
-    DialogUtils.showLoadingDialog(context, text: "");
-    String dir = await PathUtils.cacheDir();
-    String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-    var result = await HttpUtils.httpDownload(
-        downloadUri, filePath, null, null, const Duration(seconds: 10));
-
-    if (!context.mounted) {
-      return ReturnResultError("page unmounted");
-    }
-    Navigator.pop(context);
-    if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
-      return ReturnResultError(result.error!.message);
-    }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
-    await FileUtils.deletePath(filePath);
-    return null;
+    return GroupHelper.restoreBackupFromUrl(context, url);
   }
 
   static Future<ReturnResultError?> addConfigBySubscriptionLink(

@@ -57,7 +57,8 @@ class _DiversionRuleDetectScreenState
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "DiversionRuleDetectScreen");
+    return await Biz.startOrRestartIfDirtyVPN(
+        context, "DiversionRuleDetectScreen");
   }
 
   String getTagName(String tag) {

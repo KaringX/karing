@@ -82,7 +82,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "NetCheckScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "NetCheckScreen");
   }
 
   void _connectLog() async {
@@ -442,14 +442,14 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         dnsAddress = settingConfig.dns.getProxyDns(regionCode, tunMode);
         name = tcontext.SettingsScreen.dnsTypeProxy;
         switch (settingConfig.dns.proxyResolveMode) {
+          case SettingConfigItemDNSProxyResolveMode.fakeip:
+            detourName = tcontext.dnsProxyResolveMode.fakeip;
+            break;
           case SettingConfigItemDNSProxyResolveMode.proxy:
             detourName = tcontext.dnsProxyResolveMode.proxy;
             break;
           case SettingConfigItemDNSProxyResolveMode.direct:
             detourName = tcontext.dnsProxyResolveMode.direct;
-            break;
-          case SettingConfigItemDNSProxyResolveMode.fakeip:
-            detourName = tcontext.dnsProxyResolveMode.fakeip;
             break;
         }
 

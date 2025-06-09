@@ -24,6 +24,7 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/singbox_dns.dart';
 import 'package:karing/app/utils/tag_gen.dart';
 import 'package:karing/app/utils/zip_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -834,9 +835,9 @@ class ServerManager {
       _serverConfig.items.insert(0, item);
       return;
     }
-
+    String content = "";
     try {
-      String content = await File(filePath).readAsString();
+      content = await File(filePath).readAsString();
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _serverConfig.fromJson(config);
@@ -848,7 +849,7 @@ class ServerManager {
     } catch (err, stacktrace) {
       SentryUtils.captureException(
           'ServerManager.loadServerConfig.exception', [], err, stacktrace,
-          attachments: [filePath]);
+          attachments: {filePath: content});
       Log.w(
           "ServerManager.loadServerConfig exception $filePath ${err.toString()}");
     }
@@ -886,9 +887,9 @@ class ServerManager {
       _diversionGroupConfig.items.insert(0, item);
       return;
     }
-
+    String content = "";
     try {
-      String content = await File(filePath).readAsString();
+      content = await File(filePath).readAsString();
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _diversionGroupConfig.fromJson(config);
@@ -899,7 +900,7 @@ class ServerManager {
           [],
           err,
           stacktrace,
-          attachments: [filePath]);
+          attachments: {filePath: content});
       Log.w(
           "ServerManager.loadDiversionGroupConfig exception $filePath ${err.toString()}");
     }
@@ -1091,27 +1092,42 @@ class ServerManager {
     var settingConfig = SettingManager.getConfig();
     String regionCode = settingConfig.regionCode.toLowerCase();
     bool tunMode = await VPNService.getTunMode();
-    List<String> dnsAddress =
+    List<String> resolver =
         settingConfig.dns.getResolverDns(regionCode, tunMode);
-    DNSQueryRequest req = DNSQueryRequest();
-    req.resolver.tag = "dns_resolver";
-    if (dnsAddress.length == 1) {
-      req.resolver.address = dnsAddress[0];
-    } else {
-      req.resolver.addresses = dnsAddress.toList();
-    }
-    req.resolver.strategy = settingConfig.ipStrategy.name;
-    req.resolver.detour = kOutboundTagDirect;
 
-    req.query.tag = dnsUrl.join(",");
-    if (dnsUrl.length == 1) {
-      req.query.address = dnsUrl[0];
-    } else {
-      req.query.addresses = dnsUrl.toList();
+    Set<String> allUrls = {};
+    allUrls.addAll(resolver);
+    allUrls.addAll(dnsUrl);
+    String tag = "dns_latency_test_tag";
+    String tagResolver = "dns_latency_test_resolver_tag";
+    final servers = SingboxDNSTryParseList(allUrls.toList(), tagResolver, null);
+    if (servers.error != null) {
+      return ReturnResult(error: servers.error);
     }
-    req.query.strategy = settingConfig.ipStrategy.name;
-    req.query.detour = detour;
+
+    DNSQueryRequest req = DNSQueryRequest();
+    req.servers = servers.data!;
+    if (detour != kOutboundTagDirect) {
+      final serversDetour = SingboxDNSTryParseList(dnsUrl, tagResolver, detour);
+      if (serversDetour.error != null) {
+        return ReturnResult(error: serversDetour.error);
+      }
+      req.servers.addAll(serversDetour.data!);
+      List<String> detourTags = [];
+      for (var server in serversDetour.data!) {
+        detourTags.add(server.tag);
+      }
+      req.servers.add(SingboxDNSServerBatchOptions(tag, servers: detourTags));
+    } else {
+      req.servers.add(SingboxDNSServerBatchOptions(tag, servers: dnsUrl));
+    }
+
+    req.servers
+        .add(SingboxDNSServerBatchOptions(tagResolver, servers: resolver));
+
+    req.tag = tag;
     req.domain = testDomain ?? settingConfig.dns.testDomain;
+    req.strategy = settingConfig.ipStrategy.name;
 
     ReturnResult<String> data = await ClashApi.dnsQuery(
         SettingManager.getConfig().proxy.controlPort, req);
@@ -1194,7 +1210,7 @@ class ServerManager {
       return ReturnResultError("invalid group");
     }
     if (!item.enable) {
-      return ReturnResultError("disable");
+      return ReturnResultError("group disabled");
     }
     if (item.servers.isEmpty) {
       return ReturnResultError("no server to test");
@@ -1872,7 +1888,7 @@ class ServerManager {
     } catch (err, stacktrace) {
       SentryUtils.captureException(
           'ServerManager.loadUse.exception', [], err, stacktrace,
-          attachments: [filePath]);
+          attachments: {filePath: content});
       Log.w("ServerManager.loadUse exception $filePath ${err.toString()}");
     }
   }

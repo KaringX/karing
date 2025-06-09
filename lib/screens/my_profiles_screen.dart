@@ -18,7 +18,7 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
-import 'package:karing/app/utils/singbox_json.dart';
+import 'package:karing/app/utils/singbox_outbound.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
@@ -136,7 +136,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   Future<bool> startVPN() async {
-    return await Biz.startVPN(context, true, "MyProfilesScreen");
+    return await Biz.startOrRestartIfDirtyVPN(context, "MyProfilesScreen");
   }
 
   void _buildData() {
@@ -340,6 +340,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: InkWell(
                       onTap: () async {
                         ServerManager.reload(item.groupid).then((value) {
+                          if (item.enable && item.reloadAfterProfileUpdate) {
+                            ServerManager.setDirty(true);
+                          }
                           if (!mounted) {
                             return;
                           }
@@ -563,6 +566,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
               if (value.error != null) {
                 if (value.error!.message.contains("405")) {
                   ServerManager.reload(item.groupid).then((value) {
+                    if (item.enable && item.reloadAfterProfileUpdate) {
+                      ServerManager.setDirty(true);
+                    }
                     if (!mounted) {
                       return;
                     }
@@ -1256,9 +1262,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     await ServerManager.enableGroup(groupid, newValue);
-    if (!newValue) {
-      ServerManager.setDirty(true);
-    }
+    // if (!newValue) {
+    ServerManager.setDirty(true);
+    //}
 
     if (!mounted) {
       return;
@@ -1287,56 +1293,60 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         SingboxOutboundType.tuic.name,
         SingboxOutboundType.tor.name,
         SingboxOutboundType.ssh.name,
+        SingboxOutboundType.anytls.name,
       ],
       SingboxOutboundType.socks.name,
     );
     if (name == null || name.data == null) {
       return;
     }
-    SingboxJsonOptions sbOptions = SingboxJsonOptions();
+    SingboxOutboundOptions sbOptions = SingboxOutboundOptions();
     sbOptions.type = name.data!;
     switch (sbOptions.type) {
       case "shadowsocks":
-        sbOptions.shadowsocks = SingboxJsonOutboundShadowsocksOptions();
+        sbOptions.shadowsocks = SingboxOutboundShadowsocksOptions();
         break;
       case "shadowsocksr":
-        sbOptions.shadowsocksr = SingboxJsonOutboundShadowsocksROptions();
+        sbOptions.shadowsocksr = SingboxOutboundShadowsocksROptions();
         break;
       case "shadowtls":
-        sbOptions.shadowtls = SingboxJsonOutboundShadowTLSOptions();
+        sbOptions.shadowtls = SingboxOutboundShadowTLSOptions();
         break;
       case "vmess":
-        sbOptions.vmess = SingboxJsonOutboundVMessOptions();
+        sbOptions.vmess = SingboxOutboundVMessOptions();
         break;
       case "vless":
-        sbOptions.vless = SingboxJsonOutboundVLESSOptions();
+        sbOptions.vless = SingboxOutboundVLESSOptions();
         break;
       case "trojan":
-        sbOptions.trojan = SingboxJsonOutboundTrojanOptions();
+        sbOptions.trojan = SingboxOutboundTrojanOptions();
         break;
       case "socks":
-        sbOptions.socks = SingboxJsonOutboundSocksOptions();
+        sbOptions.socks = SingboxOutboundSocksOptions();
         break;
       case "http":
-        sbOptions.http = SingboxJsonOutboundHTTPOptions();
+        sbOptions.http = SingboxOutboundHTTPOptions();
         break;
       case "hysteria":
-        sbOptions.hysteria = SingboxJsonOutboundHysteriaOptions();
+        sbOptions.hysteria = SingboxOutboundHysteriaOptions();
         break;
       case "hysteria2":
-        sbOptions.hysteria2 = SingboxJsonOutboundHysteria2Options();
+        sbOptions.hysteria2 = SingboxOutboundHysteria2Options();
         break;
       case "wireguard":
-        sbOptions.wg = SingboxJsonOutboundWireGuardOptions();
+        sbOptions.wg = SingboxOutboundWireGuardOptions();
         break;
       case "tuic":
-        sbOptions.tuic = SingboxJsonOutboundTUICOptions();
+        sbOptions.tuic = SingboxOutboundTUICOptions();
         break;
       case "tor":
-        sbOptions.tor = SingboxJsonOutboundTorOptions();
+        sbOptions.tor = SingboxOutboundTorOptions();
         break;
       case "ssh":
-        sbOptions.ssh = SingboxJsonOutboundSSHOptions();
+        sbOptions.ssh = SingboxOutboundSSHOptions();
+        break;
+      case "anytls":
+        sbOptions.anytls = SingboxOutboundAnyTlsOptions();
         break;
       default:
         return;
@@ -1499,7 +1509,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     if (!mounted) {
       return;
     }
-
+    bool tunMode = false;
     String savePath =
         path.join(await PathUtils.cacheDir(), 'profile_share.json');
     await FileUtils.deletePath(savePath);
@@ -1518,10 +1528,15 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
     }
     config.ntp = SingboxConfigBuilder.ntp();
-    config.dns =
-        SingboxConfigBuilder.dns(false, SingboxExportType.singbox, null);
+    final dns = SingboxConfigBuilder.dns(tunMode, SingboxExportType.karing);
+    if (dns.error != null) {
+      DialogUtils.showAlertDialog(context, dns.error!.message,
+          showCopy: true, showFAQ: true, withVersion: true);
+      return;
+    }
+    config.dns = dns.data!;
     config.inbounds = SingboxConfigBuilder.inbounds(
-        false, false, [], SingboxExportType.singbox, null);
+        false, false, [], SingboxExportType.karing, null);
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
         inbound.address = ["172.19.0.1/30"];
@@ -1539,7 +1554,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         null,
         {},
         [],
-        SingboxExportType.singbox);
+        SingboxExportType.karing);
 
     var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();
     var ipcodesHashCode = await RulesetCodesUtils.ipCodesHashCode();
@@ -1553,6 +1568,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         ipcodesHashCode,
         aclcodesHashCode,
         false,
+        tunMode,
         allOutBounds,
         {},
         null,
@@ -1560,8 +1576,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         config.inbounds,
         config.dns,
         null,
+        null,
         item.groupid,
-        SingboxExportType.singbox);
+        SingboxExportType.karing);
 
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String content = encoder.convert(config);
@@ -1603,7 +1620,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         return;
       }
     }
-    SingboxJsonOptions sbOptions = SingboxJsonOptions();
+    SingboxOutboundOptions sbOptions = SingboxOutboundOptions();
     try {
       sbOptions.fromJson(server.raw);
     } catch (err) {
@@ -1650,9 +1667,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 ),
                 textWidthPercent: 0.6,
                 onChanged: (String value) {
-                  if (value.isEmpty) {
-                    return;
-                  }
                   if (value.trim().isEmpty) {
                     sbOptions.dialer?.detour = null;
                   } else {

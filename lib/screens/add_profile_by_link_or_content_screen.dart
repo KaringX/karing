@@ -89,11 +89,9 @@ class _AddProfileByLinkOrContentScreenState
   }
 
   void updateRemarkByText() {
-    Text urlText = Text(_textControllerLink.text);
-    Text remarkText = Text(_textControllerRemark.text);
-    if (remarkText.data!.trim().isEmpty) {
+    if (_textControllerRemark.text.trim().isEmpty) {
       ReturnResult<String> result =
-          ProxyConfUtils.getUrlFromQRContent(urlText.data!.trim());
+          ProxyConfUtils.getUrlFromQRContent(_textControllerLink.text.trim());
       if (result.data != null) {
         Uri? url = Uri.tryParse(result.data!);
         if (url != null) {
@@ -157,10 +155,9 @@ class _AddProfileByLinkOrContentScreenState
 
   Future<void> onAdd(BuildContext context) async {
     final tcontext = Translations.of(context);
-    Text urlText = Text(_textControllerLink.text);
-    Text remarkText = Text(_textControllerRemark.text);
-    String remark = remarkText.data!.trim();
-    String url = urlText.data!.trim();
+
+    String remark = _textControllerRemark.text.trim();
+    String url = _textControllerLink.text.trim();
     ReturnResultError? error = validAddSubscription(context, remark, url);
     if (error != null) {
       DialogUtils.showAlertDialog(context, error.message);
@@ -374,7 +371,7 @@ class _AddProfileByLinkOrContentScreenState
           pushOptions: GroupItemPushOptions(
               name: tcontext.meta.userAgent,
               text: HttpUtils.getUserAgentsStringShort(_compatible),
-              textWidthPercent: 0.24,
+              textWidthPercent: 0.5,
               tips: tcontext.ispUserAgentTips,
               onPush: _loading
                   ? null

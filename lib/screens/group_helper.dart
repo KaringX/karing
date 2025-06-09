@@ -16,6 +16,7 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
+import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/did.dart';
@@ -26,6 +27,7 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/version_compare_utils.dart';
 import 'package:karing/app/utils/zip_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/add_profile_by_import_from_file_screen.dart';
@@ -49,6 +51,7 @@ import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/map_string_and_list_add_screen.dart';
 import 'package:karing/screens/qrcode_scan_screen.dart';
 import 'package:karing/screens/region_settings_screen.dart';
+import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_group_custom_screen.dart';
@@ -168,6 +171,18 @@ class GroupHelper {
           : GroupItemOptions(),
     ]);
     return options;
+  }
+
+  static void showPrivacyPolicy(BuildContext context) {
+    final tcontext = Translations.of(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: RichtextViewScreen.routSettings(),
+            builder: (context) => RichtextViewScreen(
+                title: tcontext.meta.privacyPolicy,
+                file: AssetsUtils.privacyPolicyPath(),
+                content: "")));
   }
 
   static Future<String> showUserAgent(
@@ -505,68 +520,28 @@ class GroupHelper {
         BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
       List<Tuple2<String, String>> tupleStrings = [
+        Tuple2(SettingConfigItemDNSProxyResolveMode.fakeip.name,
+            tcontext.dnsProxyResolveMode.fakeip),
         Tuple2(SettingConfigItemDNSProxyResolveMode.proxy.name,
             tcontext.dnsProxyResolveMode.proxy),
         Tuple2(SettingConfigItemDNSProxyResolveMode.direct.name,
             tcontext.dnsProxyResolveMode.direct),
-        Tuple2(SettingConfigItemDNSProxyResolveMode.fakeip.name,
-            tcontext.dnsProxyResolveMode.fakeip),
-      ];
-      List<GroupItemOptions> options = [
-        !settingConfig.novice
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.SettingsScreen.dnsEnableRule,
-                    switchValue: settingConfig.dns.enableRule,
-                    tips: tcontext.SettingsScreen.dnsEnableRuleTips,
-                    onSwitch: (bool value) async {
-                      settingConfig.dns.enableRule = value;
-                      SettingManager.setDirty(true);
-                    }))
-            : GroupItemOptions(),
-        !settingConfig.novice
-            ? GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                    name: tcontext.SettingsScreen.dnsEnableClientSubnet,
-                    switchValue: settingConfig.dns.enableClientSubnet,
-                    onSwitch: (bool value) async {
-                      settingConfig.dns.enableClientSubnet = value;
-                      SettingManager.setDirty(true);
-                    }))
-            : GroupItemOptions(),
-        GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.SettingsScreen.dnsEnableProxyResolveMode,
-                tips: tcontext.dnsProxyResolveModeTips,
-                selected: settingConfig.dns.proxyResolveMode.name,
-                textWidthPercent: 0.5,
-                tupleStrings: tupleStrings,
-                onPicker: (String? selected) async {
-                  if (selected == null ||
-                      selected == settingConfig.dns.proxyResolveMode.name) {
-                    return;
-                  }
-                  if (selected ==
-                      SettingConfigItemDNSProxyResolveMode.proxy.name) {
-                    settingConfig.dns.proxyResolveMode =
-                        SettingConfigItemDNSProxyResolveMode.proxy;
-                  } else if (selected ==
-                      SettingConfigItemDNSProxyResolveMode.direct.name) {
-                    settingConfig.dns.proxyResolveMode =
-                        SettingConfigItemDNSProxyResolveMode.direct;
-                  } else if (selected ==
-                      SettingConfigItemDNSProxyResolveMode.fakeip.name) {
-                    settingConfig.dns.proxyResolveMode =
-                        SettingConfigItemDNSProxyResolveMode.fakeip;
-                  } else {
-                    settingConfig.dns.proxyResolveMode =
-                        SettingConfigItemDNSProxyResolveMode.proxy;
-                  }
-                  SettingManager.setDirty(true);
-                })),
       ];
 
       List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+          name: "TUN HijackDNS",
+          tips: tcontext.SettingsScreen.tunHijackTips,
+          switchValue: settingConfig.tun.hijackDns,
+          onSwitch: (bool value) async {
+            settingConfig.tun.hijackDns = value;
+            SettingManager.setDirty(true);
+          },
+        )),
+      ];
+
+      List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
           name: tcontext.meta.staticIP,
@@ -580,12 +555,14 @@ class GroupHelper {
                 tips: tcontext.SettingsScreen.inboundDomainResolveTips(
                     p: settingConfig.proxy.mixedRulePort),
                 switchValue: settingConfig.dns.enableInboundDomainResolve,
-                onSwitch: (bool value) async {
-                  settingConfig.dns.enableInboundDomainResolve = value;
-                  SettingManager.setDirty(true);
-                }))
+                onSwitch: !settingConfig.tun.hijackDns
+                    ? null
+                    : (bool value) async {
+                        settingConfig.dns.enableInboundDomainResolve = value;
+                        SettingManager.setDirty(true);
+                      }))
       ];
-      List<GroupItemOptions> options1 = [
+      List<GroupItemOptions> options2 = [
         !settingConfig.novice
             ? GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
@@ -620,7 +597,7 @@ class GroupHelper {
                     }))
             : GroupItemOptions(),
       ];
-      List<GroupItemOptions> options2 = [
+      List<GroupItemOptions> options3 = [
         GroupItemOptions(
             timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                 name: "TTL",
@@ -648,8 +625,67 @@ class GroupHelper {
                   SettingManager.saveConfig();
                 }))
       ];
-
-      List<GroupItemOptions> options3 = [
+      List<GroupItemOptions> options4 = [
+        !settingConfig.novice
+            ? GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                    name: tcontext.SettingsScreen.dnsEnableRule,
+                    switchValue: settingConfig.dns.enableRule,
+                    tips: tcontext.SettingsScreen.dnsEnableRuleTips,
+                    onSwitch: !settingConfig.tun.hijackDns
+                        ? null
+                        : (bool value) async {
+                            settingConfig.dns.enableRule = value;
+                            SettingManager.setDirty(true);
+                          }))
+            : GroupItemOptions(),
+        !settingConfig.novice
+            ? GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                    name: tcontext.SettingsScreen.dnsEnableClientSubnet,
+                    switchValue: settingConfig.dns.enableClientSubnet,
+                    onSwitch: !settingConfig.tun.hijackDns
+                        ? null
+                        : (bool value) async {
+                            settingConfig.dns.enableClientSubnet = value;
+                            SettingManager.setDirty(true);
+                          }))
+            : GroupItemOptions(),
+        GroupItemOptions(
+            stringPickerOptions: GroupItemStringPickerOptions(
+                name: tcontext.SettingsScreen.dnsEnableProxyResolveMode,
+                tips: tcontext.dnsProxyResolveModeTips,
+                selected: settingConfig.dns.proxyResolveMode.name,
+                textWidthPercent: 0.5,
+                tupleStrings: tupleStrings,
+                onPicker: !settingConfig.tun.hijackDns && !settingConfig.novice
+                    ? null
+                    : (String? selected) async {
+                        if (selected == null ||
+                            selected ==
+                                settingConfig.dns.proxyResolveMode.name) {
+                          return;
+                        }
+                        if (selected ==
+                            SettingConfigItemDNSProxyResolveMode.proxy.name) {
+                          settingConfig.dns.proxyResolveMode =
+                              SettingConfigItemDNSProxyResolveMode.proxy;
+                        } else if (selected ==
+                            SettingConfigItemDNSProxyResolveMode.direct.name) {
+                          settingConfig.dns.proxyResolveMode =
+                              SettingConfigItemDNSProxyResolveMode.direct;
+                        } else if (selected ==
+                            SettingConfigItemDNSProxyResolveMode.fakeip.name) {
+                          settingConfig.dns.proxyResolveMode =
+                              SettingConfigItemDNSProxyResolveMode.fakeip;
+                        } else {
+                          settingConfig.dns.proxyResolveMode =
+                              SettingConfigItemDNSProxyResolveMode.proxy;
+                        }
+                        SettingManager.setDirty(true);
+                      })),
+      ];
+      List<GroupItemOptions> options5 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.server,
@@ -661,17 +697,18 @@ class GroupHelper {
 
       if (settingConfig.novice) {
         return [
-          GroupItem(options: options),
-          GroupItem(options: options1),
-          GroupItem(options: options3),
+          GroupItem(options: options2),
+          GroupItem(options: options4),
+          GroupItem(options: options5),
         ];
       }
       return [
-        GroupItem(options: options),
         GroupItem(options: options0),
         GroupItem(options: options1),
         GroupItem(options: options2),
         GroupItem(options: options3),
+        GroupItem(options: options4),
+        GroupItem(options: options5),
       ];
     }
 
@@ -1440,6 +1477,44 @@ class GroupHelper {
     return whiteList;
   }
 
+  static Future<ReturnResultError?> restoreBackupFromUrl(
+      BuildContext context, String url) async {
+    Uri? downloadUri = Uri.tryParse(url);
+    if (downloadUri == null) {
+      return ReturnResultError("invalid URL: $url");
+    }
+    if (!context.mounted) {
+      return null;
+    }
+    final tcontext = Translations.of(context);
+    bool? ok = await DialogUtils.showConfirmDialog(
+        context, tcontext.SettingsScreen.rewriteConfirm);
+    if (ok != true) {
+      return null;
+    }
+    if (!context.mounted) {
+      return null;
+    }
+    DialogUtils.showLoadingDialog(context, text: "");
+    String dir = await PathUtils.cacheDir();
+    String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
+    var result = await HttpUtils.httpDownload(
+        downloadUri, filePath, null, null, const Duration(seconds: 10));
+
+    if (!context.mounted) {
+      return null;
+    }
+    Navigator.pop(context);
+    if (result.error != null) {
+      DialogUtils.showAlertDialog(context, result.error!.message,
+          showCopy: true, showFAQ: true, withVersion: true);
+      return ReturnResultError(result.error!.message);
+    }
+    await backupRestoreFromZip(context, filePath, confirm: false);
+    await FileUtils.deletePath(filePath);
+    return null;
+  }
+
   static Future<void> backupRestoreFromZip(BuildContext context, String zipPath,
       {bool confirm = false}) async {
     if (!context.mounted) {
@@ -1671,6 +1746,20 @@ class GroupHelper {
     String version = uri.queryParameters['version'] ?? '';
     String cport = uri.queryParameters['cport'] ?? '';
     String secret = uri.queryParameters['secret'] ?? '';
+    String coreVersion = uri.queryParameters['coreversion'] ?? '';
+    int value = VersionCompareUtils.compareVersionWithLength(
+        SettingConfig.kCoreVersion, coreVersion, 2);
+    if (value != 0) {
+      late String message;
+      if (value < 0) {
+        message = tcontext.appleCoreVersionNotMatch(p: "Karing");
+      } else {
+        message = tcontext.appleCoreVersionNotMatch(p: "AppleTV - Karing");
+      }
+
+      DialogUtils.showAlertDialog(context, message);
+      return ReturnResultError(message);
+    }
     if (ips.isEmpty) {
       String err =
           "${tcontext.meta.urlInvalid}: params [ips] is empty, Please make sure that your Apple TV is connected to the Internet.";
@@ -1760,6 +1849,12 @@ class GroupHelper {
                 })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
+                name: tcontext.meta.importFromUrl,
+                onPush: () async {
+                  onTapImportFromUrl(context);
+                })),
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.export,
                 onPush: () async {
                   onTapExport(context);
@@ -1813,6 +1908,29 @@ class GroupHelper {
       }
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
+    }
+  }
+
+  static Future<void> onTapImportFromUrl(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    String? text = await DialogUtils.showTextInputDialog(
+        context, tcontext.meta.url, "", null, null, (text) {
+      text = text.trim();
+
+      Uri? uri = Uri.tryParse(text);
+      if (uri == null || (!uri.isScheme("HTTP") && !uri.isScheme("HTTPS"))) {
+        DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+        return false;
+      }
+
+      return true;
+    });
+
+    if (text != null) {
+      if (!context.mounted) {
+        return;
+      }
+      restoreBackupFromUrl(context, text);
     }
   }
 
@@ -1998,30 +2116,35 @@ class GroupHelper {
                 tips: tcontext.SettingsScreen.dnsTypeDirectTips,
                 text: direct.length == 1 ? direct[0] : "${direct[0]}...",
                 textWidthPercent: 0.5,
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DnsSettingsScreen.routSettings(),
-                          builder: (context) => DnsSettingsScreen(
-                              title: tcontext.SettingsScreen.dnsTypeDirect,
-                              dnsType: DNSType.dnsTypeDirect)));
-                })),
+                onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
+                    ? null
+                    : () async {
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: DnsSettingsScreen.routSettings(),
+                                builder: (context) => DnsSettingsScreen(
+                                    title:
+                                        tcontext.SettingsScreen.dnsTypeDirect,
+                                    dnsType: DNSType.dnsTypeDirect)));
+                      })),
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.dnsTypeProxy,
                 tips: tcontext.SettingsScreen.dnsTypeProxyTips,
                 text: proxy.length == 1 ? proxy[0] : "${proxy[0]}...",
                 textWidthPercent: 0.5,
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DnsSettingsScreen.routSettings(),
-                          builder: (context) => DnsSettingsScreen(
-                              title: tcontext.SettingsScreen.dnsTypeProxy,
-                              dnsType: DNSType.dnsTypeProxy)));
-                })),
+                onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
+                    ? null
+                    : () async {
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: DnsSettingsScreen.routSettings(),
+                                builder: (context) => DnsSettingsScreen(
+                                    title: tcontext.SettingsScreen.dnsTypeProxy,
+                                    dnsType: DNSType.dnsTypeProxy)));
+                      })),
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
