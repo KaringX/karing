@@ -71,6 +71,7 @@ class TranslationsZhCn implements Translations {
 	@override late final _TranslationsOutboundRuleModeZhCn outboundRuleMode = _TranslationsOutboundRuleModeZhCn._(_root);
 	@override late final _TranslationsDnsProxyResolveModeZhCn dnsProxyResolveMode = _TranslationsDnsProxyResolveModeZhCn._(_root);
 	@override late final _TranslationsProxyStrategyZhCn proxyStrategy = _TranslationsProxyStrategyZhCn._(_root);
+	@override late final _TranslationsThemeZhCn theme = _TranslationsThemeZhCn._(_root);
 	@override String get downloadProxyStrategy => '下载通道';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]:通过代理服务器连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.direct}]:直接连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.fakeip}]:由代理服务器代为解析域名;如果断开VPN连接,你的应用可能需要重启;仅对[TUN]入站的流量生效';
 	@override String get routeFinal => 'final';
@@ -396,9 +397,11 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get autoSelect => '自动选择';
 	@override String get autoSelectServerIgnorePerProxyServer => '忽略[前置/链式]代理服务器';
 	@override String get autoSelectServerInterval => '延迟检测时间间隔';
+	@override String get autoSelectSelectedHealthCheckInterval => '当前服务器健康检测时间间隔';
 	@override String get autoSelectServerReTestIfNetworkUpdate => '网络变化时重新检测';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => '手动延时检测后更新当前服务器';
 	@override String get autoSelectServerIntervalTips => '延迟检测时间间隔越短,服务器延迟数据更新越及时,但会占用更多资源,耗电更快';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => '如果检测失败,则切换节点;如果切换节点时,未找到可用节点,则对该组重新进行延迟检测';
 	@override String get autoSelectServerFavFirst => '优先使用[我的收藏]';
 	@override String get autoSelectServerFavFirstTips => '如果[我的收藏]列表不为空,则使用[我的收藏]里的服务器';
 	@override String get autoSelectServerFilter => '过滤无效服务器';
@@ -414,6 +417,9 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get selectServerHideFav => '隐藏[我的收藏]';
 	@override String get homeScreen => '主屏';
 	@override String get theme => '主题';
+	@override String get widgetsAlpha => 'Widgets 透明度';
+	@override String get widgetsEmpty => '无可用Widget';
+	@override String get backgroundImage => '背景图';
 	@override String get myLink => '快捷链接';
 	@override String get autoConnectAfterLaunch => '启动后自动连接';
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
@@ -449,6 +455,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get handleClashScheme => '处理clash://调用';
 	@override String get handleSingboxScheme => '处理sing-box://调用';
 	@override String get alwayOnVPN => '始终开启连接';
+	@override String get disconnectAfterSleep => '系统休眠后断开连接';
 	@override String get removeSystemVPNConfig => '删除系统VPN配置';
 	@override String get timeConnectOrDisconnect => '定时连接/断开';
 	@override String get timeConnectOrDisconnectTips => 'VPN必须处于连接状态才会生效;开启后,[自动休眠]将失效';
@@ -572,6 +579,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get connectTimeout => '连接超时';
 	@override String get timeout => '超时';
 	@override String get timeoutDuration => '超时时长';
+	@override String get runDuration => '运行时长';
 	@override String get latency => '延迟';
 	@override String get latencyTest => '延迟检测';
 	@override String get language => '语言';
@@ -593,6 +601,10 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get account => '账号';
 	@override String get password => '密码';
 	@override String get required => '必填';
+	@override String get type => '类型';
+	@override String get path => '路径';
+	@override String get local => '本地';
+	@override String get remote => '远程';
 	@override String get other => '其他';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -623,6 +635,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get trafficTotal => '总流量';
 	@override String get trafficProxy => '代理流量';
 	@override String get website => '官网';
+	@override String get memory => '内存';
+	@override String get outboundMode => '出站模式';
 	@override String get rule => '规则';
 	@override String get global => '全局';
 	@override String get qrcode => '二维码';
@@ -639,6 +653,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get autoBackup => '自动备份';
 	@override String get autoBackupAddProfile => '添加配置后';
 	@override String get autoBackupRemoveProfile => '删除配置后';
+	@override String get currentProfile => '当前配置';
 	@override String get importAndExport => '导入/导出';
 	@override String get import => '导入';
 	@override String get importFromUrl => '从URL导入';
@@ -803,6 +818,18 @@ class _TranslationsProxyStrategyZhCn implements TranslationsProxyStrategyEn {
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
+// Path: theme
+class _TranslationsThemeZhCn implements TranslationsThemeEn {
+	_TranslationsThemeZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get light => '浅色';
+	@override String get dark => '黑色';
+	@override String get auto => '自动';
+}
+
 // Path: main.tray
 class _TranslationsMainTrayZhCn implements TranslationsMainTrayEn {
 	_TranslationsMainTrayZhCn._(this._root);
@@ -960,9 +987,11 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.autoSelect': return '自动选择';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return '忽略[前置/链式]代理服务器';
 			case 'SettingsScreen.autoSelectServerInterval': return '延迟检测时间间隔';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return '当前服务器健康检测时间间隔';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return '网络变化时重新检测';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return '手动延时检测后更新当前服务器';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return '延迟检测时间间隔越短,服务器延迟数据更新越及时,但会占用更多资源,耗电更快';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return '如果检测失败,则切换节点;如果切换节点时,未找到可用节点,则对该组重新进行延迟检测';
 			case 'SettingsScreen.autoSelectServerFavFirst': return '优先使用[我的收藏]';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return '如果[我的收藏]列表不为空,则使用[我的收藏]里的服务器';
 			case 'SettingsScreen.autoSelectServerFilter': return '过滤无效服务器';
@@ -978,6 +1007,9 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.selectServerHideFav': return '隐藏[我的收藏]';
 			case 'SettingsScreen.homeScreen': return '主屏';
 			case 'SettingsScreen.theme': return '主题';
+			case 'SettingsScreen.widgetsAlpha': return 'Widgets 透明度';
+			case 'SettingsScreen.widgetsEmpty': return '无可用Widget';
+			case 'SettingsScreen.backgroundImage': return '背景图';
 			case 'SettingsScreen.myLink': return '快捷链接';
 			case 'SettingsScreen.autoConnectAfterLaunch': return '启动后自动连接';
 			case 'SettingsScreen.hideAfterLaunch': return '启动后隐藏窗口';
@@ -1013,6 +1045,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.handleClashScheme': return '处理clash://调用';
 			case 'SettingsScreen.handleSingboxScheme': return '处理sing-box://调用';
 			case 'SettingsScreen.alwayOnVPN': return '始终开启连接';
+			case 'SettingsScreen.disconnectAfterSleep': return '系统休眠后断开连接';
 			case 'SettingsScreen.removeSystemVPNConfig': return '删除系统VPN配置';
 			case 'SettingsScreen.timeConnectOrDisconnect': return '定时连接/断开';
 			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'VPN必须处于连接状态才会生效;开启后,[自动休眠]将失效';
@@ -1092,6 +1125,7 @@ extension on TranslationsZhCn {
 			case 'meta.connectTimeout': return '连接超时';
 			case 'meta.timeout': return '超时';
 			case 'meta.timeoutDuration': return '超时时长';
+			case 'meta.runDuration': return '运行时长';
 			case 'meta.latency': return '延迟';
 			case 'meta.latencyTest': return '延迟检测';
 			case 'meta.language': return '语言';
@@ -1113,6 +1147,10 @@ extension on TranslationsZhCn {
 			case 'meta.account': return '账号';
 			case 'meta.password': return '密码';
 			case 'meta.required': return '必填';
+			case 'meta.type': return '类型';
+			case 'meta.path': return '路径';
+			case 'meta.local': return '本地';
+			case 'meta.remote': return '远程';
 			case 'meta.other': return '其他';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -1143,6 +1181,8 @@ extension on TranslationsZhCn {
 			case 'meta.trafficTotal': return '总流量';
 			case 'meta.trafficProxy': return '代理流量';
 			case 'meta.website': return '官网';
+			case 'meta.memory': return '内存';
+			case 'meta.outboundMode': return '出站模式';
 			case 'meta.rule': return '规则';
 			case 'meta.global': return '全局';
 			case 'meta.qrcode': return '二维码';
@@ -1159,6 +1199,7 @@ extension on TranslationsZhCn {
 			case 'meta.autoBackup': return '自动备份';
 			case 'meta.autoBackupAddProfile': return '添加配置后';
 			case 'meta.autoBackupRemoveProfile': return '删除配置后';
+			case 'meta.currentProfile': return '当前配置';
 			case 'meta.importAndExport': return '导入/导出';
 			case 'meta.import': return '导入';
 			case 'meta.importFromUrl': return '从URL导入';
@@ -1274,6 +1315,9 @@ extension on TranslationsZhCn {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'theme.light': return '浅色';
+			case 'theme.dark': return '黑色';
+			case 'theme.auto': return '自动';
 			case 'downloadProxyStrategy': return '下载通道';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]:通过代理服务器连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.direct}]:直接连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.fakeip}]:由代理服务器代为解析域名;如果断开VPN连接,你的应用可能需要重启;仅对[TUN]入站的流量生效';
 			case 'routeFinal': return 'final';

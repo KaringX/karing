@@ -74,6 +74,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsOutboundRuleModeEn outboundRuleMode = TranslationsOutboundRuleModeEn._(_root);
 	late final TranslationsDnsProxyResolveModeEn dnsProxyResolveMode = TranslationsDnsProxyResolveModeEn._(_root);
 	late final TranslationsProxyStrategyEn proxyStrategy = TranslationsProxyStrategyEn._(_root);
+	late final TranslationsThemeEn theme = TranslationsThemeEn._(_root);
 	String get downloadProxyStrategy => 'Download Channel';
 	String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
 	String get routeFinal => 'final';
@@ -399,9 +400,11 @@ class TranslationsSettingsScreenEn {
 	String get autoSelect => 'Auto Select';
 	String get autoSelectServerIgnorePerProxyServer => 'Ignore [Front/Chaine] Proxy Servers';
 	String get autoSelectServerInterval => 'Latency Checks Interval';
+	String get autoSelectSelectedHealthCheckInterval => 'Current server health check interval';
 	String get autoSelectServerReTestIfNetworkUpdate => 'Re-check Latency when Network Changes';
 	String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Update the Current Server after Manual Latency Check';
 	String get autoSelectServerIntervalTips => 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power';
+	String get autoSelectSelectedHealthCheckIntervalTips => 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency';
 	String get autoSelectServerFavFirst => 'Pri-Use [My Favs]';
 	String get autoSelectServerFavFirstTips => 'If the [My Favs] list is not empty, Then use the servers in [My Favs]';
 	String get autoSelectServerFilter => 'Filter Invalid Servers';
@@ -417,6 +420,9 @@ class TranslationsSettingsScreenEn {
 	String get selectServerHideFav => 'Hide [My Favs]';
 	String get homeScreen => 'Home Screen';
 	String get theme => 'Theme';
+	String get widgetsAlpha => 'Widgets Alpha';
+	String get widgetsEmpty => 'No Widget Available';
+	String get backgroundImage => 'Background Image';
 	String get myLink => 'Shortcut Link';
 	String get autoConnectAfterLaunch => 'Auto Connection after Launch';
 	String get hideAfterLaunch => 'Hide window after startup';
@@ -452,6 +458,7 @@ class TranslationsSettingsScreenEn {
 	String get handleClashScheme => 'Handle clash:// Call';
 	String get handleSingboxScheme => 'Handle sing-box:// Call';
 	String get alwayOnVPN => 'Always-on Connection';
+	String get disconnectAfterSleep => 'Disconnect after system sleep';
 	String get removeSystemVPNConfig => 'Delete system VPN configuration';
 	String get timeConnectOrDisconnect => 'Scheduled connect/disconnect';
 	String get timeConnectOrDisconnectTips => 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled';
@@ -575,6 +582,7 @@ class TranslationsMetaEn {
 	String get connectTimeout => 'Connect Timeout';
 	String get timeout => 'Timeout';
 	String get timeoutDuration => 'Timeout Duration';
+	String get runDuration => 'Run Duration';
 	String get latency => 'Latency';
 	String get latencyTest => 'Latency Checks';
 	String get language => 'Language';
@@ -596,6 +604,10 @@ class TranslationsMetaEn {
 	String get account => 'Account';
 	String get password => 'Password';
 	String get required => 'Required';
+	String get type => 'Type';
+	String get path => 'Path';
+	String get local => 'Local';
+	String get remote => 'Remote';
 	String get other => 'Other';
 	String get dns => 'DNS';
 	String get url => 'URL';
@@ -626,6 +638,8 @@ class TranslationsMetaEn {
 	String get trafficTotal => 'Traffic Total';
 	String get trafficProxy => 'Traffic Proxy';
 	String get website => 'Website';
+	String get memory => 'Memory';
+	String get outboundMode => 'Outbound Mode';
 	String get rule => 'Rule';
 	String get global => 'Global';
 	String get qrcode => 'QR Code';
@@ -642,6 +656,7 @@ class TranslationsMetaEn {
 	String get autoBackup => 'Auto backup';
 	String get autoBackupAddProfile => 'After adding the Profile';
 	String get autoBackupRemoveProfile => 'After deleting the Profile';
+	String get currentProfile => 'Current Profile';
 	String get importAndExport => 'Import and Export';
 	String get import => 'Import';
 	String get importFromUrl => 'Import from URL';
@@ -806,6 +821,18 @@ class TranslationsProxyStrategyEn {
 	String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
+// Path: theme
+class TranslationsThemeEn {
+	TranslationsThemeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get light => 'Light';
+	String get dark => 'Dark';
+	String get auto => 'Auto';
+}
+
 // Path: main.tray
 class TranslationsMainTrayEn {
 	TranslationsMainTrayEn._(this._root);
@@ -963,9 +990,11 @@ extension on Translations {
 			case 'SettingsScreen.autoSelect': return 'Auto Select';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Ignore [Front/Chaine] Proxy Servers';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Latency Checks Interval';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'Current server health check interval';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Re-check Latency when Network Changes';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Update the Current Server after Manual Latency Check';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency';
 			case 'SettingsScreen.autoSelectServerFavFirst': return 'Pri-Use [My Favs]';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'If the [My Favs] list is not empty, Then use the servers in [My Favs]';
 			case 'SettingsScreen.autoSelectServerFilter': return 'Filter Invalid Servers';
@@ -981,6 +1010,9 @@ extension on Translations {
 			case 'SettingsScreen.selectServerHideFav': return 'Hide [My Favs]';
 			case 'SettingsScreen.homeScreen': return 'Home Screen';
 			case 'SettingsScreen.theme': return 'Theme';
+			case 'SettingsScreen.widgetsAlpha': return 'Widgets Alpha';
+			case 'SettingsScreen.widgetsEmpty': return 'No Widget Available';
+			case 'SettingsScreen.backgroundImage': return 'Background Image';
 			case 'SettingsScreen.myLink': return 'Shortcut Link';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'Auto Connection after Launch';
 			case 'SettingsScreen.hideAfterLaunch': return 'Hide window after startup';
@@ -1016,6 +1048,7 @@ extension on Translations {
 			case 'SettingsScreen.handleClashScheme': return 'Handle clash:// Call';
 			case 'SettingsScreen.handleSingboxScheme': return 'Handle sing-box:// Call';
 			case 'SettingsScreen.alwayOnVPN': return 'Always-on Connection';
+			case 'SettingsScreen.disconnectAfterSleep': return 'Disconnect after system sleep';
 			case 'SettingsScreen.removeSystemVPNConfig': return 'Delete system VPN configuration';
 			case 'SettingsScreen.timeConnectOrDisconnect': return 'Scheduled connect/disconnect';
 			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled';
@@ -1095,6 +1128,7 @@ extension on Translations {
 			case 'meta.connectTimeout': return 'Connect Timeout';
 			case 'meta.timeout': return 'Timeout';
 			case 'meta.timeoutDuration': return 'Timeout Duration';
+			case 'meta.runDuration': return 'Run Duration';
 			case 'meta.latency': return 'Latency';
 			case 'meta.latencyTest': return 'Latency Checks';
 			case 'meta.language': return 'Language';
@@ -1116,6 +1150,10 @@ extension on Translations {
 			case 'meta.account': return 'Account';
 			case 'meta.password': return 'Password';
 			case 'meta.required': return 'Required';
+			case 'meta.type': return 'Type';
+			case 'meta.path': return 'Path';
+			case 'meta.local': return 'Local';
+			case 'meta.remote': return 'Remote';
 			case 'meta.other': return 'Other';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -1146,6 +1184,8 @@ extension on Translations {
 			case 'meta.trafficTotal': return 'Traffic Total';
 			case 'meta.trafficProxy': return 'Traffic Proxy';
 			case 'meta.website': return 'Website';
+			case 'meta.memory': return 'Memory';
+			case 'meta.outboundMode': return 'Outbound Mode';
 			case 'meta.rule': return 'Rule';
 			case 'meta.global': return 'Global';
 			case 'meta.qrcode': return 'QR Code';
@@ -1162,6 +1202,7 @@ extension on Translations {
 			case 'meta.autoBackup': return 'Auto backup';
 			case 'meta.autoBackupAddProfile': return 'After adding the Profile';
 			case 'meta.autoBackupRemoveProfile': return 'After deleting the Profile';
+			case 'meta.currentProfile': return 'Current Profile';
 			case 'meta.importAndExport': return 'Import and Export';
 			case 'meta.import': return 'Import';
 			case 'meta.importFromUrl': return 'Import from URL';
@@ -1277,6 +1318,9 @@ extension on Translations {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'theme.light': return 'Light';
+			case 'theme.dark': return 'Dark';
+			case 'theme.auto': return 'Auto';
 			case 'downloadProxyStrategy': return 'Download Channel';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
 			case 'routeFinal': return 'final';

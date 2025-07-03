@@ -71,6 +71,7 @@ class TranslationsRu implements Translations {
 	@override late final _TranslationsOutboundRuleModeRu outboundRuleMode = _TranslationsOutboundRuleModeRu._(_root);
 	@override late final _TranslationsDnsProxyResolveModeRu dnsProxyResolveMode = _TranslationsDnsProxyResolveModeRu._(_root);
 	@override late final _TranslationsProxyStrategyRu proxyStrategy = _TranslationsProxyStrategyRu._(_root);
+	@override late final _TranslationsThemeRu theme = _TranslationsThemeRu._(_root);
 	@override String get downloadProxyStrategy => 'Канал загрузки';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 	@override String get routeFinal => 'Final';
@@ -396,8 +397,10 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoSelect => 'Автовыбор';
 	@override String get autoSelectServerIgnorePerProxyServer => 'Игнорировать [фронт/цепные] прокси-серверы';
 	@override String get autoSelectServerInterval => 'Интервал проверок задержки';
+	@override String get autoSelectSelectedHealthCheckInterval => 'Текущий интервал проверки работоспособности сервера';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'Перетестировать после смены сети';
 	@override String get autoSelectServerIntervalTips => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.';
 	@override String get autoSelectServerFavFirst => 'Предпочитать [Мои избранные]';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Обновить текущий сервер после измерения задержки вручную';
 	@override String get autoSelectServerFavFirstTips => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
@@ -414,6 +417,9 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get selectServerHideFav => 'Скрыть [Мои избранные]';
 	@override String get homeScreen => 'Настройка главного экрана';
 	@override String get theme => 'Тема';
+	@override String get widgetsAlpha => 'Прозрачность виджетов';
+	@override String get widgetsEmpty => 'Виджет недоступен';
+	@override String get backgroundImage => 'Фоновое изображение';
 	@override String get myLink => 'Быстрая ссылка';
 	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
@@ -449,6 +455,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get handleClashScheme => 'Вызов clash://[параметры]';
 	@override String get handleSingboxScheme => 'Вызов sing-box://[параметры]';
 	@override String get alwayOnVPN => 'всегда открытое соединение';
+	@override String get disconnectAfterSleep => 'Отключение после спящего режима системы';
 	@override String get removeSystemVPNConfig => 'Удалить профиль VPN';
 	@override String get timeConnectOrDisconnect => 'Запланированное подключение/отключение';
 	@override String get timeConnectOrDisconnectTips => 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено';
@@ -572,6 +579,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get connectTimeout => 'Таймаут при соединении';
 	@override String get timeout => 'Тайм-аут';
 	@override String get timeoutDuration => 'Длительность тайм-аута';
+	@override String get runDuration => 'Время выполнения';
 	@override String get latency => 'Задерживать';
 	@override String get latencyTest => 'Обнаружение задержки';
 	@override String get language => 'Язык';
@@ -593,6 +601,10 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
 	@override String get required => 'Необходимо';
+	@override String get type => 'тип';
+	@override String get path => 'путь';
+	@override String get local => 'местный';
+	@override String get remote => 'удаленный';
 	@override String get other => 'Другой';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -623,6 +635,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get trafficTotal => 'Трафик всего';
 	@override String get trafficProxy => 'Трафик прокси';
 	@override String get website => 'Веб-сайт';
+	@override String get memory => 'Память';
+	@override String get outboundMode => 'Исходящий режим';
 	@override String get rule => 'Правила';
 	@override String get global => 'Глобально';
 	@override String get qrcode => 'QR-код';
@@ -639,6 +653,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get autoBackup => 'Автоматическое резервное копирование';
 	@override String get autoBackupAddProfile => 'После добавления конфигурации';
 	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
+	@override String get currentProfile => 'Текущая конфигурация';
 	@override String get importAndExport => 'Импорт и экспорт в файл';
 	@override String get import => 'Импорт';
 	@override String get importFromUrl => 'Импорт из URL';
@@ -803,6 +818,18 @@ class _TranslationsProxyStrategyRu implements TranslationsProxyStrategyEn {
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
+// Path: theme
+class _TranslationsThemeRu implements TranslationsThemeEn {
+	_TranslationsThemeRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get light => 'Светлый цвет';
+	@override String get dark => 'черный';
+	@override String get auto => 'автоматический';
+}
+
 // Path: main.tray
 class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 	_TranslationsMainTrayRu._(this._root);
@@ -960,8 +987,10 @@ extension on TranslationsRu {
 			case 'SettingsScreen.autoSelect': return 'Автовыбор';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронт/цепные] прокси-серверы';
 			case 'SettingsScreen.autoSelectServerInterval': return 'Интервал проверок задержки';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'Текущий интервал проверки работоспособности сервера';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Перетестировать после смены сети';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.';
 			case 'SettingsScreen.autoSelectServerFavFirst': return 'Предпочитать [Мои избранные]';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Обновить текущий сервер после измерения задержки вручную';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
@@ -978,6 +1007,9 @@ extension on TranslationsRu {
 			case 'SettingsScreen.selectServerHideFav': return 'Скрыть [Мои избранные]';
 			case 'SettingsScreen.homeScreen': return 'Настройка главного экрана';
 			case 'SettingsScreen.theme': return 'Тема';
+			case 'SettingsScreen.widgetsAlpha': return 'Прозрачность виджетов';
+			case 'SettingsScreen.widgetsEmpty': return 'Виджет недоступен';
+			case 'SettingsScreen.backgroundImage': return 'Фоновое изображение';
 			case 'SettingsScreen.myLink': return 'Быстрая ссылка';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
 			case 'SettingsScreen.hideAfterLaunch': return 'Скрыть окно после запуска';
@@ -1013,6 +1045,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.handleClashScheme': return 'Вызов clash://[параметры]';
 			case 'SettingsScreen.handleSingboxScheme': return 'Вызов sing-box://[параметры]';
 			case 'SettingsScreen.alwayOnVPN': return 'всегда открытое соединение';
+			case 'SettingsScreen.disconnectAfterSleep': return 'Отключение после спящего режима системы';
 			case 'SettingsScreen.removeSystemVPNConfig': return 'Удалить профиль VPN';
 			case 'SettingsScreen.timeConnectOrDisconnect': return 'Запланированное подключение/отключение';
 			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено';
@@ -1092,6 +1125,7 @@ extension on TranslationsRu {
 			case 'meta.connectTimeout': return 'Таймаут при соединении';
 			case 'meta.timeout': return 'Тайм-аут';
 			case 'meta.timeoutDuration': return 'Длительность тайм-аута';
+			case 'meta.runDuration': return 'Время выполнения';
 			case 'meta.latency': return 'Задерживать';
 			case 'meta.latencyTest': return 'Обнаружение задержки';
 			case 'meta.language': return 'Язык';
@@ -1113,6 +1147,10 @@ extension on TranslationsRu {
 			case 'meta.account': return 'Аккаунт';
 			case 'meta.password': return 'Пароль';
 			case 'meta.required': return 'Необходимо';
+			case 'meta.type': return 'тип';
+			case 'meta.path': return 'путь';
+			case 'meta.local': return 'местный';
+			case 'meta.remote': return 'удаленный';
 			case 'meta.other': return 'Другой';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -1143,6 +1181,8 @@ extension on TranslationsRu {
 			case 'meta.trafficTotal': return 'Трафик всего';
 			case 'meta.trafficProxy': return 'Трафик прокси';
 			case 'meta.website': return 'Веб-сайт';
+			case 'meta.memory': return 'Память';
+			case 'meta.outboundMode': return 'Исходящий режим';
 			case 'meta.rule': return 'Правила';
 			case 'meta.global': return 'Глобально';
 			case 'meta.qrcode': return 'QR-код';
@@ -1159,6 +1199,7 @@ extension on TranslationsRu {
 			case 'meta.autoBackup': return 'Автоматическое резервное копирование';
 			case 'meta.autoBackupAddProfile': return 'После добавления конфигурации';
 			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
+			case 'meta.currentProfile': return 'Текущая конфигурация';
 			case 'meta.importAndExport': return 'Импорт и экспорт в файл';
 			case 'meta.import': return 'Импорт';
 			case 'meta.importFromUrl': return 'Импорт из URL';
@@ -1274,6 +1315,9 @@ extension on TranslationsRu {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'theme.light': return 'Светлый цвет';
+			case 'theme.dark': return 'черный';
+			case 'theme.auto': return 'автоматический';
 			case 'downloadProxyStrategy': return 'Канал загрузки';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 			case 'routeFinal': return 'Final';

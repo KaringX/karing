@@ -71,6 +71,7 @@ class TranslationsFa implements Translations {
 	@override late final _TranslationsOutboundRuleModeFa outboundRuleMode = _TranslationsOutboundRuleModeFa._(_root);
 	@override late final _TranslationsDnsProxyResolveModeFa dnsProxyResolveMode = _TranslationsDnsProxyResolveModeFa._(_root);
 	@override late final _TranslationsProxyStrategyFa proxyStrategy = _TranslationsProxyStrategyFa._(_root);
+	@override late final _TranslationsThemeFa theme = _TranslationsThemeFa._(_root);
 	@override String get downloadProxyStrategy => 'کانال دانلود';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
 	@override String get routeFinal => 'نهایی';
@@ -396,9 +397,11 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get autoSelect => 'انتخاب خودکار';
 	@override String get autoSelectServerIgnorePerProxyServer => 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید';
 	@override String get autoSelectServerInterval => 'بازه زمانی بررسی تاخیر';
+	@override String get autoSelectSelectedHealthCheckInterval => 'فاصله بررسی سلامت سرور فعلی';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'شناسایی مجدد زمانی که شبکه تغییر می کند';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید';
 	@override String get autoSelectServerIntervalTips => 'هرچه فاصله تشخیص تاخیر کمتر باشد، داده های تاخیر سرور به موقع به روز می شود، اما منابع بیشتری را اشغال می کند و برق را سریعتر مصرف می کند';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'اگر تشخیص ناموفق باشد، گره تغییر می کند. اگر هنگام تعویض گره هیچ گره در دسترس پیدا نشد، گروه با تاخیر دوباره شناسایی می شود';
 	@override String get autoSelectServerFavFirst => 'اولویت استفاده از [علاقه‌مندی‌های من]';
 	@override String get autoSelectServerFavFirstTips => 'اگر لیست [علاقه‌مندی‌های من] خالی نبود از سرور‌های داخل [علاقه‌مندی‌های من] استفاده کن';
 	@override String get autoSelectServerFilter => 'فیلترکردن سرور‌های نامعتبر';
@@ -414,6 +417,9 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get selectServerHideFav => 'مخفی‌کردن [علاقه‌مندی‌های من]';
 	@override String get homeScreen => 'صفحه‌ خانه';
 	@override String get theme => 'تِم';
+	@override String get widgetsAlpha => 'شفافیت ابزارک‌ها';
+	@override String get widgetsEmpty => 'هیچ ویجتی موجود نیست';
+	@override String get backgroundImage => 'تصویر پس زمینه';
 	@override String get myLink => 'لینک میان‌بر';
 	@override String get autoConnectAfterLaunch => 'اتصال خودکار پس‌از راه‌اندازی';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
@@ -449,6 +455,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get handleClashScheme => 'رسیدگی به‌ ندای clash://';
 	@override String get handleSingboxScheme => 'رسیدگی به ندای sing-box://';
 	@override String get alwayOnVPN => 'اتصال همیشه باز';
+	@override String get disconnectAfterSleep => 'بعد از خواب زمستانی سیستم را قطع کنید';
 	@override String get removeSystemVPNConfig => 'حذف پیکربندی وی‌پی‌ان سیستم';
 	@override String get timeConnectOrDisconnect => 'اتصال/قطع اتصال برنامه‌ریزی شده';
 	@override String get timeConnectOrDisconnectTips => 'برای اعمال شدن وی‌پی‌ان باید متصل باشد. پس‌از روشن‌شدن [خواب خودکار] غیرفعال می‌شود';
@@ -572,6 +579,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get connectTimeout => 'اتمام مهلت اتصال';
 	@override String get timeout => 'تایم اوت';
 	@override String get timeoutDuration => 'مدت زمان وقفه';
+	@override String get runDuration => 'زمان اجرا';
 	@override String get latency => 'تاخیر';
 	@override String get latencyTest => 'بررسی تاخیر';
 	@override String get language => 'زبان';
@@ -593,6 +601,10 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
 	@override String get required => 'الزامی';
+	@override String get type => 'نوع';
+	@override String get path => 'مسیر';
+	@override String get local => 'محلی';
+	@override String get remote => 'از راه دور';
 	@override String get other => 'دیگر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -623,6 +635,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get trafficTotal => 'کل ترافیک';
 	@override String get trafficProxy => 'ترافیک پروکسی';
 	@override String get website => 'وبسایت';
+	@override String get memory => 'حافظه';
+	@override String get outboundMode => 'حالت خروجی';
 	@override String get rule => 'قانون';
 	@override String get global => 'عمومی';
 	@override String get qrcode => 'کد QR';
@@ -639,6 +653,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get autoBackup => 'پشتیبان گیری خودکار';
 	@override String get autoBackupAddProfile => 'بعد از اضافه کردن تنظیمات';
 	@override String get autoBackupRemoveProfile => 'پس از حذف تنظیمات';
+	@override String get currentProfile => 'پیکربندی فعلی';
 	@override String get importAndExport => 'وارد‌کردن و خروجی‌گرفتن';
 	@override String get import => 'وارد‌کردن';
 	@override String get importFromUrl => 'وارد کردن از URL';
@@ -803,6 +818,18 @@ class _TranslationsProxyStrategyFa implements TranslationsProxyStrategyEn {
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
+// Path: theme
+class _TranslationsThemeFa implements TranslationsThemeEn {
+	_TranslationsThemeFa._(this._root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get light => 'رنگ روشن';
+	@override String get dark => 'سیاه';
+	@override String get auto => 'خودکار';
+}
+
 // Path: main.tray
 class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 	_TranslationsMainTrayFa._(this._root);
@@ -960,9 +987,11 @@ extension on TranslationsFa {
 			case 'SettingsScreen.autoSelect': return 'انتخاب خودکار';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید';
 			case 'SettingsScreen.autoSelectServerInterval': return 'بازه زمانی بررسی تاخیر';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'فاصله بررسی سلامت سرور فعلی';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'شناسایی مجدد زمانی که شبکه تغییر می کند';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'هرچه فاصله تشخیص تاخیر کمتر باشد، داده های تاخیر سرور به موقع به روز می شود، اما منابع بیشتری را اشغال می کند و برق را سریعتر مصرف می کند';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'اگر تشخیص ناموفق باشد، گره تغییر می کند. اگر هنگام تعویض گره هیچ گره در دسترس پیدا نشد، گروه با تاخیر دوباره شناسایی می شود';
 			case 'SettingsScreen.autoSelectServerFavFirst': return 'اولویت استفاده از [علاقه‌مندی‌های من]';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'اگر لیست [علاقه‌مندی‌های من] خالی نبود از سرور‌های داخل [علاقه‌مندی‌های من] استفاده کن';
 			case 'SettingsScreen.autoSelectServerFilter': return 'فیلترکردن سرور‌های نامعتبر';
@@ -978,6 +1007,9 @@ extension on TranslationsFa {
 			case 'SettingsScreen.selectServerHideFav': return 'مخفی‌کردن [علاقه‌مندی‌های من]';
 			case 'SettingsScreen.homeScreen': return 'صفحه‌ خانه';
 			case 'SettingsScreen.theme': return 'تِم';
+			case 'SettingsScreen.widgetsAlpha': return 'شفافیت ابزارک‌ها';
+			case 'SettingsScreen.widgetsEmpty': return 'هیچ ویجتی موجود نیست';
+			case 'SettingsScreen.backgroundImage': return 'تصویر پس زمینه';
 			case 'SettingsScreen.myLink': return 'لینک میان‌بر';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال خودکار پس‌از راه‌اندازی';
 			case 'SettingsScreen.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
@@ -1013,6 +1045,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.handleClashScheme': return 'رسیدگی به‌ ندای clash://';
 			case 'SettingsScreen.handleSingboxScheme': return 'رسیدگی به ندای sing-box://';
 			case 'SettingsScreen.alwayOnVPN': return 'اتصال همیشه باز';
+			case 'SettingsScreen.disconnectAfterSleep': return 'بعد از خواب زمستانی سیستم را قطع کنید';
 			case 'SettingsScreen.removeSystemVPNConfig': return 'حذف پیکربندی وی‌پی‌ان سیستم';
 			case 'SettingsScreen.timeConnectOrDisconnect': return 'اتصال/قطع اتصال برنامه‌ریزی شده';
 			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'برای اعمال شدن وی‌پی‌ان باید متصل باشد. پس‌از روشن‌شدن [خواب خودکار] غیرفعال می‌شود';
@@ -1092,6 +1125,7 @@ extension on TranslationsFa {
 			case 'meta.connectTimeout': return 'اتمام مهلت اتصال';
 			case 'meta.timeout': return 'تایم اوت';
 			case 'meta.timeoutDuration': return 'مدت زمان وقفه';
+			case 'meta.runDuration': return 'زمان اجرا';
 			case 'meta.latency': return 'تاخیر';
 			case 'meta.latencyTest': return 'بررسی تاخیر';
 			case 'meta.language': return 'زبان';
@@ -1113,6 +1147,10 @@ extension on TranslationsFa {
 			case 'meta.account': return 'نام‌کاربری';
 			case 'meta.password': return 'رمز‌عبور';
 			case 'meta.required': return 'الزامی';
+			case 'meta.type': return 'نوع';
+			case 'meta.path': return 'مسیر';
+			case 'meta.local': return 'محلی';
+			case 'meta.remote': return 'از راه دور';
 			case 'meta.other': return 'دیگر';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -1143,6 +1181,8 @@ extension on TranslationsFa {
 			case 'meta.trafficTotal': return 'کل ترافیک';
 			case 'meta.trafficProxy': return 'ترافیک پروکسی';
 			case 'meta.website': return 'وبسایت';
+			case 'meta.memory': return 'حافظه';
+			case 'meta.outboundMode': return 'حالت خروجی';
 			case 'meta.rule': return 'قانون';
 			case 'meta.global': return 'عمومی';
 			case 'meta.qrcode': return 'کد QR';
@@ -1159,6 +1199,7 @@ extension on TranslationsFa {
 			case 'meta.autoBackup': return 'پشتیبان گیری خودکار';
 			case 'meta.autoBackupAddProfile': return 'بعد از اضافه کردن تنظیمات';
 			case 'meta.autoBackupRemoveProfile': return 'پس از حذف تنظیمات';
+			case 'meta.currentProfile': return 'پیکربندی فعلی';
 			case 'meta.importAndExport': return 'وارد‌کردن و خروجی‌گرفتن';
 			case 'meta.import': return 'وارد‌کردن';
 			case 'meta.importFromUrl': return 'وارد کردن از URL';
@@ -1274,6 +1315,9 @@ extension on TranslationsFa {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'theme.light': return 'رنگ روشن';
+			case 'theme.dark': return 'سیاه';
+			case 'theme.auto': return 'خودکار';
 			case 'downloadProxyStrategy': return 'کانال دانلود';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
 			case 'routeFinal': return 'نهایی';

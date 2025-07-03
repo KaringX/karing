@@ -71,6 +71,7 @@ class TranslationsAr implements Translations {
 	@override late final _TranslationsOutboundRuleModeAr outboundRuleMode = _TranslationsOutboundRuleModeAr._(_root);
 	@override late final _TranslationsDnsProxyResolveModeAr dnsProxyResolveMode = _TranslationsDnsProxyResolveModeAr._(_root);
 	@override late final _TranslationsProxyStrategyAr proxyStrategy = _TranslationsProxyStrategyAr._(_root);
+	@override late final _TranslationsThemeAr theme = _TranslationsThemeAr._(_root);
 	@override String get downloadProxyStrategy => 'تحميل القناة';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 	@override String get routeFinal => 'أخير';
@@ -396,9 +397,11 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get autoSelect => 'اختيار آلي';
 	@override String get autoSelectServerIgnorePerProxyServer => 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 	@override String get autoSelectServerInterval => 'فاصل الشيكات الكمون';
+	@override String get autoSelectSelectedHealthCheckInterval => 'فترة فحص صحة الخادم الحالية';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'إعادة اكتشاف متى تتغير الشبكة';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير';
 	@override String get autoSelectServerIntervalTips => 'كلما كان الفاصل الزمني لاكتشاف التأخير أقصر، كلما تم تحديث بيانات تأخير الخادم في الوقت المناسب، ولكنها ستشغل المزيد من الموارد وتستهلك الكهرباء بشكل أسرع';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'إذا فشل الاكتشاف، يتم تبديل العقدة؛ إذا لم يتم العثور على عقدة متاحة عند تبديل العقدة، يتم إعادة اكتشاف المجموعة مع التأخير';
 	@override String get autoSelectServerFavFirst => 'PRI-Use [My Favs]';
 	@override String get autoSelectServerFavFirstTips => 'إذا لم تكن قائمة [Favs] فارغة ، فاستخدم الخوادم في [Favs]';
 	@override String get autoSelectServerFilter => 'تصفية خوادم غير صالحة';
@@ -414,6 +417,9 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get selectServerHideFav => 'إخفاء [المفضلة لدي]';
 	@override String get homeScreen => 'الشاشة الرئيسية';
 	@override String get theme => 'Tالهيم';
+	@override String get widgetsAlpha => 'شفافية الأدوات';
+	@override String get widgetsEmpty => 'لا يوجد أداة متاحة';
+	@override String get backgroundImage => 'صورة الخلفية';
 	@override String get myLink => 'ارتباط اختصار';
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
@@ -449,6 +455,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get handleClashScheme => 'مقبض clash:// Call';
 	@override String get handleSingboxScheme => 'مقبض sing-box:// يتصل';
 	@override String get alwayOnVPN => 'اتصال مفتوح دائمًا';
+	@override String get disconnectAfterSleep => 'قطع الاتصال بعد سبات النظام';
 	@override String get removeSystemVPNConfig => 'حذف تكوين VPN النظام';
 	@override String get timeConnectOrDisconnect => 'المقرر يتصل/قطع الاتصال';
 	@override String get timeConnectOrDisconnectTips => 'يجب أن يكون VPN متصلاً ليصبح مفيدًا ؛بعد تشغيله ، سيتم تعطيل [النوم التلقائي]';
@@ -572,6 +579,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get connectTimeout => 'ربط مهلة';
 	@override String get timeout => 'نفذ الوقت';
 	@override String get timeoutDuration => 'مدة مهلة الانتظار';
+	@override String get runDuration => 'وقت التشغيل';
 	@override String get latency => 'تأخير';
 	@override String get latencyTest => 'كشف التأخير';
 	@override String get language => 'لغة';
@@ -593,6 +601,10 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
 	@override String get required => 'مطلوب';
+	@override String get type => 'يكتب';
+	@override String get path => 'طريق';
+	@override String get local => 'محلي';
+	@override String get remote => 'بعيد';
 	@override String get other => 'آخر';
 	@override String get dns => 'DNS';
 	@override String get url => 'URL';
@@ -623,6 +635,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get trafficTotal => 'إجمالي حركة المرور';
 	@override String get trafficProxy => 'وكيل حركة المرور';
 	@override String get website => 'موقع إلكتروني';
+	@override String get memory => 'ذاكرة';
+	@override String get outboundMode => 'الوضع الصادر';
 	@override String get rule => 'قاعدة';
 	@override String get global => 'عالمي';
 	@override String get qrcode => 'رمز الاستجابة السريعة';
@@ -639,6 +653,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get autoBackup => 'النسخ الاحتياطي التلقائي';
 	@override String get autoBackupAddProfile => 'بعد إضافة التكوين';
 	@override String get autoBackupRemoveProfile => 'بعد حذف التكوين';
+	@override String get currentProfile => 'التكوين الحالي';
 	@override String get importAndExport => 'استيراد وتصدير';
 	@override String get import => 'يستورد';
 	@override String get importFromUrl => 'الاستيراد من عنوان URL';
@@ -803,6 +818,18 @@ class _TranslationsProxyStrategyAr implements TranslationsProxyStrategyEn {
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
 }
 
+// Path: theme
+class _TranslationsThemeAr implements TranslationsThemeEn {
+	_TranslationsThemeAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get light => 'لون فاتح';
+	@override String get dark => 'أسود';
+	@override String get auto => 'أوتوماتيكي';
+}
+
 // Path: main.tray
 class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 	_TranslationsMainTrayAr._(this._root);
@@ -960,9 +987,11 @@ extension on TranslationsAr {
 			case 'SettingsScreen.autoSelect': return 'اختيار آلي';
 			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
 			case 'SettingsScreen.autoSelectServerInterval': return 'فاصل الشيكات الكمون';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'فترة فحص صحة الخادم الحالية';
 			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'إعادة اكتشاف متى تتغير الشبكة';
 			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير';
 			case 'SettingsScreen.autoSelectServerIntervalTips': return 'كلما كان الفاصل الزمني لاكتشاف التأخير أقصر، كلما تم تحديث بيانات تأخير الخادم في الوقت المناسب، ولكنها ستشغل المزيد من الموارد وتستهلك الكهرباء بشكل أسرع';
+			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'إذا فشل الاكتشاف، يتم تبديل العقدة؛ إذا لم يتم العثور على عقدة متاحة عند تبديل العقدة، يتم إعادة اكتشاف المجموعة مع التأخير';
 			case 'SettingsScreen.autoSelectServerFavFirst': return 'PRI-Use [My Favs]';
 			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'إذا لم تكن قائمة [Favs] فارغة ، فاستخدم الخوادم في [Favs]';
 			case 'SettingsScreen.autoSelectServerFilter': return 'تصفية خوادم غير صالحة';
@@ -978,6 +1007,9 @@ extension on TranslationsAr {
 			case 'SettingsScreen.selectServerHideFav': return 'إخفاء [المفضلة لدي]';
 			case 'SettingsScreen.homeScreen': return 'الشاشة الرئيسية';
 			case 'SettingsScreen.theme': return 'Tالهيم';
+			case 'SettingsScreen.widgetsAlpha': return 'شفافية الأدوات';
+			case 'SettingsScreen.widgetsEmpty': return 'لا يوجد أداة متاحة';
+			case 'SettingsScreen.backgroundImage': return 'صورة الخلفية';
 			case 'SettingsScreen.myLink': return 'ارتباط اختصار';
 			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
 			case 'SettingsScreen.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
@@ -1013,6 +1045,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.handleClashScheme': return 'مقبض clash:// Call';
 			case 'SettingsScreen.handleSingboxScheme': return 'مقبض sing-box:// يتصل';
 			case 'SettingsScreen.alwayOnVPN': return 'اتصال مفتوح دائمًا';
+			case 'SettingsScreen.disconnectAfterSleep': return 'قطع الاتصال بعد سبات النظام';
 			case 'SettingsScreen.removeSystemVPNConfig': return 'حذف تكوين VPN النظام';
 			case 'SettingsScreen.timeConnectOrDisconnect': return 'المقرر يتصل/قطع الاتصال';
 			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'يجب أن يكون VPN متصلاً ليصبح مفيدًا ؛بعد تشغيله ، سيتم تعطيل [النوم التلقائي]';
@@ -1092,6 +1125,7 @@ extension on TranslationsAr {
 			case 'meta.connectTimeout': return 'ربط مهلة';
 			case 'meta.timeout': return 'نفذ الوقت';
 			case 'meta.timeoutDuration': return 'مدة مهلة الانتظار';
+			case 'meta.runDuration': return 'وقت التشغيل';
 			case 'meta.latency': return 'تأخير';
 			case 'meta.latencyTest': return 'كشف التأخير';
 			case 'meta.language': return 'لغة';
@@ -1113,6 +1147,10 @@ extension on TranslationsAr {
 			case 'meta.account': return 'حساب';
 			case 'meta.password': return 'كلمة المرور';
 			case 'meta.required': return 'مطلوب';
+			case 'meta.type': return 'يكتب';
+			case 'meta.path': return 'طريق';
+			case 'meta.local': return 'محلي';
+			case 'meta.remote': return 'بعيد';
 			case 'meta.other': return 'آخر';
 			case 'meta.dns': return 'DNS';
 			case 'meta.url': return 'URL';
@@ -1143,6 +1181,8 @@ extension on TranslationsAr {
 			case 'meta.trafficTotal': return 'إجمالي حركة المرور';
 			case 'meta.trafficProxy': return 'وكيل حركة المرور';
 			case 'meta.website': return 'موقع إلكتروني';
+			case 'meta.memory': return 'ذاكرة';
+			case 'meta.outboundMode': return 'الوضع الصادر';
 			case 'meta.rule': return 'قاعدة';
 			case 'meta.global': return 'عالمي';
 			case 'meta.qrcode': return 'رمز الاستجابة السريعة';
@@ -1159,6 +1199,7 @@ extension on TranslationsAr {
 			case 'meta.autoBackup': return 'النسخ الاحتياطي التلقائي';
 			case 'meta.autoBackupAddProfile': return 'بعد إضافة التكوين';
 			case 'meta.autoBackupRemoveProfile': return 'بعد حذف التكوين';
+			case 'meta.currentProfile': return 'التكوين الحالي';
 			case 'meta.importAndExport': return 'استيراد وتصدير';
 			case 'meta.import': return 'يستورد';
 			case 'meta.importFromUrl': return 'الاستيراد من عنوان URL';
@@ -1274,6 +1315,9 @@ extension on TranslationsAr {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'theme.light': return 'لون فاتح';
+			case 'theme.dark': return 'أسود';
+			case 'theme.auto': return 'أوتوماتيكي';
 			case 'downloadProxyStrategy': return 'تحميل القناة';
 			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
 			case 'routeFinal': return 'أخير';
