@@ -71,6 +71,7 @@ class TranslationsFa implements Translations {
 	@override late final _TranslationsOutboundRuleModeFa outboundRuleMode = _TranslationsOutboundRuleModeFa._(_root);
 	@override late final _TranslationsDnsProxyResolveModeFa dnsProxyResolveMode = _TranslationsDnsProxyResolveModeFa._(_root);
 	@override late final _TranslationsProxyStrategyFa proxyStrategy = _TranslationsProxyStrategyFa._(_root);
+	@override late final _TranslationsReloadReasonFa reloadReason = _TranslationsReloadReasonFa._(_root);
 	@override late final _TranslationsThemeFa theme = _TranslationsThemeFa._(_root);
 	@override String get downloadProxyStrategy => 'کانال دانلود';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
@@ -573,6 +574,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get outbound => 'خارج شوید';
 	@override String get connect => 'اتصال';
 	@override String get disconnect => 'قطع‌ اتصال';
+	@override String get reconnect => 'دوباره وصل شوید';
 	@override String get connected => 'وصل شد';
 	@override String get disconnected => 'قطع شد';
 	@override String get connecting => 'درحال اتصال';
@@ -667,6 +669,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get name => 'نام';
 	@override String get version => 'نسخه';
 	@override String get notice => 'اطلاعیه';
+	@override String appNotifyWithReason({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}';
 	@override String get sort => 'مرتب‌سازی';
 	@override String get novice => 'حالت مبتدی';
 	@override String get tvMode => 'حالت تلویزیون';
@@ -816,6 +819,17 @@ class _TranslationsProxyStrategyFa implements TranslationsProxyStrategyEn {
 	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+}
+
+// Path: reloadReason
+class _TranslationsReloadReasonFa implements TranslationsReloadReasonEn {
+	_TranslationsReloadReasonFa._(this._root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+	@override String get profileUpdate => 'به‌روزرسانی‌های پیکربندی';
 }
 
 // Path: theme
@@ -1119,6 +1133,7 @@ extension on TranslationsFa {
 			case 'meta.outbound': return 'خارج شوید';
 			case 'meta.connect': return 'اتصال';
 			case 'meta.disconnect': return 'قطع‌ اتصال';
+			case 'meta.reconnect': return 'دوباره وصل شوید';
 			case 'meta.connected': return 'وصل شد';
 			case 'meta.disconnected': return 'قطع شد';
 			case 'meta.connecting': return 'درحال اتصال';
@@ -1213,6 +1228,7 @@ extension on TranslationsFa {
 			case 'meta.name': return 'نام';
 			case 'meta.version': return 'نسخه';
 			case 'meta.notice': return 'اطلاعیه';
+			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}';
 			case 'meta.sort': return 'مرتب‌سازی';
 			case 'meta.novice': return 'حالت مبتدی';
 			case 'meta.tvMode': return 'حالت تلویزیون';
@@ -1315,6 +1331,8 @@ extension on TranslationsFa {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+			case 'reloadReason.profileUpdate': return 'به‌روزرسانی‌های پیکربندی';
 			case 'theme.light': return 'رنگ روشن';
 			case 'theme.dark': return 'سیاه';
 			case 'theme.auto': return 'خودکار';

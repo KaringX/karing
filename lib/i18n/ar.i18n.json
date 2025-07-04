@@ -317,6 +317,7 @@
         "outbound": "مخرج",
         "connect": "يتصل",
         "disconnect": "قطع الاتصال",
+        "reconnect": "إعادة الاتصال",
         "connected": "متصل",
         "disconnected": "انقطع الاتصال",
         "connecting": "توصيل",
@@ -411,6 +412,7 @@
         "name": "اسم",
         "version": "إصدار",
         "notice": "يلاحظ",
+        "appNotifyWithReason": "الإجراء: $p\nالسبب: $p1",
         "sort": "إعادة ترتيب",
         "novice": "وضع المبتدئ",
         "tvMode": "وضع التلفزيون",
@@ -525,6 +527,10 @@
         "perferDirect": "@:{meta.prefer} @:{outboundRuleMode.direct}",
         "onlyProxy": "@:{meta.only} @:{outboundRuleMode.currentSelected}",
         "onlyDirect": "@:{meta.only} @:{outboundRuleMode.direct}"
+    },
+    "reloadReason": {
+        "latencyTest": "@:{meta.latencyTest}-@:{meta.profileEditTestLatencyAutoRemove}",
+        "profileUpdate": "تحديثات التكوين"
     },
     "theme": {
         "light": "لون فاتح",

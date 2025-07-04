@@ -71,6 +71,7 @@ class TranslationsRu implements Translations {
 	@override late final _TranslationsOutboundRuleModeRu outboundRuleMode = _TranslationsOutboundRuleModeRu._(_root);
 	@override late final _TranslationsDnsProxyResolveModeRu dnsProxyResolveMode = _TranslationsDnsProxyResolveModeRu._(_root);
 	@override late final _TranslationsProxyStrategyRu proxyStrategy = _TranslationsProxyStrategyRu._(_root);
+	@override late final _TranslationsReloadReasonRu reloadReason = _TranslationsReloadReasonRu._(_root);
 	@override late final _TranslationsThemeRu theme = _TranslationsThemeRu._(_root);
 	@override String get downloadProxyStrategy => 'Канал загрузки';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
@@ -573,6 +574,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get outbound => 'Выход';
 	@override String get connect => 'Соединить';
 	@override String get disconnect => 'Отключить';
+	@override String get reconnect => 'Повторное подключение';
 	@override String get connected => 'Подключено';
 	@override String get disconnected => 'Отключено';
 	@override String get connecting => 'Подключение';
@@ -667,6 +669,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get name => 'Название';
 	@override String get version => 'Версия';
 	@override String get notice => 'Уведомления';
+	@override String appNotifyWithReason({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}';
 	@override String get sort => 'Отсортировать';
 	@override String get novice => 'Режим новичка';
 	@override String get tvMode => 'Режим ТВ';
@@ -816,6 +819,17 @@ class _TranslationsProxyStrategyRu implements TranslationsProxyStrategyEn {
 	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+}
+
+// Path: reloadReason
+class _TranslationsReloadReasonRu implements TranslationsReloadReasonEn {
+	_TranslationsReloadReasonRu._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+	@override String get profileUpdate => 'Обновления конфигурации';
 }
 
 // Path: theme
@@ -1119,6 +1133,7 @@ extension on TranslationsRu {
 			case 'meta.outbound': return 'Выход';
 			case 'meta.connect': return 'Соединить';
 			case 'meta.disconnect': return 'Отключить';
+			case 'meta.reconnect': return 'Повторное подключение';
 			case 'meta.connected': return 'Подключено';
 			case 'meta.disconnected': return 'Отключено';
 			case 'meta.connecting': return 'Подключение';
@@ -1213,6 +1228,7 @@ extension on TranslationsRu {
 			case 'meta.name': return 'Название';
 			case 'meta.version': return 'Версия';
 			case 'meta.notice': return 'Уведомления';
+			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}';
 			case 'meta.sort': return 'Отсортировать';
 			case 'meta.novice': return 'Режим новичка';
 			case 'meta.tvMode': return 'Режим ТВ';
@@ -1315,6 +1331,8 @@ extension on TranslationsRu {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+			case 'reloadReason.profileUpdate': return 'Обновления конфигурации';
 			case 'theme.light': return 'Светлый цвет';
 			case 'theme.dark': return 'черный';
 			case 'theme.auto': return 'автоматический';

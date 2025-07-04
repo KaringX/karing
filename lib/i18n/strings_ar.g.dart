@@ -71,6 +71,7 @@ class TranslationsAr implements Translations {
 	@override late final _TranslationsOutboundRuleModeAr outboundRuleMode = _TranslationsOutboundRuleModeAr._(_root);
 	@override late final _TranslationsDnsProxyResolveModeAr dnsProxyResolveMode = _TranslationsDnsProxyResolveModeAr._(_root);
 	@override late final _TranslationsProxyStrategyAr proxyStrategy = _TranslationsProxyStrategyAr._(_root);
+	@override late final _TranslationsReloadReasonAr reloadReason = _TranslationsReloadReasonAr._(_root);
 	@override late final _TranslationsThemeAr theme = _TranslationsThemeAr._(_root);
 	@override String get downloadProxyStrategy => 'تحميل القناة';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
@@ -573,6 +574,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get outbound => 'مخرج';
 	@override String get connect => 'يتصل';
 	@override String get disconnect => 'قطع الاتصال';
+	@override String get reconnect => 'إعادة الاتصال';
 	@override String get connected => 'متصل';
 	@override String get disconnected => 'انقطع الاتصال';
 	@override String get connecting => 'توصيل';
@@ -667,6 +669,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get name => 'اسم';
 	@override String get version => 'إصدار';
 	@override String get notice => 'يلاحظ';
+	@override String appNotifyWithReason({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}';
 	@override String get sort => 'إعادة ترتيب';
 	@override String get novice => 'وضع المبتدئ';
 	@override String get tvMode => 'وضع التلفزيون';
@@ -816,6 +819,17 @@ class _TranslationsProxyStrategyAr implements TranslationsProxyStrategyEn {
 	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+}
+
+// Path: reloadReason
+class _TranslationsReloadReasonAr implements TranslationsReloadReasonEn {
+	_TranslationsReloadReasonAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+	@override String get profileUpdate => 'تحديثات التكوين';
 }
 
 // Path: theme
@@ -1119,6 +1133,7 @@ extension on TranslationsAr {
 			case 'meta.outbound': return 'مخرج';
 			case 'meta.connect': return 'يتصل';
 			case 'meta.disconnect': return 'قطع الاتصال';
+			case 'meta.reconnect': return 'إعادة الاتصال';
 			case 'meta.connected': return 'متصل';
 			case 'meta.disconnected': return 'انقطع الاتصال';
 			case 'meta.connecting': return 'توصيل';
@@ -1213,6 +1228,7 @@ extension on TranslationsAr {
 			case 'meta.name': return 'اسم';
 			case 'meta.version': return 'إصدار';
 			case 'meta.notice': return 'يلاحظ';
+			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}';
 			case 'meta.sort': return 'إعادة ترتيب';
 			case 'meta.novice': return 'وضع المبتدئ';
 			case 'meta.tvMode': return 'وضع التلفزيون';
@@ -1315,6 +1331,8 @@ extension on TranslationsAr {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+			case 'reloadReason.profileUpdate': return 'تحديثات التكوين';
 			case 'theme.light': return 'لون فاتح';
 			case 'theme.dark': return 'أسود';
 			case 'theme.auto': return 'أوتوماتيكي';

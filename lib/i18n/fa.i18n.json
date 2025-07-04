@@ -317,6 +317,7 @@
         "outbound": "خارج شوید",
         "connect": "اتصال",
         "disconnect": "قطع‌ اتصال",
+        "reconnect": "دوباره وصل شوید",
         "connected": "وصل شد",
         "disconnected": "قطع شد",
         "connecting": "درحال اتصال",
@@ -411,6 +412,7 @@
         "name": "نام",
         "version": "نسخه",
         "notice": "اطلاعیه",
+        "appNotifyWithReason": "اقدام: $p\nدلیل: $p1",
         "sort": "مرتب‌سازی",
         "novice": "حالت مبتدی",
         "tvMode": "حالت تلویزیون",
@@ -525,6 +527,10 @@
         "perferDirect": "@:{meta.prefer} @:{outboundRuleMode.direct}",
         "onlyProxy": "@:{meta.only} @:{outboundRuleMode.currentSelected}",
         "onlyDirect": "@:{meta.only} @:{outboundRuleMode.direct}"
+    },
+    "reloadReason": {
+        "latencyTest": "@:{meta.latencyTest}-@:{meta.profileEditTestLatencyAutoRemove}",
+        "profileUpdate": "به‌روزرسانی‌های پیکربندی"
     },
     "theme": {
         "light": "رنگ روشن",

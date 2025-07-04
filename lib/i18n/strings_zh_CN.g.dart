@@ -71,6 +71,7 @@ class TranslationsZhCn implements Translations {
 	@override late final _TranslationsOutboundRuleModeZhCn outboundRuleMode = _TranslationsOutboundRuleModeZhCn._(_root);
 	@override late final _TranslationsDnsProxyResolveModeZhCn dnsProxyResolveMode = _TranslationsDnsProxyResolveModeZhCn._(_root);
 	@override late final _TranslationsProxyStrategyZhCn proxyStrategy = _TranslationsProxyStrategyZhCn._(_root);
+	@override late final _TranslationsReloadReasonZhCn reloadReason = _TranslationsReloadReasonZhCn._(_root);
 	@override late final _TranslationsThemeZhCn theme = _TranslationsThemeZhCn._(_root);
 	@override String get downloadProxyStrategy => '下载通道';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]:通过代理服务器连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.direct}]:直接连接DNS服务器解析域名\n[${_root.dnsProxyResolveMode.fakeip}]:由代理服务器代为解析域名;如果断开VPN连接,你的应用可能需要重启;仅对[TUN]入站的流量生效';
@@ -573,6 +574,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get outbound => '出站';
 	@override String get connect => '连接';
 	@override String get disconnect => '断开';
+	@override String get reconnect => '重新连接';
 	@override String get connected => '已连接';
 	@override String get disconnected => '未连接';
 	@override String get connecting => '连接中';
@@ -667,6 +669,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get name => '名称';
 	@override String get version => '版本';
 	@override String get notice => '通知';
+	@override String appNotifyWithReason({required Object p, required Object p1}) => '动作:${p}\n原因:${p1}';
 	@override String get sort => '排序';
 	@override String get novice => '新手模式';
 	@override String get tvMode => 'TV模式';
@@ -716,9 +719,9 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get profileEdit => '编辑配置';
 	@override String get profileEditUrlExist => 'URL已存在,请使用其他URL';
 	@override String get profileEditReloadAfterProfileUpdate => '配置更新后重新加载';
-	@override String get profileEditTestLatencyAfterProfileUpdate => '配置自动更新后启动延迟测试';
+	@override String get profileEditTestLatencyAfterProfileUpdate => '配置自动更新后启动延迟检测';
 	@override String get profileEditTestLatencyAfterProfileUpdateTips => 'VPN需要处于已连接状态,并且开启[配置更新后重新加载]';
-	@override String get profileEditTestLatencyAutoRemove => '自动移除延迟测试失败的服务器';
+	@override String get profileEditTestLatencyAutoRemove => '自动移除延迟检测失败的服务器';
 	@override String get profileEditTestLatencyAutoRemoveTips => '最多尝试3次';
 	@override String get profileImport => '导入配置文件';
 	@override String get profileAddUrlOrContent => '添加配置链接';
@@ -816,6 +819,17 @@ class _TranslationsProxyStrategyZhCn implements TranslationsProxyStrategyEn {
 	@override String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 	@override String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 	@override String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+}
+
+// Path: reloadReason
+class _TranslationsReloadReasonZhCn implements TranslationsReloadReasonEn {
+	_TranslationsReloadReasonZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+	@override String get profileUpdate => '配置更新';
 }
 
 // Path: theme
@@ -1119,6 +1133,7 @@ extension on TranslationsZhCn {
 			case 'meta.outbound': return '出站';
 			case 'meta.connect': return '连接';
 			case 'meta.disconnect': return '断开';
+			case 'meta.reconnect': return '重新连接';
 			case 'meta.connected': return '已连接';
 			case 'meta.disconnected': return '未连接';
 			case 'meta.connecting': return '连接中';
@@ -1213,6 +1228,7 @@ extension on TranslationsZhCn {
 			case 'meta.name': return '名称';
 			case 'meta.version': return '版本';
 			case 'meta.notice': return '通知';
+			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => '动作:${p}\n原因:${p1}';
 			case 'meta.sort': return '排序';
 			case 'meta.novice': return '新手模式';
 			case 'meta.tvMode': return 'TV模式';
@@ -1262,9 +1278,9 @@ extension on TranslationsZhCn {
 			case 'meta.profileEdit': return '编辑配置';
 			case 'meta.profileEditUrlExist': return 'URL已存在,请使用其他URL';
 			case 'meta.profileEditReloadAfterProfileUpdate': return '配置更新后重新加载';
-			case 'meta.profileEditTestLatencyAfterProfileUpdate': return '配置自动更新后启动延迟测试';
+			case 'meta.profileEditTestLatencyAfterProfileUpdate': return '配置自动更新后启动延迟检测';
 			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'VPN需要处于已连接状态,并且开启[配置更新后重新加载]';
-			case 'meta.profileEditTestLatencyAutoRemove': return '自动移除延迟测试失败的服务器';
+			case 'meta.profileEditTestLatencyAutoRemove': return '自动移除延迟检测失败的服务器';
 			case 'meta.profileEditTestLatencyAutoRemoveTips': return '最多尝试3次';
 			case 'meta.profileImport': return '导入配置文件';
 			case 'meta.profileAddUrlOrContent': return '添加配置链接';
@@ -1315,6 +1331,8 @@ extension on TranslationsZhCn {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+			case 'reloadReason.profileUpdate': return '配置更新';
 			case 'theme.light': return '浅色';
 			case 'theme.dark': return '黑色';
 			case 'theme.auto': return '自动';

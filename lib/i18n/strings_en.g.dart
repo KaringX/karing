@@ -74,6 +74,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsOutboundRuleModeEn outboundRuleMode = TranslationsOutboundRuleModeEn._(_root);
 	late final TranslationsDnsProxyResolveModeEn dnsProxyResolveMode = TranslationsDnsProxyResolveModeEn._(_root);
 	late final TranslationsProxyStrategyEn proxyStrategy = TranslationsProxyStrategyEn._(_root);
+	late final TranslationsReloadReasonEn reloadReason = TranslationsReloadReasonEn._(_root);
 	late final TranslationsThemeEn theme = TranslationsThemeEn._(_root);
 	String get downloadProxyStrategy => 'Download Channel';
 	String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
@@ -576,6 +577,7 @@ class TranslationsMetaEn {
 	String get outbound => 'Outbound';
 	String get connect => 'Connect';
 	String get disconnect => 'Disconnect';
+	String get reconnect => 'Reconnect';
 	String get connected => 'Connected';
 	String get disconnected => 'Disconnected';
 	String get connecting => 'Connecting';
@@ -670,6 +672,7 @@ class TranslationsMetaEn {
 	String get name => 'Name';
 	String get version => 'Version';
 	String get notice => 'Notice';
+	String appNotifyWithReason({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}';
 	String get sort => 'Reorder';
 	String get novice => 'Novice Mode';
 	String get tvMode => 'TV Mode';
@@ -819,6 +822,17 @@ class TranslationsProxyStrategyEn {
 	String get perferDirect => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 	String get onlyProxy => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 	String get onlyDirect => '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+}
+
+// Path: reloadReason
+class TranslationsReloadReasonEn {
+	TranslationsReloadReasonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+	String get profileUpdate => 'Profile Update';
 }
 
 // Path: theme
@@ -1122,6 +1136,7 @@ extension on Translations {
 			case 'meta.outbound': return 'Outbound';
 			case 'meta.connect': return 'Connect';
 			case 'meta.disconnect': return 'Disconnect';
+			case 'meta.reconnect': return 'Reconnect';
 			case 'meta.connected': return 'Connected';
 			case 'meta.disconnected': return 'Disconnected';
 			case 'meta.connecting': return 'Connecting';
@@ -1216,6 +1231,7 @@ extension on Translations {
 			case 'meta.name': return 'Name';
 			case 'meta.version': return 'Version';
 			case 'meta.notice': return 'Notice';
+			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}';
 			case 'meta.sort': return 'Reorder';
 			case 'meta.novice': return 'Novice Mode';
 			case 'meta.tvMode': return 'TV Mode';
@@ -1318,6 +1334,8 @@ extension on Translations {
 			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
 			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
 			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
+			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
+			case 'reloadReason.profileUpdate': return 'Profile Update';
 			case 'theme.light': return 'Light';
 			case 'theme.dark': return 'Dark';
 			case 'theme.auto': return 'Auto';

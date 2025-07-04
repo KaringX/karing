@@ -317,6 +317,7 @@
         "outbound": "Outbound",
         "connect": "Connect",
         "disconnect": "Disconnect",
+        "reconnect": "Reconnect",
         "connected": "Connected",
         "disconnected": "Disconnected",
         "connecting": "Connecting",
@@ -411,6 +412,7 @@
         "name": "Name",
         "version": "Version",
         "notice": "Notice",
+        "appNotifyWithReason": "Action:$p\nReason:$p1",
         "sort": "Reorder",
         "novice": "Novice Mode",
         "tvMode": "TV Mode",
@@ -525,6 +527,10 @@
         "perferDirect": "@:{meta.prefer} @:{outboundRuleMode.direct}",
         "onlyProxy": "@:{meta.only} @:{outboundRuleMode.currentSelected}",
         "onlyDirect": "@:{meta.only} @:{outboundRuleMode.direct}"
+    },
+    "reloadReason": {
+        "latencyTest": "@:{meta.latencyTest}-@:{meta.profileEditTestLatencyAutoRemove}",
+        "profileUpdate": "Profile Update"
     },
     "theme": {
         "light": "Light",

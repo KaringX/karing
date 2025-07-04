@@ -317,6 +317,7 @@
         "outbound": "Выход",
         "connect": "Соединить",
         "disconnect": "Отключить",
+        "reconnect": "Повторное подключение",
         "connected": "Подключено",
         "disconnected": "Отключено",
         "connecting": "Подключение",
@@ -411,6 +412,7 @@
         "name": "Название",
         "version": "Версия",
         "notice": "Уведомления",
+        "appNotifyWithReason": "Действие:$p\nПричина:$p1",
         "sort": "Отсортировать",
         "novice": "Режим новичка",
         "tvMode": "Режим ТВ",
@@ -525,6 +527,10 @@
         "perferDirect": "@:{meta.prefer} @:{outboundRuleMode.direct}",
         "onlyProxy": "@:{meta.only} @:{outboundRuleMode.currentSelected}",
         "onlyDirect": "@:{meta.only} @:{outboundRuleMode.direct}"
+    },
+    "reloadReason": {
+        "latencyTest": "@:{meta.latencyTest}-@:{meta.profileEditTestLatencyAutoRemove}",
+        "profileUpdate": "Обновления конфигурации"
     },
     "theme": {
         "light": "Светлый цвет",

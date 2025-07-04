@@ -317,6 +317,7 @@
         "outbound": "出站",
         "connect": "连接",
         "disconnect": "断开",
+        "reconnect": "重新连接",
         "connected": "已连接",
         "disconnected": "未连接",
         "connecting": "连接中",
@@ -411,6 +412,7 @@
         "name": "名称",
         "version": "版本",
         "notice": "通知",
+        "appNotifyWithReason": "动作:$p\n原因:$p1",
         "sort": "排序",
         "novice": "新手模式",
         "tvMode": "TV模式",
@@ -460,9 +462,9 @@
         "profileEdit": "编辑配置",
         "profileEditUrlExist": "URL已存在,请使用其他URL",
         "profileEditReloadAfterProfileUpdate": "配置更新后重新加载",
-        "profileEditTestLatencyAfterProfileUpdate": "配置自动更新后启动延迟测试",
+        "profileEditTestLatencyAfterProfileUpdate": "配置自动更新后启动延迟检测",
         "profileEditTestLatencyAfterProfileUpdateTips": "VPN需要处于已连接状态,并且开启[配置更新后重新加载]",
-        "profileEditTestLatencyAutoRemove": "自动移除延迟测试失败的服务器",
+        "profileEditTestLatencyAutoRemove": "自动移除延迟检测失败的服务器",
         "profileEditTestLatencyAutoRemoveTips": "最多尝试3次",
         "profileImport": "导入配置文件",
         "profileAddUrlOrContent": "添加配置链接",
@@ -525,6 +527,10 @@
         "perferDirect": "@:{meta.prefer} @:{outboundRuleMode.direct}",
         "onlyProxy": "@:{meta.only} @:{outboundRuleMode.currentSelected}",
         "onlyDirect": "@:{meta.only} @:{outboundRuleMode.direct}"
+    },
+    "reloadReason": {
+        "latencyTest": "@:{meta.latencyTest}-@:{meta.profileEditTestLatencyAutoRemove}",
+        "profileUpdate": "配置更新"
     },
     "theme": {
         "light": "浅色",
