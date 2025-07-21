@@ -90,6 +90,7 @@ class TranslationsAr implements Translations {
 	@override String get remoteProfileEditConfirm => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
+	@override String get noNetworkConnect => 'لا يوجد اتصال بالإنترنت';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
 	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
@@ -530,6 +531,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	// Translations
 	@override String get enable => 'يُمكَِن';
 	@override String get disable => 'إبطال';
+	@override String get bydefault => 'تقصير';
 	@override String get filter => 'فلتر';
 	@override String get filterMethod => 'طريقة التصفية';
 	@override String get include => 'يشمل';
@@ -559,6 +561,9 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get feedbackContentCannotEmpty => 'لا يمكن أن يكون محتوى التعليقات فارغًا';
 	@override String get faq => 'أسئلة مكررة';
 	@override String get download => 'تحميل';
+	@override String get upload => 'رفع';
+	@override String get downloadSpeed => 'سرعة التنزيل';
+	@override String get uploadSpeed => 'سرعة التحميل';
 	@override String get loading => 'تحميل...';
 	@override String get convert => 'يتحول';
 	@override String get check => 'يفحص';
@@ -672,6 +677,9 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String appNotifyWithReason({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}';
 	@override String get sort => 'إعادة ترتيب';
 	@override String get novice => 'وضع المبتدئ';
+	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
+	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
+	@override String get requestNeedsUserApproval => 'يرجى السماح لـ Clashmi بتثبيت ملحقات النظام، وإعادة الاتصال بعد اكتمال التثبيت';
 	@override String get tvMode => 'وضع التلفزيون';
 	@override String get recommended => 'يوصي';
 	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
@@ -1089,6 +1097,7 @@ extension on TranslationsAr {
 			case 'main.tray.menuExit': return '    مخرج    ';
 			case 'meta.enable': return 'يُمكَِن';
 			case 'meta.disable': return 'إبطال';
+			case 'meta.bydefault': return 'تقصير';
 			case 'meta.filter': return 'فلتر';
 			case 'meta.filterMethod': return 'طريقة التصفية';
 			case 'meta.include': return 'يشمل';
@@ -1118,6 +1127,9 @@ extension on TranslationsAr {
 			case 'meta.feedbackContentCannotEmpty': return 'لا يمكن أن يكون محتوى التعليقات فارغًا';
 			case 'meta.faq': return 'أسئلة مكررة';
 			case 'meta.download': return 'تحميل';
+			case 'meta.upload': return 'رفع';
+			case 'meta.downloadSpeed': return 'سرعة التنزيل';
+			case 'meta.uploadSpeed': return 'سرعة التحميل';
 			case 'meta.loading': return 'تحميل...';
 			case 'meta.convert': return 'يتحول';
 			case 'meta.check': return 'يفحص';
@@ -1231,6 +1243,9 @@ extension on TranslationsAr {
 			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}';
 			case 'meta.sort': return 'إعادة ترتيب';
 			case 'meta.novice': return 'وضع المبتدئ';
+			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
+			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
+			case 'meta.requestNeedsUserApproval': return 'يرجى السماح لـ Clashmi بتثبيت ملحقات النظام، وإعادة الاتصال بعد اكتمال التثبيت';
 			case 'meta.tvMode': return 'وضع التلفزيون';
 			case 'meta.recommended': return 'يوصي';
 			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
@@ -1353,6 +1368,7 @@ extension on TranslationsAr {
 			case 'remoteProfileEditConfirm': return 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
 			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
+			case 'noNetworkConnect': return 'لا يوجد اتصال بالإنترنت';
 			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
 			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';

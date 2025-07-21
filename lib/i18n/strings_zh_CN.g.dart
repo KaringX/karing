@@ -90,6 +90,7 @@ class TranslationsZhCn implements Translations {
 	@override String get remoteProfileEditConfirm => '配置更新后,节点的修改将会被还原,是否继续?';
 	@override String get mustBeValidHttpsURL => '必须为有效的 https URL';
 	@override String fileNotExistReinstall({required Object p}) => '文件缺失[${p}],请重新安装';
+	@override String get noNetworkConnect => '无网络连接';
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
 	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
 	@override String get removeBannerAdsByReward => '观看广告去广告';
@@ -530,6 +531,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	// Translations
 	@override String get enable => '启用';
 	@override String get disable => '禁用';
+	@override String get bydefault => '默认';
 	@override String get filter => '过滤';
 	@override String get filterMethod => '过滤方式';
 	@override String get include => '包含';
@@ -559,6 +561,9 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get feedbackContentCannotEmpty => '反馈内容不能为空';
 	@override String get faq => '常见问题';
 	@override String get download => '下载';
+	@override String get upload => '上传';
+	@override String get downloadSpeed => '下载速度';
+	@override String get uploadSpeed => '上传速度';
 	@override String get loading => '加载中...';
 	@override String get convert => '转换';
 	@override String get check => '检测';
@@ -672,6 +677,9 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String appNotifyWithReason({required Object p, required Object p1}) => '动作:${p}\n原因:${p1}';
 	@override String get sort => '排序';
 	@override String get novice => '新手模式';
+	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
+	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
+	@override String get requestNeedsUserApproval => '请‘允许’clashmi安装系统扩展,安装完成后重新连接';
 	@override String get tvMode => 'TV模式';
 	@override String get recommended => '推荐';
 	@override String innerError({required Object p}) => '内部错误:${p}';
@@ -1089,6 +1097,7 @@ extension on TranslationsZhCn {
 			case 'main.tray.menuExit': return '    退出    ';
 			case 'meta.enable': return '启用';
 			case 'meta.disable': return '禁用';
+			case 'meta.bydefault': return '默认';
 			case 'meta.filter': return '过滤';
 			case 'meta.filterMethod': return '过滤方式';
 			case 'meta.include': return '包含';
@@ -1118,6 +1127,9 @@ extension on TranslationsZhCn {
 			case 'meta.feedbackContentCannotEmpty': return '反馈内容不能为空';
 			case 'meta.faq': return '常见问题';
 			case 'meta.download': return '下载';
+			case 'meta.upload': return '上传';
+			case 'meta.downloadSpeed': return '下载速度';
+			case 'meta.uploadSpeed': return '上传速度';
 			case 'meta.loading': return '加载中...';
 			case 'meta.convert': return '转换';
 			case 'meta.check': return '检测';
@@ -1231,6 +1243,9 @@ extension on TranslationsZhCn {
 			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => '动作:${p}\n原因:${p1}';
 			case 'meta.sort': return '排序';
 			case 'meta.novice': return '新手模式';
+			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
+			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
+			case 'meta.requestNeedsUserApproval': return '请‘允许’clashmi安装系统扩展,安装完成后重新连接';
 			case 'meta.tvMode': return 'TV模式';
 			case 'meta.recommended': return '推荐';
 			case 'meta.innerError': return ({required Object p}) => '内部错误:${p}';
@@ -1353,6 +1368,7 @@ extension on TranslationsZhCn {
 			case 'remoteProfileEditConfirm': return '配置更新后,节点的修改将会被还原,是否继续?';
 			case 'mustBeValidHttpsURL': return '必须为有效的 https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => '文件缺失[${p}],请重新安装';
+			case 'noNetworkConnect': return '无网络连接';
 			case 'latencyTestResolveIP': return '手动检测时,同时解析出口IP';
 			case 'removeBannerAdsByShare': return '分享[Karing]去广告';
 			case 'removeBannerAdsByReward': return '观看广告去广告';

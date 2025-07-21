@@ -93,6 +93,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get remoteProfileEditConfirm => 'After the Profile is updated, the node changes will be restored. Continue?';
 	String get mustBeValidHttpsURL => 'Must be Valid https URL';
 	String fileNotExistReinstall({required Object p}) => 'File missing [${p}], please reinstall';
+	String get noNetworkConnect => 'No Internet connection';
 	String get latencyTestResolveIP => 'When manually checking, resolve the outlet IP';
 	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
 	String get removeBannerAdsByReward => 'Watch an ad to remove ads';
@@ -533,6 +534,7 @@ class TranslationsMetaEn {
 	// Translations
 	String get enable => 'Enable';
 	String get disable => 'Disable';
+	String get bydefault => 'Default';
 	String get filter => 'Filter';
 	String get filterMethod => 'Filter Method';
 	String get include => 'Include';
@@ -562,6 +564,9 @@ class TranslationsMetaEn {
 	String get feedbackContentCannotEmpty => 'Feedback content can not be empty';
 	String get faq => 'FAQ';
 	String get download => 'Download';
+	String get upload => 'Upload';
+	String get downloadSpeed => 'Download Speed';
+	String get uploadSpeed => 'Upload Speed';
 	String get loading => 'Loading...';
 	String get convert => 'Convert';
 	String get check => 'Check';
@@ -675,6 +680,9 @@ class TranslationsMetaEn {
 	String appNotifyWithReason({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}';
 	String get sort => 'Reorder';
 	String get novice => 'Novice Mode';
+	String get willCompleteAfterRebootInstall => 'Please restart your device to complete the system extension installation';
+	String get willCompleteAfterRebootUninstall => 'Please restart your device to complete the the system extension uninstallation';
+	String get requestNeedsUserApproval => 'Please \'allow\' clashmi to install system extensions, and reconnect after installation is complete';
 	String get tvMode => 'TV Mode';
 	String get recommended => 'Recommend';
 	String innerError({required Object p}) => 'Inner Error:${p}';
@@ -1092,6 +1100,7 @@ extension on Translations {
 			case 'main.tray.menuExit': return '    Exit    ';
 			case 'meta.enable': return 'Enable';
 			case 'meta.disable': return 'Disable';
+			case 'meta.bydefault': return 'Default';
 			case 'meta.filter': return 'Filter';
 			case 'meta.filterMethod': return 'Filter Method';
 			case 'meta.include': return 'Include';
@@ -1121,6 +1130,9 @@ extension on Translations {
 			case 'meta.feedbackContentCannotEmpty': return 'Feedback content can not be empty';
 			case 'meta.faq': return 'FAQ';
 			case 'meta.download': return 'Download';
+			case 'meta.upload': return 'Upload';
+			case 'meta.downloadSpeed': return 'Download Speed';
+			case 'meta.uploadSpeed': return 'Upload Speed';
 			case 'meta.loading': return 'Loading...';
 			case 'meta.convert': return 'Convert';
 			case 'meta.check': return 'Check';
@@ -1234,6 +1246,9 @@ extension on Translations {
 			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}';
 			case 'meta.sort': return 'Reorder';
 			case 'meta.novice': return 'Novice Mode';
+			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
+			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
+			case 'meta.requestNeedsUserApproval': return 'Please \'allow\' clashmi to install system extensions, and reconnect after installation is complete';
 			case 'meta.tvMode': return 'TV Mode';
 			case 'meta.recommended': return 'Recommend';
 			case 'meta.innerError': return ({required Object p}) => 'Inner Error:${p}';
@@ -1356,6 +1371,7 @@ extension on Translations {
 			case 'remoteProfileEditConfirm': return 'After the Profile is updated, the node changes will be restored. Continue?';
 			case 'mustBeValidHttpsURL': return 'Must be Valid https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'File missing [${p}], please reinstall';
+			case 'noNetworkConnect': return 'No Internet connection';
 			case 'latencyTestResolveIP': return 'When manually checking, resolve the outlet IP';
 			case 'removeBannerAdsByShare': return 'Share [Karing] to remove ads';
 			case 'removeBannerAdsByReward': return 'Watch an ad to remove ads';

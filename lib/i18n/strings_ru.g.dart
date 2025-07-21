@@ -90,6 +90,7 @@ class TranslationsRu implements Translations {
 	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
+	@override String get noNetworkConnect => 'Нет подключения к Интернету';
 	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
 	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
 	@override String get removeBannerAdsByReward => 'Просмотреть рекламу для удаления новой рекламы';
@@ -530,6 +531,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	// Translations
 	@override String get enable => 'Включить';
 	@override String get disable => 'Запретить';
+	@override String get bydefault => 'по умолчанию';
 	@override String get filter => 'Фильтр';
 	@override String get filterMethod => 'Метод фильтра';
 	@override String get include => 'Включать';
@@ -559,6 +561,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get feedbackContentCannotEmpty => 'Содержание не может быть пустым';
 	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
 	@override String get download => 'Скачать';
+	@override String get upload => 'Загрузить';
+	@override String get downloadSpeed => 'Скорость загрузки';
+	@override String get uploadSpeed => 'Скорость загрузки';
 	@override String get loading => 'Загрузка...';
 	@override String get convert => 'Конвертировать';
 	@override String get check => 'Тест';
@@ -672,6 +677,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String appNotifyWithReason({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}';
 	@override String get sort => 'Отсортировать';
 	@override String get novice => 'Режим новичка';
+	@override String get willCompleteAfterRebootInstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
+	@override String get willCompleteAfterRebootUninstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
+	@override String get requestNeedsUserApproval => 'Пожалуйста, «разрешите» Clashmi установить системные расширения и переподключитесь после завершения установки.';
 	@override String get tvMode => 'Режим ТВ';
 	@override String get recommended => 'Рекомендуемые';
 	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -1089,6 +1097,7 @@ extension on TranslationsRu {
 			case 'main.tray.menuExit': return '    Выйти    ';
 			case 'meta.enable': return 'Включить';
 			case 'meta.disable': return 'Запретить';
+			case 'meta.bydefault': return 'по умолчанию';
 			case 'meta.filter': return 'Фильтр';
 			case 'meta.filterMethod': return 'Метод фильтра';
 			case 'meta.include': return 'Включать';
@@ -1118,6 +1127,9 @@ extension on TranslationsRu {
 			case 'meta.feedbackContentCannotEmpty': return 'Содержание не может быть пустым';
 			case 'meta.faq': return 'Часто задаваемые вопросы (FAQ)';
 			case 'meta.download': return 'Скачать';
+			case 'meta.upload': return 'Загрузить';
+			case 'meta.downloadSpeed': return 'Скорость загрузки';
+			case 'meta.uploadSpeed': return 'Скорость загрузки';
 			case 'meta.loading': return 'Загрузка...';
 			case 'meta.convert': return 'Конвертировать';
 			case 'meta.check': return 'Тест';
@@ -1231,6 +1243,9 @@ extension on TranslationsRu {
 			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}';
 			case 'meta.sort': return 'Отсортировать';
 			case 'meta.novice': return 'Режим новичка';
+			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
+			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
+			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, «разрешите» Clashmi установить системные расширения и переподключитесь после завершения установки.';
 			case 'meta.tvMode': return 'Режим ТВ';
 			case 'meta.recommended': return 'Рекомендуемые';
 			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -1353,6 +1368,7 @@ extension on TranslationsRu {
 			case 'remoteProfileEditConfirm': return 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
 			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
+			case 'noNetworkConnect': return 'Нет подключения к Интернету';
 			case 'latencyTestResolveIP': return 'При ручном определении анализируется исходящий IP-адрес';
 			case 'removeBannerAdsByShare': return 'Поделиться [Karing] для удаления рекламы';
 			case 'removeBannerAdsByReward': return 'Просмотреть рекламу для удаления новой рекламы';

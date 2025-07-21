@@ -90,6 +90,7 @@ class TranslationsFa implements Translations {
 	@override String get remoteProfileEditConfirm => 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟';
 	@override String get mustBeValidHttpsURL => 'باید یک URL معتبر https باشد';
 	@override String fileNotExistReinstall({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
+	@override String get noNetworkConnect => 'بدون اتصال به اینترنت';
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
@@ -530,6 +531,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	// Translations
 	@override String get enable => 'فعال‌سازی';
 	@override String get disable => 'غیرفعال';
+	@override String get bydefault => 'پیش‌فرض';
 	@override String get filter => 'فیلتر';
 	@override String get filterMethod => 'روش فیلتر';
 	@override String get include => 'شامل شود';
@@ -559,6 +561,9 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get feedbackContentCannotEmpty => 'محتوای بازخورد نمی‌تواند خالی باشد';
 	@override String get faq => 'سوالات متداول';
 	@override String get download => 'دانلود';
+	@override String get upload => 'آپلود';
+	@override String get downloadSpeed => 'سرعت دانلود';
+	@override String get uploadSpeed => 'سرعت آپلود';
 	@override String get loading => 'درحال بارگذاری…';
 	@override String get convert => 'تبدیل';
 	@override String get check => 'بررسی';
@@ -672,6 +677,9 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String appNotifyWithReason({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}';
 	@override String get sort => 'مرتب‌سازی';
 	@override String get novice => 'حالت مبتدی';
+	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
+	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
+	@override String get requestNeedsUserApproval => 'لطفاً به clashmi اجازه دهید افزونه‌های سیستم را نصب کند و پس از اتمام نصب دوباره متصل شوید.';
 	@override String get tvMode => 'حالت تلویزیون';
 	@override String get recommended => 'پیشنهادی';
 	@override String innerError({required Object p}) => 'خطای داخلی: ${p}';
@@ -1089,6 +1097,7 @@ extension on TranslationsFa {
 			case 'main.tray.menuExit': return '    بستن    ';
 			case 'meta.enable': return 'فعال‌سازی';
 			case 'meta.disable': return 'غیرفعال';
+			case 'meta.bydefault': return 'پیش‌فرض';
 			case 'meta.filter': return 'فیلتر';
 			case 'meta.filterMethod': return 'روش فیلتر';
 			case 'meta.include': return 'شامل شود';
@@ -1118,6 +1127,9 @@ extension on TranslationsFa {
 			case 'meta.feedbackContentCannotEmpty': return 'محتوای بازخورد نمی‌تواند خالی باشد';
 			case 'meta.faq': return 'سوالات متداول';
 			case 'meta.download': return 'دانلود';
+			case 'meta.upload': return 'آپلود';
+			case 'meta.downloadSpeed': return 'سرعت دانلود';
+			case 'meta.uploadSpeed': return 'سرعت آپلود';
 			case 'meta.loading': return 'درحال بارگذاری…';
 			case 'meta.convert': return 'تبدیل';
 			case 'meta.check': return 'بررسی';
@@ -1231,6 +1243,9 @@ extension on TranslationsFa {
 			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}';
 			case 'meta.sort': return 'مرتب‌سازی';
 			case 'meta.novice': return 'حالت مبتدی';
+			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
+			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
+			case 'meta.requestNeedsUserApproval': return 'لطفاً به clashmi اجازه دهید افزونه‌های سیستم را نصب کند و پس از اتمام نصب دوباره متصل شوید.';
 			case 'meta.tvMode': return 'حالت تلویزیون';
 			case 'meta.recommended': return 'پیشنهادی';
 			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
@@ -1353,6 +1368,7 @@ extension on TranslationsFa {
 			case 'remoteProfileEditConfirm': return 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟';
 			case 'mustBeValidHttpsURL': return 'باید یک URL معتبر https باشد';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
+			case 'noNetworkConnect': return 'بدون اتصال به اینترنت';
 			case 'latencyTestResolveIP': return 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 			case 'removeBannerAdsByReward': return 'تماشای تبلیغات برو به تبلیغات';
