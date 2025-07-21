@@ -241,12 +241,17 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
 
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: ThemeConfig.kListItemHeight + 5,
           itemBuilder: (BuildContext context, int index) {
             var current = _searchedData[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -419,63 +424,60 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     String? directLatenty = DnsSettingsScreen.getDirect()[addr];
     String? currentLatenty = DnsSettingsScreen.getCurrent()[addr];
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          width: double.infinity,
-          //height: ThemeConfig.kListItemHeight2,
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Text(
-                          isp,
-                          style: TextStyle(
-                            fontSize: ThemeConfig.kFontSizeGroupItem,
-                          ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        width: double.infinity,
+        height: ThemeConfig.kListItemHeight + 5,
+        child: Row(
+          children: [
+            Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Text(
+                        isp,
+                        style: TextStyle(
+                          fontSize: ThemeConfig.kFontSizeGroupItem,
                         ),
-                      ]),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: centerWidth,
-                            child: Text(
-                              addr,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+                      ),
+                    ]),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: centerWidth,
+                          child: Text(
+                            addr,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  CommonWidget.createLatencyWidget(
-                      context,
-                      ThemeConfig.kListItemHeight,
-                      _taskQueue != null && directLatenty == null,
-                      _taskQueue != null && _taskQueue!.running(addr),
-                      directLatenty ?? ""),
-                  CommonWidget.createLatencyWidget(
-                      context,
-                      ThemeConfig.kListItemHeight,
-                      _taskQueue != null && currentLatenty == null,
-                      _taskQueue != null && _taskQueue!.running(addr),
-                      currentLatenty ?? ""),
-                ],
-              ),
-            ],
-          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                CommonWidget.createLatencyWidget(
+                    context,
+                    ThemeConfig.kListItemHeight,
+                    _taskQueue != null && directLatenty == null,
+                    _taskQueue != null && _taskQueue!.running(addr),
+                    directLatenty ?? ""),
+                CommonWidget.createLatencyWidget(
+                    context,
+                    ThemeConfig.kListItemHeight,
+                    _taskQueue != null && currentLatenty == null,
+                    _taskQueue != null && _taskQueue!.running(addr),
+                    currentLatenty ?? ""),
+              ],
+            ),
+          ],
         ),
       ),
     );

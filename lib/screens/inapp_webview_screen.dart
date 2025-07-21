@@ -198,7 +198,7 @@ class InAppWebViewScreen extends StatefulWidget {
     if (!_inited && _notSupportSubmited) {
       _notSupportSubmited = false;
       SentryUtils.captureMessage(
-          "webview is not initialized!", [], SentryLevel.error);
+          "webview is not initialized:$title", [], SentryLevel.error);
     }
   }
 
@@ -319,7 +319,10 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   @override
   void dispose() {
     resetJavaScriptHandler();
-    _webViewController?.dispose();
+    try {
+      _webViewController?.dispose();
+    } catch (err) {}
+
     InAppWebViewScreen.delRef();
     super.dispose();
   }
@@ -369,36 +372,34 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                         ),
                       ),
                       Row(children: [
-                        widget.showGoBackGoForward
-                            ? InkWell(
-                                onTap: () async {
-                                  _webViewController?.goBack();
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        widget.showGoBackGoForward
-                            ? InkWell(
-                                onTap: () async {
-                                  _webViewController?.goForward();
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        if (widget.showGoBackGoForward) ...[
+                          InkWell(
+                            onTap: () async {
+                              _webViewController?.goBack();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 26,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              _webViewController?.goForward();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.arrow_forward,
+                                size: 26,
+                              ),
+                            ),
+                          )
+                        ],
                         InkWell(
                           onTap: () async {
                             _webViewController?.reload();
@@ -412,21 +413,21 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                             ),
                           ),
                         ),
-                        widget.showOpenExternal
-                            ? InkWell(
-                                onTap: () async {
-                                  UrlLauncherUtils.loadUrl(widget.url);
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.open_in_new_outlined,
-                                    size: 26,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        if (widget.showOpenExternal) ...[
+                          InkWell(
+                            onTap: () async {
+                              UrlLauncherUtils.loadUrl(widget.url);
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(
+                                Icons.open_in_new_outlined,
+                                size: 26,
+                              ),
+                            ),
+                          )
+                        ],
                       ]),
                     ],
                   ),

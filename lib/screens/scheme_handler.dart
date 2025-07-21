@@ -106,6 +106,9 @@ class SchemeHandler {
         ispUser = uri.queryParameters["isp-user"];
       }
     } catch (err) {
+      if (!context.mounted) {
+        return null;
+      }
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
       return ReturnResultError(err.toString());

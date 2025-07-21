@@ -41,8 +41,7 @@ class VpnServiceConfig: Codable {
     var secret: String = ""
     // var install_refer: String = ""
     var expired_time: Int64 = 0
-    var time_connect: String = ""
-    var time_disconnect: String = ""
+    var disconnect_after_sleep_seconds: Int32 = 0
     var sentry_minversion: String = ""
 }
 
@@ -107,7 +106,7 @@ public struct DashboardView: View {
         VpnServiceHandler.shared.uiLocalizedDescription = DashboardView.config.name
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.httpAdditionalHeaders = ["User-Agent": "Karing/\(DashboardView.version) platform/tvos sing-box"]
+        sessionConfig.httpAdditionalHeaders = ["User-Agent": "Karing/\(DashboardView.version) platform/tvos sing-box 1.12.0"]
         
         session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: .main)
     }
@@ -229,6 +228,7 @@ public struct DashboardView: View {
                                 .disabled(isDownloading)
                                 Spacer()
                             }
+                            Text(DashboardView.version)
                             Spacer()
                         }
                         .onAppear {
@@ -504,8 +504,7 @@ public struct DashboardView: View {
         DashboardView.config.version = DashboardView.version
         DashboardView.config.name = "Karing"
         DashboardView.config.expired_time = 0
-        DashboardView.config.time_connect = ""
-        DashboardView.config.time_disconnect = ""
+        DashboardView.config.disconnect_after_sleep_seconds = 0
         DashboardView.config.sentry_minversion = ""
         if DashboardView.config.id == "" {
             let karingDevId = "KaringDevIdTvOS"

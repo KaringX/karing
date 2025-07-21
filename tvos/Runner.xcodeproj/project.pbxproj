@@ -16,6 +16,7 @@
 		CE8558262AF4A0450024DA42 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C53B2AF1FF75005C5724 /* libresolv.tbd */; };
 		CE9A1DAC2D12880200F8F537 /* VpnServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */; };
 		CE9F8D092CB4D0DB0004522A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9F8D0B2CB4D0DB0004522A /* Localizable.strings */; };
+		CECF3FAA2E1A2CFF0029BC7E /* service_core.json in Resources */ = {isa = PBXBuildFile; fileRef = CECF3FA92E1A2CFF0029BC7E /* service_core.json */; };
 		CED44C8B29F7AE560051B3B6 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */; };
 		CED44C8E29F7AE560051B3B6 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED44C8D29F7AE560051B3B6 /* PacketTunnelProvider.swift */; };
 		CED44C9329F7AE560051B3B6 /* karingService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CED44C8A29F7AE560051B3B6 /* karingService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -114,6 +115,7 @@
 		CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnServiceHandler.swift; path = ../../bind/apple/LibVpnCore/VpnServiceHandler.swift; sourceTree = "<group>"; };
 		CE9F8D0A2CB4D0DB0004522A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE9F8D0C2CB4D0DD0004522A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CECF3FA92E1A2CFF0029BC7E /* service_core.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = service_core.json; sourceTree = "<group>"; };
 		CED44C8A29F7AE560051B3B6 /* karingService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = karingService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED44C8D29F7AE560051B3B6 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		CED44C8F29F7AE560051B3B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				CECF3FA92E1A2CFF0029BC7E /* service_core.json */,
 				CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */,
 				CE4C01672CA654A700BD22EC /* String+Extension.swift */,
 				CEF736E32C4DF35F005918A1 /* DashboardView.swift */,
@@ -383,6 +386,7 @@
 			files = (
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				CE9F8D092CB4D0DB0004522A /* Localizable.strings in Resources */,
+				CECF3FAA2E1A2CFF0029BC7E /* service_core.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,7 +591,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 727;
+				CURRENT_PROJECT_VERSION = 821;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -602,7 +606,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.2.1;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -746,7 +750,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 727;
+				CURRENT_PROJECT_VERSION = 821;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -761,7 +765,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.2.1;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -791,7 +795,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 727;
+				CURRENT_PROJECT_VERSION = 821;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -806,7 +810,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.2.1;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";

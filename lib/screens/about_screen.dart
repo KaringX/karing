@@ -118,18 +118,16 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                     width: 128,
                     height: 128,
                   ),
-                  SettingManager.getConfig().dev.devMode
-                      ? Positioned(
-                          left: 100,
-                          top: 100,
-                          child: Icon(
-                            Icons.logo_dev,
-                            size: 26,
-                          ),
-                        )
-                      : const SizedBox(
-                          width: 0,
-                        ),
+                  if (SettingManager.getConfig().dev.devMode) ...[
+                    Positioned(
+                      left: 100,
+                      top: 100,
+                      child: Icon(
+                        Icons.logo_dev,
+                        size: 26,
+                      ),
+                    )
+                  ],
                 ]),
               ),
               const SizedBox(
@@ -195,39 +193,39 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
           name: tcontext.AboutScreen.installRefer,
           text: await InstallReferrerUtils.getString(),
         )),
-        dev.devMode && installDate.isNotEmpty
-            ? GroupItemOptions(
-                textOptions: GroupItemTextOptions(
-                name: tcontext.AboutScreen.installTime,
-                text: installDate,
-              ))
-            : GroupItemOptions(),
-        AutoUpdateManager.isSupport()
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.AboutScreen.versionChannel,
-                    text: SettingManager.getConfig().autoUpdateChannel,
-                    onPush: () async {
-                      onTapAutoUpdateChannel();
-                    }))
-            : GroupItemOptions()
+        if (dev.devMode && installDate.isNotEmpty) ...[
+          GroupItemOptions(
+              textOptions: GroupItemTextOptions(
+            name: tcontext.AboutScreen.installTime,
+            text: installDate,
+          ))
+        ],
+        if (AutoUpdateManager.isSupport()) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.AboutScreen.versionChannel,
+                  text: SettingManager.getConfig().autoUpdateChannel,
+                  onPush: () async {
+                    onTapAutoUpdateChannel();
+                  }))
+        ]
       ];
 
       groupOptions.add(GroupItem(options: options));
     }
     {
       List<GroupItemOptions> options = [
-        termOfUse.isNotEmpty
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.termOfUse,
-                    onPush: () async {
-                      await WebviewHelper.loadUrl(
-                          context, AppUtils.getTermsOfServiceUrl(), "termOfUse",
-                          title: tcontext.meta.termOfUse,
-                          useInappWebViewForPC: true);
-                    }))
-            : GroupItemOptions(),
+        if (termOfUse.isNotEmpty) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.termOfUse,
+                  onPush: () async {
+                    await WebviewHelper.loadUrl(
+                        context, AppUtils.getTermsOfServiceUrl(), "termOfUse",
+                        title: tcontext.meta.termOfUse,
+                        useInappWebViewForPC: true);
+                  }))
+        ],
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.privacyPolicy,
@@ -301,15 +299,14 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                           builder: (context) =>
                               const FileContentViewerScreen()));
                 })),
-        PlatformUtils.isPC()
-            ? GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.openDir,
-                    onPush: () async {
-                      await FileUtils.openDirectory(
-                          await PathUtils.profileDir());
-                    }))
-            : GroupItemOptions(),
+        if (PlatformUtils.isPC()) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.meta.openDir,
+                  onPush: () async {
+                    await FileUtils.openDirectory(await PathUtils.profileDir());
+                  }))
+        ],
       ];
 
       List<GroupItemOptions> options0 = [

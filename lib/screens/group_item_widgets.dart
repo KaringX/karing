@@ -77,24 +77,22 @@ class GroupItemTextField extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        (options.tips != null) && options.tips!.isNotEmpty
-            ? InkWell(
-                onTap: () {
-                  DialogUtils.showAlertDialog(context, options.tips!);
-                },
-                child: Tooltip(
-                  message: options.tips,
-                  child: const Icon(
-                    Icons.info_outlined,
-                    size: 26,
-                  ),
-                ))
-            : const SizedBox.shrink(),
-        (options.tips != null) && options.tips!.isNotEmpty
-            ? const SizedBox(
-                width: 5,
-              )
-            : const SizedBox.shrink(),
+        if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+          InkWell(
+              onTap: () {
+                DialogUtils.showAlertDialog(context, options.tips!);
+              },
+              child: Tooltip(
+                message: options.tips,
+                child: const Icon(
+                  Icons.info_outlined,
+                  size: 26,
+                ),
+              )),
+          const SizedBox(
+            width: 5,
+          )
+        ],
         Expanded(
           flex: ((1 - options.textWidthPercent) * 10).toInt(),
           child: Align(
@@ -155,33 +153,31 @@ class GroupItemSwitch extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        (options.tips != null) && options.tips!.isNotEmpty
-            ? InkWell(
-                onTap: () {
-                  DialogUtils.showAlertDialog(context, options.tips!);
-                },
-                child: Tooltip(
-                  message: options.tips,
-                  child: const Icon(
-                    Icons.info_outlined,
-                    size: 26,
-                  ),
-                ))
-            : const SizedBox.shrink(),
-        (options.tips != null) && options.tips!.isNotEmpty
-            ? const SizedBox(
-                width: 5,
-              )
-            : const SizedBox.shrink(),
-        options.reddot == true
-            ? Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ))
-            : const SizedBox.shrink(),
+        if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+          InkWell(
+              onTap: () {
+                DialogUtils.showAlertDialog(context, options.tips!);
+              },
+              child: Tooltip(
+                message: options.tips,
+                child: const Icon(
+                  Icons.info_outlined,
+                  size: 26,
+                ),
+              )),
+          const SizedBox(
+            width: 5,
+          )
+        ],
+        if (options.reddot == true) ...[
+          Container(
+              width: 8,
+              height: 8,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ))
+        ],
         Expanded(
           child: Align(
             alignment: AlignmentDirectional.centerStart,
@@ -217,47 +213,44 @@ class GroupItemPush extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: options.onPush,
+      onLongPress: options.onLongPress,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          (options.tips != null) && options.tips!.isNotEmpty
-              ? InkWell(
-                  onTap: () {
-                    DialogUtils.showAlertDialog(context, options.tips!);
-                  },
-                  child: Tooltip(
-                    message: options.tips,
-                    child: const Icon(
-                      Icons.info_outlined,
-                      size: 26,
-                    ),
-                  ))
-              : const SizedBox.shrink(),
-          (options.tips != null) && options.tips!.isNotEmpty
-              ? const SizedBox(
-                  width: 5,
-                )
-              : const SizedBox.shrink(),
-          options.reddot == true
-              ? Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: options.reddotColor ?? Colors.red,
-                    shape: BoxShape.circle,
-                  ))
-              : const SizedBox.shrink(),
-          options.icon != null
-              ? Icon(
-                  options.icon,
-                  size: 26,
-                )
-              : const SizedBox.shrink(),
-          (options.icon != null)
-              ? const SizedBox(
-                  width: 5,
-                )
-              : const SizedBox.shrink(),
+          if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+            InkWell(
+                onTap: () {
+                  DialogUtils.showAlertDialog(context, options.tips!);
+                },
+                child: Tooltip(
+                  message: options.tips,
+                  child: const Icon(
+                    Icons.info_outlined,
+                    size: 26,
+                  ),
+                )),
+            const SizedBox(
+              width: 5,
+            )
+          ],
+          if (options.reddot == true) ...[
+            Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  color: options.reddotColor ?? Colors.red,
+                  shape: BoxShape.circle,
+                ))
+          ],
+          if (options.icon != null) ...[
+            Icon(
+              options.icon,
+              size: 26,
+            ),
+            const SizedBox(
+              width: 5,
+            )
+          ],
           Expanded(
             flex: ((1 - options.textWidthPercent) * 10).toInt(),
             child: Align(
@@ -323,33 +316,31 @@ class GroupItemTimerIntervalPicker extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          (options.tips != null) && options.tips!.isNotEmpty
-              ? InkWell(
-                  onTap: () {
-                    DialogUtils.showAlertDialog(context, options.tips!);
-                  },
-                  child: Tooltip(
-                    message: options.tips,
-                    child: const Icon(
-                      Icons.info_outlined,
-                      size: 26,
-                    ),
-                  ))
-              : const SizedBox.shrink(),
-          (options.tips != null) && options.tips!.isNotEmpty
-              ? const SizedBox(
-                  width: 5,
-                )
-              : const SizedBox.shrink(),
-          options.reddot == true
-              ? Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ))
-              : const SizedBox.shrink(),
+          if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+            InkWell(
+                onTap: () {
+                  DialogUtils.showAlertDialog(context, options.tips!);
+                },
+                child: Tooltip(
+                  message: options.tips,
+                  child: const Icon(
+                    Icons.info_outlined,
+                    size: 26,
+                  ),
+                )),
+            const SizedBox(
+              width: 5,
+            )
+          ],
+          if (options.reddot == true) ...[
+            Container(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ))
+          ],
           Expanded(
             flex: 8,
             child: Align(
@@ -426,7 +417,7 @@ class GroupItemStringPicker extends StatelessWidget {
           ),
           minLeadingWidth: 40,
           onTap: () async {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
             options.selected = key.item1;
             options.onPicker?.call(options.selected);
           },
@@ -442,7 +433,7 @@ class GroupItemStringPicker extends StatelessWidget {
           ),
           minLeadingWidth: 40,
           onTap: () async {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
             options.selected = key;
             options.onPicker?.call(options.selected);
           },
@@ -453,59 +444,36 @@ class GroupItemStringPicker extends StatelessWidget {
         onTap: options.onPicker == null
             ? null
             : () {
-                showSheet(
-                  title: "",
-                  context: context,
-                  body: SizedBox(
-                      height: 400,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Scrollbar(
-                            child: ListView.separated(
-                          itemBuilder: (BuildContext context, int index) {
-                            return widgets[index];
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const Divider(
-                              height: 1,
-                              thickness: 0.3,
-                            );
-                          },
-                          itemCount: widgets.length,
-                        )),
-                      )),
-                );
+                showSheetWidgets(context: context, widgets: widgets);
               },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            (options.tips != null) && options.tips!.isNotEmpty
-                ? InkWell(
-                    onTap: () {
-                      DialogUtils.showAlertDialog(context, options.tips!);
-                    },
-                    child: Tooltip(
-                      message: options.tips,
-                      child: const Icon(
-                        Icons.info_outlined,
-                        size: 26,
-                      ),
-                    ))
-                : const SizedBox.shrink(),
-            (options.tips != null) && options.tips!.isNotEmpty
-                ? const SizedBox(
-                    width: 5,
-                  )
-                : const SizedBox.shrink(),
-            options.reddot == true
-                ? Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ))
-                : const SizedBox.shrink(),
+            if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+              InkWell(
+                  onTap: () {
+                    DialogUtils.showAlertDialog(context, options.tips!);
+                  },
+                  child: Tooltip(
+                    message: options.tips,
+                    child: const Icon(
+                      Icons.info_outlined,
+                      size: 26,
+                    ),
+                  )),
+              const SizedBox(
+                width: 5,
+              )
+            ],
+            if (options.reddot == true) ...[
+              Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ))
+            ],
             Expanded(
               flex: ((1 - options.textWidthPercent) * 10).toInt(),
               child: Align(

@@ -25,14 +25,12 @@ class AutoUpdateCheckVersion {
   bool newVersion = false;
   String version = "";
   String url = "";
-  String fileName = "";
   bool force = false;
   Map<String, dynamic> toJson() => {
         'latest_check': latestCheck,
         'new_version': newVersion,
         "version": version,
         "url": url,
-        "file_name": fileName,
         "force": force,
       };
   void fromJson(Map<String, dynamic>? map) {
@@ -43,7 +41,6 @@ class AutoUpdateCheckVersion {
     newVersion = map["new_version"] ?? "";
     version = map["version"] ?? "";
     url = map["url"] ?? "";
-    fileName = map["file_name"] ?? "";
     force = map["force"] ?? false;
   }
 
@@ -54,7 +51,14 @@ class AutoUpdateCheckVersion {
   }
 
   Future<String> getDownloadPath() async {
-    return path.join(await PathUtils.cacheDir(), fileName);
+    String ext = "";
+    if (Platform.isAndroid) {
+      ext = ".apk";
+    } else if (Platform.isWindows) {
+      ext = ".exe";
+    }
+    final newPath = path.join(await PathUtils.cacheDir(), version);
+    return "$newPath$ext";
   }
 
   void clear() {
@@ -62,7 +66,6 @@ class AutoUpdateCheckVersion {
     newVersion = false;
     version = "";
     url = "";
-    fileName = "";
     force = false;
   }
 }
@@ -189,9 +192,7 @@ class AutoUpdateManager {
       return;
     }
 
-    if (_versionCheck.version.isEmpty ||
-        _versionCheck.url.isEmpty ||
-        _versionCheck.fileName.isEmpty) {
+    if (_versionCheck.version.isEmpty || _versionCheck.url.isEmpty) {
       return;
     }
     if (_downloading) {
@@ -225,7 +226,6 @@ class AutoUpdateManager {
           _versionCheck.newVersion = false;
           _versionCheck.version = "";
           _versionCheck.url = "";
-          _versionCheck.fileName = "";
           _versionCheck.force = false;
 
           saveConfig();
@@ -279,7 +279,6 @@ class AutoUpdateManager {
         _versionCheck.newVersion = false;
         _versionCheck.version = "";
         _versionCheck.url = "";
-        _versionCheck.fileName = "";
         _versionCheck.force = false;
 
         for (var item in items.data!) {
@@ -292,25 +291,27 @@ class AutoUpdateManager {
           if (item.version.isEmpty || item.url.isEmpty) {
             continue;
           }
-          bool hasAbi = false;
-          for (var abi in abis) {
-            abi = abi.trim();
-            if (abi.isEmpty ||
-                item.abis.contains("*") ||
-                item.abis.contains(abi)) {
-              hasAbi = true;
-              break;
+          if (abis.isNotEmpty && item.abis.isNotEmpty) {
+            bool hasAbi = false;
+            for (var abi in abis) {
+              abi = abi.trim();
+              if (abi.isEmpty ||
+                  item.abis.contains("*") ||
+                  item.abis.contains(abi)) {
+                hasAbi = true;
+                break;
+              }
+            }
+            if (!hasAbi) {
+              continue;
             }
           }
-          if (!hasAbi) {
-            continue;
-          }
+
           if (item.channels.contains("*") || item.channels.contains(channel)) {
             if (VersionCompareUtils.compareVersion(version, item.version) < 0) {
               _versionCheck.newVersion = true;
               _versionCheck.version = item.version;
               _versionCheck.url = item.url;
-              _versionCheck.fileName = item.fileName;
               _versionCheck.force = item.force;
             }
 

@@ -194,91 +194,92 @@ class _UWPLoopbackExemptionWindowsScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             UWPMappings current = _searchedData[index];
             return createWidget(current, windowSize, index);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
 
   Widget createWidget(UWPMappings current, Size windowSize, int index) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          const SizedBox(
-                            width: 5,
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        SizedBox(
+                          width: 30,
+                          child: Text(
+                            (index + 1).toString(),
+                            style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem),
                           ),
-                          SizedBox(
-                            width: 30,
-                            child: Text(
-                              (index + 1).toString(),
-                              style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeGroupItem),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: windowSize.width - 110,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 110,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  current.name,
+                                  style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                ),
+                                if (current.sid != current.sid) ...[
                                   Text(
-                                    current.name,
-                                    style: TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeGroupItem),
-                                  ),
-                                  current.sid == current.sid
-                                      ? const SizedBox.shrink()
-                                      : Text(
-                                          current.sid,
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                ]),
-                          ),
-                          Checkbox(
-                            tristate: true,
-                            value: _checked.contains(current.sid),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                _checked.add(current.sid);
-                              } else {
-                                _checked.remove(current.sid);
-                              }
-                              setState(() {});
-                            },
-                          ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                                    current.sid,
+                                    style: const TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ]),
+                        ),
+                        Checkbox(
+                          tristate: true,
+                          value: _checked.contains(current.sid),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              _checked.add(current.sid);
+                            } else {
+                              _checked.remove(current.sid);
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

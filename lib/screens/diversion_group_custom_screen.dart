@@ -20,6 +20,7 @@ import 'package:karing/screens/diversion_rules_custom_set_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 
@@ -262,108 +263,61 @@ class _DiversionGroupCustomScreenState
 
   void onTapMore() {
     final tcontext = Translations.of(context);
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: [
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.add,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.add,
-                ),
-              ]),
-              onTap: () async {
-                onTapAddCustom();
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.playlist_add_outlined,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.add,
-                ),
-              ]),
-              onTap: () async {
-                final tcontext = Translations.of(context);
-                var settingConfig = SettingManager.getConfig();
-                var regionCode = settingConfig.regionCode.toLowerCase();
-
-                DiversionCustomRules? rules =
-                    await DiversionCustomRulesPreset.getPreset(regionCode);
-                if (!mounted) {
-                  return;
-                }
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings: DiversionRulesCustomSetScreen.routSettings(),
-                        builder: (context) => DiversionRulesCustomSetScreen(
-                            canPop: true,
-                            title: tcontext.diversionCustomGroupPreset,
-                            canGoBack: true,
-                            nextText: null,
-                            nextIcon: Icons.done_outlined,
-                            rules: rules ?? DiversionCustomRules())));
-                _buildData();
-                setState(() {});
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    AntDesign.import_outline,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.import,
-                ),
-              ]),
-              onTap: () async {
-                onTapAddImport();
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    AntDesign.export_outline,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.export,
-                ),
-              ]),
-              onTap: () async {
-                onTapExport();
-              }),
-        ]);
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(
+          tcontext.meta.add,
+        ),
+        leading: Icon(
+          Icons.add,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapAddCustom();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.add,
+        ),
+        leading: Icon(
+          Icons.playlist_add_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapAddCustom2();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.import,
+        ),
+        leading: Icon(
+          AntDesign.import_outline,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapAddImport();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.export,
+        ),
+        leading: Icon(
+          AntDesign.export_outline,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapExport();
+        },
+      ),
+    ];
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapAddImport() async {
@@ -483,7 +437,7 @@ class _DiversionGroupCustomScreenState
   void onTapAddCustom() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, "", null, null, (text) {
+        context, tcontext.meta.remark, "", null, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
@@ -522,10 +476,35 @@ class _DiversionGroupCustomScreenState
     }
   }
 
+  void onTapAddCustom2() async {
+    final tcontext = Translations.of(context);
+    var settingConfig = SettingManager.getConfig();
+    var regionCode = settingConfig.regionCode.toLowerCase();
+
+    DiversionCustomRules? rules =
+        await DiversionCustomRulesPreset.getPreset(regionCode);
+    if (!mounted) {
+      return;
+    }
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: DiversionRulesCustomSetScreen.routSettings(),
+            builder: (context) => DiversionRulesCustomSetScreen(
+                canPop: true,
+                title: tcontext.diversionCustomGroupPreset,
+                canGoBack: true,
+                nextText: null,
+                nextIcon: Icons.done_outlined,
+                rules: rules ?? DiversionCustomRules())));
+    _buildData();
+    setState(() {});
+  }
+
   void onTapModifyName(String current) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, current, null, null, (text) {
+        context, tcontext.meta.remark, current, null, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
@@ -577,19 +556,23 @@ class _DiversionGroupCustomScreenState
     DiversionGroupCustomEditOptions newOptions =
         DiversionGroupCustomEditOptions();
     newOptions.showLogicOperations = true;
+    newOptions.ruleSetBuildIn = "";
+    newOptions.ruleSet = "";
+    newOptions.package = "";
+    newOptions.processName = "";
+    newOptions.processPath = "";
+    newOptions.processDir = "";
     newOptions.domainSuffix = "";
     newOptions.domain = "";
     newOptions.domainKeyword = "";
     newOptions.domainRegex = "";
     newOptions.ipCidr = "";
+    newOptions.network = "";
+    newOptions.networkType = "";
+    newOptions.wifiSsid = "";
+    newOptions.wifiBssid = "";
     newOptions.port = "";
     newOptions.protocol = "";
-    newOptions.ruleSet = "";
-    newOptions.ruleSetBuildIn = "";
-    newOptions.package = "";
-    newOptions.processName = "";
-    newOptions.processPath = "";
-    newOptions.processDir = "";
 
     DiversionGroupCustomEditOptions options =
         widget.options == null ? newOptions : widget.options!;

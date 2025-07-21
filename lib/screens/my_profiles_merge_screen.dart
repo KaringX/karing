@@ -132,12 +132,17 @@ class MyProfilesMergeScreenState
               Expanded(
                 child: Scrollbar(
                     thumbVisibility: true,
-                    child: ListView.builder(
+                    child: ListView.separated(
                       itemCount: _sources.length,
-                      itemExtent: 66,
                       itemBuilder: (BuildContext context, int index) {
                         ServerConfigGroupItem current = _sources[index];
                         return createWidgetTarget(current, windowSize);
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          height: 1,
+                          thickness: 0.3,
+                        );
                       },
                     )),
               ),
@@ -165,54 +170,51 @@ class MyProfilesMergeScreenState
   }
 
   Widget createWidgetTarget(ServerConfigGroupItem group, Size windowSize) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          Checkbox(
-                            tristate: true,
-                            value: _selectedSources.contains(group),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                _selectedSources.add(group);
-                              } else {
-                                _selectedSources.remove(group);
-                              }
-                              setState(() {});
-                            },
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        Checkbox(
+                          tristate: true,
+                          value: _selectedSources.contains(group),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              _selectedSources.add(group);
+                            } else {
+                              _selectedSources.remove(group);
+                            }
+                            setState(() {});
+                          },
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 80,
+                          child: Text(
+                            group.remark,
+                            style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem),
                           ),
-                          SizedBox(
-                            width: windowSize.width - 80,
-                            child: Text(
-                              group.remark,
-                              style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeGroupItem),
-                            ),
-                          ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

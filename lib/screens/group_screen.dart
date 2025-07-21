@@ -10,8 +10,6 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class GroupScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings(String viewTag) {

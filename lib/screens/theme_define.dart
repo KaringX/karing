@@ -8,7 +8,6 @@ class ThemeDefine {
   static const String kThemeSystem = "system";
   static const String kThemeLight = "light";
   static const String kThemeDark = "dark";
-  static const String kThemeBlue = "blue";
 
   static const BorderRadiusGeometry kBorderRadius =
       BorderRadius.all(Radius.circular(0));

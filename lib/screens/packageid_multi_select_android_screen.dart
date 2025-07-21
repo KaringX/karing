@@ -379,103 +379,103 @@ class _PackageIdMultiSelectAndroidScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             PackageInfoEx current = _searchedData[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
 
   Widget createWidget(PackageInfoEx current, Size windowSize) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: ThemeConfig.kListItemHeight2,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: FutureBuilder(
-                              future: getInstalledPackageIcon(
-                                  current.info.packageName!),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<Image?> snapshot) {
-                                if (!snapshot.hasData ||
-                                    snapshot.data == null) {
-                                  return const SizedBox.shrink();
-                                }
-                                return SizedBox(
-                                    width: ThemeConfig.kListItemHeight2,
-                                    height: ThemeConfig.kListItemHeight2,
-                                    child: snapshot.data);
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: windowSize.width - 140,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    current.name,
-                                    style: TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeGroupItem),
-                                  ),
-                                  current.name == current.info.packageName
-                                      ? const SizedBox.shrink()
-                                      : Text(
-                                          current.info.packageName!,
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                ]),
-                          ),
-                          Checkbox(
-                            tristate: true,
-                            value: widget.selectedData
-                                .contains(current.info.packageName!),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                widget.selectedData
-                                    .add(current.info.packageName!);
-                              } else {
-                                widget.selectedData
-                                    .remove(current.info.packageName!);
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: ThemeConfig.kListItemHeight2,
+                          height: ThemeConfig.kListItemHeight2,
+                          child: FutureBuilder(
+                            future: getInstalledPackageIcon(
+                                current.info.packageName!),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<Image?> snapshot) {
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return const SizedBox.shrink();
                               }
-
-                              setState(() {});
+                              return SizedBox(
+                                  width: ThemeConfig.kListItemHeight2,
+                                  height: ThemeConfig.kListItemHeight2,
+                                  child: snapshot.data);
                             },
                           ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 140,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  current.name,
+                                  style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                ),
+                                current.name == current.info.packageName
+                                    ? const SizedBox.shrink()
+                                    : Text(
+                                        current.info.packageName!,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                              ]),
+                        ),
+                        Checkbox(
+                          tristate: true,
+                          value: widget.selectedData
+                              .contains(current.info.packageName!),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              widget.selectedData
+                                  .add(current.info.packageName!);
+                            } else {
+                              widget.selectedData
+                                  .remove(current.info.packageName!);
+                            }
+
+                            setState(() {});
+                          },
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

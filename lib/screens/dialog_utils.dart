@@ -18,7 +18,7 @@ class DialogUtilsResult<T> {
 }
 
 class DialogUtils {
-  static Future<void> Function(String text)? faqCallback;
+  static Future<void> Function(BuildContext context, String text)? faqCallback;
 
   static Future<void> showAlertDialog(BuildContext context, String text,
       {bool showCopy = false,
@@ -91,36 +91,34 @@ class DialogUtils {
                     Navigator.pop(context);
                   },
                 ),
-                showCopy
-                    ? SizedBox(
-                        width: width,
-                      )
-                    : const SizedBox.shrink(),
-                showCopy
-                    ? ElevatedButton(
-                        child: Text(tcontext.meta.copy),
-                        onPressed: () async {
-                          try {
-                            await Clipboard.setData(ClipboardData(text: text));
-                          } catch (e) {}
-                        },
-                      )
-                    : const SizedBox.shrink(),
+                if (showCopy) ...[
+                  SizedBox(
+                    width: width,
+                  ),
+                  ElevatedButton(
+                    child: Text(tcontext.meta.copy),
+                    onPressed: () async {
+                      try {
+                        await Clipboard.setData(ClipboardData(text: text));
+                      } catch (e) {}
+                    },
+                  )
+                ],
               ],
             ),
             const SizedBox(
               height: 20,
             ),
-            showFAQ
-                ? Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: ElevatedButton(
-                      child: Text(tcontext.meta.faq),
-                      onPressed: () async {
-                        await faqCallback?.call(text);
-                      },
-                    ))
-                : const SizedBox.shrink(),
+            if (showFAQ) ...[
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: ElevatedButton(
+                    child: Text(tcontext.meta.faq),
+                    onPressed: () async {
+                      await faqCallback?.call(context, text);
+                    },
+                  ))
+            ],
           ],
         );
       },
@@ -182,6 +180,7 @@ class DialogUtils {
       String title,
       String text,
       String? labelText,
+      TextInputType? keyboardType,
       List<TextInputFormatter>? inputFormatters,
       bool Function(String) callback) async {
     if (!context.mounted) {
@@ -209,6 +208,7 @@ class DialogUtils {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: TextField(
                   controller: textController,
+                  keyboardType: keyboardType,
                   inputFormatters: inputFormatters,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
@@ -293,6 +293,7 @@ class DialogUtils {
                         width: 100,
                         child: TextField(
                           controller: textControllerL,
+                          keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
                           ],
@@ -368,8 +369,8 @@ class DialogUtils {
   static Future<int?> showIntInputDialog(BuildContext context, String title,
       int? value, int? min, int? max) async {
     String mm = (min != null && max != null) ? "$min-$max" : "";
-    String? text = await DialogUtils.showTextInputDialog(
-        context, title, value != null ? value.toString() : "", mm, [
+    String? text = await DialogUtils.showTextInputDialog(context, title,
+        value != null ? value.toString() : "", mm, TextInputType.number, [
       FilteringTextInputFormatter.digitsOnly,
     ], (text) {
       text = text.trim();

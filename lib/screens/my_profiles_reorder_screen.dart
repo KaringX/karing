@@ -115,25 +115,27 @@ class MyProfilesReorderScreenState
                     ),
                     children: _subAndConfigList.map((item) {
                       return Material(
-                          key: Key(item.item1.toString()),
-                          borderRadius: ThemeDefine.kBorderRadius,
-                          child: Container(
-                              height: 45,
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(top: 2),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    item.item2,
-                                    style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem,
-                                    ),
-                                  )
-                                ],
-                              )));
+                        key: Key(item.item1.toString()),
+                        borderRadius: ThemeDefine.kBorderRadius,
+                        child: Container(
+                          height: 45,
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(top: 2),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                item.item2,
+                                style: TextStyle(
+                                  fontSize: ThemeConfig.kFontSizeGroupItem,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
                     }).toList(),
                     onReorder: (int oldIndex, int newIndex) {
                       if (oldIndex < newIndex) {

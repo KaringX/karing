@@ -53,7 +53,7 @@ class _SegmentedElevatedButton extends State<SegmentedElevatedButton> {
   @override
   Widget build(BuildContext context) {
     var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+    Color? color = themes.getThemeBgColor(context);
     for (int i = 0; i < _controllers.length; ++i) {
       _controllers[i].value =
           i == widget.selected ? {WidgetState.selected} : {};

@@ -5,7 +5,6 @@ import 'package:dash_flags/dash_flags.dart' as country_flags;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -122,6 +121,7 @@ class _RegionSetingsScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    var setting = SettingManager.getConfig();
     return PopScope(
         canPop: widget.canPop,
         child: Scaffold(
@@ -174,7 +174,7 @@ class _RegionSetingsScreenState
                                     width: 65,
                                     height: 30,
                                     child: InkWell(
-                                      autofocus: PlatformUtils.maybeTV(),
+                                      autofocus: setting.ui.tvMode,
                                       focusNode: _focusNodeNext,
                                       onTap: () {
                                         Navigator.pop(context);
@@ -215,11 +215,12 @@ class _RegionSetingsScreenState
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
+                            //focusedBorder: InputBorder.none,
                             icon: Icon(
                               Icons.search_outlined,
                               color: Colors.grey.shade400,
                             ),
+                            labelText: tcontext.meta.search,
                             hintText: tcontext.meta.search,
                             suffixIcon: _searchController.text.isNotEmpty
                                 ? IconButton(
@@ -308,12 +309,17 @@ class _RegionSetingsScreenState
   Widget _loadListView() {
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = _searchedData[index];
             return createWidget(current);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -333,63 +339,60 @@ class _RegionSetingsScreenState
   }
 
   Widget createWidget(country.Country current) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        color: SettingManager.getConfig().regionCode.toUpperCase() ==
-                current.alpha2
-            ? ThemeDefine.kColorBlue
-            : null,
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            onTapItem(current);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: ThemeConfig.kListItemHeight2,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            _flag(current.alpha2),
-                            const SizedBox(
-                              width: 15,
+    return Material(
+      color:
+          SettingManager.getConfig().regionCode.toUpperCase() == current.alpha2
+              ? ThemeDefine.kColorBlue
+              : null,
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {
+          onTapItem(current);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight2,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          _flag(current.alpha2),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            current.alpha2,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
-                            Text(
-                              current.alpha2,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            current.isoShortNameByLocale[
+                                    SettingConfig.languageTagForCountry()] ??
+                                "",
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              current.isoShortNameByLocale[
-                                      SettingConfig.languageTagForCountry()] ??
-                                  "",
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

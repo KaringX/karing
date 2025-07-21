@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/diversion_custom_utils.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -55,6 +55,7 @@ class _DiversionRulesCustomSetScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    var setting = SettingManager.getConfig();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -119,7 +120,7 @@ class _DiversionRulesCustomSetScreenState
                                               widget.nextText != null ? 65 : 50,
                                           height: 30,
                                           child: InkWell(
-                                            autofocus: PlatformUtils.maybeTV(),
+                                            autofocus: setting.ui.tvMode,
                                             focusNode: _focusNodeNext,
                                             onTap: () {
                                               onTapDone();

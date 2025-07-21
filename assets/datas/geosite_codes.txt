@@ -131,6 +131,7 @@ archlinux
 arphic
 artstation
 asahi
+asobo
 asproex
 asus
 asus@cn
@@ -323,6 +324,11 @@ category-forums
 category-game-accelerator-cn
 category-game-platforms-download
 category-game-platforms-download@cn
+category-games-!cn
+category-games-!cn@cn
+category-games-cn
+category-games-cn@!cn
+category-games-cn@cn
 category-games
 category-games@!cn
 category-games@cn
@@ -641,6 +647,7 @@ fonts
 fontshop
 fontsinuse
 forbes
+forza
 foundertype
 fox
 fqnovel
@@ -702,9 +709,11 @@ google-scholar
 google-trust-services
 google-trust-services@cn
 google
+google@!cn
 google@ads
 google@cn
 googlefcm
+googlefcm@!cn
 goproxy
 gracg
 gravatar
@@ -1229,6 +1238,7 @@ pocketcasts
 pocoiq-ads
 pocoiq-ads@ads
 poe
+polocloud
 polymer
 polyv
 pornhub
@@ -1304,6 +1314,7 @@ riot@cn
 roborock
 rockstar
 roku
+rsshub-3rd
 rsshub
 rthk
 ru
@@ -1315,6 +1326,7 @@ rumble
 rust
 ruten
 rutracker
+sakurafrp
 salesforce
 samsung
 samsung@ads
@@ -1617,6 +1629,7 @@ vpngate
 vrzwk
 vultr
 w3schools
+wallhaven
 walmart
 walmart@cn
 wanfang

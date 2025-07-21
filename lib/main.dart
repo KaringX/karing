@@ -183,10 +183,6 @@ Future<void> run(List<String> args) async {
     SentryUtils.captureException(
         'main.run.exception', [cmdline], err, stacktrace);
   }
-
-  runApp(TranslationProvider(
-    child: const MyApp(),
-  ));
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -194,6 +190,9 @@ Future<void> run(List<String> args) async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
+  runApp(TranslationProvider(
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {

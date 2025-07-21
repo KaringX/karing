@@ -1,4 +1,4 @@
-ad.srs 
+ad
 ae
 af
 ag

@@ -191,60 +191,56 @@ class _NetConnectionsFilterScreenState
 
   Widget createGroupItem(String text, Set<String> filter) {
     Size windowSize = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: windowSize.width - 80,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    text,
-                                    style: TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeGroupItem),
-                                  ),
-                                ]),
-                          ),
-                          Checkbox(
-                            tristate: true,
-                            value: filter.contains(text),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                filter.add(text);
-                              } else {
-                                filter.remove(text);
-                              }
-                              setState(() {});
-                            },
-                          ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          //height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: windowSize.width - 80,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  text,
+                                  style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                ),
+                              ]),
+                        ),
+                        Checkbox(
+                          tristate: true,
+                          value: filter.contains(text),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              filter.add(text);
+                            } else {
+                              filter.remove(text);
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

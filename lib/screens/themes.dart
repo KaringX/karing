@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/extension/colors.dart';
-import 'package:karing/screens/theme_data_blue.dart';
+
 import 'package:karing/screens/theme_data_dark.dart';
 import 'package:karing/screens/theme_data_light.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -14,7 +14,6 @@ class Themes with ChangeNotifier {
       case ThemeDefine.kThemeSystem:
       case ThemeDefine.kThemeLight:
       case ThemeDefine.kThemeDark:
-      case ThemeDefine.kThemeBlue:
         _theme = theme;
       default:
         return;
@@ -37,8 +36,6 @@ class Themes with ChangeNotifier {
         return ThemeDataLight.theme(context);
       case ThemeDefine.kThemeDark:
         return ThemeDataDark.theme(context);
-      case ThemeDefine.kThemeBlue:
-        return ThemeDataBlue.theme(context);
     }
     //ThemeDefine.kThemeSystem:
     return brightness == Brightness.dark
@@ -46,20 +43,32 @@ class Themes with ChangeNotifier {
         : ThemeDataLight.theme(context);
   }
 
-  Color? getThemeHomeColor(BuildContext context) {
+  Color? getThemeBgColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeLight:
-        return ThemeDataLight.homeColor;
+        return ThemeDataLight.mainBgColor;
       case ThemeDefine.kThemeDark:
-        return ThemeDataDark.homeColor;
-      case ThemeDefine.kThemeBlue:
-        return ThemeDataBlue.homeColor;
+        return ThemeDataDark.mainBgColor;
     }
     // ThemeDefine.kThemeSystem:
     return brightness == Brightness.dark
-        ? ThemeDataDark.homeColor
-        : ThemeDataLight.homeColor;
+        ? ThemeDataDark.mainBgColor
+        : ThemeDataLight.mainBgColor;
+  }
+
+  Color? getThemeInvertBgColor(BuildContext context) {
+    var brightness = MediaQuery.platformBrightnessOf(context);
+    switch (_theme) {
+      case ThemeDefine.kThemeLight:
+        return ThemeDataDark.mainBgColor;
+      case ThemeDefine.kThemeDark:
+        return ThemeDataLight.mainBgColor;
+    }
+    // ThemeDefine.kThemeSystem:
+    return brightness == Brightness.dark
+        ? ThemeDataLight.mainBgColor
+        : ThemeDataDark.mainBgColor;
   }
 
   Color? getThemeIconColor(BuildContext context) {
@@ -73,8 +82,6 @@ class Themes with ChangeNotifier {
         return Colors.black.withValues(alpha: 0.5);
       case ThemeDefine.kThemeDark:
         return Colors.white.withValues(alpha: 0.5);
-      case ThemeDefine.kThemeBlue:
-        return Colors.black.withValues(alpha: 0.5);
     }
     return Colors.grey.withValues(alpha: 0.5);
   }
@@ -102,8 +109,6 @@ class Themes with ChangeNotifier {
         return ThemeDataLight.theme(context);
       case ThemeDefine.kThemeDark:
         return ThemeDataDark.theme(context);
-      case ThemeDefine.kThemeBlue:
-        return ThemeDataBlue.theme(context);
     }
     return ThemeDataLight.theme(context);
   }
@@ -117,7 +122,6 @@ class Themes with ChangeNotifier {
               ? Brightness.dark
               : Brightness.light;
         case ThemeDefine.kThemeLight:
-        case ThemeDefine.kThemeBlue:
           return Brightness.light;
         case ThemeDefine.kThemeDark:
           return Brightness.dark;
@@ -135,7 +139,6 @@ class Themes with ChangeNotifier {
               ? Brightness.light
               : Brightness.dark;
         case ThemeDefine.kThemeLight:
-        case ThemeDefine.kThemeBlue:
           return Brightness.dark;
         case ThemeDefine.kThemeDark:
           return Brightness.light;

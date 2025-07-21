@@ -117,12 +117,17 @@ class _ServerSelectSearchSettingsScreenState
 
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: widget.data.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = widget.data[index];
             return createWidget(index, current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -132,58 +137,56 @@ class _ServerSelectSearchSettingsScreenState
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () async {
-            onTapEditItem(current);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: centerWidth,
-                            child: Text(
-                              current.item1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () async {
+          onTapEditItem(current);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight2,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: centerWidth,
+                          child: Text(
+                            current.item1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
                           ),
-                          SizedBox(
-                              width: rightWidth,
-                              height: ThemeConfig.kListItemHeight2 - 2,
-                              child: InkWell(
-                                onTap: () async {
-                                  onTapDelete(index);
-                                },
-                                child: const Icon(
-                                  Icons.remove_circle_outlined,
-                                  size: 26,
-                                  color: Colors.red,
-                                ),
-                              ))
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                        SizedBox(
+                            width: rightWidth,
+                            height: ThemeConfig.kListItemHeight2 - 2,
+                            child: InkWell(
+                              onTap: () async {
+                                onTapDelete(index);
+                              },
+                              child: const Icon(
+                                Icons.remove_circle_outlined,
+                                size: 26,
+                                color: Colors.red,
+                              ),
+                            ))
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -192,7 +195,7 @@ class _ServerSelectSearchSettingsScreenState
 
   void onTapEditItem(Tuple2<String, String> current) async {
     String? text = await DialogUtils.showTextInputDialog(
-        context, current.item1, current.item2, "", null, (text) {
+        context, current.item1, current.item2, "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;
@@ -216,7 +219,7 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.add, "", "", null, (text) {
+        context, tcontext.meta.add, "", "", null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;

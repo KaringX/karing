@@ -169,58 +169,58 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          _url != null
-                              ? SizedBox(
-                                  height: 45.0,
-                                  child: ElevatedButton(
-                                    child: Text(tcontext.meta.openUrl),
-                                    onPressed: () async {
-                                      if (widget.callback != null) {
-                                        widget.callback!();
-                                      } else {
-                                        await WebviewHelper.loadUrl(
-                                            context, _content, "qrcode");
-                                      }
-                                    },
-                                  ))
-                              : const SizedBox.shrink(),
+                          if (_url != null) ...[
+                            SizedBox(
+                                height: 45.0,
+                                child: ElevatedButton(
+                                  child: Text(tcontext.meta.openUrl),
+                                  onPressed: () async {
+                                    if (widget.callback != null) {
+                                      widget.callback!();
+                                    } else {
+                                      await WebviewHelper.loadUrl(
+                                          context, _content, "qrcode");
+                                    }
+                                  },
+                                ))
+                          ],
                           const SizedBox(
                             height: 10,
                           ),
-                          _image != null &&
-                                  (!Platform.isWindows ||
-                                      (Platform.isWindows &&
-                                          VersionHelper.instance
-                                              .isWindows10RS5OrGreater))
-                              ? SizedBox(
-                                  height: 45.0,
-                                  child: ElevatedButton(
-                                    child: Text(t.meta.qrcodeShare),
-                                    onPressed: () async {
-                                      String savePath = path.join(
-                                          await PathUtils.cacheDir(),
-                                          'qrcode_share.png');
-                                      await FileUtils.deletePath(savePath);
-                                      await QrcodeUtils.saveAsImage(
-                                          _content, savePath);
+                          if (_image != null &&
+                              (!Platform.isWindows ||
+                                  (Platform.isWindows &&
+                                      VersionHelper.instance
+                                          .isWindows10RS5OrGreater))) ...[
+                            SizedBox(
+                                height: 45.0,
+                                child: ElevatedButton(
+                                  child: Text(t.meta.qrcodeShare),
+                                  onPressed: () async {
+                                    String savePath = path.join(
+                                        await PathUtils.cacheDir(),
+                                        'qrcode_share.png');
+                                    await FileUtils.deletePath(savePath);
+                                    await QrcodeUtils.saveAsImage(
+                                        _content, savePath);
 
-                                      try {
-                                        await Share.shareXFiles(
-                                          [XFile(savePath)],
-                                        );
-                                      } catch (err) {
-                                        if (!context.mounted) {
-                                          return;
-                                        }
-                                        DialogUtils.showAlertDialog(
-                                            context, err.toString(),
-                                            showCopy: true,
-                                            showFAQ: true,
-                                            withVersion: true);
+                                    try {
+                                      await Share.shareXFiles(
+                                        [XFile(savePath)],
+                                      );
+                                    } catch (err) {
+                                      if (!context.mounted) {
+                                        return;
                                       }
-                                    },
-                                  ))
-                              : const SizedBox.shrink(),
+                                      DialogUtils.showAlertDialog(
+                                          context, err.toString(),
+                                          showCopy: true,
+                                          showFAQ: true,
+                                          withVersion: true);
+                                    }
+                                  },
+                                ))
+                          ],
                           const SizedBox(
                             height: 50,
                           ),

@@ -17,8 +17,8 @@ class GroupItem {
 }
 
 class GroupItemCreator {
-  static List<Widget> createGroups(
-      BuildContext context, List<GroupItem> groups) {
+  static List<Widget> createGroups(BuildContext context, List<GroupItem> groups,
+      {bool scrollbar = false}) {
     List<Widget> widgets = [];
     GroupItemCreator giCreator = GroupItemCreator();
     int index = 0;
@@ -26,7 +26,8 @@ class GroupItemCreator {
       widgets.add(Card(
           child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: giCreator.createGroup(context, group, index == 0))));
+              child: giCreator.createGroup(context, group, index == 0,
+                  scrollbar: scrollbar))));
       ++index;
     }
     return widgets;
@@ -49,7 +50,8 @@ class GroupItemCreator {
     );
   }
 
-  Column createGroup(BuildContext context, GroupItem group, bool isFirstGroup) {
+  Column createGroup(BuildContext context, GroupItem group, bool isFirstGroup,
+      {bool scrollbar = false}) {
     var widgets = [];
     for (var option in group.options) {
       late Widget widget;
@@ -74,24 +76,23 @@ class GroupItemCreator {
         child: widget,
       ));
     }
+    final listView = ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (_, index) {
+        return widgets[index];
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 1,
+          thickness: 0.3,
+        );
+      },
+      itemCount: widgets.length,
+    );
     return Column(children: [
       _createGroupName(context, group),
-      Scrollbar(
-        child: ListView.separated(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) {
-            return widgets[index];
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-          itemCount: widgets.length,
-        ),
-      )
+      scrollbar ? Scrollbar(child: listView) : listView,
     ]);
   }
 }

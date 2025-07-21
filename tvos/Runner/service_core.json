@@ -1,0 +1,271 @@
+{
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:3057",
+      "secret": "0197ddaedc3d7e62a986495d029f4dd3"
+    },
+    "debug": {
+      "max_threads": null,
+      "panic_on_fault": false,
+      "listen": null
+    },
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": true
+    }
+  },
+  "log": {
+    "disabled": false,
+    "level": "error",
+    "output": "service_core.log",
+    "timestamp": true
+  },
+  "ntp": null,
+  "dns": {
+    "final": "dns_proxy_out",
+    "servers": [
+      {
+        "tag": "local",
+        "type": "local"
+      },
+      {
+        "tag": "dhcp://auto",
+        "type": "dhcp"
+      },
+      {
+        "tag": "udp://8.8.8.8",
+        "type": "udp",
+        "server": "8.8.8.8",
+        "server_port": 53
+      },
+      {
+        "tag": "udp://223.6.6.6",
+        "type": "udp",
+        "server": "223.6.6.6",
+        "server_port": 53
+      },
+      {
+        "tag": "https://1.1.1.1/dns-query",
+        "type": "https",
+        "server": "1.1.1.1",
+        "server_port": 443,
+        "path": "/dns-query"
+      },
+      {
+        "tag": "https://dns.google/dns-query",
+        "type": "https",
+        "server": "dns.google",
+        "server_port": 443,
+        "domain_resolver": "dns_resolver_out",
+        "path": "/dns-query"
+      },
+      {
+        "tag": "detour:https://1.1.1.1/dns-query",
+        "type": "https",
+        "server": "1.1.1.1",
+        "server_port": 443,
+        "detour": "urltest_out",
+        "path": "/dns-query"
+      },
+      {
+        "tag": "detour:https://dns.google/dns-query",
+        "type": "https",
+        "server": "dns.google",
+        "server_port": 443,
+        "domain_resolver": "dns_resolver_out",
+        "detour": "urltest_out",
+        "path": "/dns-query"
+      },
+      {
+        "tag": "dns_block_out",
+        "type": "predefined",
+        "rcode": "NOERROR"
+      },
+      {
+        "tag": "dns_outbound_out",
+        "type": "batch",
+        "servers": [
+          "local",
+          "dhcp://auto",
+          "udp://8.8.8.8",
+          "udp://223.6.6.6"
+        ]
+      },
+      {
+        "tag": "dns_direct_out",
+        "type": "batch",
+        "servers": [
+          "local",
+          "dhcp://auto",
+          "udp://8.8.8.8",
+          "udp://223.6.6.6"
+        ]
+      },
+      {
+        "tag": "dns_proxy_out",
+        "type": "batch",
+        "servers": [
+          "detour:https://1.1.1.1/dns-query",
+          "detour:https://dns.google/dns-query"
+        ]
+      },
+      {
+        "tag": "dns_resolver_out",
+        "type": "batch",
+        "servers": [
+          "local",
+          "dhcp://auto",
+          "https://1.1.1.1/dns-query",
+          "udp://223.6.6.6"
+        ]
+      },
+      {
+        "tag": "dns_fakeip_out",
+        "type": "fakeip",
+        "inet4_range": "198.20.0.0/15"
+      }
+    ],
+    "rules": [
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "action": "route",
+        "server": "dns_fakeip_out",
+        "rewrite_ttl": 1,
+        "disable_cache": true,
+        "name": "[dns-fakeip]"
+      }
+    ],
+    "strategy": "ipv4_only",
+    "independent_cache": true,
+    "cache_capacity": 1024
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun_in",
+      "interface_name": "Karing TUN Network Adapter",
+      "address": [
+        "10.20.0.1/30"
+      ],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": false,
+      "stack": "mixed",
+      "platform": null,
+      "include_package": null,
+      "exclude_package": null,
+      "udp_timeout": "15s"
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed_in_direct",
+      "set_system_proxy": false,
+      "listen": "127.0.0.1",
+      "listen_port": 3065
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed_in_proxy",
+      "set_system_proxy": false,
+      "listen": "127.0.0.1",
+      "listen_port": 3066
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed_in_rule",
+      "set_system_proxy": false,
+      "listen": "127.0.0.1",
+      "listen_port": 3067
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "urltest",
+      "tag": "urltest_out",
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "9h",
+      "interrupt_exist_connections": false,
+      "selected_health_check_interval": "5s",
+      "idle_timeout": "9h",
+      "outbounds": [
+        "direct_out"
+      ]
+    },
+    {
+      "type": "direct",
+      "tag": "direct_out"
+    },
+    {
+      "type": "block",
+      "tag": "block_out"
+    },
+    {
+      "type": "dns",
+      "tag": "dns_out"
+    }
+  ],
+  "route": {
+    "final": "urltest_out",
+    "find_process": false,
+    "auto_detect_interface": false,
+    "default_domain_resolver": {
+      "server": "dns_outbound_out",
+      "rewrite_ttl": 43200,
+      "strategy": "ipv4_only"
+    },
+    "rules": [
+      {
+        "inbound": [
+          "tun_in"
+        ],
+        "action": "sniff"
+      },
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "inbound": [
+          "mixed_in_rule"
+        ],
+        "action": "sniff"
+      },
+      {
+        "inbound": [
+          "mixed_in_direct"
+        ],
+        "action": "sniff"
+      },
+      {
+        "inbound": [
+          "mixed_in_proxy"
+        ],
+        "action": "sniff"
+      },
+      {
+        "inbound": [
+          "mixed_in_direct"
+        ],
+        "outbound": "direct_out",
+        "name": "direct[all]"
+      },
+      {
+        "inbound": [
+          "mixed_in_proxy"
+        ],
+        "outbound": "urltest_out",
+        "name": "proxy[all]"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct_out",
+        "name": "ip_is_private"
+      }
+    ],
+    "rule_set": []
+  }
+}

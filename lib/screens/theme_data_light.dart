@@ -4,9 +4,8 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 
 class ThemeDataLight {
-  static const Color homeColor = Colors.white;
   static const Color mainColor = Colors.white;
-  static const Color mainBgColor = Color(0xFFF2F1F6);
+  static const Color mainBgColor = Color(0xFFF0F0F0);
   static ThemeData theme(BuildContext context) {
     return ThemeData(
       useMaterial3: true,
@@ -17,6 +16,11 @@ class ThemeDataLight {
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor,
         brightness: Brightness.light,
+        //primary: mainColor,
+        // surfaceContainer: mainBgColor,
+        surfaceContainerLow: mainColor,
+        // onSecondaryContainer: Colors.blue.shade100,
+        secondaryContainer: Colors.grey[350],
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -170,6 +174,13 @@ class ThemeDataLight {
       )),
       popupMenuTheme: const PopupMenuThemeData(
           color: mainBgColor, surfaceTintColor: Colors.white),
+      /*switchTheme:
+          SwitchThemeData(thumbColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.pressed)) {
+          return ThemeDefine.kColorGreenBright;
+        }
+        return Colors.white;
+      })),*/
     );
   }
 }

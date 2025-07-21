@@ -12,6 +12,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
@@ -280,79 +281,71 @@ class FileContentViewerScreenState
       return;
     }
     bool canClear = getFileTupleList()[_fileName] == true;
-    List<PopupMenuItem> items = [
-      PopupMenuItem(
-          value: 1,
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.refresh_outlined,
-              size: 30,
-            ),
+    final tcontext = Translations.of(context);
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(
+          tcontext.meta.refresh,
+        ),
+        leading: Icon(
+          Icons.refresh_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          setState(() {});
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.copy,
+        ),
+        leading: Icon(
+          Icons.copy,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          try {
+            await Clipboard.setData(ClipboardData(text: _fileContent));
+          } catch (e) {}
+        },
+      ),
+      if (!Platform.isWindows ||
+          (Platform.isWindows &&
+              VersionHelper.instance.isWindows10RS5OrGreater)) ...[
+        ListTile(
+          title: Text(
+            tcontext.meta.share,
           ),
-          onTap: () {
-            setState(() {});
-          }),
-      PopupMenuItem(
-          value: 1,
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.copy,
-              size: 30,
-            ),
+          leading: Icon(
+            Icons.share_outlined,
           ),
+          minLeadingWidth: 40,
           onTap: () async {
-            try {
-              await Clipboard.setData(ClipboardData(text: _fileContent));
-            } catch (e) {}
-          }),
-    ];
-    if (!Platform.isWindows ||
-        (Platform.isWindows &&
-            VersionHelper.instance.isWindows10RS5OrGreater)) {
-      items.add(
-        PopupMenuItem(
-          value: 1,
-          onTap: () {
+            Navigator.pop(context);
             onTapShare();
           },
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.share_outlined,
-              size: 30,
-            ),
-          ),
         ),
-      );
-    }
-    if (canClear) {
-      items.add(
-        PopupMenuItem(
-          value: 1,
-          child: const SizedBox(
-            width: 30,
-            height: 30,
-            child: Icon(
-              Icons.clear_outlined,
-              size: 30,
-            ),
+      ],
+      if (canClear) ...[
+        ListTile(
+          title: Text(
+            tcontext.meta.remove,
           ),
-          onTap: () {
+          leading: Icon(
+            Icons.clear_outlined,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
             clearContent();
           },
         ),
-      );
-    }
+      ],
+    ];
 
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: items);
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapShare() async {

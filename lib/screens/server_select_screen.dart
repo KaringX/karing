@@ -27,6 +27,7 @@ import 'package:karing/screens/server_select_keywords_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
@@ -673,64 +674,60 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     }
   }
 
-  Container createSearchKeywords(String keyword) {
+  Widget createSearchKeywords(String keyword) {
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 10;
     const double leftWidth = 30.0;
 
     double centerWidth = windowSize.width - leftWidth - padding * 2;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
-          width: double.infinity,
-          height: ThemeConfig.kListItemHeight,
-          child: Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: leftWidth,
-                        height: ThemeConfig.kListItemHeight,
-                        child: Checkbox(
-                          tristate: true,
-                          value: widget.multiSelect!.searchKeywords
-                              .contains(keyword),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              widget.multiSelect!.searchKeywords.add(keyword);
-                            } else {
-                              widget.multiSelect!.searchKeywords
-                                  .remove(keyword);
-                            }
-                            setState(() {});
-                          },
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: padding,
+        ),
+        width: double.infinity,
+        height: ThemeConfig.kListItemHeight,
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: leftWidth,
+                      height: ThemeConfig.kListItemHeight,
+                      child: Checkbox(
+                        tristate: true,
+                        value: widget.multiSelect!.searchKeywords
+                            .contains(keyword),
+                        onChanged: (bool? value) {
+                          if (value == true) {
+                            widget.multiSelect!.searchKeywords.add(keyword);
+                          } else {
+                            widget.multiSelect!.searchKeywords.remove(keyword);
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: centerWidth,
+                      child: Text(
+                        keyword,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: ThemeConfig.kFontSizeListSubItem,
                         ),
                       ),
-                      SizedBox(
-                        width: centerWidth,
-                        child: Text(
-                          keyword,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: ThemeConfig.kFontSizeListSubItem,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -769,40 +766,39 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               onTapGroupTitle(item.groupid);
             },
             child: Row(children: [
-              widget.singleSelect != null
-                  ? const SizedBox.shrink()
-                  : Checkbox(
-                      tristate: true,
-                      value: groupChecked,
-                      onChanged: (bool? value) {
-                        if (value == true) {
-                          if (_searchText.isEmpty) {
-                            for (var server in item.servers) {
-                              if (server.latency.isEmpty ||
-                                  int.tryParse(server.latency) != null) {
-                                widget.multiSelect!.selectedServers.add(server);
-                              }
-                            }
-                          } else {
-                            for (var server in item.servers) {
-                              widget.multiSelect!.selectedServers
-                                  .remove(server);
-                            }
-                            List<ProxyConfig> searchServers =
-                                ServerManager.searchIn(
-                                    item.servers, _searchText, true);
-                            for (var server in searchServers) {
-                              widget.multiSelect!.selectedServers.add(server);
-                            }
-                          }
-                        } else {
-                          for (var server in item.servers) {
-                            widget.multiSelect!.selectedServers.remove(server);
+              if (widget.singleSelect == null) ...[
+                Checkbox(
+                  tristate: true,
+                  value: groupChecked,
+                  onChanged: (bool? value) {
+                    if (value == true) {
+                      if (_searchText.isEmpty) {
+                        for (var server in item.servers) {
+                          if (server.latency.isEmpty ||
+                              int.tryParse(server.latency) != null) {
+                            widget.multiSelect!.selectedServers.add(server);
                           }
                         }
-                        setState(() {});
-                      },
-                    ),
+                      } else {
+                        for (var server in item.servers) {
+                          widget.multiSelect!.selectedServers.remove(server);
+                        }
+                        List<ProxyConfig> searchServers =
+                            ServerManager.searchIn(
+                                item.servers, _searchText, true);
+                        for (var server in searchServers) {
+                          widget.multiSelect!.selectedServers.add(server);
+                        }
+                      }
+                    } else {
+                      for (var server in item.servers) {
+                        widget.multiSelect!.selectedServers.remove(server);
+                      }
+                    }
+                    setState(() {});
+                  },
+                )
+              ],
               Icon(
                 _expandGroup.contains(item.groupid)
                     ? Icons.keyboard_arrow_up_outlined
@@ -826,57 +822,54 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
           ),
         ),
         const Spacer(),
-        widget.singleSelect != null &&
-                widget.singleSelect!.showUpdate &&
-                item.isRemote()
-            ? Row(
-                children: [
-                  Tooltip(
-                      message: tcontext.meta.update,
-                      child: InkWell(
-                        onTap: () async {
-                          ServerManager.reload(item.groupid).then((value) {
-                            if (item.enable && item.reloadAfterProfileUpdate) {
-                              ServerManager.setDirty(true);
-                            }
-                            if (!mounted) {
-                              return;
-                            }
-                            if (value != null) {
-                              DialogUtils.showAlertDialog(context,
-                                  tcontext.meta.updateFailed(p: value.message),
-                                  showCopy: true,
-                                  showFAQ: true,
-                                  withVersion: true);
-                            }
-                            if (!mounted) {
-                              return;
-                            }
-                            _buildData();
-                            setState(() {});
-                          });
-                          setState(() {});
-                        },
-                        child: ServerManager.isReloading(item.groupid)
-                            ? const SizedBox(
-                                height: 26,
-                                width: 26,
-                                child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
-                                ),
-                              )
-                            : const Icon(
-                                Icons.cloud_download_outlined,
-                                size: 26,
-                              ),
-                      )),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              )
-            : const SizedBox.shrink(),
+        if (widget.singleSelect != null &&
+            widget.singleSelect!.showUpdate &&
+            item.isRemote()) ...[
+          Row(
+            children: [
+              Tooltip(
+                  message: tcontext.meta.update,
+                  child: InkWell(
+                    onTap: () async {
+                      ServerManager.reload(item.groupid).then((value) {
+                        if (item.enable && item.reloadAfterProfileUpdate) {
+                          ServerManager.setDirty(true);
+                        }
+                        if (!mounted) {
+                          return;
+                        }
+                        if (value != null) {
+                          DialogUtils.showAlertDialog(context,
+                              tcontext.meta.updateFailed(p: value.message),
+                              showCopy: true, showFAQ: true, withVersion: true);
+                        }
+                        if (!mounted) {
+                          return;
+                        }
+                        _buildData();
+                        setState(() {});
+                      });
+                      setState(() {});
+                    },
+                    child: ServerManager.isReloading(item.groupid)
+                        ? const SizedBox(
+                            height: 26,
+                            width: 26,
+                            child: RepaintBoundary(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                          )
+                        : const Icon(
+                            Icons.cloud_download_outlined,
+                            size: 26,
+                          ),
+                  )),
+              const SizedBox(
+                width: 10,
+              ),
+            ],
+          )
+        ],
         const SizedBox(
           width: 5,
         ),
@@ -954,52 +947,51 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
           ),
           createGroupTitle(item, showTestLatency,
               itemName: itemName, replaceCount: replaceCount),
-          widget.singleSelect != null && widget.singleSelect!.showTranffic
-              ? CommonWidget.createGroupTraffic(
-                  context,
-                  item.groupid,
-                  false,
-                  item.traffic,
-                  10,
-                  MainAxisAlignment.start,
-                  windowSize.width,
-                  (String groupId) {
-                    setState(() {});
-                  },
-                  (String groupId, ReturnResult<SubscriptionTraffic> value) {
-                    if (!mounted) {
-                      return;
-                    }
-                    setState(() {});
-                    if (value.error != null) {
-                      if (value.error!.message.contains("405")) {
-                        ServerManager.reload(item.groupid).then((value) {
-                          if (item.enable && item.reloadAfterProfileUpdate) {
-                            ServerManager.setDirty(true);
-                          }
-                          if (!mounted) {
-                            return;
-                          }
-                          setState(() {});
-                          if (value != null) {
-                            DialogUtils.showAlertDialog(context,
-                                tcontext.meta.updateFailed(p: value.message),
-                                showCopy: true,
-                                showFAQ: true,
-                                withVersion: true);
-                          }
-                        });
-                      } else {
+          if (widget.singleSelect != null &&
+              widget.singleSelect!.showTranffic) ...[
+            CommonWidget.createGroupTraffic(
+              context,
+              item.groupid,
+              false,
+              item.traffic,
+              10,
+              MainAxisAlignment.start,
+              windowSize.width,
+              (String groupId) {
+                setState(() {});
+              },
+              (String groupId, ReturnResult<SubscriptionTraffic> value) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {});
+                if (value.error != null) {
+                  if (value.error!.message.contains("405")) {
+                    ServerManager.reload(item.groupid).then((value) {
+                      if (item.enable && item.reloadAfterProfileUpdate) {
+                        ServerManager.setDirty(true);
+                      }
+                      if (!mounted) {
+                        return;
+                      }
+                      setState(() {});
+                      if (value != null) {
                         DialogUtils.showAlertDialog(context,
-                            tcontext.meta.updateFailed(p: value.error!.message),
+                            tcontext.meta.updateFailed(p: value.message),
                             showCopy: true, showFAQ: true, withVersion: true);
                       }
-                    }
+                    });
+                  } else {
+                    DialogUtils.showAlertDialog(context,
+                        tcontext.meta.updateFailed(p: value.error!.message),
+                        showCopy: true, showFAQ: true, withVersion: true);
+                  }
+                }
 
-                    setState(() {});
-                  },
-                )
-              : const SizedBox.shrink()
+                setState(() {});
+              },
+            )
+          ]
         ],
       ),
       const SizedBox(
@@ -1038,16 +1030,16 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 ),
               ),
               const Spacer(),
-              onIconTap != null
-                  ? InkWell(
-                      onTap: () async {
-                        onIconTap();
-                      },
-                      child: Tooltip(
-                          message: iconTips ?? "",
-                          child: Icon(icon, size: 26, color: iconColor)),
-                    )
-                  : const SizedBox.shrink(),
+              if (onIconTap != null) ...[
+                InkWell(
+                  onTap: () async {
+                    onIconTap();
+                  },
+                  child: Tooltip(
+                      message: iconTips ?? "",
+                      child: Icon(icon, size: 26, color: iconColor)),
+                )
+              ],
               const SizedBox(
                 width: 15,
               ),
@@ -1061,7 +1053,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     ]);
   }
 
-  Container createServer(ProxyConfig server, int index,
+  Widget createServer(ProxyConfig server, int index,
       {String? count, bool showFav = true}) {
     final tcontext = Translations.of(context);
     String disableKey = ServerUse.getDisableKey(server);
@@ -1115,241 +1107,236 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
           singleSelectCurrent && widget.singleSelect!.selectedServerInvalid;
     }
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: ContextMenuArea(
-          builder: (context) =>
-              getLongPressServerPopMenu(server, isTesting, isWaitTesting),
-          child: InkWell(
-            onTap: widget.singleSelect == null
-                ? null
-                : () async {
-                    if (server.type != kOutboundTypeUrltest) {
-                      if (disabled) {
-                        await DialogUtils.showAlertDialog(context,
-                            tcontext.ServerSelectScreen.selectDisabled);
-                        return;
-                      }
-                      if (server.server == "127.0.0.1" ||
-                          server.server == "localhost") {
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: ContextMenuArea(
+        builder: (context) =>
+            getLongPressServerWidgets(server, isTesting, isWaitTesting, true),
+        child: InkWell(
+          onTap: widget.singleSelect == null
+              ? null
+              : () async {
+                  if (server.type != kOutboundTypeUrltest) {
+                    if (disabled) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.ServerSelectScreen.selectDisabled);
+                      return;
+                    }
+                    if (server.server == "127.0.0.1" ||
+                        server.server == "localhost") {
+                      await DialogUtils.showAlertDialog(
+                          context,
+                          tcontext.ServerSelectScreen.selectLocal(
+                              p: server.server));
+                    }
+                    var settingConfig = SettingManager.getConfig();
+                    if (settingConfig.ipStrategy.index <
+                        IPStrategy.preferIPv4.index) {
+                      if (NetworkUtils.isIpv6(server.server)) {
                         await DialogUtils.showAlertDialog(
                             context,
-                            tcontext.ServerSelectScreen.selectLocal(
-                                p: server.server));
-                      }
-                      var settingConfig = SettingManager.getConfig();
-                      if (settingConfig.ipStrategy.index <
-                          IPStrategy.preferIPv4.index) {
-                        if (NetworkUtils.isIpv6(server.server)) {
-                          await DialogUtils.showAlertDialog(
-                              context,
-                              tcontext
-                                  .ServerSelectScreen.selectRequireEnableIPv6);
-                        }
+                            tcontext
+                                .ServerSelectScreen.selectRequireEnableIPv6);
                       }
                     }
+                  }
 
-                    Navigator.pop(context, server);
-                  },
-            onTapDown: (details) {
-              _tapDownDetails = details;
-            },
-            onLongPress: (widget.singleSelect == null ||
-                    server.type == kOutboundTypeUrltest)
-                ? null
-                : () async {
-                    onLongPressServer(server, isTesting, isWaitTesting);
-                  },
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: padding,
-              ),
-              color: singleSelectCurrent
-                  ? ThemeDefine.kColorBlue
-                  : disabled
-                      ? Colors.grey
-                      : null,
-              width: double.infinity,
-              height: ThemeConfig.kListItemHeight,
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
+                  Navigator.pop(context, server);
+                },
+          onTapDown: (details) {
+            _tapDownDetails = details;
+          },
+          onLongPress: (widget.singleSelect == null ||
+                  server.type == kOutboundTypeUrltest)
+              ? null
+              : () async {
+                  onLongPressServer(server, isTesting, isWaitTesting);
+                },
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: padding,
+            ),
+            color: singleSelectCurrent
+                ? ThemeDefine.kColorBlue
+                : disabled
+                    ? Colors.grey
+                    : null,
+            width: double.infinity,
+            height: ThemeConfig.kListItemHeight,
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: leftWidth,
+                          height: ThemeConfig.kListItemHeight,
+                          child: widget.singleSelect != null
+                              ? Row(children: [
+                                  Expanded(
+                                    child: Text(
+                                      index.toString(),
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  )
+                                ])
+                              : Checkbox(
+                                  tristate: true,
+                                  value: widget.multiSelect!.selectedServers
+                                      .contains(server),
+                                  onChanged: (bool? value) {
+                                    if (value == true) {
+                                      widget.multiSelect!.selectedServers
+                                          .add(server);
+                                    } else {
+                                      widget.multiSelect!.selectedServers
+                                          .remove(server);
+                                    }
+                                    setState(() {});
+                                  },
+                                ),
+                        ),
+                        SizedBox(
+                          width: tagWidth,
+                          child: Text(
+                            tag,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeListSubItem,
+                                fontFamily: Platform.isWindows ? 'Emoji' : null,
+                                color: singleSelectCurrentInvalid
+                                    ? Colors.red
+                                    : null),
+                          ),
+                        ),
+                        if (server.attach.isNotEmpty) ...[
                           SizedBox(
-                            width: leftWidth,
-                            height: ThemeConfig.kListItemHeight,
-                            child: widget.singleSelect != null
-                                ? Row(children: [
-                                    Expanded(
-                                      child: Text(
-                                        index.toString(),
-                                        style: TextStyle(
-                                          fontSize: 12,
+                            width: 30,
+                            child: Text(
+                              server.attach,
+                              style: const TextStyle(
+                                fontSize: 10,
+                              ),
+                            ),
+                          )
+                        ],
+                        if (count != null) ...[
+                          SizedBox(
+                            width: 60,
+                            child: Text(
+                              count,
+                              style: const TextStyle(
+                                fontSize: ThemeConfig.kFontSizeListSubItem,
+                              ),
+                            ),
+                          )
+                        ],
+                        Container(
+                          alignment: Alignment.centerRight,
+                          width: rightWidth,
+                          child: Row(children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            SizedBox(
+                              height: ThemeConfig.kListItemHeight,
+                              child: InkWell(
+                                onTap: noFavGroup
+                                    ? null
+                                    : () {
+                                        ServerManager.toggleFav(server);
+                                        if (SettingManager.getConfig()
+                                            .autoSelect
+                                            .prioritizeMyFav) {
+                                          ServerManager.setDirty(true);
+                                        }
+                                        _buildData();
+                                        setState(() {});
+                                      },
+                                child: Row(children: [
+                                  if (!(!showFav || noFavGroup)) ...[
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.orange),
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white
+                                              .withValues(alpha: 0.8),
+                                        ),
+                                        child: Icon(
+                                          Icons.star_outlined,
+                                          size: 20,
+                                          color: isFav
+                                              ? Colors.orange
+                                              : Colors.white,
                                         ),
                                       ),
                                     )
-                                  ])
-                                : Checkbox(
-                                    tristate: true,
-                                    value: widget.multiSelect!.selectedServers
-                                        .contains(server),
-                                    onChanged: (bool? value) {
-                                      if (value == true) {
-                                        widget.multiSelect!.selectedServers
-                                            .add(server);
-                                      } else {
-                                        widget.multiSelect!.selectedServers
-                                            .remove(server);
-                                      }
-                                      setState(() {});
-                                    },
+                                  ],
+                                  const SizedBox(
+                                    width: 2,
                                   ),
-                          ),
-                          SizedBox(
-                            width: tagWidth,
-                            child: Text(
-                              tag,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                                  fontFamily:
-                                      Platform.isWindows ? 'Emoji' : null,
-                                  color: singleSelectCurrentInvalid
-                                      ? Colors.red
-                                      : null),
-                            ),
-                          ),
-                          server.attach.isEmpty
-                              ? const SizedBox.shrink()
-                              : SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    server.attach,
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                ),
-                          count != null
-                              ? SizedBox(
-                                  width: 60,
-                                  child: Text(
-                                    count,
-                                    style: const TextStyle(
-                                      fontSize:
-                                          ThemeConfig.kFontSizeListSubItem,
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            width: rightWidth,
-                            child: Row(children: [
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              SizedBox(
-                                height: ThemeConfig.kListItemHeight,
-                                child: InkWell(
-                                  onTap: noFavGroup
-                                      ? null
-                                      : () {
-                                          ServerManager.toggleFav(server);
-                                          if (SettingManager.getConfig()
-                                              .autoSelect
-                                              .prioritizeMyFav) {
-                                            ServerManager.setDirty(true);
-                                          }
-                                          _buildData();
-                                          setState(() {});
-                                        },
-                                  child: Row(children: [
-                                    !showFav || noFavGroup
-                                        ? const SizedBox.shrink()
-                                        : Container(
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.orange),
-                                            child: Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white
-                                                    .withValues(alpha: 0.8),
-                                              ),
-                                              child: Icon(
-                                                Icons.star_outlined,
-                                                size: 20,
-                                                color: isFav
-                                                    ? Colors.orange
-                                                    : Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          !showFav || noFavGroup ? 45 + 20 : 45,
-                                      child: Text(
-                                        server.getShowType(),
-                                        style: const TextStyle(
-                                          fontSize:
-                                              ThemeConfig.kFontSizeListSubItem,
-                                        ),
+                                  SizedBox(
+                                    width:
+                                        !showFav || noFavGroup ? 45 + 20 : 45,
+                                    child: Text(
+                                      server.getShowType(),
+                                      style: const TextStyle(
+                                        fontSize:
+                                            ThemeConfig.kFontSizeListSubItem,
                                       ),
                                     ),
-                                  ]),
-                                ),
+                                  ),
+                                ]),
                               ),
-                              const SizedBox(
-                                width: 2,
-                              ),
-                              CommonWidget.createLatencyWidget(
-                                context,
-                                ThemeConfig.kListItemHeight,
-                                isTesting | isWaitTesting,
-                                isTesting,
-                                server.latency,
-                                onTapLatencyReload: () async {
-                                  if (!await startVPN()) {
-                                    return;
-                                  }
-                                  ServerManager.testOutboundLatencyForServer(
-                                          server.tag, server.groupid)
-                                      .then((err) {
-                                    if (err != null) {
-                                      if (mounted) {
-                                        setState(() {});
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            CommonWidget.createLatencyWidget(
+                              context,
+                              ThemeConfig.kListItemHeight,
+                              isTesting | isWaitTesting,
+                              isTesting,
+                              server.latency,
+                              onTapLatencyReload: () async {
+                                if (!await startVPN()) {
+                                  return;
+                                }
+                                ServerManager.testOutboundLatencyForServer(
+                                        server.tag, server.groupid)
+                                    .then((err) {
+                                  if (err != null) {
+                                    if (mounted) {
+                                      setState(() {});
 
-                                        DialogUtils.showAlertDialog(
-                                            context, err.message,
-                                            showCopy: true,
-                                            showFAQ: true,
-                                            withVersion: true);
-                                      }
+                                      DialogUtils.showAlertDialog(
+                                          context, err.message,
+                                          showCopy: true,
+                                          showFAQ: true,
+                                          withVersion: true);
                                     }
-                                  });
-                                },
-                              )
-                            ]),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                                  }
+                                });
+                              },
+                            )
+                          ]),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -1403,75 +1390,70 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     );
   }
 
-  Container createServerFake(ProxyConfig server, String name, String tip) {
+  Widget createServerFake(ProxyConfig server, String name, String tip) {
     if (widget.singleSelect == null) {
-      return Container();
+      return SizedBox.shrink();
     }
 
     Size windowSize = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      child: Material(
-        color: server.isSame(widget.singleSelect!.selectedServer)
-            ? ThemeDefine.kColorBlue
-            : null,
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context, server);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            height: ThemeConfig.kListItemHeight,
-            child: Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        tip.isNotEmpty
-                            ? Tooltip(
-                                message: tip,
-                                child: InkWell(
-                                  onTap: () {
-                                    DialogUtils.showAlertDialog(context, tip);
-                                  },
-                                  child: const Icon(
-                                    Icons.info_outlined,
-                                    size: 20,
-                                  ),
-                                ))
-                            : const SizedBox.shrink(),
-                        tip.isNotEmpty
-                            ? const SizedBox(
-                                width: 10,
-                              )
-                            : const SizedBox.shrink(),
-                        SizedBox(
-                          width: windowSize.width * 0.47,
-                          height: 45,
-                          child: Row(children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: const TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                                ),
+    return Material(
+      color: server.isSame(widget.singleSelect!.selectedServer)
+          ? ThemeDefine.kColorBlue
+          : null,
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {
+          Navigator.pop(context, server);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight,
+          child: Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      if (tip.isNotEmpty) ...[
+                        Tooltip(
+                            message: tip,
+                            child: InkWell(
+                              onTap: () {
+                                DialogUtils.showAlertDialog(context, tip);
+                              },
+                              child: const Icon(
+                                Icons.info_outlined,
+                                size: 20,
+                              ),
+                            )),
+                        const SizedBox(
+                          width: 10,
+                        )
+                      ],
+                      SizedBox(
+                        width: windowSize.width * 0.47,
+                        height: 45,
+                        child: Row(children: [
+                          Expanded(
+                            child: Text(
+                              name,
+                              style: const TextStyle(
+                                fontSize: ThemeConfig.kFontSizeListSubItem,
                               ),
                             ),
-                          ]),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
+                          ),
+                        ]),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -1731,8 +1713,8 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     setState(() {});
   }
 
-  List<PopupMenuItem> getLongPressServerPopMenu(
-      ProxyConfig server, bool isTesting, bool isWaitTesting) {
+  List<Widget> getLongPressServerWidgets(ProxyConfig server, bool isTesting,
+      bool isWaitTesting, bool insertBlackspace) {
     if (!mounted) {
       return [];
     }
@@ -1746,35 +1728,35 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     String msg = disabled ? tcontext.meta.enable : tcontext.meta.disable;
     msg += "[${server.type};${server.server};${server.serverport}]";
 
-    var items = [
-      PopupMenuItem(
-          value: 1,
-          child: Text(msg),
-          onTap: () {
-            var use = ServerManager.getUse();
-            if (disabled) {
-              use.disable.remove(disableKey);
-            } else {
-              use.disable.add(disableKey);
-            }
-            ServerManager.setDirty(true);
-            _loadRecommend();
-            _buildData();
-            setState(() {});
-          }),
+    var widgets = [
+      ListTile(
+        title: Text(
+          insertBlackspace ? "  $msg" : msg,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          var use = ServerManager.getUse();
+          if (disabled) {
+            use.disable.remove(disableKey);
+          } else {
+            use.disable.add(disableKey);
+          }
+          ServerManager.setDirty(true);
+          _loadRecommend();
+          _buildData();
+          setState(() {});
+        },
+      ),
     ];
 
-    return items;
+    return widgets;
   }
 
   void onLongPressServer(
       ProxyConfig server, bool isTesting, bool isWaitTesting) async {
-    var items = getLongPressServerPopMenu(server, isTesting, isWaitTesting);
-    var postion = RelativeRect.fromLTRB(
-        _tapDownDetails.globalPosition.dx + 20,
-        _tapDownDetails.globalPosition.dy - 50,
-        MediaQuery.of(context).size.width - _tapDownDetails.globalPosition.dx,
-        0);
-    showMenu(context: context, position: postion, items: items);
+    var widgets =
+        getLongPressServerWidgets(server, isTesting, isWaitTesting, false);
+    showSheetWidgets(context: context, widgets: widgets);
   }
 }

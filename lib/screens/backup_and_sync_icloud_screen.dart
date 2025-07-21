@@ -163,86 +163,88 @@ class _BackupAndSyncIcloudScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _fileList.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             var current = _fileList[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
 
   Widget createWidget(String current, Size windowSize) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          width: double.infinity,
-          //height: 66,
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        SizedBox(
-                          width: windowSize.width - 100,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  current,
-                                  style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem),
-                                ),
-                              ]),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            onTapDownload(current);
-                          },
-                          child: const SizedBox(
-                            width: 30,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: Icon(
-                              Icons.cloud_download_outlined,
-                              size: 26,
-                            ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        width: double.infinity,
+        //height: 66,
+        child: Row(
+          children: [
+            Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      SizedBox(
+                        width: windowSize.width - 100,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                current,
+                                style: TextStyle(
+                                    fontSize: ThemeConfig.kFontSizeGroupItem),
+                              ),
+                            ]),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          onTapDownload(current);
+                        },
+                        child: const SizedBox(
+                          width: 30,
+                          height: ThemeConfig.kListItemHeight2,
+                          child: Icon(
+                            Icons.cloud_download_outlined,
+                            size: 26,
                           ),
                         ),
-                        const SizedBox(
-                          width: 10,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          onTapDelete(current);
+                        },
+                        child: const SizedBox(
+                          width: 30,
+                          height: ThemeConfig.kListItemHeight2,
+                          child: Icon(Icons.remove_circle_outlined,
+                              size: 26, color: Colors.red),
                         ),
-                        InkWell(
-                          onTap: () {
-                            onTapDelete(current);
-                          },
-                          child: const SizedBox(
-                            width: 30,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: Icon(Icons.remove_circle_outlined,
-                                size: 26, color: Colors.red),
-                          ),
-                        ),
-                      ]),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

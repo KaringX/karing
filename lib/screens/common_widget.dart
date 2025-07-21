@@ -118,50 +118,15 @@ class CommonWidget {
         SizedBox(
           width: offset,
         ),
-        Icon(
-          Icons.upload,
-          size: 16,
-          color: color,
-        ),
         Text(
-          traffic.upload,
+          "↑ ${traffic.upload} ↓ ${traffic.download} / ${traffic.total}",
           style: TextStyle(
             fontSize: fontSize,
             color: traffic.overQuota ? Colors.red : null,
           ),
         ),
         const SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.download,
-          size: 16,
-          color: color,
-        ),
-        Text(
-          traffic.download,
-          style: TextStyle(
-            fontSize: fontSize,
-            color: traffic.overQuota ? Colors.red : null,
-          ),
-        ),
-        const SizedBox(
-          width: 3,
-        ),
-        Icon(
-          Icons.backpack_outlined,
-          size: 16,
-          color: color,
-        ),
-        Text(
-          traffic.total,
-          style: TextStyle(
-            fontSize: fontSize,
-            color: traffic.overQuota ? Colors.red : null,
-          ),
-        ),
-        const SizedBox(
-          width: 3,
+          width: 5,
         ),
         InkWell(
           onTap: () async {

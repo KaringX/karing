@@ -28,6 +28,17 @@ import 'package:karing/screens/net_connections_filter_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
+
+enum ConnectionsSortType {
+  none,
+  downloadSpeed,
+  uploadSpeed,
+  download,
+  upload,
+}
+
+typedef SortCallback = int Function(NetConnectionStateIn, NetConnectionStateIn);
 
 class Connections {
   DateTime? startTime;
@@ -289,7 +300,9 @@ class NetConnectionsScreen extends LasyRenderingStatefulWidget {
   }
 
   final String connectionsUrl;
-  const NetConnectionsScreen({super.key, required this.connectionsUrl});
+  final bool checkStarted;
+  const NetConnectionsScreen(
+      {super.key, required this.connectionsUrl, required this.checkStarted});
 
   @override
   State<NetConnectionsScreen> createState() => _NetConnectionsScreenState();
@@ -310,6 +323,7 @@ class _NetConnectionsScreenState
   Websocket? _websocket;
   final Map<String, PackageInfoEx> _applicationInfoList = {};
   bool _pause = false;
+  ConnectionsSortType _sortType = ConnectionsSortType.none;
   bool _showConnectionIn = true;
   NetConnectionFilter _filter = NetConnectionFilter();
 
@@ -704,11 +718,17 @@ class _NetConnectionsScreenState
     sortConnectionIn(_connectionInList);
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _connectionInList.length,
           itemBuilder: (BuildContext context, int index) {
             var current = _connectionInList[index];
             return createWidgetConnectionIn(current, index + 1, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -718,20 +738,29 @@ class _NetConnectionsScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _connectionOutList.length,
           itemBuilder: (BuildContext context, int index) {
             var current = _connectionOutList[index];
             return createWidgetConnectionOut(current, index + 1, windowSize);
           },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
+          },
         ));
   }
 
   Future<void> _connectToService() async {
-    bool started = await VPNService.getStarted();
-    if (!started) {
-      return;
+    if (widget.checkStarted) {
+      bool started = await VPNService.getStarted();
+      if (!started) {
+        return;
+      }
     }
+
     if (!mounted) {
       return;
     }
@@ -814,262 +843,248 @@ class _NetConnectionsScreenState
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
         current.getDownload() - current.getLastDownload());
     String noSpeed = "0 B";
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: isself
-              ? null
-              : () {
-                  onTapItem(current);
-                },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
-            width: double.infinity,
-            height: height,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: current.ids.isNotEmpty
-                              ? Colors.green
-                              : Colors.grey,
-                          shape: BoxShape.circle,
-                        )),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      width: 30,
-                      child: Text(
-                        index.toString(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: isself
+            ? null
+            : () {
+                onTapItem(current);
+              },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: padding,
+          ),
+          width: double.infinity,
+          height: height,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color:
+                            current.ids.isNotEmpty ? Colors.green : Colors.grey,
+                        shape: BoxShape.circle,
+                      )),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 30,
+                    child: Text(
+                      index.toString(),
+                      style: const TextStyle(
+                        fontSize: 12,
                       ),
                     ),
-                    SizedBox(
-                      width: centerWidth,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                  ),
+                  SizedBox(
+                    width: centerWidth,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          SizedBox(
+                            width: centerWidth - 5 - 40,
+                            child: Text(
+                              "${current.showHost}:${current.port}",
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          SizedBox(
+                            child: Text(
+                              durTime,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ]),
+                        Row(children: [
+                          Text(
+                            "${current.sourceip}:${current.sourceport}",
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            current.protocol,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ]),
+                        if (processName.isNotEmpty) ...[
                           Row(children: [
+                            if (processIcon != null) ...[
+                              SizedBox(
+                                  width: 12, height: 12, child: processIcon)
+                            ],
+                            Text(
+                              processName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ])
+                        ],
+                        if (current.package.isNotEmpty) ...[
+                          Row(children: [
+                            Text(
+                              current.package,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ])
+                        ],
+                        Row(children: [
+                          Text(
+                            current.network,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          Text(
+                            "(${current.ids.length}:${current.removedIds.length})",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  current.ids.length > 100 ? Colors.red : null,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Icon(
+                            Icons.upload,
+                            size: 10,
+                          ),
+                          Text(
+                            ProxyConfUtils.convertTrafficToStringDouble(
+                                current.getUpload()),
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Icon(
+                            Icons.download,
+                            size: 10,
+                          ),
+                          Text(
+                            ProxyConfUtils.convertTrafficToStringDouble(
+                                current.getDownload()),
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          if (current.ids.isNotEmpty &&
+                              (lastUpload != noSpeed)) ...[
+                            const Icon(
+                              Icons.upload,
+                              size: 10,
+                              color: Colors.green,
+                            ),
+                            Text(
+                              "$lastUpload/s",
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.green,
+                              ),
+                            )
+                          ],
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          if (current.ids.isNotEmpty &&
+                              (lastDownload != noSpeed)) ...[
+                            const Icon(
+                              Icons.download,
+                              size: 10,
+                              color: Colors.green,
+                            )
+                          ],
+                          if (current.ids.isNotEmpty &&
+                              (lastDownload != noSpeed)) ...[
+                            Text(
+                              "$lastDownload/s",
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.green,
+                              ),
+                            )
+                          ],
+                        ]),
+                        Row(
+                          children: [
                             SizedBox(
-                              width: centerWidth - 5 - 40,
+                              width: centerWidth,
                               child: Text(
-                                "${current.showHost}:${current.port}",
+                                current.showRule,
+                                overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             SizedBox(
+                              width: centerWidth,
                               child: Text(
-                                durTime,
+                                current.showChain,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
                                 ),
                               ),
                             ),
-                          ]),
-                          Row(children: [
-                            Text(
-                              "${current.sourceip}:${current.sourceport}",
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              current.protocol,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ]),
-                          processName.isNotEmpty
-                              ? Row(children: [
-                                  processIcon != null
-                                      ? SizedBox(
-                                          width: 12,
-                                          height: 12,
-                                          child: processIcon)
-                                      : SizedBox.shrink(),
-                                  Text(
-                                    processName,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ])
-                              : const SizedBox.shrink(),
-                          current.package.isNotEmpty
-                              ? Row(children: [
-                                  Text(
-                                    current.package,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ])
-                              : const SizedBox.shrink(),
-                          Row(children: [
-                            Text(
-                              current.network,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              "(${current.ids.length}:${current.removedIds.length})",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: current.ids.length > 100
-                                    ? Colors.red
-                                    : null,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Icon(
-                              Icons.upload,
-                              size: 10,
-                            ),
-                            Text(
-                              ProxyConfUtils.convertTrafficToStringDouble(
-                                  current.getUpload()),
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            const Icon(
-                              Icons.download,
-                              size: 10,
-                            ),
-                            Text(
-                              ProxyConfUtils.convertTrafficToStringDouble(
-                                  current.getDownload()),
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            current.ids.isNotEmpty && (lastUpload != noSpeed)
-                                ? const Icon(
-                                    Icons.upload,
-                                    size: 10,
-                                    color: Colors.green,
-                                  )
-                                : const SizedBox(
-                                    width: 0,
-                                  ),
-                            current.ids.isNotEmpty && (lastUpload != noSpeed)
-                                ? Text(
-                                    "$lastUpload/s",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.green,
-                                    ),
-                                  )
-                                : const SizedBox(
-                                    width: 0,
-                                  ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            current.ids.isNotEmpty && (lastDownload != noSpeed)
-                                ? const Icon(
-                                    Icons.download,
-                                    size: 10,
-                                    color: Colors.green,
-                                  )
-                                : const SizedBox(
-                                    width: 0,
-                                  ),
-                            current.ids.isNotEmpty && (lastDownload != noSpeed)
-                                ? Text(
-                                    "$lastDownload/s",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.green,
-                                    ),
-                                  )
-                                : const SizedBox(
-                                    width: 0,
-                                  ),
-                          ]),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: centerWidth,
-                                child: Text(
-                                  current.showRule,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: centerWidth,
-                                child: Text(
-                                  current.showChain,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(padding),
-                      child: isself
-                          ? const SizedBox(
-                              width: arrow_forward_ios_rounded,
-                            )
-                          : const Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: arrow_forward_ios_rounded,
-                            ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(padding),
+                    child: isself
+                        ? const SizedBox(
+                            width: arrow_forward_ios_rounded,
+                          )
+                        : const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: arrow_forward_ios_rounded,
+                          ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -1086,186 +1101,242 @@ class _NetConnectionsScreenState
       Duration dur = DateTime.now().difference(current.start!);
       durTime = dur.toString().split(".")[0];
     }
-    return Container(
-        margin: const EdgeInsets.only(bottom: 1),
-        child: Material(
-            borderRadius: ThemeDefine.kBorderRadius,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: padding,
-              ),
-              width: double.infinity,
-              height: height,
-              child: Row(
-                children: [
-                  Row(
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: padding,
+        ),
+        width: double.infinity,
+        height: height,
+        child: Row(
+          children: [
+            Row(
+              children: [
+                const SizedBox(
+                  width: 5,
+                ),
+                SizedBox(
+                  width: 30,
+                  child: Text(
+                    index.toString(),
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: centerWidth,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(children: [
+                        SizedBox(
+                          width: centerWidth - 5 - 40,
+                          child: Text(
+                            current.fqdn.isEmpty
+                                ? current.destination
+                                : "${current.fqdn} [${current.destination}]",
+                            style: const TextStyle(
+                              fontSize: 12,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        SizedBox(
+                          child: Text(
+                            durTime,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ]),
                       const SizedBox(
                         width: 5,
                       ),
                       SizedBox(
-                        width: 30,
                         child: Text(
-                          index.toString(),
+                          current.network,
                           style: const TextStyle(
                             fontSize: 12,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: centerWidth,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              SizedBox(
-                                width: centerWidth - 5 - 40,
-                                child: Text(
-                                  current.fqdn.isEmpty
-                                      ? current.destination
-                                      : "${current.fqdn} [${current.destination}]",
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              SizedBox(
-                                child: Text(
-                                  durTime,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                            ]),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            SizedBox(
-                              child: Text(
-                                current.network,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              current.outbound,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        current.outbound,
+                        style: const TextStyle(
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
-            )));
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void onTapMore() {
     final tcontext = Translations.of(context);
-    List<PopupMenuItem> items = [
-      PopupMenuItem(
-          value: 1,
-          child: Row(children: [
-            SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
-                size: 30,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              _pause ? tcontext.meta.start : tcontext.meta.pause,
-            ),
-          ]),
-          onTap: () {
-            onTapPause();
-          }),
-      PopupMenuItem(
-          value: 1,
-          child: Row(children: [
-            SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                Icons.exit_to_app_outlined,
-                size: 30,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              _showConnectionIn
-                  ? tcontext.meta.outbound
-                  : tcontext.meta.inbound,
-            ),
-          ]),
-          onTap: () {
-            _showConnectionIn = !_showConnectionIn;
-            setState(() {});
-          }),
-    ];
-    if (_showConnectionIn) {
-      items.addAll([
-        PopupMenuItem(
-            value: 1,
-            child: Row(children: [
-              SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.filter_list_alt,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                tcontext.meta.filter,
-              ),
-            ]),
-            onTap: () {
-              onTapFilter();
-            }),
-        PopupMenuItem(
-          value: 1,
-          child: Row(children: [
-            SizedBox(
-              width: 30,
-              height: 30,
-              child: Icon(
-                Icons.copy,
-                size: 30,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              tcontext.meta.copy,
-            ),
-          ]),
-          onTap: () {
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(
+          _pause ? tcontext.meta.start : tcontext.meta.pause,
+        ),
+        leading: Icon(
+          _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapPause();
+        },
+      ),
+      ListTile(
+        title: Text(
+          _showConnectionIn ? tcontext.meta.outbound : tcontext.meta.inbound,
+        ),
+        leading: Icon(
+          Icons.exit_to_app_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          _showConnectionIn = !_showConnectionIn;
+          setState(() {});
+        },
+      ),
+      if (_showConnectionIn) ...[
+        ListTile(
+          title: Text(
+            tcontext.meta.filter,
+          ),
+          leading: Icon(
+            Icons.filter_list_alt,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            onTapFilter();
+          },
+        ),
+        ListTile(
+          title: Text(
+            tcontext.meta.copy,
+          ),
+          leading: Icon(
+            Icons.copy,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
             onTapCopy();
           },
         ),
-      ]);
-    }
-    showMenu(
-      context: context,
-      position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-      items: items,
-    );
+        ListTile(
+          title: Text(
+            "${tcontext.meta.sort}-${tcontext.meta.bydefault}",
+            style: TextStyle(
+                color: _sortType == ConnectionsSortType.none
+                    ? ThemeDefine.kColorBlue
+                    : null),
+          ),
+          leading: Icon(
+            Icons.sort_by_alpha,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            _sortType = ConnectionsSortType.none;
+          },
+        ),
+        ListTile(
+          title: Text(
+            "${tcontext.meta.sort}-${tcontext.meta.downloadSpeed}",
+            style: TextStyle(
+                color: _sortType == ConnectionsSortType.downloadSpeed
+                    ? ThemeDefine.kColorBlue
+                    : null),
+          ),
+          leading: Icon(
+            Icons.sort,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            _sortType = ConnectionsSortType.downloadSpeed;
+            setState(() {});
+          },
+        ),
+        ListTile(
+          title: Text(
+            "${tcontext.meta.sort}-${tcontext.meta.uploadSpeed}",
+            style: TextStyle(
+                color: _sortType == ConnectionsSortType.uploadSpeed
+                    ? ThemeDefine.kColorBlue
+                    : null),
+          ),
+          leading: Icon(
+            Icons.sort,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            _sortType = ConnectionsSortType.uploadSpeed;
+            setState(() {});
+          },
+        ),
+        ListTile(
+          title: Text(
+            "${tcontext.meta.sort}-${tcontext.meta.download}",
+            style: TextStyle(
+                color: _sortType == ConnectionsSortType.download
+                    ? ThemeDefine.kColorBlue
+                    : null),
+          ),
+          leading: Icon(
+            Icons.sort,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            _sortType = ConnectionsSortType.download;
+            setState(() {});
+          },
+        ),
+        ListTile(
+          title: Text(
+            "${tcontext.meta.sort}-${tcontext.meta.upload}",
+            style: TextStyle(
+                color: _sortType == ConnectionsSortType.upload
+                    ? ThemeDefine.kColorBlue
+                    : null),
+          ),
+          leading: Icon(
+            Icons.sort,
+          ),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            _sortType = ConnectionsSortType.upload;
+            setState(() {});
+          },
+        ),
+      ],
+    ];
+
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapPause() {
@@ -1525,7 +1596,7 @@ class _NetConnectionsScreenState
   }
 
   void sortConnectionOut(List<NetConnectionStateOut> list) {
-    list.sort(sortCompareAddress);
+    list.sort(sortCompareDestination);
   }
 
   void sortConnectionIn(List<NetConnectionStateIn> list) {
@@ -1537,21 +1608,39 @@ class _NetConnectionsScreenState
         break;
       }
     }
-    var sortMethod = Platform.isIOS ? sortCompareHost : sortCompareProcess;
+    late SortCallback sortCallback;
+    switch (_sortType) {
+      case ConnectionsSortType.downloadSpeed:
+        sortCallback = sortCompareDownloadSpeed;
+        break;
+      case ConnectionsSortType.uploadSpeed:
+        sortCallback = sortCompareUploadSpeed;
+        break;
+      case ConnectionsSortType.download:
+        sortCallback = sortCompareDownload;
+        break;
+      case ConnectionsSortType.upload:
+        sortCallback = sortCompareUpload;
+        break;
+      default:
+        sortCallback = Platform.isIOS ? sortCompareHost : sortCompareProcess;
+        break;
+    }
+
     if (index != -1) {
       var nlc = list.take(index + 1).toList();
       var nlnc = list.skip(index + 1).toList();
-      nlc.sort(sortMethod);
-      nlnc.sort(sortMethod);
+      nlc.sort(sortCallback);
+      nlnc.sort(sortCallback);
       list.clear();
       list.insertAll(0, nlc);
       list.addAll(nlnc);
     } else {
-      list.sort(sortMethod);
+      list.sort(sortCallback);
     }
   }
 
-  int sortCompareAddress(NetConnectionStateOut a, NetConnectionStateOut b) {
+  int sortCompareDestination(NetConnectionStateOut a, NetConnectionStateOut b) {
     String addrA =
         a.fqdn.isEmpty ? a.destination : "${a.fqdn} [${a.destination}]";
     String addrB =
@@ -1571,7 +1660,23 @@ class _NetConnectionsScreenState
     return a.host.compareTo(b.host);
   }
 
-  int sortCompareIp(NetConnectionStateIn a, NetConnectionStateIn b) {
-    return a.ip.compareTo(b.ip);
+  int sortCompareUploadSpeed(NetConnectionStateIn a, NetConnectionStateIn b) {
+    final aSpeed = a.getUpload() - a.getLastUpload();
+    final bSpeed = b.getUpload() - b.getLastUpload();
+    return (bSpeed - aSpeed).toInt();
+  }
+
+  int sortCompareDownloadSpeed(NetConnectionStateIn a, NetConnectionStateIn b) {
+    final aSpeed = a.getDownload() - a.getLastDownload();
+    final bSpeed = b.getDownload() - b.getLastDownload();
+    return (bSpeed - aSpeed).toInt();
+  }
+
+  int sortCompareUpload(NetConnectionStateIn a, NetConnectionStateIn b) {
+    return (b.getUpload() - a.getUpload()).toInt();
+  }
+
+  int sortCompareDownload(NetConnectionStateIn a, NetConnectionStateIn b) {
+    return (b.getDownload() - a.getDownload()).toInt();
   }
 }

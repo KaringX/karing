@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/assets_utils.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -35,6 +35,7 @@ class _UserAgreementScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    var setting = SettingManager.getConfig();
     String termOfUse = AppUtils.getTermsOfServiceUrl();
     return PopScope(
         canPop: false,
@@ -82,7 +83,7 @@ class _UserAgreementScreenState
                         SizedBox(
                           height: 45.0,
                           child: ElevatedButton(
-                            autofocus: PlatformUtils.maybeTV(),
+                            autofocus: setting.ui.tvMode,
                             child: Text(
                                 tcontext.UserAgreementScreen.agreeAndContinue),
                             onPressed: () {
@@ -96,31 +97,25 @@ class _UserAgreementScreenState
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            termOfUse.isNotEmpty
-                                ? InkWell(
-                                    child: Text(
-                                      tcontext.meta.termOfUse,
-                                      style: const TextStyle(
-                                          color: Colors.blueAccent),
-                                    ),
-                                    onTap: () async {
-                                      await WebviewHelper.loadUrl(
-                                          context,
-                                          AppUtils.getTermsOfServiceUrl(),
-                                          "termOfUse",
-                                          title: tcontext.meta.termOfUse,
-                                          useInappWebViewForPC: true);
-                                    })
-                                : const SizedBox(
-                                    width: 0,
+                            if (termOfUse.isNotEmpty) ...[
+                              InkWell(
+                                  child: Text(
+                                    tcontext.meta.termOfUse,
+                                    style: const TextStyle(
+                                        color: Colors.blueAccent),
                                   ),
-                            termOfUse.isNotEmpty
-                                ? const SizedBox(
-                                    width: 60,
-                                  )
-                                : const SizedBox(
-                                    width: 0,
-                                  ),
+                                  onTap: () async {
+                                    await WebviewHelper.loadUrl(
+                                        context,
+                                        AppUtils.getTermsOfServiceUrl(),
+                                        "termOfUse",
+                                        title: tcontext.meta.termOfUse,
+                                        useInappWebViewForPC: true);
+                                  }),
+                              const SizedBox(
+                                width: 60,
+                              )
+                            ],
                             InkWell(
                                 child: Text(
                                   tcontext.meta.privacyPolicy,

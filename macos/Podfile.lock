@@ -5,6 +5,8 @@ PODS:
     - FlutterMacOS
   - build_info_macos (0.0.1):
     - FlutterMacOS
+  - connectivity_plus (0.0.1):
+    - FlutterMacOS
   - cryptography_flutter (0.2.0):
     - FlutterMacOS
   - file_picker (0.0.1):
@@ -53,6 +55,9 @@ PODS:
     - Sentry/HybridSDK (= 8.46.0)
   - share_plus (0.0.1):
     - FlutterMacOS
+  - sqflite_darwin (0.0.4):
+    - Flutter
+    - FlutterMacOS
   - tray_manager (0.0.1):
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
@@ -69,6 +74,7 @@ DEPENDENCIES:
   - app_installer (from `Flutter/ephemeral/.symlinks/plugins/app_installer/macos`)
   - app_settings (from `Flutter/ephemeral/.symlinks/plugins/app_settings/macos`)
   - build_info_macos (from `Flutter/ephemeral/.symlinks/plugins/build_info_macos/macos`)
+  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
   - cryptography_flutter (from `Flutter/ephemeral/.symlinks/plugins/cryptography_flutter/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
@@ -89,6 +95,7 @@ DEPENDENCIES:
   - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.46.0`)
   - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
+  - sqflite_darwin (from `Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - vpn_service (from `Flutter/ephemeral/.symlinks/plugins/vpn_service/macos`)
@@ -107,6 +114,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/app_settings/macos
   build_info_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/build_info_macos/macos
+  connectivity_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
   cryptography_flutter:
     :path: Flutter/ephemeral/.symlinks/plugins/cryptography_flutter/macos
   file_picker:
@@ -148,6 +157,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
   share_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
+  sqflite_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/sqflite_darwin/darwin
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
@@ -168,6 +179,7 @@ SPEC CHECKSUMS:
   app_installer: d13942d306e251bbf1e4ddc480d365e80560c103
   app_settings: 140be3a9c0fc1f681e44afe9f549ab037b3aa3a2
   build_info_macos: 46f955b67b56a5cf0e03b686b333fee6371ca9f9
+  connectivity_plus: 0a976dfd033b59192912fa3c6c7b54aab5093802
   cryptography_flutter: c9fa581b52e6fe19475432b6f44489c387f61e19
   file_picker: e716a70a9fe5fd9e09ebc922d7541464289443af
   file_selector_macos: cc3858c981fe6889f364731200d6232dac1d812d
@@ -190,6 +202,7 @@ SPEC CHECKSUMS:
   Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
   sentry_flutter: 2df8b0aab7e4aba81261c230cbea31c82a62dd1b
   share_plus: 1fa619de8392a4398bfaf176d441853922614e89
+  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: c82c93949963e55b228a30115bd219499a6fe404
   vpn_service: fac57338345dd26bcfe489fcd07b370104d1168d

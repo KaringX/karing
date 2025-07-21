@@ -7,12 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/antdesign.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:vpn_service/vpn_service.dart';
 
@@ -287,111 +289,112 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             ProcessInfo current = _searchedData[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
 
   Widget createWidget(ProcessInfo current, Size windowSize) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: ThemeConfig.kListItemHeight2,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: current.hasIcon
-                                ? FutureBuilder(
-                                    future: getProcessIcon(current.identifier),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<Image?> snapshot) {
-                                      if (!snapshot.hasData ||
-                                          snapshot.data == null) {
-                                        return const SizedBox.shrink();
-                                      }
-                                      return SizedBox(
-                                          width: ThemeConfig.kListItemHeight2,
-                                          height: ThemeConfig.kListItemHeight2,
-                                          child: snapshot.data);
-                                    },
-                                  )
-                                : SizedBox(
-                                    width: ThemeConfig.kListItemHeight2,
-                                    height: ThemeConfig.kListItemHeight2,
-                                  ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: windowSize.width - 140,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    current.name,
-                                    style: TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeGroupItem),
-                                  ),
-                                  Text(
-                                    current.identifier,
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                ]),
-                          ),
-                          Checkbox(
-                            tristate: true,
-                            value: SettingManager.getConfig()
-                                .perapp
-                                .list
-                                .contains(current.identifier),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                SettingManager.getConfig()
-                                    .perapp
-                                    .list
-                                    .add(current.identifier);
-                              } else {
-                                SettingManager.getConfig()
-                                    .perapp
-                                    .list
-                                    .remove(current.identifier);
-                              }
-                              SettingManager.setDirty(true);
-                              setState(() {});
-                            },
-                          ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: ThemeConfig.kListItemHeight2,
+                          height: ThemeConfig.kListItemHeight2,
+                          child: current.hasIcon
+                              ? FutureBuilder(
+                                  future: getProcessIcon(current.identifier),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Image?> snapshot) {
+                                    if (!snapshot.hasData ||
+                                        snapshot.data == null) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return SizedBox(
+                                        width: ThemeConfig.kListItemHeight2,
+                                        height: ThemeConfig.kListItemHeight2,
+                                        child: snapshot.data);
+                                  },
+                                )
+                              : SizedBox(
+                                  width: ThemeConfig.kListItemHeight2,
+                                  height: ThemeConfig.kListItemHeight2,
+                                ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 140,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  current.name,
+                                  style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                ),
+                                Text(
+                                  current.identifier,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ]),
+                        ),
+                        Checkbox(
+                          tristate: true,
+                          value: SettingManager.getConfig()
+                              .perapp
+                              .list
+                              .contains(current.identifier),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              SettingManager.getConfig()
+                                  .perapp
+                                  .list
+                                  .add(current.identifier);
+                            } else {
+                              SettingManager.getConfig()
+                                  .perapp
+                                  .list
+                                  .remove(current.identifier);
+                            }
+                            SettingManager.setDirty(true);
+                            setState(() {});
+                          },
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -436,78 +439,81 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
 
   void onTapMore() {
     final tcontext = Translations.of(context);
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: [
-          PopupMenuItem(
-              value: 1,
-              child: SizedBox(
-                height: 30,
-                child: Text(
-                  tcontext.meta.importFromClipboard,
-                  style: const TextStyle(
-                      fontWeight: ThemeConfig.kFontWeightTitle,
-                      fontSize: ThemeConfig.kFontSizeTitle),
-                ),
-              ),
-              onTap: () async {
-                try {
-                  ClipboardData? data = await Clipboard.getData("text/plain");
-                  if (data == null || data.text == null || data.text!.isEmpty) {
-                    return;
-                  }
-                  List<String> list = data.text!.split("\n");
-                  if (list.isEmpty) {
-                    return;
-                  }
-                  for (var app in list) {
-                    app = app.trim();
-                    if (SettingManager.getConfig().perapp.list.contains(app)) {
-                      continue;
-                    }
-                    SettingManager.getConfig().perapp.list.add(app);
-                  }
-                  setState(() {});
-                } catch (err) {
-                  if (!mounted) {
-                    return;
-                  }
-                  DialogUtils.showAlertDialog(context, err.toString(),
-                      showCopy: true, showFAQ: true, withVersion: true);
-                }
-              }),
-          PopupMenuItem(
-            value: 1,
-            child: SizedBox(
-              height: 30,
-              child: Text(
-                tcontext.meta.exportToClipboard,
-                style: const TextStyle(
-                    fontWeight: ThemeConfig.kFontWeightTitle,
-                    fontSize: ThemeConfig.kFontSizeTitle),
-              ),
-            ),
-            onTap: () async {
-              try {
-                if (SettingManager.getConfig().perapp.list.isEmpty) {
-                  return;
-                }
-                String content =
-                    SettingManager.getConfig().perapp.list.join("\n");
-                await Clipboard.setData(ClipboardData(text: content));
-                if (!mounted) {
-                  return;
-                }
-              } catch (err) {
-                if (!mounted) {
-                  return;
-                }
-                DialogUtils.showAlertDialog(context, err.toString(),
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-            },
-          ),
-        ]);
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(
+          tcontext.meta.importFromClipboard,
+        ),
+        leading: Icon(
+          AntDesign.import_outline,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapImport();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.exportToClipboard,
+        ),
+        leading: Icon(
+          AntDesign.export_outline,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapExport();
+        },
+      ),
+    ];
+
+    showSheetWidgets(context: context, widgets: widgets);
+  }
+
+  Future<void> onTapImport() async {
+    try {
+      ClipboardData? data = await Clipboard.getData("text/plain");
+      if (data == null || data.text == null || data.text!.isEmpty) {
+        return;
+      }
+      List<String> list = data.text!.split("\n");
+      if (list.isEmpty) {
+        return;
+      }
+      for (var app in list) {
+        app = app.trim();
+        if (SettingManager.getConfig().perapp.list.contains(app)) {
+          continue;
+        }
+        SettingManager.getConfig().perapp.list.add(app);
+      }
+      setState(() {});
+    } catch (err) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+    }
+  }
+
+  Future<void> onTapExport() async {
+    try {
+      if (SettingManager.getConfig().perapp.list.isEmpty) {
+        return;
+      }
+      String content = SettingManager.getConfig().perapp.list.join("\n");
+      await Clipboard.setData(ClipboardData(text: content));
+      if (!mounted) {
+        return;
+      }
+    } catch (err) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+    }
   }
 }

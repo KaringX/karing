@@ -10,22 +10,43 @@ class ListViewMultiPartsItem {
 
 class ListViewMultiPartsBuilder {
   static Widget build(List<ListViewMultiPartsItem> parts,
-      {ScrollController? controller}) {
+      {ScrollController? controller, bool separator = true}) {
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
-          controller: controller,
-          itemCount: parts.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (index >= parts.length) {
-              return const SizedBox.shrink();
-            }
-            var current = parts[index];
-            if (current.creator == null) {
-              return const SizedBox.shrink();
-            }
-            return current.creator!(current.data, index, current.bindNO);
-          },
-        ));
+        child: separator
+            ? ListView.separated(
+                controller: controller,
+                itemCount: parts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index >= parts.length) {
+                    return const SizedBox.shrink();
+                  }
+                  var current = parts[index];
+                  if (current.creator == null) {
+                    return const SizedBox.shrink();
+                  }
+                  return current.creator!(current.data, index, current.bindNO);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    height: 1,
+                    thickness: 0.3,
+                  );
+                },
+              )
+            : ListView.builder(
+                controller: controller,
+                itemCount: parts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index >= parts.length) {
+                    return const SizedBox.shrink();
+                  }
+                  var current = parts[index];
+                  if (current.creator == null) {
+                    return const SizedBox.shrink();
+                  }
+                  return current.creator!(current.data, index, current.bindNO);
+                },
+              ));
   }
 }

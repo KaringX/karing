@@ -22,7 +22,6 @@ class QrcodeScanScreen extends LasyRenderingStatefulWidget {
 }
 
 class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
-  Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QRScan');
   bool _showSnackBarShowed = false;
@@ -30,9 +29,9 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller!.pauseCamera();
+      controller?.pauseCamera();
     } else if (Platform.isIOS) {
-      controller!.resumeCamera();
+      controller?.resumeCamera();
     }
   }
 
@@ -108,7 +107,7 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                           iconSize: 26,
                           onPressed: () async {
                             try {
-                              await controller!.toggleFlash();
+                              await controller?.toggleFlash();
                             } catch (err) {
                               DialogUtils.showAlertDialog(
                                   context, err.toString(),
@@ -174,13 +173,16 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
       if (scanData.format != BarcodeFormat.qrcode) {
         return;
       }
+      controller.pauseCamera();
       if (!mounted) {
         return;
       }
-      controller.pauseCamera();
-      result = scanData;
+      if (this.controller == null) {
+        return;
+      }
+      this.controller = null;
       try {
-        Navigator.pop(context, result!.code!);
+        Navigator.pop(context, scanData.code!);
       } catch (err, stacktrace) {}
     });
   }

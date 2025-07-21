@@ -119,12 +119,17 @@ class _UrlTestGroupCustomScreenState
   Widget _loadListView() {
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _groupData.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = _groupData[index];
             return createWidget(current);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -205,7 +210,7 @@ class _UrlTestGroupCustomScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, "", null, null, (text) {
+        context, tcontext.meta.remark, "", null, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);

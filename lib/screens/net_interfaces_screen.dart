@@ -105,12 +105,17 @@ class _NetInterfacesScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: list.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = list[index];
             return createWidget(current, index, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -119,60 +124,57 @@ class _NetInterfacesScreenState
     const double padding = 4;
     const double leftWidth = 30;
     double rightWidth = windowSize.width - leftWidth - padding * 2;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
-            width: double.infinity,
-            height: ThemeConfig.kListItemHeight,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: leftWidth,
-                      child: Text(
-                        (index + 1).toString(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: padding,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight2,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: leftWidth,
+                    child: Text(
+                      (index + 1).toString(),
+                      style: const TextStyle(
+                        fontSize: 12,
                       ),
                     ),
-                    SizedBox(
-                      width: rightWidth,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(children: [
-                            Text(
-                              current.name,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+                  ),
+                  SizedBox(
+                    width: rightWidth,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Text(
+                            current.name,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
-                          ]),
-                          Row(children: [
-                            Text(
-                              current.address,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+                          ),
+                        ]),
+                        Row(children: [
+                          Text(
+                            current.address,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
-                          ]),
-                        ],
-                      ),
+                          ),
+                        ]),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

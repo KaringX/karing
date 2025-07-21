@@ -185,81 +185,82 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: 66,
           itemBuilder: (BuildContext context, int index) {
             Tuple2<String, String> current = _searchedData[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
 
   Widget createWidget(Tuple2<String, String> current, Size windowSize) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: 66,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: windowSize.width - 80,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: 66,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: windowSize.width - 80,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  current.item2,
+                                  style: TextStyle(
+                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                ),
+                                if (widget.showKey) ...[
                                   Text(
-                                    current.item2,
-                                    style: TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeGroupItem),
-                                  ),
-                                  widget.showKey
-                                      ? Text(
-                                          current.item1,
-                                          style: const TextStyle(fontSize: 12),
-                                        )
-                                      : const SizedBox.shrink(),
-                                ]),
-                          ),
-                          Checkbox(
-                            tristate: true,
-                            value: widget.selectedData.contains(current.item1),
-                            onChanged: (bool? value) {
-                              if (value == true) {
-                                widget.selectedData.add(current.item1);
-                              } else {
-                                widget.selectedData.remove(current.item1);
-                              }
-                              SettingManager.setDirty(true);
-                              setState(() {});
-                            },
-                          ),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                                    current.item1,
+                                    style: const TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ]),
+                        ),
+                        Checkbox(
+                          tristate: true,
+                          value: widget.selectedData.contains(current.item1),
+                          onChanged: (bool? value) {
+                            if (value == true) {
+                              widget.selectedData.add(current.item1);
+                            } else {
+                              widget.selectedData.remove(current.item1);
+                            }
+                            SettingManager.setDirty(true);
+                            setState(() {});
+                          },
+                        ),
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

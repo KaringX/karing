@@ -4,7 +4,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 
 class ThemeDataDark {
-  static const Color homeColor = Color(0xFF202020);
+  //flutter\packages\flutter\lib\src\material\theme_data.dart _colorSchemeLightM3
   static const Color mainColor = Color(0xFF303030);
   static const Color mainBgColor = Color(0xFF202020);
   static ThemeData theme(BuildContext context) {
@@ -17,6 +17,11 @@ class ThemeDataDark {
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor,
         brightness: Brightness.dark,
+        //primary: mainColor,
+        // surfaceContainer: mainBgColor,
+        surfaceContainerLow: mainColor,
+        // onSecondaryContainer: Colors.blue.shade100,
+        secondaryContainer: mainBgColor,
       ),
 
       appBarTheme: const AppBarTheme(

@@ -23,6 +23,7 @@ import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/file_view_screen.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -32,10 +33,10 @@ import 'package:karing/screens/my_profiles_edit_screen.dart';
 import 'package:karing/screens/my_profiles_merge_screen.dart';
 import 'package:karing/screens/my_profiles_reorder_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
-import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
@@ -332,151 +333,144 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       const SizedBox(
         width: 10,
       ),
-      item.isRemote()
-          ? Row(
-              children: [
-                Tooltip(
-                  message: tcontext.meta.update,
-                  child: InkWell(
-                      onTap: () async {
-                        ServerManager.reload(item.groupid).then((value) {
-                          if (item.enable && item.reloadAfterProfileUpdate) {
-                            ServerManager.setDirty(true);
-                          }
-                          if (!mounted) {
-                            return;
-                          }
-                          if (value != null) {
-                            DialogUtils.showAlertDialog(context,
-                                tcontext.meta.updateFailed(p: value.message),
-                                showCopy: true,
-                                showFAQ: true,
-                                withVersion: true);
-                          }
-                          if (!mounted) {
-                            return;
-                          }
-                          _buildData();
-                          setState(() {});
-                        });
-                        setState(() {});
-                      },
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.access_time_outlined,
-                              size: 26,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              DateTimeUtils.dateTimeToDate(item.updateTime),
-                              style: const TextStyle(
-                                fontSize: ThemeConfig.kFontSizeListSubItem,
+      if (item.isRemote()) ...[
+        Row(
+          children: [
+            Tooltip(
+              message: tcontext.meta.update,
+              child: InkWell(
+                  onTap: () async {
+                    ServerManager.reload(item.groupid).then((value) {
+                      if (!mounted) {
+                        return;
+                      }
+                      if (value != null) {
+                        DialogUtils.showAlertDialog(context,
+                            tcontext.meta.updateFailed(p: value.message),
+                            showCopy: true, showFAQ: true, withVersion: true);
+                      }
+                      if (!mounted) {
+                        return;
+                      }
+                      _buildData();
+                      setState(() {});
+                    });
+                    setState(() {});
+                  },
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(
+                          Icons.access_time_outlined,
+                          size: 26,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          DateTimeUtils.dateTimeToDate(item.updateTime),
+                          style: const TextStyle(
+                            fontSize: ThemeConfig.kFontSizeListSubItem,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        ServerManager.isReloading(item.groupid)
+                            ? const SizedBox(
+                                height: 26,
+                                width: 26,
+                                child: RepaintBoundary(
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.cloud_download_outlined,
+                                size: 26,
                               ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            ServerManager.isReloading(item.groupid)
-                                ? const SizedBox(
-                                    height: 26,
-                                    width: 26,
-                                    child: RepaintBoundary(
-                                      child: CircularProgressIndicator(
-                                          strokeWidth: 2),
-                                    ),
-                                  )
-                                : const Icon(
-                                    Icons.cloud_download_outlined,
-                                    size: 26,
-                                  ),
-                          ])),
+                      ])),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
+        Row(children: [
+          Tooltip(
+              message: tcontext.meta.qrcode,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          settings: QrcodeScreen.routSettings(),
+                          builder: (context) =>
+                              QrcodeScreen(content: item.urlOrPath)));
+                },
+                child: const Icon(
+                  Icons.qr_code_scanner_outlined,
+                  size: 26,
                 ),
-                const SizedBox(
-                  width: 10,
+              )),
+          const SizedBox(
+            width: 10,
+          )
+        ])
+      ],
+      if (!item.isRemote()) ...[
+        Row(children: [
+          Tooltip(
+              message: tcontext.meta.add,
+              child: InkWell(
+                onTap: () {
+                  onTapAdd(item);
+                },
+                child: const Icon(
+                  Icons.add_outlined,
+                  size: 26,
                 ),
-              ],
-            )
-          : const SizedBox.shrink(),
-      item.isRemote()
-          ? Row(children: [
-              Tooltip(
-                  message: tcontext.meta.qrcode,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: QrcodeScreen.routSettings(),
-                              builder: (context) =>
-                                  QrcodeScreen(content: item.urlOrPath)));
-                    },
-                    child: const Icon(
-                      Icons.qr_code_scanner_outlined,
-                      size: 26,
-                    ),
-                  )),
-              const SizedBox(
-                width: 10,
-              )
-            ])
-          : const SizedBox.shrink(),
-      !item.isRemote()
-          ? Row(children: [
-              Tooltip(
-                  message: tcontext.meta.add,
-                  child: InkWell(
-                    onTap: () {
-                      onTapAdd(item);
-                    },
-                    child: const Icon(
-                      Icons.add_outlined,
-                      size: 26,
-                    ),
-                  )),
-              const SizedBox(
-                width: 10,
-              )
-            ])
-          : const SizedBox.shrink(),
-      !Platform.isWindows ||
-              (Platform.isWindows &&
-                  VersionHelper.instance.isWindows10RS5OrGreater)
-          ? Row(children: [
-              Tooltip(
-                  message: tcontext.meta.share,
-                  child: InkWell(
-                    onTap: () {
-                      onTapShare(item);
-                    },
-                    child: const Icon(
-                      Icons.share_outlined,
-                      size: 26,
-                    ),
-                  )),
-              const SizedBox(
-                width: 10,
-              )
-            ])
-          : const SizedBox.shrink(),
-      item.groupid != ServerManager.getCustomGroupId()
-          ? Row(children: [
-              Tooltip(
-                  message: tcontext.meta.edit,
-                  child: InkWell(
-                    onTap: () async {
-                      onTapEdit(item);
-                    },
-                    child: const Icon(Icons.edit_outlined, size: 26),
-                  )),
-              const SizedBox(
-                width: 10,
-              ),
-            ])
-          : const SizedBox.shrink(),
+              )),
+          const SizedBox(
+            width: 10,
+          )
+        ])
+      ],
+      if (!Platform.isWindows ||
+          (Platform.isWindows &&
+              VersionHelper.instance.isWindows10RS5OrGreater)) ...[
+        Row(children: [
+          Tooltip(
+              message: tcontext.meta.share,
+              child: InkWell(
+                onTap: () {
+                  onTapShare(item);
+                },
+                child: const Icon(
+                  Icons.share_outlined,
+                  size: 26,
+                ),
+              )),
+          const SizedBox(
+            width: 10,
+          )
+        ])
+      ],
+      if (item.groupid != ServerManager.getCustomGroupId()) ...[
+        Row(children: [
+          Tooltip(
+              message: tcontext.meta.edit,
+              child: InkWell(
+                onTap: () async {
+                  onTapEdit(item);
+                },
+                child: const Icon(Icons.edit_outlined, size: 26),
+              )),
+          const SizedBox(
+            width: 10,
+          ),
+        ])
+      ],
       ServerManager.isTestLatency(item.groupid)
           ? Stack(
               children: [
@@ -595,7 +589,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     ]);
   }
 
-  Container createServer(ProxyConfig server, int index) {
+  Widget createServer(ProxyConfig server, int index) {
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
     ServerConfigGroupItem? item = ServerManager.getByGroupId(server.groupid);
@@ -609,77 +603,75 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
     double centerWidth =
         windowSize.width - leftWidth - rightWidth - padding * 2;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: ContextMenuArea(
-          builder: (context) =>
-              getLongPressServerPopMenu(server, isTesting, isWaitTesting),
-          child: InkWell(
-            onTapDown: (details) {
-              _tapDownDetails = details;
-            },
-            onLongPress: () async {
-              onLongPressServer(server, isTesting, isWaitTesting);
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: padding,
-              ),
-              width: double.infinity,
-              height: ThemeConfig.kListItemHeight,
-              color: disabled ? Colors.grey : null,
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: leftWidth,
-                            child: Text(
-                              index.toString(),
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: ContextMenuArea(
+        builder: (context) =>
+            getLongPressServerWidgets(server, isTesting, isWaitTesting, true),
+        child: InkWell(
+          onTapDown: (details) {
+            _tapDownDetails = details;
+          },
+          onLongPress: () async {
+            onLongPressServer(server, isTesting, isWaitTesting);
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: padding,
+            ),
+            width: double.infinity,
+            height: ThemeConfig.kListItemHeight,
+            color: disabled ? Colors.grey : null,
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: leftWidth,
+                          child: Text(
+                            index.toString(),
+                            style: const TextStyle(
+                              fontSize: 12,
                             ),
                           ),
-                          SizedBox(
-                            width: server.attach.isEmpty
-                                ? centerWidth
-                                : centerWidth - 30,
-                            child: Text(
-                              server.tag,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeListSubItem,
-                                fontFamily: Platform.isWindows ? 'Emoji' : null,
-                              ),
+                        ),
+                        SizedBox(
+                          width: server.attach.isEmpty
+                              ? centerWidth
+                              : centerWidth - 30,
+                          child: Text(
+                            server.tag,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeListSubItem,
+                              fontFamily: Platform.isWindows ? 'Emoji' : null,
                             ),
                           ),
-                          server.attach.isEmpty
-                              ? const SizedBox.shrink()
-                              : SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    server.attach,
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                    ),
+                        ),
+                        server.attach.isEmpty
+                            ? const SizedBox.shrink()
+                            : SizedBox(
+                                width: 30,
+                                child: Text(
+                                  server.attach,
+                                  style: const TextStyle(
+                                    fontSize: 10,
                                   ),
                                 ),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            width: rightWidth,
-                            child: Row(children: [
-                              const SizedBox(
-                                width: 5,
                               ),
-                              /*InkWell(
+                        Container(
+                          alignment: Alignment.centerRight,
+                          width: rightWidth,
+                          child: Row(children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            /*InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -702,96 +694,95 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         const SizedBox(
                           width: 10,
                         ),*/
-                              SizedBox(
-                                height: ThemeConfig.kListItemHeight,
-                                child: InkWell(
-                                  onTap: () {
-                                    ServerManager.toggleFav(server);
-                                    if (SettingManager.getConfig()
-                                        .autoSelect
-                                        .prioritizeMyFav) {
-                                      ServerManager.setDirty(true);
-                                    }
-                                    setState(() {});
-                                  },
-                                  child: Row(children: [
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.orange),
-                                      child: Container(
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white
-                                              .withValues(alpha: 0.8),
-                                        ),
-                                        child: Icon(
-                                          Icons.star_outlined,
-                                          size: 20,
-                                          color: ServerManager.getUse()
-                                                  .fav
-                                                  .contains(server)
-                                              ? Colors.orange
-                                              : Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 2,
-                                    ),
-                                    SizedBox(
-                                      width: 45,
-                                      child: Text(
-                                        server.getShowType(),
-                                        style: const TextStyle(
-                                          fontSize:
-                                              ThemeConfig.kFontSizeListSubItem,
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 2,
-                              ),
-                              CommonWidget.createLatencyWidget(
-                                context,
-                                ThemeConfig.kListItemHeight,
-                                isTesting | isWaitTesting,
-                                isTesting,
-                                server.latency,
-                                onTapLatencyReload: () async {
-                                  if (!await startVPN()) {
-                                    return;
+                            SizedBox(
+                              height: ThemeConfig.kListItemHeight,
+                              child: InkWell(
+                                onTap: () {
+                                  ServerManager.toggleFav(server);
+                                  if (SettingManager.getConfig()
+                                      .autoSelect
+                                      .prioritizeMyFav) {
+                                    ServerManager.setDirty(true);
                                   }
-                                  ServerManager.testOutboundLatencyForServer(
-                                          server.tag, server.groupid)
-                                      .then((err) {
-                                    if (err != null) {
-                                      if (mounted) {
-                                        setState(() {});
-
-                                        DialogUtils.showAlertDialog(
-                                            context, err.message,
-                                            showCopy: true,
-                                            showFAQ: true,
-                                            withVersion: true);
-                                      }
-                                    }
-                                  });
+                                  setState(() {});
                                 },
-                              )
-                            ]),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                                child: Row(children: [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.orange),
+                                    child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            Colors.white.withValues(alpha: 0.8),
+                                      ),
+                                      child: Icon(
+                                        Icons.star_outlined,
+                                        size: 20,
+                                        color: ServerManager.getUse()
+                                                .fav
+                                                .contains(server)
+                                            ? Colors.orange
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  SizedBox(
+                                    width: 45,
+                                    child: Text(
+                                      server.getShowType(),
+                                      style: const TextStyle(
+                                        fontSize:
+                                            ThemeConfig.kFontSizeListSubItem,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            CommonWidget.createLatencyWidget(
+                              context,
+                              ThemeConfig.kListItemHeight,
+                              isTesting | isWaitTesting,
+                              isTesting,
+                              server.latency,
+                              onTapLatencyReload: () async {
+                                if (!await startVPN()) {
+                                  return;
+                                }
+                                ServerManager.testOutboundLatencyForServer(
+                                        server.tag, server.groupid)
+                                    .then((err) {
+                                  if (err != null) {
+                                    if (mounted) {
+                                      setState(() {});
+
+                                      DialogUtils.showAlertDialog(
+                                          context, err.message,
+                                          showCopy: true,
+                                          showFAQ: true,
+                                          withVersion: true);
+                                    }
+                                  }
+                                });
+                              },
+                            )
+                          ]),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -918,8 +909,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     setState(() {});
   }
 
-  List<PopupMenuItem> getLongPressServerPopMenu(
-      ProxyConfig server, bool isTesting, bool isWaitTesting) {
+  List<Widget> getLongPressServerWidgets(ProxyConfig server, bool isTesting,
+      bool isWaitTesting, bool insertBlackspace) {
     if (!mounted) {
       return [];
     }
@@ -933,64 +924,77 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     String msg = disabled ? tcontext.meta.enable : tcontext.meta.disable;
     msg += "[${server.type};${server.server};${server.serverport}]";
 
-    var items = [
-      PopupMenuItem(
-          value: 1,
-          child: Text(msg),
-          onTap: () {
-            var use = ServerManager.getUse();
-            if (disabled) {
-              use.disable.remove(disableKey);
-            } else {
-              use.disable.add(disableKey);
-            }
+    var widgets = [
+      ListTile(
+        title: Text(
+          insertBlackspace ? "  $msg" : msg,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          var use = ServerManager.getUse();
+          if (disabled) {
+            use.disable.remove(disableKey);
+          } else {
+            use.disable.add(disableKey);
+          }
+          if (item.enable) {
             ServerManager.setDirty(true);
-            setState(() {});
-          }),
-      PopupMenuItem(
-          value: 2,
-          child: Text(tcontext.meta.share),
-          onTap: () {
-            const JsonEncoder encoder = JsonEncoder.withIndent('');
+          }
 
-            String configContent =
-                encoder.convert(SingboxConfigBuilder.buildOutbound(server));
-            Codec<String, String> stringToBase64 = utf8.fuse(base64);
-            String b64 = stringToBase64.encode("[$configContent]");
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    settings: QrcodeScreen.routSettings(),
-                    builder: (context) => QrcodeScreen(
-                        content:
-                            "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}")));
-          }),
-      PopupMenuItem(
-          value: 3,
-          child: Text(tcontext.meta.view),
-          onTap: () {
-            const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-            String content = server.raw != null
-                ? encoder.convert(server.raw)
-                : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    settings: RichtextViewScreen.routSettings(),
-                    builder: (context) => RichtextViewScreen(
-                        title: tcontext.meta.view,
-                        file: "",
-                        content: content)));
-          })
-    ];
-    if (!isTesting &&
-        !isWaitTesting &&
-        item.testLatency.isEmpty &&
-        item.testLatencyIndepends.isEmpty) {
-      items.add(PopupMenuItem(
-          value: 4,
-          child: Text(tcontext.meta.remove),
-          onTap: () {
+          setState(() {});
+        },
+      ),
+      ListTile(
+        title: Text(insertBlackspace
+            ? "  ${tcontext.meta.share}"
+            : tcontext.meta.share),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          const JsonEncoder encoder = JsonEncoder.withIndent('');
+          String configContent =
+              encoder.convert(SingboxConfigBuilder.buildOutbound(server));
+          Codec<String, String> stringToBase64 = utf8.fuse(base64);
+          String b64 = stringToBase64.encode("[$configContent]");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: QrcodeScreen.routSettings(),
+                  builder: (context) => QrcodeScreen(
+                      content:
+                          "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}")));
+        },
+      ),
+      ListTile(
+        title: Text(
+            insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+          String content = server.raw != null
+              ? encoder.convert(server.raw)
+              : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: FileViewScreen.routSettings(),
+                  builder: (context) =>
+                      FileViewScreen(title: server.tag, content: content)));
+        },
+      ),
+      if (!isTesting &&
+          !isWaitTesting &&
+          item.testLatency.isEmpty &&
+          item.testLatencyIndepends.isEmpty) ...[
+        ListTile(
+          title: Text(insertBlackspace
+              ? "  ${tcontext.meta.remove}"
+              : tcontext.meta.remove),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
             for (int i = 0; i < item.servers.length; ++i) {
               if (item.servers[i].tag == server.tag) {
                 item.servers.removeAt(i);
@@ -1006,135 +1010,104 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 break;
               }
             }
-          }));
+          },
+        ),
+      ],
+      if (!SettingManager.getConfig().novice) ...[
+        ListTile(
+          title: Text(insertBlackspace
+              ? "  ${tcontext.meta.edit}"
+              : tcontext.meta.edit),
+          minLeadingWidth: 40,
+          onTap: () async {
+            Navigator.pop(context);
+            onTapEditServer(item, server);
+          },
+        ),
+      ],
+    ];
 
-      var settingConfig = SettingManager.getConfig();
-      if (!settingConfig.novice) {
-        items.add(PopupMenuItem(
-            value: 5,
-            child: Text(tcontext.meta.edit),
-            onTap: () async {
-              onTapEditServer(item, server);
-            }));
-      }
-    }
-    return items;
+    return widgets;
   }
 
   void onLongPressServer(
       ProxyConfig server, bool isTesting, bool isWaitTesting) async {
-    var items = getLongPressServerPopMenu(server, isTesting, isWaitTesting);
-    var postion = RelativeRect.fromLTRB(
-        _tapDownDetails.globalPosition.dx + 20,
-        _tapDownDetails.globalPosition.dy - 50,
-        MediaQuery.of(context).size.width - _tapDownDetails.globalPosition.dx,
-        0);
-    showMenu(context: context, position: postion, items: items);
+    var widgets =
+        getLongPressServerWidgets(server, isTesting, isWaitTesting, false);
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapMore() {
     final tcontext = Translations.of(context);
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: [
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.settings_outlined,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.setting,
-                ),
-              ]),
-              onTap: () {
-                onTapSetting();
-              }),
-          PopupMenuItem(
-            value: 1,
-            child: Row(children: [
-              const SizedBox(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.add_outlined,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                tcontext.meta.addProfile,
-              ),
-            ]),
-            onTap: () {
-              onTapAddProfile();
-            },
-          ),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.cloud_download_outlined,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.update,
-                ),
-              ]),
-              onTap: () {
-                onTapReloadAll();
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.sort_outlined,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.meta.sort,
-                ),
-              ]),
-              onTap: () {
-                onTapSort();
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Row(children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Icon(
-                    Icons.merge_type_outlined,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  tcontext.MyProfilesMergeScreen.profilesMerge,
-                ),
-              ]),
-              onTap: () {
-                onTapMerge();
-              }),
-        ]);
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(
+          tcontext.meta.setting,
+        ),
+        leading: Icon(
+          Icons.settings_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapSetting();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.addProfile,
+        ),
+        leading: Icon(
+          Icons.add_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapAddProfile();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.update,
+        ),
+        leading: Icon(
+          Icons.cloud_download_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapReloadAll();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.meta.sort,
+        ),
+        leading: Icon(
+          Icons.sort_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapSort();
+        },
+      ),
+      ListTile(
+        title: Text(
+          tcontext.MyProfilesMergeScreen.profilesMerge,
+        ),
+        leading: Icon(
+          Icons.merge_outlined,
+        ),
+        minLeadingWidth: 40,
+        onTap: () async {
+          Navigator.pop(context);
+          onTapMerge();
+        },
+      )
+    ];
+
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapTestOutboundLatencyAll() async {

@@ -2115,8 +2115,12 @@ class ServerManager {
     if (err != null) {
       Log.w("ServerManager.reload err ${item.urlOrPath} ${err.message}");
     } else {
+      if (item.enable && item.reloadAfterProfileUpdate) {
+        setDirty(true);
+      }
       items.add(item);
     }
+
     if (items.isNotEmpty) {
       var list = _onUpdateConfigs.values.toList();
       for (var callback in list) {

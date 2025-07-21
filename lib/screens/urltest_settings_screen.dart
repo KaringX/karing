@@ -119,12 +119,17 @@ class _UrlTestSettingsScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _searchedData.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = _searchedData[index];
             return createWidget(current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -133,63 +138,60 @@ class _UrlTestSettingsScreenState
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
     var settingConfig = SettingManager.getConfig();
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        color: settingConfig.urlTest == current ? ThemeDefine.kColorBlue : null,
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            SettingManager.getConfig().urlTest = current;
-            SettingManager.setDirty(true);
-            Navigator.pop(context);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: ThemeConfig.kListItemHeight2,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: centerWidth,
-                            child: Text(
-                              current,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+    return Material(
+      color: settingConfig.urlTest == current ? ThemeDefine.kColorBlue : null,
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {
+          SettingManager.getConfig().urlTest = current;
+          SettingManager.setDirty(true);
+          Navigator.pop(context);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight2,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: centerWidth,
+                          child: Text(
+                            current,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
                           ),
-                          !SettingConfig.kUrlTestList.contains(current)
-                              ? SizedBox(
-                                  width: rightWidth,
-                                  height: ThemeConfig.kListItemHeight2 - 2,
-                                  child: InkWell(
-                                    onTap: () async {
-                                      onTapDelete(current);
-                                    },
-                                    child: const Icon(
-                                      Icons.remove_circle_outlined,
-                                      size: 26,
-                                      color: Colors.red,
-                                    ),
-                                  ))
-                              : const SizedBox.shrink(),
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                        if (!SettingConfig.kUrlTestList.contains(current)) ...[
+                          SizedBox(
+                              width: rightWidth,
+                              height: ThemeConfig.kListItemHeight2 - 2,
+                              child: InkWell(
+                                onTap: () async {
+                                  onTapDelete(current);
+                                },
+                                child: const Icon(
+                                  Icons.remove_circle_outlined,
+                                  size: 26,
+                                  color: Colors.red,
+                                ),
+                              ))
+                        ],
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -199,11 +201,11 @@ class _UrlTestSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.url, "", null, null, (text) {
+        context, tcontext.meta.url, "", null, null, null, (text) {
       text = text.trim();
       Uri? uri = Uri.tryParse(text);
-      if (uri == null || uri.scheme != "https") {
-        DialogUtils.showAlertDialog(context, tcontext.mustBeValidHttpsURL);
+      if (uri == null || (uri.scheme != "https" && uri.scheme != "http")) {
+        DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
         return false;
       }
 

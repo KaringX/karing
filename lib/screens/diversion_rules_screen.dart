@@ -10,7 +10,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/diversion_group_custom_screen.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
-import 'package:karing/screens/richtext_viewer.screen.dart';
+import 'package:karing/screens/file_view_screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
@@ -411,14 +411,15 @@ class DiversionRulesScreenState
   Future<void> onTapItemName(DiversionRulesGroup group) async {
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String? content = encoder.convert(group.toJson(noGroupId: true));
-    await Navigator.push(
+
+    Navigator.push(
         context,
         MaterialPageRoute(
-            settings: RichtextViewScreen.routSettings(),
-            builder: (context) => RichtextViewScreen(
-                title: getDiversionShortName(group.name),
-                file: "",
-                content: content)));
+            settings: FileViewScreen.routSettings(),
+            builder: (context) => FileViewScreen(
+                  title: group.name,
+                  content: content,
+                )));
   }
 
   Future<void> onTapItem(DiversionRulesGroup group, ProxyConfig selected,

@@ -114,12 +114,17 @@ class _ServerSelectSearchSettingsScreenState
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
         thumbVisibility: true,
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _allData.length,
-          itemExtent: ThemeConfig.kListItemHeight2,
           itemBuilder: (BuildContext context, int index) {
             var current = _allData[index];
             return createWidget(index, current, windowSize);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider(
+              height: 1,
+              thickness: 0.3,
+            );
           },
         ));
   }
@@ -128,62 +133,59 @@ class _ServerSelectSearchSettingsScreenState
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      child: Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context, current);
-          },
-          onLongPress: () async {
-            onLongPressEdit(index, current);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            width: double.infinity,
-            //height: ThemeConfig.kListItemHeight2,
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [
-                          SizedBox(
-                            width: centerWidth,
-                            child: Text(
-                              current,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
-                              ),
+    return Material(
+      borderRadius: ThemeDefine.kBorderRadius,
+      child: InkWell(
+        onTap: () {
+          Navigator.pop(context, current);
+        },
+        onLongPress: () async {
+          onLongPressEdit(index, current);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight2,
+          child: Row(
+            children: [
+              Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(children: [
+                        SizedBox(
+                          width: centerWidth,
+                          child: Text(
+                            current,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
                             ),
                           ),
-                          SizedBox(
-                              width: rightWidth,
-                              height: ThemeConfig.kListItemHeight2 - 2,
-                              child: InkWell(
-                                onTap: () async {
-                                  onTapDelete(current);
-                                },
-                                child: const Icon(
-                                  Icons.remove_circle_outlined,
-                                  size: 26,
-                                  color: Colors.red,
-                                ),
-                              ))
-                        ]),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                        ),
+                        SizedBox(
+                            width: rightWidth,
+                            height: ThemeConfig.kListItemHeight2 - 2,
+                            child: InkWell(
+                              onTap: () async {
+                                onTapDelete(current);
+                              },
+                              child: const Icon(
+                                Icons.remove_circle_outlined,
+                                size: 26,
+                                color: Colors.red,
+                              ),
+                            ))
+                      ]),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -193,7 +195,7 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.keywordOrRegx, "", null, null, (text) {
+        context, tcontext.meta.keywordOrRegx, "", null, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;
@@ -236,7 +238,7 @@ class _ServerSelectSearchSettingsScreenState
   void onLongPressEdit(int index, String text) async {
     final tcontext = Translations.of(context);
     String? newText = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.keywordOrRegx, text, null, null, (text) {
+        context, tcontext.meta.keywordOrRegx, text, null, null, null, (text) {
       text = text.trim();
       if (text.isEmpty) {
         return false;

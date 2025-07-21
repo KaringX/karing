@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -40,6 +39,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+    var setting = SettingManager.getConfig();
     return PopScope(
         canPop: false,
         child: Scaffold(
@@ -83,7 +83,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
                                       width: 65,
                                       height: 30,
                                       child: InkWell(
-                                        autofocus: PlatformUtils.maybeTV(),
+                                        autofocus: setting.ui.tvMode,
                                         focusNode: _focusNodeNext,
                                         onTap: () {
                                           Navigator.pop(context);
