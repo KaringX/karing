@@ -117,13 +117,18 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 
-## Acknowledgement
-
-Karing was based on or inspired by these projects and so on:
+## Projects 
+### Acknowledgement: Karing was based on or inspired by these projects and so on:
 
 - [flutter](https://flutter.dev/): makes it easy and fast to build beautiful apps for mobile and beyond.
 - [singbox](https://sing-box.sagernet.org/): The universal proxy platform.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta docs
+
+### Karing Team:
+- [Karing](https://karing.app): https://karing.app
+- [Clash Mi](https://clashmi.app/): https://clashmi.app/
+- [sing-poet](https://github.com/KaringX/sing-poet)
+
 
 
 ## Star History

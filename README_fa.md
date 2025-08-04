@@ -91,3 +91,10 @@ Karing بر اساس یا الهام‌گیری شده از این پروژه‌
 - [فلاتر](https://flutter.dev/): امکان ساخت برنامه‌های زیبا برای موبایل و موارد دیگر را ساده و سریع می‌کند.
 - [singbox](https://sing-box.sagernet.org/): پلتفرم یکپارچه پروکسی.
 - [Meta-Docs](https://wiki.metacubex.one/config/): اسناد Clash.Meta
+
+### Karing Team:
+- [Karing](https://karing.app): https://karing.app
+- [Clash Mi](https://clashmi.app/): https://clashmi.app/
+- [sing-poet](https://github.com/KaringX/sing-poet)
+
+

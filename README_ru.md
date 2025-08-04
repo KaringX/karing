@@ -92,10 +92,16 @@
 ## Donate
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-## Признательность
+## Projects 
 
-Karing был основан или вдохновлен следующими проектами и так далее:
+### Признательность: Karing был основан или вдохновлен следующими проектами и так далее:
 
 - [flutter](https://flutter.dev/): облегчает и ускоряет создание красивых приложений для мобильных устройств и не только.
 - [singbox](https://sing-box.sagernet.org/): универсальная платформа прокси.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta документация
+
+### Karing Team:
+- [Karing](https://karing.app): https://karing.app
+- [Clash Mi](https://clashmi.app/): https://clashmi.app/
+- [sing-poet](https://github.com/KaringX/sing-poet)
+

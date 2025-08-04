@@ -10,7 +10,9 @@
 </h3>
 
 [英语](./README.md) | 中文 | [俄语](./README_ru.md) | [波斯文](./README_fa.md)
-### 注意: Karing未在任何视频平台开设过有关Karing的任何频道
+### 注意: 
+- **Karing未在任何视频平台开设过有关Karing的任何频道**
+- **官方网站: https://karing.app**
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
   - 完全支持 `clash` 配置，部分支持 `clash.meta` 配置。
@@ -104,9 +106,15 @@
 ## 捐赠
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-## 致谢
-Karing 基于或受到这些项目的启发：
+## Projects
+### 致谢: Karing 基于或受到这些项目的启发：
 
 - [flutter](https://flutter.dev/)：使构建美观应用变得轻松快捷。
 - [singbox](https://sing-box.sagernet.org/)：通用代理平台。
 - [Meta-Docs](https://wiki.metacubex.one/config/)：Clash.Meta 文档
+
+### Karing Team:
+- [Karing](https://karing.app): https://karing.app
+- [Clash Mi](https://clashmi.app/): https://clashmi.app/
+- [sing-poet](https://github.com/KaringX/sing-poet)
+
