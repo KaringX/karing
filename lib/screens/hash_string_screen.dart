@@ -104,7 +104,6 @@ class _SentryHashStringScreenState
                           maxLength: 500,
                           textInputAction: TextInputAction.done,
                           controller: _textController,
-                          cursorColor: Colors.black,
                           //style: TextStyle(color: Colors.red),
                         ),
                       ),

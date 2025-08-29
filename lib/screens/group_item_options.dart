@@ -12,6 +12,7 @@ class GroupItemTextOptions {
   GroupItemTextOptions(
       {required this.name,
       required this.text,
+      this.tips,
       this.textStyle,
       this.textColor,
       this.textWidthPercent = 0.5,
@@ -21,6 +22,7 @@ class GroupItemTextOptions {
 
   final String name;
   final String? text;
+  final String? tips;
   final TextStyle? textStyle;
 
   final Color? textColor;

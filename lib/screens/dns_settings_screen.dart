@@ -503,7 +503,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         leading: Icon(
           Icons.add_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapAdd();
@@ -516,7 +515,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         leading: Icon(
           Icons.info_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           DialogUtils.showAlertDialog(
@@ -539,11 +537,10 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
             //contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: TextFieldEx(
                   controller: textControllerISP,
                   textInputAction: TextInputAction.next,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     labelText: "ISP",
                     hintText: "ISP",
@@ -558,7 +555,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 child: TextFieldEx(
                   controller: textControllerUrl,
                   textInputAction: TextInputAction.done,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     labelText: tcontext.meta.url,
                     hintText: tcontext.meta.url,

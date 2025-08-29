@@ -217,7 +217,6 @@ class _AddProfileByImportFromFileScreenState
                     child: TextFieldEx(
                       controller: _textControllerRemark,
                       textInputAction: TextInputAction.done,
-                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         labelText: tcontext.meta.remark,
                         hintText: tcontext.meta.required,

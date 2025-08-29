@@ -91,6 +91,7 @@ class TranslationsAr implements Translations {
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
 	@override String get noNetworkConnect => 'لا يوجد اتصال بالإنترنت';
+	@override String get turnOffNetworkBeforeInstall => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
 	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
@@ -219,6 +220,7 @@ class _TranslationsHomeScreenAr implements TranslationsHomeScreenEn {
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}';
 	@override String get myLinkEmpty => 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه';
 	@override String tooMuchServers({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.';
+	@override String tooMuchServers2({required Object p, required Object p1}) => 'قد يؤدي وجود عدد كبير جدًا من خوادم الوكيل [${p}>${p1}] إلى حدوث اتصالات بطيئة أو غير قابلة للوصول';
 }
 
 // Path: LaunchFailedScreen
@@ -436,6 +438,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String frontProxyTips({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
 	@override String get allowOtherHostsConnect => 'اسمح للآخرين بالاتصال';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+	@override String get allowOtherHostsConnectWarn => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
 	@override String get tunAutoRoute => 'Auto Route';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
@@ -444,6 +447,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 	@override String get clusterAuth => 'مصادقة مجموعة الوكيل';
 	@override String get tunMode => 'نفق وضع';
+	@override String get tuni4Address => 'عنوان IP';
 	@override String get tunModeTips => 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
 	@override String get tunModeRunAsAdmin => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
 	@override String get tunStack => 'Stack';
@@ -632,6 +636,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get domainRegex => 'انتظام اسم المجال';
 	@override String get ip => 'IP';
 	@override String get port => 'ميناء';
+	@override String get portRange => 'نطاق الميناء';
 	@override String get appPackage => 'معرف حزمة التطبيق';
 	@override String get processName => 'اسم العملية';
 	@override String get processPath => 'مسار العملية';
@@ -679,7 +684,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get novice => 'وضع المبتدئ';
 	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-	@override String get requestNeedsUserApproval => 'يرجى السماح لـ Clashmi بتثبيت ملحقات النظام، وإعادة الاتصال بعد اكتمال التثبيت';
+	@override String get requestNeedsUserApproval => 'يرجى [السماح] لكارينج بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت';
+	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز karingServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get tvMode => 'وضع التلفزيون';
 	@override String get recommended => 'يوصي';
 	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
@@ -707,6 +713,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get deviceNoSpace => 'مساحة غير كافيه في القرص';
 	@override String get hideSystemApp => 'إخفاء تطبيقات النظام';
 	@override String get hideAppIcon => 'إخفاء أيقونة التطبيق';
+	@override String get hideDockIcon => 'إخفاء أيقونة Dock';
 	@override String get remark => 'ملاحظة';
 	@override String get remarkExist => 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
 	@override String get remarkCannotEmpty => 'لا يمكن أن تكون الملاحظات فارغة';
@@ -910,6 +917,7 @@ extension on TranslationsAr {
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}';
 			case 'HomeScreen.myLinkEmpty': return 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.';
+			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'قد يؤدي وجود عدد كبير جدًا من خوادم الوكيل [${p}>${p1}] إلى حدوث اتصالات بطيئة أو غير قابلة للوصول';
 			case 'LaunchFailedScreen.invalidProcess': return 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل';
 			case 'LaunchFailedScreen.invalidProfile': return 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق';
 			case 'LaunchFailedScreen.invalidVersion': return 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق';
@@ -1046,6 +1054,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'اسمح للآخرين بالاتصال';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
@@ -1054,6 +1063,7 @@ extension on TranslationsAr {
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 			case 'SettingsScreen.clusterAuth': return 'مصادقة مجموعة الوكيل';
 			case 'SettingsScreen.tunMode': return 'نفق وضع';
+			case 'SettingsScreen.tuni4Address': return 'عنوان IP';
 			case 'SettingsScreen.tunModeTips': return 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
 			case 'SettingsScreen.tunStack': return 'Stack';
@@ -1198,6 +1208,7 @@ extension on TranslationsAr {
 			case 'meta.domainRegex': return 'انتظام اسم المجال';
 			case 'meta.ip': return 'IP';
 			case 'meta.port': return 'ميناء';
+			case 'meta.portRange': return 'نطاق الميناء';
 			case 'meta.appPackage': return 'معرف حزمة التطبيق';
 			case 'meta.processName': return 'اسم العملية';
 			case 'meta.processPath': return 'مسار العملية';
@@ -1245,7 +1256,8 @@ extension on TranslationsAr {
 			case 'meta.novice': return 'وضع المبتدئ';
 			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return 'يرجى السماح لـ Clashmi بتثبيت ملحقات النظام، وإعادة الاتصال بعد اكتمال التثبيت';
+			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لكارينج بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت';
+			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز karingServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 			case 'meta.tvMode': return 'وضع التلفزيون';
 			case 'meta.recommended': return 'يوصي';
 			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
@@ -1273,6 +1285,7 @@ extension on TranslationsAr {
 			case 'meta.deviceNoSpace': return 'مساحة غير كافيه في القرص';
 			case 'meta.hideSystemApp': return 'إخفاء تطبيقات النظام';
 			case 'meta.hideAppIcon': return 'إخفاء أيقونة التطبيق';
+			case 'meta.hideDockIcon': return 'إخفاء أيقونة Dock';
 			case 'meta.remark': return 'ملاحظة';
 			case 'meta.remarkExist': return 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
 			case 'meta.remarkCannotEmpty': return 'لا يمكن أن تكون الملاحظات فارغة';
@@ -1369,6 +1382,7 @@ extension on TranslationsAr {
 			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
 			case 'noNetworkConnect': return 'لا يوجد اتصال بالإنترنت';
+			case 'turnOffNetworkBeforeInstall': return 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
 			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';

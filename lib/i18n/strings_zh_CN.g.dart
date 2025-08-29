@@ -91,6 +91,7 @@ class TranslationsZhCn implements Translations {
 	@override String get mustBeValidHttpsURL => '必须为有效的 https URL';
 	@override String fileNotExistReinstall({required Object p}) => '文件缺失[${p}],请重新安装';
 	@override String get noNetworkConnect => '无网络连接';
+	@override String get turnOffNetworkBeforeInstall => '建议切换到[飞行模式]后再安装更新';
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
 	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
 	@override String get removeBannerAdsByReward => '观看广告去广告';
@@ -219,6 +220,7 @@ class _TranslationsHomeScreenZhCn implements TranslationsHomeScreenEn {
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get myLinkEmpty => '请先设置[快捷链接]后再使用';
 	@override String tooMuchServers({required Object p, required Object p1}) => '代理服务器[${p}>${p1}]过多,可能因系统内存限制而无法连接';
+	@override String tooMuchServers2({required Object p, required Object p1}) => '代理服务器[${p}>${p1}]过多,可能导致连接缓慢或无法连接';
 }
 
 // Path: LaunchFailedScreen
@@ -436,6 +438,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String frontProxyTips({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
 	@override String get allowOtherHostsConnect => '允许其他主机接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+	@override String get allowOtherHostsConnectWarn => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
 	@override String get tunAutoRoute => 'Auto Route';
 	@override String get tunStrictRoute => '严格路由';
 	@override String get tunStrictRouteTips => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
@@ -444,6 +447,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 	@override String get clusterAuth => '代理集群认证';
 	@override String get tunMode => 'TUN模式';
+	@override String get tuni4Address => 'IP地址';
 	@override String get tunModeTips => 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]';
 	@override String get tunModeRunAsAdmin => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
 	@override String get tunStack => '网络栈';
@@ -632,6 +636,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get domainRegex => '域名正则';
 	@override String get ip => 'IP';
 	@override String get port => '端口';
+	@override String get portRange => '端口范围';
 	@override String get appPackage => '应用包Id';
 	@override String get processName => '进程名称';
 	@override String get processPath => '进程路径';
@@ -679,7 +684,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get novice => '新手模式';
 	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
 	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
-	@override String get requestNeedsUserApproval => '请‘允许’clashmi安装系统扩展,安装完成后重新连接';
+	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展,安装完成后重新连接';
+	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启karingServiceSE权限后,重新连接';
 	@override String get tvMode => 'TV模式';
 	@override String get recommended => '推荐';
 	@override String innerError({required Object p}) => '内部错误:${p}';
@@ -707,6 +713,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get deviceNoSpace => '磁盘空间不足';
 	@override String get hideSystemApp => '隐藏系统应用';
 	@override String get hideAppIcon => '隐藏应用图标';
+	@override String get hideDockIcon => '隐藏Dock图标';
 	@override String get remark => '备注';
 	@override String get remarkExist => '备注已存在,请使用其他名称';
 	@override String get remarkCannotEmpty => '备注不能为空';
@@ -910,6 +917,7 @@ extension on TranslationsZhCn {
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'HomeScreen.myLinkEmpty': return '请先设置[快捷链接]后再使用';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => '代理服务器[${p}>${p1}]过多,可能因系统内存限制而无法连接';
+			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => '代理服务器[${p}>${p1}]过多,可能导致连接缓慢或无法连接';
 			case 'LaunchFailedScreen.invalidProcess': return '应用启动失败[无效的进程名称],请重新安装应用到独立目录';
 			case 'LaunchFailedScreen.invalidProfile': return '应用启动失败[访问配置文件失败],请重新安装应用';
 			case 'LaunchFailedScreen.invalidVersion': return '应用启动失败[无效版本],请重新安装应用';
@@ -1046,6 +1054,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
 			case 'SettingsScreen.allowOtherHostsConnect': return '允许其他主机接入';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+			case 'SettingsScreen.allowOtherHostsConnectWarn': return '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
 			case 'SettingsScreen.tunStrictRoute': return '严格路由';
 			case 'SettingsScreen.tunStrictRouteTips': return '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
@@ -1054,6 +1063,7 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 			case 'SettingsScreen.clusterAuth': return '代理集群认证';
 			case 'SettingsScreen.tunMode': return 'TUN模式';
+			case 'SettingsScreen.tuni4Address': return 'IP地址';
 			case 'SettingsScreen.tunModeTips': return 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
 			case 'SettingsScreen.tunStack': return '网络栈';
@@ -1198,6 +1208,7 @@ extension on TranslationsZhCn {
 			case 'meta.domainRegex': return '域名正则';
 			case 'meta.ip': return 'IP';
 			case 'meta.port': return '端口';
+			case 'meta.portRange': return '端口范围';
 			case 'meta.appPackage': return '应用包Id';
 			case 'meta.processName': return '进程名称';
 			case 'meta.processPath': return '进程路径';
@@ -1245,7 +1256,8 @@ extension on TranslationsZhCn {
 			case 'meta.novice': return '新手模式';
 			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
 			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
-			case 'meta.requestNeedsUserApproval': return '请‘允许’clashmi安装系统扩展,安装完成后重新连接';
+			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展,安装完成后重新连接';
+			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启karingServiceSE权限后,重新连接';
 			case 'meta.tvMode': return 'TV模式';
 			case 'meta.recommended': return '推荐';
 			case 'meta.innerError': return ({required Object p}) => '内部错误:${p}';
@@ -1273,6 +1285,7 @@ extension on TranslationsZhCn {
 			case 'meta.deviceNoSpace': return '磁盘空间不足';
 			case 'meta.hideSystemApp': return '隐藏系统应用';
 			case 'meta.hideAppIcon': return '隐藏应用图标';
+			case 'meta.hideDockIcon': return '隐藏Dock图标';
 			case 'meta.remark': return '备注';
 			case 'meta.remarkExist': return '备注已存在,请使用其他名称';
 			case 'meta.remarkCannotEmpty': return '备注不能为空';
@@ -1369,6 +1382,7 @@ extension on TranslationsZhCn {
 			case 'mustBeValidHttpsURL': return '必须为有效的 https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => '文件缺失[${p}],请重新安装';
 			case 'noNetworkConnect': return '无网络连接';
+			case 'turnOffNetworkBeforeInstall': return '建议切换到[飞行模式]后再安装更新';
 			case 'latencyTestResolveIP': return '手动检测时,同时解析出口IP';
 			case 'removeBannerAdsByShare': return '分享[Karing]去广告';
 			case 'removeBannerAdsByReward': return '观看广告去广告';

@@ -37,6 +37,7 @@ class DiversionGroupCustomEditOptions {
   String? wifiSsid;
   String? wifiBssid;
   String? port;
+  String? portRange;
   String? protocol;
 }
 
@@ -86,6 +87,7 @@ class _DiversionGroupCustomEditScreenState
   final _textControllerLinkWifiBSsid = TextEditingController();
   final _textControllerLinkNetwork = TextEditingController();
   final _textControllerLinkPort = TextEditingController();
+  final _textControllerLinkPortRange = TextEditingController();
   final _textControllerLinkProtocol = TextEditingController();
 
   List<String>? _sitecodes;
@@ -308,6 +310,17 @@ class _DiversionGroupCustomEditScreenState
           !group.port.contains(int.tryParse(widget.options.port!))) {
         _textControllerLinkPort.text += widget.options.port!;
         _textControllerLinkPort.text += "\n";
+      }
+    }
+    if (widget.options.portRange != null) {
+      if (group.portRange.isNotEmpty) {
+        _textControllerLinkPortRange.text = group.portRange.join("\n");
+        _textControllerLinkPortRange.text += "\n";
+      }
+      if (widget.options.portRange!.isNotEmpty &&
+          !group.portRange.contains(widget.options.portRange!)) {
+        _textControllerLinkPortRange.text += widget.options.portRange!;
+        _textControllerLinkPortRange.text += "\n";
       }
     }
   }
@@ -647,8 +660,17 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(
-            _textControllerLinkPort, tcontext.meta.port, "443\n53");
+        return createTextField(_textControllerLinkPort, tcontext.meta.port,
+            "443\n53\n"); //:3500\n4500:\n20000:25000\n
+      };
+      _listViewParts.add(item);
+    }
+    if (widget.options.portRange != null) {
+      ListViewMultiPartsItem item = ListViewMultiPartsItem();
+      item.creator = (data, index, bindNO) {
+        final tcontext = Translations.of(context);
+        return createTextField(_textControllerLinkPortRange,
+            tcontext.meta.portRange, ":3500\n4500:\n20000:25000\n");
       };
       _listViewParts.add(item);
     }
@@ -782,6 +804,7 @@ class _DiversionGroupCustomEditScreenState
                             width: 120,
                             child: ListTile(
                               title: const Text('OR'),
+                              horizontalTitleGap: 5,
                               leading: Radio(
                                 value: LogicOperations.or,
                                 groupValue: _logicOperation,
@@ -793,9 +816,10 @@ class _DiversionGroupCustomEditScreenState
                             ),
                           ),
                           SizedBox(
-                            width: 120,
+                            width: 130,
                             child: ListTile(
                               title: const Text('AND'),
+                              horizontalTitleGap: 5,
                               leading: Radio(
                                 value: LogicOperations.and,
                                 groupValue: _logicOperation,
@@ -831,7 +855,6 @@ class _DiversionGroupCustomEditScreenState
             textInputAction: TextInputAction.newline,
             maxLines: 6,
             controller: textControllerLink,
-            cursorColor: Colors.black,
             decoration: InputDecoration(labelText: label, hintText: hint),
             onChanged: (text) {},
           ),
@@ -859,7 +882,6 @@ class _DiversionGroupCustomEditScreenState
                     textInputAction: TextInputAction.newline,
                     maxLines: 6,
                     controller: textControllerLink,
-                    cursorColor: Colors.black,
                     decoration:
                         InputDecoration(labelText: label, hintText: hint),
                     onChanged: (text) {},
@@ -1114,6 +1136,9 @@ class _DiversionGroupCustomEditScreenState
           newGroup.port.add(nport);
         }
       }
+      if (widget.options.portRange != null) {
+        newGroup.portRange = convertToList(_textControllerLinkPortRange.text);
+      }
       if (widget.options.protocol != null) {
         newGroup.protocol = convertToList(_textControllerLinkProtocol.text);
       }
@@ -1136,6 +1161,7 @@ class _DiversionGroupCustomEditScreenState
       group.wifiSsid = newGroup.wifiSsid;
       group.wifiBssid = newGroup.wifiBssid;
       group.port = newGroup.port;
+      group.portRange = newGroup.portRange;
       group.protocol = newGroup.protocol;
 
       ServerManager.saveDiversionGroupConfig();

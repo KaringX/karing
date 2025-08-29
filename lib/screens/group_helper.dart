@@ -262,6 +262,16 @@ class GroupHelper {
             SettingManager.setDirty(true);
           },
         )),
+        GroupItemOptions(
+            textFormFieldOptions: GroupItemTextFieldOptions(
+                name: "IP",
+                text: settingConfig.tun.i4Address,
+                textWidthPercent: 0.5,
+                enabled: tunMode,
+                onChanged: (String value) {
+                  settingConfig.tun.i4Address = value;
+                  SettingManager.setDirty(true);
+                })),
         if (!settingConfig.novice) ...[
           GroupItemOptions(
               timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
@@ -302,7 +312,7 @@ class GroupHelper {
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (String value) {
-                    settingConfig.tun.mtu = int.tryParse(value) ?? 9000;
+                    settingConfig.tun.mtu = int.tryParse(value) ?? 4064;
                     SettingManager.setDirty(true);
                   })),
           GroupItemOptions(
@@ -960,13 +970,13 @@ class GroupHelper {
     var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(
         BuildContext context, SetStateCallback? setstate) async {
-      country.Country? currentCountry =
+      country.Country currentCountry =
           SettingManager.getConfig().currentCountry();
       List<GroupItemOptions> options = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.RegionSettingsScreen.title,
-                text: currentCountry!.isoShortNameByLocale[
+                text: currentCountry.isoShortNameByLocale[
                     SettingConfig.languageTagForCountry()],
                 onPush: () async {
                   await Navigator.push(
@@ -1585,6 +1595,7 @@ class GroupHelper {
       return null;
     }
     final tcontext = Translations.of(context);
+    Size windowSize = MediaQuery.of(context).size;
     Set<String> whiteList = {};
     bool myprofiles = true;
     bool diversion = true;
@@ -1650,8 +1661,11 @@ class GroupHelper {
                       AsyncSnapshot<List<GroupItem>> snapshot) {
                     List<GroupItem> data =
                         snapshot.hasData ? snapshot.data! : [];
-                    return Column(
-                        children: GroupItemCreator.createGroups(context, data));
+                    return SizedBox(
+                        width: windowSize.width,
+                        child: Column(
+                            children:
+                                GroupItemCreator.createGroups(context, data)));
                   },
                 ),
                 const SizedBox(
@@ -1818,7 +1832,7 @@ class GroupHelper {
       if (host.isNotEmpty) {
         if (NetworkUtils.isIpv4(host)) {
           result = await HttpUtils.httpGetRequest("http://$host:$targetPort/",
-              proxyPort, null, const Duration(seconds: 1), null, null);
+              proxyPort, null, const Duration(seconds: 3), null, null);
           if (result.error == null || result.error!.message.contains("404")) {
             targetHost = host;
             break;
@@ -2189,7 +2203,13 @@ class GroupHelper {
         }
         if (PlatformUtils.isMobile()) {
           try {
-            await Share.shareXFiles([XFile(filePath)]);
+            final box = context.findRenderObject() as RenderBox?;
+            final rect =
+                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            await Share.shareXFiles(
+              [XFile(filePath)],
+              sharePositionOrigin: rect,
+            );
           } catch (err) {
             if (!context.mounted) {
               return;

@@ -317,7 +317,6 @@ class _AddProfileByLinkOrContentScreenState
                           textInputAction: TextInputAction.next,
                           maxLines: PlatformUtils.isPC() ? 12 : 4,
                           controller: _textControllerLink,
-                          cursorColor: Colors.black,
                           decoration: InputDecoration(
                               labelText: tcontext.meta.profileUrlOrContent,
                               hintText: tcontext.meta.profileUrlOrContentHit),
@@ -332,7 +331,6 @@ class _AddProfileByLinkOrContentScreenState
                       child: TextFieldEx(
                         textInputAction: TextInputAction.done,
                         controller: _textControllerRemark,
-                        cursorColor: Colors.black,
                         decoration: InputDecoration(
                           labelText: tcontext.meta.remark,
                           hintText: tcontext.meta.required,

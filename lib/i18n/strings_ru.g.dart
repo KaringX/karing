@@ -91,6 +91,7 @@ class TranslationsRu implements Translations {
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
 	@override String get noNetworkConnect => 'Нет подключения к Интернету';
+	@override String get turnOffNetworkBeforeInstall => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
 	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
 	@override String get removeBannerAdsByReward => 'Просмотреть рекламу для удаления новой рекламы';
@@ -219,6 +220,7 @@ class _TranslationsHomeScreenRu implements TranslationsHomeScreenEn {
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get myLinkEmpty => 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
 	@override String tooMuchServers({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
+	@override String tooMuchServers2({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.';
 }
 
 // Path: LaunchFailedScreen
@@ -436,6 +438,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String frontProxyTips({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
 	@override String get tunAutoRoute => 'Auto Route';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
@@ -444,6 +447,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 	@override String get clusterAuth => 'Аутентификация прокси-кластера';
 	@override String get tunMode => 'Режим TUN';
+	@override String get tuni4Address => 'IP-адрес';
 	@override String get tunModeTips => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
 	@override String get tunModeRunAsAdmin => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
 	@override String get tunStack => 'Stack';
@@ -632,6 +636,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get domainRegex => 'Регулярные выражения для имен доменов';
 	@override String get ip => 'IP';
 	@override String get port => 'Порт';
+	@override String get portRange => 'Диапазон портов';
 	@override String get appPackage => 'Идентификатор пакета приложения';
 	@override String get processName => 'Имя процесса';
 	@override String get processPath => 'Путь к процессу';
@@ -679,7 +684,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get novice => 'Режим новичка';
 	@override String get willCompleteAfterRebootInstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 	@override String get willCompleteAfterRebootUninstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-	@override String get requestNeedsUserApproval => 'Пожалуйста, «разрешите» Clashmi установить системные расширения и переподключитесь после завершения установки.';
+	@override String get requestNeedsUserApproval => 'Пожалуйста, [разрешите] Karing установить системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
+	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение karingServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
 	@override String get tvMode => 'Режим ТВ';
 	@override String get recommended => 'Рекомендуемые';
 	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -707,6 +713,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get deviceNoSpace => 'Недостаточно места на диске';
 	@override String get hideSystemApp => 'Скрыть системные приложения';
 	@override String get hideAppIcon => 'Скрыть значок приложения';
+	@override String get hideDockIcon => 'Скрыть значок дока';
 	@override String get remark => 'Примечание';
 	@override String get remarkExist => 'Примечание уже существует, используйте другое имя';
 	@override String get remarkCannotEmpty => 'Примечание не может быть пустым';
@@ -910,6 +917,7 @@ extension on TranslationsRu {
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'HomeScreen.myLinkEmpty': return 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
+			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.';
 			case 'LaunchFailedScreen.invalidProcess': return 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку';
 			case 'LaunchFailedScreen.invalidProfile': return 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение';
 			case 'LaunchFailedScreen.invalidVersion': return 'Не удалось запустить приложение [Неверная версия], переустановите приложение';
@@ -1046,6 +1054,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'Разрешить подключение по локальной сети';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
@@ -1054,6 +1063,7 @@ extension on TranslationsRu {
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 			case 'SettingsScreen.clusterAuth': return 'Аутентификация прокси-кластера';
 			case 'SettingsScreen.tunMode': return 'Режим TUN';
+			case 'SettingsScreen.tuni4Address': return 'IP-адрес';
 			case 'SettingsScreen.tunModeTips': return 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
 			case 'SettingsScreen.tunStack': return 'Stack';
@@ -1198,6 +1208,7 @@ extension on TranslationsRu {
 			case 'meta.domainRegex': return 'Регулярные выражения для имен доменов';
 			case 'meta.ip': return 'IP';
 			case 'meta.port': return 'Порт';
+			case 'meta.portRange': return 'Диапазон портов';
 			case 'meta.appPackage': return 'Идентификатор пакета приложения';
 			case 'meta.processName': return 'Имя процесса';
 			case 'meta.processPath': return 'Путь к процессу';
@@ -1245,7 +1256,8 @@ extension on TranslationsRu {
 			case 'meta.novice': return 'Режим новичка';
 			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, «разрешите» Clashmi установить системные расширения и переподключитесь после завершения установки.';
+			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, [разрешите] Karing установить системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
+			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение karingServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
 			case 'meta.tvMode': return 'Режим ТВ';
 			case 'meta.recommended': return 'Рекомендуемые';
 			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -1273,6 +1285,7 @@ extension on TranslationsRu {
 			case 'meta.deviceNoSpace': return 'Недостаточно места на диске';
 			case 'meta.hideSystemApp': return 'Скрыть системные приложения';
 			case 'meta.hideAppIcon': return 'Скрыть значок приложения';
+			case 'meta.hideDockIcon': return 'Скрыть значок дока';
 			case 'meta.remark': return 'Примечание';
 			case 'meta.remarkExist': return 'Примечание уже существует, используйте другое имя';
 			case 'meta.remarkCannotEmpty': return 'Примечание не может быть пустым';
@@ -1369,6 +1382,7 @@ extension on TranslationsRu {
 			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
 			case 'noNetworkConnect': return 'Нет подключения к Интернету';
+			case 'turnOffNetworkBeforeInstall': return 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 			case 'latencyTestResolveIP': return 'При ручном определении анализируется исходящий IP-адрес';
 			case 'removeBannerAdsByShare': return 'Поделиться [Karing] для удаления рекламы';
 			case 'removeBannerAdsByReward': return 'Просмотреть рекламу для удаления новой рекламы';

@@ -271,7 +271,6 @@ class _DiversionGroupCustomScreenState
         leading: Icon(
           Icons.add,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapAddCustom();
@@ -284,7 +283,6 @@ class _DiversionGroupCustomScreenState
         leading: Icon(
           Icons.playlist_add_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapAddCustom2();
@@ -297,7 +295,6 @@ class _DiversionGroupCustomScreenState
         leading: Icon(
           AntDesign.import_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapAddImport();
@@ -310,7 +307,6 @@ class _DiversionGroupCustomScreenState
         leading: Icon(
           AntDesign.export_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapExport();
@@ -414,8 +410,13 @@ class _DiversionGroupCustomScreenState
             if (!mounted) {
               return;
             }
-
-            await Share.shareXFiles([XFile(filePath)]);
+            final box = context.findRenderObject() as RenderBox?;
+            final rect =
+                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            await Share.shareXFiles(
+              [XFile(filePath)],
+              sharePositionOrigin: rect,
+            );
           } catch (err) {
             if (!mounted) {
               return;
@@ -572,6 +573,7 @@ class _DiversionGroupCustomScreenState
     newOptions.wifiSsid = "";
     newOptions.wifiBssid = "";
     newOptions.port = "";
+    newOptions.portRange = "";
     newOptions.protocol = "";
 
     DiversionGroupCustomEditOptions options =

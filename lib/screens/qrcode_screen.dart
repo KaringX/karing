@@ -203,10 +203,19 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                     await FileUtils.deletePath(savePath);
                                     await QrcodeUtils.saveAsImage(
                                         _content, savePath);
-
+                                    if (!context.mounted) {
+                                      return;
+                                    }
                                     try {
+                                      final box = context.findRenderObject()
+                                          as RenderBox?;
+                                      final rect = box != null
+                                          ? box.localToGlobal(Offset.zero) &
+                                              box.size
+                                          : null;
                                       await Share.shareXFiles(
                                         [XFile(savePath)],
+                                        sharePositionOrigin: rect,
                                       );
                                     } catch (err) {
                                       if (!context.mounted) {

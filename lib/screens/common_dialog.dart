@@ -54,7 +54,9 @@ class CommonDialog {
       if (Platform.isWindows) {
         WindowsTunFixUtils.getDriverList();
       }
-    }
+    } /*else if (errMessage.contains("bbolt")) {
+      await FileUtils.deletePath(await PathUtils.cacheDBFilePath());
+    }*/
     if (disableTags.isNotEmpty) {
       List<ProxyConfig> disableServers = [];
       for (var group in ServerManager.getConfig().items) {
@@ -67,6 +69,9 @@ class CommonDialog {
         if (disableServers.length == disableTags.length) {
           break;
         }
+      }
+      if (!context.mounted) {
+        return;
       }
       if (disableServers.isNotEmpty) {
         String msg = tcontext.meta.disable;
@@ -87,6 +92,9 @@ class CommonDialog {
         }
         return;
       }
+    }
+    if (!context.mounted) {
+      return;
     }
     loadFAQByError(context, errMessage, false);
     DialogUtils.showAlertDialog(context, errMessage,

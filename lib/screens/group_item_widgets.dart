@@ -30,6 +30,22 @@ class GroupItemText extends StatelessWidget {
                   width: 5,
                 )
               : SizedBox.shrink(),
+          if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+            InkWell(
+                onTap: () {
+                  DialogUtils.showAlertDialog(context, options.tips!);
+                },
+                child: Tooltip(
+                  message: options.tips,
+                  child: const Icon(
+                    Icons.info_outlined,
+                    size: 26,
+                  ),
+                )),
+            const SizedBox(
+              width: 5,
+            )
+          ],
           Expanded(
             flex: ((1 - options.textWidthPercent) * 10).toInt(),
             child: Align(
@@ -113,7 +129,6 @@ class GroupItemTextField extends StatelessWidget {
               readOnly: options.readOnly,
               controller: controller,
               textInputAction: options.textInputAction,
-              cursorColor: Colors.black,
               obscureText: options.obscureText,
               decoration: InputDecoration(
                 hintText: options.hint,
@@ -415,7 +430,6 @@ class GroupItemStringPicker extends StatelessWidget {
                     ? ThemeDefine.kColorBlue
                     : null),
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             options.selected = key.item1;
@@ -431,7 +445,6 @@ class GroupItemStringPicker extends StatelessWidget {
             style: TextStyle(
                 color: options.selected == key ? ThemeDefine.kColorBlue : null),
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             options.selected = key;

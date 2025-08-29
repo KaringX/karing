@@ -7,8 +7,6 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
-import 'package:karing/screens/themes.dart';
-import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class CommonWidget {
@@ -110,8 +108,7 @@ class CommonWidget {
 
     double fontSize =
         windowWidth >= 335 ? ThemeConfig.kFontSizeListSubItem : 12;
-    Color? color =
-        Provider.of<Themes>(context, listen: false).getThemeIconColor(context);
+
     return Row(
       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
       children: [
@@ -140,7 +137,6 @@ class CommonWidget {
               Icon(
                 Icons.share_arrival_time_outlined,
                 size: 16,
-                color: color,
               ),
               const SizedBox(
                 width: 3,

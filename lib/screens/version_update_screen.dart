@@ -3,11 +3,13 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:app_installer/app_installer.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -15,7 +17,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
-import 'package:open_file/open_file.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VersionUpdateScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -69,6 +71,15 @@ class _VersionUpdateScreenState
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    if (Platform.isAndroid) ...[
+                      FutureBuilder(
+                        future: getAndroidInstallTips(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Widget> snapshot) {
+                          return snapshot.data ?? SizedBox.shrink();
+                        },
+                      ),
+                    ],
                     Text(
                       tcontext.VersionUpdateScreen.versionReady(
                           p: checkVersion.version),
@@ -114,8 +125,36 @@ class _VersionUpdateScreenState
     );
   }
 
+  Future<Widget> getAndroidInstallTips() async {
+    if (SettingManager.getConfig().regionCode.toLowerCase() != "cn") {
+      return SizedBox.shrink();
+    }
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      return SizedBox.shrink();
+    }
+    if (!mounted) {
+      return SizedBox.shrink();
+    }
+    final tcontext = Translations.of(context);
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text(
+        tcontext.turnOffNetworkBeforeInstall,
+        style: const TextStyle(
+          fontSize: ThemeConfig.kFontSizeListItem,
+          fontWeight: ThemeConfig.kFontWeightListItem,
+          color: Colors.red,
+        ),
+      ),
+      const SizedBox(
+        height: 30,
+      ),
+    ]);
+  }
+
   Future<void> checkReplace() async {
-    if (!Platform.isWindows && !Platform.isAndroid) {
+    if (!Platform.isWindows && !Platform.isAndroid && !Platform.isMacOS) {
       return;
     }
     String? installer = await AutoUpdateManager.checkReplace();
@@ -128,9 +167,12 @@ class _VersionUpdateScreenState
     }
 
     try {
+      await VPNService.stop();
       if (Platform.isWindows) {
-        await VPNService.uninit();
-        await OpenFile.open(installer, type: "application/octet-stream");
+        await launchUrl(Uri(path: installer, scheme: 'file'));
+        await ServicesBinding.instance.exitApplication(AppExitType.required);
+      } else if (Platform.isMacOS) {
+        await launchUrl(Uri(path: installer, scheme: 'file'));
         await ServicesBinding.instance.exitApplication(AppExitType.required);
       } else if (Platform.isAndroid) {
         await AppInstaller.installApk(installer);

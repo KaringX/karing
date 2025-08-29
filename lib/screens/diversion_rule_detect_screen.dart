@@ -168,7 +168,6 @@ class _DiversionRuleDetectScreenState
                         TextFieldEx(
                           controller: _textControllerHost,
                           textInputAction: TextInputAction.done,
-                          cursorColor: Colors.black,
                           decoration: const InputDecoration(
                             labelText: "Domain",
                             hintText: "Domain",

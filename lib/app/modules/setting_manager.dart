@@ -3,22 +3,31 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:country/country.dart' as country;
 import 'package:intl/intl.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/utils/cloudflare_warp_api.dart';
-import 'package:karing/app/utils/network_utils.dart';
-import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/runtime/type_checker.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
+import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/log.dart';
+import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
+import 'package:karing/app/utils/sentry_utils.dart';
+import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:vpn_service/proxy_manager.dart';
+
+Map<String, dynamic> removeNotMap(Map<String, dynamic> object) {
+  object.removeWhere((key, value) {
+    return value == null || value is! Map<String, dynamic>;
+  });
+  return object;
+}
 
 //UI选项
 class SettingConfigItemUICloudflareWarp {
@@ -141,6 +150,7 @@ class SettingConfigItemAutobackup {
 class SettingConfigItemUI {
   String theme = "light";
   bool autoOrientation = maybeTv();
+  bool hideDockIcon = false; //macos
   bool disableFontScaler = false;
   bool hideAfterLaunch = false;
   String netCheckDomain = "google.com";
@@ -150,6 +160,7 @@ class SettingConfigItemUI {
   Map<String, dynamic> toJson() => {
         'theme': theme,
         'auto_orientation': autoOrientation,
+        'hide_dock_icon': hideDockIcon,
         'disable_font_scaler': disableFontScaler,
         'hide_after_launch': hideAfterLaunch,
         'net_check_domain': netCheckDomain,
@@ -162,6 +173,7 @@ class SettingConfigItemUI {
     }
     theme = map["theme"] ?? "";
     autoOrientation = map["auto_orientation"] ?? maybeTv();
+    hideDockIcon = map["hide_dock_icon"] ?? false;
     disableFontScaler = map["disable_font_scaler"] ?? false;
     hideAfterLaunch = map["hide_after_launch"] ?? false;
     netCheckDomain = map["net_check_domain"] ?? "google.com";
@@ -184,9 +196,6 @@ class SettingConfigItemUI {
       case "system":
         theme = "system";
         break;
-      case "blue":
-        theme = "blue";
-        break;
       default:
         theme = "light";
         break;
@@ -202,7 +211,8 @@ class SettingConfigItemUI {
   static bool maybeTv() {
     if (Platform.isAndroid) {
       final abis = VPNService.getABIs();
-      if (abis.length == 1 && abis.contains("armeabi")) {
+      if (abis.length == 1 &&
+          (abis.contains("armeabi") || abis.contains("x86"))) {
         return true;
       }
     }
@@ -211,14 +221,13 @@ class SettingConfigItemUI {
 }
 
 class SettingConfigItemUIScreen {
-  bool homeShowMyProfiles = true;
-  bool homeShowAddProfile = true;
-  bool homeShowDNS = true;
-  bool homeShowDeversion = true;
-  bool homeShowNetcheck = true;
-  bool homeShowSpeedtest = true;
-  bool homeShowMyLink = true;
-  bool homeShowAppleTV = true;
+  static const String backgroundTypeLocal = "local";
+  static const String backgroundTypeRemote = "remote";
+  static const String backgroundTypeDisable = "";
+
+  List<String> widgets = [];
+  int widgetsAlpha = 255;
+
   bool hideInvalidServerMyProfiles = false;
   bool hideInvalidServerSelectServer = false;
   bool hideInvalidServerDiversionRules = false;
@@ -230,16 +239,13 @@ class SettingConfigItemUIScreen {
   bool selectServerHideFav = false;
   bool hideUnusedDiversionGroup = false;
   String myLink = "";
+  String backgroundImageType = backgroundTypeDisable;
+  String backgroundImageUrl = "";
+  String backgroundImageLocal = "";
 
   Map<String, dynamic> toJson() => {
-        'home_show_myprofiles': homeShowMyProfiles,
-        'home_show_addprofile': homeShowAddProfile,
-        'home_show_dns': homeShowDNS,
-        'home_show_deversion': homeShowDeversion,
-        'home_show_netcheck': homeShowNetcheck,
-        'home_show_speedtest': homeShowSpeedtest,
-        'home_show_mylink': homeShowMyLink,
-        'home_show_appletv': homeShowAppleTV,
+        'widgets': widgets,
+        'widgets_alpha': widgetsAlpha,
         'hide_invalid_server_my_profiles': hideInvalidServerMyProfiles,
         'hide_invalid_server_select_server': hideInvalidServerSelectServer,
         'hide_invalid_server_diversion_rules': hideInvalidServerDiversionRules,
@@ -251,20 +257,23 @@ class SettingConfigItemUIScreen {
         'select_server_hide_fav': selectServerHideFav,
         'hide_unused_diversion_group': hideUnusedDiversionGroup,
         'my_link': myLink,
+        'background_image_type': backgroundImageType,
+        'background_image': backgroundImageUrl,
+        'background_image_local': backgroundImageLocal,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
     }
-
-    homeShowMyProfiles = map['home_show_myprofiles'] ?? true;
-    homeShowAddProfile = map['home_show_addprofile'] ?? true;
-    homeShowDNS = map['home_show_dns'] ?? true;
-    homeShowDeversion = map['home_show_deversion'] ?? true;
-    homeShowNetcheck = map['home_show_netcheck'] ?? true;
-    homeShowSpeedtest = map['home_show_speedtest'] ?? true;
-    homeShowMyLink = map['home_show_mylink'] ?? true;
-    homeShowAppleTV = map['home_show_appletv'] ?? true;
+    widgets = ConvertUtils.getListStringFromDynamic(map["widgets"], true, [])!;
+    try {
+      widgetsAlpha = map['widgets_alpha'] ?? 255;
+    } catch (e) {
+      widgetsAlpha = 255;
+    }
+    if (widgetsAlpha < 0 || widgetsAlpha > 255) {
+      widgetsAlpha = 255;
+    }
 
     hideInvalidServerMyProfiles =
         map["hide_invalid_server_my_profiles"] ?? false;
@@ -282,6 +291,23 @@ class SettingConfigItemUIScreen {
     selectServerHideFav = map["select_server_hide_fav"] ?? false;
     hideUnusedDiversionGroup = map["hide_unused_diversion_group"] ?? false;
     myLink = map["my_link"] ?? "";
+
+    final backgroundImageType_ = map["background_image_type"];
+    backgroundImageUrl = map["background_image"] ?? "";
+    backgroundImageLocal = map["background_image_local"] ?? "";
+    if (backgroundImageType_ == null) {
+      if (backgroundImageUrl.isNotEmpty) {
+        //兼容老的远程图片
+        backgroundImageType = backgroundTypeRemote;
+      } else {
+        backgroundImageType = backgroundTypeDisable;
+      }
+    } else {
+      if ([backgroundTypeLocal, backgroundTypeRemote, backgroundTypeDisable]
+          .contains(backgroundImageType_)) {
+        backgroundImageType = backgroundImageType_;
+      }
+    }
   }
 
   static SettingConfigItemUIScreen fromJsonStatic(Map<String, dynamic>? map) {
@@ -296,6 +322,42 @@ class SettingConfigItemUIScreen {
       return "${myLink.substring(0, kMaxLength)}...";
     }
     return myLink;
+  }
+
+  static List<int> widgetsAlphaInt = [
+    0,
+    20,
+    50,
+    100,
+    255,
+  ];
+
+  int getWidgetAlpha() {
+    if (backgroundImageType == backgroundTypeDisable) {
+      return 255;
+    }
+    if (backgroundImageUrl.isEmpty && backgroundImageLocal.isEmpty) {
+      return 255;
+    }
+    if (widgetsAlphaInt.contains(widgetsAlpha)) {
+      return widgetsAlpha;
+    }
+    if (widgetsAlpha < 0 || widgetsAlpha > 255) {
+      return 255;
+    }
+    if (widgetsAlpha >= 0 && widgetsAlpha < 20) {
+      return 0;
+    }
+    if (widgetsAlpha >= 20 && widgetsAlpha < 50) {
+      return 20;
+    }
+    if (widgetsAlpha >= 50 && widgetsAlpha < 100) {
+      return 50;
+    }
+    if (widgetsAlpha >= 100 && widgetsAlpha < 255) {
+      return 100;
+    }
+    return 255;
   }
 }
 
@@ -397,14 +459,14 @@ class SettingConfigItemTUN {
   bool enable = getTun();
   String stack = getStack();
   Duration udpTimeout = const Duration(minutes: 1);
-
-  int mtu = 9000;
+  String i4Address = SingboxInboundTunOptions.i4Address;
+  int mtu = 4064;
   bool autoRoute = true;
   bool strictRoute = false;
   bool allowBypass = false; //android
   bool appendHttpProxy =
       getAppendHttp(); //android, ios有些app会直连代理绕过tun软路由,这里开启代理
-  List<String> allowBypassHttpProxyDomains = [];
+  List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
 
   Map<String, dynamic> toJson() {
@@ -412,6 +474,7 @@ class SettingConfigItemTUN {
       'enable': enable,
       'stack': stack,
       'udp_timeout': udpTimeout.inSeconds,
+      'i4_address': i4Address,
       'mtu': mtu,
       'auto_route': autoRoute,
       'strict_route': strictRoute,
@@ -435,23 +498,29 @@ class SettingConfigItemTUN {
     }
     if (map["udp_timeout"] != null) {
       udpTimeout = Duration(seconds: map["udp_timeout"]);
+      if (udpTimeout.inDays > 365) {
+        udpTimeout = const Duration(days: 365);
+      }
+      if (udpTimeout.inSeconds < 5) {
+        udpTimeout = const Duration(seconds: 15);
+      }
     }
-    if (udpTimeout.inDays > 365) {
-      udpTimeout = const Duration(days: 365);
+    i4Address = map["i4_address"] ?? SingboxInboundTunOptions.i4Address;
+    if (!NetworkUtils.isIpv4(i4Address)) {
+      i4Address = SingboxInboundTunOptions.i4Address;
     }
-    if (udpTimeout.inSeconds < 5) {
-      udpTimeout = const Duration(seconds: 15);
-    }
-    mtu = map["mtu"] ?? 9000;
+    mtu = map["mtu"] ?? 4064;
     if (mtu == 0) {
-      mtu = 9000;
+      mtu = 4064;
     }
     autoRoute = map["auto_route"] ?? true;
     strictRoute = map["strict_route"] ?? false;
     allowBypass = map["allow_bypass"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
     allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
-        map["allow_bypass_httpproxy_domains"], true, [])!;
+        map["allow_bypass_httpproxy_domains"],
+        true,
+        ProxyBypassDoaminsDefault.toList())!;
     hijackDns = map["hijack_dns"] ?? true;
   }
 
@@ -883,8 +952,8 @@ class SettingConfigItemDNS {
 }
 
 class SettingConfigItemTLS {
-  static String kFragmentSize = "100-200";
-  static String kFragmentSleep = "10-20";
+  static String kFragmentSize = "100-200"; //[1,256]
+  static String kFragmentSleep = "10-20"; //[0,1000],0:disable
   static String kPaddingSize = "1-1500";
   bool enableInsecure = false;
   bool enableFragment = false;
@@ -991,7 +1060,7 @@ class SettingConfigItemProxy {
   int controlPort = controlPortDefault;
   int clusterPort = clusterPortDefault;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
-  List<String> systemProxyBypassDomain = [];
+  List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
   bool enableCluster = false;
 
@@ -1228,7 +1297,8 @@ class SettingConfigItemAutoSelect {
   Duration timerInterval = const Duration(hours: 8);
   bool prioritizeMyFav = false;
   bool filter = false;
-  int limitedNum = 200;
+  int limitedNum = 2000;
+  Duration? selectedHealthCheckInterval;
   bool reTestIfNetworkUpdate = false;
   bool updateCurrentServerAfterManualUrltest = true;
   bool autoSelectServerIgnorePerProxyServer = false;
@@ -1239,6 +1309,7 @@ class SettingConfigItemAutoSelect {
       'prioritize_my_fav': prioritizeMyFav,
       'filter': filter,
       'limited_num': limitedNum,
+      'selected_health_check_interval': selectedHealthCheckInterval?.inSeconds,
       'retest_if_network_udpate': reTestIfNetworkUpdate,
       'update_current_server_after_manual_urltest':
           updateCurrentServerAfterManualUrltest,
@@ -1263,7 +1334,24 @@ class SettingConfigItemAutoSelect {
 
     prioritizeMyFav = map["prioritize_my_fav"] ?? false;
     filter = map["filter"] ?? false;
-    limitedNum = map["limited_num"] ?? 200;
+    final limitedNum_ = map["limited_num"] ?? 2000;
+    if (limitedNum_ is int) {
+      limitedNum = limitedNum_;
+      if (limitedNum > 100000) {
+        limitedNum = 100000;
+      }
+    }
+
+    if (map["selected_health_check_interval"] != null) {
+      selectedHealthCheckInterval =
+          Duration(seconds: map["selected_health_check_interval"]);
+      if (selectedHealthCheckInterval!.inSeconds >= 3600) {
+        selectedHealthCheckInterval = const Duration(minutes: 59);
+      }
+      if (selectedHealthCheckInterval!.inSeconds < 3) {
+        selectedHealthCheckInterval = const Duration(seconds: 3);
+      }
+    }
     reTestIfNetworkUpdate = map["retest_if_network_udpate"] ?? false;
     updateCurrentServerAfterManualUrltest =
         map["update_current_server_after_manual_urltest"] ?? true;
@@ -1296,6 +1384,7 @@ enum IPStrategy {
 }
 
 class SettingConfig {
+  static int htmlBoardPortDefault = 3072;
   static const String kCoreVersion = "1.12.0";
   static const List<String> kSpeedTestList = [
     "https://speed.cloudflare.com/",
@@ -1314,12 +1403,13 @@ class SettingConfig {
 
   static const List<String> kUserAgentList = [
     "sing-box $kCoreVersion",
-    "mihomo/1.19.9",
+    "mihomo/1.19.12",
     "ClashMeta",
     "clash-verge",
     "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)",
     "HiddifyNext",
-    "v2ray"
+    "v2ray",
+    "FLClash"
   ];
 
   String languageTag = "";
@@ -1351,8 +1441,7 @@ class SettingConfig {
   bool privateDirect = true;
   bool quitWhenSwitchSystemUser = false;
   bool alwayOn = false;
-  Duration? timeConnect;
-  Duration? timeDisconnect;
+  Duration? disconnectAfterSleep;
   bool disableUAReport = false;
 
   List<String> userAgents = [];
@@ -1365,6 +1454,7 @@ class SettingConfig {
 
   String autoUpdateChannel = "stable"; //stable, beta
   String originSBProfile = "";
+  int htmlBoardPort = htmlBoardPortDefault;
 
   Map<String, dynamic> toJson() => {
         'language_tag': languageTag,
@@ -1392,8 +1482,7 @@ class SettingConfig {
         'private_direct': privateDirect,
         'quit_when_switch_systemUser': quitWhenSwitchSystemUser,
         'alway_on': alwayOn,
-        'time_connect': timeConnect,
-        'time_disconnect': timeDisconnect,
+        'disconnect_after_sleep_seconds': disconnectAfterSleep?.inSeconds,
         'disable_ua_report': disableUAReport,
         'user_agents': userAgents,
         'speed_test_list': speedTestList,
@@ -1404,6 +1493,7 @@ class SettingConfig {
         'latency_check_resolve_ip': latencyCheckResoveIP,
         'auto_update_channel': autoUpdateChannel,
         'origin_sb_profile': originSBProfile,
+        'html_board_port': htmlBoardPort,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -1482,11 +1572,15 @@ class SettingConfig {
     quitWhenSwitchSystemUser = map["quit_when_switch_systemUser"] ?? false;
     alwayOn = map["alway_on"] ?? false;
 
-    if (map["time_connect"] != null) {
-      timeConnect = Duration(seconds: map["time_connect"]);
-    }
-    if (map["time_disconnect"] != null) {
-      timeDisconnect = Duration(seconds: map["time_disconnect"]);
+    if (map["disconnect_after_sleep_seconds"] != null) {
+      disconnectAfterSleep =
+          Duration(seconds: map["disconnect_after_sleep_seconds"]);
+      if (disconnectAfterSleep!.inSeconds < 30) {
+        disconnectAfterSleep = const Duration(seconds: 30);
+      }
+      if (disconnectAfterSleep!.inHours > 12) {
+        disconnectAfterSleep = const Duration(hours: 12);
+      }
     }
 
     disableUAReport = map["disable_ua_report"] ?? false;
@@ -1517,6 +1611,7 @@ class SettingConfig {
       autoUpdateChannel = "stable";
     }
     originSBProfile = map["origin_sb_profile"] ?? "";
+    htmlBoardPort = map["html_board_port"] ?? htmlBoardPortDefault;
   }
 
   static SettingConfig fromJsonStatic(Map<String, dynamic>? map) {
@@ -1525,11 +1620,15 @@ class SettingConfig {
     return config;
   }
 
-  void clear() {
-    fromJson({"language_tag": languageTag, "region_code": regionCode});
+  void reset() {
+    var map = toJson();
+    removeNotMap(map);
+    map["language_tag"] = languageTag;
+    map["region_code"] = regionCode;
+    fromJson(map);
   }
 
-  country.Country? currentCountry() {
+  country.Country currentCountry() {
     final data = country.Countries.values.where((country) {
       if (country.alpha2 == regionCode) {
         return true;
@@ -1538,7 +1637,7 @@ class SettingConfig {
       return false;
     }).toList();
     if (data.isEmpty) {
-      return null;
+      return country.Countries.values.first;
     }
     return data[0];
   }
@@ -1551,7 +1650,7 @@ class SettingConfig {
 class SettingManager {
   static bool _savingConfig = false;
   static bool _dirty = false;
-  static final SettingConfig _config = SettingConfig();
+  static SettingConfig _config = SettingConfig();
   static Future<void> init({bool fromBackupRestore = false}) async {
     await loadConfig();
     if (fromBackupRestore) {
@@ -1634,6 +1733,16 @@ class SettingManager {
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _config.fromJson(config);
+        if (_config.uiScreen.backgroundImageType ==
+                SettingConfigItemUIScreen.backgroundTypeLocal &&
+            _config.uiScreen.backgroundImageLocal.isNotEmpty) {
+          var file = File(_config.uiScreen.backgroundImageLocal);
+          try {
+            if (!await file.exists()) {
+              _config.uiScreen.backgroundImageLocal = "";
+            }
+          } catch (err) {}
+        }
       }
     } catch (err, stacktrace) {
       SentryUtils.captureException(
@@ -1674,6 +1783,10 @@ class SettingManager {
 
   static SettingConfig getConfig() {
     return _config;
+  }
+
+  static void reset() {
+    _config = SettingConfig();
   }
 
   static void setDirty(bool dirty) {

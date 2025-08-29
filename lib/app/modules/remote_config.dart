@@ -128,8 +128,7 @@ class RemoteConfig {
   static const String kDefaultPrivacyPolicy =
       "https://dot.$kDefaultHost/privacy_policy.txt";
   static const String kDefaultDnsLeakDetection = "https://browserleaks.com/dns";
-  static const String kDefaultProxyLeakDetection =
-      "https://proxy.incolumitas.com/proxy_detect.html";
+  static const String kDefaultProxyLeakDetection = "https://scamalytics.com/";
   static const String kDefaultGeoSite =
       "https://github.com/KaringX/karing-ruleset/raw/sing/geo/geosite";
   static const String kDefaultGeoIp =

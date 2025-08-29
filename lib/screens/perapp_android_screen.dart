@@ -48,7 +48,6 @@ class _PerAppAndroidScreenState
   //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
   static const int FLAG_SYSTEM = 1;
   static const _removed = "[removed]";
-
   AndroidPackageManager? _pkgMgr;
   bool _loading = true;
   final List<PackageInfoEx> _applicationInfoList = [];
@@ -229,7 +228,11 @@ class _PerAppAndroidScreenState
       if (data == null) {
         return null;
       }
-      return Image.memory(data);
+      return Image.memory(
+        data,
+        cacheHeight: 96,
+        cacheWidth: 96,
+      );
     } catch (err, stacktrace) {
       return null;
     }
@@ -314,19 +317,16 @@ class _PerAppAndroidScreenState
                 height: 44,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
                 child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
-                      color: Colors.grey.shade400,
                     ),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
@@ -436,8 +436,8 @@ class _PerAppAndroidScreenState
                     children: [
                       Row(children: [
                         SizedBox(
-                          width: ThemeConfig.kListItemHeight2,
-                          height: ThemeConfig.kListItemHeight2,
+                          width: 48,
+                          height: 48,
                           child: FutureBuilder(
                             future: getInstalledPackageIcon(
                                 current.info.packageName!),
@@ -447,9 +447,7 @@ class _PerAppAndroidScreenState
                                 return const SizedBox.shrink();
                               }
                               return SizedBox(
-                                  width: ThemeConfig.kListItemHeight2,
-                                  height: ThemeConfig.kListItemHeight2,
-                                  child: snapshot.data);
+                                  width: 48, height: 48, child: snapshot.data);
                             },
                           ),
                         ),
@@ -566,7 +564,6 @@ class _PerAppAndroidScreenState
         leading: Icon(
           AntDesign.import_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapImport();
@@ -579,7 +576,6 @@ class _PerAppAndroidScreenState
         leading: Icon(
           AntDesign.export_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapExport();

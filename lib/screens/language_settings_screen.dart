@@ -160,20 +160,19 @@ class _LanguageSettingsScreenState
                         height: 44,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                          color: Colors.white,
+                       
                           borderRadius: ThemeDefine.kBorderRadius,
                         ),
                         child: TextFieldEx(
                           controller: _searchController,
                           textInputAction: TextInputAction.done,
                           onChanged: _loadSearch,
-                          cursorColor: Colors.black,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             icon: Icon(
                               Icons.search_outlined,
-                              color: Colors.grey.shade400,
+                     
                             ),
                             hintText: tcontext.search,
                             suffixIcon: _searchController.text.isNotEmpty

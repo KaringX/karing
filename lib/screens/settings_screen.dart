@@ -103,7 +103,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   }
 
   Future<bool> getInAppRate() async {
-    if (!Platform.isIOS && !Platform.isMacOS) {
+    if (!Platform.isIOS) {
       return false;
     }
     if (AppleUtils.getAppStoreUrl().isEmpty) {
@@ -988,6 +988,17 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 onPush: () async {
                   await onTapHomeScreen();
                 })),
+        if (Platform.isMacOS) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.meta.hideDockIcon,
+                  tips: tcontext.SettingsScreen.restartTakesEffect,
+                  switchValue: settingConfig.ui.hideDockIcon,
+                  onSwitch: (bool value) async {
+                    settingConfig.ui.hideDockIcon = value;
+                    setState(() {});
+                  })),
+        ],
       ]),
     );
 
@@ -1000,7 +1011,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   bool? ok = await DialogUtils.showConfirmDialog(
                       context, "${tcontext.SettingsScreen.resetSettings}?");
                   if (ok == true) {
-                    SettingManager.getConfig().clear();
+                    SettingManager.reset();
                     SettingManager.setDirty(true);
                     setState(() {});
                   }
@@ -1536,6 +1547,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     setState(() {});
                   }
                 })),
+      ];
+      List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.portSettingControl,
@@ -1630,7 +1643,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 }))
       ];
 
-      return [GroupItem(options: options)];
+      return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
@@ -2151,8 +2164,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       String ipInterface = ipLocal;
       if (settingConfig.proxy.getAllowAllInbounds() ||
           settingConfig.proxy.getClusterAllowAllInbounds()) {
-        List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces(
-            addressType: InternetAddressType.IPv4);
+        List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces();
         if (interfaces.isNotEmpty) {
           ipInterface = interfaces.first.address;
         }
@@ -2208,6 +2220,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   SettingManager.setDirty(true);
 
                   setState(() {});
+                  if (value && Platform.isIOS) {
+                    DialogUtils.showAlertDialog(context,
+                        tcontext.SettingsScreen.allowOtherHostsConnectWarn,
+                        withVersion: true);
+                  }
                 })),
       ];
 

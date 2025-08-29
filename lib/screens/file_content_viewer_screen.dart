@@ -290,7 +290,6 @@ class FileContentViewerScreenState
         leading: Icon(
           Icons.refresh_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           setState(() {});
@@ -303,7 +302,6 @@ class FileContentViewerScreenState
         leading: Icon(
           Icons.copy,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           try {
@@ -321,7 +319,6 @@ class FileContentViewerScreenState
           leading: Icon(
             Icons.share_outlined,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             onTapShare();
@@ -336,7 +333,6 @@ class FileContentViewerScreenState
           leading: Icon(
             Icons.clear_outlined,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             clearContent();
@@ -349,14 +345,19 @@ class FileContentViewerScreenState
   }
 
   void onTapShare() async {
+    String filePath = await PathUtils.profileDir();
     if (!mounted) {
       return;
     }
-
-    String filePath = await PathUtils.profileDir();
     filePath = path.join(filePath, _fileName);
     try {
-      await Share.shareXFiles([XFile(filePath)]);
+      final box = context.findRenderObject() as RenderBox?;
+      final rect =
+          box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+      await Share.shareXFiles(
+        [XFile(filePath)],
+        sharePositionOrigin: rect,
+      );
     } catch (err) {
       if (!mounted) {
         return;

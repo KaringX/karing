@@ -12,6 +12,7 @@ import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -59,6 +60,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
@@ -168,12 +170,15 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     String installDate = "";
 
     if (!Platform.isLinux) {
-      late BuildInfoData? buildInfo;
-      buildInfo = await BuildInfo.fromPlatform();
-      installDate = buildInfo!.installDate.toString();
-      int pos = installDate.indexOf(" ");
-      if (pos > 0) {
-        installDate = installDate.substring(0, pos);
+      try {
+        BuildInfoData? buildInfo = await BuildInfo.fromPlatform();
+        installDate = buildInfo!.installDate.toString();
+        int pos = installDate.indexOf(" ");
+        if (pos > 0) {
+          installDate = installDate.substring(0, pos);
+        }
+      } catch (err, stackTrace) {
+        Log.w("BuildInfo exception: ${err.toString()}");
       }
     }
     {

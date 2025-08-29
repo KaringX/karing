@@ -344,11 +344,11 @@ public struct DashboardView: View {
     }
 
     private func stop() {
-        let onStop: FlutterResult = { _ in
+        let onStop: VpnResult = { _ in
             print("onStop:")
             isConnected = false
         }
-        let onAlwaysOn: FlutterResult = { _ in
+        let onAlwaysOn: VpnResult = { _ in
             print("onAlwaysOn:")
             VpnServiceHandler.shared.stop(result: onStop)
         }
@@ -380,10 +380,10 @@ public struct DashboardView: View {
              print(text)
          } catch {
          } */
-        let onAlwaysOn: FlutterResult = { _ in
+        let onAlwaysOn: VpnResult = { _ in
             print("onAlwaysOn:")
         }
-        let onStart: FlutterResult = { err in
+        let onStart: VpnResult = { err in
             isConnected = err == nil
             print("onStart:\(String(describing: err))")
             if err != nil {
@@ -395,10 +395,10 @@ public struct DashboardView: View {
                 VpnServiceHandler.shared.setAlwaysOn(enable: DashboardView.getAlwaysOn(), result: onAlwaysOn)
             }
         }
-        let onInstall: FlutterResult = { err in
+        let onInstall: VpnResult = { err in
             print("onInstall:\(String(describing: err))")
             if err == nil {
-                VpnServiceHandler.shared.start(result: onStart)
+                VpnServiceHandler.shared.start(timeoutInSeconds: 30, result: onStart)
             } else {
                 let er = err as! String
                 alertTitle = "vpnInstallError".localized
@@ -406,23 +406,21 @@ public struct DashboardView: View {
                 alertShow = true
             }
         }
-        let onIsInstall: FlutterResult = { installed in
+        let onIsInstall: VpnResult = { installed in
             print("onIsInstall:\(String(describing: installed))")
             let ins = installed as? Bool
             if ins != true {
                 VpnServiceHandler.shared.install(result: onInstall)
             } else {
-                VpnServiceHandler.shared.start(result: onStart)
+                VpnServiceHandler.shared.start(timeoutInSeconds: 30, result: onStart)
             }
         }
         VpnServiceHandler.shared.isInstall(result: onIsInstall)
     }
 
     private func updateState() {
-        let onGetState: FlutterResult = { state in
-            let status = state as! Int
-            isConnected = status == FlutterVpnState.connecting.rawValue ||
-                status == FlutterVpnState.connected.rawValue
+        let onGetState: VpnStatusResult = { state in
+            isConnected = state == .connecting || state == .connected
         }
         VpnServiceHandler.shared.getState(result: onGetState)
     }

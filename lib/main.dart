@@ -4,8 +4,10 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/did.dart';
+import 'package:karing/screens/home_new_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +18,7 @@ import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/private/sentry_utils_private.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_args.dart';
@@ -30,7 +33,6 @@ import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/home_screen.dart';
 //import 'package:karing/screens/splash_screen.dart';
 import 'package:karing/screens/launch_failed_screen.dart';
 import 'package:karing/screens/theme_data_dark.dart';
@@ -58,6 +60,7 @@ void main(List<String> args) async {
   //runZonedGuarded(() async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
+  await VPNService.initABI();
   await RemoteConfigManager.init();
   await SentryUtilsPrivate.init();
   await RemoteISPConfigManager.init();
@@ -161,6 +164,7 @@ Future<void> run(List<String> args) async {
     }
 
     await SettingManager.init();
+    await AutoUpdateManager.init();
     if (PlatformUtils.isMobile()) {
       if (SettingManager.getConfig().ui.autoOrientation) {
         SystemChrome.setPreferredOrientations([
@@ -328,7 +332,7 @@ class MyAppState extends State<MyApp>
                             startFailedReason: startFailedReason!,
                             startFailedReasonDesc: startFailedReasonDesc,
                           )
-                        : HomeScreen(launchUrl: schemeArg.trim())),
+                        : HomeNewScreen(launchUrl: schemeArg.trim())),
                 builder: InAppNotifications.init(
                     builder: SettingManager.getConfig().ui.disableFontScaler
                         ? (context, widget) {
@@ -380,11 +384,6 @@ class MyAppState extends State<MyApp>
   }
 
   @override
-  void onWindowTaskbarCreated() {
-    _setTray(_trayGrey, true, true);
-  }
-
-  @override
   void onWindowDeviceShutdown() {
     Log.d("main.dart onWindowDeviceShutdown");
     _quit();
@@ -401,6 +400,9 @@ class MyAppState extends State<MyApp>
   void firstShowWindow(bool forceShow) {
     if (PlatformUtils.isPC()) {
       windowManager.waitUntilReadyToShow(null, () async {
+        if (Platform.isMacOS && SettingManager.getConfig().ui.hideDockIcon) {
+          FlutterVpnService.hideDockIcon(true);
+        }
         if (forceShow ||
             (Platform.isWindows &&
                 !SettingManager.getConfig().ui.hideAfterLaunch)) {

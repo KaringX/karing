@@ -39,7 +39,6 @@ class Biz {
     initAllFinish();
 
     AppLifecycleStateNofity.init();
-    AutoUpdateManager.init();
     NoticeManager.init();
   }
 

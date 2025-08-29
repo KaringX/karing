@@ -141,7 +141,11 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
           return null;
         }
         if (data != null) {
-          app.icon = Image.memory(data);
+          app.icon = Image.memory(
+            data,
+            cacheHeight: 96,
+            cacheWidth: 96,
+          );
         }
 
         return app.icon;
@@ -233,20 +237,17 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                 height: 44,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
                 child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
-                      color: Colors.grey.shade400,
                     ),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
@@ -325,8 +326,8 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                     children: [
                       Row(children: [
                         SizedBox(
-                          width: ThemeConfig.kListItemHeight2,
-                          height: ThemeConfig.kListItemHeight2,
+                          width: 48,
+                          height: 48,
                           child: current.hasIcon
                               ? FutureBuilder(
                                   future: getProcessIcon(current.identifier),
@@ -337,14 +338,14 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                                       return const SizedBox.shrink();
                                     }
                                     return SizedBox(
-                                        width: ThemeConfig.kListItemHeight2,
-                                        height: ThemeConfig.kListItemHeight2,
+                                        width: 48,
+                                        height: 48,
                                         child: snapshot.data);
                                   },
                                 )
                               : SizedBox(
-                                  width: ThemeConfig.kListItemHeight2,
-                                  height: ThemeConfig.kListItemHeight2,
+                                  width: 48,
+                                  height: 48,
                                 ),
                         ),
                         const SizedBox(
@@ -447,7 +448,6 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
         leading: Icon(
           AntDesign.import_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapImport();
@@ -460,7 +460,6 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
         leading: Icon(
           AntDesign.export_outline,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapExport();

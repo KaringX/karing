@@ -91,6 +91,7 @@ class TranslationsFa implements Translations {
 	@override String get mustBeValidHttpsURL => 'باید یک URL معتبر https باشد';
 	@override String fileNotExistReinstall({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
 	@override String get noNetworkConnect => 'بدون اتصال به اینترنت';
+	@override String get turnOffNetworkBeforeInstall => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
@@ -219,6 +220,7 @@ class _TranslationsHomeScreenFa implements TranslationsHomeScreenEn {
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get myLinkEmpty => 'لطفا قبل‌از استفاده [لینک میان‌بر] را راه‌اندازی کنید';
 	@override String tooMuchServers({required Object p, required Object p1}) => 'تعداد زیادی سرور پروکسی [${p}>${p1}] وجود دارد و ممکن است به دلیل محدودیت حافظه سیستم، اتصال امکان پذیر نباشد.';
+	@override String tooMuchServers2({required Object p, required Object p1}) => 'تعداد زیاد سرورهای پروکسی [${p}>${p1}] ممکن است باعث کندی یا عدم دسترسی به اتصالات شود';
 }
 
 // Path: LaunchFailedScreen
@@ -436,6 +438,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String frontProxyTips({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
 	@override String get allowOtherHostsConnect => 'اجازه اتصال دیگران';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+	@override String get allowOtherHostsConnectWarn => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
 	@override String get tunAutoRoute => 'Auto Route';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
@@ -444,6 +447,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 	@override String get clusterAuth => 'احراز هویت خوشه پروکسی';
 	@override String get tunMode => 'حالت TUN';
+	@override String get tuni4Address => 'آدرس آی‌پی';
 	@override String get tunModeTips => 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
 	@override String get tunModeRunAsAdmin => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 	@override String get tunStack => 'Stack';
@@ -632,6 +636,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get domainRegex => 'عبارات باقاعده ی دامنه (Regex)';
 	@override String get ip => 'IP';
 	@override String get port => 'پورت';
+	@override String get portRange => 'محدوده بندر';
 	@override String get appPackage => 'شناسه بسته برنامه';
 	@override String get processName => 'نام اجرایی پروسه';
 	@override String get processPath => 'مسیر پروسه';
@@ -679,7 +684,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get novice => 'حالت مبتدی';
 	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-	@override String get requestNeedsUserApproval => 'لطفاً به clashmi اجازه دهید افزونه‌های سیستم را نصب کند و پس از اتمام نصب دوباره متصل شوید.';
+	@override String get requestNeedsUserApproval => 'لطفاً به کارینگ [اجازه دهید] افزونه‌های سیستم را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب دوباره متصل شود.';
+	@override String get FullDiskAccessPermissionRequired => 'لطفاً برنامه [Terminal] را باز کنید، دستور را مستقیماً در [Terminal] قرار دهید و آن را اجرا کنید. پس از اتمام اجرا، دوباره متصل شوید';
 	@override String get tvMode => 'حالت تلویزیون';
 	@override String get recommended => 'پیشنهادی';
 	@override String innerError({required Object p}) => 'خطای داخلی: ${p}';
@@ -707,6 +713,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get deviceNoSpace => 'فضای خالی کافی ندارید';
 	@override String get hideSystemApp => 'برنامه های سیستم را مخفی کنید';
 	@override String get hideAppIcon => 'پنهان کردن نماد برنامه';
+	@override String get hideDockIcon => 'پنهان کردن آیکون داک';
 	@override String get remark => 'ملاحضات';
 	@override String get remarkExist => 'ملاحظات از‌قبل وجود دارد، لطفا از نام دیگری استفاده کنید';
 	@override String get remarkCannotEmpty => 'ملاحظات نمی‌تواند خالی باشد';
@@ -910,6 +917,7 @@ extension on TranslationsFa {
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'HomeScreen.myLinkEmpty': return 'لطفا قبل‌از استفاده [لینک میان‌بر] را راه‌اندازی کنید';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'تعداد زیادی سرور پروکسی [${p}>${p1}] وجود دارد و ممکن است به دلیل محدودیت حافظه سیستم، اتصال امکان پذیر نباشد.';
+			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'تعداد زیاد سرورهای پروکسی [${p}>${p1}] ممکن است باعث کندی یا عدم دسترسی به اتصالات شود';
 			case 'LaunchFailedScreen.invalidProcess': return 'اجرای نرم‌افزار ناموفق بود [نام‌ اجرایی پروسه نامعتبر]، لطفا مجدد نرم‌افزار را در دایرکتوری دیگری نصب کنید';
 			case 'LaunchFailedScreen.invalidProfile': return 'اجرای نرم‌افزار ناموفق بود [دسترسی به پروفایل ناموفق بود]، لطفا مجدد نرم افزار را نصب کنید';
 			case 'LaunchFailedScreen.invalidVersion': return 'اجرای نرم‌افزار ناموفق بود [ورژن نامعتبر]، لطفا مجدد نرم‌افزار را نصب کنید';
@@ -1046,6 +1054,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'اجازه اتصال دیگران';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
@@ -1054,6 +1063,7 @@ extension on TranslationsFa {
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 			case 'SettingsScreen.clusterAuth': return 'احراز هویت خوشه پروکسی';
 			case 'SettingsScreen.tunMode': return 'حالت TUN';
+			case 'SettingsScreen.tuni4Address': return 'آدرس آی‌پی';
 			case 'SettingsScreen.tunModeTips': return 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 			case 'SettingsScreen.tunStack': return 'Stack';
@@ -1198,6 +1208,7 @@ extension on TranslationsFa {
 			case 'meta.domainRegex': return 'عبارات باقاعده ی دامنه (Regex)';
 			case 'meta.ip': return 'IP';
 			case 'meta.port': return 'پورت';
+			case 'meta.portRange': return 'محدوده بندر';
 			case 'meta.appPackage': return 'شناسه بسته برنامه';
 			case 'meta.processName': return 'نام اجرایی پروسه';
 			case 'meta.processPath': return 'مسیر پروسه';
@@ -1245,7 +1256,8 @@ extension on TranslationsFa {
 			case 'meta.novice': return 'حالت مبتدی';
 			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return 'لطفاً به clashmi اجازه دهید افزونه‌های سیستم را نصب کند و پس از اتمام نصب دوباره متصل شوید.';
+			case 'meta.requestNeedsUserApproval': return 'لطفاً به کارینگ [اجازه دهید] افزونه‌های سیستم را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب دوباره متصل شود.';
+			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً برنامه [Terminal] را باز کنید، دستور را مستقیماً در [Terminal] قرار دهید و آن را اجرا کنید. پس از اتمام اجرا، دوباره متصل شوید';
 			case 'meta.tvMode': return 'حالت تلویزیون';
 			case 'meta.recommended': return 'پیشنهادی';
 			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
@@ -1273,6 +1285,7 @@ extension on TranslationsFa {
 			case 'meta.deviceNoSpace': return 'فضای خالی کافی ندارید';
 			case 'meta.hideSystemApp': return 'برنامه های سیستم را مخفی کنید';
 			case 'meta.hideAppIcon': return 'پنهان کردن نماد برنامه';
+			case 'meta.hideDockIcon': return 'پنهان کردن آیکون داک';
 			case 'meta.remark': return 'ملاحضات';
 			case 'meta.remarkExist': return 'ملاحظات از‌قبل وجود دارد، لطفا از نام دیگری استفاده کنید';
 			case 'meta.remarkCannotEmpty': return 'ملاحظات نمی‌تواند خالی باشد';
@@ -1369,6 +1382,7 @@ extension on TranslationsFa {
 			case 'mustBeValidHttpsURL': return 'باید یک URL معتبر https باشد';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
 			case 'noNetworkConnect': return 'بدون اتصال به اینترنت';
+			case 'turnOffNetworkBeforeInstall': return 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 			case 'latencyTestResolveIP': return 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 			case 'removeBannerAdsByReward': return 'تماشای تبلیغات برو به تبلیغات';

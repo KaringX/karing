@@ -6,40 +6,24 @@ import 'package:flutter/services.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/clash_api.dart';
-import 'package:karing/app/utils/network_utils.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart';
 
 class Zashboard {
   static HttpServer? _server;
-  static int _port = 0;
-
   static Future<String> getUrl() async {
     String secret = await ClashApi.getSecret();
     var settingConfig = SettingManager.getConfig();
-    return 'http://127.0.0.1:$_port?hostname=127.0.0.1&port=${settingConfig.proxy.controlPort}&secret=$secret';
+    return 'http://127.0.0.1:${settingConfig.htmlBoardPort}?hostname=127.0.0.1&port=${settingConfig.proxy.controlPort}&secret=$secret';
   }
 
-  static Future<ReturnResultError?> start() async {
+  static Future<ReturnResult<String>> start() async {
     if (_server == null) {
-      var proxy = SettingManager.getConfig().proxy;
-      var ports = [
-        proxy.mixedRulePort,
-        proxy.mixedDirectPort,
-        proxy.mixedForwordPort,
-        proxy.controlPort,
-        proxy.clusterPort,
-      ];
-
-      _port = await NetworkUtils.getAvaliablePort(ports);
-      if (_port == 0) {
-        return ReturnResultError("Zashboard.getAvaliablePort failed");
-      }
-
       try {
-        _server = await HttpServer.bind("127.0.0.1", _port);
+        _server = await HttpServer.bind(
+            "127.0.0.1", SettingManager.getConfig().htmlBoardPort);
       } catch (err, stacktrace) {
-        return ReturnResultError(err.toString());
+        return ReturnResult(error: ReturnResultError(err.toString()));
       }
 
       _server!.listen((req) async {
@@ -66,14 +50,14 @@ class Zashboard {
         }
       });
     }
-    return null;
+
+    return ReturnResult(data: await getUrl());
   }
 
   static Future<void> stop() async {
     if (_server != null) {
       await _server!.close();
       _server = null;
-      _port = 0;
     }
   }
 }

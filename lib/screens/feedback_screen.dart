@@ -112,7 +112,7 @@ class _SentryFeedbackScreenState extends LasyRenderingState<FeedbackScreen> {
                           maxLength: 500,
                           textInputAction: TextInputAction.done,
                           controller: _textController,
-                          cursorColor: Colors.black,
+
                           //style: TextStyle(color: Colors.red),
                           decoration: InputDecoration(
                             labelText: tcontext.meta.feedbackContent,

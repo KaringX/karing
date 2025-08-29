@@ -14,6 +14,7 @@ import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/date_time_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
@@ -262,12 +263,15 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   ),
                   SizedBox(
                     width: centerWidth - 2 * 2 - 15 - 26 - 2,
-                    child: Text(
-                      "${item.remark}[${item.servers.length}]",
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: ThemeConfig.kFontSizeListItem,
-                        fontWeight: ThemeConfig.kFontWeightListItem,
+                    child: Tooltip(
+                      message: "${item.remark}[${item.servers.length}]",
+                      child: Text(
+                        "${item.remark}[${item.servers.length}]",
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: ThemeConfig.kFontSizeListItem,
+                          fontWeight: ThemeConfig.kFontWeightListItem,
+                        ),
                       ),
                     ),
                   ),
@@ -929,7 +933,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         title: Text(
           insertBlackspace ? "  $msg" : msg,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           var use = ServerManager.getUse();
@@ -949,7 +952,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         title: Text(insertBlackspace
             ? "  ${tcontext.meta.share}"
             : tcontext.meta.share),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           const JsonEncoder encoder = JsonEncoder.withIndent('');
@@ -969,7 +971,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       ListTile(
         title: Text(
             insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           const JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -992,7 +993,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           title: Text(insertBlackspace
               ? "  ${tcontext.meta.remove}"
               : tcontext.meta.remove),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             for (int i = 0; i < item.servers.length; ++i) {
@@ -1018,7 +1018,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           title: Text(insertBlackspace
               ? "  ${tcontext.meta.edit}"
               : tcontext.meta.edit),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             onTapEditServer(item, server);
@@ -1047,7 +1046,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         leading: Icon(
           Icons.settings_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapSetting();
@@ -1060,7 +1058,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         leading: Icon(
           Icons.add_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapAddProfile();
@@ -1073,7 +1070,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         leading: Icon(
           Icons.cloud_download_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapReloadAll();
@@ -1086,7 +1082,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         leading: Icon(
           Icons.sort_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapSort();
@@ -1099,7 +1094,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         leading: Icon(
           Icons.merge_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapMerge();
@@ -1251,23 +1245,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     DialogUtilsResult<String>? name = await DialogUtils.showStringPickerDialog(
       context,
       tcontext.meta.add,
-      [
-        SingboxOutboundType.socks.name,
-        SingboxOutboundType.http.name,
-        SingboxOutboundType.shadowsocks.name,
-        SingboxOutboundType.shadowsocksr.name,
-        SingboxOutboundType.shadowtls.name,
-        SingboxOutboundType.vmess.name,
-        SingboxOutboundType.vless.name,
-        SingboxOutboundType.trojan.name,
-        SingboxOutboundType.hysteria.name,
-        SingboxOutboundType.hysteria2.name,
-        SingboxOutboundType.wireguard.name,
-        SingboxOutboundType.tuic.name,
-        SingboxOutboundType.tor.name,
-        SingboxOutboundType.ssh.name,
-        SingboxOutboundType.anytls.name,
-      ],
+      SingboxOutboundType.getNames(),
       SingboxOutboundType.socks.name,
     );
     if (name == null || name.data == null) {
@@ -1320,6 +1298,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         break;
       case "anytls":
         sbOptions.anytls = SingboxOutboundAnyTlsOptions();
+        break;
+      case "mieru":
+        sbOptions.mieru = SingboxOutboundMieruOptions();
         break;
       default:
         return;
@@ -1452,6 +1433,18 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         sbOptions.server = sbOptions.ssh!.server ?? "";
                         sbOptions.server_port = sbOptions.ssh!.server_port ?? 0;
                         break;
+                      case "anytls":
+                        ret = sbOptions.anytls!.getRequired();
+                        sbOptions.server = sbOptions.anytls!.server ?? "";
+                        sbOptions.server_port =
+                            sbOptions.anytls!.server_port ?? 0;
+                        break;
+                      case "mieru":
+                        ret = sbOptions.mieru!.getRequired();
+                        sbOptions.server = sbOptions.mieru!.server ?? "";
+                        sbOptions.server_port =
+                            sbOptions.mieru!.server_port ?? 0;
+                        break;
                     }
                     if (ret != null) {
                       DialogUtils.showAlertDialog(
@@ -1509,7 +1502,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
     config.dns = dns.data!;
     config.inbounds = SingboxConfigBuilder.inbounds(
-        false, false, [], SingboxExportType.karing, null);
+        false, false, SingboxExportType.karing, null);
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
         inbound.address = ["172.19.0.1/30"];
@@ -1565,7 +1558,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     try {
-      await Share.shareXFiles([XFile(savePath)]);
+      final box = context.findRenderObject() as RenderBox?;
+      final rect =
+          box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+      await Share.shareXFiles(
+        [XFile(savePath)],
+        sharePositionOrigin: rect,
+      );
     } catch (err) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
@@ -1596,9 +1595,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     SingboxOutboundOptions sbOptions = SingboxOutboundOptions();
     try {
       sbOptions.fromJson(server.raw);
-    } catch (err) {
+    } catch (err, stacktrace) {
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
+      //Log.w(
+      //    "onTapEditServer exception ${err.toString()}\n\n${stacktrace.toString()}");
       return;
     }
 

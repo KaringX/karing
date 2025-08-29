@@ -20,6 +20,7 @@ import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
@@ -1245,7 +1246,7 @@ class ServerManager {
       }
       return;
     }
-    const int kMaxTestLatency = 10;
+    int kMaxTestLatency = PlatformUtils.isPC() ? 20 : 10;
     if (_testOutboundServerLatencying.length < kMaxTestLatency) {
       for (var item in _serverConfig.items) {
         if (!item.enable) {
@@ -1379,8 +1380,8 @@ class ServerManager {
       if (result.error == null) {
         if (settings.latencyCheckResoveIP) {
           ReturnResult<HttpRequestResponse> httpresult =
-              await ClashApi.getHttpRequest(settings.proxy.controlPort, tag,
-                  "https://checkip.amazonaws.com");
+              await ClashApi.getHttpRequestByProxy(settings.proxy.controlPort,
+                  tag, "https://checkip.amazonaws.com");
           if (httpresult.error == null) {
             config.outletip = httpresult.data!.body.trim();
           }
@@ -2259,7 +2260,7 @@ class ServerManager {
       return;
     }
     _updateLatencyByHistory = true;
-    ReturnResult<String> result = await ClashApi.getDelayHistory(
+    ReturnResult<String> result = await ClashApi.getGroupDelayHistory(
         SettingManager.getConfig().proxy.controlPort);
     if (result.data != null) {
       var decodedResponse = jsonDecode(result.data!) as Map<String, dynamic>;

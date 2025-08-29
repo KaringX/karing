@@ -9,13 +9,12 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
-import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/screens/theme_define.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn_service/vpn_service.dart';
 
@@ -24,7 +23,7 @@ class InAppWebViewScreen extends StatefulWidget {
     return RouteSettings(name: "InAppWebViewScreen:$viewTag");
   }
 
-  static bool _inited = false;
+  static bool? _inited;
   static bool _notSupportSubmited = true;
   static bool _available = false;
   static bool _enableWebViewEnvironmentDebug = kDebugMode;
@@ -33,9 +32,10 @@ class InAppWebViewScreen extends StatefulWidget {
   static String? _defaultUserAgent;
   static String _defaultUserAgentWithKaring = "";
   static Future<void> _init() async {
-    if (_inited) {
+    if (_inited != null) {
       return;
     }
+    _inited = false;
     if (!await isSupported()) {
       return;
     }
@@ -158,7 +158,7 @@ class InAppWebViewScreen extends StatefulWidget {
   }
 
   static bool isInited() {
-    return _inited;
+    return _inited == true;
   }
 
   static bool isAvailable() {
@@ -195,10 +195,9 @@ class InAppWebViewScreen extends StatefulWidget {
     this.javaScriptHandlers = const {},
     this.javaScriptHandlerArgument,
   }) {
-    if (!_inited && _notSupportSubmited) {
+    if (_inited != null && _notSupportSubmited) {
       _notSupportSubmited = false;
-      SentryUtils.captureMessage(
-          "webview is not initialized:$title", [], SentryLevel.error);
+      Log.w("webview is not initialized:$title");
     }
   }
 

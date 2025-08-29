@@ -229,7 +229,11 @@ class _PackageIdMultiSelectAndroidScreenState
       if (data == null) {
         return null;
       }
-      return Image.memory(data);
+      return Image.memory(
+        data,
+        cacheHeight: 96,
+        cacheWidth: 96,
+      );
     } catch (err, stacktrace) {
       return null;
     }
@@ -310,20 +314,17 @@ class _PackageIdMultiSelectAndroidScreenState
                 height: 44,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
                   borderRadius: ThemeDefine.kBorderRadius,
                 ),
                 child: TextFieldEx(
                   controller: _searchController,
                   textInputAction: TextInputAction.done,
                   onChanged: _loadSearch,
-                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     icon: Icon(
                       Icons.search_outlined,
-                      color: Colors.grey.shade400,
                     ),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
@@ -415,8 +416,8 @@ class _PackageIdMultiSelectAndroidScreenState
                     children: [
                       Row(children: [
                         SizedBox(
-                          width: ThemeConfig.kListItemHeight2,
-                          height: ThemeConfig.kListItemHeight2,
+                          width: 48,
+                          height: 48,
                           child: FutureBuilder(
                             future: getInstalledPackageIcon(
                                 current.info.packageName!),
@@ -426,9 +427,7 @@ class _PackageIdMultiSelectAndroidScreenState
                                 return const SizedBox.shrink();
                               }
                               return SizedBox(
-                                  width: ThemeConfig.kListItemHeight2,
-                                  height: ThemeConfig.kListItemHeight2,
-                                  child: snapshot.data);
+                                  width: 48, height: 48, child: snapshot.data);
                             },
                           ),
                         ),

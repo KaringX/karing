@@ -94,6 +94,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get mustBeValidHttpsURL => 'Must be Valid https URL';
 	String fileNotExistReinstall({required Object p}) => 'File missing [${p}], please reinstall';
 	String get noNetworkConnect => 'No Internet connection';
+	String get turnOffNetworkBeforeInstall => 'It is recommended to switch to [Airplane Mode] before installing the update';
 	String get latencyTestResolveIP => 'When manually checking, resolve the outlet IP';
 	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
 	String get removeBannerAdsByReward => 'Watch an ad to remove ads';
@@ -222,6 +223,7 @@ class TranslationsHomeScreenEn {
 	String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	String get myLinkEmpty => 'Please set up [Shortcut Link] before using it';
 	String tooMuchServers({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations';
+	String tooMuchServers2({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections';
 }
 
 // Path: LaunchFailedScreen
@@ -439,6 +441,7 @@ class TranslationsSettingsScreenEn {
 	String frontProxyTips({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
 	String get allowOtherHostsConnect => 'Allow Others to Connect';
 	String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+	String get allowOtherHostsConnectWarn => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.';
 	String get tunAutoRoute => 'Auto Route';
 	String get tunStrictRoute => 'Strict Route';
 	String get tunStrictRouteTips => 'If after turning on sharing, others cannot access this device, please try turning off this switch';
@@ -447,6 +450,7 @@ class TranslationsSettingsScreenEn {
 	String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 	String get clusterAuth => 'Proxy Cluster Authentication';
 	String get tunMode => 'TUN Mode';
+	String get tuni4Address => 'IP address';
 	String get tunModeTips => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
 	String get tunModeRunAsAdmin => 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
 	String get tunStack => 'Stack';
@@ -635,6 +639,7 @@ class TranslationsMetaEn {
 	String get domainRegex => 'Domain Regex';
 	String get ip => 'IP';
 	String get port => 'Port';
+	String get portRange => 'Port range';
 	String get appPackage => 'App Package Id';
 	String get processName => 'Process Name';
 	String get processPath => 'Process Path';
@@ -682,7 +687,8 @@ class TranslationsMetaEn {
 	String get novice => 'Novice Mode';
 	String get willCompleteAfterRebootInstall => 'Please restart your device to complete the system extension installation';
 	String get willCompleteAfterRebootUninstall => 'Please restart your device to complete the the system extension uninstallation';
-	String get requestNeedsUserApproval => 'Please \'allow\' clashmi to install system extensions, and reconnect after installation is complete';
+	String get requestNeedsUserApproval => 'Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security], and reconnect after the installation is complete';
+	String get FullDiskAccessPermissionRequired => 'Please enable karingServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect';
 	String get tvMode => 'TV Mode';
 	String get recommended => 'Recommend';
 	String innerError({required Object p}) => 'Inner Error:${p}';
@@ -710,6 +716,7 @@ class TranslationsMetaEn {
 	String get deviceNoSpace => 'Not enough disk space';
 	String get hideSystemApp => 'Hide System Apps';
 	String get hideAppIcon => 'Hide App Icons';
+	String get hideDockIcon => 'Hide Dock Icon';
 	String get remark => 'Remark';
 	String get remarkExist => 'Remark already exists, please use another name';
 	String get remarkCannotEmpty => 'Remarks can not be empty';
@@ -913,6 +920,7 @@ extension on Translations {
 			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'HomeScreen.myLinkEmpty': return 'Please set up [Shortcut Link] before using it';
 			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations';
+			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections';
 			case 'LaunchFailedScreen.invalidProcess': return 'The app failed to start [Invalid process name], please reinstall the app to a separate directory';
 			case 'LaunchFailedScreen.invalidProfile': return 'The app failed to start [Failed to access the profile], please reinstall the app';
 			case 'LaunchFailedScreen.invalidVersion': return 'The app failed to start [Invalid version], please reinstall the app';
@@ -1049,6 +1057,7 @@ extension on Translations {
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
 			case 'SettingsScreen.allowOtherHostsConnect': return 'Allow Others to Connect';
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
+			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'If after turning on sharing, others cannot access this device, please try turning off this switch';
@@ -1057,6 +1066,7 @@ extension on Translations {
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
 			case 'SettingsScreen.clusterAuth': return 'Proxy Cluster Authentication';
 			case 'SettingsScreen.tunMode': return 'TUN Mode';
+			case 'SettingsScreen.tuni4Address': return 'IP address';
 			case 'SettingsScreen.tunModeTips': return 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
 			case 'SettingsScreen.tunModeRunAsAdmin': return 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
 			case 'SettingsScreen.tunStack': return 'Stack';
@@ -1201,6 +1211,7 @@ extension on Translations {
 			case 'meta.domainRegex': return 'Domain Regex';
 			case 'meta.ip': return 'IP';
 			case 'meta.port': return 'Port';
+			case 'meta.portRange': return 'Port range';
 			case 'meta.appPackage': return 'App Package Id';
 			case 'meta.processName': return 'Process Name';
 			case 'meta.processPath': return 'Process Path';
@@ -1248,7 +1259,8 @@ extension on Translations {
 			case 'meta.novice': return 'Novice Mode';
 			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
-			case 'meta.requestNeedsUserApproval': return 'Please \'allow\' clashmi to install system extensions, and reconnect after installation is complete';
+			case 'meta.requestNeedsUserApproval': return 'Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security], and reconnect after the installation is complete';
+			case 'meta.FullDiskAccessPermissionRequired': return 'Please enable karingServiceSE permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect';
 			case 'meta.tvMode': return 'TV Mode';
 			case 'meta.recommended': return 'Recommend';
 			case 'meta.innerError': return ({required Object p}) => 'Inner Error:${p}';
@@ -1276,6 +1288,7 @@ extension on Translations {
 			case 'meta.deviceNoSpace': return 'Not enough disk space';
 			case 'meta.hideSystemApp': return 'Hide System Apps';
 			case 'meta.hideAppIcon': return 'Hide App Icons';
+			case 'meta.hideDockIcon': return 'Hide Dock Icon';
 			case 'meta.remark': return 'Remark';
 			case 'meta.remarkExist': return 'Remark already exists, please use another name';
 			case 'meta.remarkCannotEmpty': return 'Remarks can not be empty';
@@ -1372,6 +1385,7 @@ extension on Translations {
 			case 'mustBeValidHttpsURL': return 'Must be Valid https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'File missing [${p}], please reinstall';
 			case 'noNetworkConnect': return 'No Internet connection';
+			case 'turnOffNetworkBeforeInstall': return 'It is recommended to switch to [Airplane Mode] before installing the update';
 			case 'latencyTestResolveIP': return 'When manually checking, resolve the outlet IP';
 			case 'removeBannerAdsByShare': return 'Share [Karing] to remove ads';
 			case 'removeBannerAdsByReward': return 'Watch an ad to remove ads';

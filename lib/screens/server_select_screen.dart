@@ -807,14 +807,19 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
               ),
               SizedBox(
                 width: centerWidth - 2 * 2 - 26,
-                child: Text(
-                  replaceCount == null
+                child: Tooltip(
+                  message: replaceCount == null
                       ? "$itemName[${item.servers.length}]"
                       : "$itemName[$replaceCount]",
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: ThemeConfig.kFontSizeListItem,
-                    fontWeight: ThemeConfig.kFontWeightListItem,
+                  child: Text(
+                    replaceCount == null
+                        ? "$itemName[${item.servers.length}]"
+                        : "$itemName[$replaceCount]",
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: ThemeConfig.kFontSizeListItem,
+                      fontWeight: ThemeConfig.kFontWeightListItem,
+                    ),
                   ),
                 ),
               ),
@@ -1350,39 +1355,36 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
       margin: const EdgeInsets.only(
         top: 10,
       ),
-      padding: const EdgeInsets.only(left: 15, right: 15),
+      padding: const EdgeInsets.only(left: 0, right: 0),
       height: 44,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: Colors.white,
         borderRadius: ThemeDefine.kBorderRadius,
       ),
       child: TextFieldEx(
         controller: _searchController,
         textInputAction: TextInputAction.done,
         onChanged: _loadSearch,
-        cursorColor: Colors.black,
         decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           prefixIcon: Icon(
             Icons.search_outlined,
-            color: Colors.grey.shade400,
           ),
           hintText: tcontext.meta.search,
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
                   icon: const Icon(
                     Icons.clear_outlined,
-                    color: Colors.black,
                   ),
                   onPressed: _clearSearch,
                 )
               : Tooltip(
                   message: tcontext.meta.candidateWord,
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios_outlined,
-                        color: Colors.black),
+                    icon: const Icon(
+                      Icons.arrow_forward_ios_outlined,
+                    ),
                     onPressed: _pushSearchSelect,
                   )),
         ),
@@ -1733,7 +1735,6 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         title: Text(
           insertBlackspace ? "  $msg" : msg,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           var use = ServerManager.getUse();

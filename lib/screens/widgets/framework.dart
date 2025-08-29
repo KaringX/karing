@@ -1,6 +1,42 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/widgets.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/screens/widgets/routes.dart';
+
+FrameCallback? _handleBeginFrameCallback;
+VoidCallback? _handleDrawFrameCallback;
+
+void _lasyhandleBeginFrame(Duration rawTimeStamp) {
+  if (AppLifecycleStateNofity.isPaused()) {
+    return;
+  }
+  if (_handleBeginFrameCallback == null) {
+    return;
+  }
+  _handleBeginFrameCallback!.call(rawTimeStamp);
+}
+
+void _lasyhandleDrawFrame() {
+  if (AppLifecycleStateNofity.isPaused()) {
+    return;
+  }
+  if (_handleDrawFrameCallback == null) {
+    return;
+  }
+  _handleDrawFrameCallback!.call();
+}
+
+void initLasyFrameDrawHook() {
+  if (!Platform.isMacOS) {
+    //启用后,macos下在恢复窗口后,偶发渲染暂停
+    _handleBeginFrameCallback = PlatformDispatcher.instance.onBeginFrame;
+    _handleDrawFrameCallback = PlatformDispatcher.instance.onDrawFrame;
+    PlatformDispatcher.instance.onBeginFrame = _lasyhandleBeginFrame;
+    PlatformDispatcher.instance.onDrawFrame = _lasyhandleDrawFrame;
+  }
+}
 
 abstract class LasyRenderingStatefulWidget extends StatefulWidget {
   const LasyRenderingStatefulWidget({super.key});

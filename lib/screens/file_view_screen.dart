@@ -77,7 +77,6 @@ class _FileViewScreenState extends State<FileViewScreen> {
         preferredSize: Size.zero,
         child: AppBar(),
       ),
-      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),

@@ -3,31 +3,33 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
-import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/home_new_screen_widgets.dart';
 import 'package:karing/screens/net_connections_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
-import 'package:karing/screens/theme_define.dart';
-import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/grid.dart';
+import 'package:karing/screens/widgets/num.dart';
+import 'package:karing/screens/widgets/sheet.dart';
+import 'package:karing/screens/widgets/super_grid.dart';
 import 'package:path/path.dart' as path;
-import 'package:provider/provider.dart';
 
 class HomeTVOSScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -55,47 +57,51 @@ class HomeTVOSScreen extends LasyRenderingStatefulWidget {
 
 class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     with WidgetsBindingObserver {
-  static const double kMaxWidth = 500;
-
   Websocket? _websocket;
   Timer? _timer;
-  final ValueNotifier<String> _trafficUpTotal = ValueNotifier<String>("0 B");
-  final ValueNotifier<String> _trafficDownTotal = ValueNotifier<String>("0 B");
-  final ValueNotifier<String> _trafficUpTotalProxy =
-      ValueNotifier<String>("0 B");
-  final ValueNotifier<String> _trafficDownTotalProxy =
-      ValueNotifier<String>("0 B");
-  final ValueNotifier<String> _trafficUpSpeed = ValueNotifier<String>("0 B/s");
-  final ValueNotifier<String> _trafficDownSpeed =
-      ValueNotifier<String>("0 B/s");
-  final ValueNotifier<String> _startDuration = ValueNotifier<String>("0:00:00");
-  final ValueNotifier<String> _memory = ValueNotifier<String>("0 B");
-  final ValueNotifier<String> _connInboundCount = ValueNotifier<String>("");
 
-  String _trafficUpTotalNotify = "0 B";
-  String _trafficDownTotalNotify = "0 B";
-  String _trafficUpTotalProxyNotify = "0 B";
-  String _trafficDownTotalProxyNotify = "0 B";
-  String _trafficUpSpeedNotify = "0 B/s";
-  String _trafficDownSpeedNotify = "0 B/s";
-  String _startDurationNotify = "0 B/s";
+  final _superGridKey = GlobalKey<SuperGridState>();
+  late HomeWidgetOptions _widgetOptions;
 
-  /*bool _isStarting = false;
-  bool _isStarted = false;
-  bool _isStoping = false;*/
   @override
   void initState() {
     super.initState();
+
+    _widgetOptions = HomeWidgetOptions(
+      runtimeInfo: HomeWidgetCard1Options(
+        () {},
+        null,
+      ),
+      memoryInfo: HomeWidgetCard1Options(
+        () {},
+        null,
+      ),
+      connectionsInfo: HomeWidgetCard1Options(
+        onConnectionsInfoPressed,
+        null,
+      ),
+      trafficTotalInfo: HomeWidgetCard2Options(
+        () {},
+        null,
+      ),
+      trafficProxyInfo: HomeWidgetCard2Options(
+        () {},
+        null,
+      ),
+      trafficSpeedInfo: HomeWidgetCard2Options(
+        () {},
+        null,
+      ),
+    );
+
+    resetWidgetNotifier();
+
     _timer ??= Timer.periodic(const Duration(seconds: 1), (timer) async {
       if (_websocket != null && _websocket!.connected()) {
         return;
       }
       _connectToService();
     });
-  }
-
-  Future<bool> futureBool(bool value) async {
-    return value;
   }
 
   Future<void> _connectToService() async {
@@ -106,73 +112,67 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     var setting = SettingManager.getConfig();
     bool started = await VPNService.getStarted();
     int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
-
+    final url = "http://${widget.host}:${widget.cport}/";
     ReturnResult<String>? result = await HttpUtils.httpGetRequest(
-        "http://${widget.host}:${widget.cport}/",
-        proxyPort,
-        null,
-        const Duration(milliseconds: 500),
-        null,
-        null);
+        url, proxyPort, null, const Duration(seconds: 3), null, null);
 
     if (result.error != null) {
       if (!result.error!.message.contains("401") &&
           !result.error!.message.contains("404")) {
+        Log.w("connect to $url failed: ${result.error!.message}");
         return;
       }
     }
     _websocket ??= Websocket(
         url: getConnectionsUrl(true),
         userAgent: await HttpUtils.getUserAgent(),
+        proxy: proxyPort != null ? "PROXY 127.0.0.1:$proxyPort" : null,
         onMessage: (String message) {
           var obj = jsonDecode(message);
           Connections con = Connections();
           con.fromJson(obj, false);
+          if (AppLifecycleStateNofity.isPaused()) {
+            return;
+          }
           if (con.startTime != null) {
-            _startDurationNotify = DateTime.now()
+            final startDurationNotify = DateTime.now()
                 .difference(con.startTime!)
                 .toString()
                 .split(".")[0];
-            if (!AppLifecycleStateNofity.isPaused()) {
-              _startDuration.value = _startDurationNotify;
-            }
+
+            _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
           }
-          _trafficUpTotalNotify =
+          _widgetOptions.trafficTotalInfo!.notifier.value = "↑ " +
               ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
-          _trafficDownTotalNotify =
+
+          _widgetOptions.trafficTotalInfo!.notifier2.value = "↓ " +
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
-          _trafficUpTotalProxyNotify =
+
+          _widgetOptions.trafficProxyInfo!.notifier.value = "↑ " +
               ProxyConfUtils.convertTrafficToStringDouble(
                   con.uploadTotal - con.uploadTotalDirect);
-          _trafficDownTotalProxyNotify =
+
+          _widgetOptions.trafficProxyInfo!.notifier2.value = "↓ " +
               ProxyConfUtils.convertTrafficToStringDouble(
                   con.downloadTotal - con.downloadTotalDirect);
-          _trafficUpSpeedNotify =
+
+          _widgetOptions.trafficSpeedInfo!.notifier.value = "↑ " +
               ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
-                  "/s";
-          _trafficDownSpeedNotify =
+              "/s";
+
+          _widgetOptions.trafficSpeedInfo!.notifier2.value = "↓ " +
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
-                  "/s";
+              "/s";
 
-          if (!AppLifecycleStateNofity.isPaused()) {
-            _trafficUpTotal.value = _trafficUpTotalNotify;
-            _trafficDownTotal.value = _trafficDownTotalNotify;
+          _widgetOptions.memoryInfo!.notifier.value =
+              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
 
-            _trafficUpTotalProxy.value = _trafficUpTotalProxyNotify;
-            _trafficDownTotalProxy.value = _trafficDownTotalProxyNotify;
-
-            _trafficUpSpeed.value = _trafficUpSpeedNotify;
-            _trafficDownSpeed.value = _trafficDownSpeedNotify;
-
-            _memory.value =
-                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-
-            if (SettingManager.getConfig().dev.devMode) {
-              _connInboundCount.value =
-                  "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
-            } else {
-              _connInboundCount.value = con.connectionsInCount.toString();
-            }
+          if (SettingManager.getConfig().dev.devMode) {
+            _widgetOptions.connectionsInfo!.notifier.value =
+                "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
+          } else {
+            _widgetOptions.connectionsInfo!.notifier.value =
+                con.connectionsInCount.toString();
           }
         },
         onDone: () {
@@ -187,60 +187,46 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
   Future<void> _disconnectToService() async {
     await _websocket?.disconnect();
+    _websocket = null;
 
-    _connInboundCount.value = "";
-
-    _memory.value = "0 B";
-
-    _startDurationNotify = "0:00:00";
-    _trafficUpTotalNotify = "0 B";
-    _trafficDownTotalNotify = "0 B";
-    _trafficUpTotalProxyNotify = "0 B";
-    _trafficDownTotalProxyNotify = "0 B";
-
-    _trafficUpSpeedNotify = "0 B/s";
-    _trafficDownSpeedNotify = "0 B/s";
-
-    _startDuration.value = _startDurationNotify;
-    _trafficUpTotal.value = _trafficUpTotalNotify;
-    _trafficDownTotal.value = _trafficDownTotalNotify;
-    _trafficUpTotalProxy.value = _trafficUpTotalProxyNotify;
-    _trafficDownTotalProxy.value = _trafficDownTotalProxyNotify;
-    _trafficUpSpeed.value = _trafficUpSpeedNotify;
-    _trafficDownSpeed.value = _trafficDownSpeedNotify;
+    resetWidgetNotifier();
   }
 
-  void onTapToggleStart() async {
-    setState(() {});
+  void resetWidgetNotifier() {
+    _widgetOptions.runtimeInfo!.notifier.value = "0:00:00";
+    _widgetOptions.memoryInfo!.notifier.value = "0 B";
+    _widgetOptions.connectionsInfo!.notifier.value = "";
+
+    _widgetOptions.trafficTotalInfo!.notifier.value = "↑ 0 B";
+    _widgetOptions.trafficTotalInfo!.notifier2.value = "↓ 0 B";
+
+    _widgetOptions.trafficProxyInfo!.notifier.value = "↑ 0 B";
+    _widgetOptions.trafficProxyInfo!.notifier2.value = "↓ 0 B";
+
+    _widgetOptions.trafficSpeedInfo!.notifier.value = "↑ 0 B/s";
+    _widgetOptions.trafficSpeedInfo!.notifier2.value = "↓ 0 B/s";
   }
 
   String getConnectionsUrl(bool noConnections) {
     return 'ws://${widget.host}:${widget.cport}/connections/?token=${widget.secret}&noConnections=$noConnections';
   }
 
-  Future<void> onTapNetConnections() async {
+  Future<void> onConnectionsInfoPressed() async {
     String connectionsUrl = getConnectionsUrl(false);
     await Navigator.push(
         context,
         MaterialPageRoute(
             settings: NetConnectionsScreen.routSettings(),
-            builder: (context) =>
-                NetConnectionsScreen(connectionsUrl: connectionsUrl)));
-  }
-
-  Future<void> onTapToggle() async {}
-
-  Future<void> stop() async {}
-
-  Future<ReturnResultError?> start() async {
-    return null;
+            builder: (context) => NetConnectionsScreen(
+                  connectionsUrl: connectionsUrl,
+                  checkStarted: false,
+                )));
   }
 
   @override
   void dispose() {
     _timer?.cancel();
     _timer = null;
-    ErrorReporterUtils.register(null);
 
     _disconnectToService();
 
@@ -251,19 +237,16 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var themes = Provider.of<Themes>(context, listen: false);
-    Color? color = themes.getThemeHomeColor(context);
+
+    final columns = max(4 * (((windowSize.width - 50) / 320).ceil()), 8);
+    final spacing = 16.ap;
+    List<GridItem> widgets = HomeWidgets.getAppleTVWidgets(_widgetOptions);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.zero,
-        child: AppBar(
-          backgroundColor: color,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: color,
-          ),
-        ),
+        child: AppBar(),
       ),
-      backgroundColor: color,
       body: SafeArea(
         child: Column(
           children: [
@@ -352,57 +335,17 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               ),
             ),
             Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16).copyWith(),
+                child: Column(children: [
+                  Grid(
+                    key: _superGridKey,
+                    crossAxisCount: columns,
+                    crossAxisSpacing: spacing,
+                    mainAxisSpacing: spacing,
+                    children: widgets,
                   ),
-
-                  /*Container(
-                            alignment: Alignment.center,
-                            child: Stack(children: [
-                              SizedBox(
-                                width: 180,
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  child: Switch.adaptive(
-                                    value: _isStarted,
-                                    activeColor: ThemeDefine.kColorGreenBright,
-                                    thumbColor:
-                                        WidgetStateProperty.resolveWith<Color>(
-                                            (Set<WidgetState> states) {
-                                      return Colors.orange;
-                                    }),
-                                    inactiveTrackColor:
-                                        Colors.greywithValues(alpha: 0.5),
-                                    onChanged: (bool newValue) async {
-                                      if (!_isStarting && !_isStoping) {
-                                        onTapToggle();
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  width: 150,
-                                  height: 150,
-                                  child: _isStarting || _isStoping
-                                      ? Container(
-                                          alignment: const Alignment(-0.25, 0),
-                                          child: const RepaintBoundary(
-                                              child: CircularProgressIndicator(
-                                                  color: ThemeDefine
-                                                      .kColorGreenBright)),
-                                        )
-                                      : null),
-                            ]),
-                          ),*/
-                  Column(
-                    children: [
-                      createNetStatusChart(context),
-                    ],
-                  ),
-                ],
+                ]),
               ),
             ),
             const SizedBox(
@@ -410,241 +353,6 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget createNetStatusChart(BuildContext context) {
-    final tcontext = Translations.of(context);
-    Size windowSize = MediaQuery.of(context).size;
-    double width = windowSize.width <= kMaxWidth ? windowSize.width : kMaxWidth;
-    double itemWidth = (width - 30) / 3;
-    Color? color =
-        Provider.of<Themes>(context, listen: false).getThemeIconColor(context);
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //memory_outlined
-        SizedBox(
-            width: itemWidth,
-            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              Icon(
-                Icons.memory_outlined,
-                size: 26,
-                color: color,
-              ),
-              const SizedBox(width: 3),
-              ValueListenableBuilder<String>(
-                builder: _buildWithMemoryValue,
-                valueListenable: _memory,
-              ),
-            ])),
-        const SizedBox(
-          width: 10,
-        ),
-        SizedBox(
-            width: itemWidth,
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Icon(
-                Icons.access_time_outlined,
-                size: 20,
-                color: color,
-              ),
-              const SizedBox(width: 3),
-              ValueListenableBuilder<String>(
-                builder: _buildWithTimeValue,
-                valueListenable: _startDuration,
-              ),
-            ])),
-        const SizedBox(
-          width: 10,
-        ),
-        SizedBox(
-            width: itemWidth,
-            child: Tooltip(
-                message: tcontext.NetConnectionsScreen.title,
-                child: InkWell(
-                    onTap: () async {
-                      await onTapNetConnections();
-                    },
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.monitor_outlined,
-                              color: ThemeDefine.kColorGreenBright, size: 26),
-                          const SizedBox(width: 3),
-                          ValueListenableBuilder<String>(
-                            builder: _buildWithConnnectionCountValue,
-                            valueListenable: _connInboundCount,
-                          ),
-                        ])))),
-      ]),
-      const SizedBox(
-        height: 5,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: itemWidth,
-              child: Text(
-                textAlign: TextAlign.center,
-                tcontext.meta.trafficTotal,
-                style: const TextStyle(
-                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.upload,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficUpTotal,
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.download,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficDownTotal,
-                ),
-              ],
-            ),
-          ]),
-          const SizedBox(
-            width: 10,
-          ),
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: itemWidth,
-              child: Text(
-                textAlign: TextAlign.center,
-                tcontext.meta.trafficProxy,
-                style: const TextStyle(
-                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.upload,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficUpTotalProxy,
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.download,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficDownTotalProxy,
-                ),
-              ],
-            ),
-          ]),
-          const SizedBox(
-            width: 10,
-          ),
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: itemWidth,
-              child: Text(
-                textAlign: TextAlign.center,
-                tcontext.meta.netSpeed,
-                style: const TextStyle(
-                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.upload,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficUpSpeed,
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.download,
-                  size: 15,
-                  color: color,
-                ),
-                ValueListenableBuilder<String>(
-                  builder: _buildWithTrafficValue,
-                  valueListenable: _trafficDownSpeed,
-                ),
-              ],
-            ),
-          ]),
-        ],
-      )
-    ]);
-  }
-
-  Widget _buildWithMemoryValue(
-      BuildContext context, String value, Widget? child) {
-    return SizedBox(
-      child: Text(
-        value,
-        style: const TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
-      ),
-    );
-  }
-
-  Widget _buildWithConnnectionCountValue(
-      BuildContext context, String value, Widget? child) {
-    return Text(
-      value,
-      style: const TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
-    );
-  }
-
-  Widget _buildWithTrafficValue(
-      BuildContext context, String value, Widget? child) {
-    return SizedBox(
-      child: Text(
-        value,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
-      ),
-    );
-  }
-
-  Widget _buildWithTimeValue(
-      BuildContext context, String value, Widget? child) {
-    return SizedBox(
-      child: Text(
-        value,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: ThemeConfig.kFontSizeListItem),
       ),
     );
   }
@@ -678,7 +386,11 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
         MaterialPageRoute(
             settings: RichtextViewScreen.routSettings(),
             builder: (context) => RichtextViewScreen(
-                title: fileName, file: "", content: result.data!)));
+                  title: fileName,
+                  file: fileName,
+                  content: result.data!,
+                  showAction: true,
+                )));
   }
 
   Future<void> onTapSyncCoreConfig() async {
@@ -786,29 +498,43 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   }
 
   void onTapMore() {
-    showMenu(
-        context: context,
-        position: const RelativeRect.fromLTRB(0.1, 0, 0, 0),
-        items: [
-          PopupMenuItem(
-            value: 1,
-            child: Text(PathUtils.serviceCoreConfigFileName()),
-            onTap: () async {
-              return await getFile(PathUtils.serviceCoreConfigFileName());
-            },
-          ),
-          PopupMenuItem(
-              value: 1,
-              child: Text(PathUtils.serviceLogFileName()),
-              onTap: () async {
-                await getFile(PathUtils.serviceLogFileName());
-              }),
-          PopupMenuItem(
-              value: 1,
-              child: Text(PathUtils.serviceStdErrorFileName()),
-              onTap: () async {
-                await getFile(PathUtils.serviceStdErrorFileName());
-              }),
-        ]);
+    List<Widget> widgets = [
+      ListTile(
+        title: Text(PathUtils.serviceCoreConfigFileName()),
+        leading: Icon(
+          Icons.download,
+        ),
+        onTap: () async {
+          Navigator.pop(context);
+          await getFile(PathUtils.serviceCoreConfigFileName());
+        },
+      ),
+      ListTile(
+        title: Text(
+          PathUtils.serviceLogFileName(),
+        ),
+        leading: Icon(
+          Icons.download,
+        ),
+        onTap: () async {
+          Navigator.pop(context);
+          await getFile(PathUtils.serviceLogFileName());
+        },
+      ),
+      ListTile(
+        title: Text(
+          PathUtils.serviceStdErrorFileName(),
+        ),
+        leading: Icon(
+          Icons.download,
+        ),
+        onTap: () async {
+          Navigator.pop(context);
+          await getFile(PathUtils.serviceStdErrorFileName());
+        },
+      ),
+    ];
+
+    showSheetWidgets(context: context, widgets: widgets);
   }
 }

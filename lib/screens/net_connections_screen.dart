@@ -817,7 +817,7 @@ class _NetConnectionsScreenState
         30 -
         padding * 2 * 2 -
         arrow_forward_ios_rounded;
-    double height = 90;
+    double height = 100;
     Image? processIcon;
     String processName = current.showProcess;
     if (processName.isNotEmpty) {
@@ -889,7 +889,7 @@ class _NetConnectionsScreenState
                       children: [
                         Row(children: [
                           SizedBox(
-                            width: centerWidth - 5 - 40,
+                            width: centerWidth - 5 - 40 - 10,
                             child: Text(
                               "${current.showHost}:${current.port}",
                               maxLines: 1,
@@ -1197,7 +1197,6 @@ class _NetConnectionsScreenState
         leading: Icon(
           _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           onTapPause();
@@ -1210,7 +1209,6 @@ class _NetConnectionsScreenState
         leading: Icon(
           Icons.exit_to_app_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           _showConnectionIn = !_showConnectionIn;
@@ -1225,7 +1223,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.filter_list_alt,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             onTapFilter();
@@ -1238,7 +1235,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.copy,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             onTapCopy();
@@ -1255,7 +1251,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.sort_by_alpha,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.none;
@@ -1272,7 +1267,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.sort,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.downloadSpeed;
@@ -1290,7 +1284,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.sort,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.uploadSpeed;
@@ -1308,7 +1301,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.sort,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.download;
@@ -1326,7 +1318,6 @@ class _NetConnectionsScreenState
           leading: Icon(
             Icons.sort,
           ),
-          minLeadingWidth: 40,
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.upload;

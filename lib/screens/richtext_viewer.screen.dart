@@ -158,7 +158,6 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
         leading: Icon(
           Icons.copy,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           try {
@@ -173,7 +172,6 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
         leading: Icon(
           Icons.share_outlined,
         ),
-        minLeadingWidth: 40,
         onTap: () async {
           Navigator.pop(context);
           String fileName = "file_view_share.txt";
@@ -185,9 +183,17 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
           try {
             await File(savePath).writeAsString(_content ?? "", flush: true);
           } catch (err) {}
-
+          if (!mounted) {
+            return;
+          }
           try {
-            await Share.shareXFiles([XFile(savePath)]);
+            final box = context.findRenderObject() as RenderBox?;
+            final rect =
+                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            await Share.shareXFiles(
+              [XFile(savePath)],
+              sharePositionOrigin: rect,
+            );
           } catch (err) {
             if (!mounted) {
               return;

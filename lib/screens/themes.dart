@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:karing/app/extension/colors.dart';
-
 import 'package:karing/screens/theme_data_dark.dart';
 import 'package:karing/screens/theme_data_light.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -43,7 +41,20 @@ class Themes with ChangeNotifier {
         : ThemeDataLight.theme(context);
   }
 
-  Color? getThemeBgColor(BuildContext context) {
+  Color? getThemeInvertBgColor(BuildContext context) {
+    var brightness = MediaQuery.platformBrightnessOf(context);
+    switch (_theme) {
+      case ThemeDefine.kThemeLight:
+        return ThemeDataDark.mainBgColor;
+      case ThemeDefine.kThemeDark:
+        return ThemeDataLight.mainBgColor;
+    }
+    // ThemeDefine.kThemeSystem:
+    return brightness == Brightness.dark
+        ? ThemeDataLight.mainBgColor
+        : ThemeDataDark.mainBgColor;
+  }
+  /* Color? getThemeBgColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeLight:
@@ -84,7 +95,7 @@ class Themes with ChangeNotifier {
         return Colors.white.withValues(alpha: 0.5);
     }
     return Colors.grey.withValues(alpha: 0.5);
-  }
+  }*/
 
   ThemeMode themeMode() {
     switch (_theme) {

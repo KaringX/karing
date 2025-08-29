@@ -92,7 +92,6 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                             maxLines: 6,
                             textInputAction: TextInputAction.done,
                             controller: _textController,
-                            cursorColor: Colors.black,
                             decoration: const InputDecoration(
                                 //  labelText: tcontext.TextToQrCodeScreen.content,
                                 //  hintText: tcontext.TextToQrCodeScreen.contentHit,

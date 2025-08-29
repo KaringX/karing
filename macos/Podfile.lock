@@ -176,38 +176,38 @@ CHECKOUT OPTIONS:
     :tag: 8.46.0
 
 SPEC CHECKSUMS:
-  app_installer: d13942d306e251bbf1e4ddc480d365e80560c103
-  app_settings: 140be3a9c0fc1f681e44afe9f549ab037b3aa3a2
-  build_info_macos: 46f955b67b56a5cf0e03b686b333fee6371ca9f9
-  connectivity_plus: 0a976dfd033b59192912fa3c6c7b54aab5093802
-  cryptography_flutter: c9fa581b52e6fe19475432b6f44489c387f61e19
-  file_picker: e716a70a9fe5fd9e09ebc922d7541464289443af
-  file_selector_macos: cc3858c981fe6889f364731200d6232dac1d812d
-  flutter_inappwebview_macos: bdf207b8f4ebd58e86ae06cd96b147de99a67c9b
-  flutter_local_notifications: 7062189aabf7f50938a7b8b6614ffa97656eb0bf
-  flutter_secure_storage_macos: c2754d3483d20bb207bb9e5a14f1b8e771abcdb9
+  app_installer: 9a51509d3e3526fad6fb3d615c5e78621a1b08a1
+  app_settings: cd21e176b56f8172043640ade81322a98896bff4
+  build_info_macos: 0b218c37ced98f95422ff924d1d509f62b5d10ac
+  connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
+  cryptography_flutter: 33e8726fef117a6f306382f6fa34e173642cc64f
+  file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
+  file_selector_macos: 6280b52b459ae6c590af5d78fc35c7267a3c4b31
+  flutter_inappwebview_macos: c2d68649f9f8f1831bfcd98d73fd6256366d9d1d
+  flutter_local_notifications: 13862b132e32eb858dea558a86d45d08daeacfe7
+  flutter_secure_storage_macos: 7f45e30f838cf2659862a4e4e3ee1c347c2b3b54
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   HotKey: 400beb7caa29054ea8d864c96f5ba7e5b4852277
-  hotkey_manager_macos: 1e2edb0c7ae4fe67108af44a9d3445de41404160
-  icloud_storage: 33b05299e26d1391d724da8d62860e702380a1cd
-  in_app_review: a6a031b9acd03c7d103e341aa334adf2c493fb93
-  open_dir_macos: 9649018f88e71eb9fb8aa3d95caec30a73c08c5b
-  open_file_mac: 0e554648e2a87ce59e9438e3e5ca3e552e90d89a
+  hotkey_manager_macos: a4317849af96d2430fa89944d3c58977ca089fbe
+  icloud_storage: eb5b0f20687cf5a4fabc0b541f3b079cd6df7dcb
+  in_app_review: 0599bccaed5e02f6bed2b0d30d16f86b63ed8638
+  open_dir_macos: 79810d7921d777f8732bf6358b3a0839a8fad9b5
+  open_file_mac: 01874b6d6a2c1485ac9b126d7105b99102dea2cf
   OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
-  package_info_plus: 12f1c5c2cfe8727ca46cbd0b26677728972d9a5b
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  protocol_handler: 587e1caf6c0b92ce351ab14081968dae49cb8cc6
-  screen_capturer_macos: e91a66e1eeefd5e4fe068bb1bffc053cc34b63b8
-  screen_retriever_macos: 776e0fa5d42c6163d2bf772d22478df4b302b161
+  package_info_plus: f0052d280d17aa382b932f399edf32507174e870
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  protocol_handler: f4d1317b2b828d6370e140077be5155feb3f06c7
+  screen_capturer_macos: 229306903c56767a7c7d3a48167ba303e95c6d29
+  screen_retriever_macos: 452e51764a9e1cdb74b3c541238795849f21557f
   Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
-  sentry_flutter: 2df8b0aab7e4aba81261c230cbea31c82a62dd1b
-  share_plus: 1fa619de8392a4398bfaf176d441853922614e89
-  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
-  tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
-  url_launcher_macos: c82c93949963e55b228a30115bd219499a6fe404
-  vpn_service: fac57338345dd26bcfe489fcd07b370104d1168d
-  webview_flutter_wkwebview: a4af96a051138e28e29f60101d094683b9f82188
-  window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
+  sentry_flutter: 27892878729f42701297c628eb90e7c6529f3684
+  share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
+  tray_manager: a104b5c81b578d83f3c3d0f40a997c8b10810166
+  url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
+  vpn_service: 3626ec035ad20ecabaf5c8edf10b684c422a6614
+  webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
+  window_manager: 1d01fa7ac65a6e6f83b965471b1a7fdd3f06166c
 
 PODFILE CHECKSUM: 207f529d73be7ad1c57d378f01499ca0f393fff6
 

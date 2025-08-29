@@ -766,6 +766,9 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   Widget _createHeadField() {
     final tcontext = Translations.of(context);
     var currentCountry = SettingManager.getConfig().currentCountry();
+    final countryName = currentCountry
+            .isoShortNameByLocale[SettingConfig.languageTagForCountry()] ??
+        "";
     return Padding(
         padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
         child: Column(
@@ -773,7 +776,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
             TextFieldEx(
               controller: _textControllerHost,
               textInputAction: TextInputAction.done,
-              cursorColor: Colors.black,
               decoration: const InputDecoration(
                 labelText: "Domain",
                 hintText: "Domain",
@@ -812,7 +814,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
             Row(
               children: [
                 Text(
-                  "${tcontext.RegionSettingsScreen.title}:${currentCountry!.isoShortNameByLocale[SettingConfig.languageTagForCountry()] ?? ""}",
+                  "${tcontext.RegionSettingsScreen.title}:$countryName",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: ThemeConfig.kFontSizeGroupItem,

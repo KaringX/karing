@@ -108,8 +108,8 @@ install(CODE "
 set(INSTALL_BUNDLE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/data")
 set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 
-install(FILES "../bind/linux/libbox.so" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
-  COMPONENT Runtime)
+#install(FILES "../bind/linux/libbox.so" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+#  COMPONENT Runtime)
 
 #install(
 #  FILES "../bind/linux/Cli"
