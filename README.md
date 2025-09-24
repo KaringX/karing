@@ -76,8 +76,9 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
   - APKPure https://apkpure.com/p/com.nebula.karing
   - Amazon AppStore https://www.amazon.com/gp/product/B0DJSQDDM8
 - **Windows/Macos/Linux**:
-  - https://github.com/KaringX/karing/releases/latest
   - [https://karing.app/download](https://karing.app/download)
+  - https://github.com/KaringX/karing/releases/latest
+ 
 
 
 ### FAQ
