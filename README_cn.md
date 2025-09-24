@@ -58,7 +58,7 @@
 - Android >= 8  (arm64-v8a, armeabi-v7a)
 - Linux （仅支持64位）
 - IOS >= 15
-- MacOS >= 12
+- MacOS >= 12 (Intel, Apple Silicon)
 - TvOS >= 17
 
 ## 安装
