@@ -71,13 +71,14 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - **IOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
 - **Android**:
+  - [https://clashmi.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
   - APKPure https://apkpure.com/p/com.nebula.karing
   - Amazon AppStore https://www.amazon.com/gp/product/B0DJSQDDM8
   - [gh-proxy of android backup](https://dot.karing.app/client.html?p=android)
 - **Windows/Macos/Linux**:
   - https://github.com/KaringX/karing/releases/latest
-  - [gh-proxy of win64 backup](https://dot.karing.app/client.html?p=windows)
+  - [https://clashmi.app/download](https://karing.app/download)
 
 
 ### FAQ
