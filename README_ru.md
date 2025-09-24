@@ -55,10 +55,10 @@
   - https://github.com/KaringX/karing/releases/latest
   - APKPure https://apkpure.com/p/com.nebula.karing
   - Amazon AppStore https://www.amazon.com/gp/product/B0DJSQDDM8
-  - [gh-proxy of android backup](https://dot.karing.app/client.html?p=android)
+  - [https://karing.app/download](https://karing.app/download)
 - **Windows/Macos/Linux**:
   - https://github.com/KaringX/karing/releases/latest
-  - [gh-proxy of win64 backup](https://dot.karing.app/client.html?p=windows)
+  - [https://karing.app/download](https://karing.app/download)
 
 ### ЧаВо
 
