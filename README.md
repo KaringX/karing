@@ -63,7 +63,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - Android >= 8 (arm64-v8a, armeabi-v7a)
 - Linux (64-bit only)
 - IOS >= 15
-- MacOS >= 12
+- MacOS >= 12 (Intel, Apple Silicon)
 - TvOS >= 17
 
 ## Install
