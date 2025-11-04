@@ -20,7 +20,7 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/home_new_screen_widgets.dart';
+import 'package:karing/screens/home_screen_widgets.dart';
 import 'package:karing/screens/net_connections_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -59,6 +59,18 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     with WidgetsBindingObserver {
   Websocket? _websocket;
   Timer? _timer;
+  final FocusNode _focusNodeRuntimeInfo =
+      FocusNode(debugLabel: "scroll.${RunTimeInfoCard.id()}");
+  final FocusNode _focusNodeMemoryInfo =
+      FocusNode(debugLabel: "scroll.${MemoryInfoCard.id()}");
+  final FocusNode _focusNodeConnectionsInfo =
+      FocusNode(debugLabel: "scroll.${ConnectionsInfoCard.id()}");
+  final FocusNode _focusNodeTrafficTotalInfo =
+      FocusNode(debugLabel: "scroll.${TrafficTotalInfoCard.id()}");
+  final FocusNode _focusNodeTrafficProxyInfo =
+      FocusNode(debugLabel: "scroll.${TrafficProxyInfoCard.id()}");
+  final FocusNode _focusNodeTrafficSpeedInfo =
+      FocusNode(debugLabel: "scroll.${TrafficSpeedInfoCard.id()}");
 
   final _superGridKey = GlobalKey<SuperGridState>();
   late HomeWidgetOptions _widgetOptions;
@@ -71,26 +83,32 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       runtimeInfo: HomeWidgetCard1Options(
         () {},
         null,
+        _focusNodeRuntimeInfo,
       ),
       memoryInfo: HomeWidgetCard1Options(
         () {},
         null,
+        _focusNodeMemoryInfo,
       ),
       connectionsInfo: HomeWidgetCard1Options(
         onConnectionsInfoPressed,
         null,
+        _focusNodeConnectionsInfo,
       ),
       trafficTotalInfo: HomeWidgetCard2Options(
         () {},
         null,
+        _focusNodeTrafficTotalInfo,
       ),
       trafficProxyInfo: HomeWidgetCard2Options(
         () {},
         null,
+        _focusNodeTrafficProxyInfo,
       ),
       trafficSpeedInfo: HomeWidgetCard2Options(
         () {},
         null,
+        _focusNodeTrafficSpeedInfo,
       ),
     );
 
@@ -227,6 +245,12 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   void dispose() {
     _timer?.cancel();
     _timer = null;
+    _focusNodeRuntimeInfo.dispose();
+    _focusNodeMemoryInfo.dispose();
+    _focusNodeConnectionsInfo.dispose();
+    _focusNodeTrafficTotalInfo.dispose();
+    _focusNodeTrafficProxyInfo.dispose();
+    _focusNodeTrafficSpeedInfo.dispose();
 
     _disconnectToService();
 

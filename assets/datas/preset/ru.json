@@ -87,7 +87,7 @@
             ],
             "outbound": "currentSelected",
             "name": "🌏 Google",
-            "switch": false
+            "switch": true
         },
         {
             "rule_set_build_in": [
@@ -116,11 +116,42 @@
         },
         {
             "rule_set_build_in": [
+                "geosite:discord",
+                "acl:Discord"
+            ],
+            "package": [],
+            "processName": [
+                "Discord.exe",
+                "Discord"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 Discord",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:whatsapp",
+                "acl:Whatsapp"
+            ],
+            "package": [
+                "com.whatapp"
+            ],
+            "processName": [
+                "WhatsApp.exe",
+                "WhatsApp"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 WhatsApp",
+            "switch": true
+        },
+        {
+            "rule_set_build_in": [
                 "geoip:telegram",
                 "geosite:telegram"
             ],
             "package": [
-                "org.telegram.messenger.web"
+                "org.telegram.messenger.web",
+                "org.telegram.messenger"
             ],
             "processName": [
                 "Telegram.exe",
@@ -128,7 +159,7 @@
             ],
             "outbound": "currentSelected",
             "name": "📲 Telegram",
-            "switch": false
+            "switch": true
         },
         {
             "rule_set_build_in": [

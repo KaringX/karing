@@ -6,8 +6,9 @@ import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/private/ads_private.dart';
+import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/did.dart';
-import 'package:karing/screens/home_new_screen.dart';
+import 'package:karing/screens/home_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,11 +106,20 @@ Future<void> run(List<String> args) async {
           break;
         }
       }
+      const inProduction = bool.fromEnvironment("dart.vm.product");
+      if (inProduction) {
+        if (Platform.isMacOS){
+          if(!path.isWithin("/Applications", exePath)){
+            startFailedReason = StartFailedReason.invalidInstallPath;
+            break;
+          }
+        }
+      }
       if (Platform.isWindows) {
         var tmp = await getTemporaryDirectory();
         if (exePath.contains("UNC/") ||
             exePath.contains("UNC\\") ||
-            exePath.startsWith(tmp.absolute.path.toUpperCase())) {
+            path.isWithin(tmp.absolute.path, exePath)) {
           startFailedReason = StartFailedReason.invalidInstallPath;
           break;
         }
@@ -146,8 +156,13 @@ Future<void> run(List<String> args) async {
       await windowManager.ensureInitialized();
       const inProduction = bool.fromEnvironment("dart.vm.product");
       if (inProduction) {
-        await windowManager.setResizable(false);
-        await windowManager.setMaximizable(false);
+        //await windowManager.setResizable(false);
+        //await windowManager.setMaximizable(false);
+        if (Platform.isLinux) {
+          await windowManager.setMinimumSize(Size(400, 740));
+        } else {
+          await windowManager.setMinimumSize(Size(400, 700));
+        }
       }
 
       await windowManager.center();
@@ -165,7 +180,9 @@ Future<void> run(List<String> args) async {
 
     await SettingManager.init();
     await AutoUpdateManager.init();
-    if (PlatformUtils.isMobile()) {
+
+    bool disableOrientation = await DeviceUtils.disableOrientation();
+    if (!disableOrientation) {
       if (SettingManager.getConfig().ui.autoOrientation) {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
@@ -276,10 +293,6 @@ class MyAppState extends State<MyApp>
 
   @override
   Future<AppExitResponse> didRequestAppExit() async {
-    if (Platform.isWindows) {
-      windowManager.hide();
-      return AppExitResponse.cancel;
-    }
     await _quit();
     return AppExitResponse.cancel;
   }
@@ -311,7 +324,8 @@ class MyAppState extends State<MyApp>
               .setTheme(SettingManager.getConfig().ui.theme, false);
           return Shortcuts(
               shortcuts: const {
-                SingleActivator(LogicalKeyboardKey.select): ActivateIntent()
+                SingleActivator(LogicalKeyboardKey.select):
+                    ActivateIntent() // for android tv OK/Select button
               },
               child: MaterialApp(
                 showSemanticsDebugger: false,
@@ -320,6 +334,11 @@ class MyAppState extends State<MyApp>
                 supportedLocales: AppLocaleUtils.supportedLocales,
                 localizationsDelegates: GlobalMaterialLocalizations.delegates,
                 navigatorObservers: observers,
+                /*shortcuts: {
+                  ...WidgetsApp.defaultShortcuts,
+                  const SingleActivator(LogicalKeyboardKey.select):
+                      const ActivateIntent(),
+                },*/
                 home: PopScope(
                     canPop: false,
                     onPopInvokedWithResult: (didPop, result) {
@@ -332,7 +351,7 @@ class MyAppState extends State<MyApp>
                             startFailedReason: startFailedReason!,
                             startFailedReasonDesc: startFailedReasonDesc,
                           )
-                        : HomeNewScreen(launchUrl: schemeArg.trim())),
+                        : HomeScreen(launchUrl: schemeArg.trim())),
                 builder: InAppNotifications.init(
                     builder: SettingManager.getConfig().ui.disableFontScaler
                         ? (context, widget) {
@@ -398,19 +417,19 @@ class MyAppState extends State<MyApp>
   }
 
   void firstShowWindow(bool forceShow) {
-    if (PlatformUtils.isPC()) {
-      windowManager.waitUntilReadyToShow(null, () async {
-        if (Platform.isMacOS && SettingManager.getConfig().ui.hideDockIcon) {
-          FlutterVpnService.hideDockIcon(true);
-        }
-        if (forceShow ||
-            (Platform.isWindows &&
-                !SettingManager.getConfig().ui.hideAfterLaunch)) {
-          await windowManager.show();
-          onWindowRestore();
-        }
-      });
+    if (!PlatformUtils.isPC()) {
+      return;
     }
+    windowManager.waitUntilReadyToShow(null, () async {
+      final ui = SettingManager.getConfig().ui;
+      if (Platform.isMacOS && ui.hideDockIcon) {
+        FlutterVpnService.hideDockIcon(true);
+      }
+      if (forceShow || (Platform.isWindows && !ui.hideAfterLaunch)) {
+        await windowManager.show();
+        onWindowRestore();
+      }
+    });
   }
 
   Future<void> _init() async {
@@ -459,7 +478,7 @@ class MyAppState extends State<MyApp>
 
   void _setTray(bool grey, bool destroy, bool quitIfFailed) {
     Future.delayed(const Duration(milliseconds: 300), () async {
-      if (destroy) {
+      if (destroy || Platform.isLinux) {
         await trayManager.destroy();
       }
 
@@ -467,10 +486,12 @@ class MyAppState extends State<MyApp>
         if (Platform.isWindows) {
           await trayManager.setIcon(
             grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
+            isTemplate: false,
           );
         } else {
           await trayManager.setIcon(
             grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
+            isTemplate: false,
           );
         }
         _trayGrey = grey;
@@ -484,8 +505,31 @@ class MyAppState extends State<MyApp>
       }
       if (!Platform.isLinux) {
         await trayManager.setToolTip(AppUtils.getName());
+      } else {
+        _setTrayMenu();
       }
     });
+  }
+
+  void _setTrayMenu() async {
+    if (!PlatformUtils.isPC()) {
+      return;
+    }
+    List<MenuItem> items = [
+      MenuItem(
+        key: kMenuOpen,
+        label: t.main.tray.menuOpen,
+      ),
+      MenuItem(
+        key: kMenuExit,
+        label: t.main.tray.menuExit,
+      )
+    ];
+
+    await trayManager.setContextMenu(Menu(items: items));
+    if (!Platform.isLinux) {
+      await trayManager.popUpContextMenu(bringAppToFront: true);
+    }
   }
 
   @override
@@ -500,20 +544,7 @@ class MyAppState extends State<MyApp>
 
   @override
   void onTrayIconRightMouseDown() async {
-    if (Platform.isWindows || Platform.isLinux /*|| Platform.isMacOS*/) {
-      List<MenuItem> items = [
-        MenuItem(
-          key: kMenuOpen,
-          label: t.main.tray.menuOpen,
-        ),
-        MenuItem(
-          key: kMenuExit,
-          label: t.main.tray.menuExit,
-        ),
-      ];
-      await trayManager.setContextMenu(Menu(items: items));
-      await trayManager.popUpContextMenu(bringAppToFront: true);
-    }
+    _setTrayMenu();
   }
 
   @override

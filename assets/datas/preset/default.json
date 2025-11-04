@@ -120,7 +120,8 @@
                 "geosite:telegram"
             ],
             "package": [
-                "org.telegram.messenger.web"
+                "org.telegram.messenger.web",
+                "org.telegram.messenger"
             ],
             "processName": [
                 "Telegram.exe",

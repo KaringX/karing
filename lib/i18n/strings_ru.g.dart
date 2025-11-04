@@ -91,6 +91,7 @@ class TranslationsRu implements Translations {
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
 	@override String get noNetworkConnect => 'Нет подключения к Интернету';
+	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
 	@override String get turnOffNetworkBeforeInstall => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
 	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
@@ -98,6 +99,7 @@ class TranslationsRu implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
 	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+	@override String get maybeAdsByReward => 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.';
 	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -288,7 +290,6 @@ class _TranslationsNetConnectionsFilterScreenRu implements TranslationsNetConnec
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Фильтр соединений';
 	@override String get hostIp => 'Domain/IP';
 	@override String get app => 'Приложение';
 	@override String get rule => 'Правило';
@@ -302,7 +303,6 @@ class _TranslationsNetConnectionsScreenRu implements TranslationsNetConnectionsS
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Соединения';
 	@override String get copyAsCSV => 'Скопировано в CSV формате';
 	@override String get selectType => 'Выберите тип перенаправления';
 }
@@ -377,18 +377,18 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
 	@override String get tunAllowBypassHttpProxyDomain => 'Домены, которым разрешено обходить HTTP-прокси';
 	@override String get dnsEnableRule => 'Включить правила для DNS';
-	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
-	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
+	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Способ разрешения в DNS';
+	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] Включить ECS';
 	@override String get dnsTestDomain => 'Тестовое доменное имя';
 	@override String get dnsTestDomainInvalid => 'Неверное доменное имя';
 	@override String get dnsTypeOutbound => 'Прокси-сервер';
-	@override String get dnsTypeDirect => 'Прямой поток';
-	@override String get dnsTypeProxy => 'Трафик через Proxy';
+	@override String get dnsTypeDirect => _root.meta.trafficDirect;
+	@override String get dnsTypeProxy => _root.meta.trafficProxy;
 	@override String get dnsTypeResolver => 'DNS-сервер';
 	@override String get dnsEnableRuleTips => 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
 	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
 	@override String get dnsTypeOutboundTips => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
-	@override String get dnsTypeDirectTips => 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
+	@override String get dnsTypeDirectTips => 'Разрешение доменного имени для [${_root.meta.trafficDirect}]';
 	@override String get dnsTypeProxyTips => 'Разрешение доменных имен для трафика через Proxy';
 	@override String get dnsTypeResolverTips => 'Разрешение доменных имен для DNS-серверов';
 	@override String get dnsAutoSetServer => 'Автоматически настроить сервер';
@@ -430,9 +430,14 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
+	@override String get excludeFromRecent => 'Скрыть из недавних задач';
+	@override String get wakeLock => 'Блокировка пробуждения';
+	@override String get hideVpn => 'Скрыть значок VPN';
+	@override String get hideVpnTips => 'Включение IPv6 приведет к сбою этой функции.';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
 	@override String get importSuccess => 'Импорт выполнен успешно';
 	@override String get rewriteConfirm => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
+	@override String get mergePerapp => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'Общий доступ к сети';
 	@override String get frontProxy => 'Фронтальный/цепной прокси';
 	@override String frontProxyTips({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
@@ -440,8 +445,10 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
+	@override String get loopbackAddress => 'Loopback Address';
 	@override String get enableCluster => 'Включить кластер прокси Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Разрешить подключение по локальной сети к кластеру';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -572,10 +579,12 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get convert => 'Конвертировать';
 	@override String get check => 'Тест';
 	@override String get detect => 'Тест';
+	@override String get cache => 'кэш';
 	@override String get days => 'дни';
 	@override String get hours => 'часы';
 	@override String get minutes => 'минуты';
 	@override String get seconds => 'Второй';
+	@override String get dateTimePeriod => 'Период времени';
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
 	@override String get custom => 'Самостоятельная настройка';
@@ -603,6 +612,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get updateInterval => 'Интервал обновления';
 	@override String get updateInterval5mTips => 'Минимум: 5 мин';
 	@override String updateFailed({required Object p}) => 'Не удалось обновить:${p}';
+	@override String get samplingUnit => 'Единица времени выборки';
+	@override String get queryResultCount => 'Количество результатов запроса';
+	@override String queryLimit({required Object p}) => 'Отображение данных до ${p}';
 	@override String get none => 'Ничего не делать';
 	@override String get start => 'Начать';
 	@override String get pause => 'Пауза';
@@ -642,10 +654,22 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get processPath => 'Путь к процессу';
 	@override String get processDir => 'Каталог процессов';
 	@override String get systemProxy => 'Системный прокси';
+	@override String get statistics => 'статистика';
+	@override String get statisticsAndAnalysis => 'Статистика и анализ';
+	@override String get statisticsPrivacyDesensitize => 'Десенсибилизация конфиденциальности';
+	@override String get statisticsPrivacyDesensitizeTips => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
+	@override String get records => 'Записывать';
+	@override String get requestRecords => 'Запросить записи';
 	@override String get netInterfaces => 'Сетевой интерфейс';
 	@override String get netSpeed => 'Скорость';
+	@override String get trafficTrendChart => 'График тенденций трафика';
+	@override String get trafficDistributionChart => 'Карта распределения трафика';
+	@override String get connectionChart => 'Диаграмма тренда подключений';
+	@override String get memoryChart => 'Диаграмма тренда памяти';
+	@override String get traffic => 'поток';
 	@override String get trafficTotal => 'Трафик всего';
 	@override String get trafficProxy => 'Трафик прокси';
+	@override String get trafficDirect => 'Прямой поток';
 	@override String get website => 'Веб-сайт';
 	@override String get memory => 'Память';
 	@override String get outboundMode => 'Исходящий режим';
@@ -663,6 +687,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get screenshot => 'Скриншот';
 	@override String get backupAndSync => 'Резервное копирование и синхронизация';
 	@override String get autoBackup => 'Автоматическое резервное копирование';
+	@override String get noProfileGotAutoBackup => 'Если данные, такие как [${_root.meta.myProfiles}], утеряны, вы можете восстановить их из [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] или других источников резервного копирования (например, iCloud или WebDAV и т. д.)';
 	@override String get autoBackupAddProfile => 'После добавления конфигурации';
 	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
 	@override String get currentProfile => 'Текущая конфигурация';
@@ -684,8 +709,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get novice => 'Режим новичка';
 	@override String get willCompleteAfterRebootInstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 	@override String get willCompleteAfterRebootUninstall => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-	@override String get requestNeedsUserApproval => 'Пожалуйста, [разрешите] Karing установить системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
-	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение karingServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
+	@override String get requestNeedsUserApproval => '1. [Системные настройки] - [Конфиденциальность и безопасность] - [Разрешить] Karing устанавливать системные расширения. 2. [Системные настройки] - [Общие] - [Вход и расширения - Сетевые расширения] - [karingServiceSE] - [Подключиться снова после завершения]';
+	@override String get FullDiskAccessPermissionRequired => 'Включите разрешение [karingServiceSE] в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
 	@override String get tvMode => 'Режим ТВ';
 	@override String get recommended => 'Рекомендуемые';
 	@override String innerError({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -949,12 +974,10 @@ extension on TranslationsRu {
 			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравила перенаправления:[${p2}]\nПрокси-сервер:[${p3}]';
 			case 'NetCheckScreen.hostConnectionOk': return 'Соединение установлено успешно';
 			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'Соединение не удалось:[${p}]';
-			case 'NetConnectionsFilterScreen.title': return 'Фильтр соединений';
 			case 'NetConnectionsFilterScreen.hostIp': return 'Domain/IP';
 			case 'NetConnectionsFilterScreen.app': return 'Приложение';
 			case 'NetConnectionsFilterScreen.rule': return 'Правило';
 			case 'NetConnectionsFilterScreen.chain': return 'Исходящий';
-			case 'NetConnectionsScreen.title': return 'Соединения';
 			case 'NetConnectionsScreen.copyAsCSV': return 'Скопировано в CSV формате';
 			case 'NetConnectionsScreen.selectType': return 'Выберите тип перенаправления';
 			case 'PerAppAndroidScreen.title': return 'Проксируемые приложения';
@@ -993,18 +1016,18 @@ extension on TranslationsRu {
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
 			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'Домены, которым разрешено обходить HTTP-прокси';
 			case 'SettingsScreen.dnsEnableRule': return 'Включить правила для DNS';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] Способ разрешения в DNS';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] Включить ECS';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] Способ разрешения в DNS';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] Включить ECS';
 			case 'SettingsScreen.dnsTestDomain': return 'Тестовое доменное имя';
 			case 'SettingsScreen.dnsTestDomainInvalid': return 'Неверное доменное имя';
 			case 'SettingsScreen.dnsTypeOutbound': return 'Прокси-сервер';
-			case 'SettingsScreen.dnsTypeDirect': return 'Прямой поток';
-			case 'SettingsScreen.dnsTypeProxy': return 'Трафик через Proxy';
+			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
+			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
 			case 'SettingsScreen.dnsTypeResolver': return 'DNS-сервер';
 			case 'SettingsScreen.dnsEnableRuleTips': return 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
 			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменного имени для [${_root.SettingsScreen.dnsTypeDirect}]';
+			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменного имени для [${_root.meta.trafficDirect}]';
 			case 'SettingsScreen.dnsTypeProxyTips': return 'Разрешение доменных имен для трафика через Proxy';
 			case 'SettingsScreen.dnsTypeResolverTips': return 'Разрешение доменных имен для DNS-серверов';
 			case 'SettingsScreen.dnsAutoSetServer': return 'Автоматически настроить сервер';
@@ -1046,9 +1069,14 @@ extension on TranslationsRu {
 			case 'SettingsScreen.autoSetSystemProxy': return 'Установить системный прокси после подключения';
 			case 'SettingsScreen.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
 			case 'SettingsScreen.disconnectWhenQuit': return 'Отключаться при выходе из приложения';
+			case 'SettingsScreen.excludeFromRecent': return 'Скрыть из недавних задач';
+			case 'SettingsScreen.wakeLock': return 'Блокировка пробуждения';
+			case 'SettingsScreen.hideVpn': return 'Скрыть значок VPN';
+			case 'SettingsScreen.hideVpnTips': return 'Включение IPv6 приведет к сбою этой функции.';
 			case 'SettingsScreen.allowBypass': return 'Разрешить приложениям обходить VPN';
 			case 'SettingsScreen.importSuccess': return 'Импорт выполнен успешно';
 			case 'SettingsScreen.rewriteConfirm': return 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
+			case 'SettingsScreen.mergePerapp': return 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]';
 			case 'SettingsScreen.networkShare': return 'Общий доступ к сети';
 			case 'SettingsScreen.frontProxy': return 'Фронтальный/цепной прокси';
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
@@ -1056,8 +1084,10 @@ extension on TranslationsRu {
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
+			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
+			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
 			case 'SettingsScreen.enableCluster': return 'Включить кластер прокси Socks/Http';
 			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'Разрешить подключение по локальной сети к кластеру';
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -1144,10 +1174,12 @@ extension on TranslationsRu {
 			case 'meta.convert': return 'Конвертировать';
 			case 'meta.check': return 'Тест';
 			case 'meta.detect': return 'Тест';
+			case 'meta.cache': return 'кэш';
 			case 'meta.days': return 'дни';
 			case 'meta.hours': return 'часы';
 			case 'meta.minutes': return 'минуты';
 			case 'meta.seconds': return 'Второй';
+			case 'meta.dateTimePeriod': return 'Период времени';
 			case 'meta.protocol': return 'Протокол';
 			case 'meta.search': return 'Поиск';
 			case 'meta.custom': return 'Самостоятельная настройка';
@@ -1175,6 +1207,9 @@ extension on TranslationsRu {
 			case 'meta.updateInterval': return 'Интервал обновления';
 			case 'meta.updateInterval5mTips': return 'Минимум: 5 мин';
 			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
+			case 'meta.samplingUnit': return 'Единица времени выборки';
+			case 'meta.queryResultCount': return 'Количество результатов запроса';
+			case 'meta.queryLimit': return ({required Object p}) => 'Отображение данных до ${p}';
 			case 'meta.none': return 'Ничего не делать';
 			case 'meta.start': return 'Начать';
 			case 'meta.pause': return 'Пауза';
@@ -1214,10 +1249,22 @@ extension on TranslationsRu {
 			case 'meta.processPath': return 'Путь к процессу';
 			case 'meta.processDir': return 'Каталог процессов';
 			case 'meta.systemProxy': return 'Системный прокси';
+			case 'meta.statistics': return 'статистика';
+			case 'meta.statisticsAndAnalysis': return 'Статистика и анализ';
+			case 'meta.statisticsPrivacyDesensitize': return 'Десенсибилизация конфиденциальности';
+			case 'meta.statisticsPrivacyDesensitizeTips': return 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
+			case 'meta.records': return 'Записывать';
+			case 'meta.requestRecords': return 'Запросить записи';
 			case 'meta.netInterfaces': return 'Сетевой интерфейс';
 			case 'meta.netSpeed': return 'Скорость';
+			case 'meta.trafficTrendChart': return 'График тенденций трафика';
+			case 'meta.trafficDistributionChart': return 'Карта распределения трафика';
+			case 'meta.connectionChart': return 'Диаграмма тренда подключений';
+			case 'meta.memoryChart': return 'Диаграмма тренда памяти';
+			case 'meta.traffic': return 'поток';
 			case 'meta.trafficTotal': return 'Трафик всего';
 			case 'meta.trafficProxy': return 'Трафик прокси';
+			case 'meta.trafficDirect': return 'Прямой поток';
 			case 'meta.website': return 'Веб-сайт';
 			case 'meta.memory': return 'Память';
 			case 'meta.outboundMode': return 'Исходящий режим';
@@ -1235,6 +1282,7 @@ extension on TranslationsRu {
 			case 'meta.screenshot': return 'Скриншот';
 			case 'meta.backupAndSync': return 'Резервное копирование и синхронизация';
 			case 'meta.autoBackup': return 'Автоматическое резервное копирование';
+			case 'meta.noProfileGotAutoBackup': return 'Если данные, такие как [${_root.meta.myProfiles}], утеряны, вы можете восстановить их из [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] или других источников резервного копирования (например, iCloud или WebDAV и т. д.)';
 			case 'meta.autoBackupAddProfile': return 'После добавления конфигурации';
 			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
 			case 'meta.currentProfile': return 'Текущая конфигурация';
@@ -1256,8 +1304,8 @@ extension on TranslationsRu {
 			case 'meta.novice': return 'Режим новичка';
 			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-			case 'meta.requestNeedsUserApproval': return 'Пожалуйста, [разрешите] Karing установить системные расширения в [Системные настройки] - [Конфиденциальность и безопасность] и переподключитесь после завершения установки.';
-			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение karingServiceSE в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
+			case 'meta.requestNeedsUserApproval': return '1. [Системные настройки] - [Конфиденциальность и безопасность] - [Разрешить] Karing устанавливать системные расширения. 2. [Системные настройки] - [Общие] - [Вход и расширения - Сетевые расширения] - [karingServiceSE] - [Подключиться снова после завершения]';
+			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение [karingServiceSE] в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
 			case 'meta.tvMode': return 'Режим ТВ';
 			case 'meta.recommended': return 'Рекомендуемые';
 			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
@@ -1382,6 +1430,7 @@ extension on TranslationsRu {
 			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
 			case 'noNetworkConnect': return 'Нет подключения к Интернету';
+			case 'sudoPassword': return 'Пароль sudo (требуется для режима TUN)';
 			case 'turnOffNetworkBeforeInstall': return 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 			case 'latencyTestResolveIP': return 'При ручном определении анализируется исходящий IP-адрес';
 			case 'removeBannerAdsByShare': return 'Поделиться [Karing] для удаления рекламы';
@@ -1389,6 +1438,7 @@ extension on TranslationsRu {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
+			case 'maybeAdsByReward': return 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.';
 			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';

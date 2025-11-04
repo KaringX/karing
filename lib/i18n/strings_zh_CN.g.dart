@@ -91,6 +91,7 @@ class TranslationsZhCn implements Translations {
 	@override String get mustBeValidHttpsURL => '必须为有效的 https URL';
 	@override String fileNotExistReinstall({required Object p}) => '文件缺失[${p}],请重新安装';
 	@override String get noNetworkConnect => '无网络连接';
+	@override String get sudoPassword => 'sudo 密码(TUN模式需要)';
 	@override String get turnOffNetworkBeforeInstall => '建议切换到[飞行模式]后再安装更新';
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
 	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
@@ -98,6 +99,7 @@ class TranslationsZhCn implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
+	@override String get maybeAdsByReward => '你可能需要观看一段广告才能使用此功能,点击[${_root.meta.ok}]继续';
 	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -288,7 +290,6 @@ class _TranslationsNetConnectionsFilterScreenZhCn implements TranslationsNetConn
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '连接状态筛选';
 	@override String get hostIp => '域名/IP';
 	@override String get app => '应用';
 	@override String get rule => '规则';
@@ -302,7 +303,6 @@ class _TranslationsNetConnectionsScreenZhCn implements TranslationsNetConnection
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '连接状态';
 	@override String get copyAsCSV => '已复制为CSV格式';
 	@override String get selectType => '选择分流类型';
 }
@@ -377,20 +377,20 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get tunAppendHttpProxyTips => '一些App会绕过虚拟网卡设备直连HTTP代理';
 	@override String get tunAllowBypassHttpProxyDomain => '允许绕过HTTP代理的域名';
 	@override String get dnsEnableRule => '启用DNS分流规则';
-	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}]解析通道';
-	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}]启用ECS';
+	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}]解析通道';
+	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}]启用ECS';
 	@override String get dnsTestDomain => '测试域名';
 	@override String get dnsTestDomainInvalid => '无效的域名';
 	@override String get dnsTypeOutbound => '代理服务器';
-	@override String get dnsTypeDirect => '直连流量';
-	@override String get dnsTypeProxy => '代理流量';
+	@override String get dnsTypeDirect => _root.meta.trafficDirect;
+	@override String get dnsTypeProxy => _root.meta.trafficProxy;
 	@override String get dnsTypeResolver => 'DNS服务器';
 	@override String get dnsEnableRuleTips => '启用后,域名会根据分流规则选择对应的DNS服务器进行解析';
 	@override String get dnsEnableFakeIpTips => '启用FakeIP后,如果断开VPN连接,你的应用可能需要重启;此功能需要开启[TUN模式]';
-	@override String get dnsTypeOutboundTips => '用于代理服务器的域名解析';
-	@override String get dnsTypeDirectTips => '用于[${_root.SettingsScreen.dnsTypeDirect}]的域名解析';
-	@override String get dnsTypeProxyTips => '用于代理流量的域名解析';
-	@override String get dnsTypeResolverTips => '用于DNS服务器的域名解析';
+	@override String get dnsTypeOutboundTips => '用于[${_root.SettingsScreen.dnsTypeOutbound}]的域名解析';
+	@override String get dnsTypeDirectTips => '用于[${_root.meta.trafficDirect}]的域名解析';
+	@override String get dnsTypeProxyTips => '用于[${_root.meta.trafficProxy}]的域名解析';
+	@override String get dnsTypeResolverTips => '用于[${_root.SettingsScreen.dnsTypeResolver}]的域名解析';
 	@override String get dnsAutoSetServer => '自动设置服务器';
 	@override String get dnsResetServer => '重置服务器';
 	@override String get inboundDomainResolve => '解析入站域名';
@@ -430,9 +430,14 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
 	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
 	@override String get disconnectWhenQuit => '退出应用时关闭连接';
+	@override String get excludeFromRecent => '从[最近任务]中隐藏';
+	@override String get wakeLock => '唤醒锁';
+	@override String get hideVpn => '隐藏VPN图标';
+	@override String get hideVpnTips => '开启IPv6会导致此功能失效';
 	@override String get allowBypass => '允许应用绕过VPN';
 	@override String get importSuccess => '导入成功';
 	@override String get rewriteConfirm => '该文件将覆盖本地已有配置,是否继续?';
+	@override String get mergePerapp => '合并本地[${_root.PerAppAndroidScreen.title}]列表';
 	@override String get networkShare => '网络共享';
 	@override String get frontProxy => '前置/链式代理';
 	@override String frontProxyTips({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
@@ -440,8 +445,10 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => '严格路由';
 	@override String get tunStrictRouteTips => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
+	@override String get loopbackAddress => '环回地址';
 	@override String get enableCluster => '开启Socks/Http代理集群';
 	@override String get clusterAllowOtherHostsConnect => '允许其他主机接入代理集群';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -572,10 +579,12 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get convert => '转换';
 	@override String get check => '检测';
 	@override String get detect => '探测';
+	@override String get cache => '缓存';
 	@override String get days => '天';
 	@override String get hours => '时';
 	@override String get minutes => '分';
 	@override String get seconds => '秒';
+	@override String get dateTimePeriod => '时间段';
 	@override String get protocol => '协议';
 	@override String get search => '搜索';
 	@override String get custom => '自定义';
@@ -603,6 +612,9 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get updateInterval => '更新时间间隔';
 	@override String get updateInterval5mTips => '最小:5m';
 	@override String updateFailed({required Object p}) => '更新失败:${p}';
+	@override String get samplingUnit => '采样时间单位';
+	@override String get queryResultCount => '查询结果数量';
+	@override String queryLimit({required Object p}) => '最多展示${p}数据';
 	@override String get none => '无';
 	@override String get start => '开始';
 	@override String get pause => '暂停';
@@ -642,10 +654,22 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get processPath => '进程路径';
 	@override String get processDir => '进程目录';
 	@override String get systemProxy => '系统代理';
+	@override String get statistics => '统计';
+	@override String get statisticsAndAnalysis => '统计与分析';
+	@override String get statisticsPrivacyDesensitize => '隐私脱敏';
+	@override String get statisticsPrivacyDesensitizeTips => '进程/包ID/目标域名/目标IP等将会被*替代脱敏后保存';
+	@override String get records => '记录';
+	@override String get requestRecords => '请求记录';
 	@override String get netInterfaces => '网络接口';
 	@override String get netSpeed => '速度';
+	@override String get trafficTrendChart => '流量趋势图';
+	@override String get trafficDistributionChart => '流量分布图';
+	@override String get connectionChart => '连接趋势图';
+	@override String get memoryChart => '内存趋势图';
+	@override String get traffic => '流量';
 	@override String get trafficTotal => '总流量';
 	@override String get trafficProxy => '代理流量';
+	@override String get trafficDirect => '直连流量';
 	@override String get website => '官网';
 	@override String get memory => '内存';
 	@override String get outboundMode => '出站模式';
@@ -663,6 +687,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get screenshot => '截图';
 	@override String get backupAndSync => '备份与同步';
 	@override String get autoBackup => '自动备份';
+	@override String get noProfileGotAutoBackup => '如果[${_root.meta.myProfiles}]等数据丢失,可以从[${_root.meta.backupAndSync}-${_root.meta.autoBackup}]或其他备份源(比如iCloud或Webdav等)恢复数据';
 	@override String get autoBackupAddProfile => '添加配置后';
 	@override String get autoBackupRemoveProfile => '删除配置后';
 	@override String get currentProfile => '当前配置';
@@ -684,8 +709,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get novice => '新手模式';
 	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
 	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
-	@override String get requestNeedsUserApproval => '请在[系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展,安装完成后重新连接';
-	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启karingServiceSE权限后,重新连接';
+	@override String get requestNeedsUserApproval => '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展-网络扩展]启用[karingServiceSE]\n完成后重新连接';
+	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启[karingServiceSE]权限后,重新连接';
 	@override String get tvMode => 'TV模式';
 	@override String get recommended => '推荐';
 	@override String innerError({required Object p}) => '内部错误:${p}';
@@ -949,12 +974,10 @@ extension on TranslationsZhCn {
 			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\n分流规则:[${p2}]\n代理服务器:[${p3}]';
 			case 'NetCheckScreen.hostConnectionOk': return '连接成功';
 			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => '连接失败:[${p}]';
-			case 'NetConnectionsFilterScreen.title': return '连接状态筛选';
 			case 'NetConnectionsFilterScreen.hostIp': return '域名/IP';
 			case 'NetConnectionsFilterScreen.app': return '应用';
 			case 'NetConnectionsFilterScreen.rule': return '规则';
 			case 'NetConnectionsFilterScreen.chain': return '出站';
-			case 'NetConnectionsScreen.title': return '连接状态';
 			case 'NetConnectionsScreen.copyAsCSV': return '已复制为CSV格式';
 			case 'NetConnectionsScreen.selectType': return '选择分流类型';
 			case 'PerAppAndroidScreen.title': return '分应用代理';
@@ -993,20 +1016,20 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.tunAppendHttpProxyTips': return '一些App会绕过虚拟网卡设备直连HTTP代理';
 			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return '允许绕过HTTP代理的域名';
 			case 'SettingsScreen.dnsEnableRule': return '启用DNS分流规则';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}]解析通道';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}]启用ECS';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}]解析通道';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}]启用ECS';
 			case 'SettingsScreen.dnsTestDomain': return '测试域名';
 			case 'SettingsScreen.dnsTestDomainInvalid': return '无效的域名';
 			case 'SettingsScreen.dnsTypeOutbound': return '代理服务器';
-			case 'SettingsScreen.dnsTypeDirect': return '直连流量';
-			case 'SettingsScreen.dnsTypeProxy': return '代理流量';
+			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
+			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
 			case 'SettingsScreen.dnsTypeResolver': return 'DNS服务器';
 			case 'SettingsScreen.dnsEnableRuleTips': return '启用后,域名会根据分流规则选择对应的DNS服务器进行解析';
 			case 'SettingsScreen.dnsEnableFakeIpTips': return '启用FakeIP后,如果断开VPN连接,你的应用可能需要重启;此功能需要开启[TUN模式]';
-			case 'SettingsScreen.dnsTypeOutboundTips': return '用于代理服务器的域名解析';
-			case 'SettingsScreen.dnsTypeDirectTips': return '用于[${_root.SettingsScreen.dnsTypeDirect}]的域名解析';
-			case 'SettingsScreen.dnsTypeProxyTips': return '用于代理流量的域名解析';
-			case 'SettingsScreen.dnsTypeResolverTips': return '用于DNS服务器的域名解析';
+			case 'SettingsScreen.dnsTypeOutboundTips': return '用于[${_root.SettingsScreen.dnsTypeOutbound}]的域名解析';
+			case 'SettingsScreen.dnsTypeDirectTips': return '用于[${_root.meta.trafficDirect}]的域名解析';
+			case 'SettingsScreen.dnsTypeProxyTips': return '用于[${_root.meta.trafficProxy}]的域名解析';
+			case 'SettingsScreen.dnsTypeResolverTips': return '用于[${_root.SettingsScreen.dnsTypeResolver}]的域名解析';
 			case 'SettingsScreen.dnsAutoSetServer': return '自动设置服务器';
 			case 'SettingsScreen.dnsResetServer': return '重置服务器';
 			case 'SettingsScreen.inboundDomainResolve': return '解析入站域名';
@@ -1046,9 +1069,14 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.autoSetSystemProxy': return '连接后自动设置系统代理';
 			case 'SettingsScreen.bypassSystemProxy': return '允许绕过系统代理的域名';
 			case 'SettingsScreen.disconnectWhenQuit': return '退出应用时关闭连接';
+			case 'SettingsScreen.excludeFromRecent': return '从[最近任务]中隐藏';
+			case 'SettingsScreen.wakeLock': return '唤醒锁';
+			case 'SettingsScreen.hideVpn': return '隐藏VPN图标';
+			case 'SettingsScreen.hideVpnTips': return '开启IPv6会导致此功能失效';
 			case 'SettingsScreen.allowBypass': return '允许应用绕过VPN';
 			case 'SettingsScreen.importSuccess': return '导入成功';
 			case 'SettingsScreen.rewriteConfirm': return '该文件将覆盖本地已有配置,是否继续?';
+			case 'SettingsScreen.mergePerapp': return '合并本地[${_root.PerAppAndroidScreen.title}]列表';
 			case 'SettingsScreen.networkShare': return '网络共享';
 			case 'SettingsScreen.frontProxy': return '前置/链式代理';
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
@@ -1056,8 +1084,10 @@ extension on TranslationsZhCn {
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.allowOtherHostsConnectWarn': return '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
+			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
 			case 'SettingsScreen.tunStrictRoute': return '严格路由';
 			case 'SettingsScreen.tunStrictRouteTips': return '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
+			case 'SettingsScreen.loopbackAddress': return '环回地址';
 			case 'SettingsScreen.enableCluster': return '开启Socks/Http代理集群';
 			case 'SettingsScreen.clusterAllowOtherHostsConnect': return '允许其他主机接入代理集群';
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -1144,10 +1174,12 @@ extension on TranslationsZhCn {
 			case 'meta.convert': return '转换';
 			case 'meta.check': return '检测';
 			case 'meta.detect': return '探测';
+			case 'meta.cache': return '缓存';
 			case 'meta.days': return '天';
 			case 'meta.hours': return '时';
 			case 'meta.minutes': return '分';
 			case 'meta.seconds': return '秒';
+			case 'meta.dateTimePeriod': return '时间段';
 			case 'meta.protocol': return '协议';
 			case 'meta.search': return '搜索';
 			case 'meta.custom': return '自定义';
@@ -1175,6 +1207,9 @@ extension on TranslationsZhCn {
 			case 'meta.updateInterval': return '更新时间间隔';
 			case 'meta.updateInterval5mTips': return '最小:5m';
 			case 'meta.updateFailed': return ({required Object p}) => '更新失败:${p}';
+			case 'meta.samplingUnit': return '采样时间单位';
+			case 'meta.queryResultCount': return '查询结果数量';
+			case 'meta.queryLimit': return ({required Object p}) => '最多展示${p}数据';
 			case 'meta.none': return '无';
 			case 'meta.start': return '开始';
 			case 'meta.pause': return '暂停';
@@ -1214,10 +1249,22 @@ extension on TranslationsZhCn {
 			case 'meta.processPath': return '进程路径';
 			case 'meta.processDir': return '进程目录';
 			case 'meta.systemProxy': return '系统代理';
+			case 'meta.statistics': return '统计';
+			case 'meta.statisticsAndAnalysis': return '统计与分析';
+			case 'meta.statisticsPrivacyDesensitize': return '隐私脱敏';
+			case 'meta.statisticsPrivacyDesensitizeTips': return '进程/包ID/目标域名/目标IP等将会被*替代脱敏后保存';
+			case 'meta.records': return '记录';
+			case 'meta.requestRecords': return '请求记录';
 			case 'meta.netInterfaces': return '网络接口';
 			case 'meta.netSpeed': return '速度';
+			case 'meta.trafficTrendChart': return '流量趋势图';
+			case 'meta.trafficDistributionChart': return '流量分布图';
+			case 'meta.connectionChart': return '连接趋势图';
+			case 'meta.memoryChart': return '内存趋势图';
+			case 'meta.traffic': return '流量';
 			case 'meta.trafficTotal': return '总流量';
 			case 'meta.trafficProxy': return '代理流量';
+			case 'meta.trafficDirect': return '直连流量';
 			case 'meta.website': return '官网';
 			case 'meta.memory': return '内存';
 			case 'meta.outboundMode': return '出站模式';
@@ -1235,6 +1282,7 @@ extension on TranslationsZhCn {
 			case 'meta.screenshot': return '截图';
 			case 'meta.backupAndSync': return '备份与同步';
 			case 'meta.autoBackup': return '自动备份';
+			case 'meta.noProfileGotAutoBackup': return '如果[${_root.meta.myProfiles}]等数据丢失,可以从[${_root.meta.backupAndSync}-${_root.meta.autoBackup}]或其他备份源(比如iCloud或Webdav等)恢复数据';
 			case 'meta.autoBackupAddProfile': return '添加配置后';
 			case 'meta.autoBackupRemoveProfile': return '删除配置后';
 			case 'meta.currentProfile': return '当前配置';
@@ -1256,8 +1304,8 @@ extension on TranslationsZhCn {
 			case 'meta.novice': return '新手模式';
 			case 'meta.willCompleteAfterRebootInstall': return '请重启设备,以便完成系统扩展安装';
 			case 'meta.willCompleteAfterRebootUninstall': return '请重启设备,以便完成系统扩展卸载';
-			case 'meta.requestNeedsUserApproval': return '请在[系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展,安装完成后重新连接';
-			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启karingServiceSE权限后,重新连接';
+			case 'meta.requestNeedsUserApproval': return '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展-网络扩展]启用[karingServiceSE]\n完成后重新连接';
+			case 'meta.FullDiskAccessPermissionRequired': return '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启[karingServiceSE]权限后,重新连接';
 			case 'meta.tvMode': return 'TV模式';
 			case 'meta.recommended': return '推荐';
 			case 'meta.innerError': return ({required Object p}) => '内部错误:${p}';
@@ -1382,6 +1430,7 @@ extension on TranslationsZhCn {
 			case 'mustBeValidHttpsURL': return '必须为有效的 https URL';
 			case 'fileNotExistReinstall': return ({required Object p}) => '文件缺失[${p}],请重新安装';
 			case 'noNetworkConnect': return '无网络连接';
+			case 'sudoPassword': return 'sudo 密码(TUN模式需要)';
 			case 'turnOffNetworkBeforeInstall': return '建议切换到[飞行模式]后再安装更新';
 			case 'latencyTestResolveIP': return '手动检测时,同时解析出口IP';
 			case 'removeBannerAdsByShare': return '分享[Karing]去广告';
@@ -1389,6 +1438,7 @@ extension on TranslationsZhCn {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
 			case 'removeBannerAdsDone': return ({required Object p}) => '已获得${p}天无广告奖励';
+			case 'maybeAdsByReward': return '你可能需要观看一段广告才能使用此功能,点击[${_root.meta.ok}]继续';
 			case 'edgeRuntimeNotInstalled': return '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';

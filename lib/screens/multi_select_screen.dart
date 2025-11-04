@@ -7,7 +7,14 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
-import 'package:tuple/tuple.dart';
+
+class MultiSelectScreenDateItem {
+  final String key;
+  final String text;
+  final Color? color;
+
+  MultiSelectScreenDateItem({this.key = "", this.text = "", this.color});
+}
 
 class MultiSelectScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -16,7 +23,7 @@ class MultiSelectScreen extends LasyRenderingStatefulWidget {
 
   final String title;
 
-  final Future<List<Tuple2<String, String>>> Function() getData;
+  final Future<List<MultiSelectScreenDateItem>> Function() getData;
   final List<String> selectedData;
   final bool showKey;
 
@@ -33,8 +40,8 @@ class MultiSelectScreen extends LasyRenderingStatefulWidget {
 
 class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
   final _searchController = TextEditingController();
-  List<Tuple2<String, String>> _allData = [];
-  List<Tuple2<String, String>> _searchedData = [];
+  List<MultiSelectScreenDateItem> _allData = [];
+  List<MultiSelectScreenDateItem> _searchedData = [];
 
   @override
   void initState() {
@@ -59,8 +66,8 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
     if ((textVal != null) && textVal.isNotEmpty) {
       String search = textVal.toLowerCase();
       final data = _allData.where((name) {
-        return name.item1.toLowerCase().contains(search) ||
-            name.item2.toLowerCase().contains(search);
+        return name.key.toLowerCase().contains(search) ||
+            name.text.toLowerCase().contains(search);
       }).toList();
 
       _searchedData = data;
@@ -185,7 +192,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
         child: ListView.separated(
           itemCount: _searchedData.length,
           itemBuilder: (BuildContext context, int index) {
-            Tuple2<String, String> current = _searchedData[index];
+            MultiSelectScreenDateItem current = _searchedData[index];
             return createWidget(current, windowSize);
           },
           separatorBuilder: (BuildContext context, int index) {
@@ -197,7 +204,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
         ));
   }
 
-  Widget createWidget(Tuple2<String, String> current, Size windowSize) {
+  Widget createWidget(MultiSelectScreenDateItem current, Size windowSize) {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(
@@ -227,13 +234,14 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  current.item2,
+                                  current.text,
                                   style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                      fontSize: ThemeConfig.kFontSizeGroupItem,
+                                      color: current.color),
                                 ),
                                 if (widget.showKey) ...[
                                   Text(
-                                    current.item1,
+                                    current.key,
                                     style: const TextStyle(fontSize: 12),
                                   )
                                 ],
@@ -241,12 +249,12 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                         ),
                         Checkbox(
                           tristate: true,
-                          value: widget.selectedData.contains(current.item1),
+                          value: widget.selectedData.contains(current.key),
                           onChanged: (bool? value) {
                             if (value == true) {
-                              widget.selectedData.add(current.item1);
+                              widget.selectedData.add(current.key);
                             } else {
-                              widget.selectedData.remove(current.item1);
+                              widget.selectedData.remove(current.key);
                             }
                             SettingManager.setDirty(true);
                             setState(() {});

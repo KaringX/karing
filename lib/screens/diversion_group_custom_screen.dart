@@ -355,7 +355,6 @@ class _DiversionGroupCustomScreenState
             context,
             MaterialPageRoute(
                 settings: DiversionRulesCustomSetScreen.routSettings(),
-                fullscreenDialog: true,
                 builder: (context) => DiversionRulesCustomSetScreen(
                       canPop: true,
                       title: tcontext.meta.import,

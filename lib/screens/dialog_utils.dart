@@ -137,13 +137,20 @@ class DialogUtils {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text(
-              text,
-              style: const TextStyle(
-                fontSize: ThemeConfig.kFontSizeListSubItem,
-              ),
-            ),
             children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Text(
+                  text,
+                  maxLines: 20,
+                  style: const TextStyle(
+                    fontSize: ThemeConfig.kFontSizeListSubItem,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -175,6 +182,17 @@ class DialogUtils {
         });
   }
 
+  static Future<String?> showPasswordInputDialog(
+    BuildContext context,
+  ) async {
+    final tcontext = Translations.of(context);
+    String? password = await DialogUtils.showTextInputDialog(
+        context, tcontext.sudoPassword, "", null, null, null, (text) {
+      return text.isNotEmpty;
+    }, obscureText: true);
+    return password;
+  }
+
   static Future<String?> showTextInputDialog(
       BuildContext context,
       String title,
@@ -182,7 +200,8 @@ class DialogUtils {
       String? labelText,
       TextInputType? keyboardType,
       List<TextInputFormatter>? inputFormatters,
-      bool Function(String) callback) async {
+      bool Function(String) callback,
+      {bool obscureText = false}) async {
     if (!context.mounted) {
       return null;
     }
@@ -215,6 +234,7 @@ class DialogUtils {
                     labelText: labelText,
                   ),
                   textAlign: TextAlign.end,
+                  obscureText: obscureText,
                 ),
               ),
               const SizedBox(
@@ -658,24 +678,27 @@ class DialogUtils {
       context: context,
       routeSettings: const RouteSettings(name: "showLoadingDialog"),
       barrierDismissible: false,
+      fullscreenDialog: true,
       builder: (context) {
-        return SimpleDialog(children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 20,
+        return PopScope(
+            canPop: false,
+            child: SimpleDialog(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const RepaintBoundary(
+                    child: CircularProgressIndicator(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 26.0),
+                    child: Text(text ?? tcontext.meta.loading),
+                  )
+                ],
               ),
-              const RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 26.0),
-                child: Text(text ?? tcontext.meta.loading),
-              )
-            ],
-          ),
-        ]);
+            ]));
       },
     );
   }

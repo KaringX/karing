@@ -58,6 +58,17 @@ class AutoUpdateCheckVersion {
       ext = ".exe";
     } else if (Platform.isMacOS) {
       ext = ".dmg";
+    } else if (Platform.isLinux) {
+      final channelName = InstallReferrerUtils.getBuildChannelName();
+      if (channelName.toLowerCase().contains("deb")) {
+        ext = ".deb";
+      } else if (channelName.toLowerCase().contains("rpm")) {
+        ext = ".rpm";
+      } else if (channelName.toLowerCase().contains("appimage")) {
+        ext = ".appImage";
+      } else {
+        ext = ".deb";
+      }
     }
     final newPath = path.join(await PathUtils.cacheDir(), version);
     return "$newPath$ext";
@@ -80,7 +91,10 @@ class AutoUpdateManager {
   static final AutoUpdateCheckVersion _versionCheck = AutoUpdateCheckVersion();
 
   static bool isSupport() {
-    return Platform.isWindows || Platform.isAndroid || Platform.isMacOS;
+    return Platform.isWindows ||
+        Platform.isAndroid ||
+        Platform.isMacOS ||
+        Platform.isLinux;
   }
 
   static List<String> updateChannels() {
@@ -209,8 +223,14 @@ class AutoUpdateManager {
         return;
       }
       String dir = await PathUtils.cacheDir();
-      var files =
-          FileUtils.recursionFile(dir, extensionFilter: {".exe", ".apk"});
+      var files = FileUtils.recursionFile(dir, extensionFilter: {
+        ".exe",
+        ".apk",
+        ".dmg",
+        ".deb",
+        ".rpm",
+        ".appImage"
+      });
       for (var file in files) {
         await FileUtils.deletePath(file);
       }

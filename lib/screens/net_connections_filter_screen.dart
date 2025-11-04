@@ -37,6 +37,7 @@ class _NetConnectionsFilterScreenState
     extends LasyRenderingState<NetConnectionsFilterScreen> {
   NetConnectionFilter _filter = NetConnectionFilter();
   final List<ListViewMultiPartsItem> _listViewParts = [];
+  bool _dirty = false;
   @override
   void initState() {
     _filter = widget.filter;
@@ -83,7 +84,7 @@ class _NetConnectionsFilterScreenState
                     SizedBox(
                       width: windowSize.width - 50 * 3,
                       child: Text(
-                        tcontext.NetConnectionsFilterScreen.title,
+                        tcontext.meta.filter,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -227,6 +228,7 @@ class _NetConnectionsFilterScreenState
                           tristate: true,
                           value: filter.contains(text),
                           onChanged: (bool? value) {
+                            _dirty = true;
                             if (value == true) {
                               filter.add(text);
                             } else {
@@ -248,6 +250,7 @@ class _NetConnectionsFilterScreenState
   }
 
   void onTapClear() {
+    _dirty = true;
     _filter.networks.clear();
     _filter.hosts.clear();
     _filter.ports.clear();
@@ -258,6 +261,6 @@ class _NetConnectionsFilterScreenState
   }
 
   void onTapDone() {
-    Navigator.pop(context, _filter);
+    Navigator.pop(context, _dirty ? _filter : null);
   }
 }

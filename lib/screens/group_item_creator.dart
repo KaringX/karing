@@ -66,6 +66,9 @@ class GroupItemCreator {
       } else if (option.timerIntervalPickerOptions != null) {
         widget = GroupItemTimerIntervalPicker(
             options: option.timerIntervalPickerOptions!);
+      } else if (option.dateTimePeriodPickerOptions != null) {
+        widget = GroupItemDateTimeDurationPicker(
+            options: option.dateTimePeriodPickerOptions!);
       } else if (option.stringPickerOptions != null) {
         widget = GroupItemStringPicker(options: option.stringPickerOptions!);
       } else {

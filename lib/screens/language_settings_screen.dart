@@ -45,7 +45,7 @@ class _LanguageSettingsScreenState
     super.initState();
   }
 
-  _loadSearch(String? textVal) {
+  /*_loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       final data = _langData.where((locale) {
         var lang = t.locales[locale.languageTag]!;
@@ -63,7 +63,7 @@ class _LanguageSettingsScreenState
     _searchController.clear();
     _searchedData = _langData;
     setState(() {});
-  }
+  }*/
 
   @override
   void dispose() {
@@ -86,8 +86,9 @@ class _LanguageSettingsScreenState
               child: AppBar(),
             ),
             body: Focus(
-              includeSemantics: true,
               onKeyEvent: onKeyEvent,
+              canRequestFocus: false,
+              skipTraversal: true,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -160,7 +161,6 @@ class _LanguageSettingsScreenState
                         height: 44,
                         width: double.infinity,
                         decoration: const BoxDecoration(
-                       
                           borderRadius: ThemeDefine.kBorderRadius,
                         ),
                         child: TextFieldEx(
@@ -172,7 +172,6 @@ class _LanguageSettingsScreenState
                             focusedBorder: InputBorder.none,
                             icon: Icon(
                               Icons.search_outlined,
-                     
                             ),
                             hintText: tcontext.search,
                             suffixIcon: _searchController.text.isNotEmpty

@@ -2,7 +2,7 @@
 
 import 'dart:collection';
 import 'dart:io';
-
+import 'package:tuple/tuple.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -36,7 +36,8 @@ class InAppWebViewScreen extends StatefulWidget {
       return;
     }
     _inited = false;
-    if (!await isSupported()) {
+    final supported = await getSupported();
+    if (!supported.item1) {
       return;
     }
     if (Platform.isWindows) {
@@ -70,23 +71,26 @@ class InAppWebViewScreen extends StatefulWidget {
     _inited = true;
   }
 
-  static Future<bool> isSupported() async {
+  static Future<Tuple2<bool, String>> getSupported() async {
     if (Platform.isAndroid) {
       String version = await FlutterVpnService.getSystemVersion();
       int? v = int.tryParse(version);
-      if (v != null && v <= 27) {
-        return false;
+      if (v != null && v < 26) {
+        return Tuple2(false, "Android version too Low, Minimum required: >= 8.0");
       }
+    } else if (Platform.isLinux) {
+      return Tuple2(false, "Linux is not supported");
     }
-    return true;
+    return Tuple2(true, "");
   }
 
   static Future<String> getNotInitedDesc() async {
-    if (!await isSupported()) {
-      return "webview is not supported! (Android <= 8.1)";
+    final supported = await getSupported();
+    if (!supported.item1) {
+      return supported.item2;
     }
 
-    return "webview is not initialized!";
+    return "inappwebview is not initialized!";
   }
 
   static Future<void> setProxy(String ip, int port) async {

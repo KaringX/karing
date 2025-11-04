@@ -91,6 +91,7 @@ class TranslationsFa implements Translations {
 	@override String get mustBeValidHttpsURL => 'باید یک URL معتبر https باشد';
 	@override String fileNotExistReinstall({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
 	@override String get noNetworkConnect => 'بدون اتصال به اینترنت';
+	@override String get sudoPassword => 'رمز عبور sudo (برای حالت TUN لازم است)';
 	@override String get turnOffNetworkBeforeInstall => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
@@ -98,6 +99,7 @@ class TranslationsFa implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
+	@override String get maybeAdsByReward => 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.';
 	@override String get edgeRuntimeNotInstalled => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -288,7 +290,6 @@ class _TranslationsNetConnectionsFilterScreenFa implements TranslationsNetConnec
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'فیلتر اتصال‌ها';
 	@override String get hostIp => 'دامنه/آی‌پی';
 	@override String get app => 'نرم‌افزار';
 	@override String get rule => 'قانون';
@@ -302,7 +303,6 @@ class _TranslationsNetConnectionsScreenFa implements TranslationsNetConnectionsS
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'اتصال‌ها';
 	@override String get copyAsCSV => 'در فرمت CAV کپی شد';
 	@override String get selectType => 'انتخاب نوع انحراف';
 }
@@ -377,18 +377,18 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get tunAppendHttpProxyTips => 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
 	@override String get tunAllowBypassHttpProxyDomain => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
 	@override String get dnsEnableRule => 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
-	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] کانال رزولوشن';
-	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] ECS را فعال کنید';
+	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] کانال رزولوشن';
+	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] ECS را فعال کنید';
 	@override String get dnsTestDomain => 'تست دامنه';
 	@override String get dnsTestDomainInvalid => 'دامنه نامعتبر';
 	@override String get dnsTypeOutbound => 'سرور پروکسی';
-	@override String get dnsTypeDirect => 'ترافیک مستقیم';
-	@override String get dnsTypeProxy => 'ترافیک پروکسی';
+	@override String get dnsTypeDirect => _root.meta.trafficDirect;
+	@override String get dnsTypeProxy => _root.meta.trafficProxy;
 	@override String get dnsTypeResolver => 'سرور دی‌ان‌اس';
 	@override String get dnsEnableRuleTips => 'بعد از فعال‌سازی نام دامنه، سرور دی‌ان‌اس مربوط را بر اساس قوانین انحراف برای عبور انتخاب می‌کند';
 	@override String get dnsEnableFakeIpTips => 'پس از فعال کردن FakeIP، اگر اتصال VPN قطع شود، ممکن است برنامه شما نیاز به راه اندازی مجدد داشته باشد [حالت TUN].';
 	@override String get dnsTypeOutboundTips => 'سامانه نام دامنه (DNS) برای سرور پروکسی';
-	@override String get dnsTypeDirectTips => 'وضوح نام دامنه برای [${_root.SettingsScreen.dnsTypeDirect}]';
+	@override String get dnsTypeDirectTips => 'وضوح نام دامنه برای [${_root.meta.trafficDirect}]';
 	@override String get dnsTypeProxyTips => 'سامانه نام دامنه (DNS) برای ترافیک پروکسی';
 	@override String get dnsTypeResolverTips => 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس';
 	@override String get dnsAutoSetServer => 'به طور خودکار سرور را راه اندازی کنید';
@@ -430,9 +430,14 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 	@override String get disconnectWhenQuit => 'قطع اتصال هنگام خروج از نرم‌افزار';
+	@override String get excludeFromRecent => 'پنهان شدن از وظایف اخیر';
+	@override String get wakeLock => 'قفل بیدارباش';
+	@override String get hideVpn => 'مخفی کردن آیکون VPN';
+	@override String get hideVpnTips => 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
 	@override String get allowBypass => 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
 	@override String get importSuccess => 'افزودن موفق بود';
 	@override String get rewriteConfirm => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
+	@override String get mergePerapp => 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'اشتراک‌گذاری شبکه';
 	@override String get frontProxy => 'پروکسی جلو/زنجیره';
 	@override String frontProxyTips({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
@@ -440,8 +445,10 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
+	@override String get loopbackAddress => 'Loopback Address';
 	@override String get enableCluster => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای';
 	@override String get clusterAllowOtherHostsConnect => 'اجازه اتصال دیگران به خوشه';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -572,10 +579,12 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get convert => 'تبدیل';
 	@override String get check => 'بررسی';
 	@override String get detect => 'کشف';
+	@override String get cache => 'حافظه نهان';
 	@override String get days => 'روز';
 	@override String get hours => 'ساعت';
 	@override String get minutes => 'دقیقه';
 	@override String get seconds => 'دومین';
+	@override String get dateTimePeriod => 'دوره زمانی';
 	@override String get protocol => 'پروتکل';
 	@override String get search => 'جستجو';
 	@override String get custom => 'سفارشی';
@@ -603,6 +612,9 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get updateInterval => 'فاصله‌ی به‌روزرسانی';
 	@override String get updateInterval5mTips => 'حداقل: 5 متر';
 	@override String updateFailed({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
+	@override String get samplingUnit => 'واحد زمان نمونه‌برداری';
+	@override String get queryResultCount => 'تعداد نتایج پرس و جو';
+	@override String queryLimit({required Object p}) => 'نمایش داده‌ها تا ${p}';
 	@override String get none => 'هیچ‌کدام';
 	@override String get start => 'شروع کنید';
 	@override String get pause => 'مکث';
@@ -642,10 +654,22 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get processPath => 'مسیر پروسه';
 	@override String get processDir => 'فهرست فرآیندها';
 	@override String get systemProxy => 'پروکسی سیستم';
+	@override String get statistics => 'آمار';
+	@override String get statisticsAndAnalysis => 'آمار و تحلیل';
+	@override String get statisticsPrivacyDesensitize => 'حساسیت‌زدایی از حریم خصوصی';
+	@override String get statisticsPrivacyDesensitizeTips => 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.';
+	@override String get records => 'رکورد';
+	@override String get requestRecords => 'درخواست سوابق';
 	@override String get netInterfaces => 'رابط شبکه';
 	@override String get netSpeed => 'سرعت';
+	@override String get trafficTrendChart => 'نمودار روند ترافیک';
+	@override String get trafficDistributionChart => 'نقشه توزیع ترافیک';
+	@override String get connectionChart => 'نمودار روند اتصال';
+	@override String get memoryChart => 'نمودار روند حافظه';
+	@override String get traffic => 'جریان';
 	@override String get trafficTotal => 'کل ترافیک';
 	@override String get trafficProxy => 'ترافیک پروکسی';
+	@override String get trafficDirect => 'ترافیک مستقیم';
 	@override String get website => 'وبسایت';
 	@override String get memory => 'حافظه';
 	@override String get outboundMode => 'حالت خروجی';
@@ -663,6 +687,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get screenshot => 'اسکرین‌شات';
 	@override String get backupAndSync => 'پشتیبان‌گیری و همگام‌سازی';
 	@override String get autoBackup => 'پشتیبان گیری خودکار';
+	@override String get noProfileGotAutoBackup => 'اگر داده‌هایی مانند [${_root.meta.myProfiles}] از بین بروند، می‌توانید آن‌ها را از [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] یا سایر منابع پشتیبان (مانند iCloud یا Webdav و غیره) بازیابی کنید.';
 	@override String get autoBackupAddProfile => 'بعد از اضافه کردن تنظیمات';
 	@override String get autoBackupRemoveProfile => 'پس از حذف تنظیمات';
 	@override String get currentProfile => 'پیکربندی فعلی';
@@ -684,8 +709,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get novice => 'حالت مبتدی';
 	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-	@override String get requestNeedsUserApproval => 'لطفاً به کارینگ [اجازه دهید] افزونه‌های سیستم را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب دوباره متصل شود.';
-	@override String get FullDiskAccessPermissionRequired => 'لطفاً برنامه [Terminal] را باز کنید، دستور را مستقیماً در [Terminal] قرار دهید و آن را اجرا کنید. پس از اتمام اجرا، دوباره متصل شوید';
+	@override String get requestNeedsUserApproval => '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]';
+	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.';
 	@override String get tvMode => 'حالت تلویزیون';
 	@override String get recommended => 'پیشنهادی';
 	@override String innerError({required Object p}) => 'خطای داخلی: ${p}';
@@ -949,12 +974,10 @@ extension on TranslationsFa {
 			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقانون انحراف: [${p2}]\nسرور پروکسی: [${p3}]';
 			case 'NetCheckScreen.hostConnectionOk': return 'اتصال موفق شد';
 			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'ارتباط ناموفق بود:[${p}]';
-			case 'NetConnectionsFilterScreen.title': return 'فیلتر اتصال‌ها';
 			case 'NetConnectionsFilterScreen.hostIp': return 'دامنه/آی‌پی';
 			case 'NetConnectionsFilterScreen.app': return 'نرم‌افزار';
 			case 'NetConnectionsFilterScreen.rule': return 'قانون';
 			case 'NetConnectionsFilterScreen.chain': return 'Outbound';
-			case 'NetConnectionsScreen.title': return 'اتصال‌ها';
 			case 'NetConnectionsScreen.copyAsCSV': return 'در فرمت CAV کپی شد';
 			case 'NetConnectionsScreen.selectType': return 'انتخاب نوع انحراف';
 			case 'PerAppAndroidScreen.title': return 'پروکسی به‌تفکیک برنامه';
@@ -993,18 +1016,18 @@ extension on TranslationsFa {
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
 			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
 			case 'SettingsScreen.dnsEnableRule': return 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] کانال رزولوشن';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] ECS را فعال کنید';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] کانال رزولوشن';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] ECS را فعال کنید';
 			case 'SettingsScreen.dnsTestDomain': return 'تست دامنه';
 			case 'SettingsScreen.dnsTestDomainInvalid': return 'دامنه نامعتبر';
 			case 'SettingsScreen.dnsTypeOutbound': return 'سرور پروکسی';
-			case 'SettingsScreen.dnsTypeDirect': return 'ترافیک مستقیم';
-			case 'SettingsScreen.dnsTypeProxy': return 'ترافیک پروکسی';
+			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
+			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
 			case 'SettingsScreen.dnsTypeResolver': return 'سرور دی‌ان‌اس';
 			case 'SettingsScreen.dnsEnableRuleTips': return 'بعد از فعال‌سازی نام دامنه، سرور دی‌ان‌اس مربوط را بر اساس قوانین انحراف برای عبور انتخاب می‌کند';
 			case 'SettingsScreen.dnsEnableFakeIpTips': return 'پس از فعال کردن FakeIP، اگر اتصال VPN قطع شود، ممکن است برنامه شما نیاز به راه اندازی مجدد داشته باشد [حالت TUN].';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'سامانه نام دامنه (DNS) برای سرور پروکسی';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'وضوح نام دامنه برای [${_root.SettingsScreen.dnsTypeDirect}]';
+			case 'SettingsScreen.dnsTypeDirectTips': return 'وضوح نام دامنه برای [${_root.meta.trafficDirect}]';
 			case 'SettingsScreen.dnsTypeProxyTips': return 'سامانه نام دامنه (DNS) برای ترافیک پروکسی';
 			case 'SettingsScreen.dnsTypeResolverTips': return 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس';
 			case 'SettingsScreen.dnsAutoSetServer': return 'به طور خودکار سرور را راه اندازی کنید';
@@ -1046,9 +1069,14 @@ extension on TranslationsFa {
 			case 'SettingsScreen.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 			case 'SettingsScreen.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 			case 'SettingsScreen.disconnectWhenQuit': return 'قطع اتصال هنگام خروج از نرم‌افزار';
+			case 'SettingsScreen.excludeFromRecent': return 'پنهان شدن از وظایف اخیر';
+			case 'SettingsScreen.wakeLock': return 'قفل بیدارباش';
+			case 'SettingsScreen.hideVpn': return 'مخفی کردن آیکون VPN';
+			case 'SettingsScreen.hideVpnTips': return 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
 			case 'SettingsScreen.allowBypass': return 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
 			case 'SettingsScreen.importSuccess': return 'افزودن موفق بود';
 			case 'SettingsScreen.rewriteConfirm': return 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
+			case 'SettingsScreen.mergePerapp': return 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]';
 			case 'SettingsScreen.networkShare': return 'اشتراک‌گذاری شبکه';
 			case 'SettingsScreen.frontProxy': return 'پروکسی جلو/زنجیره';
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
@@ -1056,8 +1084,10 @@ extension on TranslationsFa {
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
+			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
+			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
 			case 'SettingsScreen.enableCluster': return 'فعال‌سازی پروکسی Socks/Http خوشه‌ای';
 			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'اجازه اتصال دیگران به خوشه';
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -1144,10 +1174,12 @@ extension on TranslationsFa {
 			case 'meta.convert': return 'تبدیل';
 			case 'meta.check': return 'بررسی';
 			case 'meta.detect': return 'کشف';
+			case 'meta.cache': return 'حافظه نهان';
 			case 'meta.days': return 'روز';
 			case 'meta.hours': return 'ساعت';
 			case 'meta.minutes': return 'دقیقه';
 			case 'meta.seconds': return 'دومین';
+			case 'meta.dateTimePeriod': return 'دوره زمانی';
 			case 'meta.protocol': return 'پروتکل';
 			case 'meta.search': return 'جستجو';
 			case 'meta.custom': return 'سفارشی';
@@ -1175,6 +1207,9 @@ extension on TranslationsFa {
 			case 'meta.updateInterval': return 'فاصله‌ی به‌روزرسانی';
 			case 'meta.updateInterval5mTips': return 'حداقل: 5 متر';
 			case 'meta.updateFailed': return ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
+			case 'meta.samplingUnit': return 'واحد زمان نمونه‌برداری';
+			case 'meta.queryResultCount': return 'تعداد نتایج پرس و جو';
+			case 'meta.queryLimit': return ({required Object p}) => 'نمایش داده‌ها تا ${p}';
 			case 'meta.none': return 'هیچ‌کدام';
 			case 'meta.start': return 'شروع کنید';
 			case 'meta.pause': return 'مکث';
@@ -1214,10 +1249,22 @@ extension on TranslationsFa {
 			case 'meta.processPath': return 'مسیر پروسه';
 			case 'meta.processDir': return 'فهرست فرآیندها';
 			case 'meta.systemProxy': return 'پروکسی سیستم';
+			case 'meta.statistics': return 'آمار';
+			case 'meta.statisticsAndAnalysis': return 'آمار و تحلیل';
+			case 'meta.statisticsPrivacyDesensitize': return 'حساسیت‌زدایی از حریم خصوصی';
+			case 'meta.statisticsPrivacyDesensitizeTips': return 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.';
+			case 'meta.records': return 'رکورد';
+			case 'meta.requestRecords': return 'درخواست سوابق';
 			case 'meta.netInterfaces': return 'رابط شبکه';
 			case 'meta.netSpeed': return 'سرعت';
+			case 'meta.trafficTrendChart': return 'نمودار روند ترافیک';
+			case 'meta.trafficDistributionChart': return 'نقشه توزیع ترافیک';
+			case 'meta.connectionChart': return 'نمودار روند اتصال';
+			case 'meta.memoryChart': return 'نمودار روند حافظه';
+			case 'meta.traffic': return 'جریان';
 			case 'meta.trafficTotal': return 'کل ترافیک';
 			case 'meta.trafficProxy': return 'ترافیک پروکسی';
+			case 'meta.trafficDirect': return 'ترافیک مستقیم';
 			case 'meta.website': return 'وبسایت';
 			case 'meta.memory': return 'حافظه';
 			case 'meta.outboundMode': return 'حالت خروجی';
@@ -1235,6 +1282,7 @@ extension on TranslationsFa {
 			case 'meta.screenshot': return 'اسکرین‌شات';
 			case 'meta.backupAndSync': return 'پشتیبان‌گیری و همگام‌سازی';
 			case 'meta.autoBackup': return 'پشتیبان گیری خودکار';
+			case 'meta.noProfileGotAutoBackup': return 'اگر داده‌هایی مانند [${_root.meta.myProfiles}] از بین بروند، می‌توانید آن‌ها را از [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] یا سایر منابع پشتیبان (مانند iCloud یا Webdav و غیره) بازیابی کنید.';
 			case 'meta.autoBackupAddProfile': return 'بعد از اضافه کردن تنظیمات';
 			case 'meta.autoBackupRemoveProfile': return 'پس از حذف تنظیمات';
 			case 'meta.currentProfile': return 'پیکربندی فعلی';
@@ -1256,8 +1304,8 @@ extension on TranslationsFa {
 			case 'meta.novice': return 'حالت مبتدی';
 			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return 'لطفاً به کارینگ [اجازه دهید] افزونه‌های سیستم را در [تنظیمات سیستم]-[حریم خصوصی و امنیت] نصب کند و پس از اتمام نصب دوباره متصل شود.';
-			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً برنامه [Terminal] را باز کنید، دستور را مستقیماً در [Terminal] قرار دهید و آن را اجرا کنید. پس از اتمام اجرا، دوباره متصل شوید';
+			case 'meta.requestNeedsUserApproval': return '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]';
+			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.';
 			case 'meta.tvMode': return 'حالت تلویزیون';
 			case 'meta.recommended': return 'پیشنهادی';
 			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
@@ -1382,6 +1430,7 @@ extension on TranslationsFa {
 			case 'mustBeValidHttpsURL': return 'باید یک URL معتبر https باشد';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
 			case 'noNetworkConnect': return 'بدون اتصال به اینترنت';
+			case 'sudoPassword': return 'رمز عبور sudo (برای حالت TUN لازم است)';
 			case 'turnOffNetworkBeforeInstall': return 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 			case 'latencyTestResolveIP': return 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
@@ -1389,6 +1438,7 @@ extension on TranslationsFa {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
+			case 'maybeAdsByReward': return 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.';
 			case 'edgeRuntimeNotInstalled': return 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';

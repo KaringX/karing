@@ -1,0 +1,9 @@
+script_template: inno_setup.iss
+app_id: 74F1C307-2E21-4951-BB25-763C3A2AE98F
+app_name: Karing
+display_name: Karing
+executable_name: karing.exe
+publisher_name: Supernova Nebula LLC
+publisher_url: https://karing.app
+create_desktop_icon: true
+setup_icon_file: windows/runner/resources/app_icon.ico

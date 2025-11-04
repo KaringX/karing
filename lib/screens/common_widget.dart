@@ -24,8 +24,8 @@ class CommonWidget {
               width: 20,
               child: RepaintBoundary(
                 child: CircularProgressIndicator(
-                    color: isTesting ? ThemeDefine.kColorGreenBright : null,
-                    strokeWidth: 2),
+                  color: isTesting ? ThemeDefine.kColorGreenBright : null,
+                ),
               ),
             )
           ]));
@@ -151,7 +151,7 @@ class CommonWidget {
                       height: 26,
                       width: 26,
                       child: RepaintBoundary(
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: CircularProgressIndicator(),
                       ),
                     )
                   : Tooltip(

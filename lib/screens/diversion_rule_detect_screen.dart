@@ -1,7 +1,7 @@
 // ignore_for_file: unused_catch_stack
 
 import 'dart:convert';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/modules/biz.dart';
@@ -189,8 +189,7 @@ class _DiversionRuleDetectScreenState
                                 width: 45,
                                 height: 45,
                                 child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(),
                                 ),
                               ),
                         const SizedBox(
@@ -254,6 +253,53 @@ class _DiversionRuleDetectScreenState
                               valueListenable: _ruleset,
                             ),
                           ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                              child: FutureBuilder(
+                            future: ClashApi.getRemoteRulesetsLastUpdated(
+                                SettingManager.getConfig().proxy.controlPort),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<
+                                        ReturnResult<Map<String, DateTime>>>
+                                    snapshot) {
+                              if (!snapshot.hasData ||
+                                  snapshot.data == null ||
+                                  snapshot.data!.data == null) {
+                                return SizedBox.shrink();
+                              }
+                              List<Widget> widgets = [];
+                              final data = snapshot.data!.data!;
+                              data.forEach((key, value) {
+                                var settings = SettingManager.getConfig();
+                                var updateTime = DateFormat(
+                                        "yyyy-MM-dd HH:mm:ss",
+                                        settings.languageTag)
+                                    .format(value);
+                                widgets.add(Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: (windowSize.width - 18 * 2) / 2,
+                                        child: Text(key),
+                                      ),
+                                      Text(updateTime),
+                                    ]));
+                                widgets.add(const SizedBox(
+                                  height: 10,
+                                ));
+                                widgets.add(const Divider(
+                                  height: 1,
+                                  thickness: 0.3,
+                                ));
+                              });
+                              return Column(children: [...widgets]);
+                            },
+                          )),
                         ),
                       ],
                     )),

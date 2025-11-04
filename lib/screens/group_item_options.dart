@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tuple/tuple.dart';
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 
 typedef SetStateCallback = void Function();
 
@@ -145,6 +146,30 @@ class GroupItemTimerIntervalPickerOptions {
   Future<void> Function(bool, Duration?)? onPicker;
 }
 
+class GroupItemDateTimePeriodPickerOptions {
+  GroupItemDateTimePeriodPickerOptions({
+    required this.name,
+    this.tips,
+    this.reddot,
+    this.start,
+    this.end,
+    this.minimumDate,
+    this.maximumDate,
+    required this.pickerType,
+    this.onPicker,
+  });
+
+  final String name;
+  final String? tips;
+  final bool? reddot;
+  final DateTime? start;
+  final DateTime? end;
+  final DateTime? minimumDate;
+  final DateTime? maximumDate;
+  final DateTimePickerType pickerType;
+  Future<void> Function(DateTime, DateTime)? onPicker;
+}
+
 class GroupItemStringPickerOptions {
   GroupItemStringPickerOptions({
     required this.name,
@@ -175,6 +200,7 @@ class GroupItemOptions {
     this.switchOptions,
     this.pushOptions,
     this.timerIntervalPickerOptions,
+    this.dateTimePeriodPickerOptions,
     this.stringPickerOptions,
   });
   final double itemHeight;
@@ -183,5 +209,6 @@ class GroupItemOptions {
   final GroupItemSwitchOptions? switchOptions;
   final GroupItemPushOptions? pushOptions;
   final GroupItemTimerIntervalPickerOptions? timerIntervalPickerOptions;
+  final GroupItemDateTimePeriodPickerOptions? dateTimePeriodPickerOptions;
   final GroupItemStringPickerOptions? stringPickerOptions;
 }

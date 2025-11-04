@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69FD73BF963FB6BF7B39292D /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4314EECE8C2ED72854B791D5 /* Pods_Runner.framework */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		CE057ABC2C4FAB2C005C70FE /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = CE057ABB2C4FAB2C005C70FE /* Swifter */; };
+		CE3285D72E573822002DA324 /* VpnServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3285D62E573822002DA324 /* VpnServiceHandler.swift */; };
 		CE4C01682CA654A700BD22EC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C01672CA654A700BD22EC /* String+Extension.swift */; };
 		CE5637312C941E1D004B58DE /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE5637302C941E1D004B58DE /* KeychainSwift */; };
 		CE85581F2AF49C5E0024DA42 /* Libbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C5332AF1F21D005C5724 /* Libbox.xcframework */; };
 		CE8558212AF49F430024DA42 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE0DC2E2AF49B5F00C4E874 /* LibVpnCore.framework */; };
 		CE8558262AF4A0450024DA42 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE65C53B2AF1FF75005C5724 /* libresolv.tbd */; };
-		CE9A1DAC2D12880200F8F537 /* VpnServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */; };
 		CE9F8D092CB4D0DB0004522A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9F8D0B2CB4D0DB0004522A /* Localizable.strings */; };
 		CECF3FAA2E1A2CFF0029BC7E /* service_core.json in Resources */ = {isa = PBXBuildFile; fileRef = CECF3FA92E1A2CFF0029BC7E /* service_core.json */; };
 		CED44C8B29F7AE560051B3B6 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */; };
@@ -102,17 +103,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05A5796E104034DEFA82ED35 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		28A2B3D2AD982769903FFA70 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		4314EECE8C2ED72854B791D5 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5039A604A86A929F275345CF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		978742AF119F1355DF6024B1 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Karing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A808D3E2D94D9D1DEE8D2124 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		CE3285D62E573822002DA324 /* VpnServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VpnServiceHandler.swift; path = ../ios/karingWidget/VpnServiceHandler.swift; sourceTree = SOURCE_ROOT; };
 		CE4B133229ED20B8006E81E6 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		CE4C01672CA654A700BD22EC /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		CE65C5332AF1F21D005C5724 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
 		CE65C53B2AF1FF75005C5724 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		CE8558272AF4A2410024DA42 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
-		CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VpnServiceHandler.swift; path = ../../bind/apple/LibVpnCore/VpnServiceHandler.swift; sourceTree = "<group>"; };
 		CE9F8D0A2CB4D0DB0004522A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE9F8D0C2CB4D0DD0004522A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CECF3FA92E1A2CFF0029BC7E /* service_core.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = service_core.json; sourceTree = "<group>"; };
@@ -129,7 +132,6 @@
 		CEEC1A1D2B1430B20076CA70 /* ExtensionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionProvider.swift; sourceTree = "<group>"; };
 		CEEC1A1E2B1430B20076CA70 /* LibVpnCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibVpnCore.swift; sourceTree = "<group>"; };
 		CEF736E32C4DF35F005918A1 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		E8FC4A59790E5171B66CA0C2 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				CEF736EB2C4DF3ED005918A1 /* QRCode in Frameworks */,
 				CE057ABC2C4FAB2C005C70FE /* Swifter in Frameworks */,
 				CEF736F12C4DF3ED005918A1 /* QRCodeStatic in Frameworks */,
+				69FD73BF963FB6BF7B39292D /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +175,7 @@
 				CE65C53B2AF1FF75005C5724 /* libresolv.tbd */,
 				CE65C5332AF1F21D005C5724 /* Libbox.xcframework */,
 				CEE7505E29EE95B8003FAECA /* NetworkExtension.framework */,
+				4314EECE8C2ED72854B791D5 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -186,7 +190,7 @@
 				CEE0DC2F2AF49B5F00C4E874 /* LibVpnCore */,
 				97C146EF1CF9000F007C117D /* Products */,
 				26D481E5F3BF75FC5947265A /* Frameworks */,
-				EEC3920188611F0DA2B3EEFE /* Pods */,
+				CD74BDFCDE277B8A437393A2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,8 +207,8 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				CE3285D62E573822002DA324 /* VpnServiceHandler.swift */,
 				CECF3FA92E1A2CFF0029BC7E /* service_core.json */,
-				CE9A1DAB2D12880200F8F537 /* VpnServiceHandler.swift */,
 				CE4C01672CA654A700BD22EC /* String+Extension.swift */,
 				CEF736E32C4DF35F005918A1 /* DashboardView.swift */,
 				CED776BB2C4A2F61009CCC4B /* ApplicationDelegate.swift */,
@@ -214,6 +218,16 @@
 				97C147021CF9000F007C117D /* Info.plist */,
 			);
 			path = Runner;
+			sourceTree = "<group>";
+		};
+		CD74BDFCDE277B8A437393A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5039A604A86A929F275345CF /* Pods-Runner.debug.xcconfig */,
+				978742AF119F1355DF6024B1 /* Pods-Runner.release.xcconfig */,
+				28A2B3D2AD982769903FFA70 /* Pods-Runner.profile.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		CED44C8C29F7AE560051B3B6 /* karingService */ = {
@@ -236,16 +250,6 @@
 			);
 			name = LibVpnCore;
 			path = ../bind/apple/LibVpnCore;
-			sourceTree = "<group>";
-		};
-		EEC3920188611F0DA2B3EEFE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E8FC4A59790E5171B66CA0C2 /* Pods-Runner.debug.xcconfig */,
-				A808D3E2D94D9D1DEE8D2124 /* Pods-Runner.release.xcconfig */,
-				05A5796E104034DEFA82ED35 /* Pods-Runner.profile.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,7 +475,7 @@
 				CED776BA2C4A2F53009CCC4B /* Application.swift in Sources */,
 				CE4C01682CA654A700BD22EC /* String+Extension.swift in Sources */,
 				CEF736E42C4DF35F005918A1 /* DashboardView.swift in Sources */,
-				CE9A1DAC2D12880200F8F537 /* VpnServiceHandler.swift in Sources */,
+				CE3285D72E573822002DA324 /* VpnServiceHandler.swift in Sources */,
 				CED776BC2C4A2F62009CCC4B /* ApplicationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,7 +587,7 @@
 		};
 		249021D4217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05A5796E104034DEFA82ED35 /* Pods-Runner.profile.xcconfig */;
+			baseConfigurationReference = 28A2B3D2AD982769903FFA70 /* Pods-Runner.profile.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
@@ -591,7 +595,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 821;
+				CURRENT_PROJECT_VERSION = 882;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -606,7 +610,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.5;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -742,7 +746,7 @@
 		};
 		97C147061CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8FC4A59790E5171B66CA0C2 /* Pods-Runner.debug.xcconfig */;
+			baseConfigurationReference = 5039A604A86A929F275345CF /* Pods-Runner.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
@@ -750,7 +754,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 821;
+				CURRENT_PROJECT_VERSION = 882;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -765,7 +769,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.5;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -787,7 +791,7 @@
 		};
 		97C147071CF9000F007C117D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A808D3E2D94D9D1DEE8D2124 /* Pods-Runner.release.xcconfig */;
+			baseConfigurationReference = 978742AF119F1355DF6024B1 /* Pods-Runner.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
@@ -795,7 +799,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 821;
+				CURRENT_PROJECT_VERSION = 882;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -810,7 +814,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.5;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -842,7 +846,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 882;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -857,7 +861,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0.15;
+				MARKETING_VERSION = 1.2.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
@@ -871,7 +875,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 17.2;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 			};
 			name = Debug;
 		};
@@ -888,7 +892,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 882;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -903,7 +907,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0.15;
+				MARKETING_VERSION = 1.2.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -913,7 +917,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 17.2;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 			};
 			name = Release;
 		};
@@ -930,7 +934,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 882;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -945,7 +949,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0.15;
+				MARKETING_VERSION = 1.2.5;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -955,7 +959,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 17.2;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
 			};
 			name = Profile;
 		};

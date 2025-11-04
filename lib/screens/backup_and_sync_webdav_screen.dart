@@ -138,8 +138,7 @@ class _BackupAndSyncWebdavScreenState
                                     width: 26,
                                     height: 26,
                                     child: RepaintBoundary(
-                                      child: CircularProgressIndicator(
-                                          strokeWidth: 2),
+                                      child: CircularProgressIndicator(),
                                     ),
                                   ),
                                   SizedBox(
@@ -203,7 +202,7 @@ class _BackupAndSyncWebdavScreenState
               width: 26,
               height: 26,
               child: RepaintBoundary(
-                child: CircularProgressIndicator(strokeWidth: 2),
+                child: CircularProgressIndicator(),
               ),
             )
           ]);
@@ -542,12 +541,7 @@ class _BackupAndSyncWebdavScreenState
     if (_webdavClient == null) {
       return;
     }
-    final tcontext = Translations.of(context);
-    bool? ok = await DialogUtils.showConfirmDialog(
-        context, tcontext.SettingsScreen.rewriteConfirm);
-    if (ok != true) {
-      return;
-    }
+
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
     var error = await WebdavUtils.download(_webdavClient!,
@@ -560,7 +554,7 @@ class _BackupAndSyncWebdavScreenState
           showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
+    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: true);
     await FileUtils.deletePath(filePath);
   }
 

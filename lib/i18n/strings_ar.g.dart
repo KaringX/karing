@@ -91,6 +91,7 @@ class TranslationsAr implements Translations {
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
 	@override String get noNetworkConnect => 'لا يوجد اتصال بالإنترنت';
+	@override String get sudoPassword => 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 	@override String get turnOffNetworkBeforeInstall => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
@@ -98,6 +99,7 @@ class TranslationsAr implements Translations {
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
+	@override String get maybeAdsByReward => 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.';
 	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -288,7 +290,6 @@ class _TranslationsNetConnectionsFilterScreenAr implements TranslationsNetConnec
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'تصفية الاتصالات';
 	@override String get hostIp => 'المجال/IP';
 	@override String get app => 'برنامج';
 	@override String get rule => 'قاعدة';
@@ -302,7 +303,6 @@ class _TranslationsNetConnectionsScreenAr implements TranslationsNetConnectionsS
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'روابط';
 	@override String get copyAsCSV => 'نسخ إلى تنسيق CSV';
 	@override String get selectType => 'حدد نوع التحويل';
 }
@@ -377,18 +377,18 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get tunAppendHttpProxyTips => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'المجالات المسموح لها بتجاوز وكيل HTTP';
 	@override String get dnsEnableRule => 'تمكين قواعد تحويل DNS';
-	@override String get dnsEnableProxyResolveMode => '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
-	@override String get dnsEnableClientSubnet => '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
+	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] قناة الدقة';
+	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] تمكين ECS';
 	@override String get dnsTestDomain => 'مجال الاختبار';
 	@override String get dnsTestDomainInvalid => 'مجال غير صالح';
 	@override String get dnsTypeOutbound => 'مخدم بروكسي';
-	@override String get dnsTypeDirect => 'سير مستقيم';
-	@override String get dnsTypeProxy => 'حركة الوكيل';
+	@override String get dnsTypeDirect => _root.meta.trafficDirect;
+	@override String get dnsTypeProxy => _root.meta.trafficProxy;
 	@override String get dnsTypeResolver => 'خادم DNS';
 	@override String get dnsEnableRuleTips => 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل';
 	@override String get dnsEnableFakeIpTips => 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]';
 	@override String get dnsTypeOutboundTips => 'دقة اسم المجال لخادم الوكيل';
-	@override String get dnsTypeDirectTips => 'حل اسم المجال لـ [${_root.SettingsScreen.dnsTypeDirect}]';
+	@override String get dnsTypeDirectTips => 'حل اسم المجال لـ [${_root.meta.trafficDirect}]';
 	@override String get dnsTypeProxyTips => 'حل اسم المجال لحركة المرور الوكيل';
 	@override String get dnsTypeResolverTips => 'دقة اسم المجال لخادم DNS الآخر';
 	@override String get dnsAutoSetServer => 'إعداد الخادم تلقائيا';
@@ -430,9 +430,14 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
 	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 	@override String get disconnectWhenQuit => 'افصل عندما يخرج التطبيق';
+	@override String get excludeFromRecent => 'إخفاء من المهام الأخيرة';
+	@override String get wakeLock => 'قفل الاستيقاظ';
+	@override String get hideVpn => 'إخفاء أيقونة VPN';
+	@override String get hideVpnTips => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
 	@override String get allowBypass => 'السماح للتطبيقات بتجاوز VPN';
 	@override String get importSuccess => 'استيراد نجاح ';
 	@override String get rewriteConfirm => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
+	@override String get mergePerapp => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'مشاركة الشبكة';
 	@override String get frontProxy => 'الوكيل الأمامي/السلسلة';
 	@override String frontProxyTips({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
@@ -440,8 +445,10 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
+	@override String get loopbackAddress => 'Loopback Address';
 	@override String get enableCluster => 'تمكين مجموعة الوكيل الجوارب/HTTP';
 	@override String get clusterAllowOtherHostsConnect => 'السماح للآخرين بالاتصال بـ CLUSTER';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -572,10 +579,12 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get convert => 'يتحول';
 	@override String get check => 'يفحص';
 	@override String get detect => 'يكشف';
+	@override String get cache => 'مخبأ';
 	@override String get days => 'أيام';
 	@override String get hours => 'ساعات';
 	@override String get minutes => 'دقائق';
 	@override String get seconds => 'ثانية';
+	@override String get dateTimePeriod => 'الفترة الزمنية';
 	@override String get protocol => 'بروتوكول';
 	@override String get search => 'يبحث';
 	@override String get custom => 'مخصص';
@@ -603,6 +612,9 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get updateInterval => 'الفاصل الزمني للتحديث';
 	@override String get updateInterval5mTips => 'الحد الأدنى: 5 م';
 	@override String updateFailed({required Object p}) => 'فشل التحديث:${p}';
+	@override String get samplingUnit => 'وحدة زمن أخذ العينات';
+	@override String get queryResultCount => 'عدد نتائج الاستعلام';
+	@override String queryLimit({required Object p}) => 'عرض ما يصل إلى ${p} من البيانات';
 	@override String get none => 'لا أحد';
 	@override String get start => 'يبدأ';
 	@override String get pause => 'يوقف';
@@ -642,10 +654,22 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get processPath => 'مسار العملية';
 	@override String get processDir => 'دليل العمليات';
 	@override String get systemProxy => 'وكيل النظام';
+	@override String get statistics => 'إحصائيات';
+	@override String get statisticsAndAnalysis => 'الإحصاء والتحليل';
+	@override String get statisticsPrivacyDesensitize => 'إزالة حساسية الخصوصية';
+	@override String get statisticsPrivacyDesensitizeTips => 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية';
+	@override String get records => 'سِجِلّ';
+	@override String get requestRecords => 'طلب السجلات';
 	@override String get netInterfaces => 'واجهات صافية';
 	@override String get netSpeed => 'سرعة';
+	@override String get trafficTrendChart => 'مخطط اتجاهات حركة المرور';
+	@override String get trafficDistributionChart => 'خريطة توزيع حركة المرور';
+	@override String get connectionChart => 'مخطط اتجاهات الاتصال';
+	@override String get memoryChart => 'مخطط اتجاهات الذاكرة';
+	@override String get traffic => 'تدفق';
 	@override String get trafficTotal => 'إجمالي حركة المرور';
 	@override String get trafficProxy => 'وكيل حركة المرور';
+	@override String get trafficDirect => 'سير مستقيم';
 	@override String get website => 'موقع إلكتروني';
 	@override String get memory => 'ذاكرة';
 	@override String get outboundMode => 'الوضع الصادر';
@@ -663,6 +687,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get screenshot => 'لقطة شاشة';
 	@override String get backupAndSync => 'النسخ الاحتياطي والمزامنة';
 	@override String get autoBackup => 'النسخ الاحتياطي التلقائي';
+	@override String get noProfileGotAutoBackup => 'إذا فقدت بيانات مثل [${_root.meta.myProfiles}]، فيمكنك استعادتها من [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] أو مصادر النسخ الاحتياطي الأخرى (مثل iCloud أو Webdav، وما إلى ذلك).';
 	@override String get autoBackupAddProfile => 'بعد إضافة التكوين';
 	@override String get autoBackupRemoveProfile => 'بعد حذف التكوين';
 	@override String get currentProfile => 'التكوين الحالي';
@@ -684,8 +709,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get novice => 'وضع المبتدئ';
 	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-	@override String get requestNeedsUserApproval => 'يرجى [السماح] لكارينج بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت';
-	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز karingServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
+	@override String get requestNeedsUserApproval => '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]';
+	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get tvMode => 'وضع التلفزيون';
 	@override String get recommended => 'يوصي';
 	@override String innerError({required Object p}) => 'خطأ داخلي: ${p}';
@@ -949,12 +974,10 @@ extension on TranslationsAr {
 			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقاعدة التحويل:[${p2}]\nمخدم بروكسي:[${p3}]';
 			case 'NetCheckScreen.hostConnectionOk': return 'نجح الاتصال';
 			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'فشل الاتصال:[${p}]';
-			case 'NetConnectionsFilterScreen.title': return 'تصفية الاتصالات';
 			case 'NetConnectionsFilterScreen.hostIp': return 'المجال/IP';
 			case 'NetConnectionsFilterScreen.app': return 'برنامج';
 			case 'NetConnectionsFilterScreen.rule': return 'قاعدة';
 			case 'NetConnectionsFilterScreen.chain': return 'خارج';
-			case 'NetConnectionsScreen.title': return 'روابط';
 			case 'NetConnectionsScreen.copyAsCSV': return 'نسخ إلى تنسيق CSV';
 			case 'NetConnectionsScreen.selectType': return 'حدد نوع التحويل';
 			case 'PerAppAndroidScreen.title': return 'لكل وكيل تطبيق';
@@ -993,18 +1016,18 @@ extension on TranslationsAr {
 			case 'SettingsScreen.tunAppendHttpProxyTips': return 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
 			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'المجالات المسموح لها بتجاوز وكيل HTTP';
 			case 'SettingsScreen.dnsEnableRule': return 'تمكين قواعد تحويل DNS';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.SettingsScreen.dnsTypeProxy}] قناة الدقة';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.SettingsScreen.dnsTypeDirect}] تمكين ECS';
+			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] قناة الدقة';
+			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] تمكين ECS';
 			case 'SettingsScreen.dnsTestDomain': return 'مجال الاختبار';
 			case 'SettingsScreen.dnsTestDomainInvalid': return 'مجال غير صالح';
 			case 'SettingsScreen.dnsTypeOutbound': return 'مخدم بروكسي';
-			case 'SettingsScreen.dnsTypeDirect': return 'سير مستقيم';
-			case 'SettingsScreen.dnsTypeProxy': return 'حركة الوكيل';
+			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
+			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
 			case 'SettingsScreen.dnsTypeResolver': return 'خادم DNS';
 			case 'SettingsScreen.dnsEnableRuleTips': return 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل';
 			case 'SettingsScreen.dnsEnableFakeIpTips': return 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]';
 			case 'SettingsScreen.dnsTypeOutboundTips': return 'دقة اسم المجال لخادم الوكيل';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'حل اسم المجال لـ [${_root.SettingsScreen.dnsTypeDirect}]';
+			case 'SettingsScreen.dnsTypeDirectTips': return 'حل اسم المجال لـ [${_root.meta.trafficDirect}]';
 			case 'SettingsScreen.dnsTypeProxyTips': return 'حل اسم المجال لحركة المرور الوكيل';
 			case 'SettingsScreen.dnsTypeResolverTips': return 'دقة اسم المجال لخادم DNS الآخر';
 			case 'SettingsScreen.dnsAutoSetServer': return 'إعداد الخادم تلقائيا';
@@ -1046,9 +1069,14 @@ extension on TranslationsAr {
 			case 'SettingsScreen.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
 			case 'SettingsScreen.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 			case 'SettingsScreen.disconnectWhenQuit': return 'افصل عندما يخرج التطبيق';
+			case 'SettingsScreen.excludeFromRecent': return 'إخفاء من المهام الأخيرة';
+			case 'SettingsScreen.wakeLock': return 'قفل الاستيقاظ';
+			case 'SettingsScreen.hideVpn': return 'إخفاء أيقونة VPN';
+			case 'SettingsScreen.hideVpnTips': return 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
 			case 'SettingsScreen.allowBypass': return 'السماح للتطبيقات بتجاوز VPN';
 			case 'SettingsScreen.importSuccess': return 'استيراد نجاح ';
 			case 'SettingsScreen.rewriteConfirm': return 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
+			case 'SettingsScreen.mergePerapp': return 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]';
 			case 'SettingsScreen.networkShare': return 'مشاركة الشبكة';
 			case 'SettingsScreen.frontProxy': return 'الوكيل الأمامي/السلسلة';
 			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
@@ -1056,8 +1084,10 @@ extension on TranslationsAr {
 			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
 			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
+			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
 			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
 			case 'SettingsScreen.tunStrictRouteTips': return 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
+			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
 			case 'SettingsScreen.enableCluster': return 'تمكين مجموعة الوكيل الجوارب/HTTP';
 			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'السماح للآخرين بالاتصال بـ CLUSTER';
 			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -1144,10 +1174,12 @@ extension on TranslationsAr {
 			case 'meta.convert': return 'يتحول';
 			case 'meta.check': return 'يفحص';
 			case 'meta.detect': return 'يكشف';
+			case 'meta.cache': return 'مخبأ';
 			case 'meta.days': return 'أيام';
 			case 'meta.hours': return 'ساعات';
 			case 'meta.minutes': return 'دقائق';
 			case 'meta.seconds': return 'ثانية';
+			case 'meta.dateTimePeriod': return 'الفترة الزمنية';
 			case 'meta.protocol': return 'بروتوكول';
 			case 'meta.search': return 'يبحث';
 			case 'meta.custom': return 'مخصص';
@@ -1175,6 +1207,9 @@ extension on TranslationsAr {
 			case 'meta.updateInterval': return 'الفاصل الزمني للتحديث';
 			case 'meta.updateInterval5mTips': return 'الحد الأدنى: 5 م';
 			case 'meta.updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
+			case 'meta.samplingUnit': return 'وحدة زمن أخذ العينات';
+			case 'meta.queryResultCount': return 'عدد نتائج الاستعلام';
+			case 'meta.queryLimit': return ({required Object p}) => 'عرض ما يصل إلى ${p} من البيانات';
 			case 'meta.none': return 'لا أحد';
 			case 'meta.start': return 'يبدأ';
 			case 'meta.pause': return 'يوقف';
@@ -1214,10 +1249,22 @@ extension on TranslationsAr {
 			case 'meta.processPath': return 'مسار العملية';
 			case 'meta.processDir': return 'دليل العمليات';
 			case 'meta.systemProxy': return 'وكيل النظام';
+			case 'meta.statistics': return 'إحصائيات';
+			case 'meta.statisticsAndAnalysis': return 'الإحصاء والتحليل';
+			case 'meta.statisticsPrivacyDesensitize': return 'إزالة حساسية الخصوصية';
+			case 'meta.statisticsPrivacyDesensitizeTips': return 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية';
+			case 'meta.records': return 'سِجِلّ';
+			case 'meta.requestRecords': return 'طلب السجلات';
 			case 'meta.netInterfaces': return 'واجهات صافية';
 			case 'meta.netSpeed': return 'سرعة';
+			case 'meta.trafficTrendChart': return 'مخطط اتجاهات حركة المرور';
+			case 'meta.trafficDistributionChart': return 'خريطة توزيع حركة المرور';
+			case 'meta.connectionChart': return 'مخطط اتجاهات الاتصال';
+			case 'meta.memoryChart': return 'مخطط اتجاهات الذاكرة';
+			case 'meta.traffic': return 'تدفق';
 			case 'meta.trafficTotal': return 'إجمالي حركة المرور';
 			case 'meta.trafficProxy': return 'وكيل حركة المرور';
+			case 'meta.trafficDirect': return 'سير مستقيم';
 			case 'meta.website': return 'موقع إلكتروني';
 			case 'meta.memory': return 'ذاكرة';
 			case 'meta.outboundMode': return 'الوضع الصادر';
@@ -1235,6 +1282,7 @@ extension on TranslationsAr {
 			case 'meta.screenshot': return 'لقطة شاشة';
 			case 'meta.backupAndSync': return 'النسخ الاحتياطي والمزامنة';
 			case 'meta.autoBackup': return 'النسخ الاحتياطي التلقائي';
+			case 'meta.noProfileGotAutoBackup': return 'إذا فقدت بيانات مثل [${_root.meta.myProfiles}]، فيمكنك استعادتها من [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] أو مصادر النسخ الاحتياطي الأخرى (مثل iCloud أو Webdav، وما إلى ذلك).';
 			case 'meta.autoBackupAddProfile': return 'بعد إضافة التكوين';
 			case 'meta.autoBackupRemoveProfile': return 'بعد حذف التكوين';
 			case 'meta.currentProfile': return 'التكوين الحالي';
@@ -1256,8 +1304,8 @@ extension on TranslationsAr {
 			case 'meta.novice': return 'وضع المبتدئ';
 			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return 'يرجى [السماح] لكارينج بتثبيت ملحقات النظام في [إعدادات النظام] - [الخصوصية والأمان]، وإعادة الاتصال بعد اكتمال التثبيت';
-			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز karingServiceSE را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
+			case 'meta.requestNeedsUserApproval': return '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]';
+			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 			case 'meta.tvMode': return 'وضع التلفزيون';
 			case 'meta.recommended': return 'يوصي';
 			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
@@ -1382,6 +1430,7 @@ extension on TranslationsAr {
 			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
 			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
 			case 'noNetworkConnect': return 'لا يوجد اتصال بالإنترنت';
+			case 'sudoPassword': return 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 			case 'turnOffNetworkBeforeInstall': return 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
@@ -1389,6 +1438,7 @@ extension on TranslationsAr {
 			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
 			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
 			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
+			case 'maybeAdsByReward': return 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.';
 			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 			case 'locales.en': return 'English';
 			case 'locales.zh-CN': return '简体中文';

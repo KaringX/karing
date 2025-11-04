@@ -49,7 +49,7 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "Karing");
   }
 
-  gtk_window_set_default_size(window, 400, 700);
+  gtk_window_set_default_size(window, 400, 740);
   gtk_widget_show(GTK_WIDGET(window));
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
@@ -60,8 +60,6 @@ static void my_application_activate(GApplication* application) {
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
-  // Flutter 3.24 breaks the gtk_widget_realize solution: https://github.com/leanflutter/window_manager/issues/179#issuecomment-2299534856
-  gtk_widget_hide(GTK_WIDGET(window));
 
   gtk_widget_grab_focus(GTK_WIDGET(view));
 }

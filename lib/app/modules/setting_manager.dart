@@ -2,13 +2,14 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
 import 'package:country/country.dart' as country;
 import 'package:intl/intl.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/runtime/type_checker.dart';
 import 'package:karing/app/utils/analytics_utils.dart';
+import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
@@ -147,10 +148,48 @@ class SettingConfigItemAutobackup {
   }
 }
 
+class SettingConfigItemStatistics {
+  static int kMaxCacheDays = 30;
+  bool enable = false;
+  bool privacyDesensitize = true;
+  int cacheDays = 7;
+
+  Map<String, dynamic> toJson() => {
+        'enable': enable,
+        'privacy_desensitize': privacyDesensitize,
+        'cache_days': cacheDays,
+      };
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+
+    enable = map["enable"] ?? false;
+    privacyDesensitize = map["privacy_desensitize"] ?? true;
+    cacheDays = map["cache_days"] ?? 7;
+    if (cacheDays < 1) {
+      cacheDays = 1;
+    }
+    if (cacheDays > kMaxCacheDays) {
+      cacheDays = kMaxCacheDays;
+    }
+  }
+
+  static SettingConfigItemStatistics fromJsonStatic(Map<String, dynamic>? map) {
+    SettingConfigItemStatistics config = SettingConfigItemStatistics();
+    config.fromJson(map);
+    return config;
+  }
+}
+
 class SettingConfigItemUI {
   String theme = "light";
   bool autoOrientation = maybeTv();
   bool hideDockIcon = false; //macos
+  bool excludeFromRecent = false; // android
+  bool wakeLock = false; //android
+  bool hideVpn =
+      false; //ios https://github.com/seniorbruce721/surge/blob/0a53e57f23445a3e6f4f59b10a4c83eae4378e38/%E7%A5%9E%E6%9C%BApro#L52   Wi-Fi状态下正常生效，数据连接模式下需禁用IPV6 VIF设置才可生效?
   bool disableFontScaler = false;
   bool hideAfterLaunch = false;
   String netCheckDomain = "google.com";
@@ -161,6 +200,9 @@ class SettingConfigItemUI {
         'theme': theme,
         'auto_orientation': autoOrientation,
         'hide_dock_icon': hideDockIcon,
+        'exclude_from_recent': excludeFromRecent,
+        'wake_lock': wakeLock,
+        'hide_vpn': hideVpn,
         'disable_font_scaler': disableFontScaler,
         'hide_after_launch': hideAfterLaunch,
         'net_check_domain': netCheckDomain,
@@ -174,6 +216,9 @@ class SettingConfigItemUI {
     theme = map["theme"] ?? "";
     autoOrientation = map["auto_orientation"] ?? maybeTv();
     hideDockIcon = map["hide_dock_icon"] ?? false;
+    excludeFromRecent = map["exclude_from_recent"] ?? false;
+    wakeLock = map["wake_lock"] ?? false;
+    hideVpn = map["hide_vpn"] ?? false;
     disableFontScaler = map["disable_font_scaler"] ?? false;
     hideAfterLaunch = map["hide_after_launch"] ?? false;
     netCheckDomain = map["net_check_domain"] ?? "google.com";
@@ -462,12 +507,14 @@ class SettingConfigItemTUN {
   String i4Address = SingboxInboundTunOptions.i4Address;
   int mtu = 4064;
   bool autoRoute = true;
+  bool autoRedirect = false;
   bool strictRoute = false;
   bool allowBypass = false; //android
   bool appendHttpProxy =
       getAppendHttp(); //android, ios有些app会直连代理绕过tun软路由,这里开启代理
   List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
+  String loopbackAddress = "";
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -477,11 +524,13 @@ class SettingConfigItemTUN {
       'i4_address': i4Address,
       'mtu': mtu,
       'auto_route': autoRoute,
+      'auto_redirect': autoRedirect,
       'strict_route': strictRoute,
       'allow_bypass': allowBypass,
       'append_http_proxy': appendHttpProxy,
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
       'hijack_dns': hijackDns,
+      'loopback_address': loopbackAddress,
     };
     return ret;
   }
@@ -514,6 +563,7 @@ class SettingConfigItemTUN {
       mtu = 4064;
     }
     autoRoute = map["auto_route"] ?? true;
+    autoRedirect = map["auto_redirect"] ?? false;
     strictRoute = map["strict_route"] ?? false;
     allowBypass = map["allow_bypass"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
@@ -522,6 +572,11 @@ class SettingConfigItemTUN {
         true,
         ProxyBypassDoaminsDefault.toList())!;
     hijackDns = map["hijack_dns"] ?? true;
+    loopbackAddress = map["loopback_address"] ?? "";
+    if (!NetworkUtils.isIpv4(loopbackAddress) &&
+        !NetworkUtils.isIpv6(loopbackAddress)) {
+      loopbackAddress = "";
+    }
   }
 
   static SettingConfigItemTUN fromJsonStatic(Map<String, dynamic>? map) {
@@ -694,8 +749,8 @@ class SettingConfigItemDNS {
     enableClientSubnet = map["enable_client_subnet"] ?? true;
     enableInboundDomainResolve = map["enable_inbound_domain_resolve"] ?? false;
     enableStaticIP = map["enable_static_ip"] ?? false;
-    String? _proxyResolveMode = map["proxy_resolve_mode"];
-    if (_proxyResolveMode == null) {
+    String? proxyResolveMode_ = map["proxy_resolve_mode"];
+    if (proxyResolveMode_ == null) {
       do {
         bool enableFakeIp = map["enable_fake_ip"] ?? false;
         if (enableFakeIp) {
@@ -710,13 +765,13 @@ class SettingConfigItemDNS {
           break;
         }
       } while (false);
-    } else if (_proxyResolveMode ==
+    } else if (proxyResolveMode_ ==
         SettingConfigItemDNSProxyResolveMode.proxy.name) {
       proxyResolveMode = SettingConfigItemDNSProxyResolveMode.proxy;
-    } else if (_proxyResolveMode ==
+    } else if (proxyResolveMode_ ==
         SettingConfigItemDNSProxyResolveMode.direct.name) {
       proxyResolveMode = SettingConfigItemDNSProxyResolveMode.direct;
-    } else if (_proxyResolveMode ==
+    } else if (proxyResolveMode_ ==
         SettingConfigItemDNSProxyResolveMode.fakeip.name) {
       proxyResolveMode = SettingConfigItemDNSProxyResolveMode.fakeip;
     } else {
@@ -1138,7 +1193,7 @@ class SettingConfigItemProxy {
   }
 
   static bool getAutoSetSystemProxyDefault() {
-    if (Platform.isWindows) {
+    if (Platform.isWindows || Platform.isLinux) {
       return true;
     }
     return false;
@@ -1161,6 +1216,7 @@ class SettingConfigItemRuleSets {
   bool useRemoteGeoSite = false;
   bool useRemoteGeoIp = false;
   bool useRemoteAcl = false;
+  Duration updateInterval = const Duration(hours: 24);
   bool disableCustomDiversionGroup = false;
   bool disableISPDiversionGroup = false;
 
@@ -1174,6 +1230,7 @@ class SettingConfigItemRuleSets {
       'use_remote_geosite': useRemoteGeoSite,
       'use_remote_geoip': useRemoteGeoIp,
       'use_remote_acl': useRemoteAcl,
+      'update_interval': updateInterval.inSeconds,
       'disable_custom_diversion_group': disableCustomDiversionGroup,
       'disable_isp_diversion_group': disableISPDiversionGroup,
     };
@@ -1194,6 +1251,13 @@ class SettingConfigItemRuleSets {
     useRemoteGeoSite = map["use_remote_geosite"] ?? false;
     useRemoteGeoIp = map["use_remote_geoip"] ?? false;
     useRemoteAcl = map["use_remote_acl"] ?? false;
+    if (map["update_interval"] != null) {
+      updateInterval = Duration(seconds: map["update_interval"]);
+      if (updateInterval.inHours < 1) {
+        updateInterval = const Duration(hours: 1);
+      }
+    }
+
     disableCustomDiversionGroup =
         map["disable_custom_diversion_group"] ?? false;
     disableISPDiversionGroup = map["disable_isp_diversion_group"] ?? false;
@@ -1263,6 +1327,7 @@ class SettingConfigItemPerapp {
     if (_listAndroid.isEmpty) {
       _listAndroid = ConvertUtils.getListStringFromDynamic(
           map["list"] ?? map["perapp"], true, [])!;
+      _listAndroid.removeWhere((element) => element == AppUtils.getId());
     }
 
     hideSystemApp = map["hide_system_app"] ?? true;
@@ -1432,6 +1497,7 @@ class SettingConfig {
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   SettingConfigItemAutobackup autoBackup = SettingConfigItemAutobackup();
   SettingConfigItemAds ads = SettingConfigItemAds();
+  SettingConfigItemStatistics statistics = SettingConfigItemStatistics();
 
   bool autoConnectAfterLaunch = true;
 
@@ -1475,6 +1541,7 @@ class SettingConfig {
         'webdav': webdav,
         'auto_backup': autoBackup,
         'ads': ads,
+        'statistics': statistics,
         'auto_connect_after_launch': autoConnectAfterLaunch,
         'ip_strategy': ipStrategy.name,
         'proxy_all': proxyAll,
@@ -1535,6 +1602,7 @@ class SettingConfig {
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     autoBackup = SettingConfigItemAutobackup.fromJsonStatic(map["auto_backup"]);
     ads = SettingConfigItemAds.fromJsonStatic(map["ads"]);
+    statistics = SettingConfigItemStatistics.fromJsonStatic(map["statistics"]);
 
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? true;
 
@@ -1558,14 +1626,14 @@ class SettingConfig {
     }
 
     proxyAll = map["proxy_all"] ?? false;
-    var _frontProxy = map["front_proxy"];
-    if (_frontProxy is String) {
-      if (_frontProxy.isNotEmpty) {
-        frontProxy.add(_frontProxy);
+    var frontProxy_ = map["front_proxy"];
+    if (frontProxy_ is String) {
+      if (frontProxy_.isNotEmpty) {
+        frontProxy.add(frontProxy_);
       }
     } else {
       frontProxy =
-          ConvertUtils.getListStringFromDynamic(_frontProxy, true, [])!;
+          ConvertUtils.getListStringFromDynamic(frontProxy_, true, [])!;
     }
 
     privateDirect = map["private_direct"] ?? true;
@@ -1680,8 +1748,8 @@ class SettingManager {
       }
     } else {
       String planguageTag = [
-        PlatformDispatcher.instance.locale.languageCode,
-        PlatformDispatcher.instance.locale.countryCode ?? ""
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode,
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {
@@ -1711,7 +1779,7 @@ class SettingManager {
     if (_config.regionCode.isEmpty) {
       save = true;
       _config.regionCode =
-          PlatformDispatcher.instance.locale.countryCode ?? "US";
+          WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? "US";
     }
     AnalyticsUtils.setEventType(_config.disableUAReport
         ? analyticsEventTypeNoUA
@@ -1786,7 +1854,7 @@ class SettingManager {
   }
 
   static void reset() {
-    _config = SettingConfig();
+    _config.reset();
   }
 
   static void setDirty(bool dirty) {

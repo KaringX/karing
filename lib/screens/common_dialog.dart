@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/utils/file_utils.dart';
+import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -54,9 +56,10 @@ class CommonDialog {
       if (Platform.isWindows) {
         WindowsTunFixUtils.getDriverList();
       }
-    } /*else if (errMessage.contains("bbolt")) {
+    } else if (errMessage.contains("github.com/sagernet/bbolt") &&
+        errMessage.contains("invalid page type")) {
       await FileUtils.deletePath(await PathUtils.cacheDBFilePath());
-    }*/
+    }
     if (disableTags.isNotEmpty) {
       List<ProxyConfig> disableServers = [];
       for (var group in ServerManager.getConfig().items) {

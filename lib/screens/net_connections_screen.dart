@@ -13,6 +13,7 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -274,7 +275,7 @@ class NetConnectionStateIn {
     }
     List<String> parts = process.split("/");
     for (var part in parts) {
-      if (part.endsWith(".app")) {
+      if (part.toLowerCase().endsWith(".app")) {
         return part.replaceAll(".app", "");
       }
     }
@@ -381,7 +382,12 @@ class _NetConnectionsScreenState
     if (packageName == null) {
       return "";
     }
-    return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
+    try {
+      return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
+    } catch (err, stacktrace) {
+      Log.w("getAppName exception: ${err.toString()}");
+      return "";
+    }
   }
 
   String getConnectionInStateKey(ConnectionIn connection) {
@@ -576,7 +582,7 @@ class _NetConnectionsScreenState
                         SizedBox(
                           width: windowSize.width - 50 * 2,
                           child: Text(
-                            tcontext.NetConnectionsScreen.title,
+                            tcontext.meta.connect,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -892,7 +898,7 @@ class _NetConnectionsScreenState
                             width: centerWidth - 5 - 40 - 10,
                             child: Text(
                               "${current.showHost}:${current.port}",
-                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 12,
                               ),
@@ -936,7 +942,6 @@ class _NetConnectionsScreenState
                             Text(
                               processName,
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                               style: const TextStyle(
                                 fontSize: 12,
                               ),
@@ -948,7 +953,6 @@ class _NetConnectionsScreenState
                             Text(
                               current.package,
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
                               style: const TextStyle(
                                 fontSize: 12,
                               ),
@@ -1045,7 +1049,6 @@ class _NetConnectionsScreenState
                               child: Text(
                                 current.showRule,
                                 overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
                                 ),
@@ -1060,7 +1063,6 @@ class _NetConnectionsScreenState
                               child: Text(
                                 current.showChain,
                                 overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
                                 style: const TextStyle(
                                   fontSize: 12,
                                 ),
@@ -1339,7 +1341,9 @@ class _NetConnectionsScreenState
     var statesList = _states.values.toList();
     NetConnectionFilter options = NetConnectionFilter();
     for (var s in statesList) {
-      options.networks.add(s.network);
+      if (s.network.isNotEmpty) {
+        options.networks.add(s.network);
+      }
       if (s.showHost.isNotEmpty) {
         options.hosts.add(s.showHost);
       }

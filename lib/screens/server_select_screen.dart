@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
-import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -115,7 +114,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   Timer? _timer;
   Timer? _updateLatencyByHistoryTimer;
   bool _rePaint = false;
-  TapDownDetails _tapDownDetails = TapDownDetails();
+  // TapDownDetails _tapDownDetails = TapDownDetails();
   @override
   void initState() {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
@@ -861,7 +860,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                             height: 26,
                             width: 26,
                             child: RepaintBoundary(
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              child: CircularProgressIndicator(),
                             ),
                           )
                         : const Icon(
@@ -886,7 +885,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                         height: 26,
                         width: 26,
                         child: RepaintBoundary(
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          child: CircularProgressIndicator(),
                         ),
                       ),
                       Positioned(
@@ -1149,7 +1148,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                   Navigator.pop(context, server);
                 },
           onTapDown: (details) {
-            _tapDownDetails = details;
+            // _tapDownDetails = details;
           },
           onLongPress: (widget.singleSelect == null ||
                   server.type == kOutboundTypeUrltest)

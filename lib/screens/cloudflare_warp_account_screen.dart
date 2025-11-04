@@ -10,7 +10,7 @@ import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/cloudflare_warp_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
-import 'package:karing/i18n/strings.g.dart';
+
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -56,7 +56,7 @@ class _CloudflareWarpAccountScreenState
 
   @override
   Widget build(BuildContext context) {
-    final tcontext = Translations.of(context);
+    //final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
 
@@ -109,8 +109,7 @@ class _CloudflareWarpAccountScreenState
                                     width: 26,
                                     height: 26,
                                     child: RepaintBoundary(
-                                      child: CircularProgressIndicator(
-                                          strokeWidth: 2),
+                                      child: CircularProgressIndicator(),
                                     ),
                                   ),
                                   SizedBox(
@@ -216,7 +215,7 @@ class _CloudflareWarpAccountScreenState
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
-    final tcontext = Translations.of(context);
+    //final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
 
     List<GroupItem> groupOptions = [];

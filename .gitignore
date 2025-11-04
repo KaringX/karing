@@ -55,9 +55,11 @@ app.*.map.json
 /dist/*.zip
 /dist/*.xcarchive
 /dist/karing_*
+/dist/*+*
 /bind/apple/Libbox.xcframework
-/bind/android
-/bind/windows
+/bind/android/core
+/bind/windows/core
+/bind/linux/core
 /.idea/workspace.xml
 /lib/app/private
 /android/app/build
@@ -66,3 +68,5 @@ app.*.map.json
 /dist/macos
 /todo.txt
 /android/app/.cxx
+/android/.kotlin
+

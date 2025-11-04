@@ -797,7 +797,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                     width: 45,
                     height: 45,
                     child: RepaintBoundary(
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: CircularProgressIndicator(),
                     ),
                   ),
             const SizedBox(

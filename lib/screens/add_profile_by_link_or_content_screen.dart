@@ -8,7 +8,6 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -57,19 +56,22 @@ class _AddProfileByLinkOrContentScreenState
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
+  bool _reloadAfterProfileUpdate = true;
+  bool _testLatencyAfterProfileUpdate = false;
   bool _testLatencyAutoRemove = false;
   @override
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
+    _compatible = HttpUtils.getUserAgentsString();
     String name = widget.name != null ? widget.name!.trim() : "";
     String urlOrContent = widget.urlOrContent.trim();
     _textControllerLink.text = urlOrContent;
     if (name.isNotEmpty) {
       _textControllerRemark.text = name;
     } else if (urlOrContent.isNotEmpty) {
-      updateRemarkByText();
+      updateRemarkByText(true);
     }
-    _compatible = HttpUtils.getUserAgentsString();
+
     super.initState();
   }
 
@@ -88,40 +90,63 @@ class _AddProfileByLinkOrContentScreenState
     super.dispose();
   }
 
-  void updateRemarkByText() {
-    if (_textControllerRemark.text.trim().isEmpty) {
-      ReturnResult<String> result =
-          ProxyConfUtils.getUrlFromQRContent(_textControllerLink.text.trim());
-      if (result.data != null) {
-        Uri? url = Uri.tryParse(result.data!);
-        if (url != null) {
-          String? remarks;
-          try {
-            do {
-              if (url.fragment.isNotEmpty) {
-                remarks = url.fragment;
-                break;
-              }
-              remarks = url.queryParameters['remarks'];
-              if (remarks != null) {
-                break;
-              }
-              remarks = url.queryParameters['name'];
-              if (remarks != null) {
-                break;
-              }
-            } while (false);
+  void updateRemarkByText(bool getTitle) async {
+    if (!mounted) {
+      return;
+    }
+    if (_textControllerRemark.text.trim().isNotEmpty) {
+      return;
+    }
+    ReturnResult<String> result =
+        ProxyConfUtils.getUrlFromQRContent(_textControllerLink.text.trim());
+    if (result.data == null) {
+      return;
+    }
+    Uri? url = Uri.tryParse(result.data!);
+    if (url == null || (!url.isScheme("http") && !url.isScheme("https"))) {
+      return;
+    }
 
-            if (remarks == null || remarks.isEmpty) {
-              remarks = url.host;
-            }
-            remarks = Uri.decodeComponent(remarks);
-            _textControllerRemark.value =
-                _textControllerRemark.value.copyWith(text: remarks);
-            setState(() {});
-          } catch (err) {}
+    String? remarks;
+    do {
+      if (url.fragment.isNotEmpty) {
+        remarks = url.fragment;
+        break;
+      }
+      remarks = url.queryParameters['remarks'];
+      if (remarks != null && remarks.isNotEmpty) {
+        break;
+      }
+      remarks = url.queryParameters['name'];
+      if (remarks != null && remarks.isNotEmpty) {
+        break;
+      }
+    } while (false);
+
+    if (getTitle) {
+      if (remarks == null || remarks.isEmpty) {
+        final titleResult =
+            await HttpUtils.httpGetTitle(result.data!, _compatible);
+        if (titleResult.data != null && titleResult.data!.length < 32) {
+          remarks = titleResult.data!;
         }
       }
+    }
+
+    if (remarks == null || remarks.isEmpty) {
+      remarks = url.host;
+    }
+
+    try {
+      remarks = Uri.decodeComponent(remarks);
+    } catch (err) {}
+
+    if (!mounted) {
+      return;
+    }
+    if (_textControllerRemark.text.trim().isEmpty) {
+      _textControllerRemark.value =
+          _textControllerRemark.value.copyWith(text: remarks);
     }
   }
 
@@ -176,6 +201,8 @@ class _AddProfileByLinkOrContentScreenState
       [],
       _keepDiversionRules,
       false,
+      _reloadAfterProfileUpdate,
+      _testLatencyAfterProfileUpdate,
       _testLatencyAutoRemove,
       _downloadMode,
       _updateTimeInterval,
@@ -267,8 +294,7 @@ class _AddProfileByLinkOrContentScreenState
                                 width: 26,
                                 height: 26,
                                 child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(),
                                 ),
                               ),
                               SizedBox(
@@ -297,55 +323,57 @@ class _AddProfileByLinkOrContentScreenState
                   height: 10,
                 ),
                 Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                     child: SingleChildScrollView(
-                  child: Column(children: [
-                    FutureBuilder(
-                      future: getGroupOptions(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<GroupItem>> snapshot) {
-                        List<GroupItem> data =
-                            snapshot.hasData ? snapshot.data! : [];
-                        return Column(
-                            children:
-                                GroupItemCreator.createGroups(context, data));
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                      child: SingleChildScrollView(
-                        child: TextFieldEx(
+                      child: Column(children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldEx(
                           textInputAction: TextInputAction.next,
-                          maxLines: PlatformUtils.isPC() ? 12 : 4,
+                          maxLines: 5,
                           controller: _textControllerLink,
                           decoration: InputDecoration(
                               labelText: tcontext.meta.profileUrlOrContent,
                               hintText: tcontext.meta.profileUrlOrContentHit),
                           onChanged: (text) {
-                            updateRemarkByText();
+                            updateRemarkByText(true);
+                          },
+                          onSubmitted: (String? text) {
+                            FocusScope.of(context).nextFocus();
                           },
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                      child: TextFieldEx(
-                        textInputAction: TextInputAction.done,
-                        controller: _textControllerRemark,
-                        decoration: InputDecoration(
-                          labelText: tcontext.meta.remark,
-                          hintText: tcontext.meta.required,
-                          prefixIcon: const Icon(Icons.edit_note_outlined),
+                        const SizedBox(
+                          height: 20,
                         ),
-                        onSubmitted: (String? text) {
-                          FocusScope.of(context).nextFocus();
-                        },
-                      ),
+                        TextFieldEx(
+                          textInputAction: TextInputAction.done,
+                          controller: _textControllerRemark,
+                          decoration: InputDecoration(
+                            labelText: tcontext.meta.remark,
+                            hintText: tcontext.meta.required,
+                            prefixIcon: const Icon(Icons.edit_note_outlined),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FutureBuilder(
+                          future: getGroupOptions(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<GroupItem>> snapshot) {
+                            List<GroupItem> data =
+                                snapshot.hasData ? snapshot.data! : [];
+                            return Column(
+                                children: GroupItemCreator.createGroups(
+                                    context, data));
+                          },
+                        ),
+                      ]),
                     ),
-                    const SizedBox(
-                      height: 200,
-                    )
-                  ]),
-                )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -439,6 +467,23 @@ class _AddProfileByLinkOrContentScreenState
                       _updateTimeInterval = duration;
                       setState(() {});
                     })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.profileEditReloadAfterProfileUpdate,
+              switchValue: _reloadAfterProfileUpdate,
+              onSwitch: (bool value) async {
+                _reloadAfterProfileUpdate = value;
+                setState(() {});
+              })),
+      GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
+              tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
+              switchValue: _testLatencyAfterProfileUpdate,
+              onSwitch: (bool value) async {
+                _testLatencyAfterProfileUpdate = value;
+                setState(() {});
+              })),
       GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
               name: tcontext.meta.profileEditTestLatencyAutoRemove,

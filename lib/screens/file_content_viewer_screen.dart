@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
+import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -33,6 +34,7 @@ class FileContentViewerScreenState
     extends LasyRenderingState<FileContentViewerScreen> {
   final String _tip = t.meta.fileChoose;
   String _fileName = "";
+  String _fileSize = "";
   String _fileContent = "";
   final _editController = TextEditingController();
   final _scrollController = ScrollController();
@@ -48,7 +50,9 @@ class FileContentViewerScreenState
     String filePath = await PathUtils.profileDir();
     filePath = path.join(filePath, _fileName);
     String ext = path.extension(_fileName);
-
+    if (ext == ".db") {
+      return "";
+    }
     if (ext == ".log") {
       Tuple2<String, bool>? result =
           await FileUtils.readAsStringReverse(filePath, 20 * 1024, true);
@@ -84,6 +88,8 @@ class FileContentViewerScreenState
       PathUtils.autoUpdateFileName(): true,
       PathUtils.noticeFileName(): true,
       PathUtils.storageFileName(): true,
+      PathUtils.statisticsDBFileName(): false,
+      PathUtils.cacheDBFileName(): false,
     };
   }
 
@@ -170,13 +176,26 @@ class FileContentViewerScreenState
                   child: Row(
                     children: [
                       DropdownButton(
-                        menuWidth: 200,
+                        menuWidth: 180,
                         hint: Text(_tip),
                         value: _fileName,
                         items: _buildDropButtonList(getFileList()),
-                        onChanged: (String? sel) {
+                        onChanged: (String? sel) async {
                           _fileName = sel ?? getFileList().first;
                           jumpToTop();
+                          String filePath = await PathUtils.profileDir();
+                          if (!mounted) {
+                            return;
+                          }
+                          filePath = path.join(filePath, _fileName);
+                          var file = File(filePath);
+                          if (await file.exists()) {
+                            _fileSize =
+                                ProxyConfUtils.convertTrafficToStringDouble(
+                                    await file.length());
+                          } else {
+                            _fileSize = "";
+                          }
                           setState(() {});
                         },
                       ),
@@ -215,6 +234,7 @@ class FileContentViewerScreenState
                       const SizedBox(
                         width: 10,
                       ),
+                      Text(_fileSize),
                     ],
                   )),
               const SizedBox(
@@ -280,35 +300,38 @@ class FileContentViewerScreenState
     if (_fileName == _tip) {
       return;
     }
+    String ext = path.extension(_fileName);
     bool canClear = getFileTupleList()[_fileName] == true;
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
-      ListTile(
-        title: Text(
-          tcontext.meta.refresh,
+      if (ext != ".db") ...[
+        ListTile(
+          title: Text(
+            tcontext.meta.refresh,
+          ),
+          leading: Icon(
+            Icons.refresh_outlined,
+          ),
+          onTap: () async {
+            Navigator.pop(context);
+            setState(() {});
+          },
         ),
-        leading: Icon(
-          Icons.refresh_outlined,
-        ),
-        onTap: () async {
-          Navigator.pop(context);
-          setState(() {});
-        },
-      ),
-      ListTile(
-        title: Text(
-          tcontext.meta.copy,
-        ),
-        leading: Icon(
-          Icons.copy,
-        ),
-        onTap: () async {
-          Navigator.pop(context);
-          try {
-            await Clipboard.setData(ClipboardData(text: _fileContent));
-          } catch (e) {}
-        },
-      ),
+        ListTile(
+          title: Text(
+            tcontext.meta.copy,
+          ),
+          leading: Icon(
+            Icons.copy,
+          ),
+          onTap: () async {
+            Navigator.pop(context);
+            try {
+              await Clipboard.setData(ClipboardData(text: _fileContent));
+            } catch (e) {}
+          },
+        )
+      ],
       if (!Platform.isWindows ||
           (Platform.isWindows &&
               VersionHelper.instance.isWindows10RS5OrGreater)) ...[
@@ -369,10 +392,11 @@ class FileContentViewerScreenState
 
   void clearContent() async {
     final tcontext = Translations.of(context);
+    String ext = path.extension(_fileName);
 
     bool? del = await DialogUtils.showConfirmDialog(
         context,
-        _fileName.contains(".log")
+        ext == ".log"
             ? tcontext.FileContentViewerScreen.clearFileContent
             : tcontext.FileContentViewerScreen.clearFileContentTips);
     if (del == true) {

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/biz.dart';
@@ -57,8 +56,8 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
       String languageTag = "";
 
       String planguageTag = [
-        PlatformDispatcher.instance.locale.languageCode,
-        PlatformDispatcher.instance.locale.countryCode ?? ""
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode,
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {

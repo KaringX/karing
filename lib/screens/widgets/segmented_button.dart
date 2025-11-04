@@ -10,8 +10,6 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:karing/app/extension/colors.dart';
 
 /// Data describing a segment of a [SegmentedButton].
 class ButtonSegmentEx<T> {
@@ -528,8 +526,8 @@ class SegmentedButtonExState<T> extends State<SegmentedButtonEx<T>> {
               onPressed: (_enabled && segment.enabled)
                   ? () => _handleOnPressed(segment.value)
                   : null,
-              child: label,
               focusNode: segment.focusNode,
+              child: label,
             );
 
       final Widget buttonWithTooltip = segment.tooltip != null

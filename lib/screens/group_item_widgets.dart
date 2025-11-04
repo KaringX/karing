@@ -7,6 +7,7 @@ import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 
 class GroupItemText extends StatelessWidget {
   const GroupItemText({
@@ -402,6 +403,193 @@ class GroupItemTimerIntervalPicker extends StatelessWidget {
     }
 
     return ret;
+  }
+}
+
+// ignore: must_be_immutable
+class GroupItemDateTimeDurationPicker extends StatelessWidget {
+  GroupItemDateTimeDurationPicker({
+    super.key,
+    required this.options,
+  }) {
+    final nstart = options.start;
+    var nend = options.end;
+    if (nstart != null && nend != null) {
+      if (nend.isBefore(nstart)) {
+        nend = nstart;
+      }
+    }
+
+    start = ValueNotifier(nstart ?? DateTime.now());
+    end = ValueNotifier(nend ?? DateTime.now());
+  }
+
+  final GroupItemDateTimePeriodPickerOptions options;
+  final BoardMultiDateTimeController controller =
+      BoardMultiDateTimeController();
+  late ValueNotifier<DateTime> start;
+  late ValueNotifier<DateTime> end;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: options.onPicker == null
+          ? null
+          : () async {
+              final result = await showBoardDateTimeMultiPicker(
+                context: context,
+                controller: controller,
+                pickerType: options.pickerType,
+                minimumDate: options.minimumDate,
+                maximumDate: options.maximumDate,
+                startDate: start.value,
+                endDate: end.value,
+                options: const BoardDateTimeOptions(
+                  languages: BoardPickerLanguages.en(),
+                  startDayOfWeek: DateTime.sunday,
+                  pickerFormat: PickerFormat.ymd,
+                  useAmpm: false,
+                ),
+                customCloseButtonBuilder: null,
+              );
+              if (result != null) {
+                start.value = result.start;
+                end.value = result.end;
+
+                options.onPicker?.call(result.start, result.end);
+              }
+            },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+            InkWell(
+                onTap: () {
+                  DialogUtils.showAlertDialog(context, options.tips!);
+                },
+                child: Tooltip(
+                  message: options.tips,
+                  child: const Icon(
+                    Icons.info_outlined,
+                    size: 26,
+                  ),
+                )),
+            const SizedBox(
+              width: 5,
+            )
+          ],
+          if (options.reddot == true) ...[
+            Container(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ))
+          ],
+          Expanded(
+            flex: 4,
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                options.name,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ValueListenableBuilder(
+                    valueListenable: start,
+                    builder: (context, data, _) {
+                      return Text(
+                        BoardDateFormat(options.pickerType.format).format(data),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 4),
+                  ValueListenableBuilder(
+                    valueListenable: end,
+                    builder: (context, data, _) {
+                      return Text(
+                        '~ ${BoardDateFormat(options.pickerType.format).format(data)}',
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+extension DateTimePickerTypeExtension on DateTimePickerType {
+  String get title {
+    switch (this) {
+      case DateTimePickerType.date:
+        return 'Date';
+      case DateTimePickerType.datetime:
+        return 'DateTime';
+      case DateTimePickerType.time:
+        return 'Time';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case DateTimePickerType.date:
+        return Icons.date_range_rounded;
+      case DateTimePickerType.datetime:
+        return Icons.date_range_rounded;
+      case DateTimePickerType.time:
+        return Icons.schedule_rounded;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      case DateTimePickerType.date:
+        return Colors.blue;
+      case DateTimePickerType.datetime:
+        return Colors.orange;
+      case DateTimePickerType.time:
+        return Colors.pink;
+    }
+  }
+
+  String get format {
+    switch (this) {
+      case DateTimePickerType.date:
+        return 'yyyy/MM/dd';
+      case DateTimePickerType.datetime:
+        return 'yyyy/MM/dd HH:mm';
+      case DateTimePickerType.time:
+        return 'HH:mm';
+    }
+  }
+
+  String formatter({bool withSecond = false}) {
+    switch (this) {
+      case DateTimePickerType.date:
+        return 'yyyy/MM/dd';
+      case DateTimePickerType.datetime:
+        return 'yyyy/MM/dd HH:mm';
+      case DateTimePickerType.time:
+        return withSecond ? 'HH:mm:ss' : 'HH:mm';
+    }
   }
 }
 

@@ -9,7 +9,6 @@ import app_installer
 import app_settings
 import build_info_macos
 import connectivity_plus
-import cryptography_flutter
 import file_picker
 import file_selector_macos
 import flutter_inappwebview_macos
@@ -28,6 +27,7 @@ import screen_retriever_macos
 import sentry_flutter
 import share_plus
 import sqflite_darwin
+import sqlite3_flutter_libs
 import tray_manager
 import url_launcher_macos
 import vpn_service
@@ -39,7 +39,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   AppSettingsPlugin.register(with: registry.registrar(forPlugin: "AppSettingsPlugin"))
   BuildInfoPlugin.register(with: registry.registrar(forPlugin: "BuildInfoPlugin"))
   ConnectivityPlusPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlusPlugin"))
-  CryptographyFlutterPlugin.register(with: registry.registrar(forPlugin: "CryptographyFlutterPlugin"))
   FilePickerPlugin.register(with: registry.registrar(forPlugin: "FilePickerPlugin"))
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   InAppWebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "InAppWebViewFlutterPlugin"))
@@ -58,6 +57,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   SentryFlutterPlugin.register(with: registry.registrar(forPlugin: "SentryFlutterPlugin"))
   SharePlusMacosPlugin.register(with: registry.registrar(forPlugin: "SharePlusMacosPlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
+  Sqlite3FlutterLibsPlugin.register(with: registry.registrar(forPlugin: "Sqlite3FlutterLibsPlugin"))
   TrayManagerPlugin.register(with: registry.registrar(forPlugin: "TrayManagerPlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
   VpnServicePlugin.register(with: registry.registrar(forPlugin: "VpnServicePlugin"))

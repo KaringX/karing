@@ -27,7 +27,7 @@ class MyProfilesEditScreen extends LasyRenderingStatefulWidget {
 class _MyProfilesEditScreenState
     extends LasyRenderingState<MyProfilesEditScreen> {
   final _textControllerRemark = TextEditingController();
-  final _textControllerUrl = TextEditingController();
+  final _textControllerLink = TextEditingController();
   ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
@@ -45,7 +45,7 @@ class _MyProfilesEditScreenState
       _textControllerRemark.value = _textControllerRemark.value.copyWith(
         text: item.remark,
       );
-      _textControllerUrl.value = _textControllerUrl.value.copyWith(
+      _textControllerLink.value = _textControllerLink.value.copyWith(
         text: item.urlOrPath,
       );
       _proxyStrategy = item.proxyStrategy;
@@ -124,32 +124,39 @@ class _MyProfilesEditScreenState
               ),
               Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
+                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        TextFieldEx(
-                          controller: _textControllerRemark,
-                          textInputAction: item != null && item.isRemote()
-                              ? TextInputAction.next
-                              : TextInputAction.done,
-                          decoration: InputDecoration(
-                            labelText: tcontext.meta.remark,
-                            hintText: tcontext.meta.remark,
-                          ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         if (item != null && item.isRemote()) ...[
-                          const SizedBox(
-                            height: 20,
-                          ),
                           TextFieldEx(
-                            maxLines: 4,
-                            controller: _textControllerUrl,
+                            textInputAction: TextInputAction.next,
+                            maxLines: 5,
+                            controller: _textControllerLink,
                             decoration: InputDecoration(
                               labelText: tcontext.meta.url,
                               hintText: tcontext.meta.url,
                             ),
-                          )
+                            onSubmitted: (String? text) {
+                              FocusScope.of(context).nextFocus();
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
+                        TextFieldEx(
+                          textInputAction: TextInputAction.done,
+                          controller: _textControllerRemark,
+                          decoration: InputDecoration(
+                            labelText: tcontext.meta.remark,
+                            hintText: tcontext.meta.remark,
+                            prefixIcon: const Icon(Icons.edit_note_outlined),
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -165,7 +172,9 @@ class _MyProfilesEditScreenState
                           },
                         ),
                       ],
-                    )),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -182,7 +191,7 @@ class _MyProfilesEditScreenState
     }
 
     String remarkText = _textControllerRemark.text.trim();
-    String urlText = _textControllerUrl.text.trim();
+    String urlText = _textControllerLink.text.trim();
     if (item.remark == remarkText &&
         item.urlOrPath == urlText &&
         item.proxyStrategy == _proxyStrategy &&

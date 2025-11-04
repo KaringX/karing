@@ -130,8 +130,9 @@ class _RegionSetingsScreenState
               child: AppBar(),
             ),
             body: Focus(
-              includeSemantics: true,
               onKeyEvent: onKeyEvent,
+              canRequestFocus: false,
+              skipTraversal: true,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),

@@ -50,19 +50,30 @@ import 'package:karing/screens/home_tvos_screen.dart';
 import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/map_string_and_list_add_screen.dart';
+import 'package:karing/screens/net_interfaces_screen.dart';
 import 'package:karing/screens/perapp_android_screen.dart';
 import 'package:karing/screens/perapp_macos_screen.dart';
 import 'package:karing/screens/qrcode_scan_screen.dart';
 import 'package:karing/screens/region_settings_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
+import 'package:karing/screens/statistics_records_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_group_custom_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
+import 'package:karing/screens/widgets/ads_widget.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 import 'package:karing/app/utils/tag_gen.dart';
+
+class ImportConfirmResult {
+  Set<String>? whiletList;
+  bool? tun;
+  bool mergePerapp;
+
+  ImportConfirmResult({this.whiletList, this.tun, this.mergePerapp = false});
+}
 
 class GroupHelper {
   static List<GroupItemOptions> getOutlinkOptions(
@@ -262,16 +273,35 @@ class GroupHelper {
             SettingManager.setDirty(true);
           },
         )),
-        GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: "IP",
-                text: settingConfig.tun.i4Address,
-                textWidthPercent: 0.5,
-                enabled: tunMode,
-                onChanged: (String value) {
-                  settingConfig.tun.i4Address = value;
-                  SettingManager.setDirty(true);
-                })),
+        if (!settingConfig.novice) ...[
+          GroupItemOptions(
+              textFormFieldOptions: GroupItemTextFieldOptions(
+                  name: "IP",
+                  text: settingConfig.tun.i4Address,
+                  textWidthPercent: 0.5,
+                  enabled: tunMode,
+                  onChanged: (String value) {
+                    if (NetworkUtils.isIpv4(value)) {
+                      settingConfig.tun.i4Address = value;
+                      SettingManager.setDirty(true);
+                    }
+                  })),
+          GroupItemOptions(
+              textFormFieldOptions: GroupItemTextFieldOptions(
+                  name: tcontext.SettingsScreen.loopbackAddress,
+                  text: settingConfig.tun.loopbackAddress,
+                  hint: "10.7.0.1",
+                  textWidthPercent: 0.5,
+                  enabled: tunMode,
+                  onChanged: (String value) {
+                    if (NetworkUtils.isIpv4(value) ||
+                        NetworkUtils.isIpv6(value) ||
+                        value.isEmpty) {
+                      settingConfig.tun.loopbackAddress = value;
+                      SettingManager.setDirty(true);
+                    }
+                  }))
+        ],
         if (!settingConfig.novice) ...[
           GroupItemOptions(
               timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
@@ -334,12 +364,24 @@ class GroupHelper {
           GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
             name: tcontext.SettingsScreen.tunAutoRoute,
-            tips: tcontext.SettingsScreen.tunStrictRouteTips,
             switchValue: settingConfig.tun.autoRoute,
             onSwitch: !tunMode
                 ? null
                 : (bool value) async {
                     settingConfig.tun.autoRoute = value;
+                    SettingManager.setDirty(true);
+                  },
+          ))
+        ],
+        if (!settingConfig.novice && Platform.isLinux) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.tunAutoRedirect,
+            switchValue: settingConfig.tun.autoRedirect,
+            onSwitch: !tunMode
+                ? null
+                : (bool value) async {
+                    settingConfig.tun.autoRedirect = value;
                     SettingManager.setDirty(true);
                   },
           ))
@@ -357,7 +399,7 @@ class GroupHelper {
                         settingConfig.tun.strictRoute = value;
                         SettingManager.setDirty(true);
                       },
-          ))
+          )),
         ],
         if (!settingConfig.novice && Platform.isAndroid) ...[
           GroupItemOptions(
@@ -452,6 +494,246 @@ class GroupHelper {
                   title: "TUN",
                   getOptions: getOptions,
                 )));
+  }
+
+  static Future<void> showNetShare(BuildContext context, String from) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
+      var settingConfig = SettingManager.getConfig();
+
+      String ipLocal = "127.0.0.1";
+      String ipInterface = ipLocal;
+      if (settingConfig.proxy.getAllowAllInbounds() ||
+          settingConfig.proxy.getClusterAllowAllInbounds()) {
+        List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces();
+        if (interfaces.isNotEmpty) {
+          ipInterface = interfaces.first.address;
+        }
+        for (var interf in interfaces) {
+          if (interf.name.startsWith("en") || interf.name.startsWith("wlan")) {
+            ipInterface = interf.address;
+            break;
+          }
+        }
+      }
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.meta.netInterfaces,
+                onPush: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          settings: NetInterfacesScreen.routSettings(),
+                          builder: (context) => const NetInterfacesScreen()));
+                })),
+      ];
+
+      List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.allowOtherHostsConnect,
+                // ignore: prefer_interpolation_to_compose_strings
+                tips: (settingConfig.proxy.getAllowAllInbounds()
+                        ? ipInterface
+                        : ipLocal) +
+                    "\n" +
+                    tcontext.SettingsScreen.portSettingRule +
+                    ":" +
+                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                        hp: settingConfig.proxy.mixedRulePort,
+                        sp: settingConfig.proxy.mixedRulePort) +
+                    "\n" +
+                    tcontext.SettingsScreen.portSettingDirectAll +
+                    ":" +
+                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                        hp: settingConfig.proxy.mixedDirectPort,
+                        sp: settingConfig.proxy.mixedDirectPort) +
+                    "\n" +
+                    tcontext.SettingsScreen.portSettingProxyAll +
+                    ":" +
+                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                        hp: settingConfig.proxy.mixedForwordPort,
+                        sp: settingConfig.proxy.mixedForwordPort),
+                switchValue: settingConfig.proxy.getAllowAllInbounds(),
+                onSwitch: (bool value) async {
+                  settingConfig.proxy.setAllowAllInbounds(value);
+                  SettingManager.setDirty(true);
+
+                  if (value && Platform.isIOS) {
+                    DialogUtils.showAlertDialog(context,
+                        tcontext.SettingsScreen.allowOtherHostsConnectWarn,
+                        withVersion: true);
+                  }
+                })),
+      ];
+
+      List<GroupItemOptions> options2 = [
+        if (PlatformUtils.isPC()) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.enableCluster,
+                  switchValue: settingConfig.proxy.enableCluster,
+                  onSwitch: (bool value) async {
+                    settingConfig.proxy.enableCluster = value;
+                    SettingManager.setDirty(true);
+                  })),
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
+                  tips:
+                      tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
+                          ip: settingConfig.proxy.getClusterAllowAllInbounds()
+                              ? ipInterface
+                              : ipLocal,
+                          port: settingConfig.proxy.clusterPort),
+                  switchValue: settingConfig.proxy.getClusterAllowAllInbounds(),
+                  onSwitch: (bool value) async {
+                    settingConfig.proxy.setClusterAllowAllInbounds(value);
+                    SettingManager.setDirty(true);
+                  }))
+        ],
+      ];
+
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options1),
+        GroupItem(options: options2)
+      ];
+    }
+
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: GroupScreen.routSettings("networkShare"),
+            builder: (context) => GroupScreen(
+                  title: tcontext.SettingsScreen.networkShare,
+                  getOptions: getOptions,
+                )));
+  }
+
+  static Future<void> showStatistics(BuildContext context, String from) async {
+    final tcontext = Translations.of(context);
+    String currentDB = await PathUtils.statisticsDBFilePath();
+    String dbPath = currentDB;
+    Future<List<GroupItem>> getOptions(
+        BuildContext context, SetStateCallback? setstate) async {
+      var settingConfig = SettingManager.getConfig();
+
+      List<Tuple2<String?, String>> tupleStrings = [];
+      for (var i = 1; i <= SettingConfigItemStatistics.kMaxCacheDays; i++) {
+        tupleStrings.add(
+          Tuple2("$i", "$i ${t.meta.days}"),
+        );
+      }
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.enable,
+                tips: "",
+                switchValue: settingConfig.statistics.enable,
+                onSwitch: (bool value) async {
+                  settingConfig.statistics.enable = value;
+                  SettingManager.setDirty(true);
+                })),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.statisticsPrivacyDesensitize,
+                tips: tcontext.meta.statisticsPrivacyDesensitizeTips,
+                switchValue: settingConfig.statistics.privacyDesensitize,
+                onSwitch: (bool value) async {
+                  settingConfig.statistics.privacyDesensitize = value;
+                  SettingManager.setDirty(true);
+                })),
+        GroupItemOptions(
+            stringPickerOptions: GroupItemStringPickerOptions(
+                name: t.meta.cache,
+                selected: settingConfig.statistics.cacheDays.toString(),
+                tupleStrings: tupleStrings,
+                onPicker: settingConfig.statistics.enable != true
+                    ? null
+                    : (String? selected) async {
+                        if (selected == null) {
+                          return;
+                        }
+                        settingConfig.statistics.cacheDays =
+                            int.tryParse(selected) ?? 7;
+                        SettingManager.setDirty(true);
+                      }))
+      ];
+
+      List<GroupItemOptions> options1 = [
+        if (!bool.fromEnvironment("dart.vm.product") ||
+            SettingManager.getConfig().dev.devMode) ...[
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: "DB Path",
+                  text: dbPath,
+                  textWidthPercent: 0.7,
+                  onPush: () async {
+                    dbPath = await onTapStatisticsPickDB(context, dbPath);
+                  }))
+        ],
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.meta.records,
+                onPush: () async {
+                  AdsRewardWidget.tryLoadAdsThenCallback(context, (ok) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            settings: StatisticsRecordsScreen.routSettings(),
+                            builder: (context) => StatisticsRecordsScreen(
+                                dbPath: dbPath,
+                                currentDB: dbPath == currentDB)));
+                  });
+                })),
+      ];
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options1),
+      ];
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            settings: GroupScreen.routSettings("statisticsAndAnalysis"),
+            builder: (context) => GroupScreen(
+                  title: tcontext.meta.statisticsAndAnalysis,
+                  getOptions: getOptions,
+                )));
+  }
+
+  static Future<String> onTapStatisticsPickDB(
+      BuildContext context, String dbPath) async {
+    try {
+      List<String> extensions = ["db"];
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        initialDirectory: path.dirname(dbPath),
+        type: FileType.custom,
+        allowedExtensions: extensions,
+      );
+      if (result != null) {
+        String filePath = result.files.first.path!;
+        String ext = path.extension(filePath).replaceAll('.', '').toLowerCase();
+        if (!extensions.contains(ext)) {
+          return dbPath;
+        }
+        return filePath;
+      }
+    } catch (err, stacktrace) {
+      if (!context.mounted) {
+        return dbPath;
+      }
+      DialogUtils.showAlertDialog(context, err.toString(),
+          showCopy: true, showFAQ: true, withVersion: true);
+    }
+    return dbPath;
   }
 
   static Future<void> showHtmlBoard(BuildContext context, String from) async {
@@ -691,6 +973,8 @@ class GroupHelper {
                         "",
                         ProxyFilter(),
                         [],
+                        false,
+                        false,
                         false,
                         false,
                         false,
@@ -1128,6 +1412,7 @@ class GroupHelper {
 
   static Future<void> onTapRuleset(BuildContext context) async {
     final tcontext = Translations.of(context);
+    var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(
         BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
@@ -1150,6 +1435,36 @@ class GroupHelper {
                   await onTapAcl(context);
                 })),
       ];
+
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+                name: tcontext.meta.updateInterval,
+                duration: settingConfig.ruleSets.updateInterval,
+                showDays: true,
+                showHours: true,
+                showMinutes: false,
+                showSeconds: false,
+                showDisable: false,
+                onPicker: (bool canceled, Duration? duration) async {
+                  if (canceled) {
+                    return;
+                  }
+                  if (duration != null) {
+                    if (duration.inHours < 1) {
+                      duration = const Duration(hours: 1);
+                    }
+                  }
+                  if (duration == settingConfig.ruleSets.updateInterval) {
+                    return;
+                  }
+
+                  settingConfig.ruleSets.updateInterval =
+                      duration ?? const Duration(hours: 24);
+                  SettingManager.setDirty(true);
+                })),
+      ];
+
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1159,7 +1474,11 @@ class GroupHelper {
                 })),
       ];
 
-      return [GroupItem(options: options), GroupItem(options: options1)];
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options0),
+        GroupItem(options: options1)
+      ];
     }
 
     await Navigator.push(
@@ -1581,10 +1900,10 @@ class GroupHelper {
                 )));
   }
 
-  static Future<Set<String>?> showImportConfirmDialog(
+  static Future<ImportConfirmResult> showImportConfirmDialog(
       BuildContext context, String zipPath) async {
     if (!context.mounted) {
-      return null;
+      return ImportConfirmResult();
     }
     var result = await ZipUtils.list(zipPath);
     bool hasISP = false;
@@ -1592,7 +1911,7 @@ class GroupHelper {
       hasISP = result.data!.contains(PathUtils.remoteISPConfigFileName());
     }
     if (!context.mounted) {
-      return null;
+      return ImportConfirmResult();
     }
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
@@ -1601,6 +1920,8 @@ class GroupHelper {
     bool diversion = true;
     bool settings = true;
     bool isp = true;
+    bool tun = SettingManager.getConfig().tun.enable;
+    bool mergePerapp = Platform.isAndroid;
     Future<List<GroupItem>> getGroupOptions(StateSetter setState) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
@@ -1638,7 +1959,35 @@ class GroupHelper {
                   }))
         ],
       ];
-      return [GroupItem(options: options)];
+      List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.tunMode,
+                switchValue: tun,
+                onSwitch: (bool value) async {
+                  if (value && Platform.isWindows) {
+                    bool admin = VPNService.isRunAsAdmin();
+                    if (!admin) {
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.tunModeRunAsAdmin);
+                      return;
+                    }
+                  }
+                  tun = value;
+                  setState(() {});
+                })),
+        if (Platform.isAndroid) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.mergePerapp,
+                  switchValue: mergePerapp,
+                  onSwitch: (bool value) async {
+                    mergePerapp = value;
+                    setState(() {});
+                  }))
+        ],
+      ];
+      return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     bool? ok = await showDialog<bool>(
@@ -1703,7 +2052,7 @@ class GroupHelper {
           });
         });
     if (ok != true) {
-      return null;
+      return ImportConfirmResult();
     }
     if (myprofiles) {
       whiteList.add(PathUtils.subscribeFileName());
@@ -1718,8 +2067,8 @@ class GroupHelper {
     if (isp) {
       whiteList.add(PathUtils.remoteISPConfigFileName());
     }
-
-    return whiteList;
+    return ImportConfirmResult(
+        whiletList: whiteList, tun: tun, mergePerapp: mergePerapp);
   }
 
   static Future<ReturnResultError?> restoreBackupFromUrl(
@@ -1766,25 +2115,27 @@ class GroupHelper {
       return;
     }
     final tcontext = Translations.of(context);
-    Set<String>? whiteList;
+    late ImportConfirmResult importResult;
     if (confirm) {
-      whiteList = await showImportConfirmDialog(context, zipPath);
+      importResult = await showImportConfirmDialog(context, zipPath);
     } else {
-      whiteList = {
+      importResult = ImportConfirmResult(whiletList: {
         PathUtils.subscribeFileName(),
         PathUtils.diversionGroupFileName(),
         PathUtils.subscribeUseFileName(),
         PathUtils.settingFileName(),
         PathUtils.remoteISPConfigFileName(),
-      };
+      });
     }
 
-    if (whiteList == null || whiteList.isEmpty) {
+    if (importResult.whiletList == null || importResult.whiletList!.isEmpty) {
       return;
     }
 
-    var error =
-        await ServerManager.reloadFromZip(zipPath, whiteList: whiteList);
+    var error = await ServerManager.reloadFromZip(zipPath,
+        whiteList: importResult.whiletList!,
+        tun: importResult.tun,
+        mergePerapp: importResult.mergePerapp);
     if (!context.mounted) {
       return;
     }
@@ -1870,11 +2221,6 @@ class GroupHelper {
         return;
       }
 
-      bool? ok = await DialogUtils.showConfirmDialog(
-          context, tcontext.SettingsScreen.rewriteConfirm);
-      if (ok != true) {
-        return;
-      }
       String dir = await PathUtils.cacheDir();
       String zipPath = path.join(dir, filename);
       String url = "http://$targetHost:$targetPort/${uri.host}";
@@ -1891,7 +2237,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      await backupRestoreFromZip(context, zipPath, confirm: false);
+      await backupRestoreFromZip(context, zipPath, confirm: true);
     } else if (uri.host == AppSchemeActions.syncUploadAction()) {
       if (!send) {
         DialogUtils.showAlertDialog(
@@ -1937,7 +2283,7 @@ class GroupHelper {
 
   static Future<void> onTapSyncByScanQRcode(
       BuildContext context, bool send) async {
-    String? qrcode = await Navigator.push(
+    var qrcode = await Navigator.push(
         context,
         MaterialPageRoute(
             settings: QrcodeScanScreen.routSettings(),
@@ -1945,7 +2291,12 @@ class GroupHelper {
     if (!context.mounted) {
       return;
     }
-    await syncByScanQRcode(context, qrcode ?? "", send);
+    if (qrcode == null) {
+      return;
+    }
+    if (qrcode is String) {
+      await syncByScanQRcode(context, qrcode, send);
+    }
   }
 
   static Future<void> showAppleTVByScanQRCode(BuildContext context) async {

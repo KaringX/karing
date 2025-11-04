@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -27,19 +27,15 @@
 		33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
 		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
 		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
-		CE5C44D02A39840D00E15AC8 /* libbox_bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = CE5C44CF2A39840D00E15AC8 /* libbox_bridge.c */; };
-		CEBE65DC2A22EAE0004691A4 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBE65DB2A22EAE0004691A4 /* NetworkExtension.framework */; };
-		CEBE65DF2A22EAE1004691A4 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE65DE2A22EAE1004691A4 /* PacketTunnelProvider.swift */; };
-		CEBE65E42A22EAE1004691A4 /* karingService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CEBE65DA2A22EAE0004691A4 /* karingService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CEE689F62A85CA38007EF854 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBE65DB2A22EAE0004691A4 /* NetworkExtension.framework */; };
-		CEE689F92A85CA39007EF854 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE689F82A85CA39007EF854 /* PacketTunnelProvider.swift */; };
-		CEE689FB2A85CA39007EF854 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE689FA2A85CA39007EF854 /* main.swift */; };
-		CEE68A092A85CA88007EF854 /* libbox_bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = CEE68A082A85CA88007EF854 /* libbox_bridge.c */; };
-		CEEC19FE2B142FA90076CA70 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; };
-		CEEC19FF2B142FA90076CA70 /* LibVpnCore.framework in Bundle Framework */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE35BDA22E31DE9000E92FA7 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBE65DB2A22EAE0004691A4 /* NetworkExtension.framework */; };
+		CE35BDAC2E31DE9000E92FA7 /* com.nebula.karing.karingServiceSE.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = CE35BDA12E31DE8F00E92FA7 /* com.nebula.karing.karingServiceSE.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CE35BDB32E31DEBF00E92FA7 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; };
+		CE35BDB42E31DEBF00E92FA7 /* LibVpnCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CE3CC9042E5EEB9E00EA3770 /* libswiftCore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9022E5EEB9E00EA3770 /* libswiftCore.dylib */; };
+		CE3CC9052E5EEB9E00EA3770 /* libswift_Concurrency.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */; };
+		CE3CC9062E5EEBA700EA3770 /* libswift_Concurrency.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CE3CC9072E5EEBA900EA3770 /* libswiftCore.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9022E5EEB9E00EA3770 /* libswiftCore.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CEEC1A062B142FFC0076CA70 /* Libbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC1A042B142FCC0076CA70 /* Libbox.xcframework */; };
-		CEEC1A092B1430070076CA70 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; };
-		CEEC1A0E2B14300B0076CA70 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; };
 		CEEC1A172B1430910076CA70 /* ExtensionPlatformInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A132B1430910076CA70 /* ExtensionPlatformInterface.swift */; };
 		CEEC1A182B1430910076CA70 /* LibVpnCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A142B1430910076CA70 /* LibVpnCore.swift */; };
 		CEEC1A192B1430910076CA70 /* Extension+RunBlocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A152B1430910076CA70 /* Extension+RunBlocking.swift */; };
@@ -55,28 +51,14 @@
 			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
 			remoteInfo = FLX;
 		};
-		CEBE65E22A22EAE1004691A4 /* PBXContainerItemProxy */ = {
+		CE35BDAA2E31DE9000E92FA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CEBE65D92A22EAE0004691A4;
-			remoteInfo = karingService;
+			remoteGlobalIDString = CE35BDA02E31DE8F00E92FA7;
+			remoteInfo = karingServiceSE;
 		};
-		CEEC19FC2B142FA90076CA70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEEC19F72B142FA90076CA70;
-			remoteInfo = LibVpnCore;
-		};
-		CEEC1A0B2B1430070076CA70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEEC19F72B142FA90076CA70;
-			remoteInfo = LibVpnCore;
-		};
-		CEEC1A102B14300B0076CA70 /* PBXContainerItemProxy */ = {
+		CE35BDB52E31DEBF00E92FA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
 			proxyType = 1;
@@ -86,17 +68,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		33CC110E2044A8840003C045 /* Bundle Framework */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CEEC19FF2B142FA90076CA70 /* LibVpnCore.framework in Bundle Framework */,
-			);
-			name = "Bundle Framework";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE04E7CA29EEC43E005A52B5 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -107,35 +78,38 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE35BDAD2E31DE9000E92FA7 /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				CE35BDAC2E31DE9000E92FA7 /* com.nebula.karing.karingServiceSE.systemextension in Embed System Extensions */,
+			);
+			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE35BDB72E31DEBF00E92FA7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CE3CC9062E5EEBA700EA3770 /* libswift_Concurrency.dylib in Embed Frameworks */,
+				CE3CC9072E5EEBA900EA3770 /* libswiftCore.dylib in Embed Frameworks */,
+				CE35BDB42E31DEBF00E92FA7 /* LibVpnCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CEBE65E52A22EAE1004691A4 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				CEBE65E42A22EAE1004691A4 /* karingService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEEC1A0D2B1430080076CA70 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEEC1A122B14300B0076CA70 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -143,7 +117,6 @@
 /* Begin PBXFileReference section */
 		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedPluginRegistrant.swift; sourceTree = "<group>"; };
-		33CC10ED2044A3C60003C045 /* Karing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33CC10F02044A3C60003C045 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33CC10F22044A3C60003C045 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Runner/Assets.xcassets; sourceTree = "<group>"; };
 		33CC10F52044A3C60003C045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -159,22 +132,17 @@
 		8A4FBC6D9CAAB254EC3732DA /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		B5EC3A85ADBD29579C7DF776 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE35BD9B2E31DE7900E92FA7 /* Karing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Karing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE35BDA12E31DE8F00E92FA7 /* com.nebula.karing.karingServiceSE.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.nebula.karing.karingServiceSE.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3CC9022E5EEB9E00EA3770 /* libswiftCore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCore.dylib; path = ../bind/apple/libswiftCore.dylib; sourceTree = "<group>"; };
+		CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswift_Concurrency.dylib; path = ../bind/apple/libswift_Concurrency.dylib; sourceTree = "<group>"; };
 		CE5C44CD2A39840C00E15AC8 /* karingService-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "karingService-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE5C44CE2A39840D00E15AC8 /* libbox_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbox_bridge.h; sourceTree = "<group>"; };
 		CE5C44CF2A39840D00E15AC8 /* libbox_bridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libbox_bridge.c; sourceTree = "<group>"; };
 		CE8B929F2A5C07360071C495 /* karingService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = karingService.entitlements; sourceTree = "<group>"; };
-		CEBE65DA2A22EAE0004691A4 /* karingService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = karingService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBE65DB2A22EAE0004691A4 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		CEBE65DE2A22EAE1004691A4 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		CEBE65E02A22EAE1004691A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEE689F52A85CA38007EF854 /* com.nebula.karing.karingServiceSE.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.nebula.karing.karingServiceSE.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEE689F82A85CA39007EF854 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
-		CEE689FA2A85CA39007EF854 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		CEE689FC2A85CA39007EF854 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEE68A062A85CA87007EF854 /* karingServiceSE-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "karingServiceSE-Bridging-Header.h"; sourceTree = "<group>"; };
-		CEE68A072A85CA88007EF854 /* libbox_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libbox_bridge.h; sourceTree = "<group>"; };
-		CEE68A082A85CA88007EF854 /* libbox_bridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libbox_bridge.c; sourceTree = "<group>"; };
-		CEE68A0A2A85D2CC007EF854 /* karingServiceSE.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = karingServiceSE.entitlements; sourceTree = "<group>"; };
 		CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LibVpnCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEC1A042B142FCC0076CA70 /* Libbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Libbox.xcframework; path = ../bind/apple/Libbox.xcframework; sourceTree = "<group>"; };
 		CEEC1A132B1430910076CA70 /* ExtensionPlatformInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionPlatformInterface.swift; sourceTree = "<group>"; };
@@ -186,31 +154,37 @@
 		D927A507EB5B1E920D18EEC3 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE35BDB12E31DE9000E92FA7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CE35BDA02E31DE8F00E92FA7 /* karingServiceSE */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE35BDA32E31DE9000E92FA7 /* karingServiceSE */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (CE35BDB12E31DE9000E92FA7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = karingServiceSE; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		33CC10EA2044A3C60003C045 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEEC19FE2B142FA90076CA70 /* LibVpnCore.framework in Frameworks */,
 				12E9609A611DDA9B43588B28 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEBE65D72A22EAE0004691A4 /* Frameworks */ = {
+		CE35BD9E2E31DE8F00E92FA7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEEC1A092B1430070076CA70 /* LibVpnCore.framework in Frameworks */,
-				CEBE65DC2A22EAE0004691A4 /* NetworkExtension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEE689F22A85CA38007EF854 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEEC1A0E2B14300B0076CA70 /* LibVpnCore.framework in Frameworks */,
-				CEE689F62A85CA38007EF854 /* NetworkExtension.framework in Frameworks */,
+				CE3CC9042E5EEB9E00EA3770 /* libswiftCore.dylib in Frameworks */,
+				CE3CC9052E5EEB9E00EA3770 /* libswift_Concurrency.dylib in Frameworks */,
+				CE35BDB32E31DEBF00E92FA7 /* LibVpnCore.framework in Frameworks */,
+				CE35BDA22E31DE9000E92FA7 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,23 +218,13 @@
 				33FAB671232836740065AC1E /* Runner */,
 				33CEB47122A05771004F2AC0 /* Flutter */,
 				CEBE65DD2A22EAE1004691A4 /* karingService */,
-				CEE689F72A85CA39007EF854 /* karingServiceSE */,
 				CEEC19F92B142FA90076CA70 /* LibVpnCore */,
-				33CC10EE2044A3C60003C045 /* Products */,
+				CE35BDA32E31DE9000E92FA7 /* karingServiceSE */,
 				D73912EC22F37F3D000D13A0 /* Frameworks */,
 				65F4E399FE2B6F7C2914C7F2 /* Pods */,
+				CE35BD9A2E31DE7900E92FA7 /* Recovered References */,
+				CE35BD9C2E31DE7900E92FA7 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		33CC10EE2044A3C60003C045 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				33CC10ED2044A3C60003C045 /* Karing.app */,
-				CEBE65DA2A22EAE0004691A4 /* karingService.appex */,
-				CEE689F52A85CA38007EF854 /* com.nebula.karing.karingServiceSE.systemextension */,
-				CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		33CC11242044D66E0003C045 /* Resources */ = {
@@ -307,6 +271,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE35BD9A2E31DE7900E92FA7 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		CE35BD9C2E31DE7900E92FA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE35BD9B2E31DE7900E92FA7 /* Karing.app */,
+				CE35BDA12E31DE8F00E92FA7 /* com.nebula.karing.karingServiceSE.systemextension */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CEBE65DD2A22EAE1004691A4 /* karingService */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,20 +299,6 @@
 				CE5C44CD2A39840C00E15AC8 /* karingService-Bridging-Header.h */,
 			);
 			path = karingService;
-			sourceTree = "<group>";
-		};
-		CEE689F72A85CA39007EF854 /* karingServiceSE */ = {
-			isa = PBXGroup;
-			children = (
-				CEE68A082A85CA88007EF854 /* libbox_bridge.c */,
-				CEE68A072A85CA88007EF854 /* libbox_bridge.h */,
-				CEE689F82A85CA39007EF854 /* PacketTunnelProvider.swift */,
-				CEE689FA2A85CA39007EF854 /* main.swift */,
-				CEE689FC2A85CA39007EF854 /* Info.plist */,
-				CEE68A0A2A85D2CC007EF854 /* karingServiceSE.entitlements */,
-				CEE68A062A85CA87007EF854 /* karingServiceSE-Bridging-Header.h */,
-			);
-			path = karingServiceSE;
 			sourceTree = "<group>";
 		};
 		CEEC19F92B142FA90076CA70 /* LibVpnCore */ = {
@@ -349,6 +316,8 @@
 		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */,
+				CE3CC9022E5EEB9E00EA3770 /* libswiftCore.dylib */,
 				CEEC1A232B1436050076CA70 /* libresolv.tbd */,
 				CEFF66B12AF0A49700242498 /* Libbox.xcframework */,
 				B5EC3A85ADBD29579C7DF776 /* Pods_Runner.framework */,
@@ -379,59 +348,42 @@
 				33CC10E92044A3C60003C045 /* Sources */,
 				33CC10EA2044A3C60003C045 /* Frameworks */,
 				33CC10EB2044A3C60003C045 /* Resources */,
-				33CC110E2044A8840003C045 /* Bundle Framework */,
 				CEBE65E52A22EAE1004691A4 /* Embed Foundation Extensions */,
 				99C3439515FD7ECFBA91E2AB /* [CP] Embed Pods Frameworks */,
 				CE04E7CA29EEC43E005A52B5 /* Copy Files */,
+				CE35BDAD2E31DE9000E92FA7 /* Embed System Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
-				CEBE65E32A22EAE1004691A4 /* PBXTargetDependency */,
-				CEEC19FD2B142FA90076CA70 /* PBXTargetDependency */,
+				CE35BDAB2E31DE9000E92FA7 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
-			productReference = 33CC10ED2044A3C60003C045 /* Karing.app */;
+			productReference = CE35BD9B2E31DE7900E92FA7 /* Karing.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CEBE65D92A22EAE0004691A4 /* karingService */ = {
+		CE35BDA02E31DE8F00E92FA7 /* karingServiceSE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEBE65E92A22EAE1004691A4 /* Build configuration list for PBXNativeTarget "karingService" */;
+			buildConfigurationList = CE35BDB22E31DE9000E92FA7 /* Build configuration list for PBXNativeTarget "karingServiceSE" */;
 			buildPhases = (
-				CEBE65D62A22EAE0004691A4 /* Sources */,
-				CEBE65D72A22EAE0004691A4 /* Frameworks */,
-				CEBE65D82A22EAE0004691A4 /* Resources */,
-				CEEC1A0D2B1430080076CA70 /* Embed Frameworks */,
+				CE35BD9D2E31DE8F00E92FA7 /* Sources */,
+				CE35BD9E2E31DE8F00E92FA7 /* Frameworks */,
+				CE35BD9F2E31DE8F00E92FA7 /* Resources */,
+				CE35BDB72E31DEBF00E92FA7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CEEC1A0C2B1430070076CA70 /* PBXTargetDependency */,
+				CE35BDB62E31DEBF00E92FA7 /* PBXTargetDependency */,
 			);
-			name = karingService;
-			productName = karingService;
-			productReference = CEBE65DA2A22EAE0004691A4 /* karingService.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		CEE689F42A85CA38007EF854 /* karingServiceSE */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CEE68A052A85CA39007EF854 /* Build configuration list for PBXNativeTarget "karingServiceSE" */;
-			buildPhases = (
-				CEE689F12A85CA38007EF854 /* Sources */,
-				CEE689F22A85CA38007EF854 /* Frameworks */,
-				CEE689F32A85CA38007EF854 /* Resources */,
-				CEEC1A122B14300B0076CA70 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CEEC1A112B14300B0076CA70 /* PBXTargetDependency */,
+			fileSystemSynchronizedGroups = (
+				CE35BDA32E31DE9000E92FA7 /* karingServiceSE */,
 			);
 			name = karingServiceSE;
 			productName = karingServiceSE;
-			productReference = CEE689F52A85CA38007EF854 /* com.nebula.karing.karingServiceSE.systemextension */;
+			productReference = CE35BDA12E31DE8F00E92FA7 /* com.nebula.karing.karingServiceSE.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 		CEEC19F72B142FA90076CA70 /* LibVpnCore */ = {
@@ -458,7 +410,7 @@
 		33CC10E52044A3C60003C045 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -475,13 +427,8 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
 					};
-					CEBE65D92A22EAE0004691A4 = {
-						CreatedOnToolsVersion = 14.3;
-						LastSwiftMigration = 1430;
-					};
-					CEE689F42A85CA38007EF854 = {
-						CreatedOnToolsVersion = 14.3.1;
-						LastSwiftMigration = 1430;
+					CE35BDA02E31DE8F00E92FA7 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 					CEEC19F72B142FA90076CA70 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -498,15 +445,14 @@
 				Base,
 			);
 			mainGroup = 33CC10E42044A3C60003C045;
-			productRefGroup = 33CC10EE2044A3C60003C045 /* Products */;
+			productRefGroup = CE35BD9C2E31DE7900E92FA7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				33CC10EC2044A3C60003C045 /* Runner */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
-				CEBE65D92A22EAE0004691A4 /* karingService */,
-				CEE689F42A85CA38007EF854 /* karingServiceSE */,
 				CEEC19F72B142FA90076CA70 /* LibVpnCore */,
+				CE35BDA02E31DE8F00E92FA7 /* karingServiceSE */,
 			);
 		};
 /* End PBXProject section */
@@ -521,14 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEBE65D82A22EAE0004691A4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEE689F32A85CA38007EF854 /* Resources */ = {
+		CE35BD9F2E31DE8F00E92FA7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -613,9 +552,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -635,22 +578,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEBE65D62A22EAE0004691A4 /* Sources */ = {
+		CE35BD9D2E31DE8F00E92FA7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE5C44D02A39840D00E15AC8 /* libbox_bridge.c in Sources */,
-				CEBE65DF2A22EAE1004691A4 /* PacketTunnelProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEE689F12A85CA38007EF854 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEE689FB2A85CA39007EF854 /* main.swift in Sources */,
-				CEE689F92A85CA39007EF854 /* PacketTunnelProvider.swift in Sources */,
-				CEE68A092A85CA88007EF854 /* libbox_bridge.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,25 +604,15 @@
 			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
 			targetProxy = 33CC111F2044C79F0003C045 /* PBXContainerItemProxy */;
 		};
-		CEBE65E32A22EAE1004691A4 /* PBXTargetDependency */ = {
+		CE35BDAB2E31DE9000E92FA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CEBE65D92A22EAE0004691A4 /* karingService */;
-			targetProxy = CEBE65E22A22EAE1004691A4 /* PBXContainerItemProxy */;
+			target = CE35BDA02E31DE8F00E92FA7 /* karingServiceSE */;
+			targetProxy = CE35BDAA2E31DE9000E92FA7 /* PBXContainerItemProxy */;
 		};
-		CEEC19FD2B142FA90076CA70 /* PBXTargetDependency */ = {
+		CE35BDB62E31DEBF00E92FA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CEEC19F72B142FA90076CA70 /* LibVpnCore */;
-			targetProxy = CEEC19FC2B142FA90076CA70 /* PBXContainerItemProxy */;
-		};
-		CEEC1A0C2B1430070076CA70 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEEC19F72B142FA90076CA70 /* LibVpnCore */;
-			targetProxy = CEEC1A0B2B1430070076CA70 /* PBXContainerItemProxy */;
-		};
-		CEEC1A112B14300B0076CA70 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEEC19F72B142FA90076CA70 /* LibVpnCore */;
-			targetProxy = CEEC1A102B14300B0076CA70 /* PBXContainerItemProxy */;
+			targetProxy = CE35BDB52E31DEBF00E92FA7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -746,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -758,15 +679,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Karing;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -780,6 +702,7 @@
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_NAME = "${MY_BUNDLE_DISPLAY_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karing-devid";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Profile;
@@ -836,7 +759,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -883,7 +806,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -895,15 +818,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Karing;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -917,6 +841,7 @@
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_NAME = "${MY_BUNDLE_DISPLAY_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karing-devid";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -926,15 +851,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Karing;
@@ -949,6 +875,7 @@
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_NAME = "${MY_BUNDLE_DISPLAY_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karing-devid";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -969,146 +896,11 @@
 			};
 			name = Release;
 		};
-		CEBE65E62A22EAE1004691A4 /* Debug */ = {
+		CE35BDAE2E31DE9000E92FA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
-				ENABLE_HARDENED_RUNTIME = NO;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = karingService/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = karingService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingService/karingService-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		CEBE65E72A22EAE1004691A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = karingService/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = karingService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingService/karingService-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		CEBE65E82A22EAE1004691A4 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = TNPM9PFX3W;
-				ENABLE_HARDENED_RUNTIME = NO;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = karingService/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = karingService;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingService/karingService-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Profile;
-		};
-		CEE68A022A85CA39007EF854 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1119,11 +911,15 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = karingServiceSE/karingServiceSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 882;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = karingServiceSE/Info.plist;
@@ -1134,28 +930,28 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingServiceSE;
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karingservicese";
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingServiceSE/karingServiceSE-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		CEE68A032A85CA39007EF854 /* Release */ = {
+		CE35BDAF2E31DE9000E92FA7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1166,10 +962,14 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = karingServiceSE/karingServiceSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 882;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = karingServiceSE/Info.plist;
@@ -1180,26 +980,26 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2.5;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingServiceSE;
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karingservicese";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingServiceSE/karingServiceSE-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		CEE68A042A85CA39007EF854 /* Profile */ = {
+		CE35BDB02E31DE9000E92FA7 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
@@ -1210,10 +1010,14 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = karingServiceSE/karingServiceSE.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 882;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = karingServiceSE/Info.plist;
@@ -1224,17 +1028,17 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2.5;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingServiceSE;
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "macos-dev-karingservicese";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "karingServiceSE/karingServiceSE-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Profile;
@@ -1450,22 +1254,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEBE65E92A22EAE1004691A4 /* Build configuration list for PBXNativeTarget "karingService" */ = {
+		CE35BDB22E31DE9000E92FA7 /* Build configuration list for PBXNativeTarget "karingServiceSE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CEBE65E62A22EAE1004691A4 /* Debug */,
-				CEBE65E72A22EAE1004691A4 /* Release */,
-				CEBE65E82A22EAE1004691A4 /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEE68A052A85CA39007EF854 /* Build configuration list for PBXNativeTarget "karingServiceSE" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEE68A022A85CA39007EF854 /* Debug */,
-				CEE68A032A85CA39007EF854 /* Release */,
-				CEE68A042A85CA39007EF854 /* Profile */,
+				CE35BDAE2E31DE9000E92FA7 /* Debug */,
+				CE35BDAF2E31DE9000E92FA7 /* Release */,
+				CE35BDB02E31DE9000E92FA7 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

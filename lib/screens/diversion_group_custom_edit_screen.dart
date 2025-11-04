@@ -348,16 +348,18 @@ class _DiversionGroupCustomEditScreenState
                           _sitecodes ??= await RulesetCodesUtils.siteCodes();
                           _ipcodes ??= await RulesetCodesUtils.ipCodes();
                           _aclcodes ??= await RulesetCodesUtils.aclCodes();
-                          List<Tuple2<String, String>> allData = [];
+                          List<MultiSelectScreenDateItem> allData = [];
                           for (var code in _sitecodes!) {
-                            allData
-                                .add(Tuple2("geosite:$code", "geosite:$code"));
+                            allData.add(MultiSelectScreenDateItem(
+                                key: "geosite:$code", text: "geosite:$code"));
                           }
                           for (var code in _ipcodes!) {
-                            allData.add(Tuple2("geoip:$code", "geoip:$code"));
+                            allData.add(MultiSelectScreenDateItem(
+                                key: "geoip:$code", text: "geoip:$code"));
                           }
                           for (var code in _aclcodes!) {
-                            allData.add(Tuple2("acl:$code", "acl:$code"));
+                            allData.add(MultiSelectScreenDateItem(
+                                key: "acl:$code", text: "acl:$code"));
                           }
                           return allData;
                         },
@@ -600,10 +602,14 @@ class _DiversionGroupCustomEditScreenState
                         title: 'Network Type',
                         getData: () async {
                           return [
-                            const Tuple2("wifi", "wifi"),
-                            const Tuple2("cellular", "cellular"),
-                            const Tuple2("ethernet", "ethernet"),
-                            const Tuple2("other", "other"),
+                            MultiSelectScreenDateItem(
+                                key: "wifi", text: "wifi"),
+                            MultiSelectScreenDateItem(
+                                key: "cellular", text: "cellular"),
+                            MultiSelectScreenDateItem(
+                                key: "ethernet", text: "ethernet"),
+                            MultiSelectScreenDateItem(
+                                key: "other", text: "other"),
                           ];
                         },
                         selectedData: selectedData,
@@ -627,8 +633,8 @@ class _DiversionGroupCustomEditScreenState
                         title: 'Network',
                         getData: () async {
                           return [
-                            const Tuple2("tcp", "tcp"),
-                            const Tuple2("udp", "udp"),
+                            MultiSelectScreenDateItem(key: "tcp", text: "tcp"),
+                            MultiSelectScreenDateItem(key: "udp", text: "udp"),
                           ];
                         },
                         selectedData: selectedData,
@@ -689,15 +695,20 @@ class _DiversionGroupCustomEditScreenState
                         title: 'Protocol',
                         getData: () async {
                           return [
-                            const Tuple2("http", "http"),
-                            const Tuple2("tls", "tls"),
-                            const Tuple2("quic", "quic"),
-                            const Tuple2("stun", "stun"),
-                            const Tuple2("dns", "dns"),
-                            const Tuple2("bittorrent", "bittorrent"),
-                            const Tuple2("dtls", "dtls"),
-                            const Tuple2("ssh", "ssh"),
-                            const Tuple2("rdp", "rdp"),
+                            MultiSelectScreenDateItem(
+                                key: "http", text: "http"),
+                            MultiSelectScreenDateItem(key: "tls", text: "tls"),
+                            MultiSelectScreenDateItem(
+                                key: "quic", text: "quic"),
+                            MultiSelectScreenDateItem(
+                                key: "stun", text: "stun"),
+                            MultiSelectScreenDateItem(key: "dns", text: "dns"),
+                            MultiSelectScreenDateItem(
+                                key: "bittorrent", text: "bittorrent"),
+                            MultiSelectScreenDateItem(
+                                key: "dtls", text: "dtls"),
+                            MultiSelectScreenDateItem(key: "ssh", text: "ssh"),
+                            MultiSelectScreenDateItem(key: "rdp", text: "rdp"),
                           ];
                         },
                         selectedData: selectedData,

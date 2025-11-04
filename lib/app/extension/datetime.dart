@@ -9,4 +9,9 @@ extension DateTimeExtension on DateTime {
     const format = 'yyyy-MM-dd-HHmm';
     return DateFormat(format).format(this);
   }
+
+  String get formatYMDHM {
+    const format = 'yyyy-MM-dd HH:mm:ss';
+    return DateFormat(format).format(this);
+  }
 }

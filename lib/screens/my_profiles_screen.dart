@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
-import 'package:karing/app/extension/colors.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -14,7 +13,6 @@ import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/date_time_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
@@ -56,7 +54,7 @@ class MyProfilesScreen extends LasyRenderingStatefulWidget {
 class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   static final Set<String> _expandGroup = {};
   final List<ListViewMultiPartsItem> _listViewParts = [];
-  TapDownDetails _tapDownDetails = TapDownDetails();
+  //TapDownDetails _tapDownDetails = TapDownDetails();
 
   Timer? _timer;
   bool _rePaint = false;
@@ -385,8 +383,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                 height: 26,
                                 width: 26,
                                 child: RepaintBoundary(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
+                                  child: CircularProgressIndicator(),
                                 ),
                               )
                             : const Icon(
@@ -482,7 +479,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   height: 26,
                   width: 26,
                   child: RepaintBoundary(
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    child: CircularProgressIndicator(),
                   ),
                 ),
                 Positioned(
@@ -614,7 +611,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             getLongPressServerWidgets(server, isTesting, isWaitTesting, true),
         child: InkWell(
           onTapDown: (details) {
-            _tapDownDetails = details;
+            //  _tapDownDetails = details;
           },
           onLongPress: () async {
             onLongPressServer(server, isTesting, isWaitTesting);
@@ -1666,9 +1663,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       return false;
                     }
                     server.tag = sbOptions.tag;
+                    server.raw = sbOptions.toJson();
                     server.server = sbOptions.server;
                     server.serverport = sbOptions.server_port;
-                    server.raw = sbOptions.toJson();
                     if (item.enable) {
                       ServerManager.setDirty(true);
                     }

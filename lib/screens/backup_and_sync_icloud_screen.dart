@@ -105,8 +105,7 @@ class _BackupAndSyncIcloudScreenState
                                     width: 26,
                                     height: 26,
                                     child: RepaintBoundary(
-                                      child: CircularProgressIndicator(
-                                          strokeWidth: 2),
+                                      child: CircularProgressIndicator(),
                                     ),
                                   ),
                                   SizedBox(
@@ -155,7 +154,7 @@ class _BackupAndSyncIcloudScreenState
               width: 26,
               height: 26,
               child: RepaintBoundary(
-                child: CircularProgressIndicator(strokeWidth: 2),
+                child: CircularProgressIndicator(),
               ),
             )
           ]);

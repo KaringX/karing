@@ -119,6 +119,8 @@ class RemoteConfig {
       "https://outpost.$kDefaultHost/airport";
   static const String kDefaultGetTranfficFrom = "";
   static const String kDefaultTutorial = "https://$kDefaultHost/quickstart/";
+  static const String kDefaultStatistic =
+      "https://$kDefaultHost/app-manual/statistics/";
   static const String kDefaultFaq = "https://$kDefaultHost/faq/";
   static const String kDefaultRulesets =
       "https://github.com/KaringX/karing-ruleset";
@@ -164,6 +166,7 @@ class RemoteConfig {
   String getTranffic = kDefaultGetTranffic;
   String getTranfficFrom = kDefaultGetTranfficFrom;
   String tutorial = kDefaultTutorial;
+  String statistics = kDefaultStatistic;
   String faq = kDefaultFaq;
   String rulesets = kDefaultRulesets;
   String download = kDefaultDownload;
@@ -207,6 +210,9 @@ class RemoteConfig {
     }
     if (tutorial != kDefaultTutorial) {
       ret["tutorial"] = tutorial;
+    }
+    if (statistics != kDefaultStatistic) {
+      ret["statistics"] = tutorial;
     }
     if (faq != kDefaultFaq) {
       ret["faq"] = faq;
@@ -299,6 +305,7 @@ class RemoteConfig {
     getTranffic = map["get_tranffic"] ?? kDefaultGetTranffic;
     getTranfficFrom = map["get_tranffic_from"] ?? kDefaultGetTranfficFrom;
     tutorial = map["tutorial"] ?? kDefaultTutorial;
+    statistics = map["statistics"] ?? kDefaultStatistic;
     faq = map["faq"] ?? kDefaultFaq;
     rulesets = map["rulesets"] ?? kDefaultRulesets;
     download = map["download"] ?? kDefaultDownload;

@@ -29,12 +29,19 @@ void _lasyhandleDrawFrame() {
 }
 
 void initLasyFrameDrawHook() {
-  if (!Platform.isMacOS) {
-    //启用后,macos下在恢复窗口后,偶发渲染暂停
-    _handleBeginFrameCallback = PlatformDispatcher.instance.onBeginFrame;
-    _handleDrawFrameCallback = PlatformDispatcher.instance.onDrawFrame;
-    PlatformDispatcher.instance.onBeginFrame = _lasyhandleBeginFrame;
-    PlatformDispatcher.instance.onDrawFrame = _lasyhandleDrawFrame;
+  if (!Platform.isMacOS &&
+      !Platform.isAndroid &&
+      _handleBeginFrameCallback == null &&
+      _handleDrawFrameCallback == null) {
+    //macos:render pause;android: black screen
+    _handleBeginFrameCallback =
+        WidgetsBinding.instance.platformDispatcher.onBeginFrame;
+    _handleDrawFrameCallback =
+        WidgetsBinding.instance.platformDispatcher.onDrawFrame;
+    WidgetsBinding.instance.platformDispatcher.onBeginFrame =
+        _lasyhandleBeginFrame;
+    WidgetsBinding.instance.platformDispatcher.onDrawFrame =
+        _lasyhandleDrawFrame;
   }
 }
 

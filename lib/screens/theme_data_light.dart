@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:karing/app/extension/colors.dart';
 import 'package:karing/screens/theme_define.dart';
 
 class ThemeDataLight {
@@ -21,7 +20,7 @@ class ThemeDataLight {
       colorScheme: scheme,
       platform: TargetPlatform.iOS,
       scaffoldBackgroundColor: scheme.surface,
-      cardTheme: const CardTheme(color: Colors.white),
+      cardTheme: const CardThemeData(color: Colors.white),
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white,
       ),
@@ -81,6 +80,7 @@ class ThemeDataLight {
           return Colors.grey;
         }),
       ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(strokeWidth: 2),
     );
   }
 }

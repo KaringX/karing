@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:karing/app/extension/colors.dart';
 import 'package:karing/screens/theme_define.dart';
 
 class SegemntedElevatedButtonItem {

@@ -1,0 +1,21 @@
+display_name: Karing
+summary: Karing
+group: Applications/Internet
+vendor: KaringX
+packager: KaringX
+license: Other
+priority: optional
+section: x11
+essential: false
+url: https://karing.app
+icon: assets/images/app_icon_256.png
+
+keywords:
+  - Karing
+
+generic_name: Karing
+
+categories:
+  - Applications/Internet
+
+startup_notify: true

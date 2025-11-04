@@ -136,8 +136,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                                   width: 26,
                                   height: 26,
                                   child: RepaintBoundary(
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 2),
+                                    child: CircularProgressIndicator(),
                                   ),
                                 ),
                                 SizedBox(

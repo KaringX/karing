@@ -87,7 +87,7 @@
             ],
             "outbound": "currentSelected",
             "name": "🌏 Google",
-            "switch": false
+            "switch": true
         },
         {
             "rule_set_build_in": [
@@ -120,7 +120,8 @@
                 "geosite:telegram"
             ],
             "package": [
-                "org.telegram.messenger.web"
+                "org.telegram.messenger.web",
+                "org.telegram.messenger"
             ],
             "processName": [
                 "Telegram.exe",

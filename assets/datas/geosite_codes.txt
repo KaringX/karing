@@ -76,6 +76,7 @@ alibaba@!cn
 alibaba@ads
 alibabacloud
 alibabacloud@!cn
+aliyun-drive
 aliyun
 aliyun@!cn
 aljazeera
@@ -94,6 +95,7 @@ amp@cn
 anaconda
 anandtech
 android
+anexia
 anime
 annas-archive
 anon-v
@@ -167,7 +169,6 @@ bandwagonhost
 bangumi
 barrons
 bbc
-bcy
 bdsmhub
 beats
 beats@cn
@@ -218,7 +219,6 @@ booking@cn
 books
 boomerang
 bootcdn
-bootcss
 bootstrap
 borneoschematics
 boslife
@@ -243,7 +243,6 @@ bytedance-ads@ads
 bytedance
 bytedance@!cn
 bytedance@ads
-bytedance@cn
 c-span
 cabletv
 cainiao
@@ -269,8 +268,12 @@ category-ai-!cn@ads
 category-ai-chat-!cn
 category-ai-chat-!cn@ads
 category-ai-cn
+category-ai-cn@!cn
 category-android-app-download
 category-anticensorship
+category-antivirus
+category-antivirus@cn
+category-automobile-cn
 category-bank-cn
 category-bank-cn@!cn
 category-bank-ir
@@ -293,6 +296,7 @@ category-container
 category-cryptocurrency
 category-cryptocurrency@cn
 category-dev-cn
+category-dev-cn@!cn
 category-dev-cn@cn
 category-dev
 category-dev@ads
@@ -403,6 +407,7 @@ ccb@!cn
 cctv
 cdn77
 ceno
+cerebras
 cern
 certinomis
 certum
@@ -419,6 +424,7 @@ chinapower
 chinaso
 chinatelecom
 chinatelecom@!cn
+chinatower
 chinaunicom
 chinaunicom@!cn
 chinaz
@@ -449,6 +455,7 @@ cmb
 cmb@!cn
 cn
 cn@ads
+cnb
 cnbc
 cnbeta
 cnblogs
@@ -467,6 +474,7 @@ comodo
 connectivity-check
 contentful
 coolapk
+coomer
 copymanga
 corel
 costco
@@ -502,6 +510,7 @@ debian
 decryptipastore
 dedao
 deepin
+deepin@!cn
 deepseek
 dell
 dell@cn
@@ -512,6 +521,7 @@ dettol
 dettol@cn
 deviantart
 dewu
+dewu@!cn
 dgtle
 dida365
 didi
@@ -543,8 +553,12 @@ doc88
 docin
 docker
 doi
+dongchedi
 dongjiao
 douban
+doubao
+doubao@!cn
+douyin
 douyu
 dowjones
 dribbble
@@ -571,6 +585,7 @@ eastmoney@!cn
 easylist
 ebay
 ebay@cn
+ebuyer
 economist
 edx
 egghead
@@ -652,6 +667,7 @@ foundertype
 fox
 fqnovel
 fqnovel@ads
+framer
 freecodecamp
 freenode
 ft
@@ -739,6 +755,7 @@ haveibeenpwned
 hbo
 hcaptcha
 hellofont
+hentaichen
 hentaivn
 heroku
 hetzner
@@ -774,6 +791,7 @@ hp@cn
 hpe
 hsbc-cn
 hsbc
+hsqh
 httpdns
 huanghuagang
 huawei-dev
@@ -800,6 +818,7 @@ hurricaneelectric
 huya
 ibkr
 ibm
+icable
 icbc
 icbc@!cn
 icloud
@@ -900,6 +919,8 @@ jwplayer
 kaggle
 kakao
 kanzhongguo
+kaspersky
+kaspersky@cn
 kechuang
 kechuang@cn
 keep
@@ -992,6 +1013,7 @@ lysol
 lysol@cn
 madshi
 mafengwo
+mailcom
 mailru
 mainichi
 malware
@@ -1130,6 +1152,7 @@ nintendo@cn
 nist
 nixos
 nodejs
+nodeseek
 nordstrom
 notion
 now
@@ -1441,6 +1464,7 @@ steam@cn
 steamunlocked
 steemit
 sto-express
+straitsx
 streamable
 strepsils
 strepsils@cn
@@ -1544,6 +1568,8 @@ torproject
 tr
 tracker
 trackernetwork
+trae
+trae@!cn
 translatewiki
 trello
 trustwallet
@@ -1637,6 +1663,7 @@ wangsu
 wantmedia
 wasu
 watchout
+wbgames
 weathercn
 webex
 webex@cn
@@ -1644,6 +1671,7 @@ webflow
 webnovel
 webtype
 weiphone
+wenshushu
 westerndigital
 westerndigital@cn
 whatsapp-ads
@@ -1677,6 +1705,7 @@ wwe
 wynd
 x
 x315
+x5
 xai
 xbox
 xbox@cn
@@ -1688,6 +1717,7 @@ xhamster-ads
 xhamster-ads@ads
 xhamster
 xhamster@ads
+xiaoheihe
 xiaohongshu
 xiaomi-ads
 xiaomi-ads@ads
@@ -1757,5 +1787,3 @@ zte
 zte@!cn
 zto-express
 zuoyebang
-zynga-ads
-zynga-ads@ads

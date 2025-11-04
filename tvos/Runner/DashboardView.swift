@@ -186,7 +186,17 @@ public struct DashboardView: View {
                                                 } else if let data = data {
                                                     DispatchQueue.main.async {
                                                         isDownloading = false
-                                                        let content0 = String(decoding: data, as: UTF8.self)
+                                                        var content0 = ""
+                                                        if "https://novaclash.com/sub/a363e83fd1f559df/singbox" == url {
+                                                            let jsonBundlePath = Bundle.main.path(forResource:"service_core", ofType:"json") // dir:Runner
+                                                            do {
+                                                                content0 = try String(contentsOfFile: jsonBundlePath ?? "", encoding: String.Encoding.utf8)
+                                                            } catch {
+                                                                print("Download read service_core exception:\(error.localizedDescription)")
+                                                            }
+                                                        } else {
+                                                            content0 = String(decoding: data, as: UTF8.self)
+                                                        }
                                                         var err = DashboardView.updateConfigFrom(content: content0)
                                                         hasCore = !hasCore
                                                         hasCore = FileManager.default.fileExists(atPath: DashboardView.coreFile.path())

@@ -541,6 +541,8 @@ class ServerManager {
                 item.proxyFilterRemove,
                 item.keepDiversionRules,
                 item.enableDiversionRules,
+                item.reloadAfterProfileUpdate,
+                item.testLatencyAfterProfileUpdate,
                 item.testLatencyAutoRemove,
                 item.proxyStrategy,
                 null);
@@ -1495,6 +1497,8 @@ class ServerManager {
     List<String> proxyFilterRemove,
     bool keepDiversionRules,
     bool enableDiversionRules,
+    bool reloadAfterProfileUpdate,
+    bool testLatencyAfterProfileUpdate,
     bool testLatencyAutoRemove,
     ProxyStrategy proxyStrategy,
     Duration? duration, {
@@ -1513,6 +1517,8 @@ class ServerManager {
     item.userAgentCompatible = userAgentCompatible;
     item.keepDiversionRules = keepDiversionRules;
     item.enableDiversionRules = enableDiversionRules;
+    item.reloadAfterProfileUpdate = reloadAfterProfileUpdate;
+    item.testLatencyAfterProfileUpdate = testLatencyAfterProfileUpdate;
     item.testLatencyAutoRemove = testLatencyAutoRemove;
     item.proxyStrategy = proxyStrategy;
     if (ispId != null && ispId.isNotEmpty) {
@@ -1707,6 +1713,8 @@ class ServerManager {
         [],
         keepDiversionRules,
         false,
+        false,
+        false,
         testLatencyAutoRemove,
         ProxyStrategy.preferProxy,
         null);
@@ -1724,6 +1732,8 @@ class ServerManager {
       List<String> proxyFilterRemove,
       bool keepDiversionRules,
       bool enableDiversionRules,
+      bool reloadAfterProfileUpdate,
+      bool testLatencyAfterProfileUpdate,
       bool testLatencyAutoRemove,
       ProxyStrategy proxyStrategy,
       Duration? duration,
@@ -1740,6 +1750,8 @@ class ServerManager {
       proxyFilterRemove,
       keepDiversionRules,
       enableDiversionRules,
+      reloadAfterProfileUpdate,
+      testLatencyAfterProfileUpdate,
       testLatencyAutoRemove,
       proxyStrategy,
       duration,
@@ -2109,6 +2121,8 @@ class ServerManager {
         item.proxyFilterRemove,
         item.keepDiversionRules,
         item.enableDiversionRules,
+        item.reloadAfterProfileUpdate,
+        item.testLatencyAfterProfileUpdate,
         item.testLatencyAutoRemove,
         item.proxyStrategy,
         null);
@@ -2164,6 +2178,8 @@ class ServerManager {
           item.proxyFilterRemove,
           item.keepDiversionRules,
           item.enableDiversionRules,
+          item.reloadAfterProfileUpdate,
+          item.testLatencyAfterProfileUpdate,
           item.testLatencyAutoRemove,
           item.proxyStrategy,
           null);
@@ -2553,7 +2569,9 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> reloadFromZip(String zipPath,
-      {Set<String> whiteList = const {}}) async {
+      {Set<String> whiteList = const {},
+      bool? tun,
+      bool mergePerapp = false}) async {
     var result = await BackupAndSyncUtils.validZip(zipPath);
     if (result != null) {
       return result;
@@ -2566,11 +2584,25 @@ class ServerManager {
     _serverConfig.clear();
     _diversionGroupConfig.clear();
     _use.clear();
+    Set<String> perAppList = SettingManager.getConfig().perapp.list.toSet();
     await loadServerConfig();
     await loadDiversionGroupConfig();
     await loadUse();
     await SettingManager.init(fromBackupRestore: true);
     await RemoteISPConfigManager.init();
+    if (tun != null || mergePerapp) {
+      if (tun != null) {
+        SettingManager.getConfig().tun.enable = tun;
+      }
+      if (mergePerapp) {
+        Set<String> perAppListNew =
+            SettingManager.getConfig().perapp.list.toSet();
+        perAppListNew.addAll(perAppList);
+        SettingManager.getConfig().perapp.list = perAppListNew.toList();
+      }
+      SettingManager.saveConfig();
+    }
+
     var list = _onReloadFromZipConfigs.values.toList();
     for (var callback in list) {
       await callback();

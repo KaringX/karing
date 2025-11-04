@@ -73,7 +73,7 @@ class TextFieldEx extends TextField {
     super.contentInsertionConfiguration,
     super.clipBehavior = Clip.hardEdge,
     super.restorationId,
-    super.scribbleEnabled = true,
+    super.stylusHandwritingEnabled = true,
     super.enableIMEPersonalizedLearning = true,
     super.canRequestFocus = true,
     super.spellCheckConfiguration,
@@ -194,7 +194,7 @@ class _TextFieldExState<T> extends State<TextFieldEx> {
           contentInsertionConfiguration: widget.contentInsertionConfiguration,
           clipBehavior: widget.clipBehavior,
           restorationId: widget.restorationId,
-          scribbleEnabled: widget.scribbleEnabled,
+          stylusHandwritingEnabled: widget.stylusHandwritingEnabled,
           enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
           canRequestFocus:
               TextFieldEx.popupEdit ? true : widget.canRequestFocus,
@@ -203,13 +203,12 @@ class _TextFieldExState<T> extends State<TextFieldEx> {
         ));
   }
 
-  Future<String?> showTextFieldInputDialog() async {
+  Future<void> showTextFieldInputDialog() async {
     if (!context.mounted) {
-      return null;
+      return;
     }
     final tcontext = Translations.of(context);
-
-    return showDialog(
+    await showDialog(
         context: context,
         barrierDismissible: false,
         routeSettings: const RouteSettings(name: "showTextFieldInputDialog"),
@@ -238,7 +237,7 @@ class _TextFieldExState<T> extends State<TextFieldEx> {
                   textAlignVertical: widget.textAlignVertical,
                   textDirection: widget.textDirection,
                   readOnly: false,
-                  toolbarOptions: widget.toolbarOptions,
+                  //toolbarOptions: widget.toolbarOptions,
                   showCursor: widget.showCursor,
                   autofocus: true,
                   statesController: widget.statesController,
@@ -288,7 +287,7 @@ class _TextFieldExState<T> extends State<TextFieldEx> {
                       widget.contentInsertionConfiguration,
                   clipBehavior: widget.clipBehavior,
                   restorationId: widget.restorationId,
-                  scribbleEnabled: widget.scribbleEnabled,
+                  stylusHandwritingEnabled: widget.stylusHandwritingEnabled,
                   enableIMEPersonalizedLearning:
                       widget.enableIMEPersonalizedLearning,
                   canRequestFocus: true,

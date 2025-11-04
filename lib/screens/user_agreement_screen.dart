@@ -83,7 +83,7 @@ class _UserAgreementScreenState
                         SizedBox(
                           height: 45.0,
                           child: ElevatedButton(
-                            autofocus: setting.ui.tvMode,
+                            autofocus: true,
                             child: Text(
                                 tcontext.UserAgreementScreen.agreeAndContinue),
                             onPressed: () {
