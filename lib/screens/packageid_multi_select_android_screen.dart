@@ -49,7 +49,7 @@ class PackageInfoEx {
 class _PackageIdMultiSelectAndroidScreenState
     extends LasyRenderingState<PackageIdMultiSelectAndroidScreen> {
   //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
-  static const int FLAG_SYSTEM = 1;
+  static const int kAndroidFlagSystem = 1;
   static const _removed = "[removed]";
   AndroidPackageManager? _pkgMgr;
   bool _loading = true;
@@ -137,7 +137,7 @@ class _PackageIdMultiSelectAndroidScreenState
 
         if (perapp.hideSystemApp) {
           if ((app.applicationInfo != null) &&
-              (app.applicationInfo!.flags & FLAG_SYSTEM != 0)) {
+              (app.applicationInfo!.flags & kAndroidFlagSystem != 0)) {
             continue;
           }
         }

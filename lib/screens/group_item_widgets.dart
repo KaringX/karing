@@ -322,6 +322,7 @@ class GroupItemTimerIntervalPicker extends StatelessWidget {
                       showHours: options.showHours,
                       showMinutes: options.showMinutes,
                       showSeconds: options.showSeconds,
+                      showMilliSeconds: options.showMilliSeconds,
                       showDisable: options.showDisable);
               if (result != null) {
                 options.duration = result.data;
@@ -373,7 +374,7 @@ class GroupItemTimerIntervalPicker extends StatelessWidget {
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Text(
-                _duratingToString(options.duration, tcontext.meta.disable),
+                _duratingToString(options, tcontext.meta.disable),
                 style: TextStyle(decoration: TextDecoration.underline),
               ),
             ),
@@ -386,17 +387,32 @@ class GroupItemTimerIntervalPicker extends StatelessWidget {
     );
   }
 
-  String _duratingToString(Duration? duration, String disable) {
+  String _duratingToString(
+      GroupItemTimerIntervalPickerOptions options, String disable) {
     String ret = "";
-    if (duration != null) {
-      if (duration.inDays > 0) {
-        ret = "${duration.inDays} d";
-      } else if (duration.inHours > 0) {
-        ret = "${duration.inHours} h";
-      } else if (duration.inMinutes > 0) {
-        ret = "${duration.inMinutes} m";
-      } else if (duration.inSeconds > 0) {
-        ret = "${duration.inSeconds} s";
+    if (options.duration != null) {
+      if (options.duration!.inDays > 0) {
+        ret = "${options.duration!.inDays} d";
+      } else if (options.duration!.inHours > 0) {
+        ret = "${options.duration!.inHours} h";
+      } else if (options.duration!.inMinutes > 0) {
+        ret = "${options.duration!.inMinutes} m";
+      } else if (options.duration!.inSeconds > 0) {
+        ret = "${options.duration!.inSeconds} s";
+      } else if (options.duration!.inMilliseconds > 0) {
+        ret = "${options.duration!.inMilliseconds} ms";
+      } else if (options.duration!.inMilliseconds == 0) {
+        if (options.showDays) {
+          ret = "0 d";
+        } else if (options.showHours) {
+          ret = "0 h";
+        } else if (options.showMinutes) {
+          ret = "0 m";
+        } else if (options.showSeconds) {
+          ret = "0 s";
+        } else if (options.showMilliSeconds) {
+          ret = "0 ms";
+        }
       }
     } else {
       ret = disable;
@@ -444,7 +460,8 @@ class GroupItemDateTimeDurationPicker extends StatelessWidget {
                 maximumDate: options.maximumDate,
                 startDate: start.value,
                 endDate: end.value,
-                options: const BoardDateTimeOptions(
+                options: BoardDateTimeOptions(
+                  activeColor: Theme.of(context).colorScheme.primary,
                   languages: BoardPickerLanguages.en(),
                   startDayOfWeek: DateTime.sunday,
                   pickerFormat: PickerFormat.ymd,

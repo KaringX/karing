@@ -175,29 +175,37 @@ class FileContentViewerScreenState
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Row(
                     children: [
-                      DropdownButton(
-                        menuWidth: 180,
-                        hint: Text(_tip),
-                        value: _fileName,
-                        items: _buildDropButtonList(getFileList()),
-                        onChanged: (String? sel) async {
-                          _fileName = sel ?? getFileList().first;
-                          jumpToTop();
-                          String filePath = await PathUtils.profileDir();
-                          if (!mounted) {
-                            return;
-                          }
-                          filePath = path.join(filePath, _fileName);
-                          var file = File(filePath);
-                          if (await file.exists()) {
-                            _fileSize =
-                                ProxyConfUtils.convertTrafficToStringDouble(
-                                    await file.length());
-                          } else {
-                            _fileSize = "";
-                          }
-                          setState(() {});
-                        },
+                      SizedBox(
+                        width: 200,
+                        child: DropdownButton(
+                          hint: Text(_tip),
+                          value: _fileName,
+                          style: TextStyle(
+                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.color),
+                          items: _buildDropButtonList(getFileList()),
+                          onChanged: (String? sel) async {
+                            _fileName = sel ?? getFileList().first;
+                            jumpToTop();
+                            String filePath = await PathUtils.profileDir();
+                            if (!mounted) {
+                              return;
+                            }
+                            filePath = path.join(filePath, _fileName);
+                            var file = File(filePath);
+                            if (await file.exists()) {
+                              _fileSize =
+                                  ProxyConfUtils.convertTrafficToStringDouble(
+                                      await file.length());
+                            } else {
+                              _fileSize = "";
+                            }
+                            setState(() {});
+                          },
+                        ),
                       ),
                       const SizedBox(
                         width: 10,
@@ -234,7 +242,13 @@ class FileContentViewerScreenState
                       const SizedBox(
                         width: 10,
                       ),
-                      Text(_fileSize),
+                      Text(
+                        _fileSize,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium?.color),
+                      ),
                     ],
                   )),
               const SizedBox(
@@ -377,9 +391,13 @@ class FileContentViewerScreenState
       final box = context.findRenderObject() as RenderBox?;
       final rect =
           box != null ? box.localToGlobal(Offset.zero) & box.size : null;
-      await Share.shareXFiles(
-        [XFile(filePath)],
-        sharePositionOrigin: rect,
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile(filePath),
+          ],
+          sharePositionOrigin: rect,
+        ),
       );
     } catch (err) {
       if (!mounted) {

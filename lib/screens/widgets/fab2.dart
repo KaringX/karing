@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 /*
  *  Copyright 2020 Chaobin Wu <chaobinwu89@gmail.com>
  *
@@ -47,7 +49,7 @@ class ConvexButton2 extends StatelessWidget {
 
   /// Make new instance of [ConvexButton2]
   const ConvexButton2({
-    Key? key,
+    super.key,
     this.size,
     this.sigma,
     required this.child,
@@ -55,7 +57,7 @@ class ConvexButton2 extends StatelessWidget {
     this.thickness,
     this.backgroundColor,
     this.top,
-  }) : super(key: key);
+  });
 
   /// Make a centered convex button.
   ///

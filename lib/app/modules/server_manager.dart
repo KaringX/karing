@@ -1103,7 +1103,11 @@ class ServerManager {
     allUrls.addAll(dnsUrl);
     String tag = "dns_latency_test_tag";
     String tagResolver = "dns_latency_test_resolver_tag";
-    final servers = SingboxDNSTryParseList(allUrls.toList(), tagResolver, null);
+    final servers = SingboxDNSTryParseList(
+        allUrls.toList(),
+        null,
+        SingboxDNSDomainResolver(
+            server: tagResolver, strategy: settingConfig.ipStrategy.name));
     if (servers.error != null) {
       return ReturnResult(error: servers.error);
     }
@@ -1111,7 +1115,11 @@ class ServerManager {
     DNSQueryRequest req = DNSQueryRequest();
     req.servers = servers.data!;
     if (detour != kOutboundTagDirect) {
-      final serversDetour = SingboxDNSTryParseList(dnsUrl, tagResolver, detour);
+      final serversDetour = SingboxDNSTryParseList(
+          dnsUrl,
+          detour,
+          SingboxDNSDomainResolver(
+              server: tagResolver, strategy: settingConfig.ipStrategy.name));
       if (serversDetour.error != null) {
         return ReturnResult(error: serversDetour.error);
       }

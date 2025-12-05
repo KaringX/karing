@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -202,6 +203,9 @@ class TranslationsAboutScreenEn {
 	/// en: 'Auto Update Channel'
 	String get versionChannel => 'Auto Update Channel';
 
+	/// en: 'Auto Download Update Packages'
+	String get autoDownloadPkg => 'Auto Download Update Packages';
+
 	/// en: 'Application Improvement Data'
 	String get disableUAReport => 'Application Improvement Data';
 
@@ -268,8 +272,8 @@ class TranslationsDiversionGroupCustomEditScreenEn {
 	/// en: 'Invalid [IP Cidr]:$p'
 	String invalidIpCidr({required Object p}) => 'Invalid [IP Cidr]:${p}';
 
-	/// en: 'Invalid [Port]:$p'
-	String invalidPort({required Object p}) => 'Invalid [Port]:${p}';
+	/// en: 'Invalid [$p0]:$p'
+	String invalid({required Object p0, required Object p}) => 'Invalid [${p0}]:${p}';
 
 	/// en: 'Invalid [Rule Set]:$p, The URL must be a valid https URL and a binary file with the file extension .srs/.json'
 	String invalidRuleSet({required Object p}) => 'Invalid [Rule Set]:${p}, The URL must be a valid https URL and a binary file with the file extension .srs/.json';
@@ -832,6 +836,12 @@ class TranslationsSettingsScreenEn {
 	/// en: 'Auto Connection after Launch'
 	String get autoConnectAfterLaunch => 'Auto Connection after Launch';
 
+	/// en: 'Auto Connection after System Startup'
+	String get autoConnectAtBoot => 'Auto Connection after System Startup';
+
+	/// en: 'System support is required; some systems may also require [auto-start] to be enabled.'
+	String get autoConnectAtBootTips => 'System support is required; some systems may also require [auto-start] to be enabled.';
+
 	/// en: 'Hide window after startup'
 	String get hideAfterLaunch => 'Hide window after startup';
 
@@ -981,6 +991,9 @@ class TranslationsSettingsScreenEn {
 
 	/// en: 'Restart takes effect'
 	String get restartTakesEffect => 'Restart takes effect';
+
+	/// en: 'Reconnect takes effect'
+	String get reconnectTakesEffect => 'Reconnect takes effect';
 
 	/// en: 'Reset Settings'
 	String get resetSettings => 'Reset Settings';
@@ -1214,6 +1227,12 @@ class TranslationsMetaEn {
 	/// en: 'Seconds'
 	String get seconds => 'Seconds';
 
+	/// en: 'Milliseconds'
+	String get milliseconds => 'Milliseconds';
+
+	/// en: 'Tolerance'
+	String get tolerance => 'Tolerance';
+
 	/// en: 'Time period'
 	String get dateTimePeriod => 'Time period';
 
@@ -1231,6 +1250,15 @@ class TranslationsMetaEn {
 
 	/// en: 'Outbound'
 	String get outbound => 'Outbound';
+
+	/// en: 'Destination'
+	String get destination => 'Destination';
+
+	/// en: 'IP'
+	String get outletIpByCurrentSelected => 'IP';
+
+	/// en: 'IP:Direct'
+	String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
 
 	/// en: 'Connect'
 	String get connect => 'Connect';
@@ -1385,6 +1413,9 @@ class TranslationsMetaEn {
 	/// en: 'Static IP'
 	String get staticIP => 'Static IP';
 
+	/// en: 'You need to enable [TUN HijackDNS] or [Resolve Inbound Domain names].'
+	String get staticIPTips => 'You need to enable [TUN HijackDNS] or [${_root.SettingsScreen.inboundDomainResolve}].';
+
 	/// en: 'VPN Provider'
 	String get isp => 'VPN Provider';
 
@@ -1424,17 +1455,20 @@ class TranslationsMetaEn {
 	/// en: 'System Proxy'
 	String get systemProxy => 'System Proxy';
 
+	/// en: 'Percentage'
+	String get percentage => 'Percentage';
+
 	/// en: 'Statistics'
 	String get statistics => 'Statistics';
 
 	/// en: 'Statistics and Analysis'
 	String get statisticsAndAnalysis => 'Statistics and Analysis';
 
-	/// en: 'Privacy Desensitization'
-	String get statisticsPrivacyDesensitize => 'Privacy Desensitization';
+	/// en: 'Data Desensitization'
+	String get statisticsDataDesensitize => 'Data Desensitization';
 
 	/// en: 'Process/package ID/target domain name/target IP etc. will be replaced with * and saved after desensitization'
-	String get statisticsPrivacyDesensitizeTips => 'Process/package ID/target domain name/target IP etc. will be replaced with * and saved after desensitization';
+	String get statisticsDataDesensitizeTips => 'Process/package ID/target domain name/target IP etc. will be replaced with * and saved after desensitization';
 
 	/// en: 'Records'
 	String get records => 'Records';
@@ -1448,6 +1482,9 @@ class TranslationsMetaEn {
 	/// en: 'Speed'
 	String get netSpeed => 'Speed';
 
+	/// en: 'Memory Trend chart'
+	String get memoryTrendChart => 'Memory Trend chart';
+
 	/// en: 'Traffic Trend Chart'
 	String get trafficTrendChart => 'Traffic Trend Chart';
 
@@ -1459,6 +1496,9 @@ class TranslationsMetaEn {
 
 	/// en: 'Memory Trend chart'
 	String get memoryChart => 'Memory Trend chart';
+
+	/// en: 'Traffic statistics'
+	String get trafficStatistics => 'Traffic statistics';
 
 	/// en: 'Traffic'
 	String get traffic => 'Traffic';
@@ -1531,6 +1571,9 @@ class TranslationsMetaEn {
 
 	/// en: 'After deleting the Profile'
 	String get autoBackupRemoveProfile => 'After deleting the Profile';
+
+	/// en: 'Profile'
+	String get profile => 'Profile';
 
 	/// en: 'Current Profile'
 	String get currentProfile => 'Current Profile';
@@ -1980,558 +2023,576 @@ class TranslationsMainTrayEn {
 	String get menuExit => '    Exit    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'AboutScreen.installRefer': return 'Install Refer';
-			case 'AboutScreen.installTime': return 'Install Time';
-			case 'AboutScreen.versionChannel': return 'Auto Update Channel';
-			case 'AboutScreen.disableUAReport': return 'Application Improvement Data';
-			case 'AboutScreen.disableUAReportTip': return '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]';
-			case 'AboutScreen.devOptions': return 'Developer Options';
-			case 'AboutScreen.enableDebugLog': return 'Enable Debug Log';
-			case 'AboutScreen.viewFilsContent': return 'View Files';
-			case 'AboutScreen.enablePprof': return 'Enable pprof';
-			case 'AboutScreen.pprofPanel': return 'pprof Panel';
-			case 'AboutScreen.allowRemoteAccessPprof': return 'Allow remote access to ${_root.AboutScreen.pprofPanel}';
-			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'Allow remote access${_root.SettingsScreen.htmlBoard}';
-			case 'AboutScreen.useOriginalSBProfile': return 'Use original sing-box Profile';
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Server Url';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Can not be empty';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'Login failed:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'Failed to get file list:';
-			case 'DiversionGroupCustomEditScreen.invalidDomain': return ({required Object p}) => 'Invalid [Domain]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidIpCidr': return ({required Object p}) => 'Invalid [IP Cidr]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'Invalid [Port]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'Invalid [Rule Set]:${p}, The URL must be a valid https URL and a binary file with the file extension .srs/.json';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'Invalid [Rule Set(build-in)]:${p}, The format is geosite:xxx or geoip:xxx or acl:xxx, and xxx should be a valid rule name';
-			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'Invalid [${_root.meta.appPackage}]:${p}';
-			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'Tip: After saving, please go to [${_root.meta.diversionRules}] to set relevant rules, otherwise they will not take effect';
-			case 'DiversionRuleDetectScreen.title': return 'Diversion Rule Detect';
-			case 'DiversionRuleDetectScreen.rule': return 'Rule:';
-			case 'DiversionRuleDetectScreen.outbound': return 'Proxy Server:';
-			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'Tip: Try to match the rules from top to bottom. If no rule is matched, use [final]';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP can not be empty';
-			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL can not be empty';
-			case 'DnsSettingsScreen.error': return ({required Object p}) => 'Unsupported type:${p}';
-			case 'DnsSettingsScreen.dnsDesc': return 'The first column of delay data is the direct connection query delay;\nThe second column: Turn on [[Proxy Traffic]Resolve DNS through proxy server]: the delay data is the query delay forwarded through the current proxy server; if the [[Proxy Traffic]Resolve DNS through proxy server]: The delay data is the direct connection query delay';
-			case 'FileContentViewerScreen.title': return 'File Content Viewer';
-			case 'FileContentViewerScreen.clearFileContent': return 'Are you sure to clear the content of the file?';
-			case 'FileContentViewerScreen.clearFileContentTips': return 'Are you sure to clear the content of the Profile file? Clearing the Profile file may cause data loss or abnormal application functions, please operate with caution';
-			case 'HomeScreen.toSelectServer': return 'Please Select a Server';
-			case 'HomeScreen.invalidServer': return 'is invalid, please select again';
-			case 'HomeScreen.disabledServer': return 'is disabled, please select again';
-			case 'HomeScreen.expiredServer': return 'No servers available, profiles may be expired or disabled';
-			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'HomeScreen.myLinkEmpty': return 'Please set up [Shortcut Link] before using it';
-			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations';
-			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections';
-			case 'LaunchFailedScreen.invalidProcess': return 'The app failed to start [Invalid process name], please reinstall the app to a separate directory';
-			case 'LaunchFailedScreen.invalidProfile': return 'The app failed to start [Failed to access the profile], please reinstall the app';
-			case 'LaunchFailedScreen.invalidVersion': return 'The app failed to start [Invalid version], please reinstall the app';
-			case 'LaunchFailedScreen.systemVersionLow': return 'The app failed to start [system version too low]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'The installation path is invalid, please reinstall it to a valid path';
-			case 'MyProfilesMergeScreen.profilesMerge': return 'Profiles Merge';
-			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'Target Profile';
-			case 'MyProfilesMergeScreen.profilesMergeSource': return 'Source Profiles';
-			case 'MyProfilesMergeScreen.profilesMergeTips': return 'Tip: Diversion of the source profiles will be discarded';
-			case 'NetCheckScreen.title': return 'Net Check';
-			case 'NetCheckScreen.warn': return 'Note: Due to the influence of network environment and diversion rules, the test results are not completely equivalent to the actual results.';
-			case 'NetCheckScreen.invalidDomain': return 'Invalid Domain Name';
-			case 'NetCheckScreen.connectivity': return 'Network Connectivity';
-			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'Ipv4 Connection test [${p}] all failed';
-			case 'NetCheckScreen.connectivityTestIpv4Ok': return 'Ipv4 connection succeeded';
-			case 'NetCheckScreen.connectivityTestIpv6AllFailed': return ({required Object p}) => 'Ipv6 Connection test [${p}] all failed, Your network may not support ipv6';
-			case 'NetCheckScreen.connectivityTestIpv6Ok': return 'Ipv6 connection succeeded';
-			case 'NetCheckScreen.connectivityTestOk': return 'The network is connected to the Internet';
-			case 'NetCheckScreen.connectivityTestFailed': return 'The network is not yet connected to the Internet';
-			case 'NetCheckScreen.remoteRulesetsDownloadOk': return 'All downloaded successfully';
-			case 'NetCheckScreen.remoteRulesetsDownloadNotOk': return 'Downloading or download failed';
-			case 'NetCheckScreen.outbound': return 'Proxy Server';
-			case 'NetCheckScreen.outboundOk': return ({required Object p}) => '[${p}] connection succeeded';
-			case 'NetCheckScreen.outboundFailed': return ({required Object p1, required Object p2}) => '[${p1}] connection failed\nError:[${p2}]';
-			case 'NetCheckScreen.dnsServer': return 'DNS Server';
-			case 'NetCheckScreen.dnsOk': return ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule:[${p2}]\nLatency:[${p3} ms]\nAddress:[${p4}]';
-			case 'NetCheckScreen.dnsFailed': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS query succeeded\n nDNS Rule:[${p2}]\nError:[${p3}]';
-			case 'NetCheckScreen.host': return 'HTTP Connection';
-			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nDiversionRule:[${p2}]\nProxy Server:[${p3}]';
-			case 'NetCheckScreen.hostConnectionOk': return 'connection succeeded';
-			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'connection failed:[${p}]';
-			case 'NetConnectionsFilterScreen.hostIp': return 'Domain/IP';
-			case 'NetConnectionsFilterScreen.app': return 'App';
-			case 'NetConnectionsFilterScreen.rule': return 'Rule';
-			case 'NetConnectionsFilterScreen.chain': return 'Outbound';
-			case 'NetConnectionsScreen.copyAsCSV': return 'Copied to CSV format';
-			case 'NetConnectionsScreen.selectType': return 'Select Diversion Type';
-			case 'PerAppAndroidScreen.title': return 'Per-App Proxy';
-			case 'PerAppAndroidScreen.whiteListMode': return 'Whitelist Mode';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies';
-			case 'RegionSettingsScreen.title': return 'Country Or Region';
-			case 'RegionSettingsScreen.Regions': return 'Tip: Please set your current country or region correctly, otherwise it may cause network diversion problems';
-			case 'ServerSelectScreen.title': return 'Select Server';
-			case 'ServerSelectScreen.autoSelectServer': return 'Auto select the server with the lowest latency';
-			case 'ServerSelectScreen.recentUse': return 'Recently Used';
-			case 'ServerSelectScreen.myFav': return 'My Favs';
-			case 'ServerSelectScreen.selectLocal': return ({required Object p}) => 'The selected server is a local address and may not work properly:${p}';
-			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'The selected server is an IPv6 address and requires [Enable IPv6]';
-			case 'ServerSelectScreen.selectDisabled': return 'This server has been disabled';
-			case 'ServerSelectScreen.error404': return 'Latency detection encountered an error, please check if there is a configuration with the same content';
-			case 'SettingsScreen.getTranffic': return 'Get Traffic';
-			case 'SettingsScreen.tutorial': return 'Tutorial';
-			case 'SettingsScreen.commonlyUsedRulesets': return 'Commonly Used Rulesets';
-			case 'SettingsScreen.howToRemoveAds': return 'How to remove ads';
-			case 'SettingsScreen.htmlBoard': return 'Online Panel';
-			case 'SettingsScreen.dnsLeakDetection': return 'DNS Leaks Detection';
-			case 'SettingsScreen.proxyLeakDetection': return 'Proxy Leaks Detection';
-			case 'SettingsScreen.speedTest': return 'Speed Test';
-			case 'SettingsScreen.rulesetDirectDownlad': return 'Rule Set Direct Download';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Hide Unused Diversion Rules';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'Disable [${_root.meta.isp}] ${_root.meta.diversionRules}';
-			case 'SettingsScreen.portSettingRule': return 'Rule Based';
-			case 'SettingsScreen.portSettingDirectAll': return 'Direct All';
-			case 'SettingsScreen.portSettingProxyAll': return 'Proxy All';
-			case 'SettingsScreen.portSettingControl': return 'Control and Sync';
-			case 'SettingsScreen.portSettingCluster': return 'Cluster Service';
-			case 'SettingsScreen.modifyPort': return 'Modify Port';
-			case 'SettingsScreen.modifyPortOccupied': return 'The port is occupied, please use another port';
-			case 'SettingsScreen.ipStrategyTips': return 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.';
-			case 'SettingsScreen.tunAppendHttpProxy': return 'Append HTTP Proxy to VPN';
-			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy';
-			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'Domains allowed to bypass HTTP proxy';
-			case 'SettingsScreen.dnsEnableRule': return 'Enable DNS Diversion rules';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] Resolve Channel';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] Enable ECS';
-			case 'SettingsScreen.dnsTestDomain': return 'Test Domain';
-			case 'SettingsScreen.dnsTestDomainInvalid': return 'Invalid Domain';
-			case 'SettingsScreen.dnsTypeOutbound': return 'Proxy Server';
-			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
-			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
-			case 'SettingsScreen.dnsTypeResolver': return 'DNS Server';
-			case 'SettingsScreen.dnsEnableRuleTips': return 'After enabling, the domain name will select the corresponding DNS server for resolution according to the diversion rules';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'After enabling FakeIP, if you disconnect from VPN, your app may need to be restarted; this feature requires [TUN mode] to be enabled';
-			case 'SettingsScreen.dnsTypeOutboundTips': return 'Domain name resolution for [${_root.SettingsScreen.dnsTypeOutbound}]';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'Domain name resolution for [${_root.meta.trafficDirect}]';
-			case 'SettingsScreen.dnsTypeProxyTips': return 'Domain name resolution for [${_root.meta.trafficProxy}]';
-			case 'SettingsScreen.dnsTypeResolverTips': return 'Domain name resolution for [${_root.SettingsScreen.dnsTypeResolver}]';
-			case 'SettingsScreen.dnsAutoSetServer': return 'Auto Setup Server';
-			case 'SettingsScreen.dnsResetServer': return 'Reset Server';
-			case 'SettingsScreen.inboundDomainResolve': return 'Resolve Inbound Domain names';
-			case 'SettingsScreen.privateDirect': return 'Private Network Direct connection';
-			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]';
-			case 'SettingsScreen.useRomoteRes': return 'Use Remote Resources';
-			case 'SettingsScreen.autoAppendRegion': return 'Auto attach basic rules';
-			case 'SettingsScreen.autoSelect': return 'Auto Select';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Ignore [Front/Chaine] Proxy Servers';
-			case 'SettingsScreen.autoSelectServerInterval': return 'Latency Checks Interval';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'Current server health check interval';
-			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Re-check Latency when Network Changes';
-			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Update the Current Server after Manual Latency Check';
-			case 'SettingsScreen.autoSelectServerIntervalTips': return 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency';
-			case 'SettingsScreen.autoSelectServerFavFirst': return 'Pri-Use [My Favs]';
-			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'If the [My Favs] list is not empty, Then use the servers in [My Favs]';
-			case 'SettingsScreen.autoSelectServerFilter': return 'Filter Invalid Servers';
-			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'Server latency checks that fail will be filtered out; if no server is available after filtering, the first [${p}] servers will be used instead';
-			case 'SettingsScreen.autoSelectServerLimitedNum': return 'Maximum number of servers';
-			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'Servers exceeding this number will be filtered out';
-			case 'SettingsScreen.numInvalid': return 'Invalid number';
-			case 'SettingsScreen.hideInvalidServer': return 'Hide Invalid Servers';
-			case 'SettingsScreen.sortServer': return 'Servers Sorting';
-			case 'SettingsScreen.sortServerTips': return 'Sort by latency from low to high';
-			case 'SettingsScreen.selectServerHideRecommand': return 'Hide [Recommend]';
-			case 'SettingsScreen.selectServerHideRecent': return 'Hide [Recently Used]';
-			case 'SettingsScreen.selectServerHideFav': return 'Hide [My Favs]';
-			case 'SettingsScreen.homeScreen': return 'Home Screen';
-			case 'SettingsScreen.theme': return 'Theme';
-			case 'SettingsScreen.widgetsAlpha': return 'Widgets Alpha';
-			case 'SettingsScreen.widgetsEmpty': return 'No Widget Available';
-			case 'SettingsScreen.backgroundImage': return 'Background Image';
-			case 'SettingsScreen.myLink': return 'Shortcut Link';
-			case 'SettingsScreen.autoConnectAfterLaunch': return 'Auto Connection after Launch';
-			case 'SettingsScreen.hideAfterLaunch': return 'Hide window after startup';
-			case 'SettingsScreen.autoSetSystemProxy': return 'Auto Set System Proxy when Connected';
-			case 'SettingsScreen.bypassSystemProxy': return 'Domain names that are allowed to bypass the system proxy';
-			case 'SettingsScreen.disconnectWhenQuit': return 'Disconnect when App Exits';
-			case 'SettingsScreen.excludeFromRecent': return 'Hide from [Recent Tasks]';
-			case 'SettingsScreen.wakeLock': return 'Wake Lock';
-			case 'SettingsScreen.hideVpn': return 'Hide VPN Icon';
-			case 'SettingsScreen.hideVpnTips': return 'Enabling IPv6 will cause this function to fail';
-			case 'SettingsScreen.allowBypass': return 'Allow Apps to Bypass VPN';
-			case 'SettingsScreen.importSuccess': return 'Import Success';
-			case 'SettingsScreen.rewriteConfirm': return 'This file will overwrite the existing local configuration. Do you want to continue?';
-			case 'SettingsScreen.mergePerapp': return 'Merge local [${_root.PerAppAndroidScreen.title}] lists';
-			case 'SettingsScreen.networkShare': return 'Network Sharing';
-			case 'SettingsScreen.frontProxy': return 'Front/Chain Proxy';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
-			case 'SettingsScreen.allowOtherHostsConnect': return 'Allow Others to Connect';
-			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.';
-			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
-			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
-			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
-			case 'SettingsScreen.tunStrictRouteTips': return 'If after turning on sharing, others cannot access this device, please try turning off this switch';
-			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
-			case 'SettingsScreen.enableCluster': return 'Enable Socks/Http Proxy Cluster';
-			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'Allow Others to Connect to Cluster';
-			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
-			case 'SettingsScreen.clusterAuth': return 'Proxy Cluster Authentication';
-			case 'SettingsScreen.tunMode': return 'TUN Mode';
-			case 'SettingsScreen.tuni4Address': return 'IP address';
-			case 'SettingsScreen.tunModeTips': return 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
-			case 'SettingsScreen.tunModeRunAsAdmin': return 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
-			case 'SettingsScreen.tunStack': return 'Stack';
-			case 'SettingsScreen.tunHijackTips': return 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server';
-			case 'SettingsScreen.launchAtStartup': return 'Launch at Startup';
-			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'Exit App when Switch System Users';
-			case 'SettingsScreen.handleScheme': return 'System Scheme Call';
-			case 'SettingsScreen.portableMode': return 'Portable Mode';
-			case 'SettingsScreen.portableModeDisableTips': return 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]';
-			case 'SettingsScreen.handleKaringScheme': return 'Handle karing:// Call';
-			case 'SettingsScreen.handleClashScheme': return 'Handle clash:// Call';
-			case 'SettingsScreen.handleSingboxScheme': return 'Handle sing-box:// Call';
-			case 'SettingsScreen.alwayOnVPN': return 'Always-on Connection';
-			case 'SettingsScreen.disconnectAfterSleep': return 'Disconnect after system sleep';
-			case 'SettingsScreen.removeSystemVPNConfig': return 'Delete system VPN configuration';
-			case 'SettingsScreen.timeConnectOrDisconnect': return 'Scheduled connect/disconnect';
-			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled';
-			case 'SettingsScreen.timeConnectAndDisconnectInterval': return ({required Object p}) => 'The connection/disconnection interval cannot be less than ${p} minutes';
-			case 'SettingsScreen.disableFontScaler': return 'Disable Font scaling(Restart takes effect)';
-			case 'SettingsScreen.autoOrientation': return 'Rotate with the screen';
-			case 'SettingsScreen.restartTakesEffect': return 'Restart takes effect';
-			case 'SettingsScreen.resetSettings': return 'Reset Settings';
-			case 'SettingsScreen.cleanCache': return 'Cleanup Cache';
-			case 'SettingsScreen.cleanCacheDone': return 'Cleanup completed';
-			case 'SettingsScreen.appleTestFlight': return 'Apple TestFlight';
-			case 'SettingsScreen.appleAppStore': return 'Apple AppStore';
-			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'Update Version ${p}';
-			case 'SettingsScreen.follow': return 'Follow Us';
-			case 'SettingsScreen.contactUs': return 'Contact Us';
-			case 'SettingsScreen.supportUs': return 'Support Us';
-			case 'SettingsScreen.rateInApp': return 'Rate Us';
-			case 'SettingsScreen.rateInAppStore': return 'Rate Us in AppStore';
-			case 'UserAgreementScreen.privacyFirst': return 'Your Privacy Comes First';
-			case 'UserAgreementScreen.agreeAndContinue': return 'Accept & Continue';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'The new version[${p}] is ready';
-			case 'VersionUpdateScreen.update': return 'Restart To Update';
-			case 'VersionUpdateScreen.cancel': return 'Not Now';
-			case 'CommonWidget.diableAlwayOnVPN': return 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again';
-			case 'CommonWidget.resetPort': return 'Please change the port to another available port or close the application occupying the port.';
-			case 'main.tray.menuOpen': return '    Open    ';
-			case 'main.tray.menuExit': return '    Exit    ';
-			case 'meta.enable': return 'Enable';
-			case 'meta.disable': return 'Disable';
-			case 'meta.bydefault': return 'Default';
-			case 'meta.filter': return 'Filter';
-			case 'meta.filterMethod': return 'Filter Method';
-			case 'meta.include': return 'Include';
-			case 'meta.exclude': return 'Exclude';
-			case 'meta.all': return 'All';
-			case 'meta.prefer': return 'Prefer';
-			case 'meta.only': return 'Only';
-			case 'meta.open': return 'Open';
-			case 'meta.close': return 'Close';
-			case 'meta.quit': return 'Quit';
-			case 'meta.add': return 'Add';
-			case 'meta.addSuccess': return 'Added successfully';
-			case 'meta.addFailed': return ({required Object p}) => 'Add failed:${p}';
-			case 'meta.remove': return 'Remove';
-			case 'meta.removeConfirm': return 'Are you sure to delete?';
-			case 'meta.edit': return 'Edit';
-			case 'meta.view': return 'View';
-			case 'meta.more': return 'More';
-			case 'meta.tips': return 'Info';
-			case 'meta.copy': return 'Copy';
-			case 'meta.save': return 'Save';
-			case 'meta.ok': return 'Ok';
-			case 'meta.cancel': return 'Cancel';
-			case 'meta.feedback': return 'Feedback';
-			case 'meta.feedbackContent': return 'Feedback Content';
-			case 'meta.feedbackContentHit': return 'Required, up to 500 characters';
-			case 'meta.feedbackContentCannotEmpty': return 'Feedback content can not be empty';
-			case 'meta.faq': return 'FAQ';
-			case 'meta.download': return 'Download';
-			case 'meta.upload': return 'Upload';
-			case 'meta.downloadSpeed': return 'Download Speed';
-			case 'meta.uploadSpeed': return 'Upload Speed';
-			case 'meta.loading': return 'Loading...';
-			case 'meta.convert': return 'Convert';
-			case 'meta.check': return 'Check';
-			case 'meta.detect': return 'Detect';
-			case 'meta.cache': return 'Cache';
-			case 'meta.days': return 'Days';
-			case 'meta.hours': return 'Hours';
-			case 'meta.minutes': return 'Minutes';
-			case 'meta.seconds': return 'Seconds';
-			case 'meta.dateTimePeriod': return 'Time period';
-			case 'meta.protocol': return 'Protocol';
-			case 'meta.search': return 'Search';
-			case 'meta.custom': return 'Custom';
-			case 'meta.inbound': return 'Inbound';
-			case 'meta.outbound': return 'Outbound';
-			case 'meta.connect': return 'Connect';
-			case 'meta.disconnect': return 'Disconnect';
-			case 'meta.reconnect': return 'Reconnect';
-			case 'meta.connected': return 'Connected';
-			case 'meta.disconnected': return 'Disconnected';
-			case 'meta.connecting': return 'Connecting';
-			case 'meta.connectTimeout': return 'Connect Timeout';
-			case 'meta.timeout': return 'Timeout';
-			case 'meta.timeoutDuration': return 'Timeout Duration';
-			case 'meta.runDuration': return 'Run Duration';
-			case 'meta.latency': return 'Latency';
-			case 'meta.latencyTest': return 'Latency Checks';
-			case 'meta.language': return 'Language';
-			case 'meta.next': return 'Next';
-			case 'meta.done': return 'Done';
-			case 'meta.apply': return 'Apply';
-			case 'meta.refresh': return 'Refresh';
-			case 'meta.retry': return 'Retry?';
-			case 'meta.update': return 'Update';
-			case 'meta.updateInterval': return 'Update interval';
-			case 'meta.updateInterval5mTips': return 'Minimum: 5m';
-			case 'meta.updateFailed': return ({required Object p}) => 'Update failed:${p}';
-			case 'meta.samplingUnit': return 'Sampling Time Unit';
-			case 'meta.queryResultCount': return 'Number of Query Results';
-			case 'meta.queryLimit': return ({required Object p}) => 'Display up to ${p} data';
-			case 'meta.none': return 'None';
-			case 'meta.start': return 'Start';
-			case 'meta.pause': return 'Pause';
-			case 'meta.reset': return 'Reset';
-			case 'meta.submit': return 'Submit';
-			case 'meta.user': return 'User';
-			case 'meta.account': return 'Account';
-			case 'meta.password': return 'Password';
-			case 'meta.required': return 'Required';
-			case 'meta.type': return 'Type';
-			case 'meta.path': return 'Path';
-			case 'meta.local': return 'Local';
-			case 'meta.remote': return 'Remote';
-			case 'meta.other': return 'Other';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'Invalid URL';
-			case 'meta.urlCannotEmpty': return 'Link can not be empty';
-			case 'meta.urlTooLong': return 'URL is too long (>8182)';
-			case 'meta.copyUrl': return 'Copy Link';
-			case 'meta.openUrl': return 'Open Link';
-			case 'meta.shareUrl': return 'Share Link';
-			case 'meta.speedTestUrl': return 'Speed Test URL';
-			case 'meta.tls': return 'TLS';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.staticIP': return 'Static IP';
-			case 'meta.isp': return 'VPN Provider';
-			case 'meta.domainSuffix': return 'Domain Suffix';
-			case 'meta.domain': return 'Domain';
-			case 'meta.domainKeyword': return 'Domain Keyword';
-			case 'meta.domainRegex': return 'Domain Regex';
-			case 'meta.ip': return 'IP';
-			case 'meta.port': return 'Port';
-			case 'meta.portRange': return 'Port range';
-			case 'meta.appPackage': return 'App Package Id';
-			case 'meta.processName': return 'Process Name';
-			case 'meta.processPath': return 'Process Path';
-			case 'meta.processDir': return 'Process Directory';
-			case 'meta.systemProxy': return 'System Proxy';
-			case 'meta.statistics': return 'Statistics';
-			case 'meta.statisticsAndAnalysis': return 'Statistics and Analysis';
-			case 'meta.statisticsPrivacyDesensitize': return 'Privacy Desensitization';
-			case 'meta.statisticsPrivacyDesensitizeTips': return 'Process/package ID/target domain name/target IP etc. will be replaced with * and saved after desensitization';
-			case 'meta.records': return 'Records';
-			case 'meta.requestRecords': return 'Request Records';
-			case 'meta.netInterfaces': return 'Net Interfaces';
-			case 'meta.netSpeed': return 'Speed';
-			case 'meta.trafficTrendChart': return 'Traffic Trend Chart';
-			case 'meta.trafficDistributionChart': return 'Traffic Distribution Chart';
-			case 'meta.connectionChart': return 'Connection Trend Chart';
-			case 'meta.memoryChart': return 'Memory Trend chart';
-			case 'meta.traffic': return 'Traffic';
-			case 'meta.trafficTotal': return 'Total Traffic';
-			case 'meta.trafficProxy': return 'Proxy Traffic';
-			case 'meta.trafficDirect': return 'Direct Traffic';
-			case 'meta.website': return 'Website';
-			case 'meta.memory': return 'Memory';
-			case 'meta.outboundMode': return 'Outbound Mode';
-			case 'meta.rule': return 'Rule';
-			case 'meta.global': return 'Global';
-			case 'meta.qrcode': return 'QR Code';
-			case 'meta.qrcodeTooLong': return 'The text is too long to display';
-			case 'meta.qrcodeShare': return 'Share QR Code';
-			case 'meta.textToQrcode': return 'Text To QR Code';
-			case 'meta.qrcodeScan': return 'Scan QR Code';
-			case 'meta.qrcodeScanResult': return 'Scan Result';
-			case 'meta.qrcodeScanFromImage': return 'Scan From Image';
-			case 'meta.qrcodeScanResultFailed': return 'Failed to parse the image, please make sure the screenshot is a valid QR code';
-			case 'meta.qrcodeScanResultEmpty': return 'Scan Result is empty';
-			case 'meta.screenshot': return 'Screenshot';
-			case 'meta.backupAndSync': return 'Backup and Sync';
-			case 'meta.autoBackup': return 'Auto backup';
-			case 'meta.noProfileGotAutoBackup': return 'If data such as [${_root.meta.myProfiles}] is lost, you can restore it from [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] or other backup sources (such as iCloud or Webdav, etc.)';
-			case 'meta.autoBackupAddProfile': return 'After adding the Profile';
-			case 'meta.autoBackupRemoveProfile': return 'After deleting the Profile';
-			case 'meta.currentProfile': return 'Current Profile';
-			case 'meta.importAndExport': return 'Import and Export';
-			case 'meta.import': return 'Import';
-			case 'meta.importFromUrl': return 'Import from URL';
-			case 'meta.export': return 'Export';
-			case 'meta.send': return 'Send';
-			case 'meta.receive': return 'Receive';
-			case 'meta.sendConfirm': return 'Confirm to send?';
-			case 'meta.termOfUse': return 'Terms of Service';
-			case 'meta.privacyPolicy': return 'Privacy & Policy';
-			case 'meta.about': return 'About';
-			case 'meta.name': return 'Name';
-			case 'meta.version': return 'Version';
-			case 'meta.notice': return 'Notice';
-			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}';
-			case 'meta.sort': return 'Reorder';
-			case 'meta.novice': return 'Novice Mode';
-			case 'meta.willCompleteAfterRebootInstall': return 'Please restart your device to complete the system extension installation';
-			case 'meta.willCompleteAfterRebootUninstall': return 'Please restart your device to complete the the system extension uninstallation';
-			case 'meta.requestNeedsUserApproval': return '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion';
-			case 'meta.FullDiskAccessPermissionRequired': return 'Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect';
-			case 'meta.tvMode': return 'TV Mode';
-			case 'meta.recommended': return 'Recommend';
-			case 'meta.innerError': return ({required Object p}) => 'Inner Error:${p}';
-			case 'meta.logicOperation': return 'Logic Operation';
-			case 'meta.share': return 'Share';
-			case 'meta.candidateWord': return 'Candidate Words';
-			case 'meta.keywordOrRegx': return 'Keywords/Regular';
-			case 'meta.importFromClipboard': return 'Import From Clipboard';
-			case 'meta.exportToClipboard': return 'Export to Clipboard';
-			case 'meta.server': return 'Server';
-			case 'meta.ads': return 'Ads';
-			case 'meta.adsRemove': return 'Remove ads';
-			case 'meta.adsBanner': return 'Banner ads';
-			case 'meta.donate': return 'Donate';
-			case 'meta.diversion': return 'Diversion';
-			case 'meta.diversionRules': return 'Diversion Rules';
-			case 'meta.diversionCustomGroup': return 'Custom Diversion Group';
-			case 'meta.urlTestCustomGroup': return 'Custom Auto Select';
-			case 'meta.setting': return 'Settings';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.appleTV': return 'Apple TV';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN Sync';
-			case 'meta.lanSyncNotQuitTips': return 'Do not exit this interface before synchronization is completed';
-			case 'meta.deviceNoSpace': return 'Not enough disk space';
-			case 'meta.hideSystemApp': return 'Hide System Apps';
-			case 'meta.hideAppIcon': return 'Hide App Icons';
-			case 'meta.hideDockIcon': return 'Hide Dock Icon';
-			case 'meta.remark': return 'Remark';
-			case 'meta.remarkExist': return 'Remark already exists, please use another name';
-			case 'meta.remarkCannotEmpty': return 'Remarks can not be empty';
-			case 'meta.remarkTooLong': return 'Remarks up to 32 characters';
-			case 'meta.openDir': return 'Open File Directory';
-			case 'meta.fileChoose': return 'Select File';
-			case 'meta.filePathCannotEmpty': return 'The file path can not be empty';
-			case 'meta.fileNotExist': return ({required Object p}) => 'File does not exist:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'Invalid file type:${p}';
-			case 'meta.uwpExemption': return 'UWP Network Isolation Exemptions';
-			case 'meta.rulesetGeoSite': return 'GeoSite';
-			case 'meta.rulesetGeoIp': return 'GeoIP';
-			case 'meta.rulesetAcl': return 'ACL';
-			case 'meta.getProfile': return 'Get Profile';
-			case 'meta.addProfile': return 'Add Profile';
-			case 'meta.myProfiles': return 'My Profiles';
-			case 'meta.myProfilesAtLeastOneReserveEnable': return 'Cannot be disabled, please keep at least one profile enable';
-			case 'meta.profileEdit': return 'Profile Edit';
-			case 'meta.profileEditUrlExist': return 'URL already exists, please use another URL';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'Reload after Profile update';
-			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'Start latency tests after Profile Automatically update';
-			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'VPN needs to be connected, and [Reload after Profile update] Enabled';
-			case 'meta.profileEditTestLatencyAutoRemove': return 'Automatically remove servers that fail latency tests';
-			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'Try up to 3 times';
-			case 'meta.profileImport': return 'Import Profile File';
-			case 'meta.profileAddUrlOrContent': return 'Add Profile Link';
-			case 'meta.profileExists': return 'The Profile already exists, please do not add it repeatedly';
-			case 'meta.profileUrlOrContent': return 'Profile Link/Content';
-			case 'meta.profileUrlOrContentHit': return 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'Profile Link can not be empty';
-			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}';
-			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application';
-			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again';
-			case 'meta.profileAddParseFailed': return 'Parsing Profile failed';
-			case 'meta.profileAddNoServerAvaliable': return 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page';
-			case 'meta.profileAddWrapSuccess': return 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view';
-			case 'diversionRulesKeep': return 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}';
-			case 'diversionCustomGroupPreset': return 'Preset [${_root.meta.diversionCustomGroup}]';
-			case 'diversionCustomGroupPresetTips': return 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]';
-			case 'diversionCustomGroupAddTips': return 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect';
-			case 'rulesetEnableTips': return 'Tip: After turning on the options, please go to[${_root.meta.diversionRules}]to set the relevant rules, otherwise they will not take effect';
-			case 'ispUserAgentTips': return '[${_root.meta.isp}] will send data of different subscription types based on [UserAgent] in [HTTP] request';
-			case 'ispDiversionTips': return '[${_root.meta.isp}] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
-			case 'isp.bind': return 'Bind To [${_root.meta.isp}] ';
-			case 'isp.unbind': return ({required Object p}) => 'Unbind[${p}]';
-			case 'isp.faq': return ({required Object p}) => 'FAQ[${p}]';
-			case 'isp.customerService': return ({required Object p}) => 'Telegram[${p}]';
-			case 'isp.follow': return ({required Object p}) => 'Follow[${p}]';
-			case 'isp.invalidOrExpired': return '[${_root.meta.isp}] Invalid or expired';
-			case 'permission.camera': return 'Camera';
-			case 'permission.screen': return 'Screen Recording';
-			case 'permission.appQuery': return 'Get Application List';
-			case 'permission.request': return ({required Object p}) => 'Turn on [${p}] permission';
-			case 'permission.requestNeed': return ({required Object p}) => 'Please Turn on [${p}] permission';
-			case 'tls.insecure': return 'Skip Certificate Verification';
-			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
-			case 'tls.fragmentEnable': return 'Enable TLS Fragment';
-			case 'tls.fragmentSize': return 'TLS Fragment Size';
-			case 'tls.fragmentSleep': return 'TLS Fragment Sleep';
-			case 'tls.mixedCaseSNIEnable': return 'Enable TLS Mixed SNI';
-			case 'tls.paddingEnable': return 'Enable TLS Padding';
-			case 'tls.paddingSize': return 'TLS Padding Size';
-			case 'outboundRuleMode.currentSelected': return 'Current Selected';
-			case 'outboundRuleMode.urltest': return 'Auto Select';
-			case 'outboundRuleMode.direct': return 'Direct';
-			case 'outboundRuleMode.block': return 'Block';
-			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
-			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
-			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
-			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
-			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
-			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
-			case 'reloadReason.profileUpdate': return 'Profile Update';
-			case 'theme.light': return 'Light';
-			case 'theme.dark': return 'Dark';
-			case 'theme.auto': return 'Auto';
-			case 'downloadProxyStrategy': return 'Download Channel';
-			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic';
-			case 'routeFinal': return 'final';
-			case 'protocolSniff': return 'Protocol Sniff';
-			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'Please use [${p}]';
-			case 'turnOffPrivateDirect': return 'Please turn on [Private network direct connection] first';
-			case 'targetConnectFailed': return ({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN';
-			case 'appleTVSync': return 'Synchronize the current core configuration to Apple TV - Karing';
-			case 'appleTVSyncDone': return 'Synchronization is complete. Please go to Apple TV - Karing to start the connection/restart the connection';
-			case 'appleTVRemoveCoreConfig': return 'Delete Apple TV - Karing Core Configuration';
-			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - Karing\'s Core Configuration deleted; VPN service disconnected';
-			case 'appleTVUrlInvalid': return 'Invalid URL, please open Apple TV - Karing and scan the QR code displayed by Karing';
-			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] does not have this function, please upgrade and try again';
-			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'The core major version does not match, please upgrade [${p}] and try again';
-			case 'remoteProfileEditConfirm': return 'After the Profile is updated, the node changes will be restored. Continue?';
-			case 'mustBeValidHttpsURL': return 'Must be Valid https URL';
-			case 'fileNotExistReinstall': return ({required Object p}) => 'File missing [${p}], please reinstall';
-			case 'noNetworkConnect': return 'No Internet connection';
-			case 'sudoPassword': return 'sudo password (required for TUN mode)';
-			case 'turnOffNetworkBeforeInstall': return 'It is recommended to switch to [Airplane Mode] before installing the update';
-			case 'latencyTestResolveIP': return 'When manually checking, resolve the outlet IP';
-			case 'removeBannerAdsByShare': return 'Share [Karing] to remove ads';
-			case 'removeBannerAdsByReward': return 'Watch an ad to remove ads';
-			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
-			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
-			case 'removeBannerAdsDone': return ({required Object p}) => 'Received ${p} days of ad-free rewards';
-			case 'maybeAdsByReward': return 'You may need to watch an ad before using this feature. Click [${_root.meta.ok}] to continue';
-			case 'edgeRuntimeNotInstalled': return 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'AboutScreen.installRefer' => 'Install Refer',
+			'AboutScreen.installTime' => 'Install Time',
+			'AboutScreen.versionChannel' => 'Auto Update Channel',
+			'AboutScreen.autoDownloadPkg' => 'Auto Download Update Packages',
+			'AboutScreen.disableUAReport' => 'Application Improvement Data',
+			'AboutScreen.disableUAReportTip' => '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]',
+			'AboutScreen.devOptions' => 'Developer Options',
+			'AboutScreen.enableDebugLog' => 'Enable Debug Log',
+			'AboutScreen.viewFilsContent' => 'View Files',
+			'AboutScreen.enablePprof' => 'Enable pprof',
+			'AboutScreen.pprofPanel' => 'pprof Panel',
+			'AboutScreen.allowRemoteAccessPprof' => 'Allow remote access to ${_root.AboutScreen.pprofPanel}',
+			'AboutScreen.allowRemoteAccessHtmlBoard' => 'Allow remote access${_root.SettingsScreen.htmlBoard}',
+			'AboutScreen.useOriginalSBProfile' => 'Use original sing-box Profile',
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'Server Url',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'Can not be empty',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Login failed:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Failed to get file list:',
+			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'Invalid [Domain]:${p}',
+			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'Invalid [IP Cidr]:${p}',
+			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'Invalid [${p0}]:${p}',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'Invalid [Rule Set]:${p}, The URL must be a valid https URL and a binary file with the file extension .srs/.json',
+			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'Invalid [Rule Set(build-in)]:${p}, The format is geosite:xxx or geoip:xxx or acl:xxx, and xxx should be a valid rule name',
+			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'Invalid [${_root.meta.appPackage}]:${p}',
+			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Tip: After saving, please go to [${_root.meta.diversionRules}] to set relevant rules, otherwise they will not take effect',
+			'DiversionRuleDetectScreen.title' => 'Diversion Rule Detect',
+			'DiversionRuleDetectScreen.rule' => 'Rule:',
+			'DiversionRuleDetectScreen.outbound' => 'Proxy Server:',
+			'DiversionRulesScreen.diversionRulesMatchTips' => 'Tip: Try to match the rules from top to bottom. If no rule is matched, use [final]',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP can not be empty',
+			'DnsSettingsScreen.urlCanNotEmpty' => 'URL can not be empty',
+			'DnsSettingsScreen.error' => ({required Object p}) => 'Unsupported type:${p}',
+			'DnsSettingsScreen.dnsDesc' => 'The first column of delay data is the direct connection query delay;\nThe second column: Turn on [[Proxy Traffic]Resolve DNS through proxy server]: the delay data is the query delay forwarded through the current proxy server; if the [[Proxy Traffic]Resolve DNS through proxy server]: The delay data is the direct connection query delay',
+			'FileContentViewerScreen.title' => 'File Content Viewer',
+			'FileContentViewerScreen.clearFileContent' => 'Are you sure to clear the content of the file?',
+			'FileContentViewerScreen.clearFileContentTips' => 'Are you sure to clear the content of the Profile file? Clearing the Profile file may cause data loss or abnormal application functions, please operate with caution',
+			'HomeScreen.toSelectServer' => 'Please Select a Server',
+			'HomeScreen.invalidServer' => 'is invalid, please select again',
+			'HomeScreen.disabledServer' => 'is disabled, please select again',
+			'HomeScreen.expiredServer' => 'No servers available, profiles may be expired or disabled',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'HomeScreen.myLinkEmpty' => 'Please set up [Shortcut Link] before using it',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections',
+			'LaunchFailedScreen.invalidProcess' => 'The app failed to start [Invalid process name], please reinstall the app to a separate directory',
+			'LaunchFailedScreen.invalidProfile' => 'The app failed to start [Failed to access the profile], please reinstall the app',
+			'LaunchFailedScreen.invalidVersion' => 'The app failed to start [Invalid version], please reinstall the app',
+			'LaunchFailedScreen.systemVersionLow' => 'The app failed to start [system version too low]',
+			'LaunchFailedScreen.invalidInstallPath' => 'The installation path is invalid, please reinstall it to a valid path',
+			'MyProfilesMergeScreen.profilesMerge' => 'Profiles Merge',
+			'MyProfilesMergeScreen.profilesMergeTarget' => 'Target Profile',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'Source Profiles',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'Tip: Diversion of the source profiles will be discarded',
+			'NetCheckScreen.title' => 'Net Check',
+			'NetCheckScreen.warn' => 'Note: Due to the influence of network environment and diversion rules, the test results are not completely equivalent to the actual results.',
+			'NetCheckScreen.invalidDomain' => 'Invalid Domain Name',
+			'NetCheckScreen.connectivity' => 'Network Connectivity',
+			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'Ipv4 Connection test [${p}] all failed',
+			'NetCheckScreen.connectivityTestIpv4Ok' => 'Ipv4 connection succeeded',
+			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'Ipv6 Connection test [${p}] all failed, Your network may not support ipv6',
+			'NetCheckScreen.connectivityTestIpv6Ok' => 'Ipv6 connection succeeded',
+			'NetCheckScreen.connectivityTestOk' => 'The network is connected to the Internet',
+			'NetCheckScreen.connectivityTestFailed' => 'The network is not yet connected to the Internet',
+			'NetCheckScreen.remoteRulesetsDownloadOk' => 'All downloaded successfully',
+			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'Downloading or download failed',
+			'NetCheckScreen.outbound' => 'Proxy Server',
+			'NetCheckScreen.outboundOk' => ({required Object p}) => '[${p}] connection succeeded',
+			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => '[${p1}] connection failed\nError:[${p2}]',
+			'NetCheckScreen.dnsServer' => 'DNS Server',
+			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule:[${p2}]\nLatency:[${p3} ms]\nAddress:[${p4}]',
+			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS query succeeded\n nDNS Rule:[${p2}]\nError:[${p3}]',
+			'NetCheckScreen.host' => 'HTTP Connection',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nDiversionRule:[${p2}]\nProxy Server:[${p3}]',
+			'NetCheckScreen.hostConnectionOk' => 'connection succeeded',
+			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'connection failed:[${p}]',
+			'NetConnectionsFilterScreen.hostIp' => 'Domain/IP',
+			'NetConnectionsFilterScreen.app' => 'App',
+			'NetConnectionsFilterScreen.rule' => 'Rule',
+			'NetConnectionsFilterScreen.chain' => 'Outbound',
+			'NetConnectionsScreen.copyAsCSV' => 'Copied to CSV format',
+			'NetConnectionsScreen.selectType' => 'Select Diversion Type',
+			'PerAppAndroidScreen.title' => 'Per-App Proxy',
+			'PerAppAndroidScreen.whiteListMode' => 'Whitelist Mode',
+			'PerAppAndroidScreen.whiteListModeTip' => 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies',
+			'RegionSettingsScreen.title' => 'Country Or Region',
+			'RegionSettingsScreen.Regions' => 'Tip: Please set your current country or region correctly, otherwise it may cause network diversion problems',
+			'ServerSelectScreen.title' => 'Select Server',
+			'ServerSelectScreen.autoSelectServer' => 'Auto select the server with the lowest latency',
+			'ServerSelectScreen.recentUse' => 'Recently Used',
+			'ServerSelectScreen.myFav' => 'My Favs',
+			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'The selected server is a local address and may not work properly:${p}',
+			'ServerSelectScreen.selectRequireEnableIPv6' => 'The selected server is an IPv6 address and requires [Enable IPv6]',
+			'ServerSelectScreen.selectDisabled' => 'This server has been disabled',
+			'ServerSelectScreen.error404' => 'Latency detection encountered an error, please check if there is a configuration with the same content',
+			'SettingsScreen.getTranffic' => 'Get Traffic',
+			'SettingsScreen.tutorial' => 'Tutorial',
+			'SettingsScreen.commonlyUsedRulesets' => 'Commonly Used Rulesets',
+			'SettingsScreen.howToRemoveAds' => 'How to remove ads',
+			'SettingsScreen.htmlBoard' => 'Online Panel',
+			'SettingsScreen.dnsLeakDetection' => 'DNS Leaks Detection',
+			'SettingsScreen.proxyLeakDetection' => 'Proxy Leaks Detection',
+			'SettingsScreen.speedTest' => 'Speed Test',
+			'SettingsScreen.rulesetDirectDownlad' => 'Rule Set Direct Download',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'Hide Unused Diversion Rules',
+			'SettingsScreen.disableISPDiversionGroup' => 'Disable [${_root.meta.isp}] ${_root.meta.diversionRules}',
+			'SettingsScreen.portSettingRule' => 'Rule Based',
+			'SettingsScreen.portSettingDirectAll' => 'Direct All',
+			'SettingsScreen.portSettingProxyAll' => 'Proxy All',
+			'SettingsScreen.portSettingControl' => 'Control and Sync',
+			'SettingsScreen.portSettingCluster' => 'Cluster Service',
+			'SettingsScreen.modifyPort' => 'Modify Port',
+			'SettingsScreen.modifyPortOccupied' => 'The port is occupied, please use another port',
+			'SettingsScreen.ipStrategyTips' => 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.',
+			'SettingsScreen.tunAppendHttpProxy' => 'Append HTTP Proxy to VPN',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy',
+			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
+			'SettingsScreen.dnsEnableRule' => 'Enable DNS Diversion rules',
+			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Resolve Channel',
+			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] Enable ECS',
+			'SettingsScreen.dnsTestDomain' => 'Test Domain',
+			'SettingsScreen.dnsTestDomainInvalid' => 'Invalid Domain',
+			'SettingsScreen.dnsTypeOutbound' => 'Proxy Server',
+			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
+			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
+			'SettingsScreen.dnsTypeResolver' => 'DNS Server',
+			'SettingsScreen.dnsEnableRuleTips' => 'After enabling, the domain name will select the corresponding DNS server for resolution according to the diversion rules',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'After enabling FakeIP, if you disconnect from VPN, your app may need to be restarted; this feature requires [TUN mode] to be enabled',
+			'SettingsScreen.dnsTypeOutboundTips' => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'SettingsScreen.dnsTypeDirectTips' => 'Domain name resolution for [${_root.meta.trafficDirect}]',
+			'SettingsScreen.dnsTypeProxyTips' => 'Domain name resolution for [${_root.meta.trafficProxy}]',
+			'SettingsScreen.dnsTypeResolverTips' => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeResolver}]',
+			'SettingsScreen.dnsAutoSetServer' => 'Auto Setup Server',
+			'SettingsScreen.dnsResetServer' => 'Reset Server',
+			'SettingsScreen.inboundDomainResolve' => 'Resolve Inbound Domain names',
+			'SettingsScreen.privateDirect' => 'Private Network Direct connection',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]',
+			'SettingsScreen.useRomoteRes' => 'Use Remote Resources',
+			'SettingsScreen.autoAppendRegion' => 'Auto attach basic rules',
+			'SettingsScreen.autoSelect' => 'Auto Select',
+			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'Ignore [Front/Chaine] Proxy Servers',
+			'SettingsScreen.autoSelectServerInterval' => 'Latency Checks Interval',
+			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Current server health check interval',
+			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Re-check Latency when Network Changes',
+			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Update the Current Server after Manual Latency Check',
+			'SettingsScreen.autoSelectServerIntervalTips' => 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency',
+			'SettingsScreen.autoSelectServerFavFirst' => 'Pri-Use [My Favs]',
+			'SettingsScreen.autoSelectServerFavFirstTips' => 'If the [My Favs] list is not empty, Then use the servers in [My Favs]',
+			'SettingsScreen.autoSelectServerFilter' => 'Filter Invalid Servers',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Server latency checks that fail will be filtered out; if no server is available after filtering, the first [${p}] servers will be used instead',
+			'SettingsScreen.autoSelectServerLimitedNum' => 'Maximum number of servers',
+			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Servers exceeding this number will be filtered out',
+			'SettingsScreen.numInvalid' => 'Invalid number',
+			'SettingsScreen.hideInvalidServer' => 'Hide Invalid Servers',
+			'SettingsScreen.sortServer' => 'Servers Sorting',
+			'SettingsScreen.sortServerTips' => 'Sort by latency from low to high',
+			'SettingsScreen.selectServerHideRecommand' => 'Hide [Recommend]',
+			'SettingsScreen.selectServerHideRecent' => 'Hide [Recently Used]',
+			'SettingsScreen.selectServerHideFav' => 'Hide [My Favs]',
+			'SettingsScreen.homeScreen' => 'Home Screen',
+			'SettingsScreen.theme' => 'Theme',
+			'SettingsScreen.widgetsAlpha' => 'Widgets Alpha',
+			'SettingsScreen.widgetsEmpty' => 'No Widget Available',
+			'SettingsScreen.backgroundImage' => 'Background Image',
+			'SettingsScreen.myLink' => 'Shortcut Link',
+			'SettingsScreen.autoConnectAfterLaunch' => 'Auto Connection after Launch',
+			'SettingsScreen.autoConnectAtBoot' => 'Auto Connection after System Startup',
+			'SettingsScreen.autoConnectAtBootTips' => 'System support is required; some systems may also require [auto-start] to be enabled.',
+			'SettingsScreen.hideAfterLaunch' => 'Hide window after startup',
+			'SettingsScreen.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
+			'SettingsScreen.bypassSystemProxy' => 'Domain names that are allowed to bypass the system proxy',
+			'SettingsScreen.disconnectWhenQuit' => 'Disconnect when App Exits',
+			'SettingsScreen.excludeFromRecent' => 'Hide from [Recent Tasks]',
+			'SettingsScreen.wakeLock' => 'Wake Lock',
+			'SettingsScreen.hideVpn' => 'Hide VPN Icon',
+			'SettingsScreen.hideVpnTips' => 'Enabling IPv6 will cause this function to fail',
+			'SettingsScreen.allowBypass' => 'Allow Apps to Bypass VPN',
+			'SettingsScreen.importSuccess' => 'Import Success',
+			'SettingsScreen.rewriteConfirm' => 'This file will overwrite the existing local configuration. Do you want to continue?',
+			'SettingsScreen.mergePerapp' => 'Merge local [${_root.PerAppAndroidScreen.title}] lists',
+			'SettingsScreen.networkShare' => 'Network Sharing',
+			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server',
+			'SettingsScreen.allowOtherHostsConnect' => 'Allow Others to Connect',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.',
+			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunStrictRouteTips' => 'If after turning on sharing, others cannot access this device, please try turning off this switch',
+			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.enableCluster' => 'Enable Socks/Http Proxy Cluster',
+			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Allow Others to Connect to Cluster',
+			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
+			'SettingsScreen.clusterAuth' => 'Proxy Cluster Authentication',
+			'SettingsScreen.tunMode' => 'TUN Mode',
+			'SettingsScreen.tuni4Address' => 'IP address',
+			'SettingsScreen.tunModeTips' => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]',
+			'SettingsScreen.tunModeRunAsAdmin' => 'The TUN mode requires system administrator permissions, please restart the app as an administrator',
+			'SettingsScreen.tunStack' => 'Stack',
+			'SettingsScreen.tunHijackTips' => 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server',
+			'SettingsScreen.launchAtStartup' => 'Launch at Startup',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'Exit App when Switch System Users',
+			'SettingsScreen.handleScheme' => 'System Scheme Call',
+			'SettingsScreen.portableMode' => 'Portable Mode',
+			'SettingsScreen.portableModeDisableTips' => 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]',
+			'SettingsScreen.handleKaringScheme' => 'Handle karing:// Call',
+			'SettingsScreen.handleClashScheme' => 'Handle clash:// Call',
+			'SettingsScreen.handleSingboxScheme' => 'Handle sing-box:// Call',
+			'SettingsScreen.alwayOnVPN' => 'Always-on Connection',
+			'SettingsScreen.disconnectAfterSleep' => 'Disconnect after system sleep',
+			'SettingsScreen.removeSystemVPNConfig' => 'Delete system VPN configuration',
+			'SettingsScreen.timeConnectOrDisconnect' => 'Scheduled connect/disconnect',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'The connection/disconnection interval cannot be less than ${p} minutes',
+			'SettingsScreen.disableFontScaler' => 'Disable Font scaling(Restart takes effect)',
+			'SettingsScreen.autoOrientation' => 'Rotate with the screen',
+			'SettingsScreen.restartTakesEffect' => 'Restart takes effect',
+			'SettingsScreen.reconnectTakesEffect' => 'Reconnect takes effect',
+			'SettingsScreen.resetSettings' => 'Reset Settings',
+			'SettingsScreen.cleanCache' => 'Cleanup Cache',
+			'SettingsScreen.cleanCacheDone' => 'Cleanup completed',
+			'SettingsScreen.appleTestFlight' => 'Apple TestFlight',
+			'SettingsScreen.appleAppStore' => 'Apple AppStore',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Update Version ${p}',
+			'SettingsScreen.follow' => 'Follow Us',
+			'SettingsScreen.contactUs' => 'Contact Us',
+			'SettingsScreen.supportUs' => 'Support Us',
+			'SettingsScreen.rateInApp' => 'Rate Us',
+			'SettingsScreen.rateInAppStore' => 'Rate Us in AppStore',
+			'UserAgreementScreen.privacyFirst' => 'Your Privacy Comes First',
+			'UserAgreementScreen.agreeAndContinue' => 'Accept & Continue',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'The new version[${p}] is ready',
+			'VersionUpdateScreen.update' => 'Restart To Update',
+			'VersionUpdateScreen.cancel' => 'Not Now',
+			'CommonWidget.diableAlwayOnVPN' => 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again',
+			'CommonWidget.resetPort' => 'Please change the port to another available port or close the application occupying the port.',
+			'main.tray.menuOpen' => '    Open    ',
+			'main.tray.menuExit' => '    Exit    ',
+			'meta.enable' => 'Enable',
+			'meta.disable' => 'Disable',
+			'meta.bydefault' => 'Default',
+			'meta.filter' => 'Filter',
+			'meta.filterMethod' => 'Filter Method',
+			'meta.include' => 'Include',
+			'meta.exclude' => 'Exclude',
+			'meta.all' => 'All',
+			'meta.prefer' => 'Prefer',
+			'meta.only' => 'Only',
+			'meta.open' => 'Open',
+			'meta.close' => 'Close',
+			'meta.quit' => 'Quit',
+			'meta.add' => 'Add',
+			'meta.addSuccess' => 'Added successfully',
+			'meta.addFailed' => ({required Object p}) => 'Add failed:${p}',
+			'meta.remove' => 'Remove',
+			'meta.removeConfirm' => 'Are you sure to delete?',
+			'meta.edit' => 'Edit',
+			'meta.view' => 'View',
+			'meta.more' => 'More',
+			'meta.tips' => 'Info',
+			'meta.copy' => 'Copy',
+			'meta.save' => 'Save',
+			'meta.ok' => 'Ok',
+			'meta.cancel' => 'Cancel',
+			'meta.feedback' => 'Feedback',
+			'meta.feedbackContent' => 'Feedback Content',
+			'meta.feedbackContentHit' => 'Required, up to 500 characters',
+			'meta.feedbackContentCannotEmpty' => 'Feedback content can not be empty',
+			'meta.faq' => 'FAQ',
+			'meta.download' => 'Download',
+			'meta.upload' => 'Upload',
+			'meta.downloadSpeed' => 'Download Speed',
+			'meta.uploadSpeed' => 'Upload Speed',
+			'meta.loading' => 'Loading...',
+			'meta.convert' => 'Convert',
+			'meta.check' => 'Check',
+			'meta.detect' => 'Detect',
+			'meta.cache' => 'Cache',
+			'meta.days' => 'Days',
+			'meta.hours' => 'Hours',
+			'meta.minutes' => 'Minutes',
+			'meta.seconds' => 'Seconds',
+			'meta.milliseconds' => 'Milliseconds',
+			'meta.tolerance' => 'Tolerance',
+			'meta.dateTimePeriod' => 'Time period',
+			'meta.protocol' => 'Protocol',
+			'meta.search' => 'Search',
+			'meta.custom' => 'Custom',
+			'meta.inbound' => 'Inbound',
+			'meta.outbound' => 'Outbound',
+			'meta.destination' => 'Destination',
+			'meta.outletIpByCurrentSelected' => 'IP',
+			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.connect' => 'Connect',
+			'meta.disconnect' => 'Disconnect',
+			'meta.reconnect' => 'Reconnect',
+			'meta.connected' => 'Connected',
+			'meta.disconnected' => 'Disconnected',
+			'meta.connecting' => 'Connecting',
+			'meta.connectTimeout' => 'Connect Timeout',
+			'meta.timeout' => 'Timeout',
+			'meta.timeoutDuration' => 'Timeout Duration',
+			'meta.runDuration' => 'Run Duration',
+			'meta.latency' => 'Latency',
+			'meta.latencyTest' => 'Latency Checks',
+			'meta.language' => 'Language',
+			'meta.next' => 'Next',
+			'meta.done' => 'Done',
+			'meta.apply' => 'Apply',
+			'meta.refresh' => 'Refresh',
+			'meta.retry' => 'Retry?',
+			'meta.update' => 'Update',
+			'meta.updateInterval' => 'Update interval',
+			'meta.updateInterval5mTips' => 'Minimum: 5m',
+			'meta.updateFailed' => ({required Object p}) => 'Update failed:${p}',
+			'meta.samplingUnit' => 'Sampling Time Unit',
+			'meta.queryResultCount' => 'Number of Query Results',
+			'meta.queryLimit' => ({required Object p}) => 'Display up to ${p} data',
+			'meta.none' => 'None',
+			'meta.start' => 'Start',
+			'meta.pause' => 'Pause',
+			'meta.reset' => 'Reset',
+			'meta.submit' => 'Submit',
+			'meta.user' => 'User',
+			'meta.account' => 'Account',
+			'meta.password' => 'Password',
+			'meta.required' => 'Required',
+			'meta.type' => 'Type',
+			'meta.path' => 'Path',
+			'meta.local' => 'Local',
+			'meta.remote' => 'Remote',
+			'meta.other' => 'Other',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'Invalid URL',
+			'meta.urlCannotEmpty' => 'Link can not be empty',
+			'meta.urlTooLong' => 'URL is too long (>8182)',
+			'meta.copyUrl' => 'Copy Link',
+			'meta.openUrl' => 'Open Link',
+			'meta.shareUrl' => 'Share Link',
+			'meta.speedTestUrl' => 'Speed Test URL',
+			'meta.tls' => 'TLS',
+			'meta.userAgent' => 'UserAgent',
+			'meta.staticIP' => 'Static IP',
+			'meta.staticIPTips' => 'You need to enable [TUN HijackDNS] or [${_root.SettingsScreen.inboundDomainResolve}].',
+			'meta.isp' => 'VPN Provider',
+			'meta.domainSuffix' => 'Domain Suffix',
+			'meta.domain' => 'Domain',
+			'meta.domainKeyword' => 'Domain Keyword',
+			'meta.domainRegex' => 'Domain Regex',
+			'meta.ip' => 'IP',
+			'meta.port' => 'Port',
+			'meta.portRange' => 'Port range',
+			'meta.appPackage' => 'App Package Id',
+			'meta.processName' => 'Process Name',
+			'meta.processPath' => 'Process Path',
+			'meta.processDir' => 'Process Directory',
+			'meta.systemProxy' => 'System Proxy',
+			'meta.percentage' => 'Percentage',
+			'meta.statistics' => 'Statistics',
+			'meta.statisticsAndAnalysis' => 'Statistics and Analysis',
+			'meta.statisticsDataDesensitize' => 'Data Desensitization',
+			'meta.statisticsDataDesensitizeTips' => 'Process/package ID/target domain name/target IP etc. will be replaced with * and saved after desensitization',
+			'meta.records' => 'Records',
+			'meta.requestRecords' => 'Request Records',
+			'meta.netInterfaces' => 'Net Interfaces',
+			'meta.netSpeed' => 'Speed',
+			'meta.memoryTrendChart' => 'Memory Trend chart',
+			'meta.trafficTrendChart' => 'Traffic Trend Chart',
+			'meta.trafficDistributionChart' => 'Traffic Distribution Chart',
+			'meta.connectionChart' => 'Connection Trend Chart',
+			'meta.memoryChart' => 'Memory Trend chart',
+			'meta.trafficStatistics' => 'Traffic statistics',
+			'meta.traffic' => 'Traffic',
+			'meta.trafficTotal' => 'Total Traffic',
+			'meta.trafficProxy' => 'Proxy Traffic',
+			'meta.trafficDirect' => 'Direct Traffic',
+			'meta.website' => 'Website',
+			'meta.memory' => 'Memory',
+			'meta.outboundMode' => 'Outbound Mode',
+			'meta.rule' => 'Rule',
+			'meta.global' => 'Global',
+			'meta.qrcode' => 'QR Code',
+			'meta.qrcodeTooLong' => 'The text is too long to display',
+			'meta.qrcodeShare' => 'Share QR Code',
+			'meta.textToQrcode' => 'Text To QR Code',
+			'meta.qrcodeScan' => 'Scan QR Code',
+			'meta.qrcodeScanResult' => 'Scan Result',
+			'meta.qrcodeScanFromImage' => 'Scan From Image',
+			'meta.qrcodeScanResultFailed' => 'Failed to parse the image, please make sure the screenshot is a valid QR code',
+			'meta.qrcodeScanResultEmpty' => 'Scan Result is empty',
+			'meta.screenshot' => 'Screenshot',
+			'meta.backupAndSync' => 'Backup and Sync',
+			'meta.autoBackup' => 'Auto backup',
+			'meta.noProfileGotAutoBackup' => 'If data such as [${_root.meta.myProfiles}] is lost, you can restore it from [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] or other backup sources (such as iCloud or Webdav, etc.)',
+			'meta.autoBackupAddProfile' => 'After adding the Profile',
+			'meta.autoBackupRemoveProfile' => 'After deleting the Profile',
+			'meta.profile' => 'Profile',
+			'meta.currentProfile' => 'Current Profile',
+			'meta.importAndExport' => 'Import and Export',
+			'meta.import' => 'Import',
+			'meta.importFromUrl' => 'Import from URL',
+			'meta.export' => 'Export',
+			'meta.send' => 'Send',
+			'meta.receive' => 'Receive',
+			'meta.sendConfirm' => 'Confirm to send?',
+			'meta.termOfUse' => 'Terms of Service',
+			'meta.privacyPolicy' => 'Privacy & Policy',
+			'meta.about' => 'About',
+			'meta.name' => 'Name',
+			'meta.version' => 'Version',
+			'meta.notice' => 'Notice',
+			'meta.appNotifyWithReason' => ({required Object p, required Object p1}) => 'Action:${p}\nReason:${p1}',
+			'meta.sort' => 'Reorder',
+			'meta.novice' => 'Novice Mode',
+			'meta.willCompleteAfterRebootInstall' => 'Please restart your device to complete the system extension installation',
+			'meta.willCompleteAfterRebootUninstall' => 'Please restart your device to complete the the system extension uninstallation',
+			'meta.requestNeedsUserApproval' => '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion',
+			'meta.FullDiskAccessPermissionRequired' => 'Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect',
+			'meta.tvMode' => 'TV Mode',
+			'meta.recommended' => 'Recommend',
+			'meta.innerError' => ({required Object p}) => 'Inner Error:${p}',
+			'meta.logicOperation' => 'Logic Operation',
+			'meta.share' => 'Share',
+			'meta.candidateWord' => 'Candidate Words',
+			'meta.keywordOrRegx' => 'Keywords/Regular',
+			'meta.importFromClipboard' => 'Import From Clipboard',
+			'meta.exportToClipboard' => 'Export to Clipboard',
+			'meta.server' => 'Server',
+			'meta.ads' => 'Ads',
+			'meta.adsRemove' => 'Remove ads',
+			'meta.adsBanner' => 'Banner ads',
+			'meta.donate' => 'Donate',
+			'meta.diversion' => 'Diversion',
+			'meta.diversionRules' => 'Diversion Rules',
+			'meta.diversionCustomGroup' => 'Custom Diversion Group',
+			'meta.urlTestCustomGroup' => 'Custom Auto Select',
+			'meta.setting' => 'Settings',
+			'meta.iCloud' => 'iCloud',
+			'meta.appleTV' => 'Apple TV',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN Sync',
+			'meta.lanSyncNotQuitTips' => 'Do not exit this interface before synchronization is completed',
+			'meta.deviceNoSpace' => 'Not enough disk space',
+			'meta.hideSystemApp' => 'Hide System Apps',
+			'meta.hideAppIcon' => 'Hide App Icons',
+			'meta.hideDockIcon' => 'Hide Dock Icon',
+			'meta.remark' => 'Remark',
+			'meta.remarkExist' => 'Remark already exists, please use another name',
+			'meta.remarkCannotEmpty' => 'Remarks can not be empty',
+			'meta.remarkTooLong' => 'Remarks up to 32 characters',
+			'meta.openDir' => 'Open File Directory',
+			'meta.fileChoose' => 'Select File',
+			'meta.filePathCannotEmpty' => 'The file path can not be empty',
+			'meta.fileNotExist' => ({required Object p}) => 'File does not exist:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'Invalid file type:${p}',
+			'meta.uwpExemption' => 'UWP Network Isolation Exemptions',
+			'meta.rulesetGeoSite' => 'GeoSite',
+			'meta.rulesetGeoIp' => 'GeoIP',
+			'meta.rulesetAcl' => 'ACL',
+			'meta.getProfile' => 'Get Profile',
+			'meta.addProfile' => 'Add Profile',
+			'meta.myProfiles' => 'My Profiles',
+			'meta.myProfilesAtLeastOneReserveEnable' => 'Cannot be disabled, please keep at least one profile enable',
+			'meta.profileEdit' => 'Profile Edit',
+			'meta.profileEditUrlExist' => 'URL already exists, please use another URL',
+			'meta.profileEditReloadAfterProfileUpdate' => 'Reload after Profile update',
+			'meta.profileEditTestLatencyAfterProfileUpdate' => 'Start latency tests after Profile Automatically update',
+			'meta.profileEditTestLatencyAfterProfileUpdateTips' => 'VPN needs to be connected, and [Reload after Profile update] Enabled',
+			'meta.profileEditTestLatencyAutoRemove' => 'Automatically remove servers that fail latency tests',
+			'meta.profileEditTestLatencyAutoRemoveTips' => 'Try up to 3 times',
+			'meta.profileImport' => 'Import Profile File',
+			'meta.profileAddUrlOrContent' => 'Add Profile Link',
+			'meta.profileExists' => 'The Profile already exists, please do not add it repeatedly',
+			'meta.profileUrlOrContent' => 'Profile Link/Content',
+			'meta.profileUrlOrContentHit' => 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)',
+			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application',
+			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again',
+			'meta.profileAddParseFailed' => 'Parsing Profile failed',
+			'meta.profileAddNoServerAvaliable' => 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page',
+			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
+			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
+			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
+			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',
+			'diversionCustomGroupAddTips' => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect',
+			'rulesetEnableTips' => 'Tip: After turning on the options, please go to[${_root.meta.diversionRules}]to set the relevant rules, otherwise they will not take effect',
+			'ispUserAgentTips' => '[${_root.meta.isp}] will send data of different subscription types based on [UserAgent] in [HTTP] request',
+			'ispDiversionTips' => '[${_root.meta.isp}] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules',
+			'isp.bind' => 'Bind To [${_root.meta.isp}] ',
+			'isp.unbind' => ({required Object p}) => 'Unbind[${p}]',
+			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
+			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
+			'isp.follow' => ({required Object p}) => 'Follow[${p}]',
+			'isp.invalidOrExpired' => '[${_root.meta.isp}] Invalid or expired',
+			'permission.camera' => 'Camera',
+			'permission.screen' => 'Screen Recording',
+			'permission.appQuery' => 'Get Application List',
+			'permission.request' => ({required Object p}) => 'Turn on [${p}] permission',
+			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',
+			'tls.insecure' => 'Skip Certificate Verification',
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
+			'tls.fragmentEnable' => 'Enable TLS Fragment',
+			'tls.fragmentSize' => 'TLS Fragment Size',
+			'tls.fragmentSleep' => 'TLS Fragment Sleep',
+			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
+			'tls.paddingEnable' => 'Enable TLS Padding',
+			'tls.paddingSize' => 'TLS Padding Size',
+			'outboundRuleMode.currentSelected' => 'Current Selected',
+			'outboundRuleMode.urltest' => 'Auto Select',
+			_ => null,
+		} ?? switch (path) {
+			'outboundRuleMode.direct' => 'Direct',
+			'outboundRuleMode.block' => 'Block',
+			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,
+			'dnsProxyResolveMode.direct' => _root.outboundRuleMode.direct,
+			'dnsProxyResolveMode.fakeip' => 'FakeIP',
+			'proxyStrategy.perferProxy' => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.perferDirect' => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}',
+			'proxyStrategy.onlyProxy' => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.onlyDirect' => '${_root.meta.only} ${_root.outboundRuleMode.direct}',
+			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
+			'reloadReason.profileUpdate' => 'Profile Update',
+			'theme.light' => 'Light',
+			'theme.dark' => 'Dark',
+			'theme.auto' => 'Auto',
+			'downloadProxyStrategy' => 'Download Channel',
+			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: Connect to the DNS server through the proxy server to resolve the domain name\n[${_root.dnsProxyResolveMode.direct}]: Connect directly to the DNS server to resolve the domain name\n[${_root.dnsProxyResolveMode.fakeip}]: The proxy server resolves the domain name on your behalf; if you disconnect the VPN connection, your application may need to be restarted; only effective for [TUN] inbound traffic',
+			'routeFinal' => 'final',
+			'protocolSniff' => 'Protocol Sniff',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'Please use [${p}]',
+			'turnOffPrivateDirect' => 'Please turn on [Private network direct connection] first',
+			'targetConnectFailed' => ({required Object p}) => 'Failed to connect to [${p}]. Please make sure the devices are in the same LAN',
+			'appleTVSync' => 'Synchronize the current core configuration to Apple TV - Karing',
+			'appleTVSyncDone' => 'Synchronization is complete. Please go to Apple TV - Karing to start the connection/restart the connection',
+			'appleTVRemoveCoreConfig' => 'Delete Apple TV - Karing Core Configuration',
+			'appleTVRemoveCoreConfigDone' => 'Apple TV - Karing\'s Core Configuration deleted; VPN service disconnected',
+			'appleTVUrlInvalid' => 'Invalid URL, please open Apple TV - Karing and scan the QR code displayed by Karing',
+			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] does not have this function, please upgrade and try again',
+			'appleCoreVersionNotMatch' => ({required Object p}) => 'The core major version does not match, please upgrade [${p}] and try again',
+			'remoteProfileEditConfirm' => 'After the Profile is updated, the node changes will be restored. Continue?',
+			'mustBeValidHttpsURL' => 'Must be Valid https URL',
+			'fileNotExistReinstall' => ({required Object p}) => 'File missing [${p}], please reinstall',
+			'noNetworkConnect' => 'No Internet connection',
+			'sudoPassword' => 'sudo password (required for TUN mode)',
+			'turnOffNetworkBeforeInstall' => 'It is recommended to switch to [Airplane Mode] before installing the update',
+			'latencyTestResolveIP' => 'When manually checking, resolve the outlet IP',
+			'removeBannerAdsByShare' => 'Share [Karing] to remove ads',
+			'removeBannerAdsByReward' => 'Watch an ad to remove ads',
+			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)',
+			'removeBannerAdsByRewardTip' => ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)',
+			'removeBannerAdsDone' => ({required Object p}) => 'Received ${p} days of ad-free rewards',
+			'maybeAdsByReward' => 'You may need to watch an ad before using this feature. Click [${_root.meta.ok}] to continue',
+			'edgeRuntimeNotInstalled' => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

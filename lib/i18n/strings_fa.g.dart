@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsFa implements Translations {
+class TranslationsFa with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -120,6 +121,7 @@ class _TranslationsAboutScreenFa implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'مرجع نصب';
 	@override String get installTime => 'زمان نصب';
 	@override String get versionChannel => 'کانال به‌روزرسانی خودکار';
+	@override String get autoDownloadPkg => 'دانلود خودکار بسته‌های به‌روزرسانی';
 	@override String get disableUAReport => 'داده های بهبود را اعمال کنید';
 	@override String get disableUAReportTip => '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.';
 	@override String get devOptions => 'تنظیمات توسعه‌دهندگان';
@@ -154,7 +156,7 @@ class _TranslationsDiversionGroupCustomEditScreenFa implements TranslationsDiver
 	// Translations
 	@override String invalidDomain({required Object p}) => 'نامعتبر [Domain]:${p}';
 	@override String invalidIpCidr({required Object p}) => 'نامعتبر [IP Cidr]:${p}';
-	@override String invalidPort({required Object p}) => 'نامعتبر [Port]:${p}';
+	@override String invalid({required Object p0, required Object p}) => 'نامعتبر [${p0}]:${p}';
 	@override String invalidRuleSet({required Object p}) => 'نامعتبر [Rule Set]:${p} باید URL یک URL معتبر https باشد و یک فایل دودویی(binary) با پسوند فایل .srs/.json باشد';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'نامعتبر [Rule Set(build-in)]:${p} نامعتبر است، قالب geosite:xxx یا geoip:xxx یا acl:xxx است و xxx باید یک نام قانون معتبر باشد';
 	@override String invalidPackageId({required Object p}) => 'نامعتبر [${_root.meta.appPackage}]:${p}';
@@ -426,6 +428,8 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get backgroundImage => 'تصویر پس زمینه';
 	@override String get myLink => 'لینک میان‌بر';
 	@override String get autoConnectAfterLaunch => 'اتصال خودکار پس‌از راه‌اندازی';
+	@override String get autoConnectAtBoot => 'اتصال خودکار پس از روشن شدن سیستم';
+	@override String get autoConnectAtBootTips => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
@@ -476,6 +480,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get disableFontScaler => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
 	@override String get autoOrientation => 'چرخش صفحه را دنبال کنید';
 	@override String get restartTakesEffect => 'با راه‌اندازی مجدد اعمال می‌شود';
+	@override String get reconnectTakesEffect => 'پس از اتصال مجدد، اعمال خواهد شد.';
 	@override String get resetSettings => 'بازنشانی تنظیمات';
 	@override String get cleanCache => 'پاک کردن حافظه پنهان';
 	@override String get cleanCacheDone => 'پاکسازی کامل شد';
@@ -584,12 +589,17 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get hours => 'ساعت';
 	@override String get minutes => 'دقیقه';
 	@override String get seconds => 'دومین';
+	@override String get milliseconds => 'میلی‌ثانیه';
+	@override String get tolerance => 'تحمل';
 	@override String get dateTimePeriod => 'دوره زمانی';
 	@override String get protocol => 'پروتکل';
 	@override String get search => 'جستجو';
 	@override String get custom => 'سفارشی';
 	@override String get inbound => 'ورودی';
 	@override String get outbound => 'خارج شوید';
+	@override String get destination => 'هدف';
+	@override String get outletIpByCurrentSelected => 'IP';
+	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'اتصال';
 	@override String get disconnect => 'قطع‌ اتصال';
 	@override String get reconnect => 'دوباره وصل شوید';
@@ -641,6 +651,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP استاتیک';
+	@override String get staticIPTips => 'شما باید [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] را فعال کنید.';
 	@override String get isp => 'ارائه دهندگان VPN';
 	@override String get domainSuffix => 'پسوند دامنه';
 	@override String get domain => 'دامنه';
@@ -654,18 +665,21 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get processPath => 'مسیر پروسه';
 	@override String get processDir => 'فهرست فرآیندها';
 	@override String get systemProxy => 'پروکسی سیستم';
+	@override String get percentage => 'درصد';
 	@override String get statistics => 'آمار';
 	@override String get statisticsAndAnalysis => 'آمار و تحلیل';
-	@override String get statisticsPrivacyDesensitize => 'حساسیت‌زدایی از حریم خصوصی';
-	@override String get statisticsPrivacyDesensitizeTips => 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.';
+	@override String get statisticsDataDesensitize => 'ناشناس‌سازی داده‌ها';
+	@override String get statisticsDataDesensitizeTips => 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.';
 	@override String get records => 'رکورد';
 	@override String get requestRecords => 'درخواست سوابق';
 	@override String get netInterfaces => 'رابط شبکه';
 	@override String get netSpeed => 'سرعت';
+	@override String get memoryTrendChart => 'نمودار روند حافظه';
 	@override String get trafficTrendChart => 'نمودار روند ترافیک';
 	@override String get trafficDistributionChart => 'نقشه توزیع ترافیک';
 	@override String get connectionChart => 'نمودار روند اتصال';
 	@override String get memoryChart => 'نمودار روند حافظه';
+	@override String get trafficStatistics => 'آمار ترافیک';
 	@override String get traffic => 'جریان';
 	@override String get trafficTotal => 'کل ترافیک';
 	@override String get trafficProxy => 'ترافیک پروکسی';
@@ -690,6 +704,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get noProfileGotAutoBackup => 'اگر داده‌هایی مانند [${_root.meta.myProfiles}] از بین بروند، می‌توانید آن‌ها را از [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] یا سایر منابع پشتیبان (مانند iCloud یا Webdav و غیره) بازیابی کنید.';
 	@override String get autoBackupAddProfile => 'بعد از اضافه کردن تنظیمات';
 	@override String get autoBackupRemoveProfile => 'پس از حذف تنظیمات';
+	@override String get profile => 'پیکربندی';
 	@override String get currentProfile => 'پیکربندی فعلی';
 	@override String get importAndExport => 'وارد‌کردن و خروجی‌گرفتن';
 	@override String get import => 'وارد‌کردن';
@@ -895,558 +910,576 @@ class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 	@override String get menuExit => '    بستن    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <fa>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsFa {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'AboutScreen.installRefer': return 'مرجع نصب';
-			case 'AboutScreen.installTime': return 'زمان نصب';
-			case 'AboutScreen.versionChannel': return 'کانال به‌روزرسانی خودکار';
-			case 'AboutScreen.disableUAReport': return 'داده های بهبود را اعمال کنید';
-			case 'AboutScreen.disableUAReportTip': return '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.';
-			case 'AboutScreen.devOptions': return 'تنظیمات توسعه‌دهندگان';
-			case 'AboutScreen.enableDebugLog': return 'فعال‌سازی گزارش اشکال‌زدایی';
-			case 'AboutScreen.viewFilsContent': return 'مشاهده فایل‌ها';
-			case 'AboutScreen.enablePprof': return 'فعال‌سازی pprof';
-			case 'AboutScreen.pprofPanel': return 'پنل pprof';
-			case 'AboutScreen.allowRemoteAccessPprof': return 'اجازه دسترسی از راه دور به ${_root.AboutScreen.pprofPanel}';
-			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'اجازه دسترسی از راه دور${_root.SettingsScreen.htmlBoard}';
-			case 'AboutScreen.useOriginalSBProfile': return 'استفاده از پروفایل اصلی سینگ‌باکس';
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'آدرس URL سرور';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'نمی‌تواند خالی باشد';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'ورود ناموفق بود:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'دریافت لیست فایل ناموفق بود:';
-			case 'DiversionGroupCustomEditScreen.invalidDomain': return ({required Object p}) => 'نامعتبر [Domain]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidIpCidr': return ({required Object p}) => 'نامعتبر [IP Cidr]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'نامعتبر [Port]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'نامعتبر [Rule Set]:${p} باید URL یک URL معتبر https باشد و یک فایل دودویی(binary) با پسوند فایل .srs/.json باشد';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'نامعتبر [Rule Set(build-in)]:${p} نامعتبر است، قالب geosite:xxx یا geoip:xxx یا acl:xxx است و xxx باید یک نام قانون معتبر باشد';
-			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'نامعتبر [${_root.meta.appPackage}]:${p}';
-			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
-			case 'DiversionRuleDetectScreen.title': return 'کشف قانون انحراف';
-			case 'DiversionRuleDetectScreen.rule': return 'قانون:';
-			case 'DiversionRuleDetectScreen.outbound': return 'سرور پروکسی:';
-			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'نکته: سعی کنید قوانین را از بالا به پایین مطابقت دهید، از [نهایی] استفاده کنید.';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP نمی‌تواند خالی باشد';
-			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL نمی‌تواند خالی باشد';
-			case 'DnsSettingsScreen.error': return ({required Object p}) => 'نوع پشتیبانی نشده:${p}';
-			case 'DnsSettingsScreen.dnsDesc': return 'ستون اول داده‌های تأخیر، تأخیر ارتباط مستقیم است؛\nستون دوم: روشن کردن [[ترافیک پروکسی] برای حل و فصل DNS از طریق سرور پراکسی]: داده‌های تأخیر، تأخیر درخواست ارسال شده از طریق سرور پراکسی فعلی است [[ترافیک پروکسی] روشن نیست، از طریق سرور پروکسی DNS را حل می‌کند]: داده‌های تأخیر تأخیر درخواست اتصال مستقیم است';
-			case 'FileContentViewerScreen.title': return 'نمایش دهنده محتوای فایل';
-			case 'FileContentViewerScreen.clearFileContent': return 'آیا از پاکسازی محتوای فایل اطمینان دارید؟';
-			case 'FileContentViewerScreen.clearFileContentTips': return 'آیا از پاکسازی محتوای فایل پروفایل اطمینان دارید؟ پاکسازی محتوای فایل پروفایل ممکن است باعث از دست رفتن داده یا عملیات غیرعادی نرم‌افزار شود؛ لطفا با احتیاط عمل کنید.';
-			case 'HomeScreen.toSelectServer': return 'لطفا یک سرور انتخاب کنید';
-			case 'HomeScreen.invalidServer': return 'نامعتبر است، لطفا مجدد انتخاب کنید';
-			case 'HomeScreen.disabledServer': return 'غیرفعال است، لطفا مجدد انتخاب کنید';
-			case 'HomeScreen.expiredServer': return 'هیچ سروری در دسترس نیست: ممکن است پیکربندی قدیمی یا غیرفعال باشد';
-			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'HomeScreen.myLinkEmpty': return 'لطفا قبل‌از استفاده [لینک میان‌بر] را راه‌اندازی کنید';
-			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'تعداد زیادی سرور پروکسی [${p}>${p1}] وجود دارد و ممکن است به دلیل محدودیت حافظه سیستم، اتصال امکان پذیر نباشد.';
-			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'تعداد زیاد سرورهای پروکسی [${p}>${p1}] ممکن است باعث کندی یا عدم دسترسی به اتصالات شود';
-			case 'LaunchFailedScreen.invalidProcess': return 'اجرای نرم‌افزار ناموفق بود [نام‌ اجرایی پروسه نامعتبر]، لطفا مجدد نرم‌افزار را در دایرکتوری دیگری نصب کنید';
-			case 'LaunchFailedScreen.invalidProfile': return 'اجرای نرم‌افزار ناموفق بود [دسترسی به پروفایل ناموفق بود]، لطفا مجدد نرم افزار را نصب کنید';
-			case 'LaunchFailedScreen.invalidVersion': return 'اجرای نرم‌افزار ناموفق بود [ورژن نامعتبر]، لطفا مجدد نرم‌افزار را نصب کنید';
-			case 'LaunchFailedScreen.systemVersionLow': return 'راه اندازی برنامه ناموفق بود [نسخه سیستم خیلی کم است]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'مسیر نصب نامعتبر است، لطفا مجدد در مسیر معتبر نصب کنید';
-			case 'MyProfilesMergeScreen.profilesMerge': return 'ادغام پروفایل‌ها';
-			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'پروفایل هدف';
-			case 'MyProfilesMergeScreen.profilesMergeSource': return 'پروفایل مرجع';
-			case 'MyProfilesMergeScreen.profilesMergeTips': return 'راهنمایی: انحراف پروفایل مرجع حذف می‌شود';
-			case 'NetCheckScreen.title': return 'بررسی شبکه';
-			case 'NetCheckScreen.warn': return 'توجه: به دلیل تأثیر محیط شبکه و قوانین انحراف، نتایج آزمون کاملاً معادل نتایج واقعی نیست.';
-			case 'NetCheckScreen.invalidDomain': return 'نام دامنه نامعتبر';
-			case 'NetCheckScreen.connectivity': return 'اتصال شبکه';
-			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'تست اتصال Ipv4 همه‌ی [${p}] ناموفق بودند';
-			case 'NetCheckScreen.connectivityTestIpv4Ok': return 'اتصال Ipv4 موفق بود';
-			case 'NetCheckScreen.connectivityTestIpv6AllFailed': return ({required Object p}) => 'تست اتصال Ipv6 همه‌ی [${p}] ناموفق بودند، شاید شبکه شما از Ipv6 پشتیبانی نکند';
-			case 'NetCheckScreen.connectivityTestIpv6Ok': return 'اتصال Ipv6 موفق بود';
-			case 'NetCheckScreen.connectivityTestOk': return 'شبکه به اینترنت متصل است';
-			case 'NetCheckScreen.connectivityTestFailed': return 'شبکه هنوز به اینترنت متصل نشده';
-			case 'NetCheckScreen.remoteRulesetsDownloadOk': return 'همه با موفقیت دانلود شدند';
-			case 'NetCheckScreen.remoteRulesetsDownloadNotOk': return 'دانلود شد یا ناموفق بود';
-			case 'NetCheckScreen.outbound': return 'سرور پروکسی';
-			case 'NetCheckScreen.outboundOk': return ({required Object p}) => '[${p}] اتصال موفق بود';
-			case 'NetCheckScreen.outboundFailed': return ({required Object p1, required Object p2}) => '[${p1}] اتصال ناموفق \nارور:[${p2}]';
-			case 'NetCheckScreen.dnsServer': return 'سرور دی‌ان‌اس';
-			case 'NetCheckScreen.dnsOk': return ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule: درخواست دی‌ان‌اس موفق بود\nقانون دی‌ان‌اس: [${p2}]\nتاخیر: [${p3} ms]\nآدرس [${p4}]';
-			case 'NetCheckScreen.dnsFailed': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]جستجوی DNS موفق بود\nقانون DNS: [${p2}]\nخطا:[${p3}]';
-			case 'NetCheckScreen.host': return 'اتصال HTTP';
-			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقانون انحراف: [${p2}]\nسرور پروکسی: [${p3}]';
-			case 'NetCheckScreen.hostConnectionOk': return 'اتصال موفق شد';
-			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'ارتباط ناموفق بود:[${p}]';
-			case 'NetConnectionsFilterScreen.hostIp': return 'دامنه/آی‌پی';
-			case 'NetConnectionsFilterScreen.app': return 'نرم‌افزار';
-			case 'NetConnectionsFilterScreen.rule': return 'قانون';
-			case 'NetConnectionsFilterScreen.chain': return 'Outbound';
-			case 'NetConnectionsScreen.copyAsCSV': return 'در فرمت CAV کپی شد';
-			case 'NetConnectionsScreen.selectType': return 'انتخاب نوع انحراف';
-			case 'PerAppAndroidScreen.title': return 'پروکسی به‌تفکیک برنامه';
-			case 'PerAppAndroidScreen.whiteListMode': return 'حالت لیست سفید';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'وقتی فعال باشد: فقط برنامه‌هایی که انتخاب شده‌اند پروکسی می‌شوند؛ وقتی فعال نباشد: فقط برنامه‌هایی که انتخاب نشده‌اند پروکسی می‌شوند';
-			case 'RegionSettingsScreen.title': return 'کشور یا منطقه';
-			case 'RegionSettingsScreen.Regions': return 'راهنمایی: لطفا کشور یا منطقه فعلی خود را انتخاب کنید درغیراین‌صورت ممکن‌است باعث مشکلات انحراف شبکه شود';
-			case 'ServerSelectScreen.title': return 'انتخاب سرور';
-			case 'ServerSelectScreen.autoSelectServer': return 'خودکار سرور با کمترین تاخیر را انتخاب کن';
-			case 'ServerSelectScreen.recentUse': return 'اخیرا استفاده‌شده';
-			case 'ServerSelectScreen.myFav': return 'علاقه‌مندی‌های من';
-			case 'ServerSelectScreen.selectLocal': return ({required Object p}) => 'سرور انتخاب شده یک آدرس محلی است و شاید به درستی عمل نکند :${p}';
-			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'سرور انتخاب شده یک آدرس IPv6 است و نیاز به [فعال‌سازی IPv6] دارد';
-			case 'ServerSelectScreen.selectDisabled': return 'این سرور غیرفعال شده است';
-			case 'ServerSelectScreen.error404': return 'تشخیص تاخیر با یک اخطار مواجه شده‌است، لطفا بررسی کنید که کانفیگی با محتویات یکسان وجود دارد یا خیر';
-			case 'SettingsScreen.getTranffic': return 'دریافت ترافیک';
-			case 'SettingsScreen.tutorial': return 'آموزش';
-			case 'SettingsScreen.commonlyUsedRulesets': return 'قوانین رایج';
-			case 'SettingsScreen.howToRemoveAds': return 'نحوه حذف تبلیغات';
-			case 'SettingsScreen.htmlBoard': return 'پنل آنلاین';
-			case 'SettingsScreen.dnsLeakDetection': return 'تشخیص نشت DNS';
-			case 'SettingsScreen.proxyLeakDetection': return 'تشخیص نشت عامل';
-			case 'SettingsScreen.speedTest': return 'تست سرعت';
-			case 'SettingsScreen.rulesetDirectDownlad': return 'دانلود مستقیم مجموعه قوانین';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'قوانین غیرفعال انحراف ترافیک را پنهان کنید';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'قوانین انحراف [${_root.meta.isp}] را غیرفعال کنید';
-			case 'SettingsScreen.portSettingRule': return 'قانون محور';
-			case 'SettingsScreen.portSettingDirectAll': return 'مستقیم‌شدن همه';
-			case 'SettingsScreen.portSettingProxyAll': return 'پروکسی‌شدن همه';
-			case 'SettingsScreen.portSettingControl': return 'کنترل و همگام‌سازی';
-			case 'SettingsScreen.portSettingCluster': return 'سرویس کلاستر';
-			case 'SettingsScreen.modifyPort': return 'اصلاح پورت';
-			case 'SettingsScreen.modifyPortOccupied': return 'پورت اشغال شده است لطفا از پورت دیگری استفاده کنید';
-			case 'SettingsScreen.ipStrategyTips': return 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند';
-			case 'SettingsScreen.tunAppendHttpProxy': return 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
-			case 'SettingsScreen.tunAppendHttpProxyTips': return 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
-			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
-			case 'SettingsScreen.dnsEnableRule': return 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] کانال رزولوشن';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] ECS را فعال کنید';
-			case 'SettingsScreen.dnsTestDomain': return 'تست دامنه';
-			case 'SettingsScreen.dnsTestDomainInvalid': return 'دامنه نامعتبر';
-			case 'SettingsScreen.dnsTypeOutbound': return 'سرور پروکسی';
-			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
-			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
-			case 'SettingsScreen.dnsTypeResolver': return 'سرور دی‌ان‌اس';
-			case 'SettingsScreen.dnsEnableRuleTips': return 'بعد از فعال‌سازی نام دامنه، سرور دی‌ان‌اس مربوط را بر اساس قوانین انحراف برای عبور انتخاب می‌کند';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'پس از فعال کردن FakeIP، اگر اتصال VPN قطع شود، ممکن است برنامه شما نیاز به راه اندازی مجدد داشته باشد [حالت TUN].';
-			case 'SettingsScreen.dnsTypeOutboundTips': return 'سامانه نام دامنه (DNS) برای سرور پروکسی';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'وضوح نام دامنه برای [${_root.meta.trafficDirect}]';
-			case 'SettingsScreen.dnsTypeProxyTips': return 'سامانه نام دامنه (DNS) برای ترافیک پروکسی';
-			case 'SettingsScreen.dnsTypeResolverTips': return 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس';
-			case 'SettingsScreen.dnsAutoSetServer': return 'به طور خودکار سرور را راه اندازی کنید';
-			case 'SettingsScreen.dnsResetServer': return 'بازنشانی سرور';
-			case 'SettingsScreen.inboundDomainResolve': return 'حل نام دامنه های ورودی';
-			case 'SettingsScreen.privateDirect': return 'اتصال مستقیم شبکه خصوصی';
-			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].';
-			case 'SettingsScreen.useRomoteRes': return 'از منابع راه‌دور استفاده کنید';
-			case 'SettingsScreen.autoAppendRegion': return 'به طور خودکار قوانین اساسی را پیوست کنید';
-			case 'SettingsScreen.autoSelect': return 'انتخاب خودکار';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید';
-			case 'SettingsScreen.autoSelectServerInterval': return 'بازه زمانی بررسی تاخیر';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'فاصله بررسی سلامت سرور فعلی';
-			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'شناسایی مجدد زمانی که شبکه تغییر می کند';
-			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید';
-			case 'SettingsScreen.autoSelectServerIntervalTips': return 'هرچه فاصله تشخیص تاخیر کمتر باشد، داده های تاخیر سرور به موقع به روز می شود، اما منابع بیشتری را اشغال می کند و برق را سریعتر مصرف می کند';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'اگر تشخیص ناموفق باشد، گره تغییر می کند. اگر هنگام تعویض گره هیچ گره در دسترس پیدا نشد، گروه با تاخیر دوباره شناسایی می شود';
-			case 'SettingsScreen.autoSelectServerFavFirst': return 'اولویت استفاده از [علاقه‌مندی‌های من]';
-			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'اگر لیست [علاقه‌مندی‌های من] خالی نبود از سرور‌های داخل [علاقه‌مندی‌های من] استفاده کن';
-			case 'SettingsScreen.autoSelectServerFilter': return 'فیلترکردن سرور‌های نامعتبر';
-			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'اگر بعد از فیلتر کردن هیچ سروری در دسترس نباشد، از اولین سرورهای [${p}] استفاده خواهد شد.';
-			case 'SettingsScreen.autoSelectServerLimitedNum': return 'حداکثر تعداد سرور';
-			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'سرورهای بیش از این تعداد فیلتر خواهند شد';
-			case 'SettingsScreen.numInvalid': return 'عدد نامعتبر';
-			case 'SettingsScreen.hideInvalidServer': return 'مخفی‌کردن سرور‌های نامعتبر';
-			case 'SettingsScreen.sortServer': return 'مرتب‌سازی سرور';
-			case 'SettingsScreen.sortServerTips': return 'مرتب‌سازی براساس تاخیر از کم به زیاد';
-			case 'SettingsScreen.selectServerHideRecommand': return 'مخفی‌کردن [پیشنهادی]';
-			case 'SettingsScreen.selectServerHideRecent': return '‌ مخفی‌کردن [اخیرا استفاده‌شده]';
-			case 'SettingsScreen.selectServerHideFav': return 'مخفی‌کردن [علاقه‌مندی‌های من]';
-			case 'SettingsScreen.homeScreen': return 'صفحه‌ خانه';
-			case 'SettingsScreen.theme': return 'تِم';
-			case 'SettingsScreen.widgetsAlpha': return 'شفافیت ابزارک‌ها';
-			case 'SettingsScreen.widgetsEmpty': return 'هیچ ویجتی موجود نیست';
-			case 'SettingsScreen.backgroundImage': return 'تصویر پس زمینه';
-			case 'SettingsScreen.myLink': return 'لینک میان‌بر';
-			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال خودکار پس‌از راه‌اندازی';
-			case 'SettingsScreen.hideAfterLaunch': return 'پنهان کردن پنجره پس از راه اندازی';
-			case 'SettingsScreen.autoSetSystemProxy': return 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
-			case 'SettingsScreen.bypassSystemProxy': return 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
-			case 'SettingsScreen.disconnectWhenQuit': return 'قطع اتصال هنگام خروج از نرم‌افزار';
-			case 'SettingsScreen.excludeFromRecent': return 'پنهان شدن از وظایف اخیر';
-			case 'SettingsScreen.wakeLock': return 'قفل بیدارباش';
-			case 'SettingsScreen.hideVpn': return 'مخفی کردن آیکون VPN';
-			case 'SettingsScreen.hideVpnTips': return 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.';
-			case 'SettingsScreen.allowBypass': return 'به برنامه‌ها اجازه دهید VPN را دور بزنند';
-			case 'SettingsScreen.importSuccess': return 'افزودن موفق بود';
-			case 'SettingsScreen.rewriteConfirm': return 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
-			case 'SettingsScreen.mergePerapp': return 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]';
-			case 'SettingsScreen.networkShare': return 'اشتراک‌گذاری شبکه';
-			case 'SettingsScreen.frontProxy': return 'پروکسی جلو/زنجیره';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
-			case 'SettingsScreen.allowOtherHostsConnect': return 'اجازه اتصال دیگران';
-			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
-			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
-			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
-			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
-			case 'SettingsScreen.tunStrictRouteTips': return 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
-			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
-			case 'SettingsScreen.enableCluster': return 'فعال‌سازی پروکسی Socks/Http خوشه‌ای';
-			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'اجازه اتصال دیگران به خوشه';
-			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
-			case 'SettingsScreen.clusterAuth': return 'احراز هویت خوشه پروکسی';
-			case 'SettingsScreen.tunMode': return 'حالت TUN';
-			case 'SettingsScreen.tuni4Address': return 'آدرس آی‌پی';
-			case 'SettingsScreen.tunModeTips': return 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
-			case 'SettingsScreen.tunModeRunAsAdmin': return 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
-			case 'SettingsScreen.tunStack': return 'Stack';
-			case 'SettingsScreen.tunHijackTips': return 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود';
-			case 'SettingsScreen.launchAtStartup': return 'اجرا در راه‌اندازی';
-			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'خروج از نرم‌افزار هنگام تعویض کاربران سیستم';
-			case 'SettingsScreen.handleScheme': return 'فراخوانی Scheme سیستم';
-			case 'SettingsScreen.portableMode': return 'حالت قابل‌حمل';
-			case 'SettingsScreen.portableModeDisableTips': return 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [Karing] خارج شده و به‌صورت دستی پوشه [Profiles] هم مسیر با فایل [karing.exe] را حذف کنید';
-			case 'SettingsScreen.handleKaringScheme': return 'رسیدگی به ندای karing://';
-			case 'SettingsScreen.handleClashScheme': return 'رسیدگی به‌ ندای clash://';
-			case 'SettingsScreen.handleSingboxScheme': return 'رسیدگی به ندای sing-box://';
-			case 'SettingsScreen.alwayOnVPN': return 'اتصال همیشه باز';
-			case 'SettingsScreen.disconnectAfterSleep': return 'بعد از خواب زمستانی سیستم را قطع کنید';
-			case 'SettingsScreen.removeSystemVPNConfig': return 'حذف پیکربندی وی‌پی‌ان سیستم';
-			case 'SettingsScreen.timeConnectOrDisconnect': return 'اتصال/قطع اتصال برنامه‌ریزی شده';
-			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'برای اعمال شدن وی‌پی‌ان باید متصل باشد. پس‌از روشن‌شدن [خواب خودکار] غیرفعال می‌شود';
-			case 'SettingsScreen.timeConnectAndDisconnectInterval': return ({required Object p}) => 'فاصله اتصال/قطع اتصال نمی تواند کمتر از ${p} دقیقه باشد';
-			case 'SettingsScreen.disableFontScaler': return 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)';
-			case 'SettingsScreen.autoOrientation': return 'چرخش صفحه را دنبال کنید';
-			case 'SettingsScreen.restartTakesEffect': return 'با راه‌اندازی مجدد اعمال می‌شود';
-			case 'SettingsScreen.resetSettings': return 'بازنشانی تنظیمات';
-			case 'SettingsScreen.cleanCache': return 'پاک کردن حافظه پنهان';
-			case 'SettingsScreen.cleanCacheDone': return 'پاکسازی کامل شد';
-			case 'SettingsScreen.appleTestFlight': return 'تست‌فلایت اپل';
-			case 'SettingsScreen.appleAppStore': return 'اپ‌استور اپل';
-			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'به‌روزرسانی نسخه ${p} ';
-			case 'SettingsScreen.follow': return 'مارو دنبال کنید';
-			case 'SettingsScreen.contactUs': return 'ارتباط باما';
-			case 'SettingsScreen.supportUs': return 'از ما حمایت کنید';
-			case 'SettingsScreen.rateInApp': return 'امتیاز به ما';
-			case 'SettingsScreen.rateInAppStore': return 'به ما در اپ‌استور امتیاز بدین';
-			case 'UserAgreementScreen.privacyFirst': return 'حریم‌خصوصی شما اولویت دارد';
-			case 'UserAgreementScreen.agreeAndContinue': return 'پذیرفتن و ادامه';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'نسخه جدید [${p}] آماده است';
-			case 'VersionUpdateScreen.update': return 'راه‌اندازی مجدد برای به‌روزرسانی';
-			case 'VersionUpdateScreen.cancel': return 'الان‌ نه';
-			case 'CommonWidget.diableAlwayOnVPN': return 'اگر [وی‌پی‌ان همیشه روشن] روشن است لطفا [وی‌پی‌ان همیشه روشن] را خاموش کنید و مجدد برای اتصال تلاش کنید';
-			case 'CommonWidget.resetPort': return 'لطفاً پورت را به پورت موجود دیگری تغییر دهید یا برنامه ای را که پورت را اشغال می کند ببندید.';
-			case 'main.tray.menuOpen': return '    بازکردن    ';
-			case 'main.tray.menuExit': return '    بستن    ';
-			case 'meta.enable': return 'فعال‌سازی';
-			case 'meta.disable': return 'غیرفعال';
-			case 'meta.bydefault': return 'پیش‌فرض';
-			case 'meta.filter': return 'فیلتر';
-			case 'meta.filterMethod': return 'روش فیلتر';
-			case 'meta.include': return 'شامل شود';
-			case 'meta.exclude': return 'حذف کردن';
-			case 'meta.all': return 'همه';
-			case 'meta.prefer': return 'اولویت';
-			case 'meta.only': return 'فقط';
-			case 'meta.open': return 'باز کن';
-			case 'meta.close': return 'بسته';
-			case 'meta.quit': return 'خروج';
-			case 'meta.add': return 'افزودن';
-			case 'meta.addSuccess': return 'با‌موفقیت اضافه شد';
-			case 'meta.addFailed': return ({required Object p}) => 'افزودن ناموفق بود:${p}';
-			case 'meta.remove': return 'حذف';
-			case 'meta.removeConfirm': return 'آیا از حذف اطمینان دارین؟';
-			case 'meta.edit': return 'ویرایش کنید';
-			case 'meta.view': return 'بررسی';
-			case 'meta.more': return 'بیشتر';
-			case 'meta.tips': return 'اطلاعات';
-			case 'meta.copy': return 'کپی';
-			case 'meta.save': return 'ذخیره کنید';
-			case 'meta.ok': return 'خُب';
-			case 'meta.cancel': return 'لغو';
-			case 'meta.feedback': return 'بازخورد';
-			case 'meta.feedbackContent': return 'محتوای بازخورد';
-			case 'meta.feedbackContentHit': return 'الزامی، تا 500 حرف';
-			case 'meta.feedbackContentCannotEmpty': return 'محتوای بازخورد نمی‌تواند خالی باشد';
-			case 'meta.faq': return 'سوالات متداول';
-			case 'meta.download': return 'دانلود';
-			case 'meta.upload': return 'آپلود';
-			case 'meta.downloadSpeed': return 'سرعت دانلود';
-			case 'meta.uploadSpeed': return 'سرعت آپلود';
-			case 'meta.loading': return 'درحال بارگذاری…';
-			case 'meta.convert': return 'تبدیل';
-			case 'meta.check': return 'بررسی';
-			case 'meta.detect': return 'کشف';
-			case 'meta.cache': return 'حافظه نهان';
-			case 'meta.days': return 'روز';
-			case 'meta.hours': return 'ساعت';
-			case 'meta.minutes': return 'دقیقه';
-			case 'meta.seconds': return 'دومین';
-			case 'meta.dateTimePeriod': return 'دوره زمانی';
-			case 'meta.protocol': return 'پروتکل';
-			case 'meta.search': return 'جستجو';
-			case 'meta.custom': return 'سفارشی';
-			case 'meta.inbound': return 'ورودی';
-			case 'meta.outbound': return 'خارج شوید';
-			case 'meta.connect': return 'اتصال';
-			case 'meta.disconnect': return 'قطع‌ اتصال';
-			case 'meta.reconnect': return 'دوباره وصل شوید';
-			case 'meta.connected': return 'وصل شد';
-			case 'meta.disconnected': return 'قطع شد';
-			case 'meta.connecting': return 'درحال اتصال';
-			case 'meta.connectTimeout': return 'اتمام مهلت اتصال';
-			case 'meta.timeout': return 'تایم اوت';
-			case 'meta.timeoutDuration': return 'مدت زمان وقفه';
-			case 'meta.runDuration': return 'زمان اجرا';
-			case 'meta.latency': return 'تاخیر';
-			case 'meta.latencyTest': return 'بررسی تاخیر';
-			case 'meta.language': return 'زبان';
-			case 'meta.next': return 'بعدی';
-			case 'meta.done': return 'انجام‌شد';
-			case 'meta.apply': return 'درخواست دادن';
-			case 'meta.refresh': return 'بارگذاری مجدد';
-			case 'meta.retry': return 'دوباره امتحان کنید؟';
-			case 'meta.update': return 'تجدید';
-			case 'meta.updateInterval': return 'فاصله‌ی به‌روزرسانی';
-			case 'meta.updateInterval5mTips': return 'حداقل: 5 متر';
-			case 'meta.updateFailed': return ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}';
-			case 'meta.samplingUnit': return 'واحد زمان نمونه‌برداری';
-			case 'meta.queryResultCount': return 'تعداد نتایج پرس و جو';
-			case 'meta.queryLimit': return ({required Object p}) => 'نمایش داده‌ها تا ${p}';
-			case 'meta.none': return 'هیچ‌کدام';
-			case 'meta.start': return 'شروع کنید';
-			case 'meta.pause': return 'مکث';
-			case 'meta.reset': return 'ریست';
-			case 'meta.submit': return 'ارسال';
-			case 'meta.user': return 'کاربر';
-			case 'meta.account': return 'نام‌کاربری';
-			case 'meta.password': return 'رمز‌عبور';
-			case 'meta.required': return 'الزامی';
-			case 'meta.type': return 'نوع';
-			case 'meta.path': return 'مسیر';
-			case 'meta.local': return 'محلی';
-			case 'meta.remote': return 'از راه دور';
-			case 'meta.other': return 'دیگر';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'URL نامعتبر';
-			case 'meta.urlCannotEmpty': return 'لینک نمی‌تواند خالی باشد';
-			case 'meta.urlTooLong': return 'URL خیلی طولانی است (>8182)';
-			case 'meta.copyUrl': return 'کپی‌کردن لینک';
-			case 'meta.openUrl': return 'بازکردن لینک';
-			case 'meta.shareUrl': return 'اشتراک لینک';
-			case 'meta.speedTestUrl': return 'URL تست سرعت';
-			case 'meta.tls': return 'TLS';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.staticIP': return 'IP استاتیک';
-			case 'meta.isp': return 'ارائه دهندگان VPN';
-			case 'meta.domainSuffix': return 'پسوند دامنه';
-			case 'meta.domain': return 'دامنه';
-			case 'meta.domainKeyword': return 'کلید‌واژه دامنه';
-			case 'meta.domainRegex': return 'عبارات باقاعده ی دامنه (Regex)';
-			case 'meta.ip': return 'IP';
-			case 'meta.port': return 'پورت';
-			case 'meta.portRange': return 'محدوده بندر';
-			case 'meta.appPackage': return 'شناسه بسته برنامه';
-			case 'meta.processName': return 'نام اجرایی پروسه';
-			case 'meta.processPath': return 'مسیر پروسه';
-			case 'meta.processDir': return 'فهرست فرآیندها';
-			case 'meta.systemProxy': return 'پروکسی سیستم';
-			case 'meta.statistics': return 'آمار';
-			case 'meta.statisticsAndAnalysis': return 'آمار و تحلیل';
-			case 'meta.statisticsPrivacyDesensitize': return 'حساسیت‌زدایی از حریم خصوصی';
-			case 'meta.statisticsPrivacyDesensitizeTips': return 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.';
-			case 'meta.records': return 'رکورد';
-			case 'meta.requestRecords': return 'درخواست سوابق';
-			case 'meta.netInterfaces': return 'رابط شبکه';
-			case 'meta.netSpeed': return 'سرعت';
-			case 'meta.trafficTrendChart': return 'نمودار روند ترافیک';
-			case 'meta.trafficDistributionChart': return 'نقشه توزیع ترافیک';
-			case 'meta.connectionChart': return 'نمودار روند اتصال';
-			case 'meta.memoryChart': return 'نمودار روند حافظه';
-			case 'meta.traffic': return 'جریان';
-			case 'meta.trafficTotal': return 'کل ترافیک';
-			case 'meta.trafficProxy': return 'ترافیک پروکسی';
-			case 'meta.trafficDirect': return 'ترافیک مستقیم';
-			case 'meta.website': return 'وبسایت';
-			case 'meta.memory': return 'حافظه';
-			case 'meta.outboundMode': return 'حالت خروجی';
-			case 'meta.rule': return 'قانون';
-			case 'meta.global': return 'عمومی';
-			case 'meta.qrcode': return 'کد QR';
-			case 'meta.qrcodeTooLong': return 'متن برای نمایش خیلی طولانی است';
-			case 'meta.qrcodeShare': return 'اشتراک کدQR';
-			case 'meta.textToQrcode': return 'متن به کد QR';
-			case 'meta.qrcodeScan': return 'اسکن QRکد';
-			case 'meta.qrcodeScanResult': return 'نتایج اسکن';
-			case 'meta.qrcodeScanFromImage': return 'اسکن از عکس';
-			case 'meta.qrcodeScanResultFailed': return 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است';
-			case 'meta.qrcodeScanResultEmpty': return 'نتیجه اسکن خالی است';
-			case 'meta.screenshot': return 'اسکرین‌شات';
-			case 'meta.backupAndSync': return 'پشتیبان‌گیری و همگام‌سازی';
-			case 'meta.autoBackup': return 'پشتیبان گیری خودکار';
-			case 'meta.noProfileGotAutoBackup': return 'اگر داده‌هایی مانند [${_root.meta.myProfiles}] از بین بروند، می‌توانید آن‌ها را از [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] یا سایر منابع پشتیبان (مانند iCloud یا Webdav و غیره) بازیابی کنید.';
-			case 'meta.autoBackupAddProfile': return 'بعد از اضافه کردن تنظیمات';
-			case 'meta.autoBackupRemoveProfile': return 'پس از حذف تنظیمات';
-			case 'meta.currentProfile': return 'پیکربندی فعلی';
-			case 'meta.importAndExport': return 'وارد‌کردن و خروجی‌گرفتن';
-			case 'meta.import': return 'وارد‌کردن';
-			case 'meta.importFromUrl': return 'وارد کردن از URL';
-			case 'meta.export': return 'خروجی‌گرفتن';
-			case 'meta.send': return 'ارسال کنید';
-			case 'meta.receive': return 'تصاحب';
-			case 'meta.sendConfirm': return 'ارسال را تایید کرد؟';
-			case 'meta.termOfUse': return 'شرایط استفاده';
-			case 'meta.privacyPolicy': return 'سیاست حریم خصوصی';
-			case 'meta.about': return 'درباره';
-			case 'meta.name': return 'نام';
-			case 'meta.version': return 'نسخه';
-			case 'meta.notice': return 'اطلاعیه';
-			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}';
-			case 'meta.sort': return 'مرتب‌سازی';
-			case 'meta.novice': return 'حالت مبتدی';
-			case 'meta.willCompleteAfterRebootInstall': return 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
-			case 'meta.willCompleteAfterRebootUninstall': return 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-			case 'meta.requestNeedsUserApproval': return '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]';
-			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.';
-			case 'meta.tvMode': return 'حالت تلویزیون';
-			case 'meta.recommended': return 'پیشنهادی';
-			case 'meta.innerError': return ({required Object p}) => 'خطای داخلی: ${p}';
-			case 'meta.logicOperation': return 'عملیات منطقی';
-			case 'meta.share': return 'اشتراک گذاری';
-			case 'meta.candidateWord': return 'کلمات نامزد';
-			case 'meta.keywordOrRegx': return 'کلمات کلیدی / معمولی';
-			case 'meta.importFromClipboard': return 'افزودن از کلیپ‌برد';
-			case 'meta.exportToClipboard': return 'صادرات به کلیپ بورد';
-			case 'meta.server': return 'سرور';
-			case 'meta.ads': return 'تبلیغ کنید';
-			case 'meta.adsRemove': return 'تبلیغات را حذف کنید';
-			case 'meta.adsBanner': return 'تبلیغات بنری';
-			case 'meta.donate': return 'اهدا کنید';
-			case 'meta.diversion': return 'انحراف';
-			case 'meta.diversionRules': return 'قوانین انحراف';
-			case 'meta.diversionCustomGroup': return 'گروه انحراف سفارشی';
-			case 'meta.urlTestCustomGroup': return 'انتخاب خودکار سفارشی';
-			case 'meta.setting': return 'تنظیمات';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.appleTV': return 'Apple TV';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN Sync';
-			case 'meta.lanSyncNotQuitTips': return 'قبل از تکمیل همگام‌سازی از این قسمت خارج نشوید';
-			case 'meta.deviceNoSpace': return 'فضای خالی کافی ندارید';
-			case 'meta.hideSystemApp': return 'برنامه های سیستم را مخفی کنید';
-			case 'meta.hideAppIcon': return 'پنهان کردن نماد برنامه';
-			case 'meta.hideDockIcon': return 'پنهان کردن آیکون داک';
-			case 'meta.remark': return 'ملاحضات';
-			case 'meta.remarkExist': return 'ملاحظات از‌قبل وجود دارد، لطفا از نام دیگری استفاده کنید';
-			case 'meta.remarkCannotEmpty': return 'ملاحظات نمی‌تواند خالی باشد';
-			case 'meta.remarkTooLong': return 'ملاحظات تا ۳۲ حرف';
-			case 'meta.openDir': return 'بازکردن دایرکتوری فایل';
-			case 'meta.fileChoose': return 'انتخاب فایل';
-			case 'meta.filePathCannotEmpty': return 'مسیر فایل نمی‌تواند خالی باشد';
-			case 'meta.fileNotExist': return ({required Object p}) => 'فایل وجود ندارد:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'نوع فایل نامعتبر:${p}';
-			case 'meta.uwpExemption': return 'معافیت جداسازی شبکه UWP';
-			case 'meta.rulesetGeoSite': return 'GeoSite';
-			case 'meta.rulesetGeoIp': return 'GeoIP';
-			case 'meta.rulesetAcl': return 'ACL';
-			case 'meta.getProfile': return 'پیکربندی را دریافت کنید';
-			case 'meta.addProfile': return 'افزودن پروفایل';
-			case 'meta.myProfiles': return 'پروفایل‌ها';
-			case 'meta.myProfilesAtLeastOneReserveEnable': return 'نمی‌تواند غیرغعال شود، لطفا حداقل یک پروفایل را فعال نگه دارید';
-			case 'meta.profileEdit': return 'ویرایش پروفایل';
-			case 'meta.profileEditUrlExist': return 'آدرس URL از‌قبل وجود دارد، لطفا از URL دیگری استفاده کنید';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل';
-			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'شروع تست تاخیر پس‌از به‌روزرسانی خودکار پروفایل';
-			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'وی‌پی‌ان باید روشن و [بارگذاری مجدد پس‌از به‌روزرسانی پروفایل] فعال باشد';
-			case 'meta.profileEditTestLatencyAutoRemove': return 'خودکار سرورهای ناموفق در تست تاخیر را حذف کن';
-			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'تا سه بار امتحان کنید';
-			case 'meta.profileImport': return 'وارد‌کردن فایل پروفایل';
-			case 'meta.profileAddUrlOrContent': return 'افزودن لینک پروفایل';
-			case 'meta.profileExists': return 'پروفایل از‌قبل وجود دارد، لطفا آن را به‌طور مکرر اضافه نکنید';
-			case 'meta.profileUrlOrContent': return 'لینک/محتوای پروفایل';
-			case 'meta.profileUrlOrContentHit': return 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'لینک پروفایل نمی‌تواند خالی باشد';
-			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}';
-			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.';
-			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید';
-			case 'meta.profileAddParseFailed': return 'تجزیه پروفایل انجام نشد';
-			case 'meta.profileAddNoServerAvaliable': return 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید';
-			case 'meta.profileAddWrapSuccess': return 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید';
-			case 'diversionRulesKeep': return '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید';
-			case 'diversionCustomGroupPreset': return 'از پیش تنظیم شده [گروه انحراف سفارشی]';
-			case 'diversionCustomGroupPresetTips': return 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد';
-			case 'diversionCustomGroupAddTips': return 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.';
-			case 'rulesetEnableTips': return 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد';
-			case 'ispUserAgentTips': return '[${_root.meta.isp}] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.';
-			case 'ispDiversionTips': return 'قوانین بارگذاری ارائه شده توسط [${_root.meta.isp}]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند';
-			case 'isp.bind': return 'اتصال به [${_root.meta.isp}]';
-			case 'isp.unbind': return ({required Object p}) => 'لغو پیوند[${p}]';
-			case 'isp.faq': return ({required Object p}) => 'سوالات متداول[${p}]';
-			case 'isp.customerService': return ({required Object p}) => 'خدمات مشتری[${p}]';
-			case 'isp.follow': return ({required Object p}) => 'دنبال کردن[${p}]';
-			case 'isp.invalidOrExpired': return '[${_root.meta.isp}]نامعتبر یا منقضی شده است';
-			case 'permission.camera': return 'دوربین';
-			case 'permission.screen': return 'ضبط صفحه';
-			case 'permission.appQuery': return 'Get Application List';
-			case 'permission.request': return ({required Object p}) => 'مجوزهای [${p}] را فعال کنید';
-			case 'permission.requestNeed': return ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید';
-			case 'tls.insecure': return 'رد شدن از تأیید گواهی';
-			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
-			case 'tls.fragmentEnable': return 'بخش بندی TLS را فعال کنید';
-			case 'tls.fragmentSize': return 'اندازه بخش TLS';
-			case 'tls.fragmentSleep': return 'خواب بخش‌بندی شده TLS';
-			case 'tls.mixedCaseSNIEnable': return 'TLS ترکیبی SNI را فعال کنید';
-			case 'tls.paddingEnable': return 'فعال کردن TLS Padding';
-			case 'tls.paddingSize': return 'اندازه پد TLS';
-			case 'outboundRuleMode.currentSelected': return 'فعلی انتخاب شده';
-			case 'outboundRuleMode.urltest': return 'انتخاب خودکار';
-			case 'outboundRuleMode.direct': return 'مستقیم';
-			case 'outboundRuleMode.block': return 'مسدود';
-			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
-			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
-			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
-			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
-			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
-			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
-			case 'reloadReason.profileUpdate': return 'به‌روزرسانی‌های پیکربندی';
-			case 'theme.light': return 'رنگ روشن';
-			case 'theme.dark': return 'سیاه';
-			case 'theme.auto': return 'خودکار';
-			case 'downloadProxyStrategy': return 'کانال دانلود';
-			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.';
-			case 'routeFinal': return 'نهایی';
-			case 'protocolSniff': return 'تشخیص پروتکل';
-			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'لطفا از [${p}] استفاده کنید';
-			case 'turnOffPrivateDirect': return 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید';
-			case 'targetConnectFailed': return ({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است';
-			case 'appleTVSync': return 'همگام سازی پیکربندی هسته فعلی با Apple TV - Karing';
-			case 'appleTVSyncDone': return 'همگام سازی کامل شد، لطفاً برای باز کردن/راه اندازی مجدد اتصال به Apple TV - Karing بروید';
-			case 'appleTVRemoveCoreConfig': return 'حذف Apple TV - Karing Core Configuration';
-			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - نمایه اصلی کارینگ حذف شد';
-			case 'appleTVUrlInvalid': return 'URL نامعتبر است، لطفاً Apple TV - Karing را باز کنید، کد QR نمایش داده شده توسط Karing را اسکن کنید';
-			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] این عملکرد را ندارد، لطفا ارتقا دهید و دوباره امتحان کنید';
-			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'نسخه اصلی اصلی مطابقت ندارد، لطفاً [${p}] را ارتقا دهید و دوباره امتحان کنید';
-			case 'remoteProfileEditConfirm': return 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟';
-			case 'mustBeValidHttpsURL': return 'باید یک URL معتبر https باشد';
-			case 'fileNotExistReinstall': return ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید';
-			case 'noNetworkConnect': return 'بدون اتصال به اینترنت';
-			case 'sudoPassword': return 'رمز عبور sudo (برای حالت TUN لازم است)';
-			case 'turnOffNetworkBeforeInstall': return 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
-			case 'latencyTestResolveIP': return 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
-			case 'removeBannerAdsByShare': return 'اشتراک گذاری[Karing]رفتن به تبلیغات';
-			case 'removeBannerAdsByReward': return 'تماشای تبلیغات برو به تبلیغات';
-			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
-			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
-			case 'removeBannerAdsDone': return ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
-			case 'maybeAdsByReward': return 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.';
-			case 'edgeRuntimeNotInstalled': return 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'AboutScreen.installRefer' => 'مرجع نصب',
+			'AboutScreen.installTime' => 'زمان نصب',
+			'AboutScreen.versionChannel' => 'کانال به‌روزرسانی خودکار',
+			'AboutScreen.autoDownloadPkg' => 'دانلود خودکار بسته‌های به‌روزرسانی',
+			'AboutScreen.disableUAReport' => 'داده های بهبود را اعمال کنید',
+			'AboutScreen.disableUAReportTip' => '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.',
+			'AboutScreen.devOptions' => 'تنظیمات توسعه‌دهندگان',
+			'AboutScreen.enableDebugLog' => 'فعال‌سازی گزارش اشکال‌زدایی',
+			'AboutScreen.viewFilsContent' => 'مشاهده فایل‌ها',
+			'AboutScreen.enablePprof' => 'فعال‌سازی pprof',
+			'AboutScreen.pprofPanel' => 'پنل pprof',
+			'AboutScreen.allowRemoteAccessPprof' => 'اجازه دسترسی از راه دور به ${_root.AboutScreen.pprofPanel}',
+			'AboutScreen.allowRemoteAccessHtmlBoard' => 'اجازه دسترسی از راه دور${_root.SettingsScreen.htmlBoard}',
+			'AboutScreen.useOriginalSBProfile' => 'استفاده از پروفایل اصلی سینگ‌باکس',
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'آدرس URL سرور',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'نمی‌تواند خالی باشد',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'ورود ناموفق بود:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'دریافت لیست فایل ناموفق بود:',
+			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'نامعتبر [Domain]:${p}',
+			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'نامعتبر [IP Cidr]:${p}',
+			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'نامعتبر [${p0}]:${p}',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'نامعتبر [Rule Set]:${p} باید URL یک URL معتبر https باشد و یک فایل دودویی(binary) با پسوند فایل .srs/.json باشد',
+			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'نامعتبر [Rule Set(build-in)]:${p} نامعتبر است، قالب geosite:xxx یا geoip:xxx یا acl:xxx است و xxx باید یک نام قانون معتبر باشد',
+			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'نامعتبر [${_root.meta.appPackage}]:${p}',
+			'DiversionGroupCustomEditScreen.setDiversionRule' => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد',
+			'DiversionRuleDetectScreen.title' => 'کشف قانون انحراف',
+			'DiversionRuleDetectScreen.rule' => 'قانون:',
+			'DiversionRuleDetectScreen.outbound' => 'سرور پروکسی:',
+			'DiversionRulesScreen.diversionRulesMatchTips' => 'نکته: سعی کنید قوانین را از بالا به پایین مطابقت دهید، از [نهایی] استفاده کنید.',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP نمی‌تواند خالی باشد',
+			'DnsSettingsScreen.urlCanNotEmpty' => 'URL نمی‌تواند خالی باشد',
+			'DnsSettingsScreen.error' => ({required Object p}) => 'نوع پشتیبانی نشده:${p}',
+			'DnsSettingsScreen.dnsDesc' => 'ستون اول داده‌های تأخیر، تأخیر ارتباط مستقیم است؛\nستون دوم: روشن کردن [[ترافیک پروکسی] برای حل و فصل DNS از طریق سرور پراکسی]: داده‌های تأخیر، تأخیر درخواست ارسال شده از طریق سرور پراکسی فعلی است [[ترافیک پروکسی] روشن نیست، از طریق سرور پروکسی DNS را حل می‌کند]: داده‌های تأخیر تأخیر درخواست اتصال مستقیم است',
+			'FileContentViewerScreen.title' => 'نمایش دهنده محتوای فایل',
+			'FileContentViewerScreen.clearFileContent' => 'آیا از پاکسازی محتوای فایل اطمینان دارید؟',
+			'FileContentViewerScreen.clearFileContentTips' => 'آیا از پاکسازی محتوای فایل پروفایل اطمینان دارید؟ پاکسازی محتوای فایل پروفایل ممکن است باعث از دست رفتن داده یا عملیات غیرعادی نرم‌افزار شود؛ لطفا با احتیاط عمل کنید.',
+			'HomeScreen.toSelectServer' => 'لطفا یک سرور انتخاب کنید',
+			'HomeScreen.invalidServer' => 'نامعتبر است، لطفا مجدد انتخاب کنید',
+			'HomeScreen.disabledServer' => 'غیرفعال است، لطفا مجدد انتخاب کنید',
+			'HomeScreen.expiredServer' => 'هیچ سروری در دسترس نیست: ممکن است پیکربندی قدیمی یا غیرفعال باشد',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'HomeScreen.myLinkEmpty' => 'لطفا قبل‌از استفاده [لینک میان‌بر] را راه‌اندازی کنید',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'تعداد زیادی سرور پروکسی [${p}>${p1}] وجود دارد و ممکن است به دلیل محدودیت حافظه سیستم، اتصال امکان پذیر نباشد.',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'تعداد زیاد سرورهای پروکسی [${p}>${p1}] ممکن است باعث کندی یا عدم دسترسی به اتصالات شود',
+			'LaunchFailedScreen.invalidProcess' => 'اجرای نرم‌افزار ناموفق بود [نام‌ اجرایی پروسه نامعتبر]، لطفا مجدد نرم‌افزار را در دایرکتوری دیگری نصب کنید',
+			'LaunchFailedScreen.invalidProfile' => 'اجرای نرم‌افزار ناموفق بود [دسترسی به پروفایل ناموفق بود]، لطفا مجدد نرم افزار را نصب کنید',
+			'LaunchFailedScreen.invalidVersion' => 'اجرای نرم‌افزار ناموفق بود [ورژن نامعتبر]، لطفا مجدد نرم‌افزار را نصب کنید',
+			'LaunchFailedScreen.systemVersionLow' => 'راه اندازی برنامه ناموفق بود [نسخه سیستم خیلی کم است]',
+			'LaunchFailedScreen.invalidInstallPath' => 'مسیر نصب نامعتبر است، لطفا مجدد در مسیر معتبر نصب کنید',
+			'MyProfilesMergeScreen.profilesMerge' => 'ادغام پروفایل‌ها',
+			'MyProfilesMergeScreen.profilesMergeTarget' => 'پروفایل هدف',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'پروفایل مرجع',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'راهنمایی: انحراف پروفایل مرجع حذف می‌شود',
+			'NetCheckScreen.title' => 'بررسی شبکه',
+			'NetCheckScreen.warn' => 'توجه: به دلیل تأثیر محیط شبکه و قوانین انحراف، نتایج آزمون کاملاً معادل نتایج واقعی نیست.',
+			'NetCheckScreen.invalidDomain' => 'نام دامنه نامعتبر',
+			'NetCheckScreen.connectivity' => 'اتصال شبکه',
+			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'تست اتصال Ipv4 همه‌ی [${p}] ناموفق بودند',
+			'NetCheckScreen.connectivityTestIpv4Ok' => 'اتصال Ipv4 موفق بود',
+			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'تست اتصال Ipv6 همه‌ی [${p}] ناموفق بودند، شاید شبکه شما از Ipv6 پشتیبانی نکند',
+			'NetCheckScreen.connectivityTestIpv6Ok' => 'اتصال Ipv6 موفق بود',
+			'NetCheckScreen.connectivityTestOk' => 'شبکه به اینترنت متصل است',
+			'NetCheckScreen.connectivityTestFailed' => 'شبکه هنوز به اینترنت متصل نشده',
+			'NetCheckScreen.remoteRulesetsDownloadOk' => 'همه با موفقیت دانلود شدند',
+			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'دانلود شد یا ناموفق بود',
+			'NetCheckScreen.outbound' => 'سرور پروکسی',
+			'NetCheckScreen.outboundOk' => ({required Object p}) => '[${p}] اتصال موفق بود',
+			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => '[${p1}] اتصال ناموفق \nارور:[${p2}]',
+			'NetCheckScreen.dnsServer' => 'سرور دی‌ان‌اس',
+			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule: درخواست دی‌ان‌اس موفق بود\nقانون دی‌ان‌اس: [${p2}]\nتاخیر: [${p3} ms]\nآدرس [${p4}]',
+			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]جستجوی DNS موفق بود\nقانون DNS: [${p2}]\nخطا:[${p3}]',
+			'NetCheckScreen.host' => 'اتصال HTTP',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقانون انحراف: [${p2}]\nسرور پروکسی: [${p3}]',
+			'NetCheckScreen.hostConnectionOk' => 'اتصال موفق شد',
+			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'ارتباط ناموفق بود:[${p}]',
+			'NetConnectionsFilterScreen.hostIp' => 'دامنه/آی‌پی',
+			'NetConnectionsFilterScreen.app' => 'نرم‌افزار',
+			'NetConnectionsFilterScreen.rule' => 'قانون',
+			'NetConnectionsFilterScreen.chain' => 'Outbound',
+			'NetConnectionsScreen.copyAsCSV' => 'در فرمت CAV کپی شد',
+			'NetConnectionsScreen.selectType' => 'انتخاب نوع انحراف',
+			'PerAppAndroidScreen.title' => 'پروکسی به‌تفکیک برنامه',
+			'PerAppAndroidScreen.whiteListMode' => 'حالت لیست سفید',
+			'PerAppAndroidScreen.whiteListModeTip' => 'وقتی فعال باشد: فقط برنامه‌هایی که انتخاب شده‌اند پروکسی می‌شوند؛ وقتی فعال نباشد: فقط برنامه‌هایی که انتخاب نشده‌اند پروکسی می‌شوند',
+			'RegionSettingsScreen.title' => 'کشور یا منطقه',
+			'RegionSettingsScreen.Regions' => 'راهنمایی: لطفا کشور یا منطقه فعلی خود را انتخاب کنید درغیراین‌صورت ممکن‌است باعث مشکلات انحراف شبکه شود',
+			'ServerSelectScreen.title' => 'انتخاب سرور',
+			'ServerSelectScreen.autoSelectServer' => 'خودکار سرور با کمترین تاخیر را انتخاب کن',
+			'ServerSelectScreen.recentUse' => 'اخیرا استفاده‌شده',
+			'ServerSelectScreen.myFav' => 'علاقه‌مندی‌های من',
+			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'سرور انتخاب شده یک آدرس محلی است و شاید به درستی عمل نکند :${p}',
+			'ServerSelectScreen.selectRequireEnableIPv6' => 'سرور انتخاب شده یک آدرس IPv6 است و نیاز به [فعال‌سازی IPv6] دارد',
+			'ServerSelectScreen.selectDisabled' => 'این سرور غیرفعال شده است',
+			'ServerSelectScreen.error404' => 'تشخیص تاخیر با یک اخطار مواجه شده‌است، لطفا بررسی کنید که کانفیگی با محتویات یکسان وجود دارد یا خیر',
+			'SettingsScreen.getTranffic' => 'دریافت ترافیک',
+			'SettingsScreen.tutorial' => 'آموزش',
+			'SettingsScreen.commonlyUsedRulesets' => 'قوانین رایج',
+			'SettingsScreen.howToRemoveAds' => 'نحوه حذف تبلیغات',
+			'SettingsScreen.htmlBoard' => 'پنل آنلاین',
+			'SettingsScreen.dnsLeakDetection' => 'تشخیص نشت DNS',
+			'SettingsScreen.proxyLeakDetection' => 'تشخیص نشت عامل',
+			'SettingsScreen.speedTest' => 'تست سرعت',
+			'SettingsScreen.rulesetDirectDownlad' => 'دانلود مستقیم مجموعه قوانین',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'قوانین غیرفعال انحراف ترافیک را پنهان کنید',
+			'SettingsScreen.disableISPDiversionGroup' => 'قوانین انحراف [${_root.meta.isp}] را غیرفعال کنید',
+			'SettingsScreen.portSettingRule' => 'قانون محور',
+			'SettingsScreen.portSettingDirectAll' => 'مستقیم‌شدن همه',
+			'SettingsScreen.portSettingProxyAll' => 'پروکسی‌شدن همه',
+			'SettingsScreen.portSettingControl' => 'کنترل و همگام‌سازی',
+			'SettingsScreen.portSettingCluster' => 'سرویس کلاستر',
+			'SettingsScreen.modifyPort' => 'اصلاح پورت',
+			'SettingsScreen.modifyPortOccupied' => 'پورت اشغال شده است لطفا از پورت دیگری استفاده کنید',
+			'SettingsScreen.ipStrategyTips' => 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند',
+			'SettingsScreen.tunAppendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند',
+			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',
+			'SettingsScreen.dnsEnableRule' => 'فعال‌سازی قوانین انحراف دی‌ان‌اس',
+			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] کانال رزولوشن',
+			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] ECS را فعال کنید',
+			'SettingsScreen.dnsTestDomain' => 'تست دامنه',
+			'SettingsScreen.dnsTestDomainInvalid' => 'دامنه نامعتبر',
+			'SettingsScreen.dnsTypeOutbound' => 'سرور پروکسی',
+			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
+			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
+			'SettingsScreen.dnsTypeResolver' => 'سرور دی‌ان‌اس',
+			'SettingsScreen.dnsEnableRuleTips' => 'بعد از فعال‌سازی نام دامنه، سرور دی‌ان‌اس مربوط را بر اساس قوانین انحراف برای عبور انتخاب می‌کند',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'پس از فعال کردن FakeIP، اگر اتصال VPN قطع شود، ممکن است برنامه شما نیاز به راه اندازی مجدد داشته باشد [حالت TUN].',
+			'SettingsScreen.dnsTypeOutboundTips' => 'سامانه نام دامنه (DNS) برای سرور پروکسی',
+			'SettingsScreen.dnsTypeDirectTips' => 'وضوح نام دامنه برای [${_root.meta.trafficDirect}]',
+			'SettingsScreen.dnsTypeProxyTips' => 'سامانه نام دامنه (DNS) برای ترافیک پروکسی',
+			'SettingsScreen.dnsTypeResolverTips' => 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس',
+			'SettingsScreen.dnsAutoSetServer' => 'به طور خودکار سرور را راه اندازی کنید',
+			'SettingsScreen.dnsResetServer' => 'بازنشانی سرور',
+			'SettingsScreen.inboundDomainResolve' => 'حل نام دامنه های ورودی',
+			'SettingsScreen.privateDirect' => 'اتصال مستقیم شبکه خصوصی',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].',
+			'SettingsScreen.useRomoteRes' => 'از منابع راه‌دور استفاده کنید',
+			'SettingsScreen.autoAppendRegion' => 'به طور خودکار قوانین اساسی را پیوست کنید',
+			'SettingsScreen.autoSelect' => 'انتخاب خودکار',
+			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'سرورهای پروکسی [جلو/زنجیری] را نادیده بگیرید',
+			'SettingsScreen.autoSelectServerInterval' => 'بازه زمانی بررسی تاخیر',
+			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'فاصله بررسی سلامت سرور فعلی',
+			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'شناسایی مجدد زمانی که شبکه تغییر می کند',
+			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'سرور فعلی را پس از تشخیص تأخیر دستی به روز کنید',
+			'SettingsScreen.autoSelectServerIntervalTips' => 'هرچه فاصله تشخیص تاخیر کمتر باشد، داده های تاخیر سرور به موقع به روز می شود، اما منابع بیشتری را اشغال می کند و برق را سریعتر مصرف می کند',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'اگر تشخیص ناموفق باشد، گره تغییر می کند. اگر هنگام تعویض گره هیچ گره در دسترس پیدا نشد، گروه با تاخیر دوباره شناسایی می شود',
+			'SettingsScreen.autoSelectServerFavFirst' => 'اولویت استفاده از [علاقه‌مندی‌های من]',
+			'SettingsScreen.autoSelectServerFavFirstTips' => 'اگر لیست [علاقه‌مندی‌های من] خالی نبود از سرور‌های داخل [علاقه‌مندی‌های من] استفاده کن',
+			'SettingsScreen.autoSelectServerFilter' => 'فیلترکردن سرور‌های نامعتبر',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'اگر بعد از فیلتر کردن هیچ سروری در دسترس نباشد، از اولین سرورهای [${p}] استفاده خواهد شد.',
+			'SettingsScreen.autoSelectServerLimitedNum' => 'حداکثر تعداد سرور',
+			'SettingsScreen.autoSelectServerLimitedNumTips' => 'سرورهای بیش از این تعداد فیلتر خواهند شد',
+			'SettingsScreen.numInvalid' => 'عدد نامعتبر',
+			'SettingsScreen.hideInvalidServer' => 'مخفی‌کردن سرور‌های نامعتبر',
+			'SettingsScreen.sortServer' => 'مرتب‌سازی سرور',
+			'SettingsScreen.sortServerTips' => 'مرتب‌سازی براساس تاخیر از کم به زیاد',
+			'SettingsScreen.selectServerHideRecommand' => 'مخفی‌کردن [پیشنهادی]',
+			'SettingsScreen.selectServerHideRecent' => '‌ مخفی‌کردن [اخیرا استفاده‌شده]',
+			'SettingsScreen.selectServerHideFav' => 'مخفی‌کردن [علاقه‌مندی‌های من]',
+			'SettingsScreen.homeScreen' => 'صفحه‌ خانه',
+			'SettingsScreen.theme' => 'تِم',
+			'SettingsScreen.widgetsAlpha' => 'شفافیت ابزارک‌ها',
+			'SettingsScreen.widgetsEmpty' => 'هیچ ویجتی موجود نیست',
+			'SettingsScreen.backgroundImage' => 'تصویر پس زمینه',
+			'SettingsScreen.myLink' => 'لینک میان‌بر',
+			'SettingsScreen.autoConnectAfterLaunch' => 'اتصال خودکار پس‌از راه‌اندازی',
+			'SettingsScreen.autoConnectAtBoot' => 'اتصال خودکار پس از روشن شدن سیستم',
+			'SettingsScreen.autoConnectAtBootTips' => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.',
+			'SettingsScreen.hideAfterLaunch' => 'پنهان کردن پنجره پس از راه اندازی',
+			'SettingsScreen.autoSetSystemProxy' => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال',
+			'SettingsScreen.bypassSystemProxy' => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند',
+			'SettingsScreen.disconnectWhenQuit' => 'قطع اتصال هنگام خروج از نرم‌افزار',
+			'SettingsScreen.excludeFromRecent' => 'پنهان شدن از وظایف اخیر',
+			'SettingsScreen.wakeLock' => 'قفل بیدارباش',
+			'SettingsScreen.hideVpn' => 'مخفی کردن آیکون VPN',
+			'SettingsScreen.hideVpnTips' => 'فعال کردن IPv6 باعث از کار افتادن این عملکرد خواهد شد.',
+			'SettingsScreen.allowBypass' => 'به برنامه‌ها اجازه دهید VPN را دور بزنند',
+			'SettingsScreen.importSuccess' => 'افزودن موفق بود',
+			'SettingsScreen.rewriteConfirm' => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟',
+			'SettingsScreen.mergePerapp' => 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]',
+			'SettingsScreen.networkShare' => 'اشتراک‌گذاری شبکه',
+			'SettingsScreen.frontProxy' => 'پروکسی جلو/زنجیره',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف',
+			'SettingsScreen.allowOtherHostsConnect' => 'اجازه اتصال دیگران',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.',
+			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunStrictRouteTips' => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.',
+			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.enableCluster' => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای',
+			'SettingsScreen.clusterAllowOtherHostsConnect' => 'اجازه اتصال دیگران به خوشه',
+			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
+			'SettingsScreen.clusterAuth' => 'احراز هویت خوشه پروکسی',
+			'SettingsScreen.tunMode' => 'حالت TUN',
+			'SettingsScreen.tuni4Address' => 'آدرس آی‌پی',
+			'SettingsScreen.tunModeTips' => 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)',
+			'SettingsScreen.tunModeRunAsAdmin' => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید',
+			'SettingsScreen.tunStack' => 'Stack',
+			'SettingsScreen.tunHijackTips' => 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود',
+			'SettingsScreen.launchAtStartup' => 'اجرا در راه‌اندازی',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'خروج از نرم‌افزار هنگام تعویض کاربران سیستم',
+			'SettingsScreen.handleScheme' => 'فراخوانی Scheme سیستم',
+			'SettingsScreen.portableMode' => 'حالت قابل‌حمل',
+			'SettingsScreen.portableModeDisableTips' => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [Karing] خارج شده و به‌صورت دستی پوشه [Profiles] هم مسیر با فایل [karing.exe] را حذف کنید',
+			'SettingsScreen.handleKaringScheme' => 'رسیدگی به ندای karing://',
+			'SettingsScreen.handleClashScheme' => 'رسیدگی به‌ ندای clash://',
+			'SettingsScreen.handleSingboxScheme' => 'رسیدگی به ندای sing-box://',
+			'SettingsScreen.alwayOnVPN' => 'اتصال همیشه باز',
+			'SettingsScreen.disconnectAfterSleep' => 'بعد از خواب زمستانی سیستم را قطع کنید',
+			'SettingsScreen.removeSystemVPNConfig' => 'حذف پیکربندی وی‌پی‌ان سیستم',
+			'SettingsScreen.timeConnectOrDisconnect' => 'اتصال/قطع اتصال برنامه‌ریزی شده',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'برای اعمال شدن وی‌پی‌ان باید متصل باشد. پس‌از روشن‌شدن [خواب خودکار] غیرفعال می‌شود',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'فاصله اتصال/قطع اتصال نمی تواند کمتر از ${p} دقیقه باشد',
+			'SettingsScreen.disableFontScaler' => 'غیرفعال‌سازی مقیاس‌بندی فونت(با راه‌اندازی مجدد اعمال می‌شود)',
+			'SettingsScreen.autoOrientation' => 'چرخش صفحه را دنبال کنید',
+			'SettingsScreen.restartTakesEffect' => 'با راه‌اندازی مجدد اعمال می‌شود',
+			'SettingsScreen.reconnectTakesEffect' => 'پس از اتصال مجدد، اعمال خواهد شد.',
+			'SettingsScreen.resetSettings' => 'بازنشانی تنظیمات',
+			'SettingsScreen.cleanCache' => 'پاک کردن حافظه پنهان',
+			'SettingsScreen.cleanCacheDone' => 'پاکسازی کامل شد',
+			'SettingsScreen.appleTestFlight' => 'تست‌فلایت اپل',
+			'SettingsScreen.appleAppStore' => 'اپ‌استور اپل',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'به‌روزرسانی نسخه ${p} ',
+			'SettingsScreen.follow' => 'مارو دنبال کنید',
+			'SettingsScreen.contactUs' => 'ارتباط باما',
+			'SettingsScreen.supportUs' => 'از ما حمایت کنید',
+			'SettingsScreen.rateInApp' => 'امتیاز به ما',
+			'SettingsScreen.rateInAppStore' => 'به ما در اپ‌استور امتیاز بدین',
+			'UserAgreementScreen.privacyFirst' => 'حریم‌خصوصی شما اولویت دارد',
+			'UserAgreementScreen.agreeAndContinue' => 'پذیرفتن و ادامه',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'نسخه جدید [${p}] آماده است',
+			'VersionUpdateScreen.update' => 'راه‌اندازی مجدد برای به‌روزرسانی',
+			'VersionUpdateScreen.cancel' => 'الان‌ نه',
+			'CommonWidget.diableAlwayOnVPN' => 'اگر [وی‌پی‌ان همیشه روشن] روشن است لطفا [وی‌پی‌ان همیشه روشن] را خاموش کنید و مجدد برای اتصال تلاش کنید',
+			'CommonWidget.resetPort' => 'لطفاً پورت را به پورت موجود دیگری تغییر دهید یا برنامه ای را که پورت را اشغال می کند ببندید.',
+			'main.tray.menuOpen' => '    بازکردن    ',
+			'main.tray.menuExit' => '    بستن    ',
+			'meta.enable' => 'فعال‌سازی',
+			'meta.disable' => 'غیرفعال',
+			'meta.bydefault' => 'پیش‌فرض',
+			'meta.filter' => 'فیلتر',
+			'meta.filterMethod' => 'روش فیلتر',
+			'meta.include' => 'شامل شود',
+			'meta.exclude' => 'حذف کردن',
+			'meta.all' => 'همه',
+			'meta.prefer' => 'اولویت',
+			'meta.only' => 'فقط',
+			'meta.open' => 'باز کن',
+			'meta.close' => 'بسته',
+			'meta.quit' => 'خروج',
+			'meta.add' => 'افزودن',
+			'meta.addSuccess' => 'با‌موفقیت اضافه شد',
+			'meta.addFailed' => ({required Object p}) => 'افزودن ناموفق بود:${p}',
+			'meta.remove' => 'حذف',
+			'meta.removeConfirm' => 'آیا از حذف اطمینان دارین؟',
+			'meta.edit' => 'ویرایش کنید',
+			'meta.view' => 'بررسی',
+			'meta.more' => 'بیشتر',
+			'meta.tips' => 'اطلاعات',
+			'meta.copy' => 'کپی',
+			'meta.save' => 'ذخیره کنید',
+			'meta.ok' => 'خُب',
+			'meta.cancel' => 'لغو',
+			'meta.feedback' => 'بازخورد',
+			'meta.feedbackContent' => 'محتوای بازخورد',
+			'meta.feedbackContentHit' => 'الزامی، تا 500 حرف',
+			'meta.feedbackContentCannotEmpty' => 'محتوای بازخورد نمی‌تواند خالی باشد',
+			'meta.faq' => 'سوالات متداول',
+			'meta.download' => 'دانلود',
+			'meta.upload' => 'آپلود',
+			'meta.downloadSpeed' => 'سرعت دانلود',
+			'meta.uploadSpeed' => 'سرعت آپلود',
+			'meta.loading' => 'درحال بارگذاری…',
+			'meta.convert' => 'تبدیل',
+			'meta.check' => 'بررسی',
+			'meta.detect' => 'کشف',
+			'meta.cache' => 'حافظه نهان',
+			'meta.days' => 'روز',
+			'meta.hours' => 'ساعت',
+			'meta.minutes' => 'دقیقه',
+			'meta.seconds' => 'دومین',
+			'meta.milliseconds' => 'میلی‌ثانیه',
+			'meta.tolerance' => 'تحمل',
+			'meta.dateTimePeriod' => 'دوره زمانی',
+			'meta.protocol' => 'پروتکل',
+			'meta.search' => 'جستجو',
+			'meta.custom' => 'سفارشی',
+			'meta.inbound' => 'ورودی',
+			'meta.outbound' => 'خارج شوید',
+			'meta.destination' => 'هدف',
+			'meta.outletIpByCurrentSelected' => 'IP',
+			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.connect' => 'اتصال',
+			'meta.disconnect' => 'قطع‌ اتصال',
+			'meta.reconnect' => 'دوباره وصل شوید',
+			'meta.connected' => 'وصل شد',
+			'meta.disconnected' => 'قطع شد',
+			'meta.connecting' => 'درحال اتصال',
+			'meta.connectTimeout' => 'اتمام مهلت اتصال',
+			'meta.timeout' => 'تایم اوت',
+			'meta.timeoutDuration' => 'مدت زمان وقفه',
+			'meta.runDuration' => 'زمان اجرا',
+			'meta.latency' => 'تاخیر',
+			'meta.latencyTest' => 'بررسی تاخیر',
+			'meta.language' => 'زبان',
+			'meta.next' => 'بعدی',
+			'meta.done' => 'انجام‌شد',
+			'meta.apply' => 'درخواست دادن',
+			'meta.refresh' => 'بارگذاری مجدد',
+			'meta.retry' => 'دوباره امتحان کنید؟',
+			'meta.update' => 'تجدید',
+			'meta.updateInterval' => 'فاصله‌ی به‌روزرسانی',
+			'meta.updateInterval5mTips' => 'حداقل: 5 متر',
+			'meta.updateFailed' => ({required Object p}) => 'به‌روزرسانی ناموفق بود:${p}',
+			'meta.samplingUnit' => 'واحد زمان نمونه‌برداری',
+			'meta.queryResultCount' => 'تعداد نتایج پرس و جو',
+			'meta.queryLimit' => ({required Object p}) => 'نمایش داده‌ها تا ${p}',
+			'meta.none' => 'هیچ‌کدام',
+			'meta.start' => 'شروع کنید',
+			'meta.pause' => 'مکث',
+			'meta.reset' => 'ریست',
+			'meta.submit' => 'ارسال',
+			'meta.user' => 'کاربر',
+			'meta.account' => 'نام‌کاربری',
+			'meta.password' => 'رمز‌عبور',
+			'meta.required' => 'الزامی',
+			'meta.type' => 'نوع',
+			'meta.path' => 'مسیر',
+			'meta.local' => 'محلی',
+			'meta.remote' => 'از راه دور',
+			'meta.other' => 'دیگر',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'URL نامعتبر',
+			'meta.urlCannotEmpty' => 'لینک نمی‌تواند خالی باشد',
+			'meta.urlTooLong' => 'URL خیلی طولانی است (>8182)',
+			'meta.copyUrl' => 'کپی‌کردن لینک',
+			'meta.openUrl' => 'بازکردن لینک',
+			'meta.shareUrl' => 'اشتراک لینک',
+			'meta.speedTestUrl' => 'URL تست سرعت',
+			'meta.tls' => 'TLS',
+			'meta.userAgent' => 'UserAgent',
+			'meta.staticIP' => 'IP استاتیک',
+			'meta.staticIPTips' => 'شما باید [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] را فعال کنید.',
+			'meta.isp' => 'ارائه دهندگان VPN',
+			'meta.domainSuffix' => 'پسوند دامنه',
+			'meta.domain' => 'دامنه',
+			'meta.domainKeyword' => 'کلید‌واژه دامنه',
+			'meta.domainRegex' => 'عبارات باقاعده ی دامنه (Regex)',
+			'meta.ip' => 'IP',
+			'meta.port' => 'پورت',
+			'meta.portRange' => 'محدوده بندر',
+			'meta.appPackage' => 'شناسه بسته برنامه',
+			'meta.processName' => 'نام اجرایی پروسه',
+			'meta.processPath' => 'مسیر پروسه',
+			'meta.processDir' => 'فهرست فرآیندها',
+			'meta.systemProxy' => 'پروکسی سیستم',
+			'meta.percentage' => 'درصد',
+			'meta.statistics' => 'آمار',
+			'meta.statisticsAndAnalysis' => 'آمار و تحلیل',
+			'meta.statisticsDataDesensitize' => 'ناشناس‌سازی داده‌ها',
+			'meta.statisticsDataDesensitizeTips' => 'شناسه فرآیند/بسته/نام دامنه هدف/IP هدف و غیره با * جایگزین شده و پس از حساسیت‌زدایی ذخیره می‌شوند.',
+			'meta.records' => 'رکورد',
+			'meta.requestRecords' => 'درخواست سوابق',
+			'meta.netInterfaces' => 'رابط شبکه',
+			'meta.netSpeed' => 'سرعت',
+			'meta.memoryTrendChart' => 'نمودار روند حافظه',
+			'meta.trafficTrendChart' => 'نمودار روند ترافیک',
+			'meta.trafficDistributionChart' => 'نقشه توزیع ترافیک',
+			'meta.connectionChart' => 'نمودار روند اتصال',
+			'meta.memoryChart' => 'نمودار روند حافظه',
+			'meta.trafficStatistics' => 'آمار ترافیک',
+			'meta.traffic' => 'جریان',
+			'meta.trafficTotal' => 'کل ترافیک',
+			'meta.trafficProxy' => 'ترافیک پروکسی',
+			'meta.trafficDirect' => 'ترافیک مستقیم',
+			'meta.website' => 'وبسایت',
+			'meta.memory' => 'حافظه',
+			'meta.outboundMode' => 'حالت خروجی',
+			'meta.rule' => 'قانون',
+			'meta.global' => 'عمومی',
+			'meta.qrcode' => 'کد QR',
+			'meta.qrcodeTooLong' => 'متن برای نمایش خیلی طولانی است',
+			'meta.qrcodeShare' => 'اشتراک کدQR',
+			'meta.textToQrcode' => 'متن به کد QR',
+			'meta.qrcodeScan' => 'اسکن QRکد',
+			'meta.qrcodeScanResult' => 'نتایج اسکن',
+			'meta.qrcodeScanFromImage' => 'اسکن از عکس',
+			'meta.qrcodeScanResultFailed' => 'تجزیه عکس ناموفق بود، لطفا مطمعن شوید اسکرین‌شات یک کدQR معتبر است',
+			'meta.qrcodeScanResultEmpty' => 'نتیجه اسکن خالی است',
+			'meta.screenshot' => 'اسکرین‌شات',
+			'meta.backupAndSync' => 'پشتیبان‌گیری و همگام‌سازی',
+			'meta.autoBackup' => 'پشتیبان گیری خودکار',
+			'meta.noProfileGotAutoBackup' => 'اگر داده‌هایی مانند [${_root.meta.myProfiles}] از بین بروند، می‌توانید آن‌ها را از [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] یا سایر منابع پشتیبان (مانند iCloud یا Webdav و غیره) بازیابی کنید.',
+			'meta.autoBackupAddProfile' => 'بعد از اضافه کردن تنظیمات',
+			'meta.autoBackupRemoveProfile' => 'پس از حذف تنظیمات',
+			'meta.profile' => 'پیکربندی',
+			'meta.currentProfile' => 'پیکربندی فعلی',
+			'meta.importAndExport' => 'وارد‌کردن و خروجی‌گرفتن',
+			'meta.import' => 'وارد‌کردن',
+			'meta.importFromUrl' => 'وارد کردن از URL',
+			'meta.export' => 'خروجی‌گرفتن',
+			'meta.send' => 'ارسال کنید',
+			'meta.receive' => 'تصاحب',
+			'meta.sendConfirm' => 'ارسال را تایید کرد؟',
+			'meta.termOfUse' => 'شرایط استفاده',
+			'meta.privacyPolicy' => 'سیاست حریم خصوصی',
+			'meta.about' => 'درباره',
+			'meta.name' => 'نام',
+			'meta.version' => 'نسخه',
+			'meta.notice' => 'اطلاعیه',
+			'meta.appNotifyWithReason' => ({required Object p, required Object p1}) => 'اقدام: ${p}\nدلیل: ${p1}',
+			'meta.sort' => 'مرتب‌سازی',
+			'meta.novice' => 'حالت مبتدی',
+			'meta.willCompleteAfterRebootInstall' => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.',
+			'meta.willCompleteAfterRebootUninstall' => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود',
+			'meta.requestNeedsUserApproval' => '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]',
+			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.',
+			'meta.tvMode' => 'حالت تلویزیون',
+			'meta.recommended' => 'پیشنهادی',
+			'meta.innerError' => ({required Object p}) => 'خطای داخلی: ${p}',
+			'meta.logicOperation' => 'عملیات منطقی',
+			'meta.share' => 'اشتراک گذاری',
+			'meta.candidateWord' => 'کلمات نامزد',
+			'meta.keywordOrRegx' => 'کلمات کلیدی / معمولی',
+			'meta.importFromClipboard' => 'افزودن از کلیپ‌برد',
+			'meta.exportToClipboard' => 'صادرات به کلیپ بورد',
+			'meta.server' => 'سرور',
+			'meta.ads' => 'تبلیغ کنید',
+			'meta.adsRemove' => 'تبلیغات را حذف کنید',
+			'meta.adsBanner' => 'تبلیغات بنری',
+			'meta.donate' => 'اهدا کنید',
+			'meta.diversion' => 'انحراف',
+			'meta.diversionRules' => 'قوانین انحراف',
+			'meta.diversionCustomGroup' => 'گروه انحراف سفارشی',
+			'meta.urlTestCustomGroup' => 'انتخاب خودکار سفارشی',
+			'meta.setting' => 'تنظیمات',
+			'meta.iCloud' => 'iCloud',
+			'meta.appleTV' => 'Apple TV',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN Sync',
+			'meta.lanSyncNotQuitTips' => 'قبل از تکمیل همگام‌سازی از این قسمت خارج نشوید',
+			'meta.deviceNoSpace' => 'فضای خالی کافی ندارید',
+			'meta.hideSystemApp' => 'برنامه های سیستم را مخفی کنید',
+			'meta.hideAppIcon' => 'پنهان کردن نماد برنامه',
+			'meta.hideDockIcon' => 'پنهان کردن آیکون داک',
+			'meta.remark' => 'ملاحضات',
+			'meta.remarkExist' => 'ملاحظات از‌قبل وجود دارد، لطفا از نام دیگری استفاده کنید',
+			'meta.remarkCannotEmpty' => 'ملاحظات نمی‌تواند خالی باشد',
+			'meta.remarkTooLong' => 'ملاحظات تا ۳۲ حرف',
+			'meta.openDir' => 'بازکردن دایرکتوری فایل',
+			'meta.fileChoose' => 'انتخاب فایل',
+			'meta.filePathCannotEmpty' => 'مسیر فایل نمی‌تواند خالی باشد',
+			'meta.fileNotExist' => ({required Object p}) => 'فایل وجود ندارد:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'نوع فایل نامعتبر:${p}',
+			'meta.uwpExemption' => 'معافیت جداسازی شبکه UWP',
+			'meta.rulesetGeoSite' => 'GeoSite',
+			'meta.rulesetGeoIp' => 'GeoIP',
+			'meta.rulesetAcl' => 'ACL',
+			'meta.getProfile' => 'پیکربندی را دریافت کنید',
+			'meta.addProfile' => 'افزودن پروفایل',
+			'meta.myProfiles' => 'پروفایل‌ها',
+			'meta.myProfilesAtLeastOneReserveEnable' => 'نمی‌تواند غیرغعال شود، لطفا حداقل یک پروفایل را فعال نگه دارید',
+			'meta.profileEdit' => 'ویرایش پروفایل',
+			'meta.profileEditUrlExist' => 'آدرس URL از‌قبل وجود دارد، لطفا از URL دیگری استفاده کنید',
+			'meta.profileEditReloadAfterProfileUpdate' => 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل',
+			'meta.profileEditTestLatencyAfterProfileUpdate' => 'شروع تست تاخیر پس‌از به‌روزرسانی خودکار پروفایل',
+			'meta.profileEditTestLatencyAfterProfileUpdateTips' => 'وی‌پی‌ان باید روشن و [بارگذاری مجدد پس‌از به‌روزرسانی پروفایل] فعال باشد',
+			'meta.profileEditTestLatencyAutoRemove' => 'خودکار سرورهای ناموفق در تست تاخیر را حذف کن',
+			'meta.profileEditTestLatencyAutoRemoveTips' => 'تا سه بار امتحان کنید',
+			'meta.profileImport' => 'وارد‌کردن فایل پروفایل',
+			'meta.profileAddUrlOrContent' => 'افزودن لینک پروفایل',
+			'meta.profileExists' => 'پروفایل از‌قبل وجود دارد، لطفا آن را به‌طور مکرر اضافه نکنید',
+			'meta.profileUrlOrContent' => 'لینک/محتوای پروفایل',
+			'meta.profileUrlOrContentHit' => 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)',
+			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.',
+			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید',
+			'meta.profileAddParseFailed' => 'تجزیه پروفایل انجام نشد',
+			'meta.profileAddNoServerAvaliable' => 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید',
+			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
+			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
+			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',
+			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',
+			'diversionCustomGroupAddTips' => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.',
+			'rulesetEnableTips' => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد',
+			'ispUserAgentTips' => '[${_root.meta.isp}] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.',
+			'ispDiversionTips' => 'قوانین بارگذاری ارائه شده توسط [${_root.meta.isp}]، اشتراک های نوع [V2Ray] از قوانین تخلیه پشتیبانی نمی کنند',
+			'isp.bind' => 'اتصال به [${_root.meta.isp}]',
+			'isp.unbind' => ({required Object p}) => 'لغو پیوند[${p}]',
+			'isp.faq' => ({required Object p}) => 'سوالات متداول[${p}]',
+			'isp.customerService' => ({required Object p}) => 'خدمات مشتری[${p}]',
+			'isp.follow' => ({required Object p}) => 'دنبال کردن[${p}]',
+			'isp.invalidOrExpired' => '[${_root.meta.isp}]نامعتبر یا منقضی شده است',
+			'permission.camera' => 'دوربین',
+			'permission.screen' => 'ضبط صفحه',
+			'permission.appQuery' => 'Get Application List',
+			'permission.request' => ({required Object p}) => 'مجوزهای [${p}] را فعال کنید',
+			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',
+			'tls.insecure' => 'رد شدن از تأیید گواهی',
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
+			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
+			'tls.fragmentSize' => 'اندازه بخش TLS',
+			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
+			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
+			'tls.paddingEnable' => 'فعال کردن TLS Padding',
+			'tls.paddingSize' => 'اندازه پد TLS',
+			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
+			'outboundRuleMode.urltest' => 'انتخاب خودکار',
+			_ => null,
+		} ?? switch (path) {
+			'outboundRuleMode.direct' => 'مستقیم',
+			'outboundRuleMode.block' => 'مسدود',
+			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,
+			'dnsProxyResolveMode.direct' => _root.outboundRuleMode.direct,
+			'dnsProxyResolveMode.fakeip' => 'FakeIP',
+			'proxyStrategy.perferProxy' => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.perferDirect' => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}',
+			'proxyStrategy.onlyProxy' => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.onlyDirect' => '${_root.meta.only} ${_root.outboundRuleMode.direct}',
+			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
+			'reloadReason.profileUpdate' => 'به‌روزرسانی‌های پیکربندی',
+			'theme.light' => 'رنگ روشن',
+			'theme.dark' => 'سیاه',
+			'theme.auto' => 'خودکار',
+			'downloadProxyStrategy' => 'کانال دانلود',
+			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: اتصال به سرور DNS از طریق سرور پروکسی برای حل نام دامنه\n[${_root.dnsProxyResolveMode.direct}]: برای حل نام دامنه مستقیماً به سرور DNS متصل شوید\n[ ${_root.dnsProxyResolveMode.fakeip}: توسط پروکسی سرور از طرف شما نام دامنه را حل می کند، در صورت قطع ارتباط با VPN، ممکن است برنامه شما فقط برای ترافیک ورودی از [TUN] اعمال شود.',
+			'routeFinal' => 'نهایی',
+			'protocolSniff' => 'تشخیص پروتکل',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'لطفا از [${p}] استفاده کنید',
+			'turnOffPrivateDirect' => 'لطفاً ابتدا [اتصال مستقیم شبکه خصوصی] را فعال کنید',
+			'targetConnectFailed' => ({required Object p}) => 'اتصال به [${p}] ناموفق بود، لطفاً مطمئن شوید که دستگاه در همان LAN است',
+			'appleTVSync' => 'همگام سازی پیکربندی هسته فعلی با Apple TV - Karing',
+			'appleTVSyncDone' => 'همگام سازی کامل شد، لطفاً برای باز کردن/راه اندازی مجدد اتصال به Apple TV - Karing بروید',
+			'appleTVRemoveCoreConfig' => 'حذف Apple TV - Karing Core Configuration',
+			'appleTVRemoveCoreConfigDone' => 'Apple TV - نمایه اصلی کارینگ حذف شد',
+			'appleTVUrlInvalid' => 'URL نامعتبر است، لطفاً Apple TV - Karing را باز کنید، کد QR نمایش داده شده توسط Karing را اسکن کنید',
+			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] این عملکرد را ندارد، لطفا ارتقا دهید و دوباره امتحان کنید',
+			'appleCoreVersionNotMatch' => ({required Object p}) => 'نسخه اصلی اصلی مطابقت ندارد، لطفاً [${p}] را ارتقا دهید و دوباره امتحان کنید',
+			'remoteProfileEditConfirm' => 'پس از به روز رسانی تنظیمات، تغییرات گره بازیابی می شوند آیا می خواهید ادامه دهید؟',
+			'mustBeValidHttpsURL' => 'باید یک URL معتبر https باشد',
+			'fileNotExistReinstall' => ({required Object p}) => 'فایل [${p}] وجود ندارد، لطفا دوباره نصب کنید',
+			'noNetworkConnect' => 'بدون اتصال به اینترنت',
+			'sudoPassword' => 'رمز عبور sudo (برای حالت TUN لازم است)',
+			'turnOffNetworkBeforeInstall' => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید',
+			'latencyTestResolveIP' => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.',
+			'removeBannerAdsByShare' => 'اشتراک گذاری[Karing]رفتن به تبلیغات',
+			'removeBannerAdsByReward' => 'تماشای تبلیغات برو به تبلیغات',
+			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)',
+			'removeBannerAdsByRewardTip' => ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)',
+			'removeBannerAdsDone' => ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد',
+			'maybeAdsByReward' => 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.',
+			'edgeRuntimeNotInstalled' => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

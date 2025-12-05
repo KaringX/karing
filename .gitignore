@@ -70,3 +70,4 @@ app.*.map.json
 /android/app/.cxx
 /android/.kotlin
 
+*.hprof

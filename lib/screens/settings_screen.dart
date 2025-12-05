@@ -1037,6 +1037,17 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     SettingManager.setDirty(true);
                     setState(() {});
                   })),
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.autoConnectAtBoot,
+                  switchValue: settingConfig.autoConnectAtBoot,
+                  tips:
+                      "${tcontext.SettingsScreen.reconnectTakesEffect};${tcontext.SettingsScreen.autoConnectAtBootTips}",
+                  onSwitch: (bool value) async {
+                    settingConfig.autoConnectAtBoot = value;
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  })),
         ],
         if (Platform.isIOS) ...[
           GroupItemOptions(
@@ -1254,10 +1265,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.rateInApp,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_rateInApp',
-                      repeatable: false);
                   final InAppReview inAppReview = InAppReview.instance;
                   inAppReview.requestReview();
                 }))
@@ -1267,10 +1274,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.rateInAppStore,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_rateInAppStore',
-                      repeatable: true);
                   await WebviewHelper.loadUrl(
                       context, rateUrl, "SSS_rateInAppStore",
                       title: tcontext.SettingsScreen.rateInAppStore);
@@ -1471,8 +1474,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   if (canceled || duration == null) {
                     return;
                   }
-                  if (duration.inSeconds < 2 || duration.inSeconds > 10) {
-                    duration = const Duration(seconds: 8);
+                  if (duration.inSeconds < 1) {
+                    duration = const Duration(seconds: 1);
+                  }
+                  if (duration.inSeconds > 15) {
+                    duration = const Duration(seconds: 15);
                   }
                   settingConfig.urlTestTimeout = duration.inSeconds;
                   setState(() {});
@@ -1526,6 +1532,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       //settingConfig.proxy.mixedRulePort,
                       settingConfig.proxy.mixedDirectPort,
                       settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
                       settingConfig.proxy.controlPort,
                       settingConfig.proxy.clusterPort,
                       settingConfig.htmlBoardPort,
@@ -1556,6 +1564,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       settingConfig.proxy.mixedRulePort,
                       //settingConfig.proxy.mixedDirectPort,
                       settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
                       settingConfig.proxy.controlPort,
                       settingConfig.proxy.clusterPort,
                     ];
@@ -1585,6 +1595,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       settingConfig.proxy.mixedRulePort,
                       settingConfig.proxy.mixedDirectPort,
                       //settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
                       settingConfig.proxy.controlPort,
                       settingConfig.proxy.clusterPort,
                       settingConfig.htmlBoardPort,
@@ -1603,6 +1615,77 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.portSettingRule,
+                text: settingConfig.proxy.mixedRuleNetSharePort.toString(),
+                onPush: () async {
+                  int? p = await DialogUtils.showIntInputDialog(
+                      context,
+                      tcontext.SettingsScreen.modifyPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      minPort,
+                      maxPort);
+
+                  if (p != null) {
+                    List<int> ports = [
+                      settingConfig.proxy.mixedRulePort,
+                      settingConfig.proxy.mixedDirectPort,
+                      settingConfig.proxy.mixedForwordPort,
+                      //settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
+                      settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                      settingConfig.htmlBoardPort,
+                    ];
+                    if (ports.contains(p)) {
+                      if (!context.mounted) {
+                        return;
+                      }
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
+                    settingConfig.proxy.mixedRuleNetSharePort = p;
+                    SettingManager.setDirty(true);
+                  }
+                })),
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.portSettingProxyAll,
+                text: settingConfig.proxy.mixedForwordNetSharePort.toString(),
+                onPush: () async {
+                  int? p = await DialogUtils.showIntInputDialog(
+                      context,
+                      tcontext.SettingsScreen.modifyPort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
+                      minPort,
+                      maxPort);
+                  if (p != null) {
+                    List<int> ports = [
+                      settingConfig.proxy.mixedRulePort,
+                      settingConfig.proxy.mixedDirectPort,
+                      settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      //settingConfig.proxy.mixedForwordNetSharePort,
+                      settingConfig.proxy.controlPort,
+                      settingConfig.proxy.clusterPort,
+                      settingConfig.htmlBoardPort,
+                    ];
+                    if (ports.contains(p)) {
+                      if (!context.mounted) {
+                        return;
+                      }
+                      await DialogUtils.showAlertDialog(
+                          context, tcontext.SettingsScreen.modifyPortOccupied);
+                      return;
+                    }
+                    settingConfig.proxy.mixedForwordNetSharePort = p;
+                    SettingManager.setDirty(true);
+                  }
+                })),
+      ];
+      List<GroupItemOptions> options2 = [
+        GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.portSettingControl,
                 text: settingConfig.proxy.controlPort.toString(),
                 onPush: () async {
@@ -1617,6 +1700,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       settingConfig.proxy.mixedRulePort,
                       settingConfig.proxy.mixedDirectPort,
                       settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
                       //settingConfig.proxy.controlPort,
                       settingConfig.proxy.clusterPort,
                       settingConfig.htmlBoardPort,
@@ -1648,6 +1733,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         settingConfig.proxy.mixedRulePort,
                         settingConfig.proxy.mixedDirectPort,
                         settingConfig.proxy.mixedForwordPort,
+                        settingConfig.proxy.mixedRuleNetSharePort,
+                        settingConfig.proxy.mixedForwordNetSharePort,
                         settingConfig.proxy.controlPort,
                         //settingConfig.proxy.clusterPort,
                         settingConfig.htmlBoardPort,
@@ -1679,6 +1766,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       settingConfig.proxy.mixedRulePort,
                       settingConfig.proxy.mixedDirectPort,
                       settingConfig.proxy.mixedForwordPort,
+                      settingConfig.proxy.mixedRuleNetSharePort,
+                      settingConfig.proxy.mixedForwordNetSharePort,
                       settingConfig.proxy.controlPort,
                       settingConfig.proxy.clusterPort,
                       // settingConfig.htmlBoardPort,
@@ -1695,7 +1784,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 })),
       ];
 
-      return [GroupItem(options: options), GroupItem(options: options1)];
+      return [
+        GroupItem(options: options),
+        GroupItem(
+            options: options1, name: tcontext.SettingsScreen.networkShare),
+        GroupItem(options: options2),
+      ];
     }
 
     await Navigator.push(
@@ -2066,7 +2160,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                 name: tcontext.SettingsScreen.autoSelectServerInterval,
                 tips: tcontext.SettingsScreen.autoSelectServerIntervalTips,
-                duration: settingConfig.autoSelect.timerInterval,
+                duration: settingConfig.autoSelect.interval,
                 showSeconds: false,
                 showDisable: false,
                 onPicker: (bool canceled, Duration? duration) async {
@@ -2082,11 +2176,42 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   if (duration.inMinutes < 3) {
                     duration = const Duration(minutes: 3);
                   }
-                  if (duration == settingConfig.autoSelect.timerInterval) {
+                  if (duration == settingConfig.autoSelect.interval) {
                     return;
                   }
 
-                  settingConfig.autoSelect.timerInterval = duration;
+                  settingConfig.autoSelect.interval = duration;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                })),
+        GroupItemOptions(
+            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+                name: tcontext.meta.tolerance,
+                duration: settingConfig.autoSelect.tolerance,
+                showDays: false,
+                showHours: false,
+                showMinutes: false,
+                showSeconds: true,
+                showMilliSeconds: true,
+                showDisable: false,
+                onPicker: (bool canceled, Duration? duration) async {
+                  if (canceled) {
+                    return;
+                  }
+                  if (duration == null) {
+                    return;
+                  }
+                  if (duration.inSeconds > 5) {
+                    duration = const Duration(seconds: 5);
+                  }
+                  if (duration.inMilliseconds < 0) {
+                    duration = const Duration(milliseconds: 0);
+                  }
+                  if (duration == settingConfig.autoSelect.tolerance) {
+                    return;
+                  }
+
+                  settingConfig.autoSelect.tolerance = duration;
                   SettingManager.setDirty(true);
                   setState(() {});
                 })),
@@ -2686,7 +2811,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       name: 'adsShare',
                       repeatable: true);
 
-                  final box = context.findRenderObject() as RenderBox?;
                   bool? ok = await DialogUtils.showConfirmDialog(
                       context,
                       tcontext.removeBannerAdsByShareTip(
@@ -2705,9 +2829,16 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
    iOS/macOS/tvOS AppStore: ${AppleUtils.getAppStoreUrl()}
    Android: ${config.download} or https://apkpure.com/p/com.nebula.karing
    Windows: ${config.download}''';
-                      ShareResult result = await Share.share(content,
-                          sharePositionOrigin:
-                              box!.localToGlobal(Offset.zero) & box.size);
+                      final box = context.findRenderObject() as RenderBox?;
+                      final rect = box != null
+                          ? box.localToGlobal(Offset.zero) & box.size
+                          : null;
+                      ShareResult result =
+                          await SharePlus.instance.share(ShareParams(
+                        text: content,
+                        sharePositionOrigin: rect,
+                      ));
+
                       if (result.status == ShareResultStatus.success) {
                         DateTime? date = DateTime.tryParse(
                             settingConfig.ads.bannerShareExpire);

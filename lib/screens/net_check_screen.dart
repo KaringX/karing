@@ -119,8 +119,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
       return tcontext.outboundRuleMode.block;
-    } else if (tag == kOutboundTagDns) {
-      return tcontext.meta.dns;
     }
     return tag;
   }

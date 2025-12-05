@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsRu implements Translations {
+class TranslationsRu with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -120,6 +121,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Ссылка на установку';
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
+	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
 	@override String get disableUAReport => 'Применить данные улучшения';
 	@override String get disableUAReportTip => '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].';
 	@override String get devOptions => 'Параметры разработчика';
@@ -154,7 +156,7 @@ class _TranslationsDiversionGroupCustomEditScreenRu implements TranslationsDiver
 	// Translations
 	@override String invalidDomain({required Object p}) => 'Неверный [Domain]:${p}';
 	@override String invalidIpCidr({required Object p}) => 'Неверный [IP Cidr]:${p}';
-	@override String invalidPort({required Object p}) => 'Неверный [Port]:${p}';
+	@override String invalid({required Object p0, required Object p}) => 'Неверный [${p0}]:${p}';
 	@override String invalidRuleSet({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.';
 	@override String invalidPackageId({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}';
@@ -426,6 +428,8 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get backgroundImage => 'Фоновое изображение';
 	@override String get myLink => 'Быстрая ссылка';
 	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
+	@override String get autoConnectAtBoot => 'Автоматическое подключение после запуска системы';
+	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
@@ -476,6 +480,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get disableFontScaler => 'Отключить масштабирование шрифта';
 	@override String get autoOrientation => 'Следовать за поворотом экрана';
 	@override String get restartTakesEffect => 'Требуется перезапуск';
+	@override String get reconnectTakesEffect => 'Изменения вступят в силу после повторного подключения.';
 	@override String get resetSettings => 'Сброс настроек';
 	@override String get cleanCache => 'Очистка кэша';
 	@override String get cleanCacheDone => 'Очистка завершена';
@@ -584,12 +589,17 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get hours => 'часы';
 	@override String get minutes => 'минуты';
 	@override String get seconds => 'Второй';
+	@override String get milliseconds => 'миллисекунда';
+	@override String get tolerance => 'Толерантность';
 	@override String get dateTimePeriod => 'Период времени';
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
 	@override String get custom => 'Самостоятельная настройка';
 	@override String get inbound => 'Входящий';
 	@override String get outbound => 'Выход';
+	@override String get destination => 'Цель';
+	@override String get outletIpByCurrentSelected => 'IP';
+	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'Соединить';
 	@override String get disconnect => 'Отключить';
 	@override String get reconnect => 'Повторное подключение';
@@ -641,6 +651,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Статический IP';
+	@override String get staticIPTips => 'Вам необходимо включить [TUN HijackDNS] или [${_root.SettingsScreen.inboundDomainResolve}].';
 	@override String get isp => 'VPN-провайдер';
 	@override String get domainSuffix => 'Суффикс доменного имени';
 	@override String get domain => 'Имя домена';
@@ -654,18 +665,21 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get processPath => 'Путь к процессу';
 	@override String get processDir => 'Каталог процессов';
 	@override String get systemProxy => 'Системный прокси';
+	@override String get percentage => 'процент';
 	@override String get statistics => 'статистика';
 	@override String get statisticsAndAnalysis => 'Статистика и анализ';
-	@override String get statisticsPrivacyDesensitize => 'Десенсибилизация конфиденциальности';
-	@override String get statisticsPrivacyDesensitizeTips => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
+	@override String get statisticsDataDesensitize => 'Анонимизация данных';
+	@override String get statisticsDataDesensitizeTips => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
 	@override String get records => 'Записывать';
 	@override String get requestRecords => 'Запросить записи';
 	@override String get netInterfaces => 'Сетевой интерфейс';
 	@override String get netSpeed => 'Скорость';
+	@override String get memoryTrendChart => 'Диаграмма тренда памяти';
 	@override String get trafficTrendChart => 'График тенденций трафика';
 	@override String get trafficDistributionChart => 'Карта распределения трафика';
 	@override String get connectionChart => 'Диаграмма тренда подключений';
 	@override String get memoryChart => 'Диаграмма тренда памяти';
+	@override String get trafficStatistics => 'Статистика трафика';
 	@override String get traffic => 'поток';
 	@override String get trafficTotal => 'Трафик всего';
 	@override String get trafficProxy => 'Трафик прокси';
@@ -690,6 +704,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get noProfileGotAutoBackup => 'Если данные, такие как [${_root.meta.myProfiles}], утеряны, вы можете восстановить их из [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] или других источников резервного копирования (например, iCloud или WebDAV и т. д.)';
 	@override String get autoBackupAddProfile => 'После добавления конфигурации';
 	@override String get autoBackupRemoveProfile => 'После удаления конфигурации';
+	@override String get profile => 'конфигурация';
 	@override String get currentProfile => 'Текущая конфигурация';
 	@override String get importAndExport => 'Импорт и экспорт в файл';
 	@override String get import => 'Импорт';
@@ -895,558 +910,576 @@ class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 	@override String get menuExit => '    Выйти    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ru>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'AboutScreen.installRefer': return 'Ссылка на установку';
-			case 'AboutScreen.installTime': return 'Время установки';
-			case 'AboutScreen.versionChannel': return 'Канал автоматического обновления';
-			case 'AboutScreen.disableUAReport': return 'Применить данные улучшения';
-			case 'AboutScreen.disableUAReportTip': return '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].';
-			case 'AboutScreen.devOptions': return 'Параметры разработчика';
-			case 'AboutScreen.enableDebugLog': return 'Включить debug-лог';
-			case 'AboutScreen.viewFilsContent': return 'Посмотреть файлы';
-			case 'AboutScreen.enablePprof': return 'Включить pprof';
-			case 'AboutScreen.pprofPanel': return 'pprof панель';
-			case 'AboutScreen.allowRemoteAccessPprof': return 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}';
-			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'Разрешить удаленный доступ${_root.SettingsScreen.htmlBoard}';
-			case 'AboutScreen.useOriginalSBProfile': return 'Использовать исходную конфигурацию Sing-box';
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'Адрес сервера';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'Не может быть пустым';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'Ошибка входа:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'Не удалось получить список файлов:';
-			case 'DiversionGroupCustomEditScreen.invalidDomain': return ({required Object p}) => 'Неверный [Domain]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidIpCidr': return ({required Object p}) => 'Неверный [IP Cidr]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'Неверный [Port]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.';
-			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}';
-			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.';
-			case 'DiversionRuleDetectScreen.title': return 'Тест правил перенаправления';
-			case 'DiversionRuleDetectScreen.rule': return 'Правило:';
-			case 'DiversionRuleDetectScreen.outbound': return 'Прокси-сервер:';
-			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'Совет: Правила применяются по очереди сверху вниз. Если ни одно соответствие не обнаружено, то действует правило [Final]';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'ISP не может быть пустой';
-			case 'DnsSettingsScreen.urlCanNotEmpty': return 'URL не может быть пустой';
-			case 'DnsSettingsScreen.error': return ({required Object p}) => 'Неподдерживаемый тип:${p}';
-			case 'DnsSettingsScreen.dnsDesc': return 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.';
-			case 'FileContentViewerScreen.title': return 'Просмотр содержимого файла';
-			case 'FileContentViewerScreen.clearFileContent': return 'Вы уверены, что хотите очистить содержимое файла?';
-			case 'FileContentViewerScreen.clearFileContentTips': return 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.';
-			case 'HomeScreen.toSelectServer': return 'Выберите сервер';
-			case 'HomeScreen.invalidServer': return 'Не работает. Пожалуйста, выберите другой';
-			case 'HomeScreen.disabledServer': return 'Был отключен. Пожалуйста, выберите другой';
-			case 'HomeScreen.expiredServer': return 'Нет доступного сервера: возможно, профиль устарел или отключен';
-			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'HomeScreen.myLinkEmpty': return 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
-			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
-			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.';
-			case 'LaunchFailedScreen.invalidProcess': return 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку';
-			case 'LaunchFailedScreen.invalidProfile': return 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение';
-			case 'LaunchFailedScreen.invalidVersion': return 'Не удалось запустить приложение [Неверная версия], переустановите приложение';
-			case 'LaunchFailedScreen.systemVersionLow': return 'Не удалось запустить приложение [Слишком низкая версия системы]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'Путь установки недействителен, переустановите его по допустимому пути';
-			case 'MyProfilesMergeScreen.profilesMerge': return 'Объединение профилей';
-			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'Целевой профиль';
-			case 'MyProfilesMergeScreen.profilesMergeSource': return 'Профиль - источник';
-			case 'MyProfilesMergeScreen.profilesMergeTips': return 'Совет: Настройки перенаправления для профиля - источника будут удалены.';
-			case 'NetCheckScreen.title': return 'Диагностика сети';
-			case 'NetCheckScreen.warn': return 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны реальным результатам.';
-			case 'NetCheckScreen.invalidDomain': return 'Неверное имя домена';
-			case 'NetCheckScreen.connectivity': return 'Подключение к сети';
-			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'Ipv4 Тест подключения[${p}] неудачен';
-			case 'NetCheckScreen.connectivityTestIpv4Ok': return 'Ipv4 Соединение выполнено успешно';
-			case 'NetCheckScreen.connectivityTestIpv6AllFailed': return ({required Object p}) => 'Ipv6 Тест подключения[${p}] неудачен. Возможно, ваша сеть не поддерживает ipv6.';
-			case 'NetCheckScreen.connectivityTestIpv6Ok': return 'Ipv6 Соединение выполнено успешно';
-			case 'NetCheckScreen.connectivityTestOk': return 'Сеть подключена к Интернету';
-			case 'NetCheckScreen.connectivityTestFailed': return 'Ваша сеть не подключена к Интернету';
-			case 'NetCheckScreen.remoteRulesetsDownloadOk': return 'Все успешно скачано';
-			case 'NetCheckScreen.remoteRulesetsDownloadNotOk': return 'Сбой загрузки';
-			case 'NetCheckScreen.outbound': return 'Прокси-сервер';
-			case 'NetCheckScreen.outboundOk': return ({required Object p}) => '[${p}]Соединение установлено успешно';
-			case 'NetCheckScreen.outboundFailed': return ({required Object p1, required Object p2}) => '[${p1}]Соединение не удалось\nошибка:[${p2}]';
-			case 'NetCheckScreen.dnsServer': return 'DNS сервер';
-			case 'NetCheckScreen.dnsOk': return ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS Разобрано успешно\nDNS правило:[${p2}]\nЗадержка:[${p3} ms]\nадрес:[${p4}]';
-			case 'NetCheckScreen.dnsFailed': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS Не удалось выполнить синтаксический анализ\n правило:[${p2}]\nошибка:[${p3}]';
-			case 'NetCheckScreen.host': return 'HTTP соединение';
-			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравила перенаправления:[${p2}]\nПрокси-сервер:[${p3}]';
-			case 'NetCheckScreen.hostConnectionOk': return 'Соединение установлено успешно';
-			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'Соединение не удалось:[${p}]';
-			case 'NetConnectionsFilterScreen.hostIp': return 'Domain/IP';
-			case 'NetConnectionsFilterScreen.app': return 'Приложение';
-			case 'NetConnectionsFilterScreen.rule': return 'Правило';
-			case 'NetConnectionsFilterScreen.chain': return 'Исходящий';
-			case 'NetConnectionsScreen.copyAsCSV': return 'Скопировано в CSV формате';
-			case 'NetConnectionsScreen.selectType': return 'Выберите тип перенаправления';
-			case 'PerAppAndroidScreen.title': return 'Проксируемые приложения';
-			case 'PerAppAndroidScreen.whiteListMode': return 'Режим белого списка';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.';
-			case 'RegionSettingsScreen.title': return 'Страна или регион';
-			case 'RegionSettingsScreen.Regions': return 'Совет: Пожалуйста, правильно укажите текущую страну или регион. В противном случае это может вызвать проблемы с перенаправлением в сети';
-			case 'ServerSelectScreen.title': return 'Выбор сервера';
-			case 'ServerSelectScreen.autoSelectServer': return 'Автовыбор сервера с наименьшей задержкой';
-			case 'ServerSelectScreen.recentUse': return 'Недавно использованные';
-			case 'ServerSelectScreen.myFav': return 'Мои избранные';
-			case 'ServerSelectScreen.selectLocal': return ({required Object p}) => 'Выбранный сервер является локальным, и может работать неправильно:${p}';
-			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'Выбранный сервер имеет адрес IPv6 и требует [Включить IPv6]';
-			case 'ServerSelectScreen.selectDisabled': return 'Сервер отключен';
-			case 'ServerSelectScreen.error404': return 'При  измерении задержки произошла ошибка. Проверьте, существует ли профиль с таким содержимым.';
-			case 'SettingsScreen.getTranffic': return 'Получить трафик';
-			case 'SettingsScreen.tutorial': return 'Руководство';
-			case 'SettingsScreen.commonlyUsedRulesets': return 'Коллекция наборов правил';
-			case 'SettingsScreen.howToRemoveAds': return 'Как удалить рекламу';
-			case 'SettingsScreen.htmlBoard': return 'Веб-панель';
-			case 'SettingsScreen.dnsLeakDetection': return 'Тест утечки DNS';
-			case 'SettingsScreen.proxyLeakDetection': return 'Обнаружение утечки наличия прокси';
-			case 'SettingsScreen.speedTest': return 'Тест скорости';
-			case 'SettingsScreen.rulesetDirectDownlad': return 'Правила прямой загрузки';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'Скрыть неактивные правила перенаправления трафика';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'Отключить правила перенаправления [${_root.meta.isp}]';
-			case 'SettingsScreen.portSettingRule': return 'Действуют все правила';
-			case 'SettingsScreen.portSettingDirectAll': return 'Всё подключено напрямую';
-			case 'SettingsScreen.portSettingProxyAll': return 'Всё идёт через прокси';
-			case 'SettingsScreen.portSettingControl': return 'Управление и синхронизация';
-			case 'SettingsScreen.portSettingCluster': return 'Кластерный сервис';
-			case 'SettingsScreen.modifyPort': return 'Изменить порт';
-			case 'SettingsScreen.modifyPortOccupied': return 'Порт занят, используйте другой порт';
-			case 'SettingsScreen.ipStrategyTips': return 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
-			case 'SettingsScreen.tunAppendHttpProxy': return 'Подключите HTTP-прокси к VPN';
-			case 'SettingsScreen.tunAppendHttpProxyTips': return 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
-			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'Домены, которым разрешено обходить HTTP-прокси';
-			case 'SettingsScreen.dnsEnableRule': return 'Включить правила для DNS';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] Способ разрешения в DNS';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] Включить ECS';
-			case 'SettingsScreen.dnsTestDomain': return 'Тестовое доменное имя';
-			case 'SettingsScreen.dnsTestDomainInvalid': return 'Неверное доменное имя';
-			case 'SettingsScreen.dnsTypeOutbound': return 'Прокси-сервер';
-			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
-			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
-			case 'SettingsScreen.dnsTypeResolver': return 'DNS-сервер';
-			case 'SettingsScreen.dnsEnableRuleTips': return 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
-			case 'SettingsScreen.dnsTypeOutboundTips': return 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'Разрешение доменного имени для [${_root.meta.trafficDirect}]';
-			case 'SettingsScreen.dnsTypeProxyTips': return 'Разрешение доменных имен для трафика через Proxy';
-			case 'SettingsScreen.dnsTypeResolverTips': return 'Разрешение доменных имен для DNS-серверов';
-			case 'SettingsScreen.dnsAutoSetServer': return 'Автоматически настроить сервер';
-			case 'SettingsScreen.dnsResetServer': return 'Сбросить сервер';
-			case 'SettingsScreen.inboundDomainResolve': return 'Разрешение входящих доменных имен';
-			case 'SettingsScreen.privateDirect': return 'Прямое подключение к частной сети';
-			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
-			case 'SettingsScreen.useRomoteRes': return 'Использовать удаленные ресурсы';
-			case 'SettingsScreen.autoAppendRegion': return 'Автоматически добавлять основные правила';
-			case 'SettingsScreen.autoSelect': return 'Автовыбор';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'Игнорировать [фронт/цепные] прокси-серверы';
-			case 'SettingsScreen.autoSelectServerInterval': return 'Интервал проверок задержки';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'Текущий интервал проверки работоспособности сервера';
-			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'Перетестировать после смены сети';
-			case 'SettingsScreen.autoSelectServerIntervalTips': return 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.';
-			case 'SettingsScreen.autoSelectServerFavFirst': return 'Предпочитать [Мои избранные]';
-			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'Обновить текущий сервер после измерения задержки вручную';
-			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
-			case 'SettingsScreen.autoSelectServerFilter': return 'Отфильтровать сервера';
-			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
-			case 'SettingsScreen.autoSelectServerLimitedNum': return 'Максимальное количество серверов';
-			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'Если серверов больше этого числа, лишние будут отброшены.';
-			case 'SettingsScreen.numInvalid': return 'Неправильный номер';
-			case 'SettingsScreen.hideInvalidServer': return 'Скрыть нерабочие серверы';
-			case 'SettingsScreen.sortServer': return 'Сортировка серверов';
-			case 'SettingsScreen.sortServerTips': return 'Сортировать по задержке от низкой к высокой';
-			case 'SettingsScreen.selectServerHideRecommand': return 'Скрыть [Рекомендуемые]';
-			case 'SettingsScreen.selectServerHideRecent': return 'Скрыть [Недавно использованные]';
-			case 'SettingsScreen.selectServerHideFav': return 'Скрыть [Мои избранные]';
-			case 'SettingsScreen.homeScreen': return 'Настройка главного экрана';
-			case 'SettingsScreen.theme': return 'Тема';
-			case 'SettingsScreen.widgetsAlpha': return 'Прозрачность виджетов';
-			case 'SettingsScreen.widgetsEmpty': return 'Виджет недоступен';
-			case 'SettingsScreen.backgroundImage': return 'Фоновое изображение';
-			case 'SettingsScreen.myLink': return 'Быстрая ссылка';
-			case 'SettingsScreen.autoConnectAfterLaunch': return 'Автоматическое подключение после запуска';
-			case 'SettingsScreen.hideAfterLaunch': return 'Скрыть окно после запуска';
-			case 'SettingsScreen.autoSetSystemProxy': return 'Установить системный прокси после подключения';
-			case 'SettingsScreen.bypassSystemProxy': return 'Доменные имена, которым разрешено обходить системный прокси-сервер';
-			case 'SettingsScreen.disconnectWhenQuit': return 'Отключаться при выходе из приложения';
-			case 'SettingsScreen.excludeFromRecent': return 'Скрыть из недавних задач';
-			case 'SettingsScreen.wakeLock': return 'Блокировка пробуждения';
-			case 'SettingsScreen.hideVpn': return 'Скрыть значок VPN';
-			case 'SettingsScreen.hideVpnTips': return 'Включение IPv6 приведет к сбою этой функции.';
-			case 'SettingsScreen.allowBypass': return 'Разрешить приложениям обходить VPN';
-			case 'SettingsScreen.importSuccess': return 'Импорт выполнен успешно';
-			case 'SettingsScreen.rewriteConfirm': return 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
-			case 'SettingsScreen.mergePerapp': return 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]';
-			case 'SettingsScreen.networkShare': return 'Общий доступ к сети';
-			case 'SettingsScreen.frontProxy': return 'Фронтальный/цепной прокси';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
-			case 'SettingsScreen.allowOtherHostsConnect': return 'Разрешить подключение по локальной сети';
-			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
-			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
-			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
-			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
-			case 'SettingsScreen.tunStrictRouteTips': return 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
-			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
-			case 'SettingsScreen.enableCluster': return 'Включить кластер прокси Socks/Http';
-			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'Разрешить подключение по локальной сети к кластеру';
-			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
-			case 'SettingsScreen.clusterAuth': return 'Аутентификация прокси-кластера';
-			case 'SettingsScreen.tunMode': return 'Режим TUN';
-			case 'SettingsScreen.tuni4Address': return 'IP-адрес';
-			case 'SettingsScreen.tunModeTips': return 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
-			case 'SettingsScreen.tunModeRunAsAdmin': return 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
-			case 'SettingsScreen.tunStack': return 'Stack';
-			case 'SettingsScreen.tunHijackTips': return 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
-			case 'SettingsScreen.launchAtStartup': return 'Запуск при включении';
-			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'Выйти из приложения при переключении пользователя';
-			case 'SettingsScreen.handleScheme': return 'Схемы системного вызова';
-			case 'SettingsScreen.portableMode': return 'Портативный режим';
-			case 'SettingsScreen.portableModeDisableTips': return 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]';
-			case 'SettingsScreen.handleKaringScheme': return 'Вызов karing://[параметры]';
-			case 'SettingsScreen.handleClashScheme': return 'Вызов clash://[параметры]';
-			case 'SettingsScreen.handleSingboxScheme': return 'Вызов sing-box://[параметры]';
-			case 'SettingsScreen.alwayOnVPN': return 'всегда открытое соединение';
-			case 'SettingsScreen.disconnectAfterSleep': return 'Отключение после спящего режима системы';
-			case 'SettingsScreen.removeSystemVPNConfig': return 'Удалить профиль VPN';
-			case 'SettingsScreen.timeConnectOrDisconnect': return 'Запланированное подключение/отключение';
-			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено';
-			case 'SettingsScreen.timeConnectAndDisconnectInterval': return ({required Object p}) => 'Интервал подключения/отключения не может быть меньше ${p} минут.';
-			case 'SettingsScreen.disableFontScaler': return 'Отключить масштабирование шрифта';
-			case 'SettingsScreen.autoOrientation': return 'Следовать за поворотом экрана';
-			case 'SettingsScreen.restartTakesEffect': return 'Требуется перезапуск';
-			case 'SettingsScreen.resetSettings': return 'Сброс настроек';
-			case 'SettingsScreen.cleanCache': return 'Очистка кэша';
-			case 'SettingsScreen.cleanCacheDone': return 'Очистка завершена';
-			case 'SettingsScreen.appleTestFlight': return 'Apple TestFlight';
-			case 'SettingsScreen.appleAppStore': return 'Apple AppStore';
-			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'Обновить версию ${p}';
-			case 'SettingsScreen.follow': return 'Подписаться на нас';
-			case 'SettingsScreen.contactUs': return 'Связаться с нами';
-			case 'SettingsScreen.supportUs': return 'Поддержите нас';
-			case 'SettingsScreen.rateInApp': return 'Оценить нас';
-			case 'SettingsScreen.rateInAppStore': return 'Оценить нас в App Store';
-			case 'UserAgreementScreen.privacyFirst': return 'Ваша конфиденциальность превыше всего';
-			case 'UserAgreementScreen.agreeAndContinue': return 'Принять и продолжить';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'Новая версия [${p}] доступна';
-			case 'VersionUpdateScreen.update': return 'Перезапустить';
-			case 'VersionUpdateScreen.cancel': return 'Не сейчас';
-			case 'CommonWidget.diableAlwayOnVPN': return 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз';
-			case 'CommonWidget.resetPort': return 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.';
-			case 'main.tray.menuOpen': return '    Открыть    ';
-			case 'main.tray.menuExit': return '    Выйти    ';
-			case 'meta.enable': return 'Включить';
-			case 'meta.disable': return 'Запретить';
-			case 'meta.bydefault': return 'по умолчанию';
-			case 'meta.filter': return 'Фильтр';
-			case 'meta.filterMethod': return 'Метод фильтра';
-			case 'meta.include': return 'Включать';
-			case 'meta.exclude': return 'Исключать';
-			case 'meta.all': return 'Все';
-			case 'meta.prefer': return 'Приоритет';
-			case 'meta.only': return 'Только';
-			case 'meta.open': return 'Открыть';
-			case 'meta.close': return 'Закрыть';
-			case 'meta.quit': return 'Выйти';
-			case 'meta.add': return 'Добавить';
-			case 'meta.addSuccess': return 'Добавлено успешно';
-			case 'meta.addFailed': return ({required Object p}) => 'Ошибка при добавлении:${p}';
-			case 'meta.remove': return 'Удалить';
-			case 'meta.removeConfirm': return 'Подтверждаете удаление?';
-			case 'meta.edit': return 'Редактировать';
-			case 'meta.view': return 'Просмотр';
-			case 'meta.more': return 'Больше';
-			case 'meta.tips': return 'Инфо';
-			case 'meta.copy': return 'Скопировать';
-			case 'meta.save': return 'Сохранить';
-			case 'meta.ok': return 'Ок';
-			case 'meta.cancel': return 'Закрыть';
-			case 'meta.feedback': return 'Обратная связь';
-			case 'meta.feedbackContent': return 'Содержание';
-			case 'meta.feedbackContentHit': return 'Не более 500 символов';
-			case 'meta.feedbackContentCannotEmpty': return 'Содержание не может быть пустым';
-			case 'meta.faq': return 'Часто задаваемые вопросы (FAQ)';
-			case 'meta.download': return 'Скачать';
-			case 'meta.upload': return 'Загрузить';
-			case 'meta.downloadSpeed': return 'Скорость загрузки';
-			case 'meta.uploadSpeed': return 'Скорость загрузки';
-			case 'meta.loading': return 'Загрузка...';
-			case 'meta.convert': return 'Конвертировать';
-			case 'meta.check': return 'Тест';
-			case 'meta.detect': return 'Тест';
-			case 'meta.cache': return 'кэш';
-			case 'meta.days': return 'дни';
-			case 'meta.hours': return 'часы';
-			case 'meta.minutes': return 'минуты';
-			case 'meta.seconds': return 'Второй';
-			case 'meta.dateTimePeriod': return 'Период времени';
-			case 'meta.protocol': return 'Протокол';
-			case 'meta.search': return 'Поиск';
-			case 'meta.custom': return 'Самостоятельная настройка';
-			case 'meta.inbound': return 'Входящий';
-			case 'meta.outbound': return 'Выход';
-			case 'meta.connect': return 'Соединить';
-			case 'meta.disconnect': return 'Отключить';
-			case 'meta.reconnect': return 'Повторное подключение';
-			case 'meta.connected': return 'Подключено';
-			case 'meta.disconnected': return 'Отключено';
-			case 'meta.connecting': return 'Подключение';
-			case 'meta.connectTimeout': return 'Таймаут при соединении';
-			case 'meta.timeout': return 'Тайм-аут';
-			case 'meta.timeoutDuration': return 'Длительность тайм-аута';
-			case 'meta.runDuration': return 'Время выполнения';
-			case 'meta.latency': return 'Задерживать';
-			case 'meta.latencyTest': return 'Обнаружение задержки';
-			case 'meta.language': return 'Язык';
-			case 'meta.next': return 'Дальше';
-			case 'meta.done': return 'Готово';
-			case 'meta.apply': return 'Применить';
-			case 'meta.refresh': return 'Обновить';
-			case 'meta.retry': return 'Хотите попробовать еще раз?';
-			case 'meta.update': return 'Обновить';
-			case 'meta.updateInterval': return 'Интервал обновления';
-			case 'meta.updateInterval5mTips': return 'Минимум: 5 мин';
-			case 'meta.updateFailed': return ({required Object p}) => 'Не удалось обновить:${p}';
-			case 'meta.samplingUnit': return 'Единица времени выборки';
-			case 'meta.queryResultCount': return 'Количество результатов запроса';
-			case 'meta.queryLimit': return ({required Object p}) => 'Отображение данных до ${p}';
-			case 'meta.none': return 'Ничего не делать';
-			case 'meta.start': return 'Начать';
-			case 'meta.pause': return 'Пауза';
-			case 'meta.reset': return 'Перезагрузить';
-			case 'meta.submit': return 'Отправить';
-			case 'meta.user': return 'Пользователь';
-			case 'meta.account': return 'Аккаунт';
-			case 'meta.password': return 'Пароль';
-			case 'meta.required': return 'Необходимо';
-			case 'meta.type': return 'тип';
-			case 'meta.path': return 'путь';
-			case 'meta.local': return 'местный';
-			case 'meta.remote': return 'удаленный';
-			case 'meta.other': return 'Другой';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'Неверный URL';
-			case 'meta.urlCannotEmpty': return 'Ссылка не может быть пустой';
-			case 'meta.urlTooLong': return 'URL слишком длинный (>8182)';
-			case 'meta.copyUrl': return 'Скопировать ссылку';
-			case 'meta.openUrl': return 'Открыть ссылку';
-			case 'meta.shareUrl': return 'Поделиться ссылкой';
-			case 'meta.speedTestUrl': return 'URL-адрес теста скорости';
-			case 'meta.tls': return 'TLS';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.staticIP': return 'Статический IP';
-			case 'meta.isp': return 'VPN-провайдер';
-			case 'meta.domainSuffix': return 'Суффикс доменного имени';
-			case 'meta.domain': return 'Имя домена';
-			case 'meta.domainKeyword': return 'Ключевые слова в имени домена';
-			case 'meta.domainRegex': return 'Регулярные выражения для имен доменов';
-			case 'meta.ip': return 'IP';
-			case 'meta.port': return 'Порт';
-			case 'meta.portRange': return 'Диапазон портов';
-			case 'meta.appPackage': return 'Идентификатор пакета приложения';
-			case 'meta.processName': return 'Имя процесса';
-			case 'meta.processPath': return 'Путь к процессу';
-			case 'meta.processDir': return 'Каталог процессов';
-			case 'meta.systemProxy': return 'Системный прокси';
-			case 'meta.statistics': return 'статистика';
-			case 'meta.statisticsAndAnalysis': return 'Статистика и анализ';
-			case 'meta.statisticsPrivacyDesensitize': return 'Десенсибилизация конфиденциальности';
-			case 'meta.statisticsPrivacyDesensitizeTips': return 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
-			case 'meta.records': return 'Записывать';
-			case 'meta.requestRecords': return 'Запросить записи';
-			case 'meta.netInterfaces': return 'Сетевой интерфейс';
-			case 'meta.netSpeed': return 'Скорость';
-			case 'meta.trafficTrendChart': return 'График тенденций трафика';
-			case 'meta.trafficDistributionChart': return 'Карта распределения трафика';
-			case 'meta.connectionChart': return 'Диаграмма тренда подключений';
-			case 'meta.memoryChart': return 'Диаграмма тренда памяти';
-			case 'meta.traffic': return 'поток';
-			case 'meta.trafficTotal': return 'Трафик всего';
-			case 'meta.trafficProxy': return 'Трафик прокси';
-			case 'meta.trafficDirect': return 'Прямой поток';
-			case 'meta.website': return 'Веб-сайт';
-			case 'meta.memory': return 'Память';
-			case 'meta.outboundMode': return 'Исходящий режим';
-			case 'meta.rule': return 'Правила';
-			case 'meta.global': return 'Глобально';
-			case 'meta.qrcode': return 'QR-код';
-			case 'meta.qrcodeTooLong': return 'Слишком большой текст для отображения';
-			case 'meta.qrcodeShare': return 'Поделиться QR-кодом';
-			case 'meta.textToQrcode': return 'Преобразование текста в QR-код';
-			case 'meta.qrcodeScan': return 'Сканировать QR-код';
-			case 'meta.qrcodeScanResult': return 'Результат сканирования';
-			case 'meta.qrcodeScanFromImage': return 'Открыть';
-			case 'meta.qrcodeScanResultFailed': return 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.';
-			case 'meta.qrcodeScanResultEmpty': return 'Пустой результат сканирования.';
-			case 'meta.screenshot': return 'Скриншот';
-			case 'meta.backupAndSync': return 'Резервное копирование и синхронизация';
-			case 'meta.autoBackup': return 'Автоматическое резервное копирование';
-			case 'meta.noProfileGotAutoBackup': return 'Если данные, такие как [${_root.meta.myProfiles}], утеряны, вы можете восстановить их из [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] или других источников резервного копирования (например, iCloud или WebDAV и т. д.)';
-			case 'meta.autoBackupAddProfile': return 'После добавления конфигурации';
-			case 'meta.autoBackupRemoveProfile': return 'После удаления конфигурации';
-			case 'meta.currentProfile': return 'Текущая конфигурация';
-			case 'meta.importAndExport': return 'Импорт и экспорт в файл';
-			case 'meta.import': return 'Импорт';
-			case 'meta.importFromUrl': return 'Импорт из URL';
-			case 'meta.export': return 'Экспорт';
-			case 'meta.send': return 'Передать';
-			case 'meta.receive': return 'Принять';
-			case 'meta.sendConfirm': return 'Подтверждаете передачу?';
-			case 'meta.termOfUse': return 'Условия использования';
-			case 'meta.privacyPolicy': return 'Политика конфиденциальности';
-			case 'meta.about': return 'О Karing';
-			case 'meta.name': return 'Название';
-			case 'meta.version': return 'Версия';
-			case 'meta.notice': return 'Уведомления';
-			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}';
-			case 'meta.sort': return 'Отсортировать';
-			case 'meta.novice': return 'Режим новичка';
-			case 'meta.willCompleteAfterRebootInstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.';
-			case 'meta.willCompleteAfterRebootUninstall': return 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.';
-			case 'meta.requestNeedsUserApproval': return '1. [Системные настройки] - [Конфиденциальность и безопасность] - [Разрешить] Karing устанавливать системные расширения. 2. [Системные настройки] - [Общие] - [Вход и расширения - Сетевые расширения] - [karingServiceSE] - [Подключиться снова после завершения]';
-			case 'meta.FullDiskAccessPermissionRequired': return 'Включите разрешение [karingServiceSE] в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.';
-			case 'meta.tvMode': return 'Режим ТВ';
-			case 'meta.recommended': return 'Рекомендуемые';
-			case 'meta.innerError': return ({required Object p}) => 'Внутренняя ошибка:${p}';
-			case 'meta.logicOperation': return 'Логическая опреация';
-			case 'meta.share': return 'Поделиться';
-			case 'meta.candidateWord': return 'Ключевые слова';
-			case 'meta.keywordOrRegx': return 'Ключевые слова/регулярные выражения';
-			case 'meta.importFromClipboard': return 'Импорт из буфера обмена';
-			case 'meta.exportToClipboard': return 'Экспорт в буфер обмена';
-			case 'meta.server': return 'Сервер';
-			case 'meta.ads': return 'Удалять';
-			case 'meta.adsRemove': return 'Удалить рекламу';
-			case 'meta.adsBanner': return 'баннерная реклама';
-			case 'meta.donate': return 'Пожертвовать';
-			case 'meta.diversion': return 'Правила';
-			case 'meta.diversionRules': return 'Правила перенаправления';
-			case 'meta.diversionCustomGroup': return 'Личные правила';
-			case 'meta.urlTestCustomGroup': return 'Пользовательский автоматический выбор';
-			case 'meta.setting': return 'Настройки';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.appleTV': return 'Apple TV';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'Синхронизация локально (QR-код)';
-			case 'meta.lanSyncNotQuitTips': return 'Не выходите из этого окна до завершения синхронизации.';
-			case 'meta.deviceNoSpace': return 'Недостаточно места на диске';
-			case 'meta.hideSystemApp': return 'Скрыть системные приложения';
-			case 'meta.hideAppIcon': return 'Скрыть значок приложения';
-			case 'meta.hideDockIcon': return 'Скрыть значок дока';
-			case 'meta.remark': return 'Примечание';
-			case 'meta.remarkExist': return 'Примечание уже существует, используйте другое имя';
-			case 'meta.remarkCannotEmpty': return 'Примечание не может быть пустым';
-			case 'meta.remarkTooLong': return 'Примечания до 32 символов';
-			case 'meta.openDir': return 'Открыть каталог файлов';
-			case 'meta.fileChoose': return 'Выбрать файл';
-			case 'meta.filePathCannotEmpty': return 'Путь к файлу не может быть пустым';
-			case 'meta.fileNotExist': return ({required Object p}) => 'Файла не существует:${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'Неверный тип файла:${p}';
-			case 'meta.uwpExemption': return 'Исключение из изоляции сети UWP';
-			case 'meta.rulesetGeoSite': return 'GeoSite';
-			case 'meta.rulesetGeoIp': return 'GeoIP';
-			case 'meta.rulesetAcl': return 'ACL';
-			case 'meta.getProfile': return 'Получить конфигурацию';
-			case 'meta.addProfile': return 'Добавить профиль';
-			case 'meta.myProfiles': return 'Профили';
-			case 'meta.myProfilesAtLeastOneReserveEnable': return 'Невозможно отключить, оставьте включенным хотя бы один профиль';
-			case 'meta.profileEdit': return 'Редактирование профилей';
-			case 'meta.profileEditUrlExist': return 'URL-адрес уже существует, используйте другой URL-адрес';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'Перезагрузить после обновления профиля';
-			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'Начать тестирование задержек после обновления профиля';
-			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
-			case 'meta.profileEditTestLatencyAutoRemove': return 'Автоматически удалять серверы, не прошедшие тесты на задержку';
-			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'Попробуйте до 3 раз';
-			case 'meta.profileImport': return 'Импорт файла конфигурации';
-			case 'meta.profileAddUrlOrContent': return 'Добавление подписки';
-			case 'meta.profileExists': return 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
-			case 'meta.profileUrlOrContent': return 'Ссылка на подписку/содержание';
-			case 'meta.profileUrlOrContentHit': return 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'Ссылка на подписку не может быть пустой';
-			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
-			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
-			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
-			case 'meta.profileAddParseFailed': return 'Получение подписки не удалось';
-			case 'meta.profileAddNoServerAvaliable': return 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
-			case 'meta.profileAddWrapSuccess': return 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]';
-			case 'diversionRulesKeep': return 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}';
-			case 'diversionCustomGroupPreset': return 'Шаблоны для личных правил';
-			case 'diversionCustomGroupPresetTips': return 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].';
-			case 'diversionCustomGroupAddTips': return 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.';
-			case 'rulesetEnableTips': return 'Совет: После включения опции перейдите в [${_root.meta.diversionRules}] и установите их, иначе опция не будет действовать';
-			case 'ispUserAgentTips': return '[${_root.meta.isp}] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].';
-			case 'ispDiversionTips': return '${_root.meta.diversionRules}, предоставляемые подписками [${_root.meta.isp}] типа [V2Ray], не поддерживаются.';
-			case 'isp.bind': return 'Привязать к [${_root.meta.isp}]';
-			case 'isp.unbind': return ({required Object p}) => 'Отвязать[${p}]';
-			case 'isp.faq': return ({required Object p}) => 'Часто задаваемые вопросы[${p}]';
-			case 'isp.customerService': return ({required Object p}) => 'Служба поддержки клиентов[${p}]';
-			case 'isp.follow': return ({required Object p}) => 'Следуйте[${p}]';
-			case 'isp.invalidOrExpired': return '[${_root.meta.isp}]Недействительно, или срок действия истек';
-			case 'permission.camera': return 'Камера';
-			case 'permission.screen': return 'Запись экрана';
-			case 'permission.appQuery': return 'Получить список приложений';
-			case 'permission.request': return ({required Object p}) => 'Включить разрешения [${p}]';
-			case 'permission.requestNeed': return ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]';
-			case 'tls.insecure': return 'Пропустить проверку сертификата';
-			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
-			case 'tls.fragmentEnable': return 'Включить фрагментацию TLS';
-			case 'tls.fragmentSize': return 'Размер фрагмента TLS';
-			case 'tls.fragmentSleep': return 'Длина фрагмента паузы TLS';
-			case 'tls.mixedCaseSNIEnable': return 'Включить гибридный SNI TLS';
-			case 'tls.paddingEnable': return 'Включить заполнение TLS';
-			case 'tls.paddingSize': return 'Размер заполнения TLS';
-			case 'outboundRuleMode.currentSelected': return 'Текущий сервер';
-			case 'outboundRuleMode.urltest': return 'Автовыбор';
-			case 'outboundRuleMode.direct': return 'Напрямую';
-			case 'outboundRuleMode.block': return 'Блокировать';
-			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
-			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
-			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
-			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
-			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
-			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
-			case 'reloadReason.profileUpdate': return 'Обновления конфигурации';
-			case 'theme.light': return 'Светлый цвет';
-			case 'theme.dark': return 'черный';
-			case 'theme.auto': return 'автоматический';
-			case 'downloadProxyStrategy': return 'Канал загрузки';
-			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
-			case 'routeFinal': return 'Final';
-			case 'protocolSniff': return 'Определение протокола';
-			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'Пожалуйста, используйте [${p}]';
-			case 'turnOffPrivateDirect': return 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
-			case 'targetConnectFailed': return ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
-			case 'appleTVSync': return 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
-			case 'appleTVSyncDone': return 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.';
-			case 'appleTVRemoveCoreConfig': return 'Удаление Apple TV — базовая конфигурация Karing';
-			case 'appleTVRemoveCoreConfigDone': return 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;';
-			case 'appleTVUrlInvalid': return 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
-			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
-			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз';
-			case 'remoteProfileEditConfirm': return 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
-			case 'mustBeValidHttpsURL': return 'https URL должен быть действительным';
-			case 'fileNotExistReinstall': return ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
-			case 'noNetworkConnect': return 'Нет подключения к Интернету';
-			case 'sudoPassword': return 'Пароль sudo (требуется для режима TUN)';
-			case 'turnOffNetworkBeforeInstall': return 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
-			case 'latencyTestResolveIP': return 'При ручном определении анализируется исходящий IP-адрес';
-			case 'removeBannerAdsByShare': return 'Поделиться [Karing] для удаления рекламы';
-			case 'removeBannerAdsByReward': return 'Просмотреть рекламу для удаления новой рекламы';
-			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
-			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
-			case 'removeBannerAdsDone': return ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
-			case 'maybeAdsByReward': return 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.';
-			case 'edgeRuntimeNotInstalled': return 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'AboutScreen.installRefer' => 'Ссылка на установку',
+			'AboutScreen.installTime' => 'Время установки',
+			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
+			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
+			'AboutScreen.disableUAReport' => 'Применить данные улучшения',
+			'AboutScreen.disableUAReportTip' => '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].',
+			'AboutScreen.devOptions' => 'Параметры разработчика',
+			'AboutScreen.enableDebugLog' => 'Включить debug-лог',
+			'AboutScreen.viewFilsContent' => 'Посмотреть файлы',
+			'AboutScreen.enablePprof' => 'Включить pprof',
+			'AboutScreen.pprofPanel' => 'pprof панель',
+			'AboutScreen.allowRemoteAccessPprof' => 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}',
+			'AboutScreen.allowRemoteAccessHtmlBoard' => 'Разрешить удаленный доступ${_root.SettingsScreen.htmlBoard}',
+			'AboutScreen.useOriginalSBProfile' => 'Использовать исходную конфигурацию Sing-box',
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'Адрес сервера',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'Не может быть пустым',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Ошибка входа:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Не удалось получить список файлов:',
+			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'Неверный [Domain]:${p}',
+			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'Неверный [IP Cidr]:${p}',
+			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'Неверный [${p0}]:${p}',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json',
+			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.',
+			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}',
+			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.',
+			'DiversionRuleDetectScreen.title' => 'Тест правил перенаправления',
+			'DiversionRuleDetectScreen.rule' => 'Правило:',
+			'DiversionRuleDetectScreen.outbound' => 'Прокси-сервер:',
+			'DiversionRulesScreen.diversionRulesMatchTips' => 'Совет: Правила применяются по очереди сверху вниз. Если ни одно соответствие не обнаружено, то действует правило [Final]',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP не может быть пустой',
+			'DnsSettingsScreen.urlCanNotEmpty' => 'URL не может быть пустой',
+			'DnsSettingsScreen.error' => ({required Object p}) => 'Неподдерживаемый тип:${p}',
+			'DnsSettingsScreen.dnsDesc' => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.',
+			'FileContentViewerScreen.title' => 'Просмотр содержимого файла',
+			'FileContentViewerScreen.clearFileContent' => 'Вы уверены, что хотите очистить содержимое файла?',
+			'FileContentViewerScreen.clearFileContentTips' => 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.',
+			'HomeScreen.toSelectServer' => 'Выберите сервер',
+			'HomeScreen.invalidServer' => 'Не работает. Пожалуйста, выберите другой',
+			'HomeScreen.disabledServer' => 'Был отключен. Пожалуйста, выберите другой',
+			'HomeScreen.expiredServer' => 'Нет доступного сервера: возможно, профиль устарел или отключен',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'HomeScreen.myLinkEmpty' => 'Пожалуйста, настройте [Быструю ссылку] перед использованием',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.',
+			'LaunchFailedScreen.invalidProcess' => 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку',
+			'LaunchFailedScreen.invalidProfile' => 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение',
+			'LaunchFailedScreen.invalidVersion' => 'Не удалось запустить приложение [Неверная версия], переустановите приложение',
+			'LaunchFailedScreen.systemVersionLow' => 'Не удалось запустить приложение [Слишком низкая версия системы]',
+			'LaunchFailedScreen.invalidInstallPath' => 'Путь установки недействителен, переустановите его по допустимому пути',
+			'MyProfilesMergeScreen.profilesMerge' => 'Объединение профилей',
+			'MyProfilesMergeScreen.profilesMergeTarget' => 'Целевой профиль',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'Профиль - источник',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'Совет: Настройки перенаправления для профиля - источника будут удалены.',
+			'NetCheckScreen.title' => 'Диагностика сети',
+			'NetCheckScreen.warn' => 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны реальным результатам.',
+			'NetCheckScreen.invalidDomain' => 'Неверное имя домена',
+			'NetCheckScreen.connectivity' => 'Подключение к сети',
+			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'Ipv4 Тест подключения[${p}] неудачен',
+			'NetCheckScreen.connectivityTestIpv4Ok' => 'Ipv4 Соединение выполнено успешно',
+			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'Ipv6 Тест подключения[${p}] неудачен. Возможно, ваша сеть не поддерживает ipv6.',
+			'NetCheckScreen.connectivityTestIpv6Ok' => 'Ipv6 Соединение выполнено успешно',
+			'NetCheckScreen.connectivityTestOk' => 'Сеть подключена к Интернету',
+			'NetCheckScreen.connectivityTestFailed' => 'Ваша сеть не подключена к Интернету',
+			'NetCheckScreen.remoteRulesetsDownloadOk' => 'Все успешно скачано',
+			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'Сбой загрузки',
+			'NetCheckScreen.outbound' => 'Прокси-сервер',
+			'NetCheckScreen.outboundOk' => ({required Object p}) => '[${p}]Соединение установлено успешно',
+			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => '[${p1}]Соединение не удалось\nошибка:[${p2}]',
+			'NetCheckScreen.dnsServer' => 'DNS сервер',
+			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS Разобрано успешно\nDNS правило:[${p2}]\nЗадержка:[${p3} ms]\nадрес:[${p4}]',
+			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS Не удалось выполнить синтаксический анализ\n правило:[${p2}]\nошибка:[${p3}]',
+			'NetCheckScreen.host' => 'HTTP соединение',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравила перенаправления:[${p2}]\nПрокси-сервер:[${p3}]',
+			'NetCheckScreen.hostConnectionOk' => 'Соединение установлено успешно',
+			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'Соединение не удалось:[${p}]',
+			'NetConnectionsFilterScreen.hostIp' => 'Domain/IP',
+			'NetConnectionsFilterScreen.app' => 'Приложение',
+			'NetConnectionsFilterScreen.rule' => 'Правило',
+			'NetConnectionsFilterScreen.chain' => 'Исходящий',
+			'NetConnectionsScreen.copyAsCSV' => 'Скопировано в CSV формате',
+			'NetConnectionsScreen.selectType' => 'Выберите тип перенаправления',
+			'PerAppAndroidScreen.title' => 'Проксируемые приложения',
+			'PerAppAndroidScreen.whiteListMode' => 'Режим белого списка',
+			'PerAppAndroidScreen.whiteListModeTip' => 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.',
+			'RegionSettingsScreen.title' => 'Страна или регион',
+			'RegionSettingsScreen.Regions' => 'Совет: Пожалуйста, правильно укажите текущую страну или регион. В противном случае это может вызвать проблемы с перенаправлением в сети',
+			'ServerSelectScreen.title' => 'Выбор сервера',
+			'ServerSelectScreen.autoSelectServer' => 'Автовыбор сервера с наименьшей задержкой',
+			'ServerSelectScreen.recentUse' => 'Недавно использованные',
+			'ServerSelectScreen.myFav' => 'Мои избранные',
+			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'Выбранный сервер является локальным, и может работать неправильно:${p}',
+			'ServerSelectScreen.selectRequireEnableIPv6' => 'Выбранный сервер имеет адрес IPv6 и требует [Включить IPv6]',
+			'ServerSelectScreen.selectDisabled' => 'Сервер отключен',
+			'ServerSelectScreen.error404' => 'При  измерении задержки произошла ошибка. Проверьте, существует ли профиль с таким содержимым.',
+			'SettingsScreen.getTranffic' => 'Получить трафик',
+			'SettingsScreen.tutorial' => 'Руководство',
+			'SettingsScreen.commonlyUsedRulesets' => 'Коллекция наборов правил',
+			'SettingsScreen.howToRemoveAds' => 'Как удалить рекламу',
+			'SettingsScreen.htmlBoard' => 'Веб-панель',
+			'SettingsScreen.dnsLeakDetection' => 'Тест утечки DNS',
+			'SettingsScreen.proxyLeakDetection' => 'Обнаружение утечки наличия прокси',
+			'SettingsScreen.speedTest' => 'Тест скорости',
+			'SettingsScreen.rulesetDirectDownlad' => 'Правила прямой загрузки',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'Скрыть неактивные правила перенаправления трафика',
+			'SettingsScreen.disableISPDiversionGroup' => 'Отключить правила перенаправления [${_root.meta.isp}]',
+			'SettingsScreen.portSettingRule' => 'Действуют все правила',
+			'SettingsScreen.portSettingDirectAll' => 'Всё подключено напрямую',
+			'SettingsScreen.portSettingProxyAll' => 'Всё идёт через прокси',
+			'SettingsScreen.portSettingControl' => 'Управление и синхронизация',
+			'SettingsScreen.portSettingCluster' => 'Кластерный сервис',
+			'SettingsScreen.modifyPort' => 'Изменить порт',
+			'SettingsScreen.modifyPortOccupied' => 'Порт занят, используйте другой порт',
+			'SettingsScreen.ipStrategyTips' => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен',
+			'SettingsScreen.tunAppendHttpProxy' => 'Подключите HTTP-прокси к VPN',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.',
+			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
+			'SettingsScreen.dnsEnableRule' => 'Включить правила для DNS',
+			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Способ разрешения в DNS',
+			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] Включить ECS',
+			'SettingsScreen.dnsTestDomain' => 'Тестовое доменное имя',
+			'SettingsScreen.dnsTestDomainInvalid' => 'Неверное доменное имя',
+			'SettingsScreen.dnsTypeOutbound' => 'Прокси-сервер',
+			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
+			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
+			'SettingsScreen.dnsTypeResolver' => 'DNS-сервер',
+			'SettingsScreen.dnsEnableRuleTips' => 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];',
+			'SettingsScreen.dnsTypeOutboundTips' => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS',
+			'SettingsScreen.dnsTypeDirectTips' => 'Разрешение доменного имени для [${_root.meta.trafficDirect}]',
+			'SettingsScreen.dnsTypeProxyTips' => 'Разрешение доменных имен для трафика через Proxy',
+			'SettingsScreen.dnsTypeResolverTips' => 'Разрешение доменных имен для DNS-серверов',
+			'SettingsScreen.dnsAutoSetServer' => 'Автоматически настроить сервер',
+			'SettingsScreen.dnsResetServer' => 'Сбросить сервер',
+			'SettingsScreen.inboundDomainResolve' => 'Разрешение входящих доменных имен',
+			'SettingsScreen.privateDirect' => 'Прямое подключение к частной сети',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]',
+			'SettingsScreen.useRomoteRes' => 'Использовать удаленные ресурсы',
+			'SettingsScreen.autoAppendRegion' => 'Автоматически добавлять основные правила',
+			'SettingsScreen.autoSelect' => 'Автовыбор',
+			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'Игнорировать [фронт/цепные] прокси-серверы',
+			'SettingsScreen.autoSelectServerInterval' => 'Интервал проверок задержки',
+			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Текущий интервал проверки работоспособности сервера',
+			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Перетестировать после смены сети',
+			'SettingsScreen.autoSelectServerIntervalTips' => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.',
+			'SettingsScreen.autoSelectServerFavFirst' => 'Предпочитать [Мои избранные]',
+			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Обновить текущий сервер после измерения задержки вручную',
+			'SettingsScreen.autoSelectServerFavFirstTips' => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]',
+			'SettingsScreen.autoSelectServerFilter' => 'Отфильтровать сервера',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы',
+			'SettingsScreen.autoSelectServerLimitedNum' => 'Максимальное количество серверов',
+			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Если серверов больше этого числа, лишние будут отброшены.',
+			'SettingsScreen.numInvalid' => 'Неправильный номер',
+			'SettingsScreen.hideInvalidServer' => 'Скрыть нерабочие серверы',
+			'SettingsScreen.sortServer' => 'Сортировка серверов',
+			'SettingsScreen.sortServerTips' => 'Сортировать по задержке от низкой к высокой',
+			'SettingsScreen.selectServerHideRecommand' => 'Скрыть [Рекомендуемые]',
+			'SettingsScreen.selectServerHideRecent' => 'Скрыть [Недавно использованные]',
+			'SettingsScreen.selectServerHideFav' => 'Скрыть [Мои избранные]',
+			'SettingsScreen.homeScreen' => 'Настройка главного экрана',
+			'SettingsScreen.theme' => 'Тема',
+			'SettingsScreen.widgetsAlpha' => 'Прозрачность виджетов',
+			'SettingsScreen.widgetsEmpty' => 'Виджет недоступен',
+			'SettingsScreen.backgroundImage' => 'Фоновое изображение',
+			'SettingsScreen.myLink' => 'Быстрая ссылка',
+			'SettingsScreen.autoConnectAfterLaunch' => 'Автоматическое подключение после запуска',
+			'SettingsScreen.autoConnectAtBoot' => 'Автоматическое подключение после запуска системы',
+			'SettingsScreen.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].',
+			'SettingsScreen.hideAfterLaunch' => 'Скрыть окно после запуска',
+			'SettingsScreen.autoSetSystemProxy' => 'Установить системный прокси после подключения',
+			'SettingsScreen.bypassSystemProxy' => 'Доменные имена, которым разрешено обходить системный прокси-сервер',
+			'SettingsScreen.disconnectWhenQuit' => 'Отключаться при выходе из приложения',
+			'SettingsScreen.excludeFromRecent' => 'Скрыть из недавних задач',
+			'SettingsScreen.wakeLock' => 'Блокировка пробуждения',
+			'SettingsScreen.hideVpn' => 'Скрыть значок VPN',
+			'SettingsScreen.hideVpnTips' => 'Включение IPv6 приведет к сбою этой функции.',
+			'SettingsScreen.allowBypass' => 'Разрешить приложениям обходить VPN',
+			'SettingsScreen.importSuccess' => 'Импорт выполнен успешно',
+			'SettingsScreen.rewriteConfirm' => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?',
+			'SettingsScreen.mergePerapp' => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]',
+			'SettingsScreen.networkShare' => 'Общий доступ к сети',
+			'SettingsScreen.frontProxy' => 'Фронтальный/цепной прокси',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер',
+			'SettingsScreen.allowOtherHostsConnect' => 'Разрешить подключение по локальной сети',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.',
+			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunStrictRouteTips' => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.',
+			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.enableCluster' => 'Включить кластер прокси Socks/Http',
+			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Разрешить подключение по локальной сети к кластеру',
+			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
+			'SettingsScreen.clusterAuth' => 'Аутентификация прокси-кластера',
+			'SettingsScreen.tunMode' => 'Режим TUN',
+			'SettingsScreen.tuni4Address' => 'IP-адрес',
+			'SettingsScreen.tunModeTips' => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]',
+			'SettingsScreen.tunModeRunAsAdmin' => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора',
+			'SettingsScreen.tunStack' => 'Stack',
+			'SettingsScreen.tunHijackTips' => 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.',
+			'SettingsScreen.launchAtStartup' => 'Запуск при включении',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'Выйти из приложения при переключении пользователя',
+			'SettingsScreen.handleScheme' => 'Схемы системного вызова',
+			'SettingsScreen.portableMode' => 'Портативный режим',
+			'SettingsScreen.portableModeDisableTips' => 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]',
+			'SettingsScreen.handleKaringScheme' => 'Вызов karing://[параметры]',
+			'SettingsScreen.handleClashScheme' => 'Вызов clash://[параметры]',
+			'SettingsScreen.handleSingboxScheme' => 'Вызов sing-box://[параметры]',
+			'SettingsScreen.alwayOnVPN' => 'всегда открытое соединение',
+			'SettingsScreen.disconnectAfterSleep' => 'Отключение после спящего режима системы',
+			'SettingsScreen.removeSystemVPNConfig' => 'Удалить профиль VPN',
+			'SettingsScreen.timeConnectOrDisconnect' => 'Запланированное подключение/отключение',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'Интервал подключения/отключения не может быть меньше ${p} минут.',
+			'SettingsScreen.disableFontScaler' => 'Отключить масштабирование шрифта',
+			'SettingsScreen.autoOrientation' => 'Следовать за поворотом экрана',
+			'SettingsScreen.restartTakesEffect' => 'Требуется перезапуск',
+			'SettingsScreen.reconnectTakesEffect' => 'Изменения вступят в силу после повторного подключения.',
+			'SettingsScreen.resetSettings' => 'Сброс настроек',
+			'SettingsScreen.cleanCache' => 'Очистка кэша',
+			'SettingsScreen.cleanCacheDone' => 'Очистка завершена',
+			'SettingsScreen.appleTestFlight' => 'Apple TestFlight',
+			'SettingsScreen.appleAppStore' => 'Apple AppStore',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Обновить версию ${p}',
+			'SettingsScreen.follow' => 'Подписаться на нас',
+			'SettingsScreen.contactUs' => 'Связаться с нами',
+			'SettingsScreen.supportUs' => 'Поддержите нас',
+			'SettingsScreen.rateInApp' => 'Оценить нас',
+			'SettingsScreen.rateInAppStore' => 'Оценить нас в App Store',
+			'UserAgreementScreen.privacyFirst' => 'Ваша конфиденциальность превыше всего',
+			'UserAgreementScreen.agreeAndContinue' => 'Принять и продолжить',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
+			'VersionUpdateScreen.update' => 'Перезапустить',
+			'VersionUpdateScreen.cancel' => 'Не сейчас',
+			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз',
+			'CommonWidget.resetPort' => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.',
+			'main.tray.menuOpen' => '    Открыть    ',
+			'main.tray.menuExit' => '    Выйти    ',
+			'meta.enable' => 'Включить',
+			'meta.disable' => 'Запретить',
+			'meta.bydefault' => 'по умолчанию',
+			'meta.filter' => 'Фильтр',
+			'meta.filterMethod' => 'Метод фильтра',
+			'meta.include' => 'Включать',
+			'meta.exclude' => 'Исключать',
+			'meta.all' => 'Все',
+			'meta.prefer' => 'Приоритет',
+			'meta.only' => 'Только',
+			'meta.open' => 'Открыть',
+			'meta.close' => 'Закрыть',
+			'meta.quit' => 'Выйти',
+			'meta.add' => 'Добавить',
+			'meta.addSuccess' => 'Добавлено успешно',
+			'meta.addFailed' => ({required Object p}) => 'Ошибка при добавлении:${p}',
+			'meta.remove' => 'Удалить',
+			'meta.removeConfirm' => 'Подтверждаете удаление?',
+			'meta.edit' => 'Редактировать',
+			'meta.view' => 'Просмотр',
+			'meta.more' => 'Больше',
+			'meta.tips' => 'Инфо',
+			'meta.copy' => 'Скопировать',
+			'meta.save' => 'Сохранить',
+			'meta.ok' => 'Ок',
+			'meta.cancel' => 'Закрыть',
+			'meta.feedback' => 'Обратная связь',
+			'meta.feedbackContent' => 'Содержание',
+			'meta.feedbackContentHit' => 'Не более 500 символов',
+			'meta.feedbackContentCannotEmpty' => 'Содержание не может быть пустым',
+			'meta.faq' => 'Часто задаваемые вопросы (FAQ)',
+			'meta.download' => 'Скачать',
+			'meta.upload' => 'Загрузить',
+			'meta.downloadSpeed' => 'Скорость загрузки',
+			'meta.uploadSpeed' => 'Скорость загрузки',
+			'meta.loading' => 'Загрузка...',
+			'meta.convert' => 'Конвертировать',
+			'meta.check' => 'Тест',
+			'meta.detect' => 'Тест',
+			'meta.cache' => 'кэш',
+			'meta.days' => 'дни',
+			'meta.hours' => 'часы',
+			'meta.minutes' => 'минуты',
+			'meta.seconds' => 'Второй',
+			'meta.milliseconds' => 'миллисекунда',
+			'meta.tolerance' => 'Толерантность',
+			'meta.dateTimePeriod' => 'Период времени',
+			'meta.protocol' => 'Протокол',
+			'meta.search' => 'Поиск',
+			'meta.custom' => 'Самостоятельная настройка',
+			'meta.inbound' => 'Входящий',
+			'meta.outbound' => 'Выход',
+			'meta.destination' => 'Цель',
+			'meta.outletIpByCurrentSelected' => 'IP',
+			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.connect' => 'Соединить',
+			'meta.disconnect' => 'Отключить',
+			'meta.reconnect' => 'Повторное подключение',
+			'meta.connected' => 'Подключено',
+			'meta.disconnected' => 'Отключено',
+			'meta.connecting' => 'Подключение',
+			'meta.connectTimeout' => 'Таймаут при соединении',
+			'meta.timeout' => 'Тайм-аут',
+			'meta.timeoutDuration' => 'Длительность тайм-аута',
+			'meta.runDuration' => 'Время выполнения',
+			'meta.latency' => 'Задерживать',
+			'meta.latencyTest' => 'Обнаружение задержки',
+			'meta.language' => 'Язык',
+			'meta.next' => 'Дальше',
+			'meta.done' => 'Готово',
+			'meta.apply' => 'Применить',
+			'meta.refresh' => 'Обновить',
+			'meta.retry' => 'Хотите попробовать еще раз?',
+			'meta.update' => 'Обновить',
+			'meta.updateInterval' => 'Интервал обновления',
+			'meta.updateInterval5mTips' => 'Минимум: 5 мин',
+			'meta.updateFailed' => ({required Object p}) => 'Не удалось обновить:${p}',
+			'meta.samplingUnit' => 'Единица времени выборки',
+			'meta.queryResultCount' => 'Количество результатов запроса',
+			'meta.queryLimit' => ({required Object p}) => 'Отображение данных до ${p}',
+			'meta.none' => 'Ничего не делать',
+			'meta.start' => 'Начать',
+			'meta.pause' => 'Пауза',
+			'meta.reset' => 'Перезагрузить',
+			'meta.submit' => 'Отправить',
+			'meta.user' => 'Пользователь',
+			'meta.account' => 'Аккаунт',
+			'meta.password' => 'Пароль',
+			'meta.required' => 'Необходимо',
+			'meta.type' => 'тип',
+			'meta.path' => 'путь',
+			'meta.local' => 'местный',
+			'meta.remote' => 'удаленный',
+			'meta.other' => 'Другой',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'Неверный URL',
+			'meta.urlCannotEmpty' => 'Ссылка не может быть пустой',
+			'meta.urlTooLong' => 'URL слишком длинный (>8182)',
+			'meta.copyUrl' => 'Скопировать ссылку',
+			'meta.openUrl' => 'Открыть ссылку',
+			'meta.shareUrl' => 'Поделиться ссылкой',
+			'meta.speedTestUrl' => 'URL-адрес теста скорости',
+			'meta.tls' => 'TLS',
+			'meta.userAgent' => 'UserAgent',
+			'meta.staticIP' => 'Статический IP',
+			'meta.staticIPTips' => 'Вам необходимо включить [TUN HijackDNS] или [${_root.SettingsScreen.inboundDomainResolve}].',
+			'meta.isp' => 'VPN-провайдер',
+			'meta.domainSuffix' => 'Суффикс доменного имени',
+			'meta.domain' => 'Имя домена',
+			'meta.domainKeyword' => 'Ключевые слова в имени домена',
+			'meta.domainRegex' => 'Регулярные выражения для имен доменов',
+			'meta.ip' => 'IP',
+			'meta.port' => 'Порт',
+			'meta.portRange' => 'Диапазон портов',
+			'meta.appPackage' => 'Идентификатор пакета приложения',
+			'meta.processName' => 'Имя процесса',
+			'meta.processPath' => 'Путь к процессу',
+			'meta.processDir' => 'Каталог процессов',
+			'meta.systemProxy' => 'Системный прокси',
+			'meta.percentage' => 'процент',
+			'meta.statistics' => 'статистика',
+			'meta.statisticsAndAnalysis' => 'Статистика и анализ',
+			'meta.statisticsDataDesensitize' => 'Анонимизация данных',
+			'meta.statisticsDataDesensitizeTips' => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.',
+			'meta.records' => 'Записывать',
+			'meta.requestRecords' => 'Запросить записи',
+			'meta.netInterfaces' => 'Сетевой интерфейс',
+			'meta.netSpeed' => 'Скорость',
+			'meta.memoryTrendChart' => 'Диаграмма тренда памяти',
+			'meta.trafficTrendChart' => 'График тенденций трафика',
+			'meta.trafficDistributionChart' => 'Карта распределения трафика',
+			'meta.connectionChart' => 'Диаграмма тренда подключений',
+			'meta.memoryChart' => 'Диаграмма тренда памяти',
+			'meta.trafficStatistics' => 'Статистика трафика',
+			'meta.traffic' => 'поток',
+			'meta.trafficTotal' => 'Трафик всего',
+			'meta.trafficProxy' => 'Трафик прокси',
+			'meta.trafficDirect' => 'Прямой поток',
+			'meta.website' => 'Веб-сайт',
+			'meta.memory' => 'Память',
+			'meta.outboundMode' => 'Исходящий режим',
+			'meta.rule' => 'Правила',
+			'meta.global' => 'Глобально',
+			'meta.qrcode' => 'QR-код',
+			'meta.qrcodeTooLong' => 'Слишком большой текст для отображения',
+			'meta.qrcodeShare' => 'Поделиться QR-кодом',
+			'meta.textToQrcode' => 'Преобразование текста в QR-код',
+			'meta.qrcodeScan' => 'Сканировать QR-код',
+			'meta.qrcodeScanResult' => 'Результат сканирования',
+			'meta.qrcodeScanFromImage' => 'Открыть',
+			'meta.qrcodeScanResultFailed' => 'Не удалось проанализировать изображение. Убедитесь, что снимок экрана представляет собой действительный QR-код.',
+			'meta.qrcodeScanResultEmpty' => 'Пустой результат сканирования.',
+			'meta.screenshot' => 'Скриншот',
+			'meta.backupAndSync' => 'Резервное копирование и синхронизация',
+			'meta.autoBackup' => 'Автоматическое резервное копирование',
+			'meta.noProfileGotAutoBackup' => 'Если данные, такие как [${_root.meta.myProfiles}], утеряны, вы можете восстановить их из [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] или других источников резервного копирования (например, iCloud или WebDAV и т. д.)',
+			'meta.autoBackupAddProfile' => 'После добавления конфигурации',
+			'meta.autoBackupRemoveProfile' => 'После удаления конфигурации',
+			'meta.profile' => 'конфигурация',
+			'meta.currentProfile' => 'Текущая конфигурация',
+			'meta.importAndExport' => 'Импорт и экспорт в файл',
+			'meta.import' => 'Импорт',
+			'meta.importFromUrl' => 'Импорт из URL',
+			'meta.export' => 'Экспорт',
+			'meta.send' => 'Передать',
+			'meta.receive' => 'Принять',
+			'meta.sendConfirm' => 'Подтверждаете передачу?',
+			'meta.termOfUse' => 'Условия использования',
+			'meta.privacyPolicy' => 'Политика конфиденциальности',
+			'meta.about' => 'О Karing',
+			'meta.name' => 'Название',
+			'meta.version' => 'Версия',
+			'meta.notice' => 'Уведомления',
+			'meta.appNotifyWithReason' => ({required Object p, required Object p1}) => 'Действие:${p}\nПричина:${p1}',
+			'meta.sort' => 'Отсортировать',
+			'meta.novice' => 'Режим новичка',
+			'meta.willCompleteAfterRebootInstall' => 'Пожалуйста, перезагрузите устройство, чтобы завершить установку расширения системы.',
+			'meta.willCompleteAfterRebootUninstall' => 'Пожалуйста, перезагрузите устройство, чтобы завершить удаление системного расширения.',
+			'meta.requestNeedsUserApproval' => '1. [Системные настройки] - [Конфиденциальность и безопасность] - [Разрешить] Karing устанавливать системные расширения. 2. [Системные настройки] - [Общие] - [Вход и расширения - Сетевые расширения] - [karingServiceSE] - [Подключиться снова после завершения]',
+			'meta.FullDiskAccessPermissionRequired' => 'Включите разрешение [karingServiceSE] в [Системные настройки]-[Конфиденциальность и безопасность]-[Разрешение на полный доступ к диску] и переподключитесь.',
+			'meta.tvMode' => 'Режим ТВ',
+			'meta.recommended' => 'Рекомендуемые',
+			'meta.innerError' => ({required Object p}) => 'Внутренняя ошибка:${p}',
+			'meta.logicOperation' => 'Логическая опреация',
+			'meta.share' => 'Поделиться',
+			'meta.candidateWord' => 'Ключевые слова',
+			'meta.keywordOrRegx' => 'Ключевые слова/регулярные выражения',
+			'meta.importFromClipboard' => 'Импорт из буфера обмена',
+			'meta.exportToClipboard' => 'Экспорт в буфер обмена',
+			'meta.server' => 'Сервер',
+			'meta.ads' => 'Удалять',
+			'meta.adsRemove' => 'Удалить рекламу',
+			'meta.adsBanner' => 'баннерная реклама',
+			'meta.donate' => 'Пожертвовать',
+			'meta.diversion' => 'Правила',
+			'meta.diversionRules' => 'Правила перенаправления',
+			'meta.diversionCustomGroup' => 'Личные правила',
+			'meta.urlTestCustomGroup' => 'Пользовательский автоматический выбор',
+			'meta.setting' => 'Настройки',
+			'meta.iCloud' => 'iCloud',
+			'meta.appleTV' => 'Apple TV',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'Синхронизация локально (QR-код)',
+			'meta.lanSyncNotQuitTips' => 'Не выходите из этого окна до завершения синхронизации.',
+			'meta.deviceNoSpace' => 'Недостаточно места на диске',
+			'meta.hideSystemApp' => 'Скрыть системные приложения',
+			'meta.hideAppIcon' => 'Скрыть значок приложения',
+			'meta.hideDockIcon' => 'Скрыть значок дока',
+			'meta.remark' => 'Примечание',
+			'meta.remarkExist' => 'Примечание уже существует, используйте другое имя',
+			'meta.remarkCannotEmpty' => 'Примечание не может быть пустым',
+			'meta.remarkTooLong' => 'Примечания до 32 символов',
+			'meta.openDir' => 'Открыть каталог файлов',
+			'meta.fileChoose' => 'Выбрать файл',
+			'meta.filePathCannotEmpty' => 'Путь к файлу не может быть пустым',
+			'meta.fileNotExist' => ({required Object p}) => 'Файла не существует:${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'Неверный тип файла:${p}',
+			'meta.uwpExemption' => 'Исключение из изоляции сети UWP',
+			'meta.rulesetGeoSite' => 'GeoSite',
+			'meta.rulesetGeoIp' => 'GeoIP',
+			'meta.rulesetAcl' => 'ACL',
+			'meta.getProfile' => 'Получить конфигурацию',
+			'meta.addProfile' => 'Добавить профиль',
+			'meta.myProfiles' => 'Профили',
+			'meta.myProfilesAtLeastOneReserveEnable' => 'Невозможно отключить, оставьте включенным хотя бы один профиль',
+			'meta.profileEdit' => 'Редактирование профилей',
+			'meta.profileEditUrlExist' => 'URL-адрес уже существует, используйте другой URL-адрес',
+			'meta.profileEditReloadAfterProfileUpdate' => 'Перезагрузить после обновления профиля',
+			'meta.profileEditTestLatencyAfterProfileUpdate' => 'Начать тестирование задержек после обновления профиля',
+			'meta.profileEditTestLatencyAfterProfileUpdateTips' => 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]',
+			'meta.profileEditTestLatencyAutoRemove' => 'Автоматически удалять серверы, не прошедшие тесты на задержку',
+			'meta.profileEditTestLatencyAutoRemoveTips' => 'Попробуйте до 3 раз',
+			'meta.profileImport' => 'Импорт файла конфигурации',
+			'meta.profileAddUrlOrContent' => 'Добавление подписки',
+			'meta.profileExists' => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно',
+			'meta.profileUrlOrContent' => 'Ссылка на подписку/содержание',
+			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).',
+			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.',
+			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.',
+			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
+			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.',
+			'meta.profileAddWrapSuccess' => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]',
+			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
+			'diversionCustomGroupPreset' => 'Шаблоны для личных правил',
+			'diversionCustomGroupPresetTips' => 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].',
+			'diversionCustomGroupAddTips' => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.',
+			'rulesetEnableTips' => 'Совет: После включения опции перейдите в [${_root.meta.diversionRules}] и установите их, иначе опция не будет действовать',
+			'ispUserAgentTips' => '[${_root.meta.isp}] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].',
+			'ispDiversionTips' => '${_root.meta.diversionRules}, предоставляемые подписками [${_root.meta.isp}] типа [V2Ray], не поддерживаются.',
+			'isp.bind' => 'Привязать к [${_root.meta.isp}]',
+			'isp.unbind' => ({required Object p}) => 'Отвязать[${p}]',
+			'isp.faq' => ({required Object p}) => 'Часто задаваемые вопросы[${p}]',
+			'isp.customerService' => ({required Object p}) => 'Служба поддержки клиентов[${p}]',
+			'isp.follow' => ({required Object p}) => 'Следуйте[${p}]',
+			'isp.invalidOrExpired' => '[${_root.meta.isp}]Недействительно, или срок действия истек',
+			'permission.camera' => 'Камера',
+			'permission.screen' => 'Запись экрана',
+			'permission.appQuery' => 'Получить список приложений',
+			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
+			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
+			'tls.insecure' => 'Пропустить проверку сертификата',
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
+			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
+			'tls.fragmentSize' => 'Размер фрагмента TLS',
+			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
+			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
+			'tls.paddingEnable' => 'Включить заполнение TLS',
+			'tls.paddingSize' => 'Размер заполнения TLS',
+			'outboundRuleMode.currentSelected' => 'Текущий сервер',
+			'outboundRuleMode.urltest' => 'Автовыбор',
+			_ => null,
+		} ?? switch (path) {
+			'outboundRuleMode.direct' => 'Напрямую',
+			'outboundRuleMode.block' => 'Блокировать',
+			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,
+			'dnsProxyResolveMode.direct' => _root.outboundRuleMode.direct,
+			'dnsProxyResolveMode.fakeip' => 'FakeIP',
+			'proxyStrategy.perferProxy' => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.perferDirect' => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}',
+			'proxyStrategy.onlyProxy' => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.onlyDirect' => '${_root.meta.only} ${_root.outboundRuleMode.direct}',
+			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
+			'reloadReason.profileUpdate' => 'Обновления конфигурации',
+			'theme.light' => 'Светлый цвет',
+			'theme.dark' => 'черный',
+			'theme.auto' => 'автоматический',
+			'downloadProxyStrategy' => 'Канал загрузки',
+			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]',
+			'routeFinal' => 'Final',
+			'protocolSniff' => 'Определение протокола',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'Пожалуйста, используйте [${p}]',
+			'turnOffPrivateDirect' => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]',
+			'targetConnectFailed' => ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.',
+			'appleTVSync' => 'Синхронизация текущей базовой конфигурации с Apple TV - Karing',
+			'appleTVSyncDone' => 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.',
+			'appleTVRemoveCoreConfig' => 'Удаление Apple TV — базовая конфигурация Karing',
+			'appleTVRemoveCoreConfigDone' => 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;',
+			'appleTVUrlInvalid' => 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.',
+			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.',
+			'appleCoreVersionNotMatch' => ({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз',
+			'remoteProfileEditConfirm' => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?',
+			'mustBeValidHttpsURL' => 'https URL должен быть действительным',
+			'fileNotExistReinstall' => ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите',
+			'noNetworkConnect' => 'Нет подключения к Интернету',
+			'sudoPassword' => 'Пароль sudo (требуется для режима TUN)',
+			'turnOffNetworkBeforeInstall' => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].',
+			'latencyTestResolveIP' => 'При ручном определении анализируется исходящий IP-адрес',
+			'removeBannerAdsByShare' => 'Поделиться [Karing] для удаления рекламы',
+			'removeBannerAdsByReward' => 'Просмотреть рекламу для удаления новой рекламы',
+			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)',
+			'removeBannerAdsByRewardTip' => ({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).',
+			'removeBannerAdsDone' => ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.',
+			'maybeAdsByReward' => 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.',
+			'edgeRuntimeNotInstalled' => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

@@ -8,7 +8,6 @@ import 'package:country/country.dart' as country;
 import 'package:intl/intl.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/runtime/type_checker.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
@@ -151,12 +150,12 @@ class SettingConfigItemAutobackup {
 class SettingConfigItemStatistics {
   static int kMaxCacheDays = 30;
   bool enable = false;
-  bool privacyDesensitize = true;
+  bool dataDesensitize = true;
   int cacheDays = 7;
 
   Map<String, dynamic> toJson() => {
         'enable': enable,
-        'privacy_desensitize': privacyDesensitize,
+        'data_desensitize': dataDesensitize,
         'cache_days': cacheDays,
       };
   void fromJson(Map<String, dynamic>? map) {
@@ -165,7 +164,7 @@ class SettingConfigItemStatistics {
     }
 
     enable = map["enable"] ?? false;
-    privacyDesensitize = map["privacy_desensitize"] ?? true;
+    dataDesensitize = map["data_desensitize"] ?? true;
     cacheDays = map["cache_days"] ?? 7;
     if (cacheDays < 1) {
       cacheDays = 1;
@@ -659,6 +658,10 @@ class SettingConfigItemDNS {
       kDNSIsp: "Cloudflare DNS",
       kDNSUrl: "https://cloudflare-dns.com/dns-query"
     },
+    {kDNSIsp: "Cloudflare DNS", kDNSUrl: "udp://[2606:4700:4700::1111]"},
+    {kDNSIsp: "Cloudflare DNS", kDNSUrl: "udp://[2606:4700:4700::1001]"},
+    {kDNSIsp: "Cloudflare DNS", kDNSUrl: "tls://[2606:4700:4700::1111]"},
+    {kDNSIsp: "Cloudflare DNS", kDNSUrl: "tls://[2606:4700:4700::1001]"},
     {kDNSIsp: "Google DNS", kDNSUrl: "udp://8.8.8.8"},
     {kDNSIsp: "Google DNS", kDNSUrl: "udp://8.8.4.4"},
     {kDNSIsp: "Google DNS", kDNSUrl: "tls://8.8.8.8"},
@@ -1098,20 +1101,26 @@ class SettingConfigItemMux {
 }
 
 class SettingConfigItemProxy {
-  static const String hostDefault = '127.0.0.1';
+  static const String hostLocal = '127.0.0.1';
   static const String hostNetwork = '0.0.0.0';
 
   static int controlPortDefault = 3057;
-  static int mixedDirectPortDefault = 3065;
-  static int mixedForwordPortDefault = 3066;
-  static int mixedPortDefault = 3067;
+  static int kMixedDirectPortDefault = 3065;
+  static int kMixedForwordPortDefault = 3066;
+  static int kMixedPortDefault = 3067;
+
+  static int mixedDirectNetSharePortDefault = 4065;
+  static int kMixedForwordNetSharePortDefault = 4066;
+  static int kMixedNetSharePortDefault = 4067;
   static int clusterPortDefault = 3050;
 
-  String host = hostDefault;
-  String clusterHost = hostDefault;
-  int mixedRulePort = mixedPortDefault;
-  int mixedDirectPort = mixedDirectPortDefault;
-  int mixedForwordPort = mixedForwordPortDefault;
+  String host = hostLocal;
+  String clusterHost = hostLocal;
+  int mixedRulePort = kMixedPortDefault;
+  int mixedDirectPort = kMixedDirectPortDefault;
+  int mixedForwordPort = kMixedForwordPortDefault;
+  int mixedRuleNetSharePort = kMixedNetSharePortDefault;
+  int mixedForwordNetSharePort = kMixedForwordNetSharePortDefault;
   int controlPort = controlPortDefault;
   int clusterPort = clusterPortDefault;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
@@ -1120,7 +1129,7 @@ class SettingConfigItemProxy {
   bool enableCluster = false;
 
   void setAllowAllInbounds(bool allow) {
-    host = allow ? hostNetwork : hostDefault;
+    host = allow ? hostNetwork : hostLocal;
   }
 
   bool getAllowAllInbounds() {
@@ -1128,7 +1137,7 @@ class SettingConfigItemProxy {
   }
 
   void setClusterAllowAllInbounds(bool allow) {
-    clusterHost = allow ? hostNetwork : hostDefault;
+    clusterHost = allow ? hostNetwork : hostLocal;
   }
 
   bool getClusterAllowAllInbounds() {
@@ -1142,6 +1151,8 @@ class SettingConfigItemProxy {
         'mixed_port': mixedRulePort,
         'mixed_direct_port': mixedDirectPort,
         'mixed_forword_port': mixedForwordPort,
+        'mixed_net_share_port': mixedRuleNetSharePort,
+        'mixed_forword_net_share_port': mixedForwordNetSharePort,
         'control_port': controlPort,
         'cluster_port': clusterPort,
         'auto_set_system_proxy': autoSetSystemProxy,
@@ -1153,22 +1164,31 @@ class SettingConfigItemProxy {
       return;
     }
     enableCluster = map["enable_cluster"] ?? false;
-    host = map["host"] ?? hostDefault;
-    clusterHost = map["cluster_host"] ?? hostDefault;
+    host = map["host"] ?? hostLocal;
+    clusterHost = map["cluster_host"] ?? hostLocal;
     mixedRulePort = map["mixed_port"] ?? 0;
     mixedDirectPort = map["mixed_direct_port"] ?? 0;
     mixedForwordPort = map["mixed_forword_port"] ?? 0;
+    mixedRuleNetSharePort = map["mixed_net_share_port"] ?? 0;
+    mixedForwordNetSharePort = map["mixed_forword_net_share_port"] ?? 0;
     controlPort = map["control_port"] ?? 0;
     clusterPort = map["cluster_port"] ?? 0;
 
     if (mixedRulePort == 0) {
-      mixedRulePort = mixedPortDefault;
+      mixedRulePort = kMixedPortDefault;
     }
     if (mixedDirectPort == 0) {
-      mixedDirectPort = mixedDirectPortDefault;
+      mixedDirectPort = kMixedDirectPortDefault;
     }
     if (mixedForwordPort == 0) {
-      mixedForwordPort = mixedForwordPortDefault;
+      mixedForwordPort = kMixedForwordPortDefault;
+    }
+    if (mixedRuleNetSharePort == 0) {
+      mixedRuleNetSharePort = kMixedNetSharePortDefault;
+    }
+    if (mixedForwordNetSharePort == 0 ||
+        mixedForwordNetSharePort == mixedForwordPort) {
+      mixedForwordNetSharePort = kMixedForwordNetSharePortDefault;
     }
     if (controlPort == 0) {
       controlPort = controlPortDefault;
@@ -1218,7 +1238,7 @@ class SettingConfigItemRuleSets {
   bool useRemoteAcl = false;
   Duration updateInterval = const Duration(hours: 24);
   bool disableCustomDiversionGroup = false;
-  bool disableISPDiversionGroup = false;
+  bool disableISPDiversionGroup = true;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -1260,7 +1280,7 @@ class SettingConfigItemRuleSets {
 
     disableCustomDiversionGroup =
         map["disable_custom_diversion_group"] ?? false;
-    disableISPDiversionGroup = map["disable_isp_diversion_group"] ?? false;
+    disableISPDiversionGroup = map["disable_isp_diversion_group"] ?? true;
   }
 
   static SettingConfigItemRuleSets fromJsonStatic(
@@ -1359,7 +1379,8 @@ class SettingConfigItemPerapp {
 }
 
 class SettingConfigItemAutoSelect {
-  Duration timerInterval = const Duration(hours: 8);
+  Duration interval = const Duration(hours: 8);
+  Duration tolerance = const Duration(milliseconds: 0);
   bool prioritizeMyFav = false;
   bool filter = false;
   int limitedNum = 2000;
@@ -1370,7 +1391,8 @@ class SettingConfigItemAutoSelect {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
-      'interval': timerInterval.inSeconds,
+      'interval': interval.inSeconds,
+      'tolerance': tolerance.inMilliseconds,
       'prioritize_my_fav': prioritizeMyFav,
       'filter': filter,
       'limited_num': limitedNum,
@@ -1388,12 +1410,21 @@ class SettingConfigItemAutoSelect {
       return;
     }
     if (map["interval"] != null) {
-      timerInterval = Duration(seconds: map["interval"]);
-      if (timerInterval.inDays > 365) {
-        timerInterval = const Duration(days: 365);
+      interval = Duration(seconds: map["interval"]);
+      if (interval.inDays > 365) {
+        interval = const Duration(days: 365);
       }
-      if (timerInterval.inSeconds < 5) {
-        timerInterval = const Duration(seconds: 5);
+      if (interval.inSeconds < 5) {
+        interval = const Duration(seconds: 5);
+      }
+    }
+    if (map["tolerance"] != null) {
+      tolerance = Duration(milliseconds: map["tolerance"]);
+      if (tolerance.inSeconds > 5) {
+        tolerance = const Duration(seconds: 5);
+      }
+      if (tolerance.inMilliseconds < 0) {
+        tolerance = const Duration(milliseconds: 0);
       }
     }
 
@@ -1449,6 +1480,13 @@ enum IPStrategy {
 }
 
 class SettingConfig {
+  static List<String> updateChannels() {
+    return [
+      "beta",
+      "stable",
+    ];
+  }
+
   static int htmlBoardPortDefault = 3072;
   static const String kCoreVersion = "1.12.0";
   static const List<String> kSpeedTestList = [
@@ -1500,7 +1538,7 @@ class SettingConfig {
   SettingConfigItemStatistics statistics = SettingConfigItemStatistics();
 
   bool autoConnectAfterLaunch = true;
-
+  bool autoConnectAtBoot = false; //android
   IPStrategy ipStrategy = IPStrategy.ipv4Only;
   bool proxyAll = false;
   List<String> frontProxy = [];
@@ -1515,10 +1553,11 @@ class SettingConfig {
   String speedTest = kSpeedTestList[0];
   List<String> urlTestList = [];
   String urlTest = kUrlTestList[0];
-  int urlTestTimeout = 8;
+  int urlTestTimeout = 15;
   bool latencyCheckResoveIP = false;
 
   String autoUpdateChannel = "stable"; //stable, beta
+  bool autoDownloadUpdatePkg = true;
   String originSBProfile = "";
   int htmlBoardPort = htmlBoardPortDefault;
 
@@ -1543,6 +1582,7 @@ class SettingConfig {
         'ads': ads,
         'statistics': statistics,
         'auto_connect_after_launch': autoConnectAfterLaunch,
+        'auto_connect_at_boot': autoConnectAtBoot,
         'ip_strategy': ipStrategy.name,
         'proxy_all': proxyAll,
         'front_proxy': frontProxy,
@@ -1559,6 +1599,7 @@ class SettingConfig {
         'url_test': urlTest,
         'latency_check_resolve_ip': latencyCheckResoveIP,
         'auto_update_channel': autoUpdateChannel,
+        'auto_download_udpate_pkg': autoDownloadUpdatePkg,
         'origin_sb_profile': originSBProfile,
         'html_board_port': htmlBoardPort,
       };
@@ -1605,6 +1646,7 @@ class SettingConfig {
     statistics = SettingConfigItemStatistics.fromJsonStatic(map["statistics"]);
 
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? true;
+    autoConnectAtBoot = map["auto_connect_at_boot"] ?? true;
 
     var name = map["ip_strategy"];
     if (name != null) {
@@ -1664,7 +1706,13 @@ class SettingConfig {
 
     urlTestList =
         ConvertUtils.getListStringFromDynamic(map["url_test_list"], true, [])!;
-    urlTestTimeout = map["url_test_timeout"] ?? 8;
+    urlTestTimeout = map["url_test_timeout"] ?? 15;
+    if (urlTestTimeout < 1) {
+      urlTestTimeout = 1;
+    }
+    if (urlTestTimeout > 15) {
+      urlTestTimeout = 15;
+    }
 
     urlTest = map["url_test"] ?? "";
     if (urlTest.isEmpty) {
@@ -1675,9 +1723,10 @@ class SettingConfig {
         false;
 
     autoUpdateChannel = map["auto_update_channel"] ?? "stable";
-    if (autoUpdateChannel.isEmpty) {
+    if (!updateChannels().contains(autoUpdateChannel)) {
       autoUpdateChannel = "stable";
     }
+    autoDownloadUpdatePkg = map["auto_download_udpate_pkg"] ?? true;
     originSBProfile = map["origin_sb_profile"] ?? "";
     htmlBoardPort = map["html_board_port"] ?? htmlBoardPortDefault;
   }
@@ -1718,7 +1767,7 @@ class SettingConfig {
 class SettingManager {
   static bool _savingConfig = false;
   static bool _dirty = false;
-  static SettingConfig _config = SettingConfig();
+  static final SettingConfig _config = SettingConfig();
   static Future<void> init({bool fromBackupRestore = false}) async {
     await loadConfig();
     if (fromBackupRestore) {
@@ -1781,9 +1830,6 @@ class SettingManager {
       _config.regionCode =
           WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? "US";
     }
-    AnalyticsUtils.setEventType(_config.disableUAReport
-        ? analyticsEventTypeNoUA
-        : analyticsEventTypeAll);
 
     return save;
   }

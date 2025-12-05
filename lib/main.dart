@@ -108,8 +108,8 @@ Future<void> run(List<String> args) async {
       }
       const inProduction = bool.fromEnvironment("dart.vm.product");
       if (inProduction) {
-        if (Platform.isMacOS){
-          if(!path.isWithin("/Applications", exePath)){
+        if (Platform.isMacOS) {
+          if (!path.isWithin("/Applications", exePath)) {
             startFailedReason = StartFailedReason.invalidInstallPath;
             break;
           }

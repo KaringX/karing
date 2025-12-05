@@ -83,8 +83,7 @@ class _VersionUpdateScreenState
                       ),
                     ],
                     Text(
-                      tcontext.VersionUpdateScreen.versionReady(
-                          p: checkVersion.version),
+                      "${SettingManager.getConfig().autoUpdateChannel} ${tcontext.VersionUpdateScreen.versionReady(p: checkVersion.version)}",
                       style: const TextStyle(
                         fontSize: ThemeConfig.kFontSizeListItem,
                         fontWeight: ThemeConfig.kFontWeightListItem,

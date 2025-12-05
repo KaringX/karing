@@ -255,7 +255,7 @@ SPEC CHECKSUMS:
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
-  flutter_install_referrer: bde5ff9b9a8a64dbb7956b0f6683a86d64eedb58
+  flutter_install_referrer: 53ec577bd6188e3408d239f0b578614f02de6edb
   flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
   Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407

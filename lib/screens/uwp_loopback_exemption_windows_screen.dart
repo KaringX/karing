@@ -25,7 +25,7 @@ class _UWPLoopbackExemptionWindowsScreenState
     extends LasyRenderingState<UWPLoopbackExemptionWindowsScreen> {
   bool? _checkAll;
   bool _loading = true;
-  final List<UWPMappings> _searchedData = [];
+  final List<UWPMapping> _searchedData = [];
   final Set<String> _netIsolation = {};
   final Set<String> _checked = {};
 
@@ -47,7 +47,7 @@ class _UWPLoopbackExemptionWindowsScreenState
     }
     _searchedData.clear();
     _loading = true;
-    List<UWPMappings> data = await UWPUtils.getMappings();
+    List<UWPMapping> data = await UWPUtils.getMappings();
     if (!mounted) {
       return;
     }
@@ -77,7 +77,7 @@ class _UWPLoopbackExemptionWindowsScreenState
     setState(() {});
   }
 
-  int sort(UWPMappings a, UWPMappings b) {
+  int sort(UWPMapping a, UWPMapping b) {
     return a.name.compareTo(b.name);
   }
 
@@ -197,7 +197,7 @@ class _UWPLoopbackExemptionWindowsScreenState
         child: ListView.separated(
           itemCount: _searchedData.length,
           itemBuilder: (BuildContext context, int index) {
-            UWPMappings current = _searchedData[index];
+            UWPMapping current = _searchedData[index];
             return createWidget(current, windowSize, index);
           },
           separatorBuilder: (BuildContext context, int index) {
@@ -209,7 +209,7 @@ class _UWPLoopbackExemptionWindowsScreenState
         ));
   }
 
-  Widget createWidget(UWPMappings current, Size windowSize, int index) {
+  Widget createWidget(UWPMapping current, Size windowSize, int index) {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(
@@ -254,12 +254,10 @@ class _UWPLoopbackExemptionWindowsScreenState
                                   style: TextStyle(
                                       fontSize: ThemeConfig.kFontSizeGroupItem),
                                 ),
-                                if (current.sid != current.sid) ...[
-                                  Text(
-                                    current.sid,
-                                    style: const TextStyle(fontSize: 12),
-                                  )
-                                ],
+                                Text(
+                                  current.sid,
+                                  style: const TextStyle(fontSize: 8),
+                                )
                               ]),
                         ),
                         Checkbox(

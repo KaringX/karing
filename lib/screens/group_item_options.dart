@@ -129,6 +129,7 @@ class GroupItemTimerIntervalPickerOptions {
     this.showHours = true,
     this.showMinutes = true,
     this.showSeconds = true,
+    this.showMilliSeconds = true,
     this.showDisable = true,
     this.onPicker,
   });
@@ -142,6 +143,7 @@ class GroupItemTimerIntervalPickerOptions {
   final bool showHours;
   final bool showMinutes;
   final bool showSeconds;
+  final bool showMilliSeconds;
   final bool showDisable;
   Future<void> Function(bool, Duration?)? onPicker;
 }

@@ -31,6 +31,7 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
 import 'package:karing/app/utils/diversion_custom_utils.dart';
+import 'package:karing/app/utils/emoji_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
@@ -134,6 +135,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       FocusNode(debugLabel: "scroll.${MemoryInfoCard.id()}");
   final FocusNode _focusNodeConnectionsInfo =
       FocusNode(debugLabel: "scroll.${ConnectionsInfoCard.id()}");
+
+  final FocusNode _focusNodeOutletIpByCurrentSelectedInfo =
+      FocusNode(debugLabel: "scroll.${OutletIpByCurrentSelectedInfoCard.id()}");
+  // final FocusNode _focusNodeOutletIpByDirectInfo =
+  //    FocusNode(debugLabel: "scroll.${OutletIpByDirectInfoCard.id()}");
+
   final FocusNode _focusNodeTrafficTotalInfo =
       FocusNode(debugLabel: "scroll.${TrafficTotalInfoCard.id()}");
   final FocusNode _focusNodeTrafficProxyInfo =
@@ -223,6 +230,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         onConnectionsInfoLongPress,
         _focusNodeConnectionsInfo,
       ),
+      outletIpByCurrentSelectedInfo: HomeWidgetCard1Options(
+        () {},
+        null,
+        _focusNodeOutletIpByCurrentSelectedInfo,
+      ),
+      /*outletIpByDirectInfo: HomeWidgetCard1Options(
+        () {},
+        null,
+        _focusNodeOutletIpByDirectInfo,
+      ),*/
       trafficTotalInfo: HomeWidgetCard2Options(
         () {},
         null,
@@ -370,6 +387,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _widgetOptions.runtimeInfo!.notifier.value = "0:00:00";
     _widgetOptions.memoryInfo!.notifier.value = "0 B";
     _widgetOptions.connectionsInfo!.notifier.value = "";
+    _widgetOptions.outletIpByCurrentSelectedInfo!.notifier.value = "";
 
     _widgetOptions.trafficTotalInfo!.notifier.value = "↑ 0 B";
     _widgetOptions.trafficTotalInfo!.notifier2.value = "↓ 0 B";
@@ -406,7 +424,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     AnalyticsUtils.logEvent(
       analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_agreement',
+      name: 'HSS_agreement',
     );
 
     await Navigator.push(
@@ -415,11 +433,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             settings: UserAgreementScreen.routSettings(),
             fullscreenDialog: true,
             builder: (context) => const UserAgreementScreen()));
-
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_language',
-    );
 
     var tcontext = Translations.of(context);
     await Navigator.push(
@@ -438,10 +451,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     tcontext = Translations.of(context);
 
     if (Platform.isAndroid) {
-      AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'HSS_guide_tvmode',
-      );
       await Navigator.push(
           context,
           MaterialPageRoute(
@@ -451,11 +460,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     nextText: tcontext.meta.next,
                   )));
     }
-
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_region',
-    );
 
     await Navigator.push(
         context,
@@ -475,11 +479,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         (await DiversionCustomRulesPreset.getPreset(regionCode)) ??
             DiversionCustomRules();
 
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_diversion_rules_customset',
-    );
-
     await Navigator.push(
         context,
         MaterialPageRoute(
@@ -494,21 +493,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                   rules: rules,
                 )));
 
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_novice',
-    );
     await Navigator.push(
         context,
         MaterialPageRoute(
             settings: NoviceScreen.routSettings(),
             fullscreenDialog: true,
             builder: (context) => const NoviceScreen()));
-
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_guide_done',
-    );
 
     LocalStorage.write(userAgreementAgreedIdKey, "true");
     _agreementApproved = true;
@@ -599,7 +589,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (_timerCurrentUrltest != null) {
       return;
     }
-    //Log.w("_connectToCurrent");
+
     _timerCurrentUrltest ??=
         Timer.periodic(const Duration(seconds: 3), (timer) async {
       bool started = await VPNService.getStarted();
@@ -642,6 +632,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       if (_currentServerForUrltest.now != now ||
           _currentServerForUrltest.history.delay != delay) {
+        if (_currentServerForUrltest.now != now) {
+          _updateWanIP();
+        }
         setState(() {});
       }
     });
@@ -729,6 +722,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           _disconnectToService();
         });
     await _websocket!.connect();
+    _updateWanIP();
+    _updateDirectWanIP();
   }
 
   Future<void> _disconnectToService() async {
@@ -749,8 +744,33 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         "",
         () => null);*/
   }
-  void _updateDirectWanIP() async {
+  void _updateWanIP() async {
     var setting = SettingManager.getConfig();
+    if (!setting.uiScreen.widgets
+        .contains(OutletIpByCurrentSelectedInfoCard.id())) {
+      return;
+    }
+    bool started = await VPNService.getStarted();
+    if (!started) {
+      return;
+    }
+
+    final iplocal =
+        await NetworkUtils.getOutletIp(setting.proxy.mixedForwordPort);
+
+    _widgetOptions.outletIpByCurrentSelectedInfo!.notifier.value =
+        iplocal != null
+            ? "${EmojiUtils.countryCodeToEmoji(iplocal.item2)} ${iplocal.item1}"
+            : "";
+  }
+
+  void _updateDirectWanIP() async {
+    bool started = await VPNService.getStarted();
+    if (!started) {
+      return;
+    }
+    var setting = SettingManager.getConfig();
+
     var now = DateTime.now();
     var last = DateTime.tryParse(setting.dns.clientSubnetLatestUpdate);
     if (setting.dns.clientSubnet.isNotEmpty) {
@@ -764,7 +784,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setting.dns.clientSubnetLatestUpdate = now.toString();
     ReturnResult<String> result = await HttpUtils.httpGetRequest(
         "https://checkip.amazonaws.com/",
-        SettingManager.getConfig().proxy.mixedDirectPort,
+        setting.proxy.mixedDirectPort,
         null,
         const Duration(seconds: 3),
         null,
@@ -780,6 +800,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         SettingManager.saveConfig();
       }
     }
+    //_widgetOptions.outletIpByDirectInfo!.notifier.value = ip;
   }
 
   void _updateNetStateLocalNotifications() {
@@ -1043,7 +1064,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!AppLifecycleStateNofity.isPaused()) {
         _connectToCurrent();
         _connectToService();
-        _updateDirectWanIP();
       }
 
       Biz.vpnStateChanged(true);
@@ -1277,7 +1297,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     _connectToCurrent();
     _connectToService();
-    _updateDirectWanIP();
 
     _showNotify();
     var setting = SettingManager.getConfig();
@@ -1377,6 +1396,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (_state != FlutterVpnServiceState.connected) {
       return null;
     }
+
     SettingManager.setDirty(false);
     ServerManager.setDirty(false);
 
@@ -1397,23 +1417,23 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           CommonDialog.handleStartError(context, err.message);
         }
         return err;
-      } else {
-        if (PlatformUtils.isPC()) {
-          var settingConfig = SettingManager.getConfig();
-          if (settingConfig.proxy.enableCluster) {
-            String? error = await ProxyCluster.start();
-            if (error != null) {
-              if (!disableShowAlertDialog) {
-                DialogUtils.showAlertDialog(context, error,
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-              return ReturnResultError(error);
+      }
+      if (PlatformUtils.isPC()) {
+        var settingConfig = SettingManager.getConfig();
+        if (settingConfig.proxy.enableCluster) {
+          String? error = await ProxyCluster.start();
+          if (error != null) {
+            if (!disableShowAlertDialog) {
+              DialogUtils.showAlertDialog(context, error,
+                  showCopy: true, showFAQ: true, withVersion: true);
             }
+            return ReturnResultError(error);
           }
         }
-        if (reason.isNotEmpty) {
-          _showNotifyWith(reason);
-        }
+      }
+
+      if (reason.isNotEmpty) {
+        _showNotifyWith(reason);
       }
     } else {
       await VPNService.stop();
@@ -1725,9 +1745,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             final box = context.findRenderObject() as RenderBox?;
             final rect =
                 box != null ? box.localToGlobal(Offset.zero) & box.size : null;
-            await Share.shareXFiles(
-              [XFile(filePath)],
-              sharePositionOrigin: rect,
+            await SharePlus.instance.share(
+              ShareParams(
+                files: [
+                  XFile(filePath),
+                ],
+                sharePositionOrigin: rect,
+              ),
             );
           } catch (err) {
             if (!mounted) {
@@ -1747,18 +1771,38 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
   }
 
+  void handleWidgetChanged(List<String> added, List<String> removed) {
+    if (added.contains(OutletIpByCurrentSelectedInfoCard.id())) {
+      _updateWanIP();
+    }
+  }
+
   void onTapEditWidget() async {
     if (_edit) {
       final children = _superGridKey.currentState?.children;
       if (children == null) {
         return;
       }
-
-      SettingManager.getConfig().uiScreen.widgets = children
+      final oldWidgetIds = SettingManager.getConfig().uiScreen.widgets;
+      final newWidgetIds = children
           .map(
             (item) => item.id,
           )
           .toList();
+      SettingManager.getConfig().uiScreen.widgets = newWidgetIds;
+      List<String> addedWidgetIds = [];
+      List<String> removedWidgetIds = [];
+      for (var id in newWidgetIds) {
+        if (!oldWidgetIds.contains(id)) {
+          addedWidgetIds.add(id);
+        }
+      }
+      for (var id in oldWidgetIds) {
+        if (!newWidgetIds.contains(id)) {
+          removedWidgetIds.add(id);
+        }
+      }
+      handleWidgetChanged(addedWidgetIds, removedWidgetIds);
       SettingManager.saveConfig();
     }
 
@@ -2122,6 +2166,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _focusNodeRuntimeInfo.dispose();
     _focusNodeMemoryInfo.dispose();
     _focusNodeConnectionsInfo.dispose();
+    _focusNodeOutletIpByCurrentSelectedInfo.dispose();
+    // _focusNodeOutletIpByDirectInfo.dispose();
     _focusNodeTrafficTotalInfo.dispose();
     _focusNodeTrafficProxyInfo.dispose();
     _focusNodeTrafficSpeedInfo.dispose();

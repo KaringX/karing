@@ -8,7 +8,7 @@ class ThemeDataLight {
     final ColorScheme scheme = ColorScheme.fromSeed(
       seedColor: mainColor,
       brightness: Brightness.light,
-      //primary: mainColor,
+      primary: ThemeDefine.kColorBlue,
       surface: mainBgColor,
       //surfaceContainer:mainBgColor,
       surfaceContainerLow: mainColor,

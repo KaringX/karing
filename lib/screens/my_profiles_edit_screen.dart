@@ -33,7 +33,7 @@ class _MyProfilesEditScreenState
   String _compatible = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   bool _keepDiversionRules = false;
-  bool _reloadAfterProfileUpdate = true;
+  bool _reloadAfterProfileUpdate = false;
   bool _testLatencyAfterProfileUpdate = false;
   bool _testLatencyAutoRemove = false;
 

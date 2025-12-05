@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/setting_manager.dart';
+
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/assets_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -35,7 +35,7 @@ class _UserAgreementScreenState
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    var setting = SettingManager.getConfig();
+
     String termOfUse = AppUtils.getTermsOfServiceUrl();
     return PopScope(
         canPop: false,

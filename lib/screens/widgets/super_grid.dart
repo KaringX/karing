@@ -68,7 +68,7 @@ class SuperGridState extends State<SuperGrid> with TickerProviderStateMixin {
   Animation<Offset>? _fakeDragWidgetAnimation;
 
   late AnimationController _shakeController;
-  late Animation<double> _shakeAnimation;
+  //late Animation<double> _shakeAnimation;
   Rect _dragRect = Rect.zero;
   Scrollable? _scrollable;
 
@@ -131,7 +131,7 @@ class SuperGridState extends State<SuperGrid> with TickerProviderStateMixin {
       duration: Duration(milliseconds: 120),
     );
 
-    _shakeAnimation = Tween<double>(
+    /*_shakeAnimation = Tween<double>(
       begin: -0.012,
       end: 0.012,
     ).animate(
@@ -139,7 +139,7 @@ class SuperGridState extends State<SuperGrid> with TickerProviderStateMixin {
         parent: _shakeController,
         curve: Curves.easeInOut,
       ),
-    );
+    );*/
 
     _transformController = AnimationController(
       vsync: this,

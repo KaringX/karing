@@ -1558,11 +1558,18 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       final box = context.findRenderObject() as RenderBox?;
       final rect =
           box != null ? box.localToGlobal(Offset.zero) & box.size : null;
-      await Share.shareXFiles(
-        [XFile(savePath)],
-        sharePositionOrigin: rect,
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [
+            XFile(savePath),
+          ],
+          sharePositionOrigin: rect,
+        ),
       );
     } catch (err) {
+      if (!context.mounted) {
+        return;
+      }
       DialogUtils.showAlertDialog(context, err.toString(),
           showCopy: true, showFAQ: true, withVersion: true);
     }

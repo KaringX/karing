@@ -202,10 +202,6 @@
     {
       "type": "block",
       "tag": "block_out"
-    },
-    {
-      "type": "dns",
-      "tag": "dns_out"
     }
   ],
   "route": {

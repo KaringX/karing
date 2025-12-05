@@ -57,7 +57,9 @@ class CommonDialog {
         WindowsTunFixUtils.getDriverList();
       }
     } else if (errMessage.contains("github.com/sagernet/bbolt") &&
-        errMessage.contains("invalid page type")) {
+        (errMessage.contains("invalid page type") ||
+            errMessage.contains("page type is unknown") ||
+            errMessage.contains("Page expected to be"))) {
       await FileUtils.deletePath(await PathUtils.cacheDBFilePath());
     }
     if (disableTags.isNotEmpty) {

@@ -1083,8 +1083,8 @@ class _DiversionGroupCustomEditScreenState
           if (!NetworkUtils.isDomain(domain, false)) {
             DialogUtils.showAlertDialog(
                 context,
-                tcontext.DiversionGroupCustomEditScreen.invalidDomain(
-                    p: domain));
+                tcontext.DiversionGroupCustomEditScreen.invalid(
+                    p0: tcontext.meta.domain, p: domain));
             return;
           }
         }
@@ -1140,14 +1140,24 @@ class _DiversionGroupCustomEditScreenState
         for (var port in ports) {
           int? nport = int.tryParse(port);
           if (nport == null || nport < 0 || nport >= 65536) {
-            DialogUtils.showAlertDialog(context,
-                tcontext.DiversionGroupCustomEditScreen.invalidPort(p: port));
+            DialogUtils.showAlertDialog(
+                context,
+                tcontext.DiversionGroupCustomEditScreen.invalid(
+                    p0: tcontext.meta.port, p: port));
             return;
           }
           newGroup.port.add(nport);
         }
       }
       if (widget.options.portRange != null) {
+        if (_textControllerLinkPortRange.text.contains("-")) {
+          DialogUtils.showAlertDialog(
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalid(
+                  p0: tcontext.meta.portRange,
+                  p: _textControllerLinkPortRange.text));
+          return;
+        }
         newGroup.portRange = convertToList(_textControllerLinkPortRange.text);
       }
       if (widget.options.protocol != null) {

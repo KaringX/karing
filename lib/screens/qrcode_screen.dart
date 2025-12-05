@@ -213,9 +213,13 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                           ? box.localToGlobal(Offset.zero) &
                                               box.size
                                           : null;
-                                      await Share.shareXFiles(
-                                        [XFile(savePath)],
-                                        sharePositionOrigin: rect,
+                                      await SharePlus.instance.share(
+                                        ShareParams(
+                                          files: [
+                                            XFile(savePath),
+                                          ],
+                                          sharePositionOrigin: rect,
+                                        ),
                                       );
                                     } catch (err) {
                                       if (!context.mounted) {

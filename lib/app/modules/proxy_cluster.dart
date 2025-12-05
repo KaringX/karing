@@ -5,9 +5,11 @@ import 'dart:io';
 
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
+import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/log.dart';
+import 'package:vpn_service/vpn_service.dart';
 
 class ProxyClusterNode {
   String name = "";
@@ -96,6 +98,8 @@ class ProxyCluster {
       proxy.mixedRulePort,
       proxy.mixedDirectPort,
       proxy.mixedForwordPort,
+      proxy.mixedRuleNetSharePort,
+      proxy.mixedForwordNetSharePort,
       proxy.controlPort,
       proxy.clusterPort,
     ];
@@ -139,6 +143,15 @@ class ProxyCluster {
       }
     } catch (err) {
       Log.w("ProxyCluster.inboundsAndRulesFrom exception ${err.toString()}");
+    }
+    if (Platform.isWindows) {
+      List<int> ports = [];
+      for (var sock in sockets) {
+        ports.add(sock.port);
+      }
+      if (ports.isNotEmpty) {
+        FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
+      }
     }
 
     for (var sock in sockets) {

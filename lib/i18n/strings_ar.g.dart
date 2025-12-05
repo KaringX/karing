@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsAr implements Translations {
+class TranslationsAr with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -120,6 +121,7 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'تثبيت الرجوع';
 	@override String get installTime => 'وقت التثبيت';
 	@override String get versionChannel => 'تحديث القنوات تلقائيا';
+	@override String get autoDownloadPkg => 'تنزيل حزم التحديث تلقائيًا';
 	@override String get disableUAReport => 'تطبيق بيانات التحسين';
 	@override String get disableUAReportTip => 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]';
 	@override String get devOptions => 'خيارات للمطور';
@@ -154,7 +156,7 @@ class _TranslationsDiversionGroupCustomEditScreenAr implements TranslationsDiver
 	// Translations
 	@override String invalidDomain({required Object p}) => 'غير صالح [Domain]:${p}';
 	@override String invalidIpCidr({required Object p}) => 'غير صالح [IP Cidr]:${p}';
-	@override String invalidPort({required Object p}) => 'غير صالح [Port]:${p}';
+	@override String invalid({required Object p0, required Object p}) => 'غير صالح [${p0}]:${p}';
 	@override String invalidRuleSet({required Object p}) => 'غير صالح [Rule Set]:${p}, يجب أن يكون عنوان URL عنوان URL HTTPS صالحًا وملفًا ثنائيًا مع ملحق الملف .SRS';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'غير صالح [Rule Set(build-in)]:${p} غير صالحة، التنسيق هو geosite:xxx أو geoip:xxx أو acl:xxx، ويجب أن يكون xxx اسم قاعدة صالحًا';
 	@override String invalidPackageId({required Object p}) => 'غير صالح [${_root.meta.appPackage}]:${p}';
@@ -426,6 +428,8 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get backgroundImage => 'صورة الخلفية';
 	@override String get myLink => 'ارتباط اختصار';
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
+	@override String get autoConnectAtBoot => 'الاتصال التلقائي بعد بدء تشغيل النظام';
+	@override String get autoConnectAtBootTips => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
 	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
@@ -476,6 +480,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get disableFontScaler => 'تعطيل تحجيم الخط(إعادة التشغيل يسري)';
 	@override String get autoOrientation => 'اتبع دوران الشاشة';
 	@override String get restartTakesEffect => 'إعادة التشغيل يسري';
+	@override String get reconnectTakesEffect => 'سيتم تطبيقه بعد إعادة الاتصال.';
 	@override String get resetSettings => 'اعادة الضبط';
 	@override String get cleanCache => 'مسح ذاكرة التخزين المؤقت';
 	@override String get cleanCacheDone => 'اكتملت عملية التنظيف';
@@ -584,12 +589,17 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get hours => 'ساعات';
 	@override String get minutes => 'دقائق';
 	@override String get seconds => 'ثانية';
+	@override String get milliseconds => 'ميلي ثانية';
+	@override String get tolerance => 'تسامح';
 	@override String get dateTimePeriod => 'الفترة الزمنية';
 	@override String get protocol => 'بروتوكول';
 	@override String get search => 'يبحث';
 	@override String get custom => 'مخصص';
 	@override String get inbound => 'وارد';
 	@override String get outbound => 'مخرج';
+	@override String get destination => 'هدف';
+	@override String get outletIpByCurrentSelected => 'IP';
+	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'يتصل';
 	@override String get disconnect => 'قطع الاتصال';
 	@override String get reconnect => 'إعادة الاتصال';
@@ -641,6 +651,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get tls => 'TLS';
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'رقم تعريف حاسوب ثابت';
+	@override String get staticIPTips => 'يجب عليك تمكين [TUN HijackDNS] أو [${_root.SettingsScreen.inboundDomainResolve}].';
 	@override String get isp => 'مزودي VPN';
 	@override String get domainSuffix => 'لاحقة اسم المجال';
 	@override String get domain => 'اسم النطاق';
@@ -654,18 +665,21 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get processPath => 'مسار العملية';
 	@override String get processDir => 'دليل العمليات';
 	@override String get systemProxy => 'وكيل النظام';
+	@override String get percentage => 'نسبة مئوية';
 	@override String get statistics => 'إحصائيات';
 	@override String get statisticsAndAnalysis => 'الإحصاء والتحليل';
-	@override String get statisticsPrivacyDesensitize => 'إزالة حساسية الخصوصية';
-	@override String get statisticsPrivacyDesensitizeTips => 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية';
+	@override String get statisticsDataDesensitize => 'إخفاء هوية البيانات';
+	@override String get statisticsDataDesensitizeTips => 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية';
 	@override String get records => 'سِجِلّ';
 	@override String get requestRecords => 'طلب السجلات';
 	@override String get netInterfaces => 'واجهات صافية';
 	@override String get netSpeed => 'سرعة';
+	@override String get memoryTrendChart => 'مخطط اتجاهات الذاكرة';
 	@override String get trafficTrendChart => 'مخطط اتجاهات حركة المرور';
 	@override String get trafficDistributionChart => 'خريطة توزيع حركة المرور';
 	@override String get connectionChart => 'مخطط اتجاهات الاتصال';
 	@override String get memoryChart => 'مخطط اتجاهات الذاكرة';
+	@override String get trafficStatistics => 'إحصائيات المرور';
 	@override String get traffic => 'تدفق';
 	@override String get trafficTotal => 'إجمالي حركة المرور';
 	@override String get trafficProxy => 'وكيل حركة المرور';
@@ -690,6 +704,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get noProfileGotAutoBackup => 'إذا فقدت بيانات مثل [${_root.meta.myProfiles}]، فيمكنك استعادتها من [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] أو مصادر النسخ الاحتياطي الأخرى (مثل iCloud أو Webdav، وما إلى ذلك).';
 	@override String get autoBackupAddProfile => 'بعد إضافة التكوين';
 	@override String get autoBackupRemoveProfile => 'بعد حذف التكوين';
+	@override String get profile => 'التكوين';
 	@override String get currentProfile => 'التكوين الحالي';
 	@override String get importAndExport => 'استيراد وتصدير';
 	@override String get import => 'يستورد';
@@ -895,558 +910,576 @@ class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 	@override String get menuExit => '    مخرج    ';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'AboutScreen.installRefer': return 'تثبيت الرجوع';
-			case 'AboutScreen.installTime': return 'وقت التثبيت';
-			case 'AboutScreen.versionChannel': return 'تحديث القنوات تلقائيا';
-			case 'AboutScreen.disableUAReport': return 'تطبيق بيانات التحسين';
-			case 'AboutScreen.disableUAReportTip': return 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]';
-			case 'AboutScreen.devOptions': return 'خيارات للمطور';
-			case 'AboutScreen.enableDebugLog': return 'تمكين سجل التصحيح';
-			case 'AboutScreen.viewFilsContent': return 'عرض الملفات';
-			case 'AboutScreen.enablePprof': return 'يُمكَِن pprof';
-			case 'AboutScreen.pprofPanel': return 'pprof لوحة';
-			case 'AboutScreen.allowRemoteAccessPprof': return 'السماح بالوصول عن بعد إلى ${_root.AboutScreen.pprofPanel}';
-			case 'AboutScreen.allowRemoteAccessHtmlBoard': return 'السماح بالوصول عن بعد${_root.SettingsScreen.htmlBoard}';
-			case 'AboutScreen.useOriginalSBProfile': return 'استخدم تكوين صندوق الغناء الأصلي';
-			case 'BackupAndSyncWebdavScreen.webdavServerUrl': return 'عنوان URL الخادم';
-			case 'BackupAndSyncWebdavScreen.webdavRequired': return 'لايمكن ان يكون فارغا';
-			case 'BackupAndSyncWebdavScreen.webdavLoginFailed': return 'فشل تسجيل الدخول:';
-			case 'BackupAndSyncWebdavScreen.webdavListFailed': return 'فشل في الحصول على قائمة الملفات:';
-			case 'DiversionGroupCustomEditScreen.invalidDomain': return ({required Object p}) => 'غير صالح [Domain]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidIpCidr': return ({required Object p}) => 'غير صالح [IP Cidr]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidPort': return ({required Object p}) => 'غير صالح [Port]:${p}';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSet': return ({required Object p}) => 'غير صالح [Rule Set]:${p}, يجب أن يكون عنوان URL عنوان URL HTTPS صالحًا وملفًا ثنائيًا مع ملحق الملف .SRS';
-			case 'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn': return ({required Object p}) => 'غير صالح [Rule Set(build-in)]:${p} غير صالحة، التنسيق هو geosite:xxx أو geoip:xxx أو acl:xxx، ويجب أن يكون xxx اسم قاعدة صالحًا';
-			case 'DiversionGroupCustomEditScreen.invalidPackageId': return ({required Object p}) => 'غير صالح [${_root.meta.appPackage}]:${p}';
-			case 'DiversionGroupCustomEditScreen.setDiversionRule': return 'نصيحة: بعد الحفظ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة، وإلا فلن تصبح سارية المفعول.';
-			case 'DiversionRuleDetectScreen.title': return 'قاعدة التحويل اكتشف';
-			case 'DiversionRuleDetectScreen.rule': return 'قاعدة:';
-			case 'DiversionRuleDetectScreen.outbound': return 'مخدم بروكسي:';
-			case 'DiversionRulesScreen.diversionRulesMatchTips': return 'نصيحة: حاول مطابقة القواعد من الأعلى إلى الأسفل، إذا لم تتم مطابقة أي قاعدة، استخدم [نهائي]';
-			case 'DnsSettingsScreen.ispCanNotEmpty': return 'لا يمكن أن يكون ISP فارغًا';
-			case 'DnsSettingsScreen.urlCanNotEmpty': return 'لا يمكن أن يكون عنوان URL فارغًا';
-			case 'DnsSettingsScreen.error': return ({required Object p}) => 'نوع غير مدعوم:${p}';
-			case 'DnsSettingsScreen.dnsDesc': return 'العمود الأول من بيانات التأخير هو تأخير استعلام الاتصال المباشر;\nالعمود الثاني: شغله [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير الاستعلام الذي تم إعادة توجيهه من خلال خادم الوكيل الحالي; إذا [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير استعلام الاتصال المباشر';
-			case 'FileContentViewerScreen.title': return 'ملف محتوى الملف';
-			case 'FileContentViewerScreen.clearFileContent': return 'هل أنت متأكد من مسح محتوى الملف؟';
-			case 'FileContentViewerScreen.clearFileContentTips': return 'هل أنت متأكد من مسح محتوى ملف الملف الشخصي؟قد يتسبب تطهير ملف الملف الشخصي في فقدان البيانات أو وظائف التطبيق غير الطبيعية ، يرجى العمل بحذر';
-			case 'HomeScreen.toSelectServer': return 'الرجاء تحديد خادم';
-			case 'HomeScreen.invalidServer': return 'غير صالح ، الرجاء اختيار مرة أخرى';
-			case 'HomeScreen.disabledServer': return 'معطل ، الرجاء اختيار مرة أخرى';
-			case 'HomeScreen.expiredServer': return 'لا يوجد خادم متاح: قد يكون التكوين قديمًا أو معطلاً';
-			case 'HomeScreen.systemProxyTips': return ({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}';
-			case 'HomeScreen.myLinkEmpty': return 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه';
-			case 'HomeScreen.tooMuchServers': return ({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.';
-			case 'HomeScreen.tooMuchServers2': return ({required Object p, required Object p1}) => 'قد يؤدي وجود عدد كبير جدًا من خوادم الوكيل [${p}>${p1}] إلى حدوث اتصالات بطيئة أو غير قابلة للوصول';
-			case 'LaunchFailedScreen.invalidProcess': return 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل';
-			case 'LaunchFailedScreen.invalidProfile': return 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق';
-			case 'LaunchFailedScreen.invalidVersion': return 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق';
-			case 'LaunchFailedScreen.systemVersionLow': return 'فشل بدء تشغيل التطبيق [إصدار النظام منخفض جدًا]';
-			case 'LaunchFailedScreen.invalidInstallPath': return 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح';
-			case 'MyProfilesMergeScreen.profilesMerge': return 'دمج الملامح';
-			case 'MyProfilesMergeScreen.profilesMergeTarget': return 'ملف تعريف الهدف';
-			case 'MyProfilesMergeScreen.profilesMergeSource': return 'ملفات تعريف المصدر';
-			case 'MyProfilesMergeScreen.profilesMergeTips': return 'نصيحة: سيتم تجاهل تحويل ملفات تعريف المصدر';
-			case 'NetCheckScreen.title': return 'فحص صافي';
-			case 'NetCheckScreen.warn': return 'ملاحظة: نظرًا لتأثير بيئة الشبكة وقواعد التحويل ، فإن نتائج الاختبار ليست مكافئة تمامًا للنتائج الفعلية.';
-			case 'NetCheckScreen.invalidDomain': return 'اسم النطاق غير صالح';
-			case 'NetCheckScreen.connectivity': return 'اتصال الشبكة';
-			case 'NetCheckScreen.connectivityTestIpv4AllFailed': return ({required Object p}) => 'اختبار اتصال IPv4[${p}] كل شيء فشل';
-			case 'NetCheckScreen.connectivityTestIpv4Ok': return 'Ipv4 نجح الاتصال';
-			case 'NetCheckScreen.connectivityTestIpv6AllFailed': return ({required Object p}) => 'Ipv6 اختبار الاتصال [${p}] كل شيء فشل ، قد لا تدعم شبكتك IPv6';
-			case 'NetCheckScreen.connectivityTestIpv6Ok': return 'نجح اتصال IPv6';
-			case 'NetCheckScreen.connectivityTestOk': return 'الشبكة متصلة بالإنترنت';
-			case 'NetCheckScreen.connectivityTestFailed': return 'الشبكة ليست متصلة بعد بالإنترنت';
-			case 'NetCheckScreen.remoteRulesetsDownloadOk': return 'تم تنزيل كل شيء بنجاح';
-			case 'NetCheckScreen.remoteRulesetsDownloadNotOk': return 'التحميل أو فشل';
-			case 'NetCheckScreen.outbound': return 'مخدم بروكسي';
-			case 'NetCheckScreen.outboundOk': return ({required Object p}) => '[${p}] نجح الاتصال ';
-			case 'NetCheckScreen.outboundFailed': return ({required Object p1, required Object p2}) => '[${p1}] فشل الاتصال\nError:[${p2}]';
-			case 'NetCheckScreen.dnsServer': return 'DNS الخادم';
-			case 'NetCheckScreen.dnsOk': return ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]نجح استعلام DNS\nDNS قاعدة:[${p2}]\n وقت الإستجابة:[${p3} ms]\nAعنوان[${p4}]';
-			case 'NetCheckScreen.dnsFailed': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]نجح استعلام DNS\n nDNS قاعدة:[${p2}]\nخطأ:[${p3}]';
-			case 'NetCheckScreen.host': return 'اتصال HTTP';
-			case 'NetCheckScreen.hostConnection': return ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقاعدة التحويل:[${p2}]\nمخدم بروكسي:[${p3}]';
-			case 'NetCheckScreen.hostConnectionOk': return 'نجح الاتصال';
-			case 'NetCheckScreen.hostConnectionFailed': return ({required Object p}) => 'فشل الاتصال:[${p}]';
-			case 'NetConnectionsFilterScreen.hostIp': return 'المجال/IP';
-			case 'NetConnectionsFilterScreen.app': return 'برنامج';
-			case 'NetConnectionsFilterScreen.rule': return 'قاعدة';
-			case 'NetConnectionsFilterScreen.chain': return 'خارج';
-			case 'NetConnectionsScreen.copyAsCSV': return 'نسخ إلى تنسيق CSV';
-			case 'NetConnectionsScreen.selectType': return 'حدد نوع التحويل';
-			case 'PerAppAndroidScreen.title': return 'لكل وكيل تطبيق';
-			case 'PerAppAndroidScreen.whiteListMode': return 'وضع القائمة البيضاء';
-			case 'PerAppAndroidScreen.whiteListModeTip': return 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء';
-			case 'RegionSettingsScreen.title': return 'الدولة او المنطقة';
-			case 'RegionSettingsScreen.Regions': return '  نصيحة: يرجى تعيين بلدك أو منطقتك الحالية بشكل صحيح ، وإلا فقد يتسبب في مشاكل في تحويل الشبكة';
-			case 'ServerSelectScreen.title': return 'حدد الخادم';
-			case 'ServerSelectScreen.autoSelectServer': return 'تلقائي حدد الخادم بأقل زمن انتقال';
-			case 'ServerSelectScreen.recentUse': return 'مستخدم حديثا';
-			case 'ServerSelectScreen.myFav': return 'المفضل لدي';
-			case 'ServerSelectScreen.selectLocal': return ({required Object p}) => 'الخادم المحدد هو عنوان محلي وقد لا يعمل بشكل صحيح:${p}';
-			case 'ServerSelectScreen.selectRequireEnableIPv6': return 'الخادم المحدد هو عنوان IPv6 ويتطلب [تمكين IPv6]';
-			case 'ServerSelectScreen.selectDisabled': return 'تم تعطيل هذا الخادم';
-			case 'ServerSelectScreen.error404': return 'واجه اكتشاف الكمون خطأ ، يرجى التحقق مما إذا كان هناك تكوين مع نفس المحتوى';
-			case 'SettingsScreen.getTranffic': return 'احصل على حركة المرور';
-			case 'SettingsScreen.tutorial': return 'درس تعليمي';
-			case 'SettingsScreen.commonlyUsedRulesets': return 'مجموعات القواعد شائعة الاستخدام';
-			case 'SettingsScreen.howToRemoveAds': return 'كيفية إزالة الإعلانات';
-			case 'SettingsScreen.htmlBoard': return 'لوحة على الانترنت';
-			case 'SettingsScreen.dnsLeakDetection': return 'كشف تسرب DNS';
-			case 'SettingsScreen.proxyLeakDetection': return 'كشف تسرب الوكيل';
-			case 'SettingsScreen.speedTest': return 'اختبار السرعة';
-			case 'SettingsScreen.rulesetDirectDownlad': return 'مجموعة القواعد تحميل مباشر';
-			case 'SettingsScreen.hideUnusedDiversionGroup': return 'إخفاء قواعد تحويل حركة المرور غير النشطة';
-			case 'SettingsScreen.disableISPDiversionGroup': return 'تعطيل قواعد تحويل [${_root.meta.isp}]';
-			case 'SettingsScreen.portSettingRule': return 'القاعدة القائمة';
-			case 'SettingsScreen.portSettingDirectAll': return 'توجيه كل شيء';
-			case 'SettingsScreen.portSettingProxyAll': return 'وكيل الكل';
-			case 'SettingsScreen.portSettingControl': return 'السيطرة والمزامنة';
-			case 'SettingsScreen.portSettingCluster': return 'خدمة الكتلة';
-			case 'SettingsScreen.modifyPort': return 'تعديل المنفذ';
-			case 'SettingsScreen.modifyPortOccupied': return 'المنفذ مشغول، يرجى استخدام منفذ آخر';
-			case 'SettingsScreen.ipStrategyTips': return 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
-			case 'SettingsScreen.tunAppendHttpProxy': return 'إلحاق وكيل HTTP إلى VPN';
-			case 'SettingsScreen.tunAppendHttpProxyTips': return 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
-			case 'SettingsScreen.tunAllowBypassHttpProxyDomain': return 'المجالات المسموح لها بتجاوز وكيل HTTP';
-			case 'SettingsScreen.dnsEnableRule': return 'تمكين قواعد تحويل DNS';
-			case 'SettingsScreen.dnsEnableProxyResolveMode': return '[${_root.meta.trafficProxy}] قناة الدقة';
-			case 'SettingsScreen.dnsEnableClientSubnet': return '[${_root.meta.trafficDirect}] تمكين ECS';
-			case 'SettingsScreen.dnsTestDomain': return 'مجال الاختبار';
-			case 'SettingsScreen.dnsTestDomainInvalid': return 'مجال غير صالح';
-			case 'SettingsScreen.dnsTypeOutbound': return 'مخدم بروكسي';
-			case 'SettingsScreen.dnsTypeDirect': return _root.meta.trafficDirect;
-			case 'SettingsScreen.dnsTypeProxy': return _root.meta.trafficProxy;
-			case 'SettingsScreen.dnsTypeResolver': return 'خادم DNS';
-			case 'SettingsScreen.dnsEnableRuleTips': return 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل';
-			case 'SettingsScreen.dnsEnableFakeIpTips': return 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]';
-			case 'SettingsScreen.dnsTypeOutboundTips': return 'دقة اسم المجال لخادم الوكيل';
-			case 'SettingsScreen.dnsTypeDirectTips': return 'حل اسم المجال لـ [${_root.meta.trafficDirect}]';
-			case 'SettingsScreen.dnsTypeProxyTips': return 'حل اسم المجال لحركة المرور الوكيل';
-			case 'SettingsScreen.dnsTypeResolverTips': return 'دقة اسم المجال لخادم DNS الآخر';
-			case 'SettingsScreen.dnsAutoSetServer': return 'إعداد الخادم تلقائيا';
-			case 'SettingsScreen.dnsResetServer': return 'إعادة تعيين الخادم';
-			case 'SettingsScreen.inboundDomainResolve': return 'حل أسماء النطاقات الواردة';
-			case 'SettingsScreen.privateDirect': return 'اتصال مباشر بالشبكة الخاصة';
-			case 'SettingsScreen.inboundDomainResolveTips': return ({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]';
-			case 'SettingsScreen.useRomoteRes': return 'استخدم الموارد البعيدة';
-			case 'SettingsScreen.autoAppendRegion': return 'إرفاق القواعد الأساسية تلقائيًا';
-			case 'SettingsScreen.autoSelect': return 'اختيار آلي';
-			case 'SettingsScreen.autoSelectServerIgnorePerProxyServer': return 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].';
-			case 'SettingsScreen.autoSelectServerInterval': return 'فاصل الشيكات الكمون';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckInterval': return 'فترة فحص صحة الخادم الحالية';
-			case 'SettingsScreen.autoSelectServerReTestIfNetworkUpdate': return 'إعادة اكتشاف متى تتغير الشبكة';
-			case 'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest': return 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير';
-			case 'SettingsScreen.autoSelectServerIntervalTips': return 'كلما كان الفاصل الزمني لاكتشاف التأخير أقصر، كلما تم تحديث بيانات تأخير الخادم في الوقت المناسب، ولكنها ستشغل المزيد من الموارد وتستهلك الكهرباء بشكل أسرع';
-			case 'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips': return 'إذا فشل الاكتشاف، يتم تبديل العقدة؛ إذا لم يتم العثور على عقدة متاحة عند تبديل العقدة، يتم إعادة اكتشاف المجموعة مع التأخير';
-			case 'SettingsScreen.autoSelectServerFavFirst': return 'PRI-Use [My Favs]';
-			case 'SettingsScreen.autoSelectServerFavFirstTips': return 'إذا لم تكن قائمة [Favs] فارغة ، فاستخدم الخوادم في [Favs]';
-			case 'SettingsScreen.autoSelectServerFilter': return 'تصفية خوادم غير صالحة';
-			case 'SettingsScreen.autoSelectServerFilterTips': return ({required Object p}) => 'سيتم تصفية حالات فشل الكشف عن تأخير الخادم؛ إذا لم يكن هناك خادم متاح بعد التصفية، فسيتم استخدام الخوادم [${p}] الأولى بدلاً من ذلك.';
-			case 'SettingsScreen.autoSelectServerLimitedNum': return 'الحد الأقصى لعدد الخوادم';
-			case 'SettingsScreen.autoSelectServerLimitedNumTips': return 'سيتم تصفية الخوادم التي تتجاوز هذا الرقم';
-			case 'SettingsScreen.numInvalid': return 'رقم غير صالح';
-			case 'SettingsScreen.hideInvalidServer': return 'إخفاء الخوادم غير الصالحة';
-			case 'SettingsScreen.sortServer': return 'خوادم الفرز';
-			case 'SettingsScreen.sortServerTips': return 'فرز حسب الكمون من منخفض إلى مرتفع';
-			case 'SettingsScreen.selectServerHideRecommand': return 'إخفاء [يوصي]';
-			case 'SettingsScreen.selectServerHideRecent': return 'إخفاء [المستخدمة مؤخرًا]';
-			case 'SettingsScreen.selectServerHideFav': return 'إخفاء [المفضلة لدي]';
-			case 'SettingsScreen.homeScreen': return 'الشاشة الرئيسية';
-			case 'SettingsScreen.theme': return 'Tالهيم';
-			case 'SettingsScreen.widgetsAlpha': return 'شفافية الأدوات';
-			case 'SettingsScreen.widgetsEmpty': return 'لا يوجد أداة متاحة';
-			case 'SettingsScreen.backgroundImage': return 'صورة الخلفية';
-			case 'SettingsScreen.myLink': return 'ارتباط اختصار';
-			case 'SettingsScreen.autoConnectAfterLaunch': return 'اتصال السيارات بعد الإطلاق';
-			case 'SettingsScreen.hideAfterLaunch': return 'إخفاء النافذة بعد بدء التشغيل';
-			case 'SettingsScreen.autoSetSystemProxy': return 'وكيل نظام تعيين تلقائي عند الاتصال';
-			case 'SettingsScreen.bypassSystemProxy': return 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
-			case 'SettingsScreen.disconnectWhenQuit': return 'افصل عندما يخرج التطبيق';
-			case 'SettingsScreen.excludeFromRecent': return 'إخفاء من المهام الأخيرة';
-			case 'SettingsScreen.wakeLock': return 'قفل الاستيقاظ';
-			case 'SettingsScreen.hideVpn': return 'إخفاء أيقونة VPN';
-			case 'SettingsScreen.hideVpnTips': return 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
-			case 'SettingsScreen.allowBypass': return 'السماح للتطبيقات بتجاوز VPN';
-			case 'SettingsScreen.importSuccess': return 'استيراد نجاح ';
-			case 'SettingsScreen.rewriteConfirm': return 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
-			case 'SettingsScreen.mergePerapp': return 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]';
-			case 'SettingsScreen.networkShare': return 'مشاركة الشبكة';
-			case 'SettingsScreen.frontProxy': return 'الوكيل الأمامي/السلسلة';
-			case 'SettingsScreen.frontProxyTips': return ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
-			case 'SettingsScreen.allowOtherHostsConnect': return 'اسمح للآخرين بالاتصال';
-			case 'SettingsScreen.allowOtherHostsConnectTips': return ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-			case 'SettingsScreen.allowOtherHostsConnectWarn': return 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
-			case 'SettingsScreen.tunAutoRoute': return 'Auto Route';
-			case 'SettingsScreen.tunAutoRedirect': return 'Auto Redirect';
-			case 'SettingsScreen.tunStrictRoute': return 'Strict Route';
-			case 'SettingsScreen.tunStrictRouteTips': return 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
-			case 'SettingsScreen.loopbackAddress': return 'Loopback Address';
-			case 'SettingsScreen.enableCluster': return 'تمكين مجموعة الوكيل الجوارب/HTTP';
-			case 'SettingsScreen.clusterAllowOtherHostsConnect': return 'السماح للآخرين بالاتصال بـ CLUSTER';
-			case 'SettingsScreen.clusterAllowOtherHostsConnectTips': return ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
-			case 'SettingsScreen.clusterAuth': return 'مصادقة مجموعة الوكيل';
-			case 'SettingsScreen.tunMode': return 'نفق وضع';
-			case 'SettingsScreen.tuni4Address': return 'عنوان IP';
-			case 'SettingsScreen.tunModeTips': return 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
-			case 'SettingsScreen.tunModeRunAsAdmin': return 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
-			case 'SettingsScreen.tunStack': return 'Stack';
-			case 'SettingsScreen.tunHijackTips': return 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل';
-			case 'SettingsScreen.launchAtStartup': return 'إطلاق عند بدء التشغيل';
-			case 'SettingsScreen.quitWhenSwitchSystemUser': return 'خروج تطبيق عند تبديل مستخدمي النظام';
-			case 'SettingsScreen.handleScheme': return 'مكالمة مخطط النظام';
-			case 'SettingsScreen.portableMode': return 'الوضع المحمول';
-			case 'SettingsScreen.portableModeDisableTips': return 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [karing] وحذف المجلد [profiles] يدويًا في نفس الدليل مثل [karing.exe]';
-			case 'SettingsScreen.handleKaringScheme': return 'مقبض karing:// Call';
-			case 'SettingsScreen.handleClashScheme': return 'مقبض clash:// Call';
-			case 'SettingsScreen.handleSingboxScheme': return 'مقبض sing-box:// يتصل';
-			case 'SettingsScreen.alwayOnVPN': return 'اتصال مفتوح دائمًا';
-			case 'SettingsScreen.disconnectAfterSleep': return 'قطع الاتصال بعد سبات النظام';
-			case 'SettingsScreen.removeSystemVPNConfig': return 'حذف تكوين VPN النظام';
-			case 'SettingsScreen.timeConnectOrDisconnect': return 'المقرر يتصل/قطع الاتصال';
-			case 'SettingsScreen.timeConnectOrDisconnectTips': return 'يجب أن يكون VPN متصلاً ليصبح مفيدًا ؛بعد تشغيله ، سيتم تعطيل [النوم التلقائي]';
-			case 'SettingsScreen.timeConnectAndDisconnectInterval': return ({required Object p}) => 'ال cاتصاللا يمكن أن يكون فاصل الانفصال أقل من ${p} دقائق';
-			case 'SettingsScreen.disableFontScaler': return 'تعطيل تحجيم الخط(إعادة التشغيل يسري)';
-			case 'SettingsScreen.autoOrientation': return 'اتبع دوران الشاشة';
-			case 'SettingsScreen.restartTakesEffect': return 'إعادة التشغيل يسري';
-			case 'SettingsScreen.resetSettings': return 'اعادة الضبط';
-			case 'SettingsScreen.cleanCache': return 'مسح ذاكرة التخزين المؤقت';
-			case 'SettingsScreen.cleanCacheDone': return 'اكتملت عملية التنظيف';
-			case 'SettingsScreen.appleTestFlight': return 'Apple Testflight';
-			case 'SettingsScreen.appleAppStore': return 'متجر تطبيقات Apple';
-			case 'SettingsScreen.hasNewVersion': return ({required Object p}) => 'تحديث الإصدار ${p}';
-			case 'SettingsScreen.follow': return 'تابعنا';
-			case 'SettingsScreen.contactUs': return 'اتصل بنا';
-			case 'SettingsScreen.supportUs': return 'ادعمنا';
-			case 'SettingsScreen.rateInApp': return 'قيمنا';
-			case 'SettingsScreen.rateInAppStore': return 'قيمنا في متجر التطبيقات';
-			case 'UserAgreementScreen.privacyFirst': return 'خصوصيتك تأتي أولا';
-			case 'UserAgreementScreen.agreeAndContinue': return 'قبول ومتابعة';
-			case 'VersionUpdateScreen.versionReady': return ({required Object p}) => 'الإصدار الجديد [${p}] جاهز';
-			case 'VersionUpdateScreen.update': return 'أعد التشغيل للتحديث';
-			case 'VersionUpdateScreen.cancel': return 'ليس الآن';
-			case 'CommonWidget.diableAlwayOnVPN': return 'إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.';
-			case 'CommonWidget.resetPort': return 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.';
-			case 'main.tray.menuOpen': return '    يفتح    ';
-			case 'main.tray.menuExit': return '    مخرج    ';
-			case 'meta.enable': return 'يُمكَِن';
-			case 'meta.disable': return 'إبطال';
-			case 'meta.bydefault': return 'تقصير';
-			case 'meta.filter': return 'فلتر';
-			case 'meta.filterMethod': return 'طريقة التصفية';
-			case 'meta.include': return 'يشمل';
-			case 'meta.exclude': return 'استبعاد';
-			case 'meta.all': return 'الجميع';
-			case 'meta.prefer': return 'أولوية';
-			case 'meta.only': return 'فقط';
-			case 'meta.open': return 'يفتح';
-			case 'meta.close': return 'إنهاء';
-			case 'meta.quit': return 'يترك';
-			case 'meta.add': return 'اضف إليه';
-			case 'meta.addSuccess': return 'اضيف بنجاح';
-			case 'meta.addFailed': return ({required Object p}) => 'إضافة فشل:${p}';
-			case 'meta.remove': return 'يمسح';
-			case 'meta.removeConfirm': return 'هل انت متأكد من الحذف؟';
-			case 'meta.edit': return 'يحرر';
-			case 'meta.view': return 'يفحص';
-			case 'meta.more': return 'أكثر';
-			case 'meta.tips': return 'معلومات';
-			case 'meta.copy': return 'ينسخ';
-			case 'meta.save': return 'يحفظ';
-			case 'meta.ok': return 'نعم';
-			case 'meta.cancel': return 'يلغي';
-			case 'meta.feedback': return 'تعليق';
-			case 'meta.feedbackContent': return 'محتوى ردود الفعل';
-			case 'meta.feedbackContentHit': return 'مطلوب ، ما يصل إلى 500 حرف';
-			case 'meta.feedbackContentCannotEmpty': return 'لا يمكن أن يكون محتوى التعليقات فارغًا';
-			case 'meta.faq': return 'أسئلة مكررة';
-			case 'meta.download': return 'تحميل';
-			case 'meta.upload': return 'رفع';
-			case 'meta.downloadSpeed': return 'سرعة التنزيل';
-			case 'meta.uploadSpeed': return 'سرعة التحميل';
-			case 'meta.loading': return 'تحميل...';
-			case 'meta.convert': return 'يتحول';
-			case 'meta.check': return 'يفحص';
-			case 'meta.detect': return 'يكشف';
-			case 'meta.cache': return 'مخبأ';
-			case 'meta.days': return 'أيام';
-			case 'meta.hours': return 'ساعات';
-			case 'meta.minutes': return 'دقائق';
-			case 'meta.seconds': return 'ثانية';
-			case 'meta.dateTimePeriod': return 'الفترة الزمنية';
-			case 'meta.protocol': return 'بروتوكول';
-			case 'meta.search': return 'يبحث';
-			case 'meta.custom': return 'مخصص';
-			case 'meta.inbound': return 'وارد';
-			case 'meta.outbound': return 'مخرج';
-			case 'meta.connect': return 'يتصل';
-			case 'meta.disconnect': return 'قطع الاتصال';
-			case 'meta.reconnect': return 'إعادة الاتصال';
-			case 'meta.connected': return 'متصل';
-			case 'meta.disconnected': return 'انقطع الاتصال';
-			case 'meta.connecting': return 'توصيل';
-			case 'meta.connectTimeout': return 'ربط مهلة';
-			case 'meta.timeout': return 'نفذ الوقت';
-			case 'meta.timeoutDuration': return 'مدة مهلة الانتظار';
-			case 'meta.runDuration': return 'وقت التشغيل';
-			case 'meta.latency': return 'تأخير';
-			case 'meta.latencyTest': return 'كشف التأخير';
-			case 'meta.language': return 'لغة';
-			case 'meta.next': return 'التالي';
-			case 'meta.done': return 'منتهي';
-			case 'meta.apply': return 'يتقدم';
-			case 'meta.refresh': return 'ينعش';
-			case 'meta.retry': return 'إعادة المحاولة?';
-			case 'meta.update': return 'تجديد';
-			case 'meta.updateInterval': return 'الفاصل الزمني للتحديث';
-			case 'meta.updateInterval5mTips': return 'الحد الأدنى: 5 م';
-			case 'meta.updateFailed': return ({required Object p}) => 'فشل التحديث:${p}';
-			case 'meta.samplingUnit': return 'وحدة زمن أخذ العينات';
-			case 'meta.queryResultCount': return 'عدد نتائج الاستعلام';
-			case 'meta.queryLimit': return ({required Object p}) => 'عرض ما يصل إلى ${p} من البيانات';
-			case 'meta.none': return 'لا أحد';
-			case 'meta.start': return 'يبدأ';
-			case 'meta.pause': return 'يوقف';
-			case 'meta.reset': return 'إعادة ضبط';
-			case 'meta.submit': return 'يُقدِّم';
-			case 'meta.user': return 'مستخدم';
-			case 'meta.account': return 'حساب';
-			case 'meta.password': return 'كلمة المرور';
-			case 'meta.required': return 'مطلوب';
-			case 'meta.type': return 'يكتب';
-			case 'meta.path': return 'طريق';
-			case 'meta.local': return 'محلي';
-			case 'meta.remote': return 'بعيد';
-			case 'meta.other': return 'آخر';
-			case 'meta.dns': return 'DNS';
-			case 'meta.url': return 'URL';
-			case 'meta.urlInvalid': return 'URL غير صالح';
-			case 'meta.urlCannotEmpty': return 'لا يمكن أن يكون الرابط فارغًا';
-			case 'meta.urlTooLong': return 'عنوان URL طويل جدًا (>8182)';
-			case 'meta.copyUrl': return 'Copy Link';
-			case 'meta.openUrl': return 'Open Link';
-			case 'meta.shareUrl': return 'شارك الرابط';
-			case 'meta.speedTestUrl': return 'URL اختبار السرعة';
-			case 'meta.tls': return 'TLS';
-			case 'meta.userAgent': return 'UserAgent';
-			case 'meta.staticIP': return 'رقم تعريف حاسوب ثابت';
-			case 'meta.isp': return 'مزودي VPN';
-			case 'meta.domainSuffix': return 'لاحقة اسم المجال';
-			case 'meta.domain': return 'اسم النطاق';
-			case 'meta.domainKeyword': return 'الكلمات الرئيسية لاسم المجال';
-			case 'meta.domainRegex': return 'انتظام اسم المجال';
-			case 'meta.ip': return 'IP';
-			case 'meta.port': return 'ميناء';
-			case 'meta.portRange': return 'نطاق الميناء';
-			case 'meta.appPackage': return 'معرف حزمة التطبيق';
-			case 'meta.processName': return 'اسم العملية';
-			case 'meta.processPath': return 'مسار العملية';
-			case 'meta.processDir': return 'دليل العمليات';
-			case 'meta.systemProxy': return 'وكيل النظام';
-			case 'meta.statistics': return 'إحصائيات';
-			case 'meta.statisticsAndAnalysis': return 'الإحصاء والتحليل';
-			case 'meta.statisticsPrivacyDesensitize': return 'إزالة حساسية الخصوصية';
-			case 'meta.statisticsPrivacyDesensitizeTips': return 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية';
-			case 'meta.records': return 'سِجِلّ';
-			case 'meta.requestRecords': return 'طلب السجلات';
-			case 'meta.netInterfaces': return 'واجهات صافية';
-			case 'meta.netSpeed': return 'سرعة';
-			case 'meta.trafficTrendChart': return 'مخطط اتجاهات حركة المرور';
-			case 'meta.trafficDistributionChart': return 'خريطة توزيع حركة المرور';
-			case 'meta.connectionChart': return 'مخطط اتجاهات الاتصال';
-			case 'meta.memoryChart': return 'مخطط اتجاهات الذاكرة';
-			case 'meta.traffic': return 'تدفق';
-			case 'meta.trafficTotal': return 'إجمالي حركة المرور';
-			case 'meta.trafficProxy': return 'وكيل حركة المرور';
-			case 'meta.trafficDirect': return 'سير مستقيم';
-			case 'meta.website': return 'موقع إلكتروني';
-			case 'meta.memory': return 'ذاكرة';
-			case 'meta.outboundMode': return 'الوضع الصادر';
-			case 'meta.rule': return 'قاعدة';
-			case 'meta.global': return 'عالمي';
-			case 'meta.qrcode': return 'رمز الاستجابة السريعة';
-			case 'meta.qrcodeTooLong': return 'النص طويل جدًا لعرضه';
-			case 'meta.qrcodeShare': return 'شارك رمز الاستجابة السريعة';
-			case 'meta.textToQrcode': return 'رسالة نصية إلى رمز الاستجابة السريعة';
-			case 'meta.qrcodeScan': return 'مسح رمز الاستجابة السريعة';
-			case 'meta.qrcodeScanResult': return 'نتيجة المسح';
-			case 'meta.qrcodeScanFromImage': return 'مسح من الصورة';
-			case 'meta.qrcodeScanResultFailed': return 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح';
-			case 'meta.qrcodeScanResultEmpty': return 'نتيجة الفحص فارغة';
-			case 'meta.screenshot': return 'لقطة شاشة';
-			case 'meta.backupAndSync': return 'النسخ الاحتياطي والمزامنة';
-			case 'meta.autoBackup': return 'النسخ الاحتياطي التلقائي';
-			case 'meta.noProfileGotAutoBackup': return 'إذا فقدت بيانات مثل [${_root.meta.myProfiles}]، فيمكنك استعادتها من [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] أو مصادر النسخ الاحتياطي الأخرى (مثل iCloud أو Webdav، وما إلى ذلك).';
-			case 'meta.autoBackupAddProfile': return 'بعد إضافة التكوين';
-			case 'meta.autoBackupRemoveProfile': return 'بعد حذف التكوين';
-			case 'meta.currentProfile': return 'التكوين الحالي';
-			case 'meta.importAndExport': return 'استيراد وتصدير';
-			case 'meta.import': return 'يستورد';
-			case 'meta.importFromUrl': return 'الاستيراد من عنوان URL';
-			case 'meta.export': return 'يصدّر';
-			case 'meta.send': return 'يرسل';
-			case 'meta.receive': return 'تولي';
-			case 'meta.sendConfirm': return 'تأكيد الإرسال؟';
-			case 'meta.termOfUse': return 'شرط الخدمة';
-			case 'meta.privacyPolicy': return 'سياسة الخصوصية';
-			case 'meta.about': return 'عن';
-			case 'meta.name': return 'اسم';
-			case 'meta.version': return 'إصدار';
-			case 'meta.notice': return 'يلاحظ';
-			case 'meta.appNotifyWithReason': return ({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}';
-			case 'meta.sort': return 'إعادة ترتيب';
-			case 'meta.novice': return 'وضع المبتدئ';
-			case 'meta.willCompleteAfterRebootInstall': return 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
-			case 'meta.willCompleteAfterRebootUninstall': return 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-			case 'meta.requestNeedsUserApproval': return '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]';
-			case 'meta.FullDiskAccessPermissionRequired': return 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
-			case 'meta.tvMode': return 'وضع التلفزيون';
-			case 'meta.recommended': return 'يوصي';
-			case 'meta.innerError': return ({required Object p}) => 'خطأ داخلي: ${p}';
-			case 'meta.logicOperation': return 'عملية منطقية';
-			case 'meta.share': return 'يشارك';
-			case 'meta.candidateWord': return 'كلمات المرشح';
-			case 'meta.keywordOrRegx': return 'الكلمات الرئيسية/العادية';
-			case 'meta.importFromClipboard': return 'استيراد من الحافظة';
-			case 'meta.exportToClipboard': return 'تصدير إلى الحافظة';
-			case 'meta.server': return 'الخادم';
-			case 'meta.ads': return 'أعلن';
-			case 'meta.adsRemove': return 'إزالة الإعلانات';
-			case 'meta.adsBanner': return 'إعلانات البانر';
-			case 'meta.donate': return 'يتبرع';
-			case 'meta.diversion': return 'تحويل';
-			case 'meta.diversionRules': return 'قواعد التحويل';
-			case 'meta.diversionCustomGroup': return 'مجموعة تحويل مخصصة';
-			case 'meta.urlTestCustomGroup': return 'التحديد التلقائي المخصص';
-			case 'meta.setting': return 'إعدادات';
-			case 'meta.iCloud': return 'iCloud';
-			case 'meta.appleTV': return 'Apple TV';
-			case 'meta.webdav': return 'Webdav';
-			case 'meta.lanSync': return 'LAN SYNC';
-			case 'meta.lanSyncNotQuitTips': return 'لا تخرج من هذه الواجهة قبل اكتمال التزامن';
-			case 'meta.deviceNoSpace': return 'مساحة غير كافيه في القرص';
-			case 'meta.hideSystemApp': return 'إخفاء تطبيقات النظام';
-			case 'meta.hideAppIcon': return 'إخفاء أيقونة التطبيق';
-			case 'meta.hideDockIcon': return 'إخفاء أيقونة Dock';
-			case 'meta.remark': return 'ملاحظة';
-			case 'meta.remarkExist': return 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر';
-			case 'meta.remarkCannotEmpty': return 'لا يمكن أن تكون الملاحظات فارغة';
-			case 'meta.remarkTooLong': return 'ملاحظات تصل إلى 32 حرفًا';
-			case 'meta.openDir': return 'فتح دليل الملف';
-			case 'meta.fileChoose': return 'حدد الملف';
-			case 'meta.filePathCannotEmpty': return 'لا يمكن أن يكون مسار الملف فارغًا';
-			case 'meta.fileNotExist': return ({required Object p}) => 'الملف غير موجود: ${p}';
-			case 'meta.fileTypeInvalid': return ({required Object p}) => 'نوع الملف غير صالح:${p}';
-			case 'meta.uwpExemption': return 'إعفاء عزل شبكة UWP';
-			case 'meta.rulesetGeoSite': return 'GeoSite';
-			case 'meta.rulesetGeoIp': return 'GeoIP';
-			case 'meta.rulesetAcl': return 'ACL';
-			case 'meta.getProfile': return 'احصل على التكوين';
-			case 'meta.addProfile': return 'إضافة ملف تعريف';
-			case 'meta.myProfiles': return 'مظهر';
-			case 'meta.myProfilesAtLeastOneReserveEnable': return 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
-			case 'meta.profileEdit': return 'تحرير الملف الشخصي';
-			case 'meta.profileEditUrlExist': return 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
-			case 'meta.profileEditReloadAfterProfileUpdate': return 'إعادة التحميل بعد تحديث الملف الشخصي';
-			case 'meta.profileEditTestLatencyAfterProfileUpdate': return 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا';
-			case 'meta.profileEditTestLatencyAfterProfileUpdateTips': return 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]';
-			case 'meta.profileEditTestLatencyAutoRemove': return 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون';
-			case 'meta.profileEditTestLatencyAutoRemoveTips': return 'جرب ما يصل إلى 3 مرات';
-			case 'meta.profileImport': return 'استيراد ملف الملف الشخصي';
-			case 'meta.profileAddUrlOrContent': return 'إضافة رابط ملف التعريف';
-			case 'meta.profileExists': return 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا';
-			case 'meta.profileUrlOrContent': return 'رابط/محتوى الملف الشخصي';
-			case 'meta.profileUrlOrContentHit': return 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)';
-			case 'meta.profileUrlOrContentCannotEmpty': return 'لا يمكن أن يكون رابط الملف الشخصي فارغًا';
-			case 'meta.profileAddFailedFormatException': return ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}';
-			case 'meta.profileAddFailedThenDownloadAndImport': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق';
-			case 'meta.profileAddFailedHandshakeException': return ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى';
-			case 'meta.profileAddParseFailed': return 'فشل تحليل الملف الشخصي';
-			case 'meta.profileAddNoServerAvaliable': return 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة';
-			case 'meta.profileAddWrapSuccess': return 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض';
-			case 'diversionRulesKeep': return 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}';
-			case 'diversionCustomGroupPreset': return 'الإعداد المسبق [مجموعة تحويل مخصصة]';
-			case 'diversionCustomGroupPresetTips': return 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]';
-			case 'diversionCustomGroupAddTips': return 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.';
-			case 'rulesetEnableTips': return 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ';
-			case 'ispUserAgentTips': return 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].';
-			case 'ispDiversionTips': return 'قواعد التفريغ التي يوفرها [${_root.meta.isp}]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ';
-			case 'isp.bind': return 'الارتباط بـ [${_root.meta.isp}]';
-			case 'isp.unbind': return ({required Object p}) => 'فك الارتباط[${p}]';
-			case 'isp.faq': return ({required Object p}) => 'الأسئلة الشائعة[${p}]';
-			case 'isp.customerService': return ({required Object p}) => 'خدمة العملاء[${p}]';
-			case 'isp.follow': return ({required Object p}) => 'متابعة[${p}]';
-			case 'isp.invalidOrExpired': return '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية';
-			case 'permission.camera': return 'الكاميرا';
-			case 'permission.screen': return 'تسجيل الشاشة';
-			case 'permission.appQuery': return 'الحصول على قائمة التطبيقات';
-			case 'permission.request': return ({required Object p}) => 'تمكين أذونات [${p}]';
-			case 'permission.requestNeed': return ({required Object p}) => 'الرجاء تفعيل إذن [${p}]';
-			case 'tls.insecure': return 'تخطي التحقق من الشهادة';
-			case 'tls.affectProtocolTips': return 'vless, vmess, trojan';
-			case 'tls.fragmentEnable': return 'تمكين تجزئة TLS';
-			case 'tls.fragmentSize': return 'حجم شريحة TLS';
-			case 'tls.fragmentSleep': return 'TLS النوم المجزأ';
-			case 'tls.mixedCaseSNIEnable': return 'تمكين TLS الهجين SNI';
-			case 'tls.paddingEnable': return 'تمكين الحشو TLS';
-			case 'tls.paddingSize': return 'حجم الحشو TLS';
-			case 'outboundRuleMode.currentSelected': return 'المحدد الحالي';
-			case 'outboundRuleMode.urltest': return 'اختيار آلي';
-			case 'outboundRuleMode.direct': return 'مباشر';
-			case 'outboundRuleMode.block': return 'حاجز';
-			case 'dnsProxyResolveMode.proxy': return _root.outboundRuleMode.currentSelected;
-			case 'dnsProxyResolveMode.direct': return _root.outboundRuleMode.direct;
-			case 'dnsProxyResolveMode.fakeip': return 'FakeIP';
-			case 'proxyStrategy.perferProxy': return '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.perferDirect': return '${_root.meta.prefer} ${_root.outboundRuleMode.direct}';
-			case 'proxyStrategy.onlyProxy': return '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}';
-			case 'proxyStrategy.onlyDirect': return '${_root.meta.only} ${_root.outboundRuleMode.direct}';
-			case 'reloadReason.latencyTest': return '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
-			case 'reloadReason.profileUpdate': return 'تحديثات التكوين';
-			case 'theme.light': return 'لون فاتح';
-			case 'theme.dark': return 'أسود';
-			case 'theme.auto': return 'أوتوماتيكي';
-			case 'downloadProxyStrategy': return 'تحميل القناة';
-			case 'dnsProxyResolveModeTips': return '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]';
-			case 'routeFinal': return 'أخير';
-			case 'protocolSniff': return 'الكشف عن البروتوكول';
-			case 'sendOrReceiveNotMatch': return ({required Object p}) => 'الرجاء استخدام [${p}]';
-			case 'turnOffPrivateDirect': return 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً';
-			case 'targetConnectFailed': return ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)';
-			case 'appleTVSync': return 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing';
-			case 'appleTVSyncDone': return 'اكتملت المزامنة، برجاء الانتقال إلى Apple TV - Karing لفتح/إعادة تشغيل الاتصال';
-			case 'appleTVRemoveCoreConfig': return 'إزالة Apple TV - Karing Core Configuration';
-			case 'appleTVRemoveCoreConfigDone': return 'Apple TV - تم حذف الملف التعريفي الأساسي لـ Karing؛ وتم قطع اتصال خدمة VPN';
-			case 'appleTVUrlInvalid': return 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing';
-			case 'appleTV404': return ({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
-			case 'appleCoreVersionNotMatch': return ({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى';
-			case 'remoteProfileEditConfirm': return 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
-			case 'mustBeValidHttpsURL': return 'يجب أن يكون عنوان URL HTTPS صالح';
-			case 'fileNotExistReinstall': return ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
-			case 'noNetworkConnect': return 'لا يوجد اتصال بالإنترنت';
-			case 'sudoPassword': return 'كلمة مرور sudo (مطلوبة لوضع TUN)';
-			case 'turnOffNetworkBeforeInstall': return 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
-			case 'latencyTestResolveIP': return 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
-			case 'removeBannerAdsByShare': return 'شارك[Karing]اذهب إلى الإعلانات';
-			case 'removeBannerAdsByReward': return 'مشاهدة الإعلانات انتقل إلى الإعلانات';
-			case 'removeBannerAdsByShareTip': return ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
-			case 'removeBannerAdsByRewardTip': return ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
-			case 'removeBannerAdsDone': return ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
-			case 'maybeAdsByReward': return 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.';
-			case 'edgeRuntimeNotInstalled': return 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
-			case 'locales.en': return 'English';
-			case 'locales.zh-CN': return '简体中文';
-			case 'locales.ar': return 'عربي';
-			case 'locales.ru': return 'Русский';
-			case 'locales.fa': return 'فارسی';
-			default: return null;
-		}
+		return switch (path) {
+			'AboutScreen.installRefer' => 'تثبيت الرجوع',
+			'AboutScreen.installTime' => 'وقت التثبيت',
+			'AboutScreen.versionChannel' => 'تحديث القنوات تلقائيا',
+			'AboutScreen.autoDownloadPkg' => 'تنزيل حزم التحديث تلقائيًا',
+			'AboutScreen.disableUAReport' => 'تطبيق بيانات التحسين',
+			'AboutScreen.disableUAReportTip' => 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]',
+			'AboutScreen.devOptions' => 'خيارات للمطور',
+			'AboutScreen.enableDebugLog' => 'تمكين سجل التصحيح',
+			'AboutScreen.viewFilsContent' => 'عرض الملفات',
+			'AboutScreen.enablePprof' => 'يُمكَِن pprof',
+			'AboutScreen.pprofPanel' => 'pprof لوحة',
+			'AboutScreen.allowRemoteAccessPprof' => 'السماح بالوصول عن بعد إلى ${_root.AboutScreen.pprofPanel}',
+			'AboutScreen.allowRemoteAccessHtmlBoard' => 'السماح بالوصول عن بعد${_root.SettingsScreen.htmlBoard}',
+			'AboutScreen.useOriginalSBProfile' => 'استخدم تكوين صندوق الغناء الأصلي',
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'عنوان URL الخادم',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'لايمكن ان يكون فارغا',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'فشل تسجيل الدخول:',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'فشل في الحصول على قائمة الملفات:',
+			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'غير صالح [Domain]:${p}',
+			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'غير صالح [IP Cidr]:${p}',
+			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'غير صالح [${p0}]:${p}',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'غير صالح [Rule Set]:${p}, يجب أن يكون عنوان URL عنوان URL HTTPS صالحًا وملفًا ثنائيًا مع ملحق الملف .SRS',
+			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'غير صالح [Rule Set(build-in)]:${p} غير صالحة، التنسيق هو geosite:xxx أو geoip:xxx أو acl:xxx، ويجب أن يكون xxx اسم قاعدة صالحًا',
+			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'غير صالح [${_root.meta.appPackage}]:${p}',
+			'DiversionGroupCustomEditScreen.setDiversionRule' => 'نصيحة: بعد الحفظ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة، وإلا فلن تصبح سارية المفعول.',
+			'DiversionRuleDetectScreen.title' => 'قاعدة التحويل اكتشف',
+			'DiversionRuleDetectScreen.rule' => 'قاعدة:',
+			'DiversionRuleDetectScreen.outbound' => 'مخدم بروكسي:',
+			'DiversionRulesScreen.diversionRulesMatchTips' => 'نصيحة: حاول مطابقة القواعد من الأعلى إلى الأسفل، إذا لم تتم مطابقة أي قاعدة، استخدم [نهائي]',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'لا يمكن أن يكون ISP فارغًا',
+			'DnsSettingsScreen.urlCanNotEmpty' => 'لا يمكن أن يكون عنوان URL فارغًا',
+			'DnsSettingsScreen.error' => ({required Object p}) => 'نوع غير مدعوم:${p}',
+			'DnsSettingsScreen.dnsDesc' => 'العمود الأول من بيانات التأخير هو تأخير استعلام الاتصال المباشر;\nالعمود الثاني: شغله [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير الاستعلام الذي تم إعادة توجيهه من خلال خادم الوكيل الحالي; إذا [[حركة الوكيل]حل DNS من خلال خادم الوكيل]: بيانات التأخير هي تأخير استعلام الاتصال المباشر',
+			'FileContentViewerScreen.title' => 'ملف محتوى الملف',
+			'FileContentViewerScreen.clearFileContent' => 'هل أنت متأكد من مسح محتوى الملف؟',
+			'FileContentViewerScreen.clearFileContentTips' => 'هل أنت متأكد من مسح محتوى ملف الملف الشخصي؟قد يتسبب تطهير ملف الملف الشخصي في فقدان البيانات أو وظائف التطبيق غير الطبيعية ، يرجى العمل بحذر',
+			'HomeScreen.toSelectServer' => 'الرجاء تحديد خادم',
+			'HomeScreen.invalidServer' => 'غير صالح ، الرجاء اختيار مرة أخرى',
+			'HomeScreen.disabledServer' => 'معطل ، الرجاء اختيار مرة أخرى',
+			'HomeScreen.expiredServer' => 'لا يوجد خادم متاح: قد يكون التكوين قديمًا أو معطلاً',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'جوارب:${sp},http(s):${hp}',
+			'HomeScreen.myLinkEmpty' => 'الرجاء الإعداد [الاختصار وصلة] قبل استخدامه',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'يوجد عدد كبير جدًا من الخوادم الوكيلة [${p}>${p1}]، وقد لا يكون الاتصال ممكنًا بسبب قيود ذاكرة النظام.',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'قد يؤدي وجود عدد كبير جدًا من خوادم الوكيل [${p}>${p1}] إلى حدوث اتصالات بطيئة أو غير قابلة للوصول',
+			'LaunchFailedScreen.invalidProcess' => 'فشل التطبيق في البدء [اسم عملية غير صالح] ، يرجى إعادة تثبيت التطبيق إلى دليل منفصل',
+			'LaunchFailedScreen.invalidProfile' => 'فشل التطبيق في البدء [فشل في الوصول إلى الملف الشخصي] ، يرجى إعادة تثبيت التطبيق',
+			'LaunchFailedScreen.invalidVersion' => 'فشل التطبيق في بدء [إصدار غير صالح] ، يرجى إعادة تثبيت التطبيق',
+			'LaunchFailedScreen.systemVersionLow' => 'فشل بدء تشغيل التطبيق [إصدار النظام منخفض جدًا]',
+			'LaunchFailedScreen.invalidInstallPath' => 'مسار التثبيت غير صالح ، يرجى إعادة تثبيته إلى مسار صالح',
+			'MyProfilesMergeScreen.profilesMerge' => 'دمج الملامح',
+			'MyProfilesMergeScreen.profilesMergeTarget' => 'ملف تعريف الهدف',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'ملفات تعريف المصدر',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'نصيحة: سيتم تجاهل تحويل ملفات تعريف المصدر',
+			'NetCheckScreen.title' => 'فحص صافي',
+			'NetCheckScreen.warn' => 'ملاحظة: نظرًا لتأثير بيئة الشبكة وقواعد التحويل ، فإن نتائج الاختبار ليست مكافئة تمامًا للنتائج الفعلية.',
+			'NetCheckScreen.invalidDomain' => 'اسم النطاق غير صالح',
+			'NetCheckScreen.connectivity' => 'اتصال الشبكة',
+			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'اختبار اتصال IPv4[${p}] كل شيء فشل',
+			'NetCheckScreen.connectivityTestIpv4Ok' => 'Ipv4 نجح الاتصال',
+			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'Ipv6 اختبار الاتصال [${p}] كل شيء فشل ، قد لا تدعم شبكتك IPv6',
+			'NetCheckScreen.connectivityTestIpv6Ok' => 'نجح اتصال IPv6',
+			'NetCheckScreen.connectivityTestOk' => 'الشبكة متصلة بالإنترنت',
+			'NetCheckScreen.connectivityTestFailed' => 'الشبكة ليست متصلة بعد بالإنترنت',
+			'NetCheckScreen.remoteRulesetsDownloadOk' => 'تم تنزيل كل شيء بنجاح',
+			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'التحميل أو فشل',
+			'NetCheckScreen.outbound' => 'مخدم بروكسي',
+			'NetCheckScreen.outboundOk' => ({required Object p}) => '[${p}] نجح الاتصال ',
+			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => '[${p1}] فشل الاتصال\nError:[${p2}]',
+			'NetCheckScreen.dnsServer' => 'DNS الخادم',
+			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]نجح استعلام DNS\nDNS قاعدة:[${p2}]\n وقت الإستجابة:[${p3} ms]\nAعنوان[${p4}]',
+			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]نجح استعلام DNS\n nDNS قاعدة:[${p2}]\nخطأ:[${p3}]',
+			'NetCheckScreen.host' => 'اتصال HTTP',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nقاعدة التحويل:[${p2}]\nمخدم بروكسي:[${p3}]',
+			'NetCheckScreen.hostConnectionOk' => 'نجح الاتصال',
+			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'فشل الاتصال:[${p}]',
+			'NetConnectionsFilterScreen.hostIp' => 'المجال/IP',
+			'NetConnectionsFilterScreen.app' => 'برنامج',
+			'NetConnectionsFilterScreen.rule' => 'قاعدة',
+			'NetConnectionsFilterScreen.chain' => 'خارج',
+			'NetConnectionsScreen.copyAsCSV' => 'نسخ إلى تنسيق CSV',
+			'NetConnectionsScreen.selectType' => 'حدد نوع التحويل',
+			'PerAppAndroidScreen.title' => 'لكل وكيل تطبيق',
+			'PerAppAndroidScreen.whiteListMode' => 'وضع القائمة البيضاء',
+			'PerAppAndroidScreen.whiteListModeTip' => 'عند التمكين: فقط التطبيقات التي تم فحصها هي وكلاء ؛عندما لا يتم تمكينها: فقط التطبيقات التي لم يتم فحصها هي وكلاء',
+			'RegionSettingsScreen.title' => 'الدولة او المنطقة',
+			'RegionSettingsScreen.Regions' => '  نصيحة: يرجى تعيين بلدك أو منطقتك الحالية بشكل صحيح ، وإلا فقد يتسبب في مشاكل في تحويل الشبكة',
+			'ServerSelectScreen.title' => 'حدد الخادم',
+			'ServerSelectScreen.autoSelectServer' => 'تلقائي حدد الخادم بأقل زمن انتقال',
+			'ServerSelectScreen.recentUse' => 'مستخدم حديثا',
+			'ServerSelectScreen.myFav' => 'المفضل لدي',
+			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'الخادم المحدد هو عنوان محلي وقد لا يعمل بشكل صحيح:${p}',
+			'ServerSelectScreen.selectRequireEnableIPv6' => 'الخادم المحدد هو عنوان IPv6 ويتطلب [تمكين IPv6]',
+			'ServerSelectScreen.selectDisabled' => 'تم تعطيل هذا الخادم',
+			'ServerSelectScreen.error404' => 'واجه اكتشاف الكمون خطأ ، يرجى التحقق مما إذا كان هناك تكوين مع نفس المحتوى',
+			'SettingsScreen.getTranffic' => 'احصل على حركة المرور',
+			'SettingsScreen.tutorial' => 'درس تعليمي',
+			'SettingsScreen.commonlyUsedRulesets' => 'مجموعات القواعد شائعة الاستخدام',
+			'SettingsScreen.howToRemoveAds' => 'كيفية إزالة الإعلانات',
+			'SettingsScreen.htmlBoard' => 'لوحة على الانترنت',
+			'SettingsScreen.dnsLeakDetection' => 'كشف تسرب DNS',
+			'SettingsScreen.proxyLeakDetection' => 'كشف تسرب الوكيل',
+			'SettingsScreen.speedTest' => 'اختبار السرعة',
+			'SettingsScreen.rulesetDirectDownlad' => 'مجموعة القواعد تحميل مباشر',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'إخفاء قواعد تحويل حركة المرور غير النشطة',
+			'SettingsScreen.disableISPDiversionGroup' => 'تعطيل قواعد تحويل [${_root.meta.isp}]',
+			'SettingsScreen.portSettingRule' => 'القاعدة القائمة',
+			'SettingsScreen.portSettingDirectAll' => 'توجيه كل شيء',
+			'SettingsScreen.portSettingProxyAll' => 'وكيل الكل',
+			'SettingsScreen.portSettingControl' => 'السيطرة والمزامنة',
+			'SettingsScreen.portSettingCluster' => 'خدمة الكتلة',
+			'SettingsScreen.modifyPort' => 'تعديل المنفذ',
+			'SettingsScreen.modifyPortOccupied' => 'المنفذ مشغول، يرجى استخدام منفذ آخر',
+			'SettingsScreen.ipStrategyTips' => 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.',
+			'SettingsScreen.tunAppendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',
+			'SettingsScreen.dnsEnableRule' => 'تمكين قواعد تحويل DNS',
+			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] قناة الدقة',
+			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] تمكين ECS',
+			'SettingsScreen.dnsTestDomain' => 'مجال الاختبار',
+			'SettingsScreen.dnsTestDomainInvalid' => 'مجال غير صالح',
+			'SettingsScreen.dnsTypeOutbound' => 'مخدم بروكسي',
+			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
+			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
+			'SettingsScreen.dnsTypeResolver' => 'خادم DNS',
+			'SettingsScreen.dnsEnableRuleTips' => 'بعد التمكين ، سيختار اسم المجال خادم DNS المقابل للدقة وفقًا لقواعد التحويل',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'بعد تمكين FakeIP، إذا تم قطع اتصال VPN، فقد يلزم إعادة تشغيل التطبيق الخاص بك؛ يجب تشغيل هذه الوظيفة [وضع TUN]',
+			'SettingsScreen.dnsTypeOutboundTips' => 'دقة اسم المجال لخادم الوكيل',
+			'SettingsScreen.dnsTypeDirectTips' => 'حل اسم المجال لـ [${_root.meta.trafficDirect}]',
+			'SettingsScreen.dnsTypeProxyTips' => 'حل اسم المجال لحركة المرور الوكيل',
+			'SettingsScreen.dnsTypeResolverTips' => 'دقة اسم المجال لخادم DNS الآخر',
+			'SettingsScreen.dnsAutoSetServer' => 'إعداد الخادم تلقائيا',
+			'SettingsScreen.dnsResetServer' => 'إعادة تعيين الخادم',
+			'SettingsScreen.inboundDomainResolve' => 'حل أسماء النطاقات الواردة',
+			'SettingsScreen.privateDirect' => 'اتصال مباشر بالشبكة الخاصة',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [${p}]',
+			'SettingsScreen.useRomoteRes' => 'استخدم الموارد البعيدة',
+			'SettingsScreen.autoAppendRegion' => 'إرفاق القواعد الأساسية تلقائيًا',
+			'SettingsScreen.autoSelect' => 'اختيار آلي',
+			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'تجاهل الخوادم الوكيلة [المواجهة/المتسلسلة].',
+			'SettingsScreen.autoSelectServerInterval' => 'فاصل الشيكات الكمون',
+			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'فترة فحص صحة الخادم الحالية',
+			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'إعادة اكتشاف متى تتغير الشبكة',
+			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'قم بتحديث الخادم الحالي بعد الكشف اليدوي عن التأخير',
+			'SettingsScreen.autoSelectServerIntervalTips' => 'كلما كان الفاصل الزمني لاكتشاف التأخير أقصر، كلما تم تحديث بيانات تأخير الخادم في الوقت المناسب، ولكنها ستشغل المزيد من الموارد وتستهلك الكهرباء بشكل أسرع',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'إذا فشل الاكتشاف، يتم تبديل العقدة؛ إذا لم يتم العثور على عقدة متاحة عند تبديل العقدة، يتم إعادة اكتشاف المجموعة مع التأخير',
+			'SettingsScreen.autoSelectServerFavFirst' => 'PRI-Use [My Favs]',
+			'SettingsScreen.autoSelectServerFavFirstTips' => 'إذا لم تكن قائمة [Favs] فارغة ، فاستخدم الخوادم في [Favs]',
+			'SettingsScreen.autoSelectServerFilter' => 'تصفية خوادم غير صالحة',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'سيتم تصفية حالات فشل الكشف عن تأخير الخادم؛ إذا لم يكن هناك خادم متاح بعد التصفية، فسيتم استخدام الخوادم [${p}] الأولى بدلاً من ذلك.',
+			'SettingsScreen.autoSelectServerLimitedNum' => 'الحد الأقصى لعدد الخوادم',
+			'SettingsScreen.autoSelectServerLimitedNumTips' => 'سيتم تصفية الخوادم التي تتجاوز هذا الرقم',
+			'SettingsScreen.numInvalid' => 'رقم غير صالح',
+			'SettingsScreen.hideInvalidServer' => 'إخفاء الخوادم غير الصالحة',
+			'SettingsScreen.sortServer' => 'خوادم الفرز',
+			'SettingsScreen.sortServerTips' => 'فرز حسب الكمون من منخفض إلى مرتفع',
+			'SettingsScreen.selectServerHideRecommand' => 'إخفاء [يوصي]',
+			'SettingsScreen.selectServerHideRecent' => 'إخفاء [المستخدمة مؤخرًا]',
+			'SettingsScreen.selectServerHideFav' => 'إخفاء [المفضلة لدي]',
+			'SettingsScreen.homeScreen' => 'الشاشة الرئيسية',
+			'SettingsScreen.theme' => 'Tالهيم',
+			'SettingsScreen.widgetsAlpha' => 'شفافية الأدوات',
+			'SettingsScreen.widgetsEmpty' => 'لا يوجد أداة متاحة',
+			'SettingsScreen.backgroundImage' => 'صورة الخلفية',
+			'SettingsScreen.myLink' => 'ارتباط اختصار',
+			'SettingsScreen.autoConnectAfterLaunch' => 'اتصال السيارات بعد الإطلاق',
+			'SettingsScreen.autoConnectAtBoot' => 'الاتصال التلقائي بعد بدء تشغيل النظام',
+			'SettingsScreen.autoConnectAtBootTips' => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].',
+			'SettingsScreen.hideAfterLaunch' => 'إخفاء النافذة بعد بدء التشغيل',
+			'SettingsScreen.autoSetSystemProxy' => 'وكيل نظام تعيين تلقائي عند الاتصال',
+			'SettingsScreen.bypassSystemProxy' => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام',
+			'SettingsScreen.disconnectWhenQuit' => 'افصل عندما يخرج التطبيق',
+			'SettingsScreen.excludeFromRecent' => 'إخفاء من المهام الأخيرة',
+			'SettingsScreen.wakeLock' => 'قفل الاستيقاظ',
+			'SettingsScreen.hideVpn' => 'إخفاء أيقونة VPN',
+			'SettingsScreen.hideVpnTips' => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة',
+			'SettingsScreen.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
+			'SettingsScreen.importSuccess' => 'استيراد نجاح ',
+			'SettingsScreen.rewriteConfirm' => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟',
+			'SettingsScreen.mergePerapp' => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]',
+			'SettingsScreen.networkShare' => 'مشاركة الشبكة',
+			'SettingsScreen.frontProxy' => 'الوكيل الأمامي/السلسلة',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف',
+			'SettingsScreen.allowOtherHostsConnect' => 'اسمح للآخرين بالاتصال',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.',
+			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunStrictRouteTips' => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.',
+			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.enableCluster' => 'تمكين مجموعة الوكيل الجوارب/HTTP',
+			'SettingsScreen.clusterAllowOtherHostsConnect' => 'السماح للآخرين بالاتصال بـ CLUSTER',
+			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
+			'SettingsScreen.clusterAuth' => 'مصادقة مجموعة الوكيل',
+			'SettingsScreen.tunMode' => 'نفق وضع',
+			'SettingsScreen.tuni4Address' => 'عنوان IP',
+			'SettingsScreen.tunModeTips' => 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]',
+			'SettingsScreen.tunModeRunAsAdmin' => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول',
+			'SettingsScreen.tunStack' => 'Stack',
+			'SettingsScreen.tunHijackTips' => 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل',
+			'SettingsScreen.launchAtStartup' => 'إطلاق عند بدء التشغيل',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'خروج تطبيق عند تبديل مستخدمي النظام',
+			'SettingsScreen.handleScheme' => 'مكالمة مخطط النظام',
+			'SettingsScreen.portableMode' => 'الوضع المحمول',
+			'SettingsScreen.portableModeDisableTips' => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [karing] وحذف المجلد [profiles] يدويًا في نفس الدليل مثل [karing.exe]',
+			'SettingsScreen.handleKaringScheme' => 'مقبض karing:// Call',
+			'SettingsScreen.handleClashScheme' => 'مقبض clash:// Call',
+			'SettingsScreen.handleSingboxScheme' => 'مقبض sing-box:// يتصل',
+			'SettingsScreen.alwayOnVPN' => 'اتصال مفتوح دائمًا',
+			'SettingsScreen.disconnectAfterSleep' => 'قطع الاتصال بعد سبات النظام',
+			'SettingsScreen.removeSystemVPNConfig' => 'حذف تكوين VPN النظام',
+			'SettingsScreen.timeConnectOrDisconnect' => 'المقرر يتصل/قطع الاتصال',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'يجب أن يكون VPN متصلاً ليصبح مفيدًا ؛بعد تشغيله ، سيتم تعطيل [النوم التلقائي]',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'ال cاتصاللا يمكن أن يكون فاصل الانفصال أقل من ${p} دقائق',
+			'SettingsScreen.disableFontScaler' => 'تعطيل تحجيم الخط(إعادة التشغيل يسري)',
+			'SettingsScreen.autoOrientation' => 'اتبع دوران الشاشة',
+			'SettingsScreen.restartTakesEffect' => 'إعادة التشغيل يسري',
+			'SettingsScreen.reconnectTakesEffect' => 'سيتم تطبيقه بعد إعادة الاتصال.',
+			'SettingsScreen.resetSettings' => 'اعادة الضبط',
+			'SettingsScreen.cleanCache' => 'مسح ذاكرة التخزين المؤقت',
+			'SettingsScreen.cleanCacheDone' => 'اكتملت عملية التنظيف',
+			'SettingsScreen.appleTestFlight' => 'Apple Testflight',
+			'SettingsScreen.appleAppStore' => 'متجر تطبيقات Apple',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'تحديث الإصدار ${p}',
+			'SettingsScreen.follow' => 'تابعنا',
+			'SettingsScreen.contactUs' => 'اتصل بنا',
+			'SettingsScreen.supportUs' => 'ادعمنا',
+			'SettingsScreen.rateInApp' => 'قيمنا',
+			'SettingsScreen.rateInAppStore' => 'قيمنا في متجر التطبيقات',
+			'UserAgreementScreen.privacyFirst' => 'خصوصيتك تأتي أولا',
+			'UserAgreementScreen.agreeAndContinue' => 'قبول ومتابعة',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'الإصدار الجديد [${p}] جاهز',
+			'VersionUpdateScreen.update' => 'أعد التشغيل للتحديث',
+			'VersionUpdateScreen.cancel' => 'ليس الآن',
+			'CommonWidget.diableAlwayOnVPN' => 'إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.',
+			'CommonWidget.resetPort' => 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.',
+			'main.tray.menuOpen' => '    يفتح    ',
+			'main.tray.menuExit' => '    مخرج    ',
+			'meta.enable' => 'يُمكَِن',
+			'meta.disable' => 'إبطال',
+			'meta.bydefault' => 'تقصير',
+			'meta.filter' => 'فلتر',
+			'meta.filterMethod' => 'طريقة التصفية',
+			'meta.include' => 'يشمل',
+			'meta.exclude' => 'استبعاد',
+			'meta.all' => 'الجميع',
+			'meta.prefer' => 'أولوية',
+			'meta.only' => 'فقط',
+			'meta.open' => 'يفتح',
+			'meta.close' => 'إنهاء',
+			'meta.quit' => 'يترك',
+			'meta.add' => 'اضف إليه',
+			'meta.addSuccess' => 'اضيف بنجاح',
+			'meta.addFailed' => ({required Object p}) => 'إضافة فشل:${p}',
+			'meta.remove' => 'يمسح',
+			'meta.removeConfirm' => 'هل انت متأكد من الحذف؟',
+			'meta.edit' => 'يحرر',
+			'meta.view' => 'يفحص',
+			'meta.more' => 'أكثر',
+			'meta.tips' => 'معلومات',
+			'meta.copy' => 'ينسخ',
+			'meta.save' => 'يحفظ',
+			'meta.ok' => 'نعم',
+			'meta.cancel' => 'يلغي',
+			'meta.feedback' => 'تعليق',
+			'meta.feedbackContent' => 'محتوى ردود الفعل',
+			'meta.feedbackContentHit' => 'مطلوب ، ما يصل إلى 500 حرف',
+			'meta.feedbackContentCannotEmpty' => 'لا يمكن أن يكون محتوى التعليقات فارغًا',
+			'meta.faq' => 'أسئلة مكررة',
+			'meta.download' => 'تحميل',
+			'meta.upload' => 'رفع',
+			'meta.downloadSpeed' => 'سرعة التنزيل',
+			'meta.uploadSpeed' => 'سرعة التحميل',
+			'meta.loading' => 'تحميل...',
+			'meta.convert' => 'يتحول',
+			'meta.check' => 'يفحص',
+			'meta.detect' => 'يكشف',
+			'meta.cache' => 'مخبأ',
+			'meta.days' => 'أيام',
+			'meta.hours' => 'ساعات',
+			'meta.minutes' => 'دقائق',
+			'meta.seconds' => 'ثانية',
+			'meta.milliseconds' => 'ميلي ثانية',
+			'meta.tolerance' => 'تسامح',
+			'meta.dateTimePeriod' => 'الفترة الزمنية',
+			'meta.protocol' => 'بروتوكول',
+			'meta.search' => 'يبحث',
+			'meta.custom' => 'مخصص',
+			'meta.inbound' => 'وارد',
+			'meta.outbound' => 'مخرج',
+			'meta.destination' => 'هدف',
+			'meta.outletIpByCurrentSelected' => 'IP',
+			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.connect' => 'يتصل',
+			'meta.disconnect' => 'قطع الاتصال',
+			'meta.reconnect' => 'إعادة الاتصال',
+			'meta.connected' => 'متصل',
+			'meta.disconnected' => 'انقطع الاتصال',
+			'meta.connecting' => 'توصيل',
+			'meta.connectTimeout' => 'ربط مهلة',
+			'meta.timeout' => 'نفذ الوقت',
+			'meta.timeoutDuration' => 'مدة مهلة الانتظار',
+			'meta.runDuration' => 'وقت التشغيل',
+			'meta.latency' => 'تأخير',
+			'meta.latencyTest' => 'كشف التأخير',
+			'meta.language' => 'لغة',
+			'meta.next' => 'التالي',
+			'meta.done' => 'منتهي',
+			'meta.apply' => 'يتقدم',
+			'meta.refresh' => 'ينعش',
+			'meta.retry' => 'إعادة المحاولة?',
+			'meta.update' => 'تجديد',
+			'meta.updateInterval' => 'الفاصل الزمني للتحديث',
+			'meta.updateInterval5mTips' => 'الحد الأدنى: 5 م',
+			'meta.updateFailed' => ({required Object p}) => 'فشل التحديث:${p}',
+			'meta.samplingUnit' => 'وحدة زمن أخذ العينات',
+			'meta.queryResultCount' => 'عدد نتائج الاستعلام',
+			'meta.queryLimit' => ({required Object p}) => 'عرض ما يصل إلى ${p} من البيانات',
+			'meta.none' => 'لا أحد',
+			'meta.start' => 'يبدأ',
+			'meta.pause' => 'يوقف',
+			'meta.reset' => 'إعادة ضبط',
+			'meta.submit' => 'يُقدِّم',
+			'meta.user' => 'مستخدم',
+			'meta.account' => 'حساب',
+			'meta.password' => 'كلمة المرور',
+			'meta.required' => 'مطلوب',
+			'meta.type' => 'يكتب',
+			'meta.path' => 'طريق',
+			'meta.local' => 'محلي',
+			'meta.remote' => 'بعيد',
+			'meta.other' => 'آخر',
+			'meta.dns' => 'DNS',
+			'meta.url' => 'URL',
+			'meta.urlInvalid' => 'URL غير صالح',
+			'meta.urlCannotEmpty' => 'لا يمكن أن يكون الرابط فارغًا',
+			'meta.urlTooLong' => 'عنوان URL طويل جدًا (>8182)',
+			'meta.copyUrl' => 'Copy Link',
+			'meta.openUrl' => 'Open Link',
+			'meta.shareUrl' => 'شارك الرابط',
+			'meta.speedTestUrl' => 'URL اختبار السرعة',
+			'meta.tls' => 'TLS',
+			'meta.userAgent' => 'UserAgent',
+			'meta.staticIP' => 'رقم تعريف حاسوب ثابت',
+			'meta.staticIPTips' => 'يجب عليك تمكين [TUN HijackDNS] أو [${_root.SettingsScreen.inboundDomainResolve}].',
+			'meta.isp' => 'مزودي VPN',
+			'meta.domainSuffix' => 'لاحقة اسم المجال',
+			'meta.domain' => 'اسم النطاق',
+			'meta.domainKeyword' => 'الكلمات الرئيسية لاسم المجال',
+			'meta.domainRegex' => 'انتظام اسم المجال',
+			'meta.ip' => 'IP',
+			'meta.port' => 'ميناء',
+			'meta.portRange' => 'نطاق الميناء',
+			'meta.appPackage' => 'معرف حزمة التطبيق',
+			'meta.processName' => 'اسم العملية',
+			'meta.processPath' => 'مسار العملية',
+			'meta.processDir' => 'دليل العمليات',
+			'meta.systemProxy' => 'وكيل النظام',
+			'meta.percentage' => 'نسبة مئوية',
+			'meta.statistics' => 'إحصائيات',
+			'meta.statisticsAndAnalysis' => 'الإحصاء والتحليل',
+			'meta.statisticsDataDesensitize' => 'إخفاء هوية البيانات',
+			'meta.statisticsDataDesensitizeTips' => 'سيتم استبدال معرف العملية/الحزمة/اسم المجال المستهدف/عنوان IP المستهدف وما إلى ذلك بـ * وحفظه بعد إزالة الحساسية',
+			'meta.records' => 'سِجِلّ',
+			'meta.requestRecords' => 'طلب السجلات',
+			'meta.netInterfaces' => 'واجهات صافية',
+			'meta.netSpeed' => 'سرعة',
+			'meta.memoryTrendChart' => 'مخطط اتجاهات الذاكرة',
+			'meta.trafficTrendChart' => 'مخطط اتجاهات حركة المرور',
+			'meta.trafficDistributionChart' => 'خريطة توزيع حركة المرور',
+			'meta.connectionChart' => 'مخطط اتجاهات الاتصال',
+			'meta.memoryChart' => 'مخطط اتجاهات الذاكرة',
+			'meta.trafficStatistics' => 'إحصائيات المرور',
+			'meta.traffic' => 'تدفق',
+			'meta.trafficTotal' => 'إجمالي حركة المرور',
+			'meta.trafficProxy' => 'وكيل حركة المرور',
+			'meta.trafficDirect' => 'سير مستقيم',
+			'meta.website' => 'موقع إلكتروني',
+			'meta.memory' => 'ذاكرة',
+			'meta.outboundMode' => 'الوضع الصادر',
+			'meta.rule' => 'قاعدة',
+			'meta.global' => 'عالمي',
+			'meta.qrcode' => 'رمز الاستجابة السريعة',
+			'meta.qrcodeTooLong' => 'النص طويل جدًا لعرضه',
+			'meta.qrcodeShare' => 'شارك رمز الاستجابة السريعة',
+			'meta.textToQrcode' => 'رسالة نصية إلى رمز الاستجابة السريعة',
+			'meta.qrcodeScan' => 'مسح رمز الاستجابة السريعة',
+			'meta.qrcodeScanResult' => 'نتيجة المسح',
+			'meta.qrcodeScanFromImage' => 'مسح من الصورة',
+			'meta.qrcodeScanResultFailed' => 'فشل في تحليل الصورة ، يرجى التأكد من أن لقطة الشاشة هي رمز QR صالح',
+			'meta.qrcodeScanResultEmpty' => 'نتيجة الفحص فارغة',
+			'meta.screenshot' => 'لقطة شاشة',
+			'meta.backupAndSync' => 'النسخ الاحتياطي والمزامنة',
+			'meta.autoBackup' => 'النسخ الاحتياطي التلقائي',
+			'meta.noProfileGotAutoBackup' => 'إذا فقدت بيانات مثل [${_root.meta.myProfiles}]، فيمكنك استعادتها من [${_root.meta.backupAndSync}-${_root.meta.autoBackup}] أو مصادر النسخ الاحتياطي الأخرى (مثل iCloud أو Webdav، وما إلى ذلك).',
+			'meta.autoBackupAddProfile' => 'بعد إضافة التكوين',
+			'meta.autoBackupRemoveProfile' => 'بعد حذف التكوين',
+			'meta.profile' => 'التكوين',
+			'meta.currentProfile' => 'التكوين الحالي',
+			'meta.importAndExport' => 'استيراد وتصدير',
+			'meta.import' => 'يستورد',
+			'meta.importFromUrl' => 'الاستيراد من عنوان URL',
+			'meta.export' => 'يصدّر',
+			'meta.send' => 'يرسل',
+			'meta.receive' => 'تولي',
+			'meta.sendConfirm' => 'تأكيد الإرسال؟',
+			'meta.termOfUse' => 'شرط الخدمة',
+			'meta.privacyPolicy' => 'سياسة الخصوصية',
+			'meta.about' => 'عن',
+			'meta.name' => 'اسم',
+			'meta.version' => 'إصدار',
+			'meta.notice' => 'يلاحظ',
+			'meta.appNotifyWithReason' => ({required Object p, required Object p1}) => 'الإجراء: ${p}\nالسبب: ${p1}',
+			'meta.sort' => 'إعادة ترتيب',
+			'meta.novice' => 'وضع المبتدئ',
+			'meta.willCompleteAfterRebootInstall' => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام',
+			'meta.willCompleteAfterRebootUninstall' => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام',
+			'meta.requestNeedsUserApproval' => '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]',
+			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.',
+			'meta.tvMode' => 'وضع التلفزيون',
+			'meta.recommended' => 'يوصي',
+			'meta.innerError' => ({required Object p}) => 'خطأ داخلي: ${p}',
+			'meta.logicOperation' => 'عملية منطقية',
+			'meta.share' => 'يشارك',
+			'meta.candidateWord' => 'كلمات المرشح',
+			'meta.keywordOrRegx' => 'الكلمات الرئيسية/العادية',
+			'meta.importFromClipboard' => 'استيراد من الحافظة',
+			'meta.exportToClipboard' => 'تصدير إلى الحافظة',
+			'meta.server' => 'الخادم',
+			'meta.ads' => 'أعلن',
+			'meta.adsRemove' => 'إزالة الإعلانات',
+			'meta.adsBanner' => 'إعلانات البانر',
+			'meta.donate' => 'يتبرع',
+			'meta.diversion' => 'تحويل',
+			'meta.diversionRules' => 'قواعد التحويل',
+			'meta.diversionCustomGroup' => 'مجموعة تحويل مخصصة',
+			'meta.urlTestCustomGroup' => 'التحديد التلقائي المخصص',
+			'meta.setting' => 'إعدادات',
+			'meta.iCloud' => 'iCloud',
+			'meta.appleTV' => 'Apple TV',
+			'meta.webdav' => 'Webdav',
+			'meta.lanSync' => 'LAN SYNC',
+			'meta.lanSyncNotQuitTips' => 'لا تخرج من هذه الواجهة قبل اكتمال التزامن',
+			'meta.deviceNoSpace' => 'مساحة غير كافيه في القرص',
+			'meta.hideSystemApp' => 'إخفاء تطبيقات النظام',
+			'meta.hideAppIcon' => 'إخفاء أيقونة التطبيق',
+			'meta.hideDockIcon' => 'إخفاء أيقونة Dock',
+			'meta.remark' => 'ملاحظة',
+			'meta.remarkExist' => 'ملاحظة موجودة بالفعل ، يرجى استخدام اسم آخر',
+			'meta.remarkCannotEmpty' => 'لا يمكن أن تكون الملاحظات فارغة',
+			'meta.remarkTooLong' => 'ملاحظات تصل إلى 32 حرفًا',
+			'meta.openDir' => 'فتح دليل الملف',
+			'meta.fileChoose' => 'حدد الملف',
+			'meta.filePathCannotEmpty' => 'لا يمكن أن يكون مسار الملف فارغًا',
+			'meta.fileNotExist' => ({required Object p}) => 'الملف غير موجود: ${p}',
+			'meta.fileTypeInvalid' => ({required Object p}) => 'نوع الملف غير صالح:${p}',
+			'meta.uwpExemption' => 'إعفاء عزل شبكة UWP',
+			'meta.rulesetGeoSite' => 'GeoSite',
+			'meta.rulesetGeoIp' => 'GeoIP',
+			'meta.rulesetAcl' => 'ACL',
+			'meta.getProfile' => 'احصل على التكوين',
+			'meta.addProfile' => 'إضافة ملف تعريف',
+			'meta.myProfiles' => 'مظهر',
+			'meta.myProfilesAtLeastOneReserveEnable' => 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل',
+			'meta.profileEdit' => 'تحرير الملف الشخصي',
+			'meta.profileEditUrlExist' => 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر',
+			'meta.profileEditReloadAfterProfileUpdate' => 'إعادة التحميل بعد تحديث الملف الشخصي',
+			'meta.profileEditTestLatencyAfterProfileUpdate' => 'ابدأ اختبارات الكمون بعد التحديث تلقائيًا',
+			'meta.profileEditTestLatencyAfterProfileUpdateTips' => 'يجب توصيل VPN ، وتمكين [إعادة التحميل بعد تحديث الملف الشخصي]',
+			'meta.profileEditTestLatencyAutoRemove' => 'إزالة الخوادم التي تفشل تلقائيا اختبارات الكمون',
+			'meta.profileEditTestLatencyAutoRemoveTips' => 'جرب ما يصل إلى 3 مرات',
+			'meta.profileImport' => 'استيراد ملف الملف الشخصي',
+			'meta.profileAddUrlOrContent' => 'إضافة رابط ملف التعريف',
+			'meta.profileExists' => 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا',
+			'meta.profileUrlOrContent' => 'رابط/محتوى الملف الشخصي',
+			'meta.profileUrlOrContentHit' => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)',
+			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق',
+			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى',
+			'meta.profileAddParseFailed' => 'فشل تحليل الملف الشخصي',
+			'meta.profileAddNoServerAvaliable' => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة',
+			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
+			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
+			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',
+			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',
+			'diversionCustomGroupAddTips' => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.',
+			'rulesetEnableTips' => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ',
+			'ispUserAgentTips' => 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].',
+			'ispDiversionTips' => 'قواعد التفريغ التي يوفرها [${_root.meta.isp}]؛ لا تدعم الاشتراكات من النوع [V2Ray] قواعد التفريغ',
+			'isp.bind' => 'الارتباط بـ [${_root.meta.isp}]',
+			'isp.unbind' => ({required Object p}) => 'فك الارتباط[${p}]',
+			'isp.faq' => ({required Object p}) => 'الأسئلة الشائعة[${p}]',
+			'isp.customerService' => ({required Object p}) => 'خدمة العملاء[${p}]',
+			'isp.follow' => ({required Object p}) => 'متابعة[${p}]',
+			'isp.invalidOrExpired' => '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية',
+			'permission.camera' => 'الكاميرا',
+			'permission.screen' => 'تسجيل الشاشة',
+			'permission.appQuery' => 'الحصول على قائمة التطبيقات',
+			'permission.request' => ({required Object p}) => 'تمكين أذونات [${p}]',
+			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
+			'tls.insecure' => 'تخطي التحقق من الشهادة',
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
+			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
+			'tls.fragmentSize' => 'حجم شريحة TLS',
+			'tls.fragmentSleep' => 'TLS النوم المجزأ',
+			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
+			'tls.paddingEnable' => 'تمكين الحشو TLS',
+			'tls.paddingSize' => 'حجم الحشو TLS',
+			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
+			'outboundRuleMode.urltest' => 'اختيار آلي',
+			_ => null,
+		} ?? switch (path) {
+			'outboundRuleMode.direct' => 'مباشر',
+			'outboundRuleMode.block' => 'حاجز',
+			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,
+			'dnsProxyResolveMode.direct' => _root.outboundRuleMode.direct,
+			'dnsProxyResolveMode.fakeip' => 'FakeIP',
+			'proxyStrategy.perferProxy' => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.perferDirect' => '${_root.meta.prefer} ${_root.outboundRuleMode.direct}',
+			'proxyStrategy.onlyProxy' => '${_root.meta.only} ${_root.outboundRuleMode.currentSelected}',
+			'proxyStrategy.onlyDirect' => '${_root.meta.only} ${_root.outboundRuleMode.direct}',
+			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
+			'reloadReason.profileUpdate' => 'تحديثات التكوين',
+			'theme.light' => 'لون فاتح',
+			'theme.dark' => 'أسود',
+			'theme.auto' => 'أوتوماتيكي',
+			'downloadProxyStrategy' => 'تحميل القناة',
+			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: الاتصال بخادم DNS من خلال خادم الوكيل لحل اسم المجال\n[${_root.dnsProxyResolveMode.direct}]: الاتصال مباشرة بخادم DNS لحل اسم المجال\n[ ${_root.dnsProxyResolveMode.fakeip}]: بواسطة الوكيل يقوم الخادم بحل اسم المجال نيابةً عنك؛ إذا انفصلت عن شبكة VPN، فقد يلزم إعادة تشغيل تطبيقك؛ ينطبق فقط على حركة المرور الواردة من [TUN]',
+			'routeFinal' => 'أخير',
+			'protocolSniff' => 'الكشف عن البروتوكول',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'الرجاء استخدام [${p}]',
+			'turnOffPrivateDirect' => 'يرجى تمكين [الاتصال المباشر بالشبكة الخاصة] أولاً',
+			'targetConnectFailed' => ({required Object p}) => 'فشل الاتصال بـ [${p}]، يرجى التأكد من وجود الجهاز في نفس الشبكة المحلية (LAN)',
+			'appleTVSync' => 'مزامنة التكوين الأساسي الحالي مع Apple TV - Karing',
+			'appleTVSyncDone' => 'اكتملت المزامنة، برجاء الانتقال إلى Apple TV - Karing لفتح/إعادة تشغيل الاتصال',
+			'appleTVRemoveCoreConfig' => 'إزالة Apple TV - Karing Core Configuration',
+			'appleTVRemoveCoreConfigDone' => 'Apple TV - تم حذف الملف التعريفي الأساسي لـ Karing؛ وتم قطع اتصال خدمة VPN',
+			'appleTVUrlInvalid' => 'عنوان URL غير صالح، يرجى فتح Apple TV - Karing، ومسح رمز QR الذي يعرضه Karing',
+			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى',
+			'appleCoreVersionNotMatch' => ({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى',
+			'remoteProfileEditConfirm' => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟',
+			'mustBeValidHttpsURL' => 'يجب أن يكون عنوان URL HTTPS صالح',
+			'fileNotExistReinstall' => ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت',
+			'noNetworkConnect' => 'لا يوجد اتصال بالإنترنت',
+			'sudoPassword' => 'كلمة مرور sudo (مطلوبة لوضع TUN)',
+			'turnOffNetworkBeforeInstall' => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث',
+			'latencyTestResolveIP' => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.',
+			'removeBannerAdsByShare' => 'شارك[Karing]اذهب إلى الإعلانات',
+			'removeBannerAdsByReward' => 'مشاهدة الإعلانات انتقل إلى الإعلانات',
+			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)',
+			'removeBannerAdsByRewardTip' => ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)',
+			'removeBannerAdsDone' => ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات',
+			'maybeAdsByReward' => 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.',
+			'edgeRuntimeNotInstalled' => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.',
+			'locales.en' => 'English',
+			'locales.zh-CN' => '简体中文',
+			'locales.ar' => 'عربي',
+			'locales.ru' => 'Русский',
+			'locales.fa' => 'فارسی',
+			_ => null,
+		};
 	}
 }
-

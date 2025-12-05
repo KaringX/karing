@@ -1,4 +1,4 @@
-// ignore_for_file: unused_catch_stack, empty_catches
+// ignore_for_file: unused_catch_stack, empty_catches, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 import 'dart:io';
@@ -502,8 +502,7 @@ class GroupHelper {
         BuildContext context, SetStateCallback? setstate) async {
       var settingConfig = SettingManager.getConfig();
 
-      String ipLocal = "127.0.0.1";
-      String ipInterface = ipLocal;
+      String ipInterface = "";
       if (settingConfig.proxy.getAllowAllInbounds() ||
           settingConfig.proxy.getClusterAllowAllInbounds()) {
         List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces();
@@ -534,38 +533,23 @@ class GroupHelper {
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext.SettingsScreen.allowOtherHostsConnect,
-                // ignore: prefer_interpolation_to_compose_strings
-                tips: (settingConfig.proxy.getAllowAllInbounds()
-                        ? ipInterface
-                        : ipLocal) +
+                tips: ipInterface +
                     "\n" +
                     tcontext.SettingsScreen.portSettingRule +
                     ":" +
                     tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedRulePort,
-                        sp: settingConfig.proxy.mixedRulePort) +
-                    "\n" +
-                    tcontext.SettingsScreen.portSettingDirectAll +
-                    ":" +
-                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedDirectPort,
-                        sp: settingConfig.proxy.mixedDirectPort) +
+                        hp: settingConfig.proxy.mixedRuleNetSharePort,
+                        sp: settingConfig.proxy.mixedRuleNetSharePort) +
                     "\n" +
                     tcontext.SettingsScreen.portSettingProxyAll +
                     ":" +
                     tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedForwordPort,
-                        sp: settingConfig.proxy.mixedForwordPort),
+                        hp: settingConfig.proxy.mixedForwordNetSharePort,
+                        sp: settingConfig.proxy.mixedForwordNetSharePort),
                 switchValue: settingConfig.proxy.getAllowAllInbounds(),
                 onSwitch: (bool value) async {
                   settingConfig.proxy.setAllowAllInbounds(value);
                   SettingManager.setDirty(true);
-
-                  if (value && Platform.isIOS) {
-                    DialogUtils.showAlertDialog(context,
-                        tcontext.SettingsScreen.allowOtherHostsConnectWarn,
-                        withVersion: true);
-                  }
                 })),
       ];
 
@@ -574,6 +558,7 @@ class GroupHelper {
           GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
                   name: tcontext.SettingsScreen.enableCluster,
+                  tips: tcontext.SettingsScreen.portSettingDirectAll,
                   switchValue: settingConfig.proxy.enableCluster,
                   onSwitch: (bool value) async {
                     settingConfig.proxy.enableCluster = value;
@@ -584,9 +569,7 @@ class GroupHelper {
                   name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
                   tips:
                       tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
-                          ip: settingConfig.proxy.getClusterAllowAllInbounds()
-                              ? ipInterface
-                              : ipLocal,
+                          ip: ipInterface,
                           port: settingConfig.proxy.clusterPort),
                   switchValue: settingConfig.proxy.getClusterAllowAllInbounds(),
                   onSwitch: (bool value) async {
@@ -599,7 +582,7 @@ class GroupHelper {
       return [
         GroupItem(options: options),
         GroupItem(options: options1),
-        GroupItem(options: options2)
+        GroupItem(options: options2),
       ];
     }
 
@@ -639,11 +622,11 @@ class GroupHelper {
                 })),
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.statisticsPrivacyDesensitize,
-                tips: tcontext.meta.statisticsPrivacyDesensitizeTips,
-                switchValue: settingConfig.statistics.privacyDesensitize,
+                name: tcontext.meta.statisticsDataDesensitize,
+                tips: tcontext.meta.statisticsDataDesensitizeTips,
+                switchValue: settingConfig.statistics.dataDesensitize,
                 onSwitch: (bool value) async {
-                  settingConfig.statistics.privacyDesensitize = value;
+                  settingConfig.statistics.dataDesensitize = value;
                   SettingManager.setDirty(true);
                 })),
         GroupItemOptions(
@@ -738,7 +721,9 @@ class GroupHelper {
 
   static Future<void> showHtmlBoard(BuildContext context, String from) async {
     AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA, name: from, repeatable: true);
+        analyticsEventType: analyticsEventTypeUA,
+        name: "htmlBoard:$from",
+        repeatable: true);
     ReturnResult<String> result = await Zashboard.start();
     if (result.error != null) {
       if (!context.mounted) {
@@ -1067,28 +1052,27 @@ class GroupHelper {
             SettingManager.setDirty(true);
           },
         )),
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.inboundDomainResolve,
+                tips: tcontext.SettingsScreen.inboundDomainResolveTips(
+                    p: "${settingConfig.proxy.mixedRulePort},${settingConfig.proxy.mixedRuleNetSharePort}"),
+                switchValue: settingConfig.dns.enableInboundDomainResolve,
+                onSwitch: (bool value) async {
+                  settingConfig.dns.enableInboundDomainResolve = value;
+                  SettingManager.setDirty(true);
+                })),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
           name: tcontext.meta.staticIP,
+          tips: tcontext.meta.staticIPTips,
           onPush: () async {
             onTapDNSStaticIP(context);
           },
         )),
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.inboundDomainResolve,
-                tips: tcontext.SettingsScreen.inboundDomainResolveTips(
-                    p: settingConfig.proxy.mixedRulePort),
-                switchValue: settingConfig.dns.enableInboundDomainResolve,
-                onSwitch: !settingConfig.tun.hijackDns
-                    ? null
-                    : (bool value) async {
-                        settingConfig.dns.enableInboundDomainResolve = value;
-                        SettingManager.setDirty(true);
-                      }))
       ];
       List<GroupItemOptions> options2 = [
         if (!settingConfig.novice) ...[
@@ -1921,6 +1905,12 @@ class GroupHelper {
     bool settings = true;
     bool isp = true;
     bool tun = SettingManager.getConfig().tun.enable;
+    if (tun && Platform.isWindows) {
+      bool admin = VPNService.isRunAsAdmin();
+      if (!admin) {
+        tun = false;
+      }
+    }
     bool mergePerapp = Platform.isAndroid;
     Future<List<GroupItem>> getGroupOptions(StateSetter setState) async {
       List<GroupItemOptions> options = [
@@ -2406,10 +2396,7 @@ class GroupHelper {
 
       return ReturnResultError(err);
     }
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'appletv',
-        repeatable: false);
+
     await Navigator.push(
         context,
         MaterialPageRoute(
@@ -2557,9 +2544,13 @@ class GroupHelper {
             final box = context.findRenderObject() as RenderBox?;
             final rect =
                 box != null ? box.localToGlobal(Offset.zero) & box.size : null;
-            await Share.shareXFiles(
-              [XFile(filePath)],
-              sharePositionOrigin: rect,
+            await SharePlus.instance.share(
+              ShareParams(
+                files: [
+                  XFile(filePath),
+                ],
+                sharePositionOrigin: rect,
+              ),
             );
           } catch (err) {
             if (!context.mounted) {

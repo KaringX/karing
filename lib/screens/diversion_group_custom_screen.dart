@@ -412,9 +412,13 @@ class _DiversionGroupCustomScreenState
             final box = context.findRenderObject() as RenderBox?;
             final rect =
                 box != null ? box.localToGlobal(Offset.zero) & box.size : null;
-            await Share.shareXFiles(
-              [XFile(filePath)],
-              sharePositionOrigin: rect,
+            await SharePlus.instance.share(
+              ShareParams(
+                files: [
+                  XFile(filePath),
+                ],
+                sharePositionOrigin: rect,
+              ),
             );
           } catch (err) {
             if (!mounted) {

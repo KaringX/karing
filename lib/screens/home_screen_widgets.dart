@@ -26,7 +26,6 @@ import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/tab.dart';
 import 'package:karing/screens/widgets/text.dart';
 import 'package:path/path.dart' as path;
-import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 abstract class SwitchCard extends StatefulWidget {
@@ -272,6 +271,7 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return SizedBox(
       height: getWidgetHeight(1),
       child: CommonCard(
@@ -303,8 +303,13 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
                       children: [
                         Text(
                           value,
-                          style:
-                              theme.textTheme.bodyMedium?.toLight.adjustSize(1),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodyMedium?.toLight
+                              .adjustSize(1)
+                              .copyWith(
+                                fontFamily: Platform.isWindows ? 'Emoji' : null,
+                              ),
                         ),
                       ],
                     );
@@ -470,7 +475,8 @@ class HomeWidgetOptions {
   HomeWidgetCard1Options? runtimeInfo;
   HomeWidgetCard1Options? memoryInfo;
   HomeWidgetCard1Options? connectionsInfo;
-
+  HomeWidgetCard1Options? outletIpByCurrentSelectedInfo;
+  //HomeWidgetCard1Options? outletIpByDirectInfo;
   HomeWidgetCard2Options? trafficTotalInfo;
   HomeWidgetCard2Options? trafficProxyInfo;
   HomeWidgetCard2Options? trafficSpeedInfo;
@@ -501,6 +507,8 @@ class HomeWidgetOptions {
     this.runtimeInfo,
     this.memoryInfo,
     this.connectionsInfo,
+    this.outletIpByCurrentSelectedInfo,
+    // this.outletIpByDirectInfo,
     this.trafficTotalInfo,
     this.trafficProxyInfo,
     this.trafficSpeedInfo,
@@ -526,6 +534,9 @@ class HomeWidgetOptions {
     focusToKeys[runtimeInfo?.focusNode] = runtimeInfo?.key;
     focusToKeys[memoryInfo?.focusNode] = memoryInfo?.key;
     focusToKeys[connectionsInfo?.focusNode] = connectionsInfo?.key;
+    focusToKeys[outletIpByCurrentSelectedInfo?.focusNode] =
+        outletIpByCurrentSelectedInfo?.key;
+    //focusToKeys[outletIpByDirectInfo?.focusNode] = outletIpByDirectInfo?.key;
     focusToKeys[trafficTotalInfo?.focusNode] = trafficTotalInfo?.key;
     focusToKeys[trafficProxyInfo?.focusNode] = trafficProxyInfo?.key;
     focusToKeys[trafficSpeedInfo?.focusNode] = trafficSpeedInfo?.key;
@@ -639,6 +650,69 @@ class ConnectionsInfoCard extends TextCard1 {
 
 class _ConnectionsInfoCardState extends TextCard1State<ConnectionsInfoCard> {}
 
+class OutletIpByCurrentSelectedInfoCard extends TextCard1 {
+  OutletIpByCurrentSelectedInfoCard({
+    super.key,
+    required super.notifier,
+    super.onPressed,
+    super.onLongPress,
+    super.focusNode,
+  }) : super(
+          icon: Icons.location_pin,
+          title: t.meta.outletIpByCurrentSelected,
+        );
+
+  @override
+  State<OutletIpByCurrentSelectedInfoCard> createState() =>
+      _OutletIpByCurrentSelectedInfoCardState();
+  static bool supportedCurrentPlatfrom() {
+    return true;
+  }
+
+  static String id() {
+    return "outlet_ip_by_current_selected_info";
+  }
+
+  static int crossAxisCellCount() {
+    return 4;
+  }
+}
+
+class _OutletIpByCurrentSelectedInfoCardState
+    extends TextCard1State<OutletIpByCurrentSelectedInfoCard> {}
+
+/*
+class OutletIpByDirectInfoCard extends TextCard1 {
+  OutletIpByDirectInfoCard({
+    super.key,
+    required super.notifier,
+    super.onPressed,
+    super.onLongPress,
+    super.focusNode,
+  }) : super(
+          icon: Icons.location_pin,
+          title: t.meta.outletIpByDirect,
+        );
+
+  @override
+  State<OutletIpByDirectInfoCard> createState() =>
+      _OutletIpByDirectInfoCardState();
+  static bool supportedCurrentPlatfrom() {
+    return true;
+  }
+
+  static String id() {
+    return "outlet_ip_by_direct_info";
+  }
+
+  static int crossAxisCellCount() {
+    return 4;
+  }
+}
+
+class _OutletIpByDirectInfoCardState
+    extends TextCard1State<OutletIpByDirectInfoCard> {}
+*/
 class TrafficTotalInfoCard extends TextCard2Line {
   TrafficTotalInfoCard({
     super.key,
@@ -892,7 +966,7 @@ class _ProfileSubTrafficInfoState extends State<ProfileSubTrafficInfoCard> {
     List<Widget> widgets = [
       ListTile(
         title: Text(
-          t.meta.refresh,
+          "${t.meta.refresh} ${t.meta.profile}",
         ),
         onTap: () async {
           Navigator.pop(context);
@@ -901,7 +975,7 @@ class _ProfileSubTrafficInfoState extends State<ProfileSubTrafficInfoCard> {
       ),
       ListTile(
         title: Text(
-          t.meta.update,
+          "${t.meta.update} ${t.meta.profile}",
         ),
         onTap: () async {
           Navigator.pop(context);
@@ -948,7 +1022,7 @@ class TunCard extends FutureSwitchCard {
   State<TunCard> createState() => _TunSwitchCardState();
 
   static Future<bool> getEnabled() async {
-    return SettingManager.getConfig().tun.enable;
+    return VPNService.getTunMode();
   }
 
   static bool supportedCurrentPlatfrom() {
@@ -1163,63 +1237,56 @@ class _OutboundModeCardState extends State<OutboundModeCard> {
     if (thumbColorAlpha > 255) {
       thumbColorAlpha = 255;
     }
+    final mode = SettingManager.getConfig().proxyAll ? Mode.global : Mode.rule;
     return SizedBox(
       height: height,
       child: CommonCard(
         alpha: SettingManager.getConfig().uiScreen.getWidgetAlpha(),
         padding: EdgeInsets.zero,
         focusNode: widget.focusNode,
-        child: Consumer(
-          builder: (_, ref, __) {
-            final mode =
-                SettingManager.getConfig().proxyAll ? Mode.global : Mode.rule;
-
-            return Container(
-              constraints: BoxConstraints.expand(),
-              child: CommonTabBar<Mode>(
-                children: Map.fromEntries(
-                  Mode.values.map(
-                    (item) => MapEntry(
-                      item,
-                      Container(
-                        clipBehavior: Clip.antiAlias,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(),
-                        height: height - 16,
-                        child: Text(
-                          getModeName(context, item),
-                          style: theme.textTheme.titleSmall
-                              ?.adjustSize(1)
-                              .copyWith(
-                                color: item == mode
-                                    ? theme.colorScheme.onSecondaryContainer
-                                    : null,
-                              ),
-                        ),
-                      ),
+        onPressed: () {},
+        child: Container(
+          constraints: BoxConstraints.expand(),
+          child: CommonTabBar<Mode>(
+            children: Map.fromEntries(
+              Mode.values.map(
+                (item) => MapEntry(
+                  item,
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(),
+                    height: height - 16,
+                    child: Text(
+                      getModeName(context, item),
+                      style: theme.textTheme.titleSmall?.adjustSize(1).copyWith(
+                            color: item == mode
+                                ? theme.colorScheme.onSecondaryContainer
+                                : null,
+                          ),
                     ),
                   ),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                groupValue: mode,
-                onValueChanged: (value) {
-                  if (value == null) {
-                    return;
-                  }
-                  final proxyAll = value == Mode.global;
-                  if (proxyAll == SettingManager.getConfig().proxyAll) {
-                    return;
-                  }
-                  SettingManager.getConfig().proxyAll = proxyAll;
-                  SettingManager.saveConfig();
-                  widget.onChanged?.call(value);
-                  setState(() {});
-                },
-                thumbColor: theme.colorScheme.secondaryContainer
-                    .withAlpha(thumbColorAlpha),
               ),
-            );
-          },
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            groupValue: mode,
+            onValueChanged: (value) {
+              if (value == null) {
+                return;
+              }
+              final proxyAll = value == Mode.global;
+              if (proxyAll == SettingManager.getConfig().proxyAll) {
+                return;
+              }
+              SettingManager.getConfig().proxyAll = proxyAll;
+              SettingManager.saveConfig();
+              widget.onChanged?.call(value);
+              setState(() {});
+            },
+            thumbColor:
+                theme.colorScheme.secondaryContainer.withAlpha(thumbColorAlpha),
+          ),
         ),
       ),
     );
@@ -1789,6 +1856,12 @@ class HomeWidgets {
     if (ConnectionsInfoCard.supportedCurrentPlatfrom()) {
       ids.add(ConnectionsInfoCard.id());
     }
+    if (OutletIpByCurrentSelectedInfoCard.supportedCurrentPlatfrom()) {
+      ids.add(OutletIpByCurrentSelectedInfoCard.id());
+    }
+    /*if (OutletIpByDirectInfoCard.supportedCurrentPlatfrom()) {
+      ids.add(OutletIpByDirectInfoCard.id());
+    }*/
     if (TrafficTotalInfoCard.supportedCurrentPlatfrom()) {
       ids.add(TrafficTotalInfoCard.id());
     }
@@ -1866,6 +1939,13 @@ class HomeWidgets {
     if (ConnectionsInfoCard.id() == id) {
       return t.meta.connect;
     }
+    if (OutletIpByCurrentSelectedInfoCard.id() == id) {
+      return t.meta.outletIpByCurrentSelected;
+    }
+    /*if (OutletIpByDirectInfoCard.id() == id) {
+      return t.meta.outletIpByDirect;
+    }*/
+
     if (TrafficTotalInfoCard.id() == id) {
       return t.meta.trafficTotal;
     }
@@ -2071,6 +2151,37 @@ class HomeWidgets {
             focusNode: options.connectionsInfo!.focusNode,
           ));
     }
+
+    if (OutletIpByCurrentSelectedInfoCard.id() == id &&
+        options.outletIpByCurrentSelectedInfo != null &&
+        OutletIpByCurrentSelectedInfoCard.supportedCurrentPlatfrom()) {
+      return GridItem(
+          crossAxisCellCount:
+              OutletIpByCurrentSelectedInfoCard.crossAxisCellCount(),
+          id: id,
+          child: OutletIpByCurrentSelectedInfoCard(
+            key: options.outletIpByCurrentSelectedInfo!.key,
+            notifier: options.outletIpByCurrentSelectedInfo!.notifier,
+            onPressed: options.outletIpByCurrentSelectedInfo!.onPressed,
+            onLongPress: options.outletIpByCurrentSelectedInfo!.onLongPress,
+            focusNode: options.outletIpByCurrentSelectedInfo!.focusNode,
+          ));
+    }
+
+    /* if (OutletIpByDirectInfoCard.id() == id &&
+        options.outletIpByDirectInfo != null &&
+        OutletIpByDirectInfoCard.supportedCurrentPlatfrom()) {
+      return GridItem(
+          crossAxisCellCount: OutletIpByDirectInfoCard.crossAxisCellCount(),
+          id: id,
+          child: OutletIpByDirectInfoCard(
+            key: options.outletIpByDirectInfo!.key,
+            notifier: options.outletIpByDirectInfo!.notifier,
+            onPressed: options.outletIpByDirectInfo!.onPressed,
+            onLongPress: options.outletIpByDirectInfo!.onLongPress,
+            focusNode: options.outletIpByDirectInfo!.focusNode,
+          ));
+    }*/
 
     if (TrafficTotalInfoCard.id() == id &&
         options.trafficTotalInfo != null &&

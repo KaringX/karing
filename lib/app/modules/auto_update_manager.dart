@@ -88,6 +88,7 @@ class AutoUpdateManager {
   static bool _checking = false;
   static bool _downloading = false;
   static Duration _duration = const Duration(hours: 3);
+  static DateTime? _lastCheck;
   static final AutoUpdateCheckVersion _versionCheck = AutoUpdateCheckVersion();
 
   static bool isSupport() {
@@ -95,13 +96,6 @@ class AutoUpdateManager {
         Platform.isAndroid ||
         Platform.isMacOS ||
         Platform.isLinux;
-  }
-
-  static List<String> updateChannels() {
-    return [
-      "beta",
-      "stable",
-    ];
   }
 
   static Future<void> init() async {
@@ -204,6 +198,9 @@ class AutoUpdateManager {
   }
 
   static Future<void> download() async {
+    if (!SettingManager.getConfig().autoDownloadUpdatePkg) {
+      return;
+    }
     if (!isSupport()) {
       return;
     }
@@ -277,14 +274,17 @@ class AutoUpdateManager {
       }
     }
     var autoUpdateChannel = SettingManager.getConfig().autoUpdateChannel;
-    if (!updateChannels().contains(autoUpdateChannel)) {
-      autoUpdateChannel = "beta";
+    if (!SettingConfig.updateChannels().contains(autoUpdateChannel)) {
+      autoUpdateChannel = "stable";
     }
     _versionCheck.latestCheck = now.toString();
     _checking = true;
     try {
+      bool body = _lastCheck == null ||
+          DateTime.now().difference(_lastCheck!).inHours > 12;
       ReturnResult<List<KaringAutoupdateItem>> items =
-          await KaringUtils.getAutoupdate();
+          await KaringUtils.getAutoupdate(body);
+      _lastCheck = DateTime.now();
       if (items.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);

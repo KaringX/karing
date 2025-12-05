@@ -10,7 +10,8 @@ class MultiCheckBox extends StatefulWidget {
   final int maxLines;
   final int minLines;
 
-  MultiCheckBox({
+  const MultiCheckBox({
+    super.key,
     required this.options,
     required this.optionsColors,
     required this.selectedIndexs,
@@ -20,7 +21,7 @@ class MultiCheckBox extends StatefulWidget {
   });
 
   @override
-  _MultiheckBoxState createState() => _MultiheckBoxState();
+  State<MultiCheckBox> createState() => _MultiheckBoxState();
 }
 
 class _MultiheckBoxState extends State<MultiCheckBox> {

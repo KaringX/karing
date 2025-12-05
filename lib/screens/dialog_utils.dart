@@ -32,7 +32,8 @@ class DialogUtils {
       width = 20;
     }
     if (withVersion) {
-      text = "${AppUtils.getBuildinVersion()}\n$text";
+      text =
+          "${AppUtils.getBuildinVersion()} ${Platform.operatingSystem}\n$text";
     }
 
     const int kMaxLength = 1024;
@@ -437,6 +438,7 @@ class DialogUtils {
     bool showHours = true,
     bool showMinutes = true,
     bool showSeconds = true,
+    bool showMilliSeconds = false,
     bool showDisable = true,
   }) async {
     if (!context.mounted) {
@@ -448,6 +450,7 @@ class DialogUtils {
     String hours = "h(${tcontext.meta.hours})";
     String minutes = "m(${tcontext.meta.minutes})";
     String seconds = "s(${tcontext.meta.seconds})";
+    String milliseconds = "ms(${tcontext.meta.milliseconds})";
     List<String> data = [];
 
     if (showDays) {
@@ -461,6 +464,9 @@ class DialogUtils {
     }
     if (showSeconds) {
       data.add(seconds);
+    }
+    if (showMilliSeconds) {
+      data.add(milliseconds);
     }
     if (showDisable) {
       data.add(tcontext.meta.disable);
@@ -483,6 +489,10 @@ class DialogUtils {
         selected = seconds;
         textController.value =
             textController.value.copyWith(text: duration.inSeconds.toString());
+      } else if (duration.inMilliseconds > 0) {
+        selected = milliseconds;
+        textController.value = textController.value
+            .copyWith(text: duration.inMilliseconds.toString());
       }
     } else {
       selected = tcontext.meta.disable;
@@ -557,6 +567,8 @@ class DialogUtils {
                               duration = Duration(minutes: value);
                             } else if (selected == seconds) {
                               duration = Duration(seconds: value);
+                            } else if (selected == milliseconds) {
+                              duration = Duration(milliseconds: value);
                             } else if (selected == tcontext.meta.disable) {}
 
                             Navigator.pop(context, DialogUtilsResult(duration));

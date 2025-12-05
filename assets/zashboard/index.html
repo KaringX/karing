@@ -21,26 +21,34 @@
       sizes="48x48"
     />
     <link
+      id="favicon"
       rel="icon"
       href="./favicon.svg"
       sizes="any"
       type="image/svg+xml"
     />
-    <link
-      rel="icon"
-      href="./favicon-dark.svg"
-      sizes="any"
-      type="image/svg+xml"
-      media="(prefers-color-scheme: dark)"
-    />
     <meta
       name="theme-color"
       content="#FFFFFF"
     />
-    <script type="module" crossorigin src="./assets/index-DrpQkClK.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D9iTljJw.css">
+    <script type="module" crossorigin src="./assets/index-CeuK21ys.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DFcI-6M1.css">
   <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./registerSW.js"></script></head>
-  <body class="overflow-hidden">
+  <body class="h-dvh w-screen">
     <div id="app"></div>
+    <script>
+      ;(function () {
+        const media = window.matchMedia('(prefers-color-scheme: dark)')
+        const favicon = document.getElementById('favicon')
+        const setFavicon = (isDark) => {
+          favicon.href = isDark ? './favicon-dark.svg' : './favicon.svg'
+        }
+
+        media.addEventListener('change', () => {
+          setFavicon(media.matches)
+        })
+        setFavicon(media.matches)
+      })()
+    </script>
   </body>
 </html>

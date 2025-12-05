@@ -8,7 +8,6 @@ import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
@@ -212,7 +211,16 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                   text: SettingManager.getConfig().autoUpdateChannel,
                   onPush: () async {
                     onTapAutoUpdateChannel();
-                  }))
+                  })),
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.AboutScreen.autoDownloadPkg,
+                  switchValue: SettingManager.getConfig().autoDownloadUpdatePkg,
+                  onSwitch: (bool value) async {
+                    SettingManager.getConfig().autoDownloadUpdatePkg = value;
+                    SettingManager.saveConfig();
+                    setState(() {});
+                  })),
         ]
       ];
 
@@ -257,9 +265,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 onSwitch: RemoteConfigManager.rejectAnalyticsSubmit()
                     ? null
                     : (bool value) async {
-                        AnalyticsUtils.setEventType(value
-                            ? analyticsEventTypeNoUA
-                            : analyticsEventTypeAll);
                         SettingManager.getConfig().disableUAReport = !value;
                         SettingManager.saveConfig();
                         setState(() {});
@@ -286,10 +291,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     var settingConfig = SettingManager.getConfig();
     var dev = settingConfig.dev;
 
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'SSS_devOptions',
-        repeatable: false);
     Future<List<GroupItem>> getOptions(
         BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [
@@ -434,7 +435,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         BuildContext context, SetStateCallback? setstate) async {
       List<GroupItemOptions> options = [];
 
-      for (var channel in AutoUpdateManager.updateChannels()) {
+      for (var channel in SettingConfig.updateChannels()) {
         options.add(GroupItemOptions(
             textOptions: GroupItemTextOptions(
                 name: channel,

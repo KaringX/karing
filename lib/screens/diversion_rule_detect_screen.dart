@@ -15,6 +15,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
+import 'package:tuple/tuple.dart';
 
 class DiversionRuleDetectScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -69,8 +70,6 @@ class _DiversionRuleDetectScreenState
       return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
       return tcontext.outboundRuleMode.block;
-    } else if (tag == kOutboundTagDns) {
-      return tcontext.meta.dns;
     }
     return tag;
   }
@@ -260,11 +259,13 @@ class _DiversionRuleDetectScreenState
                         Expanded(
                           child: SingleChildScrollView(
                               child: FutureBuilder(
-                            future: ClashApi.getRemoteRulesetsLastUpdated(
+                            future: ClashApi.getRemoteRulesetsStates(
                                 SettingManager.getConfig().proxy.controlPort),
                             builder: (BuildContext context,
                                 AsyncSnapshot<
-                                        ReturnResult<Map<String, DateTime>>>
+                                        ReturnResult<
+                                            Tuple2<Map<String, DateTime>,
+                                                Map<String, String>>>>
                                     snapshot) {
                               if (!snapshot.hasData ||
                                   snapshot.data == null ||
@@ -273,7 +274,10 @@ class _DiversionRuleDetectScreenState
                               }
                               List<Widget> widgets = [];
                               final data = snapshot.data!.data!;
-                              data.forEach((key, value) {
+                              final exist = data.item1;
+                              var fetchErr = data.item2;
+
+                              exist.forEach((key, value) {
                                 var settings = SettingManager.getConfig();
                                 var updateTime = DateFormat(
                                         "yyyy-MM-dd HH:mm:ss",
@@ -287,7 +291,32 @@ class _DiversionRuleDetectScreenState
                                         width: (windowSize.width - 18 * 2) / 2,
                                         child: Text(key),
                                       ),
-                                      Text(updateTime),
+                                      SizedBox(
+                                        width: (windowSize.width - 18 * 2) / 2,
+                                        child: Text(updateTime),
+                                      ),
+                                    ]));
+                                widgets.add(const SizedBox(
+                                  height: 10,
+                                ));
+                                widgets.add(const Divider(
+                                  height: 1,
+                                  thickness: 0.3,
+                                ));
+                              });
+                              fetchErr.forEach((key, value) {
+                                widgets.add(Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: (windowSize.width - 18 * 2) / 2,
+                                        child: Text(key),
+                                      ),
+                                      SizedBox(
+                                        width: (windowSize.width - 18 * 2) / 2,
+                                        child: Text(value),
+                                      ),
                                     ]));
                                 widgets.add(const SizedBox(
                                   height: 10,

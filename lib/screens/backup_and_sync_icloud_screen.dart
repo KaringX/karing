@@ -352,6 +352,7 @@ class _BackupAndSyncIcloudScreenState
           showCopy: true, showFAQ: true, withVersion: true);
       return;
     }
-    await list();
+    _fileList.remove(filename);
+    setState(() {});
   }
 }

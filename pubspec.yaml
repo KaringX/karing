@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.5+882
+version: 1.2.9+1206
 environment:
   sdk: ">=3.2.3 <4.0.0"
   flutter: ">=3.24.0"
@@ -15,6 +15,7 @@ dependencies:
   intl: any
 
   cupertino_icons: 1.0.8
+  collection: 1.19.1
   #icons_plus: 5.0.0
   flutter_emoji: 2.5.1
   emoji_regex: 0.0.5
@@ -34,14 +35,15 @@ dependencies:
   url_launcher: 6.3.2
   #webview_flutter: 4.10.0
   #webview_win_floating: 2.2.9
+  #flutter_inappwebview: 6.2.0-beta.2
   flutter_inappwebview:
     #path: ../../KaringX/flutter_inappwebview/flutter_inappwebview
     git: 
       url: https://github.com/KaringX/flutter_inappwebview.git
       ref: 3a5ead04885537489f3226a04cd0481a90183bbe #v6.2.0-beta.3
       path: flutter_inappwebview
-  #flutter_inappwebview: 6.2.0-beta.2
-  web_socket_channel: 2.4.0 #flutter_test
+  web_socket_channel: 3.0.3 #flutter_test
+  dio: 5.9.0
   sqlite_async: 0.12.2
   sqlite3: 2.9.4
   sqlite3_flutter_libs: 0.5.40
@@ -49,6 +51,7 @@ dependencies:
   flutter_secure_storage: 9.2.4
   protocol_handler: 0.1.6 #0.2.0 cause windows jam when exit
   fl_chart: 1.1.1
+  data_table_2: 2.7.1
   extended_wrap: 0.1.5
   infinite_scroll_pagination: 5.1.1
   #dart_json_mapper: 2.2.7
@@ -77,10 +80,10 @@ dependencies:
   defer_pointer: 0.0.2
   contextmenu: 3.0.0
   image: 4.5.4
-  cached_network_image: 3.4.0
-  uuid: 4.4.0 #flutter_test 
-  slang: 4.9.2
-  slang_flutter: 4.9.0
+  cached_network_image: 3.4.1
+  uuid: 4.5.2 #flutter_test 
+  slang: 4.11.0
+  slang_flutter: 4.11.0
   watcher: 1.1.4
   string_validator: 1.2.0
   punycode_converter: 0.2.1
@@ -90,18 +93,18 @@ dependencies:
   scrollview_observer: 1.26.2
   after_layout: 1.2.0
   flutter_install_referrer: 2.1.0
-  windows_single_instance: 1.0.1 #windows only
-  flutter_plugin_android_lifecycle: 2.0.30 #file_picker image_picker
-  file_picker: 10.3.3
-  image_picker: 1.2.0
-  board_datetime_picker: 2.8.3
+  windows_single_instance: 1.1.0 #windows only
+  flutter_plugin_android_lifecycle: 2.0.33 #file_picker image_picker
+  file_picker: 10.3.7 
+  image_picker: 1.2.1
+  board_datetime_picker: 2.8.4
   tray_manager: 0.5.2 # pc only
   hotkey_manager: 0.2.3  # pc only
   #accessibility_tools: 2.2.2
   logger: 2.6.2
   tuple: 2.0.2
-  crypto: 3.0.6
-  cryptography: 2.7.0
+  crypto: 3.0.7
+  cryptography: 2.9.0
   open_dir: 0.0.2+1 #pc only
   in_app_review: 2.0.11
   path: 1.9.1 #flutter_test
@@ -109,7 +112,7 @@ dependencies:
   win32_registry: 1.1.5 #flutter_test
   csv: 6.0.0
   #home_widget: 0.4.1
-  share_plus: 11.1.0 #sentry_flutter
+  share_plus: 12.0.1 #sentry_flutter
   open_file: 3.5.10 #sentry_flutter
   app_installer: 1.3.1
   #dart_ping: 9.0.1
@@ -118,7 +121,8 @@ dependencies:
   #duraspeed_checker: 0.0.1
   #timezone_to_country: 2.2.0
   #local_auth: 2.2.0
-  webdav_client: 1.2.2
+  win32: 5.11.0
+  webdav_client_plus: 1.0.2
   mime: 1.0.4
   http: 1.4.0
   http_parser: 4.0.2
@@ -130,10 +134,11 @@ dependencies:
   flutter_local_notifications: 19.5.0
   #awesome_notifications: 0.9.2 
   quick_actions: 1.1.0
-  google_mobile_ads: 6.0.0
+  google_mobile_ads: 5.3.1
   #gdpr_admob: 1.0.2
   #user_messaging_platform: 1.3.0
   convex_bottom_bar: 3.2.0
+  animations: 2.1.1
   android_package_manager: #0.7.1
     #path: ../android_package_manager
     git:

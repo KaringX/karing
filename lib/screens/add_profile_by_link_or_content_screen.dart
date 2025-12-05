@@ -56,7 +56,7 @@ class _AddProfileByLinkOrContentScreenState
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
-  bool _reloadAfterProfileUpdate = true;
+  bool _reloadAfterProfileUpdate = false;
   bool _testLatencyAfterProfileUpdate = false;
   bool _testLatencyAutoRemove = false;
   @override

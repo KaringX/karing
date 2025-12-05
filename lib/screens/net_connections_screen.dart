@@ -642,8 +642,6 @@ class _NetConnectionsScreenState
       return tcontext.outboundRuleMode.direct;
     } else if (tag == kOutboundTagBlock) {
       return tcontext.outboundRuleMode.block;
-    } else if (tag == kOutboundTagDns) {
-      return tcontext.meta.dns;
     }
     return tag;
   }
@@ -977,13 +975,8 @@ class _NetConnectionsScreenState
                           const SizedBox(
                             width: 5,
                           ),
-                          const Icon(
-                            Icons.upload,
-                            size: 10,
-                          ),
                           Text(
-                            ProxyConfUtils.convertTrafficToStringDouble(
-                                current.getUpload()),
+                            "↑ ${ProxyConfUtils.convertTrafficToStringDouble(current.getUpload())}",
                             style: const TextStyle(
                               fontSize: 12,
                             ),
@@ -991,50 +984,32 @@ class _NetConnectionsScreenState
                           const SizedBox(
                             width: 5,
                           ),
-                          const Icon(
-                            Icons.download,
-                            size: 10,
-                          ),
                           Text(
-                            ProxyConfUtils.convertTrafficToStringDouble(
-                                current.getDownload()),
+                            "↓ ${ProxyConfUtils.convertTrafficToStringDouble(current.getDownload())}",
                             style: const TextStyle(
                               fontSize: 12,
                             ),
-                          ),
-                          const SizedBox(
-                            width: 5,
                           ),
                           if (current.ids.isNotEmpty &&
                               (lastUpload != noSpeed)) ...[
-                            const Icon(
-                              Icons.upload,
-                              size: 10,
-                              color: Colors.green,
+                            const SizedBox(
+                              width: 5,
                             ),
                             Text(
-                              "$lastUpload/s",
+                              "↑ $lastUpload/s",
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.green,
                               ),
                             )
                           ],
-                          const SizedBox(
-                            width: 5,
-                          ),
                           if (current.ids.isNotEmpty &&
                               (lastDownload != noSpeed)) ...[
-                            const Icon(
-                              Icons.download,
-                              size: 10,
-                              color: Colors.green,
-                            )
-                          ],
-                          if (current.ids.isNotEmpty &&
-                              (lastDownload != noSpeed)) ...[
+                            const SizedBox(
+                              width: 5,
+                            ),
                             Text(
-                              "$lastDownload/s",
+                              "↓ $lastDownload/s",
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: Colors.green,

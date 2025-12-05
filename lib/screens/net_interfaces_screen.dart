@@ -1,5 +1,7 @@
 // ignore_for_file: empty_catches
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
@@ -84,8 +86,11 @@ class _NetInterfacesScreenState
               ),
               Expanded(
                 child: FutureBuilder(
-                  future:
-                      NetworkUtils.getInterfaces(filter: !setting.dev.devMode),
+                  future: NetworkUtils.getInterfaces(
+                      filter: !setting.dev.devMode,
+                      addressType: !setting.dev.devMode
+                          ? InternetAddressType.IPv4
+                          : null),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<NetInterfacesInfo>> snapshot) {
                     List<NetInterfacesInfo> data =

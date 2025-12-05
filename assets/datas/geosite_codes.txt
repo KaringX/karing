@@ -690,6 +690,7 @@ geolocation-cn
 geolocation-cn@ads
 geolocation-cn@cn
 gettyimages
+getui
 gfw
 gfycat
 giffgaff
@@ -757,6 +758,7 @@ hcaptcha
 hellofont
 hentaichen
 hentaivn
+herogame
 heroku
 hetzner
 hetzner@ads
@@ -1375,6 +1377,7 @@ segmentfault
 sehuatang
 sensorsdata-ads
 sensorsdata-ads@ads
+sentry
 setapp
 setn
 sf-express
@@ -1501,6 +1504,7 @@ tappx-ads@ads
 taptap
 target
 taylorfrancis
+tcl
 teambition
 teamviewer
 teamviewer@cn
