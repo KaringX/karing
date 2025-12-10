@@ -1932,6 +1932,90 @@ class HomeWidgets {
     return ids;
   }
 
+  static IconData? getWidgetIconById(BuildContext context, String id) {
+    if (RunTimeInfoCard.id() == id) {
+      return Icons.access_time_outlined;
+    }
+    if (ConnectionsInfoCard.id() == id) {
+      return Icons.monitor_outlined;
+    }
+    if (OutletIpByCurrentSelectedInfoCard.id() == id) {
+      return Icons.location_pin;
+    }
+    /*if (OutletIpByDirectInfoCard.id() == id) {
+      return Icons.location_pin;
+    }*/
+
+    if (TrafficTotalInfoCard.id() == id) {
+      return Icons.data_saver_off;
+    }
+    if (TrafficProxyInfoCard.id() == id) {
+      return Icons.data_saver_off;
+    }
+    if (TrafficSpeedInfoCard.id() == id) {
+      return Icons.speed;
+    }
+    if (MemoryInfoCard.id() == id) {
+      return Icons.memory;
+    }
+    if (ProfileSubTrafficInfoCard.id() == id) {
+      return Icons.list_alt_outlined;
+    }
+    if (OutboundModeCard.id() == id) {
+      return null;
+    }
+    if (TunCard.id() == id) {
+      return Icons.stacked_line_chart;
+    }
+    if (SystemProxyCard.id() == id) {
+      return Icons.shuffle;
+    }
+    if (MyProfilesCard.id() == id) {
+      return Icons.list_alt_outlined;
+    }
+    if (AddProfileCard.id() == id) {
+      return Icons.add_outlined;
+    }
+    if (PerAppCard.id() == id) {
+      return Icons.merge_type_outlined;
+    }
+    if (DNSCard.id() == id) {
+      return Icons.dns_outlined;
+    }
+    if (DiversionCard.id() == id) {
+      return Icons.alt_route_outlined;
+    }
+    if (DiversionRulesCard.id() == id) {
+      return Icons.alt_route_outlined;
+    }
+    if (NetcheckCard.id() == id) {
+      return Icons.network_check_outlined;
+    }
+    if (SpeedTestCard.id() == id) {
+      return Icons.speed_outlined;
+    }
+    if (MyLinkCard.id() == id) {
+      return Icons.link_outlined;
+    }
+    if (AppleTVCard.id() == id) {
+      return Icons.live_tv_outlined;
+    }
+    if (HtmlBoardCard.id() == id) {
+      return Icons.dashboard_outlined;
+    }
+    if (NetShareCard.id() == id) {
+      return Icons.cast_connected_outlined;
+    }
+    if (StatisticsAndAnalysisCard.id() == id) {
+      return Icons.show_chart_outlined;
+    }
+    if (BackupAndSyncCard.id() == id) {
+      return Icons.cloud_sync_outlined;
+    }
+
+    return null;
+  }
+
   static String getWidgetNameById(BuildContext context, String id) {
     if (RunTimeInfoCard.id() == id) {
       return t.meta.runDuration;

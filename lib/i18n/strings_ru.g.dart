@@ -675,6 +675,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get netInterfaces => 'Сетевой интерфейс';
 	@override String get netSpeed => 'Скорость';
 	@override String get memoryTrendChart => 'Диаграмма тренда памяти';
+	@override String get goroutinesTrendChart => 'График трендов GoRoutines';
 	@override String get trafficTrendChart => 'График тенденций трафика';
 	@override String get trafficDistributionChart => 'Карта распределения трафика';
 	@override String get connectionChart => 'Диаграмма тренда подключений';
@@ -1287,6 +1288,7 @@ extension on TranslationsRu {
 			'meta.netInterfaces' => 'Сетевой интерфейс',
 			'meta.netSpeed' => 'Скорость',
 			'meta.memoryTrendChart' => 'Диаграмма тренда памяти',
+			'meta.goroutinesTrendChart' => 'График трендов GoRoutines',
 			'meta.trafficTrendChart' => 'График тенденций трафика',
 			'meta.trafficDistributionChart' => 'Карта распределения трафика',
 			'meta.connectionChart' => 'Диаграмма тренда подключений',
@@ -1429,9 +1431,9 @@ extension on TranslationsRu {
 			'tls.paddingEnable' => 'Включить заполнение TLS',
 			'tls.paddingSize' => 'Размер заполнения TLS',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
-			'outboundRuleMode.urltest' => 'Автовыбор',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
 			'outboundRuleMode.block' => 'Блокировать',
 			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,

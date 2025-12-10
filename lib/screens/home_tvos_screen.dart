@@ -182,13 +182,14 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
               "/s";
 
-          _widgetOptions.memoryInfo!.notifier.value =
-              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-
           if (SettingManager.getConfig().dev.devMode) {
+            _widgetOptions.memoryInfo!.notifier.value =
+                "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
             _widgetOptions.connectionsInfo!.notifier.value =
-                "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
+                "${con.connectionsInCount}/${con.connectionsOutCount}";
           } else {
+            _widgetOptions.memoryInfo!.notifier.value =
+                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
             _widgetOptions.connectionsInfo!.notifier.value =
                 con.connectionsInCount.toString();
           }

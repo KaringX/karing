@@ -413,6 +413,7 @@
         "netInterfaces": "Сетевой интерфейс",
         "netSpeed": "Скорость",
         "memoryTrendChart": "Диаграмма тренда памяти",
+        "goroutinesTrendChart": "График трендов GoRoutines",
         "trafficTrendChart": "График тенденций трафика",
         "trafficDistributionChart": "Карта распределения трафика",
         "connectionChart": "Диаграмма тренда подключений",

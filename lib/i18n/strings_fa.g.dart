@@ -675,6 +675,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get netInterfaces => 'رابط شبکه';
 	@override String get netSpeed => 'سرعت';
 	@override String get memoryTrendChart => 'نمودار روند حافظه';
+	@override String get goroutinesTrendChart => 'نمودار روند GoRoutines';
 	@override String get trafficTrendChart => 'نمودار روند ترافیک';
 	@override String get trafficDistributionChart => 'نقشه توزیع ترافیک';
 	@override String get connectionChart => 'نمودار روند اتصال';
@@ -1287,6 +1288,7 @@ extension on TranslationsFa {
 			'meta.netInterfaces' => 'رابط شبکه',
 			'meta.netSpeed' => 'سرعت',
 			'meta.memoryTrendChart' => 'نمودار روند حافظه',
+			'meta.goroutinesTrendChart' => 'نمودار روند GoRoutines',
 			'meta.trafficTrendChart' => 'نمودار روند ترافیک',
 			'meta.trafficDistributionChart' => 'نقشه توزیع ترافیک',
 			'meta.connectionChart' => 'نمودار روند اتصال',
@@ -1429,9 +1431,9 @@ extension on TranslationsFa {
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
 			'tls.paddingSize' => 'اندازه پد TLS',
 			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
-			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			'outboundRuleMode.direct' => 'مستقیم',
 			'outboundRuleMode.block' => 'مسدود',
 			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,

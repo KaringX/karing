@@ -256,7 +256,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                             } else {
                               widget.selectedData.remove(current.key);
                             }
-                            SettingManager.setDirty(true);
+
                             setState(() {});
                           },
                         ),

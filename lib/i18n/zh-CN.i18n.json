@@ -413,6 +413,7 @@
         "netInterfaces": "网络接口",
         "netSpeed": "速度",
         "memoryTrendChart": "内存趋势图",
+        "goroutinesTrendChart": "GoRoutines趋势图",
         "trafficTrendChart": "流量趋势图",
         "trafficDistributionChart": "流量分布图",
         "connectionChart": "连接趋势图",

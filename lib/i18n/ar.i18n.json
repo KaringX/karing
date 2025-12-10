@@ -413,6 +413,7 @@
         "netInterfaces": "واجهات صافية",
         "netSpeed": "سرعة",
         "memoryTrendChart": "مخطط اتجاهات الذاكرة",
+        "goroutinesTrendChart": "مخطط اتجاهات GoRoutines",
         "trafficTrendChart": "مخطط اتجاهات حركة المرور",
         "trafficDistributionChart": "خريطة توزيع حركة المرور",
         "connectionChart": "مخطط اتجاهات الاتصال",

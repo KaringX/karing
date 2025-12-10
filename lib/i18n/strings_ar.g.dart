@@ -675,6 +675,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get netInterfaces => 'واجهات صافية';
 	@override String get netSpeed => 'سرعة';
 	@override String get memoryTrendChart => 'مخطط اتجاهات الذاكرة';
+	@override String get goroutinesTrendChart => 'مخطط اتجاهات GoRoutines';
 	@override String get trafficTrendChart => 'مخطط اتجاهات حركة المرور';
 	@override String get trafficDistributionChart => 'خريطة توزيع حركة المرور';
 	@override String get connectionChart => 'مخطط اتجاهات الاتصال';
@@ -1287,6 +1288,7 @@ extension on TranslationsAr {
 			'meta.netInterfaces' => 'واجهات صافية',
 			'meta.netSpeed' => 'سرعة',
 			'meta.memoryTrendChart' => 'مخطط اتجاهات الذاكرة',
+			'meta.goroutinesTrendChart' => 'مخطط اتجاهات GoRoutines',
 			'meta.trafficTrendChart' => 'مخطط اتجاهات حركة المرور',
 			'meta.trafficDistributionChart' => 'خريطة توزيع حركة المرور',
 			'meta.connectionChart' => 'مخطط اتجاهات الاتصال',
@@ -1429,9 +1431,9 @@ extension on TranslationsAr {
 			'tls.paddingEnable' => 'تمكين الحشو TLS',
 			'tls.paddingSize' => 'حجم الحشو TLS',
 			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
-			'outboundRuleMode.urltest' => 'اختيار آلي',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.urltest' => 'اختيار آلي',
 			'outboundRuleMode.direct' => 'مباشر',
 			'outboundRuleMode.block' => 'حاجز',
 			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,

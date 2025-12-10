@@ -413,6 +413,7 @@
         "netInterfaces": "Net Interfaces",
         "netSpeed": "Speed",
         "memoryTrendChart": "Memory Trend chart",
+        "goroutinesTrendChart": "GoRoutines Trend chart",
         "trafficTrendChart": "Traffic Trend Chart",
         "trafficDistributionChart": "Traffic Distribution Chart",
         "connectionChart": "Connection Trend Chart",

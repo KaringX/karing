@@ -675,6 +675,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get netInterfaces => '网络接口';
 	@override String get netSpeed => '速度';
 	@override String get memoryTrendChart => '内存趋势图';
+	@override String get goroutinesTrendChart => 'GoRoutines趋势图';
 	@override String get trafficTrendChart => '流量趋势图';
 	@override String get trafficDistributionChart => '流量分布图';
 	@override String get connectionChart => '连接趋势图';
@@ -1287,6 +1288,7 @@ extension on TranslationsZhCn {
 			'meta.netInterfaces' => '网络接口',
 			'meta.netSpeed' => '速度',
 			'meta.memoryTrendChart' => '内存趋势图',
+			'meta.goroutinesTrendChart' => 'GoRoutines趋势图',
 			'meta.trafficTrendChart' => '流量趋势图',
 			'meta.trafficDistributionChart' => '流量分布图',
 			'meta.connectionChart' => '连接趋势图',
@@ -1429,9 +1431,9 @@ extension on TranslationsZhCn {
 			'tls.paddingEnable' => '启用TLS填充',
 			'tls.paddingSize' => 'TLS填充大小',
 			'outboundRuleMode.currentSelected' => '当前选择',
-			'outboundRuleMode.urltest' => '自动选择',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',
 			'outboundRuleMode.block' => '拦截',
 			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,

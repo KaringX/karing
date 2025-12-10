@@ -382,11 +382,25 @@ class FileContentViewerScreenState
   }
 
   void onTapShare() async {
+    final tcontext = Translations.of(context);
     String filePath = await PathUtils.profileDir();
     if (!mounted) {
       return;
     }
     filePath = path.join(filePath, _fileName);
+    if (!await File(filePath).exists()) {
+      if (!mounted) {
+        return;
+      }
+      DialogUtils.showAlertDialog(
+          context, tcontext.meta.fileNotExist(p: filePath),
+          showCopy: true, showFAQ: true, withVersion: true);
+
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
     try {
       final box = context.findRenderObject() as RenderBox?;
       final rect =

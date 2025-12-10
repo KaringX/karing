@@ -702,13 +702,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
               "/s";
 
-          _widgetOptions.memoryInfo!.notifier.value =
-              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-
           if (SettingManager.getConfig().dev.devMode) {
+            _widgetOptions.memoryInfo!.notifier.value =
+                "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
             _widgetOptions.connectionsInfo!.notifier.value =
-                "${con.connectionsInCount}/${con.connectionsOutCount}/${con.goroutines}/${con.threadCount}";
+                "${con.connectionsInCount}/${con.connectionsOutCount}";
           } else {
+            _widgetOptions.memoryInfo!.notifier.value =
+                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
             _widgetOptions.connectionsInfo!.notifier.value =
                 con.connectionsInCount.toString();
           }
@@ -719,6 +720,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           _disconnectToService();
         },
         onError: (err) {
+          Log.w("connectToService err:$err");
           _disconnectToService();
         });
     await _websocket!.connect();
@@ -1612,6 +1614,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     for (var id in ids) {
       final name = HomeWidgets.getWidgetNameById(context, id);
       widgets.add(ListTile(
+        leading: Icon(HomeWidgets.getWidgetIconById(context, id)),
         title: Text(
           name,
         ),

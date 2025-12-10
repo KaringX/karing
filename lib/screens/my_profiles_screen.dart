@@ -1510,6 +1510,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
     config.outbounds = SingboxConfigBuilder.outbounds(
         false,
+        "",
         selectOutboundTags,
         {},
         selectOutbound,

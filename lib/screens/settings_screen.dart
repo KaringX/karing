@@ -1220,7 +1220,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (remoteConfig.telegram.isNotEmpty) ...[
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.contactUs,
+                name:
+                    "${tcontext.SettingsScreen.contactUs} / ${tcontext.meta.feedback}",
                 onPush: () async {
                   AnalyticsUtils.logEvent(
                       analyticsEventType: analyticsEventTypeUA,
@@ -1246,7 +1247,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   onTapSupportUS();
                 }))
       ],
-      if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
+      /*if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.feedback,
@@ -1257,7 +1258,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           settings: FeedbackScreen.routSettings(),
                           builder: (context) => const FeedbackScreen()));
                 }))
-      ],
+      ],*/
       if (rateInApp) ...[
         //https://apps.apple.com/cn/app/id1558453472?action=write-review
         //https://itunes.apple.com/cn/lookup?id=1558453472

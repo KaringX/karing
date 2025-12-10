@@ -325,6 +325,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                   await onTapUseOriginSBProfile();
                 }))
       ];
+
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -336,64 +337,72 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                   setState(() {});
                 }))
       ];
+
+      List<GroupItemOptions> options2 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.AboutScreen.enablePprof,
+                tips:
+                    "${tcontext.meta.port}:${SettingConfigItemDev.pprofPortDefault}",
+                switchValue: settingConfig.dev.pprofPort ==
+                    SettingConfigItemDev.pprofPortDefault,
+                onSwitch: (bool value) async {
+                  settingConfig.dev.pprofPort =
+                      value ? SettingConfigItemDev.pprofPortDefault : 0;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                })),
+        if (settingConfig.dev.pprofPort != 0) ...[
+          GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.AboutScreen.allowRemoteAccessPprof,
+                  switchValue: settingConfig.dev.allowRemoteAccessPprof,
+                  onSwitch: (bool value) async {
+                    settingConfig.dev.allowRemoteAccessPprof = value;
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  })),
+          GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                  name: tcontext.AboutScreen.pprofPanel,
+                  onPush: () async {
+                    bool ok = await startVPN();
+                    if (!ok) {
+                      return;
+                    }
+                    if (!context.mounted) {
+                      return;
+                    }
+                    await UrlLauncherUtils.loadUrl(
+                      "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
+                    );
+                  }))
+        ],
+      ];
+
+      List<GroupItemOptions> options3 = [
+        GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.AboutScreen.allowRemoteAccessHtmlBoard,
+                switchValue: settingConfig.dev.allowRemoteAccessHtmlBoard,
+                onSwitch: (bool value) async {
+                  settingConfig.dev.allowRemoteAccessHtmlBoard = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                }))
+      ];
+
       if (!dev.devMode) {
         return [
           GroupItem(options: options),
           GroupItem(options: options0),
           GroupItem(options: options1),
+          GroupItem(options: options2),
+          GroupItem(options: options3),
         ];
       }
-      List<GroupItemOptions> options2 = [];
-      List<GroupItemOptions> options3 = [];
+
       List<GroupItemOptions> options4 = [];
-
-      options2.add(GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.AboutScreen.enablePprof,
-              switchValue: settingConfig.dev.pprofPort ==
-                  SettingConfigItemDev.pprofPortDefault,
-              onSwitch: (bool value) async {
-                settingConfig.dev.pprofPort =
-                    value ? SettingConfigItemDev.pprofPortDefault : 0;
-                SettingManager.setDirty(true);
-                setState(() {});
-              })));
-      if (settingConfig.dev.pprofPort != 0) {
-        options2.add(GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.AboutScreen.allowRemoteAccessPprof,
-                switchValue: settingConfig.dev.allowRemoteAccessPprof,
-                onSwitch: (bool value) async {
-                  settingConfig.dev.allowRemoteAccessPprof = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })));
-        options2.add(GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.AboutScreen.pprofPanel,
-                onPush: () async {
-                  bool ok = await startVPN();
-                  if (!ok) {
-                    return;
-                  }
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await UrlLauncherUtils.loadUrl(
-                    "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
-                  );
-                })));
-      }
-      options3.add(GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.AboutScreen.allowRemoteAccessHtmlBoard,
-              switchValue: settingConfig.dev.allowRemoteAccessHtmlBoard,
-              onSwitch: (bool value) async {
-                settingConfig.dev.allowRemoteAccessHtmlBoard = value;
-                SettingManager.setDirty(true);
-                setState(() {});
-              })));
-
       if (Platform.isWindows) {
         options4.add(GroupItemOptions(
             pushOptions: GroupItemPushOptions(

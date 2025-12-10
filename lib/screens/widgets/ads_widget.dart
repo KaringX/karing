@@ -213,14 +213,14 @@ class AdsRewardWidget {
       BuildContext context, Function(bool)? callback) async {
     final tcontext = Translations.of(context);
     if (AdsRewardWidget._maybeAdsReward != null &&
-        DateTime.now().difference(AdsRewardWidget._maybeAdsReward!) <
-            Duration(hours: 12)) {
+        DateTime.now().isBefore(AdsRewardWidget._maybeAdsReward!)) {
       callback?.call(true);
       return;
     }
     if (!Platform.isAndroid && !Platform.isIOS) {
       if (PlatformUtils.isPC()) {
-        AdsRewardWidget._maybeAdsReward = DateTime.now();
+        AdsRewardWidget._maybeAdsReward =
+            DateTime.now().add(Duration(hours: 4));
         var remoteConfig = RemoteConfigManager.getConfig();
         String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
             remoteConfig.statistics);
@@ -241,11 +241,17 @@ class AdsRewardWidget {
         await DialogUtils.showConfirmDialog(context, tcontext.maybeAdsByReward);
     if (ok == true) {
       if (!context.mounted) {
+        callback?.call(true);
+        return;
+      }
+      if (SettingManager.getConfig().dev.devMode) {
+        callback?.call(true);
         return;
       }
       DialogUtils.showLoadingDialog(context, text: "");
       AdsRewardWidget.loadGoogleRewardedAd((AdsRewardError? err) {
-        AdsRewardWidget._maybeAdsReward = err == null ? DateTime.now() : null;
+        AdsRewardWidget._maybeAdsReward =
+            DateTime.now().add(Duration(hours: err == null ? 12 : 2));
 
         Navigator.pop(context);
         callback?.call(err == null);

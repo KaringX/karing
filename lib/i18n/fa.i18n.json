@@ -413,6 +413,7 @@
         "netInterfaces": "رابط شبکه",
         "netSpeed": "سرعت",
         "memoryTrendChart": "نمودار روند حافظه",
+        "goroutinesTrendChart": "نمودار روند GoRoutines",
         "trafficTrendChart": "نمودار روند ترافیک",
         "trafficDistributionChart": "نقشه توزیع ترافیک",
         "connectionChart": "نمودار روند اتصال",

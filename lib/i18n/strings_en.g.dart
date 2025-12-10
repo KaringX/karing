@@ -1485,6 +1485,9 @@ class TranslationsMetaEn {
 	/// en: 'Memory Trend chart'
 	String get memoryTrendChart => 'Memory Trend chart';
 
+	/// en: 'GoRoutines Trend chart'
+	String get goroutinesTrendChart => 'GoRoutines Trend chart';
+
 	/// en: 'Traffic Trend Chart'
 	String get trafficTrendChart => 'Traffic Trend Chart';
 
@@ -2400,6 +2403,7 @@ extension on Translations {
 			'meta.netInterfaces' => 'Net Interfaces',
 			'meta.netSpeed' => 'Speed',
 			'meta.memoryTrendChart' => 'Memory Trend chart',
+			'meta.goroutinesTrendChart' => 'GoRoutines Trend chart',
 			'meta.trafficTrendChart' => 'Traffic Trend Chart',
 			'meta.trafficDistributionChart' => 'Traffic Distribution Chart',
 			'meta.connectionChart' => 'Connection Trend Chart',
@@ -2542,9 +2546,9 @@ extension on Translations {
 			'tls.paddingEnable' => 'Enable TLS Padding',
 			'tls.paddingSize' => 'TLS Padding Size',
 			'outboundRuleMode.currentSelected' => 'Current Selected',
-			'outboundRuleMode.urltest' => 'Auto Select',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.urltest' => 'Auto Select',
 			'outboundRuleMode.direct' => 'Direct',
 			'outboundRuleMode.block' => 'Block',
 			'dnsProxyResolveMode.proxy' => _root.outboundRuleMode.currentSelected,

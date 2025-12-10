@@ -414,11 +414,24 @@ class SettingConfigItemDev {
   bool allowRemoteAccessPprof = false;
   bool allowRemoteAccessHtmlBoard = false;
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {};
+    Map<String, dynamic> ret = {
+      'enable_debug_log': enableDebugLog,
+      'pprof_port': pprofPort,
+      'allow_remote_access_pprof': allowRemoteAccessPprof,
+      'allow_remote_access_htmlboard': allowRemoteAccessHtmlBoard,
+    };
     return ret;
   }
 
-  void fromJson(Map<String, dynamic>? map) {}
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+    enableDebugLog = map["enable_debug_log"] ?? false;
+    pprofPort = map["pprof_port"] ?? 0;
+    allowRemoteAccessPprof = map["allow_remote_access_pprof"] ?? false;
+    allowRemoteAccessHtmlBoard = map["allow_remote_access_htmlboard"] ?? false;
+  }
 
   static SettingConfigItemDev fromJsonStatic(Map<String, dynamic>? map) {
     SettingConfigItemDev config = SettingConfigItemDev();
@@ -1566,6 +1579,7 @@ class SettingConfig {
         'region_code': regionCode,
         'novice': novice,
         'ui': ui,
+        'dev': dev,
         'ui_screen': uiScreen,
         'ntp': ntp,
         'proxy': proxy,
@@ -1613,6 +1627,7 @@ class SettingConfig {
     novice = map["novice"] ?? false;
 
     ui = SettingConfigItemUI.fromJsonStatic(map["ui"]);
+    dev = SettingConfigItemDev.fromJsonStatic(map["dev"]);
     uiScreen =
         SettingConfigItemUIScreen.fromJsonStatic(map["ui_screen"] ?? map);
     if (map["ntp"] is Map) {
