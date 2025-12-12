@@ -1303,6 +1303,11 @@ class ServerManager {
           bool change = item.removeLatencyError();
           if (change) {
             groups.add(item);
+            
+            // Clean up test queues for removed servers
+            Set<String> validTags = item.servers.map((s) => s.tag).toSet();
+            item.testLatency.removeWhere((tag) => !validTags.contains(tag));
+            item.testLatencyIndepends.removeWhere((tag) => !validTags.contains(tag));
           }
         }
       }
@@ -1358,7 +1363,10 @@ class ServerManager {
       _onTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
-      schedulerTestLatency();
+      // Delay scheduling to avoid rapid loop when processing removed servers
+      Future.delayed(const Duration(milliseconds: 100), () {
+        schedulerTestLatency();
+      });
       return ReturnResultError("invalid group");
     }
     ProxyConfig? config = item.getByTag(tag);
@@ -1367,7 +1375,10 @@ class ServerManager {
       _onTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
-      schedulerTestLatency();
+      // Delay scheduling to avoid rapid loop when processing removed servers
+      Future.delayed(const Duration(milliseconds: 100), () {
+        schedulerTestLatency();
+      });
       return ReturnResultError("invalid tag");
     }
 
@@ -1377,7 +1388,10 @@ class ServerManager {
       _onTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
-      schedulerTestLatency();
+      // Delay scheduling to avoid rapid loop when processing removed servers
+      Future.delayed(const Duration(milliseconds: 100), () {
+        schedulerTestLatency();
+      });
       return ReturnResultError("disabled");
     }
     var settings = SettingManager.getConfig();
