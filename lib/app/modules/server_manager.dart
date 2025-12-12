@@ -1611,6 +1611,11 @@ class ServerManager {
         }
         exist.traffic = item.traffic;
         exist.servers = item.servers;
+        
+        // Clean up test queues for updated server list
+        Set<String> validTags = item.servers.map((s) => s.tag).toSet();
+        exist.testLatency.removeWhere((tag) => !validTags.contains(tag));
+        exist.testLatencyIndepends.removeWhere((tag) => !validTags.contains(tag));
         break;
       }
     }
