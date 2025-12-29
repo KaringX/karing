@@ -6,73 +6,80 @@
 </h1>
 
 <h3 align="center">
-Графический интерфейс <a href="https://github.com/SagerNet/sing-box">singbox</a> на основе <a href="https://github.com/flutter/flutter">flutter</a>.
+Графический интерфейс <a href="https://github.com/SagerNet/sing-box">singbox</a> на основе <a href="https://github.com/flutter/flutter">flutter</a>
 </h3>
 
-[Английский](./README.md)  | [Китайский](./README_cn.md) | Русский | [Персидский](./README_fa.md)
-### Примечание. Компания Karing не открывала ни одного канала о компании Karing ни на одной видеоплатформе.
+
+[Английский](./README.md) | [Китайский](./README_cn.md) | Русский | [Персидский](./README_fa.md)
+### Примечание: Karing не открывал ни одного канала ни на одной видеоплатформе.
 ## Особенности
 - Совместим с Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, подписками на GitHub.
-- Полная поддержка конфигурации `clash`, частичная поддержка конфигурации `clash.meta`.
-- Простой пользовательский интерфейс и поддержка настраиваемого цветового оформления.
-- Встроенная поддержка ядра [singbox](https://github.com/SagerNet/sing-box).
-- Настройка системного прокси и защита.
-- Планы поддержки всех платформ.
+  - Полная поддержка конфигурации `clash`, частичная поддержка конфигурации `clash.meta`.
+- Набор правил маршрутизации, применяемых к нескольким источникам подписки, автоматически выбирает наиболее эффективные узлы.
+- Поддержка пользовательские группы правил маршрутизации и группы узлов.
+  - Настраивает группы правил маршрутизации по умолчанию для новичков — готов к использованию сразу "из коробки".
+  - Встроенные функции: geo-IP, geo-site, ACL и [другие наборы правил](https://github.com/KaringX/karing-ruleset/).
+- Резервное копирование и синхронизация, синхронизация между несколькими устройствами с помощью одной конфигурации.
+  - Поддержка синхронизации iCloud [iOS/MacOS].
+  - Поддержка синхронизацию в локальной сети.
+  - Поддержка WebDAV.
+  - Поддержка импорта/экспорта ZIP-файлов.
+- Встроенная поддержка [модифицированного ядра sing-box](https://github.com/KaringX/sing-box).
+- Имеет режим для новичков, упрощающий настройку.
+- Планируется поддержка большего количества платформ.
+
 
 ## Продвижение
-<details>
-<summary>Продвижение
+<details> <summary>Раскрыть</summary>
 
-[NETZ —— ISP in Russia](https://netz.run)
+### [NETZ —— ISP в России](https://netz.run)
 
-- Высокопроизводственный зарубежный VPN, бесплатное испытание, поддержка протокола Trojan.
-- Бесплатное испытание и покупка (без регистрации): [Telegram bot](https://t.me/netzrun_bot?start=ref_karing)
+- Высокопроизводительный зарубежный VPN с поддержкой протокола Trojan.
+- Бесплатный пробный период и покупка без регистрации: [Telegram](https://t.me/netzrun_bot?start=ref_karing)
 
+[Посмотреть другие ISP](https://1.x31415926.top/ru.html)
 
-[List of other ISPs](https://1.x31415926.top/ru.html)
-
-
-
-### VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
-
-</summary>
+### Объявление о сотрудничестве VPN-провайдеров
+- 👉[Контактная информация и формы сотрудничества](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
 </details>
 
 ## Системные требования
-- Windows >= 10 (только 64-битные)
-- Android >= 8 (arm64-v8a, armeabi-v7a)
+- Windows ≥ 10 (только 64-битные)
+- Android ≥ 8 (arm64-v8a, armeabi-v7a)
 - Linux (только 64-битные)
-- IOS >= 15
-- MacOS >= 12 (Intel, Apple Silicon)
-- TvOS >= 17
+- iOS ≥ 15
+- MacOS ≥ 12 (Intel, Apple Silicon)
+- TvOS ≥ 17
 
 ## Установка
-- **IOS/TvOS AppStore**: (Поиск по ключевым словам: karing vpn)
-  - https://apps.apple.com/us/app/karing/id6472431552
-- **IOS/TvOS TestFlight**:
-  - https://testflight.apple.com/join/RLU59OsJ
+- **iOS/TvOS AppStore**:
+  - [App Store](https://apps.apple.com/us/app/karing/id6472431552)
+- **iOS/TvOS TestFlight**:
+  - [TestFlight](https://testflight.apple.com/join/RLU59OsJ)
 - **Android**:
-  - [https://karing.app/download](https://karing.app/download)
-  - https://github.com/KaringX/karing/releases/latest
-  - APKPure https://apkpure.com/p/com.nebula.karing
-  - Amazon AppStore https://www.amazon.com/gp/product/B0DJSQDDM8
+  - [Сайт](https://karing.app/download)
+  - [GitHub](https://github.com/KaringX/karing/releases/latest)
+  - [APKPure](https://apkpure.com/p/com.nebula.karing)
+  - [Amazon AppStore](https://www.amazon.com/gp/product/B0DJSQDDM8)
+- **Windows/MacOS/Linux**:
+  - [Сайт](https://karing.app/download)
+  - [GitHub](https://github.com/KaringX/karing/releases/latest)
+ 
 
-- **Windows/Macos/Linux**:
-  - [https://karing.app/download](https://karing.app/download)
-  - https://github.com/KaringX/karing/releases/latest
 
-### ЧаВо
+### FAQ
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ│en](https://karing.app/en/faq/)
+
 
 ## Планы
-- Платформы, которые будут поддержаны:
-  - linux | [linglong](https://linglong.dev/)
+- Поддерживаемые платформы:
+  - Linux│[linglong](https://linglong.dev/)
 - Глобализация (многоязычность)
   - Если вы готовы сотрудничать с нами для поддержки глобализации Karing, отправьте электронное письмо на gooringx@gmail.com для участия
 
-## Скриншоты (версия для Windows)
+
+## Скриншоты (Windows)
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -88,22 +95,29 @@
   <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
-## Вклад
-[Добро пожаловать к сообщению об ошибке!](https://github.com/KaringX/karing/issues)
 
-## Donate
+## Вклад
+[Добро пожаловать в Issues!](https://github.com/KaringX/karing/issues)
+
+
+## Донат
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-## Projects 
 
-### Признательность: Karing был основан или вдохновлен следующими проектами и так далее:
+## Проекты
+### Благодарности: Karing был создан на основе или вдохновлен этими проектами:
 
-- [flutter](https://flutter.dev/): облегчает и ускоряет создание красивых приложений для мобильных устройств и не только.
-- [singbox](https://sing-box.sagernet.org/): универсальная платформа прокси.
-- [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta документация
+- [flutter](https://flutter.dev/): позволяет легко и быстро создавать красивые приложения для мобильных устройств и не только
+- [singbox](https://sing-box.sagernet.org/): универсальная прокси-платформа
+- [Meta-Docs](https://wiki.metacubex.one/config/): документация Clash-Meta
 
-### Karing Team:
-- [Karing](https://karing.app): https://karing.app
-- [Clash Mi](https://clashmi.app/): https://clashmi.app/
+### Команда Karing:
+- [Karing](https://karing.app)
+- [Clash Mi](https://clashmi.app/)
 - [sing-poet](https://github.com/KaringX/sing-poet)
 
+
+
+## История проставленных звёзд
+
+[![История проставленных звёзд](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
