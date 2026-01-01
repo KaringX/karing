@@ -16,6 +16,7 @@ import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -29,7 +30,7 @@ Map<String, dynamic> removeNotMap(Map<String, dynamic> object) {
   return object;
 }
 
-//UI选项
+//UI
 class SettingConfigItemUICloudflareWarp {
   WarpAccount account = WarpAccount();
   String license = "";
@@ -341,7 +342,6 @@ class SettingConfigItemUIScreen {
     backgroundImageLocal = map["background_image_local"] ?? "";
     if (backgroundImageType_ == null) {
       if (backgroundImageUrl.isNotEmpty) {
-        //兼容老的远程图片
         backgroundImageType = backgroundTypeRemote;
       } else {
         backgroundImageType = backgroundTypeDisable;
@@ -405,7 +405,7 @@ class SettingConfigItemUIScreen {
   }
 }
 
-//开发选项
+//Dev
 class SettingConfigItemDev {
   static int pprofPortDefault = 3060;
   bool devMode = false;
@@ -476,7 +476,8 @@ class SettingConfigItemNTP {
     "time.windows.com",
     "time.google.com",
     "pool.ntp.org",
-    "ntp.aliyun.com"
+    "ntp.aliyun.com",
+    "ntp.iranet.ir",
   ];
   bool enable = false;
   String server = getServer();
@@ -523,7 +524,7 @@ class SettingConfigItemTUN {
   bool strictRoute = false;
   bool allowBypass = false; //android
   bool appendHttpProxy =
-      getAppendHttp(); //android, ios有些app会直连代理绕过tun软路由,这里开启代理
+      getAppendHttp(); //android, ios: some apps skip tun route
   List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
   String loopbackAddress = "";
@@ -606,11 +607,9 @@ class SettingConfigItemTUN {
 
   static String getStack() {
     if (Platform.isAndroid) {
-      //改成system后, _cgo_topofstack,crosscall2崩溃基本消失了(291开始),某些设备上system还是持续崩溃,改成gvisor正常
       return "gvisor";
     }
     if (Platform.isWindows) {
-      //某些新安装的win10使用system/mixed无法正常接收数据
       return "gvisor";
     }
     return "mixed";
@@ -618,7 +617,6 @@ class SettingConfigItemTUN {
 
   static bool getAppendHttp() {
     if (Platform.isAndroid) {
-      //android开启后,知乎无法正常访问网络
       return false;
     }
     return true;
@@ -639,8 +637,8 @@ class SettingConfigItemDNS {
   static const String kDNSIsp = "isp";
   static const String kDNSUrl = "url";
   static const String kDNSLocal =
-      "local"; //windows tun 不能够使用local,详情见https://github.com/SagerNet/sing-box/issues/1592
-  static const String kDNSDHCP = "dhcp://auto"; //android 无权限
+      "local"; //windows tun :do not use local,https://github.com/SagerNet/sing-box/issues/1592
+  static const String kDNSDHCP = "dhcp://auto"; //android
   static const String kDNSTestDomain = "gstatic.com";
   static const List<dynamic> kDNSList = [
     //https://dns.iui.im/
@@ -1128,6 +1126,7 @@ class SettingConfigItemProxy {
   static int clusterPortDefault = 3050;
 
   String host = hostLocal;
+  bool enableCluster = false;
   String clusterHost = hostLocal;
   int mixedRulePort = kMixedPortDefault;
   int mixedDirectPort = kMixedDirectPortDefault;
@@ -1139,7 +1138,7 @@ class SettingConfigItemProxy {
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
   List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
-  bool enableCluster = false;
+  bool autoAddToFirewall = true;
 
   void setAllowAllInbounds(bool allow) {
     host = allow ? hostNetwork : hostLocal;
@@ -1158,8 +1157,8 @@ class SettingConfigItemProxy {
   }
 
   Map<String, dynamic> toJson() => {
-        'enable_cluster': enableCluster,
         'host': host,
+        'enable_cluster': enableCluster,
         'cluster_host': clusterHost,
         'mixed_port': mixedRulePort,
         'mixed_direct_port': mixedDirectPort,
@@ -1171,13 +1170,15 @@ class SettingConfigItemProxy {
         'auto_set_system_proxy': autoSetSystemProxy,
         'system_proxy_bypass_domain': systemProxyBypassDomain,
         'disconnect_when_quit': disconnectWhenQuit,
+        'auto_add_to_firewall': autoAddToFirewall,
       };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
     }
-    enableCluster = map["enable_cluster"] ?? false;
+
     host = map["host"] ?? hostLocal;
+    enableCluster = map["enable_cluster"] ?? false;
     clusterHost = map["cluster_host"] ?? hostLocal;
     mixedRulePort = map["mixed_port"] ?? 0;
     mixedDirectPort = map["mixed_direct_port"] ?? 0;
@@ -1217,6 +1218,7 @@ class SettingConfigItemProxy {
         ProxyBypassDoaminsDefault.toList())!;
     disconnectWhenQuit =
         map["disconnect_when_quit"] ?? getDisconnectWhenQuitDefault();
+    autoAddToFirewall = map["auto_add_to_firewall"] ?? true;
   }
 
   static SettingConfigItemProxy fromJsonStatic(Map<String, dynamic>? map) {
@@ -1519,14 +1521,23 @@ class SettingConfig {
 
   static const List<String> kUserAgentList = [
     "sing-box $kCoreVersion",
-    "mihomo/1.19.12",
+    "mihomo/1.19.16",
     "ClashMeta",
     "clash-verge",
-    "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)",
+    "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "HiddifyNext",
     "v2ray",
     "FLClash"
   ];
+  static const Map<String, String> kUserAgentListOldUpgrade = {
+    "sing-box": "sing-box $kCoreVersion",
+    "mihomo/1.19.9": "mihomo/1.19.16",
+    "mihomo/1.19.12": "mihomo/1.19.16",
+    "NekoBox/Android/1.3.1 (Prefer ClashMeta Format)":
+        "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
+    "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)":
+        "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
+  };
 
   String languageTag = "";
   String regionCode = "";
@@ -1567,6 +1578,7 @@ class SettingConfig {
   List<String> urlTestList = [];
   String urlTest = kUrlTestList[0];
   int urlTestTimeout = 15;
+  int latencyCheckConcurrency = maxLatencyCheckConcurrency();
   bool latencyCheckResoveIP = false;
 
   String autoUpdateChannel = "stable"; //stable, beta
@@ -1611,6 +1623,7 @@ class SettingConfig {
         'url_test_list': urlTestList,
         'url_test_timeout': urlTestTimeout,
         'url_test': urlTest,
+        'latency_check_concurrency': latencyCheckConcurrency,
         'latency_check_resolve_ip': latencyCheckResoveIP,
         'auto_update_channel': autoUpdateChannel,
         'auto_download_udpate_pkg': autoDownloadUpdatePkg,
@@ -1733,6 +1746,13 @@ class SettingConfig {
     if (urlTest.isEmpty) {
       urlTest = kUrlTestList[0];
     }
+    latencyCheckConcurrency =
+        map["latency_check_concurrency"] ?? maxLatencyCheckConcurrency();
+    if (latencyCheckConcurrency < 0 ||
+        latencyCheckConcurrency > maxLatencyCheckConcurrency()) {
+      latencyCheckConcurrency = maxLatencyCheckConcurrency();
+    }
+
     latencyCheckResoveIP = map["latency_check_resolve_ip"] ??
         map["latency_check_resove_ip"] ??
         false;
@@ -1755,9 +1775,13 @@ class SettingConfig {
   void reset() {
     var map = toJson();
     removeNotMap(map);
+    final webdav_ = webdav;
+    final warp_ = warp;
     map["language_tag"] = languageTag;
     map["region_code"] = regionCode;
     fromJson(map);
+    webdav = webdav_;
+    warp = warp_;
   }
 
   country.Country currentCountry() {
@@ -1776,6 +1800,10 @@ class SettingConfig {
 
   static String languageTagForCountry() {
     return LocaleSettings.currentLocale.languageTag.replaceAll("-", "_");
+  }
+
+  static int maxLatencyCheckConcurrency() {
+    return PlatformUtils.isPC() ? 20 : 10;
   }
 }
 

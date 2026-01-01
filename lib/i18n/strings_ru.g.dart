@@ -95,6 +95,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
 	@override String get turnOffNetworkBeforeInstall => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
+	@override String get latencyTestConcurrency => 'Параллелизм';
 	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
 	@override String get removeBannerAdsByReward => 'Просмотреть рекламу для удаления новой рекламы';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
@@ -434,6 +435,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
+	@override String get autoAddToFirewall => 'Автоматическое добавление правил брандмауэра';
 	@override String get excludeFromRecent => 'Скрыть из недавних задач';
 	@override String get wakeLock => 'Блокировка пробуждения';
 	@override String get hideVpn => 'Скрыть значок VPN';
@@ -1091,6 +1093,7 @@ extension on TranslationsRu {
 			'SettingsScreen.autoSetSystemProxy' => 'Установить системный прокси после подключения',
 			'SettingsScreen.bypassSystemProxy' => 'Доменные имена, которым разрешено обходить системный прокси-сервер',
 			'SettingsScreen.disconnectWhenQuit' => 'Отключаться при выходе из приложения',
+			'SettingsScreen.autoAddToFirewall' => 'Автоматическое добавление правил брандмауэра',
 			'SettingsScreen.excludeFromRecent' => 'Скрыть из недавних задач',
 			'SettingsScreen.wakeLock' => 'Блокировка пробуждения',
 			'SettingsScreen.hideVpn' => 'Скрыть значок VPN',
@@ -1430,9 +1433,9 @@ extension on TranslationsRu {
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
 			'tls.paddingSize' => 'Размер заполнения TLS',
-			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
 			'outboundRuleMode.block' => 'Блокировать',
@@ -1469,6 +1472,7 @@ extension on TranslationsRu {
 			'sudoPassword' => 'Пароль sudo (требуется для режима TUN)',
 			'turnOffNetworkBeforeInstall' => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].',
 			'latencyTestResolveIP' => 'При ручном определении анализируется исходящий IP-адрес',
+			'latencyTestConcurrency' => 'Параллелизм',
 			'removeBannerAdsByShare' => 'Поделиться [Karing] для удаления рекламы',
 			'removeBannerAdsByReward' => 'Просмотреть рекламу для удаления новой рекламы',
 			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)',

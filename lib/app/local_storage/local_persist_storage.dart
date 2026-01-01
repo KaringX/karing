@@ -18,7 +18,7 @@ class PersistStorage {
        //   path: '',
        //   options: const SqliteOptions(journalMode: SqliteJournalMode.memory));
       _db = SqliteDatabase(
-          path: 'test.db'); //不能使用内存模式, 因为ioslate会导致生成ioslate对应的实例,导致数据无法共享
+          path: 'test.db'); //memory mode:  ioslate gen ioslate instance,which cause data can not be shared
 
       //await migrations.migrate(_db);
       print('PersistStorage done');

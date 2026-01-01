@@ -144,7 +144,7 @@ class ProxyCluster {
     } catch (err) {
       Log.w("ProxyCluster.inboundsAndRulesFrom exception ${err.toString()}");
     }
-    if (Platform.isWindows) {
+    if (Platform.isWindows && proxy.autoAddToFirewall) {
       List<int> ports = [];
       for (var sock in sockets) {
         ports.add(sock.port);

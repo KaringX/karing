@@ -95,6 +95,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override String get sudoPassword => 'sudo 密码(TUN模式需要)';
 	@override String get turnOffNetworkBeforeInstall => '建议切换到[飞行模式]后再安装更新';
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
+	@override String get latencyTestConcurrency => '并发数量';
 	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
 	@override String get removeBannerAdsByReward => '观看广告去广告';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
@@ -434,6 +435,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
 	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
 	@override String get disconnectWhenQuit => '退出应用时关闭连接';
+	@override String get autoAddToFirewall => '自动添加防火墙规则';
 	@override String get excludeFromRecent => '从[最近任务]中隐藏';
 	@override String get wakeLock => '唤醒锁';
 	@override String get hideVpn => '隐藏VPN图标';
@@ -1091,6 +1093,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.autoSetSystemProxy' => '连接后自动设置系统代理',
 			'SettingsScreen.bypassSystemProxy' => '允许绕过系统代理的域名',
 			'SettingsScreen.disconnectWhenQuit' => '退出应用时关闭连接',
+			'SettingsScreen.autoAddToFirewall' => '自动添加防火墙规则',
 			'SettingsScreen.excludeFromRecent' => '从[最近任务]中隐藏',
 			'SettingsScreen.wakeLock' => '唤醒锁',
 			'SettingsScreen.hideVpn' => '隐藏VPN图标',
@@ -1430,9 +1433,9 @@ extension on TranslationsZhCn {
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
 			'tls.paddingSize' => 'TLS填充大小',
-			'outboundRuleMode.currentSelected' => '当前选择',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => '当前选择',
 			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',
 			'outboundRuleMode.block' => '拦截',
@@ -1469,6 +1472,7 @@ extension on TranslationsZhCn {
 			'sudoPassword' => 'sudo 密码(TUN模式需要)',
 			'turnOffNetworkBeforeInstall' => '建议切换到[飞行模式]后再安装更新',
 			'latencyTestResolveIP' => '手动检测时,同时解析出口IP',
+			'latencyTestConcurrency' => '并发数量',
 			'removeBannerAdsByShare' => '分享[Karing]去广告',
 			'removeBannerAdsByReward' => '观看广告去广告',
 			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)',

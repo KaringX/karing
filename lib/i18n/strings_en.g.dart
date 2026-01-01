@@ -156,6 +156,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'When manually checking, resolve the outlet IP'
 	String get latencyTestResolveIP => 'When manually checking, resolve the outlet IP';
 
+	/// en: 'Concurrency'
+	String get latencyTestConcurrency => 'Concurrency';
+
 	/// en: 'Share [Karing] to remove ads'
 	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
 
@@ -853,6 +856,9 @@ class TranslationsSettingsScreenEn {
 
 	/// en: 'Disconnect when App Exits'
 	String get disconnectWhenQuit => 'Disconnect when App Exits';
+
+	/// en: 'Auto Add Firewall Rules'
+	String get autoAddToFirewall => 'Auto Add Firewall Rules';
 
 	/// en: 'Hide from [Recent Tasks]'
 	String get excludeFromRecent => 'Hide from [Recent Tasks]';
@@ -2206,6 +2212,7 @@ extension on Translations {
 			'SettingsScreen.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
 			'SettingsScreen.bypassSystemProxy' => 'Domain names that are allowed to bypass the system proxy',
 			'SettingsScreen.disconnectWhenQuit' => 'Disconnect when App Exits',
+			'SettingsScreen.autoAddToFirewall' => 'Auto Add Firewall Rules',
 			'SettingsScreen.excludeFromRecent' => 'Hide from [Recent Tasks]',
 			'SettingsScreen.wakeLock' => 'Wake Lock',
 			'SettingsScreen.hideVpn' => 'Hide VPN Icon',
@@ -2545,9 +2552,9 @@ extension on Translations {
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			'tls.paddingEnable' => 'Enable TLS Padding',
 			'tls.paddingSize' => 'TLS Padding Size',
-			'outboundRuleMode.currentSelected' => 'Current Selected',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Current Selected',
 			'outboundRuleMode.urltest' => 'Auto Select',
 			'outboundRuleMode.direct' => 'Direct',
 			'outboundRuleMode.block' => 'Block',
@@ -2584,6 +2591,7 @@ extension on Translations {
 			'sudoPassword' => 'sudo password (required for TUN mode)',
 			'turnOffNetworkBeforeInstall' => 'It is recommended to switch to [Airplane Mode] before installing the update',
 			'latencyTestResolveIP' => 'When manually checking, resolve the outlet IP',
+			'latencyTestConcurrency' => 'Concurrency',
 			'removeBannerAdsByShare' => 'Share [Karing] to remove ads',
 			'removeBannerAdsByReward' => 'Watch an ad to remove ads',
 			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)',

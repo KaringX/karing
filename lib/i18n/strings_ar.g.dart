@@ -95,6 +95,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get sudoPassword => 'كلمة مرور sudo (مطلوبة لوضع TUN)';
 	@override String get turnOffNetworkBeforeInstall => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
+	@override String get latencyTestConcurrency => 'التزامن';
 	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
 	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
@@ -434,6 +435,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
 	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 	@override String get disconnectWhenQuit => 'افصل عندما يخرج التطبيق';
+	@override String get autoAddToFirewall => 'إضافة قواعد جدار الحماية تلقائيًا';
 	@override String get excludeFromRecent => 'إخفاء من المهام الأخيرة';
 	@override String get wakeLock => 'قفل الاستيقاظ';
 	@override String get hideVpn => 'إخفاء أيقونة VPN';
@@ -1091,6 +1093,7 @@ extension on TranslationsAr {
 			'SettingsScreen.autoSetSystemProxy' => 'وكيل نظام تعيين تلقائي عند الاتصال',
 			'SettingsScreen.bypassSystemProxy' => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام',
 			'SettingsScreen.disconnectWhenQuit' => 'افصل عندما يخرج التطبيق',
+			'SettingsScreen.autoAddToFirewall' => 'إضافة قواعد جدار الحماية تلقائيًا',
 			'SettingsScreen.excludeFromRecent' => 'إخفاء من المهام الأخيرة',
 			'SettingsScreen.wakeLock' => 'قفل الاستيقاظ',
 			'SettingsScreen.hideVpn' => 'إخفاء أيقونة VPN',
@@ -1430,9 +1433,9 @@ extension on TranslationsAr {
 			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
 			'tls.paddingEnable' => 'تمكين الحشو TLS',
 			'tls.paddingSize' => 'حجم الحشو TLS',
-			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
 			'outboundRuleMode.urltest' => 'اختيار آلي',
 			'outboundRuleMode.direct' => 'مباشر',
 			'outboundRuleMode.block' => 'حاجز',
@@ -1469,6 +1472,7 @@ extension on TranslationsAr {
 			'sudoPassword' => 'كلمة مرور sudo (مطلوبة لوضع TUN)',
 			'turnOffNetworkBeforeInstall' => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث',
 			'latencyTestResolveIP' => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.',
+			'latencyTestConcurrency' => 'التزامن',
 			'removeBannerAdsByShare' => 'شارك[Karing]اذهب إلى الإعلانات',
 			'removeBannerAdsByReward' => 'مشاهدة الإعلانات انتقل إلى الإعلانات',
 			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)',

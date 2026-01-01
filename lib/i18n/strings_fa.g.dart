@@ -95,6 +95,7 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get sudoPassword => 'رمز عبور sudo (برای حالت TUN لازم است)';
 	@override String get turnOffNetworkBeforeInstall => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
+	@override String get latencyTestConcurrency => 'همزمانی';
 	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
 	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
 	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
@@ -434,6 +435,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
 	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 	@override String get disconnectWhenQuit => 'قطع اتصال هنگام خروج از نرم‌افزار';
+	@override String get autoAddToFirewall => 'اضافه کردن خودکار قوانین فایروال';
 	@override String get excludeFromRecent => 'پنهان شدن از وظایف اخیر';
 	@override String get wakeLock => 'قفل بیدارباش';
 	@override String get hideVpn => 'مخفی کردن آیکون VPN';
@@ -1091,6 +1093,7 @@ extension on TranslationsFa {
 			'SettingsScreen.autoSetSystemProxy' => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال',
 			'SettingsScreen.bypassSystemProxy' => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند',
 			'SettingsScreen.disconnectWhenQuit' => 'قطع اتصال هنگام خروج از نرم‌افزار',
+			'SettingsScreen.autoAddToFirewall' => 'اضافه کردن خودکار قوانین فایروال',
 			'SettingsScreen.excludeFromRecent' => 'پنهان شدن از وظایف اخیر',
 			'SettingsScreen.wakeLock' => 'قفل بیدارباش',
 			'SettingsScreen.hideVpn' => 'مخفی کردن آیکون VPN',
@@ -1430,9 +1433,9 @@ extension on TranslationsFa {
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
 			'tls.paddingSize' => 'اندازه پد TLS',
-			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
 			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			'outboundRuleMode.direct' => 'مستقیم',
 			'outboundRuleMode.block' => 'مسدود',
@@ -1469,6 +1472,7 @@ extension on TranslationsFa {
 			'sudoPassword' => 'رمز عبور sudo (برای حالت TUN لازم است)',
 			'turnOffNetworkBeforeInstall' => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید',
 			'latencyTestResolveIP' => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.',
+			'latencyTestConcurrency' => 'همزمانی',
 			'removeBannerAdsByShare' => 'اشتراک گذاری[Karing]رفتن به تبلیغات',
 			'removeBannerAdsByReward' => 'تماشای تبلیغات برو به تبلیغات',
 			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)',

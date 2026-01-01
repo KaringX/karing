@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.9+1210
+version: 1.2.10+1308
 environment:
   sdk: ">=3.2.3 <4.0.0"
   flutter: ">=3.24.0"
@@ -250,13 +250,3 @@ parts: #linux flutter_secure_storage
     stage-packages:
       - libsecret-1-0
       - libjsoncpp-dev
-#linux 
-#sudo apt-get install libayatana-appindicator3-dev #linux tray_manager
-#sudo apt-get install keybinder-3.0 #linux hotkey_manager
-#sudo apt-get install libsecret-1-dev
-#sudo apt-get install libjsoncpp-dev #flutter_secure_storage
-
-#sudo apt-get install curl
-#sudo apt-get install libssl-dev libcurl4-openssl-dev
-
-#wsl sudo startxfce4

@@ -6,11 +6,11 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 //import 'package:class_to_string/class_to_string.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
@@ -20,7 +20,6 @@ import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
-import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
@@ -342,7 +341,6 @@ class ServerUse {
       ProxyConfig config = ProxyConfig();
       config.fromJson(i);
       if (config.type == kOutboundTypeSelector) {
-        //兼容老数据
         config.type = kOutboundTypeUrltest;
         config.groupid = ServerManager.getUrltestGroupId();
         config.tag = kOutboundTagUrltest;
@@ -366,7 +364,6 @@ class ServerUse {
       DiversionGroupSetting config = DiversionGroupSetting();
       config.fromJson(i);
       if (config.serverGroupId == kOutboundTypeSelector) {
-        //兼容老数据
         config.serverGroupId = kOutboundTypeUrltest;
         config.serverName = kOutboundTagUrltest;
       }
@@ -532,20 +529,24 @@ class ServerManager {
               now.difference(updateTime).inSeconds >=
                   item.updateDuration!.inSeconds) {
             ReturnResultError? err = await addRemoteConfig(
-                item.groupid,
-                item.remark,
-                item.urlOrPath,
-                item.type,
-                item.userAgentCompatible,
-                item.proxyFilter,
-                item.proxyFilterRemove,
-                item.keepDiversionRules,
-                item.enableDiversionRules,
-                item.reloadAfterProfileUpdate,
-                item.testLatencyAfterProfileUpdate,
-                item.testLatencyAutoRemove,
-                item.proxyStrategy,
-                null);
+              item.groupid,
+              item.remark,
+              item.urlOrPath,
+              item.type,
+              item.userAgentCompatible,
+              item.proxyFilter,
+              item.proxyFilterRemove,
+              item.keepDiversionRules,
+              item.enableDiversionRules,
+              item.reloadAfterProfileUpdate,
+              item.testLatencyAfterProfileUpdate,
+              item.testLatencyAutoRemove,
+              item.proxyStrategy,
+              null,
+              website: item.site,
+              ispId: item.isp?.id,
+              ispUser: item.isp?.user,
+            );
 
             if (err != null) {
               Log.w(
@@ -944,7 +945,7 @@ class ServerManager {
   }
 
   static Future<void> reorderGroup(List<String> groupid) async {
-    int index = 1; //跳过自定义组
+    int index = 1; //skip custom
     for (var gid in groupid) {
       for (var item in _serverConfig.items) {
         if (gid == item.groupid) {
@@ -1256,8 +1257,8 @@ class ServerManager {
       }
       return;
     }
-    int kMaxTestLatency = PlatformUtils.isPC() ? 20 : 10;
-    if (_testOutboundServerLatencying.length < kMaxTestLatency) {
+    int maxTestLatency = SettingManager.getConfig().latencyCheckConcurrency;
+    if (_testOutboundServerLatencying.length < maxTestLatency) {
       for (var item in _serverConfig.items) {
         if (!item.enable) {
           item.testLatency.clear();
@@ -1274,7 +1275,7 @@ class ServerManager {
           _testOutboundServerLatencying[item.testLatency[i]] = pair;
           item.testLatency.removeAt(i);
           --i;
-          if (_testOutboundServerLatencying.length >= kMaxTestLatency) {
+          if (_testOutboundServerLatencying.length >= maxTestLatency) {
             break;
           }
         }
@@ -1285,12 +1286,12 @@ class ServerManager {
           _testOutboundServerLatencying[item.testLatencyIndepends[i]] = pair;
           item.testLatencyIndepends.removeAt(i);
           --i;
-          if (_testOutboundServerLatencying.length >= kMaxTestLatency) {
+          if (_testOutboundServerLatencying.length >= maxTestLatency) {
             break;
           }
         }
 
-        if (_testOutboundServerLatencying.length >= kMaxTestLatency) {
+        if (_testOutboundServerLatencying.length >= maxTestLatency) {
           break;
         }
       }
@@ -1510,6 +1511,7 @@ class ServerManager {
     bool testLatencyAutoRemove,
     ProxyStrategy proxyStrategy,
     Duration? duration, {
+    String? website,
     String? ispId,
     String? ispUser,
   }) async {
@@ -1523,6 +1525,7 @@ class ServerManager {
     item.proxyFilter = filter;
     item.proxyFilterRemove = proxyFilterRemove;
     item.userAgentCompatible = userAgentCompatible;
+    item.site = website ?? "";
     item.keepDiversionRules = keepDiversionRules;
     item.enableDiversionRules = enableDiversionRules;
     item.reloadAfterProfileUpdate = reloadAfterProfileUpdate;
@@ -1548,7 +1551,7 @@ class ServerManager {
         keepDiversionRules ? diversionGroupItem : null);
     if (error != null) {
       if (groupid.isNotEmpty) {
-        //更新出错
+        //update error
         ServerConfigGroupItem? exist = getByGroupId(groupid);
         if (exist != null) {
           exist.updateTime = item.updateTime;
@@ -1564,7 +1567,7 @@ class ServerManager {
     diversionGroupItem.urlOrPath = item.urlOrPath;
     diversionGroupItem.remark = item.remark;
 
-    //将老的延时已ip信息复制到新的
+    //copy old data to the new one
     bool replaceServerConfig = false;
     Map<String, ProxyConfig> latencys = {};
     for (var exist in _serverConfig.items) {
@@ -1597,6 +1600,7 @@ class ServerManager {
         }
         exist.traffic = item.traffic;
         exist.servers = item.servers;
+        exist.updateTestLatencyList();
         break;
       }
     }
@@ -1745,7 +1749,8 @@ class ServerManager {
       bool testLatencyAutoRemove,
       ProxyStrategy proxyStrategy,
       Duration? duration,
-      {String? ispId,
+      {String? website,
+      String? ispId,
       String? ispUser}) async {
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
       type,
@@ -1763,6 +1768,7 @@ class ServerManager {
       testLatencyAutoRemove,
       proxyStrategy,
       duration,
+      website: website,
       ispId: ispId,
       ispUser: ispUser,
     );
@@ -2120,20 +2126,24 @@ class ServerManager {
     List<ServerConfigGroupItem> items = [];
     _remoteReloading.add(groupid);
     ReturnResultError? err = await addRemoteConfig(
-        groupid,
-        item.remark,
-        item.urlOrPath,
-        item.type,
-        item.userAgentCompatible,
-        item.proxyFilter,
-        item.proxyFilterRemove,
-        item.keepDiversionRules,
-        item.enableDiversionRules,
-        item.reloadAfterProfileUpdate,
-        item.testLatencyAfterProfileUpdate,
-        item.testLatencyAutoRemove,
-        item.proxyStrategy,
-        null);
+      groupid,
+      item.remark,
+      item.urlOrPath,
+      item.type,
+      item.userAgentCompatible,
+      item.proxyFilter,
+      item.proxyFilterRemove,
+      item.keepDiversionRules,
+      item.enableDiversionRules,
+      item.reloadAfterProfileUpdate,
+      item.testLatencyAfterProfileUpdate,
+      item.testLatencyAutoRemove,
+      item.proxyStrategy,
+      null,
+      website: item.site,
+      ispId: item.isp?.id,
+      ispUser: item.isp?.user,
+    );
     _remoteReloading.remove(groupid);
     if (err != null) {
       Log.w("ServerManager.reload err ${item.urlOrPath} ${err.message}");
@@ -2177,20 +2187,24 @@ class ServerManager {
         continue;
       }
       ReturnResultError? err = await addRemoteConfig(
-          groupid,
-          item.remark,
-          item.urlOrPath,
-          item.type,
-          item.userAgentCompatible,
-          item.proxyFilter,
-          item.proxyFilterRemove,
-          item.keepDiversionRules,
-          item.enableDiversionRules,
-          item.reloadAfterProfileUpdate,
-          item.testLatencyAfterProfileUpdate,
-          item.testLatencyAutoRemove,
-          item.proxyStrategy,
-          null);
+        groupid,
+        item.remark,
+        item.urlOrPath,
+        item.type,
+        item.userAgentCompatible,
+        item.proxyFilter,
+        item.proxyFilterRemove,
+        item.keepDiversionRules,
+        item.enableDiversionRules,
+        item.reloadAfterProfileUpdate,
+        item.testLatencyAfterProfileUpdate,
+        item.testLatencyAutoRemove,
+        item.proxyStrategy,
+        null,
+        website: item.site,
+        ispId: item.isp?.id,
+        ispUser: item.isp?.user,
+      );
       _remoteReloading.remove(groupid);
       if (err != null) {
         Log.w("ServerManager.reloadAll err ${item.urlOrPath} ${err.message}");
@@ -2598,6 +2612,7 @@ class ServerManager {
     await loadUse();
     await SettingManager.init(fromBackupRestore: true);
     await RemoteISPConfigManager.init();
+
     if (tun != null || mergePerapp) {
       if (tun != null) {
         SettingManager.getConfig().tun.enable = tun;
