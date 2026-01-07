@@ -141,11 +141,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
           return null;
         }
         if (data != null) {
-          app.icon = Image.memory(
-            data,
-            cacheHeight: 96,
-            cacheWidth: 96,
-          );
+          app.icon = Image.memory(data, cacheHeight: 96, cacheWidth: 96);
         }
 
         return app.icon;
@@ -163,10 +159,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -182,10 +175,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -195,44 +185,45 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
-                        onTap: () async {
-                          onTapMore();
-                        },
-                        child: Tooltip(
-                          message: tcontext.meta.more,
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.more_vert_outlined,
-                              size: 30,
-                            ),
-                          ),
-                        )),
+                      onTap: () async {
+                        onTapMore();
+                      },
+                      child: Tooltip(
+                        message: tcontext.meta.more,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.more_vert_outlined, size: 30),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               FutureBuilder(
                 future: getGroupOptions(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<GroupItem>> snapshot) {
-                  List<GroupItem> data = snapshot.hasData ? snapshot.data! : [];
-                  return Column(
-                      children: GroupItemCreator.createGroups(context, data));
-                },
+                builder:
+                    (
+                      BuildContext context,
+                      AsyncSnapshot<List<GroupItem>> snapshot,
+                    ) {
+                      List<GroupItem> data = snapshot.hasData
+                          ? snapshot.data!
+                          : [];
+                      return Column(
+                        children: GroupItemCreator.createGroups(context, data),
+                      );
+                    },
               ),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                ),
+                margin: const EdgeInsets.only(top: 10),
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 height: 44,
                 width: double.infinity,
@@ -246,9 +237,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    icon: Icon(
-                      Icons.search_outlined,
-                    ),
+                    icon: Icon(Icons.search_outlined),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -259,12 +248,8 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -275,34 +260,31 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
   Widget _loadListView() {
     if (_loading) {
       return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 26,
-              height: 26,
-              child: RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: RepaintBoundary(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            ProcessInfo current = _searchedData[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          ProcessInfo current = _searchedData[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(ProcessInfo current, Size windowSize) {
@@ -311,9 +293,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 66,
           child: Row(
@@ -324,73 +304,72 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: current.hasIcon
-                              ? FutureBuilder(
-                                  future: getProcessIcon(current.identifier),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<Image?> snapshot) {
-                                    if (!snapshot.hasData ||
-                                        snapshot.data == null) {
-                                      return const SizedBox.shrink();
-                                    }
-                                    return SizedBox(
-                                        width: 48,
-                                        height: 48,
-                                        child: snapshot.data);
-                                  },
-                                )
-                              : SizedBox(
-                                  width: 48,
-                                  height: 48,
-                                ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 140,
-                          child: Column(
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 48,
+                            height: 48,
+                            child: current.hasIcon
+                                ? FutureBuilder(
+                                    future: getProcessIcon(current.identifier),
+                                    builder:
+                                        (
+                                          BuildContext context,
+                                          AsyncSnapshot<Image?> snapshot,
+                                        ) {
+                                          if (!snapshot.hasData ||
+                                              snapshot.data == null) {
+                                            return const SizedBox.shrink();
+                                          }
+                                          return SizedBox(
+                                            width: 48,
+                                            height: 48,
+                                            child: snapshot.data,
+                                          );
+                                        },
+                                  )
+                                : SizedBox(width: 48, height: 48),
+                          ),
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: windowSize.width - 140,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   current.name,
                                   style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                  ),
                                 ),
                                 Text(
                                   current.identifier,
                                   style: const TextStyle(fontSize: 12),
                                 ),
-                              ]),
-                        ),
-                        Checkbox(
-                          tristate: true,
-                          value: SettingManager.getConfig()
-                              .perapp
-                              .list
-                              .contains(current.identifier),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              SettingManager.getConfig()
-                                  .perapp
-                                  .list
-                                  .add(current.identifier);
-                            } else {
-                              SettingManager.getConfig()
-                                  .perapp
-                                  .list
-                                  .remove(current.identifier);
-                            }
-                            SettingManager.setDirty(true);
-                            setState(() {});
-                          },
-                        ),
-                      ]),
+                              ],
+                            ),
+                          ),
+                          Checkbox(
+                            tristate: true,
+                            value: SettingManager.getConfig().perapp.list
+                                .contains(current.identifier),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                SettingManager.getConfig().perapp.list.add(
+                                  current.identifier,
+                                );
+                              } else {
+                                SettingManager.getConfig().perapp.list.remove(
+                                  current.identifier,
+                                );
+                              }
+                              SettingManager.setDirty(true);
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -407,32 +386,38 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
 
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.enable,
-              switchValue: SettingManager.getConfig().perapp.enable,
-              onSwitch: (bool value) async {
-                SettingManager.getConfig().perapp.enable = value;
-                SettingManager.setDirty(true);
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.enable,
+          switchValue: SettingManager.getConfig().perapp.enable,
+          onSwitch: (bool value) async {
+            SettingManager.getConfig().perapp.enable = value;
+            SettingManager.setDirty(true);
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.hideSystemApp,
-              switchValue: SettingManager.getConfig().perapp.hideSystemApp,
-              onSwitch: (bool value) async {
-                SettingManager.getConfig().perapp.hideSystemApp = value;
-                _loading = true;
-                getProcessList();
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.hideSystemApp,
+          switchValue: SettingManager.getConfig().perapp.hideSystemApp,
+          onSwitch: (bool value) async {
+            SettingManager.getConfig().perapp.hideSystemApp = value;
+            _loading = true;
+            getProcessList();
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.hideAppIcon,
-              switchValue: SettingManager.getConfig().perapp.hideAppIcon,
-              onSwitch: (bool value) async {
-                SettingManager.getConfig().perapp.hideAppIcon = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.hideAppIcon,
+          switchValue: SettingManager.getConfig().perapp.hideAppIcon,
+          onSwitch: (bool value) async {
+            SettingManager.getConfig().perapp.hideAppIcon = value;
+            setState(() {});
+          },
+        ),
+      ),
     ];
 
     return [GroupItem(options: options)];
@@ -442,24 +427,16 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          tcontext.meta.importFromClipboard,
-        ),
-        leading: Icon(
-          AntDesign.import_outline,
-        ),
+        title: Text(tcontext.meta.importFromClipboard),
+        leading: Icon(AntDesign.import_outline),
         onTap: () async {
           Navigator.pop(context);
           onTapImport();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.exportToClipboard,
-        ),
-        leading: Icon(
-          AntDesign.export_outline,
-        ),
+        title: Text(tcontext.meta.exportToClipboard),
+        leading: Icon(AntDesign.export_outline),
         onTap: () async {
           Navigator.pop(context);
           onTapExport();
@@ -492,8 +469,13 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -511,8 +493,13 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 }

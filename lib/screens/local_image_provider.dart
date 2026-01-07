@@ -6,10 +6,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class LocalImageProvider extends ImageProvider<LocalImageProvider> {
-  const LocalImageProvider(
-    this.path, {
-    this.scale = 1.0,
-  });
+  const LocalImageProvider(this.path, {this.scale = 1.0});
 
   /// path of the image to load
   final String path;

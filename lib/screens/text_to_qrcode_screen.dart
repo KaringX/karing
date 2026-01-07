@@ -37,10 +37,7 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -54,10 +51,7 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -67,42 +61,41 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 50,
-                    height: 30,
-                  ),
+                  const SizedBox(width: 50, height: 30),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 0),
-                          child: TextFieldEx(
-                            maxLines: 6,
-                            textInputAction: TextInputAction.done,
-                            controller: _textController,
-                            decoration: const InputDecoration(
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 0,
+                            ),
+                            child: TextFieldEx(
+                              maxLines: 6,
+                              textInputAction: TextInputAction.done,
+                              controller: _textController,
+                              decoration: const InputDecoration(
                                 //  labelText: tcontext.TextToQrCodeScreen.content,
                                 //  hintText: tcontext.TextToQrCodeScreen.contentHit,
-                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
-                          child: SizedBox(
-                            height: 45.0,
-                            child: ElevatedButton(
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
+                            child: SizedBox(
+                              height: 45.0,
+                              child: ElevatedButton(
                                 child: Text(tcontext.meta.convert),
                                 onPressed: () async {
                                   String text = _textController.text.trim();
@@ -112,32 +105,33 @@ class _TextToQrCodeScreenState extends LasyRenderingState<TextToQrCodeScreen> {
                                     var result = QrcodeUtils.toImage(text);
                                     if (result.error != null) {
                                       DialogUtils.showAlertDialog(
-                                          context, result.error!.message,
-                                          showCopy: true,
-                                          showFAQ: true,
-                                          withVersion: true);
+                                        context,
+                                        result.error!.message,
+                                        showCopy: true,
+                                        showFAQ: true,
+                                        withVersion: true,
+                                      );
                                     } else {
                                       _image = result.data;
                                     }
                                   }
 
                                   setState(() {});
-                                }),
+                                },
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          color: Colors.white,
-                          child: Padding(
+                          const SizedBox(height: 10),
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                              child: _image),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                      ]),
+                              child: _image,
+                            ),
+                          ),
+                          const SizedBox(height: 50),
+                        ],
+                      ),
                     ],
                   ),
                 ),

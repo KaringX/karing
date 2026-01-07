@@ -10,11 +10,11 @@ class RemoteConfigChannel {
   String rateUrl = "";
 
   Map<String, dynamic> toJson() => {
-        'platform': platform,
-        'channel': channel,
-        "url": url,
-        "rate_url": rateUrl,
-      };
+    'platform': platform,
+    'channel': channel,
+    "url": url,
+    "rate_url": rateUrl,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -38,10 +38,10 @@ class RemoteConfigAds {
   int percent = 0;
 
   Map<String, dynamic> toJson() => {
-        'platform': platform,
-        'region': region,
-        'pc': percent,
-      };
+    'platform': platform,
+    'region': region,
+    'pc': percent,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -64,10 +64,10 @@ class RemoteConfigGetProfile {
   String url = "";
 
   Map<String, dynamic> toJson() => {
-        'platform': platform,
-        'region': region,
-        'url': url,
-      };
+    'platform': platform,
+    'region': region,
+    'url': url,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -87,10 +87,7 @@ class RemoteConfigGetProfile {
 class RemoteConfigDonate {
   String name = "";
   String url = "";
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'url': url,
-      };
+  Map<String, dynamic> toJson() => {'name': name, 'url': url};
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -260,10 +257,16 @@ class RemoteConfig {
       return;
     }
     latestCheck = map["latest_check"] ?? "";
-    forwards =
-        ConvertUtils.getListStringFromDynamic(map["forwards"], true, [])!;
-    nowarp = ConvertUtils.getListStringFromDynamic(
-        map["nowarp"], true, ["us", "cn", "ru"])!;
+    forwards = ConvertUtils.getListStringFromDynamic(
+      map["forwards"],
+      true,
+      [],
+    )!;
+    nowarp = ConvertUtils.getListStringFromDynamic(map["nowarp"], true, [
+      "us",
+      "cn",
+      "ru",
+    ])!;
 
     sentryMinVersion = map["sentry_min_version"] ?? "";
     analyticsMinVersion = map["analytics_min_version"] ?? "";
@@ -271,8 +274,11 @@ class RemoteConfig {
     ispBindNeedConnect = map["isp_bind_need_connect"] ?? true;
     ispPanelJs = map["isp_panel_js"] ?? kIspPanelJs;
 
-    faqAnchor =
-        ConvertUtils.getListStringFromDynamic(map["faq_anchor"], true, [])!;
+    faqAnchor = ConvertUtils.getListStringFromDynamic(
+      map["faq_anchor"],
+      true,
+      [],
+    )!;
     if (map["ad"] != null) {
       for (var i in map["ad"]) {
         RemoteConfigAds ch = RemoteConfigAds();

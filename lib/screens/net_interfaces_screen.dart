@@ -39,10 +39,7 @@ class _NetInterfacesScreenState
     Size windowSize = MediaQuery.of(context).size;
     final setting = SettingManager.getConfig();
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -58,10 +55,7 @@ class _NetInterfacesScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -71,32 +65,34 @@ class _NetInterfacesScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                    ),
+                    const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: FutureBuilder(
                   future: NetworkUtils.getInterfaces(
-                      filter: !setting.dev.devMode,
-                      addressType: !setting.dev.devMode
-                          ? InternetAddressType.IPv4
-                          : null),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<NetInterfacesInfo>> snapshot) {
-                    List<NetInterfacesInfo> data =
-                        snapshot.hasData ? snapshot.data! : [];
-                    return _loadListView(context, data);
-                  },
+                    filter: !setting.dev.devMode,
+                    addressType: !setting.dev.devMode
+                        ? InternetAddressType.IPv4
+                        : null,
+                  ),
+                  builder:
+                      (
+                        BuildContext context,
+                        AsyncSnapshot<List<NetInterfacesInfo>> snapshot,
+                      ) {
+                        List<NetInterfacesInfo> data = snapshot.hasData
+                            ? snapshot.data!
+                            : [];
+                        return _loadListView(context, data);
+                      },
                 ),
               ),
             ],
@@ -109,20 +105,18 @@ class _NetInterfacesScreenState
   Widget _loadListView(BuildContext context, List<NetInterfacesInfo> list) {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: list.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = list[index];
-            return createWidget(current, index, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = list[index];
+          return createWidget(current, index, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(NetInterfacesInfo current, int index, Size windowSize) {
@@ -134,9 +128,7 @@ class _NetInterfacesScreenState
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: padding),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -147,9 +139,7 @@ class _NetInterfacesScreenState
                     width: leftWidth,
                     child: Text(
                       (index + 1).toString(),
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                   SizedBox(
@@ -158,22 +148,26 @@ class _NetInterfacesScreenState
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(children: [
-                          Text(
-                            current.name,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                        Row(
+                          children: [
+                            Text(
+                              current.name,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
                             ),
-                          ),
-                        ]),
-                        Row(children: [
-                          Text(
-                            current.address,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              current.address,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
                             ),
-                          ),
-                        ]),
+                          ],
+                        ),
                       ],
                     ),
                   ),

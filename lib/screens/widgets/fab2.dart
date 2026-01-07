@@ -132,25 +132,28 @@ class ConvexButton2 extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var themes = Provider.of<Themes>(context, listen: false);
-    return Stack(alignment: Alignment.bottomCenter, children: [
-      SizedBox(
-        height: thickness ?? _DEFAULT_THICKNESS,
-        width: double.infinity,
-        child: CustomPaint(
-          painter: ConvexPainter(
-            shadowColor:
-                themes.getThemeInvertBgColor(context) ?? theme.primaryColor,
-            top: -(top ?? _DEFAULT_TOP),
-            width: size ?? _DEFAULT_SIZE,
-            height: size ?? _DEFAULT_SIZE,
-            color: backgroundColor ?? Colors.grey[50]!,
-            sigma: sigma ?? _DEFAULT_SIGMA,
-            leftPercent: const AlwaysStoppedAnimation<double>(0.5),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        SizedBox(
+          height: thickness ?? _DEFAULT_THICKNESS,
+          width: double.infinity,
+          child: CustomPaint(
+            painter: ConvexPainter(
+              shadowColor:
+                  themes.getThemeInvertBgColor(context) ?? theme.primaryColor,
+              top: -(top ?? _DEFAULT_TOP),
+              width: size ?? _DEFAULT_SIZE,
+              height: size ?? _DEFAULT_SIZE,
+              color: backgroundColor ?? Colors.grey[50]!,
+              sigma: sigma ?? _DEFAULT_SIGMA,
+              leftPercent: const AlwaysStoppedAnimation<double>(0.5),
+            ),
+            child: child2,
           ),
-          child: child2,
         ),
-      ),
-      child,
-    ]);
+        child,
+      ],
+    );
   }
 }

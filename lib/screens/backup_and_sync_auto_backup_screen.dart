@@ -56,10 +56,7 @@ class _BackupAndSyncAutoBackupScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -75,10 +72,7 @@ class _BackupAndSyncAutoBackupScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -88,35 +82,33 @@ class _BackupAndSyncAutoBackupScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                      height: 30,
-                    ),
+                    const SizedBox(width: 50, height: 30),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               FutureBuilder(
                 future: getGroupOptions(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<GroupItem>> snapshot) {
-                  List<GroupItem> data = snapshot.hasData ? snapshot.data! : [];
-                  return Column(
-                      children: GroupItemCreator.createGroups(context, data));
-                },
+                builder:
+                    (
+                      BuildContext context,
+                      AsyncSnapshot<List<GroupItem>> snapshot,
+                    ) {
+                      List<GroupItem> data = snapshot.hasData
+                          ? snapshot.data!
+                          : [];
+                      return Column(
+                        children: GroupItemCreator.createGroups(context, data),
+                      );
+                    },
               ),
-              const SizedBox(
-                height: 40,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 40),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -127,44 +119,39 @@ class _BackupAndSyncAutoBackupScreenState
   Widget _loadListView() {
     if (_loading) {
       return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 26,
-              height: 26,
-              child: RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: RepaintBoundary(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          shrinkWrap: true,
-          itemCount: _fileList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _fileList[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        shrinkWrap: true,
+        itemCount: _fileList.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _fileList[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(String current, Size windowSize) {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         //height: 66,
         child: Row(
@@ -175,51 +162,54 @@ class _BackupAndSyncAutoBackupScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      SizedBox(
-                        width: windowSize.width - 100,
-                        child: Column(
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: windowSize.width - 100,
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 current,
                                 style: TextStyle(
-                                    fontSize: ThemeConfig.kFontSizeGroupItem),
+                                  fontSize: ThemeConfig.kFontSizeGroupItem,
+                                ),
                               ),
-                            ]),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          onTapDownload(current);
-                        },
-                        child: const SizedBox(
-                          width: 30,
-                          height: ThemeConfig.kListItemHeight2,
-                          child: Icon(
-                            Icons.cloud_download_outlined,
-                            size: 26,
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          onTapDelete(current);
-                        },
-                        child: const SizedBox(
-                          width: 30,
-                          height: ThemeConfig.kListItemHeight2,
-                          child: Icon(Icons.remove_circle_outlined,
-                              size: 26, color: Colors.red),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          onTap: () {
+                            onTapDownload(current);
+                          },
+                          child: const SizedBox(
+                            width: 30,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(
+                              Icons.cloud_download_outlined,
+                              size: 26,
+                            ),
+                          ),
                         ),
-                      ),
-                    ]),
+                        const SizedBox(width: 10),
+                        InkWell(
+                          onTap: () {
+                            onTapDelete(current);
+                          },
+                          child: const SizedBox(
+                            width: 30,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(
+                              Icons.remove_circle_outlined,
+                              size: 26,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -274,21 +264,25 @@ class _BackupAndSyncAutoBackupScreenState
     var settingConfig = SettingManager.getConfig();
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.autoBackupAddProfile,
-              switchValue: settingConfig.autoBackup.addProfile,
-              onSwitch: (bool value) async {
-                settingConfig.autoBackup.addProfile = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.autoBackupAddProfile,
+          switchValue: settingConfig.autoBackup.addProfile,
+          onSwitch: (bool value) async {
+            settingConfig.autoBackup.addProfile = value;
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.autoBackupRemoveProfile,
-              switchValue: settingConfig.autoBackup.removeProfile,
-              onSwitch: (bool value) async {
-                settingConfig.autoBackup.removeProfile = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.autoBackupRemoveProfile,
+          switchValue: settingConfig.autoBackup.removeProfile,
+          onSwitch: (bool value) async {
+            settingConfig.autoBackup.removeProfile = value;
+            setState(() {});
+          },
+        ),
+      ),
     ];
     List<String> strings = [];
     for (int i = 1; i <= SettingConfigItemAutobackup.kMaxCount; ++i) {

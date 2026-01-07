@@ -27,12 +27,12 @@ class AutoUpdateCheckVersion {
   String url = "";
   bool force = false;
   Map<String, dynamic> toJson() => {
-        'latest_check': latestCheck,
-        'new_version': newVersion,
-        "version": version,
-        "url": url,
-        "force": force,
-      };
+    'latest_check': latestCheck,
+    'new_version': newVersion,
+    "version": version,
+    "url": url,
+    "force": force,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -125,8 +125,10 @@ class AutoUpdateManager {
 
       saveConfig();
     }
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           _check();
@@ -290,7 +292,8 @@ class AutoUpdateManager {
     _versionCheck.latestCheck = now.toString();
     _checking = true;
     try {
-      bool body = _lastCheck == null ||
+      bool body =
+          _lastCheck == null ||
           DateTime.now().difference(_lastCheck!).inHours > 12;
       ReturnResult<List<KaringAutoupdateItem>> items =
           await KaringUtils.getAutoupdate(body);

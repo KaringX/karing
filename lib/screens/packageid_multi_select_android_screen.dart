@@ -33,11 +33,11 @@ class PackageIdMultiSelectAndroidScreen extends LasyRenderingStatefulWidget {
 }
 
 class PackageInfoImpl extends PackageInfo {
-  PackageInfoImpl(
-    String packageName,
-  ) : super(
-            packageName: packageName,
-            installLocation: AndroidInstallLocation.unspecified);
+  PackageInfoImpl(String packageName)
+    : super(
+        packageName: packageName,
+        installLocation: AndroidInstallLocation.unspecified,
+      );
 }
 
 class PackageInfoEx {
@@ -103,79 +103,74 @@ class _PackageIdMultiSelectAndroidScreenState
     _searchedData.clear();
     _pkgMgr ??= AndroidPackageManager();
     _pkgMgr!
-        .getInstalledPackages(
-      flags: PackageInfoFlags(
-        {
-          PMFlag.getMetaData,
-        },
-      ),
-    )
+        .getInstalledPackages(flags: PackageInfoFlags({PMFlag.getMetaData}))
         .then((value) async {
-      if (!mounted) {
-        return;
-      }
-      _loading = false;
-      if (value == null) {
-        return;
-      }
-
-      if (value.length <= 1) {
-        _needPermission = true;
-        _loading = false;
-        setState(() {});
-        return;
-      }
-      List<PackageInfoEx> notExists = [];
-      List<PackageInfoEx> added = [];
-      List<PackageInfoEx> notAdded = [];
-      Set<String> exists = {};
-      var perapp = SettingManager.getConfig().perapp;
-      for (var app in value) {
-        if (app.packageName == null || app.packageName == AppUtils.getId()) {
-          continue;
-        }
-
-        if (perapp.hideSystemApp) {
-          if ((app.applicationInfo != null) &&
-              (app.applicationInfo!.flags & kAndroidFlagSystem != 0)) {
-            continue;
+          if (!mounted) {
+            return;
           }
-        }
+          _loading = false;
+          if (value == null) {
+            return;
+          }
 
-        exists.add(app.packageName!);
-        PackageInfoEx info = PackageInfoEx();
-        info.info = app;
-        info.name = await getAppName(app.packageName!);
-        if (!mounted) {
-          return;
-        }
-        if (widget.selectedData.contains(info.info.packageName!)) {
-          added.add(info);
-        } else {
-          notAdded.add(info);
-        }
-      }
-      for (var papp in widget.selectedData) {
-        if (!exists.contains(papp)) {
-          PackageInfoEx info = PackageInfoEx();
-          info.info = PackageInfoImpl(papp);
-          info.name = _removed;
-          info.icon = null;
+          if (value.length <= 1) {
+            _needPermission = true;
+            _loading = false;
+            setState(() {});
+            return;
+          }
+          List<PackageInfoEx> notExists = [];
+          List<PackageInfoEx> added = [];
+          List<PackageInfoEx> notAdded = [];
+          Set<String> exists = {};
+          var perapp = SettingManager.getConfig().perapp;
+          for (var app in value) {
+            if (app.packageName == null ||
+                app.packageName == AppUtils.getId()) {
+              continue;
+            }
 
-          notExists.add(info);
-        }
-      }
-      notExists.sort(sort);
-      added.sort(sort);
-      notAdded.sort(sort);
-      widget.installedApps.addAll(notExists);
-      widget.installedApps.addAll(added);
-      widget.installedApps.addAll(notAdded);
+            if (perapp.hideSystemApp) {
+              if ((app.applicationInfo != null) &&
+                  (app.applicationInfo!.flags & kAndroidFlagSystem != 0)) {
+                continue;
+              }
+            }
 
-      _searchedData = widget.installedApps;
-      _loading = false;
-      setState(() {});
-    });
+            exists.add(app.packageName!);
+            PackageInfoEx info = PackageInfoEx();
+            info.info = app;
+            info.name = await getAppName(app.packageName!);
+            if (!mounted) {
+              return;
+            }
+            if (widget.selectedData.contains(info.info.packageName!)) {
+              added.add(info);
+            } else {
+              notAdded.add(info);
+            }
+          }
+          for (var papp in widget.selectedData) {
+            if (!exists.contains(papp)) {
+              PackageInfoEx info = PackageInfoEx();
+              info.info = PackageInfoImpl(papp);
+              info.name = _removed;
+              info.icon = null;
+
+              notExists.add(info);
+            }
+          }
+          notExists.sort(sort);
+          added.sort(sort);
+          notAdded.sort(sort);
+          widget.installedApps.addAll(notExists);
+          widget.installedApps.addAll(added);
+          widget.installedApps.addAll(notAdded);
+
+          _searchedData = widget.installedApps;
+          _loading = false;
+          setState(() {});
+        });
   }
 
   Future<Image?> getInstalledPackageIcon(String packageName) async {
@@ -225,15 +220,13 @@ class _PackageIdMultiSelectAndroidScreenState
     }
     try {
       var data = await _pkgMgr!.getApplicationIcon(
-          packageName: packageName, format: BitmapCompressFormat.png);
+        packageName: packageName,
+        format: BitmapCompressFormat.png,
+      );
       if (data == null) {
         return null;
       }
-      return Image.memory(
-        data,
-        cacheHeight: 96,
-        cacheWidth: 96,
-      );
+      return Image.memory(data, cacheHeight: 96, cacheWidth: 96);
     } catch (err, stacktrace) {
       return null;
     }
@@ -244,10 +237,7 @@ class _PackageIdMultiSelectAndroidScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -263,10 +253,7 @@ class _PackageIdMultiSelectAndroidScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -276,8 +263,9 @@ class _PackageIdMultiSelectAndroidScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -285,31 +273,30 @@ class _PackageIdMultiSelectAndroidScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.done_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.done_outlined, size: 26),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               FutureBuilder(
                 future: getGroupOptions(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<GroupItem>> snapshot) {
-                  List<GroupItem> data = snapshot.hasData ? snapshot.data! : [];
-                  return Column(
-                      children: GroupItemCreator.createGroups(context, data));
-                },
+                builder:
+                    (
+                      BuildContext context,
+                      AsyncSnapshot<List<GroupItem>> snapshot,
+                    ) {
+                      List<GroupItem> data = snapshot.hasData
+                          ? snapshot.data!
+                          : [];
+                      return Column(
+                        children: GroupItemCreator.createGroups(context, data),
+                      );
+                    },
               ),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                ),
+                margin: const EdgeInsets.only(top: 10),
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 height: 44,
                 width: double.infinity,
@@ -323,9 +310,7 @@ class _PackageIdMultiSelectAndroidScreenState
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    icon: Icon(
-                      Icons.search_outlined,
-                    ),
+                    icon: Icon(Icons.search_outlined),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -336,23 +321,26 @@ class _PackageIdMultiSelectAndroidScreenState
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: _needPermission
                     ? CommonWidget.createNeedPermission(
                         context,
-                        tcontext.permission
-                            .request(p: tcontext.permission.appQuery), () {
-                        AppSettings.openAppSettings(
-                            type: AppSettingsType.settings);
-                      }, () {
-                        _needPermission = false;
-                        _loading = true;
-                        getInstalledPackages();
-                        setState(() {});
-                      })
+                        tcontext.permission.request(
+                          p: tcontext.permission.appQuery,
+                        ),
+                        () {
+                          AppSettings.openAppSettings(
+                            type: AppSettingsType.settings,
+                          );
+                        },
+                        () {
+                          _needPermission = false;
+                          _loading = true;
+                          getInstalledPackages();
+                          setState(() {});
+                        },
+                      )
                     : _loadListView(),
               ),
             ],
@@ -365,34 +353,31 @@ class _PackageIdMultiSelectAndroidScreenState
   Widget _loadListView() {
     if (_loading) {
       return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 26,
-              height: 26,
-              child: RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: RepaintBoundary(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            PackageInfoEx current = _searchedData[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          PackageInfoEx current = _searchedData[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(PackageInfoEx current, Size windowSize) {
@@ -401,9 +386,7 @@ class _PackageIdMultiSelectAndroidScreenState
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 66,
           child: Row(
@@ -414,36 +397,44 @@ class _PackageIdMultiSelectAndroidScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: FutureBuilder(
-                            future: getInstalledPackageIcon(
-                                current.info.packageName!),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<Image?> snapshot) {
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return const SizedBox.shrink();
-                              }
-                              return SizedBox(
-                                  width: 48, height: 48, child: snapshot.data);
-                            },
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 48,
+                            height: 48,
+                            child: FutureBuilder(
+                              future: getInstalledPackageIcon(
+                                current.info.packageName!,
+                              ),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<Image?> snapshot,
+                                  ) {
+                                    if (!snapshot.hasData ||
+                                        snapshot.data == null) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: snapshot.data,
+                                    );
+                                  },
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 140,
-                          child: Column(
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: windowSize.width - 140,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   current.name,
                                   style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                  ),
                                 ),
                                 current.name == current.info.packageName
                                     ? const SizedBox.shrink()
@@ -451,25 +442,30 @@ class _PackageIdMultiSelectAndroidScreenState
                                         current.info.packageName!,
                                         style: const TextStyle(fontSize: 12),
                                       ),
-                              ]),
-                        ),
-                        Checkbox(
-                          tristate: true,
-                          value: widget.selectedData
-                              .contains(current.info.packageName!),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              widget.selectedData
-                                  .add(current.info.packageName!);
-                            } else {
-                              widget.selectedData
-                                  .remove(current.info.packageName!);
-                            }
+                              ],
+                            ),
+                          ),
+                          Checkbox(
+                            tristate: true,
+                            value: widget.selectedData.contains(
+                              current.info.packageName!,
+                            ),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                widget.selectedData.add(
+                                  current.info.packageName!,
+                                );
+                              } else {
+                                widget.selectedData.remove(
+                                  current.info.packageName!,
+                                );
+                              }
 
-                            setState(() {});
-                          },
-                        ),
-                      ]),
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -485,23 +481,27 @@ class _PackageIdMultiSelectAndroidScreenState
     final tcontext = Translations.of(context);
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.hideSystemApp,
-              switchValue: SettingManager.getConfig().perapp.hideSystemApp,
-              onSwitch: (bool value) async {
-                SettingManager.getConfig().perapp.hideSystemApp = value;
-                _loading = true;
-                getInstalledPackages();
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.hideSystemApp,
+          switchValue: SettingManager.getConfig().perapp.hideSystemApp,
+          onSwitch: (bool value) async {
+            SettingManager.getConfig().perapp.hideSystemApp = value;
+            _loading = true;
+            getInstalledPackages();
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.hideAppIcon,
-              switchValue: SettingManager.getConfig().perapp.hideAppIcon,
-              onSwitch: (bool value) async {
-                SettingManager.getConfig().perapp.hideAppIcon = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.hideAppIcon,
+          switchValue: SettingManager.getConfig().perapp.hideAppIcon,
+          onSwitch: (bool value) async {
+            SettingManager.getConfig().perapp.hideAppIcon = value;
+            setState(() {});
+          },
+        ),
+      ),
     ];
 
     return [GroupItem(options: options)];

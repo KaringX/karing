@@ -90,10 +90,7 @@ class _BackupAndSyncWebdavScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -109,10 +106,7 @@ class _BackupAndSyncWebdavScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -122,8 +116,9 @@ class _BackupAndSyncWebdavScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     Row(
@@ -131,9 +126,7 @@ class _BackupAndSyncWebdavScreenState
                         _uploading
                             ? const Row(
                                 children: [
-                                  SizedBox(
-                                    width: 12,
-                                  ),
+                                  SizedBox(width: 12),
                                   SizedBox(
                                     width: 26,
                                     height: 26,
@@ -141,9 +134,7 @@ class _BackupAndSyncWebdavScreenState
                                       child: CircularProgressIndicator(),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 12,
-                                  )
+                                  SizedBox(width: 12),
                                 ],
                               )
                             : InkWell(
@@ -168,23 +159,16 @@ class _BackupAndSyncWebdavScreenState
                           child: const SizedBox(
                             width: 50,
                             height: 30,
-                            child: Icon(
-                              Icons.settings,
-                              size: 26,
-                            ),
+                            child: Icon(Icons.settings, size: 26),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -195,43 +179,38 @@ class _BackupAndSyncWebdavScreenState
   Widget _loadListView() {
     if (_connecting || _loading) {
       return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 26,
-              height: 26,
-              child: RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: RepaintBoundary(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _fileList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _fileList[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _fileList.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _fileList[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(String current, Size windowSize) {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         //height: 66,
         child: Row(
@@ -242,51 +221,54 @@ class _BackupAndSyncWebdavScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      SizedBox(
-                        width: windowSize.width - 100,
-                        child: Column(
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: windowSize.width - 100,
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 current,
                                 style: TextStyle(
-                                    fontSize: ThemeConfig.kFontSizeGroupItem),
+                                  fontSize: ThemeConfig.kFontSizeGroupItem,
+                                ),
                               ),
-                            ]),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          onTapDownload(current);
-                        },
-                        child: const SizedBox(
-                          width: 30,
-                          height: ThemeConfig.kListItemHeight2,
-                          child: Icon(
-                            Icons.cloud_download_outlined,
-                            size: 26,
+                            ],
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          onTapDelete(current);
-                        },
-                        child: const SizedBox(
-                          width: 30,
-                          height: ThemeConfig.kListItemHeight2,
-                          child: Icon(Icons.remove_circle_outlined,
-                              size: 26, color: Colors.red),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          onTap: () {
+                            onTapDownload(current);
+                          },
+                          child: const SizedBox(
+                            width: 30,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(
+                              Icons.cloud_download_outlined,
+                              size: 26,
+                            ),
+                          ),
                         ),
-                      ),
-                    ]),
+                        const SizedBox(width: 10),
+                        InkWell(
+                          onTap: () {
+                            onTapDelete(current);
+                          },
+                          child: const SizedBox(
+                            width: 30,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(
+                              Icons.remove_circle_outlined,
+                              size: 26,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -316,8 +298,12 @@ class _BackupAndSyncWebdavScreenState
     List<int?> ports = await VPNService.getPortsByPrefer(false);
     late ReturnResult<WebdavClient> result;
     for (var port in ports) {
-      result = await WebdavUtils.connect(port, settingConfig.webdav.url,
-          settingConfig.webdav.user, settingConfig.webdav.password);
+      result = await WebdavUtils.connect(
+        port,
+        settingConfig.webdav.url,
+        settingConfig.webdav.user,
+        settingConfig.webdav.password,
+      );
       if (!mounted) {
         return;
       }
@@ -333,12 +319,13 @@ class _BackupAndSyncWebdavScreenState
     if (result.error != null) {
       final tcontext = Translations.of(context);
       DialogUtils.showAlertDialog(
-          context,
-          tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed +
-              result.error!.message,
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true);
+        context,
+        tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed +
+            result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     _webdavClient = result.data;
@@ -364,12 +351,13 @@ class _BackupAndSyncWebdavScreenState
     if (result.error != null) {
       final tcontext = Translations.of(context);
       DialogUtils.showAlertDialog(
-          context,
-          tcontext.BackupAndSyncWebdavScreen.webdavListFailed +
-              result.error!.message,
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true);
+        context,
+        tcontext.BackupAndSyncWebdavScreen.webdavListFailed +
+            result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     _fileList = result.data!;
@@ -393,19 +381,29 @@ class _BackupAndSyncWebdavScreenState
         return;
       }
       String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      ReturnResultError? error =
-          await ServerManager.backupToZip(context, filePath);
+      ReturnResultError? error = await ServerManager.backupToZip(
+        context,
+        filePath,
+      );
       if (!mounted) {
         FileUtils.deletePath(filePath);
         return;
       }
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          error.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
-      error = await WebdavUtils.upload(_webdavClient!,
-          relativePath: path.basename(filePath), localPath: filePath);
+      error = await WebdavUtils.upload(
+        _webdavClient!,
+        relativePath: path.basename(filePath),
+        localPath: filePath,
+      );
 
       FileUtils.deletePath(filePath);
       if (!mounted) {
@@ -414,8 +412,13 @@ class _BackupAndSyncWebdavScreenState
       _uploading = false;
       setState(() {});
       if (error != null) {
-        DialogUtils.showAlertDialog(context, error.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          error.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
       await list();
@@ -425,8 +428,13 @@ class _BackupAndSyncWebdavScreenState
       }
       _uploading = false;
       setState(() {});
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -434,92 +442,103 @@ class _BackupAndSyncWebdavScreenState
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
-          keyboardType: TextInputType.url,
-          hint: "${tcontext.meta.required}[https://xxxx/webdav]",
-          textWidthPercent: 0.6,
-          controller: _urlController,
-          autoFocus: true,
-          textInputAction: TextInputAction.next,
-        )),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.BackupAndSyncWebdavScreen.webdavServerUrl,
+            keyboardType: TextInputType.url,
+            hint: "${tcontext.meta.required}[https://xxxx/webdav]",
+            textWidthPercent: 0.6,
+            controller: _urlController,
+            autoFocus: true,
+            textInputAction: TextInputAction.next,
+          ),
+        ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.meta.account,
-          hint: tcontext.meta.required,
-          textWidthPercent: 0.6,
-          controller: _userController,
-          textInputAction: TextInputAction.next,
-        )),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.meta.account,
+            hint: tcontext.meta.required,
+            textWidthPercent: 0.6,
+            controller: _userController,
+            textInputAction: TextInputAction.next,
+          ),
+        ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.meta.password,
-                hint: tcontext.meta.required,
-                textWidthPercent: 0.6,
-                obscureText: true,
-                controller: _passwordController,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (String value) {
-                  FocusScope.of(context).nextFocus();
-                })),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.meta.password,
+            hint: tcontext.meta.required,
+            textWidthPercent: 0.6,
+            obscureText: true,
+            controller: _passwordController,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (String value) {
+              FocusScope.of(context).nextFocus();
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.reset,
-                onPush: () async {
-                  SettingManager.getConfig().webdav.url = "";
-                  SettingManager.getConfig().webdav.user = "";
-                  SettingManager.getConfig().webdav.password = "";
-                  SettingManager.saveConfig();
-                  Navigator.pop(context, true);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.reset,
+            onPush: () async {
+              SettingManager.getConfig().webdav.url = "";
+              SettingManager.getConfig().webdav.user = "";
+              SettingManager.getConfig().webdav.password = "";
+              SettingManager.saveConfig();
+              Navigator.pop(context, true);
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     bool? done = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("webdav"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.webdav,
-                  getOptions: getOptions,
-                  onDone: (BuildContext context) async {
-                    if (!mounted) {
-                      return false;
-                    }
-                    if (_urlController.text.isEmpty ||
-                        _userController.text.isEmpty ||
-                        _passwordController.text.isEmpty) {
-                      DialogUtils.showAlertDialog(context,
-                          tcontext.BackupAndSyncWebdavScreen.webdavRequired);
-                      return false;
-                    }
-                    Uri? uri = Uri.tryParse(_urlController.text);
-                    if (uri == null ||
-                        (uri.scheme != "http" && uri.scheme != "https")) {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.urlInvalid);
-                      return false;
-                    }
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("webdav"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.webdav,
+          getOptions: getOptions,
+          onDone: (BuildContext context) async {
+            if (!mounted) {
+              return false;
+            }
+            if (_urlController.text.isEmpty ||
+                _userController.text.isEmpty ||
+                _passwordController.text.isEmpty) {
+              DialogUtils.showAlertDialog(
+                context,
+                tcontext.BackupAndSyncWebdavScreen.webdavRequired,
+              );
+              return false;
+            }
+            Uri? uri = Uri.tryParse(_urlController.text);
+            if (uri == null ||
+                (uri.scheme != "http" && uri.scheme != "https")) {
+              DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+              return false;
+            }
 
-                    SettingManager.getConfig().webdav.url =
-                        _urlController.text.trim();
-                    SettingManager.getConfig().webdav.user =
-                        _userController.text.trim();
-                    SettingManager.getConfig().webdav.password =
-                        _passwordController.text.trim();
-                    SettingManager.saveConfig();
+            SettingManager.getConfig().webdav.url = _urlController.text.trim();
+            SettingManager.getConfig().webdav.user = _userController.text
+                .trim();
+            SettingManager.getConfig().webdav.password = _passwordController
+                .text
+                .trim();
+            SettingManager.saveConfig();
 
-                    return true;
-                  },
-                )));
+            return true;
+          },
+        ),
+      ),
+    );
     if (done == true) {
       await reconnect();
       await list();
@@ -544,14 +563,22 @@ class _BackupAndSyncWebdavScreenState
 
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-    var error = await WebdavUtils.download(_webdavClient!,
-        relativePath: filename, localPath: filePath);
+    var error = await WebdavUtils.download(
+      _webdavClient!,
+      relativePath: filename,
+      localPath: filePath,
+    );
     if (!mounted) {
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        error.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     await GroupHelper.backupRestoreFromZip(context, filePath, confirm: true);
@@ -567,8 +594,13 @@ class _BackupAndSyncWebdavScreenState
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        error.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     await list();

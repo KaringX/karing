@@ -9,6 +9,7 @@ class ThemeDefine {
   static const String kThemeLight = "light";
   static const String kThemeDark = "dark";
 
-  static const BorderRadiusGeometry kBorderRadius =
-      BorderRadius.all(Radius.circular(0));
+  static const BorderRadiusGeometry kBorderRadius = BorderRadius.all(
+    Radius.circular(0),
+  );
 }

@@ -57,10 +57,7 @@ class DiversionRulesScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -76,10 +73,7 @@ class DiversionRulesScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -89,8 +83,9 @@ class DiversionRulesScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -100,18 +95,13 @@ class DiversionRulesScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.edit_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.edit_outlined, size: 26),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Text(
@@ -122,23 +112,28 @@ class DiversionRulesScreenState
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
                   child: SingleChildScrollView(
                     child: FutureBuilder(
                       future: getGroupOptions(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<GroupItem>> snapshot) {
-                        List<GroupItem> data =
-                            snapshot.hasData ? snapshot.data! : [];
-                        return Column(
-                            children:
-                                GroupItemCreator.createGroups(context, data));
-                      },
+                      builder:
+                          (
+                            BuildContext context,
+                            AsyncSnapshot<List<GroupItem>> snapshot,
+                          ) {
+                            List<GroupItem> data = snapshot.hasData
+                                ? snapshot.data!
+                                : [];
+                            return Column(
+                              children: GroupItemCreator.createGroups(
+                                context,
+                                data,
+                              ),
+                            );
+                          },
                     ),
                   ),
                 ),
@@ -175,34 +170,40 @@ class DiversionRulesScreenState
     {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.hideUnusedDiversionGroup,
-                switchValue: settingConfig.uiScreen.hideUnusedDiversionGroup,
-                onSwitch: (bool value) async {
-                  settingConfig.uiScreen.hideUnusedDiversionGroup = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.hideUnusedDiversionGroup,
+            switchValue: settingConfig.uiScreen.hideUnusedDiversionGroup,
+            onSwitch: (bool value) async {
+              settingConfig.uiScreen.hideUnusedDiversionGroup = value;
+              setState(() {});
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.privateDirect,
-                switchValue: settingConfig.privateDirect,
-                onSwitch: (bool value) async {
-                  settingConfig.privateDirect = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.privateDirect,
+            switchValue: settingConfig.privateDirect,
+            onSwitch: (bool value) async {
+              settingConfig.privateDirect = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.disableISPDiversionGroup,
-                switchValue: settingConfig.ruleSets.disableISPDiversionGroup,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.disableISPDiversionGroup = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.disableISPDiversionGroup,
+            switchValue: settingConfig.ruleSets.disableISPDiversionGroup,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.disableISPDiversionGroup = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
       groupOptions.add(GroupItem(options: options));
       groupOptions.add(GroupItem(options: options1));
@@ -239,36 +240,41 @@ class DiversionRulesScreenState
             }
           }
 
-          options.add(GroupItemOptions(
+          options.add(
+            GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-            name: getDiversionShortName(item.name),
-            text: text,
-            textColor: invalid ? Colors.red : null,
-            textWidthPercent: 0.4,
-            onPush: () async {
-              onTapItem(item, selected.item1, invalid: invalid);
-            },
-            onLongPress: () async {
-              onTapItemName(item);
-            },
-          )));
+                name: getDiversionShortName(item.name),
+                text: text,
+                textColor: invalid ? Colors.red : null,
+                textWidthPercent: 0.4,
+                onPush: () async {
+                  onTapItem(item, selected.item1, invalid: invalid);
+                },
+                onLongPress: () async {
+                  onTapItemName(item);
+                },
+              ),
+            ),
+          );
         }
       }
 
       options.insert(
-          0,
-          GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: srg.remark == tcontext.meta.custom
-                    ? tcontext.meta.diversionCustomGroup
-                    : srg.remark,
-                switchValue: srg.enableDiversionRules,
-                onSwitch: (value) async {
-                  srg.enableDiversionRules = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                }),
-          ));
+        0,
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: srg.remark == tcontext.meta.custom
+                ? tcontext.meta.diversionCustomGroup
+                : srg.remark,
+            switchValue: srg.enableDiversionRules,
+            onSwitch: (value) async {
+              srg.enableDiversionRules = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
+      );
       groupOptions.add(GroupItem(options: options));
     }
     var use = ServerManager.getUse();
@@ -284,32 +290,41 @@ class DiversionRulesScreenState
         if (selected.item2.isEmpty) {
           continue;
         }
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-          name: item,
-          text: selected.item2.isNotEmpty ? selected.item2 : selected.item1.tag,
-          textWidthPercent: 0.4,
-          onPush: () async {
-            onTapItem(group, selected.item1, deleteIfSelectNone: true);
-          },
-          onLongPress: () async {
-            onTapItemName(group);
-          },
-        )));
+              name: item,
+              text: selected.item2.isNotEmpty
+                  ? selected.item2
+                  : selected.item1.tag,
+              textWidthPercent: 0.4,
+              onPush: () async {
+                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+              },
+              onLongPress: () async {
+                onTapItemName(group);
+              },
+            ),
+          ),
+        );
       }
       if (regionCode.isNotEmpty &&
           settingConfig.ruleSets.autoAppendRegionGeoSite) {
         if (SettingConfigItemRuleSets.hasGeoSiteData(regionCode)) {
-          options.add(GroupItemOptions(
+          options.add(
+            GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-            name: regionCode,
-            text: tcontext.outboundRuleMode.direct,
-            textWidthPercent: 0.4,
-          )));
+                name: regionCode,
+                text: tcontext.outboundRuleMode.direct,
+                textWidthPercent: 0.4,
+              ),
+            ),
+          );
         }
       }
-      groupOptions
-          .add(GroupItem(name: tcontext.meta.rulesetGeoSite, options: options));
+      groupOptions.add(
+        GroupItem(name: tcontext.meta.rulesetGeoSite, options: options),
+      );
     }
     //geoip
     if (settingConfig.ruleSets.enableGeoIp) {
@@ -323,30 +338,39 @@ class DiversionRulesScreenState
         if (selected.item2.isEmpty) {
           continue;
         }
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-          name: item,
-          text: selected.item2.isNotEmpty ? selected.item2 : selected.item1.tag,
-          textWidthPercent: 0.4,
-          onPush: () async {
-            onTapItem(group, selected.item1, deleteIfSelectNone: true);
-          },
-          onLongPress: () async {
-            onTapItemName(group);
-          },
-        )));
+              name: item,
+              text: selected.item2.isNotEmpty
+                  ? selected.item2
+                  : selected.item1.tag,
+              textWidthPercent: 0.4,
+              onPush: () async {
+                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+              },
+              onLongPress: () async {
+                onTapItemName(group);
+              },
+            ),
+          ),
+        );
       }
       if (regionCode.isNotEmpty &&
           settingConfig.ruleSets.autoAppendRegionGeoIp) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-          name: regionCode,
-          text: tcontext.outboundRuleMode.direct,
-          textWidthPercent: 0.4,
-        )));
+              name: regionCode,
+              text: tcontext.outboundRuleMode.direct,
+              textWidthPercent: 0.4,
+            ),
+          ),
+        );
       }
-      groupOptions
-          .add(GroupItem(name: tcontext.meta.rulesetGeoIp, options: options));
+      groupOptions.add(
+        GroupItem(name: tcontext.meta.rulesetGeoIp, options: options),
+      );
     }
     //acl
     if (settingConfig.ruleSets.enableAcl) {
@@ -359,21 +383,27 @@ class DiversionRulesScreenState
         if (selected.item2.isEmpty) {
           continue;
         }
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-          name: item,
-          text: selected.item2.isNotEmpty ? selected.item2 : selected.item1.tag,
-          textWidthPercent: 0.4,
-          onPush: () async {
-            onTapItem(group, selected.item1, deleteIfSelectNone: true);
-          },
-          onLongPress: () async {
-            onTapItemName(group);
-          },
-        )));
+              name: item,
+              text: selected.item2.isNotEmpty
+                  ? selected.item2
+                  : selected.item1.tag,
+              textWidthPercent: 0.4,
+              onPush: () async {
+                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+              },
+              onLongPress: () async {
+                onTapItemName(group);
+              },
+            ),
+          ),
+        );
       }
-      groupOptions
-          .add(GroupItem(name: tcontext.meta.rulesetAcl, options: options));
+      groupOptions.add(
+        GroupItem(name: tcontext.meta.rulesetAcl, options: options),
+      );
     }
     //final
     {
@@ -383,16 +413,20 @@ class DiversionRulesScreenState
       group.name = tcontext.routeFinal;
       group.groupid = ServerManager.getFinalGroupId();
       var selected = getSelected(group);
-      options.add(GroupItemOptions(
+      options.add(
+        GroupItemOptions(
           pushOptions: GroupItemPushOptions(
-              name: group.name,
-              text: selected.item2.isNotEmpty
-                  ? selected.item2
-                  : selected.item1.tag,
-              textWidthPercent: 0.4,
-              onPush: () async {
-                onTapItem(group, selected.item1);
-              })));
+            name: group.name,
+            text: selected.item2.isNotEmpty
+                ? selected.item2
+                : selected.item1.tag,
+            textWidthPercent: 0.4,
+            onPush: () async {
+              onTapItem(group, selected.item1);
+            },
+          ),
+        ),
+      );
 
       groupOptions.add(GroupItem(name: tcontext.routeFinal, options: options));
     }
@@ -402,10 +436,12 @@ class DiversionRulesScreenState
 
   void onTapEdit() async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: DiversionGroupCustomScreen.routSettings(),
-            builder: (context) => const DiversionGroupCustomScreen()));
+      context,
+      MaterialPageRoute(
+        settings: DiversionGroupCustomScreen.routSettings(),
+        builder: (context) => const DiversionGroupCustomScreen(),
+      ),
+    );
     setState(() {});
   }
 
@@ -414,47 +450,56 @@ class DiversionRulesScreenState
     String? content = encoder.convert(group.toJson(noGroupId: true));
 
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: FileViewScreen.routSettings(),
-            builder: (context) => FileViewScreen(
-                  title: group.name,
-                  content: content,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: FileViewScreen.routSettings(),
+        builder: (context) =>
+            FileViewScreen(title: group.name, content: content),
+      ),
+    );
   }
 
-  Future<void> onTapItem(DiversionRulesGroup group, ProxyConfig selected,
-      {bool deleteIfSelectNone = false, bool invalid = false}) async {
+  Future<void> onTapItem(
+    DiversionRulesGroup group,
+    ProxyConfig selected, {
+    bool deleteIfSelectNone = false,
+    bool invalid = false,
+  }) async {
     ProxyConfig? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: ServerSelectScreen.routSettings(),
-            builder: (context) => ServerSelectScreen(
-                  title: getDiversionShortName(group.name),
-                  singleSelect: ServerSelectScreenSingleSelectedOption(
-                    selectedServer: selected,
-                    selectedServerInvalid: invalid,
-                    showNone: group.groupid != ServerManager.getFinalGroupId(),
-                    showCurrentSelect: true,
-                    showAutoSelect: true,
-                    showDirect: true,
-                    showBlock: true,
-                    showUrltestGroup: true,
-                    showFav: false,
-                    showRecommend: false,
-                    showRecent: false,
-                    showTranffic: false,
-                    showUpdate: false,
-                  ),
-                  multiSelect: null,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: ServerSelectScreen.routSettings(),
+        builder: (context) => ServerSelectScreen(
+          title: getDiversionShortName(group.name),
+          singleSelect: ServerSelectScreenSingleSelectedOption(
+            selectedServer: selected,
+            selectedServerInvalid: invalid,
+            showNone: group.groupid != ServerManager.getFinalGroupId(),
+            showCurrentSelect: true,
+            showAutoSelect: true,
+            showDirect: true,
+            showBlock: true,
+            showUrltestGroup: true,
+            showFav: false,
+            showRecommend: false,
+            showRecent: false,
+            showTranffic: false,
+            showUpdate: false,
+          ),
+          multiSelect: null,
+        ),
+      ),
+    );
     if (result != null && !selected.isSame(result)) {
       setSelected(group, result, deleteIfSelectNone: deleteIfSelectNone);
     }
   }
 
-  void setSelected(DiversionRulesGroup group, ProxyConfig server,
-      {bool deleteIfSelectNone = false}) {
+  void setSelected(
+    DiversionRulesGroup group,
+    ProxyConfig server, {
+    bool deleteIfSelectNone = false,
+  }) {
     if (group.groupid.isNotEmpty) {
       bool setted = false;
       var diversionGroup = ServerManager.getUse().diversionGroup;
@@ -500,26 +545,35 @@ class DiversionRulesScreenState
           (rts.diversionGroupId == ServerManager.getFinalGroupId() ||
               rts.diversionName == group.name)) {
         if (rts.serverGroupId == ServerManager.getByCurrentSelected().groupid) {
-          return Tuple2(ServerManager.getByCurrentSelected(),
-              tcontext.outboundRuleMode.currentSelected);
+          return Tuple2(
+            ServerManager.getByCurrentSelected(),
+            tcontext.outboundRuleMode.currentSelected,
+          );
         } else if (rts.serverGroupId == ServerManager.getUrltest().groupid) {
           return Tuple2(
-              ServerManager.getUrltest(tag: rts.serverName),
-              rts.serverName == kOutboundTagUrltest
-                  ? tcontext.outboundRuleMode.urltest
-                  : rts.serverName);
+            ServerManager.getUrltest(tag: rts.serverName),
+            rts.serverName == kOutboundTagUrltest
+                ? tcontext.outboundRuleMode.urltest
+                : rts.serverName,
+          );
         } else if (rts.serverGroupId == ServerManager.getDirect().groupid) {
           return Tuple2(
-              ServerManager.getDirect(), tcontext.outboundRuleMode.direct);
+            ServerManager.getDirect(),
+            tcontext.outboundRuleMode.direct,
+          );
         } else if (rts.serverGroupId == ServerManager.getBlock().groupid) {
           return Tuple2(
-              ServerManager.getBlock(), tcontext.outboundRuleMode.block);
+            ServerManager.getBlock(),
+            tcontext.outboundRuleMode.block,
+          );
         } else if (rts.serverGroupId == ServerManager.getUrltestGroupId()) {
           ServerConfigGroupItem item = ServerManager.getCustomGroup();
           for (var urltest in item.urltests) {
             if (urltest.remark == rts.serverName) {
-              return Tuple2(ServerManager.getUrltest(tag: urltest.remark),
-                  urltest.remark);
+              return Tuple2(
+                ServerManager.getUrltest(tag: urltest.remark),
+                urltest.remark,
+              );
             }
           }
         } else {
@@ -542,8 +596,10 @@ class DiversionRulesScreenState
       }
     }
     if (group.groupid == ServerManager.getFinalGroupId()) {
-      return Tuple2(ServerManager.getByCurrentSelected(),
-          tcontext.outboundRuleMode.currentSelected);
+      return Tuple2(
+        ServerManager.getByCurrentSelected(),
+        tcontext.outboundRuleMode.currentSelected,
+      );
     }
     return Tuple2(ServerManager.getNone(), "");
   }

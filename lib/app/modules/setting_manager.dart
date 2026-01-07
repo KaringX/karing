@@ -35,9 +35,9 @@ class SettingConfigItemUICloudflareWarp {
   WarpAccount account = WarpAccount();
   String license = "";
   Map<String, dynamic> toJson() => {
-        //'account': warpAccount,
-        'license': license,
-      };
+    //'account': warpAccount,
+    'license': license,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -48,7 +48,8 @@ class SettingConfigItemUICloudflareWarp {
   }
 
   static SettingConfigItemUICloudflareWarp fromJsonStatic(
-      Map<String, dynamic>? map) {
+    Map<String, dynamic>? map,
+  ) {
     SettingConfigItemUICloudflareWarp config =
         SettingConfigItemUICloudflareWarp();
     config.fromJson(map);
@@ -64,10 +65,10 @@ class SettingConfigItemAds {
   bool bannerEnable = false;
 
   Map<String, dynamic> toJson() => {
-        'banner_enable': bannerEnable,
-        'banner_reward_ad_expire': bannerRewardAdExpire,
-        'banner_share_expire': bannerShareExpire,
-      };
+    'banner_enable': bannerEnable,
+    'banner_reward_ad_expire': bannerRewardAdExpire,
+    'banner_share_expire': bannerShareExpire,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -130,9 +131,9 @@ class SettingConfigItemAutobackup {
   bool removeProfile = false;
 
   Map<String, dynamic> toJson() => {
-        'add_profile': addProfile,
-        'remove_profile': removeProfile,
-      };
+    'add_profile': addProfile,
+    'remove_profile': removeProfile,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -155,10 +156,10 @@ class SettingConfigItemStatistics {
   int cacheDays = 7;
 
   Map<String, dynamic> toJson() => {
-        'enable': enable,
-        'data_desensitize': dataDesensitize,
-        'cache_days': cacheDays,
-      };
+    'enable': enable,
+    'data_desensitize': dataDesensitize,
+    'cache_days': cacheDays,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -197,18 +198,18 @@ class SettingConfigItemUI {
   bool tvMode = maybeTv();
 
   Map<String, dynamic> toJson() => {
-        'theme': theme,
-        'auto_orientation': autoOrientation,
-        'hide_dock_icon': hideDockIcon,
-        'exclude_from_recent': excludeFromRecent,
-        'wake_lock': wakeLock,
-        'hide_vpn': hideVpn,
-        'disable_font_scaler': disableFontScaler,
-        'hide_after_launch': hideAfterLaunch,
-        'net_check_domain': netCheckDomain,
-        'diversion_rule_detect_domain': diversionRuleDetectDomain,
-        'tv_mode': tvMode,
-      };
+    'theme': theme,
+    'auto_orientation': autoOrientation,
+    'hide_dock_icon': hideDockIcon,
+    'exclude_from_recent': excludeFromRecent,
+    'wake_lock': wakeLock,
+    'hide_vpn': hideVpn,
+    'disable_font_scaler': disableFontScaler,
+    'hide_after_launch': hideAfterLaunch,
+    'net_check_domain': netCheckDomain,
+    'diversion_rule_detect_domain': diversionRuleDetectDomain,
+    'tv_mode': tvMode,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -289,23 +290,23 @@ class SettingConfigItemUIScreen {
   String backgroundImageLocal = "";
 
   Map<String, dynamic> toJson() => {
-        'widgets': widgets,
-        'widgets_alpha': widgetsAlpha,
-        'hide_invalid_server_my_profiles': hideInvalidServerMyProfiles,
-        'hide_invalid_server_select_server': hideInvalidServerSelectServer,
-        'hide_invalid_server_diversion_rules': hideInvalidServerDiversionRules,
-        'sort_server_my_profiles': sortServerMyProfiles,
-        'sort_server_select_server': sortServerSelectServer,
-        'sort_server_diversion_rules': sortServerDiversionRules,
-        'select_server_hide_recommand': selectServerHideRecommand,
-        'select_server_hide_recent': selectServerHideRecent,
-        'select_server_hide_fav': selectServerHideFav,
-        'hide_unused_diversion_group': hideUnusedDiversionGroup,
-        'my_link': myLink,
-        'background_image_type': backgroundImageType,
-        'background_image': backgroundImageUrl,
-        'background_image_local': backgroundImageLocal,
-      };
+    'widgets': widgets,
+    'widgets_alpha': widgetsAlpha,
+    'hide_invalid_server_my_profiles': hideInvalidServerMyProfiles,
+    'hide_invalid_server_select_server': hideInvalidServerSelectServer,
+    'hide_invalid_server_diversion_rules': hideInvalidServerDiversionRules,
+    'sort_server_my_profiles': sortServerMyProfiles,
+    'sort_server_select_server': sortServerSelectServer,
+    'sort_server_diversion_rules': sortServerDiversionRules,
+    'select_server_hide_recommand': selectServerHideRecommand,
+    'select_server_hide_recent': selectServerHideRecent,
+    'select_server_hide_fav': selectServerHideFav,
+    'hide_unused_diversion_group': hideUnusedDiversionGroup,
+    'my_link': myLink,
+    'background_image_type': backgroundImageType,
+    'background_image': backgroundImageUrl,
+    'background_image_local': backgroundImageLocal,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -326,8 +327,8 @@ class SettingConfigItemUIScreen {
         map["hide_invalid_server_select_server"] ?? false;
     hideInvalidServerDiversionRules =
         map["hide_invalid_server_diversion_rules"] ??
-            map["hide_invalid_server_routing_group_strategy"] ??
-            false;
+        map["hide_invalid_server_routing_group_strategy"] ??
+        false;
     sortServerMyProfiles = map["sort_server_my_profiles"] ?? false;
     sortServerSelectServer = map["sort_server_select_server"] ?? false;
     sortServerDiversionRules = map["sort_server_diversion_rules"] ?? false;
@@ -347,8 +348,11 @@ class SettingConfigItemUIScreen {
         backgroundImageType = backgroundTypeDisable;
       }
     } else {
-      if ([backgroundTypeLocal, backgroundTypeRemote, backgroundTypeDisable]
-          .contains(backgroundImageType_)) {
+      if ([
+        backgroundTypeLocal,
+        backgroundTypeRemote,
+        backgroundTypeDisable,
+      ].contains(backgroundImageType_)) {
         backgroundImageType = backgroundImageType_;
       }
     }
@@ -368,13 +372,7 @@ class SettingConfigItemUIScreen {
     return myLink;
   }
 
-  static List<int> widgetsAlphaInt = [
-    0,
-    20,
-    50,
-    100,
-    255,
-  ];
+  static List<int> widgetsAlphaInt = [0, 20, 50, 100, 255];
 
   int getWidgetAlpha() {
     if (backgroundImageType == backgroundTypeDisable) {
@@ -446,11 +444,7 @@ class SettingConfigItemWebDev {
   String password = "";
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {
-      'url': url,
-      'user': user,
-      'password': password,
-    };
+    Map<String, dynamic> ret = {'url': url, 'user': user, 'password': password};
     return ret;
   }
 
@@ -484,10 +478,7 @@ class SettingConfigItemNTP {
   int port = 123;
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {
-      'enable': enable,
-      'server': server,
-    };
+    Map<String, dynamic> ret = {'enable': enable, 'server': server};
     return ret;
   }
 
@@ -581,9 +572,10 @@ class SettingConfigItemTUN {
     allowBypass = map["allow_bypass"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
     allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
-        map["allow_bypass_httpproxy_domains"],
-        true,
-        ProxyBypassDoaminsDefault.toList())!;
+      map["allow_bypass_httpproxy_domains"],
+      true,
+      ProxyBypassDoaminsDefault.toList(),
+    )!;
     hijackDns = map["hijack_dns"] ?? true;
     loopbackAddress = map["loopback_address"] ?? "";
     if (!NetworkUtils.isIpv4(loopbackAddress) &&
@@ -667,7 +659,7 @@ class SettingConfigItemDNS {
     {kDNSIsp: "Cloudflare DNS", kDNSUrl: "https://1.1.1.1/dns-query"},
     {
       kDNSIsp: "Cloudflare DNS",
-      kDNSUrl: "https://cloudflare-dns.com/dns-query"
+      kDNSUrl: "https://cloudflare-dns.com/dns-query",
     },
     {kDNSIsp: "Cloudflare DNS", kDNSUrl: "udp://[2606:4700:4700::1111]"},
     {kDNSIsp: "Cloudflare DNS", kDNSUrl: "udp://[2606:4700:4700::1001]"},
@@ -771,7 +763,8 @@ class SettingConfigItemDNS {
           proxyResolveMode = SettingConfigItemDNSProxyResolveMode.fakeip;
           break;
         }
-        bool enableProxyResolveByProxy = map["enable_final_resolve_by_proxy"] ??
+        bool enableProxyResolveByProxy =
+            map["enable_final_resolve_by_proxy"] ??
             map["enable_proxy_resolve_by_proxy"] ??
             true;
         if (enableProxyResolveByProxy) {
@@ -793,13 +786,25 @@ class SettingConfigItemDNS {
     }
 
     _resolver = ConvertUtils.getListStringFromDynamic(
-        map["resolver_addresses"], true, [])!;
+      map["resolver_addresses"],
+      true,
+      [],
+    )!;
     _outbound = ConvertUtils.getListStringFromDynamic(
-        map["outbound_addresses"], true, [])!;
+      map["outbound_addresses"],
+      true,
+      [],
+    )!;
     _direct = ConvertUtils.getListStringFromDynamic(
-        map["direct_addresses"], true, [])!;
+      map["direct_addresses"],
+      true,
+      [],
+    )!;
     _proxy = ConvertUtils.getListStringFromDynamic(
-        map["final_addresses"] ?? map["proxy_addresses"], true, [])!;
+      map["final_addresses"] ?? map["proxy_addresses"],
+      true,
+      [],
+    )!;
 
     clientSubnet = map["client_subnet"] ?? "";
     clientSubnetLatestUpdate = map["client_subnet_latest_update"] ?? "";
@@ -830,7 +835,8 @@ class SettingConfigItemDNS {
       }
     }
     if (_proxy.isEmpty) {
-      var proxy = map["dns_proxy"] ??
+      var proxy =
+          map["dns_proxy"] ??
           TypeChecker<String>().check(map["proxy"]) ??
           map["dns_remote"] ??
           "";
@@ -855,10 +861,7 @@ class SettingConfigItemDNS {
         if (isp is String && addr is String) {
           Uri? uri = Uri.tryParse(addr);
           if (uri != null && isDNSValidScheme(uri.scheme)) {
-            list.add({
-              kDNSIsp: isp,
-              kDNSUrl: addr,
-            });
+            list.add({kDNSIsp: isp, kDNSUrl: addr});
           }
         }
       }
@@ -1100,8 +1103,11 @@ class SettingConfigItemMux {
       protocol = "h2mux";
     }
     maxStream = map["max_streams"] ?? 8;
-    outboundTypes =
-        ConvertUtils.getListStringFromDynamic(map["outbound_types"], true, [])!;
+    outboundTypes = ConvertUtils.getListStringFromDynamic(
+      map["outbound_types"],
+      true,
+      [],
+    )!;
   }
 
   static SettingConfigItemMux fromJsonStatic(Map<String, dynamic>? map) {
@@ -1157,21 +1163,21 @@ class SettingConfigItemProxy {
   }
 
   Map<String, dynamic> toJson() => {
-        'host': host,
-        'enable_cluster': enableCluster,
-        'cluster_host': clusterHost,
-        'mixed_port': mixedRulePort,
-        'mixed_direct_port': mixedDirectPort,
-        'mixed_forword_port': mixedForwordPort,
-        'mixed_net_share_port': mixedRuleNetSharePort,
-        'mixed_forword_net_share_port': mixedForwordNetSharePort,
-        'control_port': controlPort,
-        'cluster_port': clusterPort,
-        'auto_set_system_proxy': autoSetSystemProxy,
-        'system_proxy_bypass_domain': systemProxyBypassDomain,
-        'disconnect_when_quit': disconnectWhenQuit,
-        'auto_add_to_firewall': autoAddToFirewall,
-      };
+    'host': host,
+    'enable_cluster': enableCluster,
+    'cluster_host': clusterHost,
+    'mixed_port': mixedRulePort,
+    'mixed_direct_port': mixedDirectPort,
+    'mixed_forword_port': mixedForwordPort,
+    'mixed_net_share_port': mixedRuleNetSharePort,
+    'mixed_forword_net_share_port': mixedForwordNetSharePort,
+    'control_port': controlPort,
+    'cluster_port': clusterPort,
+    'auto_set_system_proxy': autoSetSystemProxy,
+    'system_proxy_bypass_domain': systemProxyBypassDomain,
+    'disconnect_when_quit': disconnectWhenQuit,
+    'auto_add_to_firewall': autoAddToFirewall,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -1213,9 +1219,10 @@ class SettingConfigItemProxy {
     autoSetSystemProxy =
         map["auto_set_system_proxy"] ?? getAutoSetSystemProxyDefault();
     systemProxyBypassDomain = ConvertUtils.getListStringFromDynamic(
-        map["system_proxy_bypass_domain"],
-        true,
-        ProxyBypassDoaminsDefault.toList())!;
+      map["system_proxy_bypass_domain"],
+      true,
+      ProxyBypassDoaminsDefault.toList(),
+    )!;
     disconnectWhenQuit =
         map["disconnect_when_quit"] ?? getDisconnectWhenQuitDefault();
     autoAddToFirewall = map["auto_add_to_firewall"] ?? true;
@@ -1299,7 +1306,9 @@ class SettingConfigItemRuleSets {
   }
 
   static SettingConfigItemRuleSets fromJsonStatic(
-      Map<String, dynamic>? map, String regioncode) {
+    Map<String, dynamic>? map,
+    String regioncode,
+  ) {
     SettingConfigItemRuleSets config = SettingConfigItemRuleSets();
     config.fromJson(map, regioncode);
     return config;
@@ -1355,13 +1364,22 @@ class SettingConfigItemPerapp {
 
     enable = map["enable"] ?? map["perapp_enable"] ?? true;
     isInclude = map["is_include"] ?? map["perapp_is_include"] ?? true;
-    _listAndroid =
-        ConvertUtils.getListStringFromDynamic(map["list_android"], true, [])!;
-    _listMacos =
-        ConvertUtils.getListStringFromDynamic(map["list_macos"], true, [])!;
+    _listAndroid = ConvertUtils.getListStringFromDynamic(
+      map["list_android"],
+      true,
+      [],
+    )!;
+    _listMacos = ConvertUtils.getListStringFromDynamic(
+      map["list_macos"],
+      true,
+      [],
+    )!;
     if (_listAndroid.isEmpty) {
       _listAndroid = ConvertUtils.getListStringFromDynamic(
-          map["list"] ?? map["perapp"], true, [])!;
+        map["list"] ?? map["perapp"],
+        true,
+        [],
+      )!;
       _listAndroid.removeWhere((element) => element == AppUtils.getId());
     }
 
@@ -1454,8 +1472,9 @@ class SettingConfigItemAutoSelect {
     }
 
     if (map["selected_health_check_interval"] != null) {
-      selectedHealthCheckInterval =
-          Duration(seconds: map["selected_health_check_interval"]);
+      selectedHealthCheckInterval = Duration(
+        seconds: map["selected_health_check_interval"],
+      );
       if (selectedHealthCheckInterval!.inSeconds >= 3600) {
         selectedHealthCheckInterval = const Duration(minutes: 59);
       }
@@ -1477,12 +1496,7 @@ class SettingConfigItemAutoSelect {
   }
 }
 
-enum DNSType {
-  dnsTypeResolver,
-  dnsTypeOutbound,
-  dnsTypeDirect,
-  dnsTypeProxy,
-}
+enum DNSType { dnsTypeResolver, dnsTypeOutbound, dnsTypeDirect, dnsTypeProxy }
 
 enum IPStrategy {
   ipv4Only(name: "ipv4_only"),
@@ -1496,10 +1510,7 @@ enum IPStrategy {
 
 class SettingConfig {
   static List<String> updateChannels() {
-    return [
-      "beta",
-      "stable",
-    ];
+    return ["beta", "stable"];
   }
 
   static int htmlBoardPortDefault = 3072;
@@ -1527,7 +1538,7 @@ class SettingConfig {
     "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "HiddifyNext",
     "v2ray",
-    "FLClash"
+    "FLClash",
   ];
   static const Map<String, String> kUserAgentListOldUpgrade = {
     "sing-box": "sing-box $kCoreVersion",
@@ -1570,7 +1581,7 @@ class SettingConfig {
   bool quitWhenSwitchSystemUser = false;
   bool alwayOn = false;
   Duration? disconnectAfterSleep;
-  bool disableUAReport = false;
+  bool disableAppImproveData = false;
 
   List<String> userAgents = [];
   List<String> speedTestList = [];
@@ -1587,49 +1598,49 @@ class SettingConfig {
   int htmlBoardPort = htmlBoardPortDefault;
 
   Map<String, dynamic> toJson() => {
-        'language_tag': languageTag,
-        'region_code': regionCode,
-        'novice': novice,
-        'ui': ui,
-        'dev': dev,
-        'ui_screen': uiScreen,
-        'ntp': ntp,
-        'proxy': proxy,
-        'tun': tun,
-        'dns': dns,
-        'tls': tls,
-        'mux': mux,
-        'rule_sets': ruleSets,
-        'perapp': perapp,
-        'auto_select': autoSelect,
-        'warp': warp,
-        'webdav': webdav,
-        'auto_backup': autoBackup,
-        'ads': ads,
-        'statistics': statistics,
-        'auto_connect_after_launch': autoConnectAfterLaunch,
-        'auto_connect_at_boot': autoConnectAtBoot,
-        'ip_strategy': ipStrategy.name,
-        'proxy_all': proxyAll,
-        'front_proxy': frontProxy,
-        'private_direct': privateDirect,
-        'quit_when_switch_systemUser': quitWhenSwitchSystemUser,
-        'alway_on': alwayOn,
-        'disconnect_after_sleep_seconds': disconnectAfterSleep?.inSeconds,
-        'disable_ua_report': disableUAReport,
-        'user_agents': userAgents,
-        'speed_test_list': speedTestList,
-        'speed_test': speedTest,
-        'url_test_list': urlTestList,
-        'url_test_timeout': urlTestTimeout,
-        'url_test': urlTest,
-        'latency_check_concurrency': latencyCheckConcurrency,
-        'latency_check_resolve_ip': latencyCheckResoveIP,
-        'auto_update_channel': autoUpdateChannel,
-        'auto_download_udpate_pkg': autoDownloadUpdatePkg,
-        'origin_sb_profile': originSBProfile,
-        'html_board_port': htmlBoardPort,
-      };
+    'language_tag': languageTag,
+    'region_code': regionCode,
+    'novice': novice,
+    'ui': ui,
+    'dev': dev,
+    'ui_screen': uiScreen,
+    'ntp': ntp,
+    'proxy': proxy,
+    'tun': tun,
+    'dns': dns,
+    'tls': tls,
+    'mux': mux,
+    'rule_sets': ruleSets,
+    'perapp': perapp,
+    'auto_select': autoSelect,
+    'warp': warp,
+    'webdav': webdav,
+    'auto_backup': autoBackup,
+    'ads': ads,
+    'statistics': statistics,
+    'auto_connect_after_launch': autoConnectAfterLaunch,
+    'auto_connect_at_boot': autoConnectAtBoot,
+    'ip_strategy': ipStrategy.name,
+    'proxy_all': proxyAll,
+    'front_proxy': frontProxy,
+    'private_direct': privateDirect,
+    'quit_when_switch_systemUser': quitWhenSwitchSystemUser,
+    'alway_on': alwayOn,
+    'disconnect_after_sleep_seconds': disconnectAfterSleep?.inSeconds,
+    'disable_app_improve_data': disableAppImproveData,
+    'user_agents': userAgents,
+    'speed_test_list': speedTestList,
+    'speed_test': speedTest,
+    'url_test_list': urlTestList,
+    'url_test_timeout': urlTestTimeout,
+    'url_test': urlTest,
+    'latency_check_concurrency': latencyCheckConcurrency,
+    'latency_check_resolve_ip': latencyCheckResoveIP,
+    'auto_update_channel': autoUpdateChannel,
+    'auto_download_udpate_pkg': autoDownloadUpdatePkg,
+    'origin_sb_profile': originSBProfile,
+    'html_board_port': htmlBoardPort,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -1641,8 +1652,9 @@ class SettingConfig {
 
     ui = SettingConfigItemUI.fromJsonStatic(map["ui"]);
     dev = SettingConfigItemDev.fromJsonStatic(map["dev"]);
-    uiScreen =
-        SettingConfigItemUIScreen.fromJsonStatic(map["ui_screen"] ?? map);
+    uiScreen = SettingConfigItemUIScreen.fromJsonStatic(
+      map["ui_screen"] ?? map,
+    );
     if (map["ntp"] is Map) {
       ntp = SettingConfigItemNTP.fromJsonStatic(map["ntp"]);
     } else {
@@ -1659,14 +1671,17 @@ class SettingConfig {
     tls = SettingConfigItemTLS.fromJsonStatic(map["tls"]);
     mux = SettingConfigItemMux.fromJsonStatic(map["mux"]);
     ruleSets = SettingConfigItemRuleSets.fromJsonStatic(
-        map["rule_sets"] ?? map, regionCode);
+      map["rule_sets"] ?? map,
+      regionCode,
+    );
     if (map["perapp"] is Map) {
       perapp = SettingConfigItemPerapp.fromJsonStatic(map["perapp"]);
     } else {
       perapp = SettingConfigItemPerapp.fromJsonStatic(map);
     }
-    autoSelect =
-        SettingConfigItemAutoSelect.fromJsonStatic(map["auto_select"] ?? map);
+    autoSelect = SettingConfigItemAutoSelect.fromJsonStatic(
+      map["auto_select"] ?? map,
+    );
     warp = SettingConfigItemUICloudflareWarp.fromJsonStatic(map["warp"] ?? map);
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     autoBackup = SettingConfigItemAutobackup.fromJsonStatic(map["auto_backup"]);
@@ -1702,8 +1717,11 @@ class SettingConfig {
         frontProxy.add(frontProxy_);
       }
     } else {
-      frontProxy =
-          ConvertUtils.getListStringFromDynamic(frontProxy_, true, [])!;
+      frontProxy = ConvertUtils.getListStringFromDynamic(
+        frontProxy_,
+        true,
+        [],
+      )!;
     }
 
     privateDirect = map["private_direct"] ?? true;
@@ -1711,8 +1729,9 @@ class SettingConfig {
     alwayOn = map["alway_on"] ?? false;
 
     if (map["disconnect_after_sleep_seconds"] != null) {
-      disconnectAfterSleep =
-          Duration(seconds: map["disconnect_after_sleep_seconds"]);
+      disconnectAfterSleep = Duration(
+        seconds: map["disconnect_after_sleep_seconds"],
+      );
       if (disconnectAfterSleep!.inSeconds < 30) {
         disconnectAfterSleep = const Duration(seconds: 30);
       }
@@ -1721,19 +1740,29 @@ class SettingConfig {
       }
     }
 
-    disableUAReport = map["disable_ua_report"] ?? false;
+    disableAppImproveData =
+        map["disable_app_improve_data"] ?? map["disable_ua_report"] ?? false;
     speedTestList = ConvertUtils.getListStringFromDynamic(
-        map["speed_test_list"], true, [])!;
-    userAgents =
-        ConvertUtils.getListStringFromDynamic(map["user_agents"], true, [])!;
+      map["speed_test_list"],
+      true,
+      [],
+    )!;
+    userAgents = ConvertUtils.getListStringFromDynamic(
+      map["user_agents"],
+      true,
+      [],
+    )!;
 
     speedTest = map["speed_test"] ?? "";
     if (speedTest.isEmpty) {
       speedTest = kSpeedTestList[0];
     }
 
-    urlTestList =
-        ConvertUtils.getListStringFromDynamic(map["url_test_list"], true, [])!;
+    urlTestList = ConvertUtils.getListStringFromDynamic(
+      map["url_test_list"],
+      true,
+      [],
+    )!;
     urlTestTimeout = map["url_test_timeout"] ?? 15;
     if (urlTestTimeout < 1) {
       urlTestTimeout = 1;
@@ -1753,7 +1782,8 @@ class SettingConfig {
       latencyCheckConcurrency = maxLatencyCheckConcurrency();
     }
 
-    latencyCheckResoveIP = map["latency_check_resolve_ip"] ??
+    latencyCheckResoveIP =
+        map["latency_check_resolve_ip"] ??
         map["latency_check_resove_ip"] ??
         false;
 
@@ -1841,7 +1871,7 @@ class SettingManager {
     } else {
       String planguageTag = [
         WidgetsBinding.instance.platformDispatcher.locale.languageCode,
-        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? "",
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {
@@ -1902,9 +1932,6 @@ class SettingManager {
         }
       }
     } catch (err, stacktrace) {
-      SentryUtils.captureException(
-          'SettingManager.loadConfig.exception', [content], err, stacktrace,
-          attachments: {filePath: content});
       Log.w("SettingManager.loadConfig exception $filePath ${err.toString()}");
     }
   }
@@ -1924,15 +1951,6 @@ class SettingManager {
         await File(filePath).writeAsString(content, flush: true);
       }
     } catch (err, stacktrace) {
-      if (!ErrorReporterUtils.tryReportNoSpace(err.toString())) {
-        SentryUtils.captureException(
-          'SettingManager.saveConfig.exception',
-          [],
-          err,
-          stacktrace,
-        );
-      }
-
       Log.w("SettingManager.saveConfig exception  $filePath ${err.toString()}");
     }
     _savingConfig = false;

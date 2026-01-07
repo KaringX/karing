@@ -50,100 +50,104 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return PopScope(
-        canPop: true,
-        onPopInvokedWithResult: (didPop, result) {
-          if (_showSnackBarShowed) {
-            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          }
-        },
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: const SizedBox(
-                          width: 50,
-                          height: 30,
-                          child: Icon(
-                            Icons.arrow_back_ios_outlined,
-                            size: 26,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: windowSize.width - 50 * 2,
-                        child: Text(
-                          tcontext.meta.qrcodeScan,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: ThemeConfig.kFontWeightTitle,
-                              fontSize: ThemeConfig.kFontSizeTitle),
-                        ),
-                      ),
-                      SizedBox(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (_showSnackBarShowed) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        }
+      },
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: IconButton(
-                          icon: FutureBuilder(
-                              future: getFlashState(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<bool> snapshot) {
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                      ),
+                    ),
+                    SizedBox(
+                      width: windowSize.width - 50 * 2,
+                      child: Text(
+                        tcontext.meta.qrcodeScan,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 50,
+                      height: 30,
+                      child: IconButton(
+                        icon: FutureBuilder(
+                          future: getFlashState(),
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<bool> snapshot,
+                              ) {
                                 return snapshot.hasData && snapshot.data!
-                                    ? const Icon(Icons.flash_on_outlined,
-                                        color: ThemeDefine.kColorBlue)
+                                    ? const Icon(
+                                        Icons.flash_on_outlined,
+                                        color: ThemeDefine.kColorBlue,
+                                      )
                                     : const Icon(Icons.flash_off_outlined);
-                              }),
-                          iconSize: 26,
-                          onPressed: () async {
-                            try {
-                              await controller?.toggleFlash();
-                            } catch (err) {
-                              DialogUtils.showAlertDialog(
-                                  context, err.toString(),
-                                  showCopy: true,
-                                  showFAQ: true,
-                                  withVersion: true);
-                            }
+                              },
+                        ),
+                        iconSize: 26,
+                        onPressed: () async {
+                          try {
+                            await controller?.toggleFlash();
+                          } catch (err) {
+                            DialogUtils.showAlertDialog(
+                              context,
+                              err.toString(),
+                              showCopy: true,
+                              showFAQ: true,
+                              withVersion: true,
+                            );
+                          }
 
-                            setState(() {});
-                          },
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: windowSize.width,
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        width: windowSize.width,
+                        height: windowSize.height * 0.8,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: _buildQrView(context),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                      width: windowSize.width,
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            width: windowSize.width,
-                            height: windowSize.height * 0.8,
-                            child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                child: _buildQrView(context)),
-                          ),
-                        ],
-                      ))
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildQrView(BuildContext context) {
@@ -157,11 +161,12 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
@@ -199,9 +204,11 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
       final tcontext = Translations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            showCloseIcon: true,
-            content: Text(tcontext.permission
-                .requestNeed(p: tcontext.permission.camera))),
+          showCloseIcon: true,
+          content: Text(
+            tcontext.permission.requestNeed(p: tcontext.permission.camera),
+          ),
+        ),
       );
     }
   }

@@ -123,8 +123,8 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
 	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
-	@override String get disableUAReport => 'Применить данные улучшения';
-	@override String get disableUAReportTip => '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].';
+	@override String get disableAppImproveData => 'Применить данные улучшения';
+	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get enableDebugLog => 'Включить debug-лог';
 	@override String get viewFilsContent => 'Посмотреть файлы';
@@ -925,8 +925,8 @@ extension on TranslationsRu {
 			'AboutScreen.installTime' => 'Время установки',
 			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
 			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
-			'AboutScreen.disableUAReport' => 'Применить данные улучшения',
-			'AboutScreen.disableUAReportTip' => '[Данные для улучшения приложения] помогают нам улучшить работу с продуктом; версии ниже основной версии автоматически отключают все [Данные для улучшения приложения], кроме [Запуска приложения].',
+			'AboutScreen.disableAppImproveData' => 'Применить данные улучшения',
+			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',
 			'AboutScreen.devOptions' => 'Параметры разработчика',
 			'AboutScreen.enableDebugLog' => 'Включить debug-лог',
 			'AboutScreen.viewFilsContent' => 'Посмотреть файлы',

@@ -77,10 +77,7 @@ class _DiversionGroupCustomScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -96,10 +93,7 @@ class _DiversionGroupCustomScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -109,8 +103,9 @@ class _DiversionGroupCustomScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -118,22 +113,18 @@ class _DiversionGroupCustomScreenState
                         onTapMore();
                       },
                       child: Tooltip(
-                          message: tcontext.meta.more,
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.more_vert_outlined,
-                              size: 26,
-                            ),
-                          )),
+                        message: tcontext.meta.more,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.more_vert_outlined, size: 26),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Text(
@@ -144,12 +135,8 @@ class _DiversionGroupCustomScreenState
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -159,30 +146,29 @@ class _DiversionGroupCustomScreenState
 
   Widget _loadListView() {
     return ReorderableListView(
-        header: Container(
-          height: 0,
-        ),
-        children: _groupData.map((item) {
-          return createWidget(item);
-        }).toList(),
-        onReorder: (int oldIndex, int newIndex) {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          var item = _groupData.removeAt(oldIndex);
-          _groupData.insert(newIndex, item);
+      header: Container(height: 0),
+      children: _groupData.map((item) {
+        return createWidget(item);
+      }).toList(),
+      onReorder: (int oldIndex, int newIndex) {
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+        var item = _groupData.removeAt(oldIndex);
+        _groupData.insert(newIndex, item);
 
-          ServerDiversionGroupItem diversionItem =
-              ServerManager.getDiversionCustomGroup();
+        ServerDiversionGroupItem diversionItem =
+            ServerManager.getDiversionCustomGroup();
 
-          for (var group in diversionItem.groups) {
-            group.index = _groupData.indexOf(group.name);
-          }
-          diversionItem.groups.sort(sortCompare);
+        for (var group in diversionItem.groups) {
+          group.index = _groupData.indexOf(group.name);
+        }
+        diversionItem.groups.sort(sortCompare);
 
-          ServerManager.setDirty(true);
-          setState(() {});
-        });
+        ServerManager.setDirty(true);
+        setState(() {});
+      },
+    );
   }
 
   Widget createWidget(String current) {
@@ -190,123 +176,108 @@ class _DiversionGroupCustomScreenState
     const double padding = 4;
     const double rightWidth = 80;
     double leftWidth = windowSize.width - rightWidth - padding * 2 - 4;
-    return Column(key: Key(current), children: [
-      Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            onTapItem(current);
-          },
-          onDoubleTap: () {
-            onTapModifyName(current);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
-            width: double.infinity,
-            height: ThemeConfig.kListItemHeight2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 4,
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: leftWidth,
-                  ),
-                  child: Text(
-                    current,
-                    style: TextStyle(
-                      fontSize: ThemeConfig.kFontSizeGroupItem,
+    return Column(
+      key: Key(current),
+      children: [
+        Material(
+          borderRadius: ThemeDefine.kBorderRadius,
+          child: InkWell(
+            onTap: () {
+              onTapItem(current);
+            },
+            onDoubleTap: () {
+              onTapModifyName(current);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: padding),
+              width: double.infinity,
+              height: ThemeConfig.kListItemHeight2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 4),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: leftWidth),
+                    child: Text(
+                      current,
+                      style: TextStyle(
+                        fontSize: ThemeConfig.kFontSizeGroupItem,
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                Container(
-                  alignment: Alignment.centerRight,
-                  height: 40,
-                  width: rightWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
+                  const Spacer(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    height: 40,
+                    width: rightWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
                           onTap: () async {
                             onTapDel(current);
                           },
                           child: const SizedBox(
                             width: 26,
                             height: ThemeConfig.kListItemHeight2,
-                            child: Icon(Icons.remove_circle_outlined,
-                                size: 26, color: Colors.red),
-                          )),
-                      const SizedBox(width: 20),
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        child: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 14,
+                            child: Icon(
+                              Icons.remove_circle_outlined,
+                              size: 26,
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 20),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 
   void onTapMore() {
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          tcontext.meta.add,
-        ),
-        leading: Icon(
-          Icons.add,
-        ),
+        title: Text(tcontext.meta.add),
+        leading: Icon(Icons.add),
         onTap: () async {
           Navigator.pop(context);
           onTapAddCustom();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.add,
-        ),
-        leading: Icon(
-          Icons.playlist_add_outlined,
-        ),
+        title: Text(tcontext.meta.add),
+        leading: Icon(Icons.playlist_add_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapAddCustom2();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.import,
-        ),
-        leading: Icon(
-          AntDesign.import_outline,
-        ),
+        title: Text(tcontext.meta.import),
+        leading: Icon(AntDesign.import_outline),
         onTap: () async {
           Navigator.pop(context);
           onTapAddImport();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.export,
-        ),
-        leading: Icon(
-          AntDesign.export_outline,
-        ),
+        title: Text(tcontext.meta.export),
+        leading: Icon(AntDesign.export_outline),
         onTap: () async {
           Navigator.pop(context);
           onTapExport();
@@ -334,17 +305,25 @@ class _DiversionGroupCustomScreenState
             return;
           }
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
-        ReturnResult result =
-            await DiversionCustomRules.getFromFile(fresult.files.first.path!);
+        ReturnResult result = await DiversionCustomRules.getFromFile(
+          fresult.files.first.path!,
+        );
         if (result.error != null) {
           if (!mounted) {
             return;
           }
-          DialogUtils.showAlertDialog(context, result.error!.message,
-              showCopy: true, showFAQ: true, withVersion: true);
+          DialogUtils.showAlertDialog(
+            context,
+            result.error!.message,
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           return;
         }
 
@@ -352,24 +331,31 @@ class _DiversionGroupCustomScreenState
           return;
         }
         await Navigator.push(
-            context,
-            MaterialPageRoute(
-                settings: DiversionRulesCustomSetScreen.routSettings(),
-                builder: (context) => DiversionRulesCustomSetScreen(
-                      canPop: true,
-                      title: tcontext.meta.import,
-                      canGoBack: true,
-                      nextText: null,
-                      nextIcon: Icons.done_outlined,
-                      rules: result.data!,
-                    )));
+          context,
+          MaterialPageRoute(
+            settings: DiversionRulesCustomSetScreen.routSettings(),
+            builder: (context) => DiversionRulesCustomSetScreen(
+              canPop: true,
+              title: tcontext.meta.import,
+              canGoBack: true,
+              nextText: null,
+              nextIcon: Icons.done_outlined,
+              rules: result.data!,
+            ),
+          ),
+        );
       }
     } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
     if (!mounted) {
       return;
@@ -410,22 +396,23 @@ class _DiversionGroupCustomScreenState
               return;
             }
             final box = context.findRenderObject() as RenderBox?;
-            final rect =
-                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            final rect = box != null
+                ? box.localToGlobal(Offset.zero) & box.size
+                : null;
             await SharePlus.instance.share(
-              ShareParams(
-                files: [
-                  XFile(filePath),
-                ],
-                sharePositionOrigin: rect,
-              ),
+              ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
           } catch (err) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
+            DialogUtils.showAlertDialog(
+              context,
+              err.toString(),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
         }
       }
@@ -433,36 +420,48 @@ class _DiversionGroupCustomScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
   void onTapAddCustom() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, "", null, null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
-        return false;
-      }
-
-      if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
-        return false;
-      }
-      ServerDiversionGroupItem diversionItem =
-          ServerManager.getDiversionCustomGroup();
-      for (var group in diversionItem.groups) {
-        if (group.name == text) {
-          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+      context,
+      tcontext.meta.remark,
+      "",
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
           return false;
         }
-      }
 
-      return true;
-    });
+        if (text.length > kRemarkMaxLength) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
+          return false;
+        }
+        ServerDiversionGroupItem diversionItem =
+            ServerManager.getDiversionCustomGroup();
+        for (var group in diversionItem.groups) {
+          if (group.name == text) {
+            DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+            return false;
+          }
+        }
+
+        return true;
+      },
+    );
 
     if (text != null) {
       ServerDiversionGroupItem diversionItem =
@@ -485,22 +484,26 @@ class _DiversionGroupCustomScreenState
     var settingConfig = SettingManager.getConfig();
     var regionCode = settingConfig.regionCode.toLowerCase();
 
-    DiversionCustomRules? rules =
-        await DiversionCustomRulesPreset.getPreset(regionCode);
+    DiversionCustomRules? rules = await DiversionCustomRulesPreset.getPreset(
+      regionCode,
+    );
     if (!mounted) {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: DiversionRulesCustomSetScreen.routSettings(),
-            builder: (context) => DiversionRulesCustomSetScreen(
-                canPop: true,
-                title: tcontext.diversionCustomGroupPreset,
-                canGoBack: true,
-                nextText: null,
-                nextIcon: Icons.done_outlined,
-                rules: rules ?? DiversionCustomRules())));
+      context,
+      MaterialPageRoute(
+        settings: DiversionRulesCustomSetScreen.routSettings(),
+        builder: (context) => DiversionRulesCustomSetScreen(
+          canPop: true,
+          title: tcontext.diversionCustomGroupPreset,
+          canGoBack: true,
+          nextText: null,
+          nextIcon: Icons.done_outlined,
+          rules: rules ?? DiversionCustomRules(),
+        ),
+      ),
+    );
     _buildData();
     setState(() {});
   }
@@ -508,28 +511,35 @@ class _DiversionGroupCustomScreenState
   void onTapModifyName(String current) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, current, null, null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
-        return false;
-      }
-
-      if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
-        return false;
-      }
-      ServerDiversionGroupItem diversionItem =
-          ServerManager.getDiversionCustomGroup();
-      for (var group in diversionItem.groups) {
-        if (group.name == text) {
-          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+      context,
+      tcontext.meta.remark,
+      current,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
           return false;
         }
-      }
 
-      return true;
-    });
+        if (text.length > kRemarkMaxLength) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
+          return false;
+        }
+        ServerDiversionGroupItem diversionItem =
+            ServerManager.getDiversionCustomGroup();
+        for (var group in diversionItem.groups) {
+          if (group.name == text) {
+            DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+            return false;
+          }
+        }
+
+        return true;
+      },
+    );
 
     if (text != null) {
       ServerDiversionGroupItem diversionItem =
@@ -579,21 +589,26 @@ class _DiversionGroupCustomScreenState
     newOptions.portRange = "";
     newOptions.protocol = "";
 
-    DiversionGroupCustomEditOptions options =
-        widget.options == null ? newOptions : widget.options!;
+    DiversionGroupCustomEditOptions options = widget.options == null
+        ? newOptions
+        : widget.options!;
 
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: DiversionGroupCustomEditScreen.routSettings(),
-            builder: (context) => DiversionGroupCustomEditScreen(
-                name: current, options: options)));
+      context,
+      MaterialPageRoute(
+        settings: DiversionGroupCustomEditScreen.routSettings(),
+        builder: (context) =>
+            DiversionGroupCustomEditScreen(name: current, options: options),
+      ),
+    );
   }
 
   void onTapDel(String current) async {
     final tcontext = Translations.of(context);
     bool? del = await DialogUtils.showConfirmDialog(
-        context, tcontext.meta.removeConfirm);
+      context,
+      tcontext.meta.removeConfirm,
+    );
     if (del == true) {
       ServerDiversionGroupItem diversionItem =
           ServerManager.getDiversionCustomGroup();

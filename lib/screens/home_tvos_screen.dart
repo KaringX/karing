@@ -42,14 +42,15 @@ class HomeTVOSScreen extends LasyRenderingStatefulWidget {
   final String uuid;
   final String secret;
   final String version;
-  const HomeTVOSScreen(
-      {super.key,
-      required this.host,
-      required this.port,
-      required this.cport,
-      required this.uuid,
-      required this.secret,
-      required this.version});
+  const HomeTVOSScreen({
+    super.key,
+    required this.host,
+    required this.port,
+    required this.cport,
+    required this.uuid,
+    required this.secret,
+    required this.version,
+  });
 
   @override
   State<HomeTVOSScreen> createState() => _HomeTVOSScreenState();
@@ -59,18 +60,24 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     with WidgetsBindingObserver {
   Websocket? _websocket;
   Timer? _timer;
-  final FocusNode _focusNodeRuntimeInfo =
-      FocusNode(debugLabel: "scroll.${RunTimeInfoCard.id()}");
-  final FocusNode _focusNodeMemoryInfo =
-      FocusNode(debugLabel: "scroll.${MemoryInfoCard.id()}");
-  final FocusNode _focusNodeConnectionsInfo =
-      FocusNode(debugLabel: "scroll.${ConnectionsInfoCard.id()}");
-  final FocusNode _focusNodeTrafficTotalInfo =
-      FocusNode(debugLabel: "scroll.${TrafficTotalInfoCard.id()}");
-  final FocusNode _focusNodeTrafficProxyInfo =
-      FocusNode(debugLabel: "scroll.${TrafficProxyInfoCard.id()}");
-  final FocusNode _focusNodeTrafficSpeedInfo =
-      FocusNode(debugLabel: "scroll.${TrafficSpeedInfoCard.id()}");
+  final FocusNode _focusNodeRuntimeInfo = FocusNode(
+    debugLabel: "scroll.${RunTimeInfoCard.id()}",
+  );
+  final FocusNode _focusNodeMemoryInfo = FocusNode(
+    debugLabel: "scroll.${MemoryInfoCard.id()}",
+  );
+  final FocusNode _focusNodeConnectionsInfo = FocusNode(
+    debugLabel: "scroll.${ConnectionsInfoCard.id()}",
+  );
+  final FocusNode _focusNodeTrafficTotalInfo = FocusNode(
+    debugLabel: "scroll.${TrafficTotalInfoCard.id()}",
+  );
+  final FocusNode _focusNodeTrafficProxyInfo = FocusNode(
+    debugLabel: "scroll.${TrafficProxyInfoCard.id()}",
+  );
+  final FocusNode _focusNodeTrafficSpeedInfo = FocusNode(
+    debugLabel: "scroll.${TrafficSpeedInfoCard.id()}",
+  );
 
   final _superGridKey = GlobalKey<SuperGridState>();
   late HomeWidgetOptions _widgetOptions;
@@ -80,16 +87,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     super.initState();
 
     _widgetOptions = HomeWidgetOptions(
-      runtimeInfo: HomeWidgetCard1Options(
-        () {},
-        null,
-        _focusNodeRuntimeInfo,
-      ),
-      memoryInfo: HomeWidgetCard1Options(
-        () {},
-        null,
-        _focusNodeMemoryInfo,
-      ),
+      runtimeInfo: HomeWidgetCard1Options(() {}, null, _focusNodeRuntimeInfo),
+      memoryInfo: HomeWidgetCard1Options(() {}, null, _focusNodeMemoryInfo),
       connectionsInfo: HomeWidgetCard1Options(
         onConnectionsInfoPressed,
         null,
@@ -132,7 +131,13 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
     final url = "http://${widget.host}:${widget.cport}/";
     ReturnResult<String>? result = await HttpUtils.httpGetRequest(
-        url, proxyPort, null, const Duration(seconds: 3), null, null);
+      url,
+      proxyPort,
+      null,
+      const Duration(seconds: 3),
+      null,
+      null,
+    );
 
     if (result.error != null) {
       if (!result.error!.message.contains("401") &&
@@ -142,64 +147,73 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       }
     }
     _websocket ??= Websocket(
-        url: getConnectionsUrl(true),
-        userAgent: await HttpUtils.getUserAgent(),
-        proxy: proxyPort != null ? "PROXY 127.0.0.1:$proxyPort" : null,
-        onMessage: (String message) {
-          var obj = jsonDecode(message);
-          Connections con = Connections();
-          con.fromJson(obj, false);
-          if (AppLifecycleStateNofity.isPaused()) {
-            return;
-          }
-          if (con.startTime != null) {
-            final startDurationNotify = DateTime.now()
-                .difference(con.startTime!)
-                .toString()
-                .split(".")[0];
+      url: getConnectionsUrl(true),
+      userAgent: await HttpUtils.getUserAgent(),
+      proxy: proxyPort != null ? "PROXY 127.0.0.1:$proxyPort" : null,
+      onMessage: (String message) {
+        var obj = jsonDecode(message);
+        Connections con = Connections();
+        con.fromJson(obj, false);
+        if (AppLifecycleStateNofity.isPaused()) {
+          return;
+        }
+        if (con.startTime != null) {
+          final startDurationNotify = DateTime.now()
+              .difference(con.startTime!)
+              .toString()
+              .split(".")[0];
 
-            _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
-          }
-          _widgetOptions.trafficTotalInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
+          _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
+        }
+        _widgetOptions.trafficTotalInfo!.notifier.value =
+            "↑ " + ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
 
-          _widgetOptions.trafficTotalInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
+        _widgetOptions.trafficTotalInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
 
-          _widgetOptions.trafficProxyInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(
-                  con.uploadTotal - con.uploadTotalDirect);
+        _widgetOptions.trafficProxyInfo!.notifier.value =
+            "↑ " +
+            ProxyConfUtils.convertTrafficToStringDouble(
+              con.uploadTotal - con.uploadTotalDirect,
+            );
 
-          _widgetOptions.trafficProxyInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(
-                  con.downloadTotal - con.downloadTotalDirect);
+        _widgetOptions.trafficProxyInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(
+              con.downloadTotal - con.downloadTotalDirect,
+            );
 
-          _widgetOptions.trafficSpeedInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
-              "/s";
+        _widgetOptions.trafficSpeedInfo!.notifier.value =
+            "↑ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
+            "/s";
 
-          _widgetOptions.trafficSpeedInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
-              "/s";
+        _widgetOptions.trafficSpeedInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
+            "/s";
 
-          if (SettingManager.getConfig().dev.devMode) {
-            _widgetOptions.memoryInfo!.notifier.value =
-                "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
-            _widgetOptions.connectionsInfo!.notifier.value =
-                "${con.connectionsInCount}/${con.connectionsOutCount}";
-          } else {
-            _widgetOptions.memoryInfo!.notifier.value =
-                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-            _widgetOptions.connectionsInfo!.notifier.value =
-                con.connectionsInCount.toString();
-          }
-        },
-        onDone: () {
-          _disconnectToService();
-        },
-        onError: (err) {
-          _disconnectToService();
-        });
+        if (SettingManager.getConfig().dev.devMode) {
+          _widgetOptions.memoryInfo!.notifier.value =
+              "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
+          _widgetOptions.connectionsInfo!.notifier.value =
+              "${con.connectionsInCount}/${con.connectionsOutCount}";
+        } else {
+          _widgetOptions.memoryInfo!.notifier.value =
+              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
+          _widgetOptions.connectionsInfo!.notifier.value = con
+              .connectionsInCount
+              .toString();
+        }
+      },
+      onDone: () {
+        _disconnectToService();
+      },
+      onError: (err) {
+        _disconnectToService();
+      },
+    );
 
     await _websocket!.connect();
   }
@@ -233,13 +247,15 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
   Future<void> onConnectionsInfoPressed() async {
     String connectionsUrl = getConnectionsUrl(false);
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: NetConnectionsScreen.routSettings(),
-            builder: (context) => NetConnectionsScreen(
-                  connectionsUrl: connectionsUrl,
-                  checkStarted: false,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: NetConnectionsScreen.routSettings(),
+        builder: (context) => NetConnectionsScreen(
+          connectionsUrl: connectionsUrl,
+          checkStarted: false,
+        ),
+      ),
+    );
   }
 
   @override
@@ -268,10 +284,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     List<GridItem> widgets = HomeWidgets.getAppleTVWidgets(_widgetOptions);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Column(
           children: [
@@ -285,10 +298,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -298,84 +308,89 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 50,
-                          child: Tooltip(
-                            message: tcontext.appleTVSync,
-                            child: InkWell(
-                              onTap: () async {
-                                onTapSyncCoreConfig();
-                              },
-                              child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.upload_file_outlined,
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 50,
-                          child: Tooltip(
-                            message: tcontext.appleTVRemoveCoreConfig,
-                            child: InkWell(
-                              onTap: () async {
-                                onTapRemoveCoreConfig();
-                              },
-                              child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.remove_circle_outlined,
-                                        size: 26, color: Colors.red),
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 50,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: Tooltip(
+                          message: tcontext.appleTVSync,
                           child: InkWell(
                             onTap: () async {
-                              onTapMore();
+                              onTapSyncCoreConfig();
                             },
-                            child: Tooltip(
-                                message: tcontext.meta.more,
-                                child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.more_vert_outlined, size: 26),
-                                    ])),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [Icon(Icons.upload_file_outlined)],
+                            ),
                           ),
                         ),
-                      ]),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Tooltip(
+                          message: tcontext.appleTVRemoveCoreConfig,
+                          child: InkWell(
+                            onTap: () async {
+                              onTapRemoveCoreConfig();
+                            },
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.remove_circle_outlined,
+                                  size: 26,
+                                  color: Colors.red,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: InkWell(
+                          onTap: () async {
+                            onTapMore();
+                          },
+                          child: Tooltip(
+                            message: tcontext.meta.more,
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.more_vert_outlined, size: 26),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16).copyWith(),
-                child: Column(children: [
-                  Grid(
-                    key: _superGridKey,
-                    crossAxisCount: columns,
-                    crossAxisSpacing: spacing,
-                    mainAxisSpacing: spacing,
-                    children: widgets,
-                  ),
-                ]),
+                child: Column(
+                  children: [
+                    Grid(
+                      key: _superGridKey,
+                      crossAxisCount: columns,
+                      crossAxisSpacing: spacing,
+                      mainAxisSpacing: spacing,
+                      children: widgets,
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -389,8 +404,14 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
     String url =
         "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
-    ReturnResult<String> result =
-        await HttpUtils.httpGetRequest(url, proxyPort, null, null, null, null);
+    ReturnResult<String> result = await HttpUtils.httpGetRequest(
+      url,
+      proxyPort,
+      null,
+      null,
+      null,
+      null,
+    );
     if (result.error != null) {
       if (!mounted) {
         return;
@@ -398,7 +419,9 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       if (result.error!.message.contains("404")) {
         final tcontext = Translations.of(context);
         DialogUtils.showAlertDialog(
-            context, tcontext.appleTV404(p: widget.version));
+          context,
+          tcontext.appleTV404(p: widget.version),
+        );
       } else {
         DialogUtils.showAlertDialog(context, result.error!.message);
       }
@@ -407,15 +430,17 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     }
 
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: RichtextViewScreen.routSettings(),
-            builder: (context) => RichtextViewScreen(
-                  title: fileName,
-                  file: fileName,
-                  content: result.data!,
-                  showAction: true,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: RichtextViewScreen.routSettings(),
+        builder: (context) => RichtextViewScreen(
+          title: fileName,
+          file: fileName,
+          content: result.data!,
+          showAction: true,
+        ),
+      ),
+    );
   }
 
   Future<void> onTapSyncCoreConfig() async {
@@ -426,15 +451,26 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     options.disabledServerError = tcontext.HomeScreen.disabledServer;
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
-    ReturnResultError? err = await VPNService.setServer(VPNService.getCurrent(),
-        options, SingboxExportType.tvos, widget.host, widget.secret, savePath);
+    ReturnResultError? err = await VPNService.setServer(
+      VPNService.getCurrent(),
+      options,
+      SingboxExportType.tvos,
+      widget.host,
+      widget.secret,
+      savePath,
+    );
 
     if (err != null) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     var setting = SettingManager.getConfig();
@@ -448,21 +484,27 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       String url =
           "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVSyncUploadAction()}?uuid=${widget.uuid}&type=json"; //type=url
       ReturnResult<String> result = await HttpUtils.httpPostRequest(
-          url,
-          proxyPort,
-          headers,
-          content,
-          const Duration(seconds: 5),
-          null,
-          null,
-          null);
+        url,
+        proxyPort,
+        headers,
+        content,
+        const Duration(seconds: 5),
+        null,
+        null,
+        null,
+      );
 
       if (!mounted) {
         return;
       }
       if (result.error != null) {
-        DialogUtils.showAlertDialog(context, result.error!.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       } else {
         if (result.data!.isNotEmpty) {
           DialogUtils.showAlertDialog(context, result.data!);
@@ -474,15 +516,22 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
   Future<void> onTapRemoveCoreConfig() async {
     final tcontext = Translations.of(context);
     bool? del = await DialogUtils.showConfirmDialog(
-        context, tcontext.meta.removeConfirm);
+      context,
+      tcontext.meta.removeConfirm,
+    );
     if (del != true) {
       return;
     }
@@ -497,28 +546,46 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       String url =
           "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVDeleteCoreConfigAction()}?uuid=${widget.uuid}";
       ReturnResult<String> result = await HttpUtils.httpGetRequest(
-          url, proxyPort, null, const Duration(seconds: 5), null, null);
+        url,
+        proxyPort,
+        null,
+        const Duration(seconds: 5),
+        null,
+        null,
+      );
 
       if (!mounted) {
         return;
       }
       if (result.error != null) {
-        DialogUtils.showAlertDialog(context, result.error!.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       } else {
         if (result.data!.isNotEmpty) {
           DialogUtils.showAlertDialog(context, result.data!);
         } else {
           DialogUtils.showAlertDialog(
-              context, tcontext.appleTVRemoveCoreConfigDone);
+            context,
+            tcontext.appleTVRemoveCoreConfigDone,
+          );
         }
       }
     } catch (err) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -526,33 +593,23 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     List<Widget> widgets = [
       ListTile(
         title: Text(PathUtils.serviceCoreConfigFileName()),
-        leading: Icon(
-          Icons.download,
-        ),
+        leading: Icon(Icons.download),
         onTap: () async {
           Navigator.pop(context);
           await getFile(PathUtils.serviceCoreConfigFileName());
         },
       ),
       ListTile(
-        title: Text(
-          PathUtils.serviceLogFileName(),
-        ),
-        leading: Icon(
-          Icons.download,
-        ),
+        title: Text(PathUtils.serviceLogFileName()),
+        leading: Icon(Icons.download),
         onTap: () async {
           Navigator.pop(context);
           await getFile(PathUtils.serviceLogFileName());
         },
       ),
       ListTile(
-        title: Text(
-          PathUtils.serviceStdErrorFileName(),
-        ),
-        leading: Icon(
-          Icons.download,
-        ),
+        title: Text(PathUtils.serviceStdErrorFileName()),
+        leading: Icon(Icons.download),
         onTap: () async {
           Navigator.pop(context);
           await getFile(PathUtils.serviceStdErrorFileName());

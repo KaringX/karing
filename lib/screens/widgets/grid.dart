@@ -28,10 +28,10 @@ class Grid extends MultiChildRenderObjectWidget {
     TextDirection? textDirection,
     this.mainAxisExtent,
     List<Widget>? children,
-  })  : crossAxisCount = crossAxisCount ?? 1,
-        axisDirection = axisDirection ?? AxisDirection.down,
-        textDirection = textDirection ?? TextDirection.ltr,
-        super(children: children ?? const []);
+  }) : crossAxisCount = crossAxisCount ?? 1,
+       axisDirection = axisDirection ?? AxisDirection.down,
+       textDirection = textDirection ?? TextDirection.ltr,
+       super(children: children ?? const []);
 
   const Grid.baseGap({
     Key? key,
@@ -43,15 +43,15 @@ class Grid extends MultiChildRenderObjectWidget {
     double? mainAxisExtent,
     List<Widget>? children,
   }) : this(
-          key: key,
-          mainAxisSpacing: mainAxisSpacing,
-          crossAxisSpacing: crossAxisSpacing,
-          crossAxisCount: crossAxisCount,
-          axisDirection: axisDirection,
-          textDirection: textDirection,
-          mainAxisExtent: mainAxisExtent,
-          children: children,
-        );
+         key: key,
+         mainAxisSpacing: mainAxisSpacing,
+         crossAxisSpacing: crossAxisSpacing,
+         crossAxisCount: crossAxisCount,
+         axisDirection: axisDirection,
+         textDirection: textDirection,
+         mainAxisExtent: mainAxisExtent,
+         children: children,
+       );
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -66,10 +66,7 @@ class Grid extends MultiChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(
-    BuildContext context,
-    RenderGrid renderObject,
-  ) {
+  void updateRenderObject(BuildContext context, RenderGrid renderObject) {
     renderObject
       ..mainAxisSpacing = mainAxisSpacing
       ..mainAxisExtent = mainAxisExtent
@@ -91,12 +88,12 @@ class RenderGrid extends RenderBox
     required AxisDirection axisDirection,
     required TextDirection textDirection,
     double? mainAxisExtent,
-  })  : _crossAxisCount = crossAxisCount,
-        _crossAxisSpacing = crossAxisSpacing,
-        _mainAxisSpacing = mainAxisSpacing,
-        _axisDirection = axisDirection,
-        _textDirection = textDirection,
-        _mainAxisExtent = mainAxisExtent;
+  }) : _crossAxisCount = crossAxisCount,
+       _crossAxisSpacing = crossAxisSpacing,
+       _mainAxisSpacing = mainAxisSpacing,
+       _axisDirection = axisDirection,
+       _textDirection = textDirection,
+       _mainAxisExtent = mainAxisExtent;
 
   int _crossAxisCount;
 
@@ -215,15 +212,10 @@ class RenderGrid extends RenderBox
     GridParentData childParentData,
     int crossAxisCount,
   ) {
-    return math.min(
-      childParentData.crossAxisCellCount ?? 1,
-      crossAxisCount,
-    );
+    return math.min(childParentData.crossAxisCellCount ?? 1, crossAxisCount);
   }
 
-  Size _computeSize({
-    required BoxConstraints constraints,
-  }) {
+  Size _computeSize({required BoxConstraints constraints}) {
     final crossAxisExtent = mainAxis == Axis.vertical
         ? constraints.maxWidth
         : constraints.maxHeight;
@@ -246,11 +238,13 @@ class RenderGrid extends RenderBox
             ? BoxConstraints.tightFor(width: crossAxisExtent)
             : BoxConstraints.tightFor(height: crossAxisExtent);
         _layoutChild(child, childConstraints, parentUsesSize: true);
-        mainAxisExtent =
-            mainAxis == Axis.vertical ? child.size.height : child.size.width;
+        mainAxisExtent = mainAxis == Axis.vertical
+            ? child.size.height
+            : child.size.width;
       } else {
         final mainAxisCellCount = childParentData.mainAxisCellCount ?? 1;
-        mainAxisExtent = (this.mainAxisExtent ?? stride) * mainAxisCellCount -
+        mainAxisExtent =
+            (this.mainAxisExtent ?? stride) * mainAxisCellCount -
             mainAxisSpacing;
         childParentData.realMainAxisExtent = mainAxisExtent;
         final childSize = mainAxis == Axis.vertical
@@ -282,7 +276,8 @@ class RenderGrid extends RenderBox
         final childParentData = _getParentData(child);
         final offset = childParentData.offset;
         final crossAxisOffset = offset.getCrossAxisOffset(mainAxis);
-        final mainAxisOffset = mainAxisExtent -
+        final mainAxisOffset =
+            mainAxisExtent -
             offset.getMainAxisOffset(mainAxis) -
             childParentData.realMainAxisExtent!;
         final newOffset = mainAxis == Axis.vertical
@@ -367,15 +362,11 @@ class GridItem extends ParentDataWidget<GridParentData> {
   @override
   Type get debugTypicalAncestorWidgetClass => GridItem;
 
-  GridItem wrap({
-    required WrapBuilder builder,
-  }) {
+  GridItem wrap({required WrapBuilder builder}) {
     return GridItem(
       mainAxisCellCount: mainAxisCellCount,
       crossAxisCellCount: crossAxisCellCount,
-      child: builder(
-        child,
-      ),
+      child: builder(child),
     );
   }
 }
@@ -397,11 +388,13 @@ _Origin _getOrigin(List<double> offsets, int crossAxisCount) {
     }
     int start = 0;
     int span = 0;
-    for (int j = 0;
-        span < crossAxisCount &&
-            j < length &&
-            length - j >= crossAxisCount - span;
-        j++) {
+    for (
+      int j = 0;
+      span < crossAxisCount &&
+          j < length &&
+          length - j >= crossAxisCount - span;
+      j++
+    ) {
       if (offset.moreOrEqual(offsets[j])) {
         span++;
         if (span == crossAxisCount) {

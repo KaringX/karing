@@ -31,13 +31,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 
-enum ConnectionsSortType {
-  none,
-  downloadSpeed,
-  uploadSpeed,
-  download,
-  upload,
-}
+enum ConnectionsSortType { none, downloadSpeed, uploadSpeed, download, upload }
 
 typedef SortCallback = int Function(NetConnectionStateIn, NetConnectionStateIn);
 
@@ -291,8 +285,14 @@ class NetConnectionStateOut {
   String fqdn = "";
   String outbound = "";
 
-  NetConnectionStateOut(this.start, this.network, this.source, this.destination,
-      this.fqdn, this.outbound);
+  NetConnectionStateOut(
+    this.start,
+    this.network,
+    this.source,
+    this.destination,
+    this.fqdn,
+    this.outbound,
+  );
 }
 
 class NetConnectionsScreen extends LasyRenderingStatefulWidget {
@@ -302,8 +302,11 @@ class NetConnectionsScreen extends LasyRenderingStatefulWidget {
 
   final String connectionsUrl;
   final bool checkStarted;
-  const NetConnectionsScreen(
-      {super.key, required this.connectionsUrl, required this.checkStarted});
+  const NetConnectionsScreen({
+    super.key,
+    required this.connectionsUrl,
+    required this.checkStarted,
+  });
 
   @override
   State<NetConnectionsScreen> createState() => _NetConnectionsScreenState();
@@ -346,35 +349,29 @@ class _NetConnectionsScreenState
     if (Platform.isAndroid) {
       _pkgMgr = AndroidPackageManager();
       _pkgMgr!
-          .getInstalledPackages(
-        flags: PackageInfoFlags(
-          {
-            PMFlag.getMetaData,
-          },
-        ),
-      )
+          .getInstalledPackages(flags: PackageInfoFlags({PMFlag.getMetaData}))
           .then((value) async {
-        if (!mounted) {
-          return;
-        }
-        if (value == null) {
-          return;
-        }
+            if (!mounted) {
+              return;
+            }
+            if (value == null) {
+              return;
+            }
 
-        for (var app in value) {
-          if (app.packageName == null) {
-            continue;
-          }
-          PackageInfoEx info = PackageInfoEx();
-          info.info = app;
-          info.name = await getAppName(app.packageName!);
+            for (var app in value) {
+              if (app.packageName == null) {
+                continue;
+              }
+              PackageInfoEx info = PackageInfoEx();
+              info.info = app;
+              info.name = await getAppName(app.packageName!);
 
-          if (!mounted) {
-            return;
-          }
-          _applicationInfoList[app.packageName!] = info;
-        }
-      });
+              if (!mounted) {
+                return;
+              }
+              _applicationInfoList[app.packageName!] = info;
+            }
+          });
     }
   }
 
@@ -469,8 +466,9 @@ class _NetConnectionsScreenState
         state.start = connection.start;
         state.end = state.start;
 
-        state.showHost =
-            getShortHost(state.host.isNotEmpty ? state.host : state.ip);
+        state.showHost = getShortHost(
+          state.host.isNotEmpty ? state.host : state.ip,
+        );
         state.showProcess = state.getProcessName();
         state.showChain = getChain(state.chains);
         state.showRule = getRule(state.rule);
@@ -513,13 +511,16 @@ class _NetConnectionsScreenState
     }
     _connectionOutList.clear();
     for (var connect in connections) {
-      _connectionOutList.add(NetConnectionStateOut(
+      _connectionOutList.add(
+        NetConnectionStateOut(
           connect.startTime,
           connect.network,
           connect.source,
           connect.destination,
           connect.fqdn,
-          getTagName(connect.outbound)));
+          getTagName(connect.outbound),
+        ),
+      );
     }
 
     return true;
@@ -551,76 +552,68 @@ class _NetConnectionsScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return PopScope(
-        canPop: true,
-        onPopInvokedWithResult: (didPop, result) {},
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.pop(context),
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {},
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                        ),
+                      ),
+                      SizedBox(
+                        width: windowSize.width - 50 * 2,
+                        child: Text(
+                          tcontext.meta.connect,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          onTapMore();
+                        },
+                        child: Tooltip(
+                          message: tcontext.meta.more,
                           child: const SizedBox(
                             width: 50,
                             height: 30,
-                            child: Icon(
-                              Icons.arrow_back_ios_outlined,
-                              size: 26,
-                            ),
+                            child: Icon(Icons.more_vert_outlined, size: 30),
                           ),
                         ),
-                        SizedBox(
-                          width: windowSize.width - 50 * 2,
-                          child: Text(
-                            tcontext.meta.connect,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: ThemeConfig.kFontWeightTitle,
-                                fontSize: ThemeConfig.kFontSizeTitle),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            onTapMore();
-                          },
-                          child: Tooltip(
-                              message: tcontext.meta.more,
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.more_vert_outlined,
-                                  size: 30,
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: _showConnectionIn
-                        ? _loadListViewConnectionsIn(context)
-                        : _loadListViewConnectionsOut(context),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: _showConnectionIn
+                      ? _loadListViewConnectionsIn(context)
+                      : _loadListViewConnectionsOut(context),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   String getShortHost(String host) {
@@ -721,40 +714,36 @@ class _NetConnectionsScreenState
     }
     sortConnectionIn(_connectionInList);
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _connectionInList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _connectionInList[index];
-            return createWidgetConnectionIn(current, index + 1, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _connectionInList.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _connectionInList[index];
+          return createWidgetConnectionIn(current, index + 1, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget _loadListViewConnectionsOut(BuildContext context) {
     sortConnectionOut(_connectionOutList);
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _connectionOutList.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _connectionOutList[index];
-            return createWidgetConnectionOut(current, index + 1, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _connectionOutList.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _connectionOutList[index];
+          return createWidgetConnectionOut(current, index + 1, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Future<void> _connectToService() async {
@@ -769,27 +758,28 @@ class _NetConnectionsScreenState
       return;
     }
     _websocket ??= Websocket(
-        url: widget.connectionsUrl,
-        userAgent: await HttpUtils.getUserAgent(),
-        onMessage: (String message) {
-          var obj = jsonDecode(message);
-          Connections con = Connections();
-          con.fromJson(obj, true);
-          if (!mounted) {
-            return;
-          }
-          bool refreshIn = convertConnectionsIn(con.connectionsIn);
-          bool refreshOut = convertConnectionsOut(con.connectionsOut);
-          if (refreshIn || refreshOut) {
-            setState(() {});
-          }
-        },
-        onDone: () {
-          _disconnectToService();
-        },
-        onError: (err) {
-          _disconnectToService();
-        });
+      url: widget.connectionsUrl,
+      userAgent: await HttpUtils.getUserAgent(),
+      onMessage: (String message) {
+        var obj = jsonDecode(message);
+        Connections con = Connections();
+        con.fromJson(obj, true);
+        if (!mounted) {
+          return;
+        }
+        bool refreshIn = convertConnectionsIn(con.connectionsIn);
+        bool refreshOut = convertConnectionsOut(con.connectionsOut);
+        if (refreshIn || refreshOut) {
+          setState(() {});
+        }
+      },
+      onDone: () {
+        _disconnectToService();
+      },
+      onError: (err) {
+        _disconnectToService();
+      },
+    );
     await _websocket!.connect();
   }
 
@@ -798,7 +788,10 @@ class _NetConnectionsScreenState
   }
 
   Widget createWidgetConnectionIn(
-      NetConnectionStateIn current, int index, Size windowSize) {
+    NetConnectionStateIn current,
+    int index,
+    Size windowSize,
+  ) {
     if (current.showProcess.isEmpty) {
       current.showProcess = current.getProcessName();
     }
@@ -815,7 +808,8 @@ class _NetConnectionsScreenState
 
     const double padding = 4;
     const double arrow_forward_ios_rounded = 14;
-    double centerWidth = windowSize.width -
+    double centerWidth =
+        windowSize.width -
         8 -
         5 -
         30 -
@@ -843,9 +837,11 @@ class _NetConnectionsScreenState
     }
 
     String lastUpload = ProxyConfUtils.convertTrafficToStringDouble(
-        current.getUpload() - current.getLastUpload());
+      current.getUpload() - current.getLastUpload(),
+    );
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
-        current.getDownload() - current.getLastDownload());
+      current.getDownload() - current.getLastDownload(),
+    );
     String noSpeed = "0 B";
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
@@ -856,9 +852,7 @@ class _NetConnectionsScreenState
                 onTapItem(current);
               },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: padding,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: padding),
           width: double.infinity,
           height: height,
           child: Row(
@@ -866,23 +860,21 @@ class _NetConnectionsScreenState
               Row(
                 children: [
                   Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color:
-                            current.ids.isNotEmpty ? Colors.green : Colors.grey,
-                        shape: BoxShape.circle,
-                      )),
-                  const SizedBox(
-                    width: 5,
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: current.ids.isNotEmpty
+                          ? Colors.green
+                          : Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     width: 30,
                     child: Text(
                       index.toString(),
-                      style: const TextStyle(
-                        fontSize: 12,
-                      ),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                   SizedBox(
@@ -891,132 +883,116 @@ class _NetConnectionsScreenState
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(children: [
-                          SizedBox(
-                            width: centerWidth - 5 - 40 - 10,
-                            child: Text(
-                              "${current.showHost}:${current.port}",
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 12,
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: centerWidth - 5 - 40 - 10,
+                              child: Text(
+                                "${current.showHost}:${current.port}",
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            child: Text(
-                              durTime,
-                              style: const TextStyle(
-                                fontSize: 12,
+                            const SizedBox(width: 5),
+                            SizedBox(
+                              child: Text(
+                                durTime,
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ),
-                          ),
-                        ]),
-                        Row(children: [
-                          Text(
-                            "${current.sourceip}:${current.sourceport}",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            current.protocol,
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ]),
-                        if (processName.isNotEmpty) ...[
-                          Row(children: [
-                            if (processIcon != null) ...[
-                              SizedBox(
-                                  width: 12, height: 12, child: processIcon)
-                            ],
+                          ],
+                        ),
+                        Row(
+                          children: [
                             Text(
-                              processName,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 12,
-                              ),
+                              "${current.sourceip}:${current.sourceport}",
+                              style: const TextStyle(fontSize: 12),
                             ),
-                          ])
+                            const SizedBox(width: 5),
+                            Text(
+                              current.protocol,
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        if (processName.isNotEmpty) ...[
+                          Row(
+                            children: [
+                              if (processIcon != null) ...[
+                                SizedBox(
+                                  width: 12,
+                                  height: 12,
+                                  child: processIcon,
+                                ),
+                              ],
+                              Text(
+                                processName,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
                         ],
                         if (current.package.isNotEmpty) ...[
-                          Row(children: [
-                            Text(
-                              current.package,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 12,
+                          Row(
+                            children: [
+                              Text(
+                                current.package,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 12),
                               ),
-                            ),
-                          ])
+                            ],
+                          ),
                         ],
-                        Row(children: [
-                          Text(
-                            current.network,
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            "(${current.ids.length}:${current.removedIds.length})",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color:
-                                  current.ids.length > 100 ? Colors.red : null,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "↑ ${ProxyConfUtils.convertTrafficToStringDouble(current.getUpload())}",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "↓ ${ProxyConfUtils.convertTrafficToStringDouble(current.getDownload())}",
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          if (current.ids.isNotEmpty &&
-                              (lastUpload != noSpeed)) ...[
-                            const SizedBox(
-                              width: 5,
+                        Row(
+                          children: [
+                            Text(
+                              current.network,
+                              style: const TextStyle(fontSize: 12),
                             ),
                             Text(
-                              "↑ $lastUpload/s",
-                              style: const TextStyle(
+                              "(${current.ids.length}:${current.removedIds.length})",
+                              style: TextStyle(
                                 fontSize: 12,
-                                color: Colors.green,
+                                color: current.ids.length > 100
+                                    ? Colors.red
+                                    : null,
                               ),
-                            )
-                          ],
-                          if (current.ids.isNotEmpty &&
-                              (lastDownload != noSpeed)) ...[
-                            const SizedBox(
-                              width: 5,
                             ),
+                            const SizedBox(width: 5),
                             Text(
-                              "↓ $lastDownload/s",
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.green,
+                              "↑ ${ProxyConfUtils.convertTrafficToStringDouble(current.getUpload())}",
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              "↓ ${ProxyConfUtils.convertTrafficToStringDouble(current.getDownload())}",
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            if (current.ids.isNotEmpty &&
+                                (lastUpload != noSpeed)) ...[
+                              const SizedBox(width: 5),
+                              Text(
+                                "↑ $lastUpload/s",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.green,
+                                ),
                               ),
-                            )
+                            ],
+                            if (current.ids.isNotEmpty &&
+                                (lastDownload != noSpeed)) ...[
+                              const SizedBox(width: 5),
+                              Text(
+                                "↓ $lastDownload/s",
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
                           ],
-                        ]),
+                        ),
                         Row(
                           children: [
                             SizedBox(
@@ -1024,9 +1000,7 @@ class _NetConnectionsScreenState
                               child: Text(
                                 current.showRule,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ),
                           ],
@@ -1038,9 +1012,7 @@ class _NetConnectionsScreenState
                               child: Text(
                                 current.showChain,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
+                                style: const TextStyle(fontSize: 12),
                               ),
                             ),
                           ],
@@ -1051,9 +1023,7 @@ class _NetConnectionsScreenState
                   Container(
                     padding: const EdgeInsets.all(padding),
                     child: isself
-                        ? const SizedBox(
-                            width: arrow_forward_ios_rounded,
-                          )
+                        ? const SizedBox(width: arrow_forward_ios_rounded)
                         : const Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: arrow_forward_ios_rounded,
@@ -1069,7 +1039,10 @@ class _NetConnectionsScreenState
   }
 
   Widget createWidgetConnectionOut(
-      NetConnectionStateOut current, int index, Size windowSize) {
+    NetConnectionStateOut current,
+    int index,
+    Size windowSize,
+  ) {
     const double padding = 4;
     double height = 60;
     double centerWidth = windowSize.width - 5 - 30 - padding * 2 * 2;
@@ -1081,25 +1054,19 @@ class _NetConnectionsScreenState
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: padding,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: padding),
         width: double.infinity,
         height: height,
         child: Row(
           children: [
             Row(
               children: [
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 SizedBox(
                   width: 30,
                   child: Text(
                     index.toString(),
-                    style: const TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(fontSize: 12),
                   ),
                 ),
                 SizedBox(
@@ -1108,50 +1075,40 @@ class _NetConnectionsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: centerWidth - 5 - 40,
-                          child: Text(
-                            current.fqdn.isEmpty
-                                ? current.destination
-                                : "${current.fqdn} [${current.destination}]",
-                            style: const TextStyle(
-                              fontSize: 12,
-                              overflow: TextOverflow.ellipsis,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: centerWidth - 5 - 40,
+                            child: Text(
+                              current.fqdn.isEmpty
+                                  ? current.destination
+                                  : "${current.fqdn} [${current.destination}]",
+                              style: const TextStyle(
+                                fontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          child: Text(
-                            durTime,
-                            style: const TextStyle(
-                              fontSize: 12,
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            child: Text(
+                              durTime,
+                              style: const TextStyle(fontSize: 12),
                             ),
                           ),
-                        ),
-                      ]),
-                      const SizedBox(
-                        width: 5,
+                        ],
                       ),
+                      const SizedBox(width: 5),
                       SizedBox(
                         child: Text(
                           current.network,
-                          style: const TextStyle(
-                            fontSize: 12,
-                          ),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       Text(
                         current.outbound,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
+                        style: const TextStyle(fontSize: 12),
                       ),
                     ],
                   ),
@@ -1168,9 +1125,7 @@ class _NetConnectionsScreenState
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          _pause ? tcontext.meta.start : tcontext.meta.pause,
-        ),
+        title: Text(_pause ? tcontext.meta.start : tcontext.meta.pause),
         leading: Icon(
           _pause ? Icons.play_arrow_outlined : Icons.pause_outlined,
         ),
@@ -1183,9 +1138,7 @@ class _NetConnectionsScreenState
         title: Text(
           _showConnectionIn ? tcontext.meta.outbound : tcontext.meta.inbound,
         ),
-        leading: Icon(
-          Icons.exit_to_app_outlined,
-        ),
+        leading: Icon(Icons.exit_to_app_outlined),
         onTap: () async {
           Navigator.pop(context);
           _showConnectionIn = !_showConnectionIn;
@@ -1194,24 +1147,16 @@ class _NetConnectionsScreenState
       ),
       if (_showConnectionIn) ...[
         ListTile(
-          title: Text(
-            tcontext.meta.filter,
-          ),
-          leading: Icon(
-            Icons.filter_list_alt,
-          ),
+          title: Text(tcontext.meta.filter),
+          leading: Icon(Icons.filter_list_alt),
           onTap: () async {
             Navigator.pop(context);
             onTapFilter();
           },
         ),
         ListTile(
-          title: Text(
-            tcontext.meta.copy,
-          ),
-          leading: Icon(
-            Icons.copy,
-          ),
+          title: Text(tcontext.meta.copy),
+          leading: Icon(Icons.copy),
           onTap: () async {
             Navigator.pop(context);
             onTapCopy();
@@ -1221,13 +1166,12 @@ class _NetConnectionsScreenState
           title: Text(
             "${tcontext.meta.sort}-${tcontext.meta.bydefault}",
             style: TextStyle(
-                color: _sortType == ConnectionsSortType.none
-                    ? ThemeDefine.kColorBlue
-                    : null),
+              color: _sortType == ConnectionsSortType.none
+                  ? ThemeDefine.kColorBlue
+                  : null,
+            ),
           ),
-          leading: Icon(
-            Icons.sort_by_alpha,
-          ),
+          leading: Icon(Icons.sort_by_alpha),
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.none;
@@ -1237,13 +1181,12 @@ class _NetConnectionsScreenState
           title: Text(
             "${tcontext.meta.sort}-${tcontext.meta.downloadSpeed}",
             style: TextStyle(
-                color: _sortType == ConnectionsSortType.downloadSpeed
-                    ? ThemeDefine.kColorBlue
-                    : null),
+              color: _sortType == ConnectionsSortType.downloadSpeed
+                  ? ThemeDefine.kColorBlue
+                  : null,
+            ),
           ),
-          leading: Icon(
-            Icons.sort,
-          ),
+          leading: Icon(Icons.sort),
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.downloadSpeed;
@@ -1254,13 +1197,12 @@ class _NetConnectionsScreenState
           title: Text(
             "${tcontext.meta.sort}-${tcontext.meta.uploadSpeed}",
             style: TextStyle(
-                color: _sortType == ConnectionsSortType.uploadSpeed
-                    ? ThemeDefine.kColorBlue
-                    : null),
+              color: _sortType == ConnectionsSortType.uploadSpeed
+                  ? ThemeDefine.kColorBlue
+                  : null,
+            ),
           ),
-          leading: Icon(
-            Icons.sort,
-          ),
+          leading: Icon(Icons.sort),
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.uploadSpeed;
@@ -1271,13 +1213,12 @@ class _NetConnectionsScreenState
           title: Text(
             "${tcontext.meta.sort}-${tcontext.meta.download}",
             style: TextStyle(
-                color: _sortType == ConnectionsSortType.download
-                    ? ThemeDefine.kColorBlue
-                    : null),
+              color: _sortType == ConnectionsSortType.download
+                  ? ThemeDefine.kColorBlue
+                  : null,
+            ),
           ),
-          leading: Icon(
-            Icons.sort,
-          ),
+          leading: Icon(Icons.sort),
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.download;
@@ -1288,13 +1229,12 @@ class _NetConnectionsScreenState
           title: Text(
             "${tcontext.meta.sort}-${tcontext.meta.upload}",
             style: TextStyle(
-                color: _sortType == ConnectionsSortType.upload
-                    ? ThemeDefine.kColorBlue
-                    : null),
+              color: _sortType == ConnectionsSortType.upload
+                  ? ThemeDefine.kColorBlue
+                  : null,
+            ),
           ),
-          leading: Icon(
-            Icons.sort,
-          ),
+          leading: Icon(Icons.sort),
           onTap: () async {
             Navigator.pop(context);
             _sortType = ConnectionsSortType.upload;
@@ -1334,11 +1274,13 @@ class _NetConnectionsScreenState
       }
     }
     NetConnectionFilter? newFilter = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: NetConnectionsFilterScreen.routSettings(),
-            builder: (context) =>
-                NetConnectionsFilterScreen(options: options, filter: _filter)));
+      context,
+      MaterialPageRoute(
+        settings: NetConnectionsFilterScreen.routSettings(),
+        builder: (context) =>
+            NetConnectionsFilterScreen(options: options, filter: _filter),
+      ),
+    );
     if (newFilter == null) {
       return;
     }
@@ -1392,148 +1334,190 @@ class _NetConnectionsScreenState
       return;
     }
     DialogUtils.showAlertDialog(
-        context, tcontext.NetConnectionsScreen.copyAsCSV);
+      context,
+      tcontext.NetConnectionsScreen.copyAsCSV,
+    );
   }
 
   void onTapItem(NetConnectionStateIn current) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [];
 
       if (current.host.isNotEmpty) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.domain,
-                text: current.host,
-                textWidthPercent: 0.33,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.domain = current.host;
+              name: tcontext.meta.domain,
+              text: current.host,
+              textWidthPercent: 0.33,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.domain = current.host;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
       if (current.ip.isNotEmpty) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.ip,
-                text: current.ip,
-                textWidthPercent: 0.33,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.ipCidr = current.ip;
+              name: tcontext.meta.ip,
+              text: current.ip,
+              textWidthPercent: 0.33,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.ipCidr = current.ip;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
       if (current.port.isNotEmpty) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.port,
-                text: current.port,
-                textWidthPercent: 0.33,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.port = current.port;
+              name: tcontext.meta.port,
+              text: current.port,
+              textWidthPercent: 0.33,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.port = current.port;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
       if (Platform.isAndroid && current.package.isNotEmpty) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.appPackage,
-                text: current.package,
-                textWidthPercent: 0.33,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.package = current.package;
+              name: tcontext.meta.appPackage,
+              text: current.package,
+              textWidthPercent: 0.33,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.package = current.package;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
       if (PlatformUtils.isPC() && current.process.isNotEmpty) {
         String processName = current.getProcessName();
 
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.processName,
-                text: processName,
-                textWidthPercent: 0.33,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.processName = processName;
+              name: tcontext.meta.processName,
+              text: processName,
+              textWidthPercent: 0.33,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.processName = processName;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
 
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.processPath,
-                text: "${current.process[0]}:/.../$processName",
-                textWidthPercent: 0.4,
-                onPush: () async {
-                  DiversionGroupCustomEditOptions options =
-                      DiversionGroupCustomEditOptions();
-                  options.processPath = current.process;
+              name: tcontext.meta.processPath,
+              text: "${current.process[0]}:/.../$processName",
+              textWidthPercent: 0.4,
+              onPush: () async {
+                DiversionGroupCustomEditOptions options =
+                    DiversionGroupCustomEditOptions();
+                options.processPath = current.process;
 
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              DiversionGroupCustomScreen(options: options)));
-                })));
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DiversionGroupCustomScreen.routSettings(),
+                    builder: (context) =>
+                        DiversionGroupCustomScreen(options: options),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("selectType"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.NetConnectionsScreen.selectType,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("selectType"),
+        builder: (context) => GroupScreen(
+          title: tcontext.NetConnectionsScreen.selectType,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -1611,10 +1595,12 @@ class _NetConnectionsScreenState
   }
 
   int sortCompareDestination(NetConnectionStateOut a, NetConnectionStateOut b) {
-    String addrA =
-        a.fqdn.isEmpty ? a.destination : "${a.fqdn} [${a.destination}]";
-    String addrB =
-        b.fqdn.isEmpty ? b.destination : "${b.fqdn} [${b.destination}]";
+    String addrA = a.fqdn.isEmpty
+        ? a.destination
+        : "${a.fqdn} [${a.destination}]";
+    String addrB = b.fqdn.isEmpty
+        ? b.destination
+        : "${b.fqdn} [${b.destination}]";
     return addrA.compareTo(addrB);
   }
 

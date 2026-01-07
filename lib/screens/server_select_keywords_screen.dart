@@ -45,10 +45,7 @@ class _ServerSelectSearchSettingsScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -64,10 +61,7 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -77,8 +71,9 @@ class _ServerSelectSearchSettingsScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -88,21 +83,14 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.add_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.add_outlined, size: 26),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -113,20 +101,18 @@ class _ServerSelectSearchSettingsScreenState
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _allData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _allData[index];
-            return createWidget(index, current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _allData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _allData[index];
+          return createWidget(index, current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(int index, dynamic current, Size windowSize) {
@@ -143,9 +129,7 @@ class _ServerSelectSearchSettingsScreenState
           onLongPressEdit(index, current);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -156,18 +140,19 @@ class _ServerSelectSearchSettingsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: centerWidth,
-                          child: Text(
-                            current,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: centerWidth,
+                            child: Text(
+                              current,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
+                          SizedBox(
                             width: rightWidth,
                             height: ThemeConfig.kListItemHeight2 - 2,
                             child: InkWell(
@@ -179,8 +164,10 @@ class _ServerSelectSearchSettingsScreenState
                                 size: 26,
                                 color: Colors.red,
                               ),
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -195,14 +182,21 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.keywordOrRegx, "", null, null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        return false;
-      }
+      context,
+      tcontext.meta.keywordOrRegx,
+      "",
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      },
+    );
     var use = ServerManager.getUse();
     if (text != null && !use.serverSelectSearchSelect.contains(text)) {
       use.serverSelectSearchSelect.add(text);
@@ -238,14 +232,21 @@ class _ServerSelectSearchSettingsScreenState
   void onLongPressEdit(int index, String text) async {
     final tcontext = Translations.of(context);
     String? newText = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.keywordOrRegx, text, null, null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        return false;
-      }
+      context,
+      tcontext.meta.keywordOrRegx,
+      text,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      },
+    );
     var use = ServerManager.getUse();
 
     if (index < use.serverSelectSearchSelect.length &&

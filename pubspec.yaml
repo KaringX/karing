@@ -2,10 +2,10 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.10+1308
+version: 1.2.11+1403
 environment:
-  sdk: ">=3.2.3 <4.0.0"
-  flutter: ">=3.24.0"
+  sdk: ">=3.9.0 <4.0.0"
+  flutter: ">=3.35.0"
 
 dependencies:
   flutter:
@@ -24,7 +24,7 @@ dependencies:
   #font_awesome_flutter: 10.8.0
   sentry_flutter: 8.14.2
   #device_info_plus: 11.1.1
-  #network_info_plus: 6.1.1
+  network_info_plus: 7.0.0
   connectivity_plus: 6.1.5
   package_info_plus: 8.3.1 #sentry_flutter
   build_info: 1.1.0
@@ -65,7 +65,7 @@ dependencies:
   #mobx_triple: 1.1.3+1
   #local_notifier: 0.1.5
   #flutter_modular
-  #permission_handler: 11.3.1
+  #permission_handler: 12.0.1
   #flutter_easy_permission: 1.1.2
   #processors: 1.0.2
   #combine: 0.5.7-0.1.pre

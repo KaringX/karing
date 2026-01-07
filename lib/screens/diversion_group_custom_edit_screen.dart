@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
@@ -117,8 +117,9 @@ class _DiversionGroupCustomEditScreenState
   void _initTextController(DiversionRulesGroup group) {
     if (widget.options.ruleSetBuildIn != null) {
       if (group.ruleSetBuildIn.isNotEmpty) {
-        _textControllerLinkRuleSetBuildIn.text =
-            group.ruleSetBuildIn.join("\n");
+        _textControllerLinkRuleSetBuildIn.text = group.ruleSetBuildIn.join(
+          "\n",
+        );
         _textControllerLinkRuleSetBuildIn.text += "\n";
       }
       if (widget.options.ruleSetBuildIn!.isNotEmpty &&
@@ -333,47 +334,67 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         return createTextFieldWithSelect(
-            _textControllerLinkRuleSetBuildIn,
-            "Rule Set(build-in)",
-            "geosite:fackbook\ngeoip:fackbook\nacl:Fackbook", () async {
-          List<String> selectedData =
-              convertToList(_textControllerLinkRuleSetBuildIn.text);
-          return await Navigator.push(
+          _textControllerLinkRuleSetBuildIn,
+          "Rule Set(build-in)",
+          "geosite:fackbook\ngeoip:fackbook\nacl:Fackbook",
+          () async {
+            List<String> selectedData = convertToList(
+              _textControllerLinkRuleSetBuildIn.text,
+            );
+            return await Navigator.push(
               context,
               MaterialPageRoute(
-                  settings: MultiSelectScreen.routSettings(),
-                  builder: (context) => MultiSelectScreen(
-                        title: 'Rule Set(build-in)',
-                        getData: () async {
-                          _sitecodes ??= await RulesetCodesUtils.siteCodes();
-                          _ipcodes ??= await RulesetCodesUtils.ipCodes();
-                          _aclcodes ??= await RulesetCodesUtils.aclCodes();
-                          List<MultiSelectScreenDateItem> allData = [];
-                          for (var code in _sitecodes!) {
-                            allData.add(MultiSelectScreenDateItem(
-                                key: "geosite:$code", text: "geosite:$code"));
-                          }
-                          for (var code in _ipcodes!) {
-                            allData.add(MultiSelectScreenDateItem(
-                                key: "geoip:$code", text: "geoip:$code"));
-                          }
-                          for (var code in _aclcodes!) {
-                            allData.add(MultiSelectScreenDateItem(
-                                key: "acl:$code", text: "acl:$code"));
-                          }
-                          return allData;
-                        },
-                        selectedData: selectedData,
-                      )));
-        });
+                settings: MultiSelectScreen.routSettings(),
+                builder: (context) => MultiSelectScreen(
+                  title: 'Rule Set(build-in)',
+                  getData: () async {
+                    _sitecodes ??= await RulesetCodesUtils.siteCodes();
+                    _ipcodes ??= await RulesetCodesUtils.ipCodes();
+                    _aclcodes ??= await RulesetCodesUtils.aclCodes();
+                    List<MultiSelectScreenDateItem> allData = [];
+                    for (var code in _sitecodes!) {
+                      allData.add(
+                        MultiSelectScreenDateItem(
+                          key: "geosite:$code",
+                          text: "geosite:$code",
+                        ),
+                      );
+                    }
+                    for (var code in _ipcodes!) {
+                      allData.add(
+                        MultiSelectScreenDateItem(
+                          key: "geoip:$code",
+                          text: "geoip:$code",
+                        ),
+                      );
+                    }
+                    for (var code in _aclcodes!) {
+                      allData.add(
+                        MultiSelectScreenDateItem(
+                          key: "acl:$code",
+                          text: "acl:$code",
+                        ),
+                      );
+                    }
+                    return allData;
+                  },
+                  selectedData: selectedData,
+                ),
+              ),
+            );
+          },
+        );
       };
       _listViewParts.add(item);
     }
     if (widget.options.ruleSet != null) {
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
-        return createTextField(_textControllerLinkRuleSet, "Rule Set",
-            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs\nhttps://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/wechat.json");
+        return createTextField(
+          _textControllerLinkRuleSet,
+          "Rule Set",
+          "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs\nhttps://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/wechat.json",
+        );
       };
       _listViewParts.add(item);
     }
@@ -383,21 +404,26 @@ class _DiversionGroupCustomEditScreenState
         item.creator = (data, index, bindNO) {
           final tcontext = Translations.of(context);
           return createTextFieldWithSelect(
-              _textControllerLinkPackage,
-              tcontext.meta.appPackage,
-              "com.google.chrome\ncom.facebook.katana", () async {
-            List<String> selectedData =
-                convertToList(_textControllerLinkPackage.text);
+            _textControllerLinkPackage,
+            tcontext.meta.appPackage,
+            "com.google.chrome\ncom.facebook.katana",
+            () async {
+              List<String> selectedData = convertToList(
+                _textControllerLinkPackage.text,
+              );
 
-            return await Navigator.push(
+              return await Navigator.push(
                 context,
                 MaterialPageRoute(
-                    settings: PackageIdMultiSelectAndroidScreen.routSettings(),
-                    builder: (context) => PackageIdMultiSelectAndroidScreen(
-                          installedApps: _installedApps,
-                          selectedData: selectedData,
-                        )));
-          });
+                  settings: PackageIdMultiSelectAndroidScreen.routSettings(),
+                  builder: (context) => PackageIdMultiSelectAndroidScreen(
+                    installedApps: _installedApps,
+                    selectedData: selectedData,
+                  ),
+                ),
+              );
+            },
+          );
         };
         _listViewParts.add(item);
       }
@@ -411,31 +437,44 @@ class _DiversionGroupCustomEditScreenState
               ? "Telegram.exe\nchrome.com"
               : "Google Chrome Helper\nCode Helper";
           if (Platform.isWindows) {
-            return createTextFieldWithSelect(_textControllerLinkProcessName,
-                tcontext.meta.processName, processName, () async {
-              try {
-                List<String> extensions = Platform.isWindows ? ["exe"] : [""];
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: extensions,
-                );
-                if (result != null) {
-                  String filePath = result.files.first.path!;
-                  return [path.basename(filePath)];
+            return createTextFieldWithSelect(
+              _textControllerLinkProcessName,
+              tcontext.meta.processName,
+              processName,
+              () async {
+                try {
+                  List<String> extensions = Platform.isWindows ? ["exe"] : [""];
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: extensions,
+                      );
+                  if (result != null) {
+                    String filePath = result.files.first.path!;
+                    return [path.basename(filePath)];
+                  }
+                } catch (err, stacktrace) {
+                  if (!mounted) {
+                    return null;
+                  }
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.toString(),
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
-              } catch (err, stacktrace) {
-                if (!mounted) {
-                  return null;
-                }
-                DialogUtils.showAlertDialog(context, err.toString(),
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-              return null;
-            });
+                return null;
+              },
+            );
           }
 
-          return createTextField(_textControllerLinkProcessName,
-              tcontext.meta.processName, processName);
+          return createTextField(
+            _textControllerLinkProcessName,
+            tcontext.meta.processName,
+            processName,
+          );
         };
         _listViewParts.add(item);
       }
@@ -448,31 +487,44 @@ class _DiversionGroupCustomEditScreenState
               ? "C:\\Program Files (x86)\\Telegram Desktop\\Telegram.exe\nC:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
               : "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/130.0.6723.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper\n/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper";
           if (Platform.isWindows) {
-            return createTextFieldWithSelect(_textControllerLinkProcessPath,
-                tcontext.meta.processPath, processPath, () async {
-              try {
-                List<String> extensions = Platform.isWindows ? ["exe"] : [""];
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: extensions,
-                );
-                if (result != null) {
-                  String filePath = result.files.first.path!;
-                  return [filePath];
+            return createTextFieldWithSelect(
+              _textControllerLinkProcessPath,
+              tcontext.meta.processPath,
+              processPath,
+              () async {
+                try {
+                  List<String> extensions = Platform.isWindows ? ["exe"] : [""];
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: extensions,
+                      );
+                  if (result != null) {
+                    String filePath = result.files.first.path!;
+                    return [filePath];
+                  }
+                } catch (err, stacktrace) {
+                  if (!mounted) {
+                    return null;
+                  }
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.toString(),
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
-              } catch (err, stacktrace) {
-                if (!mounted) {
-                  return null;
-                }
-                DialogUtils.showAlertDialog(context, err.toString(),
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-              return null;
-            });
+                return null;
+              },
+            );
           }
 
-          return createTextField(_textControllerLinkProcessPath,
-              tcontext.meta.processPath, processPath);
+          return createTextField(
+            _textControllerLinkProcessPath,
+            tcontext.meta.processPath,
+            processPath,
+          );
         };
         _listViewParts.add(item);
       }
@@ -485,56 +537,75 @@ class _DiversionGroupCustomEditScreenState
               ? "C:\\Program Files (x86)\\Telegram Desktop\nC:\\Program Files\\Google\\Chrome"
               : "/Applications/Google Chrome.app\n/Applications/Visual Studio Code.app";
           if (Platform.isMacOS) {
-            return createTextFieldWithSelect(_textControllerLinkProcessDir,
-                tcontext.meta.processDir, processDir, () async {
-              try {
-                List<String> extensions = ["app"];
-                FilePickerResult? result = await FilePicker.platform.pickFiles(
-                  type: FileType.custom,
-                  allowedExtensions: extensions,
-                );
-                if (result != null) {
-                  String filePath = result.files.first.path!;
-                  final dirs = ["/Applications/", "/Users/"];
-                  for (var dir in dirs) {
-                    int index = filePath.indexOf(dir);
-                    if (index > 0) {
-                      filePath = filePath.substring(index);
-                      break;
+            return createTextFieldWithSelect(
+              _textControllerLinkProcessDir,
+              tcontext.meta.processDir,
+              processDir,
+              () async {
+                try {
+                  List<String> extensions = ["app"];
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: extensions,
+                      );
+                  if (result != null) {
+                    String filePath = result.files.first.path!;
+                    final dirs = ["/Applications/", "/Users/"];
+                    for (var dir in dirs) {
+                      int index = filePath.indexOf(dir);
+                      if (index > 0) {
+                        filePath = filePath.substring(index);
+                        break;
+                      }
                     }
-                  }
 
-                  return [filePath];
+                    return [filePath];
+                  }
+                } catch (err, stacktrace) {
+                  if (!mounted) {
+                    return null;
+                  }
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.toString(),
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
-              } catch (err, stacktrace) {
-                if (!mounted) {
-                  return null;
-                }
-                DialogUtils.showAlertDialog(context, err.toString(),
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-              return null;
-            });
+                return null;
+              },
+            );
           } else {
-            return createTextFieldWithSelect(_textControllerLinkProcessDir,
-                tcontext.meta.processDir, processDir, () async {
-              try {
-                String? result = await FilePicker.platform.getDirectoryPath(
-                  dialogTitle: tcontext.meta.processDir,
-                  lockParentWindow: false,
-                );
-                if (result != null) {
-                  return [result];
+            return createTextFieldWithSelect(
+              _textControllerLinkProcessDir,
+              tcontext.meta.processDir,
+              processDir,
+              () async {
+                try {
+                  String? result = await FilePicker.platform.getDirectoryPath(
+                    dialogTitle: tcontext.meta.processDir,
+                    lockParentWindow: false,
+                  );
+                  if (result != null) {
+                    return [result];
+                  }
+                } catch (err, stacktrace) {
+                  if (!mounted) {
+                    return null;
+                  }
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.toString(),
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
                 }
-              } catch (err, stacktrace) {
-                if (!mounted) {
-                  return null;
-                }
-                DialogUtils.showAlertDialog(context, err.toString(),
-                    showCopy: true, showFAQ: true, withVersion: true);
-              }
-              return null;
-            });
+                return null;
+              },
+            );
           }
 
           //return createTextField(_textControllerLinkProcessDir,
@@ -547,8 +618,11 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkDomainSuffix,
-            tcontext.meta.domainSuffix, ".google.com\n.facebook.com");
+        return createTextField(
+          _textControllerLinkDomainSuffix,
+          tcontext.meta.domainSuffix,
+          ".google.com\n.facebook.com",
+        );
       };
       _listViewParts.add(item);
     }
@@ -556,8 +630,11 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkDomain, tcontext.meta.domain,
-            "ads.google.com\nad.facebook.com");
+        return createTextField(
+          _textControllerLinkDomain,
+          tcontext.meta.domain,
+          "ads.google.com\nad.facebook.com",
+        );
       };
       _listViewParts.add(item);
     }
@@ -565,8 +642,11 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkDomainKeyword,
-            tcontext.meta.domainKeyword, "google\nfacebook");
+        return createTextField(
+          _textControllerLinkDomainKeyword,
+          tcontext.meta.domainKeyword,
+          "google\nfacebook",
+        );
       };
       _listViewParts.add(item);
     }
@@ -574,47 +654,62 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkDomainRegex,
-            tcontext.meta.domainRegex, "^google\\..+\n^facebook\\..+");
+        return createTextField(
+          _textControllerLinkDomainRegex,
+          tcontext.meta.domainRegex,
+          "^google\\..+\n^facebook\\..+",
+        );
       };
       _listViewParts.add(item);
     }
     if (widget.options.ipCidr != null) {
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
-        return createTextField(_textControllerLinkIpCidr, "IP Cidr",
-            "178.0.55.32/32\n2001:4860:4860::8888/128");
+        return createTextField(
+          _textControllerLinkIpCidr,
+          "IP Cidr",
+          "178.0.55.32/32\n2001:4860:4860::8888/128",
+        );
       };
       _listViewParts.add(item);
     }
     if (widget.options.networkType != null) {
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
-        return createTextFieldWithSelect(_textControllerLinkNetworkType,
-            "Network Type", "wifi\ncellular\nethernet\nother", () async {
-          List<String> selectedData =
-              convertToList(_textControllerLinkNetworkType.text);
-          return await Navigator.push(
+        return createTextFieldWithSelect(
+          _textControllerLinkNetworkType,
+          "Network Type",
+          "wifi\ncellular\nethernet\nother",
+          () async {
+            List<String> selectedData = convertToList(
+              _textControllerLinkNetworkType.text,
+            );
+            return await Navigator.push(
               context,
               MaterialPageRoute(
-                  settings: MultiSelectScreen.routSettings(),
-                  builder: (context) => MultiSelectScreen(
-                        title: 'Network Type',
-                        getData: () async {
-                          return [
-                            MultiSelectScreenDateItem(
-                                key: "wifi", text: "wifi"),
-                            MultiSelectScreenDateItem(
-                                key: "cellular", text: "cellular"),
-                            MultiSelectScreenDateItem(
-                                key: "ethernet", text: "ethernet"),
-                            MultiSelectScreenDateItem(
-                                key: "other", text: "other"),
-                          ];
-                        },
-                        selectedData: selectedData,
-                      )));
-        });
+                settings: MultiSelectScreen.routSettings(),
+                builder: (context) => MultiSelectScreen(
+                  title: 'Network Type',
+                  getData: () async {
+                    return [
+                      MultiSelectScreenDateItem(key: "wifi", text: "wifi"),
+                      MultiSelectScreenDateItem(
+                        key: "cellular",
+                        text: "cellular",
+                      ),
+                      MultiSelectScreenDateItem(
+                        key: "ethernet",
+                        text: "ethernet",
+                      ),
+                      MultiSelectScreenDateItem(key: "other", text: "other"),
+                    ];
+                  },
+                  selectedData: selectedData,
+                ),
+              ),
+            );
+          },
+        );
       };
       _listViewParts.add(item);
     }
@@ -622,52 +717,139 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         return createTextFieldWithSelect(
-            _textControllerLinkNetwork, "Network", "tcp\nudp", () async {
-          List<String> selectedData =
-              convertToList(_textControllerLinkNetwork.text);
-          return await Navigator.push(
+          _textControllerLinkNetwork,
+          "Network",
+          "tcp\nudp",
+          () async {
+            List<String> selectedData = convertToList(
+              _textControllerLinkNetwork.text,
+            );
+            return await Navigator.push(
               context,
               MaterialPageRoute(
+                settings: MultiSelectScreen.routSettings(),
+                builder: (context) => MultiSelectScreen(
+                  title: 'Network',
+                  getData: () async {
+                    return [
+                      MultiSelectScreenDateItem(key: "tcp", text: "tcp"),
+                      MultiSelectScreenDateItem(key: "udp", text: "udp"),
+                    ];
+                  },
+                  selectedData: selectedData,
+                ),
+              ),
+            );
+          },
+        );
+      };
+      _listViewParts.add(item);
+    }
+    if (Platform.isIOS /*|| Platform.isMacOS || Platform.isAndroid*/ ) {
+      if (widget.options.wifiSsid != null) {
+        ListViewMultiPartsItem item = ListViewMultiPartsItem();
+        item.creator = (data, index, bindNO) {
+          return createTextFieldWithSelect(
+            _textControllerLinkWifiSsid,
+            "WIFI SSID",
+            "My WIFI\nWifi ssid",
+            () async {
+              List<String> selectedData = convertToList(
+                _textControllerLinkWifiSsid.text,
+              );
+              return await Navigator.push(
+                context,
+                MaterialPageRoute(
                   settings: MultiSelectScreen.routSettings(),
                   builder: (context) => MultiSelectScreen(
-                        title: 'Network',
-                        getData: () async {
-                          return [
-                            MultiSelectScreenDateItem(key: "tcp", text: "tcp"),
-                            MultiSelectScreenDateItem(key: "udp", text: "udp"),
-                          ];
-                        },
-                        selectedData: selectedData,
-                      )));
-        });
-      };
-      _listViewParts.add(item);
+                    title: 'WIFI SSID',
+                    getData: () async {
+                      final info = NetworkInfo();
+                      String? wifiName = await info.getWifiName();
+                      if (wifiName != null) {
+                        if (wifiName.endsWith("\"")) {
+                          wifiName = wifiName.substring(0, wifiName.length - 1);
+                        }
+                        if (wifiName.startsWith("\"")) {
+                          wifiName = wifiName.substring(1, wifiName.length);
+                        }
+                        wifiName = wifiName.trim();
+                      }
+                      return wifiName != null && wifiName.isNotEmpty
+                          ? [
+                              MultiSelectScreenDateItem(
+                                key: wifiName,
+                                text: wifiName,
+                              ),
+                            ]
+                          : [];
+                    },
+                    selectedData: selectedData,
+                  ),
+                ),
+              );
+            },
+          );
+        };
+        _listViewParts.add(item);
+      }
+      if (widget.options.wifiBssid != null) {
+        ListViewMultiPartsItem item = ListViewMultiPartsItem();
+        item.creator = (data, index, bindNO) {
+          return createTextFieldWithSelect(
+            _textControllerLinkWifiBSsid,
+            "WIFI BSSID",
+            "00:00:00:00:00:00\n0f:0f:0f:0f:0f:0f",
+            () async {
+              List<String> selectedData = convertToList(
+                _textControllerLinkWifiBSsid.text,
+              );
+              return await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: MultiSelectScreen.routSettings(),
+                  builder: (context) => MultiSelectScreen(
+                    title: 'WIFI BSSID',
+                    getData: () async {
+                      final info = NetworkInfo();
+                      String? wifiBSSID = await info.getWifiBSSID();
+                      wifiBSSID = wifiBSSID?.trim();
+                      if (Platform.isAndroid) {
+                        if (wifiBSSID == "02:00:00:00:00:00") {
+                          //android
+                          wifiBSSID = "";
+                        }
+                      }
+
+                      return wifiBSSID != null && wifiBSSID.isNotEmpty
+                          ? [
+                              MultiSelectScreenDateItem(
+                                key: wifiBSSID,
+                                text: wifiBSSID,
+                              ),
+                            ]
+                          : [];
+                    },
+                    selectedData: selectedData,
+                  ),
+                ),
+              );
+            },
+          );
+        };
+        _listViewParts.add(item);
+      }
     }
 
-    /* if (widget.options.wifiSsid != null) {
-      ListViewMultiPartsItem item = ListViewMultiPartsItem();
-      item.creator = (data, index, bindNO) {
-        final tcontext = Translations.of(context);
-        return createTextField(
-            _textControllerLinkWifiSsid, "WIFI SSID", "My WIFI\nWifi ssid");
-      };
-      _listViewParts.add(item);
-    }
-    if (widget.options.wifiBssid != null) {
-      ListViewMultiPartsItem item = ListViewMultiPartsItem();
-      item.creator = (data, index, bindNO) {
-        final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkWifiBSsid, "WIFI BSSid",
-            "00:00:00:00:00:00\n0f:0f:0f:0f:0f:0f");
-      };
-      _listViewParts.add(item);
-    }*/
     if (widget.options.port != null) {
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkPort, tcontext.meta.port,
-            "443\n53\n"); //:3500\n4500:\n20000:25000\n
+        return createTextField(
+          _textControllerLinkPort,
+          tcontext.meta.port,
+          "443\n53\n",
+        ); //:3500\n4500:\n20000:25000\n
       };
       _listViewParts.add(item);
     }
@@ -675,8 +857,11 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         final tcontext = Translations.of(context);
-        return createTextField(_textControllerLinkPortRange,
-            tcontext.meta.portRange, ":3500\n4500:\n20000:25000\n");
+        return createTextField(
+          _textControllerLinkPortRange,
+          tcontext.meta.portRange,
+          ":3500\n4500:\n20000:25000\n",
+        );
       };
       _listViewParts.add(item);
     }
@@ -684,36 +869,41 @@ class _DiversionGroupCustomEditScreenState
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.creator = (data, index, bindNO) {
         return createTextFieldWithSelect(
-            _textControllerLinkProtocol, "Protocol", "quic\nhttp", () async {
-          List<String> selectedData =
-              convertToList(_textControllerLinkProtocol.text);
-          return await Navigator.push(
+          _textControllerLinkProtocol,
+          "Protocol",
+          "quic\nhttp",
+          () async {
+            List<String> selectedData = convertToList(
+              _textControllerLinkProtocol.text,
+            );
+            return await Navigator.push(
               context,
               MaterialPageRoute(
-                  settings: MultiSelectScreen.routSettings(),
-                  builder: (context) => MultiSelectScreen(
-                        title: 'Protocol',
-                        getData: () async {
-                          return [
-                            MultiSelectScreenDateItem(
-                                key: "http", text: "http"),
-                            MultiSelectScreenDateItem(key: "tls", text: "tls"),
-                            MultiSelectScreenDateItem(
-                                key: "quic", text: "quic"),
-                            MultiSelectScreenDateItem(
-                                key: "stun", text: "stun"),
-                            MultiSelectScreenDateItem(key: "dns", text: "dns"),
-                            MultiSelectScreenDateItem(
-                                key: "bittorrent", text: "bittorrent"),
-                            MultiSelectScreenDateItem(
-                                key: "dtls", text: "dtls"),
-                            MultiSelectScreenDateItem(key: "ssh", text: "ssh"),
-                            MultiSelectScreenDateItem(key: "rdp", text: "rdp"),
-                          ];
-                        },
-                        selectedData: selectedData,
-                      )));
-        });
+                settings: MultiSelectScreen.routSettings(),
+                builder: (context) => MultiSelectScreen(
+                  title: 'Protocol',
+                  getData: () async {
+                    return [
+                      MultiSelectScreenDateItem(key: "http", text: "http"),
+                      MultiSelectScreenDateItem(key: "tls", text: "tls"),
+                      MultiSelectScreenDateItem(key: "quic", text: "quic"),
+                      MultiSelectScreenDateItem(key: "stun", text: "stun"),
+                      MultiSelectScreenDateItem(key: "dns", text: "dns"),
+                      MultiSelectScreenDateItem(
+                        key: "bittorrent",
+                        text: "bittorrent",
+                      ),
+                      MultiSelectScreenDateItem(key: "dtls", text: "dtls"),
+                      MultiSelectScreenDateItem(key: "ssh", text: "ssh"),
+                      MultiSelectScreenDateItem(key: "rdp", text: "rdp"),
+                    ];
+                  },
+                  selectedData: selectedData,
+                ),
+              ),
+            );
+          },
+        );
       };
       _listViewParts.add(item);
     }
@@ -731,132 +921,122 @@ class _DiversionGroupCustomEditScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return PopScope(
-        canPop: true,
-        onPopInvokedWithResult: (didPop, result) {},
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                children: [
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {},
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                        ),
+                      ),
+                      SizedBox(
+                        width: windowSize.width - 50 * 2,
+                        child: Text(
+                          widget.name,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontWeight: ThemeConfig.kFontWeightTitle,
+                            fontSize: ThemeConfig.kFontSizeTitle,
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          onTapSave();
+                        },
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.done_outlined, size: 26),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Text(
+                    tcontext.DiversionGroupCustomEditScreen.setDiversionRule,
+                    style: const TextStyle(
+                      fontSize: ThemeConfig.kFontSizeListSubItem,
+                      fontWeight: ThemeConfig.kFontWeightListSubItem,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                if (widget.options.showLogicOperations) ...[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.arrow_back_ios_outlined,
-                              size: 26,
+                        Text(tcontext.meta.logicOperation),
+                        const SizedBox(width: 10),
+                        SizedBox(
+                          width: 120,
+                          child: ListTile(
+                            title: const Text('OR'),
+                            horizontalTitleGap: 5,
+                            leading: Radio(
+                              value: LogicOperations.or,
+                              groupValue: _logicOperation,
+                              onChanged: (LogicOperations? value) {
+                                _logicOperation = value;
+                                setState(() {});
+                              },
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: windowSize.width - 50 * 2,
-                          child: Text(
-                            widget.name,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: ThemeConfig.kFontWeightTitle,
-                                fontSize: ThemeConfig.kFontSizeTitle),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            onTapSave();
-                          },
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.done_outlined,
-                              size: 26,
+                          width: 130,
+                          child: ListTile(
+                            title: const Text('AND'),
+                            horizontalTitleGap: 5,
+                            leading: Radio(
+                              value: LogicOperations.and,
+                              groupValue: _logicOperation,
+                              onChanged: (LogicOperations? value) {
+                                _logicOperation = value;
+                                setState(() {});
+                              },
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: Text(
-                      tcontext.DiversionGroupCustomEditScreen.setDiversionRule,
-                      style: const TextStyle(
-                        fontSize: ThemeConfig.kFontSizeListSubItem,
-                        fontWeight: ThemeConfig.kFontWeightListSubItem,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  if (widget.options.showLogicOperations) ...[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: Row(
-                        children: [
-                          Text(tcontext.meta.logicOperation),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: 120,
-                            child: ListTile(
-                              title: const Text('OR'),
-                              horizontalTitleGap: 5,
-                              leading: Radio(
-                                value: LogicOperations.or,
-                                groupValue: _logicOperation,
-                                onChanged: (LogicOperations? value) {
-                                  _logicOperation = value;
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 130,
-                            child: ListTile(
-                              title: const Text('AND'),
-                              horizontalTitleGap: 5,
-                              leading: Radio(
-                                value: LogicOperations.and,
-                                groupValue: _logicOperation,
-                                onChanged: (LogicOperations? value) {
-                                  _logicOperation = value;
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                  Expanded(
-                    child: ListViewMultiPartsBuilder.build(_listViewParts),
-                  ),
                 ],
-              ),
+                Expanded(
+                  child: ListViewMultiPartsBuilder.build(_listViewParts),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget createTextField(
-      TextEditingController textControllerLink, String label, String hint) {
+    TextEditingController textControllerLink,
+    String label,
+    String hint,
+  ) {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Padding(
@@ -875,58 +1055,57 @@ class _DiversionGroupCustomEditScreenState
   }
 
   Widget createTextFieldWithSelect(
-      TextEditingController textControllerLink,
-      String label,
-      String hint,
-      Future<List<String>?> Function()? getSelected) {
+    TextEditingController textControllerLink,
+    String label,
+    String hint,
+    Future<List<String>?> Function()? getSelected,
+  ) {
     Size windowSize = MediaQuery.of(context).size;
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Row(
-            children: [
-              SizedBox(
-                width: windowSize.width - 10 * 2 - 50,
-                child: SingleChildScrollView(
-                  child: TextFieldEx(
-                    textInputAction: TextInputAction.newline,
-                    maxLines: 6,
-                    controller: textControllerLink,
-                    decoration:
-                        InputDecoration(labelText: label, hintText: hint),
-                    onChanged: (text) {},
-                  ),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        child: Row(
+          children: [
+            SizedBox(
+              width: windowSize.width - 10 * 2 - 50,
+              child: SingleChildScrollView(
+                child: TextFieldEx(
+                  textInputAction: TextInputAction.newline,
+                  maxLines: 6,
+                  controller: textControllerLink,
+                  decoration: InputDecoration(labelText: label, hintText: hint),
+                  onChanged: (text) {},
                 ),
               ),
-              InkWell(
-                onTap: getSelected == null
-                    ? null
-                    : () async {
-                        List<String>? selected = await getSelected();
-                        if (selected == null || selected.isEmpty) {
-                          return;
+            ),
+            InkWell(
+              onTap: getSelected == null
+                  ? null
+                  : () async {
+                      List<String>? selected = await getSelected();
+                      if (selected == null || selected.isEmpty) {
+                        return;
+                      }
+                      List<String> text = convertToList(
+                        textControllerLink.text,
+                      );
+                      for (var textItem in selected) {
+                        if (!text.contains(textItem)) {
+                          text.add(textItem);
                         }
-                        List<String> text =
-                            convertToList(textControllerLink.text);
-                        for (var textItem in selected) {
-                          if (!text.contains(textItem)) {
-                            text.add(textItem);
-                          }
-                        }
-                        textControllerLink.text = text.join("\n");
-                      },
-                child: const SizedBox(
-                  width: 50,
-                  height: 30,
-                  child: Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    size: 26,
-                  ),
-                ),
+                      }
+                      textControllerLink.text = text.join("\n");
+                    },
+              child: const SizedBox(
+                width: 50,
+                height: 30,
+                child: Icon(Icons.arrow_forward_ios_outlined, size: 26),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -948,15 +1127,18 @@ class _DiversionGroupCustomEditScreenState
       DiversionRulesGroup newGroup = group.clone();
 
       if (widget.options.ruleSetBuildIn != null) {
-        newGroup.ruleSetBuildIn =
-            convertToList(_textControllerLinkRuleSetBuildIn.text);
+        newGroup.ruleSetBuildIn = convertToList(
+          _textControllerLinkRuleSetBuildIn.text,
+        );
         for (var ruleSet in newGroup.ruleSetBuildIn) {
           List<String> parts = ruleSet.split(":");
           if (parts.length != 2) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
-                    p: ruleSet));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
+                p: ruleSet,
+              ),
+            );
             return;
           }
 
@@ -964,35 +1146,43 @@ class _DiversionGroupCustomEditScreenState
             case "geosite":
               if (!sitecodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
-                    context,
-                    tcontext.DiversionGroupCustomEditScreen
-                        .invalidRuleSetBuildIn(p: ruleSet));
+                  context,
+                  tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
+                    p: ruleSet,
+                  ),
+                );
                 return;
               }
               break;
             case "geoip":
               if (!ipcodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
-                    context,
-                    tcontext.DiversionGroupCustomEditScreen
-                        .invalidRuleSetBuildIn(p: ruleSet));
+                  context,
+                  tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
+                    p: ruleSet,
+                  ),
+                );
                 return;
               }
               break;
             case "acl":
               if (!aclcodesHashCode.contains(parts[1].hashCode)) {
                 DialogUtils.showAlertDialog(
-                    context,
-                    tcontext.DiversionGroupCustomEditScreen
-                        .invalidRuleSetBuildIn(p: ruleSet));
+                  context,
+                  tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
+                    p: ruleSet,
+                  ),
+                );
                 return;
               }
               break;
             default:
               DialogUtils.showAlertDialog(
-                  context,
-                  tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
-                      p: ruleSet));
+                context,
+                tcontext.DiversionGroupCustomEditScreen.invalidRuleSetBuildIn(
+                  p: ruleSet,
+                ),
+              );
               return;
           }
         }
@@ -1003,17 +1193,21 @@ class _DiversionGroupCustomEditScreenState
           Uri? nruleSet = Uri.tryParse(ruleSet);
           if (nruleSet == null || !nruleSet.isScheme("https")) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
-                    p: ruleSet));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
+                p: ruleSet,
+              ),
+            );
             return;
           }
           List<String> paths = nruleSet.path.split("/");
           if (paths.isEmpty) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
-                    p: ruleSet));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
+                p: ruleSet,
+              ),
+            );
             return;
           }
           const String kSrs = ".srs";
@@ -1021,9 +1215,11 @@ class _DiversionGroupCustomEditScreenState
           String path = paths[paths.length - 1];
           if (path.isEmpty || !path.endsWith(kSrs) && !path.endsWith(kJson)) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
-                    p: ruleSet));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalidRuleSet(
+                p: ruleSet,
+              ),
+            );
             return;
           }
         }
@@ -1035,9 +1231,11 @@ class _DiversionGroupCustomEditScreenState
             if (newGroup.package[i].contains(RegExp(r':|\"|{|}|\[|\]|/')) ||
                 !newGroup.package[i].contains(".")) {
               DialogUtils.showAlertDialog(
-                  context,
-                  tcontext.DiversionGroupCustomEditScreen.invalidPackageId(
-                      p: newGroup.package[i]));
+                context,
+                tcontext.DiversionGroupCustomEditScreen.invalidPackageId(
+                  p: newGroup.package[i],
+                ),
+              );
               return;
             }
           }
@@ -1045,18 +1243,21 @@ class _DiversionGroupCustomEditScreenState
       }
       if (PlatformUtils.isPC()) {
         if (widget.options.processName != null) {
-          newGroup.processName =
-              convertToList(_textControllerLinkProcessName.text);
+          newGroup.processName = convertToList(
+            _textControllerLinkProcessName.text,
+          );
         }
 
         if (widget.options.processPath != null) {
-          newGroup.processPath =
-              convertToList(_textControllerLinkProcessPath.text);
+          newGroup.processPath = convertToList(
+            _textControllerLinkProcessPath.text,
+          );
         }
 
         if (widget.options.processDir != null) {
-          newGroup.processDir =
-              convertToList(_textControllerLinkProcessDir.text);
+          newGroup.processDir = convertToList(
+            _textControllerLinkProcessDir.text,
+          );
         }
       }
 
@@ -1067,35 +1268,41 @@ class _DiversionGroupCustomEditScreenState
         item.tag = ruleSet;
         item.format = ruleSet.endsWith(".json") ? "source" : "binary";
         item.url = ruleSet;
-        if (!ServerManager.getDiversionGroupConfig()
-            .ruleSetItems
-            .contains(item)) {
+        if (!ServerManager.getDiversionGroupConfig().ruleSetItems.contains(
+          item,
+        )) {
           ServerManager.getDiversionGroupConfig().ruleSetItems.add(item);
         }
       }
       if (widget.options.domainSuffix != null) {
-        newGroup.domainSuffix =
-            convertToList(_textControllerLinkDomainSuffix.text);
+        newGroup.domainSuffix = convertToList(
+          _textControllerLinkDomainSuffix.text,
+        );
       }
       if (widget.options.domain != null) {
         newGroup.domain = convertToList(_textControllerLinkDomain.text);
         for (var domain in newGroup.domain) {
           if (!NetworkUtils.isDomain(domain, false)) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalid(
-                    p0: tcontext.meta.domain, p: domain));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalid(
+                p0: tcontext.meta.domain,
+                p: domain,
+              ),
+            );
             return;
           }
         }
       }
       if (widget.options.domainKeyword != null) {
-        newGroup.domainKeyword =
-            convertToList(_textControllerLinkDomainKeyword.text);
+        newGroup.domainKeyword = convertToList(
+          _textControllerLinkDomainKeyword.text,
+        );
       }
       if (widget.options.domainRegex != null) {
-        newGroup.domainRegex =
-            convertToList(_textControllerLinkDomainRegex.text);
+        newGroup.domainRegex = convertToList(
+          _textControllerLinkDomainRegex.text,
+        );
         /*for (var regx in newGroup.domainRegex) {
           try {
             var _ = RegExp(regx);
@@ -1114,9 +1321,9 @@ class _DiversionGroupCustomEditScreenState
           if (!NetworkUtils.isIpv4WithMask(ipCidr) &&
               !NetworkUtils.isIpv6WithMask(ipCidr)) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalidIpCidr(
-                    p: ipCidr));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalidIpCidr(p: ipCidr),
+            );
             return;
           }
         }
@@ -1125,8 +1332,9 @@ class _DiversionGroupCustomEditScreenState
         newGroup.network = convertToList(_textControllerLinkNetwork.text);
       }
       if (widget.options.networkType != null) {
-        newGroup.networkType =
-            convertToList(_textControllerLinkNetworkType.text);
+        newGroup.networkType = convertToList(
+          _textControllerLinkNetworkType.text,
+        );
       }
       if (widget.options.wifiSsid != null) {
         newGroup.wifiSsid = convertToList(_textControllerLinkWifiSsid.text);
@@ -1141,9 +1349,12 @@ class _DiversionGroupCustomEditScreenState
           int? nport = int.tryParse(port);
           if (nport == null || nport < 0 || nport >= 65536) {
             DialogUtils.showAlertDialog(
-                context,
-                tcontext.DiversionGroupCustomEditScreen.invalid(
-                    p0: tcontext.meta.port, p: port));
+              context,
+              tcontext.DiversionGroupCustomEditScreen.invalid(
+                p0: tcontext.meta.port,
+                p: port,
+              ),
+            );
             return;
           }
           newGroup.port.add(nport);
@@ -1152,10 +1363,12 @@ class _DiversionGroupCustomEditScreenState
       if (widget.options.portRange != null) {
         if (_textControllerLinkPortRange.text.contains("-")) {
           DialogUtils.showAlertDialog(
-              context,
-              tcontext.DiversionGroupCustomEditScreen.invalid(
-                  p0: tcontext.meta.portRange,
-                  p: _textControllerLinkPortRange.text));
+            context,
+            tcontext.DiversionGroupCustomEditScreen.invalid(
+              p0: tcontext.meta.portRange,
+              p: _textControllerLinkPortRange.text,
+            ),
+          );
           return;
         }
         newGroup.portRange = convertToList(_textControllerLinkPortRange.text);

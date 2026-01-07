@@ -10,16 +10,17 @@ import 'package:board_datetime_picker/board_datetime_picker.dart';
 typedef SetStateCallback = void Function();
 
 class GroupItemTextOptions {
-  GroupItemTextOptions(
-      {required this.name,
-      required this.text,
-      this.tips,
-      this.textStyle,
-      this.textColor,
-      this.textWidthPercent = 0.5,
-      this.child,
-      this.onPush,
-      this.onLongPress});
+  GroupItemTextOptions({
+    required this.name,
+    required this.text,
+    this.tips,
+    this.textStyle,
+    this.textColor,
+    this.textWidthPercent = 0.5,
+    this.child,
+    this.onPush,
+    this.onLongPress,
+  });
 
   final String name;
   final String? text;
@@ -76,12 +77,13 @@ class GroupItemTextFieldOptions {
 }
 
 class GroupItemSwitchOptions {
-  GroupItemSwitchOptions(
-      {required this.name,
-      this.tips,
-      this.reddot,
-      this.onSwitch,
-      required this.switchValue});
+  GroupItemSwitchOptions({
+    required this.name,
+    this.tips,
+    this.reddot,
+    this.onSwitch,
+    required this.switchValue,
+  });
 
   final String name;
   final String? tips;

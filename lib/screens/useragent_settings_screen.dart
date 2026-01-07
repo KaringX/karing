@@ -51,10 +51,7 @@ class _UserAgentSettingsScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -70,10 +67,7 @@ class _UserAgentSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -83,8 +77,9 @@ class _UserAgentSettingsScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -94,21 +89,14 @@ class _UserAgentSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.add_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.add_outlined, size: 26),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -119,20 +107,18 @@ class _UserAgentSettingsScreenState
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _searchedData[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _searchedData[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(dynamic current, Size windowSize) {
@@ -145,9 +131,7 @@ class _UserAgentSettingsScreenState
       child: InkWell(
         onTap: null,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -158,20 +142,22 @@ class _UserAgentSettingsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: centerWidth,
-                          child: Text(
-                            current,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: centerWidth,
+                            child: Text(
+                              current,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
                             ),
                           ),
-                        ),
-                        if (!SettingConfig.kUserAgentList
-                            .contains(current)) ...[
-                          SizedBox(
+                          if (!SettingConfig.kUserAgentList.contains(
+                            current,
+                          )) ...[
+                            SizedBox(
                               width: rightWidth,
                               height: ThemeConfig.kListItemHeight2 - 2,
                               child: InkWell(
@@ -183,9 +169,11 @@ class _UserAgentSettingsScreenState
                                   size: 26,
                                   color: Colors.red,
                                 ),
-                              ))
+                              ),
+                            ),
+                          ],
                         ],
-                      ]),
+                      ),
                     ],
                   ),
                 ],
@@ -200,10 +188,17 @@ class _UserAgentSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.url, "", null, null, null, (text) {
-      text = text.trim();
-      return text.isNotEmpty;
-    });
+      context,
+      tcontext.meta.url,
+      "",
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        return text.isNotEmpty;
+      },
+    );
     if (text != null &&
         !SettingConfig.kUserAgentList.contains(text) &&
         !SettingManager.getConfig().userAgents.contains(text)) {

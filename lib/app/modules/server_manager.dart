@@ -56,9 +56,7 @@ class ServerConfig {
     return config;
   }
 
-  Map<String, dynamic> toJson() => {
-        'items': items,
-      };
+  Map<String, dynamic> toJson() => {'items': items};
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -197,9 +195,9 @@ class DiversionGroupConfig {
   }
 
   Map<String, dynamic> toJson() => {
-        'items': items,
-        'rule_set_items': ruleSetItems,
-      };
+    'items': items,
+    'rule_set_items': ruleSetItems,
+  };
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -270,11 +268,11 @@ class DiversionGroupSetting {
   String serverName = "";
 
   Map<String, dynamic> toJson() => {
-        'diversion_groupid': diversionGroupId,
-        'diversion_name': diversionName,
-        'server_groupid': serverGroupId,
-        'server_name': serverName,
-      };
+    'diversion_groupid': diversionGroupId,
+    'diversion_name': diversionName,
+    'server_groupid': serverGroupId,
+    'server_name': serverName,
+  };
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -316,18 +314,18 @@ class ServerUse {
   }
 
   Map<String, dynamic> toJson() => {
-        'disable': disable,
-        'select_default': selectDefault,
-        'recent': recent,
-        'fav': fav,
-        'geosite': geoSite,
-        'geoip': geoIp,
-        'acl': acl,
-        'ruleset_direct_download': rulesetDirectDownload,
-        'diversion_group': diversionGroup,
-        'server_select_search_select': serverSelectSearchSelect,
-        'add_profile_select': addProfileSelect,
-      };
+    'disable': disable,
+    'select_default': selectDefault,
+    'recent': recent,
+    'fav': fav,
+    'geosite': geoSite,
+    'geoip': geoIp,
+    'acl': acl,
+    'ruleset_direct_download': rulesetDirectDownload,
+    'diversion_group': diversionGroup,
+    'server_select_search_select': serverSelectSearchSelect,
+    'add_profile_select': addProfileSelect,
+  };
 
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -357,7 +355,10 @@ class ServerUse {
     geoIp = ConvertUtils.getListStringFromDynamic(map["geoip"], true, [])!;
     acl = ConvertUtils.getListStringFromDynamic(map["acl"], true, [])!;
     rulesetDirectDownload = ConvertUtils.getListStringFromDynamic(
-        map["ruleset_direct_download"], true, [])!;
+      map["ruleset_direct_download"],
+      true,
+      [],
+    )!;
 
     var t = map["diversion_group"] ?? map["routing_group"] ?? [];
     for (var i in t) {
@@ -370,7 +371,10 @@ class ServerUse {
       diversionGroup.add(config);
     }
     serverSelectSearchSelect = ConvertUtils.getListStringFromDynamic(
-        map["server_select_search_select"], true, [])!;
+      map["server_select_search_select"],
+      true,
+      [],
+    )!;
   }
 
   static String getDisableKey(ProxyConfig proxy) {
@@ -396,9 +400,9 @@ class ServerManager {
   static final Map<int, void Function(ServerConfigGroupItem)> _onAddConfigs =
       {};
   static final Map<int, Future<void> Function(List<ServerConfigGroupItem>)>
-      _onUpdateConfigs = {};
+  _onUpdateConfigs = {};
   static final Map<int, void Function(Set<ServerConfigGroupItem>)>
-      _onLatencyUpdateConfigs = {};
+  _onLatencyUpdateConfigs = {};
 
   static final Map<int, void Function(String, bool, bool)> _onRemoveConfigs =
       {};
@@ -409,7 +413,7 @@ class ServerManager {
   static final Map<int, Future<void> Function()> _onReloadFromZipConfigs = {};
 
   static final Map<int, void Function(String, String, bool, bool)>
-      _onTestOutboundLatency = {};
+  _onTestOutboundLatency = {};
 
   static final Map<int, void Function()> _onLatencyHistoryUpdated = {};
 
@@ -433,8 +437,10 @@ class ServerManager {
     await loadDiversionGroupConfig();
     await loadUse();
 
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           updateSubscription();
@@ -454,43 +460,60 @@ class ServerManager {
   static Future<void> uninit() async {}
 
   static void onEventAddConfig(
-      int hashcode, void Function(ServerConfigGroupItem) callback) {
+    int hashcode,
+    void Function(ServerConfigGroupItem) callback,
+  ) {
     _onAddConfigs[hashcode] = callback;
   }
 
-  static void onEventUpdateConfig(int hashcode,
-      Future<void> Function(List<ServerConfigGroupItem>) callback) {
+  static void onEventUpdateConfig(
+    int hashcode,
+    Future<void> Function(List<ServerConfigGroupItem>) callback,
+  ) {
     _onUpdateConfigs[hashcode] = callback;
   }
 
   static void onEventLatencyUpdateConfig(
-      int hashcode, void Function(Set<ServerConfigGroupItem>) callback) {
+    int hashcode,
+    void Function(Set<ServerConfigGroupItem>) callback,
+  ) {
     _onLatencyUpdateConfigs[hashcode] = callback;
   }
 
   static void onEventRemoveConfig(
-      int hashcode, void Function(String, bool, bool) callback) {
+    int hashcode,
+    void Function(String, bool, bool) callback,
+  ) {
     _onRemoveConfigs[hashcode] = callback;
   }
 
   static void onEventEnableConfig(
-      int hashcode, Future<void> Function(String, bool) callback) {
+    int hashcode,
+    Future<void> Function(String, bool) callback,
+  ) {
     _onEnableConfigs[hashcode] = callback;
   }
 
   static void onEventRemoteTrafficReload(
-      int hashcode, void Function(String) start, void Function(String) end) {
+    int hashcode,
+    void Function(String) start,
+    void Function(String) end,
+  ) {
     _onRemoteTrafficReloadStart[hashcode] = start;
     _onRemoteTrafficReloadEnd[hashcode] = end;
   }
 
   static void onReloadFromZipConfigs(
-      int hashcode, Future<void> Function() callback) {
+    int hashcode,
+    Future<void> Function() callback,
+  ) {
     _onReloadFromZipConfigs[hashcode] = callback;
   }
 
   static void onEventTestLatency(
-      int hashcode, void Function(String, String, bool, bool) callback) {
+    int hashcode,
+    void Function(String, String, bool, bool) callback,
+  ) {
     _onTestOutboundLatency[hashcode] = callback;
   }
 
@@ -550,7 +573,8 @@ class ServerManager {
 
             if (err != null) {
               Log.w(
-                  "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}");
+                "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}",
+              );
             } else {
               items.add(item);
               if (item.reloadAfterProfileUpdate &&
@@ -762,8 +786,9 @@ class ServerManager {
       }
       exists.add(key);
 
-      ServerDiversionGroupItem? src =
-          getDiversionGroupByGroupId(use.diversionGroupId);
+      ServerDiversionGroupItem? src = getDiversionGroupByGroupId(
+        use.diversionGroupId,
+      );
       if (src == null) {
         continue;
       }
@@ -836,6 +861,8 @@ class ServerManager {
       item.index = 0;
       item.groupid = ServerManager.getCustomGroupId();
       item.type = SubscriptionLinkType.singbox;
+      item.keepDiversionRules = false;
+      item.enableDiversionRules = true;
       _serverConfig.items.insert(0, item);
       return;
     }
@@ -852,10 +879,15 @@ class ServerManager {
       }
     } catch (err, stacktrace) {
       SentryUtils.captureException(
-          'ServerManager.loadServerConfig.exception', [], err, stacktrace,
-          attachments: {filePath: content});
+        'ServerManager.loadServerConfig.exception',
+        [],
+        err,
+        stacktrace,
+        attachments: {filePath: content},
+      );
       Log.w(
-          "ServerManager.loadServerConfig exception $filePath ${err.toString()}");
+        "ServerManager.loadServerConfig exception $filePath ${err.toString()}",
+      );
     }
   }
 
@@ -900,13 +932,15 @@ class ServerManager {
       }
     } catch (err, stacktrace) {
       SentryUtils.captureException(
-          'ServerManager.loadDiversionGroupConfig.exception',
-          [],
-          err,
-          stacktrace,
-          attachments: {filePath: content});
+        'ServerManager.loadDiversionGroupConfig.exception',
+        [],
+        err,
+        stacktrace,
+        attachments: {filePath: content},
+      );
       Log.w(
-          "ServerManager.loadDiversionGroupConfig exception $filePath ${err.toString()}");
+        "ServerManager.loadDiversionGroupConfig exception $filePath ${err.toString()}",
+      );
     }
     for (var i = 0; i < _diversionGroupConfig.items.length; ++i) {
       bool find = false;
@@ -1088,7 +1122,10 @@ class ServerManager {
   }
 
   static Future<ReturnResult<int>> testDNSConnectLatency(
-      List<String> dnsUrl, String detour, String? testDomain) async {
+    List<String> dnsUrl,
+    String detour,
+    String? testDomain,
+  ) async {
     bool started = await VPNService.getStarted();
     if (!started) {
       return ReturnResult(error: ReturnResultError("service is not running"));
@@ -1096,8 +1133,10 @@ class ServerManager {
     var settingConfig = SettingManager.getConfig();
     String regionCode = settingConfig.regionCode.toLowerCase();
     bool tunMode = await VPNService.getTunMode();
-    List<String> resolver =
-        settingConfig.dns.getResolverDns(regionCode, tunMode);
+    List<String> resolver = settingConfig.dns.getResolverDns(
+      regionCode,
+      tunMode,
+    );
 
     Set<String> allUrls = {};
     allUrls.addAll(resolver);
@@ -1105,10 +1144,13 @@ class ServerManager {
     String tag = "dns_latency_test_tag";
     String tagResolver = "dns_latency_test_resolver_tag";
     final servers = SingboxDNSTryParseList(
-        allUrls.toList(),
-        null,
-        SingboxDNSDomainResolver(
-            server: tagResolver, strategy: settingConfig.ipStrategy.name));
+      allUrls.toList(),
+      null,
+      SingboxDNSDomainResolver(
+        server: tagResolver,
+        strategy: settingConfig.ipStrategy.name,
+      ),
+    );
     if (servers.error != null) {
       return ReturnResult(error: servers.error);
     }
@@ -1117,10 +1159,13 @@ class ServerManager {
     req.servers = servers.data!;
     if (detour != kOutboundTagDirect) {
       final serversDetour = SingboxDNSTryParseList(
-          dnsUrl,
-          detour,
-          SingboxDNSDomainResolver(
-              server: tagResolver, strategy: settingConfig.ipStrategy.name));
+        dnsUrl,
+        detour,
+        SingboxDNSDomainResolver(
+          server: tagResolver,
+          strategy: settingConfig.ipStrategy.name,
+        ),
+      );
       if (serversDetour.error != null) {
         return ReturnResult(error: serversDetour.error);
       }
@@ -1134,15 +1179,18 @@ class ServerManager {
       req.servers.add(SingboxDNSServerBatchOptions(tag, servers: dnsUrl));
     }
 
-    req.servers
-        .add(SingboxDNSServerBatchOptions(tagResolver, servers: resolver));
+    req.servers.add(
+      SingboxDNSServerBatchOptions(tagResolver, servers: resolver),
+    );
 
     req.tag = tag;
     req.domain = testDomain ?? settingConfig.dns.testDomain;
     req.strategy = settingConfig.ipStrategy.name;
 
     ReturnResult<String> data = await ClashApi.dnsQuery(
-        SettingManager.getConfig().proxy.controlPort, req);
+      SettingManager.getConfig().proxy.controlPort,
+      req,
+    );
     started = await VPNService.getStarted();
     if (!started) {
       return ReturnResult(error: ReturnResultError("service stoped"));
@@ -1165,7 +1213,8 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> testOutboundLatencyForGroup(
-      String groupid) async {
+    String groupid,
+  ) async {
     bool started = await VPNService.getStarted();
     if (!started) {
       return ReturnResultError("service is not running");
@@ -1211,7 +1260,9 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> testOutboundLatencyForServer(
-      String tag, String groupid) async {
+    String tag,
+    String groupid,
+  ) async {
     bool started = await VPNService.getStarted();
     if (!started) {
       return ReturnResultError("service is not running");
@@ -1352,7 +1403,9 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> _testOutboundLatencyForServer(
-      String tag, String groupid) async {
+    String tag,
+    String groupid,
+  ) async {
     ServerConfigGroupItem? item = getByGroupId(groupid);
     if (item == null) {
       _testOutboundServerLatencying.remove(tag);
@@ -1386,13 +1439,19 @@ class ServerManager {
     int tryTimes = item.testLatencyAutoRemove ? 3 : 1;
     for (int times = 0; times < tryTimes; ++times) {
       result = await ClashApi.getDelay(
-          settings.proxy.controlPort, tag, settings.urlTestTimeout,
-          url: settings.urlTest);
+        settings.proxy.controlPort,
+        tag,
+        settings.urlTestTimeout,
+        url: settings.urlTest,
+      );
       if (result.error == null) {
         if (settings.latencyCheckResoveIP) {
           ReturnResult<HttpRequestResponse> httpresult =
-              await ClashApi.getHttpRequestByProxy(settings.proxy.controlPort,
-                  tag, "https://checkip.amazonaws.com");
+              await ClashApi.getHttpRequestByProxy(
+                settings.proxy.controlPort,
+                tag,
+                "https://checkip.amazonaws.com",
+              );
           if (httpresult.error == null) {
             config.outletip = httpresult.data!.body.trim();
           }
@@ -1410,14 +1469,16 @@ class ServerManager {
       });
       schedulerTestLatency();
       Log.w(
-          "_testOutboundLatencyForServer error $groupid $tag ${config.server} ${result.error!.message}");
+        "_testOutboundLatencyForServer error $groupid $tag ${config.server} ${result.error!.message}",
+      );
       return ReturnResultError(result.error!.message);
     }
     try {
       updateByDelay(result.data!, config);
     } catch (err) {
       Log.w(
-          "_testOutboundLatencyForServer exception $groupid $tag ${config.server} ${err.toString()} ");
+        "_testOutboundLatencyForServer exception $groupid $tag ${config.server} ${err.toString()} ",
+      );
     }
     _testOutboundServerLatencying.remove(tag);
     _onTestOutboundLatency.forEach((key, valueCallback) {
@@ -1543,12 +1604,13 @@ class ServerManager {
 
     diversionGroupItem.groupid = item.groupid;
     ReturnResultError? error = await AutoConfUtils.tryConvert(
-        urlOrPath,
-        local,
-        groupid.isNotEmpty,
-        item,
-        _diversionGroupConfig.ruleSetItems,
-        keepDiversionRules ? diversionGroupItem : null);
+      urlOrPath,
+      local,
+      groupid.isNotEmpty,
+      item,
+      _diversionGroupConfig.ruleSetItems,
+      keepDiversionRules ? diversionGroupItem : null,
+    );
     if (error != null) {
       if (groupid.isNotEmpty) {
         //update error
@@ -1562,7 +1624,8 @@ class ServerManager {
     }
     if (item.servers.isEmpty) {
       return ReturnResult(
-          error: ReturnResultError(t.meta.profileAddNoServerAvaliable));
+        error: ReturnResultError(t.meta.profileAddNoServerAvaliable),
+      );
     }
     diversionGroupItem.urlOrPath = item.urlOrPath;
     diversionGroupItem.remark = item.remark;
@@ -1700,12 +1763,13 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> addLocalConfig(
-      String remark,
-      String filePath,
-      SubscriptionLinkType type,
-      ProxyFilter filter,
-      bool keepDiversionRules,
-      bool testLatencyAutoRemove) async {
+    String remark,
+    String filePath,
+    SubscriptionLinkType type,
+    ProxyFilter filter,
+    bool keepDiversionRules,
+    bool testLatencyAutoRemove,
+  ) async {
     if (filePath.isEmpty) {
       return ReturnResultError(t.meta.filePathCannotEmpty);
     }
@@ -1715,43 +1779,45 @@ class ServerManager {
     }
 
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
-        type,
-        "",
-        remark,
-        filePath,
-        true,
-        "",
-        filter,
-        [],
-        keepDiversionRules,
-        false,
-        false,
-        false,
-        testLatencyAutoRemove,
-        ProxyStrategy.preferProxy,
-        null);
+      type,
+      "",
+      remark,
+      filePath,
+      true,
+      "",
+      filter,
+      [],
+      keepDiversionRules,
+      false,
+      false,
+      false,
+      testLatencyAutoRemove,
+      ProxyStrategy.preferProxy,
+      null,
+    );
 
     return result.error;
   }
 
   static Future<ReturnResultError?> addRemoteConfig(
-      String groupid,
-      String remark,
-      String url,
-      SubscriptionLinkType type,
-      String userAgentCompatible,
-      ProxyFilter filter,
-      List<String> proxyFilterRemove,
-      bool keepDiversionRules,
-      bool enableDiversionRules,
-      bool reloadAfterProfileUpdate,
-      bool testLatencyAfterProfileUpdate,
-      bool testLatencyAutoRemove,
-      ProxyStrategy proxyStrategy,
-      Duration? duration,
-      {String? website,
-      String? ispId,
-      String? ispUser}) async {
+    String groupid,
+    String remark,
+    String url,
+    SubscriptionLinkType type,
+    String userAgentCompatible,
+    ProxyFilter filter,
+    List<String> proxyFilterRemove,
+    bool keepDiversionRules,
+    bool enableDiversionRules,
+    bool reloadAfterProfileUpdate,
+    bool testLatencyAfterProfileUpdate,
+    bool testLatencyAutoRemove,
+    ProxyStrategy proxyStrategy,
+    Duration? duration, {
+    String? website,
+    String? ispId,
+    String? ispUser,
+  }) async {
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
       type,
       groupid,
@@ -1821,7 +1887,8 @@ class ServerManager {
       List<DiversionGroupSetting> diversionGroup = [];
       Set<String> exists = {};
       for (var item in _use.diversionGroup) {
-        String key = item.diversionGroupId +
+        String key =
+            item.diversionGroupId +
             item.diversionName +
             item.serverGroupId +
             item.serverName;
@@ -1855,13 +1922,15 @@ class ServerManager {
             continue;
           }
         } else {
-          ServerConfigGroupItem? scg =
-              ServerManager.getByGroupId(item.diversionGroupId);
+          ServerConfigGroupItem? scg = ServerManager.getByGroupId(
+            item.diversionGroupId,
+          );
           if (scg == null) {
             continue;
           }
-          ServerConfigGroupItem? scg2 =
-              ServerManager.getByGroupId(item.serverGroupId);
+          ServerConfigGroupItem? scg2 = ServerManager.getByGroupId(
+            item.serverGroupId,
+          );
           if (scg2 == null) {
             continue;
           }
@@ -1914,8 +1983,12 @@ class ServerManager {
       _use.diversionGroup = diversionGroup;
     } catch (err, stacktrace) {
       SentryUtils.captureException(
-          'ServerManager.loadUse.exception', [], err, stacktrace,
-          attachments: {filePath: content});
+        'ServerManager.loadUse.exception',
+        [],
+        err,
+        stacktrace,
+        attachments: {filePath: content},
+      );
       Log.w("ServerManager.loadUse exception $filePath ${err.toString()}");
     }
   }
@@ -2029,6 +2102,8 @@ class ServerManager {
     item.index = 0;
     item.groupid = ServerManager.getCustomGroupId();
     item.type = SubscriptionLinkType.singbox;
+    item.keepDiversionRules = false;
+    item.enableDiversionRules = true;
     _serverConfig.items.insert(0, item);
     return _serverConfig.items[0];
   }
@@ -2221,7 +2296,8 @@ class ServerManager {
   }
 
   static Future<ReturnResult<SubscriptionTraffic>> reloadTraffic(
-      String groupid) async {
+    String groupid,
+  ) async {
     ServerConfigGroupItem? item = getByGroupId(groupid);
     if (item == null || !item.isRemote()) {
       return ReturnResult(error: ReturnResultError(t.meta.urlInvalid));
@@ -2237,7 +2313,10 @@ class ServerManager {
     List<int?> ports = await VPNService.getPortsBySetting(item.proxyStrategy);
     for (var port in ports) {
       result = await HttpUtils.httpHeadRequest(
-          Uri.parse(item.urlOrPath), port, const Duration(seconds: 5));
+        Uri.parse(item.urlOrPath),
+        port,
+        const Duration(seconds: 5),
+      );
       if (result.error == null) {
         break;
       }
@@ -2261,10 +2340,12 @@ class ServerManager {
         }
       });
       return ReturnResult(
-          error: ReturnResultError("http statusCode:${result.data!.item1}"));
+        error: ReturnResultError("http statusCode:${result.data!.item1}"),
+      );
     }
-    SubscriptionTraffic? traffic =
-        ProxyConfUtils.getTraffic(result.data!.item2);
+    SubscriptionTraffic? traffic = ProxyConfUtils.getTraffic(
+      result.data!.item2,
+    );
 
     if (traffic == null) {
       _remoteTrafficReloading.remove(groupid);
@@ -2275,7 +2356,8 @@ class ServerManager {
         }
       });
       return ReturnResult(
-          error: ReturnResultError(t.meta.profileAddParseFailed));
+        error: ReturnResultError(t.meta.profileAddParseFailed),
+      );
     }
     _remoteTrafficReloading.remove(groupid);
     item.traffic = traffic;
@@ -2299,7 +2381,8 @@ class ServerManager {
     }
     _updateLatencyByHistory = true;
     ReturnResult<String> result = await ClashApi.getGroupDelayHistory(
-        SettingManager.getConfig().proxy.controlPort);
+      SettingManager.getConfig().proxy.controlPort,
+    );
     if (result.data != null) {
       var decodedResponse = jsonDecode(result.data!) as Map<String, dynamic>;
       var history = decodedResponse["history"] as Map<String, dynamic>;
@@ -2484,8 +2567,9 @@ class ServerManager {
 
   static void modifyRemark(String groupid, String remark) {
     ServerConfigGroupItem? item = getByGroupId(groupid);
-    ServerDiversionGroupItem? itemDiversion =
-        getDiversionGroupByGroupId(groupid);
+    ServerDiversionGroupItem? itemDiversion = getDiversionGroupByGroupId(
+      groupid,
+    );
     if (item != null) {
       item.remark = remark;
     }
@@ -2529,7 +2613,10 @@ class ServerManager {
   }
 
   static List<ProxyConfig> searchIn(
-      List<ProxyConfig> servers, String text, bool includeType) {
+    List<ProxyConfig> servers,
+    String text,
+    bool includeType,
+  ) {
     RegExp? reg;
     try {
       if (text.isNotEmpty) {
@@ -2551,7 +2638,10 @@ class ServerManager {
   }
 
   static List<ProxyConfig> searchInGroup(
-      String groupid, String text, bool includeType) {
+    String groupid,
+    String text,
+    bool includeType,
+  ) {
     ServerConfigGroupItem? item = getByGroupId(groupid);
     if (item == null) {
       return [];
@@ -2563,7 +2653,9 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> backupToZip(
-      BuildContext context, String zipPath) async {
+    BuildContext context,
+    String zipPath,
+  ) async {
     var dir = await PathUtils.profileDir();
     var fileList = BackupAndSyncUtils.getZipFileNameList();
     List<String> zipFileList = [];
@@ -2590,10 +2682,12 @@ class ServerManager {
     }
   }
 
-  static Future<ReturnResultError?> reloadFromZip(String zipPath,
-      {Set<String> whiteList = const {},
-      bool? tun,
-      bool mergePerapp = false}) async {
+  static Future<ReturnResultError?> reloadFromZip(
+    String zipPath, {
+    Set<String> whiteList = const {},
+    bool? tun,
+    bool mergePerapp = false,
+  }) async {
     var result = await BackupAndSyncUtils.validZip(zipPath);
     if (result != null) {
       return result;
@@ -2618,8 +2712,8 @@ class ServerManager {
         SettingManager.getConfig().tun.enable = tun;
       }
       if (mergePerapp) {
-        Set<String> perAppListNew =
-            SettingManager.getConfig().perapp.list.toSet();
+        Set<String> perAppListNew = SettingManager.getConfig().perapp.list
+            .toSet();
         perAppListNew.addAll(perAppList);
         SettingManager.getConfig().perapp.list = perAppListNew.toList();
       }

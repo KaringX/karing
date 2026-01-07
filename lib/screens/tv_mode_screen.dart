@@ -43,94 +43,95 @@ class _TvModeScreenState extends LasyRenderingState<TvModeScreen> {
     Size windowSize = MediaQuery.of(context).size;
 
     return PopScope(
-        canPop: false,
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.zero,
-              child: AppBar(),
-            ),
-            body: Focus(
-              onKeyEvent: onKeyEvent,
-              canRequestFocus: false,
-              skipTraversal: true,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(
-                                    width: 50,
+      canPop: false,
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: Focus(
+          onKeyEvent: onKeyEvent,
+          canRequestFocus: false,
+          skipTraversal: true,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 50),
+                              SizedBox(
+                                width: windowSize.width - 50 - 65,
+                                child: Text(
+                                  "TV ${tcontext.meta.setting}",
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: ThemeConfig.kFontWeightTitle,
+                                    fontSize: ThemeConfig.kFontSizeTitle,
                                   ),
-                                  SizedBox(
-                                    width: windowSize.width - 50 - 65,
-                                    child: Text(
-                                      "TV ${tcontext.meta.setting}",
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontWeight:
-                                              ThemeConfig.kFontWeightTitle,
-                                          fontSize: ThemeConfig.kFontSizeTitle),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width: 65,
-                                      height: 30,
-                                      child: InkWell(
-                                        focusNode: _focusNodeNext,
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          widget.nextText,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight:
-                                                ThemeConfig.kFontWeightListItem,
-                                            fontSize:
-                                                ThemeConfig.kFontSizeListItem,
-                                          ),
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: FutureBuilder(
-                                  future: getGroupOptions(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<List<GroupItem>> snapshot) {
-                                    List<GroupItem> data =
-                                        snapshot.hasData ? snapshot.data! : [];
-                                    return Column(
-                                        children: GroupItemCreator.createGroups(
-                                            context, data));
-                                  },
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 65,
+                                height: 30,
+                                child: InkWell(
+                                  focusNode: _focusNodeNext,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    widget.nextText,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight:
+                                          ThemeConfig.kFontWeightListItem,
+                                      fontSize: ThemeConfig.kFontSizeListItem,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: FutureBuilder(
+                              future: getGroupOptions(),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<List<GroupItem>> snapshot,
+                                  ) {
+                                    List<GroupItem> data = snapshot.hasData
+                                        ? snapshot.data!
+                                        : [];
+                                    return Column(
+                                      children: GroupItemCreator.createGroups(
+                                        context,
+                                        data,
+                                      ),
+                                    );
+                                  },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
@@ -151,34 +152,39 @@ class _TvModeScreenState extends LasyRenderingState<TvModeScreen> {
     bool disableOrientation = await DeviceUtils.disableOrientation();
     List<GroupItemOptions> options0 = [
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.tvMode,
-              switchValue: settingConfig.ui.tvMode,
-              onSwitch: (bool value) async {
-                settingConfig.ui.tvMode = value;
-                TextFieldEx.popupEdit = settingConfig.ui.tvMode;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.tvMode,
+          switchValue: settingConfig.ui.tvMode,
+          onSwitch: (bool value) async {
+            settingConfig.ui.tvMode = value;
+            TextFieldEx.popupEdit = settingConfig.ui.tvMode;
+            setState(() {});
+          },
+        ),
+      ),
       if (!disableOrientation) ...[
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.autoOrientation,
-                switchValue: settingConfig.ui.autoOrientation,
-                onSwitch: (bool value) async {
-                  settingConfig.ui.autoOrientation = value;
-                  if (value) {
-                    SystemChrome.setPreferredOrientations([
-                      DeviceOrientation.portraitUp,
-                      DeviceOrientation.landscapeLeft,
-                      DeviceOrientation.portraitDown,
-                      DeviceOrientation.landscapeRight
-                    ]);
-                  } else {
-                    SystemChrome.setPreferredOrientations(
-                        [DeviceOrientation.portraitUp]);
-                  }
-                  setState(() {});
-                }))
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoOrientation,
+            switchValue: settingConfig.ui.autoOrientation,
+            onSwitch: (bool value) async {
+              settingConfig.ui.autoOrientation = value;
+              if (value) {
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.portraitUp,
+                  DeviceOrientation.landscapeLeft,
+                  DeviceOrientation.portraitDown,
+                  DeviceOrientation.landscapeRight,
+                ]);
+              } else {
+                SystemChrome.setPreferredOrientations([
+                  DeviceOrientation.portraitUp,
+                ]);
+              }
+              setState(() {});
+            },
+          ),
+        ),
       ],
     ];
 

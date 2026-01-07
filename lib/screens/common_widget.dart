@@ -11,14 +11,21 @@ import 'package:tuple/tuple.dart';
 
 class CommonWidget {
   static const double kLatencyWidget = 60;
-  static Widget createLatencyWidget(BuildContext context, double? height,
-      bool loading, bool isTesting, String latency,
-      {void Function()? onTapLatencyReload}) {
+  static Widget createLatencyWidget(
+    BuildContext context,
+    double? height,
+    bool loading,
+    bool isTesting,
+    String latency, {
+    void Function()? onTapLatencyReload,
+  }) {
     const double defaultHeight = 30;
     if (loading) {
       return SizedBox(
-          width: kLatencyWidget,
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        width: kLatencyWidget,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             SizedBox(
               height: 20,
               width: 20,
@@ -27,8 +34,10 @@ class CommonWidget {
                   color: isTesting ? ThemeDefine.kColorGreenBright : null,
                 ),
               ),
-            )
-          ]));
+            ),
+          ],
+        ),
+      );
     }
     if (latency.isEmpty) {
       return const SizedBox(width: kLatencyWidget);
@@ -37,26 +46,33 @@ class CommonWidget {
     int? la = int.tryParse(latency);
     if (la == null) {
       return SizedBox(
-          width: kLatencyWidget,
-          height: height ?? defaultHeight,
-          child: InkWell(
-              onTap: () async {
-                final tcontext = Translations.of(context);
-                if (onTapLatencyReload == null) {
-                  DialogUtils.showAlertDialog(context, latency);
-                } else {
-                  bool? ok = await DialogUtils.showConfirmDialog(
-                      context, "$latency\n\n${tcontext.meta.retry}");
-                  if (ok == true) {
-                    onTapLatencyReload();
-                  }
-                }
-              },
-              child: const SizedBox(
-                width: kLatencyWidget,
-                child: Icon(Icons.warning_amber_outlined,
-                    size: 30, color: Colors.red),
-              )));
+        width: kLatencyWidget,
+        height: height ?? defaultHeight,
+        child: InkWell(
+          onTap: () async {
+            final tcontext = Translations.of(context);
+            if (onTapLatencyReload == null) {
+              DialogUtils.showAlertDialog(context, latency);
+            } else {
+              bool? ok = await DialogUtils.showConfirmDialog(
+                context,
+                "$latency\n\n${tcontext.meta.retry}",
+              );
+              if (ok == true) {
+                onTapLatencyReload();
+              }
+            }
+          },
+          child: const SizedBox(
+            width: kLatencyWidget,
+            child: Icon(
+              Icons.warning_amber_outlined,
+              size: 30,
+              color: Colors.red,
+            ),
+          ),
+        ),
+      );
     }
     late Color color;
     if (la < 800) {
@@ -68,34 +84,41 @@ class CommonWidget {
     }
 
     return SizedBox(
-        width: kLatencyWidget,
-        height: height ?? defaultHeight,
-        child: InkWell(
-            onTap: () async {
-              if (onTapLatencyReload != null) {
-                onTapLatencyReload();
-              }
-            },
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                "$latency ms",
-                style: TextStyle(
-                    fontSize: ThemeConfig.kFontSizeListSubItem, color: color),
-              )
-            ])));
+      width: kLatencyWidget,
+      height: height ?? defaultHeight,
+      child: InkWell(
+        onTap: () async {
+          if (onTapLatencyReload != null) {
+            onTapLatencyReload();
+          }
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "$latency ms",
+              style: TextStyle(
+                fontSize: ThemeConfig.kFontSizeListSubItem,
+                color: color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   static Row createGroupTraffic(
-      BuildContext context,
-      String groupId,
-      bool showISPIfExpiring,
-      SubscriptionTraffic? traffic,
-      double offset,
-      MainAxisAlignment? mainAxisAlignment,
-      double windowWidth,
-      void Function(String) reloadStart,
-      void Function(String, ReturnResult<SubscriptionTraffic> value)
-          reloadFinish) {
+    BuildContext context,
+    String groupId,
+    bool showISPIfExpiring,
+    SubscriptionTraffic? traffic,
+    double offset,
+    MainAxisAlignment? mainAxisAlignment,
+    double windowWidth,
+    void Function(String) reloadStart,
+    void Function(String, ReturnResult<SubscriptionTraffic> value) reloadFinish,
+  ) {
     if (traffic == null) {
       return const Row();
     }
@@ -106,15 +129,14 @@ class CommonWidget {
     bool expiring = exp.item1;
     String expireTime = exp.item2;
 
-    double fontSize =
-        windowWidth >= 335 ? ThemeConfig.kFontSizeListSubItem : 12;
+    double fontSize = windowWidth >= 335
+        ? ThemeConfig.kFontSizeListSubItem
+        : 12;
 
     return Row(
       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
       children: [
-        SizedBox(
-          width: offset,
-        ),
+        SizedBox(width: offset),
         Text(
           "↑ ${traffic.upload} ↓ ${traffic.download} / ${traffic.total}",
           style: TextStyle(
@@ -122,9 +144,7 @@ class CommonWidget {
             color: traffic.overQuota ? Colors.red : null,
           ),
         ),
-        const SizedBox(
-          width: 5,
-        ),
+        const SizedBox(width: 5),
         InkWell(
           onTap: () async {
             ServerManager.reloadTraffic(groupId).then((value) {
@@ -134,17 +154,14 @@ class CommonWidget {
           },
           child: Row(
             children: [
-              Icon(
-                Icons.share_arrival_time_outlined,
-                size: 16,
-              ),
-              const SizedBox(
-                width: 3,
-              ),
+              Icon(Icons.share_arrival_time_outlined, size: 16),
+              const SizedBox(width: 3),
               Text(
                 expireTime,
                 style: TextStyle(
-                    fontSize: fontSize, color: expiring ? Colors.red : null),
+                  fontSize: fontSize,
+                  color: expiring ? Colors.red : null,
+                ),
               ),
               ServerManager.isReloadingTraffic(groupId)
                   ? const SizedBox(
@@ -156,10 +173,8 @@ class CommonWidget {
                     )
                   : Tooltip(
                       message: tcontext.meta.refresh,
-                      child: const Icon(
-                        Icons.refresh_outlined,
-                        size: 26,
-                      ))
+                      child: const Icon(Icons.refresh_outlined, size: 26),
+                    ),
             ],
           ),
         ),
@@ -167,29 +182,31 @@ class CommonWidget {
     );
   }
 
-  static Widget createNeedPermission(BuildContext context, String text,
-      Function() onPermission, Function() onRefresh) {
+  static Widget createNeedPermission(
+    BuildContext context,
+    String text,
+    Function() onPermission,
+    Function() onRefresh,
+  ) {
     final tcontext = Translations.of(context);
     return SizedBox(
       width: 300,
       child: Column(
         children: [
-          const SizedBox(
-            height: 50,
-          ),
+          const SizedBox(height: 50),
           ElevatedButton(
-              child: Text(text),
-              onPressed: () async {
-                onPermission();
-              }),
-          const SizedBox(
-            height: 20,
+            child: Text(text),
+            onPressed: () async {
+              onPermission();
+            },
           ),
+          const SizedBox(height: 20),
           ElevatedButton(
-              child: Text(tcontext.meta.refresh),
-              onPressed: () async {
-                onRefresh();
-              }),
+            child: Text(tcontext.meta.refresh),
+            onPressed: () async {
+              onRefresh();
+            },
+          ),
         ],
       ),
     );

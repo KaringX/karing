@@ -51,10 +51,7 @@ class _UrlTestGroupCustomScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -70,10 +67,7 @@ class _UrlTestGroupCustomScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -83,8 +77,9 @@ class _UrlTestGroupCustomScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -94,21 +89,14 @@ class _UrlTestGroupCustomScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.add_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.add_outlined, size: 26),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -118,20 +106,18 @@ class _UrlTestGroupCustomScreenState
 
   Widget _loadListView() {
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _groupData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _groupData[index];
-            return createWidget(current);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _groupData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _groupData[index];
+          return createWidget(current);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(String current) {
@@ -139,98 +125,105 @@ class _UrlTestGroupCustomScreenState
     const double padding = 4;
     const double rightWidth = 80;
     double leftWidth = windowSize.width - rightWidth - padding * 2 - 4;
-    return Column(children: [
-      Material(
-        borderRadius: ThemeDefine.kBorderRadius,
-        child: InkWell(
-          onTap: () {
-            onTapItem(current);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
-            width: double.infinity,
-            height: ThemeConfig.kListItemHeight2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 4,
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: leftWidth,
-                  ),
-                  child: Text(
-                    current,
-                    style: TextStyle(
-                      fontSize: ThemeConfig.kFontSizeGroupItem,
+    return Column(
+      children: [
+        Material(
+          borderRadius: ThemeDefine.kBorderRadius,
+          child: InkWell(
+            onTap: () {
+              onTapItem(current);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: padding),
+              width: double.infinity,
+              height: ThemeConfig.kListItemHeight2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 4),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: leftWidth),
+                    child: Text(
+                      current,
+                      style: TextStyle(
+                        fontSize: ThemeConfig.kFontSizeGroupItem,
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                Container(
-                  alignment: Alignment.centerRight,
-                  height: 40,
-                  width: rightWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
+                  const Spacer(),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    height: 40,
+                    width: rightWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
                           onTap: () async {
                             onTapDel(current);
                           },
                           child: const SizedBox(
                             width: 26,
                             height: ThemeConfig.kListItemHeight2,
-                            child: Icon(Icons.remove_circle_outlined,
-                                size: 26, color: Colors.red),
-                          )),
-                      const SizedBox(width: 20),
-                      Container(
-                        padding: const EdgeInsets.all(4),
-                        child: const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 14,
+                            child: Icon(
+                              Icons.remove_circle_outlined,
+                              size: 26,
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 20),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.remark, "", null, null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
-        return false;
-      }
-
-      if (text.length > kRemarkMaxLength) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
-        return false;
-      }
-      ServerConfigGroupItem item = ServerManager.getCustomGroup();
-      for (var i in item.urltests) {
-        if (i.remark == text) {
-          DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+      context,
+      tcontext.meta.remark,
+      "",
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
           return false;
         }
-      }
 
-      return true;
-    });
+        if (text.length > kRemarkMaxLength) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
+          return false;
+        }
+        ServerConfigGroupItem item = ServerManager.getCustomGroup();
+        for (var i in item.urltests) {
+          if (i.remark == text) {
+            DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+            return false;
+          }
+        }
+
+        return true;
+      },
+    );
     if (text != null) {
       ServerConfigGroupItem item = ServerManager.getCustomGroup();
       ProxyUrltest urltest = ProxyUrltest();
@@ -266,16 +259,19 @@ class _UrlTestGroupCustomScreenState
       }
     }
     var result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: ServerSelectScreen.routSettings(),
-            builder: (context) => ServerSelectScreen(
-                  singleSelect: null,
-                  multiSelect: ServerSelectScreenMultiSelectedOption(
-                      selectedServers: selectedServers,
-                      showSearchKeywords: true,
-                      searchKeywords: urltest!.regexs),
-                )));
+      context,
+      MaterialPageRoute(
+        settings: ServerSelectScreen.routSettings(),
+        builder: (context) => ServerSelectScreen(
+          singleSelect: null,
+          multiSelect: ServerSelectScreenMultiSelectedOption(
+            selectedServers: selectedServers,
+            showSearchKeywords: true,
+            searchKeywords: urltest!.regexs,
+          ),
+        ),
+      ),
+    );
     if (result == null) {
       return;
     }

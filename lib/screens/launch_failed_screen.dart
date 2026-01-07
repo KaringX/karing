@@ -26,10 +26,11 @@ class LaunchFailedScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "LaunchFailedScreen");
   }
 
-  const LaunchFailedScreen(
-      {super.key,
-      required this.startFailedReason,
-      required this.startFailedReasonDesc});
+  const LaunchFailedScreen({
+    super.key,
+    required this.startFailedReason,
+    required this.startFailedReasonDesc,
+  });
 
   final StartFailedReason startFailedReason;
   final String? startFailedReasonDesc;
@@ -42,22 +43,12 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
   @override
   void initState() {
     super.initState();
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeErr,
-        name: 'LFS',
-        parameters: {
-          "reason": widget.startFailedReason.name,
-          "desc": widget.startFailedReason == StartFailedReason.exception
-              ? widget.startFailedReasonDesc
-              : null,
-        });
-
     Future.delayed(const Duration(seconds: 1), () {
       String languageTag = "";
 
       String planguageTag = [
         WidgetsBinding.instance.platformDispatcher.locale.languageCode,
-        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? ""
+        WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? "",
       ].join("-");
       for (var locale in AppLocale.values) {
         if (locale.languageTag == planguageTag) {
@@ -104,10 +95,7 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
       error = "Exception";
     }
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -120,44 +108,39 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     SizedBox(
-                        height: 45.0,
-                        child: ElevatedButton.icon(
-                          icon: const Icon(Icons.webhook_rounded),
-                          label: Text(tcontext.meta.website),
-                          onPressed: () async {
-                            AnalyticsUtils.logEvent(
-                                analyticsEventType: analyticsEventTypeUA,
-                                name: 'LFS_website',
-                                repeatable: true);
-                            await WebviewHelper.loadUrl(
-                                context, "https://$host", "LFS_website");
-                          },
-                        )),
-                    const SizedBox(
-                      height: 20,
+                      height: 45.0,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.webhook_rounded),
+                        label: Text(tcontext.meta.website),
+                        onPressed: () async {
+                          await WebviewHelper.loadUrl(
+                            context,
+                            "https://$host",
+                            "LFS_website",
+                          );
+                        },
+                      ),
                     ),
+                    const SizedBox(height: 20),
                     SizedBox(
-                        height: 45.0,
-                        child: !Platform.isIOS
-                            ? ElevatedButton(
-                                child: Text(tcontext.meta.quit),
-                                onPressed: () async {
-                                  Biz.quit();
-                                },
-                              )
-                            : null),
+                      height: 45.0,
+                      child: !Platform.isIOS
+                          ? ElevatedButton(
+                              child: Text(tcontext.meta.quit),
+                              onPressed: () async {
+                                Biz.quit();
+                              },
+                            )
+                          : null,
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Container(
             margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
             alignment: Alignment.center,
@@ -171,9 +154,7 @@ class _LaunchFailedScreenState extends LasyRenderingState<LaunchFailedScreen> {
                     color: Colors.red,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Text(
                   widget.startFailedReasonDesc ?? "",
                   style: const TextStyle(

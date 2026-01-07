@@ -25,8 +25,11 @@ class AddProfileByImportFromFileScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "AddProfileByImportFromFileScreen");
   }
 
-  const AddProfileByImportFromFileScreen(
-      {super.key, required this.title, required this.type});
+  const AddProfileByImportFromFileScreen({
+    super.key,
+    required this.title,
+    required this.type,
+  });
 
   @override
   State<AddProfileByImportFromFileScreen> createState() =>
@@ -92,8 +95,9 @@ class _AddProfileByImportFromFileScreenState
     setState(() {});
 
     if (error == null) {
-      DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess)
-          .then((value) {
+      DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess).then((
+        value,
+      ) {
         if (!mounted) {
           return;
         }
@@ -101,9 +105,12 @@ class _AddProfileByImportFromFileScreenState
       });
     } else {
       DialogUtils.showAlertDialog(
-              context, tcontext.meta.addFailed(p: error.message),
-              showCopy: true, showFAQ: true, withVersion: true)
-          .then((value) {});
+        context,
+        tcontext.meta.addFailed(p: error.message),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      ).then((value) {});
     }
   }
 
@@ -113,10 +120,7 @@ class _AddProfileByImportFromFileScreenState
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -130,10 +134,7 @@ class _AddProfileByImportFromFileScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -145,16 +146,15 @@ class _AddProfileByImportFromFileScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   _loading
                       ? const Row(
                           children: [
-                            SizedBox(
-                              width: 12,
-                            ),
+                            SizedBox(width: 12),
                             SizedBox(
                               width: 26,
                               height: 26,
@@ -162,9 +162,7 @@ class _AddProfileByImportFromFileScreenState
                                 child: CircularProgressIndicator(),
                               ),
                             ),
-                            SizedBox(
-                              width: 12,
-                            )
+                            SizedBox(width: 12),
                           ],
                         )
                       : InkWell(
@@ -176,54 +174,60 @@ class _AddProfileByImportFromFileScreenState
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                Icons.done,
-                                size: 26,
-                              ),
+                              child: Icon(Icons.done, size: 26),
                             ),
-                          )),
+                          ),
+                        ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
-                child: Column(children: [
-                  FutureBuilder(
-                    future: getGroupOptions(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
-                    child: SizedBox(
-                      height: 45.0,
-                      child: ElevatedButton(
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                      future: getGroupOptions(),
+                      builder:
+                          (
+                            BuildContext context,
+                            AsyncSnapshot<List<GroupItem>> snapshot,
+                          ) {
+                            List<GroupItem> data = snapshot.hasData
+                                ? snapshot.data!
+                                : [];
+                            return Column(
+                              children: GroupItemCreator.createGroups(
+                                context,
+                                data,
+                              ),
+                            );
+                          },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
+                      child: SizedBox(
+                        height: 45.0,
+                        child: ElevatedButton(
                           child: Text(tcontext.meta.fileChoose),
                           onPressed: () async {
                             await onPressChooseFile();
-                          }),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
-                    child: TextFieldEx(
-                      controller: _textControllerRemark,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        labelText: tcontext.meta.remark,
-                        hintText: tcontext.meta.required,
-                        prefixIcon: const Icon(Icons.edit_note_outlined),
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ]),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
+                      child: TextFieldEx(
+                        controller: _textControllerRemark,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          labelText: tcontext.meta.remark,
+                          hintText: tcontext.meta.required,
+                          prefixIcon: const Icon(Icons.edit_note_outlined),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -237,26 +241,15 @@ class _AddProfileByImportFromFileScreenState
     List<String> extensions = [];
     List<String> extensionsAll = ['yaml', 'yml', 'txt', 'json', 'conf'];
     if (widget.type == SubscriptionLinkType.clash) {
-      extensions = [
-        'yaml',
-        'yml',
-      ];
+      extensions = ['yaml', 'yml'];
     } else if (widget.type == SubscriptionLinkType.singbox) {
-      extensions = [
-        'json',
-      ];
+      extensions = ['json'];
     } else if (widget.type == SubscriptionLinkType.v2ray) {
-      extensions = [
-        'txt',
-      ];
+      extensions = ['txt'];
     } else if (widget.type == SubscriptionLinkType.ss) {
-      extensions = [
-        'json',
-      ];
+      extensions = ['json'];
     } else if (widget.type == SubscriptionLinkType.wireguard) {
-      extensions = [
-        'conf',
-      ];
+      extensions = ['conf'];
     } else if (widget.type == SubscriptionLinkType.unknown) {
       extensions = extensionsAll;
     }
@@ -272,7 +265,9 @@ class _AddProfileByImportFromFileScreenState
             .toLowerCase();
         if (!extensionsAll.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
         _filePath = fresult.files.first.path!;
@@ -288,8 +283,13 @@ class _AddProfileByImportFromFileScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -298,29 +298,35 @@ class _AddProfileByImportFromFileScreenState
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.meta.filter,
-              onPush: () async {
-                onTapFilter();
-              })),
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.filter,
+          onPush: () async {
+            onTapFilter();
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesKeep,
-              tips: tcontext.ispDiversionTips,
-              switchValue: _keepDiversionRules,
-              onSwitch: (bool value) async {
-                _keepDiversionRules = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.diversionRulesKeep,
+          tips: tcontext.ispDiversionTips,
+          switchValue: _keepDiversionRules,
+          onSwitch: (bool value) async {
+            _keepDiversionRules = value;
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditTestLatencyAutoRemove,
-              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
-              switchValue: _testLatencyAutoRemove,
-              onSwitch: (bool value) async {
-                _testLatencyAutoRemove = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.profileEditTestLatencyAutoRemove,
+          tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
+          switchValue: _testLatencyAutoRemove,
+          onSwitch: (bool value) async {
+            _testLatencyAutoRemove = value;
+            setState(() {});
+          },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;

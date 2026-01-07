@@ -71,6 +71,8 @@ PODS:
   - move_to_background (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
+  - network_info_plus (0.0.1):
+    - Flutter
   - open_file_ios (0.0.1):
     - Flutter
   - OrderedSet (6.0.3)
@@ -152,6 +154,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
   - move_to_background (from `.symlinks/plugins/move_to_background/ios`)
+  - network_info_plus (from `.symlinks/plugins/network_info_plus/ios`)
   - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -210,6 +213,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/in_app_review/ios"
   move_to_background:
     :path: ".symlinks/plugins/move_to_background/ios"
+  network_info_plus:
+    :path: ".symlinks/plugins/network_info_plus/ios"
   open_file_ios:
     :path: ".symlinks/plugins/open_file_ios/ios"
   package_info_plus:
@@ -266,6 +271,7 @@ SPEC CHECKSUMS:
   in_app_review: 7dd1ea365263f834b8464673f9df72c80c17c937
   move_to_background: 155f7bfbd34d43ad847cb630d2d2d87c17199710
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  network_info_plus: cf61925ab5205dce05a4f0895989afdb6aade5fc
   open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
   OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499

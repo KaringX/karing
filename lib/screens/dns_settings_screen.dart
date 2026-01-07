@@ -29,8 +29,11 @@ class DnsSettingsScreen extends LasyRenderingStatefulWidget {
 
   final String title;
   final DNSType dnsType;
-  const DnsSettingsScreen(
-      {super.key, required this.title, required this.dnsType});
+  const DnsSettingsScreen({
+    super.key,
+    required this.title,
+    required this.dnsType,
+  });
 
   static Map<String, String> getDirect() {
     return _DnsSettingsScreenState.getDirect();
@@ -89,10 +92,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     Size windowSize = MediaQuery.of(context).size;
     final tcontext = Translations.of(context);
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -108,10 +108,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -121,73 +118,68 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    Row(children: [
-                      _taskQueue != null
-                          ? const Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: 26,
-                                  height: 26,
-                                  child: RepaintBoundary(
-                                    child: CircularProgressIndicator(),
+                    Row(
+                      children: [
+                        _taskQueue != null
+                            ? const Row(
+                                children: [
+                                  SizedBox(width: 12),
+                                  SizedBox(
+                                    width: 26,
+                                    height: 26,
+                                    child: RepaintBoundary(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 12,
-                                )
-                              ],
-                            )
-                          : InkWell(
-                              onTap: () async {
-                                checkLatency();
-                              },
-                              child: Tooltip(
+                                  SizedBox(width: 12),
+                                ],
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  checkLatency();
+                                },
+                                child: Tooltip(
                                   message: tcontext.meta.latencyTest,
                                   child: const SizedBox(
                                     width: 50,
                                     height: 30,
-                                    child: Icon(
-                                      Icons.bolt_outlined,
-                                      size: 26,
-                                    ),
-                                  )),
-                            ),
-                      InkWell(
-                        onTap: () async {
-                          onTapMore();
-                        },
-                        child: Tooltip(
+                                    child: Icon(Icons.bolt_outlined, size: 26),
+                                  ),
+                                ),
+                              ),
+                        InkWell(
+                          onTap: () async {
+                            onTapMore();
+                          },
+                          child: Tooltip(
                             message: tcontext.meta.more,
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                Icons.more_vert_outlined,
-                                size: 30,
-                              ),
-                            )),
-                      ),
-                    ]),
+                              child: Icon(Icons.more_vert_outlined, size: 30),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: FutureBuilder(
                   future: VPNService.getTunMode(),
                   builder:
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    return _loadListView(snapshot.hasData && snapshot.data!);
-                  },
+                        return _loadListView(
+                          snapshot.hasData && snapshot.data!,
+                        );
+                      },
                 ),
               ),
             ],
@@ -217,11 +209,12 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     _contectCurrentLatency = {};
     setState(() {});
     _testConnectLatency(
-        _searchedData,
-        _contectDirectLatency,
-        _contectCurrentLatency,
-        kOutboundTagDirect,
-        VPNService.getCurrent().tag);
+      _searchedData,
+      _contectDirectLatency,
+      _contectCurrentLatency,
+      kOutboundTagDirect,
+      VPNService.getCurrent().tag,
+    );
 
     setState(() {});
   }
@@ -260,29 +253,33 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     }
 
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _searchedData[index];
-            return createWidget(
-                current, dnsAddress, disabled, windowSize, tunMode);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _searchedData[index];
+          return createWidget(
+            current,
+            dnsAddress,
+            disabled,
+            windowSize,
+            tunMode,
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   static void _testConnectLatency(
-      List items,
-      Map<String, String> contectDirectLatency,
-      Map<String, String> contectCurrentLatency,
-      String detourDirect,
-      String detourCurrent) {
+    List items,
+    Map<String, String> contectDirectLatency,
+    Map<String, String> contectCurrentLatency,
+    String detourDirect,
+    String detourCurrent,
+  ) {
     List<String> urls = [];
 
     for (var item in items) {
@@ -291,68 +288,87 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         urls.add(url);
       }
     }
-    _testConnectLatencyParallel(contectDirectLatency, contectCurrentLatency,
-        detourDirect, detourCurrent, urls);
+    _testConnectLatencyParallel(
+      contectDirectLatency,
+      contectCurrentLatency,
+      detourDirect,
+      detourCurrent,
+      urls,
+    );
   }
 
   static void _testConnectLatencyParallel(
-      Map<String, String> contectDirectLatency,
-      Map<String, String> contectCurrentLatency,
-      String detourDirect,
-      String detourCurrent,
-      List<String> urls) {
+    Map<String, String> contectDirectLatency,
+    Map<String, String> contectCurrentLatency,
+    String detourDirect,
+    String detourCurrent,
+    List<String> urls,
+  ) {
     if (urls.isEmpty) {
       return;
     }
-    _taskQueue ??= ParallelTaskQueue((url) async {
-      bool started = await VPNService.getStarted();
-      if (started) {
-        if (url == SettingConfigItemDNS.kDNSLocal ||
-            url == SettingConfigItemDNS.kDNSDHCP) {
-          ReturnResult<int> resultDirect =
-              await ServerManager.testDNSConnectLatency(
-                  [url], detourDirect, null);
-          if (resultDirect.error != null) {
-            contectDirectLatency[url] = resultDirect.error!.message;
-          } else {
-            contectDirectLatency[url] = resultDirect.data.toString();
-          }
+    _taskQueue ??= ParallelTaskQueue(
+      (url) async {
+        bool started = await VPNService.getStarted();
+        if (started) {
+          if (url == SettingConfigItemDNS.kDNSLocal ||
+              url == SettingConfigItemDNS.kDNSDHCP) {
+            ReturnResult<int> resultDirect =
+                await ServerManager.testDNSConnectLatency(
+                  [url],
+                  detourDirect,
+                  null,
+                );
+            if (resultDirect.error != null) {
+              contectDirectLatency[url] = resultDirect.error!.message;
+            } else {
+              contectDirectLatency[url] = resultDirect.data.toString();
+            }
 
-          contectCurrentLatency[url] = "not support";
+            contectCurrentLatency[url] = "not support";
+          } else {
+            var value = await Future.wait([
+              ServerManager.testDNSConnectLatency([url], detourDirect, null),
+              ServerManager.testDNSConnectLatency([url], detourCurrent, null),
+            ]);
+
+            if (value[0].error != null) {
+              contectDirectLatency[url] = value[0].error!.message;
+            } else {
+              contectDirectLatency[url] = value[0].data.toString();
+            }
+
+            if (value[1].error != null) {
+              contectCurrentLatency[url] = value[1].error!.message;
+            } else {
+              contectCurrentLatency[url] = value[1].data.toString();
+            }
+          }
         } else {
-          var value = await Future.wait([
-            ServerManager.testDNSConnectLatency([url], detourDirect, null),
-            ServerManager.testDNSConnectLatency([url], detourCurrent, null)
-          ]);
-
-          if (value[0].error != null) {
-            contectDirectLatency[url] = value[0].error!.message;
-          } else {
-            contectDirectLatency[url] = value[0].data.toString();
-          }
-
-          if (value[1].error != null) {
-            contectCurrentLatency[url] = value[1].error!.message;
-          } else {
-            contectCurrentLatency[url] = value[1].data.toString();
-          }
+          _taskQueue?.cancel();
+          _taskQueue = null;
         }
-      } else {
-        _taskQueue?.cancel();
-        _taskQueue = null;
-      }
-      return url;
-    }, (url, int left, int total, bool start, bool finish) {
-      if (finish) {
-        _taskQueue = null;
-      }
-    }, _kMaxTasks, []);
+        return url;
+      },
+      (url, int left, int total, bool start, bool finish) {
+        if (finish) {
+          _taskQueue = null;
+        }
+      },
+      _kMaxTasks,
+      [],
+    );
     _taskQueue!.addTasks(urls);
     _taskQueue!.run();
   }
 
-  Widget createWidget(dynamic current, List<String> dnsAddress,
-      Set<String> disabled, Size windowSize, bool tunMode) {
+  Widget createWidget(
+    dynamic current,
+    List<String> dnsAddress,
+    Set<String> disabled,
+    Size windowSize,
+    bool tunMode,
+  ) {
     const double latencyWidth = 60.0;
     const double deleteWidth = 30.0;
 
@@ -374,9 +390,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
       color: color,
       borderRadius: ThemeDefine.kBorderRadius,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         height: ThemeConfig.kListItemHeight + 5,
         child: Row(
@@ -387,14 +401,16 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Text(
-                        isp,
-                        style: TextStyle(
-                          fontSize: ThemeConfig.kFontSizeGroupItem,
+                    Row(
+                      children: [
+                        Text(
+                          isp,
+                          style: TextStyle(
+                            fontSize: ThemeConfig.kFontSizeGroupItem,
+                          ),
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                     Row(
                       children: [
                         SizedBox(
@@ -411,35 +427,41 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                   ],
                 ),
                 CommonWidget.createLatencyWidget(
-                    context,
-                    ThemeConfig.kListItemHeight,
-                    _taskQueue != null && directLatenty == null,
-                    _taskQueue != null && _taskQueue!.running(addr),
-                    directLatenty ?? "", onTapLatencyReload: () async {
-                  _testConnectLatency(
+                  context,
+                  ThemeConfig.kListItemHeight,
+                  _taskQueue != null && directLatenty == null,
+                  _taskQueue != null && _taskQueue!.running(addr),
+                  directLatenty ?? "",
+                  onTapLatencyReload: () async {
+                    _testConnectLatency(
                       [current],
                       _contectDirectLatency,
                       _contectCurrentLatency,
                       kOutboundTagDirect,
-                      VPNService.getCurrent().tag);
+                      VPNService.getCurrent().tag,
+                    );
 
-                  setState(() {});
-                }),
+                    setState(() {});
+                  },
+                ),
                 CommonWidget.createLatencyWidget(
-                    context,
-                    ThemeConfig.kListItemHeight,
-                    _taskQueue != null && currentLatenty == null,
-                    _taskQueue != null && _taskQueue!.running(addr),
-                    currentLatenty ?? "", onTapLatencyReload: () async {
-                  _testConnectLatency(
+                  context,
+                  ThemeConfig.kListItemHeight,
+                  _taskQueue != null && currentLatenty == null,
+                  _taskQueue != null && _taskQueue!.running(addr),
+                  currentLatenty ?? "",
+                  onTapLatencyReload: () async {
+                    _testConnectLatency(
                       [current],
                       _contectDirectLatency,
                       _contectCurrentLatency,
                       kOutboundTagDirect,
-                      VPNService.getCurrent().tag);
+                      VPNService.getCurrent().tag,
+                    );
 
-                  setState(() {});
-                }),
+                    setState(() {});
+                  },
+                ),
                 Checkbox(
                   tristate: true,
                   value: dnsAddress.contains(addr),
@@ -449,18 +471,26 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                           var settingConfig = SettingManager.getConfig();
 
                           if (widget.dnsType == DNSType.dnsTypeResolver) {
-                            settingConfig.dns
-                                .addOrRemoveResolverDns(addr, value == true);
+                            settingConfig.dns.addOrRemoveResolverDns(
+                              addr,
+                              value == true,
+                            );
                           } else if (widget.dnsType ==
                               DNSType.dnsTypeOutbound) {
-                            settingConfig.dns
-                                .addOrRemoveOutboundDns(addr, value == true);
+                            settingConfig.dns.addOrRemoveOutboundDns(
+                              addr,
+                              value == true,
+                            );
                           } else if (widget.dnsType == DNSType.dnsTypeDirect) {
-                            settingConfig.dns
-                                .addOrRemoveDirectDns(addr, value == true);
+                            settingConfig.dns.addOrRemoveDirectDns(
+                              addr,
+                              value == true,
+                            );
                           } else if (widget.dnsType == DNSType.dnsTypeProxy) {
-                            settingConfig.dns
-                                .addOrRemoveProxyDns(addr, value == true);
+                            settingConfig.dns.addOrRemoveProxyDns(
+                              addr,
+                              value == true,
+                            );
                           }
                           SettingManager.setDirty(true);
                           setState(() {});
@@ -480,10 +510,9 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                             size: 26,
                             color: Colors.red,
                           ),
-                        ))
-                    : const SizedBox(
-                        width: deleteWidth,
-                      ),
+                        ),
+                      )
+                    : const SizedBox(width: deleteWidth),
               ],
             ),
           ],
@@ -496,28 +525,22 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          tcontext.meta.add,
-        ),
-        leading: Icon(
-          Icons.add_outlined,
-        ),
+        title: Text(tcontext.meta.add),
+        leading: Icon(Icons.add_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapAdd();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.tips,
-        ),
-        leading: Icon(
-          Icons.info_outlined,
-        ),
+        title: Text(tcontext.meta.tips),
+        leading: Icon(Icons.info_outlined),
         onTap: () async {
           Navigator.pop(context);
           DialogUtils.showAlertDialog(
-              context, tcontext.DnsSettingsScreen.dnsDesc);
+            context,
+            tcontext.DnsSettingsScreen.dnsDesc,
+          );
         },
       ),
     ];
@@ -530,97 +553,109 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     final textControllerISP = TextEditingController();
     final textControllerUrl = TextEditingController();
     return showDialog(
-        context: context,
-        builder: (context) {
-          return SimpleDialog(
-            //contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: TextFieldEx(
-                  controller: textControllerISP,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    labelText: "ISP",
-                    hintText: "ISP",
-                  ),
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          //contentPadding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: TextFieldEx(
+                controller: textControllerISP,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(labelText: "ISP", hintText: "ISP"),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: TextFieldEx(
+                controller: textControllerUrl,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  labelText: tcontext.meta.url,
+                  hintText: tcontext.meta.url,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFieldEx(
-                  controller: textControllerUrl,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: tcontext.meta.url,
-                    hintText: tcontext.meta.url,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 ElevatedButton(
-                    child: Text(tcontext.meta.ok),
-                    onPressed: () {
-                      String ispText = textControllerISP.text.trim();
-                      String urlText = textControllerUrl.text.trim();
+                  child: Text(tcontext.meta.ok),
+                  onPressed: () {
+                    String ispText = textControllerISP.text.trim();
+                    String urlText = textControllerUrl.text.trim();
 
-                      if (ispText.isEmpty) {
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.DnsSettingsScreen.ispCanNotEmpty);
-                        return;
-                      }
-                      if (urlText.isEmpty) {
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.DnsSettingsScreen.urlCanNotEmpty);
-                        return;
-                      }
-                      if (urlText.contains(" ")) {
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.meta.urlInvalid);
-                        return;
-                      }
-                      Uri? uri = UriUtils.parseUrlFixIPV6(urlText);
-                      if (uri == null || !uri.hasScheme) {
-                        DialogUtils.showAlertDialog(
-                            context, tcontext.meta.urlInvalid);
-                        return;
-                      }
+                    if (ispText.isEmpty) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.DnsSettingsScreen.ispCanNotEmpty,
+                      );
+                      return;
+                    }
+                    if (urlText.isEmpty) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.DnsSettingsScreen.urlCanNotEmpty,
+                      );
+                      return;
+                    }
+                    if (urlText.contains(" ")) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.meta.urlInvalid,
+                      );
+                      return;
+                    }
+                    Uri? uri = UriUtils.parseUrlFixIPV6(urlText);
+                    if (uri == null || !uri.hasScheme) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.meta.urlInvalid,
+                      );
+                      return;
+                    }
+                    if (!SettingConfigItemDNS.isDNSValidScheme(uri.scheme)) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.DnsSettingsScreen.error(p: urlText),
+                      );
+                      return;
+                    }
+                    if (uri.host.isEmpty) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.meta.urlInvalid,
+                      );
+                      return;
+                    }
+                    if (!SettingConfigItemDNS.containsDNSURL(urlText)) {
+                      SettingManager.getConfig().dns.list.add({
+                        SettingConfigItemDNS.kDNSIsp: ispText,
+                        SettingConfigItemDNS.kDNSUrl: urlText,
+                      });
+                      SettingManager.saveConfig();
+                    }
 
-                      if (!SettingConfigItemDNS.isDNSValidScheme(uri.scheme)) {
-                        DialogUtils.showAlertDialog(context,
-                            tcontext.DnsSettingsScreen.error(p: urlText));
-                        return;
-                      }
-                      if (!SettingConfigItemDNS.containsDNSURL(urlText)) {
-                        SettingManager.getConfig().dns.list.add({
-                          SettingConfigItemDNS.kDNSIsp: ispText,
-                          SettingConfigItemDNS.kDNSUrl: urlText
-                        });
-                        SettingManager.saveConfig();
-                      }
+                    Navigator.pop(context);
 
-                      Navigator.pop(context);
-
-                      _buildData();
-                      setState(() {});
-                    }),
-                const SizedBox(
-                  width: 60,
+                    _buildData();
+                    setState(() {});
+                  },
                 ),
+                const SizedBox(width: 60),
                 ElevatedButton(
                   child: Text(tcontext.meta.cancel),
                   onPressed: () => Navigator.pop(context),
                 ),
-              ]),
-            ],
-          );
-        });
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void onTapDelete(String url) async {

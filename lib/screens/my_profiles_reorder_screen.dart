@@ -63,10 +63,7 @@ class MyProfilesReorderScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -82,10 +79,7 @@ class MyProfilesReorderScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -95,56 +89,50 @@ class MyProfilesReorderScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                    ),
+                    const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: ReorderableListView(
-                    header: Container(
-                      height: 0,
-                    ),
-                    children: _subAndConfigList.map((item) {
-                      return Material(
-                        key: Key(item.item1.toString()),
-                        borderRadius: ThemeDefine.kBorderRadius,
-                        child: Container(
-                          height: 45,
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(top: 2),
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 10,
+                  header: Container(height: 0),
+                  children: _subAndConfigList.map((item) {
+                    return Material(
+                      key: Key(item.item1.toString()),
+                      borderRadius: ThemeDefine.kBorderRadius,
+                      child: Container(
+                        height: 45,
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(top: 2),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            Text(
+                              item.item2,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
                               ),
-                              Text(
-                                item.item2,
-                                style: TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeGroupItem,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    }).toList(),
-                    onReorder: (int oldIndex, int newIndex) {
-                      if (oldIndex < newIndex) {
-                        newIndex -= 1;
-                      }
-                      var item = _subAndConfigList.removeAt(oldIndex);
-                      _subAndConfigList.insert(newIndex, item);
-                      setState(() {});
-                    }),
+                      ),
+                    );
+                  }).toList(),
+                  onReorder: (int oldIndex, int newIndex) {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    var item = _subAndConfigList.removeAt(oldIndex);
+                    _subAndConfigList.insert(newIndex, item);
+                    setState(() {});
+                  },
+                ),
               ),
             ],
           ),

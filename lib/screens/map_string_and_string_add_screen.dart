@@ -17,14 +17,15 @@ class MapStringAndStringAddScreen extends LasyRenderingStatefulWidget {
   final String dialogTextHit1;
   final String dialogTitle2;
   final String dialogTextHit2;
-  const MapStringAndStringAddScreen(
-      {super.key,
-      required this.title,
-      required this.data,
-      this.dialogTitle1 = "",
-      this.dialogTextHit1 = "",
-      this.dialogTitle2 = "",
-      this.dialogTextHit2 = ""});
+  const MapStringAndStringAddScreen({
+    super.key,
+    required this.title,
+    required this.data,
+    this.dialogTitle1 = "",
+    this.dialogTextHit1 = "",
+    this.dialogTitle2 = "",
+    this.dialogTextHit2 = "",
+  });
 
   @override
   State<MapStringAndStringAddScreen> createState() =>
@@ -47,10 +48,7 @@ class _ServerSelectSearchSettingsScreenState
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -66,10 +64,7 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -79,8 +74,9 @@ class _ServerSelectSearchSettingsScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -90,21 +86,14 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.add_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.add_outlined, size: 26),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -116,24 +105,25 @@ class _ServerSelectSearchSettingsScreenState
     Size windowSize = MediaQuery.of(context).size;
 
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: widget.data.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = widget.data[index];
-            return createWidget(index, current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: widget.data.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = widget.data[index];
+          return createWidget(index, current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(
-      int index, Tuple2<String, String> current, Size windowSize) {
+    int index,
+    Tuple2<String, String> current,
+    Size windowSize,
+  ) {
     const double rightWidth = 30.0;
     double centerWidth = windowSize.width - rightWidth - 20;
 
@@ -144,9 +134,7 @@ class _ServerSelectSearchSettingsScreenState
           onTapEditItem(current);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -157,18 +145,19 @@ class _ServerSelectSearchSettingsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: centerWidth,
-                          child: Text(
-                            current.item1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: centerWidth,
+                            child: Text(
+                              current.item1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
+                          SizedBox(
                             width: rightWidth,
                             height: ThemeConfig.kListItemHeight2 - 2,
                             child: InkWell(
@@ -180,8 +169,10 @@ class _ServerSelectSearchSettingsScreenState
                                 size: 26,
                                 color: Colors.red,
                               ),
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -195,14 +186,21 @@ class _ServerSelectSearchSettingsScreenState
 
   void onTapEditItem(Tuple2<String, String> current) async {
     String? text = await DialogUtils.showTextInputDialog(
-        context, current.item1, current.item2, "", null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        return false;
-      }
+      context,
+      current.item1,
+      current.item2,
+      "",
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      },
+    );
     if (text == null || text.isEmpty) {
       return;
     }
@@ -219,14 +217,21 @@ class _ServerSelectSearchSettingsScreenState
   void onTapAdd() async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.add, "", "", null, null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        return false;
-      }
+      context,
+      tcontext.meta.add,
+      "",
+      "",
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      },
+    );
     if (text == null || text.isEmpty) {
       return;
     }

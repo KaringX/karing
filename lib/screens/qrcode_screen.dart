@@ -68,10 +68,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
     }
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -85,10 +82,7 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -100,42 +94,40 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 50,
-                  ),
+                  const SizedBox(width: 50),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        child: Column(children: [
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: Column(
+                        children: [
                           Container(
                             height: height,
                             color: Colors.white,
                             child: Padding(
-                                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                child: _image ??
-                                    Text(
-                                      tcontext.meta.qrcodeTooLong,
-                                      style: const TextStyle(
-                                          fontWeight:
-                                              ThemeConfig.kFontWeightTitle,
-                                          fontSize: ThemeConfig.kFontSizeTitle,
-                                          color: Colors.red),
-                                    )),
+                              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                              child:
+                                  _image ??
+                                  Text(
+                                    tcontext.meta.qrcodeTooLong,
+                                    style: const TextStyle(
+                                      fontWeight: ThemeConfig.kFontWeightTitle,
+                                      fontSize: ThemeConfig.kFontSizeTitle,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Text(
@@ -147,99 +139,107 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                        ]),
+                          const SizedBox(height: 5),
+                        ],
                       ),
-                      const Spacer(),
-                      SizedBox(
-                        child: Column(children: [
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      child: Column(
+                        children: [
                           SizedBox(
-                              height: 45.0,
-                              child: ElevatedButton(
-                                child: Text(tcontext.meta.copyUrl),
-                                onPressed: () async {
-                                  try {
-                                    await Clipboard.setData(
-                                        ClipboardData(text: _content));
-                                  } catch (e) {}
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
+                            height: 45.0,
+                            child: ElevatedButton(
+                              child: Text(tcontext.meta.copyUrl),
+                              onPressed: () async {
+                                try {
+                                  await Clipboard.setData(
+                                    ClipboardData(text: _content),
+                                  );
+                                } catch (e) {}
+                              },
+                            ),
                           ),
+                          const SizedBox(height: 10),
                           if (_url != null) ...[
                             SizedBox(
-                                height: 45.0,
-                                child: ElevatedButton(
-                                  child: Text(tcontext.meta.openUrl),
-                                  onPressed: () async {
-                                    if (widget.callback != null) {
-                                      widget.callback!();
-                                    } else {
-                                      await WebviewHelper.loadUrl(
-                                          context, _content, "qrcode");
-                                    }
-                                  },
-                                ))
+                              height: 45.0,
+                              child: ElevatedButton(
+                                child: Text(tcontext.meta.openUrl),
+                                onPressed: () async {
+                                  if (widget.callback != null) {
+                                    widget.callback!();
+                                  } else {
+                                    await WebviewHelper.loadUrl(
+                                      context,
+                                      _content,
+                                      "qrcode",
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
                           ],
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           if (_image != null &&
                               (!Platform.isWindows ||
                                   (Platform.isWindows &&
-                                      VersionHelper.instance
+                                      VersionHelper
+                                          .instance
                                           .isWindows10RS5OrGreater))) ...[
                             SizedBox(
-                                height: 45.0,
-                                child: ElevatedButton(
-                                  child: Text(t.meta.qrcodeShare),
-                                  onPressed: () async {
-                                    String savePath = path.join(
-                                        await PathUtils.cacheDir(),
-                                        'qrcode_share.png');
-                                    await FileUtils.deletePath(savePath);
-                                    await QrcodeUtils.saveAsImage(
-                                        _content, savePath);
+                              height: 45.0,
+                              child: ElevatedButton(
+                                child: Text(t.meta.qrcodeShare),
+                                onPressed: () async {
+                                  String savePath = path.join(
+                                    await PathUtils.cacheDir(),
+                                    'qrcode_share.png',
+                                  );
+                                  await FileUtils.deletePath(savePath);
+                                  await QrcodeUtils.saveAsImage(
+                                    _content,
+                                    savePath,
+                                  );
+                                  if (!context.mounted) {
+                                    return;
+                                  }
+                                  try {
+                                    final box =
+                                        context.findRenderObject()
+                                            as RenderBox?;
+                                    final rect = box != null
+                                        ? box.localToGlobal(Offset.zero) &
+                                              box.size
+                                        : null;
+                                    await SharePlus.instance.share(
+                                      ShareParams(
+                                        files: [XFile(savePath)],
+                                        sharePositionOrigin: rect,
+                                      ),
+                                    );
+                                  } catch (err) {
                                     if (!context.mounted) {
                                       return;
                                     }
-                                    try {
-                                      final box = context.findRenderObject()
-                                          as RenderBox?;
-                                      final rect = box != null
-                                          ? box.localToGlobal(Offset.zero) &
-                                              box.size
-                                          : null;
-                                      await SharePlus.instance.share(
-                                        ShareParams(
-                                          files: [
-                                            XFile(savePath),
-                                          ],
-                                          sharePositionOrigin: rect,
-                                        ),
-                                      );
-                                    } catch (err) {
-                                      if (!context.mounted) {
-                                        return;
-                                      }
-                                      DialogUtils.showAlertDialog(
-                                          context, err.toString(),
-                                          showCopy: true,
-                                          showFAQ: true,
-                                          withVersion: true);
-                                    }
-                                  },
-                                ))
+                                    DialogUtils.showAlertDialog(
+                                      context,
+                                      err.toString(),
+                                      showCopy: true,
+                                      showFAQ: true,
+                                      withVersion: true,
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
                           ],
-                          const SizedBox(
-                            height: 50,
-                          ),
-                        ]),
+                          const SizedBox(height: 50),
+                        ],
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

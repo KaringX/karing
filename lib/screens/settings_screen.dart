@@ -26,7 +26,6 @@ import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
-
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -36,7 +35,6 @@ import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/about_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
-import 'package:karing/screens/feedback_screen.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -45,7 +43,6 @@ import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/language_settings_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/my_profiles_screen.dart';
-
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/speedtest_settings_screen.dart';
@@ -130,10 +127,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -149,10 +143,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -162,31 +153,32 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                    ),
+                    const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
                   child: SingleChildScrollView(
                     child: FutureBuilder(
                       future: getGroupOptionsWithTryCatch(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<GroupItem>> snapshot) {
-                        List<GroupItem> data =
-                            snapshot.hasData ? snapshot.data! : [];
-                        List<Widget> children = [];
-                        /*if (AdsPrivate.getEnable()) {
+                      builder:
+                          (
+                            BuildContext context,
+                            AsyncSnapshot<List<GroupItem>> snapshot,
+                          ) {
+                            List<GroupItem> data = snapshot.hasData
+                                ? snapshot.data!
+                                : [];
+                            List<Widget> children = [];
+                            /*if (AdsPrivate.getEnable()) {
                         var settingConfig = SettingManager.getConfig();
                         var expire = DateTime.tryParse(
                             settingConfig.ads.bannerRewardExpire);
@@ -198,10 +190,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           children.add(const SizedBox(height: 20));
                         }
                       }*/
-                        children.addAll(
-                            GroupItemCreator.createGroups(context, data));
-                        return Column(children: children);
-                      },
+                            children.addAll(
+                              GroupItemCreator.createGroups(context, data),
+                            );
+                            return Column(children: children);
+                          },
                     ),
                   ),
                 ),
@@ -221,8 +214,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         return [];
       }
       DialogUtils.showAlertDialog(
-          context, "${err.toString()}\n${stacktrace.toString()}",
-          showCopy: true, showFAQ: true, withVersion: true);
+        context,
+        "${err.toString()}\n${stacktrace.toString()}",
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return [];
     }
   }
@@ -249,17 +246,23 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
     List<GroupItem> groupOptions = [];
 
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
               name: tcontext.meta.novice,
               switchValue: settingConfig.novice,
               onSwitch: (bool value) async {
                 settingConfig.novice = value;
                 SettingManager.setDirty(true);
                 setState(() {});
-              })),
-    ]));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
 
     if (remoteISPConfig.id.isNotEmpty) {
       String expireTime = "";
@@ -274,36 +277,46 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ispUser = isp.user;
 
         if (item.traffic != null) {
-          Tuple2<bool, String> exp =
-              item.traffic!.getExpireTime(settingConfig.languageTag);
+          Tuple2<bool, String> exp = item.traffic!.getExpireTime(
+            settingConfig.languageTag,
+          );
           expiring = exp.item1;
           expireTime = exp.item2;
         }
         break;
       }
-      groupOptions.add(GroupItem(name: tcontext.meta.isp, options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          name: tcontext.meta.isp,
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: remoteISPConfig.name,
                 text: expireTime,
                 textColor: expiring ? Colors.red : null,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp',
-                      parameters: {
-                        "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id
-                      },
-                      repeatable: true);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_isp',
+                    parameters: {
+                      "name": remoteISPConfig.name,
+                      "id": remoteISPConfig.id,
+                    },
+                    repeatable: true,
+                  );*/
 
                   await WebviewHelper.loadUrl(
-                      context, remoteISPConfig.home, "SSS_isp",
-                      title: remoteISPConfig.name);
-                })),
-        if (ispUser.isNotEmpty) ...[
-          GroupItemOptions(
-              textOptions: GroupItemTextOptions(
+                    context,
+                    remoteISPConfig.home,
+                    "SSS_isp",
+                    title: remoteISPConfig.name,
+                  );
+                },
+              ),
+            ),
+            if (ispUser.isNotEmpty) ...[
+              GroupItemOptions(
+                textOptions: GroupItemTextOptions(
                   name: tcontext.meta.account,
                   text: _ispUserHide ? "******" : ispUser,
                   textWidthPercent: 0.6,
@@ -315,166 +328,213 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     }
                     _ispUserHide = !_ispUserHide;
                     setState(() {});
-                  }))
-        ],
-        if (remoteISPConfig.faq.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                  },
+                ),
+              ),
+            ],
+            if (remoteISPConfig.faq.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.isp.faq(p: remoteISPConfig.name),
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_isp_faq',
-                        parameters: {
-                          "name": remoteISPConfig.name,
-                          "id": remoteISPConfig.id
-                        },
-                        repeatable: true);
-
-                    await WebviewHelper.loadUrl(
-                        context, remoteISPConfig.faq, "SSS_isp_faq",
-                        title: tcontext.isp.faq(p: remoteISPConfig.name));
-                  }))
-        ],
-        if (remoteISPConfig.customerService.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.isp.customerService(p: remoteISPConfig.name),
-                  onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_isp_customerService',
-                        parameters: {
-                          "name": remoteISPConfig.name,
-                          "id": remoteISPConfig.id
-                        },
-                        repeatable: true);
-
-                    await WebviewHelper.loadUrl(
-                        context,
-                        remoteISPConfig.customerService,
-                        "SSS_isp_customerService",
-                        title: tcontext.isp
-                            .customerService(p: remoteISPConfig.name));
-                  }))
-        ],
-        if (remoteISPConfig.follow.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.isp.follow(p: remoteISPConfig.name),
-                  onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_isp_follow',
-                        parameters: {
-                          "name": remoteISPConfig.name,
-                          "id": remoteISPConfig.id
-                        },
-                        repeatable: true);
-
-                    await WebviewHelper.loadUrl(
-                        context, remoteISPConfig.follow, "SSS_isp_follow",
-                        title: tcontext.isp.follow(p: remoteISPConfig.name));
-                  }))
-        ],
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.isp.unbind(p: remoteISPConfig.name),
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
+                    /*AnalyticsUtils.logEvent(
                       analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp_unbind',
+                      name: 'SSS_isp_faq',
                       parameters: {
                         "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id
+                        "id": remoteISPConfig.id,
                       },
-                      repeatable: false);
+                      repeatable: true,
+                    );*/
+
+                    await WebviewHelper.loadUrl(
+                      context,
+                      remoteISPConfig.faq,
+                      "SSS_isp_faq",
+                      title: tcontext.isp.faq(p: remoteISPConfig.name),
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (remoteISPConfig.customerService.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.isp.customerService(p: remoteISPConfig.name),
+                  onPush: () async {
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_isp_customerService',
+                      parameters: {
+                        "name": remoteISPConfig.name,
+                        "id": remoteISPConfig.id,
+                      },
+                      repeatable: true,
+                    );*/
+
+                    await WebviewHelper.loadUrl(
+                      context,
+                      remoteISPConfig.customerService,
+                      "SSS_isp_customerService",
+                      title: tcontext.isp.customerService(
+                        p: remoteISPConfig.name,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (remoteISPConfig.follow.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.isp.follow(p: remoteISPConfig.name),
+                  onPush: () async {
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_isp_follow',
+                      parameters: {
+                        "name": remoteISPConfig.name,
+                        "id": remoteISPConfig.id,
+                      },
+                      repeatable: true,
+                    );*/
+
+                    await WebviewHelper.loadUrl(
+                      context,
+                      remoteISPConfig.follow,
+                      "SSS_isp_follow",
+                      title: tcontext.isp.follow(p: remoteISPConfig.name),
+                    );
+                  },
+                ),
+              ),
+            ],
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: tcontext.isp.unbind(p: remoteISPConfig.name),
+                onPush: () async {
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_isp_unbind',
+                    parameters: {
+                      "name": remoteISPConfig.name,
+                      "id": remoteISPConfig.id,
+                    },
+                    repeatable: false,
+                  );*/
                   RemoteISPConfigManager.reset(RemoteISPConfig());
                   NoticeManager.resetISP();
                   setState(() {});
-                }))
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     } else {
-      groupOptions.add(GroupItem(name: tcontext.meta.isp, options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          name: tcontext.meta.isp,
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.isp.bind,
                 onPush: () async {
                   String url =
                       await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                          RemoteConfigManager.getConfig().harry);
+                        RemoteConfigManager.getConfig().harry,
+                      );
                   if (!context.mounted) {
                     return;
                   }
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp_bind',
-                      parameters: {
-                        "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id
-                      },
-                      repeatable: false);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_isp_bind',
+                    parameters: {
+                      "name": remoteISPConfig.name,
+                      "id": remoteISPConfig.id,
+                    },
+                    repeatable: false,
+                  );*/
                   await InAppWebViewScreen.makeSureEnvironmentCreated();
                   if (!context.mounted) {
                     return;
                   }
-                  bool debug = PlatformUtils.isPC() &&
+                  bool debug =
+                      PlatformUtils.isPC() &&
                       SettingManager.getConfig().dev.devMode;
                   await InAppWebViewScreen.setWebViewEnvironmentDebug(debug);
                   if (!context.mounted) {
                     return;
                   }
                   await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings:
-                              InAppWebViewScreen.routSettings("SSS_isp_bind"),
-                          builder: (context) => InAppWebViewScreen(
-                                title: tcontext.isp.bind,
-                                url: url,
-                                enableDebug: debug,
-                                showGoBackGoForward: false,
-                                setJSWindowObject: true,
-                                injectJs: remoteConfig.getPanelJs(),
-                                javaScriptHandlers:
-                                    WebviewISPHelper.getJavaScriptHandlers(),
-                                javaScriptHandlerArgument: RemoteISPConfig(),
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      settings: InAppWebViewScreen.routSettings("SSS_isp_bind"),
+                      builder: (context) => InAppWebViewScreen(
+                        title: tcontext.isp.bind,
+                        url: url,
+                        enableDebug: debug,
+                        showGoBackGoForward: false,
+                        setJSWindowObject: true,
+                        injectJs: remoteConfig.getPanelJs(),
+                        javaScriptHandlers:
+                            WebviewISPHelper.getJavaScriptHandlers(),
+                        javaScriptHandlerArgument: RemoteISPConfig(),
+                      ),
+                    ),
+                  );
                   setState(() {});
-                }))
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     groupOptions.add(
-        GroupItem(options: GroupHelper.getOutlinkOptions(context, "settings")));
+      GroupItem(options: GroupHelper.getOutlinkOptions(context, "settings")),
+    );
 
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.notice,
               reddot: noticeItem != null,
               onPush: () async {
                 await onTapNotice();
-              })),
-      if (versionCheck.newVersion) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          if (versionCheck.newVersion) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.hasNewVersion(
-                    p: versionCheck.version),
+                  p: versionCheck.version,
+                ),
                 reddot: versionCheck.newVersion,
                 reddotColor: installer != null
                     ? Colors.red
                     : Colors.red.withValues(alpha: 0.5),
                 onPush: () async {
                   await onTapNewVersion();
-                }))
-      ],
-    ]));
+                },
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
 
     if (!settingConfig.novice) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.htmlBoard,
                 onPush: () async {
                   bool ok = await startVPN();
@@ -482,137 +542,185 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                     return;
                   }
                   GroupHelper.showHtmlBoard(context, "settings");
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.speedTest,
                 onPush: () async {
                   var setting = SettingManager.getConfig();
                   await WebviewHelper.loadUrl(
-                      context,
-                      !setting.novice
-                          ? setting.speedTest
-                          : SettingConfig.kSpeedTestList[0],
-                      "SSS_speedTest",
-                      title: tcontext.SettingsScreen.speedTest);
-                })),
-        if (remoteConfig.dnsLeakDetection.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                    context,
+                    !setting.novice
+                        ? setting.speedTest
+                        : SettingConfig.kSpeedTestList[0],
+                    "SSS_speedTest",
+                    title: tcontext.SettingsScreen.speedTest,
+                  );
+                },
+              ),
+            ),
+            if (remoteConfig.dnsLeakDetection.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.dnsLeakDetection,
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_dnsLeakDetection',
-                        repeatable: true);
-                    await WebviewHelper.loadUrl(context,
-                        remoteConfig.dnsLeakDetection, "SSS_dnsLeakDetection",
-                        title: tcontext.SettingsScreen.dnsLeakDetection);
-                  }))
-        ],
-        if (remoteConfig.proxyLeakDetection.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_dnsLeakDetection',
+                      repeatable: true,
+                    );*/
+                    await WebviewHelper.loadUrl(
+                      context,
+                      remoteConfig.dnsLeakDetection,
+                      "SSS_dnsLeakDetection",
+                      title: tcontext.SettingsScreen.dnsLeakDetection,
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (remoteConfig.proxyLeakDetection.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.proxyLeakDetection,
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_proxyLeakDetection',
-                        repeatable: true);
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_proxyLeakDetection',
+                      repeatable: true,
+                    );*/
                     if (Platform.isAndroid) {
                       //disable x-requested-with: com.nebula.karing on android
                       await UrlLauncherUtils.loadUrl(
-                          remoteConfig.proxyLeakDetection);
+                        remoteConfig.proxyLeakDetection,
+                      );
                     } else {
                       await WebviewHelper.loadUrl(
-                          context,
-                          remoteConfig.proxyLeakDetection,
-                          "SSS_proxyLeakDetection",
-                          title: tcontext.SettingsScreen.proxyLeakDetection);
+                        context,
+                        remoteConfig.proxyLeakDetection,
+                        "SSS_proxyLeakDetection",
+                        title: tcontext.SettingsScreen.proxyLeakDetection,
+                      );
                     }
-                  }))
-        ],
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                  },
+                ),
+              ),
+            ],
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.textToQrcode,
                 onPush: () async {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: TextToQrCodeScreen.routSettings(),
-                          builder: (context) => const TextToQrCodeScreen()));
-                })),
-        if (Platform.isWindows) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                    context,
+                    MaterialPageRoute(
+                      settings: TextToQrCodeScreen.routSettings(),
+                      builder: (context) => const TextToQrCodeScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            if (Platform.isWindows) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.meta.uwpExemption,
                   onPush: () async {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: UWPLoopbackExemptionWindowsScreen
-                                .routSettings(),
-                            builder: (context) =>
-                                const UWPLoopbackExemptionWindowsScreen()));
-                  }))
-        ],
-      ]));
+                      context,
+                      MaterialPageRoute(
+                        settings:
+                            UWPLoopbackExemptionWindowsScreen.routSettings(),
+                        builder: (context) =>
+                            const UWPLoopbackExemptionWindowsScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
 
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.userAgent,
                 onPush: () async {
                   await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: UserAgentSettingsScreen.routSettings(),
-                          builder: (context) =>
-                              const UserAgentSettingsScreen()));
+                    context,
+                    MaterialPageRoute(
+                      settings: UserAgentSettingsScreen.routSettings(),
+                      builder: (context) => const UserAgentSettingsScreen(),
+                    ),
+                  );
                   setState(() {});
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.speedTestUrl,
                 text: settingConfig.speedTest,
                 textWidthPercent: 0.4,
                 onPush: () async {
                   await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: SpeedTestSettingsScreen.routSettings(),
-                          builder: (context) =>
-                              const SpeedTestSettingsScreen()));
+                    context,
+                    MaterialPageRoute(
+                      settings: SpeedTestSettingsScreen.routSettings(),
+                      builder: (context) => const SpeedTestSettingsScreen(),
+                    ),
+                  );
                   setState(() {});
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.latencyTest,
                 textWidthPercent: 0.4,
                 onPush: () async {
                   onTapLatencyTest();
-                })),
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.addProfile,
               onPush: () async {
                 onTapAddProfile();
-              })),
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.myProfiles,
               onPush: () async {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings: MyProfilesScreen.routSettings(),
-                        builder: (context) => const MyProfilesScreen()));
-              })),
-    ]));
+                  context,
+                  MaterialPageRoute(
+                    settings: MyProfilesScreen.routSettings(),
+                    builder: (context) => const MyProfilesScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
 
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(IPStrategy.ipv4Only.name, tcontext.meta.disable),
@@ -626,17 +734,22 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       Tuple2(ThemeDefine.kThemeSystem, tcontext.theme.auto),
     ];
 
-    Tuple2 exist = tupleThemeStrings.firstWhere((value) {
-      return value.item1 == SettingManager.getConfig().ui.theme;
-    }, orElse: () {
-      return Tuple2("", "");
-    });
+    Tuple2 exist = tupleThemeStrings.firstWhere(
+      (value) {
+        return value.item1 == SettingManager.getConfig().ui.theme;
+      },
+      orElse: () {
+        return Tuple2("", "");
+      },
+    );
     if (exist.item1.isEmpty) {
       SettingManager.getConfig().ui.theme = tupleThemeStrings.first.item1;
     }
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            stringPickerOptions: GroupItemStringPickerOptions(
               name: "IPv6",
               tips: tcontext.SettingsScreen.ipStrategyTips,
               selected: settingConfig.ipStrategy.name,
@@ -659,230 +772,311 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 }
                 SettingManager.setDirty(true);
                 setState(() {});
-              })),
-      if (!settingConfig.novice) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          if (!settingConfig.novice) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: "NTP",
                 onPush: () async {
                   await onTapNTP();
-                }))
-      ],
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+          ],
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: "TUN",
               onPush: () async {
                 await onTapTun();
-              })),
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.dns,
               onPush: () async {
                 await onTapDns();
-              })),
-      if (!settingConfig.novice) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          if (!settingConfig.novice) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.tls,
                 onPush: () async {
                   await onTapTLS();
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: "Mux",
                 onPush: () async {
                   await onTapMux();
-                }))
-      ],
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+          ],
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.diversion,
               onPush: () async {
                 await onTapDiversion();
-              })),
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.SettingsScreen.autoSelect,
               onPush: () async {
                 await onTapAutoSelect();
-              })),
-      if (!settingConfig.novice) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+              },
+            ),
+          ),
+          if (!settingConfig.novice) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.port,
                 onPush: () async {
                   await onTapPort();
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-          name: tcontext.SettingsScreen.networkShare,
-          onPush: () async {
-            await onTapNetShare();
-          },
-        )),
-      ],
-    ]));
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.networkShare,
+                onPush: () async {
+                  await onTapNetShare();
+                },
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
 
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: "WARP",
               onPush: () async {
                 onTapWarp();
-              })),
-    ]));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
 
-    groupOptions.add(GroupItem(options: [
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-        name: tcontext.meta.backupAndSync,
-        onPush: () async {
-          GroupHelper.showBackupAndSync(context);
-        },
-      )),
-    ]));
+    groupOptions.add(
+      GroupItem(
+        options: [
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.backupAndSync,
+              onPush: () async {
+                GroupHelper.showBackupAndSync(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
 
     if (PlatformUtils.isMobile()) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.appleTV,
-          onPush: () async {
-            GroupHelper.showAppleTVByScanQRCode(context);
-          },
-        )),
-      ]));
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: tcontext.meta.appleTV,
+                onPush: () async {
+                  GroupHelper.showAppleTVByScanQRCode(context);
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     //
     if (PlatformUtils.isPC()) {
-      groupOptions.add(GroupItem(options: [
-        if (Platform.isWindows) ...[
-          GroupItemOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            if (Platform.isWindows) ...[
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.hideAfterLaunch,
+                  switchValue: settingConfig.ui.hideAfterLaunch,
+                  onSwitch: (bool value) async {
+                    settingConfig.ui.hideAfterLaunch = value;
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+            GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
-            name: tcontext.SettingsScreen.hideAfterLaunch,
-            switchValue: settingConfig.ui.hideAfterLaunch,
-            onSwitch: (bool value) async {
-              settingConfig.ui.hideAfterLaunch = value;
-              setState(() {});
-            },
-          ))
-        ],
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.autoConnectAfterLaunch,
-          switchValue: settingConfig.autoConnectAfterLaunch,
-          onSwitch: (bool value) async {
-            settingConfig.autoConnectAfterLaunch = value;
-            setState(() {});
-          },
-        )),
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.autoConnectAfterLaunch,
+                switchValue: settingConfig.autoConnectAfterLaunch,
+                onSwitch: (bool value) async {
+                  settingConfig.autoConnectAfterLaunch = value;
+                  setState(() {});
+                },
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
                 name: tcontext.SettingsScreen.autoSetSystemProxy,
                 switchValue: settingConfig.proxy.autoSetSystemProxy,
                 onSwitch: (bool value) async {
                   settingConfig.proxy.autoSetSystemProxy = value;
                   setState(() {});
-                })),
-        if (PlatformUtils.isPC()) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+            if (PlatformUtils.isPC()) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.bypassSystemProxy,
                   onPush: () async {
                     await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: ListAddScreen.routSettings(
-                                "systemProxyBypassDomain"),
-                            builder: (context) => ListAddScreen(
-                                  title:
-                                      tcontext.SettingsScreen.bypassSystemProxy,
-                                  data: settingConfig
-                                      .proxy.systemProxyBypassDomain,
-                                )));
-                  })),
-          GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
+                      context,
+                      MaterialPageRoute(
+                        settings: ListAddScreen.routSettings(
+                          "systemProxyBypassDomain",
+                        ),
+                        builder: (context) => ListAddScreen(
+                          title: tcontext.SettingsScreen.bypassSystemProxy,
+                          data: settingConfig.proxy.systemProxyBypassDomain,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
                   name: tcontext.SettingsScreen.disconnectWhenQuit,
                   switchValue: settingConfig.proxy.disconnectWhenQuit,
                   onSwitch: (bool value) async {
                     settingConfig.proxy.disconnectWhenQuit = value;
                     setState(() {});
-                  }))
-        ],
-      ]));
+                  },
+                ),
+              ),
+            ],
+            if (Platform.isWindows) ...[
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.autoAddToFirewall,
+                  switchValue: settingConfig.proxy.autoAddToFirewall,
+                  onSwitch: (bool value) async {
+                    settingConfig.proxy.autoAddToFirewall = value;
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
     }
     if (Platform.isWindows) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.launchAtStartup,
-          switchValue: await VPNService.getLaunchAtStartup(),
-          onSwitch: (bool value) async {
-            ReturnResultError? err = await VPNService.setLaunchAtStartup(value);
-            if (err != null) {
-              DialogUtils.showAlertDialog(context, err.message,
-                  showCopy: true, showFAQ: true, withVersion: true);
-            }
-            setState(() {});
-          },
-        )),
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.quitWhenSwitchSystemUser,
-          switchValue: settingConfig.quitWhenSwitchSystemUser,
-          onSwitch: (bool value) async {
-            settingConfig.quitWhenSwitchSystemUser = value;
-            setState(() {});
-          },
-        )),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-          name: tcontext.SettingsScreen.handleScheme,
-          onPush: () async {
-            await onTapHandleScheme();
-          },
-        )),
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.portableMode,
-          tips: tcontext.SettingsScreen.portableModeDisableTips,
-          switchValue: PathUtils.portableMode(),
-          onSwitch: PathUtils.portableMode()
-              ? null
-              : (bool value) async {
-                  if (value) {
-                    onTapPortableModeOn();
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.launchAtStartup,
+                switchValue: await VPNService.getLaunchAtStartup(),
+                onSwitch: (bool value) async {
+                  ReturnResultError? err = await VPNService.setLaunchAtStartup(
+                    value,
+                  );
+                  if (err != null) {
+                    DialogUtils.showAlertDialog(
+                      context,
+                      err.message,
+                      showCopy: true,
+                      showFAQ: true,
+                      withVersion: true,
+                    );
                   }
+                  setState(() {});
                 },
-        )),
-      ]));
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.quitWhenSwitchSystemUser,
+                switchValue: settingConfig.quitWhenSwitchSystemUser,
+                onSwitch: (bool value) async {
+                  settingConfig.quitWhenSwitchSystemUser = value;
+                  setState(() {});
+                },
+              ),
+            ),
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.handleScheme,
+                onPush: () async {
+                  await onTapHandleScheme();
+                },
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.portableMode,
+                tips: tcontext.SettingsScreen.portableModeDisableTips,
+                switchValue: PathUtils.portableMode(),
+                onSwitch: PathUtils.portableMode()
+                    ? null
+                    : (bool value) async {
+                        if (value) {
+                          onTapPortableModeOn();
+                        }
+                      },
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     //////////////////////
     if (Platform.isIOS || Platform.isMacOS) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.alwayOnVPN,
-          switchValue: settingConfig.alwayOn,
-          onSwitch: (bool value) async {
-            settingConfig.alwayOn = value;
-            if (!value) {
-              await FlutterVpnService.setAlwaysOn(value);
-            }
-            SettingManager.setDirty(true);
-            setState(() {});
-          },
-        )),
-        GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.alwayOnVPN,
+                switchValue: settingConfig.alwayOn,
+                onSwitch: (bool value) async {
+                  settingConfig.alwayOn = value;
+                  if (!value) {
+                    await FlutterVpnService.setAlwaysOn(value);
+                  }
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                },
+              ),
+            ),
+            GroupItemOptions(
+              timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
                 name: tcontext.SettingsScreen.disconnectAfterSleep,
                 duration: settingConfig.disconnectAfterSleep,
                 showDays: false,
                 showHours: true,
                 showMinutes: true,
+                showMilliSeconds: false,
                 showDisable: true,
                 onPicker: (bool canceled, Duration? duration) async {
                   if (canceled) {
@@ -900,354 +1094,469 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   settingConfig.disconnectAfterSleep = duration;
                   SettingManager.setDirty(true);
                   setState(() {});
-                })),
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
 
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.removeSystemVPNConfig,
                 onPush: () async {
                   bool? del = await DialogUtils.showConfirmDialog(
-                      context, tcontext.meta.removeConfirm);
+                    context,
+                    tcontext.meta.removeConfirm,
+                  );
                   if (del == true) {
                     ReturnResultError? err = await VPNService.uninstall();
                     if (err != null) {
-                      DialogUtils.showAlertDialog(context, err.message,
-                          showCopy: true, showFAQ: true, withVersion: true);
+                      DialogUtils.showAlertDialog(
+                        context,
+                        err.message,
+                        showCopy: true,
+                        showFAQ: true,
+                        withVersion: true,
+                      );
                     }
                   }
-                })),
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
     bool disableOrientation = await DeviceUtils.disableOrientation();
 
     groupOptions.add(
-      GroupItem(options: [
-        GroupItemOptions(
+      GroupItem(
+        options: [
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.language,
-                icon: Icons.language_outlined,
-                text: tcontext.locales[settingConfig.languageTag],
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: LanguageSettingsScreen.routSettings(),
-                          builder: (context) => const LanguageSettingsScreen(
-                              canPop: true, canGoBack: true)));
-                })),
-        GroupItemOptions(
+              name: tcontext.meta.language,
+              icon: Icons.language_outlined,
+              text: tcontext.locales[settingConfig.languageTag],
+              onPush: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: LanguageSettingsScreen.routSettings(),
+                    builder: (context) => const LanguageSettingsScreen(
+                      canPop: true,
+                      canGoBack: true,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          GroupItemOptions(
             stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.SettingsScreen.theme,
-                selected: SettingManager.getConfig().ui.theme,
-                tupleStrings: tupleThemeStrings,
-                onPicker: (String? selected) async {
-                  if (selected == null ||
-                      selected == SettingManager.getConfig().ui.theme) {
-                    return;
-                  }
+              name: tcontext.SettingsScreen.theme,
+              selected: SettingManager.getConfig().ui.theme,
+              tupleStrings: tupleThemeStrings,
+              onPicker: (String? selected) async {
+                if (selected == null ||
+                    selected == SettingManager.getConfig().ui.theme) {
+                  return;
+                }
 
-                  SettingManager.getConfig().ui.theme = selected;
+                SettingManager.getConfig().ui.theme = selected;
 
-                  Provider.of<Themes>(context, listen: false)
-                      .setTheme(selected, true);
+                Provider.of<Themes>(
+                  context,
+                  listen: false,
+                ).setTheme(selected, true);
 
-                  setState(() {});
-                })),
-        GroupItemOptions(
+                setState(() {});
+              },
+            ),
+          ),
+          GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.disableFontScaler,
-                tips: tcontext.SettingsScreen.restartTakesEffect,
-                switchValue: settingConfig.ui.disableFontScaler,
+              name: tcontext.SettingsScreen.disableFontScaler,
+              tips: tcontext.SettingsScreen.restartTakesEffect,
+              switchValue: settingConfig.ui.disableFontScaler,
+              onSwitch: (bool value) async {
+                settingConfig.ui.disableFontScaler = value;
+                setState(() {});
+              },
+            ),
+          ),
+          if (Platform.isAndroid) ...[
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.tvMode,
+                switchValue: settingConfig.ui.tvMode,
                 onSwitch: (bool value) async {
-                  settingConfig.ui.disableFontScaler = value;
+                  settingConfig.ui.tvMode = value;
+                  TextFieldEx.popupEdit = settingConfig.ui.tvMode;
                   setState(() {});
-                })),
-        if (Platform.isAndroid) ...[
-          GroupItemOptions(
+                },
+              ),
+            ),
+          ],
+          if (!disableOrientation) ...[
+            GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.meta.tvMode,
-                  switchValue: settingConfig.ui.tvMode,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.tvMode = value;
-                    TextFieldEx.popupEdit = settingConfig.ui.tvMode;
-                    setState(() {});
-                  }))
-        ],
-        if (!disableOrientation) ...[
+                name: tcontext.SettingsScreen.autoOrientation,
+                switchValue: settingConfig.ui.autoOrientation,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.autoOrientation = value;
+                  if (value) {
+                    SystemChrome.setPreferredOrientations([
+                      DeviceOrientation.portraitUp,
+                      DeviceOrientation.landscapeLeft,
+                      DeviceOrientation.portraitDown,
+                      DeviceOrientation.landscapeRight,
+                    ]);
+                  } else {
+                    SystemChrome.setPreferredOrientations([
+                      DeviceOrientation.portraitUp,
+                    ]);
+                  }
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.autoOrientation,
-                  switchValue: settingConfig.ui.autoOrientation,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.autoOrientation = value;
-                    if (value) {
-                      SystemChrome.setPreferredOrientations([
-                        DeviceOrientation.portraitUp,
-                        DeviceOrientation.landscapeLeft,
-                        DeviceOrientation.portraitDown,
-                        DeviceOrientation.landscapeRight
-                      ]);
-                    } else {
-                      SystemChrome.setPreferredOrientations(
-                          [DeviceOrientation.portraitUp]);
-                    }
-                    setState(() {});
-                  }))
-        ],
-        GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.homeScreen,
-                onPush: () async {
-                  await onTapHomeScreen();
-                })),
-        if (Platform.isMacOS) ...[
-          GroupItemOptions(
+              name: tcontext.SettingsScreen.homeScreen,
+              onPush: () async {
+                await onTapHomeScreen();
+              },
+            ),
+          ),
+          if (Platform.isMacOS) ...[
+            GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.meta.hideDockIcon,
-                  tips: tcontext.SettingsScreen.restartTakesEffect,
-                  switchValue: settingConfig.ui.hideDockIcon,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.hideDockIcon = value;
-                    setState(() {});
-                  })),
+                name: tcontext.meta.hideDockIcon,
+                tips: tcontext.SettingsScreen.restartTakesEffect,
+                switchValue: settingConfig.ui.hideDockIcon,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.hideDockIcon = value;
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
+          if (Platform.isAndroid) ...[
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.excludeFromRecent,
+                switchValue: settingConfig.ui.excludeFromRecent,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.excludeFromRecent = value;
+                  final err = await FlutterVpnService.setExcludeFromRecents(
+                    value,
+                  );
+                  if (err != null) {
+                    DialogUtils.showAlertDialog(
+                      context,
+                      err,
+                      showCopy: true,
+                      showFAQ: true,
+                      withVersion: true,
+                    );
+                  }
+                  setState(() {});
+                },
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.wakeLock,
+                switchValue: settingConfig.ui.wakeLock,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.wakeLock = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                },
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.autoConnectAtBoot,
+                switchValue: settingConfig.autoConnectAtBoot,
+                tips:
+                    "${tcontext.SettingsScreen.reconnectTakesEffect};${tcontext.SettingsScreen.autoConnectAtBootTips}",
+                onSwitch: (bool value) async {
+                  settingConfig.autoConnectAtBoot = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
+          if (Platform.isIOS) ...[
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.hideVpn,
+                tips: tcontext.SettingsScreen.hideVpnTips,
+                switchValue: settingConfig.ui.hideVpn,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.hideVpn = value;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
         ],
-        if (Platform.isAndroid) ...[
-          GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.excludeFromRecent,
-                  switchValue: settingConfig.ui.excludeFromRecent,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.excludeFromRecent = value;
-                    final err =
-                        await FlutterVpnService.setExcludeFromRecents(value);
-                    if (err != null) {
-                      DialogUtils.showAlertDialog(context, err,
-                          showCopy: true, showFAQ: true, withVersion: true);
-                    }
-                    setState(() {});
-                  })),
-          GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.wakeLock,
-                  switchValue: settingConfig.ui.wakeLock,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.wakeLock = value;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  })),
-          GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.autoConnectAtBoot,
-                  switchValue: settingConfig.autoConnectAtBoot,
-                  tips:
-                      "${tcontext.SettingsScreen.reconnectTakesEffect};${tcontext.SettingsScreen.autoConnectAtBootTips}",
-                  onSwitch: (bool value) async {
-                    settingConfig.autoConnectAtBoot = value;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  })),
-        ],
-        if (Platform.isIOS) ...[
-          GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.hideVpn,
-                  tips: tcontext.SettingsScreen.hideVpnTips,
-                  switchValue: settingConfig.ui.hideVpn,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.hideVpn = value;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  })),
-        ],
-      ]),
+      ),
     );
 
     groupOptions.add(
-      GroupItem(options: [
-        GroupItemOptions(
+      GroupItem(
+        options: [
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.resetSettings,
-                onPush: () async {
-                  bool? ok = await DialogUtils.showConfirmDialog(
-                      context, "${tcontext.SettingsScreen.resetSettings}?");
-                  if (ok == true) {
-                    SettingManager.reset();
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
-        GroupItemOptions(
+              name: tcontext.SettingsScreen.resetSettings,
+              onPush: () async {
+                bool? ok = await DialogUtils.showConfirmDialog(
+                  context,
+                  "${tcontext.SettingsScreen.resetSettings}?",
+                );
+                if (ok == true) {
+                  SettingManager.reset();
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                }
+              },
+            ),
+          ),
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.cleanCache,
-                onPush: () async {
-                  bool started = await VPNService.getStarted();
+              name: tcontext.SettingsScreen.cleanCache,
+              onPush: () async {
+                bool started = await VPNService.getStarted();
 
-                  await FileUtils.deletePath(await PathUtils.cacheDir(),
-                      recursive: true);
-                  await FileUtils.deletePath(await PathUtils.profileDataDir(),
-                      recursive: true);
+                await FileUtils.deletePath(
+                  await PathUtils.cacheDir(),
+                  recursive: true,
+                );
+                await FileUtils.deletePath(
+                  await PathUtils.profileDataDir(),
+                  recursive: true,
+                );
 
-                  if (!started) {
-                    var logFiles = FileUtils.recursionFile(
-                        await PathUtils.profileDir(),
-                        extensionFilter: {".log", ".db", ".db-shm", ".db-wal"});
-                    for (var logFile in logFiles) {
-                      if (path.basename(logFile) != PathUtils.logFileName()) {
-                        await FileUtils.deletePath(logFile);
-                      }
+                if (!started) {
+                  var logFiles = FileUtils.recursionFile(
+                    await PathUtils.profileDir(),
+                    extensionFilter: {".log", ".db", ".db-shm", ".db-wal"},
+                  );
+                  for (var logFile in logFiles) {
+                    if (path.basename(logFile) != PathUtils.logFileName()) {
+                      await FileUtils.deletePath(logFile);
                     }
                   }
-                  if (!InAppWebViewScreen.hasActiveWebview()) {
-                    String dir = await PathUtils.webviewCacheDir();
-                    await FileUtils.deletePath(dir, recursive: true);
-                  }
-                  if (!mounted) {
-                    return;
-                  }
+                  await VPNService.prepareFiles();
+                }
+                if (!InAppWebViewScreen.hasActiveWebview()) {
+                  String dir = await PathUtils.webviewCacheDir();
+                  await FileUtils.deletePath(dir, recursive: true);
+                }
+                if (!mounted) {
+                  return;
+                }
 
-                  await DialogUtils.showAlertDialog(
-                      context, tcontext.SettingsScreen.cleanCacheDone);
-                })),
-      ]),
+                await DialogUtils.showAlertDialog(
+                  context,
+                  tcontext.SettingsScreen.cleanCacheDone,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
 
     bool showTestFlight =
         AppleUtils.getTestFlightUrl().isNotEmpty && (appStore == false);
     bool showAppStore = AppleUtils.getAppStoreUrl().isNotEmpty;
     if (remoteConfig.download.isNotEmpty || showTestFlight || showAppStore) {
-      groupOptions.add(GroupItem(options: [
-        if (showTestFlight) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            if (showTestFlight) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.appleTestFlight,
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_appleTestFlight',
-                        repeatable: true);
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_appleTestFlight',
+                      repeatable: true,
+                    );*/
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: QrcodeScreen.routSettings(),
-                            builder: (context) => QrcodeScreen(
-                                content: AppleUtils.getTestFlightUrl())));
-                  }))
-        ],
-        if (showAppStore) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                      context,
+                      MaterialPageRoute(
+                        settings: QrcodeScreen.routSettings(),
+                        builder: (context) => QrcodeScreen(
+                          content: AppleUtils.getTestFlightUrl(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (showAppStore) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.appleAppStore,
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_appleAppstore',
-                        repeatable: true);
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_appleAppstore',
+                      repeatable: true,
+                    );*/
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: QrcodeScreen.routSettings(),
-                            builder: (context) => QrcodeScreen(
-                                content: AppleUtils.getAppStoreUrl())));
-                  }))
-        ],
-        if (remoteConfig.download.isNotEmpty) ...[
-          GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
+                      context,
+                      MaterialPageRoute(
+                        settings: QrcodeScreen.routSettings(),
+                        builder: (context) =>
+                            QrcodeScreen(content: AppleUtils.getAppStoreUrl()),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+            if (remoteConfig.download.isNotEmpty) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
                   name: tcontext.meta.download,
                   onPush: () async {
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_download',
-                        repeatable: true);
+                    /*AnalyticsUtils.logEvent(
+                      analyticsEventType: analyticsEventTypeUA,
+                      name: 'SSS_download',
+                      repeatable: true,
+                    );*/
 
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
-                          builder: (context) => QrcodeScreen(
-                              content: remoteConfig.download,
-                              callback: () async {
-                                String url = await UrlLauncherUtils
-                                    .reorganizationUrlWithAnchor(
-                                        remoteConfig.download);
-                                await UrlLauncherUtils.loadUrl(url,
-                                    mode: LaunchMode.externalApplication);
-                              }),
-                        ));
-                  }))
-        ],
-      ]));
+                      context,
+                      MaterialPageRoute(
+                        settings: QrcodeScreen.routSettings(),
+                        builder: (context) => QrcodeScreen(
+                          content: remoteConfig.download,
+                          callback: () async {
+                            String url =
+                                await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                                  remoteConfig.download,
+                                );
+                            await UrlLauncherUtils.loadUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
     }
     if (AdsPrivate.getEnable()) {
-      groupOptions.add(GroupItem(options: [
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+      groupOptions.add(
+        GroupItem(
+          options: [
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.adsRemove,
                 onPush: () async {
                   onTapAdRemove();
-                }))
-      ]));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
-    bool ads = PlatformUtils.isMobile() &&
+    bool ads =
+        PlatformUtils.isMobile() &&
         !AdsPrivate.getEnable() &&
         remoteConfig.adManualEnable;
-    bool donate = !Platform.isIOS &&
+    bool donate =
+        !Platform.isIOS &&
         !Platform.isMacOS &&
         remoteConfig.donateUrl.isNotEmpty;
     bool showSupportUs = ads || donate;
     String rateUrl = await AppleUtils.getRateUrl();
-    groupOptions.add(GroupItem(options: [
-      if (remoteConfig.follow.isNotEmpty) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+    groupOptions.add(
+      GroupItem(
+        options: [
+          if (remoteConfig.follow.isNotEmpty) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.follow,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_follow',
-                      repeatable: false);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_follow',
+                    repeatable: false,
+                  );*/
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
-                          builder: (context) =>
-                              QrcodeScreen(content: remoteConfig.follow)));
-                }))
-      ],
-      if (remoteConfig.telegram.isNotEmpty) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name:
-                    "${tcontext.SettingsScreen.contactUs} / ${tcontext.meta.feedback}",
+                    context,
+                    MaterialPageRoute(
+                      settings: QrcodeScreen.routSettings(),
+                      builder: (context) =>
+                          QrcodeScreen(content: remoteConfig.follow),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+          if (remoteConfig.telegram.isNotEmpty) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
+                name: tcontext.SettingsScreen.contactUs,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_contactUs',
-                      repeatable: false);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_contactUs',
+                    repeatable: false,
+                  );*/
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
-                          builder: (context) =>
-                              QrcodeScreen(content: remoteConfig.telegram)));
-                }))
-      ],
-      if (showSupportUs) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                    context,
+                    MaterialPageRoute(
+                      settings: QrcodeScreen.routSettings(),
+                      builder: (context) =>
+                          QrcodeScreen(content: remoteConfig.telegram),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+          if (showSupportUs) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.supportUs,
                 onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_supportUs',
-                      repeatable: false);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_supportUs',
+                    repeatable: false,
+                  );*/
                   onTapSupportUS();
-                }))
-      ],
-      /*if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
+                },
+              ),
+            ),
+          ],
+          /*if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: tcontext.meta.feedback,
@@ -1259,39 +1568,52 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           builder: (context) => const FeedbackScreen()));
                 }))
       ],*/
-      if (rateInApp) ...[
-        //https://apps.apple.com/cn/app/id1558453472?action=write-review
-        //https://itunes.apple.com/cn/lookup?id=1558453472
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+          if (rateInApp) ...[
+            //https://apps.apple.com/cn/app/id1558453472?action=write-review
+            //https://itunes.apple.com/cn/lookup?id=1558453472
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.rateInApp,
                 onPush: () async {
                   final InAppReview inAppReview = InAppReview.instance;
                   inAppReview.requestReview();
-                }))
-      ],
-      if (rateUrl.isNotEmpty) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
+                },
+              ),
+            ),
+          ],
+          if (rateUrl.isNotEmpty) ...[
+            GroupItemOptions(
+              pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.rateInAppStore,
                 onPush: () async {
                   await WebviewHelper.loadUrl(
-                      context, rateUrl, "SSS_rateInAppStore",
-                      title: tcontext.SettingsScreen.rateInAppStore);
-                }))
-      ],
-      GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
+                    context,
+                    rateUrl,
+                    "SSS_rateInAppStore",
+                    title: tcontext.SettingsScreen.rateInAppStore,
+                  );
+                },
+              ),
+            ),
+          ],
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.about,
               onPush: () async {
                 await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        settings: AboutScreen.routSettings(),
-                        builder: (context) => const AboutScreen()));
+                  context,
+                  MaterialPageRoute(
+                    settings: AboutScreen.routSettings(),
+                    builder: (context) => const AboutScreen(),
+                  ),
+                );
                 setState(() {});
-              })),
-    ]));
+              },
+            ),
+          ),
+        ],
+      ),
+    );
 
     return groupOptions;
   }
@@ -1299,43 +1621,57 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapNotice() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [];
       List<Notice> notices = NoticeManager.getNotices();
       for (var notice in notices) {
         for (var item in notice.items) {
-          options.add(GroupItemOptions(
+          options.add(
+            GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-                  name: item.title,
-                  reddot: !item.readed,
-                  text: item.updateTime,
-                  textWidthPercent: 0.65,
-                  onPush: () async {
-                    item.readed = true;
-                    NoticeManager.saveConfig();
-                    setState(() {});
+                name: item.title,
+                reddot: !item.readed,
+                text: item.updateTime,
+                textWidthPercent: 0.65,
+                onPush: () async {
+                  item.readed = true;
+                  NoticeManager.saveConfig();
+                  setState(() {});
 
-                    AnalyticsUtils.logEvent(
-                        analyticsEventType: analyticsEventTypeUA,
-                        name: 'SSS_notice',
-                        parameters: {"title": item.title, "isp_id": item.ispId},
-                        repeatable: true);
+                  /*AnalyticsUtils.logEvent(
+                    analyticsEventType: analyticsEventTypeUA,
+                    name: 'SSS_notice',
+                    parameters: {"title": item.title, "isp_id": item.ispId},
+                    repeatable: true,
+                  );*/
 
-                    if (item.url.isNotEmpty) {
-                      await WebviewHelper.loadUrl(
-                          context, item.url, "SSS_notice",
-                          title: item.title, useInappWebViewForPC: true);
-                    } else {
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: RichtextViewScreen.routSettings(),
-                              builder: (context) => RichtextViewScreen(
-                                  title: item.title,
-                                  file: "",
-                                  content: item.content)));
-                    }
-                  })));
+                  if (item.url.isNotEmpty) {
+                    await WebviewHelper.loadUrl(
+                      context,
+                      item.url,
+                      "SSS_notice",
+                      title: item.title,
+                      useInappWebViewForPC: true,
+                    );
+                  } else {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: RichtextViewScreen.routSettings(),
+                        builder: (context) => RichtextViewScreen(
+                          title: item.title,
+                          file: "",
+                          content: item.content,
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+          );
         }
       }
 
@@ -1343,13 +1679,13 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("notice"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.notice,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("notice"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.notice, getOptions: getOptions),
+      ),
+    );
     setState(() {});
   }
 
@@ -1359,11 +1695,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       setState(() {});
       return;
     }
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'SSS_hasNewVersion',
-        parameters: {"version": versionCheck.version},
-        repeatable: false);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeUA,
+      name: 'SSS_hasNewVersion',
+      parameters: {"version": versionCheck.version},
+      repeatable: false,
+    );*/
     //item-beta://testflight.apple.com/join/RLU59OsJ or https://testflight.apple.com/join/RLU59OsJ
     var remoteConfig = RemoteConfigManager.getConfig();
     String url = remoteConfig.download.isEmpty
@@ -1373,13 +1710,17 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       String? installerNew = await AutoUpdateManager.checkReplace();
       if (installerNew != null) {
         await Navigator.push(
-            context,
-            MaterialPageRoute(
-                settings: VersionUpdateScreen.routSettings(),
-                builder: (context) => const VersionUpdateScreen(force: false)));
+          context,
+          MaterialPageRoute(
+            settings: VersionUpdateScreen.routSettings(),
+            builder: (context) => const VersionUpdateScreen(force: false),
+          ),
+        );
       } else {
-        await UrlLauncherUtils.loadUrl(url,
-            mode: LaunchMode.externalApplication);
+        await UrlLauncherUtils.loadUrl(
+          url,
+          mode: LaunchMode.externalApplication,
+        );
       }
     } else {
       await UrlLauncherUtils.loadUrl(url, mode: LaunchMode.externalApplication);
@@ -1394,16 +1735,20 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     var settingConfig = SettingManager.getConfig();
     String license = settingConfig.warp.license;
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: "License",
-                text: license,
-                textWidthPercent: 0.6,
-                onChanged: (String value) {
-                  license = value.trim();
-                })),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "License",
+            text: license,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              license = value.trim();
+            },
+          ),
+        ),
         /*GroupItemOptions(
             pushOptions: GroupItemPushOptions(
                 name: "Account",
@@ -1422,89 +1767,122 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("WARP"),
-            builder: (context) => GroupScreen(
-                  title: "WARP",
-                  getOptions: getOptions,
-                  onDone: (BuildContext context) async {
-                    if (!mounted) {
-                      return false;
-                    }
-                    var settingConfig = SettingManager.getConfig();
-                    if (license.isEmpty ||
-                        license.length == CloudflareWarpApi.licenseLength) {
-                      settingConfig.warp.license = license;
-                    }
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("WARP"),
+        builder: (context) => GroupScreen(
+          title: "WARP",
+          getOptions: getOptions,
+          onDone: (BuildContext context) async {
+            if (!mounted) {
+              return false;
+            }
+            var settingConfig = SettingManager.getConfig();
+            if (license.isEmpty ||
+                license.length == CloudflareWarpApi.licenseLength) {
+              settingConfig.warp.license = license;
+            }
 
-                    return true;
-                  },
-                )));
+            return true;
+          },
+        ),
+      ),
+    );
     setState(() {});
   }
 
   Future<void> onTapLatencyTest() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
+      List<String> strings = [];
+      for (var i = 1; i <= SettingConfig.maxLatencyCheckConcurrency(); i++) {
+        strings.add(i.toString());
+      }
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.url,
-                text: settingConfig.urlTest,
-                textWidthPercent: 0.4,
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: UrlTestSettingsScreen.routSettings(),
-                          builder: (context) => const UrlTestSettingsScreen()));
-                  setState(() {});
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.url,
+            text: settingConfig.urlTest,
+            textWidthPercent: 0.4,
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: UrlTestSettingsScreen.routSettings(),
+                  builder: (context) => const UrlTestSettingsScreen(),
+                ),
+              );
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.meta.timeoutDuration,
-                duration: Duration(seconds: settingConfig.urlTestTimeout),
-                showDays: false,
-                showHours: false,
-                showMinutes: false,
-                showDisable: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled || duration == null) {
-                    return;
-                  }
-                  if (duration.inSeconds < 1) {
-                    duration = const Duration(seconds: 1);
-                  }
-                  if (duration.inSeconds > 15) {
-                    duration = const Duration(seconds: 15);
-                  }
-                  settingConfig.urlTestTimeout = duration.inSeconds;
-                  setState(() {});
-                })),
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.meta.timeoutDuration,
+            duration: Duration(seconds: settingConfig.urlTestTimeout),
+            showDays: false,
+            showHours: false,
+            showMinutes: false,
+            showMilliSeconds: false,
+            showDisable: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled || duration == null) {
+                return;
+              }
+              if (duration.inSeconds < 1) {
+                duration = const Duration(seconds: 1);
+              }
+              if (duration.inSeconds > 15) {
+                duration = const Duration(seconds: 15);
+              }
+              settingConfig.urlTestTimeout = duration.inSeconds;
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.latencyTestResolveIP,
-          switchValue: settingConfig.latencyCheckResoveIP,
-          onSwitch: (bool value) async {
-            settingConfig.latencyCheckResoveIP = value;
-            setState(() {});
-          },
-        )),
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.latencyTestConcurrency,
+            selected: settingConfig.latencyCheckConcurrency.toString(),
+            strings: strings,
+            onPicker: (String? selected) async {
+              if (selected == null) {
+                return;
+              }
+              settingConfig.latencyCheckConcurrency =
+                  int.tryParse(selected) ??
+                  SettingConfig.maxLatencyCheckConcurrency();
+            },
+          ),
+        ),
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.latencyTestResolveIP,
+            switchValue: settingConfig.latencyCheckResoveIP,
+            onSwitch: (bool value) async {
+              settingConfig.latencyCheckResoveIP = value;
+              setState(() {});
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("latencyTest"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.latencyTest,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("latencyTest"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.latencyTest,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -1513,339 +1891,387 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     const int minPort = 2048;
     const int maxPort = 65535;
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingRule,
-                text: settingConfig.proxy.mixedRulePort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedRulePort,
-                      minPort,
-                      maxPort);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingRule,
+            text: settingConfig.proxy.mixedRulePort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.mixedRulePort,
+                minPort,
+                maxPort,
+              );
 
-                  if (p != null) {
-                    List<int> ports = [
-                      //settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.mixedRulePort = p;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
+              if (p != null) {
+                List<int> ports = [
+                  //settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.mixedRulePort = p;
+                SettingManager.setDirty(true);
+                setState(() {});
+              }
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingDirectAll,
-                text: settingConfig.proxy.mixedDirectPort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedDirectPort,
-                      minPort,
-                      maxPort);
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      //settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                    ];
-                    if (ports.contains(p)) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.mixedDirectPort = p;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingDirectAll,
+            text: settingConfig.proxy.mixedDirectPort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.mixedDirectPort,
+                minPort,
+                maxPort,
+              );
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  //settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                ];
+                if (ports.contains(p)) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.mixedDirectPort = p;
+                SettingManager.setDirty(true);
+                setState(() {});
+              }
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingProxyAll,
-                text: settingConfig.proxy.mixedForwordPort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      minPort,
-                      maxPort);
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      //settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.mixedForwordPort = p;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingProxyAll,
+            text: settingConfig.proxy.mixedForwordPort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.mixedForwordPort,
+                minPort,
+                maxPort,
+              );
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  //settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.mixedForwordPort = p;
+                SettingManager.setDirty(true);
+                setState(() {});
+              }
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingRule,
-                text: settingConfig.proxy.mixedRuleNetSharePort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      minPort,
-                      maxPort);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingRule,
+            text: settingConfig.proxy.mixedRuleNetSharePort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.mixedRuleNetSharePort,
+                minPort,
+                maxPort,
+              );
 
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      //settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      if (!context.mounted) {
-                        return;
-                      }
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.mixedRuleNetSharePort = p;
-                    SettingManager.setDirty(true);
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  //settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  if (!context.mounted) {
+                    return;
                   }
-                })),
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.mixedRuleNetSharePort = p;
+                SettingManager.setDirty(true);
+              }
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingProxyAll,
-                text: settingConfig.proxy.mixedForwordNetSharePort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      minPort,
-                      maxPort);
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      //settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      if (!context.mounted) {
-                        return;
-                      }
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.mixedForwordNetSharePort = p;
-                    SettingManager.setDirty(true);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingProxyAll,
+            text: settingConfig.proxy.mixedForwordNetSharePort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.mixedForwordNetSharePort,
+                minPort,
+                maxPort,
+              );
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  //settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  if (!context.mounted) {
+                    return;
                   }
-                })),
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.mixedForwordNetSharePort = p;
+                SettingManager.setDirty(true);
+              }
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options2 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.portSettingControl,
-                text: settingConfig.proxy.controlPort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.proxy.controlPort,
-                      minPort,
-                      maxPort);
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      //settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.proxy.controlPort = p;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.portSettingControl,
+            text: settingConfig.proxy.controlPort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.proxy.controlPort,
+                minPort,
+                maxPort,
+              );
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  //settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.proxy.controlPort = p;
+                SettingManager.setDirty(true);
+                setState(() {});
+              }
+            },
+          ),
+        ),
         if (PlatformUtils.isPC()) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.portSettingCluster,
-                  text: settingConfig.proxy.clusterPort.toString(),
-                  onPush: () async {
-                    int? p = await DialogUtils.showIntInputDialog(
-                        context,
-                        tcontext.SettingsScreen.modifyPort,
-                        settingConfig.proxy.clusterPort,
-                        minPort,
-                        maxPort);
-                    if (p != null) {
-                      List<int> ports = [
-                        settingConfig.proxy.mixedRulePort,
-                        settingConfig.proxy.mixedDirectPort,
-                        settingConfig.proxy.mixedForwordPort,
-                        settingConfig.proxy.mixedRuleNetSharePort,
-                        settingConfig.proxy.mixedForwordNetSharePort,
-                        settingConfig.proxy.controlPort,
-                        //settingConfig.proxy.clusterPort,
-                        settingConfig.htmlBoardPort,
-                      ];
-                      if (ports.contains(p)) {
-                        await DialogUtils.showAlertDialog(context,
-                            tcontext.SettingsScreen.modifyPortOccupied);
-                        return;
-                      }
-                      settingConfig.proxy.clusterPort = p;
-                      SettingManager.setDirty(true);
-                      setState(() {});
-                    }
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.portSettingCluster,
+              text: settingConfig.proxy.clusterPort.toString(),
+              onPush: () async {
+                int? p = await DialogUtils.showIntInputDialog(
+                  context,
+                  tcontext.SettingsScreen.modifyPort,
+                  settingConfig.proxy.clusterPort,
+                  minPort,
+                  maxPort,
+                );
+                if (p != null) {
+                  List<int> ports = [
+                    settingConfig.proxy.mixedRulePort,
+                    settingConfig.proxy.mixedDirectPort,
+                    settingConfig.proxy.mixedForwordPort,
+                    settingConfig.proxy.mixedRuleNetSharePort,
+                    settingConfig.proxy.mixedForwordNetSharePort,
+                    settingConfig.proxy.controlPort,
+                    //settingConfig.proxy.clusterPort,
+                    settingConfig.htmlBoardPort,
+                  ];
+                  if (ports.contains(p)) {
+                    await DialogUtils.showAlertDialog(
+                      context,
+                      tcontext.SettingsScreen.modifyPortOccupied,
+                    );
+                    return;
+                  }
+                  settingConfig.proxy.clusterPort = p;
+                  SettingManager.setDirty(true);
+                  setState(() {});
+                }
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.htmlBoard,
-                text: settingConfig.htmlBoardPort.toString(),
-                onPush: () async {
-                  int? p = await DialogUtils.showIntInputDialog(
-                      context,
-                      tcontext.SettingsScreen.modifyPort,
-                      settingConfig.htmlBoardPort,
-                      minPort,
-                      maxPort);
-                  if (p != null) {
-                    List<int> ports = [
-                      settingConfig.proxy.mixedRulePort,
-                      settingConfig.proxy.mixedDirectPort,
-                      settingConfig.proxy.mixedForwordPort,
-                      settingConfig.proxy.mixedRuleNetSharePort,
-                      settingConfig.proxy.mixedForwordNetSharePort,
-                      settingConfig.proxy.controlPort,
-                      settingConfig.proxy.clusterPort,
-                      // settingConfig.htmlBoardPort,
-                    ];
-                    if (ports.contains(p)) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.modifyPortOccupied);
-                      return;
-                    }
-                    settingConfig.htmlBoardPort = p;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  }
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.htmlBoard,
+            text: settingConfig.htmlBoardPort.toString(),
+            onPush: () async {
+              int? p = await DialogUtils.showIntInputDialog(
+                context,
+                tcontext.SettingsScreen.modifyPort,
+                settingConfig.htmlBoardPort,
+                minPort,
+                maxPort,
+              );
+              if (p != null) {
+                List<int> ports = [
+                  settingConfig.proxy.mixedRulePort,
+                  settingConfig.proxy.mixedDirectPort,
+                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedRuleNetSharePort,
+                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.controlPort,
+                  settingConfig.proxy.clusterPort,
+                  // settingConfig.htmlBoardPort,
+                ];
+                if (ports.contains(p)) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.modifyPortOccupied,
+                  );
+                  return;
+                }
+                settingConfig.htmlBoardPort = p;
+                SettingManager.setDirty(true);
+                setState(() {});
+              }
+            },
+          ),
+        ),
       ];
 
       return [
         GroupItem(options: options),
         GroupItem(
-            options: options1, name: tcontext.SettingsScreen.networkShare),
+          options: options1,
+          name: tcontext.SettingsScreen.networkShare,
+        ),
         GroupItem(options: options2),
       ];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("port"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.port,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("port"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.port, getOptions: getOptions),
+      ),
+    );
     setState(() {});
   }
 
   Future<void> onTapNTP() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.meta.enable,
-          switchValue: settingConfig.ntp.enable,
-          onSwitch: (bool value) async {
-            settingConfig.ntp.enable = value;
-            SettingManager.setDirty(true);
-            setState(() {});
-          },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.ntp.enable,
+            onSwitch: (bool value) async {
+              settingConfig.ntp.enable = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: "Server",
-                selected: settingConfig.ntp.server,
-                strings: SettingConfigItemNTP.kNTPServerList,
-                onPicker: !settingConfig.ntp.enable
-                    ? null
-                    : (String? selected) async {
-                        settingConfig.ntp.server = selected ?? "";
-                        SettingManager.setDirty(true);
-                        setState(() {});
-                      })),
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: "Server",
+            selected: settingConfig.ntp.server,
+            strings: SettingConfigItemNTP.kNTPServerList,
+            onPicker: !settingConfig.ntp.enable
+                ? null
+                : (String? selected) async {
+                    settingConfig.ntp.server = selected ?? "";
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("NTP"),
-            builder: (context) => GroupScreen(
-                  title: "NTP",
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("NTP"),
+        builder: (context) => GroupScreen(title: "NTP", getOptions: getOptions),
+      ),
+    );
     setState(() {});
   }
 
@@ -1856,290 +2282,335 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapTLS() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options0 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.tls.insecure,
-                switchValue: settingConfig.tls.enableInsecure,
-                onSwitch: (bool value) async {
-                  settingConfig.tls.enableInsecure = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.tls.insecure,
+            switchValue: settingConfig.tls.enableInsecure,
+            onSwitch: (bool value) async {
+              settingConfig.tls.enableInsecure = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.tls.fragmentEnable,
-                tips: tcontext.tls.affectProtocolTips,
-                switchValue: settingConfig.tls.enableFragment,
-                onSwitch: (bool value) async {
-                  settingConfig.tls.enableFragment = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.tls.fragmentEnable,
+            tips: tcontext.tls.affectProtocolTips,
+            switchValue: settingConfig.tls.enableFragment,
+            onSwitch: (bool value) async {
+              settingConfig.tls.enableFragment = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.tls.fragmentSize,
-                text: settingConfig.tls.fragmentSize,
-                hint: SettingConfigItemTLS.kFragmentSize,
-                enabled: settingConfig.tls.enableFragment,
-                textWidthPercent: 0.5,
-                onChanged: (String value) {
-                  List<String> parts = value.split("-");
-                  if (parts.length == 1 || parts.length == 2) {
-                    for (var p in parts) {
-                      int? v = int.tryParse(p);
-                      if (v == null) {
-                        return;
-                      }
-                    }
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.tls.fragmentSize,
+            text: settingConfig.tls.fragmentSize,
+            hint: SettingConfigItemTLS.kFragmentSize,
+            enabled: settingConfig.tls.enableFragment,
+            textWidthPercent: 0.5,
+            onChanged: (String value) {
+              List<String> parts = value.split("-");
+              if (parts.length == 1 || parts.length == 2) {
+                for (var p in parts) {
+                  int? v = int.tryParse(p);
+                  if (v == null) {
+                    return;
                   }
-                  settingConfig.tls.fragmentSize = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+                }
+              }
+              settingConfig.tls.fragmentSize = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.tls.fragmentSleep,
-                text: settingConfig.tls.fragmentSleep,
-                hint: SettingConfigItemTLS.kFragmentSleep,
-                enabled: settingConfig.tls.enableFragment,
-                textWidthPercent: 0.5,
-                onChanged: (String value) {
-                  List<String> parts = value.split("-");
-                  if (parts.length == 1 || parts.length == 2) {
-                    for (var p in parts) {
-                      int? v = int.tryParse(p);
-                      if (v == null) {
-                        return;
-                      }
-                    }
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.tls.fragmentSleep,
+            text: settingConfig.tls.fragmentSleep,
+            hint: SettingConfigItemTLS.kFragmentSleep,
+            enabled: settingConfig.tls.enableFragment,
+            textWidthPercent: 0.5,
+            onChanged: (String value) {
+              List<String> parts = value.split("-");
+              if (parts.length == 1 || parts.length == 2) {
+                for (var p in parts) {
+                  int? v = int.tryParse(p);
+                  if (v == null) {
+                    return;
                   }
-                  settingConfig.tls.fragmentSleep = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+                }
+              }
+              settingConfig.tls.fragmentSleep = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options2 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.tls.mixedCaseSNIEnable,
-                tips: tcontext.tls.affectProtocolTips,
-                switchValue: settingConfig.tls.enableMixedCaseSNI,
-                onSwitch: (bool value) async {
-                  settingConfig.tls.enableMixedCaseSNI = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.tls.mixedCaseSNIEnable,
+            tips: tcontext.tls.affectProtocolTips,
+            switchValue: settingConfig.tls.enableMixedCaseSNI,
+            onSwitch: (bool value) async {
+              settingConfig.tls.enableMixedCaseSNI = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.tls.paddingEnable,
-                tips: tcontext.tls.affectProtocolTips,
-                switchValue: settingConfig.tls.enablePadding,
-                onSwitch: (bool value) async {
-                  settingConfig.tls.enablePadding = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.tls.paddingEnable,
+            tips: tcontext.tls.affectProtocolTips,
+            switchValue: settingConfig.tls.enablePadding,
+            onSwitch: (bool value) async {
+              settingConfig.tls.enablePadding = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: tcontext.tls.paddingSize,
-                text: settingConfig.tls.paddingSize,
-                hint: SettingConfigItemTLS.kPaddingSize,
-                textWidthPercent: 0.5,
-                enabled: settingConfig.tls.enablePadding,
-                onChanged: (String value) {
-                  List<String> parts = value.split("-");
-                  if (parts.length == 1 || parts.length == 2) {
-                    for (var p in parts) {
-                      int? v = int.tryParse(p);
-                      if (v == null) {
-                        return;
-                      }
-                    }
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.tls.paddingSize,
+            text: settingConfig.tls.paddingSize,
+            hint: SettingConfigItemTLS.kPaddingSize,
+            textWidthPercent: 0.5,
+            enabled: settingConfig.tls.enablePadding,
+            onChanged: (String value) {
+              List<String> parts = value.split("-");
+              if (parts.length == 1 || parts.length == 2) {
+                for (var p in parts) {
+                  int? v = int.tryParse(p);
+                  if (v == null) {
+                    return;
                   }
-                  settingConfig.tls.paddingSize = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+                }
+              }
+              settingConfig.tls.paddingSize = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
       return [
         GroupItem(options: options0),
         GroupItem(options: options1),
         GroupItem(options: options2),
-        GroupItem(options: options3)
+        GroupItem(options: options3),
       ];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("TLS"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.tls,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("TLS"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.tls, getOptions: getOptions),
+      ),
+    );
     setState(() {});
   }
 
   Future<void> onTapMux() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.mux.enable,
-                onSwitch: (bool value) async {
-                  settingConfig.mux.enable = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.mux.enable,
+            onSwitch: (bool value) async {
+              settingConfig.mux.enable = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.meta.protocol,
-                selected: settingConfig.mux.protocol,
-                strings: ["h2mux", "smux", "yamux"],
-                onPicker: !settingConfig.mux.enable
-                    ? null
-                    : (String? selected) async {
-                        if (selected == null) {
-                          return;
-                        }
-                        settingConfig.mux.protocol = selected;
-                        SettingManager.setDirty(true);
-                        setState(() {});
-                      })),
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.meta.protocol,
+            selected: settingConfig.mux.protocol,
+            strings: ["h2mux", "smux", "yamux"],
+            onPicker: !settingConfig.mux.enable
+                ? null
+                : (String? selected) async {
+                    if (selected == null) {
+                      return;
+                    }
+                    settingConfig.mux.protocol = selected;
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: "Padding",
-                switchValue: settingConfig.mux.padding,
-                onSwitch: !settingConfig.mux.enable
-                    ? null
-                    : (bool value) async {
-                        settingConfig.mux.padding = value;
-                        SettingManager.setDirty(true);
-                        setState(() {});
-                      })),
+          switchOptions: GroupItemSwitchOptions(
+            name: "Padding",
+            switchValue: settingConfig.mux.padding,
+            onSwitch: !settingConfig.mux.enable
+                ? null
+                : (bool value) async {
+                    settingConfig.mux.padding = value;
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: "MaxStream",
-                text: settingConfig.mux.maxStream.toString(),
-                onPush: !settingConfig.mux.enable
-                    ? null
-                    : () async {
-                        int? p = await DialogUtils.showIntInputDialog(
-                            context,
-                            tcontext.SettingsScreen.modifyPort,
-                            settingConfig.mux.maxStream,
-                            1,
-                            256);
-                        if (p != null) {
-                          settingConfig.mux.maxStream = p;
-                          SettingManager.setDirty(true);
-                          setState(() {});
-                        }
-                      })),
+          pushOptions: GroupItemPushOptions(
+            name: "MaxStream",
+            text: settingConfig.mux.maxStream.toString(),
+            onPush: !settingConfig.mux.enable
+                ? null
+                : () async {
+                    int? p = await DialogUtils.showIntInputDialog(
+                      context,
+                      tcontext.SettingsScreen.modifyPort,
+                      settingConfig.mux.maxStream,
+                      1,
+                      256,
+                    );
+                    if (p != null) {
+                      settingConfig.mux.maxStream = p;
+                      SettingManager.setDirty(true);
+                      setState(() {});
+                    }
+                  },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: SingboxOutboundType.vmess.name,
-          switchValue: settingConfig.mux.outboundTypes
-              .contains(SingboxOutboundType.vmess.name),
-          onSwitch: !settingConfig.mux.enable
-              ? null
-              : (bool value) async {
-                  if (value) {
-                    settingConfig.mux.outboundTypes
-                        .add(SingboxOutboundType.vmess.name);
-                  } else {
-                    settingConfig.mux.outboundTypes
-                        .remove(SingboxOutboundType.vmess.name);
-                  }
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: SingboxOutboundType.vmess.name,
+            switchValue: settingConfig.mux.outboundTypes.contains(
+              SingboxOutboundType.vmess.name,
+            ),
+            onSwitch: !settingConfig.mux.enable
+                ? null
+                : (bool value) async {
+                    if (value) {
+                      settingConfig.mux.outboundTypes.add(
+                        SingboxOutboundType.vmess.name,
+                      );
+                    } else {
+                      settingConfig.mux.outboundTypes.remove(
+                        SingboxOutboundType.vmess.name,
+                      );
+                    }
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: SingboxOutboundType.vless.name,
-          switchValue: settingConfig.mux.outboundTypes
-              .contains(SingboxOutboundType.vless.name),
-          onSwitch: !settingConfig.mux.enable
-              ? null
-              : (bool value) async {
-                  if (value) {
-                    settingConfig.mux.outboundTypes
-                        .add(SingboxOutboundType.vless.name);
-                  } else {
-                    settingConfig.mux.outboundTypes
-                        .remove(SingboxOutboundType.vless.name);
-                  }
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: SingboxOutboundType.vless.name,
+            switchValue: settingConfig.mux.outboundTypes.contains(
+              SingboxOutboundType.vless.name,
+            ),
+            onSwitch: !settingConfig.mux.enable
+                ? null
+                : (bool value) async {
+                    if (value) {
+                      settingConfig.mux.outboundTypes.add(
+                        SingboxOutboundType.vless.name,
+                      );
+                    } else {
+                      settingConfig.mux.outboundTypes.remove(
+                        SingboxOutboundType.vless.name,
+                      );
+                    }
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: SingboxOutboundType.trojan.name,
-          switchValue: settingConfig.mux.outboundTypes
-              .contains(SingboxOutboundType.trojan.name),
-          onSwitch: !settingConfig.mux.enable
-              ? null
-              : (bool value) async {
-                  if (value) {
-                    settingConfig.mux.outboundTypes
-                        .add(SingboxOutboundType.trojan.name);
-                  } else {
-                    settingConfig.mux.outboundTypes
-                        .remove(SingboxOutboundType.trojan.name);
-                  }
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: SingboxOutboundType.trojan.name,
+            switchValue: settingConfig.mux.outboundTypes.contains(
+              SingboxOutboundType.trojan.name,
+            ),
+            onSwitch: !settingConfig.mux.enable
+                ? null
+                : (bool value) async {
+                    if (value) {
+                      settingConfig.mux.outboundTypes.add(
+                        SingboxOutboundType.trojan.name,
+                      );
+                    } else {
+                      settingConfig.mux.outboundTypes.remove(
+                        SingboxOutboundType.trojan.name,
+                      );
+                    }
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: SingboxOutboundType.shadowsocks.name,
-          switchValue: settingConfig.mux.outboundTypes
-              .contains(SingboxOutboundType.shadowsocks.name),
-          onSwitch: !settingConfig.mux.enable
-              ? null
-              : (bool value) async {
-                  if (value) {
-                    settingConfig.mux.outboundTypes
-                        .add(SingboxOutboundType.shadowsocks.name);
-                  } else {
-                    settingConfig.mux.outboundTypes
-                        .remove(SingboxOutboundType.shadowsocks.name);
-                  }
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: SingboxOutboundType.shadowsocks.name,
+            switchValue: settingConfig.mux.outboundTypes.contains(
+              SingboxOutboundType.shadowsocks.name,
+            ),
+            onSwitch: !settingConfig.mux.enable
+                ? null
+                : (bool value) async {
+                    if (value) {
+                      settingConfig.mux.outboundTypes.add(
+                        SingboxOutboundType.shadowsocks.name,
+                      );
+                    } else {
+                      settingConfig.mux.outboundTypes.remove(
+                        SingboxOutboundType.shadowsocks.name,
+                      );
+                    }
+                    SettingManager.setDirty(true);
+                    setState(() {});
+                  },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("Mux"),
-            builder: (context) => GroupScreen(
-                  title: "Mux",
-                  getOptions: getOptions,
-                  tipsIfNoOnDone: null,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("Mux"),
+        builder: (context) => GroupScreen(
+          title: "Mux",
+          getOptions: getOptions,
+          tipsIfNoOnDone: null,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -2154,124 +2625,137 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapAutoSelect() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.SettingsScreen.autoSelectServerInterval,
-                tips: tcontext.SettingsScreen.autoSelectServerIntervalTips,
-                duration: settingConfig.autoSelect.interval,
-                showSeconds: false,
-                showDisable: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration == null) {
-                    return;
-                  }
-                  if (duration.inDays > 365) {
-                    duration = const Duration(days: 365);
-                  }
-                  if (duration.inMinutes < 3) {
-                    duration = const Duration(minutes: 3);
-                  }
-                  if (duration == settingConfig.autoSelect.interval) {
-                    return;
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.SettingsScreen.autoSelectServerInterval,
+            tips: tcontext.SettingsScreen.autoSelectServerIntervalTips,
+            duration: settingConfig.autoSelect.interval,
+            showSeconds: false,
+            showMilliSeconds: false,
+            showDisable: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration == null) {
+                return;
+              }
+              if (duration.inDays > 365) {
+                duration = const Duration(days: 365);
+              }
+              if (duration.inMinutes < 3) {
+                duration = const Duration(minutes: 3);
+              }
+              if (duration == settingConfig.autoSelect.interval) {
+                return;
+              }
 
-                  settingConfig.autoSelect.interval = duration;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+              settingConfig.autoSelect.interval = duration;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.meta.tolerance,
-                duration: settingConfig.autoSelect.tolerance,
-                showDays: false,
-                showHours: false,
-                showMinutes: false,
-                showSeconds: true,
-                showMilliSeconds: true,
-                showDisable: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration == null) {
-                    return;
-                  }
-                  if (duration.inSeconds > 5) {
-                    duration = const Duration(seconds: 5);
-                  }
-                  if (duration.inMilliseconds < 0) {
-                    duration = const Duration(milliseconds: 0);
-                  }
-                  if (duration == settingConfig.autoSelect.tolerance) {
-                    return;
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.meta.tolerance,
+            duration: settingConfig.autoSelect.tolerance,
+            showDays: false,
+            showHours: false,
+            showMinutes: false,
+            showSeconds: true,
+            showMilliSeconds: true,
+            showDisable: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration == null) {
+                return;
+              }
+              if (duration.inSeconds > 5) {
+                duration = const Duration(seconds: 5);
+              }
+              if (duration.inMilliseconds < 0) {
+                duration = const Duration(milliseconds: 0);
+              }
+              if (duration == settingConfig.autoSelect.tolerance) {
+                return;
+              }
 
-                  settingConfig.autoSelect.tolerance = duration;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+              settingConfig.autoSelect.tolerance = duration;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext
-                    .SettingsScreen.autoSelectSelectedHealthCheckInterval,
-                tips: tcontext
-                    .SettingsScreen.autoSelectSelectedHealthCheckIntervalTips,
-                duration: settingConfig.autoSelect.selectedHealthCheckInterval,
-                showSeconds: true,
-                showMinutes: true,
-                showHours: false,
-                showDays: false,
-                showDisable: true,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration != null) {
-                    if (duration.inSeconds >= 3600) {
-                      duration = const Duration(minutes: 59);
-                    }
-                    if (duration.inSeconds < 3) {
-                      duration = const Duration(seconds: 3);
-                    }
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.SettingsScreen.autoSelectSelectedHealthCheckInterval,
+            tips: tcontext
+                .SettingsScreen
+                .autoSelectSelectedHealthCheckIntervalTips,
+            duration: settingConfig.autoSelect.selectedHealthCheckInterval,
+            showMinutes: false,
+            showSeconds: true,
+            showMilliSeconds: false,
+            showHours: false,
+            showDays: false,
+            showDisable: true,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration != null) {
+                if (duration.inSeconds >= 3600) {
+                  duration = const Duration(minutes: 59);
+                }
+                if (duration.inSeconds < 3) {
+                  duration = const Duration(seconds: 3);
+                }
+              }
 
-                  if (duration ==
-                      settingConfig.autoSelect.selectedHealthCheckInterval) {
-                    return;
-                  }
+              if (duration ==
+                  settingConfig.autoSelect.selectedHealthCheckInterval) {
+                return;
+              }
 
-                  settingConfig.autoSelect.selectedHealthCheckInterval =
-                      duration;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+              settingConfig.autoSelect.selectedHealthCheckInterval = duration;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext
-                    .SettingsScreen.autoSelectServerReTestIfNetworkUpdate,
-                switchValue: settingConfig.autoSelect.reTestIfNetworkUpdate,
-                onSwitch: (bool value) async {
-                  settingConfig.autoSelect.reTestIfNetworkUpdate = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoSelectServerReTestIfNetworkUpdate,
+            switchValue: settingConfig.autoSelect.reTestIfNetworkUpdate,
+            onSwitch: (bool value) async {
+              settingConfig.autoSelect.reTestIfNetworkUpdate = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen
-                    .autoSelectServerUpdateCurrentServerAfterManualUrltest,
-                switchValue: settingConfig
-                    .autoSelect.updateCurrentServerAfterManualUrltest,
-                onSwitch: (bool value) async {
-                  settingConfig
-                      .autoSelect.updateCurrentServerAfterManualUrltest = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext
+                .SettingsScreen
+                .autoSelectServerUpdateCurrentServerAfterManualUrltest,
+            switchValue:
+                settingConfig.autoSelect.updateCurrentServerAfterManualUrltest,
+            onSwitch: (bool value) async {
+              settingConfig.autoSelect.updateCurrentServerAfterManualUrltest =
+                  value;
+              setState(() {});
+            },
+          ),
+        ),
         /*GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
                 name: tcontext
@@ -2287,46 +2771,55 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.autoSelectServerFavFirst,
-                tips: tcontext.SettingsScreen.autoSelectServerFavFirstTips,
-                switchValue: settingConfig.autoSelect.prioritizeMyFav,
-                onSwitch: (bool value) async {
-                  settingConfig.autoSelect.prioritizeMyFav = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoSelectServerFavFirst,
+            tips: tcontext.SettingsScreen.autoSelectServerFavFirstTips,
+            switchValue: settingConfig.autoSelect.prioritizeMyFav,
+            onSwitch: (bool value) async {
+              settingConfig.autoSelect.prioritizeMyFav = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.autoSelectServerFilter,
-                tips: tcontext.SettingsScreen.autoSelectServerFilterTips(
-                    p: settingConfig.autoSelect.limitedNum),
-                switchValue: settingConfig.autoSelect.filter,
-                onSwitch: (bool value) async {
-                  settingConfig.autoSelect.filter = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoSelectServerFilter,
+            tips: tcontext.SettingsScreen.autoSelectServerFilterTips(
+              p: settingConfig.autoSelect.limitedNum,
+            ),
+            switchValue: settingConfig.autoSelect.filter,
+            onSwitch: (bool value) async {
+              settingConfig.autoSelect.filter = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.autoSelectServerLimitedNum,
-                tips: tcontext.SettingsScreen.autoSelectServerLimitedNumTips,
-                text: settingConfig.autoSelect.limitedNum.toString(),
-                onPush: () async {
-                  await onTapFilterInvalidServerNum();
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.autoSelectServerLimitedNum,
+            tips: tcontext.SettingsScreen.autoSelectServerLimitedNumTips,
+            text: settingConfig.autoSelect.limitedNum.toString(),
+            onPush: () async {
+              await onTapFilterInvalidServerNum();
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("autoSelect"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.autoSelect,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("autoSelect"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.autoSelect,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -2337,7 +2830,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapHomeScreen() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<Tuple2<String, String>> widgetsAlphaStrings = [
         Tuple2("0", "0"),
@@ -2348,51 +2843,61 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ];
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.backgroundImage,
-                textWidthPercent: 0.4,
-                onPush: () async {
-                  await onTapBackgroundImage();
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.backgroundImage,
+            textWidthPercent: 0.4,
+            onPush: () async {
+              await onTapBackgroundImage();
+            },
+          ),
+        ),
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.SettingsScreen.widgetsAlpha,
-                selected: settingConfig.uiScreen.getWidgetAlpha().toString(),
-                tupleStrings: widgetsAlphaStrings,
-                onPicker: (String? selected) async {
-                  if (selected == null ||
-                      selected ==
-                          settingConfig.uiScreen.getWidgetAlpha().toString()) {
-                    return;
-                  }
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.SettingsScreen.widgetsAlpha,
+            selected: settingConfig.uiScreen.getWidgetAlpha().toString(),
+            tupleStrings: widgetsAlphaStrings,
+            onPicker: (String? selected) async {
+              if (selected == null ||
+                  selected ==
+                      settingConfig.uiScreen.getWidgetAlpha().toString()) {
+                return;
+              }
 
-                  settingConfig.uiScreen.widgetsAlpha =
-                      int.tryParse(selected) ?? 255;
-                  Provider.of<Themes>(context, listen: false)
-                      .setTheme(SettingManager.getConfig().ui.theme, true);
+              settingConfig.uiScreen.widgetsAlpha =
+                  int.tryParse(selected) ?? 255;
+              Provider.of<Themes>(
+                context,
+                listen: false,
+              ).setTheme(SettingManager.getConfig().ui.theme, true);
 
-                  setState(() {});
-                })),
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.myLink,
-                text: SettingManager.getConfig().uiScreen.getMyLink(),
-                onPush: () async {
-                  await onTapMyLink();
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.myLink,
+            text: SettingManager.getConfig().uiScreen.getMyLink(),
+            onPush: () async {
+              await onTapMyLink();
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("homeScreen"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.homeScreen,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("homeScreen"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.homeScreen,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -2400,63 +2905,78 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<Tuple2<String, String>> backgroundImageStrings = [
         Tuple2(
-            SettingConfigItemUIScreen.backgroundTypeLocal, tcontext.meta.local),
-        Tuple2(SettingConfigItemUIScreen.backgroundTypeRemote,
-            tcontext.meta.remote),
-        Tuple2(SettingConfigItemUIScreen.backgroundTypeDisable,
-            tcontext.meta.disable),
+          SettingConfigItemUIScreen.backgroundTypeLocal,
+          tcontext.meta.local,
+        ),
+        Tuple2(
+          SettingConfigItemUIScreen.backgroundTypeRemote,
+          tcontext.meta.remote,
+        ),
+        Tuple2(
+          SettingConfigItemUIScreen.backgroundTypeDisable,
+          tcontext.meta.disable,
+        ),
       ];
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.meta.type,
-                selected: settingConfig.uiScreen.backgroundImageType,
-                tupleStrings: backgroundImageStrings,
-                onPicker: (String? selected) async {
-                  if (selected == null) {
-                    return;
-                  }
-                  settingConfig.uiScreen.backgroundImageType = selected;
-                  setState(() {});
-                })),
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.meta.type,
+            selected: settingConfig.uiScreen.backgroundImageType,
+            tupleStrings: backgroundImageStrings,
+            onPicker: (String? selected) async {
+              if (selected == null) {
+                return;
+              }
+              settingConfig.uiScreen.backgroundImageType = selected;
+              setState(() {});
+            },
+          ),
+        ),
         if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeLocal) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.path,
-                  textWidthPercent: 0.4,
-                  text:
-                      SettingManager.getConfig().uiScreen.backgroundImageLocal,
-                  onPush: () async {
-                    await onTapBackgroundImageEditLocal();
-                  })),
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.path,
+              textWidthPercent: 0.4,
+              text: SettingManager.getConfig().uiScreen.backgroundImageLocal,
+              onPush: () async {
+                await onTapBackgroundImageEditLocal();
+              },
+            ),
+          ),
         ],
         if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeRemote) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.url,
-                  textWidthPercent: 0.4,
-                  text: SettingManager.getConfig().uiScreen.backgroundImageUrl,
-                  onPush: () async {
-                    await onTapBackgroundImageEditRemote();
-                  })),
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.url,
+              textWidthPercent: 0.4,
+              text: SettingManager.getConfig().uiScreen.backgroundImageUrl,
+              onPush: () async {
+                await onTapBackgroundImageEditRemote();
+              },
+            ),
+          ),
         ],
       ];
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("backgroundImage"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.backgroundImage,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("backgroundImage"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.backgroundImage,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
     return;
   }
@@ -2465,8 +2985,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     if (Platform.isIOS) {
       try {
         final ImagePicker picker = ImagePicker();
-        final XFile? result =
-            await picker.pickImage(source: ImageSource.gallery);
+        final XFile? result = await picker.pickImage(
+          source: ImageSource.gallery,
+        );
 
         if ((result != null) && result.path.isNotEmpty) {
           String filePath = result.path;
@@ -2477,8 +2998,13 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         if (!mounted) {
           return;
         }
-        DialogUtils.showAlertDialog(context, err.toString(),
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          err.toString(),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
       return;
     }
@@ -2502,8 +3028,13 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -2511,25 +3042,27 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
 
     String? text = await DialogUtils.showTextInputDialog(
-        context,
-        tcontext.meta.url,
-        SettingManager.getConfig().uiScreen.backgroundImageUrl,
-        null,
-        null,
-        null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
+      context,
+      tcontext.meta.url,
+      SettingManager.getConfig().uiScreen.backgroundImageUrl,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return true;
+        }
+        Uri? uri = Uri.tryParse(text);
+        if (uri == null ||
+            uri.host.isEmpty ||
+            (!uri.isScheme('HTTP') && !uri.isScheme('HTTPS'))) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+          return false;
+        }
         return true;
-      }
-      Uri? uri = Uri.tryParse(text);
-      if (uri == null ||
-          uri.host.isEmpty ||
-          (!uri.isScheme('HTTP') && !uri.isScheme('HTTPS'))) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
-        return false;
-      }
-      return true;
-    });
+      },
+    );
     if (text == null) {
       return;
     }
@@ -2541,23 +3074,25 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
 
     String? text = await DialogUtils.showTextInputDialog(
-        context,
-        tcontext.SettingsScreen.myLink,
-        SettingManager.getConfig().uiScreen.myLink,
-        null,
-        null,
-        null, (text) {
-      text = text.trim();
-      if (text.isEmpty) {
+      context,
+      tcontext.SettingsScreen.myLink,
+      SettingManager.getConfig().uiScreen.myLink,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          return true;
+        }
+        Uri? uri = Uri.tryParse(text);
+        if (uri == null || !uri.hasScheme || uri.host.isEmpty) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+          return false;
+        }
         return true;
-      }
-      Uri? uri = Uri.tryParse(text);
-      if (uri == null || !uri.hasScheme || uri.host.isEmpty) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
-        return false;
-      }
-      return true;
-    });
+      },
+    );
     if (text == null) {
       return;
     }
@@ -2569,27 +3104,32 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
 
     String? text = await DialogUtils.showTextInputDialog(
-        context,
-        tcontext.SettingsScreen.autoSelectServerLimitedNum,
-        SettingManager.getConfig().autoSelect.limitedNum.toString(),
-        null,
-        TextInputType.number, [
-      FilteringTextInputFormatter.digitsOnly,
-    ], (text) {
-      text = text.trim();
-      if (text.isEmpty) {
-        DialogUtils.showAlertDialog(
-            context, tcontext.SettingsScreen.numInvalid);
-        return false;
-      }
-      int? value = int.tryParse(text);
-      if (value == null) {
-        DialogUtils.showAlertDialog(
-            context, tcontext.SettingsScreen.numInvalid);
-        return false;
-      }
-      return true;
-    });
+      context,
+      tcontext.SettingsScreen.autoSelectServerLimitedNum,
+      SettingManager.getConfig().autoSelect.limitedNum.toString(),
+      null,
+      TextInputType.number,
+      [FilteringTextInputFormatter.digitsOnly],
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          DialogUtils.showAlertDialog(
+            context,
+            tcontext.SettingsScreen.numInvalid,
+          );
+          return false;
+        }
+        int? value = int.tryParse(text);
+        if (value == null) {
+          DialogUtils.showAlertDialog(
+            context,
+            tcontext.SettingsScreen.numInvalid,
+          );
+          return false;
+        }
+        return true;
+      },
+    );
     if (text == null) {
       return "";
     }
@@ -2605,83 +3145,114 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<void> onTapHandleScheme() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.handleKaringScheme,
-          switchValue: SystemSchemeUtils.isRegistered(
-              SystemSchemeUtils.getKaringScheme()),
-          onSwitch: (bool value) async {
-            String? error;
-            if (value) {
-              error = await SystemSchemeUtils.register(
-                  SystemSchemeUtils.getKaringScheme());
-            } else {
-              error = SystemSchemeUtils.unregister(
-                  SystemSchemeUtils.getKaringScheme());
-            }
-            if (error != null) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
-            }
-            setState(() {});
-          },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.handleKaringScheme,
+            switchValue: SystemSchemeUtils.isRegistered(
+              SystemSchemeUtils.getKaringScheme(),
+            ),
+            onSwitch: (bool value) async {
+              String? error;
+              if (value) {
+                error = await SystemSchemeUtils.register(
+                  SystemSchemeUtils.getKaringScheme(),
+                );
+              } else {
+                error = SystemSchemeUtils.unregister(
+                  SystemSchemeUtils.getKaringScheme(),
+                );
+              }
+              if (error != null) {
+                DialogUtils.showAlertDialog(
+                  context,
+                  error,
+                  showCopy: true,
+                  showFAQ: true,
+                  withVersion: true,
+                );
+              }
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.handleClashScheme,
-          switchValue: SystemSchemeUtils.isRegistered(
-              SystemSchemeUtils.getClashScheme()),
-          onSwitch: (bool value) async {
-            String? error;
-            if (value) {
-              error = await SystemSchemeUtils.register(
-                  SystemSchemeUtils.getClashScheme());
-            } else {
-              error = SystemSchemeUtils.unregister(
-                  SystemSchemeUtils.getClashScheme());
-            }
-            if (error != null) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
-            }
-            setState(() {});
-          },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.handleClashScheme,
+            switchValue: SystemSchemeUtils.isRegistered(
+              SystemSchemeUtils.getClashScheme(),
+            ),
+            onSwitch: (bool value) async {
+              String? error;
+              if (value) {
+                error = await SystemSchemeUtils.register(
+                  SystemSchemeUtils.getClashScheme(),
+                );
+              } else {
+                error = SystemSchemeUtils.unregister(
+                  SystemSchemeUtils.getClashScheme(),
+                );
+              }
+              if (error != null) {
+                DialogUtils.showAlertDialog(
+                  context,
+                  error,
+                  showCopy: true,
+                  showFAQ: true,
+                  withVersion: true,
+                );
+              }
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.handleSingboxScheme,
-          switchValue: SystemSchemeUtils.isRegistered(
-              SystemSchemeUtils.getSingboxScheme()),
-          onSwitch: (bool value) async {
-            String? error;
-            if (value) {
-              error = await SystemSchemeUtils.register(
-                  SystemSchemeUtils.getSingboxScheme());
-            } else {
-              error = SystemSchemeUtils.unregister(
-                  SystemSchemeUtils.getSingboxScheme());
-            }
-            if (error != null) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
-            }
-            setState(() {});
-          },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.handleSingboxScheme,
+            switchValue: SystemSchemeUtils.isRegistered(
+              SystemSchemeUtils.getSingboxScheme(),
+            ),
+            onSwitch: (bool value) async {
+              String? error;
+              if (value) {
+                error = await SystemSchemeUtils.register(
+                  SystemSchemeUtils.getSingboxScheme(),
+                );
+              } else {
+                error = SystemSchemeUtils.unregister(
+                  SystemSchemeUtils.getSingboxScheme(),
+                );
+              }
+              if (error != null) {
+                DialogUtils.showAlertDialog(
+                  context,
+                  error,
+                  showCopy: true,
+                  showFAQ: true,
+                  withVersion: true,
+                );
+              }
+              setState(() {});
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("handleScheme"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.handleScheme,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("handleScheme"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.handleScheme,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -2737,8 +3308,13 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     await VPNService.uninit();
@@ -2749,79 +3325,100 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
-      String rewardAdExpireTime =
-          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
-      String shareExpireTime =
-          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
+      String rewardAdExpireTime = settingConfig.ads.getBannerRewardAdExpire(
+        settingConfig.languageTag,
+      );
+      String shareExpireTime = settingConfig.ads.getBannerShareExpire(
+        settingConfig.languageTag,
+      );
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.removeBannerAdsByReward,
-                text: rewardAdExpireTime,
-                onPush: rewardAdExpireTime.isNotEmpty
-                    ? null
-                    : () async {
-                        AnalyticsUtils.logEvent(
-                            analyticsEventType: analyticsEventTypeUA,
-                            name: 'adsReward',
-                            repeatable: true);
-
-                        bool? ok = await DialogUtils.showConfirmDialog(
-                            context,
-                            tcontext.removeBannerAdsByRewardTip(
-                                p: SettingConfigItemAds.rewardDays));
-                        if (ok == true) {
-                          DialogUtils.showLoadingDialog(context, text: "");
-                          AdsRewardWidget.loadGoogleRewardedAd(
-                              (AdsRewardError? err) {
-                            if (!mounted) {
-                              return;
-                            }
-                            Navigator.pop(context);
-                            if (err == null) {
-                              settingConfig.ads.bannerRewardAdExpire =
-                                  DateTime.now()
-                                      .add(const Duration(
-                                          days:
-                                              SettingConfigItemAds.rewardDays))
-                                      .toString();
-                              setState(() {});
-                              DialogUtils.showAlertDialog(
-                                  context,
-                                  tcontext.removeBannerAdsDone(
-                                      p: SettingConfigItemAds.rewardDays));
-                            } else {
-                              DialogUtils.showAlertDialog(
-                                  context, err.toString(),
-                                  showCopy: true,
-                                  showFAQ: true,
-                                  withVersion: true);
-                            }
-                          });
-                        }
-                      })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.removeBannerAdsByShare,
-                text: shareExpireTime,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.removeBannerAdsByReward,
+            text: rewardAdExpireTime,
+            onPush: rewardAdExpireTime.isNotEmpty
+                ? null
+                : () async {
+                    /*AnalyticsUtils.logEvent(
                       analyticsEventType: analyticsEventTypeUA,
-                      name: 'adsShare',
-                      repeatable: true);
+                      name: 'adsReward',
+                      repeatable: true,
+                    );*/
 
-                  bool? ok = await DialogUtils.showConfirmDialog(
+                    bool? ok = await DialogUtils.showConfirmDialog(
                       context,
-                      tcontext.removeBannerAdsByShareTip(
-                          p: SettingConfigItemAds.rewardDays,
-                          d: SettingConfigItemAds.rewardDays *
-                              SettingConfigItemAds.shareRewardTimes));
-                  if (ok == true) {
-                    try {
-                      RemoteConfig config = RemoteConfigManager.getConfig();
-                      String content = '''Karing
+                      tcontext.removeBannerAdsByRewardTip(
+                        p: SettingConfigItemAds.rewardDays,
+                      ),
+                    );
+                    if (ok == true) {
+                      DialogUtils.showLoadingDialog(context, text: "");
+                      AdsRewardWidget.loadGoogleRewardedAd((
+                        AdsRewardError? err,
+                      ) {
+                        if (!mounted) {
+                          return;
+                        }
+                        Navigator.pop(context);
+                        if (err == null) {
+                          settingConfig.ads.bannerRewardAdExpire =
+                              DateTime.now()
+                                  .add(
+                                    const Duration(
+                                      days: SettingConfigItemAds.rewardDays,
+                                    ),
+                                  )
+                                  .toString();
+                          setState(() {});
+                          DialogUtils.showAlertDialog(
+                            context,
+                            tcontext.removeBannerAdsDone(
+                              p: SettingConfigItemAds.rewardDays,
+                            ),
+                          );
+                        } else {
+                          DialogUtils.showAlertDialog(
+                            context,
+                            err.toString(),
+                            showCopy: true,
+                            showFAQ: true,
+                            withVersion: true,
+                          );
+                        }
+                      });
+                    }
+                  },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.removeBannerAdsByShare,
+            text: shareExpireTime,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
+                analyticsEventType: analyticsEventTypeUA,
+                name: 'adsShare',
+                repeatable: true,
+              );*/
+
+              bool? ok = await DialogUtils.showConfirmDialog(
+                context,
+                tcontext.removeBannerAdsByShareTip(
+                  p: SettingConfigItemAds.rewardDays,
+                  d:
+                      SettingConfigItemAds.rewardDays *
+                      SettingConfigItemAds.shareRewardTimes,
+                ),
+              );
+              if (ok == true) {
+                try {
+                  RemoteConfig config = RemoteConfigManager.getConfig();
+                  String content =
+                      '''Karing
 
  Simple & Powerful, rule-based network proxy utility
  Support Clash,V2ray,Stash,Singbox,Shadowsocks,Github,Sub Subscription configuration
@@ -2830,61 +3427,72 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
    iOS/macOS/tvOS AppStore: ${AppleUtils.getAppStoreUrl()}
    Android: ${config.download} or https://apkpure.com/p/com.nebula.karing
    Windows: ${config.download}''';
-                      final box = context.findRenderObject() as RenderBox?;
-                      final rect = box != null
-                          ? box.localToGlobal(Offset.zero) & box.size
-                          : null;
-                      ShareResult result =
-                          await SharePlus.instance.share(ShareParams(
-                        text: content,
-                        sharePositionOrigin: rect,
-                      ));
+                  final box = context.findRenderObject() as RenderBox?;
+                  final rect = box != null
+                      ? box.localToGlobal(Offset.zero) & box.size
+                      : null;
+                  ShareResult result = await SharePlus.instance.share(
+                    ShareParams(text: content, sharePositionOrigin: rect),
+                  );
 
-                      if (result.status == ShareResultStatus.success) {
-                        DateTime? date = DateTime.tryParse(
-                            settingConfig.ads.bannerShareExpire);
-                        if (date != null) {
-                          var newDate = date.add(
-                              Duration(days: SettingConfigItemAds.rewardDays));
-                          if ((newDate.difference(DateTime.now()).inDays /
-                                      SettingConfigItemAds.rewardDays)
-                                  .ceil() >
-                              SettingConfigItemAds.shareRewardTimes) {
-                            return;
-                          }
-                          settingConfig.ads.bannerShareExpire =
-                              newDate.toString();
-                        } else {
-                          settingConfig.ads.bannerShareExpire = DateTime.now()
-                              .add(const Duration(
-                                  days: SettingConfigItemAds.rewardDays))
-                              .toString();
-                        }
-
-                        setState(() {});
-                        DialogUtils.showAlertDialog(
-                            context,
-                            tcontext.removeBannerAdsDone(
-                                p: SettingConfigItemAds.rewardDays));
+                  if (result.status == ShareResultStatus.success) {
+                    DateTime? date = DateTime.tryParse(
+                      settingConfig.ads.bannerShareExpire,
+                    );
+                    if (date != null) {
+                      var newDate = date.add(
+                        Duration(days: SettingConfigItemAds.rewardDays),
+                      );
+                      if ((newDate.difference(DateTime.now()).inDays /
+                                  SettingConfigItemAds.rewardDays)
+                              .ceil() >
+                          SettingConfigItemAds.shareRewardTimes) {
+                        return;
                       }
-                    } catch (err) {
-                      DialogUtils.showAlertDialog(context, err.toString(),
-                          showCopy: true, showFAQ: true, withVersion: true);
+                      settingConfig.ads.bannerShareExpire = newDate.toString();
+                    } else {
+                      settingConfig.ads.bannerShareExpire = DateTime.now()
+                          .add(
+                            const Duration(
+                              days: SettingConfigItemAds.rewardDays,
+                            ),
+                          )
+                          .toString();
                     }
+
+                    setState(() {});
+                    DialogUtils.showAlertDialog(
+                      context,
+                      tcontext.removeBannerAdsDone(
+                        p: SettingConfigItemAds.rewardDays,
+                      ),
+                    );
                   }
-                })),
+                } catch (err) {
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.toString(),
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
+                }
+              }
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("ads"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.ads,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("ads"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.ads, getOptions: getOptions),
+      ),
+    );
     setState(() {});
   }
 
@@ -2892,7 +3500,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
@@ -2900,46 +3510,59 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             !AdsPrivate.getEnable() &&
             remoteConfig.adManualEnable) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.meta.adsBanner,
-                  switchValue: settingConfig.ads.bannerEnable,
-                  onSwitch: (bool value) async {
-                    settingConfig.ads.bannerEnable = value;
-                    setState(() {});
-                  }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.adsBanner,
+              switchValue: settingConfig.ads.bannerEnable,
+              onSwitch: (bool value) async {
+                settingConfig.ads.bannerEnable = value;
+                setState(() {});
+              },
+            ),
+          ),
         ],
       ];
 
       if (!Platform.isIOS &&
           !Platform.isMacOS &&
           remoteConfig.donateUrl.isNotEmpty) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.donate,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: "donate",
-                      repeatable: false);
-                  String url =
-                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                          remoteConfig.donateUrl);
-                  await WebviewHelper.loadUrl(context, url, "donate",
-                      title: tcontext.meta.donate);
-                })));
+              name: tcontext.meta.donate,
+              onPush: () async {
+                /*AnalyticsUtils.logEvent(
+                  analyticsEventType: analyticsEventTypeUA,
+                  name: "donate",
+                  repeatable: false,
+                );*/
+                String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                  remoteConfig.donateUrl,
+                );
+                await WebviewHelper.loadUrl(
+                  context,
+                  url,
+                  "donate",
+                  title: tcontext.meta.donate,
+                );
+              },
+            ),
+          ),
+        );
       }
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("supportUs"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.supportUs,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("supportUs"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.supportUs,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 }

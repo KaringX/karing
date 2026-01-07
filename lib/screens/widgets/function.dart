@@ -15,17 +15,11 @@ class Debouncer {
     if (timer != null) {
       timer.cancel();
     }
-    _operations[tag] = Timer(
-      duration,
-      () {
-        _operations[tag]?.cancel();
-        _operations.remove(tag);
-        Function.apply(
-          func,
-          args,
-        );
-      },
-    );
+    _operations[tag] = Timer(duration, () {
+      _operations[tag]?.cancel();
+      _operations.remove(tag);
+      Function.apply(func, args);
+    });
   }
 
   cancel(dynamic tag) {
@@ -47,17 +41,11 @@ class Throttler {
     if (timer != null) {
       return true;
     }
-    _operations[tag] = Timer(
-      duration,
-      () {
-        _operations[tag]?.cancel();
-        _operations.remove(tag);
-        Function.apply(
-          func,
-          args,
-        );
-      },
-    );
+    _operations[tag] = Timer(duration, () {
+      _operations[tag]?.cancel();
+      _operations.remove(tag);
+      Function.apply(func, args);
+    });
     return false;
   }
 

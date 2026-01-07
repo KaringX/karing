@@ -9,9 +9,7 @@ Future<T?> showSheet<T>({
     context: context,
     isScrollControlled: isScrollControlled,
     builder: (context) {
-      return SafeArea(
-        child: body,
-      );
+      return SafeArea(child: body);
     },
     showDragHandle: true,
     useSafeArea: true,
@@ -28,9 +26,7 @@ Future<T?> showSheetWithBuilder<T>({
     context: context,
     isScrollControlled: false,
     builder: (_) {
-      return SafeArea(
-        child: builder(context),
-      );
+      return SafeArea(child: builder(context));
     },
     showDragHandle: false,
     useSafeArea: true,
@@ -64,9 +60,7 @@ class _AdaptiveSheetScaffoldState extends State<AdaptiveSheetScaffold> {
       automaticallyImplyLeading: false,
       centerTitle: true,
       backgroundColor: backgroundColor,
-      title: Text(
-        widget.title,
-      ),
+      title: Text(widget.title),
       actions: widget.actions,
     );
 
@@ -93,10 +87,7 @@ class _AdaptiveSheetScaffoldState extends State<AdaptiveSheetScaffold> {
             ),
           ),
           appBar,
-          Flexible(
-            flex: 1,
-            child: widget.body,
-          )
+          Flexible(flex: 1, child: widget.body),
         ],
       ),
     );
@@ -111,22 +102,21 @@ Future<void> showSheetWidgets({
   return showSheet(
     context: context,
     body: SizedBox(
-        height: 400,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: Scrollbar(
-              child: ListView.separated(
+      height: 400,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Scrollbar(
+          child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               return widgets[index];
             },
             separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                height: 1,
-                thickness: 0.3,
-              );
+              return const Divider(height: 1, thickness: 0.3);
             },
             itemCount: widgets.length,
-          )),
-        )),
+          ),
+        ),
+      ),
+    ),
   );
 }

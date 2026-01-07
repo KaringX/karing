@@ -123,8 +123,8 @@ class _TranslationsAboutScreenFa implements TranslationsAboutScreenEn {
 	@override String get installTime => 'زمان نصب';
 	@override String get versionChannel => 'کانال به‌روزرسانی خودکار';
 	@override String get autoDownloadPkg => 'دانلود خودکار بسته‌های به‌روزرسانی';
-	@override String get disableUAReport => 'داده های بهبود را اعمال کنید';
-	@override String get disableUAReportTip => '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.';
+	@override String get disableAppImproveData => 'داده های بهبود را اعمال کنید';
+	@override String get disableUAReportTip => 'فعال کردن [${_root.AboutScreen.disableAppImproveData}] به ما کمک می‌کند تا پایداری و قابلیت استفاده از محصول را بهبود بخشیم؛ ما هیچ گونه اطلاعات شخصی مربوط به حریم خصوصی را جمع‌آوری نمی‌کنیم. غیرفعال کردن آن مانع از جمع‌آوری هرگونه داده توسط برنامه می‌شود.';
 	@override String get devOptions => 'تنظیمات توسعه‌دهندگان';
 	@override String get enableDebugLog => 'فعال‌سازی گزارش اشکال‌زدایی';
 	@override String get viewFilsContent => 'مشاهده فایل‌ها';
@@ -925,8 +925,8 @@ extension on TranslationsFa {
 			'AboutScreen.installTime' => 'زمان نصب',
 			'AboutScreen.versionChannel' => 'کانال به‌روزرسانی خودکار',
 			'AboutScreen.autoDownloadPkg' => 'دانلود خودکار بسته‌های به‌روزرسانی',
-			'AboutScreen.disableUAReport' => 'داده های بهبود را اعمال کنید',
-			'AboutScreen.disableUAReportTip' => '[داده‌های بهبود برنامه] به ما کمک می‌کند تا تجربه محصول را در نسخه‌های پایین‌تر از نسخه اصلی بهبود بخشیم، همه [داده‌های بهبود برنامه] به‌جز [فعال‌سازی برنامه] را خاموش می‌کند.',
+			'AboutScreen.disableAppImproveData' => 'داده های بهبود را اعمال کنید',
+			'AboutScreen.disableUAReportTip' => 'فعال کردن [${_root.AboutScreen.disableAppImproveData}] به ما کمک می‌کند تا پایداری و قابلیت استفاده از محصول را بهبود بخشیم؛ ما هیچ گونه اطلاعات شخصی مربوط به حریم خصوصی را جمع‌آوری نمی‌کنیم. غیرفعال کردن آن مانع از جمع‌آوری هرگونه داده توسط برنامه می‌شود.',
 			'AboutScreen.devOptions' => 'تنظیمات توسعه‌دهندگان',
 			'AboutScreen.enableDebugLog' => 'فعال‌سازی گزارش اشکال‌زدایی',
 			'AboutScreen.viewFilsContent' => 'مشاهده فایل‌ها',

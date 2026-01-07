@@ -63,10 +63,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -82,10 +79,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -95,56 +89,52 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    Row(children: [
-                      _taskQueue != null
-                          ? const Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: 26,
-                                  height: 26,
-                                  child: RepaintBoundary(
-                                    child: CircularProgressIndicator(),
+                    Row(
+                      children: [
+                        _taskQueue != null
+                            ? const Row(
+                                children: [
+                                  SizedBox(width: 12),
+                                  SizedBox(
+                                    width: 26,
+                                    height: 26,
+                                    child: RepaintBoundary(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 12,
-                                )
-                              ],
-                            )
-                          : InkWell(
-                              onTap: () async {
-                                checkLatency();
-                              },
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.bolt_outlined,
-                                  size: 26,
+                                  SizedBox(width: 12),
+                                ],
+                              )
+                            : InkWell(
+                                onTap: () async {
+                                  checkLatency();
+                                },
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 30,
+                                  child: Icon(Icons.bolt_outlined, size: 26),
                                 ),
                               ),
-                            ),
-                    ]),
+                      ],
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: FutureBuilder(
                   future: VPNService.getTunMode(),
                   builder:
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    return _loadListView(snapshot.hasData && snapshot.data!);
-                  },
+                        return _loadListView(
+                          snapshot.hasData && snapshot.data!,
+                        );
+                      },
                 ),
               ),
             ],
@@ -174,54 +164,62 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     DnsSettingsScreen.getCurrent().clear();
     setState(() {});
     _testConnectLatency(
-        _searchedData,
-        DnsSettingsScreen.getDirect(),
-        DnsSettingsScreen.getCurrent(),
-        kOutboundTagDirect,
-        VPNService.getCurrent().tag, (
-      Map<String, String> contectDirectLatency,
-      Map<String, String> contectCurrentLatency,
-    ) async {
-      List<Tuple2<String, String>> bydDirect = contectDirectLatency.entries
-          .map((entry) => Tuple2(entry.key, entry.value))
-          .toList();
-      List<Tuple2<String, String>> byCurrent = contectCurrentLatency.entries
-          .map((entry) => Tuple2(entry.key, entry.value))
-          .toList();
-      bydDirect.removeWhere((ele) {
-        return null == int.tryParse(ele.item2);
-      });
-      byCurrent.removeWhere((ele) {
-        return null == int.tryParse(ele.item2);
-      });
-      bydDirect.sort(sort);
-      byCurrent.sort(sort);
-      if (bydDirect.isNotEmpty || byCurrent.isNotEmpty) {
-        bool tun = await VPNService.getTunMode();
-        var settingConfig = SettingManager.getConfig();
+      _searchedData,
+      DnsSettingsScreen.getDirect(),
+      DnsSettingsScreen.getCurrent(),
+      kOutboundTagDirect,
+      VPNService.getCurrent().tag,
+      (
+        Map<String, String> contectDirectLatency,
+        Map<String, String> contectCurrentLatency,
+      ) async {
+        List<Tuple2<String, String>> bydDirect = contectDirectLatency.entries
+            .map((entry) => Tuple2(entry.key, entry.value))
+            .toList();
+        List<Tuple2<String, String>> byCurrent = contectCurrentLatency.entries
+            .map((entry) => Tuple2(entry.key, entry.value))
+            .toList();
+        bydDirect.removeWhere((ele) {
+          return null == int.tryParse(ele.item2);
+        });
+        byCurrent.removeWhere((ele) {
+          return null == int.tryParse(ele.item2);
+        });
+        bydDirect.sort(sort);
+        byCurrent.sort(sort);
+        if (bydDirect.isNotEmpty || byCurrent.isNotEmpty) {
+          bool tun = await VPNService.getTunMode();
+          var settingConfig = SettingManager.getConfig();
 
-        settingConfig.dns
-            .setOutboundDns(getNonResolverDNS(bydDirect, true, tun));
-        settingConfig.dns.setDirectDns(getNonResolverDNS(bydDirect, true, tun));
-        settingConfig.dns.setResolverDns(getResolverDNS(bydDirect, tun));
-        bool enableProxyResolveByProxy = settingConfig.dns.proxyResolveMode ==
-            SettingConfigItemDNSProxyResolveMode.proxy;
-        if (!settingConfig.novice && enableProxyResolveByProxy) {
-          settingConfig.dns
-              .setProxyDns(getNonResolverDNS(byCurrent, false, tun));
-        } else {
-          settingConfig.dns
-              .setProxyDns(getNonResolverDNS(bydDirect, false, tun));
-        }
+          settingConfig.dns.setOutboundDns(
+            getNonResolverDNS(bydDirect, true, tun),
+          );
+          settingConfig.dns.setDirectDns(
+            getNonResolverDNS(bydDirect, true, tun),
+          );
+          settingConfig.dns.setResolverDns(getResolverDNS(bydDirect, tun));
+          bool enableProxyResolveByProxy =
+              settingConfig.dns.proxyResolveMode ==
+              SettingConfigItemDNSProxyResolveMode.proxy;
+          if (!settingConfig.novice && enableProxyResolveByProxy) {
+            settingConfig.dns.setProxyDns(
+              getNonResolverDNS(byCurrent, false, tun),
+            );
+          } else {
+            settingConfig.dns.setProxyDns(
+              getNonResolverDNS(bydDirect, false, tun),
+            );
+          }
 
-        SettingManager.setDirty(true);
-        if (!mounted) {
-          return;
+          SettingManager.setDirty(true);
+          if (!mounted) {
+            return;
+          }
+          final tcontext = Translations.of(context);
+          DialogUtils.showAlertDialog(context, tcontext.meta.done);
         }
-        final tcontext = Translations.of(context);
-        DialogUtils.showAlertDialog(context, tcontext.meta.done);
-      }
-    });
+      },
+    );
 
     if (!mounted) {
       return;
@@ -239,32 +237,32 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     Size windowSize = MediaQuery.of(context).size;
 
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _searchedData[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _searchedData[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   static void _testConnectLatency(
-      List items,
+    List items,
+    Map<String, String> contectDirectLatency,
+    Map<String, String> contectCurrentLatency,
+    String detourDirect,
+    String detourCurrent,
+    Function(
       Map<String, String> contectDirectLatency,
       Map<String, String> contectCurrentLatency,
-      String detourDirect,
-      String detourCurrent,
-      Function(
-        Map<String, String> contectDirectLatency,
-        Map<String, String> contectCurrentLatency,
-      ) onfinish) {
+    )
+    onfinish,
+  ) {
     List<String> urls = [];
 
     for (var item in items) {
@@ -273,76 +271,92 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
         urls.add(url);
       }
     }
-    _testConnectLatencyParallel(contectDirectLatency, contectCurrentLatency,
-        detourDirect, detourCurrent, urls, onfinish);
+    _testConnectLatencyParallel(
+      contectDirectLatency,
+      contectCurrentLatency,
+      detourDirect,
+      detourCurrent,
+      urls,
+      onfinish,
+    );
   }
 
   static void _testConnectLatencyParallel(
+    Map<String, String> contectDirectLatency,
+    Map<String, String> contectCurrentLatency,
+    String detourDirect,
+    String detourCurrent,
+    List<String> urls,
+    Function(
       Map<String, String> contectDirectLatency,
       Map<String, String> contectCurrentLatency,
-      String detourDirect,
-      String detourCurrent,
-      List<String> urls,
-      Function(
-        Map<String, String> contectDirectLatency,
-        Map<String, String> contectCurrentLatency,
-      ) onfinish) {
+    )
+    onfinish,
+  ) {
     if (urls.isEmpty) {
       return;
     }
-    _taskQueue ??= ParallelTaskQueue((url) async {
-      bool started = await VPNService.getStarted();
-      if (started) {
-        if (url == SettingConfigItemDNS.kDNSLocal ||
-            url == SettingConfigItemDNS.kDNSDHCP) {
-          ReturnResult<int> resultDirect =
-              await ServerManager.testDNSConnectLatency(
-                  [url], detourDirect, null);
-          if (resultDirect.error != null) {
-            contectDirectLatency[url] = resultDirect.error!.message;
-          } else {
-            contectDirectLatency[url] = resultDirect.data.toString();
-          }
+    _taskQueue ??= ParallelTaskQueue(
+      (url) async {
+        bool started = await VPNService.getStarted();
+        if (started) {
+          if (url == SettingConfigItemDNS.kDNSLocal ||
+              url == SettingConfigItemDNS.kDNSDHCP) {
+            ReturnResult<int> resultDirect =
+                await ServerManager.testDNSConnectLatency(
+                  [url],
+                  detourDirect,
+                  null,
+                );
+            if (resultDirect.error != null) {
+              contectDirectLatency[url] = resultDirect.error!.message;
+            } else {
+              contectDirectLatency[url] = resultDirect.data.toString();
+            }
 
-          contectCurrentLatency[url] = "not support";
+            contectCurrentLatency[url] = "not support";
+          } else {
+            var value = await Future.wait([
+              ServerManager.testDNSConnectLatency([url], detourDirect, null),
+              ServerManager.testDNSConnectLatency([url], detourCurrent, null),
+            ]);
+
+            if (value[0].error != null) {
+              contectDirectLatency[url] = value[0].error!.message;
+            } else {
+              contectDirectLatency[url] = value[0].data.toString();
+            }
+
+            if (value[1].error != null) {
+              contectCurrentLatency[url] = value[1].error!.message;
+            } else {
+              contectCurrentLatency[url] = value[1].data.toString();
+            }
+          }
         } else {
-          var value = await Future.wait([
-            ServerManager.testDNSConnectLatency([url], detourDirect, null),
-            ServerManager.testDNSConnectLatency([url], detourCurrent, null)
-          ]);
-
-          if (value[0].error != null) {
-            contectDirectLatency[url] = value[0].error!.message;
-          } else {
-            contectDirectLatency[url] = value[0].data.toString();
-          }
-
-          if (value[1].error != null) {
-            contectCurrentLatency[url] = value[1].error!.message;
-          } else {
-            contectCurrentLatency[url] = value[1].data.toString();
-          }
+          _taskQueue?.cancel();
+          _taskQueue = null;
         }
-      } else {
-        _taskQueue?.cancel();
-        _taskQueue = null;
-      }
-      return url;
-    }, (url, int left, int total, bool start, bool finish) {
-      if (finish) {
-        _taskQueue = null;
-        onfinish(
-          contectDirectLatency,
-          contectCurrentLatency,
-        );
-      }
-    }, _kMaxTasks, []);
+        return url;
+      },
+      (url, int left, int total, bool start, bool finish) {
+        if (finish) {
+          _taskQueue = null;
+          onfinish(contectDirectLatency, contectCurrentLatency);
+        }
+      },
+      _kMaxTasks,
+      [],
+    );
     _taskQueue!.addTasks(urls);
     _taskQueue!.run();
   }
 
   static List<String> getNonResolverDNS(
-      List<Tuple2<String, String>> list, bool includeNotSecurity, bool tun) {
+    List<Tuple2<String, String>> list,
+    bool includeNotSecurity,
+    bool tun,
+  ) {
     List<String> result = [];
     for (var tuple in list) {
       if (tuple.item1 == SettingConfigItemDNS.kDNSLocal) {
@@ -382,7 +396,9 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
   }
 
   static List<String> getResolverDNS(
-      List<Tuple2<String, String>> list, bool tun) {
+    List<Tuple2<String, String>> list,
+    bool tun,
+  ) {
     List<String> result = [];
     for (var tuple in list) {
       if (tuple.item1 == SettingConfigItemDNS.kDNSLocal) {
@@ -426,9 +442,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         height: ThemeConfig.kListItemHeight + 5,
         child: Row(
@@ -439,14 +453,16 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Text(
-                        isp,
-                        style: TextStyle(
-                          fontSize: ThemeConfig.kFontSizeGroupItem,
+                    Row(
+                      children: [
+                        Text(
+                          isp,
+                          style: TextStyle(
+                            fontSize: ThemeConfig.kFontSizeGroupItem,
+                          ),
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                     Row(
                       children: [
                         SizedBox(
@@ -463,17 +479,19 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                   ],
                 ),
                 CommonWidget.createLatencyWidget(
-                    context,
-                    ThemeConfig.kListItemHeight,
-                    _taskQueue != null && directLatenty == null,
-                    _taskQueue != null && _taskQueue!.running(addr),
-                    directLatenty ?? ""),
+                  context,
+                  ThemeConfig.kListItemHeight,
+                  _taskQueue != null && directLatenty == null,
+                  _taskQueue != null && _taskQueue!.running(addr),
+                  directLatenty ?? "",
+                ),
                 CommonWidget.createLatencyWidget(
-                    context,
-                    ThemeConfig.kListItemHeight,
-                    _taskQueue != null && currentLatenty == null,
-                    _taskQueue != null && _taskQueue!.running(addr),
-                    currentLatenty ?? ""),
+                  context,
+                  ThemeConfig.kListItemHeight,
+                  _taskQueue != null && currentLatenty == null,
+                  _taskQueue != null && _taskQueue!.running(addr),
+                  currentLatenty ?? "",
+                ),
               ],
             ),
           ],

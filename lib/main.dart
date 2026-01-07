@@ -63,7 +63,10 @@ void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await VPNService.initABI();
   await RemoteConfigManager.init();
-  await SentryUtilsPrivate.init();
+  await SettingManager.init();
+  if (!SettingManager.getConfig().disableAppImproveData) {
+    await SentryUtilsPrivate.init();
+  }
   await RemoteISPConfigManager.init();
   await LocaleSettings.useDeviceLocale();
 
@@ -88,7 +91,8 @@ Future<void> run(List<String> args) async {
       String buildVersion = AppUtils.getBuildinVersion();
       String exePath = Platform.resolvedExecutable;
       Log.w(
-          'launch $buildVersion $exePath, $args, ${Directory.current.absolute.path}, $profileDir');
+        'launch $buildVersion $exePath, $args, ${Directory.current.absolute.path}, $profileDir',
+      );
       String cache = await PathUtils.cacheDir();
       if (cache.isEmpty) {
         startFailedReason = StartFailedReason.invalidProfile;
@@ -170,15 +174,17 @@ Future<void> run(List<String> args) async {
 
     if (Platform.isWindows) {
       await WindowsSingleInstance.ensureSingleInstance(
-          args, "karing_single_identifier", onSecondWindow: (args) async {
-        if (await windowManager.isMinimized()) {
-          await windowManager.restore();
-        }
-        await windowManager.focus();
-      });
+        args,
+        "karing_single_identifier",
+        onSecondWindow: (args) async {
+          if (await windowManager.isMinimized()) {
+            await windowManager.restore();
+          }
+          await windowManager.focus();
+        },
+      );
     }
 
-    await SettingManager.init();
     await AutoUpdateManager.init();
 
     bool disableOrientation = await DeviceUtils.disableOrientation();
@@ -188,7 +194,7 @@ Future<void> run(List<String> args) async {
           DeviceOrientation.portraitUp,
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.portraitDown,
-          DeviceOrientation.landscapeRight
+          DeviceOrientation.landscapeRight,
         ]);
       } else {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -202,18 +208,21 @@ Future<void> run(List<String> args) async {
     String cmdline = args.toString();
     Log.w("main.run exception: ${err.toString()}, $cmdline");
     SentryUtils.captureException(
-        'main.run.exception', [cmdline], err, stacktrace);
+      'main.run.exception',
+      [cmdline],
+      err,
+      stacktrace,
+    );
   }
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        systemNavigationBarColor: Colors.transparent);
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+    );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
-  runApp(TranslationProvider(
-    child: const MyApp(),
-  ));
+  runApp(TranslationProvider(child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -246,11 +255,12 @@ class MyAppState extends State<MyApp>
       orElse: () => '',
     );
     _launchAtStartup = launchStartupArg.isNotEmpty;
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeApp,
-        name: 'launch',
-        parameters: {"value": _launchAtStartup},
-        forceSubmit: true);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeApp,
+      name: 'launch',
+      parameters: {"value": _launchAtStartup},
+      forceSubmit: true,
+    );*/
 
     AppLifecycleStateNofity.stateLaunch(_launchAtStartup);
     _init();
@@ -302,71 +312,78 @@ class MyAppState extends State<MyApp>
 
   @override
   Widget build(BuildContext context) {
-    String schemeArg = processArgs.firstWhere(
-      (element) {
-        return element
-                .trim()
-                .startsWith(SystemSchemeUtils.getKaringSchemeWith()) ||
-            element.trim().startsWith(SystemSchemeUtils.getClashSchemeWith());
-      },
-      orElse: () => '',
-    );
+    String schemeArg = processArgs.firstWhere((element) {
+      return element.trim().startsWith(
+            SystemSchemeUtils.getKaringSchemeWith(),
+          ) ||
+          element.trim().startsWith(SystemSchemeUtils.getClashSchemeWith());
+    }, orElse: () => '');
 
     List<NavigatorObserver> observers = [];
 
     observers.add(AppRouteObserver.instance);
-    observers.add(SentryUtils.getOvserver());
+    if (!SettingManager.getConfig().disableAppImproveData) {
+      observers.add(SentryUtils.getOvserver());
+    }
 
     return MultiProvider(
-        providers: [ChangeNotifierProvider.value(value: Themes())],
-        child: Consumer<Themes>(builder: (context, appTheme, _) {
-          Provider.of<Themes>(context)
-              .setTheme(SettingManager.getConfig().ui.theme, false);
+      providers: [ChangeNotifierProvider.value(value: Themes())],
+      child: Consumer<Themes>(
+        builder: (context, appTheme, _) {
+          Provider.of<Themes>(
+            context,
+          ).setTheme(SettingManager.getConfig().ui.theme, false);
           return Shortcuts(
-              shortcuts: const {
-                SingleActivator(LogicalKeyboardKey.select):
-                    ActivateIntent() // for android tv OK/Select button
-              },
-              child: MaterialApp(
-                showSemanticsDebugger: false,
-                debugShowCheckedModeBanner: false,
-                locale: TranslationProvider.of(context).flutterLocale,
-                supportedLocales: AppLocaleUtils.supportedLocales,
-                localizationsDelegates: GlobalMaterialLocalizations.delegates,
-                navigatorObservers: observers,
-                /*shortcuts: {
+            shortcuts: const {
+              SingleActivator(LogicalKeyboardKey.select):
+                  ActivateIntent(), // for android tv OK/Select button
+            },
+            child: MaterialApp(
+              showSemanticsDebugger: false,
+              debugShowCheckedModeBanner: false,
+              locale: TranslationProvider.of(context).flutterLocale,
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: GlobalMaterialLocalizations.delegates,
+              navigatorObservers: observers,
+              /*shortcuts: {
                   ...WidgetsApp.defaultShortcuts,
                   const SingleActivator(LogicalKeyboardKey.select):
                       const ActivateIntent(),
                 },*/
-                home: PopScope(
-                    canPop: false,
-                    onPopInvokedWithResult: (didPop, result) {
-                      if (Platform.isAndroid || Platform.isIOS) {
-                        MoveToBackground.moveTaskToBack();
+              home: PopScope(
+                canPop: false,
+                onPopInvokedWithResult: (didPop, result) {
+                  if (Platform.isAndroid || Platform.isIOS) {
+                    MoveToBackground.moveTaskToBack();
+                  }
+                },
+                child: startFailedReason != null
+                    ? LaunchFailedScreen(
+                        startFailedReason: startFailedReason!,
+                        startFailedReasonDesc: startFailedReasonDesc,
+                      )
+                    : HomeScreen(launchUrl: schemeArg.trim()),
+              ),
+              builder: InAppNotifications.init(
+                builder: SettingManager.getConfig().ui.disableFontScaler
+                    ? (context, widget) {
+                        return MediaQuery(
+                          data: MediaQuery.of(
+                            context,
+                          ).copyWith(textScaler: TextScaler.noScaling),
+                          child: widget!,
+                        );
                       }
-                    },
-                    child: startFailedReason != null
-                        ? LaunchFailedScreen(
-                            startFailedReason: startFailedReason!,
-                            startFailedReasonDesc: startFailedReasonDesc,
-                          )
-                        : HomeScreen(launchUrl: schemeArg.trim())),
-                builder: InAppNotifications.init(
-                    builder: SettingManager.getConfig().ui.disableFontScaler
-                        ? (context, widget) {
-                            return MediaQuery(
-                              data: MediaQuery.of(context)
-                                  .copyWith(textScaler: TextScaler.noScaling),
-                              child: widget!,
-                            );
-                          }
-                        : null),
-                themeMode: appTheme.themeMode(),
-                theme: appTheme.themeData(context),
-                darkTheme: ThemeDataDark.theme(context),
-              ));
-        }));
+                    : null,
+              ),
+              themeMode: appTheme.themeMode(),
+              theme: appTheme.themeData(context),
+              darkTheme: ThemeDataDark.theme(context),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -516,14 +533,8 @@ class MyAppState extends State<MyApp>
       return;
     }
     List<MenuItem> items = [
-      MenuItem(
-        key: kMenuOpen,
-        label: t.main.tray.menuOpen,
-      ),
-      MenuItem(
-        key: kMenuExit,
-        label: t.main.tray.menuExit,
-      )
+      MenuItem(key: kMenuOpen, label: t.main.tray.menuOpen),
+      MenuItem(key: kMenuExit, label: t.main.tray.menuExit),
     ];
 
     await trayManager.setContextMenu(Menu(items: items));

@@ -59,30 +59,28 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
       minLines: minLines,
       spacing: 15.0,
       overflowWidget: _expandButton(),
-      children: widget.options.asMap().entries.map(
-        (entry) {
-          int index = entry.key;
-          String option = entry.value;
-          return _buildCheckBoxWithIconAndText(
-            text: option,
-            checked: _selectedIndexes.contains(index),
-            color: widget.optionsColors[index],
-            onChanged: (isChecked) {
-              setState(() {
-                if (isChecked) {
-                  if (!_selectedIndexes.contains(index)) {
-                    _selectedIndexes.add(index);
-                  }
-                } else {
-                  _selectedIndexes.remove(index);
+      children: widget.options.asMap().entries.map((entry) {
+        int index = entry.key;
+        String option = entry.value;
+        return _buildCheckBoxWithIconAndText(
+          text: option,
+          checked: _selectedIndexes.contains(index),
+          color: widget.optionsColors[index],
+          onChanged: (isChecked) {
+            setState(() {
+              if (isChecked) {
+                if (!_selectedIndexes.contains(index)) {
+                  _selectedIndexes.add(index);
                 }
-                _selectedIndexes.sort((a, b) => b - a);
-                widget.onOptionsSelected(_selectedIndexes);
-              });
-            },
-          );
-        },
-      ).toList(),
+              } else {
+                _selectedIndexes.remove(index);
+              }
+              _selectedIndexes.sort((a, b) => b - a);
+              widget.onOptionsSelected(_selectedIndexes);
+            });
+          },
+        );
+      }).toList(),
     );
   }
 
@@ -95,23 +93,28 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
         }
 
         final selected = await Navigator.push(
-            context,
-            MaterialPageRoute(
-                settings: MultiSelectScreen.routSettings(),
-                builder: (context) => MultiSelectScreen(
-                      title: '',
-                      getData: () async {
-                        List<MultiSelectScreenDateItem> allData = [];
-                        for (int i = 0; i < widget.options.length; ++i) {
-                          allData.add(MultiSelectScreenDateItem(
-                              key: i.toString(),
-                              text: widget.options[i],
-                              color: widget.optionsColors[i]));
-                        }
-                        return allData;
-                      },
-                      selectedData: selectedData,
-                    )));
+          context,
+          MaterialPageRoute(
+            settings: MultiSelectScreen.routSettings(),
+            builder: (context) => MultiSelectScreen(
+              title: '',
+              getData: () async {
+                List<MultiSelectScreenDateItem> allData = [];
+                for (int i = 0; i < widget.options.length; ++i) {
+                  allData.add(
+                    MultiSelectScreenDateItem(
+                      key: i.toString(),
+                      text: widget.options[i],
+                      color: widget.optionsColors[i],
+                    ),
+                  );
+                }
+                return allData;
+              },
+              selectedData: selectedData,
+            ),
+          ),
+        );
 
         if (selected != null) {
           _selectedIndexes.clear();
@@ -122,10 +125,7 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
           widget.onOptionsSelected(_selectedIndexes);
         }
       },
-      child: Icon(
-        Icons.arrow_circle_down_outlined,
-        size: 26,
-      ),
+      child: Icon(Icons.arrow_circle_down_outlined, size: 26),
     );
   }
 
@@ -136,17 +136,19 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
     required Function(bool) onChanged,
   }) {
     return SizedBox(
-        height: 30,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Checkbox(
-                value: checked,
-                onChanged: (value) {
-                  onChanged(value ?? false);
-                }),
-            Text(text, style: TextStyle(color: color)),
-          ],
-        ));
+      height: 30,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Checkbox(
+            value: checked,
+            onChanged: (value) {
+              onChanged(value ?? false);
+            },
+          ),
+          Text(text, style: TextStyle(color: color)),
+        ],
+      ),
+    );
   }
 }

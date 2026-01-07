@@ -40,7 +40,9 @@ class CommonDialog {
       int pos = errMessage.indexOf("not found for outbound[");
       if (pos > 0) {
         String tag = errMessage.substring(
-            pos + "not found for outbound[".length, errMessage.length);
+          pos + "not found for outbound[".length,
+          errMessage.length,
+        );
         int end = tag.lastIndexOf("]");
         if (end > 0) {
           tag = tag.substring(0, end);
@@ -50,7 +52,8 @@ class CommonDialog {
         }
       }
     } else if (errMessage.contains(
-        "check port failed:SocketException: Failed to create server socket")) {
+      "check port failed:SocketException: Failed to create server socket",
+    )) {
       errMessage += "\n\n${tcontext.CommonWidget.resetPort}";
     } else if (errMessage.contains("wintun: Failed to setup adapter")) {
       if (Platform.isWindows) {
@@ -86,7 +89,9 @@ class CommonDialog {
         }
 
         bool? yes = await DialogUtils.showConfirmDialog(
-            context, "$errMessage\n\n$msg?");
+          context,
+          "$errMessage\n\n$msg?",
+        );
         if (yes == true) {
           for (var server in disableServers) {
             String disableKey = ServerUse.getDisableKey(server);
@@ -102,12 +107,20 @@ class CommonDialog {
       return;
     }
     loadFAQByError(context, errMessage, false);
-    DialogUtils.showAlertDialog(context, errMessage,
-        showCopy: true, showFAQ: true, withVersion: true);
+    DialogUtils.showAlertDialog(
+      context,
+      errMessage,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
   }
 
   static void loadFAQByError(
-      BuildContext context, String error, bool forceOpen) async {
+    BuildContext context,
+    String error,
+    bool forceOpen,
+  ) async {
     if (!forceOpen) {
       if (!PlatformUtils.isPC()) {
         return;
@@ -128,21 +141,29 @@ class CommonDialog {
       }
       if (error.contains(anchorNew)) {
         String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-            remoteConfig.faq,
-            anchor: anchor.hashCode.toString());
+          remoteConfig.faq,
+          anchor: anchor.hashCode.toString(),
+        );
         if (!context.mounted) {
           return;
         }
-        await WebviewHelper.loadUrl(context, url, "loadFAQByError.faq.anchor",
-            title: tcontext.meta.faq);
+        await WebviewHelper.loadUrl(
+          context,
+          url,
+          "loadFAQByError.faq.anchor",
+          title: tcontext.meta.faq,
+        );
 
         return;
       }
     }
     if (forceOpen) {
       await WebviewHelper.loadUrl(
-          context, remoteConfig.faq, "loadFAQByError.faq",
-          title: tcontext.isp.faq(p: tcontext.meta.faq));
+        context,
+        remoteConfig.faq,
+        "loadFAQByError.faq",
+        title: tcontext.isp.faq(p: tcontext.meta.faq),
+      );
     }
   }
 }

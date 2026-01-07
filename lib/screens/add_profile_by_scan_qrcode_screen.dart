@@ -68,39 +68,35 @@ class _AddProfileByScanQrcodeScanScreenState
   Widget build(BuildContext context) {
     //Size windowSize = MediaQuery.of(context).size;
     return PopScope(
-        canPop: true,
-        onPopInvokedWithResult: (didPop, result) {
-          if (_showSnackBarShowed) {
-            ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          }
-        },
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: buildBar(context),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  PlatformUtils.isMobile()
-                      ? _scanFromFile
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (_showSnackBarShowed) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        }
+      },
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: buildBar(context),
+                ),
+                const SizedBox(height: 10),
+                PlatformUtils.isMobile()
+                    ? _scanFromFile
                           ? buildForMobileScanByImport(context)
                           : buildForMobile(context)
-                      : buildForPC(context),
-                ],
-              ),
+                    : buildForPC(context),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   List<Widget> buildBar(BuildContext context) {
@@ -113,10 +109,7 @@ class _AddProfileByScanQrcodeScanScreenState
           child: const SizedBox(
             width: 50,
             height: 30,
-            child: Icon(
-              Icons.arrow_back_ios_outlined,
-              size: 26,
-            ),
+            child: Icon(Icons.arrow_back_ios_outlined, size: 26),
           ),
         ),
         SizedBox(
@@ -126,77 +119,89 @@ class _AddProfileByScanQrcodeScanScreenState
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
-                fontWeight: ThemeConfig.kFontWeightTitle,
-                fontSize: ThemeConfig.kFontSizeTitle),
+              fontWeight: ThemeConfig.kFontWeightTitle,
+              fontSize: ThemeConfig.kFontSizeTitle,
+            ),
           ),
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          _scanFromFile
-              ? IconButton(
-                  icon: const Icon(Icons.fit_screen_outlined),
-                  iconSize: 26,
-                  onPressed: () {
-                    _scanFromFile = false;
-                    setState(() {});
-                  })
-              : IconButton(
-                  icon: const Icon(Icons.file_open_outlined),
-                  iconSize: 26,
-                  onPressed: () {
-                    _scanFromFile = true;
-                    setState(() {});
-                  }),
-          _scanFromFile
-              ? const SizedBox(
-                  width: 1,
-                )
-              : IconButton(
-                  icon: FutureBuilder(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _scanFromFile
+                ? IconButton(
+                    icon: const Icon(Icons.fit_screen_outlined),
+                    iconSize: 26,
+                    onPressed: () {
+                      _scanFromFile = false;
+                      setState(() {});
+                    },
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.file_open_outlined),
+                    iconSize: 26,
+                    onPressed: () {
+                      _scanFromFile = true;
+                      setState(() {});
+                    },
+                  ),
+            _scanFromFile
+                ? const SizedBox(width: 1)
+                : IconButton(
+                    icon: FutureBuilder(
                       future: getFlashState(),
                       builder:
                           (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        return snapshot.hasData && snapshot.data!
-                            ? const Icon(Icons.flash_on_outlined,
-                                color: ThemeDefine.kColorBlue)
-                            : const Icon(Icons.flash_off_outlined);
-                      }),
-                  iconSize: 26,
-                  onPressed: () async {
-                    try {
-                      await controller!.toggleFlash();
-                    } catch (err) {
-                      DialogUtils.showAlertDialog(context, err.toString(),
-                          showCopy: true, showFAQ: true, withVersion: true);
-                    }
+                            return snapshot.hasData && snapshot.data!
+                                ? const Icon(
+                                    Icons.flash_on_outlined,
+                                    color: ThemeDefine.kColorBlue,
+                                  )
+                                : const Icon(Icons.flash_off_outlined);
+                          },
+                    ),
+                    iconSize: 26,
+                    onPressed: () async {
+                      try {
+                        await controller!.toggleFlash();
+                      } catch (err) {
+                        DialogUtils.showAlertDialog(
+                          context,
+                          err.toString(),
+                          showCopy: true,
+                          showFAQ: true,
+                          withVersion: true,
+                        );
+                      }
 
-                    setState(() {});
-                  },
-                ),
-          InkWell(
-            onTap: () async {
-              if (_qrContent.isEmpty) {
-                DialogUtils.showAlertDialog(
-                    context, tcontext.meta.qrcodeScanResultEmpty);
-                return;
-              }
-              if (!mounted) {
-                return;
-              }
-              _result.qrcode = _qrContent;
-              Navigator.pop(context, _result);
-            },
-            child: Tooltip(
+                      setState(() {});
+                    },
+                  ),
+            InkWell(
+              onTap: () async {
+                if (_qrContent.isEmpty) {
+                  DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.meta.qrcodeScanResultEmpty,
+                  );
+                  return;
+                }
+                if (!mounted) {
+                  return;
+                }
+                _result.qrcode = _qrContent;
+                Navigator.pop(context, _result);
+              },
+              child: Tooltip(
                 message: tcontext.meta.save,
                 child: const SizedBox(
                   width: 50,
                   height: 30,
-                  child: Icon(
-                    Icons.done,
-                    size: 26,
-                  ),
-                )),
-          ),
-        ]),
+                  child: Icon(Icons.done, size: 26),
+                ),
+              ),
+            ),
+          ],
+        ),
       ];
     }
     return [
@@ -205,10 +210,7 @@ class _AddProfileByScanQrcodeScanScreenState
         child: const SizedBox(
           width: 50,
           height: 30,
-          child: Icon(
-            Icons.arrow_back_ios_outlined,
-            size: 26,
-          ),
+          child: Icon(Icons.arrow_back_ios_outlined, size: 26),
         ),
       ),
       SizedBox(
@@ -218,30 +220,31 @@ class _AddProfileByScanQrcodeScanScreenState
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
-              fontWeight: ThemeConfig.kFontWeightTitle,
-              fontSize: ThemeConfig.kFontSizeTitle),
+            fontWeight: ThemeConfig.kFontWeightTitle,
+            fontSize: ThemeConfig.kFontSizeTitle,
+          ),
         ),
       ),
       InkWell(
         onTap: () async {
           if (_qrContent.isEmpty) {
             DialogUtils.showAlertDialog(
-                context, tcontext.meta.qrcodeScanResultEmpty);
+              context,
+              tcontext.meta.qrcodeScanResultEmpty,
+            );
             return;
           }
           _result.qrcode = _qrContent;
           Navigator.pop(context, _result);
         },
         child: Tooltip(
-            message: tcontext.meta.save,
-            child: const SizedBox(
-              width: 50,
-              height: 30,
-              child: Icon(
-                Icons.done,
-                size: 26,
-              ),
-            )),
+          message: tcontext.meta.save,
+          child: const SizedBox(
+            width: 50,
+            height: 30,
+            child: Icon(Icons.done, size: 26),
+          ),
+        ),
       ),
     ];
   }
@@ -249,20 +252,19 @@ class _AddProfileByScanQrcodeScanScreenState
   Widget buildForMobile(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
     return SizedBox(
-        width: windowSize.width,
-        child: Column(
-          children: [
-            SizedBox(
-              width: windowSize.width,
-              height: windowSize.height * 0.7,
-              child: _buildQrView(context),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text(_qrContent, maxLines: 5),
-          ],
-        ));
+      width: windowSize.width,
+      child: Column(
+        children: [
+          SizedBox(
+            width: windowSize.width,
+            height: windowSize.height * 0.7,
+            child: _buildQrView(context),
+          ),
+          const SizedBox(height: 30),
+          Text(_qrContent, maxLines: 5),
+        ],
+      ),
+    );
   }
 
   Widget buildForMobileScanByImport(BuildContext context) {
@@ -279,26 +281,25 @@ class _AddProfileByScanQrcodeScanScreenState
             SizedBox(
               height: 45.0,
               child: ElevatedButton(
-                  child: Text(tcontext.meta.qrcodeScanFromImage),
-                  onPressed: () async {
-                    await onPressScanFromImageMobile();
-                  }),
+                child: Text(tcontext.meta.qrcodeScanFromImage),
+                onPressed: () async {
+                  await onPressScanFromImageMobile();
+                },
+              ),
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Container(
           width: w * 0.7,
           height: w * 0.7,
           color: Colors.white,
           child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5), child: _image),
+            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+            child: _image,
+          ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         Text(_qrContent, maxLines: 5),
       ],
     );
@@ -318,37 +319,35 @@ class _AddProfileByScanQrcodeScanScreenState
             SizedBox(
               height: 45.0,
               child: ElevatedButton(
-                  child: Text(tcontext.meta.screenshot),
-                  onPressed: () async {
-                    await onPressScreenshot();
-                  }),
+                child: Text(tcontext.meta.screenshot),
+                onPressed: () async {
+                  await onPressScreenshot();
+                },
+              ),
             ),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 20),
             SizedBox(
               height: 45.0,
               child: ElevatedButton(
-                  child: Text(tcontext.meta.qrcodeScanFromImage),
-                  onPressed: () async {
-                    await onPressScanFromImagePC();
-                  }),
+                child: Text(tcontext.meta.qrcodeScanFromImage),
+                onPressed: () async {
+                  await onPressScanFromImagePC();
+                },
+              ),
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Container(
           width: w * 0.7,
           height: w * 0.7,
           color: Colors.white,
           child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5), child: _image),
+            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+            child: _image,
+          ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         Text(_qrContent, maxLines: 5),
       ],
     );
@@ -365,11 +364,12 @@ class _AddProfileByScanQrcodeScanScreenState
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
+        borderColor: Colors.red,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
@@ -392,7 +392,10 @@ class _AddProfileByScanQrcodeScanScreenState
   }
 
   void _onPermissionSet(
-      BuildContext context, QRViewController ctrl, bool p) async {
+    BuildContext context,
+    QRViewController ctrl,
+    bool p,
+  ) async {
     if (!p) {
       if (!mounted) {
         return;
@@ -404,9 +407,11 @@ class _AddProfileByScanQrcodeScanScreenState
       final tcontext = Translations.of(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            showCloseIcon: true,
-            content: Text(tcontext.permission
-                .requestNeed(p: tcontext.permission.camera))),
+          showCloseIcon: true,
+          content: Text(
+            tcontext.permission.requestNeed(p: tcontext.permission.camera),
+          ),
+        ),
       );
     }
   }
@@ -454,7 +459,9 @@ class _AddProfileByScanQrcodeScanScreenState
         }
         if (qrcode == null) {
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.qrcodeScanResultFailed);
+            context,
+            tcontext.meta.qrcodeScanResultFailed,
+          );
         } else {
           _qrContent = qrcode;
           setState(() {});
@@ -464,8 +471,13 @@ class _AddProfileByScanQrcodeScanScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -488,7 +500,9 @@ class _AddProfileByScanQrcodeScanScreenState
             .toLowerCase();
         if (!extensions.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
         String filePath = result.files.first.path!;
@@ -501,7 +515,9 @@ class _AddProfileByScanQrcodeScanScreenState
         if (mounted) {
           if (qrcode == null) {
             DialogUtils.showAlertDialog(
-                context, tcontext.meta.qrcodeScanResultFailed);
+              context,
+              tcontext.meta.qrcodeScanResultFailed,
+            );
           } else {
             _qrContent = qrcode;
             setState(() {});
@@ -512,8 +528,13 @@ class _AddProfileByScanQrcodeScanScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -526,8 +547,10 @@ class _AddProfileByScanQrcodeScanScreenState
     if (Platform.isMacOS) {
       bool allowed = await ScreenCapturer.instance.isAccessAllowed();
       if (!allowed) {
-        DialogUtils.showAlertDialog(context,
-            tcontext.permission.requestNeed(p: tcontext.permission.screen));
+        DialogUtils.showAlertDialog(
+          context,
+          tcontext.permission.requestNeed(p: tcontext.permission.screen),
+        );
         ScreenCapturer.instance.requestAccess(onlyOpenPrefPane: true);
         return;
       }
@@ -544,20 +567,28 @@ class _AddProfileByScanQrcodeScanScreenState
       _image = Image.memory(capturedData.imageBytes!);
       setState(() {});
       try {
-        String? qrcode =
-            await QrcodeUtils.scanFromImageData(capturedData.imageBytes!);
+        String? qrcode = await QrcodeUtils.scanFromImageData(
+          capturedData.imageBytes!,
+        );
         if (mounted) {
           if (qrcode == null) {
             DialogUtils.showAlertDialog(
-                context, tcontext.meta.qrcodeScanResultFailed);
+              context,
+              tcontext.meta.qrcodeScanResultFailed,
+            );
           } else {
             _qrContent = qrcode;
             setState(() {});
           }
         }
       } catch (err, _) {
-        DialogUtils.showAlertDialog(context, err.toString(),
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          err.toString(),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
     }
   }

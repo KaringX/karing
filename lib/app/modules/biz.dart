@@ -20,7 +20,7 @@ class Biz {
   static bool _initFinish = false;
   static bool _initHomeFinish = false;
   static Future<ReturnResultError?> Function(String from)?
-      onEventRequestStartVPN;
+  onEventRequestStartVPN;
   static void Function()? onEventExit;
   static void Function(bool)? onEventVPNStateChanged;
 
@@ -74,7 +74,9 @@ class Biz {
   }
 
   static Future<bool> startOrRestartIfDirtyVPN(
-      BuildContext context, String from) async {
+    BuildContext context,
+    String from,
+  ) async {
     if (!context.mounted) {
       return false;
     }
@@ -94,7 +96,8 @@ class Biz {
   }
 
   static Future<ReturnResultError?> _startOrRestartIfDirtyVPN(
-      String from) async {
+    String from,
+  ) async {
     if (onEventRequestStartVPN != null) {
       return await onEventRequestStartVPN!(from);
     }

@@ -44,10 +44,12 @@ class AdsBannerWidget extends StatefulWidget {
       return PlatformUtils.isMobile();
     }
     if (AdsPrivate.getEnable()) {
-      String rewardAdExpireTime =
-          settingConfig.ads.getBannerRewardAdExpire(settingConfig.languageTag);
-      String shareExpireTime =
-          settingConfig.ads.getBannerShareExpire(settingConfig.languageTag);
+      String rewardAdExpireTime = settingConfig.ads.getBannerRewardAdExpire(
+        settingConfig.languageTag,
+      );
+      String shareExpireTime = settingConfig.ads.getBannerShareExpire(
+        settingConfig.languageTag,
+      );
 
       return rewardAdExpireTime.isEmpty && shareExpireTime.isEmpty;
     }
@@ -70,7 +72,9 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
   @override
   void initState() {
     adSize = google.AdSize(
-        height: AdsBannerWidget.adHeight, width: widget.adWidth.toInt());
+      height: AdsBannerWidget.adHeight,
+      width: widget.adWidth.toInt(),
+    );
     AppLifecycleStateNofity.onStateResumed(hashCode, () async {
       if (AdsBannerWidget.getEnable()) {
         _loadGoogleBannerAd(false);
@@ -91,23 +95,29 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
     bool googleAd = isGoogleAdReady();
 
     double height = AdsBannerWidget.getRealHeight(
-        widget.fixedHeight, googleAd, adSize.height);
+      widget.fixedHeight,
+      googleAd,
+      adSize.height,
+    );
 
     return Container(
-        height: height,
-        alignment: Alignment.center,
-        child: AdsBannerWidget.getEnable()
-            ? Stack(
-                children: [
-                  Visibility(
-                      visible: googleAd,
-                      child: Positioned(
-                          child: googleAd
-                              ? google.AdWidget(ad: _googleBannerAd!)
-                              : const SizedBox.shrink())),
-                ],
-              )
-            : null);
+      height: height,
+      alignment: Alignment.center,
+      child: AdsBannerWidget.getEnable()
+          ? Stack(
+              children: [
+                Visibility(
+                  visible: googleAd,
+                  child: Positioned(
+                    child: googleAd
+                        ? google.AdWidget(ad: _googleBannerAd!)
+                        : const SizedBox.shrink(),
+                  ),
+                ),
+              ],
+            )
+          : null,
+    );
   }
 
   @override
@@ -152,8 +162,10 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
       _googleBannerAdIsLoading = true;
 
       setState(() {});
-      var adUnitId =
-          AdsPrivate.getAdID(AdType.googleBannerAd, name: widget.bannerName);
+      var adUnitId = AdsPrivate.getAdID(
+        AdType.googleBannerAd,
+        name: widget.bannerName,
+      );
       var googleBannerAd = google.BannerAd(
         adUnitId: adUnitId,
         size: adSize,
@@ -192,7 +204,11 @@ class _AdsBannerWidgetState extends State<AdsBannerWidget> {
       await googleBannerAd.load();
     } catch (err, stacktrace) {
       SentryUtils.captureException(
-          'AdsRewardWidget._loadGoogleBannerAd.exception', [], err, stacktrace);
+        'AdsRewardWidget._loadGoogleBannerAd.exception',
+        [],
+        err,
+        stacktrace,
+      );
     }
   }
 }
@@ -210,7 +226,9 @@ class AdsRewardError {
 class AdsRewardWidget {
   static DateTime? _maybeAdsReward;
   static void tryLoadAdsThenCallback(
-      BuildContext context, Function(bool)? callback) async {
+    BuildContext context,
+    Function(bool)? callback,
+  ) async {
     final tcontext = Translations.of(context);
     if (AdsRewardWidget._maybeAdsReward != null &&
         DateTime.now().isBefore(AdsRewardWidget._maybeAdsReward!)) {
@@ -219,16 +237,22 @@ class AdsRewardWidget {
     }
     if (!Platform.isAndroid && !Platform.isIOS) {
       if (PlatformUtils.isPC()) {
-        AdsRewardWidget._maybeAdsReward =
-            DateTime.now().add(Duration(hours: 4));
+        AdsRewardWidget._maybeAdsReward = DateTime.now().add(
+          Duration(hours: 4),
+        );
         var remoteConfig = RemoteConfigManager.getConfig();
         String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-            remoteConfig.statistics);
+          remoteConfig.statistics,
+        );
         if (!context.mounted) {
           return;
         }
-        WebviewHelper.loadUrl(context, url, "StatisticsRecords",
-            title: tcontext.meta.statistics);
+        WebviewHelper.loadUrl(
+          context,
+          url,
+          "StatisticsRecords",
+          title: tcontext.meta.statistics,
+        );
 
         callback?.call(true);
         return;
@@ -237,8 +261,10 @@ class AdsRewardWidget {
       return;
     }
 
-    bool? ok =
-        await DialogUtils.showConfirmDialog(context, tcontext.maybeAdsByReward);
+    bool? ok = await DialogUtils.showConfirmDialog(
+      context,
+      tcontext.maybeAdsByReward,
+    );
     if (ok == true) {
       if (!context.mounted) {
         callback?.call(true);
@@ -250,8 +276,9 @@ class AdsRewardWidget {
       }
       DialogUtils.showLoadingDialog(context, text: "");
       AdsRewardWidget.loadGoogleRewardedAd((AdsRewardError? err) {
-        AdsRewardWidget._maybeAdsReward =
-            DateTime.now().add(Duration(hours: err == null ? 12 : 2));
+        AdsRewardWidget._maybeAdsReward = DateTime.now().add(
+          Duration(hours: err == null ? 12 : 2),
+        );
 
         Navigator.pop(context);
         callback?.call(err == null);
@@ -263,40 +290,47 @@ class AdsRewardWidget {
     try {
       var adUnitId = AdsPrivate.getAdID(AdType.googleRewardedAd);
       google.RewardedAd.load(
-          adUnitId: adUnitId,
-          request: const google.AdRequest(),
-          rewardedAdLoadCallback: google.RewardedAdLoadCallback(
-            onAdLoaded: (ad) {
-              ad.fullScreenContentCallback = google.FullScreenContentCallback(
-                onAdShowedFullScreenContent: (ad) {},
-                onAdImpression: (ad) {},
-                onAdFailedToShowFullScreenContent: (ad, err) {
-                  ad.dispose();
-                  callback(AdsRewardError(err.code, err.message));
-                },
-                onAdDismissedFullScreenContent: (ad) {
-                  ad.dispose();
-                },
-                onAdClicked: (ad) {},
-              );
-
-              ad.show(onUserEarnedReward: (google.AdWithoutView ad,
-                  google.RewardItem rewardItem) async {
+        adUnitId: adUnitId,
+        request: const google.AdRequest(),
+        rewardedAdLoadCallback: google.RewardedAdLoadCallback(
+          onAdLoaded: (ad) {
+            ad.fullScreenContentCallback = google.FullScreenContentCallback(
+              onAdShowedFullScreenContent: (ad) {},
+              onAdImpression: (ad) {},
+              onAdFailedToShowFullScreenContent: (ad, err) {
                 ad.dispose();
-                callback(null);
-              });
-            },
-            onAdFailedToLoad: (google.LoadAdError error) {
-              callback(AdsRewardError(error.code, error.message));
-            },
-          ));
+                callback(AdsRewardError(err.code, err.message));
+              },
+              onAdDismissedFullScreenContent: (ad) {
+                ad.dispose();
+              },
+              onAdClicked: (ad) {},
+            );
+
+            ad.show(
+              onUserEarnedReward:
+                  (
+                    google.AdWithoutView ad,
+                    google.RewardItem rewardItem,
+                  ) async {
+                    ad.dispose();
+                    callback(null);
+                  },
+            );
+          },
+          onAdFailedToLoad: (google.LoadAdError error) {
+            callback(AdsRewardError(error.code, error.message));
+          },
+        ),
+      );
     } catch (err, stacktrace) {
       callback(AdsRewardError(-1, err.toString()));
       SentryUtils.captureException(
-          'AdsRewardWidget.loadGoogleRewardedAd.exception',
-          [],
-          err,
-          stacktrace);
+        'AdsRewardWidget.loadGoogleRewardedAd.exception',
+        [],
+        err,
+        stacktrace,
+      );
     }
   }
 }

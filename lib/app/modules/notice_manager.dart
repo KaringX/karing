@@ -26,14 +26,14 @@ class NoticeItem {
   String url = "";
 
   Map<String, dynamic> toJson() => {
-        "isp_id": ispId,
-        "readed": readed,
-        'update_time': updateTime,
-        'expire_time': expireTime,
-        "title": title,
-        "content": content,
-        "url": url,
-      };
+    "isp_id": ispId,
+    "readed": readed,
+    'update_time': updateTime,
+    'expire_time': expireTime,
+    "title": title,
+    "content": content,
+    "url": url,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -59,9 +59,9 @@ class Notice {
   List<NoticeItem> items = [];
 
   Map<String, dynamic> toJson() => {
-        'latest_check': latestCheck,
-        "items": items,
-      };
+    'latest_check': latestCheck,
+    "items": items,
+  };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
       return;
@@ -224,8 +224,9 @@ class NoticeLoadAndCheck {
       newItem.updateTime = gnotice.data!.updateTime;
       newItem.expireTime = gnotice.data!.expireTime;
       newItem.ispId = ispId;
-      newItem.title =
-          name.isEmpty ? gnotice.data!.title : "[$name]${gnotice.data!.title}";
+      newItem.title = name.isEmpty
+          ? gnotice.data!.title
+          : "[$name]${gnotice.data!.title}";
       newItem.content = gnotice.data!.content;
       newItem.url = gnotice.data!.url;
       _notice.items.insert(0, newItem);
@@ -260,8 +261,10 @@ class NoticeManager {
     await _selfNotice.loadConfig();
 
     await resetISP();
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           _selfNotice.check();

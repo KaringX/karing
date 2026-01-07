@@ -6,10 +6,7 @@ import 'package:emoji_regex/emoji_regex.dart';
 class TooltipText extends StatelessWidget {
   final Text text;
 
-  const TooltipText({
-    super.key,
-    required this.text,
-  });
+  const TooltipText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -55,26 +52,21 @@ class EmojiText extends StatelessWidget {
       if (match.start > lastMatchEnd) {
         spans.add(
           TextSpan(
-              text: text.substring(lastMatchEnd, match.start), style: style),
+            text: text.substring(lastMatchEnd, match.start),
+            style: style,
+          ),
         );
       }
       spans.add(
         TextSpan(
           text: match.group(0),
-          style: style?.copyWith(
-            fontFamily: FontFamily.twEmoji.value,
-          ),
+          style: style?.copyWith(fontFamily: FontFamily.twEmoji.value),
         ),
       );
       lastMatchEnd = match.end;
     }
     if (lastMatchEnd < text.length) {
-      spans.add(
-        TextSpan(
-          text: text.substring(lastMatchEnd),
-          style: style,
-        ),
-      );
+      spans.add(TextSpan(text: text.substring(lastMatchEnd), style: style));
     }
 
     return spans;
@@ -86,9 +78,7 @@ class EmojiText extends StatelessWidget {
       textScaler: MediaQuery.of(context).textScaler,
       maxLines: maxLines,
       overflow: overflow ?? TextOverflow.clip,
-      text: TextSpan(
-        children: _buildTextSpans(text),
-      ),
+      text: TextSpan(children: _buildTextSpans(text)),
     );
   }
 }
@@ -102,11 +92,8 @@ extension TextStyleExtension on TextStyle {
 
   TextStyle get toBold => copyWith(fontWeight: FontWeight.bold);
 
-  TextStyle get toJetBrainsMono => copyWith(
-        fontFamily: FontFamily.jetBrainsMono.value,
-      );
+  TextStyle get toJetBrainsMono =>
+      copyWith(fontFamily: FontFamily.jetBrainsMono.value);
 
-  TextStyle adjustSize(int size) => copyWith(
-        fontSize: fontSize! + size,
-      );
+  TextStyle adjustSize(int size) => copyWith(fontSize: fontSize! + size);
 }

@@ -47,10 +47,7 @@ class _ServerSelectSearchSettingsScreenState
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -66,10 +63,7 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -79,8 +73,9 @@ class _ServerSelectSearchSettingsScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -90,21 +85,14 @@ class _ServerSelectSearchSettingsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.add_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.add_outlined, size: 26),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -115,20 +103,18 @@ class _ServerSelectSearchSettingsScreenState
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: widget.data.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = widget.data[index];
-            return createWidget(index, current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: widget.data.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = widget.data[index];
+          return createWidget(index, current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(int index, dynamic current, Size windowSize) {
@@ -142,9 +128,7 @@ class _ServerSelectSearchSettingsScreenState
           Navigator.pop(context, current);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -155,21 +139,22 @@ class _ServerSelectSearchSettingsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        SizedBox(
-                          width: centerWidth,
-                          child: Text(
-                            current,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
-                              color: widget.invalidData.contains(current)
-                                  ? Colors.red
-                                  : null,
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: centerWidth,
+                            child: Text(
+                              current,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                                color: widget.invalidData.contains(current)
+                                    ? Colors.red
+                                    : null,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
+                          SizedBox(
                             width: rightWidth,
                             height: ThemeConfig.kListItemHeight2 - 2,
                             child: InkWell(
@@ -181,8 +166,10 @@ class _ServerSelectSearchSettingsScreenState
                                 size: 26,
                                 color: Colors.red,
                               ),
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -201,21 +188,21 @@ class _ServerSelectSearchSettingsScreenState
     } else {
       final tcontext = Translations.of(context);
       text = await DialogUtils.showTextInputDialog(
-          context,
-          widget.dialogTitle.isNotEmpty
-              ? widget.dialogTitle
-              : tcontext.meta.add,
-          "",
-          widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
-          null,
-          null, (text) {
-        text = text.trim();
-        if (text.isEmpty) {
-          return false;
-        }
+        context,
+        widget.dialogTitle.isNotEmpty ? widget.dialogTitle : tcontext.meta.add,
+        "",
+        widget.dialogTextHit.isNotEmpty ? widget.dialogTextHit : "",
+        null,
+        null,
+        (text) {
+          text = text.trim();
+          if (text.isEmpty) {
+            return false;
+          }
 
-        return true;
-      });
+          return true;
+        },
+      );
     }
 
     if (text == null) {

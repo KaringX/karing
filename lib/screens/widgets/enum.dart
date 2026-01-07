@@ -12,28 +12,12 @@ enum CommonCardType { plain, filled }
 // }
 
 enum KeyboardModifier {
-  alt([
-    PhysicalKeyboardKey.altLeft,
-    PhysicalKeyboardKey.altRight,
-  ]),
-  capsLock([
-    PhysicalKeyboardKey.capsLock,
-  ]),
-  control([
-    PhysicalKeyboardKey.controlLeft,
-    PhysicalKeyboardKey.controlRight,
-  ]),
-  fn([
-    PhysicalKeyboardKey.fn,
-  ]),
-  meta([
-    PhysicalKeyboardKey.metaLeft,
-    PhysicalKeyboardKey.metaRight,
-  ]),
-  shift([
-    PhysicalKeyboardKey.shiftLeft,
-    PhysicalKeyboardKey.shiftRight,
-  ]);
+  alt([PhysicalKeyboardKey.altLeft, PhysicalKeyboardKey.altRight]),
+  capsLock([PhysicalKeyboardKey.capsLock]),
+  control([PhysicalKeyboardKey.controlLeft, PhysicalKeyboardKey.controlRight]),
+  fn([PhysicalKeyboardKey.fn]),
+  meta([PhysicalKeyboardKey.metaLeft, PhysicalKeyboardKey.metaRight]),
+  shift([PhysicalKeyboardKey.shiftLeft, PhysicalKeyboardKey.shiftRight]);
 
   final List<PhysicalKeyboardKey> physicalKeys;
 

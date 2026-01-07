@@ -68,8 +68,13 @@ class _UWPLoopbackExemptionWindowsScreenState
       return;
     }
     if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     _netIsolation.addAll(result.data!);
@@ -86,10 +91,7 @@ class _UWPLoopbackExemptionWindowsScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -105,10 +107,7 @@ class _UWPLoopbackExemptionWindowsScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -118,8 +117,9 @@ class _UWPLoopbackExemptionWindowsScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     Row(
@@ -148,27 +148,21 @@ class _UWPLoopbackExemptionWindowsScreenState
                             onTapDone();
                           },
                           child: Tooltip(
-                              message: tcontext.meta.save,
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.done,
-                                  size: 26,
-                                ),
-                              )),
+                            message: tcontext.meta.save,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.done, size: 26),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -179,34 +173,31 @@ class _UWPLoopbackExemptionWindowsScreenState
   Widget _loadListView() {
     if (_loading) {
       return const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 26,
-              height: 26,
-              child: RepaintBoundary(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 26,
+            height: 26,
+            child: RepaintBoundary(child: CircularProgressIndicator()),
+          ),
+        ],
+      );
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            UWPMapping current = _searchedData[index];
-            return createWidget(current, windowSize, index);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          UWPMapping current = _searchedData[index];
+          return createWidget(current, windowSize, index);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(UWPMapping current, Size windowSize, int index) {
@@ -215,9 +206,7 @@ class _UWPLoopbackExemptionWindowsScreenState
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 66,
           child: Row(
@@ -228,51 +217,52 @@ class _UWPLoopbackExemptionWindowsScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: 30,
-                          child: Text(
-                            (index + 1).toString(),
-                            style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem),
+                      Row(
+                        children: [
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: 30,
+                            child: Text(
+                              (index + 1).toString(),
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 110,
-                          child: Column(
+                          const SizedBox(width: 5),
+                          SizedBox(
+                            width: windowSize.width - 110,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   current.name,
                                   style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem),
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                  ),
                                 ),
                                 Text(
                                   current.sid,
                                   style: const TextStyle(fontSize: 8),
-                                )
-                              ]),
-                        ),
-                        Checkbox(
-                          tristate: true,
-                          value: _checked.contains(current.sid),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              _checked.add(current.sid);
-                            } else {
-                              _checked.remove(current.sid);
-                            }
-                            setState(() {});
-                          },
-                        ),
-                      ]),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Checkbox(
+                            tristate: true,
+                            value: _checked.contains(current.sid),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                _checked.add(current.sid);
+                              } else {
+                                _checked.remove(current.sid);
+                              }
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],

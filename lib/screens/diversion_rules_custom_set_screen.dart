@@ -23,14 +23,15 @@ class DiversionRulesCustomSetScreen extends LasyRenderingStatefulWidget {
   final IconData? nextIcon;
   final DiversionCustomRules rules;
 
-  const DiversionRulesCustomSetScreen(
-      {super.key,
-      required this.canPop,
-      required this.title,
-      required this.canGoBack,
-      required this.nextText,
-      required this.nextIcon,
-      required this.rules});
+  const DiversionRulesCustomSetScreen({
+    super.key,
+    required this.canPop,
+    required this.title,
+    required this.canGoBack,
+    required this.nextText,
+    required this.nextIcon,
+    required this.rules,
+  });
 
   @override
   State<DiversionRulesCustomSetScreen> createState() =>
@@ -57,139 +58,131 @@ class _DiversionRulesCustomSetScreenState
     Size windowSize = MediaQuery.of(context).size;
     var setting = SettingManager.getConfig();
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: PopScope(
-          canPop: widget.canPop,
-          child: Focus(
-              onKeyEvent: onKeyEvent,
-              canRequestFocus: false,
-              skipTraversal: true,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  widget.canGoBack == true
-                                      ? InkWell(
-                                          onTap: () => Navigator.pop(context),
-                                          child: const SizedBox(
-                                            width: 50,
-                                            height: 30,
-                                            child: Icon(
-                                              Icons.arrow_back_ios_outlined,
-                                              size: 26,
-                                            ),
-                                          ),
-                                        )
-                                      : const SizedBox(
-                                          width: 50,
-                                          height: 30,
+        canPop: widget.canPop,
+        child: Focus(
+          onKeyEvent: onKeyEvent,
+          canRequestFocus: false,
+          skipTraversal: true,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              widget.canGoBack == true
+                                  ? InkWell(
+                                      onTap: () => Navigator.pop(context),
+                                      child: const SizedBox(
+                                        width: 50,
+                                        height: 30,
+                                        child: Icon(
+                                          Icons.arrow_back_ios_outlined,
+                                          size: 26,
                                         ),
-                                  SizedBox(
-                                    width: windowSize.width -
-                                        50 -
-                                        (widget.nextText != null ||
-                                                widget.nextIcon != null
-                                            ? 65
-                                            : 50),
-                                    child: Text(
-                                      widget.title,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontWeight:
-                                              ThemeConfig.kFontWeightTitle,
-                                          fontSize: ThemeConfig.kFontSizeTitle),
-                                    ),
+                                      ),
+                                    )
+                                  : const SizedBox(width: 50, height: 30),
+                              SizedBox(
+                                width:
+                                    windowSize.width -
+                                    50 -
+                                    (widget.nextText != null ||
+                                            widget.nextIcon != null
+                                        ? 65
+                                        : 50),
+                                child: Text(
+                                  widget.title,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: ThemeConfig.kFontWeightTitle,
+                                    fontSize: ThemeConfig.kFontSizeTitle,
                                   ),
-                                  widget.nextText != null ||
-                                          widget.nextIcon != null
-                                      ? SizedBox(
-                                          width:
-                                              widget.nextText != null ? 65 : 50,
-                                          height: 30,
-                                          child: InkWell(
-                                            autofocus: setting.ui.tvMode,
-                                            focusNode: _focusNodeNext,
-                                            onTap: () {
-                                              onTapDone();
-                                            },
-                                            child: widget.nextText != null
-                                                ? Text(
-                                                    textAlign: TextAlign.center,
-                                                    widget.nextText ?? "",
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                        fontWeight: ThemeConfig
-                                                            .kFontWeightListItem,
-                                                        fontSize: ThemeConfig
-                                                            .kFontSizeListItem),
-                                                  )
-                                                : Icon(
-                                                    widget.nextIcon,
-                                                    size: 26,
-                                                  ),
-                                          ),
-                                        )
-                                      : const SizedBox(
-                                          width: 50,
-                                        ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Text(
-                                tcontext.diversionCustomGroupPresetTips,
-                                style: const TextStyle(
-                                  fontSize: ThemeConfig.kFontSizeListSubItem,
-                                  fontWeight:
-                                      ThemeConfig.kFontWeightListSubItem,
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: FutureBuilder(
-                                  future: getGroupOptions(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<List<GroupItem>> snapshot) {
-                                    List<GroupItem> data =
-                                        snapshot.hasData ? snapshot.data! : [];
-                                    return Column(children: [
-                                      ...GroupItemCreator.createGroups(
-                                          context, data)
-                                    ]);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+                              widget.nextText != null || widget.nextIcon != null
+                                  ? SizedBox(
+                                      width: widget.nextText != null ? 65 : 50,
+                                      height: 30,
+                                      child: InkWell(
+                                        autofocus: setting.ui.tvMode,
+                                        focusNode: _focusNodeNext,
+                                        onTap: () {
+                                          onTapDone();
+                                        },
+                                        child: widget.nextText != null
+                                            ? Text(
+                                                textAlign: TextAlign.center,
+                                                widget.nextText ?? "",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontWeight: ThemeConfig
+                                                      .kFontWeightListItem,
+                                                  fontSize: ThemeConfig
+                                                      .kFontSizeListItem,
+                                                ),
+                                              )
+                                            : Icon(widget.nextIcon, size: 26),
+                                      ),
+                                    )
+                                  : const SizedBox(width: 50),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Text(
+                            tcontext.diversionCustomGroupPresetTips,
+                            style: const TextStyle(
+                              fontSize: ThemeConfig.kFontSizeListSubItem,
+                              fontWeight: ThemeConfig.kFontWeightListSubItem,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: FutureBuilder(
+                              future: getGroupOptions(),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<List<GroupItem>> snapshot,
+                                  ) {
+                                    List<GroupItem> data = snapshot.hasData
+                                        ? snapshot.data!
+                                        : [];
+                                    return Column(
+                                      children: [
+                                        ...GroupItemCreator.createGroups(
+                                          context,
+                                          data,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ))),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -232,15 +225,18 @@ class _DiversionRulesCustomSetScreenState
           break;
       }
 
-      options.add(GroupItemOptions(
+      options.add(
+        GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-        name: "${rule.name}  ->  $outbound",
-        switchValue: rule.enable,
-        onSwitch: (bool value) async {
-          rule.enable = value;
-          setState(() {});
-        },
-      )));
+            name: "${rule.name}  ->  $outbound",
+            switchValue: rule.enable,
+            onSwitch: (bool value) async {
+              rule.enable = value;
+              setState(() {});
+            },
+          ),
+        ),
+      );
     }
 
     groupOptions.add(GroupItem(options: options));

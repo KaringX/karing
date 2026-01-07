@@ -123,8 +123,8 @@ class _TranslationsAboutScreenZhCn implements TranslationsAboutScreenEn {
 	@override String get installTime => '安装时间';
 	@override String get versionChannel => '自动更新通道';
 	@override String get autoDownloadPkg => '自动下载更新包';
-	@override String get disableUAReport => '应用改进数据';
-	@override String get disableUAReportTip => '[应用改进数据]有助于我们改进产品体验; 低于主版本的版本将自动关闭除[应用激活]以外的所有[应用改进数据]';
+	@override String get disableAppImproveData => '应用改进数据';
+	@override String get disableUAReportTip => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据';
 	@override String get devOptions => '开发者选项';
 	@override String get enableDebugLog => '开启调试日志';
 	@override String get viewFilsContent => '查看文件';
@@ -925,8 +925,8 @@ extension on TranslationsZhCn {
 			'AboutScreen.installTime' => '安装时间',
 			'AboutScreen.versionChannel' => '自动更新通道',
 			'AboutScreen.autoDownloadPkg' => '自动下载更新包',
-			'AboutScreen.disableUAReport' => '应用改进数据',
-			'AboutScreen.disableUAReportTip' => '[应用改进数据]有助于我们改进产品体验; 低于主版本的版本将自动关闭除[应用激活]以外的所有[应用改进数据]',
+			'AboutScreen.disableAppImproveData' => '应用改进数据',
+			'AboutScreen.disableUAReportTip' => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据',
 			'AboutScreen.devOptions' => '开发者选项',
 			'AboutScreen.enableDebugLog' => '开启调试日志',
 			'AboutScreen.viewFilsContent' => '查看文件',

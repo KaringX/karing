@@ -18,6 +18,7 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/singbox_outbound.dart';
+import 'package:karing/app/utils/url_launcher_utils.dart' show UrlLauncherUtils;
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
@@ -70,8 +71,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
     _buildData();
 
-    ServerManager.onEventTestLatency(hashCode,
-        (String groupid, String tag, bool start, bool finish) {
+    ServerManager.onEventTestLatency(hashCode, (
+      String groupid,
+      String tag,
+      bool start,
+      bool finish,
+    ) {
       if (!mounted) {
         return;
       }
@@ -89,24 +94,29 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       _buildData();
       setState(() {});
     });
-    ServerManager.onEventAddConfig(hashCode,
-        (ServerConfigGroupItem item) async {
+    ServerManager.onEventAddConfig(hashCode, (
+      ServerConfigGroupItem item,
+    ) async {
       if (!mounted) {
         return;
       }
       _buildData();
       setState(() {});
     });
-    ServerManager.onEventUpdateConfig(hashCode,
-        (List<ServerConfigGroupItem> groups) async {
+    ServerManager.onEventUpdateConfig(hashCode, (
+      List<ServerConfigGroupItem> groups,
+    ) async {
       if (!mounted) {
         return;
       }
       _buildData();
       setState(() {});
     });
-    ServerManager.onEventRemoveConfig(hashCode,
-        (String groupid, bool enable, bool hasDeviersionGroup) async {
+    ServerManager.onEventRemoveConfig(hashCode, (
+      String groupid,
+      bool enable,
+      bool hasDeviersionGroup,
+    ) async {
       if (!mounted) {
         return;
       }
@@ -228,53 +238,49 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     double centerWidth = windowSize.width - leftWidth - rightWidth;
     return Row(
       children: [
-        const SizedBox(
-          width: 5,
-        ),
+        const SizedBox(width: 5),
         SizedBox(
           height: 40,
           width: centerWidth,
           child: InkWell(
-              onTap: () async {
-                onTapGroupTitle(item.groupid);
-              },
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.green),
-                    ),
+            onTap: () async {
+              onTapGroupTitle(item.groupid);
+            },
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green),
+                  ),
+                  child: Text(
+                    item.getTypeShort(),
+                    style: const TextStyle(color: Colors.green, fontSize: 10),
+                  ),
+                ),
+                Icon(
+                  _expandGroup.contains(item.groupid)
+                      ? Icons.keyboard_arrow_up_outlined
+                      : Icons.keyboard_arrow_down_outlined,
+                  size: 26,
+                ),
+                SizedBox(
+                  width: centerWidth - 2 * 2 - 15 - 26 - 2,
+                  child: Tooltip(
+                    message: "${item.remark}[${item.servers.length}]",
                     child: Text(
-                      item.getTypeShort(),
+                      "${item.remark}[${item.servers.length}]",
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 10,
+                        fontSize: ThemeConfig.kFontSizeListItem,
+                        fontWeight: ThemeConfig.kFontWeightListItem,
                       ),
                     ),
                   ),
-                  Icon(
-                    _expandGroup.contains(item.groupid)
-                        ? Icons.keyboard_arrow_up_outlined
-                        : Icons.keyboard_arrow_down_outlined,
-                    size: 26,
-                  ),
-                  SizedBox(
-                    width: centerWidth - 2 * 2 - 15 - 26 - 2,
-                    child: Tooltip(
-                      message: "${item.remark}[${item.servers.length}]",
-                      child: Text(
-                        "${item.remark}[${item.servers.length}]",
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: ThemeConfig.kFontSizeListItem,
-                          fontWeight: ThemeConfig.kFontWeightListItem,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
         const Spacer(),
         SizedBox(
@@ -282,27 +288,29 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           child: FittedBox(
             fit: BoxFit.fill,
             child: Tooltip(
-                message:
-                    item.enable ? tcontext.meta.enable : tcontext.meta.disable,
-                child: Switch.adaptive(
-                  value: item.enable,
-                  activeColor: ThemeDefine.kColorGreenBright,
-                  onChanged: (bool newValue) async {
-                    await onChangedGroup(item.groupid, newValue);
-                  },
-                )),
+              message: item.enable
+                  ? tcontext.meta.enable
+                  : tcontext.meta.disable,
+              child: Switch.adaptive(
+                value: item.enable,
+                activeColor: ThemeDefine.kColorGreenBright,
+                onChanged: (bool newValue) async {
+                  await onChangedGroup(item.groupid, newValue);
+                },
+              ),
+            ),
           ),
         ),
-        const SizedBox(
-          width: 15,
-        ),
+        const SizedBox(width: 15),
         item.groupid != ServerManager.getCustomGroupId()
             ? Tooltip(
                 message: tcontext.meta.remove,
                 child: InkWell(
                   onTap: () async {
                     bool? del = await DialogUtils.showConfirmDialog(
-                        context, tcontext.meta.removeConfirm);
+                      context,
+                      tcontext.meta.removeConfirm,
+                    );
                     if (del == true) {
                       ServerManager.removeGroup(item.groupid, true);
                       if (item.enable) {
@@ -313,15 +321,15 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       setState(() {});
                     }
                   },
-                  child: const Icon(Icons.remove_circle_outlined,
-                      size: 26, color: Colors.red),
-                ))
-            : const SizedBox(
-                width: 26,
-              ),
-        const SizedBox(
-          width: 15,
-        ),
+                  child: const Icon(
+                    Icons.remove_circle_outlined,
+                    size: 26,
+                    color: Colors.red,
+                  ),
+                ),
+              )
+            : const SizedBox(width: 26),
+        const SizedBox(width: 15),
       ],
     );
   }
@@ -329,27 +337,31 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   Row createGroupFunction(ServerConfigGroupItem item) {
     int count =
         ServerManager.getTestOutboundServerLatencyTestingCount(item.groupid) +
-            item.testLatency.length;
+        item.testLatency.length;
     final tcontext = Translations.of(context);
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      const SizedBox(
-        width: 10,
-      ),
-      if (item.isRemote()) ...[
-        Row(
-          children: [
-            Tooltip(
-              message: tcontext.meta.update,
-              child: InkWell(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const SizedBox(width: 10),
+        if (item.isRemote()) ...[
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.update,
+                child: InkWell(
                   onTap: () async {
                     ServerManager.reload(item.groupid).then((value) {
                       if (!mounted) {
                         return;
                       }
                       if (value != null) {
-                        DialogUtils.showAlertDialog(context,
-                            tcontext.meta.updateFailed(p: value.message),
-                            showCopy: true, showFAQ: true, withVersion: true);
+                        DialogUtils.showAlertDialog(
+                          context,
+                          tcontext.meta.updateFailed(p: value.message),
+                          showCopy: true,
+                          showFAQ: true,
+                          withVersion: true,
+                        );
                       }
                       if (!mounted) {
                         return;
@@ -360,234 +372,260 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     setState(() {});
                   },
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          Icons.access_time_outlined,
-                          size: 26,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.access_time_outlined, size: 26),
+                      const SizedBox(width: 5),
+                      Text(
+                        DateTimeUtils.dateTimeToDate(item.updateTime),
+                        style: const TextStyle(
+                          fontSize: ThemeConfig.kFontSizeListSubItem,
                         ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          DateTimeUtils.dateTimeToDate(item.updateTime),
-                          style: const TextStyle(
-                            fontSize: ThemeConfig.kFontSizeListSubItem,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        ServerManager.isReloading(item.groupid)
-                            ? const SizedBox(
-                                height: 26,
-                                width: 26,
-                                child: RepaintBoundary(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              )
-                            : const Icon(
-                                Icons.cloud_download_outlined,
-                                size: 26,
+                      ),
+                      const SizedBox(width: 5),
+                      ServerManager.isReloading(item.groupid)
+                          ? const SizedBox(
+                              height: 26,
+                              width: 26,
+                              child: RepaintBoundary(
+                                child: CircularProgressIndicator(),
                               ),
-                      ])),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-          ],
-        ),
-        Row(children: [
-          Tooltip(
-              message: tcontext.meta.qrcode,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
+                            )
+                          : const Icon(Icons.cloud_download_outlined, size: 26),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.qrcode,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
-                          builder: (context) =>
-                              QrcodeScreen(content: item.urlOrPath)));
-                },
-                child: const Icon(
-                  Icons.qr_code_scanner_outlined,
-                  size: 26,
+                        settings: QrcodeScreen.routSettings(),
+                        builder: (context) =>
+                            QrcodeScreen(content: item.urlOrPath),
+                      ),
+                    );
+                  },
+                  child: const Icon(Icons.qr_code_scanner_outlined, size: 26),
                 ),
-              )),
-          const SizedBox(
-            width: 10,
-          )
-        ])
-      ],
-      if (!item.isRemote()) ...[
-        Row(children: [
-          Tooltip(
-              message: tcontext.meta.add,
-              child: InkWell(
-                onTap: () {
-                  onTapAdd(item);
-                },
-                child: const Icon(
-                  Icons.add_outlined,
-                  size: 26,
-                ),
-              )),
-          const SizedBox(
-            width: 10,
-          )
-        ])
-      ],
-      if (!Platform.isWindows ||
-          (Platform.isWindows &&
-              VersionHelper.instance.isWindows10RS5OrGreater)) ...[
-        Row(children: [
-          Tooltip(
-              message: tcontext.meta.share,
-              child: InkWell(
-                onTap: () {
-                  onTapShare(item);
-                },
-                child: const Icon(
-                  Icons.share_outlined,
-                  size: 26,
-                ),
-              )),
-          const SizedBox(
-            width: 10,
-          )
-        ])
-      ],
-      if (item.groupid != ServerManager.getCustomGroupId()) ...[
-        Row(children: [
-          Tooltip(
-              message: tcontext.meta.edit,
-              child: InkWell(
-                onTap: () async {
-                  onTapEdit(item);
-                },
-                child: const Icon(Icons.edit_outlined, size: 26),
-              )),
-          const SizedBox(
-            width: 10,
+              ),
+              const SizedBox(width: 10),
+            ],
           ),
-        ])
-      ],
-      ServerManager.isTestLatency(item.groupid)
-          ? Stack(
-              children: [
-                const SizedBox(
-                  height: 26,
-                  width: 26,
-                  child: RepaintBoundary(
-                    child: CircularProgressIndicator(),
-                  ),
+        ],
+        if (!item.isRemote()) ...[
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.add,
+                child: InkWell(
+                  onTap: () {
+                    onTapAdd(item);
+                  },
+                  child: const Icon(Icons.add_outlined, size: 26),
                 ),
-                Positioned(
-                  left: 0,
-                  top: 6,
-                  height: 20,
-                  width: 26,
-                  child: Text(
-                    count.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: count > 999 ? 8 : 10,
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ],
+        if (!Platform.isWindows ||
+            (Platform.isWindows &&
+                VersionHelper.instance.isWindows10RS5OrGreater)) ...[
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.share,
+                child: InkWell(
+                  onTap: () {
+                    onTapShare(item);
+                  },
+                  child: const Icon(Icons.share_outlined, size: 26),
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ],
+        if (item.groupid != ServerManager.getCustomGroupId()) ...[
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.edit,
+                child: InkWell(
+                  onTap: () async {
+                    onTapEdit(item);
+                  },
+                  child: const Icon(Icons.edit_outlined, size: 26),
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ],
+        ServerManager.isTestLatency(item.groupid)
+            ? Row(
+                children: [
+                  Stack(
+                    children: [
+                      const SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: RepaintBoundary(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                      Positioned(
+                        left: 0,
+                        top: 6,
+                        height: 20,
+                        width: 26,
+                        child: Text(
+                          count.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: count > 999 ? 8 : 10),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              )
+            : Row(
+                children: [
+                  Tooltip(
+                    message: tcontext.meta.latencyTest,
+                    child: InkWell(
+                      onTap: () async {
+                        bool ok = await startVPN();
+                        if (!ok) {
+                          return;
+                        }
+                        ServerManager.testOutboundLatencyForGroup(
+                          item.groupid,
+                        ).then((err) {
+                          if (err != null) {
+                            if (mounted) {
+                              setState(() {});
+
+                              DialogUtils.showAlertDialog(
+                                context,
+                                err.message,
+                                showCopy: true,
+                                showFAQ: true,
+                                withVersion: true,
+                              );
+                            }
+                          }
+                        });
+                      },
+                      child: item.enable
+                          ? const Icon(Icons.bolt_outlined, size: 26)
+                          : const SizedBox.shrink(),
                     ),
                   ),
-                )
-              ],
-            )
-          : Tooltip(
-              message: tcontext.meta.latencyTest,
-              child: InkWell(
-                onTap: () async {
-                  bool ok = await startVPN();
-                  if (!ok) {
-                    return;
-                  }
-                  ServerManager.testOutboundLatencyForGroup(item.groupid)
-                      .then((err) {
-                    if (err != null) {
-                      if (mounted) {
-                        setState(() {});
-
-                        DialogUtils.showAlertDialog(context, err.message,
-                            showCopy: true, showFAQ: true, withVersion: true);
-                      }
-                    }
-                  });
-                },
-                child: item.enable
-                    ? const Icon(
-                        Icons.bolt_outlined,
-                        size: 26,
-                      )
-                    : const SizedBox.shrink(),
-              )),
-    ]);
+                  const SizedBox(width: 10),
+                ],
+              ),
+        if (item.isRemote() && item.site.isNotEmpty) ...[
+          Row(
+            children: [
+              Tooltip(
+                message: tcontext.meta.website,
+                child: InkWell(
+                  onTap: () {
+                    String newUrl =
+                        UrlLauncherUtils.reorganizationUrl(
+                          item.site,
+                          "_from_=karing",
+                        ) ??
+                        item.site;
+                    UrlLauncherUtils.loadUrl(newUrl);
+                  },
+                  child: const Icon(Icons.link_outlined, size: 26),
+                ),
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ],
+      ],
+    );
   }
 
   Column createGroupProfile(ServerConfigGroupItem item) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
-    return Column(children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(
-            width: 5,
-          ),
-          createGroupTitle(item),
-          createGroupFunction(item),
-          const SizedBox(
-            height: 5,
-          ),
-          CommonWidget.createGroupTraffic(
-            context,
-            item.groupid,
-            false,
-            item.traffic,
-            10,
-            MainAxisAlignment.start,
-            windowSize.width,
-            (String groupId) {
-              setState(() {});
-            },
-            (String groupId, ReturnResult<SubscriptionTraffic> value) {
-              if (!mounted) {
-                return;
-              }
-              setState(() {});
-              if (value.error != null) {
-                if (value.error!.message.contains("405")) {
-                  ServerManager.reload(item.groupid).then((value) {
-                    if (item.enable && item.reloadAfterProfileUpdate) {
-                      ServerManager.setDirty(true);
-                    }
-                    if (!mounted) {
-                      return;
-                    }
-                    setState(() {});
-                    if (value != null) {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.updateFailed(p: value.message),
-                          showCopy: true, showFAQ: true, withVersion: true);
-                    }
-                  });
-                } else {
-                  DialogUtils.showAlertDialog(context,
-                      tcontext.meta.updateFailed(p: value.error!.message),
-                      showCopy: true, showFAQ: true, withVersion: true);
+    return Column(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(width: 5),
+            createGroupTitle(item),
+            createGroupFunction(item),
+            const SizedBox(height: 5),
+            CommonWidget.createGroupTraffic(
+              context,
+              item.groupid,
+              false,
+              item.traffic,
+              10,
+              MainAxisAlignment.start,
+              windowSize.width,
+              (String groupId) {
+                setState(() {});
+              },
+              (String groupId, ReturnResult<SubscriptionTraffic> value) {
+                if (!mounted) {
+                  return;
                 }
-              }
-            },
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-    ]);
+                setState(() {});
+                if (value.error != null) {
+                  if (value.error!.message.contains("405")) {
+                    ServerManager.reload(item.groupid).then((value) {
+                      if (item.enable && item.reloadAfterProfileUpdate) {
+                        ServerManager.setDirty(true);
+                      }
+                      if (!mounted) {
+                        return;
+                      }
+                      setState(() {});
+                      if (value != null) {
+                        DialogUtils.showAlertDialog(
+                          context,
+                          tcontext.meta.updateFailed(p: value.message),
+                          showCopy: true,
+                          showFAQ: true,
+                          withVersion: true,
+                        );
+                      }
+                    });
+                  } else {
+                    DialogUtils.showAlertDialog(
+                      context,
+                      tcontext.meta.updateFailed(p: value.error!.message),
+                      showCopy: true,
+                      showFAQ: true,
+                      withVersion: true,
+                    );
+                  }
+                }
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
   }
 
   Widget createServer(ProxyConfig server, int index) {
@@ -617,9 +655,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             onLongPressServer(server, isTesting, isWaitTesting);
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: padding),
             width: double.infinity,
             height: ThemeConfig.kListItemHeight,
             color: disabled ? Colors.grey : null,
@@ -635,9 +671,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                           width: leftWidth,
                           child: Text(
                             index.toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ),
                         SizedBox(
@@ -660,19 +694,16 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                 width: 30,
                                 child: Text(
                                   server.attach,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                  ),
+                                  style: const TextStyle(fontSize: 10),
                                 ),
                               ),
                         Container(
                           alignment: Alignment.centerRight,
                           width: rightWidth,
-                          child: Row(children: [
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            /*InkWell(
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 5),
+                              /*InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -695,92 +726,96 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         const SizedBox(
                           width: 10,
                         ),*/
-                            SizedBox(
-                              height: ThemeConfig.kListItemHeight,
-                              child: InkWell(
-                                onTap: () {
-                                  ServerManager.toggleFav(server);
-                                  if (SettingManager.getConfig()
-                                      .autoSelect
-                                      .prioritizeMyFav) {
-                                    ServerManager.setDirty(true);
-                                  }
-                                  setState(() {});
-                                },
-                                child: Row(children: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.orange),
-                                    child: Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                            Colors.white.withValues(alpha: 0.8),
+                              SizedBox(
+                                height: ThemeConfig.kListItemHeight,
+                                child: InkWell(
+                                  onTap: () {
+                                    ServerManager.toggleFav(server);
+                                    if (SettingManager.getConfig()
+                                        .autoSelect
+                                        .prioritizeMyFav) {
+                                      ServerManager.setDirty(true);
+                                    }
+                                    setState(() {});
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.orange,
+                                        ),
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.white.withValues(
+                                              alpha: 0.8,
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            Icons.star_outlined,
+                                            size: 20,
+                                            color:
+                                                ServerManager.getUse().fav
+                                                    .contains(server)
+                                                ? Colors.orange
+                                                : Colors.white,
+                                          ),
+                                        ),
                                       ),
-                                      child: Icon(
-                                        Icons.star_outlined,
-                                        size: 20,
-                                        color: ServerManager.getUse()
-                                                .fav
-                                                .contains(server)
-                                            ? Colors.orange
-                                            : Colors.white,
+                                      const SizedBox(width: 2),
+                                      SizedBox(
+                                        width: 45,
+                                        child: Text(
+                                          server.getShowType(),
+                                          style: const TextStyle(
+                                            fontSize: ThemeConfig
+                                                .kFontSizeListSubItem,
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    width: 2,
-                                  ),
-                                  SizedBox(
-                                    width: 45,
-                                    child: Text(
-                                      server.getShowType(),
-                                      style: const TextStyle(
-                                        fontSize:
-                                            ThemeConfig.kFontSizeListSubItem,
-                                      ),
-                                    ),
-                                  ),
-                                ]),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            CommonWidget.createLatencyWidget(
-                              context,
-                              ThemeConfig.kListItemHeight,
-                              isTesting | isWaitTesting,
-                              isTesting,
-                              server.latency,
-                              onTapLatencyReload: () async {
-                                if (!await startVPN()) {
-                                  return;
-                                }
-                                ServerManager.testOutboundLatencyForServer(
-                                        server.tag, server.groupid)
-                                    .then((err) {
-                                  if (err != null) {
-                                    if (mounted) {
-                                      setState(() {});
+                              const SizedBox(width: 2),
+                              CommonWidget.createLatencyWidget(
+                                context,
+                                ThemeConfig.kListItemHeight,
+                                isTesting | isWaitTesting,
+                                isTesting,
+                                server.latency,
+                                onTapLatencyReload: () async {
+                                  if (!await startVPN()) {
+                                    return;
+                                  }
+                                  ServerManager.testOutboundLatencyForServer(
+                                    server.tag,
+                                    server.groupid,
+                                  ).then((err) {
+                                    if (err != null) {
+                                      if (mounted) {
+                                        setState(() {});
 
-                                      DialogUtils.showAlertDialog(
-                                          context, err.message,
+                                        DialogUtils.showAlertDialog(
+                                          context,
+                                          err.message,
                                           showCopy: true,
                                           showFAQ: true,
-                                          withVersion: true);
+                                          withVersion: true,
+                                        );
+                                      }
                                     }
-                                  }
-                                });
-                              },
-                            )
-                          ]),
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -796,10 +831,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -815,78 +847,72 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     InkWell(
                       onTap: () {
                         onTapExpandAllGroup();
                       },
-                      child: Row(children: [
-                        Icon(
-                          _expandGroup.isNotEmpty
-                              ? Icons.keyboard_double_arrow_up_outlined
-                              : Icons.keyboard_double_arrow_down_outlined,
-                          size: 26,
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 50 * 3 - 26,
-                          child: Text(
-                            tcontext.meta.myProfiles,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: ThemeConfig.kFontWeightTitle,
-                                fontSize: ThemeConfig.kFontSizeTitle),
+                      child: Row(
+                        children: [
+                          Icon(
+                            _expandGroup.isNotEmpty
+                                ? Icons.keyboard_double_arrow_up_outlined
+                                : Icons.keyboard_double_arrow_down_outlined,
+                            size: 26,
                           ),
-                        ),
-                      ]),
+                          SizedBox(
+                            width: windowSize.width - 50 * 3 - 26,
+                            child: Text(
+                              tcontext.meta.myProfiles,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: ThemeConfig.kFontWeightTitle,
+                                fontSize: ThemeConfig.kFontSizeTitle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Tooltip(
-                              message: tcontext.meta.latencyTest,
-                              child: InkWell(
-                                onTap: () async {
-                                  onTapTestOutboundLatencyAll();
-                                },
-                                child: const SizedBox(
-                                    width: 50,
-                                    height: 30,
-                                    child: Icon(
-                                      Icons.bolt_outlined,
-                                      size: 30,
-                                    )),
-                              )),
-                          Tooltip(
-                              message: tcontext.meta.more,
-                              child: InkWell(
-                                onTap: () async {
-                                  onTapMore();
-                                },
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.more_vert_outlined,
-                                    size: 30,
-                                  ),
-                                ),
-                              )),
-                        ])
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Tooltip(
+                          message: tcontext.meta.latencyTest,
+                          child: InkWell(
+                            onTap: () async {
+                              onTapTestOutboundLatencyAll();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.bolt_outlined, size: 30),
+                            ),
+                          ),
+                        ),
+                        Tooltip(
+                          message: tcontext.meta.more,
+                          child: InkWell(
+                            onTap: () async {
+                              onTapMore();
+                            },
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.more_vert_outlined, size: 30),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListViewMultiPartsBuilder.build(_listViewParts),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: ListViewMultiPartsBuilder.build(_listViewParts)),
             ],
           ),
         ),
@@ -910,8 +936,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     setState(() {});
   }
 
-  List<Widget> getLongPressServerWidgets(ProxyConfig server, bool isTesting,
-      bool isWaitTesting, bool insertBlackspace) {
+  List<Widget> getLongPressServerWidgets(
+    ProxyConfig server,
+    bool isTesting,
+    bool isWaitTesting,
+    bool insertBlackspace,
+  ) {
     if (!mounted) {
       return [];
     }
@@ -927,9 +957,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
     var widgets = [
       ListTile(
-        title: Text(
-          insertBlackspace ? "  $msg" : msg,
-        ),
+        title: Text(insertBlackspace ? "  $msg" : msg),
         onTap: () async {
           Navigator.pop(context);
           var use = ServerManager.getUse();
@@ -946,28 +974,33 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         },
       ),
       ListTile(
-        title: Text(insertBlackspace
-            ? "  ${tcontext.meta.share}"
-            : tcontext.meta.share),
+        title: Text(
+          insertBlackspace ? "  ${tcontext.meta.share}" : tcontext.meta.share,
+        ),
         onTap: () async {
           Navigator.pop(context);
           const JsonEncoder encoder = JsonEncoder.withIndent('');
-          String configContent =
-              encoder.convert(SingboxConfigBuilder.buildOutbound(server));
+          String configContent = encoder.convert(
+            SingboxConfigBuilder.buildOutbound(server),
+          );
           Codec<String, String> stringToBase64 = utf8.fuse(base64);
           String b64 = stringToBase64.encode("[$configContent]");
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: QrcodeScreen.routSettings(),
-                  builder: (context) => QrcodeScreen(
-                      content:
-                          "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}")));
+            context,
+            MaterialPageRoute(
+              settings: QrcodeScreen.routSettings(),
+              builder: (context) => QrcodeScreen(
+                content:
+                    "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}",
+              ),
+            ),
+          );
         },
       ),
       ListTile(
         title: Text(
-            insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view),
+          insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view,
+        ),
         onTap: () async {
           Navigator.pop(context);
           const JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -975,11 +1008,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
               ? encoder.convert(server.raw)
               : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  settings: FileViewScreen.routSettings(),
-                  builder: (context) =>
-                      FileViewScreen(title: server.tag, content: content)));
+            context,
+            MaterialPageRoute(
+              settings: FileViewScreen.routSettings(),
+              builder: (context) =>
+                  FileViewScreen(title: server.tag, content: content),
+            ),
+          );
         },
       ),
       if (!isTesting &&
@@ -987,9 +1022,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           item.testLatency.isEmpty &&
           item.testLatencyIndepends.isEmpty) ...[
         ListTile(
-          title: Text(insertBlackspace
-              ? "  ${tcontext.meta.remove}"
-              : tcontext.meta.remove),
+          title: Text(
+            insertBlackspace
+                ? "  ${tcontext.meta.remove}"
+                : tcontext.meta.remove,
+          ),
           onTap: () async {
             Navigator.pop(context);
             for (int i = 0; i < item.servers.length; ++i) {
@@ -1012,9 +1049,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       ],
       if (!SettingManager.getConfig().novice) ...[
         ListTile(
-          title: Text(insertBlackspace
-              ? "  ${tcontext.meta.edit}"
-              : tcontext.meta.edit),
+          title: Text(
+            insertBlackspace ? "  ${tcontext.meta.edit}" : tcontext.meta.edit,
+          ),
           onTap: () async {
             Navigator.pop(context);
             onTapEditServer(item, server);
@@ -1027,9 +1064,16 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   void onLongPressServer(
-      ProxyConfig server, bool isTesting, bool isWaitTesting) async {
-    var widgets =
-        getLongPressServerWidgets(server, isTesting, isWaitTesting, false);
+    ProxyConfig server,
+    bool isTesting,
+    bool isWaitTesting,
+  ) async {
+    var widgets = getLongPressServerWidgets(
+      server,
+      isTesting,
+      isWaitTesting,
+      false,
+    );
     showSheetWidgets(context: context, widgets: widgets);
   }
 
@@ -1037,65 +1081,45 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          tcontext.meta.setting,
-        ),
-        leading: Icon(
-          Icons.settings_outlined,
-        ),
+        title: Text(tcontext.meta.setting),
+        leading: Icon(Icons.settings_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapSetting();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.addProfile,
-        ),
-        leading: Icon(
-          Icons.add_outlined,
-        ),
+        title: Text(tcontext.meta.addProfile),
+        leading: Icon(Icons.add_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapAddProfile();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.update,
-        ),
-        leading: Icon(
-          Icons.cloud_download_outlined,
-        ),
+        title: Text(tcontext.meta.update),
+        leading: Icon(Icons.cloud_download_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapReloadAll();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.sort,
-        ),
-        leading: Icon(
-          Icons.sort_outlined,
-        ),
+        title: Text(tcontext.meta.sort),
+        leading: Icon(Icons.sort_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapSort();
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.MyProfilesMergeScreen.profilesMerge,
-        ),
-        leading: Icon(
-          Icons.merge_outlined,
-        ),
+        title: Text(tcontext.MyProfilesMergeScreen.profilesMerge),
+        leading: Icon(Icons.merge_outlined),
         onTap: () async {
           Navigator.pop(context);
           onTapMerge();
         },
-      )
+      ),
     ];
 
     showSheetWidgets(context: context, widgets: widgets);
@@ -1114,40 +1138,46 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   void onTapSetting() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.hideInvalidServer,
-                switchValue: settingConfig.uiScreen.hideInvalidServerMyProfiles,
-                onSwitch: (bool value) async {
-                  settingConfig.uiScreen.hideInvalidServerMyProfiles = value;
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.hideInvalidServer,
+            switchValue: settingConfig.uiScreen.hideInvalidServerMyProfiles,
+            onSwitch: (bool value) async {
+              settingConfig.uiScreen.hideInvalidServerMyProfiles = value;
 
-                  setState(() {});
-                })),
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.sortServer,
-                switchValue: settingConfig.uiScreen.sortServerMyProfiles,
-                onSwitch: (bool value) async {
-                  settingConfig.uiScreen.sortServerMyProfiles = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.sortServer,
+            switchValue: settingConfig.uiScreen.sortServerMyProfiles,
+            onSwitch: (bool value) async {
+              settingConfig.uiScreen.sortServerMyProfiles = value;
+              setState(() {});
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("MyProfilesScreen.setting"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.setting,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("MyProfilesScreen.setting"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.setting, getOptions: getOptions),
+      ),
+    );
     _buildData();
     setState(() {});
     SettingManager.saveConfig();
@@ -1161,29 +1191,34 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
   void onTapSort() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: MyProfilesReorderScreen.routSettings(),
-            builder: (context) =>
-                MyProfilesReorderScreen(onReorder: (List<String> groupids) {
-                  ServerManager.reorderGroup(groupids);
-                  ServerManager.setDirty(true);
-                  Future.delayed(const Duration(milliseconds: 10), () {
-                    if (!mounted) {
-                      return;
-                    }
-                    _buildData();
-                    setState(() {});
-                  });
-                })));
+      context,
+      MaterialPageRoute(
+        settings: MyProfilesReorderScreen.routSettings(),
+        builder: (context) => MyProfilesReorderScreen(
+          onReorder: (List<String> groupids) {
+            ServerManager.reorderGroup(groupids);
+            ServerManager.setDirty(true);
+            Future.delayed(const Duration(milliseconds: 10), () {
+              if (!mounted) {
+                return;
+              }
+              _buildData();
+              setState(() {});
+            });
+          },
+        ),
+      ),
+    );
   }
 
   void onTapMerge() async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: MyProfilesMergeScreen.routSettings(),
-            builder: (context) => const MyProfilesMergeScreen()));
+      context,
+      MaterialPageRoute(
+        settings: MyProfilesMergeScreen.routSettings(),
+        builder: (context) => const MyProfilesMergeScreen(),
+      ),
+    );
     setState(() {});
   }
 
@@ -1220,7 +1255,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
       if (count == 1) {
         DialogUtils.showAlertDialog(
-            context, tcontext.meta.myProfilesAtLeastOneReserveEnable);
+          context,
+          tcontext.meta.myProfilesAtLeastOneReserveEnable,
+        );
         return;
       }
     }
@@ -1303,27 +1340,31 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         return;
     }
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: "tag",
-                text: sbOptions.tag,
-                textWidthPercent: 0.6,
-                hint: tcontext.meta.required,
-                onChanged: (String value) {
-                  if (value.isEmpty) {
-                    return;
-                  }
-                  sbOptions.tag = value;
-                })),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "tag",
+            text: sbOptions.tag,
+            textWidthPercent: 0.6,
+            hint: tcontext.meta.required,
+            onChanged: (String value) {
+              if (value.isEmpty) {
+                return;
+              }
+              sbOptions.tag = value;
+            },
+          ),
+        ),
         GroupItemOptions(
           textOptions: GroupItemTextOptions(
             name: "type",
             text: sbOptions.type,
             textWidthPercent: 0.6,
           ),
-        )
+        ),
       ];
       List<GroupItem> allOptions = [GroupItem(options: options)];
 
@@ -1332,138 +1373,132 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("add-edit:${sbOptions.type}"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.edit,
-                  getOptions: getOptions,
-                  onDone: (BuildContext context) async {
-                    if (!mounted) {
-                      return false;
-                    }
-                    String? ret;
-                    ProxyConfig server = ProxyConfig();
-                    server.groupid = item.groupid;
-                    server.index = item.servers.length;
-                    server.tag = sbOptions.tag;
-                    server.type = sbOptions.type;
-                    switch (sbOptions.type) {
-                      case "shadowsocks":
-                        ret = sbOptions.shadowsocks!.getRequired();
-                        sbOptions.server = sbOptions.shadowsocks!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.shadowsocks!.server_port ?? 0;
-                        break;
-                      case "shadowsocksr":
-                        ret = sbOptions.shadowsocksr!.getRequired();
-                        sbOptions.server = sbOptions.shadowsocksr!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.shadowsocksr!.server_port ?? 0;
-                        break;
-                      case "shadowtls":
-                        ret = sbOptions.shadowtls!.getRequired();
-                        sbOptions.server = sbOptions.shadowtls!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.shadowtls!.server_port ?? 0;
-                        break;
-                      case "vmess":
-                        ret = sbOptions.vmess!.getRequired();
-                        sbOptions.server = sbOptions.vmess!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.vmess!.server_port ?? 0;
-                        break;
-                      case "vless":
-                        ret = sbOptions.vless!.getRequired();
-                        sbOptions.server = sbOptions.vless!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.vless!.server_port ?? 0;
-                        break;
-                      case "trojan":
-                        ret = sbOptions.trojan!.getRequired();
-                        sbOptions.server = sbOptions.trojan!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.trojan!.server_port ?? 0;
-                        break;
-                      case "socks":
-                        ret = sbOptions.socks!.getRequired();
-                        sbOptions.server = sbOptions.socks!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.socks!.server_port ?? 0;
-                        break;
-                      case "http":
-                        ret = sbOptions.http!.getRequired();
-                        sbOptions.server = sbOptions.http!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.http!.server_port ?? 0;
-                        break;
-                      case "hysteria":
-                        ret = sbOptions.hysteria!.getRequired();
-                        sbOptions.server = sbOptions.hysteria!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.hysteria!.server_port ?? 0;
-                        break;
-                      case "hysteria2":
-                        ret = sbOptions.hysteria2!.getRequired();
-                        sbOptions.server = sbOptions.hysteria2!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.hysteria2!.server_port ?? 0;
-                        break;
-                      case "wireguard":
-                        ret = sbOptions.wg!.getRequired();
-                        sbOptions.server = sbOptions.wg!.server ?? "";
-                        sbOptions.server_port = sbOptions.wg!.server_port ?? 0;
-                        break;
-                      case "tuic":
-                        ret = sbOptions.tuic!.getRequired();
-                        sbOptions.server = sbOptions.tuic!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.tuic!.server_port ?? 0;
-                        break;
-                      case "tor":
-                        ret = sbOptions.tor!.getRequired();
-                        sbOptions.server = sbOptions.tor!.server ?? "";
-                        sbOptions.server_port = sbOptions.tor!.server_port ?? 0;
-                        break;
-                      case "ssh":
-                        ret = sbOptions.ssh!.getRequired();
-                        sbOptions.server = sbOptions.ssh!.server ?? "";
-                        sbOptions.server_port = sbOptions.ssh!.server_port ?? 0;
-                        break;
-                      case "anytls":
-                        ret = sbOptions.anytls!.getRequired();
-                        sbOptions.server = sbOptions.anytls!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.anytls!.server_port ?? 0;
-                        break;
-                      case "mieru":
-                        ret = sbOptions.mieru!.getRequired();
-                        sbOptions.server = sbOptions.mieru!.server ?? "";
-                        sbOptions.server_port =
-                            sbOptions.mieru!.server_port ?? 0;
-                        break;
-                    }
-                    if (ret != null) {
-                      DialogUtils.showAlertDialog(
-                          context, "$ret ${tcontext.meta.required}");
-                      return false;
-                    }
-                    if (sbOptions.tag.isEmpty) {
-                      DialogUtils.showAlertDialog(
-                          context, "tag ${tcontext.meta.required}");
-                      return false;
-                    }
-                    server.server = sbOptions.server;
-                    server.serverport = sbOptions.server_port;
-                    server.raw = sbOptions.toJson();
-                    if (item.enable) {
-                      ServerManager.setDirty(true);
-                    }
-                    item.servers.add(server);
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("add-edit:${sbOptions.type}"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.edit,
+          getOptions: getOptions,
+          onDone: (BuildContext context) async {
+            if (!mounted) {
+              return false;
+            }
+            String? ret;
+            ProxyConfig server = ProxyConfig();
+            server.groupid = item.groupid;
+            server.index = item.servers.length;
+            server.tag = sbOptions.tag;
+            server.type = sbOptions.type;
+            switch (sbOptions.type) {
+              case "shadowsocks":
+                ret = sbOptions.shadowsocks!.getRequired();
+                sbOptions.server = sbOptions.shadowsocks!.server ?? "";
+                sbOptions.server_port = sbOptions.shadowsocks!.server_port ?? 0;
+                break;
+              case "shadowsocksr":
+                ret = sbOptions.shadowsocksr!.getRequired();
+                sbOptions.server = sbOptions.shadowsocksr!.server ?? "";
+                sbOptions.server_port =
+                    sbOptions.shadowsocksr!.server_port ?? 0;
+                break;
+              case "shadowtls":
+                ret = sbOptions.shadowtls!.getRequired();
+                sbOptions.server = sbOptions.shadowtls!.server ?? "";
+                sbOptions.server_port = sbOptions.shadowtls!.server_port ?? 0;
+                break;
+              case "vmess":
+                ret = sbOptions.vmess!.getRequired();
+                sbOptions.server = sbOptions.vmess!.server ?? "";
+                sbOptions.server_port = sbOptions.vmess!.server_port ?? 0;
+                break;
+              case "vless":
+                ret = sbOptions.vless!.getRequired();
+                sbOptions.server = sbOptions.vless!.server ?? "";
+                sbOptions.server_port = sbOptions.vless!.server_port ?? 0;
+                break;
+              case "trojan":
+                ret = sbOptions.trojan!.getRequired();
+                sbOptions.server = sbOptions.trojan!.server ?? "";
+                sbOptions.server_port = sbOptions.trojan!.server_port ?? 0;
+                break;
+              case "socks":
+                ret = sbOptions.socks!.getRequired();
+                sbOptions.server = sbOptions.socks!.server ?? "";
+                sbOptions.server_port = sbOptions.socks!.server_port ?? 0;
+                break;
+              case "http":
+                ret = sbOptions.http!.getRequired();
+                sbOptions.server = sbOptions.http!.server ?? "";
+                sbOptions.server_port = sbOptions.http!.server_port ?? 0;
+                break;
+              case "hysteria":
+                ret = sbOptions.hysteria!.getRequired();
+                sbOptions.server = sbOptions.hysteria!.server ?? "";
+                sbOptions.server_port = sbOptions.hysteria!.server_port ?? 0;
+                break;
+              case "hysteria2":
+                ret = sbOptions.hysteria2!.getRequired();
+                sbOptions.server = sbOptions.hysteria2!.server ?? "";
+                sbOptions.server_port = sbOptions.hysteria2!.server_port ?? 0;
+                break;
+              case "wireguard":
+                ret = sbOptions.wg!.getRequired();
+                sbOptions.server = sbOptions.wg!.server ?? "";
+                sbOptions.server_port = sbOptions.wg!.server_port ?? 0;
+                break;
+              case "tuic":
+                ret = sbOptions.tuic!.getRequired();
+                sbOptions.server = sbOptions.tuic!.server ?? "";
+                sbOptions.server_port = sbOptions.tuic!.server_port ?? 0;
+                break;
+              case "tor":
+                ret = sbOptions.tor!.getRequired();
+                sbOptions.server = sbOptions.tor!.server ?? "";
+                sbOptions.server_port = sbOptions.tor!.server_port ?? 0;
+                break;
+              case "ssh":
+                ret = sbOptions.ssh!.getRequired();
+                sbOptions.server = sbOptions.ssh!.server ?? "";
+                sbOptions.server_port = sbOptions.ssh!.server_port ?? 0;
+                break;
+              case "anytls":
+                ret = sbOptions.anytls!.getRequired();
+                sbOptions.server = sbOptions.anytls!.server ?? "";
+                sbOptions.server_port = sbOptions.anytls!.server_port ?? 0;
+                break;
+              case "mieru":
+                ret = sbOptions.mieru!.getRequired();
+                sbOptions.server = sbOptions.mieru!.server ?? "";
+                sbOptions.server_port = sbOptions.mieru!.server_port ?? 0;
+                break;
+            }
+            if (ret != null) {
+              DialogUtils.showAlertDialog(
+                context,
+                "$ret ${tcontext.meta.required}",
+              );
+              return false;
+            }
+            if (sbOptions.tag.isEmpty) {
+              DialogUtils.showAlertDialog(
+                context,
+                "tag ${tcontext.meta.required}",
+              );
+              return false;
+            }
+            server.server = sbOptions.server;
+            server.serverport = sbOptions.server_port;
+            server.raw = sbOptions.toJson();
+            if (item.enable) {
+              ServerManager.setDirty(true);
+            }
+            item.servers.add(server);
 
-                    return true;
-                  },
-                )));
+            return true;
+          },
+        ),
+      ),
+    );
     _buildData();
     setState(() {});
   }
@@ -1473,12 +1508,15 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       return;
     }
     bool tunMode = false;
-    String savePath =
-        path.join(await PathUtils.cacheDir(), 'profile_share.json');
+    String savePath = path.join(
+      await PathUtils.cacheDir(),
+      'profile_share.json',
+    );
     await FileUtils.deletePath(savePath);
     SingboxConfig config = SingboxConfig();
-    dynamic selectOutbound =
-        SingboxConfigBuilder.buildOutbound(ServerManager.getUrltest());
+    dynamic selectOutbound = SingboxConfigBuilder.buildOutbound(
+      ServerManager.getUrltest(),
+    );
     List<Tuple2<DiversionRulesGroup, ProxyConfig>> diversionGroups =
         ServerManager.getDiversionGroups();
     Set<String> selectOutboundTags = {};
@@ -1493,13 +1531,22 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     config.ntp = SingboxConfigBuilder.ntp();
     final dns = SingboxConfigBuilder.dns(tunMode, SingboxExportType.karing);
     if (dns.error != null) {
-      DialogUtils.showAlertDialog(context, dns.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        dns.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return;
     }
     config.dns = dns.data!;
     config.inbounds = SingboxConfigBuilder.inbounds(
-        false, false, SingboxExportType.karing, null);
+      false,
+      false,
+      SingboxExportType.karing,
+      null,
+    );
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
         inbound.address = ["172.19.0.1/30"];
@@ -1509,40 +1556,42 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
     }
     config.outbounds = SingboxConfigBuilder.outbounds(
-        false,
-        "",
-        selectOutboundTags,
-        {},
-        selectOutbound,
-        allOutBounds,
-        null,
-        {},
-        [],
-        SingboxExportType.karing);
+      false,
+      "",
+      selectOutboundTags,
+      {},
+      selectOutbound,
+      allOutBounds,
+      null,
+      {},
+      [],
+      SingboxExportType.karing,
+    );
 
     var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();
     var ipcodesHashCode = await RulesetCodesUtils.ipCodesHashCode();
     var aclcodesHashCode = await RulesetCodesUtils.aclCodesHashCode();
 
     config.route = SingboxConfigBuilder.route(
-        "",
-        "",
-        "",
-        sitecodesHashCode,
-        ipcodesHashCode,
-        aclcodesHashCode,
-        false,
-        tunMode,
-        allOutBounds,
-        {},
-        null,
-        diversionGroups,
-        config.inbounds,
-        config.dns,
-        null,
-        null,
-        item.groupid,
-        SingboxExportType.karing);
+      "",
+      "",
+      "",
+      sitecodesHashCode,
+      ipcodesHashCode,
+      aclcodesHashCode,
+      false,
+      tunMode,
+      allOutBounds,
+      {},
+      null,
+      diversionGroups,
+      config.inbounds,
+      config.dns,
+      null,
+      null,
+      item.groupid,
+      SingboxExportType.karing,
+    );
 
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String content = encoder.convert(config);
@@ -1557,31 +1606,34 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
     try {
       final box = context.findRenderObject() as RenderBox?;
-      final rect =
-          box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+      final rect = box != null
+          ? box.localToGlobal(Offset.zero) & box.size
+          : null;
       await SharePlus.instance.share(
-        ShareParams(
-          files: [
-            XFile(savePath),
-          ],
-          sharePositionOrigin: rect,
-        ),
+        ShareParams(files: [XFile(savePath)], sharePositionOrigin: rect),
       );
     } catch (err) {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
   void onTapEdit(ServerConfigGroupItem item) async {
     bool? changed = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: MyProfilesEditScreen.routSettings(),
-            builder: (context) => MyProfilesEditScreen(groupid: item.groupid)));
+      context,
+      MaterialPageRoute(
+        settings: MyProfilesEditScreen.routSettings(),
+        builder: (context) => MyProfilesEditScreen(groupid: item.groupid),
+      ),
+    );
     if (changed == true) {
       _buildData();
       setState(() {});
@@ -1592,7 +1644,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     final tcontext = Translations.of(context);
     if (item.isRemote()) {
       bool? ok = await DialogUtils.showConfirmDialog(
-          context, tcontext.remoteProfileEditConfirm);
+        context,
+        tcontext.remoteProfileEditConfirm,
+      );
       if (ok != true) {
         return;
       }
@@ -1601,8 +1655,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     try {
       sbOptions.fromJson(server.raw);
     } catch (err, stacktrace) {
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       //Log.w(
       //    "onTapEditServer exception ${err.toString()}\n\n${stacktrace.toString()}");
       return;
@@ -1613,23 +1672,27 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: "tag",
-                text: sbOptions.tag,
-                textStyle: TextStyle(
-                  fontFamily: Platform.isWindows ? 'Emoji' : null,
-                ),
-                textWidthPercent: 0.6,
-                hint: tcontext.meta.required,
-                onChanged: (String value) {
-                  if (value.isEmpty) {
-                    return;
-                  }
-                  sbOptions.tag = value.trim();
-                })),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "tag",
+            text: sbOptions.tag,
+            textStyle: TextStyle(
+              fontFamily: Platform.isWindows ? 'Emoji' : null,
+            ),
+            textWidthPercent: 0.6,
+            hint: tcontext.meta.required,
+            onChanged: (String value) {
+              if (value.isEmpty) {
+                return;
+              }
+              sbOptions.tag = value.trim();
+            },
+          ),
+        ),
         GroupItemOptions(
           textOptions: GroupItemTextOptions(
             name: "type",
@@ -1638,20 +1701,22 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           ),
         ),
         GroupItemOptions(
-            textFormFieldOptions: GroupItemTextFieldOptions(
-                name: "detour",
-                text: sbOptions.dialer?.detour ?? "",
-                textStyle: TextStyle(
-                  fontFamily: Platform.isWindows ? 'Emoji' : null,
-                ),
-                textWidthPercent: 0.6,
-                onChanged: (String value) {
-                  if (value.trim().isEmpty) {
-                    sbOptions.dialer?.detour = null;
-                  } else {
-                    sbOptions.dialer?.detour = value.trim();
-                  }
-                })),
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "detour",
+            text: sbOptions.dialer?.detour ?? "",
+            textStyle: TextStyle(
+              fontFamily: Platform.isWindows ? 'Emoji' : null,
+            ),
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              if (value.trim().isEmpty) {
+                sbOptions.dialer?.detour = null;
+              } else {
+                sbOptions.dialer?.detour = value.trim();
+              }
+            },
+          ),
+        ),
       ];
       List<GroupItem> allOptions = [GroupItem(options: options)];
 
@@ -1660,27 +1725,29 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("edit:${sbOptions.type}"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.edit,
-                  getOptions: getOptions,
-                  onDone: (BuildContext context) async {
-                    if (!mounted) {
-                      return false;
-                    }
-                    server.tag = sbOptions.tag;
-                    server.raw = sbOptions.toJson();
-                    server.server = sbOptions.server;
-                    server.serverport = sbOptions.server_port;
-                    if (item.enable) {
-                      ServerManager.setDirty(true);
-                    }
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("edit:${sbOptions.type}"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.edit,
+          getOptions: getOptions,
+          onDone: (BuildContext context) async {
+            if (!mounted) {
+              return false;
+            }
+            server.tag = sbOptions.tag;
+            server.raw = sbOptions.toJson();
+            server.server = sbOptions.server;
+            server.serverport = sbOptions.server_port;
+            if (item.enable) {
+              ServerManager.setDirty(true);
+            }
 
-                    return true;
-                  },
-                )));
+            return true;
+          },
+        ),
+      ),
+    );
     setState(() {});
   }
 }

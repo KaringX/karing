@@ -40,10 +40,7 @@ class _SentryHashStringScreenState
   Widget build(BuildContext context) {
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -57,10 +54,7 @@ class _SentryHashStringScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -70,8 +64,9 @@ class _SentryHashStringScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   InkWell(
@@ -81,33 +76,32 @@ class _SentryHashStringScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.done_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.done_outlined, size: 26),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Column(
                   children: [
-                    Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 0),
-                        child: TextFieldEx(
-                          maxLines: PlatformUtils.isPC() ? 14 : 8,
-                          maxLength: 500,
-                          textInputAction: TextInputAction.done,
-                          controller: _textController,
-                          //style: TextStyle(color: Colors.red),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 0,
+                          ),
+                          child: TextFieldEx(
+                            maxLines: PlatformUtils.isPC() ? 14 : 8,
+                            maxLength: 500,
+                            textInputAction: TextInputAction.done,
+                            controller: _textController,
+                            //style: TextStyle(color: Colors.red),
+                          ),
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -124,7 +118,8 @@ class _SentryHashStringScreenState
     }
     try {
       await Clipboard.setData(
-          ClipboardData(text: _textController.text.hashCode.toString()));
+        ClipboardData(text: _textController.text.hashCode.toString()),
+      );
     } catch (e) {}
   }
 }

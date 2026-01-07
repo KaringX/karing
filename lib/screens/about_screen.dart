@@ -61,10 +61,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     Size windowSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -80,10 +77,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -93,19 +87,16 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 50,
-                    ),
+                    const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               InkWell(
                 onDoubleTap: () {
                   SettingManager.getConfig().dev.devMode =
@@ -113,39 +104,43 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
 
                   setState(() {});
                 },
-                child: Stack(children: [
-                  Image.asset(
-                    "assets/images/app_icon_128.png",
-                    width: 128,
-                    height: 128,
-                  ),
-                  if (SettingManager.getConfig().dev.devMode) ...[
-                    Positioned(
-                      left: 100,
-                      top: 100,
-                      child: Icon(
-                        Icons.logo_dev,
-                        size: 26,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/app_icon_128.png",
+                      width: 128,
+                      height: 128,
+                    ),
+                    if (SettingManager.getConfig().dev.devMode) ...[
+                      Positioned(
+                        left: 100,
+                        top: 100,
+                        child: Icon(Icons.logo_dev, size: 26),
                       ),
-                    )
+                    ],
                   ],
-                ]),
+                ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: SingleChildScrollView(
                   child: FutureBuilder(
                     future: getGroupOptions(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
-                    },
+                    builder:
+                        (
+                          BuildContext context,
+                          AsyncSnapshot<List<GroupItem>> snapshot,
+                        ) {
+                          List<GroupItem> data = snapshot.hasData
+                              ? snapshot.data!
+                              : [];
+                          return Column(
+                            children: GroupItemCreator.createGroups(
+                              context,
+                              data,
+                            ),
+                          );
+                        },
                   ),
                 ),
               ),
@@ -183,45 +178,53 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            textOptions: GroupItemTextOptions(
-          name: tcontext.meta.name,
-          text: AppUtils.getName(),
-        )),
+          textOptions: GroupItemTextOptions(
+            name: tcontext.meta.name,
+            text: AppUtils.getName(),
+          ),
+        ),
         GroupItemOptions(
-            textOptions: GroupItemTextOptions(
-          name: tcontext.meta.version,
-          text: AppUtils.getBuildinVersion(),
-        )),
+          textOptions: GroupItemTextOptions(
+            name: tcontext.meta.version,
+            text: AppUtils.getBuildinVersion(),
+          ),
+        ),
         GroupItemOptions(
-            textOptions: GroupItemTextOptions(
-          name: tcontext.AboutScreen.installRefer,
-          text: await InstallReferrerUtils.getString(),
-        )),
+          textOptions: GroupItemTextOptions(
+            name: tcontext.AboutScreen.installRefer,
+            text: await InstallReferrerUtils.getString(),
+          ),
+        ),
         if (dev.devMode && installDate.isNotEmpty) ...[
           GroupItemOptions(
-              textOptions: GroupItemTextOptions(
-            name: tcontext.AboutScreen.installTime,
-            text: installDate,
-          ))
+            textOptions: GroupItemTextOptions(
+              name: tcontext.AboutScreen.installTime,
+              text: installDate,
+            ),
+          ),
         ],
         if (AutoUpdateManager.isSupport()) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.AboutScreen.versionChannel,
-                  text: SettingManager.getConfig().autoUpdateChannel,
-                  onPush: () async {
-                    onTapAutoUpdateChannel();
-                  })),
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.AboutScreen.versionChannel,
+              text: SettingManager.getConfig().autoUpdateChannel,
+              onPush: () async {
+                onTapAutoUpdateChannel();
+              },
+            ),
+          ),
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.AboutScreen.autoDownloadPkg,
-                  switchValue: SettingManager.getConfig().autoDownloadUpdatePkg,
-                  onSwitch: (bool value) async {
-                    SettingManager.getConfig().autoDownloadUpdatePkg = value;
-                    SettingManager.saveConfig();
-                    setState(() {});
-                  })),
-        ]
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.AboutScreen.autoDownloadPkg,
+              switchValue: SettingManager.getConfig().autoDownloadUpdatePkg,
+              onSwitch: (bool value) async {
+                SettingManager.getConfig().autoDownloadUpdatePkg = value;
+                SettingManager.saveConfig();
+                setState(() {});
+              },
+            ),
+          ),
+        ],
       ];
 
       groupOptions.add(GroupItem(options: options));
@@ -230,56 +233,71 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       List<GroupItemOptions> options = [
         if (termOfUse.isNotEmpty) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.termOfUse,
-                  onPush: () async {
-                    await WebviewHelper.loadUrl(
-                        context, AppUtils.getTermsOfServiceUrl(), "termOfUse",
-                        title: tcontext.meta.termOfUse,
-                        useInappWebViewForPC: true);
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.termOfUse,
+              onPush: () async {
+                await WebviewHelper.loadUrl(
+                  context,
+                  AppUtils.getTermsOfServiceUrl(),
+                  "termOfUse",
+                  title: tcontext.meta.termOfUse,
+                  useInappWebViewForPC: true,
+                );
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.privacyPolicy,
-                onPush: () async {
-                  var remoteConfig = RemoteConfigManager.getConfig();
-                  bool ok = await WebviewHelper.loadUrl(
-                      context, remoteConfig.privacyPolicy, "privacyPolicy",
-                      title: tcontext.meta.privacyPolicy,
-                      useInappWebViewForPC: true);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.privacyPolicy,
+            onPush: () async {
+              var remoteConfig = RemoteConfigManager.getConfig();
+              bool ok = await WebviewHelper.loadUrl(
+                context,
+                remoteConfig.privacyPolicy,
+                "privacyPolicy",
+                title: tcontext.meta.privacyPolicy,
+                useInappWebViewForPC: true,
+              );
 
-                  if (!ok) {
-                    if (!mounted) {
-                      return;
-                    }
-                    GroupHelper.showPrivacyPolicy(context);
-                  }
-                })),
+              if (!ok) {
+                if (!mounted) {
+                  return;
+                }
+                GroupHelper.showPrivacyPolicy(context);
+              }
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.AboutScreen.disableUAReport,
-                tips: tcontext.AboutScreen.disableUAReportTip,
-                switchValue: !(RemoteConfigManager.rejectAnalyticsSubmit() ||
-                    SettingManager.getConfig().disableUAReport),
-                onSwitch: RemoteConfigManager.rejectAnalyticsSubmit()
-                    ? null
-                    : (bool value) async {
-                        SettingManager.getConfig().disableUAReport = !value;
-                        SettingManager.saveConfig();
-                        setState(() {});
-                      })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.AboutScreen.disableAppImproveData,
+            tips: tcontext.AboutScreen.disableUAReportTip,
+            switchValue:
+                !(RemoteConfigManager.rejectSentrySubmit() ||
+                    SettingManager.getConfig().disableAppImproveData),
+            onSwitch: RemoteConfigManager.rejectSentrySubmit()
+                ? null
+                : (bool value) async {
+                    SettingManager.getConfig().disableAppImproveData = !value;
+                    SettingManager.saveConfig();
+                    setState(() {});
+                  },
+          ),
+        ),
       ];
       groupOptions.add(GroupItem(options: options));
     }
 
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.AboutScreen.devOptions,
-              onPush: () async {
-                onTapDevOptions();
-              }))
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.AboutScreen.devOptions,
+          onPush: () async {
+            onTapDevOptions();
+          },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
 
@@ -292,104 +310,125 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     var dev = settingConfig.dev;
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.AboutScreen.viewFilsContent,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: FileContentViewerScreen.routSettings(),
-                          builder: (context) =>
-                              const FileContentViewerScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.AboutScreen.viewFilsContent,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: FileContentViewerScreen.routSettings(),
+                  builder: (context) => const FileContentViewerScreen(),
+                ),
+              );
+            },
+          ),
+        ),
         if (PlatformUtils.isPC()) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.openDir,
-                  onPush: () async {
-                    await FileUtils.openDirectory(await PathUtils.profileDir());
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.openDir,
+              onPush: () async {
+                await FileUtils.openDirectory(await PathUtils.profileDir());
+              },
+            ),
+          ),
         ],
       ];
 
       List<GroupItemOptions> options0 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.AboutScreen.useOriginalSBProfile,
-                text: path.basename(settingConfig.originSBProfile),
-                textWidthPercent: 0.4,
-                onPush: () async {
-                  await onTapUseOriginSBProfile();
-                }))
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.AboutScreen.useOriginalSBProfile,
+            text: path.basename(settingConfig.originSBProfile),
+            textWidthPercent: 0.4,
+            onPush: () async {
+              await onTapUseOriginSBProfile();
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.AboutScreen.enableDebugLog,
-                switchValue: dev.enableDebugLog,
-                onSwitch: (bool value) async {
-                  dev.enableDebugLog = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                }))
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.AboutScreen.enableDebugLog,
+            switchValue: dev.enableDebugLog,
+            onSwitch: (bool value) async {
+              dev.enableDebugLog = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options2 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.AboutScreen.enablePprof,
-                tips:
-                    "${tcontext.meta.port}:${SettingConfigItemDev.pprofPortDefault}",
-                switchValue: settingConfig.dev.pprofPort ==
-                    SettingConfigItemDev.pprofPortDefault,
-                onSwitch: (bool value) async {
-                  settingConfig.dev.pprofPort =
-                      value ? SettingConfigItemDev.pprofPortDefault : 0;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.AboutScreen.enablePprof,
+            tips:
+                "${tcontext.meta.port}:${SettingConfigItemDev.pprofPortDefault}",
+            switchValue:
+                settingConfig.dev.pprofPort ==
+                SettingConfigItemDev.pprofPortDefault,
+            onSwitch: (bool value) async {
+              settingConfig.dev.pprofPort = value
+                  ? SettingConfigItemDev.pprofPortDefault
+                  : 0;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
         if (settingConfig.dev.pprofPort != 0) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.AboutScreen.allowRemoteAccessPprof,
-                  switchValue: settingConfig.dev.allowRemoteAccessPprof,
-                  onSwitch: (bool value) async {
-                    settingConfig.dev.allowRemoteAccessPprof = value;
-                    SettingManager.setDirty(true);
-                    setState(() {});
-                  })),
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.AboutScreen.allowRemoteAccessPprof,
+              switchValue: settingConfig.dev.allowRemoteAccessPprof,
+              onSwitch: (bool value) async {
+                settingConfig.dev.allowRemoteAccessPprof = value;
+                SettingManager.setDirty(true);
+                setState(() {});
+              },
+            ),
+          ),
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.AboutScreen.pprofPanel,
-                  onPush: () async {
-                    bool ok = await startVPN();
-                    if (!ok) {
-                      return;
-                    }
-                    if (!context.mounted) {
-                      return;
-                    }
-                    await UrlLauncherUtils.loadUrl(
-                      "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
-                    );
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.AboutScreen.pprofPanel,
+              onPush: () async {
+                bool ok = await startVPN();
+                if (!ok) {
+                  return;
+                }
+                if (!context.mounted) {
+                  return;
+                }
+                await UrlLauncherUtils.loadUrl(
+                  "http://127.0.0.1:${settingConfig.dev.pprofPort}/debug/pprof/",
+                );
+              },
+            ),
+          ),
         ],
       ];
 
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.AboutScreen.allowRemoteAccessHtmlBoard,
-                switchValue: settingConfig.dev.allowRemoteAccessHtmlBoard,
-                onSwitch: (bool value) async {
-                  settingConfig.dev.allowRemoteAccessHtmlBoard = value;
-                  SettingManager.setDirty(true);
-                  setState(() {});
-                }))
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.AboutScreen.allowRemoteAccessHtmlBoard,
+            switchValue: settingConfig.dev.allowRemoteAccessHtmlBoard,
+            onSwitch: (bool value) async {
+              settingConfig.dev.allowRemoteAccessHtmlBoard = value;
+              SettingManager.setDirty(true);
+              setState(() {});
+            },
+          ),
+        ),
       ];
 
       if (!dev.devMode) {
@@ -404,16 +443,22 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
 
       List<GroupItemOptions> options4 = [];
       if (Platform.isWindows) {
-        options4.add(GroupItemOptions(
+        options4.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: "Hash String",
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: HashStringScreen.routSettings(),
-                          builder: (context) => const HashStringScreen()));
-                })));
+              name: "Hash String",
+              onPush: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: HashStringScreen.routSettings(),
+                    builder: (context) => const HashStringScreen(),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       }
 
       return [
@@ -427,13 +472,15 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("devOptions"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.AboutScreen.devOptions,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("devOptions"),
+        builder: (context) => GroupScreen(
+          title: tcontext.AboutScreen.devOptions,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -441,35 +488,43 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [];
 
       for (var channel in SettingConfig.updateChannels()) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             textOptions: GroupItemTextOptions(
-                name: channel,
-                text: "",
-                onPush: () async {
-                  if (SettingManager.getConfig().autoUpdateChannel == channel) {
-                    return;
-                  }
-                  SettingManager.getConfig().autoUpdateChannel = channel;
+              name: channel,
+              text: "",
+              onPush: () async {
+                if (SettingManager.getConfig().autoUpdateChannel == channel) {
+                  return;
+                }
+                SettingManager.getConfig().autoUpdateChannel = channel;
 
-                  AutoUpdateManager.updateChannelChanged();
-                  Navigator.pop(context);
-                })));
+                AutoUpdateManager.updateChannelChanged();
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        );
       }
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("versionChannel"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.AboutScreen.versionChannel,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("versionChannel"),
+        builder: (context) => GroupScreen(
+          title: tcontext.AboutScreen.versionChannel,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     setState(() {});
   }
 
@@ -503,14 +558,23 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         TransExceptionAndUnsupport eu = TransExceptionAndUnsupport();
 
         var cresult = SingboxJsonUtils.tryConvert(
-            content, proxyItem, rulesetItems, null, eu);
+          content,
+          proxyItem,
+          rulesetItems,
+          null,
+          eu,
+        );
         if (cresult.error != null) {
           if (!mounted) {
             return;
           }
           DialogUtils.showAlertDialog(
-              context, cresult.error!.message.toString(),
-              showCopy: true, showFAQ: true, withVersion: true);
+            context,
+            cresult.error!.message.toString(),
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           return;
         }
         SettingManager.getConfig().originSBProfile = filePath;
@@ -521,8 +585,13 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 }

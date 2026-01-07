@@ -54,8 +54,11 @@ class FileContentViewerScreenState
       return "";
     }
     if (ext == ".log") {
-      Tuple2<String, bool>? result =
-          await FileUtils.readAsStringReverse(filePath, 20 * 1024, true);
+      Tuple2<String, bool>? result = await FileUtils.readAsStringReverse(
+        filePath,
+        20 * 1024,
+        true,
+      );
       _fileContent = result == null ? "" : result.item1;
     } else {
       var file = File(filePath);
@@ -113,10 +116,7 @@ class FileContentViewerScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -130,10 +130,7 @@ class FileContentViewerScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -143,117 +140,101 @@ class FileContentViewerScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                            onTap: () async {
-                              onTapMore();
-                            },
-                            child: Tooltip(
-                              message: tcontext.meta.more,
-                              child: const SizedBox(
-                                width: 50,
-                                height: 30,
-                                child: Icon(
-                                  Icons.more_vert_outlined,
-                                  size: 30,
-                                ),
-                              ),
-                            )),
-                      ]),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 200,
-                        child: DropdownButton(
-                          hint: Text(_tip),
-                          value: _fileName,
-                          style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeGroupItem,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.color),
-                          items: _buildDropButtonList(getFileList()),
-                          onChanged: (String? sel) async {
-                            _fileName = sel ?? getFileList().first;
-                            jumpToTop();
-                            String filePath = await PathUtils.profileDir();
-                            if (!mounted) {
-                              return;
-                            }
-                            filePath = path.join(filePath, _fileName);
-                            var file = File(filePath);
-                            if (await file.exists()) {
-                              _fileSize =
-                                  ProxyConfUtils.convertTrafficToStringDouble(
-                                      await file.length());
-                            } else {
-                              _fileSize = "";
-                            }
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
                       InkWell(
                         onTap: () async {
-                          jumpToTop();
+                          onTapMore();
                         },
-                        child: const SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Icon(
-                            Icons.arrow_upward_outlined,
-                            size: 30,
+                        child: Tooltip(
+                          message: tcontext.meta.more,
+                          child: const SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(Icons.more_vert_outlined, size: 30),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          jumpToBottom();
-                        },
-                        child: const SizedBox(
-                          width: 30,
-                          height: 30,
-                          child: Icon(
-                            Icons.arrow_downward_outlined,
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        _fileSize,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color:
-                                Theme.of(context).textTheme.bodyMedium?.color),
                       ),
                     ],
-                  )),
-              const SizedBox(
-                height: 10,
+                  ),
+                ],
               ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: DropdownButton(
+                        hint: Text(_tip),
+                        value: _fileName,
+                        style: TextStyle(
+                          fontSize: ThemeConfig.kFontSizeGroupItem,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
+                        items: _buildDropButtonList(getFileList()),
+                        onChanged: (String? sel) async {
+                          _fileName = sel ?? getFileList().first;
+                          jumpToTop();
+                          String filePath = await PathUtils.profileDir();
+                          if (!mounted) {
+                            return;
+                          }
+                          filePath = path.join(filePath, _fileName);
+                          var file = File(filePath);
+                          if (await file.exists()) {
+                            _fileSize =
+                                ProxyConfUtils.convertTrafficToStringDouble(
+                                  await file.length(),
+                                );
+                          } else {
+                            _fileSize = "";
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () async {
+                        jumpToTop();
+                      },
+                      child: const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Icon(Icons.arrow_upward_outlined, size: 30),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () async {
+                        jumpToBottom();
+                      },
+                      child: const SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Icon(Icons.arrow_downward_outlined, size: 30),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      _fileSize,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Column(
                   children: [
@@ -261,27 +242,34 @@ class FileContentViewerScreenState
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: FutureBuilder(
                         future: loadContent(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          _editController.value =
-                              _editController.value.copyWith(
-                            text: snapshot.hasData ? snapshot.data! : "",
-                          );
-                          return SizedBox(
-                              height: PlatformUtils.isPC()
-                                  ? windowSize.height - 120
-                                  : windowSize.height - 180,
-                              child: TextField(
-                                readOnly: true,
-                                expands: true,
-                                maxLines: null,
-                                minLines: null,
-                                controller: _editController,
-                                scrollController: _scrollController,
-                                style: TextStyle(
-                                    fontSize: ThemeConfig.kFontSizeGroupItem),
-                              ));
-                        },
+                        builder:
+                            (
+                              BuildContext context,
+                              AsyncSnapshot<String> snapshot,
+                            ) {
+                              _editController.value = _editController.value
+                                  .copyWith(
+                                    text: snapshot.hasData
+                                        ? snapshot.data!
+                                        : "",
+                                  );
+                              return SizedBox(
+                                height: PlatformUtils.isPC()
+                                    ? windowSize.height - 120
+                                    : windowSize.height - 180,
+                                child: TextField(
+                                  readOnly: true,
+                                  expands: true,
+                                  maxLines: null,
+                                  minLines: null,
+                                  controller: _editController,
+                                  scrollController: _scrollController,
+                                  style: TextStyle(
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                  ),
+                                ),
+                              );
+                            },
                       ),
                     ),
                   ],
@@ -320,42 +308,30 @@ class FileContentViewerScreenState
     List<Widget> widgets = [
       if (ext != ".db") ...[
         ListTile(
-          title: Text(
-            tcontext.meta.refresh,
-          ),
-          leading: Icon(
-            Icons.refresh_outlined,
-          ),
+          title: Text(tcontext.meta.refresh),
+          leading: Icon(Icons.refresh_outlined),
           onTap: () async {
             Navigator.pop(context);
             setState(() {});
           },
         ),
         ListTile(
-          title: Text(
-            tcontext.meta.copy,
-          ),
-          leading: Icon(
-            Icons.copy,
-          ),
+          title: Text(tcontext.meta.copy),
+          leading: Icon(Icons.copy),
           onTap: () async {
             Navigator.pop(context);
             try {
               await Clipboard.setData(ClipboardData(text: _fileContent));
             } catch (e) {}
           },
-        )
+        ),
       ],
       if (!Platform.isWindows ||
           (Platform.isWindows &&
               VersionHelper.instance.isWindows10RS5OrGreater)) ...[
         ListTile(
-          title: Text(
-            tcontext.meta.share,
-          ),
-          leading: Icon(
-            Icons.share_outlined,
-          ),
+          title: Text(tcontext.meta.share),
+          leading: Icon(Icons.share_outlined),
           onTap: () async {
             Navigator.pop(context);
             onTapShare();
@@ -364,12 +340,8 @@ class FileContentViewerScreenState
       ],
       if (canClear) ...[
         ListTile(
-          title: Text(
-            tcontext.meta.remove,
-          ),
-          leading: Icon(
-            Icons.clear_outlined,
-          ),
+          title: Text(tcontext.meta.remove),
+          leading: Icon(Icons.clear_outlined),
           onTap: () async {
             Navigator.pop(context);
             clearContent();
@@ -393,8 +365,12 @@ class FileContentViewerScreenState
         return;
       }
       DialogUtils.showAlertDialog(
-          context, tcontext.meta.fileNotExist(p: filePath),
-          showCopy: true, showFAQ: true, withVersion: true);
+        context,
+        tcontext.meta.fileNotExist(p: filePath),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
 
       return;
     }
@@ -403,22 +379,23 @@ class FileContentViewerScreenState
     }
     try {
       final box = context.findRenderObject() as RenderBox?;
-      final rect =
-          box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+      final rect = box != null
+          ? box.localToGlobal(Offset.zero) & box.size
+          : null;
       await SharePlus.instance.share(
-        ShareParams(
-          files: [
-            XFile(filePath),
-          ],
-          sharePositionOrigin: rect,
-        ),
+        ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
       );
     } catch (err) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -427,10 +404,11 @@ class FileContentViewerScreenState
     String ext = path.extension(_fileName);
 
     bool? del = await DialogUtils.showConfirmDialog(
-        context,
-        ext == ".log"
-            ? tcontext.FileContentViewerScreen.clearFileContent
-            : tcontext.FileContentViewerScreen.clearFileContentTips);
+      context,
+      ext == ".log"
+          ? tcontext.FileContentViewerScreen.clearFileContent
+          : tcontext.FileContentViewerScreen.clearFileContentTips,
+    );
     if (del == true) {
       String filePath = await PathUtils.profileDir();
       filePath = path.join(filePath, _fileName);
@@ -443,12 +421,10 @@ class FileContentViewerScreenState
   }
 
   static List<DropdownMenuItem<String>> _buildDropButtonList(
-      List<String> data) {
+    List<String> data,
+  ) {
     return data.map((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
+      return DropdownMenuItem<String>(value: value, child: Text(value));
     }).toList();
   }
 }

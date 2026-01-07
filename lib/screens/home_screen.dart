@@ -129,60 +129,85 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   final FocusNode _focusNodeSwitch = FocusNode(debugLabel: "switch");
   final FocusNode _focusNodeEdit = FocusNode(debugLabel: "edit");
 
-  final FocusNode _focusNodeRuntimeInfo =
-      FocusNode(debugLabel: "scroll.${RunTimeInfoCard.id()}");
-  final FocusNode _focusNodeMemoryInfo =
-      FocusNode(debugLabel: "scroll.${MemoryInfoCard.id()}");
-  final FocusNode _focusNodeConnectionsInfo =
-      FocusNode(debugLabel: "scroll.${ConnectionsInfoCard.id()}");
+  final FocusNode _focusNodeRuntimeInfo = FocusNode(
+    debugLabel: "scroll.${RunTimeInfoCard.id()}",
+  );
+  final FocusNode _focusNodeMemoryInfo = FocusNode(
+    debugLabel: "scroll.${MemoryInfoCard.id()}",
+  );
+  final FocusNode _focusNodeConnectionsInfo = FocusNode(
+    debugLabel: "scroll.${ConnectionsInfoCard.id()}",
+  );
 
-  final FocusNode _focusNodeOutletIpByCurrentSelectedInfo =
-      FocusNode(debugLabel: "scroll.${OutletIpByCurrentSelectedInfoCard.id()}");
+  final FocusNode _focusNodeOutletIpByCurrentSelectedInfo = FocusNode(
+    debugLabel: "scroll.${OutletIpByCurrentSelectedInfoCard.id()}",
+  );
   // final FocusNode _focusNodeOutletIpByDirectInfo =
   //    FocusNode(debugLabel: "scroll.${OutletIpByDirectInfoCard.id()}");
 
-  final FocusNode _focusNodeTrafficTotalInfo =
-      FocusNode(debugLabel: "scroll.${TrafficTotalInfoCard.id()}");
-  final FocusNode _focusNodeTrafficProxyInfo =
-      FocusNode(debugLabel: "scroll.${TrafficProxyInfoCard.id()}");
-  final FocusNode _focusNodeTrafficSpeedInfo =
-      FocusNode(debugLabel: "scroll.${TrafficSpeedInfoCard.id()}");
-  final FocusNode _focusNodeProfileSubTraffic =
-      FocusNode(debugLabel: "scroll.${ProfileSubTrafficInfoCard.id()}");
-  final FocusNode _focusNodeOutboundMode =
-      FocusNode(debugLabel: "scroll.${OutboundModeCard.id()}");
-  final FocusNode _focusNodeTun =
-      FocusNode(debugLabel: "scroll.${TunCard.id()}");
-  final FocusNode _focusNodeSystemProxy =
-      FocusNode(debugLabel: "scroll.${SystemProxyCard.id()}");
-  final FocusNode _focusNodeMyProfiles =
-      FocusNode(debugLabel: "scroll.${MyProfilesCard.id()}");
-  final FocusNode _focusNodeAddProfile =
-      FocusNode(debugLabel: "scroll.${AddProfileCard.id()}");
-  final FocusNode _focusNodePerApp =
-      FocusNode(debugLabel: "scroll.${PerAppCard.id()}");
-  final FocusNode _focusNodeDns =
-      FocusNode(debugLabel: "scroll.${DNSCard.id()}");
-  final FocusNode _focusNodeDiversion =
-      FocusNode(debugLabel: "scroll.${DiversionCard.id()}");
-  final FocusNode _focusNodeDiversionRules =
-      FocusNode(debugLabel: "scroll.${DiversionRulesCard.id()}");
-  final FocusNode _focusNodeNetCheck =
-      FocusNode(debugLabel: "scroll.${NetcheckCard.id()}");
-  final FocusNode _focusNodeSpeedTest =
-      FocusNode(debugLabel: "scroll.${SpeedTestCard.id()}");
-  final FocusNode _focusNodeMyLink =
-      FocusNode(debugLabel: "scroll.${MyLinkCard.id()}");
-  final FocusNode _focusNodeAppleTv =
-      FocusNode(debugLabel: "scroll.${AppleTVCard.id()}");
-  final FocusNode _focusNodeHtmlBoard =
-      FocusNode(debugLabel: "scroll.${HtmlBoardCard.id()}");
-  final FocusNode _focusNodeNetshare =
-      FocusNode(debugLabel: "scroll.${NetShareCard.id()}");
-  final FocusNode _focusNodeStatistics =
-      FocusNode(debugLabel: "scroll.${StatisticsAndAnalysisCard.id()}");
-  final FocusNode _focusNodeBackupAndSync =
-      FocusNode(debugLabel: "scroll.${BackupAndSyncCard.id()}");
+  final FocusNode _focusNodeTrafficTotalInfo = FocusNode(
+    debugLabel: "scroll.${TrafficTotalInfoCard.id()}",
+  );
+  final FocusNode _focusNodeTrafficProxyInfo = FocusNode(
+    debugLabel: "scroll.${TrafficProxyInfoCard.id()}",
+  );
+  final FocusNode _focusNodeTrafficSpeedInfo = FocusNode(
+    debugLabel: "scroll.${TrafficSpeedInfoCard.id()}",
+  );
+  final FocusNode _focusNodeProfileSubTraffic = FocusNode(
+    debugLabel: "scroll.${ProfileSubTrafficInfoCard.id()}",
+  );
+  final FocusNode _focusNodeOutboundMode = FocusNode(
+    debugLabel: "scroll.${OutboundModeCard.id()}",
+  );
+  final FocusNode _focusNodeTun = FocusNode(
+    debugLabel: "scroll.${TunCard.id()}",
+  );
+  final FocusNode _focusNodeSystemProxy = FocusNode(
+    debugLabel: "scroll.${SystemProxyCard.id()}",
+  );
+  final FocusNode _focusNodeMyProfiles = FocusNode(
+    debugLabel: "scroll.${MyProfilesCard.id()}",
+  );
+  final FocusNode _focusNodeAddProfile = FocusNode(
+    debugLabel: "scroll.${AddProfileCard.id()}",
+  );
+  final FocusNode _focusNodePerApp = FocusNode(
+    debugLabel: "scroll.${PerAppCard.id()}",
+  );
+  final FocusNode _focusNodeDns = FocusNode(
+    debugLabel: "scroll.${DNSCard.id()}",
+  );
+  final FocusNode _focusNodeDiversion = FocusNode(
+    debugLabel: "scroll.${DiversionCard.id()}",
+  );
+  final FocusNode _focusNodeDiversionRules = FocusNode(
+    debugLabel: "scroll.${DiversionRulesCard.id()}",
+  );
+  final FocusNode _focusNodeNetCheck = FocusNode(
+    debugLabel: "scroll.${NetcheckCard.id()}",
+  );
+  final FocusNode _focusNodeSpeedTest = FocusNode(
+    debugLabel: "scroll.${SpeedTestCard.id()}",
+  );
+  final FocusNode _focusNodeMyLink = FocusNode(
+    debugLabel: "scroll.${MyLinkCard.id()}",
+  );
+  final FocusNode _focusNodeAppleTv = FocusNode(
+    debugLabel: "scroll.${AppleTVCard.id()}",
+  );
+  final FocusNode _focusNodeHtmlBoard = FocusNode(
+    debugLabel: "scroll.${HtmlBoardCard.id()}",
+  );
+  final FocusNode _focusNodeNetshare = FocusNode(
+    debugLabel: "scroll.${NetShareCard.id()}",
+  );
+  final FocusNode _focusNodeStatistics = FocusNode(
+    debugLabel: "scroll.${StatisticsAndAnalysisCard.id()}",
+  );
+  final FocusNode _focusNodeBackupAndSync = FocusNode(
+    debugLabel: "scroll.${BackupAndSyncCard.id()}",
+  );
 
   final _scrollController = ScrollController();
   bool _agreementApproved = false;
@@ -215,16 +240,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _initUrl = widget.launchUrl;
 
     _widgetOptions = HomeWidgetOptions(
-      runtimeInfo: HomeWidgetCard1Options(
-        () {},
-        null,
-        _focusNodeRuntimeInfo,
-      ),
-      memoryInfo: HomeWidgetCard1Options(
-        () {},
-        null,
-        _focusNodeMemoryInfo,
-      ),
+      runtimeInfo: HomeWidgetCard1Options(() {}, null, _focusNodeRuntimeInfo),
+      memoryInfo: HomeWidgetCard1Options(() {}, null, _focusNodeMemoryInfo),
       connectionsInfo: HomeWidgetCard1Options(
         onConnectionsInfoPressed,
         onConnectionsInfoLongPress,
@@ -255,16 +272,22 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         null,
         _focusNodeTrafficSpeedInfo,
       ),
-      profileSubTraffic:
-          HomeWidgetProfileSubTrafficOptions(_focusNodeProfileSubTraffic),
+      profileSubTraffic: HomeWidgetProfileSubTrafficOptions(
+        _focusNodeProfileSubTraffic,
+      ),
       outboundMode: HomeWidgetOutboundModeOptions(
-          onOutboundModeChanged, _focusNodeOutboundMode),
+        onOutboundModeChanged,
+        _focusNodeOutboundMode,
+      ),
       tun: HomeWidgetSwitchOptions(onTunChanged, () async {
         await checkAndReload("tun");
         setState(() {});
       }, _focusNodeTun),
-      systemProxy:
-          HomeWidgetSwitchOptions((value) {}, () {}, _focusNodeSystemProxy),
+      systemProxy: HomeWidgetSwitchOptions(
+        (value) {},
+        () {},
+        _focusNodeSystemProxy,
+      ),
       myProfiles: HomeWidgetCard0Options(
         onTapMyProfiles,
         null,
@@ -275,16 +298,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         null,
         _focusNodeAddProfile,
       ),
-      perapp: HomeWidgetCard0Options(
-        onTapPerApp,
-        null,
-        _focusNodePerApp,
-      ),
-      dns: HomeWidgetCard0Options(
-        onTapDNS,
-        null,
-        _focusNodeDns,
-      ),
+      perapp: HomeWidgetCard0Options(onTapPerApp, null, _focusNodePerApp),
+      dns: HomeWidgetCard0Options(onTapDNS, null, _focusNodeDns),
       diversion: HomeWidgetCard0Options(
         onTapDiversion,
         null,
@@ -295,36 +310,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         null,
         _focusNodeDiversionRules,
       ),
-      netCheck: HomeWidgetCard0Options(
-        onTapNetCheck,
-        null,
-        _focusNodeNetCheck,
-      ),
+      netCheck: HomeWidgetCard0Options(onTapNetCheck, null, _focusNodeNetCheck),
       speedtest: HomeWidgetCard0Options(
         onTapSpeedTest,
         null,
         _focusNodeSpeedTest,
       ),
-      myLink: HomeWidgetCard0Options(
-        onTapLink,
-        null,
-        _focusNodeMyLink,
-      ),
-      appleTv: HomeWidgetCard0Options(
-        onTapAppleTV,
-        null,
-        _focusNodeAppleTv,
-      ),
+      myLink: HomeWidgetCard0Options(onTapLink, null, _focusNodeMyLink),
+      appleTv: HomeWidgetCard0Options(onTapAppleTV, null, _focusNodeAppleTv),
       htmlBoard: HomeWidgetCard0Options(
         onTapHtmlBoard,
         null,
         _focusNodeHtmlBoard,
       ),
-      netshare: HomeWidgetCard0Options(
-        onTapNetShare,
-        null,
-        _focusNodeNetshare,
-      ),
+      netshare: HomeWidgetCard0Options(onTapNetShare, null, _focusNodeNetshare),
       statistics: HomeWidgetCard0Options(
         onTapStatistics,
         null,
@@ -353,8 +352,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return;
       }
       final tcontext = Translations.of(context);
-      DialogUtils.showAlertDialog(context, tcontext.meta.deviceNoSpace,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        tcontext.meta.deviceNoSpace,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     });
 
     Future.delayed(const Duration(seconds: 0), () async {
@@ -422,83 +426,88 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'HSS_agreement',
-    );
-
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: UserAgreementScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => const UserAgreementScreen()));
+      context,
+      MaterialPageRoute(
+        settings: UserAgreementScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => const UserAgreementScreen(),
+      ),
+    );
 
     var tcontext = Translations.of(context);
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: LanguageSettingsScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => LanguageSettingsScreen(
-                  canPop: false,
-                  canGoBack: false,
-                  nextText: () {
-                    var tcontext = Translations.of(context);
-                    return tcontext.meta.next;
-                  },
-                )));
+      context,
+      MaterialPageRoute(
+        settings: LanguageSettingsScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => LanguageSettingsScreen(
+          canPop: false,
+          canGoBack: false,
+          nextText: () {
+            var tcontext = Translations.of(context);
+            return tcontext.meta.next;
+          },
+        ),
+      ),
+    );
     tcontext = Translations.of(context);
 
     if (Platform.isAndroid) {
       await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: TvModeScreen.routSettings(),
-              fullscreenDialog: true,
-              builder: (context) => TvModeScreen(
-                    nextText: tcontext.meta.next,
-                  )));
+        context,
+        MaterialPageRoute(
+          settings: TvModeScreen.routSettings(),
+          fullscreenDialog: true,
+          builder: (context) => TvModeScreen(nextText: tcontext.meta.next),
+        ),
+      );
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: RegionSettingsScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => RegionSettingsScreen(
-                  canPop: false,
-                  canGoBack: false,
-                  nextText: tcontext.meta.next,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: RegionSettingsScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => RegionSettingsScreen(
+          canPop: false,
+          canGoBack: false,
+          nextText: tcontext.meta.next,
+        ),
+      ),
+    );
 
     var settingConfig = SettingManager.getConfig();
     var regionCode = settingConfig.regionCode.toLowerCase();
 
     DiversionCustomRules rules =
         (await DiversionCustomRulesPreset.getPreset(regionCode)) ??
-            DiversionCustomRules();
+        DiversionCustomRules();
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: DiversionRulesCustomSetScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => DiversionRulesCustomSetScreen(
-                  canPop: false,
-                  title: tcontext.diversionCustomGroupPreset,
-                  canGoBack: false,
-                  nextText: tcontext.meta.next,
-                  nextIcon: null,
-                  rules: rules,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: DiversionRulesCustomSetScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => DiversionRulesCustomSetScreen(
+          canPop: false,
+          title: tcontext.diversionCustomGroupPreset,
+          canGoBack: false,
+          nextText: tcontext.meta.next,
+          nextIcon: null,
+          rules: rules,
+        ),
+      ),
+    );
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: NoviceScreen.routSettings(),
-            fullscreenDialog: true,
-            builder: (context) => const NoviceScreen()));
+      context,
+      MaterialPageRoute(
+        settings: NoviceScreen.routSettings(),
+        fullscreenDialog: true,
+        builder: (context) => const NoviceScreen(),
+      ),
+    );
 
     LocalStorage.write(userAgreementAgreedIdKey, "true");
     _agreementApproved = true;
@@ -510,12 +519,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (PlatformUtils.isPC()) {
       var remoteConfig = RemoteConfigManager.getConfig();
       String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-          remoteConfig.tutorial);
+        remoteConfig.tutorial,
+      );
       if (!context.mounted) {
         return;
       }
-      await WebviewHelper.loadUrl(context, url, "HSS_guide_done",
-          title: tcontext.SettingsScreen.tutorial);
+      await WebviewHelper.loadUrl(
+        context,
+        url,
+        "HSS_guide_done",
+        title: tcontext.SettingsScreen.tutorial,
+      );
     }
   }
 
@@ -537,8 +551,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       if (!content.contains("Config expired, Please start from app")) {
         if (showAlert) {
-          await DialogUtils.showAlertDialog(context, content,
-              showCopy: true, showFAQ: true, withVersion: true);
+          await DialogUtils.showAlertDialog(
+            context,
+            content,
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
         }
       }
     }
@@ -590,8 +609,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    _timerCurrentUrltest ??=
-        Timer.periodic(const Duration(seconds: 3), (timer) async {
+    _timerCurrentUrltest ??= Timer.periodic(const Duration(seconds: 3), (
+      timer,
+    ) async {
       bool started = await VPNService.getStarted();
       if (!started) {
         if (_currentServerForUrltest.now.isNotEmpty ||
@@ -604,8 +624,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       ReturnResult<CurrentServerForUrltest> result =
           await ClashApi.getCurrentServerForUrltest(
-              ServerManager.getUrltestTagForCustom(_currentServer.tag),
-              SettingManager.getConfig().proxy.controlPort);
+            ServerManager.getUrltestTagForCustom(_currentServer.tag),
+            SettingManager.getConfig().proxy.controlPort,
+          );
       String now = _currentServerForUrltest.now;
       int delay = _currentServerForUrltest.history.delay;
       if (result.error != null) {
@@ -616,8 +637,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             ? _currentServerForUrltest.history.delay.toString()
             : _currentServerForUrltest.history.error;
 
-        ProxyConfig? proxy =
-            ServerManager.getConfig().getByTag(_currentServerForUrltest.now);
+        ProxyConfig? proxy = ServerManager.getConfig().getByTag(
+          _currentServerForUrltest.now,
+        );
         if (proxy != null) {
           proxy.latency = _currentServer.latency;
         }
@@ -660,69 +682,78 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     _websocket ??= Websocket(
-        url: await getConnectionsUrl(true),
-        userAgent: await HttpUtils.getUserAgent(),
-        onMessage: (String message) {
-          if (AppLifecycleStateNofity.isPaused()) {
-            Future.delayed(const Duration(seconds: 0), () async {
-              _disconnectToService();
-            });
-            return;
-          }
-          var obj = jsonDecode(message);
-          Connections con = Connections();
-          con.fromJson(obj, false);
-          if (con.startTime != null) {
-            final startDurationNotify = DateTime.now()
-                .difference(con.startTime!)
-                .toString()
-                .split(".")[0];
+      url: await getConnectionsUrl(true),
+      userAgent: await HttpUtils.getUserAgent(),
+      onMessage: (String message) {
+        if (AppLifecycleStateNofity.isPaused()) {
+          Future.delayed(const Duration(seconds: 0), () async {
+            _disconnectToService();
+          });
+          return;
+        }
+        var obj = jsonDecode(message);
+        Connections con = Connections();
+        con.fromJson(obj, false);
+        if (con.startTime != null) {
+          final startDurationNotify = DateTime.now()
+              .difference(con.startTime!)
+              .toString()
+              .split(".")[0];
 
-            _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
-          }
-          _widgetOptions.trafficTotalInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
+          _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
+        }
+        _widgetOptions.trafficTotalInfo!.notifier.value =
+            "↑ " + ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
 
-          _widgetOptions.trafficTotalInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
+        _widgetOptions.trafficTotalInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
 
-          _widgetOptions.trafficProxyInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(
-                  con.uploadTotal - con.uploadTotalDirect);
+        _widgetOptions.trafficProxyInfo!.notifier.value =
+            "↑ " +
+            ProxyConfUtils.convertTrafficToStringDouble(
+              con.uploadTotal - con.uploadTotalDirect,
+            );
 
-          _widgetOptions.trafficProxyInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(
-                  con.downloadTotal - con.downloadTotalDirect);
+        _widgetOptions.trafficProxyInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(
+              con.downloadTotal - con.downloadTotalDirect,
+            );
 
-          _widgetOptions.trafficSpeedInfo!.notifier.value = "↑ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
-              "/s";
+        _widgetOptions.trafficSpeedInfo!.notifier.value =
+            "↑ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
+            "/s";
 
-          _widgetOptions.trafficSpeedInfo!.notifier2.value = "↓ " +
-              ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
-              "/s";
+        _widgetOptions.trafficSpeedInfo!.notifier2.value =
+            "↓ " +
+            ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
+            "/s";
 
-          if (SettingManager.getConfig().dev.devMode) {
-            _widgetOptions.memoryInfo!.notifier.value =
-                "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
-            _widgetOptions.connectionsInfo!.notifier.value =
-                "${con.connectionsInCount}/${con.connectionsOutCount}";
-          } else {
-            _widgetOptions.memoryInfo!.notifier.value =
-                ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-            _widgetOptions.connectionsInfo!.notifier.value =
-                con.connectionsInCount.toString();
-          }
+        if (SettingManager.getConfig().dev.devMode) {
+          _widgetOptions.memoryInfo!.notifier.value =
+              "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
+          _widgetOptions.connectionsInfo!.notifier.value =
+              "${con.connectionsInCount}/${con.connectionsOutCount}";
+        } else {
+          _widgetOptions.memoryInfo!.notifier.value =
+              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
+          _widgetOptions.connectionsInfo!.notifier.value = con
+              .connectionsInCount
+              .toString();
+        }
 
-          _updateNetStateLocalNotifications();
-        },
-        onDone: () {
-          _disconnectToService();
-        },
-        onError: (err) {
-          Log.w("connectToService err:$err");
-          _disconnectToService();
-        });
+        _updateNetStateLocalNotifications();
+      },
+      onDone: () {
+        _disconnectToService();
+      },
+      onError: (err) {
+        Log.w("connectToService err:$err");
+        _disconnectToService();
+      },
+    );
     await _websocket!.connect();
     _updateWanIP();
     _updateDirectWanIP();
@@ -748,8 +779,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
   void _updateWanIP() async {
     var setting = SettingManager.getConfig();
-    if (!setting.uiScreen.widgets
-        .contains(OutletIpByCurrentSelectedInfoCard.id())) {
+    if (!setting.uiScreen.widgets.contains(
+      OutletIpByCurrentSelectedInfoCard.id(),
+    )) {
       return;
     }
     bool started = await VPNService.getStarted();
@@ -757,13 +789,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    final iplocal =
-        await NetworkUtils.getOutletIp(setting.proxy.mixedForwordPort);
+    final iplocal = await NetworkUtils.getOutletIp(
+      setting.proxy.mixedForwordPort,
+    );
 
     _widgetOptions.outletIpByCurrentSelectedInfo!.notifier.value =
         iplocal != null
-            ? "${EmojiUtils.countryCodeToEmoji(iplocal.item2)} ${iplocal.item1}"
-            : "";
+        ? "${EmojiUtils.countryCodeToEmoji(iplocal.item2)} ${iplocal.item1}"
+        : "";
   }
 
   void _updateDirectWanIP() async {
@@ -785,12 +818,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     setting.dns.clientSubnetLatestUpdate = now.toString();
     ReturnResult<String> result = await HttpUtils.httpGetRequest(
-        "https://checkip.amazonaws.com/",
-        setting.proxy.mixedDirectPort,
-        null,
-        const Duration(seconds: 3),
-        null,
-        null);
+      "https://checkip.amazonaws.com/",
+      setting.proxy.mixedDirectPort,
+      null,
+      const Duration(seconds: 3),
+      null,
+      null,
+    );
 
     if (result.error != null) {
       return;
@@ -851,7 +885,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           if (state != FlutterVpnServiceState.invalid &&
               state != FlutterVpnServiceState.disconnected) {
             MoveToBackgroundUtils.moveToBackground(
-                duration: const Duration(milliseconds: 300));
+              duration: const Duration(milliseconds: 300),
+            );
             _quickActionWorking = false;
             return;
           }
@@ -859,24 +894,22 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           ReturnResultError? err = await start("quickAction");
           if (err == null) {
             MoveToBackgroundUtils.moveToBackground(
-                duration: const Duration(milliseconds: 300));
+              duration: const Duration(milliseconds: 300),
+            );
           }
         } else if (shortcutType == disconnect) {
           if (state == FlutterVpnServiceState.connected) {
             await stop();
           }
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
         _quickActionWorking = false;
       });
 
       await _quickActions!.setShortcutItems(<ShortcutItem>[
-        ShortcutItem(
-          type: connect,
-          localizedTitle: 'ON',
-          icon: 'ic_launcher',
-        ),
+        ShortcutItem(type: connect, localizedTitle: 'ON', icon: 'ic_launcher'),
         ShortcutItem(
           type: disconnect,
           localizedTitle: 'OFF',
@@ -906,8 +939,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (config != null) {
         _currentServer = config;
         if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
-          ProxyConfig? server =
-              ServerManager.getConfig().getByTag(_currentServer.tag);
+          ProxyConfig? server = ServerManager.getConfig().getByTag(
+            _currentServer.tag,
+          );
           if (server != null) {
             _currentServer = server;
           }
@@ -935,19 +969,24 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ServerManager.onEventLatencyUpdateConfig(hashCode, _onLatencyUpdateConfig);
     ServerManager.onEventRemoveConfig(hashCode, _onRemoveConfig);
     ServerManager.onEventEnableConfig(hashCode, _onEnableConfig);
-    ServerManager.onEventRemoteTrafficReload(hashCode, (String groupid) {
-      setState(() {});
-    }, (String groupid) {
-      setState(() {});
-    });
+    ServerManager.onEventRemoteTrafficReload(
+      hashCode,
+      (String groupid) {
+        setState(() {});
+      },
+      (String groupid) {
+        setState(() {});
+      },
+    );
     ServerManager.onReloadFromZipConfigs(hashCode, _onReloadFromZipConfigs);
     ServerManager.onEventTestLatency(hashCode, _onTestLatency);
     AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
 
     if (Platform.isWindows) {
-      bool reg =
-          SystemSchemeUtils.isRegistered(SystemSchemeUtils.getKaringScheme());
+      bool reg = SystemSchemeUtils.isRegistered(
+        SystemSchemeUtils.getKaringScheme(),
+      );
       if (!reg) {
         SystemSchemeUtils.register(SystemSchemeUtils.getKaringScheme());
       }
@@ -969,8 +1008,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (hasBackup) {
         var tcontext = Translations.of(context);
         await DialogUtils.showAlertDialog(
-            context, tcontext.meta.noProfileGotAutoBackup,
-            showCopy: false, showFAQ: true, withVersion: true);
+          context,
+          tcontext.meta.noProfileGotAutoBackup,
+          showCopy: false,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
     }
     if (PlatformUtils.isPC()) {
@@ -990,7 +1033,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         ReturnResultError? err = await start("launch");
         if (err == null) {
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
       }
     }
@@ -1008,7 +1052,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (error == null) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
       }
     });
@@ -1019,7 +1064,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       await stop();
       if (background) {
         MoveToBackgroundUtils.moveToBackground(
-            duration: const Duration(milliseconds: 300));
+          duration: const Duration(milliseconds: 300),
+        );
       }
     });
   }
@@ -1031,7 +1077,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (error == null) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
-              duration: const Duration(milliseconds: 300));
+            duration: const Duration(milliseconds: 300),
+          );
         }
       }
     });
@@ -1048,7 +1095,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onStateChanged(
-      FlutterVpnServiceState state, Map<String, String> params) async {
+    FlutterVpnServiceState state,
+    Map<String, String> params,
+  ) async {
     if (_state == state) {
       return;
     }
@@ -1123,9 +1172,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    await setServerAndReload("onEventUpdateConfig",
-        reason: t.meta.appNotifyWithReason(
-            p: t.meta.reconnect, p1: t.reloadReason.profileUpdate));
+    await setServerAndReload(
+      "onEventUpdateConfig",
+      reason: t.meta.appNotifyWithReason(
+        p: t.meta.reconnect,
+        p1: t.reloadReason.profileUpdate,
+      ),
+    );
   }
 
   Future<void> _onLatencyUpdateConfig(Set<ServerConfigGroupItem> groups) async {
@@ -1146,13 +1199,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    await setServerAndReload("onEventLatencyUpdateConfig",
-        reason: t.meta.appNotifyWithReason(
-            p: t.meta.reconnect, p1: t.reloadReason.latencyTest));
+    await setServerAndReload(
+      "onEventLatencyUpdateConfig",
+      reason: t.meta.appNotifyWithReason(
+        p: t.meta.reconnect,
+        p1: t.reloadReason.latencyTest,
+      ),
+    );
   }
 
   Future<void> _onRemoveConfig(
-      String groupid, bool enable, bool hasDeviersionGroup) async {
+    String groupid,
+    bool enable,
+    bool hasDeviersionGroup,
+  ) async {
     bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     var settingConfig = SettingManager.getConfig();
     if (settingConfig.autoBackup.removeProfile && !noConfig) {
@@ -1216,8 +1276,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (config != null) {
       _currentServer = config;
       if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
-        ProxyConfig? server =
-            ServerManager.getConfig().getByTag(_currentServer.tag);
+        ProxyConfig? server = ServerManager.getConfig().getByTag(
+          _currentServer.tag,
+        );
         if (server != null) {
           _currentServer = server;
         }
@@ -1236,7 +1297,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onTestLatency(
-      String groupid, String tag, bool start, bool finish) async {
+    String groupid,
+    String tag,
+    bool start,
+    bool finish,
+  ) async {
     if (!mounted) {
       return;
     }
@@ -1258,11 +1323,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             .autoSelect
             .updateCurrentServerAfterManualUrltest) {
           await ClashApi.updateUrltestCheck(
-              SettingManager.getConfig().proxy.controlPort);
+            SettingManager.getConfig().proxy.controlPort,
+          );
           ReturnResult<CurrentServerForUrltest> result =
               await ClashApi.getCurrentServerForUrltest(
-                  ServerManager.getUrltestTagForCustom(_currentServer.tag),
-                  SettingManager.getConfig().proxy.controlPort);
+                ServerManager.getUrltestTagForCustom(_currentServer.tag),
+                SettingManager.getConfig().proxy.controlPort,
+              );
 
           if (result.error != null) {
             _currentServerForUrltest.clear();
@@ -1272,8 +1339,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                 ? _currentServerForUrltest.history.delay.toString()
                 : _currentServerForUrltest.history.error;
 
-            ProxyConfig? proxy = ServerManager.getConfig()
-                .getByTag(_currentServerForUrltest.now);
+            ProxyConfig? proxy = ServerManager.getConfig().getByTag(
+              _currentServerForUrltest.now,
+            );
             if (proxy != null) {
               proxy.latency = _currentServer.latency;
             }
@@ -1352,8 +1420,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
     ReturnResultError? resultError;
     try {
-      resultError = await VPNService.setServer(_currentServer, options,
-          SingboxExportType.karing, null, "", savePath);
+      resultError = await VPNService.setServer(
+        _currentServer,
+        options,
+        SingboxExportType.karing,
+        null,
+        "",
+        savePath,
+      );
     } catch (err, stacktrace) {
       resultError = ReturnResultError(err.toString());
       Log.w("setServer exception: $err, $stacktrace");
@@ -1367,22 +1441,23 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (options.allOutboundsTags.length > maxCount) {
         String description = Platform.isIOS
             ? tcontext.HomeScreen.tooMuchServers(
-                p: options.allOutboundsTags.length, p1: maxCount)
+                p: options.allOutboundsTags.length,
+                p1: maxCount,
+              )
             : tcontext.HomeScreen.tooMuchServers2(
-                p: options.allOutboundsTags.length, p1: maxCount);
+                p: options.allOutboundsTags.length,
+                p1: maxCount,
+              );
 
         InAppNotifications.show(
-            title: tcontext.meta.tips,
-            duration: const Duration(seconds: 3),
-            leading: const Icon(
-              Icons.warning,
-              color: Colors.yellow,
-              size: 50,
-            ),
-            description: description,
-            onTap: () {
-              InAppNotifications.dismiss();
-            });
+          title: tcontext.meta.tips,
+          duration: const Duration(seconds: 3),
+          leading: const Icon(Icons.warning, color: Colors.yellow, size: 50),
+          description: description,
+          onTap: () {
+            InAppNotifications.dismiss();
+          },
+        );
       }
     }
 
@@ -1393,8 +1468,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     return await Biz.startOrRestartIfDirtyVPN(context, "HomeScreen");
   }
 
-  Future<ReturnResultError?> setServerAndReload(String from,
-      {bool disableShowAlertDialog = false, String reason = ""}) async {
+  Future<ReturnResultError?> setServerAndReload(
+    String from, {
+    bool disableShowAlertDialog = false,
+    String reason = "",
+  }) async {
     if (_state != FlutterVpnServiceState.connected) {
       return null;
     }
@@ -1412,7 +1490,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 == null) {
       var err = await VPNService.reload(
-          VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
+        VPNService.getTimeoutByOutboundCount(result.item2!, tunMode),
+      );
 
       if (err != null) {
         if (!disableShowAlertDialog) {
@@ -1426,8 +1505,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           String? error = await ProxyCluster.start();
           if (error != null) {
             if (!disableShowAlertDialog) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
+              DialogUtils.showAlertDialog(
+                context,
+                error,
+                showCopy: true,
+                showFAQ: true,
+                withVersion: true,
+              );
             }
             return ReturnResultError(error);
           }
@@ -1447,10 +1531,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void onTapSetting() async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: SettingsScreen.routSettings(),
-            builder: (context) => const SettingsScreen()));
+      context,
+      MaterialPageRoute(
+        settings: SettingsScreen.routSettings(),
+        builder: (context) => const SettingsScreen(),
+      ),
+    );
     await checkAndReload("onTapSetting");
     setState(() {});
   }
@@ -1465,21 +1551,27 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     final tcontext = Translations.of(context);
     var setting = SettingManager.getConfig();
     await WebviewHelper.loadUrl(
-        context,
-        !setting.novice ? setting.speedTest : SettingConfig.kSpeedTestList[0],
-        "HSS_speedTest",
-        title: tcontext.SettingsScreen.speedTest);
+      context,
+      !setting.novice ? setting.speedTest : SettingConfig.kSpeedTestList[0],
+      "HSS_speedTest",
+      title: tcontext.SettingsScreen.speedTest,
+    );
   }
 
   void onTapLink() async {
     final tcontext = Translations.of(context);
     if (SettingManager.getConfig().uiScreen.myLink.isEmpty) {
       await DialogUtils.showAlertDialog(
-          context, tcontext.HomeScreen.myLinkEmpty);
+        context,
+        tcontext.HomeScreen.myLinkEmpty,
+      );
     } else {
       await WebviewHelper.loadUrl(
-          context, SettingManager.getConfig().uiScreen.myLink, "HSS_myLink",
-          title: SettingManager.getConfig().uiScreen.myLink);
+        context,
+        SettingManager.getConfig().uiScreen.myLink,
+        "HSS_myLink",
+        title: SettingManager.getConfig().uiScreen.myLink,
+      );
     }
   }
 
@@ -1515,10 +1607,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void onTapMyProfiles() async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: MyProfilesScreen.routSettings(),
-            builder: (context) => const MyProfilesScreen()));
+      context,
+      MaterialPageRoute(
+        settings: MyProfilesScreen.routSettings(),
+        builder: (context) => const MyProfilesScreen(),
+      ),
+    );
     await checkAndReload("onTapMyProfiles");
     setState(() {});
   }
@@ -1548,10 +1642,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     if (Platform.isAndroid) {
       await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: PerAppAndroidScreen.routSettings(),
-              builder: (context) => const PerAppAndroidScreen()));
+        context,
+        MaterialPageRoute(
+          settings: PerAppAndroidScreen.routSettings(),
+          builder: (context) => const PerAppAndroidScreen(),
+        ),
+      );
     } /*else if (Platform.isMacOS) {
       await Navigator.push(
           context,
@@ -1577,20 +1673,24 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   void onTapDiversionRules() async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: DiversionRulesScreen.routSettings(),
-            builder: (context) => const DiversionRulesScreen()));
+      context,
+      MaterialPageRoute(
+        settings: DiversionRulesScreen.routSettings(),
+        builder: (context) => const DiversionRulesScreen(),
+      ),
+    );
     await checkAndReload("onTapDiversionRules");
     setState(() {});
   }
 
   void onTapNetCheck() async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: NetCheckScreen.routSettings(),
-            builder: (context) => const NetCheckScreen()));
+      context,
+      MaterialPageRoute(
+        settings: NetCheckScreen.routSettings(),
+        builder: (context) => const NetCheckScreen(),
+      ),
+    );
   }
 
   void onTapAddWidget(BuildContext context) async {
@@ -1599,11 +1699,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    final exist = children
-        .map(
-          (item) => item.id,
-        )
-        .toList();
+    final exist = children.map((item) => item.id).toList();
 
     final ids = HomeWidgets.getAllWidgetIds();
     ids.removeWhere((value) {
@@ -1613,27 +1709,28 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     var widgets = [];
     for (var id in ids) {
       final name = HomeWidgets.getWidgetNameById(context, id);
-      widgets.add(ListTile(
-        leading: Icon(HomeWidgets.getWidgetIconById(context, id)),
-        title: Text(
-          name,
+      widgets.add(
+        ListTile(
+          leading: Icon(HomeWidgets.getWidgetIconById(context, id)),
+          title: Text(name),
+          onTap: () async {
+            Navigator.pop(context);
+            final item = HomeWidgets.createWidget(id, _widgetOptions);
+            if (item != null) {
+              _superGridKey.currentState?.handleAdd(item);
+              setState(() {});
+            }
+          },
         ),
-        onTap: () async {
-          Navigator.pop(context);
-          final item = HomeWidgets.createWidget(id, _widgetOptions);
-          if (item != null) {
-            _superGridKey.currentState?.handleAdd(item);
-            setState(() {});
-          }
-        },
-      ));
+      );
     }
 
     showSheetWidgets(context: context, widgets: widgets);
   }
 
   static Future<ReturnResult<WidgetImportExport>> getWidgetsFromFile(
-      String path) async {
+    String path,
+  ) async {
     try {
       var file = File(path);
       if (!await file.exists()) {
@@ -1670,17 +1767,25 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             return;
           }
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
-        ReturnResult<WidgetImportExport> result =
-            await getWidgetsFromFile(fresult.files.first.path!);
+        ReturnResult<WidgetImportExport> result = await getWidgetsFromFile(
+          fresult.files.first.path!,
+        );
         if (result.error != null) {
           if (!mounted) {
             return;
           }
-          DialogUtils.showAlertDialog(context, result.error!.message,
-              showCopy: true, showFAQ: true, withVersion: true);
+          DialogUtils.showAlertDialog(
+            context,
+            result.error!.message,
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           return;
         }
         if (result.data!.widgets.isEmpty) {
@@ -1688,8 +1793,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             return;
           }
           DialogUtils.showAlertDialog(
-              context, tcontext.SettingsScreen.widgetsEmpty,
-              showCopy: true, showFAQ: true, withVersion: true);
+            context,
+            tcontext.SettingsScreen.widgetsEmpty,
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           return;
         }
         SettingManager.getConfig().uiScreen.widgets = result.data!.widgets;
@@ -1702,8 +1811,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -1725,11 +1839,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         File file = File(filePath);
         final children = _superGridKey.currentState?.children ?? [];
         WidgetImportExport data = WidgetImportExport();
-        data.widgets = children
-            .map(
-              (item) => item.id,
-            )
-            .toList();
+        data.widgets = children.map((item) => item.id).toList();
 
         const JsonEncoder encoder = JsonEncoder.withIndent('  ');
         String content = encoder.convert(data);
@@ -1746,22 +1856,23 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               return;
             }
             final box = context.findRenderObject() as RenderBox?;
-            final rect =
-                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            final rect = box != null
+                ? box.localToGlobal(Offset.zero) & box.size
+                : null;
             await SharePlus.instance.share(
-              ShareParams(
-                files: [
-                  XFile(filePath),
-                ],
-                sharePositionOrigin: rect,
-              ),
+              ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
           } catch (err) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
+            DialogUtils.showAlertDialog(
+              context,
+              err.toString(),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
         }
       }
@@ -1769,8 +1880,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
@@ -1787,11 +1903,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return;
       }
       final oldWidgetIds = SettingManager.getConfig().uiScreen.widgets;
-      final newWidgetIds = children
-          .map(
-            (item) => item.id,
-          )
-          .toList();
+      final newWidgetIds = children.map((item) => item.id).toList();
       SettingManager.getConfig().uiScreen.widgets = newWidgetIds;
       List<String> addedWidgetIds = [];
       List<String> removedWidgetIds = [];
@@ -1814,12 +1926,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void onTapNotice(NoticeItem noticeItem) async {
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'HSS_notice',
-        parameters: {"title": noticeItem.title, "isp_id": noticeItem.ispId},
-        repeatable: true);
-
     InAppNotifications.dismiss();
     if (noticeItem.url.isNotEmpty) {
       String url = noticeItem.ispId.isNotEmpty
@@ -1828,17 +1934,24 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!context.mounted) {
         return;
       }
-      await WebviewHelper.loadUrl(context, url, "HSS_notice",
-          title: noticeItem.title);
+      await WebviewHelper.loadUrl(
+        context,
+        url,
+        "HSS_notice",
+        title: noticeItem.title,
+      );
     } else {
       await Navigator.push(
-          context,
-          MaterialPageRoute(
-              settings: RichtextViewScreen.routSettings(),
-              builder: (context) => RichtextViewScreen(
-                  title: t.meta.notice,
-                  file: "",
-                  content: noticeItem.content)));
+        context,
+        MaterialPageRoute(
+          settings: RichtextViewScreen.routSettings(),
+          builder: (context) => RichtextViewScreen(
+            title: t.meta.notice,
+            file: "",
+            content: noticeItem.content,
+          ),
+        ),
+      );
     }
     noticeItem.readed = true;
     NoticeManager.saveConfig();
@@ -1854,26 +1967,29 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   Future<String> getConnectionsUrl(bool noConnections) async {
     return await ClashApi.getConnectionsUrl(
-        SettingManager.getConfig().proxy.controlPort,
-        noConnections: noConnections);
+      SettingManager.getConfig().proxy.controlPort,
+      noConnections: noConnections,
+    );
   }
 
   Future<void> onTapServerSelect() async {
     ProxyConfig? result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: ServerSelectScreen.routSettings(),
-            builder: (context) => ServerSelectScreen(
-                  singleSelect: ServerSelectScreenSingleSelectedOption(
-                    selectedServer: _currentServer,
-                    showAutoSelect: true,
-                    showDirect: true,
-                    showUrltestGroup: true,
-                  ),
-                  multiSelect: null,
-                  autoUpdateLatencyHistory: _currentServer.groupid ==
-                      ServerManager.getUrltestGroupId(),
-                )));
+      context,
+      MaterialPageRoute(
+        settings: ServerSelectScreen.routSettings(),
+        builder: (context) => ServerSelectScreen(
+          singleSelect: ServerSelectScreenSingleSelectedOption(
+            selectedServer: _currentServer,
+            showAutoSelect: true,
+            showDirect: true,
+            showUrltestGroup: true,
+          ),
+          multiSelect: null,
+          autoUpdateLatencyHistory:
+              _currentServer.groupid == ServerManager.getUrltestGroupId(),
+        ),
+      ),
+    );
     if (result != null) {
       if (!_currentServer.isSame(result) || ServerManager.getDirty()) {
         _currentServer = result;
@@ -1896,8 +2012,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  Future<ReturnResultError?> checkAndReload(String from,
-      {bool disableShowAlertDialog = false}) async {
+  Future<ReturnResultError?> checkAndReload(
+    String from, {
+    bool disableShowAlertDialog = false,
+  }) async {
     if (_state != FlutterVpnServiceState.connected) {
       return null;
     }
@@ -1920,8 +2038,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         await stop();
         return null;
       }
-      return await setServerAndReload(from,
-          disableShowAlertDialog: disableShowAlertDialog);
+      return await setServerAndReload(
+        from,
+        disableShowAlertDialog: disableShowAlertDialog,
+      );
     }
     return null;
   }
@@ -1947,8 +2067,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     await VPNService.stop();
   }
 
-  Future<ReturnResultError?> start(String from,
-      {bool disableShowAlertDialog = false}) async {
+  Future<ReturnResultError?> start(
+    String from, {
+    bool disableShowAlertDialog = false,
+  }) async {
     _currentServerForUrltest.clear();
     await ProxyCluster.stop();
 
@@ -1957,9 +2079,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     if (Platform.isWindows) {
-      List<String> filePaths = [
-        PathUtils.serviceExePath(),
-      ];
+      List<String> filePaths = [PathUtils.serviceExePath()];
       List<String> dirPaths = [PathUtils.flutterAssetsDir()];
       for (var filePath in filePaths) {
         var file = File(filePath);
@@ -1968,8 +2088,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           final tcontext = Translations.of(context);
           if (!disableShowAlertDialog) {
             DialogUtils.showAlertDialog(
-                context, tcontext.fileNotExistReinstall(p: filePath),
-                showCopy: true, showFAQ: true, withVersion: true);
+              context,
+              tcontext.fileNotExistReinstall(p: filePath),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
           Log.w("start failed: ${tcontext.fileNotExistReinstall(p: filePath)}");
           return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
@@ -1982,8 +2106,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           final tcontext = Translations.of(context);
           if (!disableShowAlertDialog) {
             DialogUtils.showAlertDialog(
-                context, tcontext.fileNotExistReinstall(p: filePath),
-                showCopy: true, showFAQ: true, withVersion: true);
+              context,
+              tcontext.fileNotExistReinstall(p: filePath),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
           Log.w("start failed: ${tcontext.fileNotExistReinstall(p: filePath)}");
           return ReturnResultError(tcontext.fileNotExistReinstall(p: filePath));
@@ -1991,8 +2119,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
     if (Platform.isIOS || Platform.isMacOS) {
-      final List<ConnectivityResult> connectivityResult =
-          await (Connectivity().checkConnectivity());
+      final List<ConnectivityResult> connectivityResult = await (Connectivity()
+          .checkConnectivity());
       if (connectivityResult.contains(ConnectivityResult.none)) {
         final tcontext = Translations.of(context);
         if (!disableShowAlertDialog) {
@@ -2005,16 +2133,25 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (noConfig) {
       if (!disableShowAlertDialog) {
         DialogUtils.showAlertDialog(
-            context, "start failed: no server avaliable",
-            showCopy: true, showFAQ: true, withVersion: true);
+          context,
+          "start failed: no server avaliable",
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
       Log.w("start failed: no server avaliable");
       return ReturnResultError("start failed: no server avaliable");
     }
     if (_currentServer.groupid.isEmpty) {
       if (!disableShowAlertDialog) {
-        DialogUtils.showAlertDialog(context, "start failed: groupid is empty",
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          "start failed: groupid is empty",
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
       Log.w("start failed: groupid is empty, from $from");
       return ReturnResultError("start failed: groupid is empty");
@@ -2025,8 +2162,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         state == FlutterVpnServiceState.disconnecting ||
         state == FlutterVpnServiceState.reasserting) {
       if (!disableShowAlertDialog) {
-        DialogUtils.showAlertDialog(context, "start failed: wrong state $state",
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          "start failed: wrong state $state",
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
       Log.w("start failed: wrong state $state");
       return ReturnResultError("start failed: wrong state $state");
@@ -2045,8 +2187,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           setState(() {});
           return null;
         }
-        final result =
-            await FlutterVpnService.authorizeService(servicePath, password);
+        final result = await FlutterVpnService.authorizeService(
+          servicePath,
+          password,
+        );
         if (result != null) {
           if (!disableShowAlertDialog) {
             CommonDialog.handleStartError(context, result.message);
@@ -2069,7 +2213,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ServerManager.setDirty(false);
     SettingManager.setDirty(false);
     var err = await VPNService.start(
-        VPNService.getTimeoutByOutboundCount(result.item2!, tunMode));
+      VPNService.getTimeoutByOutboundCount(result.item2!, tunMode),
+    );
 
     setState(() {});
 
@@ -2098,8 +2243,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           String? error = await ProxyCluster.start();
           if (error != null) {
             if (!disableShowAlertDialog) {
-              DialogUtils.showAlertDialog(context, error,
-                  showCopy: true, showFAQ: true, withVersion: true);
+              DialogUtils.showAlertDialog(
+                context,
+                error,
+                showCopy: true,
+                showFAQ: true,
+                withVersion: true,
+              );
             }
           }
         }
@@ -2109,8 +2259,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<String> getChmodCmd() async {
-    Directory? sharedDirectory =
-        await FlutterVpnService.getAppGroupDirectory(AppUtils.getGroupId());
+    Directory? sharedDirectory = await FlutterVpnService.getAppGroupDirectory(
+      AppUtils.getGroupId(),
+    );
     String dirPath = sharedDirectory!.path.replaceAll(' ', '\\ ');
     return "chmod g+rw $dirPath";
     /*String cmd = "chmod g+rw ${AppUtils.getGroupId()}";
@@ -2132,20 +2283,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   void onConnectionsInfoPressed() async {
     String connectionsUrl = await getConnectionsUrl(false);
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: NetConnectionsScreen.routSettings(),
-            builder: (context) => NetConnectionsScreen(
-                  connectionsUrl: connectionsUrl,
-                  checkStarted: true,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: NetConnectionsScreen.routSettings(),
+        builder: (context) => NetConnectionsScreen(
+          connectionsUrl: connectionsUrl,
+          checkStarted: true,
+        ),
+      ),
+    );
     await checkAndReload("onConnectionsInfoPressed");
   }
 
   void onConnectionsInfoLongPress() async {
-    await ClashApi.resetNetwork(
-      SettingManager.getConfig().proxy.controlPort,
-    );
+    await ClashApi.resetNetwork(SettingManager.getConfig().proxy.controlPort);
   }
 
   @override
@@ -2234,7 +2385,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     final spacing = 10.ap;
     List<GridItem> widgets = HomeWidgets.getWidgets(_widgetOptions);
 
-    final working = _working ||
+    final working =
+        _working ||
         _state == FlutterVpnServiceState.connecting ||
         _state == FlutterVpnServiceState.disconnecting ||
         _state == FlutterVpnServiceState.reasserting;
@@ -2261,14 +2413,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
               systemNavigationBarIconBrightness: decoration == null
                   ? themes.getStatusBarIconBrightness(context)
                   : Brightness
-                      .light, //must be light if has decoration, or transparent does not work if light theme on android
-              systemNavigationBarColor:
-                  decoration == null ? color : Colors.transparent,
+                        .light, //must be light if has decoration, or transparent does not work if light theme on android
+              systemNavigationBarColor: decoration == null
+                  ? color
+                  : Colors.transparent,
               systemNavigationBarDividerColor: Colors.transparent,
               statusBarColor: decoration == null ? color : Colors.transparent,
               statusBarBrightness: themes.getStatusBarBrightness(context),
-              statusBarIconBrightness:
-                  themes.getStatusBarIconBrightness(context),
+              statusBarIconBrightness: themes.getStatusBarIconBrightness(
+                context,
+              ),
               systemStatusBarContrastEnforced: true,
             ),
           ),
@@ -2287,44 +2441,47 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     children: [
                       if (!_edit) ...[
                         Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Tooltip(
-                                  message: tcontext.meta.setting,
-                                  child: InkWell(
-                                      //autofocus: settingConfig.ui.tvMode,
-                                      //focusNode: _focusNodeSettings,
-                                      onTap: () async {
-                                        onTapSetting();
-                                      },
-                                      child: Stack(
-                                        children: [
-                                          const SizedBox(
-                                            width: 50,
-                                            height: 30,
-                                            child: Icon(
-                                              Icons.settings_outlined,
-                                              size: 26,
-                                            ),
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Tooltip(
+                              message: tcontext.meta.setting,
+                              child: InkWell(
+                                //autofocus: settingConfig.ui.tvMode,
+                                //focusNode: _focusNodeSettings,
+                                onTap: () async {
+                                  onTapSetting();
+                                },
+                                child: Stack(
+                                  children: [
+                                    const SizedBox(
+                                      width: 50,
+                                      height: 30,
+                                      child: Icon(
+                                        Icons.settings_outlined,
+                                        size: 26,
+                                      ),
+                                    ),
+                                    if (checkVersion.newVersion ||
+                                        noticeItem != null) ...[
+                                      Positioned(
+                                        left: 10,
+                                        top: 0,
+                                        child: Container(
+                                          width: 8,
+                                          height: 8,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.red,
+                                            shape: BoxShape.circle,
                                           ),
-                                          if (checkVersion.newVersion ||
-                                              noticeItem != null) ...[
-                                            Positioned(
-                                              left: 10,
-                                              top: 0,
-                                              child: Container(
-                                                  width: 8,
-                                                  height: 8,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: Colors.red,
-                                                    shape: BoxShape.circle,
-                                                  )),
-                                            )
-                                          ],
-                                        ],
-                                      ))),
-                            ])
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                       if (_edit) ...[
                         Tooltip(
@@ -2336,10 +2493,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                Icons.add,
-                                size: 26,
-                              ),
+                              child: Icon(Icons.add, size: 26),
                             ),
                           ),
                         ),
@@ -2352,10 +2506,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                AntDesign.import_outline,
-                                size: 26,
-                              ),
+                              child: Icon(AntDesign.import_outline, size: 26),
                             ),
                           ),
                         ),
@@ -2368,17 +2519,15 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                AntDesign.export_outline,
-                                size: 26,
-                              ),
+                              child: Icon(AntDesign.export_outline, size: 26),
                             ),
                           ),
-                        )
+                        ),
                       ],
                       Tooltip(
-                        message:
-                            _edit ? tcontext.meta.save : tcontext.meta.edit,
+                        message: _edit
+                            ? tcontext.meta.save
+                            : tcontext.meta.edit,
                         child: InkWell(
                           focusNode: _focusNodeEdit,
                           onTap: () async {
@@ -2393,7 +2542,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -2402,9 +2551,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                         fixedHeight: true,
                         adWidth: windowSize.width,
                       )
-                    : SizedBox(
-                        height: 20,
-                      ),
+                    : SizedBox(height: 20),
                 Expanded(
                   child: Stack(
                     children: [
@@ -2416,119 +2563,123 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
                           controller: _scrollController,
-                          child: Column(children: [
-                            _edit
-                                ? SuperGrid(
-                                    key: _superGridKey,
-                                    crossAxisCount: columns,
-                                    crossAxisSpacing: spacing,
-                                    mainAxisSpacing: spacing,
-                                    onUpdate: () {},
-                                    deleteOnTap: settingConfig.ui.tvMode,
-                                    children: widgets,
-                                  )
-                                : Grid(
-                                    key: _superGridKey,
-                                    crossAxisCount: columns,
-                                    crossAxisSpacing: spacing,
-                                    mainAxisSpacing: spacing,
-                                    children: widgets,
-                                  ),
-                            if (!_edit) ...[
-                              SizedBox(
-                                height: convexIconSize,
-                              )
-                            ]
-                          ]),
+                          child: Column(
+                            children: [
+                              _edit
+                                  ? SuperGrid(
+                                      key: _superGridKey,
+                                      crossAxisCount: columns,
+                                      crossAxisSpacing: spacing,
+                                      mainAxisSpacing: spacing,
+                                      onUpdate: () {},
+                                      deleteOnTap: settingConfig.ui.tvMode,
+                                      children: widgets,
+                                    )
+                                  : Grid(
+                                      key: _superGridKey,
+                                      crossAxisCount: columns,
+                                      crossAxisSpacing: spacing,
+                                      mainAxisSpacing: spacing,
+                                      children: widgets,
+                                    ),
+                              if (!_edit) ...[SizedBox(height: convexIconSize)],
+                            ],
+                          ),
                         ),
                       ),
                       Positioned(
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        child: Column(children: [
-                          if (!_edit) ...[
-                            ConvexButton2.fab2(
-                              thickness: 60,
-                              top: 60,
-                              size: convexHeight,
-                              color: _state == FlutterVpnServiceState.connected
-                                  ? Colors.green
-                                  : Colors.red,
-                              backgroundColor: theme
-                                  .colorScheme.surfaceContainerLow
-                                  .withAlpha(alpha),
-                              thicknessChild: ServerSelectCard(
-                                server: _currentServer,
-                                serverUrltest: _currentServerForUrltest,
-                                onTap: (bool hasProfile) async {
-                                  if (!hasProfile) {
-                                    onTapAddProfileByStart();
-                                  } else {
-                                    await onTapServerSelect();
-                                  }
-                                },
-                              ),
-                              child: SizedBox(
-                                height: convexIconSize,
-                                width: convexIconSize,
-                                child: Tooltip(
-                                  message: stateTooltip,
-                                  child: IconButton(
-                                    focusNode: _focusNodeSwitch,
-                                    iconSize: 32,
-                                    onPressed: working
-                                        ? null
-                                        : () async {
-                                            _working = true;
-                                            bool noConfig =
-                                                ServerManager.getConfig()
-                                                        .getServersCount(
-                                                            false) ==
-                                                    0;
-                                            var state =
-                                                await VPNService.getState();
-                                            if (noConfig) {
-                                              if (state ==
-                                                  FlutterVpnServiceState
-                                                      .connected) {
-                                                await stop();
+                        child: Column(
+                          children: [
+                            if (!_edit) ...[
+                              ConvexButton2.fab2(
+                                thickness: 60,
+                                top: 60,
+                                size: convexHeight,
+                                color:
+                                    _state == FlutterVpnServiceState.connected
+                                    ? Colors.green
+                                    : Colors.red,
+                                backgroundColor: theme
+                                    .colorScheme
+                                    .surfaceContainerLow
+                                    .withAlpha(alpha),
+                                thicknessChild: ServerSelectCard(
+                                  server: _currentServer,
+                                  serverUrltest: _currentServerForUrltest,
+                                  onTap: (bool hasProfile) async {
+                                    if (!hasProfile) {
+                                      onTapAddProfileByStart();
+                                    } else {
+                                      await onTapServerSelect();
+                                    }
+                                  },
+                                ),
+                                child: SizedBox(
+                                  height: convexIconSize,
+                                  width: convexIconSize,
+                                  child: Tooltip(
+                                    message: stateTooltip,
+                                    child: IconButton(
+                                      focusNode: _focusNodeSwitch,
+                                      iconSize: 32,
+                                      onPressed: working
+                                          ? null
+                                          : () async {
+                                              _working = true;
+                                              bool noConfig =
+                                                  ServerManager.getConfig()
+                                                      .getServersCount(false) ==
+                                                  0;
+                                              var state =
+                                                  await VPNService.getState();
+                                              if (noConfig) {
+                                                if (state ==
+                                                    FlutterVpnServiceState
+                                                        .connected) {
+                                                  await stop();
+                                                } else {
+                                                  await onTapShowAddProfile();
+                                                }
                                               } else {
-                                                await onTapShowAddProfile();
+                                                await onTapToggle("switch");
                                               }
-                                            } else {
-                                              await onTapToggle("switch");
-                                            }
-                                            _working = false;
-                                            setState(() {});
-                                          },
-                                    icon: working
-                                        ? RepaintBoundary(
-                                            child: Rotation(
+                                              _working = false;
+                                              setState(() {});
+                                            },
+                                      icon: working
+                                          ? RepaintBoundary(
+                                              child: Rotation(
                                                 child: Icon(
-                                              CupertinoIcons.checkmark_shield,
-                                              color: Colors.red,
-                                            )),
-                                          )
-                                        : Icon(
-                                            _state ==
-                                                    FlutterVpnServiceState
-                                                        .connected
-                                                ? CupertinoIcons
-                                                    .checkmark_shield
-                                                : CupertinoIcons.xmark_shield,
-                                            color: _state ==
-                                                    FlutterVpnServiceState
-                                                        .connected
-                                                ? Colors.green
-                                                : Colors.red,
-                                          ),
+                                                  CupertinoIcons
+                                                      .checkmark_shield,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            )
+                                          : Icon(
+                                              _state ==
+                                                      FlutterVpnServiceState
+                                                          .connected
+                                                  ? CupertinoIcons
+                                                        .checkmark_shield
+                                                  : CupertinoIcons.xmark_shield,
+                                              color:
+                                                  _state ==
+                                                      FlutterVpnServiceState
+                                                          .connected
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                            ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
-                        ]),
+                        ),
                       ),
                     ],
                   ),
@@ -2553,8 +2704,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fitHeight,
-          image:
-              LocalImageProvider(settingConfig.uiScreen.backgroundImageLocal),
+          image: LocalImageProvider(
+            settingConfig.uiScreen.backgroundImageLocal,
+          ),
         ),
       );
     }
@@ -2565,7 +2717,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         image: DecorationImage(
           fit: BoxFit.fitHeight,
           image: CachedNetworkImageProvider(
-              settingConfig.uiScreen.backgroundImageUrl),
+            settingConfig.uiScreen.backgroundImageUrl,
+          ),
         ),
       );
     }
@@ -2593,11 +2746,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           if (currentContext != null) {
             final Size? size = currentContext.size;
             if (size != null) {
-              final maxScroll = _scrollController.offset + size.height + 10.ap >
+              final maxScroll =
+                  _scrollController.offset + size.height + 10.ap >
                       _scrollController.position.maxScrollExtent
                   ? _scrollController.position.maxScrollExtent
                   : _scrollController.offset + size.height + 10.ap;
-              final minScroll = _scrollController.offset - size.height - 10.ap <
+              final minScroll =
+                  _scrollController.offset - size.height - 10.ap <
                       _scrollController.position.minScrollExtent
                   ? _scrollController.position.minScrollExtent
                   : _scrollController.offset - size.height - 10.ap;
@@ -2664,12 +2819,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     final tcontext = Translations.of(context);
     InAppNotifications.show(
-        title: tcontext.meta.notice,
-        duration: const Duration(seconds: 60),
-        description: noticeItem.title,
-        onTap: () {
-          onTapNotice(noticeItem!);
-        });
+      title: tcontext.meta.notice,
+      duration: const Duration(seconds: 60),
+      description: noticeItem.title,
+      onTap: () {
+        onTapNotice(noticeItem!);
+      },
+    );
   }
 
   void _showNotifyWith(String content) {
@@ -2679,11 +2835,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     final tcontext = Translations.of(context);
     InAppNotifications.show(
-        title: tcontext.meta.tips,
-        duration: const Duration(seconds: 3),
-        description: content,
-        onTap: () {
-          InAppNotifications.dismiss();
-        });
+      title: tcontext.meta.tips,
+      duration: const Duration(seconds: 3),
+      description: content,
+      onTap: () {
+        InAppNotifications.dismiss();
+      },
+    );
   }
 }

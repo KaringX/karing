@@ -123,8 +123,8 @@ class _TranslationsAboutScreenAr implements TranslationsAboutScreenEn {
 	@override String get installTime => 'وقت التثبيت';
 	@override String get versionChannel => 'تحديث القنوات تلقائيا';
 	@override String get autoDownloadPkg => 'تنزيل حزم التحديث تلقائيًا';
-	@override String get disableUAReport => 'تطبيق بيانات التحسين';
-	@override String get disableUAReportTip => 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]';
+	@override String get disableAppImproveData => 'تطبيق بيانات التحسين';
+	@override String get disableUAReportTip => 'تفعيل [${_root.AboutScreen.disableAppImproveData}] يساعدنا على تحسين استقرار المنتج وسهولة استخدامه؛ ولا نقوم بجمع أي بيانات شخصية. تعطيله سيمنع التطبيق من جمع أي بيانات.';
 	@override String get devOptions => 'خيارات للمطور';
 	@override String get enableDebugLog => 'تمكين سجل التصحيح';
 	@override String get viewFilsContent => 'عرض الملفات';
@@ -925,8 +925,8 @@ extension on TranslationsAr {
 			'AboutScreen.installTime' => 'وقت التثبيت',
 			'AboutScreen.versionChannel' => 'تحديث القنوات تلقائيا',
 			'AboutScreen.autoDownloadPkg' => 'تنزيل حزم التحديث تلقائيًا',
-			'AboutScreen.disableUAReport' => 'تطبيق بيانات التحسين',
-			'AboutScreen.disableUAReportTip' => 'تساعدنا [بيانات تحسين التطبيق] على تحسين تجربة المنتج، وستقوم الإصدارات الأقل من الإصدار الرئيسي بإيقاف تشغيل جميع [بيانات تحسين التطبيق] تلقائيًا باستثناء [تنشيط التطبيق]',
+			'AboutScreen.disableAppImproveData' => 'تطبيق بيانات التحسين',
+			'AboutScreen.disableUAReportTip' => 'تفعيل [${_root.AboutScreen.disableAppImproveData}] يساعدنا على تحسين استقرار المنتج وسهولة استخدامه؛ ولا نقوم بجمع أي بيانات شخصية. تعطيله سيمنع التطبيق من جمع أي بيانات.',
 			'AboutScreen.devOptions' => 'خيارات للمطور',
 			'AboutScreen.enableDebugLog' => 'تمكين سجل التصحيح',
 			'AboutScreen.viewFilsContent' => 'عرض الملفات',

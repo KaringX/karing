@@ -30,37 +30,38 @@ class ThemeDataDark {
         isDense: true,
         contentPadding: EdgeInsets.all(8),
         border: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeDefine.kColorBlue),
-            borderRadius: BorderRadius.all(Radius.circular(4))),
+          borderSide: BorderSide(color: ThemeDefine.kColorBlue),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ThemeDefine.kColorBlue),
-            borderRadius: BorderRadius.all(Radius.circular(4))),
+          borderSide: BorderSide(color: ThemeDefine.kColorBlue),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
       ),
       listTileTheme: ListTileThemeData(dense: true),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith(
-            (Set<WidgetState> states) {
-              if (states.contains(WidgetState.focused)) {
-                return ThemeDefine.kColorBlue[800];
-              }
-              if (states.contains(WidgetState.selected)) {
-                return ThemeDefine.kColorBlue[200];
-              }
-              return ThemeDefine.kColorBlue;
-            },
-          ),
-          foregroundColor: WidgetStateProperty.resolveWith(
-            (Set<WidgetState> states) {
-              return Colors.black;
-            },
-          ),
-          shape: WidgetStateProperty.resolveWith(
-            (Set<WidgetState> states) {
-              return RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(35));
-            },
-          ),
+          backgroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.focused)) {
+              return ThemeDefine.kColorBlue[800];
+            }
+            if (states.contains(WidgetState.selected)) {
+              return ThemeDefine.kColorBlue[200];
+            }
+            return ThemeDefine.kColorBlue;
+          }),
+          foregroundColor: WidgetStateProperty.resolveWith((
+            Set<WidgetState> states,
+          ) {
+            return Colors.black;
+          }),
+          shape: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(35),
+            );
+          }),
         ),
       ),
       checkboxTheme: CheckboxThemeData(
@@ -70,8 +71,9 @@ class ThemeDataDark {
         checkColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
           return ThemeDefine.kColorGreenBright;
         }),
-        overlayColor:
-            WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        overlayColor: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
           return Colors.grey;
         }),
       ),

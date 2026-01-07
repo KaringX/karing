@@ -42,10 +42,7 @@ class MyProfilesMergeScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -61,10 +58,7 @@ class MyProfilesMergeScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -74,8 +68,9 @@ class MyProfilesMergeScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     _selectedSources.isNotEmpty
@@ -86,36 +81,34 @@ class MyProfilesMergeScreenState
                             child: const SizedBox(
                               width: 50,
                               height: 30,
-                              child: Icon(
-                                Icons.done_outlined,
-                                size: 26,
-                              ),
+                              child: Icon(Icons.done_outlined, size: 26),
                             ),
                           )
-                        : const SizedBox(
-                            width: 50,
-                          )
+                        : const SizedBox(width: 50),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               FutureBuilder(
                 future: getGroupOptions(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<GroupItem>> snapshot) {
-                  List<GroupItem> data = snapshot.hasData ? snapshot.data! : [];
-                  return Column(
-                      children: GroupItemCreator.createGroups(context, data));
-                },
+                builder:
+                    (
+                      BuildContext context,
+                      AsyncSnapshot<List<GroupItem>> snapshot,
+                    ) {
+                      List<GroupItem> data = snapshot.hasData
+                          ? snapshot.data!
+                          : [];
+                      return Column(
+                        children: GroupItemCreator.createGroups(context, data),
+                      );
+                    },
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Column(children: [
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Column(
+                  children: [
                     Text(
                       tcontext.MyProfilesMergeScreen.profilesMergeSource,
                       style: const TextStyle(
@@ -128,23 +121,23 @@ class MyProfilesMergeScreenState
                         fontSize: ThemeConfig.kFontSizeListSubItem,
                       ),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
               Expanded(
                 child: Scrollbar(
-                    thumbVisibility: true,
-                    child: ListView.separated(
-                      itemCount: _sources.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        ServerConfigGroupItem current = _sources[index];
-                        return createWidgetTarget(current, windowSize);
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          height: 1,
-                          thickness: 0.3,
-                        );
-                      },
-                    )),
+                  thumbVisibility: true,
+                  child: ListView.separated(
+                    itemCount: _sources.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      ServerConfigGroupItem current = _sources[index];
+                      return createWidgetTarget(current, windowSize);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider(height: 1, thickness: 0.3);
+                    },
+                  ),
+                ),
               ),
             ],
           ),
@@ -158,12 +151,14 @@ class MyProfilesMergeScreenState
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.MyProfilesMergeScreen.profilesMergeTarget,
-              text: _target != null ? _target!.remark : "",
-              onPush: () async {
-                onTapTargetProfile();
-              })),
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.MyProfilesMergeScreen.profilesMergeTarget,
+          text: _target != null ? _target!.remark : "",
+          onPush: () async {
+            onTapTargetProfile();
+          },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;
@@ -175,9 +170,7 @@ class MyProfilesMergeScreenState
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 66,
           child: Row(
@@ -188,28 +181,31 @@ class MyProfilesMergeScreenState
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Checkbox(
-                          tristate: true,
-                          value: _selectedSources.contains(group),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              _selectedSources.add(group);
-                            } else {
-                              _selectedSources.remove(group);
-                            }
-                            setState(() {});
-                          },
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 80,
-                          child: Text(
-                            group.remark,
-                            style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem),
+                      Row(
+                        children: [
+                          Checkbox(
+                            tristate: true,
+                            value: _selectedSources.contains(group),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                _selectedSources.add(group);
+                              } else {
+                                _selectedSources.remove(group);
+                              }
+                              setState(() {});
+                            },
                           ),
-                        ),
-                      ]),
+                          SizedBox(
+                            width: windowSize.width - 80,
+                            child: Text(
+                              group.remark,
+                              style: TextStyle(
+                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -224,7 +220,9 @@ class MyProfilesMergeScreenState
   void onTapTargetProfile() async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [];
       for (var group in ServerManager.getConfig().items) {
         if (group.isRemote()) {
@@ -233,40 +231,46 @@ class MyProfilesMergeScreenState
         if (group.groupid == ServerManager.getCustomGroupId()) {
           continue;
         }
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-                name: group.remark,
-                onPush: () async {
-                  _target = group;
-                  _sources.clear();
-                  for (var group in ServerManager.getConfig().items) {
-                    if (group.isRemote()) {
-                      continue;
-                    }
-                    if (group.groupid == ServerManager.getCustomGroupId()) {
-                      continue;
-                    }
-                    if (group.groupid == _target!.groupid) {
-                      continue;
-                    }
-                    _sources.add(group);
+              name: group.remark,
+              onPush: () async {
+                _target = group;
+                _sources.clear();
+                for (var group in ServerManager.getConfig().items) {
+                  if (group.isRemote()) {
+                    continue;
                   }
-                  Navigator.pop(context);
-                  setState(() {});
-                })));
+                  if (group.groupid == ServerManager.getCustomGroupId()) {
+                    continue;
+                  }
+                  if (group.groupid == _target!.groupid) {
+                    continue;
+                  }
+                  _sources.add(group);
+                }
+                Navigator.pop(context);
+                setState(() {});
+              },
+            ),
+          ),
+        );
       }
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("profilesMergeTarget"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.MyProfilesMergeScreen.profilesMergeTarget,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("profilesMergeTarget"),
+        builder: (context) => GroupScreen(
+          title: tcontext.MyProfilesMergeScreen.profilesMergeTarget,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   void onTapSave() async {

@@ -59,7 +59,9 @@ class _DiversionRuleDetectScreenState
 
   Future<bool> startVPN() async {
     return await Biz.startOrRestartIfDirtyVPN(
-        context, "DiversionRuleDetectScreen");
+      context,
+      "DiversionRuleDetectScreen",
+    );
   }
 
   String getTagName(String tag) {
@@ -75,7 +77,8 @@ class _DiversionRuleDetectScreenState
   }
 
   Map<String, dynamic> decodeDataFromDnsQueryWithDefaultRouter(
-      String jsondata) {
+    String jsondata,
+  ) {
     final tcontext = Translations.of(context);
     Map<String, dynamic> data = jsonDecode(jsondata);
     String tag = data["tag"] ?? "";
@@ -117,10 +120,7 @@ class _DiversionRuleDetectScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -134,10 +134,7 @@ class _DiversionRuleDetectScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -147,191 +144,193 @@ class _DiversionRuleDetectScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 50,
-                  ),
+                  const SizedBox(width: 50),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                    child: Column(
-                      children: [
-                        TextFieldEx(
-                          controller: _textControllerHost,
-                          textInputAction: TextInputAction.done,
-                          decoration: const InputDecoration(
-                            labelText: "Domain",
-                            hintText: "Domain",
-                            prefixIcon: Icon(Icons.edit_note_outlined),
+                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
+                  child: Column(
+                    children: [
+                      TextFieldEx(
+                        controller: _textControllerHost,
+                        textInputAction: TextInputAction.done,
+                        decoration: const InputDecoration(
+                          labelText: "Domain",
+                          hintText: "Domain",
+                          prefixIcon: Icon(Icons.edit_note_outlined),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      !_checking
+                          ? SizedBox(
+                              height: 45.0,
+                              child: ElevatedButton(
+                                child: Text(tcontext.meta.detect),
+                                onPressed: () async {
+                                  onPressCheck();
+                                },
+                              ),
+                            )
+                          : const SizedBox(
+                              width: 45,
+                              height: 45,
+                              child: RepaintBoundary(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              try {
+                                await Clipboard.setData(
+                                  ClipboardData(text: _encoded.value),
+                                );
+                              } catch (e) {}
+                            },
+                            child: Text("Domain"),
+                          ),
+                          ValueListenableBuilder<String>(
+                            builder: _encoded.value != _domain
+                                ? _buildWithValueYellow
+                                : _buildWithValue,
+                            valueListenable: _encoded,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(t.DiversionRuleDetectScreen.rule),
+                          ValueListenableBuilder<String>(
+                            builder: _buildWithValue,
+                            valueListenable: _rule,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(t.DiversionRuleDetectScreen.outbound),
+                          ValueListenableBuilder<String>(
+                            builder: _buildWithValue,
+                            valueListenable: _chain,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Rule Set:"),
+                          ValueListenableBuilder<String>(
+                            builder: _buildWithValue,
+                            valueListenable: _ruleset,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: FutureBuilder(
+                            future: ClashApi.getRemoteRulesetsStates(
+                              SettingManager.getConfig().proxy.controlPort,
+                            ),
+                            builder:
+                                (
+                                  BuildContext context,
+                                  AsyncSnapshot<
+                                    ReturnResult<
+                                      Tuple2<
+                                        Map<String, DateTime>,
+                                        Map<String, String>
+                                      >
+                                    >
+                                  >
+                                  snapshot,
+                                ) {
+                                  if (!snapshot.hasData ||
+                                      snapshot.data == null ||
+                                      snapshot.data!.data == null) {
+                                    return SizedBox.shrink();
+                                  }
+                                  List<Widget> widgets = [];
+                                  final data = snapshot.data!.data!;
+                                  final exist = data.item1;
+                                  var fetchErr = data.item2;
+
+                                  exist.forEach((key, value) {
+                                    var settings = SettingManager.getConfig();
+                                    var updateTime = DateFormat(
+                                      "yyyy-MM-dd HH:mm:ss",
+                                      settings.languageTag,
+                                    ).format(value);
+                                    widgets.add(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width:
+                                                (windowSize.width - 18 * 2) / 2,
+                                            child: Text(key),
+                                          ),
+                                          SizedBox(
+                                            width:
+                                                (windowSize.width - 18 * 2) / 2,
+                                            child: Text(updateTime),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                    widgets.add(const SizedBox(height: 10));
+                                    widgets.add(
+                                      const Divider(height: 1, thickness: 0.3),
+                                    );
+                                  });
+                                  fetchErr.forEach((key, value) {
+                                    widgets.add(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width:
+                                                (windowSize.width - 18 * 2) / 2,
+                                            child: Text(key),
+                                          ),
+                                          SizedBox(
+                                            width:
+                                                (windowSize.width - 18 * 2) / 2,
+                                            child: Text(value),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                    widgets.add(const SizedBox(height: 10));
+                                    widgets.add(
+                                      const Divider(height: 1, thickness: 0.3),
+                                    );
+                                  });
+                                  return Column(children: [...widgets]);
+                                },
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        !_checking
-                            ? SizedBox(
-                                height: 45.0,
-                                child: ElevatedButton(
-                                    child: Text(tcontext.meta.detect),
-                                    onPressed: () async {
-                                      onPressCheck();
-                                    }))
-                            : const SizedBox(
-                                width: 45,
-                                height: 45,
-                                child: RepaintBoundary(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () async {
-                                try {
-                                  await Clipboard.setData(
-                                      ClipboardData(text: _encoded.value));
-                                } catch (e) {}
-                              },
-                              child: Text("Domain"),
-                            ),
-                            ValueListenableBuilder<String>(
-                              builder: _encoded.value != _domain
-                                  ? _buildWithValueYellow
-                                  : _buildWithValue,
-                              valueListenable: _encoded,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(t.DiversionRuleDetectScreen.rule),
-                            ValueListenableBuilder<String>(
-                              builder: _buildWithValue,
-                              valueListenable: _rule,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(t.DiversionRuleDetectScreen.outbound),
-                            ValueListenableBuilder<String>(
-                              builder: _buildWithValue,
-                              valueListenable: _chain,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("Rule Set:"),
-                            ValueListenableBuilder<String>(
-                              builder: _buildWithValue,
-                              valueListenable: _ruleset,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                              child: FutureBuilder(
-                            future: ClashApi.getRemoteRulesetsStates(
-                                SettingManager.getConfig().proxy.controlPort),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<
-                                        ReturnResult<
-                                            Tuple2<Map<String, DateTime>,
-                                                Map<String, String>>>>
-                                    snapshot) {
-                              if (!snapshot.hasData ||
-                                  snapshot.data == null ||
-                                  snapshot.data!.data == null) {
-                                return SizedBox.shrink();
-                              }
-                              List<Widget> widgets = [];
-                              final data = snapshot.data!.data!;
-                              final exist = data.item1;
-                              var fetchErr = data.item2;
-
-                              exist.forEach((key, value) {
-                                var settings = SettingManager.getConfig();
-                                var updateTime = DateFormat(
-                                        "yyyy-MM-dd HH:mm:ss",
-                                        settings.languageTag)
-                                    .format(value);
-                                widgets.add(Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: (windowSize.width - 18 * 2) / 2,
-                                        child: Text(key),
-                                      ),
-                                      SizedBox(
-                                        width: (windowSize.width - 18 * 2) / 2,
-                                        child: Text(updateTime),
-                                      ),
-                                    ]));
-                                widgets.add(const SizedBox(
-                                  height: 10,
-                                ));
-                                widgets.add(const Divider(
-                                  height: 1,
-                                  thickness: 0.3,
-                                ));
-                              });
-                              fetchErr.forEach((key, value) {
-                                widgets.add(Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: (windowSize.width - 18 * 2) / 2,
-                                        child: Text(key),
-                                      ),
-                                      SizedBox(
-                                        width: (windowSize.width - 18 * 2) / 2,
-                                        child: Text(value),
-                                      ),
-                                    ]));
-                                widgets.add(const SizedBox(
-                                  height: 10,
-                                ));
-                                widgets.add(const Divider(
-                                  height: 1,
-                                  thickness: 0.3,
-                                ));
-                              });
-                              return Column(children: [...widgets]);
-                            },
-                          )),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -353,7 +352,9 @@ class _DiversionRuleDetectScreenState
     var domain = _textControllerHost.text.toString().trim();
     if (!NetworkUtils.isDomain(domain, false)) {
       DialogUtils.showAlertDialog(
-          context, tcontext.NetCheckScreen.invalidDomain);
+        context,
+        tcontext.NetCheckScreen.invalidDomain,
+      );
       return;
     }
     _domain = domain;
@@ -368,9 +369,10 @@ class _DiversionRuleDetectScreenState
     var setting = SettingManager.getConfig();
     if (!setting.novice && setting.dns.enableInboundDomainResolve) {
       ReturnResult<String> resultDns = await ClashApi.dnsQueryWithDefaultRouter(
-          SettingManager.getConfig().proxy.controlPort,
-          _domain,
-          setting.ipStrategy.name);
+        SettingManager.getConfig().proxy.controlPort,
+        _domain,
+        setting.ipStrategy.name,
+      );
       if (resultDns.error == null) {
         var config = jsonDecode(resultDns.data!);
         if (config != null) {
@@ -383,8 +385,11 @@ class _DiversionRuleDetectScreenState
       }
     }
 
-    ReturnResult<String> outboundResult =
-        await ClashApi.outboundQuery(setting.proxy.controlPort, _domain, ip);
+    ReturnResult<String> outboundResult = await ClashApi.outboundQuery(
+      setting.proxy.controlPort,
+      _domain,
+      ip,
+    );
 
     if (outboundResult.error == null) {
       try {
@@ -416,8 +421,9 @@ class _DiversionRuleDetectScreenState
       _chain.value = "";
     }
 
-    var result =
-        await ClashApi.getRemoteRulesetsCount(setting.proxy.controlPort);
+    var result = await ClashApi.getRemoteRulesetsCount(
+      setting.proxy.controlPort,
+    );
     if (!mounted) {
       return;
     }
@@ -448,15 +454,16 @@ class _DiversionRuleDetectScreenState
       width: 200,
       child: Text(
         value,
-        style: TextStyle(
-          fontSize: ThemeConfig.kFontSizeListSubItem,
-        ),
+        style: TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
       ),
     );
   }
 
   Widget _buildWithValueYellow(
-      BuildContext context, String value, Widget? child) {
+    BuildContext context,
+    String value,
+    Widget? child,
+  ) {
     return SizedBox(
       width: 200,
       child: Text(

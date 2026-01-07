@@ -77,7 +77,9 @@ class ImportConfirmResult {
 
 class GroupHelper {
   static List<GroupItemOptions> getOutlinkOptions(
-      BuildContext context, String from) {
+    BuildContext context,
+    String from,
+  ) {
     final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
@@ -95,93 +97,119 @@ class GroupHelper {
     options.addAll([
       if (getTranffic.isNotEmpty) ...[
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.getTranffic,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_getTranffic',
-                      parameters: {
-                        "from": from,
-                        "isp_id": remoteISPConfig.id.isNotEmpty
-                            ? remoteISPConfig.id
-                            : ""
-                      },
-                      repeatable: true);
-                  String url = getTranffic;
-                  if (!isp) {
-                    url =
-                        await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
-                  }
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.getTranffic,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
+                analyticsEventType: analyticsEventTypeUA,
+                name: 'SSS_getTranffic',
+                parameters: {
+                  "from": from,
+                  "isp_id": remoteISPConfig.id.isNotEmpty
+                      ? remoteISPConfig.id
+                      : "",
+                },
+                repeatable: true,
+              );*/
+              String url = getTranffic;
+              if (!isp) {
+                url = await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
+              }
 
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await WebviewHelper.loadUrl(context, url, "SSS_getTranffic",
-                      title: tcontext.SettingsScreen.getTranffic);
-                }))
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "SSS_getTranffic",
+                title: tcontext.SettingsScreen.getTranffic,
+              );
+            },
+          ),
+        ),
       ],
       if (remoteConfig.tutorial.isNotEmpty) ...[
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.tutorial,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_tutorial',
-                      parameters: {"from": from},
-                      repeatable: true);
-                  String url =
-                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                          remoteConfig.tutorial);
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await WebviewHelper.loadUrl(context, url, "SSS_tutorial",
-                      title: tcontext.SettingsScreen.tutorial);
-                }))
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.tutorial,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
+                analyticsEventType: analyticsEventTypeUA,
+                name: 'SSS_tutorial',
+                parameters: {"from": from},
+                repeatable: true,
+              );*/
+              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                remoteConfig.tutorial,
+              );
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "SSS_tutorial",
+                title: tcontext.SettingsScreen.tutorial,
+              );
+            },
+          ),
+        ),
       ],
       if (remoteConfig.faq.isNotEmpty) ...[
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.faq,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_faq',
-                      parameters: {"from": from},
-                      repeatable: true);
-                  String url =
-                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                          remoteConfig.faq);
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await WebviewHelper.loadUrl(context, url, "SSS_faq",
-                      title: tcontext.meta.faq);
-                }))
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.faq,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
+                analyticsEventType: analyticsEventTypeUA,
+                name: 'SSS_faq',
+                parameters: {"from": from},
+                repeatable: true,
+              );*/
+              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                remoteConfig.faq,
+              );
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "SSS_faq",
+                title: tcontext.meta.faq,
+              );
+            },
+          ),
+        ),
       ],
       if (remoteConfig.rulesets.isNotEmpty) ...[
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.commonlyUsedRulesets,
-                onPush: () async {
-                  AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_commonlyUsedRulesets',
-                      parameters: {"from": from},
-                      repeatable: true);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.commonlyUsedRulesets,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
+                analyticsEventType: analyticsEventTypeUA,
+                name: 'SSS_commonlyUsedRulesets',
+                parameters: {"from": from},
+                repeatable: true,
+              );*/
 
-                  String url =
-                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                          remoteConfig.rulesets);
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await WebviewHelper.loadUrl(
-                      context, url, "SSS_commonlyUsedRulesets",
-                      title: tcontext.SettingsScreen.commonlyUsedRulesets);
-                }))
+              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                remoteConfig.rulesets,
+              );
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "SSS_commonlyUsedRulesets",
+                title: tcontext.SettingsScreen.commonlyUsedRulesets,
+              );
+            },
+          ),
+        ),
       ],
     ]);
     return options;
@@ -190,53 +218,64 @@ class GroupHelper {
   static void showPrivacyPolicy(BuildContext context) {
     final tcontext = Translations.of(context);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: RichtextViewScreen.routSettings(),
-            builder: (context) => RichtextViewScreen(
-                title: tcontext.meta.privacyPolicy,
-                file: AssetsUtils.privacyPolicyPath(),
-                content: "")));
+      context,
+      MaterialPageRoute(
+        settings: RichtextViewScreen.routSettings(),
+        builder: (context) => RichtextViewScreen(
+          title: tcontext.meta.privacyPolicy,
+          file: AssetsUtils.privacyPolicyPath(),
+          content: "",
+        ),
+      ),
+    );
   }
 
   static Future<String> showUserAgent(
-      BuildContext context, String compatible) async {
+    BuildContext context,
+    List<String> userAgent,
+  ) async {
     final tcontext = Translations.of(context);
     List<String> userAgents = HttpUtils.getUserAgents();
-    List<String> userAgent = compatible.split(";");
+
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       GroupItem options = GroupItem(options: []);
       for (var ua in userAgents) {
-        options.options.add(GroupItemOptions(
+        options.options.add(
+          GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
-                name: ua.trim(),
-                switchValue: userAgent.contains(ua),
-                onSwitch: (bool value) async {
-                  if (value) {
-                    if (!userAgent.contains(ua)) {
-                      userAgent.add(ua);
-                    }
-                  } else {
-                    if (userAgent.length == 1) {
-                      return;
-                    }
-                    userAgent.remove(ua);
+              name: ua.trim(),
+              switchValue: userAgent.contains(ua),
+              onSwitch: (bool value) async {
+                if (value) {
+                  if (!userAgent.contains(ua)) {
+                    userAgent.add(ua);
                   }
-                })));
+                } else {
+                  if (userAgent.length == 1) {
+                    return;
+                  }
+                  userAgent.remove(ua);
+                }
+              },
+            ),
+          ),
+        );
       }
 
       return [options];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("UserAgent"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.userAgent,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("UserAgent"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.userAgent, getOptions: getOptions),
+      ),
+    );
     List<String> userAgentSorted = [];
     for (var ua in userAgents) {
       if (userAgent.contains(ua)) {
@@ -251,235 +290,268 @@ class GroupHelper {
   static Future<void> showTun(BuildContext context, String from) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       bool tunMode = await VPNService.getTunMode();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: tcontext.SettingsScreen.tunMode,
-          tips: tcontext.SettingsScreen.tunModeTips,
-          switchValue: tunMode,
-          onSwitch: (bool value) async {
-            if (value && Platform.isWindows) {
-              bool admin = VPNService.isRunAsAdmin();
-              if (!admin) {
-                await DialogUtils.showAlertDialog(
-                    context, tcontext.SettingsScreen.tunModeRunAsAdmin);
-                return;
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.tunMode,
+            tips: tcontext.SettingsScreen.tunModeTips,
+            switchValue: tunMode,
+            onSwitch: (bool value) async {
+              if (value && Platform.isWindows) {
+                bool admin = VPNService.isRunAsAdmin();
+                if (!admin) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.tunModeRunAsAdmin,
+                  );
+                  return;
+                }
               }
-            }
-            settingConfig.tun.enable = value;
-            SettingManager.setDirty(true);
-          },
-        )),
+              settingConfig.tun.enable = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              textFormFieldOptions: GroupItemTextFieldOptions(
-                  name: "IP",
-                  text: settingConfig.tun.i4Address,
-                  textWidthPercent: 0.5,
-                  enabled: tunMode,
-                  onChanged: (String value) {
-                    if (NetworkUtils.isIpv4(value)) {
-                      settingConfig.tun.i4Address = value;
-                      SettingManager.setDirty(true);
-                    }
-                  })),
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "IP",
+              text: settingConfig.tun.i4Address,
+              textWidthPercent: 0.5,
+              enabled: tunMode,
+              onChanged: (String value) {
+                if (NetworkUtils.isIpv4(value)) {
+                  settingConfig.tun.i4Address = value;
+                  SettingManager.setDirty(true);
+                }
+              },
+            ),
+          ),
           GroupItemOptions(
-              textFormFieldOptions: GroupItemTextFieldOptions(
-                  name: tcontext.SettingsScreen.loopbackAddress,
-                  text: settingConfig.tun.loopbackAddress,
-                  hint: "10.7.0.1",
-                  textWidthPercent: 0.5,
-                  enabled: tunMode,
-                  onChanged: (String value) {
-                    if (NetworkUtils.isIpv4(value) ||
-                        NetworkUtils.isIpv6(value) ||
-                        value.isEmpty) {
-                      settingConfig.tun.loopbackAddress = value;
-                      SettingManager.setDirty(true);
-                    }
-                  }))
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: tcontext.SettingsScreen.loopbackAddress,
+              text: settingConfig.tun.loopbackAddress,
+              hint: "10.7.0.1",
+              textWidthPercent: 0.5,
+              enabled: tunMode,
+              onChanged: (String value) {
+                if (NetworkUtils.isIpv4(value) ||
+                    NetworkUtils.isIpv6(value) ||
+                    value.isEmpty) {
+                  settingConfig.tun.loopbackAddress = value;
+                  SettingManager.setDirty(true);
+                }
+              },
+            ),
+          ),
         ],
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                  name: "UDP ${tcontext.meta.timeout}",
-                  duration: settingConfig.tun.udpTimeout,
-                  showDays: false,
-                  showHours: false,
-                  showDisable: false,
-                  onPicker: !tunMode
-                      ? null
-                      : (bool canceled, Duration? duration) async {
-                          if (canceled) {
-                            return;
-                          }
-                          if (duration != null) {
-                            if (duration.inMinutes > 5) {
-                              duration = const Duration(minutes: 5);
-                            } else if (duration.inSeconds < 5) {
-                              duration = const Duration(seconds: 5);
-                            }
-                          }
-                          if (duration == settingConfig.tun.udpTimeout) {
-                            return;
-                          }
+            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+              name: "UDP ${tcontext.meta.timeout}",
+              duration: settingConfig.tun.udpTimeout,
+              showDays: false,
+              showHours: false,
+              showMilliSeconds: false,
+              showDisable: false,
+              onPicker: !tunMode
+                  ? null
+                  : (bool canceled, Duration? duration) async {
+                      if (canceled) {
+                        return;
+                      }
+                      if (duration != null) {
+                        if (duration.inMinutes > 5) {
+                          duration = const Duration(minutes: 5);
+                        } else if (duration.inSeconds < 5) {
+                          duration = const Duration(seconds: 5);
+                        }
+                      }
+                      if (duration == settingConfig.tun.udpTimeout) {
+                        return;
+                      }
 
-                          settingConfig.tun.udpTimeout =
-                              duration ?? const Duration(seconds: 15);
-                          SettingManager.setDirty(true);
-                        })),
+                      settingConfig.tun.udpTimeout =
+                          duration ?? const Duration(seconds: 15);
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
           GroupItemOptions(
-              textFormFieldOptions: GroupItemTextFieldOptions(
-                  name: "MTU",
-                  text: settingConfig.tun.mtu.toString(),
-                  textWidthPercent: 0.5,
-                  enabled: tunMode,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  onChanged: (String value) {
-                    settingConfig.tun.mtu = int.tryParse(value) ?? 4064;
-                    SettingManager.setDirty(true);
-                  })),
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "MTU",
+              text: settingConfig.tun.mtu.toString(),
+              textWidthPercent: 0.5,
+              enabled: tunMode,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onChanged: (String value) {
+                settingConfig.tun.mtu = int.tryParse(value) ?? 4064;
+                SettingManager.setDirty(true);
+              },
+            ),
+          ),
           GroupItemOptions(
-              stringPickerOptions: GroupItemStringPickerOptions(
-                  name: tcontext.SettingsScreen.tunStack,
-                  selected: settingConfig.tun.stack,
-                  strings: ["mixed", "system", "gvisor"],
-                  onPicker: !tunMode
-                      ? null
-                      : (String? selected) async {
-                          if (selected == null) {
-                            return;
-                          }
-                          settingConfig.tun.stack = selected;
-                          SettingManager.setDirty(true);
-                        }))
+            stringPickerOptions: GroupItemStringPickerOptions(
+              name: tcontext.SettingsScreen.tunStack,
+              selected: settingConfig.tun.stack,
+              strings: ["mixed", "system", "gvisor"],
+              onPicker: !tunMode
+                  ? null
+                  : (String? selected) async {
+                      if (selected == null) {
+                        return;
+                      }
+                      settingConfig.tun.stack = selected;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
         if (!settingConfig.novice && Platform.isWindows) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-            name: tcontext.SettingsScreen.tunAutoRoute,
-            switchValue: settingConfig.tun.autoRoute,
-            onSwitch: !tunMode
-                ? null
-                : (bool value) async {
-                    settingConfig.tun.autoRoute = value;
-                    SettingManager.setDirty(true);
-                  },
-          ))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunAutoRoute,
+              switchValue: settingConfig.tun.autoRoute,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.autoRoute = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
         if (!settingConfig.novice && Platform.isLinux) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-            name: tcontext.SettingsScreen.tunAutoRedirect,
-            switchValue: settingConfig.tun.autoRedirect,
-            onSwitch: !tunMode
-                ? null
-                : (bool value) async {
-                    settingConfig.tun.autoRedirect = value;
-                    SettingManager.setDirty(true);
-                  },
-          ))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunAutoRedirect,
+              switchValue: settingConfig.tun.autoRedirect,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.autoRedirect = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-            name: tcontext.SettingsScreen.tunStrictRoute,
-            tips: tcontext.SettingsScreen.tunStrictRouteTips,
-            switchValue: settingConfig.tun.strictRoute,
-            onSwitch:
-                !tunMode || (Platform.isWindows && !settingConfig.tun.autoRoute)
-                    ? null
-                    : (bool value) async {
-                        settingConfig.tun.strictRoute = value;
-                        SettingManager.setDirty(true);
-                      },
-          )),
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunStrictRoute,
+              tips: tcontext.SettingsScreen.tunStrictRouteTips,
+              switchValue: settingConfig.tun.strictRoute,
+              onSwitch:
+                  !tunMode ||
+                      (Platform.isWindows && !settingConfig.tun.autoRoute)
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.strictRoute = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
         if (!settingConfig.novice && Platform.isAndroid) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.allowBypass,
-                  switchValue: settingConfig.tun.allowBypass,
-                  onSwitch: !tunMode
-                      ? null
-                      : (bool value) async {
-                          settingConfig.tun.allowBypass = value;
-                          SettingManager.setDirty(true);
-                        }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.allowBypass,
+              switchValue: settingConfig.tun.allowBypass,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.allowBypass = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
-        if (Platform.isAndroid /*|| Platform.isMacOS*/) ...[
+        if (Platform.isAndroid /*|| Platform.isMacOS*/ ) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.PerAppAndroidScreen.title,
-                  onPush: !tunMode
-                      ? null
-                      : () async {
-                          if (Platform.isAndroid) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    settings:
-                                        PerAppAndroidScreen.routSettings(),
-                                    builder: (context) =>
-                                        const PerAppAndroidScreen()));
-                          } else if (Platform.isMacOS) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    settings: PerAppMacosScreen.routSettings(),
-                                    builder: (context) =>
-                                        const PerAppMacosScreen()));
-                          }
-                        }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.PerAppAndroidScreen.title,
+              onPush: !tunMode
+                  ? null
+                  : () async {
+                      if (Platform.isAndroid) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            settings: PerAppAndroidScreen.routSettings(),
+                            builder: (context) => const PerAppAndroidScreen(),
+                          ),
+                        );
+                      } else if (Platform.isMacOS) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            settings: PerAppMacosScreen.routSettings(),
+                            builder: (context) => const PerAppMacosScreen(),
+                          ),
+                        );
+                      }
+                    },
+            ),
+          ),
         ],
         if (!settingConfig.novice && PlatformUtils.isMobile()) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.tunAppendHttpProxy,
-                  tips: tcontext.SettingsScreen.tunAppendHttpProxyTips +
-                      (Platform.isAndroid ? "(Android 10+)" : ""),
-                  switchValue: settingConfig.tun.appendHttpProxy,
-                  onSwitch: !tunMode
-                      ? null
-                      : (bool value) async {
-                          settingConfig.tun.appendHttpProxy = value;
-                          SettingManager.setDirty(true);
-                        })),
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunAppendHttpProxy,
+              tips:
+                  tcontext.SettingsScreen.tunAppendHttpProxyTips +
+                  (Platform.isAndroid ? "(Android 10+)" : ""),
+              switchValue: settingConfig.tun.appendHttpProxy,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.appendHttpProxy = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.tunAllowBypassHttpProxyDomain,
-                  onPush: !tunMode
-                      ? null
-                      : () async {
-                          String oldData = settingConfig
-                              .tun.allowBypassHttpProxyDomains
-                              .join(",");
-                          List<String> chain = settingConfig
-                              .tun.allowBypassHttpProxyDomains
-                              .toList();
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  settings: ListAddScreen.routSettings(
-                                      "tunAllowBypassHttpProxyDomain"),
-                                  builder: (context) => ListAddScreen(
-                                        title: tcontext.SettingsScreen
-                                            .tunAllowBypassHttpProxyDomain,
-                                        data: chain,
-                                      )));
-                          String newData = chain.join(",");
-                          if (oldData != newData) {
-                            settingConfig.tun.allowBypassHttpProxyDomains =
-                                chain;
-                            SettingManager.setDirty(true);
-                          }
-                        }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.tunAllowBypassHttpProxyDomain,
+              onPush: !tunMode
+                  ? null
+                  : () async {
+                      String oldData = settingConfig
+                          .tun
+                          .allowBypassHttpProxyDomains
+                          .join(",");
+                      List<String> chain = settingConfig
+                          .tun
+                          .allowBypassHttpProxyDomains
+                          .toList();
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          settings: ListAddScreen.routSettings(
+                            "tunAllowBypassHttpProxyDomain",
+                          ),
+                          builder: (context) => ListAddScreen(
+                            title: tcontext
+                                .SettingsScreen
+                                .tunAllowBypassHttpProxyDomain,
+                            data: chain,
+                          ),
+                        ),
+                      );
+                      String newData = chain.join(",");
+                      if (oldData != newData) {
+                        settingConfig.tun.allowBypassHttpProxyDomains = chain;
+                        SettingManager.setDirty(true);
+                      }
+                    },
+            ),
+          ),
         ],
       ];
 
@@ -487,19 +559,20 @@ class GroupHelper {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("TUN"),
-            builder: (context) => GroupScreen(
-                  title: "TUN",
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("TUN"),
+        builder: (context) => GroupScreen(title: "TUN", getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> showNetShare(BuildContext context, String from) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
 
       String ipInterface = "";
@@ -518,64 +591,77 @@ class GroupHelper {
       }
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.netInterfaces,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: NetInterfacesScreen.routSettings(),
-                          builder: (context) => const NetInterfacesScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.netInterfaces,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: NetInterfacesScreen.routSettings(),
+                  builder: (context) => const NetInterfacesScreen(),
+                ),
+              );
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.allowOtherHostsConnect,
-                tips: ipInterface +
-                    "\n" +
-                    tcontext.SettingsScreen.portSettingRule +
-                    ":" +
-                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedRuleNetSharePort,
-                        sp: settingConfig.proxy.mixedRuleNetSharePort) +
-                    "\n" +
-                    tcontext.SettingsScreen.portSettingProxyAll +
-                    ":" +
-                    tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                        hp: settingConfig.proxy.mixedForwordNetSharePort,
-                        sp: settingConfig.proxy.mixedForwordNetSharePort),
-                switchValue: settingConfig.proxy.getAllowAllInbounds(),
-                onSwitch: (bool value) async {
-                  settingConfig.proxy.setAllowAllInbounds(value);
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.allowOtherHostsConnect,
+            tips:
+                ipInterface +
+                "\n" +
+                tcontext.SettingsScreen.portSettingRule +
+                ":" +
+                tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                  hp: settingConfig.proxy.mixedRuleNetSharePort,
+                  sp: settingConfig.proxy.mixedRuleNetSharePort,
+                ) +
+                "\n" +
+                tcontext.SettingsScreen.portSettingProxyAll +
+                ":" +
+                tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                  hp: settingConfig.proxy.mixedForwordNetSharePort,
+                  sp: settingConfig.proxy.mixedForwordNetSharePort,
+                ),
+            switchValue: settingConfig.proxy.getAllowAllInbounds(),
+            onSwitch: (bool value) async {
+              settingConfig.proxy.setAllowAllInbounds(value);
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options2 = [
         if (PlatformUtils.isPC()) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.enableCluster,
-                  tips: tcontext.SettingsScreen.portSettingDirectAll,
-                  switchValue: settingConfig.proxy.enableCluster,
-                  onSwitch: (bool value) async {
-                    settingConfig.proxy.enableCluster = value;
-                    SettingManager.setDirty(true);
-                  })),
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.enableCluster,
+              tips: tcontext.SettingsScreen.portSettingDirectAll,
+              switchValue: settingConfig.proxy.enableCluster,
+              onSwitch: (bool value) async {
+                settingConfig.proxy.enableCluster = value;
+                SettingManager.setDirty(true);
+              },
+            ),
+          ),
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
-                  tips:
-                      tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
-                          ip: ipInterface,
-                          port: settingConfig.proxy.clusterPort),
-                  switchValue: settingConfig.proxy.getClusterAllowAllInbounds(),
-                  onSwitch: (bool value) async {
-                    settingConfig.proxy.setClusterAllowAllInbounds(value);
-                    SettingManager.setDirty(true);
-                  }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
+              tips: tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
+                ip: ipInterface,
+                port: settingConfig.proxy.clusterPort,
+              ),
+              switchValue: settingConfig.proxy.getClusterAllowAllInbounds(),
+              onSwitch: (bool value) async {
+                settingConfig.proxy.setClusterAllowAllInbounds(value);
+                SettingManager.setDirty(true);
+              },
+            ),
+          ),
         ],
       ];
 
@@ -587,13 +673,15 @@ class GroupHelper {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("networkShare"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.networkShare,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("networkShare"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.networkShare,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> showStatistics(BuildContext context, String from) async {
@@ -601,99 +689,113 @@ class GroupHelper {
     String currentDB = await PathUtils.statisticsDBFilePath();
     String dbPath = currentDB;
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
 
       List<Tuple2<String?, String>> tupleStrings = [];
       for (var i = 1; i <= SettingConfigItemStatistics.kMaxCacheDays; i++) {
-        tupleStrings.add(
-          Tuple2("$i", "$i ${t.meta.days}"),
-        );
+        tupleStrings.add(Tuple2("$i", "$i ${t.meta.days}"));
       }
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                tips: "",
-                switchValue: settingConfig.statistics.enable,
-                onSwitch: (bool value) async {
-                  settingConfig.statistics.enable = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            tips: "",
+            switchValue: settingConfig.statistics.enable,
+            onSwitch: (bool value) async {
+              settingConfig.statistics.enable = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.statisticsDataDesensitize,
-                tips: tcontext.meta.statisticsDataDesensitizeTips,
-                switchValue: settingConfig.statistics.dataDesensitize,
-                onSwitch: (bool value) async {
-                  settingConfig.statistics.dataDesensitize = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.statisticsDataDesensitize,
+            tips: tcontext.meta.statisticsDataDesensitizeTips,
+            switchValue: settingConfig.statistics.dataDesensitize,
+            onSwitch: (bool value) async {
+              settingConfig.statistics.dataDesensitize = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: t.meta.cache,
-                selected: settingConfig.statistics.cacheDays.toString(),
-                tupleStrings: tupleStrings,
-                onPicker: settingConfig.statistics.enable != true
-                    ? null
-                    : (String? selected) async {
-                        if (selected == null) {
-                          return;
-                        }
-                        settingConfig.statistics.cacheDays =
-                            int.tryParse(selected) ?? 7;
-                        SettingManager.setDirty(true);
-                      }))
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: t.meta.cache,
+            selected: settingConfig.statistics.cacheDays.toString(),
+            tupleStrings: tupleStrings,
+            onPicker: settingConfig.statistics.enable != true
+                ? null
+                : (String? selected) async {
+                    if (selected == null) {
+                      return;
+                    }
+                    settingConfig.statistics.cacheDays =
+                        int.tryParse(selected) ?? 7;
+                    SettingManager.setDirty(true);
+                  },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         if (!bool.fromEnvironment("dart.vm.product") ||
             SettingManager.getConfig().dev.devMode) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: "DB Path",
-                  text: dbPath,
-                  textWidthPercent: 0.7,
-                  onPush: () async {
-                    dbPath = await onTapStatisticsPickDB(context, dbPath);
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: "DB Path",
+              text: dbPath,
+              textWidthPercent: 0.7,
+              onPush: () async {
+                dbPath = await onTapStatisticsPickDB(context, dbPath);
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.records,
-                onPush: () async {
-                  AdsRewardWidget.tryLoadAdsThenCallback(context, (ok) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: StatisticsRecordsScreen.routSettings(),
-                            builder: (context) => StatisticsRecordsScreen(
-                                dbPath: dbPath,
-                                currentDB: dbPath == currentDB)));
-                  });
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.records,
+            onPush: () async {
+              AdsRewardWidget.tryLoadAdsThenCallback(context, (ok) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: StatisticsRecordsScreen.routSettings(),
+                    builder: (context) => StatisticsRecordsScreen(
+                      dbPath: dbPath,
+                      currentDB: dbPath == currentDB,
+                    ),
+                  ),
+                );
+              });
+            },
+          ),
+        ),
       ];
-      return [
-        GroupItem(options: options),
-        GroupItem(options: options1),
-      ];
+      return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     if (!context.mounted) {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("statisticsAndAnalysis"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.statisticsAndAnalysis,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("statisticsAndAnalysis"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.statisticsAndAnalysis,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<String> onTapStatisticsPickDB(
-      BuildContext context, String dbPath) async {
+    BuildContext context,
+    String dbPath,
+  ) async {
     try {
       List<String> extensions = ["db"];
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -713,17 +815,23 @@ class GroupHelper {
       if (!context.mounted) {
         return dbPath;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
     return dbPath;
   }
 
   static Future<void> showHtmlBoard(BuildContext context, String from) async {
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: "htmlBoard:$from",
-        repeatable: true);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeUA,
+      name: "htmlBoard:$from",
+      repeatable: true,
+    );*/
     ReturnResult<String> result = await Zashboard.start();
     if (result.error != null) {
       if (!context.mounted) {
@@ -736,74 +844,90 @@ class GroupHelper {
       return;
     }
     final tcontext = Translations.of(context);
-    await WebviewHelper.loadUrl(context, result.data!, from,
-        title: tcontext.SettingsScreen.htmlBoard,
-        inappWebViewOpenExternal: false);
+    await WebviewHelper.loadUrl(
+      context,
+      result.data!,
+      from,
+      title: tcontext.SettingsScreen.htmlBoard,
+      inappWebViewOpenExternal: false,
+    );
     if (PlatformUtils.isMobile()) {
       await Zashboard.stop();
     }
   }
 
   static Future<ProxyFilter> showProxyFilter(
-      BuildContext context, ProxyFilter filter) async {
+    BuildContext context,
+    ProxyFilter filter,
+  ) async {
     final tcontext = Translations.of(context);
     ProxyFilter pf = ProxyFilter();
     pf.method = filter.method;
     pf.keywordOrRegx = filter.keywordOrRegx;
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<Tuple2<String, String>> tupleStrings = [
         Tuple2(ProxyFilterMethod.all.name, tcontext.meta.all),
         Tuple2(ProxyFilterMethod.include.name, tcontext.meta.include),
         Tuple2(ProxyFilterMethod.exclude.name, tcontext.meta.exclude),
       ];
-      GroupItem options = GroupItem(options: [
-        GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.meta.filterMethod,
-                selected: pf.method.name,
-                tupleStrings: tupleStrings,
-                onPicker: (String? selected) async {
-                  if (selected == ProxyFilterMethod.all.name) {
-                    pf.method = ProxyFilterMethod.all;
-                  } else if (selected == ProxyFilterMethod.include.name) {
-                    pf.method = ProxyFilterMethod.include;
-                  } else if (selected == ProxyFilterMethod.exclude.name) {
-                    pf.method = ProxyFilterMethod.exclude;
-                  }
-                })),
-        if (pf.method != ProxyFilterMethod.all) ...[
+      GroupItem options = GroupItem(
+        options: [
           GroupItemOptions(
+            stringPickerOptions: GroupItemStringPickerOptions(
+              name: tcontext.meta.filterMethod,
+              selected: pf.method.name,
+              tupleStrings: tupleStrings,
+              onPicker: (String? selected) async {
+                if (selected == ProxyFilterMethod.all.name) {
+                  pf.method = ProxyFilterMethod.all;
+                } else if (selected == ProxyFilterMethod.include.name) {
+                  pf.method = ProxyFilterMethod.include;
+                } else if (selected == ProxyFilterMethod.exclude.name) {
+                  pf.method = ProxyFilterMethod.exclude;
+                }
+              },
+            ),
+          ),
+          if (pf.method != ProxyFilterMethod.all) ...[
+            GroupItemOptions(
               textFormFieldOptions: GroupItemTextFieldOptions(
-                  name: tcontext.meta.keywordOrRegx,
-                  text: pf.method != ProxyFilterMethod.all
-                      ? pf.keywordOrRegx
-                      : "",
-                  textWidthPercent: 0.6,
-                  enabled: pf.method != ProxyFilterMethod.all,
-                  onChanged: (String value) {
-                    pf.keywordOrRegx = value.trim();
-                  }))
+                name: tcontext.meta.keywordOrRegx,
+                text: pf.method != ProxyFilterMethod.all
+                    ? pf.keywordOrRegx
+                    : "",
+                textWidthPercent: 0.6,
+                enabled: pf.method != ProxyFilterMethod.all,
+                onChanged: (String value) {
+                  pf.keywordOrRegx = value.trim();
+                },
+              ),
+            ),
+          ],
         ],
-      ]);
+      );
 
       return [options];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("ProxyFilter"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.filter,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("ProxyFilter"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.filter, getOptions: getOptions),
+      ),
+    );
 
     return pf;
   }
 
   static Future<void> showAddProfile(
-      BuildContext context, bool popGetProfile) async {
+    BuildContext context,
+    bool popGetProfile,
+  ) async {
     var settingConfig = SettingManager.getConfig();
     var remoteConfig = RemoteConfigManager.getConfig();
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
@@ -814,199 +938,260 @@ class GroupHelper {
     var tagGen = TagGen(tags: tagSets);
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.profileAddUrlOrContent,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings:
-                              AddProfileByLinkOrContentScreen.routSettings(),
-                          builder: (context) =>
-                              const AddProfileByLinkOrContentScreen(
-                                name: null,
-                                urlOrContent: "",
-                              )));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.profileAddUrlOrContent,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: AddProfileByLinkOrContentScreen.routSettings(),
+                  builder: (context) => const AddProfileByLinkOrContentScreen(
+                    name: null,
+                    urlOrContent: "",
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.importFromClipboard,
-                onPush: () async {
-                  ClipboardData? data;
-                  try {
-                    data = await Clipboard.getData("text/plain");
-                  } catch (err) {
-                    if (!context.mounted) {
-                      return;
-                    }
-                    DialogUtils.showAlertDialog(context, err.toString(),
-                        showCopy: true, showFAQ: true, withVersion: true);
-                    return;
-                  }
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.importFromClipboard,
+            onPush: () async {
+              ClipboardData? data;
+              try {
+                data = await Clipboard.getData("text/plain");
+              } catch (err) {
+                if (!context.mounted) {
+                  return;
+                }
+                DialogUtils.showAlertDialog(
+                  context,
+                  err.toString(),
+                  showCopy: true,
+                  showFAQ: true,
+                  withVersion: true,
+                );
+                return;
+              }
+              if (!context.mounted) {
+                return;
+              }
+              if (data == null || data.text == null || data.text!.isEmpty) {
+                return;
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: AddProfileByLinkOrContentScreen.routSettings(),
+                  builder: (context) => AddProfileByLinkOrContentScreen(
+                    name: null,
+                    urlOrContent: data!.text!,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.profileImport,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: AddProfileByImportFromFileScreen.routSettings(),
+                  builder: (context) => const AddProfileByImportFromFileScreen(
+                    title: "",
+                    type: SubscriptionLinkType.unknown,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.qrcodeScan,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: AddProfileByScanQrcodeScanScreen.routSettings(),
+                  builder: (context) =>
+                      const AddProfileByScanQrcodeScanScreen(),
+                ),
+              ).then((value) {
+                if ((value != null) && (value.qrcode != null)) {
                   if (!context.mounted) {
                     return;
                   }
-                  if (data == null || data.text == null || data.text!.isEmpty) {
-                    return;
-                  }
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings:
-                              AddProfileByLinkOrContentScreen.routSettings(),
-                          builder: (context) => AddProfileByLinkOrContentScreen(
-                              name: null, urlOrContent: data!.text!)));
-                })),
+                    context,
+                    MaterialPageRoute(
+                      settings: AddProfileByLinkOrContentScreen.routSettings(),
+                      builder: (context) => AddProfileByLinkOrContentScreen(
+                        name: null,
+                        urlOrContent: value.qrcode!,
+                      ),
+                    ),
+                  );
+                }
+              });
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.profileImport,
-                onPush: () async {
-                  Navigator.push(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.custom,
+            onPush: () async {
+              String? text = await DialogUtils.showTextInputDialog(
+                context,
+                tcontext.meta.custom,
+                "",
+                null,
+                null,
+                null,
+                (text) {
+                  text = text.trim();
+                  if (text.isEmpty) {
+                    DialogUtils.showAlertDialog(
                       context,
-                      MaterialPageRoute(
-                          settings:
-                              AddProfileByImportFromFileScreen.routSettings(),
-                          builder: (context) =>
-                              const AddProfileByImportFromFileScreen(
-                                  title: "",
-                                  type: SubscriptionLinkType.unknown)));
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.qrcodeScan,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings:
-                              AddProfileByScanQrcodeScanScreen.routSettings(),
-                          builder: (context) =>
-                              const AddProfileByScanQrcodeScanScreen())).then(
-                      (value) {
-                    if ((value != null) && (value.qrcode != null)) {
-                      if (!context.mounted) {
-                        return;
-                      }
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              settings: AddProfileByLinkOrContentScreen
-                                  .routSettings(),
-                              builder: (context) =>
-                                  AddProfileByLinkOrContentScreen(
-                                      name: null,
-                                      urlOrContent: value.qrcode!)));
-                    }
-                  });
-                })),
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.custom,
-                onPush: () async {
-                  String? text = await DialogUtils.showTextInputDialog(
-                      context, tcontext.meta.custom, "", null, null, null,
-                      (text) {
-                    text = text.trim();
-                    if (text.isEmpty) {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.remarkCannotEmpty);
-                      return false;
-                    }
-                    if (text.length > kRemarkMaxLength) {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.remarkTooLong);
-                      return false;
-                    }
-                    if (ServerManager.hasGroupByRemark(text)) {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.remarkExist);
-                      return false;
-                    }
-                    return true;
-                  });
-                  if (text == null) {
-                    return;
+                      tcontext.meta.remarkCannotEmpty,
+                    );
+                    return false;
                   }
-                  if (!context.mounted) {
-                    return;
+                  if (text.length > kRemarkMaxLength) {
+                    DialogUtils.showAlertDialog(
+                      context,
+                      tcontext.meta.remarkTooLong,
+                    );
+                    return false;
                   }
+                  if (ServerManager.hasGroupByRemark(text)) {
+                    DialogUtils.showAlertDialog(
+                      context,
+                      tcontext.meta.remarkExist,
+                    );
+                    return false;
+                  }
+                  return true;
+                },
+              );
+              if (text == null) {
+                return;
+              }
+              if (!context.mounted) {
+                return;
+              }
 
-                  ServerManager.addLocalCustomConfig(text);
-                })),
+              ServerManager.addLocalCustomConfig(text);
+            },
+          ),
+        ),
         if (!Platform.isIOS &&
             !Platform.isMacOS &&
             !RemoteConfigManager.getConfig().nowarp.contains(
-                SettingManager.getConfig().regionCode.toLowerCase())) ...[
+              SettingManager.getConfig().regionCode.toLowerCase(),
+            )) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: "WARP",
-                  onPush: () async {
-                    DialogUtils.showLoadingDialog(context, text: "");
-                    List<String> urls = [];
-                    for (int i = 0; i < 5; ++i) {
-                      urls.add(
-                          "warp://auto?ifp=8-15&ifps=40-100&ifpd=20-250#Warp_$i");
-                    }
-                    var err = await ServerManager.addRemoteConfig(
-                        "",
-                        tagGen.gen("WARP"),
-                        urls.join("\n"),
-                        SubscriptionLinkType.v2ray,
-                        "",
-                        ProxyFilter(),
-                        [],
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        ProxyStrategy.preferProxy,
-                        null);
-                    if (!context.mounted) {
-                      return;
-                    }
-                    Navigator.pop(context);
-                    if (err != null) {
-                      DialogUtils.showAlertDialog(context, err.message,
-                          showCopy: true, showFAQ: true, withVersion: true);
-                    } else {
-                      DialogUtils.showAlertDialog(
-                          context, tcontext.meta.profileAddWrapSuccess);
-                    }
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: "WARP",
+              onPush: () async {
+                DialogUtils.showLoadingDialog(context, text: "");
+                List<String> urls = [];
+                for (int i = 0; i < 5; ++i) {
+                  urls.add(
+                    "warp://auto?ifp=8-15&ifps=40-100&ifpd=20-250#Warp_$i",
+                  );
+                }
+                var err = await ServerManager.addRemoteConfig(
+                  "",
+                  tagGen.gen("WARP"),
+                  urls.join("\n"),
+                  SubscriptionLinkType.v2ray,
+                  "",
+                  ProxyFilter(),
+                  [],
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  ProxyStrategy.preferProxy,
+                  null,
+                );
+                if (!context.mounted) {
+                  return;
+                }
+                Navigator.pop(context);
+                if (err != null) {
+                  DialogUtils.showAlertDialog(
+                    context,
+                    err.message,
+                    showCopy: true,
+                    showFAQ: true,
+                    withVersion: true,
+                  );
+                } else {
+                  DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.meta.profileAddWrapSuccess,
+                  );
+                }
+              },
+            ),
+          ),
         ],
       ];
-      var backup = GroupItem(options: [
-        GroupItemOptions(
+      var backup = GroupItem(
+        options: [
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.backupAndSync,
-          onPush: () async {
-            GroupHelper.showBackupAndSync(context);
-          },
-        )),
-      ]);
+              name: tcontext.meta.backupAndSync,
+              onPush: () async {
+                GroupHelper.showBackupAndSync(context);
+              },
+            ),
+          ),
+        ],
+      );
       List<GroupItem> items = [
         GroupItem(
-            options: GroupHelper.getOutlinkOptions(context, "showAddProfile"))
+          options: GroupHelper.getOutlinkOptions(context, "showAddProfile"),
+        ),
       ];
 
-      RemoteConfigGetProfile? profile =
-          remoteConfig.getProfileByRegionCode(settingConfig.regionCode);
+      RemoteConfigGetProfile? profile = remoteConfig.getProfileByRegionCode(
+        settingConfig.regionCode,
+      );
       if (profile != null) {
         if (remoteISPConfig.id.isEmpty ||
             (remoteISPConfig.id.isNotEmpty && remoteISPConfig.getProfile)) {
-          items.add(GroupItem(options: [
-            GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
+          items.add(
+            GroupItem(
+              options: [
+                GroupItemOptions(
+                  pushOptions: GroupItemPushOptions(
                     name: tcontext.meta.getProfile,
                     onPush: () async {
-                      onTapGetProfile(context, tcontext.meta.getProfile,
-                          profile.url, remoteISPConfig.id);
-                    })),
-          ]));
+                      onTapGetProfile(
+                        context,
+                        tcontext.meta.getProfile,
+                        profile.url,
+                        remoteISPConfig.id,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
         }
       }
 
@@ -1017,193 +1202,224 @@ class GroupHelper {
     Future<void> Function(BuildContext context)? onFirstLayout;
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("addProfile"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.addProfile,
-                  getOptions: getOptions,
-                  onFirstLayout: onFirstLayout,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("addProfile"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.addProfile,
+          getOptions: getOptions,
+          onFirstLayout: onFirstLayout,
+        ),
+      ),
+    );
   }
 
   static Future<void> showDns(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       List<Tuple2<String, String>> tupleStrings = [
-        Tuple2(SettingConfigItemDNSProxyResolveMode.fakeip.name,
-            tcontext.dnsProxyResolveMode.fakeip),
-        Tuple2(SettingConfigItemDNSProxyResolveMode.proxy.name,
-            tcontext.dnsProxyResolveMode.proxy),
-        Tuple2(SettingConfigItemDNSProxyResolveMode.direct.name,
-            tcontext.dnsProxyResolveMode.direct),
+        Tuple2(
+          SettingConfigItemDNSProxyResolveMode.fakeip.name,
+          tcontext.dnsProxyResolveMode.fakeip,
+        ),
+        Tuple2(
+          SettingConfigItemDNSProxyResolveMode.proxy.name,
+          tcontext.dnsProxyResolveMode.proxy,
+        ),
+        Tuple2(
+          SettingConfigItemDNSProxyResolveMode.direct.name,
+          tcontext.dnsProxyResolveMode.direct,
+        ),
       ];
 
       List<GroupItemOptions> options0 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-          name: "TUN HijackDNS",
-          tips: tcontext.SettingsScreen.tunHijackTips,
-          switchValue: settingConfig.tun.hijackDns,
-          onSwitch: (bool value) async {
-            settingConfig.tun.hijackDns = value;
-            SettingManager.setDirty(true);
-          },
-        )),
+          switchOptions: GroupItemSwitchOptions(
+            name: "TUN HijackDNS",
+            tips: tcontext.SettingsScreen.tunHijackTips,
+            switchValue: settingConfig.tun.hijackDns,
+            onSwitch: (bool value) async {
+              settingConfig.tun.hijackDns = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.inboundDomainResolve,
-                tips: tcontext.SettingsScreen.inboundDomainResolveTips(
-                    p: "${settingConfig.proxy.mixedRulePort},${settingConfig.proxy.mixedRuleNetSharePort}"),
-                switchValue: settingConfig.dns.enableInboundDomainResolve,
-                onSwitch: (bool value) async {
-                  settingConfig.dns.enableInboundDomainResolve = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.inboundDomainResolve,
+            tips: tcontext.SettingsScreen.inboundDomainResolveTips(
+              p: "${settingConfig.proxy.mixedRulePort},${settingConfig.proxy.mixedRuleNetSharePort}",
+            ),
+            switchValue: settingConfig.dns.enableInboundDomainResolve,
+            onSwitch: (bool value) async {
+              settingConfig.dns.enableInboundDomainResolve = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-          name: tcontext.meta.staticIP,
-          tips: tcontext.meta.staticIPTips,
-          onPush: () async {
-            onTapDNSStaticIP(context);
-          },
-        )),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.staticIP,
+            tips: tcontext.meta.staticIPTips,
+            onPush: () async {
+              onTapDNSStaticIP(context);
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options2 = [
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.dnsTestDomain,
-                  text: SettingManager.getConfig().dns.testDomain,
-                  textWidthPercent: 0.5,
-                  onPush: () async {
-                    String? text = await DialogUtils.showTextInputDialog(
-                        context,
-                        tcontext.SettingsScreen.dnsTestDomain,
-                        SettingManager.getConfig().dns.testDomain,
-                        null,
-                        null,
-                        null, (text) {
-                      text = text.trim();
-                      if (text.isEmpty) {
-                        return false;
-                      }
-
-                      if (!NetworkUtils.isDomain(text, false)) {
-                        DialogUtils.showAlertDialog(context,
-                            tcontext.SettingsScreen.dnsTestDomainInvalid);
-                        return false;
-                      }
-                      return true;
-                    });
-                    if (text == null) {
-                      return;
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.dnsTestDomain,
+              text: SettingManager.getConfig().dns.testDomain,
+              textWidthPercent: 0.5,
+              onPush: () async {
+                String? text = await DialogUtils.showTextInputDialog(
+                  context,
+                  tcontext.SettingsScreen.dnsTestDomain,
+                  SettingManager.getConfig().dns.testDomain,
+                  null,
+                  null,
+                  null,
+                  (text) {
+                    text = text.trim();
+                    if (text.isEmpty) {
+                      return false;
                     }
-                    SettingManager.getConfig().dns.testDomain = text;
-                    SettingManager.setDirty(true);
-                    SettingManager.saveConfig();
-                  }))
+
+                    if (!NetworkUtils.isDomain(text, false)) {
+                      DialogUtils.showAlertDialog(
+                        context,
+                        tcontext.SettingsScreen.dnsTestDomainInvalid,
+                      );
+                      return false;
+                    }
+                    return true;
+                  },
+                );
+                if (text == null) {
+                  return;
+                }
+                SettingManager.getConfig().dns.testDomain = text;
+                SettingManager.setDirty(true);
+                SettingManager.saveConfig();
+              },
+            ),
+          ),
         ],
       ];
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: "TTL",
-                duration: settingConfig.dns.ttl,
-                showDisable: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration == null) {
-                    return;
-                  }
-                  if (duration == settingConfig.dns.ttl) {
-                    return;
-                  }
-                  if (duration.inDays > 365) {
-                    duration = const Duration(days: 365);
-                  }
-                  if (duration.inSeconds < 5) {
-                    duration = const Duration(seconds: 5);
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: "TTL",
+            duration: settingConfig.dns.ttl,
+            showMilliSeconds: false,
+            showDisable: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration == null) {
+                return;
+              }
+              if (duration == settingConfig.dns.ttl) {
+                return;
+              }
+              if (duration.inDays > 365) {
+                duration = const Duration(days: 365);
+              }
+              if (duration.inSeconds < 5) {
+                duration = const Duration(seconds: 5);
+              }
 
-                  settingConfig.dns.ttl = duration;
-                  SettingManager.setDirty(true);
-                  SettingManager.saveConfig();
-                }))
+              settingConfig.dns.ttl = duration;
+              SettingManager.setDirty(true);
+              SettingManager.saveConfig();
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options4 = [
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.dnsEnableRule,
-                  switchValue: settingConfig.dns.enableRule,
-                  tips: tcontext.SettingsScreen.dnsEnableRuleTips,
-                  onSwitch: !settingConfig.tun.hijackDns
-                      ? null
-                      : (bool value) async {
-                          settingConfig.dns.enableRule = value;
-                          SettingManager.setDirty(true);
-                        })),
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.dnsEnableRule,
+              switchValue: settingConfig.dns.enableRule,
+              tips: tcontext.SettingsScreen.dnsEnableRuleTips,
+              onSwitch: !settingConfig.tun.hijackDns
+                  ? null
+                  : (bool value) async {
+                      settingConfig.dns.enableRule = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.dnsEnableClientSubnet,
-                  switchValue: settingConfig.dns.enableClientSubnet,
-                  onSwitch: !settingConfig.tun.hijackDns
-                      ? null
-                      : (bool value) async {
-                          settingConfig.dns.enableClientSubnet = value;
-                          SettingManager.setDirty(true);
-                        }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.dnsEnableClientSubnet,
+              switchValue: settingConfig.dns.enableClientSubnet,
+              onSwitch: !settingConfig.tun.hijackDns
+                  ? null
+                  : (bool value) async {
+                      settingConfig.dns.enableClientSubnet = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
         ],
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.SettingsScreen.dnsEnableProxyResolveMode,
-                tips: tcontext.dnsProxyResolveModeTips,
-                selected: settingConfig.dns.proxyResolveMode.name,
-                textWidthPercent: 0.5,
-                tupleStrings: tupleStrings,
-                onPicker: !settingConfig.tun.hijackDns && !settingConfig.novice
-                    ? null
-                    : (String? selected) async {
-                        if (selected == null ||
-                            selected ==
-                                settingConfig.dns.proxyResolveMode.name) {
-                          return;
-                        }
-                        if (selected ==
-                            SettingConfigItemDNSProxyResolveMode.proxy.name) {
-                          settingConfig.dns.proxyResolveMode =
-                              SettingConfigItemDNSProxyResolveMode.proxy;
-                        } else if (selected ==
-                            SettingConfigItemDNSProxyResolveMode.direct.name) {
-                          settingConfig.dns.proxyResolveMode =
-                              SettingConfigItemDNSProxyResolveMode.direct;
-                        } else if (selected ==
-                            SettingConfigItemDNSProxyResolveMode.fakeip.name) {
-                          settingConfig.dns.proxyResolveMode =
-                              SettingConfigItemDNSProxyResolveMode.fakeip;
-                        } else {
-                          settingConfig.dns.proxyResolveMode =
-                              SettingConfigItemDNSProxyResolveMode.proxy;
-                        }
-                        SettingManager.setDirty(true);
-                      })),
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.SettingsScreen.dnsEnableProxyResolveMode,
+            tips: tcontext.dnsProxyResolveModeTips,
+            selected: settingConfig.dns.proxyResolveMode.name,
+            textWidthPercent: 0.5,
+            tupleStrings: tupleStrings,
+            onPicker: !settingConfig.tun.hijackDns && !settingConfig.novice
+                ? null
+                : (String? selected) async {
+                    if (selected == null ||
+                        selected == settingConfig.dns.proxyResolveMode.name) {
+                      return;
+                    }
+                    if (selected ==
+                        SettingConfigItemDNSProxyResolveMode.proxy.name) {
+                      settingConfig.dns.proxyResolveMode =
+                          SettingConfigItemDNSProxyResolveMode.proxy;
+                    } else if (selected ==
+                        SettingConfigItemDNSProxyResolveMode.direct.name) {
+                      settingConfig.dns.proxyResolveMode =
+                          SettingConfigItemDNSProxyResolveMode.direct;
+                    } else if (selected ==
+                        SettingConfigItemDNSProxyResolveMode.fakeip.name) {
+                      settingConfig.dns.proxyResolveMode =
+                          SettingConfigItemDNSProxyResolveMode.fakeip;
+                    } else {
+                      settingConfig.dns.proxyResolveMode =
+                          SettingConfigItemDNSProxyResolveMode.proxy;
+                    }
+                    SettingManager.setDirty(true);
+                  },
+          ),
+        ),
       ];
       List<GroupItemOptions> options5 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.server,
-                textWidthPercent: 0.5,
-                onPush: () async {
-                  onTapDNSServer(context);
-                }))
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.server,
+            textWidthPercent: 0.5,
+            onPush: () async {
+              onTapDNSServer(context);
+            },
+          ),
+        ),
       ];
 
       if (settingConfig.novice) {
@@ -1224,48 +1440,56 @@ class GroupHelper {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("dns"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.dns,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("dns"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.dns, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> showDeversion(BuildContext context) async {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
-      country.Country currentCountry =
-          SettingManager.getConfig().currentCountry();
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      country.Country currentCountry = SettingManager.getConfig()
+          .currentCountry();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.RegionSettingsScreen.title,
-                text: currentCountry.isoShortNameByLocale[
-                    SettingConfig.languageTagForCountry()],
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: RegionSettingsScreen.routSettings(),
-                          builder: (context) => const RegionSettingsScreen(
-                                canPop: true,
-                                canGoBack: true,
-                                nextText: null,
-                              )));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.RegionSettingsScreen.title,
+            text: currentCountry
+                .isoShortNameByLocale[SettingConfig.languageTagForCountry()],
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: RegionSettingsScreen.routSettings(),
+                  builder: (context) => const RegionSettingsScreen(
+                    canPop: true,
+                    canGoBack: true,
+                    nextText: null,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: "Rule Set",
-                onPush: () async {
-                  await onTapRuleset(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: "Rule Set",
+            onPush: () async {
+              await onTapRuleset(context);
+            },
+          ),
+        ),
       ];
       Set<String> allOutboundsTags = {};
       VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null);
@@ -1284,96 +1508,111 @@ class GroupHelper {
       List<GroupItemOptions> options2 = [
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.frontProxy,
-                  tips: tcontext.SettingsScreen.frontProxyTips(
-                      p: tcontext.outboundRuleMode.currentSelected),
-                  text: frontProxy,
-                  textStyle: TextStyle(
-                    fontFamily: Platform.isWindows ? 'Emoji' : null,
-                    color: invalidOutbounds.isNotEmpty ? Colors.red : null,
-                  ),
-                  onPush: () async {
-                    String oldData = settingConfig.frontProxy.join(",");
-                    List<String> chain = settingConfig.frontProxy.toList();
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: ListAddScreen.routSettings("frontProxy"),
-                            builder: (context) => ListAddScreen(
-                                title: tcontext.meta.server,
-                                data: chain,
-                                invalidData: invalidOutbounds,
-                                onTapAdd: () async {
-                                  ProxyConfig? result = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          settings:
-                                              ServerSelectScreen.routSettings(),
-                                          builder: (context) =>
-                                              ServerSelectScreen(
-                                                singleSelect:
-                                                    ServerSelectScreenSingleSelectedOption(
-                                                  selectedServer: ProxyConfig(),
-                                                  showNone: false,
-                                                  showAutoSelect: false,
-                                                  showUrltestGroup: false,
-                                                  showFav: false,
-                                                  showRecommend: false,
-                                                  showRecent: false,
-                                                  showTranffic: false,
-                                                  showUpdate: false,
-                                                ),
-                                                multiSelect: null,
-                                              )));
-                                  if (result == null ||
-                                      result.groupid.isEmpty) {
-                                    return null;
-                                  }
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.frontProxy,
+              tips: tcontext.SettingsScreen.frontProxyTips(
+                p: tcontext.outboundRuleMode.currentSelected,
+              ),
+              text: frontProxy,
+              textStyle: TextStyle(
+                fontFamily: Platform.isWindows ? 'Emoji' : null,
+                color: invalidOutbounds.isNotEmpty ? Colors.red : null,
+              ),
+              onPush: () async {
+                String oldData = settingConfig.frontProxy.join(",");
+                List<String> chain = settingConfig.frontProxy.toList();
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: ListAddScreen.routSettings("frontProxy"),
+                    builder: (context) => ListAddScreen(
+                      title: tcontext.meta.server,
+                      data: chain,
+                      invalidData: invalidOutbounds,
+                      onTapAdd: () async {
+                        ProxyConfig? result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            settings: ServerSelectScreen.routSettings(),
+                            builder: (context) => ServerSelectScreen(
+                              singleSelect:
+                                  ServerSelectScreenSingleSelectedOption(
+                                    selectedServer: ProxyConfig(),
+                                    showNone: false,
+                                    showAutoSelect: false,
+                                    showUrltestGroup: false,
+                                    showFav: false,
+                                    showRecommend: false,
+                                    showRecent: false,
+                                    showTranffic: false,
+                                    showUpdate: false,
+                                  ),
+                              multiSelect: null,
+                            ),
+                          ),
+                        );
+                        if (result == null || result.groupid.isEmpty) {
+                          return null;
+                        }
 
-                                  return result.tag;
-                                })));
-                    String newData = chain.join(",");
-                    if (oldData != newData) {
-                      settingConfig.frontProxy = chain;
-                      SettingManager.setDirty(true);
-                    }
-                  }))
+                        return result.tag;
+                      },
+                    ),
+                  ),
+                );
+                String newData = chain.join(",");
+                if (oldData != newData) {
+                  settingConfig.frontProxy = chain;
+                  SettingManager.setDirty(true);
+                }
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.urlTestCustomGroup,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: UrlTestGroupCustomScreen.routSettings(),
-                          builder: (context) =>
-                              const UrlTestGroupCustomScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.urlTestCustomGroup,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: UrlTestGroupCustomScreen.routSettings(),
+                  builder: (context) => const UrlTestGroupCustomScreen(),
+                ),
+              );
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options3 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.diversionRules,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionRulesScreen.routSettings(),
-                          builder: (context) => const DiversionRulesScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.diversionRules,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: DiversionRulesScreen.routSettings(),
+                  builder: (context) => const DiversionRulesScreen(),
+                ),
+              );
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.DiversionRuleDetectScreen.title,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DiversionRuleDetectScreen.routSettings(),
-                          builder: (context) =>
-                              const DiversionRuleDetectScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.DiversionRuleDetectScreen.title,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: DiversionRuleDetectScreen.routSettings(),
+                  builder: (context) => const DiversionRuleDetectScreen(),
+                ),
+              );
+            },
+          ),
+        ),
       ];
 
       return [
@@ -1385,233 +1624,276 @@ class GroupHelper {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("diversion"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.diversion,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("diversion"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.diversion, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> onTapRuleset(BuildContext context) async {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.rulesetGeoSite,
-                onPush: () async {
-                  await onTapGeoSite(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.rulesetGeoSite,
+            onPush: () async {
+              await onTapGeoSite(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.rulesetGeoIp,
-                onPush: () async {
-                  await onTapGeoIP(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.rulesetGeoIp,
+            onPush: () async {
+              await onTapGeoIP(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.rulesetAcl,
-                onPush: () async {
-                  await onTapAcl(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.rulesetAcl,
+            onPush: () async {
+              await onTapAcl(context);
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options0 = [
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.meta.updateInterval,
-                duration: settingConfig.ruleSets.updateInterval,
-                showDays: true,
-                showHours: true,
-                showMinutes: false,
-                showSeconds: false,
-                showDisable: false,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration != null) {
-                    if (duration.inHours < 1) {
-                      duration = const Duration(hours: 1);
-                    }
-                  }
-                  if (duration == settingConfig.ruleSets.updateInterval) {
-                    return;
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.meta.updateInterval,
+            duration: settingConfig.ruleSets.updateInterval,
+            showDays: true,
+            showHours: true,
+            showMinutes: false,
+            showSeconds: false,
+            showMilliSeconds: false,
+            showDisable: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration != null) {
+                if (duration.inHours < 1) {
+                  duration = const Duration(hours: 1);
+                }
+              }
+              if (duration == settingConfig.ruleSets.updateInterval) {
+                return;
+              }
 
-                  settingConfig.ruleSets.updateInterval =
-                      duration ?? const Duration(hours: 24);
-                  SettingManager.setDirty(true);
-                })),
+              settingConfig.ruleSets.updateInterval =
+                  duration ?? const Duration(hours: 24);
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.rulesetDirectDownlad,
-                onPush: () async {
-                  await onTapRuleSetDirectDownload(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.rulesetDirectDownlad,
+            onPush: () async {
+              await onTapRuleSetDirectDownload(context);
+            },
+          ),
+        ),
       ];
 
       return [
         GroupItem(options: options),
         GroupItem(options: options0),
-        GroupItem(options: options1)
+        GroupItem(options: options1),
       ];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("Rule Set"),
-            builder: (context) => GroupScreen(
-                  title: "Rule Set",
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("Rule Set"),
+        builder: (context) =>
+            GroupScreen(title: "Rule Set", getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> onTapGeoSite(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.ruleSets.enableGeoSite,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.enableGeoSite = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.ruleSets.enableGeoSite,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.enableGeoSite = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.autoAppendRegion,
-                switchValue: settingConfig.ruleSets.autoAppendRegionGeoSite,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.autoAppendRegionGeoSite = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoAppendRegion,
+            switchValue: settingConfig.ruleSets.autoAppendRegionGeoSite,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.autoAppendRegionGeoSite = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.useRomoteRes,
-                switchValue: settingConfig.ruleSets.useRemoteGeoSite,
-                tips: remoteConfig.geosite,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.useRemoteGeoSite = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.useRomoteRes,
+            switchValue: settingConfig.ruleSets.useRemoteGeoSite,
+            tips: remoteConfig.geosite,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.useRemoteGeoSite = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("rulesetGeoSite"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.rulesetGeoSite,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rulesetGeoSite"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.rulesetGeoSite,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> onTapGeoIP(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.ruleSets.enableGeoIp,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.enableGeoIp = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.ruleSets.enableGeoIp,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.enableGeoIp = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.autoAppendRegion,
-                switchValue: settingConfig.ruleSets.autoAppendRegionGeoIp,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.autoAppendRegionGeoIp = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.autoAppendRegion,
+            switchValue: settingConfig.ruleSets.autoAppendRegionGeoIp,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.autoAppendRegionGeoIp = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.useRomoteRes,
-                switchValue: settingConfig.ruleSets.useRemoteGeoIp,
-                tips: remoteConfig.geoip,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.useRemoteGeoIp = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.useRomoteRes,
+            switchValue: settingConfig.ruleSets.useRemoteGeoIp,
+            tips: remoteConfig.geoip,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.useRemoteGeoIp = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("rulesetGeoIp"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.rulesetGeoIp,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rulesetGeoIp"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.rulesetGeoIp,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> onTapAcl(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.ruleSets.enableAcl,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.enableAcl = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.ruleSets.enableAcl,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.enableAcl = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.useRomoteRes,
-                switchValue: settingConfig.ruleSets.useRemoteAcl,
-                tips: remoteConfig.acl,
-                onSwitch: (bool value) async {
-                  settingConfig.ruleSets.useRemoteAcl = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.useRomoteRes,
+            switchValue: settingConfig.ruleSets.useRemoteAcl,
+            tips: remoteConfig.acl,
+            onSwitch: (bool value) async {
+              settingConfig.ruleSets.useRemoteAcl = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("rulesetAcl"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.rulesetAcl,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rulesetAcl"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.rulesetAcl,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> onTapRuleSetDirectDownload(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [];
       List<String> hosts = [];
       var remoteConfig = RemoteConfigManager.getConfig();
@@ -1631,48 +1913,59 @@ class GroupHelper {
       }
       hosts.sort((a, b) => a.compareTo(b));
       for (var host in hosts) {
-        options.add(GroupItemOptions(
+        options.add(
+          GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
-                name: host,
-                switchValue:
-                    ServerManager.getUse().rulesetDirectDownload.contains(host),
-                onSwitch: (bool value) async {
-                  var use = ServerManager.getUse();
-                  if (value) {
-                    use.rulesetDirectDownload.add(host);
-                  } else {
-                    use.rulesetDirectDownload.remove(host);
-                  }
-                  ServerManager.setDirty(true);
-                })));
+              name: host,
+              switchValue: ServerManager.getUse().rulesetDirectDownload
+                  .contains(host),
+              onSwitch: (bool value) async {
+                var use = ServerManager.getUse();
+                if (value) {
+                  use.rulesetDirectDownload.add(host);
+                } else {
+                  use.rulesetDirectDownload.remove(host);
+                }
+                ServerManager.setDirty(true);
+              },
+            ),
+          ),
+        );
       }
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("rulesetDirectDownlad"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.SettingsScreen.rulesetDirectDownlad,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("rulesetDirectDownlad"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.rulesetDirectDownlad,
+          getOptions: getOptions,
+        ),
+      ),
+    );
     if (ServerManager.getDirty()) {
       ServerManager.saveUse();
     }
   }
 
   static Future<void> onTapGetProfile(
-      BuildContext context, String title, String url, String ispId) async {
+    BuildContext context,
+    String title,
+    String url,
+    String ispId,
+  ) async {
     Uri? uri = Uri.tryParse(url);
     if (uri == null) {
       return;
     }
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'get_profile',
-        parameters: {"title": title, "url": url, "isp_id": ispId},
-        repeatable: true);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeUA,
+      name: 'get_profile',
+      parameters: {"title": title, "url": url, "isp_id": ispId},
+      repeatable: true,
+    );*/
 
     var remoteConfig = RemoteConfigManager.getConfig();
     if (RemoteConfig.isSelfHost(url, remoteConfig.host)) {
@@ -1687,109 +1980,139 @@ class GroupHelper {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: InAppWebViewScreen.routSettings("get_profile"),
-            builder: (context) => InAppWebViewScreen(
-                  title: title,
-                  url: url,
-                  showGoBackGoForward: true,
-                  setJSWindowObject: true,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: InAppWebViewScreen.routSettings("get_profile"),
+        builder: (context) => InAppWebViewScreen(
+          title: title,
+          url: url,
+          showGoBackGoForward: true,
+          setJSWindowObject: true,
+        ),
+      ),
+    );
   }
 
   static Future<void> showBackupAndSync(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         if (Platform.isIOS || Platform.isMacOS) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.iCloud,
-                  onPush: () async {
-                    onTapiCloud(context);
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.iCloud,
+              onPush: () async {
+                onTapiCloud(context);
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.webdav,
-                onPush: () async {
-                  onTapWebdav(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.webdav,
+            onPush: () async {
+              onTapWebdav(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.lanSync,
-                onPush: () async {
-                  onTapLanSync(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.lanSync,
+            onPush: () async {
+              onTapLanSync(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.importAndExport,
-                onPush: () async {
-                  onTapImportExport(context);
-                }))
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.importAndExport,
+            onPush: () async {
+              onTapImportExport(context);
+            },
+          ),
+        ),
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.autoBackup,
-                onPush: () async {
-                  onTapAutoBackup(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.autoBackup,
+            onPush: () async {
+              onTapAutoBackup(context);
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("backupAndSync"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.backupAndSync,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("backupAndSync"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.backupAndSync,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> onTapiCloud(BuildContext context) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: BackupAndSyncIcloudScreen.routSettings(),
-            builder: (context) => const BackupAndSyncIcloudScreen()));
+      context,
+      MaterialPageRoute(
+        settings: BackupAndSyncIcloudScreen.routSettings(),
+        builder: (context) => const BackupAndSyncIcloudScreen(),
+      ),
+    );
   }
 
   static Future<void> onTapWebdav(BuildContext context) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: BackupAndSyncWebdavScreen.routSettings(),
-            builder: (context) => const BackupAndSyncWebdavScreen()));
+      context,
+      MaterialPageRoute(
+        settings: BackupAndSyncWebdavScreen.routSettings(),
+        builder: (context) => const BackupAndSyncWebdavScreen(),
+      ),
+    );
   }
 
   static Future<void> onTapLanSyncSendTo(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.qrcode,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: BackupAndSyncLanSyncScreen.routSettings(),
-                          builder: (context) => BackupAndSyncLanSyncScreen(
-                              title: tcontext.meta.send, syncUpload: false)));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.qrcode,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: BackupAndSyncLanSyncScreen.routSettings(),
+                  builder: (context) => BackupAndSyncLanSyncScreen(
+                    title: tcontext.meta.send,
+                    syncUpload: false,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
         if (PlatformUtils.isMobile()) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.qrcodeScan,
-                  onPush: () async {
-                    onTapSyncByScanQRcode(context, true);
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.qrcodeScan,
+              onPush: () async {
+                onTapSyncByScanQRcode(context, true);
+              },
+            ),
+          ),
         ],
       ];
       return [GroupItem(options: options)];
@@ -1799,38 +2122,48 @@ class GroupHelper {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("send"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.send,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("send"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.send, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> onTapLanSyncReceiveFrom(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.qrcode,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: BackupAndSyncLanSyncScreen.routSettings(),
-                          builder: (context) => BackupAndSyncLanSyncScreen(
-                              title: tcontext.meta.receive, syncUpload: true)));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.qrcode,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: BackupAndSyncLanSyncScreen.routSettings(),
+                  builder: (context) => BackupAndSyncLanSyncScreen(
+                    title: tcontext.meta.receive,
+                    syncUpload: true,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
         if (PlatformUtils.isMobile()) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.qrcodeScan,
-                  onPush: () async {
-                    onTapSyncByScanQRcode(context, false);
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.meta.qrcodeScan,
+              onPush: () async {
+                onTapSyncByScanQRcode(context, false);
+              },
+            ),
+          ),
         ],
       ];
       return [GroupItem(options: options)];
@@ -1840,33 +2173,39 @@ class GroupHelper {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("receive"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.receive,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("receive"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.receive, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> onTapLanSync(BuildContext context) async {
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.send,
-                onPush: () async {
-                  onTapLanSyncSendTo(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.send,
+            onPush: () async {
+              onTapLanSyncSendTo(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.receive,
-                onPush: () async {
-                  onTapLanSyncReceiveFrom(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.receive,
+            onPush: () async {
+              onTapLanSyncReceiveFrom(context);
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options)];
     }
@@ -1875,17 +2214,19 @@ class GroupHelper {
       return;
     }
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("BackupAndSyncLanSyncScreen"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.lanSync,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("BackupAndSyncLanSyncScreen"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.lanSync, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<ImportConfirmResult> showImportConfirmDialog(
-      BuildContext context, String zipPath) async {
+    BuildContext context,
+    String zipPath,
+  ) async {
     if (!context.mounted) {
       return ImportConfirmResult();
     }
@@ -1915,77 +2256,92 @@ class GroupHelper {
     Future<List<GroupItem>> getGroupOptions(StateSetter setState) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.myProfiles,
-                switchValue: myprofiles,
-                onSwitch: (bool value) async {
-                  myprofiles = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.myProfiles,
+            switchValue: myprofiles,
+            onSwitch: (bool value) async {
+              myprofiles = value;
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.diversion,
-                switchValue: diversion,
-                onSwitch: (bool value) async {
-                  diversion = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.diversion,
+            switchValue: diversion,
+            onSwitch: (bool value) async {
+              diversion = value;
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.setting,
-                switchValue: settings,
-                onSwitch: (bool value) async {
-                  settings = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.setting,
+            switchValue: settings,
+            onSwitch: (bool value) async {
+              settings = value;
+              setState(() {});
+            },
+          ),
+        ),
         if (hasISP) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.meta.isp,
-                  switchValue: isp,
-                  onSwitch: (bool value) async {
-                    isp = value;
-                    setState(() {});
-                  }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.meta.isp,
+              switchValue: isp,
+              onSwitch: (bool value) async {
+                isp = value;
+                setState(() {});
+              },
+            ),
+          ),
         ],
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.tunMode,
-                switchValue: tun,
-                onSwitch: (bool value) async {
-                  if (value && Platform.isWindows) {
-                    bool admin = VPNService.isRunAsAdmin();
-                    if (!admin) {
-                      await DialogUtils.showAlertDialog(
-                          context, tcontext.SettingsScreen.tunModeRunAsAdmin);
-                      return;
-                    }
-                  }
-                  tun = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.tunMode,
+            switchValue: tun,
+            onSwitch: (bool value) async {
+              if (value && Platform.isWindows) {
+                bool admin = VPNService.isRunAsAdmin();
+                if (!admin) {
+                  await DialogUtils.showAlertDialog(
+                    context,
+                    tcontext.SettingsScreen.tunModeRunAsAdmin,
+                  );
+                  return;
+                }
+              }
+              tun = value;
+              setState(() {});
+            },
+          ),
+        ),
         if (Platform.isAndroid) ...[
           GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.mergePerapp,
-                  switchValue: mergePerapp,
-                  onSwitch: (bool value) async {
-                    mergePerapp = value;
-                    setState(() {});
-                  }))
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.mergePerapp,
+              switchValue: mergePerapp,
+              onSwitch: (bool value) async {
+                mergePerapp = value;
+                setState(() {});
+              },
+            ),
+          ),
         ],
       ];
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     bool? ok = await showDialog<bool>(
-        context: context,
-        routeSettings: const RouteSettings(name: "showImportConfirmDialog"),
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return StatefulBuilder(builder: (stfContext, stfSetState) {
+      context: context,
+      routeSettings: const RouteSettings(name: "showImportConfirmDialog"),
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (stfContext, stfSetState) {
             return SimpleDialog(
               title: Text(
                 tcontext.SettingsScreen.rewriteConfirm,
@@ -1996,20 +2352,26 @@ class GroupHelper {
               children: [
                 FutureBuilder(
                   future: getGroupOptions(stfSetState),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<GroupItem>> snapshot) {
-                    List<GroupItem> data =
-                        snapshot.hasData ? snapshot.data! : [];
-                    return SizedBox(
-                        width: windowSize.width,
-                        child: Column(
-                            children:
-                                GroupItemCreator.createGroups(context, data)));
-                  },
+                  builder:
+                      (
+                        BuildContext context,
+                        AsyncSnapshot<List<GroupItem>> snapshot,
+                      ) {
+                        List<GroupItem> data = snapshot.hasData
+                            ? snapshot.data!
+                            : [];
+                        return SizedBox(
+                          width: windowSize.width,
+                          child: Column(
+                            children: GroupItemCreator.createGroups(
+                              context,
+                              data,
+                            ),
+                          ),
+                        );
+                      },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -2023,9 +2385,7 @@ class GroupHelper {
                         Navigator.pop(context, true);
                       },
                     ),
-                    const SizedBox(
-                      width: 60,
-                    ),
+                    const SizedBox(width: 60),
                     ElevatedButton(
                       child: Text(tcontext.meta.cancel),
                       onPressed: () {
@@ -2036,11 +2396,13 @@ class GroupHelper {
                       },
                     ),
                   ],
-                )
+                ),
               ],
             );
-          });
-        });
+          },
+        );
+      },
+    );
     if (ok != true) {
       return ImportConfirmResult();
     }
@@ -2058,11 +2420,16 @@ class GroupHelper {
       whiteList.add(PathUtils.remoteISPConfigFileName());
     }
     return ImportConfirmResult(
-        whiletList: whiteList, tun: tun, mergePerapp: mergePerapp);
+      whiletList: whiteList,
+      tun: tun,
+      mergePerapp: mergePerapp,
+    );
   }
 
   static Future<ReturnResultError?> restoreBackupFromUrl(
-      BuildContext context, String url) async {
+    BuildContext context,
+    String url,
+  ) async {
     Uri? downloadUri = Uri.tryParse(url);
     if (downloadUri == null) {
       return ReturnResultError("invalid URL: $url");
@@ -2072,7 +2439,9 @@ class GroupHelper {
     }
     final tcontext = Translations.of(context);
     bool? ok = await DialogUtils.showConfirmDialog(
-        context, tcontext.SettingsScreen.rewriteConfirm);
+      context,
+      tcontext.SettingsScreen.rewriteConfirm,
+    );
     if (ok != true) {
       return null;
     }
@@ -2083,15 +2452,25 @@ class GroupHelper {
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
     var result = await HttpUtils.httpDownload(
-        downloadUri, filePath, null, null, const Duration(seconds: 10));
+      downloadUri,
+      filePath,
+      null,
+      null,
+      const Duration(seconds: 10),
+    );
 
     if (!context.mounted) {
       return null;
     }
     Navigator.pop(context);
     if (result.error != null) {
-      DialogUtils.showAlertDialog(context, result.error!.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
       return ReturnResultError(result.error!.message);
     }
     await backupRestoreFromZip(context, filePath, confirm: false);
@@ -2099,8 +2478,11 @@ class GroupHelper {
     return null;
   }
 
-  static Future<void> backupRestoreFromZip(BuildContext context, String zipPath,
-      {bool confirm = false}) async {
+  static Future<void> backupRestoreFromZip(
+    BuildContext context,
+    String zipPath, {
+    bool confirm = false,
+  }) async {
     if (!context.mounted) {
       return;
     }
@@ -2109,37 +2491,51 @@ class GroupHelper {
     if (confirm) {
       importResult = await showImportConfirmDialog(context, zipPath);
     } else {
-      importResult = ImportConfirmResult(whiletList: {
-        PathUtils.subscribeFileName(),
-        PathUtils.diversionGroupFileName(),
-        PathUtils.subscribeUseFileName(),
-        PathUtils.settingFileName(),
-        PathUtils.remoteISPConfigFileName(),
-      });
+      importResult = ImportConfirmResult(
+        whiletList: {
+          PathUtils.subscribeFileName(),
+          PathUtils.diversionGroupFileName(),
+          PathUtils.subscribeUseFileName(),
+          PathUtils.settingFileName(),
+          PathUtils.remoteISPConfigFileName(),
+        },
+      );
     }
 
     if (importResult.whiletList == null || importResult.whiletList!.isEmpty) {
       return;
     }
 
-    var error = await ServerManager.reloadFromZip(zipPath,
-        whiteList: importResult.whiletList!,
-        tun: importResult.tun,
-        mergePerapp: importResult.mergePerapp);
+    var error = await ServerManager.reloadFromZip(
+      zipPath,
+      whiteList: importResult.whiletList!,
+      tun: importResult.tun,
+      mergePerapp: importResult.mergePerapp,
+    );
     if (!context.mounted) {
       return;
     }
     if (error != null) {
-      DialogUtils.showAlertDialog(context, error.message,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        error.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     } else {
       DialogUtils.showAlertDialog(
-          context, tcontext.SettingsScreen.importSuccess);
+        context,
+        tcontext.SettingsScreen.importSuccess,
+      );
     }
   }
 
   static Future<void> syncByScanQRcode(
-      BuildContext context, String qrcode, bool send) async {
+    BuildContext context,
+    String qrcode,
+    bool send,
+  ) async {
     final tcontext = Translations.of(context);
     if (qrcode.isEmpty) {
       return;
@@ -2172,8 +2568,14 @@ class GroupHelper {
     for (String host in hosts) {
       if (host.isNotEmpty) {
         if (NetworkUtils.isIpv4(host)) {
-          result = await HttpUtils.httpGetRequest("http://$host:$targetPort/",
-              proxyPort, null, const Duration(seconds: 3), null, null);
+          result = await HttpUtils.httpGetRequest(
+            "http://$host:$targetPort/",
+            proxyPort,
+            null,
+            const Duration(seconds: 3),
+            null,
+            null,
+          );
           if (result.error == null || result.error!.message.contains("404")) {
             targetHost = host;
             break;
@@ -2187,12 +2589,20 @@ class GroupHelper {
     if (targetHost == null) {
       if (result != null && result.error != null) {
         DialogUtils.showAlertDialog(
-            context, tcontext.targetConnectFailed(p: result.error!.message),
-            showCopy: true, showFAQ: true, withVersion: true);
+          context,
+          tcontext.targetConnectFailed(p: result.error!.message),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       } else {
         DialogUtils.showAlertDialog(
-            context, tcontext.targetConnectFailed(p: ips),
-            showCopy: true, showFAQ: true, withVersion: true);
+          context,
+          tcontext.targetConnectFailed(p: ips),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       }
       return;
     }
@@ -2203,8 +2613,12 @@ class GroupHelper {
     if (uri.host == AppSchemeActions.syncDownloadAction()) {
       if (send) {
         DialogUtils.showAlertDialog(
-            context, tcontext.sendOrReceiveNotMatch(p: tcontext.meta.receive),
-            showCopy: false, showFAQ: true, withVersion: true);
+          context,
+          tcontext.sendOrReceiveNotMatch(p: tcontext.meta.receive),
+          showCopy: false,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
       if (filename.isEmpty) {
@@ -2215,13 +2629,23 @@ class GroupHelper {
       String zipPath = path.join(dir, filename);
       String url = "http://$targetHost:$targetPort/${uri.host}";
       ReturnResult<HttpHeaders> result = await HttpUtils.httpDownload(
-          Uri.parse(url), zipPath, proxyPort, null, null);
+        Uri.parse(url),
+        zipPath,
+        proxyPort,
+        null,
+        null,
+      );
       if (result.error != null) {
         if (!context.mounted) {
           return;
         }
-        DialogUtils.showAlertDialog(context, result.error!.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          result.error!.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
       if (!context.mounted) {
@@ -2231,12 +2655,18 @@ class GroupHelper {
     } else if (uri.host == AppSchemeActions.syncUploadAction()) {
       if (!send) {
         DialogUtils.showAlertDialog(
-            context, tcontext.sendOrReceiveNotMatch(p: tcontext.meta.send),
-            showCopy: true, showFAQ: true, withVersion: true);
+          context,
+          tcontext.sendOrReceiveNotMatch(p: tcontext.meta.send),
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
       bool? ok = await DialogUtils.showConfirmDialog(
-          context, tcontext.meta.sendConfirm);
+        context,
+        tcontext.meta.sendConfirm,
+      );
       if (ok != true) {
         return;
       }
@@ -2245,26 +2675,42 @@ class GroupHelper {
         return;
       }
       String zipPath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-      ReturnResultError? error =
-          await ServerManager.backupToZip(context, zipPath);
+      ReturnResultError? error = await ServerManager.backupToZip(
+        context,
+        zipPath,
+      );
       if (error != null) {
         if (!context.mounted) {
           return;
         }
-        DialogUtils.showAlertDialog(context, error.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          error.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
         return;
       }
       String url = "http://$targetHost:$targetPort/${uri.host}";
-      ReturnResultError? err =
-          await HttpUtils.httpUpload(Uri.parse(url), zipPath, proxyPort, null);
+      ReturnResultError? err = await HttpUtils.httpUpload(
+        Uri.parse(url),
+        zipPath,
+        proxyPort,
+        null,
+      );
       FileUtils.deletePath(zipPath);
       if (!context.mounted) {
         return;
       }
       if (err != null) {
-        DialogUtils.showAlertDialog(context, err.message,
-            showCopy: true, showFAQ: true, withVersion: true);
+        DialogUtils.showAlertDialog(
+          context,
+          err.message,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
       } else {
         DialogUtils.showAlertDialog(context, tcontext.meta.done);
       }
@@ -2272,12 +2718,16 @@ class GroupHelper {
   }
 
   static Future<void> onTapSyncByScanQRcode(
-      BuildContext context, bool send) async {
+    BuildContext context,
+    bool send,
+  ) async {
     var qrcode = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: QrcodeScanScreen.routSettings(),
-            builder: (context) => const QrcodeScanScreen()));
+      context,
+      MaterialPageRoute(
+        settings: QrcodeScanScreen.routSettings(),
+        builder: (context) => const QrcodeScanScreen(),
+      ),
+    );
     if (!context.mounted) {
       return;
     }
@@ -2294,10 +2744,12 @@ class GroupHelper {
       return;
     }
     String? qrcode = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: QrcodeScanScreen.routSettings(),
-            builder: (context) => const QrcodeScanScreen()));
+      context,
+      MaterialPageRoute(
+        settings: QrcodeScanScreen.routSettings(),
+        builder: (context) => const QrcodeScanScreen(),
+      ),
+    );
     if (qrcode == null) {
       return;
     }
@@ -2308,7 +2760,9 @@ class GroupHelper {
   }
 
   static Future<ReturnResultError?> showAppleTVByUrl(
-      BuildContext context, String qrcode) async {
+    BuildContext context,
+    String qrcode,
+  ) async {
     final tcontext = Translations.of(context);
     Uri? uri = Uri.tryParse(qrcode);
     if (uri == null || uri.host != AppSchemeActions.appleTVHost()) {
@@ -2323,7 +2777,10 @@ class GroupHelper {
     String secret = uri.queryParameters['secret'] ?? '';
     String coreVersion = uri.queryParameters['coreversion'] ?? '';
     int value = VersionCompareUtils.compareVersionWithLength(
-        SettingConfig.kCoreVersion, coreVersion, 2);
+      SettingConfig.kCoreVersion,
+      coreVersion,
+      2,
+    );
     if (value != 0) {
       late String message;
       if (value < 0) {
@@ -2371,8 +2828,14 @@ class GroupHelper {
     for (String host in hosts) {
       if (host.isNotEmpty) {
         if (NetworkUtils.isIpv4(host)) {
-          result = await HttpUtils.httpGetRequest("http://$host:$targetPort/",
-              proxyPort, null, const Duration(seconds: 1), null, null);
+          result = await HttpUtils.httpGetRequest(
+            "http://$host:$targetPort/",
+            proxyPort,
+            null,
+            const Duration(seconds: 1),
+            null,
+            null,
+          );
           if (result.error == null || result.error!.message.contains("404")) {
             targetHost = host;
             break;
@@ -2391,24 +2854,31 @@ class GroupHelper {
       } else {
         err = tcontext.targetConnectFailed(p: ips);
       }
-      DialogUtils.showAlertDialog(context, err,
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
 
       return ReturnResultError(err);
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: HomeTVOSScreen.routSettings(),
-            builder: (context) => HomeTVOSScreen(
-                  host: targetHost!,
-                  port: targetPort,
-                  cport: cport,
-                  uuid: uuid,
-                  secret: secret,
-                  version: version,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: HomeTVOSScreen.routSettings(),
+        builder: (context) => HomeTVOSScreen(
+          host: targetHost!,
+          port: targetPort,
+          cport: cport,
+          uuid: uuid,
+          secret: secret,
+          version: version,
+        ),
+      ),
+    );
     return null;
   }
 
@@ -2416,26 +2886,34 @@ class GroupHelper {
     final tcontext = Translations.of(context);
 
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.import,
-                onPush: () async {
-                  onTapImport(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.import,
+            onPush: () async {
+              onTapImport(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.importFromUrl,
-                onPush: () async {
-                  onTapImportFromUrl(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.importFromUrl,
+            onPush: () async {
+              onTapImportFromUrl(context);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.export,
-                onPush: () async {
-                  onTapExport(context);
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.export,
+            onPush: () async {
+              onTapExport(context);
+            },
+          ),
+        ),
       ];
       return [GroupItem(options: options)];
     }
@@ -2445,13 +2923,15 @@ class GroupHelper {
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("importAndExport"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.importAndExport,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("importAndExport"),
+        builder: (context) => GroupScreen(
+          title: tcontext.meta.importAndExport,
+          getOptions: getOptions,
+        ),
+      ),
+    );
   }
 
   static Future<void> onTapImport(BuildContext context) async {
@@ -2470,38 +2950,55 @@ class GroupHelper {
         String ext = path.extension(filePath).replaceAll('.', '').toLowerCase();
         if (!extensions.contains(ext)) {
           DialogUtils.showAlertDialog(
-              context, tcontext.meta.fileTypeInvalid(p: ext));
+            context,
+            tcontext.meta.fileTypeInvalid(p: ext),
+          );
           return;
         }
         if (!context.mounted) {
           return;
         }
-        await GroupHelper.backupRestoreFromZip(context, filePath,
-            confirm: true);
+        await GroupHelper.backupRestoreFromZip(
+          context,
+          filePath,
+          confirm: true,
+        );
       }
     } catch (err, stacktrace) {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
   static Future<void> onTapImportFromUrl(BuildContext context) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
-        context, tcontext.meta.url, "", null, null, null, (text) {
-      text = text.trim();
+      context,
+      tcontext.meta.url,
+      "",
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
 
-      Uri? uri = Uri.tryParse(text);
-      if (uri == null || (!uri.isScheme("HTTP") && !uri.isScheme("HTTPS"))) {
-        DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
-        return false;
-      }
+        Uri? uri = Uri.tryParse(text);
+        if (uri == null || (!uri.isScheme("HTTP") && !uri.isScheme("HTTPS"))) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.urlInvalid);
+          return false;
+        }
 
-      return true;
-    });
+        return true;
+      },
+    );
 
     if (text != null) {
       if (!context.mounted) {
@@ -2528,36 +3025,44 @@ class GroupHelper {
         if (!context.mounted) {
           return;
         }
-        ReturnResultError? error =
-            await ServerManager.backupToZip(context, filePath);
+        ReturnResultError? error = await ServerManager.backupToZip(
+          context,
+          filePath,
+        );
         if (!context.mounted) {
           FileUtils.deletePath(filePath);
           return;
         }
         if (error != null) {
-          DialogUtils.showAlertDialog(context, error.message,
-              showCopy: true, showFAQ: true, withVersion: true);
+          DialogUtils.showAlertDialog(
+            context,
+            error.message,
+            showCopy: true,
+            showFAQ: true,
+            withVersion: true,
+          );
           return;
         }
         if (PlatformUtils.isMobile()) {
           try {
             final box = context.findRenderObject() as RenderBox?;
-            final rect =
-                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            final rect = box != null
+                ? box.localToGlobal(Offset.zero) & box.size
+                : null;
             await SharePlus.instance.share(
-              ShareParams(
-                files: [
-                  XFile(filePath),
-                ],
-                sharePositionOrigin: rect,
-              ),
+              ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
           } catch (err) {
             if (!context.mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
+            DialogUtils.showAlertDialog(
+              context,
+              err.toString(),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
         }
       }
@@ -2565,94 +3070,112 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(context, err.toString(),
-          showCopy: true, showFAQ: true, withVersion: true);
+      DialogUtils.showAlertDialog(
+        context,
+        err.toString(),
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
     }
   }
 
   static void onTapAutoBackup(BuildContext context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: BackupAndSyncAutoBackupScreen.routSettings(),
-            builder: (context) => BackupAndSyncAutoBackupScreen()));
+      context,
+      MaterialPageRoute(
+        settings: BackupAndSyncAutoBackupScreen.routSettings(),
+        builder: (context) => BackupAndSyncAutoBackupScreen(),
+      ),
+    );
   }
 
   static Future<void> onTapDNSStaticIP(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
 
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.enable,
-                switchValue: settingConfig.dns.enableStaticIP,
-                onSwitch: (bool value) async {
-                  settingConfig.dns.enableStaticIP = value;
-                  SettingManager.setDirty(true);
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            switchValue: settingConfig.dns.enableStaticIP,
+            onSwitch: (bool value) async {
+              settingConfig.dns.enableStaticIP = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.staticIP,
-                onPush: () async {
-                  String oldData = settingConfig.dns.staticIPs.toString();
-                  List<Tuple2<String, List<String>>> hs = [];
-                  settingConfig.dns.staticIPs.forEach((key, value) {
-                    hs.add(Tuple2(key, value));
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.staticIP,
+            onPush: () async {
+              String oldData = settingConfig.dns.staticIPs.toString();
+              List<Tuple2<String, List<String>>> hs = [];
+              settingConfig.dns.staticIPs.forEach((key, value) {
+                hs.add(Tuple2(key, value));
+              });
+
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: MapStringAndListAddScreen.routSettings(),
+                  builder: (context) => MapStringAndListAddScreen(
+                    title: tcontext.meta.staticIP,
+                    data: hs,
+                    dialogTitle1: tcontext.meta.domain,
+                    dialogTextHit1: "google.com",
+                    dialogTitle2: tcontext.meta.ip,
+                    dialogTextHit2: "93.46.8.90",
+                  ),
+                ),
+              );
+
+              settingConfig.dns.staticIPs.clear();
+              for (var h in hs) {
+                settingConfig.dns.staticIPs[h.item1] = h.item2;
+              }
+
+              String newData = settingConfig.dns.staticIPs.toString();
+              if (oldData != newData) {
+                settingConfig.dns.staticIPs.forEach((key, value) {
+                  value.removeWhere((ele) {
+                    return !NetworkUtils.isIpv4(ele) &&
+                        !NetworkUtils.isIpv6(ele);
                   });
-
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: MapStringAndListAddScreen.routSettings(),
-                          builder: (context) => MapStringAndListAddScreen(
-                              title: tcontext.meta.staticIP,
-                              data: hs,
-                              dialogTitle1: tcontext.meta.domain,
-                              dialogTextHit1: "google.com",
-                              dialogTitle2: tcontext.meta.ip,
-                              dialogTextHit2: "93.46.8.90")));
-
-                  settingConfig.dns.staticIPs.clear();
-                  for (var h in hs) {
-                    settingConfig.dns.staticIPs[h.item1] = h.item2;
-                  }
-
-                  String newData = settingConfig.dns.staticIPs.toString();
-                  if (oldData != newData) {
-                    settingConfig.dns.staticIPs.forEach((key, value) {
-                      value.removeWhere((ele) {
-                        return !NetworkUtils.isIpv4(ele) &&
-                            !NetworkUtils.isIpv6(ele);
-                      });
-                    });
-                    settingConfig.dns.staticIPs.removeWhere((key, value) {
-                      return !NetworkUtils.isDomain(key, false);
-                    });
-                    SettingManager.setDirty(true);
-                  }
-                })),
+                });
+                settingConfig.dns.staticIPs.removeWhere((key, value) {
+                  return !NetworkUtils.isDomain(key, false);
+                });
+                SettingManager.setDirty(true);
+              }
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("staticIP"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.staticIP,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("staticIP"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.staticIP, getOptions: getOptions),
+      ),
+    );
   }
 
   static Future<void> onTapDNSServer(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
-        BuildContext context, SetStateCallback? setstate) async {
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
       var settingConfig = SettingManager.getConfig();
       bool tunMode = await VPNService.getTunMode();
 
@@ -2664,107 +3187,131 @@ class GroupHelper {
 
       List<GroupItemOptions> options = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.dnsTypeResolver,
-                tips: tcontext.SettingsScreen.dnsTypeResolverTips,
-                text: resolver.length == 1 ? resolver[0] : "${resolver[0]}...",
-                textWidthPercent: 0.5,
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DnsSettingsScreen.routSettings(),
-                          builder: (context) => DnsSettingsScreen(
-                              title: tcontext.SettingsScreen.dnsTypeResolver,
-                              dnsType: DNSType.dnsTypeResolver)));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.dnsTypeResolver,
+            tips: tcontext.SettingsScreen.dnsTypeResolverTips,
+            text: resolver.length == 1 ? resolver[0] : "${resolver[0]}...",
+            textWidthPercent: 0.5,
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: DnsSettingsScreen.routSettings(),
+                  builder: (context) => DnsSettingsScreen(
+                    title: tcontext.SettingsScreen.dnsTypeResolver,
+                    dnsType: DNSType.dnsTypeResolver,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
         if (!settingConfig.novice) ...[
           GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.dnsTypeOutbound,
-                  tips: tcontext.SettingsScreen.dnsTypeOutboundTips,
-                  text:
-                      outbound.length == 1 ? outbound[0] : "${outbound[0]}...",
-                  onPush: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            settings: DnsSettingsScreen.routSettings(),
-                            builder: (context) => DnsSettingsScreen(
-                                title: tcontext.SettingsScreen.dnsTypeOutbound,
-                                dnsType: DNSType.dnsTypeOutbound)));
-                  }))
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.dnsTypeOutbound,
+              tips: tcontext.SettingsScreen.dnsTypeOutboundTips,
+              text: outbound.length == 1 ? outbound[0] : "${outbound[0]}...",
+              onPush: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    settings: DnsSettingsScreen.routSettings(),
+                    builder: (context) => DnsSettingsScreen(
+                      title: tcontext.SettingsScreen.dnsTypeOutbound,
+                      dnsType: DNSType.dnsTypeOutbound,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.dnsTypeDirect,
-                tips: tcontext.SettingsScreen.dnsTypeDirectTips,
-                text: direct.length == 1 ? direct[0] : "${direct[0]}...",
-                textWidthPercent: 0.5,
-                onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
-                    ? null
-                    : () async {
-                        await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                settings: DnsSettingsScreen.routSettings(),
-                                builder: (context) => DnsSettingsScreen(
-                                    title:
-                                        tcontext.SettingsScreen.dnsTypeDirect,
-                                    dnsType: DNSType.dnsTypeDirect)));
-                      })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.dnsTypeDirect,
+            tips: tcontext.SettingsScreen.dnsTypeDirectTips,
+            text: direct.length == 1 ? direct[0] : "${direct[0]}...",
+            textWidthPercent: 0.5,
+            onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
+                ? null
+                : () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: DnsSettingsScreen.routSettings(),
+                        builder: (context) => DnsSettingsScreen(
+                          title: tcontext.SettingsScreen.dnsTypeDirect,
+                          dnsType: DNSType.dnsTypeDirect,
+                        ),
+                      ),
+                    );
+                  },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.dnsTypeProxy,
-                tips: tcontext.SettingsScreen.dnsTypeProxyTips,
-                text: proxy.length == 1 ? proxy[0] : "${proxy[0]}...",
-                textWidthPercent: 0.5,
-                onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
-                    ? null
-                    : () async {
-                        await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                settings: DnsSettingsScreen.routSettings(),
-                                builder: (context) => DnsSettingsScreen(
-                                    title: tcontext.SettingsScreen.dnsTypeProxy,
-                                    dnsType: DNSType.dnsTypeProxy)));
-                      })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.dnsTypeProxy,
+            tips: tcontext.SettingsScreen.dnsTypeProxyTips,
+            text: proxy.length == 1 ? proxy[0] : "${proxy[0]}...",
+            textWidthPercent: 0.5,
+            onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
+                ? null
+                : () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: DnsSettingsScreen.routSettings(),
+                        builder: (context) => DnsSettingsScreen(
+                          title: tcontext.SettingsScreen.dnsTypeProxy,
+                          dnsType: DNSType.dnsTypeProxy,
+                        ),
+                      ),
+                    );
+                  },
+          ),
+        ),
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.dnsAutoSetServer,
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: DnsAutoSetupScreen.routSettings(),
-                          builder: (context) => const DnsAutoSetupScreen()));
-                })),
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.dnsAutoSetServer,
+            onPush: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: DnsAutoSetupScreen.routSettings(),
+                  builder: (context) => const DnsAutoSetupScreen(),
+                ),
+              );
+            },
+          ),
+        ),
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.dnsResetServer,
-                onPush: () async {
-                  settingConfig.dns.setOutboundDns([]);
-                  settingConfig.dns.setDirectDns([]);
-                  settingConfig.dns.setProxyDns([]);
-                  settingConfig.dns.setResolverDns([]);
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.SettingsScreen.dnsResetServer,
+            onPush: () async {
+              settingConfig.dns.setOutboundDns([]);
+              settingConfig.dns.setDirectDns([]);
+              settingConfig.dns.setProxyDns([]);
+              settingConfig.dns.setResolverDns([]);
 
-                  SettingManager.setDirty(true);
-                })),
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
       ];
 
       return [GroupItem(options: options), GroupItem(options: options1)];
     }
 
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            settings: GroupScreen.routSettings("server"),
-            builder: (context) => GroupScreen(
-                  title: tcontext.meta.server,
-                  getOptions: getOptions,
-                )));
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("server"),
+        builder: (context) =>
+            GroupScreen(title: tcontext.meta.server, getOptions: getOptions),
+      ),
+    );
   }
 }

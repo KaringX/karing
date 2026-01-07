@@ -79,81 +79,75 @@ class _LanguageSettingsScreenState
     Size windowSize = MediaQuery.of(context).size;
     var setting = SettingManager.getConfig();
     return PopScope(
-        canPop: widget.canPop,
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.zero,
-              child: AppBar(),
-            ),
-            body: Focus(
-              onKeyEvent: onKeyEvent,
-              canRequestFocus: false,
-              skipTraversal: true,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            widget.canGoBack == true
-                                ? InkWell(
-                                    onTap: () => Navigator.pop(context),
-                                    child: const SizedBox(
-                                      width: 50,
-                                      height: 30,
-                                      child: Icon(
-                                        Icons.arrow_back_ios_outlined,
-                                        size: 26,
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(
-                                    width: 50,
-                                    height: 30,
+      canPop: widget.canPop,
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: Focus(
+          onKeyEvent: onKeyEvent,
+          canRequestFocus: false,
+          skipTraversal: true,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        widget.canGoBack == true
+                            ? InkWell(
+                                onTap: () => Navigator.pop(context),
+                                child: const SizedBox(
+                                  width: 50,
+                                  height: 30,
+                                  child: Icon(
+                                    Icons.arrow_back_ios_outlined,
+                                    size: 26,
                                   ),
-                            SizedBox(
-                              width: windowSize.width - 50 - 65,
-                              child: Text(
-                                tcontext.meta.language,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontWeight: ThemeConfig.kFontWeightTitle,
-                                    fontSize: ThemeConfig.kFontSizeTitle),
-                              ),
+                                ),
+                              )
+                            : const SizedBox(width: 50, height: 30),
+                        SizedBox(
+                          width: windowSize.width - 50 - 65,
+                          child: Text(
+                            tcontext.meta.language,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: ThemeConfig.kFontWeightTitle,
+                              fontSize: ThemeConfig.kFontSizeTitle,
                             ),
-                            widget.nextText != null
-                                ? SizedBox(
-                                    width: 65,
-                                    height: 30,
-                                    child: InkWell(
-                                      autofocus: setting.ui.tvMode,
-                                      focusNode: _focusNodeNext,
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        textAlign: TextAlign.center,
-                                        widget.nextText!.call(),
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontWeight:
-                                                ThemeConfig.kFontWeightListItem,
-                                            fontSize:
-                                                ThemeConfig.kFontSizeListItem),
-                                      ),
-                                    ))
-                                : const SizedBox(
-                                    width: 50,
-                                  ),
-                          ],
+                          ),
                         ),
-                      ),
-                      /*Container(
+                        widget.nextText != null
+                            ? SizedBox(
+                                width: 65,
+                                height: 30,
+                                child: InkWell(
+                                  autofocus: setting.ui.tvMode,
+                                  focusNode: _focusNodeNext,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    widget.nextText!.call(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight:
+                                          ThemeConfig.kFontWeightListItem,
+                                      fontSize: ThemeConfig.kFontSizeListItem,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                  /*Container(
                         margin: const EdgeInsets.only(
                           top: 10,
                         ),
@@ -173,7 +167,7 @@ class _LanguageSettingsScreenState
                             icon: Icon(
                               Icons.search_outlined,
                             ),
-                            hintText: tcontext.search,
+                            hintText: tcontext.meta.search,
                             suffixIcon: _searchController.text.isNotEmpty
                                 ? IconButton(
                                     icon: const Icon(Icons.clear_outlined),
@@ -183,17 +177,15 @@ class _LanguageSettingsScreenState
                           ),
                         ),
                       ),*/
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: _loadListView(),
-                      ),
-                    ],
-                  ),
-                ),
+                  const SizedBox(height: 10),
+                  Expanded(child: _loadListView()),
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
@@ -211,20 +203,18 @@ class _LanguageSettingsScreenState
 
   Widget _loadListView() {
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            var current = _searchedData[index];
-            return createWidget(current);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          var current = _searchedData[index];
+          return createWidget(current);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(dynamic current) {
@@ -238,9 +228,7 @@ class _LanguageSettingsScreenState
           onTapItem(current);
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: ThemeConfig.kListItemHeight2,
           child: Row(
@@ -260,7 +248,7 @@ class _LanguageSettingsScreenState
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],

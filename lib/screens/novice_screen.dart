@@ -41,95 +41,96 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
     Size windowSize = MediaQuery.of(context).size;
     var setting = SettingManager.getConfig();
     return PopScope(
-        canPop: false,
-        child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.zero,
-              child: AppBar(),
-            ),
-            body: Focus(
-              onKeyEvent: onKeyEvent,
-              canRequestFocus: false,
-              skipTraversal: true,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(
-                                    width: 50,
+      canPop: false,
+      child: Scaffold(
+        appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+        body: Focus(
+          onKeyEvent: onKeyEvent,
+          canRequestFocus: false,
+          skipTraversal: true,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 50),
+                              SizedBox(
+                                width: windowSize.width - 50 - 65,
+                                child: Text(
+                                  tcontext.meta.setting,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: ThemeConfig.kFontWeightTitle,
+                                    fontSize: ThemeConfig.kFontSizeTitle,
                                   ),
-                                  SizedBox(
-                                    width: windowSize.width - 50 - 65,
-                                    child: Text(
-                                      tcontext.meta.setting,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontWeight:
-                                              ThemeConfig.kFontWeightTitle,
-                                          fontSize: ThemeConfig.kFontSizeTitle),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width: 65,
-                                      height: 30,
-                                      child: InkWell(
-                                        autofocus: setting.ui.tvMode,
-                                        focusNode: _focusNodeNext,
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          textAlign: TextAlign.center,
-                                          tcontext.meta.done,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight:
-                                                ThemeConfig.kFontWeightListItem,
-                                            fontSize:
-                                                ThemeConfig.kFontSizeListItem,
-                                          ),
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: FutureBuilder(
-                                  future: getGroupOptions(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<List<GroupItem>> snapshot) {
-                                    List<GroupItem> data =
-                                        snapshot.hasData ? snapshot.data! : [];
-                                    return Column(
-                                        children: GroupItemCreator.createGroups(
-                                            context, data));
-                                  },
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 65,
+                                height: 30,
+                                child: InkWell(
+                                  autofocus: setting.ui.tvMode,
+                                  focusNode: _focusNodeNext,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    tcontext.meta.done,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontWeight:
+                                          ThemeConfig.kFontWeightListItem,
+                                      fontSize: ThemeConfig.kFontSizeListItem,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: FutureBuilder(
+                              future: getGroupOptions(),
+                              builder:
+                                  (
+                                    BuildContext context,
+                                    AsyncSnapshot<List<GroupItem>> snapshot,
+                                  ) {
+                                    List<GroupItem> data = snapshot.hasData
+                                        ? snapshot.data!
+                                        : [];
+                                    return Column(
+                                      children: GroupItemCreator.createGroups(
+                                        context,
+                                        data,
+                                      ),
+                                    );
+                                  },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   KeyEventResult onKeyEvent(FocusNode node, KeyEvent event) {
@@ -150,16 +151,17 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
 
     List<GroupItemOptions> options0 = [
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-        name: tcontext.meta.novice,
-        switchValue: settingConfig.novice,
-        onSwitch: (bool value) async {
-          settingConfig.novice = value;
-          SettingManager.saveConfig();
-          SettingManager.setDirty(true);
-          setState(() {});
-        },
-      )),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.novice,
+          switchValue: settingConfig.novice,
+          onSwitch: (bool value) async {
+            settingConfig.novice = value;
+            SettingManager.saveConfig();
+            SettingManager.setDirty(true);
+            setState(() {});
+          },
+        ),
+      ),
     ];
 
     groupOptions.add(GroupItem(options: options0));

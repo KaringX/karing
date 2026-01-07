@@ -47,8 +47,10 @@ class _CloudflareWarpAccountScreenState
   FutureOr<void> afterFirstLayout(BuildContext context) async {
     var settingConfig = SettingManager.getConfig();
     if (settingConfig.warp.account.license.isNotEmpty) {
-      await CloudflareWarpApi.getDevice(settingConfig.warp.account.deviceId,
-          settingConfig.warp.account.token);
+      await CloudflareWarpApi.getDevice(
+        settingConfig.warp.account.deviceId,
+        settingConfig.warp.account.token,
+      );
       //await CloudflareWarpApi.getDevices(
       //    warpConfig.warpAccount.deviceId, warpConfig.warpAccount.token);
     }
@@ -61,10 +63,7 @@ class _CloudflareWarpAccountScreenState
     var settingConfig = SettingManager.getConfig();
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -80,10 +79,7 @@ class _CloudflareWarpAccountScreenState
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -93,8 +89,9 @@ class _CloudflareWarpAccountScreenState
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     Row(
@@ -102,9 +99,7 @@ class _CloudflareWarpAccountScreenState
                         _loading
                             ? const Row(
                                 children: [
-                                  SizedBox(
-                                    width: 12,
-                                  ),
+                                  SizedBox(width: 12),
                                   SizedBox(
                                     width: 26,
                                     height: 26,
@@ -112,9 +107,7 @@ class _CloudflareWarpAccountScreenState
                                       child: CircularProgressIndicator(),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 12,
-                                  )
+                                  SizedBox(width: 12),
                                 ],
                               )
                             : InkWell(
@@ -129,7 +122,10 @@ class _CloudflareWarpAccountScreenState
                                   }*/
 
                                   if (settingConfig
-                                      .warp.account.license.isNotEmpty) {
+                                      .warp
+                                      .account
+                                      .license
+                                      .isNotEmpty) {
                                     settingConfig.warp.account = WarpAccount();
                                     SettingManager.saveConfig();
                                     if (!mounted) {
@@ -145,18 +141,19 @@ class _CloudflareWarpAccountScreenState
                                   setState(() {});
 
                                   ReturnResult<WarpAccount> account =
-                                      await CloudflareWarpUtils
-                                          .gen25PBWarpAccount();
+                                      await CloudflareWarpUtils.gen25PBWarpAccount();
 
                                   if (account.error != null) {
                                     if (!context.mounted) {
                                       return;
                                     }
                                     DialogUtils.showAlertDialog(
-                                        context, account.error!.message,
-                                        showCopy: true,
-                                        showFAQ: true,
-                                        withVersion: true);
+                                      context,
+                                      account.error!.message,
+                                      showCopy: true,
+                                      showFAQ: true,
+                                      withVersion: true,
+                                    );
                                   } else {
                                     settingConfig.warp.account = account.data!;
                                     SettingManager.saveConfig();
@@ -170,8 +167,12 @@ class _CloudflareWarpAccountScreenState
                                 child: SizedBox(
                                   width: 50,
                                   height: 30,
-                                  child: settingConfig
-                                          .warp.account.license.isNotEmpty
+                                  child:
+                                      settingConfig
+                                          .warp
+                                          .account
+                                          .license
+                                          .isNotEmpty
                                       ? const Icon(
                                           Icons.clear_outlined,
                                           size: 26,
@@ -188,25 +189,33 @@ class _CloudflareWarpAccountScreenState
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
-                  child: SingleChildScrollView(
-                child: Column(children: [
-                  FutureBuilder(
-                    future: getGroupOptions(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<GroupItem>> snapshot) {
-                      List<GroupItem> data =
-                          snapshot.hasData ? snapshot.data! : [];
-                      return Column(
-                          children:
-                              GroupItemCreator.createGroups(context, data));
-                    },
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      FutureBuilder(
+                        future: getGroupOptions(),
+                        builder:
+                            (
+                              BuildContext context,
+                              AsyncSnapshot<List<GroupItem>> snapshot,
+                            ) {
+                              List<GroupItem> data = snapshot.hasData
+                                  ? snapshot.data!
+                                  : [];
+                              return Column(
+                                children: GroupItemCreator.createGroups(
+                                  context,
+                                  data,
+                                ),
+                              );
+                            },
+                      ),
+                    ],
                   ),
-                ]),
-              )),
+                ),
+              ),
             ],
           ),
         ),
@@ -221,41 +230,51 @@ class _CloudflareWarpAccountScreenState
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          textOptions: GroupItemTextOptions(
-        name: "Account Type",
-        text: settingConfig.warp.account.accountType,
-      )),
+        textOptions: GroupItemTextOptions(
+          name: "Account Type",
+          text: settingConfig.warp.account.accountType,
+        ),
+      ),
       GroupItemOptions(
-          textOptions: GroupItemTextOptions(
-              name: "Account Id",
-              text: settingConfig.warp.account.id,
-              onPush: () async {
-                try {
-                  await Clipboard.setData(
-                      ClipboardData(text: settingConfig.warp.account.id));
-                } catch (e) {}
-              })),
+        textOptions: GroupItemTextOptions(
+          name: "Account Id",
+          text: settingConfig.warp.account.id,
+          onPush: () async {
+            try {
+              await Clipboard.setData(
+                ClipboardData(text: settingConfig.warp.account.id),
+              );
+            } catch (e) {}
+          },
+        ),
+      ),
       GroupItemOptions(
-          textOptions: GroupItemTextOptions(
-        name: "Warp+",
-        text: settingConfig.warp.account.warpPlus ? "YES" : "NO",
-      )),
+        textOptions: GroupItemTextOptions(
+          name: "Warp+",
+          text: settingConfig.warp.account.warpPlus ? "YES" : "NO",
+        ),
+      ),
       GroupItemOptions(
-          textOptions: GroupItemTextOptions(
-              name: "License",
-              text: settingConfig.warp.account.license,
-              onPush: () async {
-                try {
-                  await Clipboard.setData(
-                      ClipboardData(text: settingConfig.warp.account.license));
-                } catch (e) {}
-              })),
+        textOptions: GroupItemTextOptions(
+          name: "License",
+          text: settingConfig.warp.account.license,
+          onPush: () async {
+            try {
+              await Clipboard.setData(
+                ClipboardData(text: settingConfig.warp.account.license),
+              );
+            } catch (e) {}
+          },
+        ),
+      ),
       GroupItemOptions(
-          textOptions: GroupItemTextOptions(
-        name: "Premium Data",
-        text: ProxyConfUtils.convertTrafficToStringDouble(
-            settingConfig.warp.account.premiumData),
-      )),
+        textOptions: GroupItemTextOptions(
+          name: "Premium Data",
+          text: ProxyConfUtils.convertTrafficToStringDouble(
+            settingConfig.warp.account.premiumData,
+          ),
+        ),
+      ),
       /* GroupItemOptions(
           textOptions: GroupItemTextOptions(
         name: "Usage",

@@ -210,10 +210,10 @@ class TranslationsAboutScreenEn {
 	String get autoDownloadPkg => 'Auto Download Update Packages';
 
 	/// en: 'Application Improvement Data'
-	String get disableUAReport => 'Application Improvement Data';
+	String get disableAppImproveData => 'Application Improvement Data';
 
-	/// en: '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]'
-	String get disableUAReportTip => '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]';
+	/// en: 'Enabling [Application Improvement Data] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.'
+	String get disableUAReportTip => 'Enabling [${_root.AboutScreen.disableAppImproveData}] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.';
 
 	/// en: 'Developer Options'
 	String get devOptions => 'Developer Options';
@@ -2044,8 +2044,8 @@ extension on Translations {
 			'AboutScreen.installTime' => 'Install Time',
 			'AboutScreen.versionChannel' => 'Auto Update Channel',
 			'AboutScreen.autoDownloadPkg' => 'Auto Download Update Packages',
-			'AboutScreen.disableUAReport' => 'Application Improvement Data',
-			'AboutScreen.disableUAReportTip' => '[App Improvement Data] helps us improve the product experience; versions lower than the main version will automatically turn off all [App Improvement Data] except [App Activation]',
+			'AboutScreen.disableAppImproveData' => 'Application Improvement Data',
+			'AboutScreen.disableUAReportTip' => 'Enabling [${_root.AboutScreen.disableAppImproveData}] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.',
 			'AboutScreen.devOptions' => 'Developer Options',
 			'AboutScreen.enableDebugLog' => 'Enable Debug Log',
 			'AboutScreen.viewFilsContent' => 'View Files',

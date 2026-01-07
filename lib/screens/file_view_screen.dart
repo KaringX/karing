@@ -73,10 +73,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -90,10 +87,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -103,8 +97,9 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   if (widget.content.isNotEmpty) ...[
@@ -112,20 +107,19 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       onTap: () {
                         try {
                           Clipboard.setData(
-                              ClipboardData(text: widget.content));
+                            ClipboardData(text: widget.content),
+                          );
                         } catch (e) {}
                       },
                       child: Tooltip(
-                          message: tcontext.meta.copy,
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.copy,
-                              size: 26,
-                            ),
-                          )),
-                    )
+                        message: tcontext.meta.copy,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.copy, size: 26),
+                        ),
+                      ),
+                    ),
                   ],
                   if (widget.onSave != null) ...[
                     InkWell(
@@ -133,27 +127,21 @@ class _FileViewScreenState extends State<FileViewScreen> {
                         widget.onSave!(context, _controller.text);
                       },
                       child: Tooltip(
-                          message: tcontext.meta.save,
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.done,
-                              size: 26,
-                            ),
-                          )),
-                    )
+                        message: tcontext.meta.save,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.done, size: 26),
+                        ),
+                      ),
+                    ),
                   ],
                   if (widget.content.isEmpty && widget.onSave == null) ...[
-                    const SizedBox(
-                      width: 50,
-                    ),
+                    const SizedBox(width: 50),
                   ],
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
@@ -170,26 +158,27 @@ class _FileViewScreenState extends State<FileViewScreen> {
                         child: child,
                       );
                     },
-                    indicatorBuilder: (
-                      context,
-                      editingController,
-                      chunkController,
-                      notifier,
-                    ) {
-                      return Row(
-                        children: [
-                          DefaultCodeLineNumber(
-                            controller: editingController,
-                            notifier: notifier,
-                          ),
-                          DefaultCodeChunkIndicator(
-                            width: 20,
-                            controller: chunkController,
-                            notifier: notifier,
-                          )
-                        ],
-                      );
-                    },
+                    indicatorBuilder:
+                        (
+                          context,
+                          editingController,
+                          chunkController,
+                          notifier,
+                        ) {
+                          return Row(
+                            children: [
+                              DefaultCodeLineNumber(
+                                controller: editingController,
+                                notifier: notifier,
+                              ),
+                              DefaultCodeChunkIndicator(
+                                width: 20,
+                                controller: chunkController,
+                                notifier: notifier,
+                              ),
+                            ],
+                          );
+                        },
                     shortcutsActivatorsBuilder:
                         DefaultCodeShortcutsActivatorsBuilder(),
                     controller: _controller,
@@ -197,12 +186,8 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       fontSize: 14,
                       codeTheme: CodeHighlightTheme(
                         languages: {
-                          'yaml': CodeHighlightThemeMode(
-                            mode: langYaml,
-                          ),
-                          'json': CodeHighlightThemeMode(
-                            mode: langJson,
-                          )
+                          'yaml': CodeHighlightThemeMode(mode: langYaml),
+                          'json': CodeHighlightThemeMode(mode: langJson),
                         },
                         theme: atomOneLightTheme,
                       ),

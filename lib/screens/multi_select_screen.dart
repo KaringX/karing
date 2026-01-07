@@ -27,12 +27,13 @@ class MultiSelectScreen extends LasyRenderingStatefulWidget {
   final List<String> selectedData;
   final bool showKey;
 
-  const MultiSelectScreen(
-      {super.key,
-      required this.title,
-      required this.getData,
-      this.selectedData = const [],
-      this.showKey = false});
+  const MultiSelectScreen({
+    super.key,
+    required this.title,
+    required this.getData,
+    this.selectedData = const [],
+    this.showKey = false,
+  });
 
   @override
   State<MultiSelectScreen> createState() => _MultiSelectScreenState();
@@ -89,10 +90,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -108,10 +106,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                       ),
                     ),
                     SizedBox(
@@ -121,8 +116,9 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
+                          fontWeight: ThemeConfig.kFontWeightTitle,
+                          fontSize: ThemeConfig.kFontSizeTitle,
+                        ),
                       ),
                     ),
                     InkWell(
@@ -130,22 +126,15 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                       child: const SizedBox(
                         width: 50,
                         height: 30,
-                        child: Icon(
-                          Icons.done_outlined,
-                          size: 26,
-                        ),
+                        child: Icon(Icons.done_outlined, size: 26),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                ),
+                margin: const EdgeInsets.only(top: 10),
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 height: 44,
                 width: double.infinity,
@@ -159,9 +148,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    icon: Icon(
-                      Icons.search_outlined,
-                    ),
+                    icon: Icon(Icons.search_outlined),
                     hintText: tcontext.meta.search,
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -172,12 +159,8 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: _loadListView(),
-              ),
+              const SizedBox(height: 10),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -188,20 +171,18 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
   Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
-        thumbVisibility: true,
-        child: ListView.separated(
-          itemCount: _searchedData.length,
-          itemBuilder: (BuildContext context, int index) {
-            MultiSelectScreenDateItem current = _searchedData[index];
-            return createWidget(current, windowSize);
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              height: 1,
-              thickness: 0.3,
-            );
-          },
-        ));
+      thumbVisibility: true,
+      child: ListView.separated(
+        itemCount: _searchedData.length,
+        itemBuilder: (BuildContext context, int index) {
+          MultiSelectScreenDateItem current = _searchedData[index];
+          return createWidget(current, windowSize);
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 1, thickness: 0.3);
+        },
+      ),
+    );
   }
 
   Widget createWidget(MultiSelectScreenDateItem current, Size windowSize) {
@@ -210,9 +191,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           width: double.infinity,
           height: 66,
           child: Row(
@@ -223,44 +202,46 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SizedBox(
-                          width: windowSize.width - 80,
-                          child: Column(
+                      Row(
+                        children: [
+                          const SizedBox(width: 10),
+                          SizedBox(
+                            width: windowSize.width - 80,
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   current.text,
                                   style: TextStyle(
-                                      fontSize: ThemeConfig.kFontSizeGroupItem,
-                                      color: current.color),
+                                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                                    color: current.color,
+                                  ),
                                 ),
                                 if (widget.showKey) ...[
                                   Text(
                                     current.key,
                                     style: const TextStyle(fontSize: 12),
-                                  )
+                                  ),
                                 ],
-                              ]),
-                        ),
-                        Checkbox(
-                          tristate: true,
-                          value: widget.selectedData.contains(current.key),
-                          onChanged: (bool? value) {
-                            if (value == true) {
-                              widget.selectedData.add(current.key);
-                            } else {
-                              widget.selectedData.remove(current.key);
-                            }
+                              ],
+                            ),
+                          ),
+                          Checkbox(
+                            tristate: true,
+                            value: widget.selectedData.contains(current.key),
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                widget.selectedData.add(current.key);
+                              } else {
+                                widget.selectedData.remove(current.key);
+                              }
 
-                            setState(() {});
-                          },
-                        ),
-                      ]),
+                              setState(() {});
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],

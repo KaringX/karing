@@ -65,10 +65,7 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -82,10 +79,7 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -95,8 +89,9 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   if (widget.showAction) ...[
@@ -105,38 +100,27 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
                         onTapMore();
                       },
                       child: Tooltip(
-                          message: tcontext.meta.more,
-                          child: const SizedBox(
-                            width: 50,
-                            height: 30,
-                            child: Icon(
-                              Icons.more_vert_outlined,
-                              size: 26,
-                            ),
-                          )),
+                        message: tcontext.meta.more,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.more_vert_outlined, size: 26),
+                        ),
+                      ),
                     ),
                   ],
-                  if (!widget.showAction) ...[
-                    SizedBox(
-                      width: 50,
-                    ),
-                  ]
+                  if (!widget.showAction) ...[SizedBox(width: 50)],
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Text.rich(
-                            TextSpan(
-                              text: _content ?? "",
-                            ),
-                          )),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Text.rich(TextSpan(text: _content ?? "")),
+                      ),
                     ],
                   ),
                 ),
@@ -152,12 +136,8 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
     final tcontext = Translations.of(context);
     List<Widget> widgets = [
       ListTile(
-        title: Text(
-          tcontext.meta.copy,
-        ),
-        leading: Icon(
-          Icons.copy,
-        ),
+        title: Text(tcontext.meta.copy),
+        leading: Icon(Icons.copy),
         onTap: () async {
           Navigator.pop(context);
           try {
@@ -166,12 +146,8 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
         },
       ),
       ListTile(
-        title: Text(
-          tcontext.meta.share,
-        ),
-        leading: Icon(
-          Icons.share_outlined,
-        ),
+        title: Text(tcontext.meta.share),
+        leading: Icon(Icons.share_outlined),
         onTap: () async {
           Navigator.pop(context);
           String fileName = "file_view_share.txt";
@@ -188,22 +164,23 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
           }
           try {
             final box = context.findRenderObject() as RenderBox?;
-            final rect =
-                box != null ? box.localToGlobal(Offset.zero) & box.size : null;
+            final rect = box != null
+                ? box.localToGlobal(Offset.zero) & box.size
+                : null;
             await SharePlus.instance.share(
-              ShareParams(
-                files: [
-                  XFile(savePath),
-                ],
-                sharePositionOrigin: rect,
-              ),
+              ShareParams(files: [XFile(savePath)], sharePositionOrigin: rect),
             );
           } catch (err) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(context, err.toString(),
-                showCopy: true, showFAQ: true, withVersion: true);
+            DialogUtils.showAlertDialog(
+              context,
+              err.toString(),
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
         },
       ),

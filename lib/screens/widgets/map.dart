@@ -23,10 +23,7 @@ extension IterableExt<T> on Iterable<T> {
     }
   }
 
-  Iterable<T> fill(
-    int length, {
-    required T Function(int count) filler,
-  }) sync* {
+  Iterable<T> fill(int length, {required T Function(int count) filler}) sync* {
     int count = 0;
     for (var item in this) {
       yield item;

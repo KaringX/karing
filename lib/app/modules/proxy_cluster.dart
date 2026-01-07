@@ -17,8 +17,12 @@ class ProxyClusterNode {
   String latency = "";
   int port = 0;
 
-  Map<String, dynamic> toJson() =>
-      {'name': name, 'type': type, 'latency': latency, 'port': port};
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type,
+    'latency': latency,
+    'port': port,
+  };
 }
 
 class ProxyCluster {
@@ -88,7 +92,9 @@ class ProxyCluster {
   }
 
   static Future<List<dynamic>> inboundsAndRulesFrom(
-      List<ProxyConfig> allOutboundProxys, List<dynamic> rules) async {
+    List<ProxyConfig> allOutboundProxys,
+    List<dynamic> rules,
+  ) async {
     _proxyNodes = [];
     final List<ServerSocket> sockets = [];
     final List<dynamic> inbounds = [];
@@ -113,8 +119,10 @@ class ProxyCluster {
             outbound.type == kOutboundTypeBlock) {
           continue;
         }
-        var listenPort =
-            await NetworkUtils.getAvaliablePortNotCloseSocket(ports, sockets);
+        var listenPort = await NetworkUtils.getAvaliablePortNotCloseSocket(
+          ports,
+          sockets,
+        );
         if (listenPort == 0) {
           continue;
         }
@@ -135,7 +143,7 @@ class ProxyCluster {
 
         rules.add({
           "inbound": [mixedInboundOptions.tag],
-          "outbound": node.name
+          "outbound": node.name,
         });
         if (rules.length >= kOutboundMaxCount) {
           break;

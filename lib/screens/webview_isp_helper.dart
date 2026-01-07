@@ -52,8 +52,12 @@ class WebviewISPHelper {
         }
   });
   */
-  static Future<String> ispPrepare(BuildContext context, String url,
-      dynamic javaScriptHandlerArguments, dynamic arguments) async {
+  static Future<String> ispPrepare(
+    BuildContext context,
+    String url,
+    dynamic javaScriptHandlerArguments,
+    dynamic arguments,
+  ) async {
     String result = "";
     String ispId = "";
     do {
@@ -117,16 +121,21 @@ class WebviewISPHelper {
         await DialogUtils.showAlertDialog(context, result);
       }
     }
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'ispPrepare',
-        parameters: {"id": ispId, "error": result},
-        repeatable: false);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeUA,
+      name: 'ispPrepare',
+      parameters: {"id": ispId, "error": result},
+      repeatable: false,
+    );*/
     return result;
   }
 
-  static Future<String> ispInstallConfig(BuildContext context, String url,
-      dynamic javaScriptHandlerArguments, dynamic arguments) async {
+  static Future<String> ispInstallConfig(
+    BuildContext context,
+    String url,
+    dynamic javaScriptHandlerArguments,
+    dynamic arguments,
+  ) async {
     String result = "";
     String ispId = "";
     String ispName = "";
@@ -160,7 +169,13 @@ class WebviewISPHelper {
         }
         ReturnResultError? error =
             await SchemeHandler.addConfigBySubscriptionLink(
-                context, urlOrContent, name, ispUser, ispConfig, true);
+              context,
+              urlOrContent,
+              name,
+              ispUser,
+              ispConfig,
+              true,
+            );
         if (error != null) {
           result = error.message;
           break;
@@ -179,16 +194,21 @@ class WebviewISPHelper {
         await DialogUtils.showAlertDialog(context, result);
       }
     }
-    AnalyticsUtils.logEvent(
-        analyticsEventType: analyticsEventTypeUA,
-        name: 'ispInstallConfig',
-        parameters: {"name": ispName, "id": ispId, "error": result},
-        repeatable: false);
+    /*AnalyticsUtils.logEvent(
+      analyticsEventType: analyticsEventTypeUA,
+      name: 'ispInstallConfig',
+      parameters: {"name": ispName, "id": ispId, "error": result},
+      repeatable: false,
+    );*/
     return result;
   }
 
-  static Future<String> ispInfo(BuildContext context, String url,
-      dynamic javaScriptHandlerArguments, dynamic arguments) async {
+  static Future<String> ispInfo(
+    BuildContext context,
+    String url,
+    dynamic javaScriptHandlerArguments,
+    dynamic arguments,
+  ) async {
     RemoteISPConfig ispConfig = javaScriptHandlerArguments as RemoteISPConfig;
     String result = "";
     do {

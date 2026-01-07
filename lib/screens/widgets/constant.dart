@@ -25,8 +25,8 @@ const commonDuration = Duration(milliseconds: 300);
 const defaultUpdateDuration = Duration(days: 1);
 final double kHeaderHeight = PlatformUtils.isPC()
     ? !Platform.isMacOS
-        ? 40
-        : 28
+          ? 40
+          : 28
     : 0;
 
 const maxMobileWidth = 600;

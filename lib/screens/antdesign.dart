@@ -4,11 +4,7 @@ import 'package:flutter/widgets.dart';
 
 class AntDesignIconData extends IconData {
   const AntDesignIconData(int code)
-      : super(
-          code,
-          fontFamily: 'AntDesign',
-          fontPackage: null,
-        );
+    : super(code, fontFamily: 'AntDesign', fontPackage: null);
 }
 
 class AntDesign {

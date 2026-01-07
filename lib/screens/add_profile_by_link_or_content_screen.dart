@@ -53,6 +53,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _loading = false;
   bool _keepDiversionRules = false;
   String _compatible = "";
+  String _website = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
@@ -97,8 +98,9 @@ class _AddProfileByLinkOrContentScreenState
     if (_textControllerRemark.text.trim().isNotEmpty) {
       return;
     }
-    ReturnResult<String> result =
-        ProxyConfUtils.getUrlFromQRContent(_textControllerLink.text.trim());
+    ReturnResult<String> result = ProxyConfUtils.getUrlFromQRContent(
+      _textControllerLink.text.trim(),
+    );
     if (result.data == null) {
       return;
     }
@@ -125,8 +127,10 @@ class _AddProfileByLinkOrContentScreenState
 
     if (getTitle) {
       if (remarks == null || remarks.isEmpty) {
-        final titleResult =
-            await HttpUtils.httpGetTitle(result.data!, _compatible);
+        final titleResult = await HttpUtils.httpGetTitle(
+          result.data!,
+          _compatible,
+        );
         if (titleResult.data != null && titleResult.data!.length < 32) {
           remarks = titleResult.data!;
         }
@@ -145,13 +149,17 @@ class _AddProfileByLinkOrContentScreenState
       return;
     }
     if (_textControllerRemark.text.trim().isEmpty) {
-      _textControllerRemark.value =
-          _textControllerRemark.value.copyWith(text: remarks);
+      _textControllerRemark.value = _textControllerRemark.value.copyWith(
+        text: remarks,
+      );
     }
   }
 
   static ReturnResultError? validAddSubscription(
-      BuildContext context, String remark, String url) {
+    BuildContext context,
+    String remark,
+    String url,
+  ) {
     final tcontext = Translations.of(context);
     if (url.isEmpty) {
       return ReturnResultError(tcontext.meta.profileUrlOrContentCannotEmpty);
@@ -206,6 +214,7 @@ class _AddProfileByLinkOrContentScreenState
       _testLatencyAutoRemove,
       _downloadMode,
       _updateTimeInterval,
+      website: _website,
       ispId: widget.ispId,
       ispUser: widget.ispUser,
     );
@@ -229,11 +238,13 @@ class _AddProfileByLinkOrContentScreenState
     String err = error.message;
     if (error.message.contains("download profile failed:")) {
       if (error.message.contains("401") || error.message.contains("403")) {
-        err = tcontext.meta
-            .profileAddFailedThenDownloadAndImport(p: error.message);
+        err = tcontext.meta.profileAddFailedThenDownloadAndImport(
+          p: error.message,
+        );
       } else if (error.message.contains("HandshakeException:")) {
-        err =
-            tcontext.meta.profileAddFailedHandshakeException(p: error.message);
+        err = tcontext.meta.profileAddFailedHandshakeException(
+          p: error.message,
+        );
       }
     } else {
       if (error.message.contains("FormatException:")) {
@@ -241,8 +252,13 @@ class _AddProfileByLinkOrContentScreenState
       } /*else if (error.message.contains("Unexpected character")) {}*/ //clash
     }
 
-    DialogUtils.showAlertDialog(context, err,
-        showCopy: true, showFAQ: true, withVersion: true);
+    DialogUtils.showAlertDialog(
+      context,
+      err,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
   }
 
   @override
@@ -250,93 +266,80 @@ class _AddProfileByLinkOrContentScreenState
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.zero,
-          child: AppBar(),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(
-                          Icons.arrow_back_ios_outlined,
-                          size: 26,
-                        ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const SizedBox(
+                      width: 50,
+                      height: 30,
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
+                    ),
+                  ),
+                  SizedBox(
+                    width: windowSize.width - 50 * 2,
+                    child: Text(
+                      tcontext.meta.profileAddUrlOrContent,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
                       ),
                     ),
-                    SizedBox(
-                      width: windowSize.width - 50 * 2,
-                      child: Text(
-                        tcontext.meta.profileAddUrlOrContent,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontWeight: ThemeConfig.kFontWeightTitle,
-                            fontSize: ThemeConfig.kFontSizeTitle),
-                      ),
-                    ),
-                    _loading
-                        ? const Row(
-                            children: [
-                              SizedBox(
-                                width: 12,
+                  ),
+                  _loading
+                      ? const Row(
+                          children: [
+                            SizedBox(width: 12),
+                            SizedBox(
+                              width: 26,
+                              height: 26,
+                              child: RepaintBoundary(
+                                child: CircularProgressIndicator(),
                               ),
-                              SizedBox(
-                                width: 26,
-                                height: 26,
-                                child: RepaintBoundary(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 12,
-                              )
-                            ],
-                          )
-                        : InkWell(
-                            onTap: () async {
-                              await onAdd(context);
-                            },
-                            child: Tooltip(
-                                message: tcontext.meta.save,
-                                child: const SizedBox(
-                                  width: 50,
-                                  height: 30,
-                                  child: Icon(
-                                    Icons.done,
-                                    size: 26,
-                                  ),
-                                )),
+                            ),
+                            SizedBox(width: 12),
+                          ],
+                        )
+                      : InkWell(
+                          onTap: () async {
+                            await onAdd(context);
+                          },
+                          child: Tooltip(
+                            message: tcontext.meta.save,
+                            child: const SizedBox(
+                              width: 50,
+                              height: 30,
+                              child: Icon(Icons.done, size: 26),
+                            ),
                           ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        const SizedBox(
-                          height: 10,
                         ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
                         TextFieldEx(
                           textInputAction: TextInputAction.next,
                           maxLines: 5,
                           controller: _textControllerLink,
                           decoration: InputDecoration(
-                              labelText: tcontext.meta.profileUrlOrContent,
-                              hintText: tcontext.meta.profileUrlOrContentHit),
+                            labelText: tcontext.meta.profileUrlOrContent,
+                            hintText: tcontext.meta.profileUrlOrContentHit,
+                          ),
                           onChanged: (text) {
                             updateRemarkByText(true);
                           },
@@ -344,9 +347,7 @@ class _AddProfileByLinkOrContentScreenState
                             FocusScope.of(context).nextFocus();
                           },
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         TextFieldEx(
                           textInputAction: TextInputAction.done,
                           controller: _textControllerRemark,
@@ -356,37 +357,48 @@ class _AddProfileByLinkOrContentScreenState
                             prefixIcon: const Icon(Icons.edit_note_outlined),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         FutureBuilder(
                           future: getGroupOptions(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<GroupItem>> snapshot) {
-                            List<GroupItem> data =
-                                snapshot.hasData ? snapshot.data! : [];
-                            return Column(
-                                children: GroupItemCreator.createGroups(
-                                    context, data));
-                          },
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<List<GroupItem>> snapshot,
+                              ) {
+                                List<GroupItem> data = snapshot.hasData
+                                    ? snapshot.data!
+                                    : [];
+                                return Column(
+                                  children: GroupItemCreator.createGroups(
+                                    context,
+                                    data,
+                                  ),
+                                );
+                              },
                         ),
-                      ]),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
-          ProxyStrategy.preferProxy.name, tcontext.proxyStrategy.perferProxy),
+        ProxyStrategy.preferProxy.name,
+        tcontext.proxyStrategy.perferProxy,
+      ),
       Tuple2(
-          ProxyStrategy.preferDirect.name, tcontext.proxyStrategy.perferDirect),
+        ProxyStrategy.preferDirect.name,
+        tcontext.proxyStrategy.perferDirect,
+      ),
       Tuple2(ProxyStrategy.onlyProxy.name, tcontext.proxyStrategy.onlyProxy),
       Tuple2(ProxyStrategy.onlyDirect.name, tcontext.proxyStrategy.onlyDirect),
     ];
@@ -394,114 +406,146 @@ class _AddProfileByLinkOrContentScreenState
     List<GroupItem> groupOptions = [];
     List<GroupItemOptions> options = [
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.meta.userAgent,
-              text: HttpUtils.getUserAgentsStringShort(_compatible),
-              textWidthPercent: 0.5,
-              tips: tcontext.ispUserAgentTips,
-              onPush: _loading
-                  ? null
-                  : () async {
-                      onTapUserAgent();
-                    })),
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.website,
+          text: _website,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            if (Uri.tryParse(value) != null) {
+              _website = value;
+            }
+          },
+        ),
+      ),
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.meta.filter,
-              onPush: _loading
-                  ? null
-                  : () async {
-                      onTapFilter();
-                    })),
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.userAgent,
+          text: HttpUtils.getUserAgentsByUaStringShort(_compatible),
+          textWidthPercent: 0.5,
+          tips: tcontext.ispUserAgentTips,
+          onPush: _loading
+              ? null
+              : () async {
+                  onTapUserAgent();
+                },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesKeep,
-              tips: tcontext.ispDiversionTips,
-              switchValue: _keepDiversionRules,
-              onSwitch: _loading
-                  ? null
-                  : (bool value) async {
-                      _keepDiversionRules = value;
-                      setState(() {});
-                    })),
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.filter,
+          onPush: _loading
+              ? null
+              : () async {
+                  onTapFilter();
+                },
+        ),
+      ),
       GroupItemOptions(
-          stringPickerOptions: GroupItemStringPickerOptions(
-              name: tcontext.downloadProxyStrategy,
-              tips: tcontext.SettingsScreen.ipStrategyTips,
-              selected: _downloadMode.name,
-              tupleStrings: tupleStrings,
-              onPicker: _loading
-                  ? null
-                  : (String? selected) async {
-                      if (selected == null || selected == _downloadMode.name) {
-                        return;
-                      }
-                      if (selected == ProxyStrategy.preferProxy.name) {
-                        _downloadMode = ProxyStrategy.preferProxy;
-                      } else if (selected == ProxyStrategy.preferDirect.name) {
-                        _downloadMode = ProxyStrategy.preferDirect;
-                      } else if (selected == ProxyStrategy.onlyProxy.name) {
-                        _downloadMode = ProxyStrategy.onlyProxy;
-                      } else if (selected == ProxyStrategy.onlyDirect.name) {
-                        _downloadMode = ProxyStrategy.onlyDirect;
-                      } else {
-                        _downloadMode = ProxyStrategy.preferProxy;
-                      }
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.diversionRulesKeep,
+          tips: tcontext.ispDiversionTips,
+          switchValue: _keepDiversionRules,
+          onSwitch: _loading
+              ? null
+              : (bool value) async {
+                  _keepDiversionRules = value;
+                  setState(() {});
+                },
+        ),
+      ),
+      GroupItemOptions(
+        stringPickerOptions: GroupItemStringPickerOptions(
+          name: tcontext.downloadProxyStrategy,
+          tips: tcontext.SettingsScreen.ipStrategyTips,
+          selected: _downloadMode.name,
+          tupleStrings: tupleStrings,
+          onPicker: _loading
+              ? null
+              : (String? selected) async {
+                  if (selected == null || selected == _downloadMode.name) {
+                    return;
+                  }
+                  if (selected == ProxyStrategy.preferProxy.name) {
+                    _downloadMode = ProxyStrategy.preferProxy;
+                  } else if (selected == ProxyStrategy.preferDirect.name) {
+                    _downloadMode = ProxyStrategy.preferDirect;
+                  } else if (selected == ProxyStrategy.onlyProxy.name) {
+                    _downloadMode = ProxyStrategy.onlyProxy;
+                  } else if (selected == ProxyStrategy.onlyDirect.name) {
+                    _downloadMode = ProxyStrategy.onlyDirect;
+                  } else {
+                    _downloadMode = ProxyStrategy.preferProxy;
+                  }
 
-                      setState(() {});
-                    })),
+                  setState(() {});
+                },
+        ),
+      ),
       GroupItemOptions(
-          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-              name: tcontext.meta.updateInterval,
-              tips: tcontext.meta.updateInterval5mTips,
-              duration: _updateTimeInterval,
-              showSeconds: false,
-              onPicker: _loading
-                  ? null
-                  : (bool canceled, Duration? duration) async {
-                      if (canceled) {
-                        return;
-                      }
-                      if (duration != null && duration.inMinutes < 5) {
-                        duration = const Duration(minutes: 5);
-                      }
-                      _updateTimeInterval = duration;
-                      setState(() {});
-                    })),
+        timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+          name: tcontext.meta.updateInterval,
+          tips: tcontext.meta.updateInterval5mTips,
+          duration: _updateTimeInterval,
+          showSeconds: false,
+          showMilliSeconds: false,
+          onPicker: _loading
+              ? null
+              : (bool canceled, Duration? duration) async {
+                  if (canceled) {
+                    return;
+                  }
+                  if (duration != null && duration.inMinutes < 5) {
+                    duration = const Duration(minutes: 5);
+                  }
+                  _updateTimeInterval = duration;
+                  setState(() {});
+                },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditReloadAfterProfileUpdate,
-              switchValue: _reloadAfterProfileUpdate,
-              onSwitch: (bool value) async {
-                _reloadAfterProfileUpdate = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.profileEditReloadAfterProfileUpdate,
+          switchValue: _reloadAfterProfileUpdate,
+          onSwitch: (bool value) async {
+            _reloadAfterProfileUpdate = value;
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
-              tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
-              switchValue: _testLatencyAfterProfileUpdate,
-              onSwitch: (bool value) async {
-                _testLatencyAfterProfileUpdate = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
+          tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
+          switchValue: _testLatencyAfterProfileUpdate,
+          onSwitch: (bool value) async {
+            _testLatencyAfterProfileUpdate = value;
+            setState(() {});
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditTestLatencyAutoRemove,
-              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
-              switchValue: _testLatencyAutoRemove,
-              onSwitch: _loading
-                  ? null
-                  : (bool value) async {
-                      _testLatencyAutoRemove = value;
-                      setState(() {});
-                    })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.profileEditTestLatencyAutoRemove,
+          tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
+          switchValue: _testLatencyAutoRemove,
+          onSwitch: _loading
+              ? null
+              : (bool value) async {
+                  _testLatencyAutoRemove = value;
+                  setState(() {});
+                },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;
   }
 
   void onTapUserAgent() async {
-    _compatible = await GroupHelper.showUserAgent(context, _compatible);
+    _compatible = await GroupHelper.showUserAgent(
+      context,
+      HttpUtils.getUserAgentsByUa(_compatible, false),
+    );
     setState(() {});
   }
 

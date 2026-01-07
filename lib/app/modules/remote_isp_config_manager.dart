@@ -24,8 +24,10 @@ class RemoteISPConfigManager {
 
   static Future<void> init() async {
     await _loadConfig();
-    VPNService.onEventStateChanged
-        .add((FlutterVpnServiceState state, Map<String, String> params) async {
+    VPNService.onEventStateChanged.add((
+      FlutterVpnServiceState state,
+      Map<String, String> params,
+    ) async {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           _check();
@@ -38,8 +40,9 @@ class RemoteISPConfigManager {
       });
     });
     bool first = await Did.getFirstTime();
-    Duration duration =
-        first ? const Duration(milliseconds: 10) : const Duration(seconds: 3);
+    Duration duration = first
+        ? const Duration(milliseconds: 10)
+        : const Duration(seconds: 3);
     Future.delayed(duration, () async {
       _check();
     });

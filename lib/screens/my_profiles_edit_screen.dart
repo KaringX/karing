@@ -31,6 +31,7 @@ class _MyProfilesEditScreenState
   ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
+  String _website = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   bool _keepDiversionRules = false;
   bool _reloadAfterProfileUpdate = false;
@@ -48,6 +49,7 @@ class _MyProfilesEditScreenState
       _textControllerLink.value = _textControllerLink.value.copyWith(
         text: item.urlOrPath,
       );
+      _website = item.site;
       _proxyStrategy = item.proxyStrategy;
       _updateTimeInterval = item.updateDuration;
       _compatible = item.userAgentCompatible;
@@ -70,10 +72,7 @@ class _MyProfilesEditScreenState
     Size windowSize = MediaQuery.of(context).size;
     ServerConfigGroupItem? item = ServerManager.getByGroupId(widget.groupid);
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.zero,
-        child: AppBar(),
-      ),
+      appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -87,10 +86,7 @@ class _MyProfilesEditScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_outlined, size: 26),
                     ),
                   ),
                   SizedBox(
@@ -100,8 +96,9 @@ class _MyProfilesEditScreenState
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
-                          fontWeight: ThemeConfig.kFontWeightTitle,
-                          fontSize: ThemeConfig.kFontSizeTitle),
+                        fontWeight: ThemeConfig.kFontWeightTitle,
+                        fontSize: ThemeConfig.kFontSizeTitle,
+                      ),
                     ),
                   ),
                   InkWell(
@@ -111,26 +108,19 @@ class _MyProfilesEditScreenState
                     child: const SizedBox(
                       width: 50,
                       height: 30,
-                      child: Icon(
-                        Icons.done_outlined,
-                        size: 26,
-                      ),
+                      child: Icon(Icons.done_outlined, size: 26),
                     ),
-                  )
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         if (item != null && item.isRemote()) ...[
                           TextFieldEx(
                             textInputAction: TextInputAction.next,
@@ -144,9 +134,7 @@ class _MyProfilesEditScreenState
                               FocusScope.of(context).nextFocus();
                             },
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20),
                         ],
                         TextFieldEx(
                           textInputAction: TextInputAction.done,
@@ -157,19 +145,24 @@ class _MyProfilesEditScreenState
                             prefixIcon: const Icon(Icons.edit_note_outlined),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         FutureBuilder(
                           future: getGroupOptions(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<GroupItem>> snapshot) {
-                            List<GroupItem> data =
-                                snapshot.hasData ? snapshot.data! : [];
-                            return Column(
-                                children: GroupItemCreator.createGroups(
-                                    context, data));
-                          },
+                          builder:
+                              (
+                                BuildContext context,
+                                AsyncSnapshot<List<GroupItem>> snapshot,
+                              ) {
+                                List<GroupItem> data = snapshot.hasData
+                                    ? snapshot.data!
+                                    : [];
+                                return Column(
+                                  children: GroupItemCreator.createGroups(
+                                    context,
+                                    data,
+                                  ),
+                                );
+                              },
                         ),
                       ],
                     ),
@@ -194,6 +187,7 @@ class _MyProfilesEditScreenState
     String urlText = _textControllerLink.text.trim();
     if (item.remark == remarkText &&
         item.urlOrPath == urlText &&
+        item.site == _website &&
         item.proxyStrategy == _proxyStrategy &&
         item.updateDuration == _updateTimeInterval &&
         item.userAgentCompatible == _compatible &&
@@ -218,6 +212,7 @@ class _MyProfilesEditScreenState
       return;
     }
     bool dirty = item.remark != remarkText;
+    item.site = _website;
     item.proxyStrategy = _proxyStrategy;
     item.updateDuration = _updateTimeInterval;
     item.userAgentCompatible = _compatible;
@@ -278,9 +273,13 @@ class _MyProfilesEditScreenState
     final tcontext = Translations.of(context);
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
-          ProxyStrategy.preferProxy.name, tcontext.proxyStrategy.perferProxy),
+        ProxyStrategy.preferProxy.name,
+        tcontext.proxyStrategy.perferProxy,
+      ),
       Tuple2(
-          ProxyStrategy.preferDirect.name, tcontext.proxyStrategy.perferDirect),
+        ProxyStrategy.preferDirect.name,
+        tcontext.proxyStrategy.perferDirect,
+      ),
       Tuple2(ProxyStrategy.onlyProxy.name, tcontext.proxyStrategy.onlyProxy),
       Tuple2(ProxyStrategy.onlyDirect.name, tcontext.proxyStrategy.onlyDirect),
     ];
@@ -288,111 +287,142 @@ class _MyProfilesEditScreenState
     List<GroupItemOptions> options = [
       if (item.isRemote()) ...[
         GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.userAgent,
-                text: HttpUtils.getUserAgentsStringShort(_compatible),
-                textWidthPercent: 0.5,
-                tips: tcontext.ispUserAgentTips,
-                onPush: () async {
-                  onTapUserAgent();
-                }))
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.meta.website,
+            text: _website,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              if (Uri.tryParse(value) != null) {
+                _website = value;
+              }
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.userAgent,
+            text: HttpUtils.getUserAgentsByUaStringShort(_compatible),
+            textWidthPercent: 0.5,
+            tips: tcontext.ispUserAgentTips,
+            onPush: () async {
+              onTapUserAgent();
+            },
+          ),
+        ),
       ],
       GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-              name: tcontext.meta.filter,
-              onPush: () async {
-                onTapFilter();
-              })),
+        pushOptions: GroupItemPushOptions(
+          name: tcontext.meta.filter,
+          onPush: () async {
+            onTapFilter();
+          },
+        ),
+      ),
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.diversionRulesKeep,
-              tips: tcontext.ispDiversionTips,
-              switchValue: _keepDiversionRules,
-              onSwitch: (bool value) async {
-                _keepDiversionRules = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.diversionRulesKeep,
+          tips: tcontext.ispDiversionTips,
+          switchValue: _keepDiversionRules,
+          onSwitch: (bool value) async {
+            _keepDiversionRules = value;
+            setState(() {});
+          },
+        ),
+      ),
       if (item.isRemote()) ...[
         GroupItemOptions(
-            stringPickerOptions: GroupItemStringPickerOptions(
-                name: tcontext.downloadProxyStrategy,
-                tips: tcontext.SettingsScreen.ipStrategyTips,
-                selected: _proxyStrategy.name,
-                tupleStrings: tupleStrings,
-                onPicker: (String? selected) async {
-                  if (selected == null || selected == _proxyStrategy.name) {
-                    return;
-                  }
-                  if (selected == ProxyStrategy.preferProxy.name) {
-                    _proxyStrategy = ProxyStrategy.preferProxy;
-                  } else if (selected == ProxyStrategy.preferDirect.name) {
-                    _proxyStrategy = ProxyStrategy.preferDirect;
-                  } else if (selected == ProxyStrategy.onlyProxy.name) {
-                    _proxyStrategy = ProxyStrategy.onlyProxy;
-                  } else if (selected == ProxyStrategy.onlyDirect.name) {
-                    _proxyStrategy = ProxyStrategy.onlyDirect;
-                  } else {
-                    _proxyStrategy = ProxyStrategy.preferProxy;
-                  }
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.downloadProxyStrategy,
+            tips: tcontext.SettingsScreen.ipStrategyTips,
+            selected: _proxyStrategy.name,
+            tupleStrings: tupleStrings,
+            onPicker: (String? selected) async {
+              if (selected == null || selected == _proxyStrategy.name) {
+                return;
+              }
+              if (selected == ProxyStrategy.preferProxy.name) {
+                _proxyStrategy = ProxyStrategy.preferProxy;
+              } else if (selected == ProxyStrategy.preferDirect.name) {
+                _proxyStrategy = ProxyStrategy.preferDirect;
+              } else if (selected == ProxyStrategy.onlyProxy.name) {
+                _proxyStrategy = ProxyStrategy.onlyProxy;
+              } else if (selected == ProxyStrategy.onlyDirect.name) {
+                _proxyStrategy = ProxyStrategy.onlyDirect;
+              } else {
+                _proxyStrategy = ProxyStrategy.preferProxy;
+              }
 
-                  setState(() {});
-                })),
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
-                name: tcontext.meta.updateInterval,
-                tips: tcontext.meta.updateInterval5mTips,
-                duration: _updateTimeInterval,
-                onPicker: (bool canceled, Duration? duration) async {
-                  if (canceled) {
-                    return;
-                  }
-                  if (duration != null) {
-                    if (duration.inDays > 365) {
-                      duration = const Duration(days: 365);
-                    }
-                    if (duration.inMinutes < 5) {
-                      duration = const Duration(minutes: 5);
-                    }
-                  }
+          timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
+            name: tcontext.meta.updateInterval,
+            tips: tcontext.meta.updateInterval5mTips,
+            duration: _updateTimeInterval,
+            showMilliSeconds: false,
+            onPicker: (bool canceled, Duration? duration) async {
+              if (canceled) {
+                return;
+              }
+              if (duration != null) {
+                if (duration.inDays > 365) {
+                  duration = const Duration(days: 365);
+                }
+                if (duration.inMinutes < 5) {
+                  duration = const Duration(minutes: 5);
+                }
+              }
 
-                  _updateTimeInterval = duration;
-                  setState(() {});
-                })),
+              _updateTimeInterval = duration;
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.profileEditReloadAfterProfileUpdate,
-                switchValue: _reloadAfterProfileUpdate,
-                onSwitch: (bool value) async {
-                  _reloadAfterProfileUpdate = value;
-                  setState(() {});
-                })),
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.profileEditReloadAfterProfileUpdate,
+            switchValue: _reloadAfterProfileUpdate,
+            onSwitch: (bool value) async {
+              _reloadAfterProfileUpdate = value;
+              setState(() {});
+            },
+          ),
+        ),
         GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-                name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
-                tips:
-                    tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
-                switchValue: _testLatencyAfterProfileUpdate,
-                onSwitch: (bool value) async {
-                  _testLatencyAfterProfileUpdate = value;
-                  setState(() {});
-                }))
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.profileEditTestLatencyAfterProfileUpdate,
+            tips: tcontext.meta.profileEditTestLatencyAfterProfileUpdateTips,
+            switchValue: _testLatencyAfterProfileUpdate,
+            onSwitch: (bool value) async {
+              _testLatencyAfterProfileUpdate = value;
+              setState(() {});
+            },
+          ),
+        ),
       ],
       GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.profileEditTestLatencyAutoRemove,
-              tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
-              switchValue: _testLatencyAutoRemove,
-              onSwitch: (bool value) async {
-                _testLatencyAutoRemove = value;
-                setState(() {});
-              })),
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.profileEditTestLatencyAutoRemove,
+          tips: tcontext.meta.profileEditTestLatencyAutoRemoveTips,
+          switchValue: _testLatencyAutoRemove,
+          onSwitch: (bool value) async {
+            _testLatencyAutoRemove = value;
+            setState(() {});
+          },
+        ),
+      ),
     ];
     groupOptions.add(GroupItem(options: options));
     return groupOptions;
   }
 
   void onTapUserAgent() async {
-    _compatible = await GroupHelper.showUserAgent(context, _compatible);
+    _compatible = await GroupHelper.showUserAgent(
+      context,
+      HttpUtils.getUserAgentsByUa(_compatible, false),
+    );
     setState(() {});
   }
 

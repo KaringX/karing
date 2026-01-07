@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class Rotation extends StatefulWidget {
   final Widget? child;
 
-  const Rotation({
-    super.key,
-    required this.child,
-  });
+  const Rotation({super.key, required this.child});
 
   @override
   State<Rotation> createState() => RotationState();
@@ -36,9 +33,6 @@ class RotationState extends State<Rotation> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return RotationTransition(
-      turns: _animation,
-      child: widget.child,
-    );
+    return RotationTransition(turns: _animation, child: widget.child);
   }
 }
