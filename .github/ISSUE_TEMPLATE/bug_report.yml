@@ -10,6 +10,7 @@ body:
         1. issue标题简洁明了,标题格式参考:[BUG][Windows] 点击连接后闪退
         2. 请确保[现有的问题]中没有人提交过相似issue,否则请在已有的issue下讨论
         3. 请务必按照模板规范详细描述问题,否则issue将会被直接关闭
+        4. 反馈前,请先阅读[常见问题],并且使用 '网络检测' 功能排查过网络问题
   - type: markdown
     attributes:
       value: |
@@ -17,6 +18,7 @@ body:
         1. The issue title should be concise and clear. Refer to the format: [BUG][Windows] (Clicking the link causes the app to crash).
         2. Please ensure that no one has submitted a similar issue in the [Existing Issues] section. Otherwise, please discuss it in an existing issue.
         3. Please describe the issue in detail according to the template specifications. Otherwise, the issue will be closed directly.
+        4. Before providing feedback, please read the [Frequently Asked Questions] and use the 'Network Check' function to troubleshoot network issues.
   - type: dropdown
     attributes:
       label: 操作系统/Operating System
