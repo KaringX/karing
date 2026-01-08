@@ -20,7 +20,7 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
+import 'package:karing/app/utils/app_registry_utils.dart';
 import 'package:karing/app/utils/apple_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/device_utils.dart';
@@ -1177,6 +1177,19 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               },
             ),
           ),
+          if (Platform.isWindows) ...[
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.accessibility,
+                tips: tcontext.SettingsScreen.restartTakesEffect,
+                switchValue: AppRegistryUtils.getAccessibility(),
+                onSwitch: (bool value) async {
+                  AppRegistryUtils.saveAccessibility(value);
+                  setState(() {});
+                },
+              ),
+            ),
+          ],
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.SettingsScreen.disableFontScaler,

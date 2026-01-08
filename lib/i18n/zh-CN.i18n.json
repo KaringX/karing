@@ -239,6 +239,7 @@
         "handleScheme": "系统Scheme调用",
         "portableMode": "便携模式",
         "portableModeDisableTips": "如需退出便携模式,请退出[karing]后,手动删除[karing.exe]同目录下的[profiles]文件夹即可",
+        "accessibility": "无障碍",
         "handleKaringScheme": "处理karing://调用",
         "handleClashScheme": "处理clash://调用",
         "handleSingboxScheme": "处理sing-box://调用",

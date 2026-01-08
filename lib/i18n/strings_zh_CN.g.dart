@@ -470,6 +470,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get handleScheme => '系统Scheme调用';
 	@override String get portableMode => '便携模式';
 	@override String get portableModeDisableTips => '如需退出便携模式,请退出[karing]后,手动删除[karing.exe]同目录下的[profiles]文件夹即可';
+	@override String get accessibility => '无障碍';
 	@override String get handleKaringScheme => '处理karing://调用';
 	@override String get handleClashScheme => '处理clash://调用';
 	@override String get handleSingboxScheme => '处理sing-box://调用';
@@ -1128,6 +1129,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.handleScheme' => '系统Scheme调用',
 			'SettingsScreen.portableMode' => '便携模式',
 			'SettingsScreen.portableModeDisableTips' => '如需退出便携模式,请退出[karing]后,手动删除[karing.exe]同目录下的[profiles]文件夹即可',
+			'SettingsScreen.accessibility' => '无障碍',
 			'SettingsScreen.handleKaringScheme' => '处理karing://调用',
 			'SettingsScreen.handleClashScheme' => '处理clash://调用',
 			'SettingsScreen.handleSingboxScheme' => '处理sing-box://调用',
@@ -1432,9 +1434,9 @@ extension on TranslationsZhCn {
 			'tls.fragmentSleep' => 'TLS分段休眠',
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
-			'tls.paddingSize' => 'TLS填充大小',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingSize' => 'TLS填充大小',
 			'outboundRuleMode.currentSelected' => '当前选择',
 			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',

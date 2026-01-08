@@ -239,6 +239,7 @@
         "handleScheme": "فراخوانی Scheme سیستم",
         "portableMode": "حالت قابل‌حمل",
         "portableModeDisableTips": "اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [Karing] خارج شده و به‌صورت دستی پوشه [Profiles] هم مسیر با فایل [karing.exe] را حذف کنید",
+        "accessibility": "دسترسی‌پذیری",
         "handleKaringScheme": "رسیدگی به ندای karing://",
         "handleClashScheme": "رسیدگی به‌ ندای clash://",
         "handleSingboxScheme": "رسیدگی به ندای sing-box://",

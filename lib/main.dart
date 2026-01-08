@@ -21,7 +21,6 @@ import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/private/sentry_utils_private.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/app_args.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/geoip_subnet_utils.dart';

@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.11+1403
+version: 1.2.11+1405
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -25,8 +25,8 @@ dependencies:
   sentry_flutter: 8.14.2
   #device_info_plus: 11.1.1
   network_info_plus: 7.0.0
-  connectivity_plus: 6.1.5
-  package_info_plus: 8.3.1 #sentry_flutter
+  connectivity_plus: 7.0.0
+  package_info_plus: 9.0.0 #sentry_flutter
   build_info: 1.1.0
   build_info_android: 1.1.0
   #platform_device_id: 1.0.1

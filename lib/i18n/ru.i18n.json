@@ -239,6 +239,7 @@
         "handleScheme": "Схемы системного вызова",
         "portableMode": "Портативный режим",
         "portableModeDisableTips": "Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]",
+        "accessibility": "Доступность",
         "handleKaringScheme": "Вызов karing://[параметры]",
         "handleClashScheme": "Вызов clash://[параметры]",
         "handleSingboxScheme": "Вызов sing-box://[параметры]",

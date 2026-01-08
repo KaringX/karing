@@ -962,6 +962,9 @@ class TranslationsSettingsScreenEn {
 	/// en: 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]'
 	String get portableModeDisableTips => 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]';
 
+	/// en: 'Accessibility'
+	String get accessibility => 'Accessibility';
+
 	/// en: 'Handle karing:// Call'
 	String get handleKaringScheme => 'Handle karing:// Call';
 
@@ -2247,6 +2250,7 @@ extension on Translations {
 			'SettingsScreen.handleScheme' => 'System Scheme Call',
 			'SettingsScreen.portableMode' => 'Portable Mode',
 			'SettingsScreen.portableModeDisableTips' => 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]',
+			'SettingsScreen.accessibility' => 'Accessibility',
 			'SettingsScreen.handleKaringScheme' => 'Handle karing:// Call',
 			'SettingsScreen.handleClashScheme' => 'Handle clash:// Call',
 			'SettingsScreen.handleSingboxScheme' => 'Handle sing-box:// Call',
@@ -2551,9 +2555,9 @@ extension on Translations {
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			'tls.paddingEnable' => 'Enable TLS Padding',
-			'tls.paddingSize' => 'TLS Padding Size',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingSize' => 'TLS Padding Size',
 			'outboundRuleMode.currentSelected' => 'Current Selected',
 			'outboundRuleMode.urltest' => 'Auto Select',
 			'outboundRuleMode.direct' => 'Direct',

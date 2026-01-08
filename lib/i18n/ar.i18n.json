@@ -239,6 +239,7 @@
         "handleScheme": "مكالمة مخطط النظام",
         "portableMode": "الوضع المحمول",
         "portableModeDisableTips": "إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [karing] وحذف المجلد [profiles] يدويًا في نفس الدليل مثل [karing.exe]",
+        "accessibility": "إمكانية الوصول",
         "handleKaringScheme": "مقبض karing:// Call",
         "handleClashScheme": "مقبض clash:// Call",
         "handleSingboxScheme": "مقبض sing-box:// يتصل",

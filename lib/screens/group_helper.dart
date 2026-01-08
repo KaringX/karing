@@ -8,7 +8,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/zashboard.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/local_services/vpn_service.dart';

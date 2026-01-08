@@ -470,6 +470,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get handleScheme => 'Схемы системного вызова';
 	@override String get portableMode => 'Портативный режим';
 	@override String get portableModeDisableTips => 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]';
+	@override String get accessibility => 'Доступность';
 	@override String get handleKaringScheme => 'Вызов karing://[параметры]';
 	@override String get handleClashScheme => 'Вызов clash://[параметры]';
 	@override String get handleSingboxScheme => 'Вызов sing-box://[параметры]';
@@ -1128,6 +1129,7 @@ extension on TranslationsRu {
 			'SettingsScreen.handleScheme' => 'Схемы системного вызова',
 			'SettingsScreen.portableMode' => 'Портативный режим',
 			'SettingsScreen.portableModeDisableTips' => 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]',
+			'SettingsScreen.accessibility' => 'Доступность',
 			'SettingsScreen.handleKaringScheme' => 'Вызов karing://[параметры]',
 			'SettingsScreen.handleClashScheme' => 'Вызов clash://[параметры]',
 			'SettingsScreen.handleSingboxScheme' => 'Вызов sing-box://[параметры]',
@@ -1432,9 +1434,9 @@ extension on TranslationsRu {
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
-			'tls.paddingSize' => 'Размер заполнения TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingSize' => 'Размер заполнения TLS',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',

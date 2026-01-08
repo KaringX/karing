@@ -470,6 +470,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get handleScheme => 'فراخوانی Scheme سیستم';
 	@override String get portableMode => 'حالت قابل‌حمل';
 	@override String get portableModeDisableTips => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [Karing] خارج شده و به‌صورت دستی پوشه [Profiles] هم مسیر با فایل [karing.exe] را حذف کنید';
+	@override String get accessibility => 'دسترسی‌پذیری';
 	@override String get handleKaringScheme => 'رسیدگی به ندای karing://';
 	@override String get handleClashScheme => 'رسیدگی به‌ ندای clash://';
 	@override String get handleSingboxScheme => 'رسیدگی به ندای sing-box://';
@@ -1128,6 +1129,7 @@ extension on TranslationsFa {
 			'SettingsScreen.handleScheme' => 'فراخوانی Scheme سیستم',
 			'SettingsScreen.portableMode' => 'حالت قابل‌حمل',
 			'SettingsScreen.portableModeDisableTips' => 'اگر نیاز دارین از حالت قابل‌حمل خارج شوید لطفا از [Karing] خارج شده و به‌صورت دستی پوشه [Profiles] هم مسیر با فایل [karing.exe] را حذف کنید',
+			'SettingsScreen.accessibility' => 'دسترسی‌پذیری',
 			'SettingsScreen.handleKaringScheme' => 'رسیدگی به ندای karing://',
 			'SettingsScreen.handleClashScheme' => 'رسیدگی به‌ ندای clash://',
 			'SettingsScreen.handleSingboxScheme' => 'رسیدگی به ندای sing-box://',
@@ -1432,9 +1434,9 @@ extension on TranslationsFa {
 			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
-			'tls.paddingSize' => 'اندازه پد TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingSize' => 'اندازه پد TLS',
 			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
 			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			'outboundRuleMode.direct' => 'مستقیم',

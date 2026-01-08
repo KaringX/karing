@@ -239,6 +239,7 @@
         "handleScheme": "System Scheme Call",
         "portableMode": "Portable Mode",
         "portableModeDisableTips": "If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]",
+        "accessibility": "Accessibility",
         "handleKaringScheme": "Handle karing:// Call",
         "handleClashScheme": "Handle clash:// Call",
         "handleSingboxScheme": "Handle sing-box:// Call",

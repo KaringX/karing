@@ -470,6 +470,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get handleScheme => 'مكالمة مخطط النظام';
 	@override String get portableMode => 'الوضع المحمول';
 	@override String get portableModeDisableTips => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [karing] وحذف المجلد [profiles] يدويًا في نفس الدليل مثل [karing.exe]';
+	@override String get accessibility => 'إمكانية الوصول';
 	@override String get handleKaringScheme => 'مقبض karing:// Call';
 	@override String get handleClashScheme => 'مقبض clash:// Call';
 	@override String get handleSingboxScheme => 'مقبض sing-box:// يتصل';
@@ -1128,6 +1129,7 @@ extension on TranslationsAr {
 			'SettingsScreen.handleScheme' => 'مكالمة مخطط النظام',
 			'SettingsScreen.portableMode' => 'الوضع المحمول',
 			'SettingsScreen.portableModeDisableTips' => 'إذا كنت بحاجة إلى الخروج من الوضع المحمول، فيرجى الخروج من [karing] وحذف المجلد [profiles] يدويًا في نفس الدليل مثل [karing.exe]',
+			'SettingsScreen.accessibility' => 'إمكانية الوصول',
 			'SettingsScreen.handleKaringScheme' => 'مقبض karing:// Call',
 			'SettingsScreen.handleClashScheme' => 'مقبض clash:// Call',
 			'SettingsScreen.handleSingboxScheme' => 'مقبض sing-box:// يتصل',
@@ -1432,9 +1434,9 @@ extension on TranslationsAr {
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
 			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
 			'tls.paddingEnable' => 'تمكين الحشو TLS',
-			'tls.paddingSize' => 'حجم الحشو TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingSize' => 'حجم الحشو TLS',
 			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
 			'outboundRuleMode.urltest' => 'اختيار آلي',
 			'outboundRuleMode.direct' => 'مباشر',

@@ -1,6 +1,4 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 
 class AppRouteObserver extends RouteObserver<ModalRoute<dynamic>> {
   static final AppRouteObserver instance = AppRouteObserver();

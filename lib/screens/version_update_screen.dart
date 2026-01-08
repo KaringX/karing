@@ -10,7 +10,6 @@ import 'package:app_installer/app_installer.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/analytics_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/i18n/strings.g.dart';
