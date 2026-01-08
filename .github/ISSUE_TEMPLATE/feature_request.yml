@@ -1,0 +1,47 @@
+name: 功能请求/Feature request
+title: "[Feature]"
+description: 提出你的功能请求/Propose your feature request
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 在提交问题之前，请确认以下事项：
+        1. issue标题简洁明了,标题格式参考:[Feature][Windows] 希望支持开机启动
+        2. 请确保[现有的问题]中没有人提交过相似issue,否则请在已有的issue下讨论
+        3. 请务必按照模板规范详细描述问题,否则issue将会被直接关闭
+  - type: markdown
+    attributes:
+      value: |
+        ## Before submitting an issue, please confirm the following:
+        1. The issue title should be concise and clear. The title format should be similar to: [Feature][Windows] We hope to support startup on system boot.
+        2. Please ensure that no one has submitted a similar issue in the [Existing Issues] section. Otherwise, please discuss it under an existing issue.
+        3. Please be sure to describe the problem in detail according to the template specifications. Otherwise, the issue will be closed directly.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 功能描述/Feature description
+      description: 详细清晰地描述你的功能请求/A clear and concise description of what the feature is
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 使用场景/Use case
+      description: 请描述你的功能请求的使用场景/Please describe the use case of your feature request
+    validations:
+      required: true
+  - type: checkboxes
+    id: os-labels
+    attributes:
+      label: 适用系统/Target OS
+      description: 请选择该功能适用的操作系统/Please select the operating system(s) for this feature request
+      options:
+        - label: iOS
+        - label: macOS
+        - label: Apple tvOS
+        - label: Android
+        - label: Windows
+        - label: Linux
+    validations:
+      required: true

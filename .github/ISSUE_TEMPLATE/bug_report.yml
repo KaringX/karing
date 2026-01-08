@@ -1,0 +1,61 @@
+name: BUG反馈/Submit a Bug
+title: "[BUG]"
+description: 提交BUG/Submit a bug
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 在提交问题之前，请确认以下事项：
+        1. issue标题简洁明了,标题格式参考:[BUG][Windows] 点击连接后闪退
+        2. 请确保[现有的问题]中没有人提交过相似issue,否则请在已有的issue下讨论
+        3. 请务必按照模板规范详细描述问题,否则issue将会被直接关闭
+  - type: markdown
+    attributes:
+      value: |
+        ## Before submitting an issue, please confirm the following:
+        1. The issue title should be concise and clear. Refer to the format: [BUG][Windows] (Clicking the link causes the app to crash).
+        2. Please ensure that no one has submitted a similar issue in the [Existing Issues] section. Otherwise, please discuss it in an existing issue.
+        3. Please describe the issue in detail according to the template specifications. Otherwise, the issue will be closed directly.
+  - type: dropdown
+    attributes:
+      label: 操作系统/Operating System
+      description:  操作系统类型/Operating system type
+      options:
+        - iOS
+        - macOS
+        - Apple tvOS
+        - Android
+        - Windows
+        - Linux
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: 系统版本/Operating System Version
+      description: 操作系统版本/Operating System Version
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: App版本/App Version
+      description: 完整版本号, 比如 1.2.11.1405/The full version number, such as 1.2.11.1405
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 描述/Describeption
+      description: 详细描述BUG/Detailed description of the bug
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 复现步骤/Reproduction steps
+      description: 请提供详细的复现步骤（最好能提供视频）/Please provide detailed steps to reproduce the problem (video recordings would be greatly appreciated).
+  - type: textarea
+    attributes:
+      label: 日志/Log
+      description: |-
+        About - Developer Options - View File - service_core.log
+      render: shell
+
