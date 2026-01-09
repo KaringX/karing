@@ -8,6 +8,7 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/did.dart';
+import 'package:karing/app/utils/http_overrides_utils.dart';
 import 'package:karing/screens/home_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -60,14 +61,15 @@ void main(List<String> args) async {
   //runZonedGuarded(() async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverridesUtils.install();
+  await LocaleSettings.useDeviceLocale();
   await VPNService.initABI();
   await RemoteConfigManager.init();
   await SettingManager.init();
+  await RemoteISPConfigManager.init();
   if (!SettingManager.getConfig().disableAppImproveData) {
     await SentryUtilsPrivate.init();
   }
-  await RemoteISPConfigManager.init();
-  await LocaleSettings.useDeviceLocale();
 
   SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
 
