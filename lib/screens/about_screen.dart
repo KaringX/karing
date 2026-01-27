@@ -51,7 +51,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
   void dispose() {
     super.dispose();
     if (SettingManager.getDirty()) {
-      SettingManager.saveConfig();
+      SettingManager.save();
     }
   }
 
@@ -219,7 +219,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
               switchValue: SettingManager.getConfig().autoDownloadUpdatePkg,
               onSwitch: (bool value) async {
                 SettingManager.getConfig().autoDownloadUpdatePkg = value;
-                SettingManager.saveConfig();
+                SettingManager.save();
                 setState(() {});
               },
             ),
@@ -280,7 +280,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 ? null
                 : (bool value) async {
                     SettingManager.getConfig().disableAppImproveData = !value;
-                    SettingManager.saveConfig();
+                    SettingManager.save();
                     setState(() {});
                   },
           ),

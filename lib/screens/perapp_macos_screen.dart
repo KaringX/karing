@@ -63,7 +63,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   _loadSearch(String? textVal) {

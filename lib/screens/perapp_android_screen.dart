@@ -65,7 +65,7 @@ class _PerAppAndroidScreenState
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   _loadSearch(String? textVal) {

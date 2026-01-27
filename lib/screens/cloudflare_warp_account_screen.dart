@@ -127,7 +127,7 @@ class _CloudflareWarpAccountScreenState
                                       .license
                                       .isNotEmpty) {
                                     settingConfig.warp.account = WarpAccount();
-                                    SettingManager.saveConfig();
+                                    SettingManager.save();
                                     if (!mounted) {
                                       return;
                                     }
@@ -156,7 +156,7 @@ class _CloudflareWarpAccountScreenState
                                     );
                                   } else {
                                     settingConfig.warp.account = account.data!;
-                                    SettingManager.saveConfig();
+                                    SettingManager.save();
                                   }
                                   _loading = false;
                                   if (!mounted) {

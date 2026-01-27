@@ -579,6 +579,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get feedbackContentHit => '必填, 最长500字符';
 	@override String get feedbackContentCannotEmpty => '反馈内容不能为空';
 	@override String get faq => '常见问题';
+	@override String get htmlTools => 'HTML工具集';
 	@override String get download => '下载';
 	@override String get upload => '上传';
 	@override String get downloadSpeed => '下载速度';
@@ -774,7 +775,6 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get getProfile => '获取配置';
 	@override String get addProfile => '添加配置';
 	@override String get myProfiles => '我的配置';
-	@override String get myProfilesAtLeastOneReserveEnable => '无法禁用,请至少保留一个配置可用';
 	@override String get profileEdit => '编辑配置';
 	@override String get profileEditUrlExist => 'URL已存在,请使用其他URL';
 	@override String get profileEditReloadAfterProfileUpdate => '配置更新后重新加载';
@@ -910,8 +910,8 @@ class _TranslationsMainTrayZhCn implements TranslationsMainTrayEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    打开    ';
-	@override String get menuExit => '    退出    ';
+	@override String get menuOpen => '打开';
+	@override String get menuExit => '退出';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -1161,8 +1161,8 @@ extension on TranslationsZhCn {
 			'VersionUpdateScreen.cancel' => '暂不更新',
 			'CommonWidget.diableAlwayOnVPN' => '如果开启了[始终开启VPN], 请关闭[始终开启VPN]后重试连接',
 			'CommonWidget.resetPort' => '请将端口改为其他可用端口或者关闭占用该端口的应用',
-			'main.tray.menuOpen' => '    打开    ',
-			'main.tray.menuExit' => '    退出    ',
+			'main.tray.menuOpen' => '打开',
+			'main.tray.menuExit' => '退出',
 			'meta.enable' => '启用',
 			'meta.disable' => '禁用',
 			'meta.bydefault' => '默认',
@@ -1194,6 +1194,7 @@ extension on TranslationsZhCn {
 			'meta.feedbackContentHit' => '必填, 最长500字符',
 			'meta.feedbackContentCannotEmpty' => '反馈内容不能为空',
 			'meta.faq' => '常见问题',
+			'meta.htmlTools' => 'HTML工具集',
 			'meta.download' => '下载',
 			'meta.upload' => '上传',
 			'meta.downloadSpeed' => '下载速度',
@@ -1389,7 +1390,6 @@ extension on TranslationsZhCn {
 			'meta.getProfile' => '获取配置',
 			'meta.addProfile' => '添加配置',
 			'meta.myProfiles' => '我的配置',
-			'meta.myProfilesAtLeastOneReserveEnable' => '无法禁用,请至少保留一个配置可用',
 			'meta.profileEdit' => '编辑配置',
 			'meta.profileEditUrlExist' => 'URL已存在,请使用其他URL',
 			'meta.profileEditReloadAfterProfileUpdate' => '配置更新后重新加载',

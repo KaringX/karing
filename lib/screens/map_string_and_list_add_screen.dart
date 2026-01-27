@@ -30,10 +30,10 @@ class MapStringAndListAddScreen extends LasyRenderingStatefulWidget {
 
   @override
   State<MapStringAndListAddScreen> createState() =>
-      _ServerSelectSearchSettingsScreenState();
+      _MapStringAndListAddScreenState();
 }
 
-class _ServerSelectSearchSettingsScreenState
+class _MapStringAndListAddScreenState
     extends LasyRenderingState<MapStringAndListAddScreen> {
   @override
   void initState() {

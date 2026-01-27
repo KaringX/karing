@@ -27,12 +27,10 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
   });
 
   @override
-  State<ListAddScreen> createState() =>
-      _ServerSelectSearchSettingsScreenState();
+  State<ListAddScreen> createState() => _ListAddScreenState();
 }
 
-class _ServerSelectSearchSettingsScreenState
-    extends LasyRenderingState<ListAddScreen> {
+class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
   @override
   void initState() {
     super.initState();

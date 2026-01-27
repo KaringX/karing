@@ -77,7 +77,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     if (_domain.isNotEmpty &&
         _domain != SettingManager.getConfig().ui.netCheckDomain) {
       SettingManager.getConfig().ui.netCheckDomain = _domain;
-      SettingManager.saveConfig();
+      SettingManager.save();
     }
   }
 
@@ -1036,10 +1036,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     ];
 
     for (var callback in callbacks) {
-      bool ok = await callback();
-      if (!ok) {
-        break;
-      }
+      await callback();
+
       if (!mounted) {
         return;
       }

@@ -1840,7 +1840,7 @@ class SettingManager {
   static bool _dirty = false;
   static final SettingConfig _config = SettingConfig();
   static Future<void> init({bool fromBackupRestore = false}) async {
-    await loadConfig();
+    await load();
     if (fromBackupRestore) {
       _config.ads.clear();
       if (!Platform.isWindows) {
@@ -1848,9 +1848,9 @@ class SettingManager {
       }
     }
 
-    bool save = await parseConfig();
-    if (save) {
-      saveConfig();
+    bool needSave = await parseConfig();
+    if (needSave) {
+      save();
     }
   }
 
@@ -1905,7 +1905,7 @@ class SettingManager {
     return save;
   }
 
-  static Future<void> loadConfig() async {
+  static Future<void> load() async {
     String filePath = await PathUtils.settingFilePath();
     var file = File(filePath);
     bool exists = await file.exists();
@@ -1930,11 +1930,11 @@ class SettingManager {
         }
       }
     } catch (err, stacktrace) {
-      Log.w("SettingManager.loadConfig exception $filePath ${err.toString()}");
+      Log.w("SettingManager.load exception $filePath ${err.toString()}");
     }
   }
 
-  static void saveConfig() async {
+  static void save() async {
     if (_savingConfig) {
       return;
     }
@@ -1949,7 +1949,7 @@ class SettingManager {
         await File(filePath).writeAsString(content, flush: true);
       }
     } catch (err, stacktrace) {
-      Log.w("SettingManager.saveConfig exception  $filePath ${err.toString()}");
+      Log.w("SettingManager.save exception  $filePath ${err.toString()}");
     }
     _savingConfig = false;
   }

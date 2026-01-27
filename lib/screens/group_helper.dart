@@ -60,7 +60,6 @@ import 'package:karing/screens/statistics_records_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/urltest_group_custom_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
-import 'package:karing/screens/widgets/ads_widget.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
@@ -205,6 +204,27 @@ class GroupHelper {
                 url,
                 "SSS_commonlyUsedRulesets",
                 title: tcontext.SettingsScreen.commonlyUsedRulesets,
+              );
+            },
+          ),
+        ),
+      ],
+      if (remoteConfig.htmlTools.isNotEmpty) ...[
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.htmlTools,
+            onPush: () async {
+              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                remoteConfig.htmlTools,
+              );
+              if (!context.mounted) {
+                return;
+              }
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "SSS_htmlTools",
+                title: tcontext.meta.htmlTools,
               );
             },
           ),
@@ -757,18 +777,18 @@ class GroupHelper {
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.records,
             onPush: () async {
-              AdsRewardWidget.tryLoadAdsThenCallback(context, (ok) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    settings: StatisticsRecordsScreen.routSettings(),
-                    builder: (context) => StatisticsRecordsScreen(
-                      dbPath: dbPath,
-                      currentDB: dbPath == currentDB,
-                    ),
+              //AdsRewardWidget.tryLoadAdsThenCallback(context, (ok) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: StatisticsRecordsScreen.routSettings(),
+                  builder: (context) => StatisticsRecordsScreen(
+                    dbPath: dbPath,
+                    currentDB: dbPath == currentDB,
                   ),
-                );
-              });
+                ),
+              );
+              // });
             },
           ),
         ),
@@ -1115,6 +1135,7 @@ class GroupHelper {
                   urls.join("\n"),
                   SubscriptionLinkType.v2ray,
                   "",
+                  false,
                   ProxyFilter(),
                   [],
                   false,
@@ -1309,7 +1330,7 @@ class GroupHelper {
                 }
                 SettingManager.getConfig().dns.testDomain = text;
                 SettingManager.setDirty(true);
-                SettingManager.saveConfig();
+                SettingManager.save();
               },
             ),
           ),
@@ -1341,7 +1362,7 @@ class GroupHelper {
 
               settingConfig.dns.ttl = duration;
               SettingManager.setDirty(true);
-              SettingManager.saveConfig();
+              SettingManager.save();
             },
           ),
         ),
@@ -2455,6 +2476,7 @@ class GroupHelper {
       filePath,
       null,
       null,
+      false,
       const Duration(seconds: 10),
     );
 
@@ -2632,6 +2654,7 @@ class GroupHelper {
         zipPath,
         proxyPort,
         null,
+        false,
         null,
       );
       if (result.error != null) {

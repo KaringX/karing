@@ -1260,7 +1260,7 @@ class _OutboundModeCardState extends State<OutboundModeCard> {
                 return;
               }
               SettingManager.getConfig().proxyAll = proxyAll;
-              SettingManager.saveConfig();
+              SettingManager.save();
               widget.onChanged?.call(value);
               setState(() {});
             },
@@ -1586,7 +1586,7 @@ class ServerSelectCard extends StatefulWidget {
 
   final ProxyConfig server;
   final CurrentServerForUrltest serverUrltest;
-  final Function(bool hasProfile)? onTap;
+  final Function()? onTap;
   @override
   State<ServerSelectCard> createState() => _ServerSelectCardState();
 
@@ -1609,46 +1609,53 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
     final theme = Theme.of(context);
     final tcontext = Translations.of(context);
     var setting = SettingManager.getConfig();
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
+
     String text = "";
     String delay = widget.server.latency;
     String groupid = "";
     String tag = "";
-    if (noConfig) {
-      text = tcontext.meta.addProfile;
-    } else {
-      if (widget.server.groupid == ServerManager.getUrltestGroupId()) {
-        text = tcontext.outboundRuleMode.urltest;
-        if (widget.server.tag != kOutboundTagUrltest) {
-          text += "[${widget.server.tag}]";
+
+    if (widget.server.groupid == ServerManager.getUrltestGroupId()) {
+      text = tcontext.outboundRuleMode.urltest;
+      if (widget.server.tag != kOutboundTagUrltest) {
+        text += "[${widget.server.tag}]";
+      }
+
+      if (widget.serverUrltest.now.isNotEmpty) {
+        if (widget.serverUrltest.now == kOutboundTagDirect) {
+          text += "[${tcontext.outboundRuleMode.direct}]";
+          delay = "";
+        } else if (widget.serverUrltest.now == kOutboundTagBlock) {
+          text += "[${tcontext.outboundRuleMode.block}]";
+          delay = "";
+        } else {
+          text += "[${widget.serverUrltest.now}]";
         }
 
-        if (widget.serverUrltest.now.isNotEmpty) {
-          text += "[${widget.serverUrltest.now}]";
-          ProxyConfig? proxy = ServerManager.getConfig().getByTag(
-            widget.serverUrltest.now,
-          );
-          if (proxy != null) {
-            tag = widget.serverUrltest.now;
-            groupid = proxy.groupid;
-          }
-        } else {
-          delay = "";
+        ProxyConfig? proxy = ServerManager.getConfig().getByTag(
+          widget.serverUrltest.now,
+        );
+        if (proxy != null) {
+          tag = widget.serverUrltest.now;
+          groupid = proxy.groupid;
         }
-      } else if (widget.server.groupid == ServerManager.getDirectGroupId()) {
-        text = tcontext.outboundRuleMode.direct;
-        tag = widget.server.tag;
-        groupid = widget.server.groupid;
-      } else if (widget.server.groupid == ServerManager.getBlockGroupId()) {
-        text = tcontext.outboundRuleMode.block;
-        tag = widget.server.tag;
-        groupid = widget.server.groupid;
       } else {
-        text = widget.server.tag;
-        tag = widget.server.tag;
-        groupid = widget.server.groupid;
+        delay = "";
       }
+    } else if (widget.server.groupid == ServerManager.getDirectGroupId()) {
+      text = tcontext.outboundRuleMode.direct;
+      tag = widget.server.tag;
+      groupid = widget.server.groupid;
+    } else if (widget.server.groupid == ServerManager.getBlockGroupId()) {
+      text = tcontext.outboundRuleMode.block;
+      tag = widget.server.tag;
+      groupid = widget.server.groupid;
+    } else {
+      text = widget.server.tag;
+      tag = widget.server.tag;
+      groupid = widget.server.groupid;
     }
+
     if (setting.originSBProfile.isNotEmpty) {
       text = path.basename(setting.originSBProfile);
       delay = "";
@@ -1671,7 +1678,7 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
           onTap: setting.originSBProfile.isNotEmpty
               ? null
               : () async {
-                  widget.onTap?.call(!noConfig);
+                  widget.onTap?.call();
                 },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -2073,9 +2080,9 @@ class HomeWidgets {
     if (SpeedTestCard.supportedCurrentPlatfrom()) {
       ids.add(SpeedTestCard.id());
     }
-    if (MyLinkCard.supportedCurrentPlatfrom()) {
+    /*if (MyLinkCard.supportedCurrentPlatfrom()) {
       ids.add(MyLinkCard.id());
-    }
+    }*/
     if (AppleTVCard.supportedCurrentPlatfrom()) {
       ids.add(AppleTVCard.id());
     }

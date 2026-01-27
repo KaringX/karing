@@ -54,7 +54,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void _loadData() async {

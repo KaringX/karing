@@ -280,8 +280,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    يفتح    ",
-            "menuExit": "    مخرج    "
+            "menuOpen": "يفتح",
+            "menuExit": "مخرج"
         }
     },
     "meta": {
@@ -316,6 +316,7 @@
         "feedbackContentHit": "مطلوب ، ما يصل إلى 500 حرف",
         "feedbackContentCannotEmpty": "لا يمكن أن يكون محتوى التعليقات فارغًا",
         "faq": "أسئلة مكررة",
+        "htmlTools": "مجموعة أدوات HTML",
         "download": "تحميل",
         "upload": "رفع",
         "downloadSpeed": "سرعة التنزيل",
@@ -511,7 +512,6 @@
         "getProfile": "احصل على التكوين",
         "addProfile": "إضافة ملف تعريف",
         "myProfiles": "مظهر",
-        "myProfilesAtLeastOneReserveEnable": "لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل",
         "profileEdit": "تحرير الملف الشخصي",
         "profileEditUrlExist": "عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر",
         "profileEditReloadAfterProfileUpdate": "إعادة التحميل بعد تحديث الملف الشخصي",

@@ -30,7 +30,7 @@ class _UrlTestSettingsScreenState
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void _buildData() {
@@ -211,7 +211,7 @@ class _UrlTestSettingsScreenState
         !SettingConfig.kUrlTestList.contains(text) &&
         !SettingManager.getConfig().urlTestList.contains(text)) {
       SettingManager.getConfig().urlTestList.add(text);
-      SettingManager.saveConfig();
+      SettingManager.save();
       _buildData();
       setState(() {});
     }
@@ -219,7 +219,7 @@ class _UrlTestSettingsScreenState
 
   void onTapDelete(String url) {
     SettingManager.getConfig().urlTestList.remove(url);
-    SettingManager.saveConfig();
+    SettingManager.save();
     _buildData();
     setState(() {});
   }

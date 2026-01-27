@@ -119,7 +119,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     NoticeManager.onEventCheck.remove(onNotice);
     AutoUpdateManager.onEventCheck.remove(onUpdate);
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   @override
@@ -1650,7 +1650,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 textWidthPercent: 0.65,
                 onPush: () async {
                   item.readed = true;
-                  NoticeManager.saveConfig();
+                  NoticeManager.save();
                   setState(() {});
 
                   /*AnalyticsUtils.logEvent(
@@ -1726,7 +1726,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           context,
           MaterialPageRoute(
             settings: VersionUpdateScreen.routSettings(),
-            builder: (context) => const VersionUpdateScreen(force: false),
+            builder: (context) => const VersionUpdateScreen(),
           ),
         );
       } else {

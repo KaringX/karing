@@ -147,4 +147,3 @@ endif()
 install(PROGRAMS "${CMAKE_CURRENT_SOURCE_DIR}/../bind/linux/core/karingService"
   DESTINATION "${BUILD_BUNDLE_DIR}" 
   COMPONENT Runtime)
-

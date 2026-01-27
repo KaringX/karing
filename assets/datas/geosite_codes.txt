@@ -134,10 +134,12 @@ applysquare
 aptoide
 archive
 archiveofourown
+archivetoday
 archlinux
 arphic
 artstation
 asahi
+askdiandian
 asobo
 asproex
 asus
@@ -152,6 +154,7 @@ authy
 autodesk
 available-only-inside@ru
 avaxhome
+avito
 avmoo
 awempire
 aws-cn
@@ -244,6 +247,7 @@ broadcom
 broadcom@cn
 btdig
 bttzyw
+bushiroad
 buymeacoffee
 buypass
 bybit
@@ -296,6 +300,10 @@ category-browser-!cn
 category-cas
 category-cas@ads
 category-cas@cn
+category-cdn-!cn
+category-cdn-!cn@cn
+category-cdn-cn
+category-cdn-cn@cn
 category-collaborate-cn
 category-communication
 category-communication@ads
@@ -315,6 +323,7 @@ category-dev@ads
 category-dev@cn
 category-documents-cn
 category-doh
+category-ecommerce-ru
 category-ecommerce
 category-ecommerce@ads
 category-ecommerce@cn
@@ -329,6 +338,7 @@ category-entertainment-cn
 category-entertainment-cn@!cn
 category-entertainment-cn@ads
 category-entertainment-cn@cn
+category-entertainment-ru
 category-entertainment
 category-entertainment@!cn
 category-entertainment@ads
@@ -384,11 +394,13 @@ category-password-management
 category-payment-ir
 category-porn
 category-porn@ads
+category-proxy-tunnels
 category-pt
 category-pt@!cn
 category-public-tracker
 category-remote-control
 category-remote-control@cn
+category-retail-ru
 category-ru
 category-scholar-!cn
 category-scholar-cn
@@ -414,6 +426,7 @@ category-tm
 category-travel-ir
 category-voip
 category-vpnservices
+category-web-archive
 category-wiki-cn
 cavporn
 cbs
@@ -533,6 +546,7 @@ dedao
 deepin
 deepin@!cn
 deepseek
+deezer
 dell
 dell@cn
 demonoid
@@ -563,6 +577,7 @@ divar
 dji
 dlercloud
 dlsite
+dmit
 dmm-ads
 dmm-ads@ads
 dmm-porn
@@ -703,6 +718,7 @@ freenode
 ft
 ftv
 futu
+futu@cn
 fzdm
 gamersky
 gamersky@ads
@@ -802,6 +818,7 @@ heytea
 heyzo
 hiido-ads
 hiido-ads@ads
+hikvision
 hinet-eca
 hinet
 hitun
@@ -901,6 +918,7 @@ intel-dev
 intel
 intel@cn
 intercom
+internet-archive
 intsig
 intuit
 ipip
@@ -1134,11 +1152,13 @@ moji
 momo
 mongodb
 monotype
+moonvy
 mopub-ads
 mopub-ads@ads
 morisawa
 mortein
 mortein@cn
+mosmetro
 movefree
 movefree@cn
 moxing
@@ -1189,6 +1209,7 @@ nexo
 nexon
 nga
 nginx
+ngrok
 niconico
 nike
 nike@cn
@@ -1296,6 +1317,7 @@ pinduoduo
 pingan
 pingan@!cn
 pingcap
+pinggy
 pingpe
 pingsx
 pinkcore
@@ -1416,6 +1438,7 @@ sb
 scala
 scaleflex
 scenesource
+schoopia
 schwab
 sci-hub
 sci
@@ -1564,6 +1587,7 @@ tcl
 teambition
 teamviewer
 teamviewer@cn
+technogym
 techpowerup
 techtimes
 ted
@@ -1716,6 +1740,8 @@ volvo
 volvo@cn
 voxmedia
 vpngate
+vrcdn
+vrchat
 vrzwk
 vultr
 w3schools
@@ -1746,6 +1772,7 @@ wholefoodsmarket
 wikidot
 wikihow
 wikimedia
+wildberries
 win-extra
 win-spy
 win-update
@@ -1788,6 +1815,7 @@ xiaoheihe
 xiaohongshu
 xiaomi-ads
 xiaomi-ads@ads
+xiaomi-ai
 xiaomi
 xiaomi@!cn
 xiaomi@ads
@@ -1860,4 +1888,7 @@ zotero
 zte
 zte@!cn
 zto-express
+zuoyebang-ads
+zuoyebang-ads@ads
 zuoyebang
+zuoyebang@ads

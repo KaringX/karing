@@ -124,6 +124,7 @@ class RemoteConfig {
   static const String kDefaultDownload = "https://$kDefaultHost/download/";
   static const String kDefaultTelegram = "https://t.me/KaringApp";
   static const String kDefaultFollow = "https://github.com/KaringX/karing";
+  static const String kDefaultHtmlTools = "https://tools.karing.app/";
   static const String kDefaultPrivacyPolicy =
       "https://dot.$kDefaultHost/privacy_policy.txt";
   static const String kDefaultDnsLeakDetection = "https://browserleaks.com/dns";
@@ -177,6 +178,7 @@ class RemoteConfig {
   String geoip = kDefaultGeoIp;
   String acl = kDefaultAcl;
   String donateUrl = "";
+  String htmlTools = kDefaultHtmlTools;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -248,7 +250,9 @@ class RemoteConfig {
     if (donateUrl.isNotEmpty) {
       ret["donate_url"] = donateUrl;
     }
-
+    if (htmlTools != kDefaultHtmlTools) {
+      ret["htmltools"] = htmlTools;
+    }
     return ret;
   }
 
@@ -326,7 +330,7 @@ class RemoteConfig {
     geoip = map["geoip_rulesets"] ?? kDefaultGeoIp;
     acl = map["acl_rulesets"] ?? kDefaultAcl;
     donateUrl = map["donate_url"] ?? "";
-
+    htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
     if (geosite.isEmpty) {
       geosite = kDefaultGeoSite;
     }

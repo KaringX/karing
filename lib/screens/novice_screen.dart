@@ -156,7 +156,7 @@ class _NoviceScreenState extends LasyRenderingState<NoviceScreen> {
           switchValue: settingConfig.novice,
           onSwitch: (bool value) async {
             settingConfig.novice = value;
-            SettingManager.saveConfig();
+            SettingManager.save();
             SettingManager.setDirty(true);
             setState(() {});
           },

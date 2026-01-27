@@ -53,7 +53,7 @@ class _DiversionRuleDetectScreenState
     if (_domain.isNotEmpty &&
         _domain != SettingManager.getConfig().ui.diversionRuleDetectDomain) {
       SettingManager.getConfig().ui.diversionRuleDetectDomain = _domain;
-      SettingManager.saveConfig();
+      SettingManager.save();
     }
   }
 

@@ -280,8 +280,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    Open    ",
-            "menuExit": "    Exit    "
+            "menuOpen": "Open",
+            "menuExit": "Exit"
         }
     },
     "meta": {
@@ -316,6 +316,7 @@
         "feedbackContentHit": "Required, up to 500 characters",
         "feedbackContentCannotEmpty": "Feedback content can not be empty",
         "faq": "FAQ",
+        "htmlTools": "HTML Toolset",
         "download": "Download",
         "upload": "Upload",
         "downloadSpeed": "Download Speed",
@@ -511,7 +512,6 @@
         "getProfile": "Get Profile",
         "addProfile": "Add Profile",
         "myProfiles": "My Profiles",
-        "myProfilesAtLeastOneReserveEnable": "Cannot be disabled, please keep at least one profile enable",
         "profileEdit": "Profile Edit",
         "profileEditUrlExist": "URL already exists, please use another URL",
         "profileEditReloadAfterProfileUpdate": "Reload after Profile update",

@@ -280,8 +280,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    Открыть    ",
-            "menuExit": "    Выйти    "
+            "menuOpen": "Открыть",
+            "menuExit": "Выйти"
         }
     },
     "meta": {
@@ -316,6 +316,7 @@
         "feedbackContentHit": "Не более 500 символов",
         "feedbackContentCannotEmpty": "Содержание не может быть пустым",
         "faq": "Часто задаваемые вопросы (FAQ)",
+        "htmlTools": "HTML Toolset",
         "download": "Скачать",
         "upload": "Загрузить",
         "downloadSpeed": "Скорость загрузки",
@@ -511,7 +512,6 @@
         "getProfile": "Получить конфигурацию",
         "addProfile": "Добавить профиль",
         "myProfiles": "Профили",
-        "myProfilesAtLeastOneReserveEnable": "Невозможно отключить, оставьте включенным хотя бы один профиль",
         "profileEdit": "Редактирование профилей",
         "profileEditUrlExist": "URL-адрес уже существует, используйте другой URL-адрес",
         "profileEditReloadAfterProfileUpdate": "Перезагрузить после обновления профиля",

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/setting_manager.dart';
 
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/assets_utils.dart';
@@ -153,9 +152,14 @@ class _UserAgreementScreenState
     if (_res.isNotEmpty) {
       return _res;
     }
-    bool isChinese = SettingManager.getConfig().languageTag
-        .toLowerCase()
-        .contains("cn");
+    final languageCode = WidgetsBinding
+        .instance
+        .platformDispatcher
+        .locale
+        .languageCode
+        .toLowerCase();
+    bool isChinese = languageCode.contains('zh');
+
     _res = await AssetsUtils.loadUserAgreement(isChinese);
     return _res;
   }

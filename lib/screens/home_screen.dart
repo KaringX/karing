@@ -46,6 +46,7 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/antdesign.dart';
@@ -70,7 +71,6 @@ import 'package:karing/screens/settings_screen.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/tv_mode_screen.dart';
 import 'package:karing/screens/user_agreement_screen.dart';
-
 import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/ads_widget.dart';
 import 'package:karing/screens/widgets/fab2.dart';
@@ -832,7 +832,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (NetworkUtils.isIpv4(ip) || NetworkUtils.isIpv6(ip)) {
       if (setting.dns.clientSubnet != ip) {
         setting.dns.clientSubnet = ip;
-        SettingManager.saveConfig();
+        SettingManager.save();
       }
     }
     //_widgetOptions.outletIpByDirectInfo!.notifier.value = ip;
@@ -950,13 +950,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         VPNService.setCurrent(_currentServer);
         _currentServerForUrltest.clear();
       } else {
-        if (ServerManager.getConfig().getServersCount(false) > 0) {
-          _currentServer = ServerManager.getUrltest();
-          VPNService.setCurrent(_currentServer);
-          _currentServerForUrltest.clear();
-          ServerManager.addRecent(_currentServer);
-          ServerManager.saveUse();
-        }
+        _currentServer = ServerManager.getUrltest();
+        VPNService.setCurrent(_currentServer);
+        _currentServerForUrltest.clear();
+        ServerManager.addRecent(_currentServer);
+        ServerManager.saveUse();
       }
     }
 
@@ -991,9 +989,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
 
-    SchemeHandler.vpnConnect = _vpnSchemeConnect;
-    SchemeHandler.vpnDisconnect = _vpnSchemeDisconnect;
-    SchemeHandler.vpnReconnect = _vpnSchemeReconnect;
+    VpnActionHandler.vpnConnect = _vpnConnect;
+    VpnActionHandler.vpnDisconnect = _vpnDisconnect;
+    VpnActionHandler.vpnReconnect = _vpnReconnect;
     initQuickAction();
     _onInitAllFinished = true;
 
@@ -1017,13 +1015,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     if (PlatformUtils.isPC()) {
       if (SettingManager.getConfig().autoConnectAfterLaunch) {
-        bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-        if (!noConfig) {
-          var state = await VPNService.getState();
-          if (state == FlutterVpnServiceState.invalid ||
-              state == FlutterVpnServiceState.disconnected) {
-            await start("launch");
-          }
+        var state = await VPNService.getState();
+        if (state == FlutterVpnServiceState.invalid ||
+            state == FlutterVpnServiceState.disconnected) {
+          await start("launch");
         }
       }
     } else if (Platform.isAndroid) {
@@ -1045,9 +1040,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  Future<void> _vpnSchemeConnect(bool background) async {
+  Future<void> _vpnConnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
-      ReturnResultError? error = await start("scheme");
+      ReturnResultError? error = await start(from);
       if (error == null) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
@@ -1058,7 +1053,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
   }
 
-  Future<void> _vpnSchemeDisconnect(bool background) async {
+  Future<void> _vpnDisconnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
       await stop();
       if (background) {
@@ -1069,10 +1064,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     });
   }
 
-  Future<void> _vpnSchemeReconnect(bool background) async {
+  Future<void> _vpnReconnect(String from, bool background) async {
     Future.delayed(const Duration(seconds: 0), () async {
       await stop();
-      ReturnResultError? error = await start("scheme");
+      ReturnResultError? error = await start(from);
       if (error == null) {
         if (background) {
           MoveToBackgroundUtils.moveToBackground(
@@ -1084,6 +1079,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<ReturnResultError?> _onRequestStartVPN(String from) async {
+    if (ServerManager.getUpdateDirty()) {
+      ServerManager.setDirty(true);
+    }
     if (_state == FlutterVpnServiceState.connected) {
       return await checkAndReload(from, disableShowAlertDialog: true);
     }
@@ -1154,11 +1152,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onUpdateConfig(List<ServerConfigGroupItem> groups) async {
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-    if (noConfig) {
-      setState(() {});
-      return;
-    }
     bool reload = false;
     for (var group in groups) {
       if (group.enable && group.reloadAfterProfileUpdate) {
@@ -1181,11 +1174,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onLatencyUpdateConfig(Set<ServerConfigGroupItem> groups) async {
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-    if (noConfig) {
-      setState(() {});
-      return;
-    }
     bool reload = false;
     for (var group in groups) {
       if (group.enable && group.testLatencyAutoRemove) {
@@ -1263,14 +1251,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onReloadFromZipConfigs() async {
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-    if (noConfig) {
-      _currentServer = ProxyConfig();
-      VPNService.setCurrent(_currentServer);
-
-      await stop();
-      return;
-    }
     ProxyConfig? config = ServerManager.getMostRecent();
     if (config != null) {
       _currentServer = config;
@@ -1478,6 +1458,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     SettingManager.setDirty(false);
     ServerManager.setDirty(false);
+    ServerManager.setUpdateDirty(false);
 
     await ProxyCluster.stop();
     _disconnectToCurrent();
@@ -1801,7 +1782,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           return;
         }
         SettingManager.getConfig().uiScreen.widgets = result.data!.widgets;
-        SettingManager.saveConfig();
+        SettingManager.save();
         _edit = false;
 
         setState(() {});
@@ -1917,7 +1898,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         }
       }
       handleWidgetChanged(addedWidgetIds, removedWidgetIds);
-      SettingManager.saveConfig();
+      SettingManager.save();
     }
 
     _edit = !_edit;
@@ -1953,7 +1934,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       );
     }
     noticeItem.readed = true;
-    NoticeManager.saveConfig();
+    NoticeManager.save();
 
     setState(() {});
     Future.delayed(const Duration(seconds: 0), () async {
@@ -2008,6 +1989,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       VPNService.setCurrent(_currentServer);
     }
     ServerManager.setDirty(false);
+    ServerManager.setUpdateDirty(false);
     setState(() {});
   }
 
@@ -2028,15 +2010,12 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       if (SettingManager.getDirty()) {
         SettingManager.setDirty(false);
-        SettingManager.saveConfig();
+        SettingManager.save();
       }
 
       ServerManager.setDirty(false);
-      bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-      if (noConfig) {
-        await stop();
-        return null;
-      }
+      ServerManager.setUpdateDirty(false);
+
       return await setServerAndReload(
         from,
         disableShowAlertDialog: disableShowAlertDialog,
@@ -2128,20 +2107,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         return ReturnResultError(tcontext.noNetworkConnect);
       }
     }
-    bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
-    if (noConfig) {
-      if (!disableShowAlertDialog) {
-        DialogUtils.showAlertDialog(
-          context,
-          "start failed: no server avaliable",
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true,
-        );
-      }
-      Log.w("start failed: no server avaliable");
-      return ReturnResultError("start failed: no server avaliable");
-    }
+
     if (_currentServer.groupid.isEmpty) {
       if (!disableShowAlertDialog) {
         DialogUtils.showAlertDialog(
@@ -2209,8 +2175,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
       return result.item1;
     }
-    ServerManager.setDirty(false);
+
     SettingManager.setDirty(false);
+    ServerManager.setDirty(false);
+    ServerManager.setUpdateDirty(false);
+
     var err = await VPNService.start(
       VPNService.getTimeoutByOutboundCount(result.item2!, tunMode),
     );
@@ -2608,12 +2577,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                 thicknessChild: ServerSelectCard(
                                   server: _currentServer,
                                   serverUrltest: _currentServerForUrltest,
-                                  onTap: (bool hasProfile) async {
-                                    if (!hasProfile) {
-                                      onTapAddProfileByStart();
-                                    } else {
-                                      await onTapServerSelect();
-                                    }
+                                  onTap: () async {
+                                    await onTapServerSelect();
                                   },
                                 ),
                                 child: SizedBox(
@@ -2628,23 +2593,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                           ? null
                                           : () async {
                                               _working = true;
-                                              bool noConfig =
-                                                  ServerManager.getConfig()
-                                                      .getServersCount(false) ==
-                                                  0;
-                                              var state =
-                                                  await VPNService.getState();
-                                              if (noConfig) {
-                                                if (state ==
-                                                    FlutterVpnServiceState
-                                                        .connected) {
-                                                  await stop();
-                                                } else {
-                                                  await onTapShowAddProfile();
-                                                }
-                                              } else {
-                                                await onTapToggle("switch");
-                                              }
+                                              await onTapToggle("switch");
                                               _working = false;
                                               setState(() {});
                                             },

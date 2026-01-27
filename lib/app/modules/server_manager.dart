@@ -431,6 +431,7 @@ class ServerManager {
   static bool _updatingSubscription = false;
   static bool _updateLatencyByHistory = false;
   static bool _dirty = false;
+  static bool _updatedDirty = false;
 
   static Future<void> init() async {
     await loadServerConfig();
@@ -557,6 +558,7 @@ class ServerManager {
               item.urlOrPath,
               item.type,
               item.userAgentCompatible,
+              item.xhwid,
               item.proxyFilter,
               item.proxyFilterRemove,
               item.keepDiversionRules,
@@ -1563,6 +1565,7 @@ class ServerManager {
     String urlOrPath,
     bool local,
     String userAgentCompatible,
+    bool xhwid,
     ProxyFilter filter,
     List<String> proxyFilterRemove,
     bool keepDiversionRules,
@@ -1586,6 +1589,7 @@ class ServerManager {
     item.proxyFilter = filter;
     item.proxyFilterRemove = proxyFilterRemove;
     item.userAgentCompatible = userAgentCompatible;
+    item.xhwid = xhwid;
     item.site = website ?? "";
     item.keepDiversionRules = keepDiversionRules;
     item.enableDiversionRules = enableDiversionRules;
@@ -1653,6 +1657,7 @@ class ServerManager {
         exist.remark = item.remark;
         exist.urlOrPath = item.urlOrPath;
         exist.userAgentCompatible = item.userAgentCompatible;
+        exist.xhwid = item.xhwid;
         exist.keepDiversionRules = item.keepDiversionRules;
         exist.enableDiversionRules = item.enableDiversionRules;
         exist.proxyStrategy = item.proxyStrategy;
@@ -1785,6 +1790,7 @@ class ServerManager {
       filePath,
       true,
       "",
+      false,
       filter,
       [],
       keepDiversionRules,
@@ -1805,6 +1811,7 @@ class ServerManager {
     String url,
     SubscriptionLinkType type,
     String userAgentCompatible,
+    bool xhwid,
     ProxyFilter filter,
     List<String> proxyFilterRemove,
     bool keepDiversionRules,
@@ -1825,6 +1832,7 @@ class ServerManager {
       url,
       false,
       userAgentCompatible,
+      xhwid,
       filter,
       proxyFilterRemove,
       keepDiversionRules,
@@ -2206,6 +2214,7 @@ class ServerManager {
       item.urlOrPath,
       item.type,
       item.userAgentCompatible,
+      item.xhwid,
       item.proxyFilter,
       item.proxyFilterRemove,
       item.keepDiversionRules,
@@ -2223,9 +2232,13 @@ class ServerManager {
     if (err != null) {
       Log.w("ServerManager.reload err ${item.urlOrPath} ${err.message}");
     } else {
-      if (item.enable && item.reloadAfterProfileUpdate) {
-        setDirty(true);
+      if (item.enable) {
+        setUpdateDirty(true);
+        if (item.reloadAfterProfileUpdate) {
+          setDirty(true);
+        }
       }
+
       items.add(item);
     }
 
@@ -2261,12 +2274,14 @@ class ServerManager {
         _remoteReloading.remove(groupid);
         continue;
       }
+
       ReturnResultError? err = await addRemoteConfig(
         groupid,
         item.remark,
         item.urlOrPath,
         item.type,
         item.userAgentCompatible,
+        item.xhwid,
         item.proxyFilter,
         item.proxyFilterRemove,
         item.keepDiversionRules,
@@ -2284,6 +2299,13 @@ class ServerManager {
       if (err != null) {
         Log.w("ServerManager.reloadAll err ${item.urlOrPath} ${err.message}");
       } else {
+        if (item.enable) {
+          setUpdateDirty(true);
+          if (item.reloadAfterProfileUpdate) {
+            setDirty(true);
+          }
+        }
+
         items.add(item);
       }
     }
@@ -2565,6 +2587,14 @@ class ServerManager {
     return _dirty;
   }
 
+  static void setUpdateDirty(bool dirty) {
+    _updatedDirty = dirty;
+  }
+
+  static bool getUpdateDirty() {
+    return _updatedDirty;
+  }
+
   static void modifyRemark(String groupid, String remark) {
     ServerConfigGroupItem? item = getByGroupId(groupid);
     ServerDiversionGroupItem? itemDiversion = getDiversionGroupByGroupId(
@@ -2717,7 +2747,7 @@ class ServerManager {
         perAppListNew.addAll(perAppList);
         SettingManager.getConfig().perapp.list = perAppListNew.toList();
       }
-      SettingManager.saveConfig();
+      SettingManager.save();
     }
 
     var list = _onReloadFromZipConfigs.values.toList();

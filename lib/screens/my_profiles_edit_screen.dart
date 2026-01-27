@@ -31,6 +31,7 @@ class _MyProfilesEditScreenState
   ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
+  bool _xhwid = false;
   String _website = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   bool _keepDiversionRules = false;
@@ -53,6 +54,7 @@ class _MyProfilesEditScreenState
       _proxyStrategy = item.proxyStrategy;
       _updateTimeInterval = item.updateDuration;
       _compatible = item.userAgentCompatible;
+      _xhwid = item.xhwid;
       _proxyFilter = item.proxyFilter;
       _keepDiversionRules = item.keepDiversionRules;
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
@@ -191,6 +193,7 @@ class _MyProfilesEditScreenState
         item.proxyStrategy == _proxyStrategy &&
         item.updateDuration == _updateTimeInterval &&
         item.userAgentCompatible == _compatible &&
+        item.xhwid == _xhwid &&
         item.proxyFilter.method == _proxyFilter.method &&
         item.proxyFilter.keywordOrRegx == _proxyFilter.keywordOrRegx &&
         item.keepDiversionRules == _keepDiversionRules &&
@@ -216,6 +219,7 @@ class _MyProfilesEditScreenState
     item.proxyStrategy = _proxyStrategy;
     item.updateDuration = _updateTimeInterval;
     item.userAgentCompatible = _compatible;
+    item.xhwid = _xhwid;
     item.proxyFilter = _proxyFilter;
     item.keepDiversionRules = _keepDiversionRules;
     item.reloadAfterProfileUpdate = _reloadAfterProfileUpdate;
@@ -306,6 +310,16 @@ class _MyProfilesEditScreenState
             tips: tcontext.ispUserAgentTips,
             onPush: () async {
               onTapUserAgent();
+            },
+          ),
+        ),
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: "X-HWID",
+            switchValue: _xhwid,
+            onSwitch: (bool value) async {
+              _xhwid = value;
+              setState(() {});
             },
           ),
         ),

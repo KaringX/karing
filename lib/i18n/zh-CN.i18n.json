@@ -280,8 +280,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    打开    ",
-            "menuExit": "    退出    "
+            "menuOpen": "打开",
+            "menuExit": "退出"
         }
     },
     "meta": {
@@ -316,6 +316,7 @@
         "feedbackContentHit": "必填, 最长500字符",
         "feedbackContentCannotEmpty": "反馈内容不能为空",
         "faq": "常见问题",
+        "htmlTools": "HTML工具集",
         "download": "下载",
         "upload": "上传",
         "downloadSpeed": "下载速度",
@@ -511,7 +512,6 @@
         "getProfile": "获取配置",
         "addProfile": "添加配置",
         "myProfiles": "我的配置",
-        "myProfilesAtLeastOneReserveEnable": "无法禁用,请至少保留一个配置可用",
         "profileEdit": "编辑配置",
         "profileEditUrlExist": "URL已存在,请使用其他URL",
         "profileEditReloadAfterProfileUpdate": "配置更新后重新加载",

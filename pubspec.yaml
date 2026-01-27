@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.11+1406
+version: 1.2.12+1506
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -26,12 +26,12 @@ dependencies:
   #device_info_plus: 11.1.1
   network_info_plus: 7.0.0
   connectivity_plus: 7.0.0
-  package_info_plus: 9.0.0 #sentry_flutter
+  package_info_plus: 9.0.0
   build_info: 1.1.0
   build_info_android: 1.1.0
   #platform_device_id: 1.0.1
   class_to_string: 1.2.0
-  ffi: 2.1.4
+  ffi: 2.1.5
   url_launcher: 6.3.2
   #webview_flutter: 4.10.0
   #webview_win_floating: 2.2.9
@@ -44,14 +44,14 @@ dependencies:
       path: flutter_inappwebview
   web_socket_channel: 3.0.3 #flutter_test
   dio: 5.9.0
-  sqlite_async: 0.12.2
+  sqlite_async: 0.13.0
   sqlite3: 2.9.4
   sqlite3_flutter_libs: 0.5.40
   path_provider: 2.1.5
   flutter_secure_storage: 9.2.4
   protocol_handler: 0.1.6 #0.2.0 cause windows jam when exit
   fl_chart: 1.1.1
-  data_table_2: 2.7.1
+  data_table_2: 2.7.2
   extended_wrap: 0.1.5
   infinite_scroll_pagination: 5.1.1
   #dart_json_mapper: 2.2.7
@@ -71,61 +71,61 @@ dependencies:
   #combine: 0.5.7-0.1.pre
   #isolate_manager: 4.1.5+1
   #combine: 0.5.7
-  launch_at_startup: 0.2.2 #pc only 0.2.2 - 0.3.1 StartupApproved cause reg exceptions
+  launch_at_startup: 0.2.2 #0.2.2 - 0.3.1 StartupApproved cause reg exceptions
   provider: 6.1.5+1
   #fpdart: 1.1.0
   zxing2: 0.2.4
   qr_code_scanner_plus: 2.0.14
-  screen_capturer: 0.2.3 #pc only
+  screen_capturer: 0.2.3
   defer_pointer: 0.0.2
   contextmenu: 3.0.0
-  image: 4.5.4
+  image: 4.7.2 
   cached_network_image: 3.4.1
   uuid: 4.5.2 #flutter_test 
-  slang: 4.11.0
+  slang: 4.11.2
   slang_flutter: 4.11.0
-  watcher: 1.1.4
+  watcher: 1.2.1
   string_validator: 1.2.0
   punycode_converter: 0.2.1
   #pay: 1.1.0
   #alipay_kit: 5.0.0
   yaml: 3.1.3
-  scrollview_observer: 1.26.2
+  scrollview_observer: 1.26.3
   after_layout: 1.2.0
   flutter_install_referrer: 2.1.0
-  windows_single_instance: 1.1.0 #windows only
+  windows_single_instance: 1.1.0
   flutter_plugin_android_lifecycle: 2.0.33 #file_picker image_picker
-  file_picker: 10.3.7 
+  file_picker: 10.3.8
   image_picker: 1.2.1
-  board_datetime_picker: 2.8.4
-  tray_manager: 0.5.2 # pc only
-  hotkey_manager: 0.2.3  # pc only
+  board_datetime_picker: 2.8.5
+  tray_manager: 0.5.2
+  hotkey_manager: 0.2.3
   #accessibility_tools: 2.2.2
   logger: 2.6.2
   tuple: 2.0.2
   crypto: 3.0.7
   cryptography: 2.9.0
-  open_dir: 0.0.2+1 #pc only
+  open_dir: 0.0.2+1
   in_app_review: 2.0.11
   path: 1.9.1 #flutter_test
   characters: 1.4.0 #flutter_test
   win32_registry: 1.1.5 #flutter_test
   csv: 6.0.0
   #home_widget: 0.4.1
-  share_plus: 12.0.1 #sentry_flutter
-  open_file: 3.5.10 #sentry_flutter
+  share_plus: 12.0.1
+  open_file: 3.5.10
   app_installer: 1.3.1
   #dart_ping: 9.0.1
   #flutter_background_service: 5.0.5
-  app_settings: 6.1.1
+  app_settings: 7.0.0 
   #duraspeed_checker: 0.0.1
   #timezone_to_country: 2.2.0
   #local_auth: 2.2.0
   win32: 5.11.0
   webdav_client_plus: 1.0.2
-  mime: 1.0.4
-  http: 1.4.0
-  http_parser: 4.0.2
+  mime: 2.0.0
+  http: 1.6.0
+  http_parser: 4.1.2
   icloud_storage: 2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
   archive: 4.0.7
   #code_text_field: 1.1.0
@@ -155,7 +155,7 @@ dependencies:
       url: https://github.com/KaringX/country.git
       ref: 972934851fd8eeb08e9ea6fead33829972fbf09f
       path: country
-  window_manager: #0.5.0 #pc only
+  window_manager: #0.5.0
     #path: ../window_manager/packages/
     git:
       url: https://github.com/KaringX/window_manager.git

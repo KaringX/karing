@@ -9,6 +9,7 @@ import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/did.dart';
 import 'package:karing/app/utils/http_overrides_utils.dart';
+import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/screens/home_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,6 @@ void main(List<String> args) async {
   var subnets = await GeoipSubnetUtils.genClientSubnet(files);
   await GeoipSubnetUtils.saveSubnets(subnets, target);
   return;*/
-  //runZonedGuarded(() async {
   processArgs = args;
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverridesUtils.install();
@@ -74,10 +74,6 @@ void main(List<String> args) async {
   SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
 
   await run(args);
-  //}, (exception, stackTrace) async {
-  //  print("$exception, ${stackTrace.toString()}");
-  //await Sentry.captureException(exception, stackTrace: stackTrace);
-  //});
 }
 
 Future<void> run(List<String> args) async {
@@ -234,6 +230,8 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp>
     with WidgetsBindingObserver, WindowListener, TrayListener {
+  static const kMenuConnect = "connect";
+  static const kMenuDisconnect = "disconnect";
   static const kMenuOpen = "show_window";
   static const kMenuExit = "exit_app";
   bool _launchAtStartup = false;
@@ -524,18 +522,27 @@ class MyAppState extends State<MyApp>
       if (!Platform.isLinux) {
         await trayManager.setToolTip(AppUtils.getName());
       } else {
-        _setTrayMenu();
+        _setTrayMenu(grey);
       }
     });
   }
 
-  void _setTrayMenu() async {
+  void _setTrayMenu(bool grey) async {
     if (!PlatformUtils.isPC()) {
       return;
     }
+
     List<MenuItem> items = [
-      MenuItem(key: kMenuOpen, label: t.main.tray.menuOpen),
-      MenuItem(key: kMenuExit, label: t.main.tray.menuExit),
+      if (grey) ...[
+        MenuItem(key: kMenuConnect, label: "   ${t.meta.connect}   "),
+      ],
+      if (!grey) ...[
+        MenuItem(key: kMenuDisconnect, label: "   ${t.meta.disconnect}   "),
+      ],
+      MenuItem.separator(),
+
+      MenuItem(key: kMenuOpen, label: "   ${t.main.tray.menuOpen}   "),
+      MenuItem(key: kMenuExit, label: "   ${t.main.tray.menuExit}   "),
     ];
 
     await trayManager.setContextMenu(Menu(items: items));
@@ -556,12 +563,16 @@ class MyAppState extends State<MyApp>
 
   @override
   void onTrayIconRightMouseDown() async {
-    _setTrayMenu();
+    _setTrayMenu(_trayGrey);
   }
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == kMenuExit) {
+    if (menuItem.key == kMenuConnect) {
+      VpnActionHandler.vpnConnect?.call("menu", false);
+    } else if (menuItem.key == kMenuDisconnect) {
+      VpnActionHandler.vpnDisconnect?.call("menu", false);
+    } else if (menuItem.key == kMenuExit) {
       await _quit();
     } else if (menuItem.key == kMenuOpen) {
       if (await windowManager.isMinimized()) {

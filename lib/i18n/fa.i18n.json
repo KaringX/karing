@@ -280,8 +280,8 @@
     },
     "main": {
         "tray": {
-            "menuOpen": "    بازکردن    ",
-            "menuExit": "    بستن    "
+            "menuOpen": "بازکردن",
+            "menuExit": "بستن"
         }
     },
     "meta": {
@@ -316,6 +316,7 @@
         "feedbackContentHit": "الزامی، تا 500 حرف",
         "feedbackContentCannotEmpty": "محتوای بازخورد نمی‌تواند خالی باشد",
         "faq": "سوالات متداول",
+        "htmlTools": "مجموعه ابزارهای HTML",
         "download": "دانلود",
         "upload": "آپلود",
         "downloadSpeed": "سرعت دانلود",
@@ -511,7 +512,6 @@
         "getProfile": "پیکربندی را دریافت کنید",
         "addProfile": "افزودن پروفایل",
         "myProfiles": "پروفایل‌ها",
-        "myProfilesAtLeastOneReserveEnable": "نمی‌تواند غیرغعال شود، لطفا حداقل یک پروفایل را فعال نگه دارید",
         "profileEdit": "ویرایش پروفایل",
         "profileEditUrlExist": "آدرس URL از‌قبل وجود دارد، لطفا از URL دیگری استفاده کنید",
         "profileEditReloadAfterProfileUpdate": "بارگذاری مجدد پس‌از به‌روزرسانی پروفایل",

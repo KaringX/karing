@@ -9,6 +9,7 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/crypto_utils.dart';
 import 'package:karing/app/utils/download_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -25,13 +26,14 @@ class AutoUpdateCheckVersion {
   bool newVersion = false;
   String version = "";
   String url = "";
-  bool force = false;
+
+  String sha256 = "";
   Map<String, dynamic> toJson() => {
     'latest_check': latestCheck,
     'new_version': newVersion,
     "version": version,
     "url": url,
-    "force": force,
+    "sha256": sha256,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -41,7 +43,7 @@ class AutoUpdateCheckVersion {
     newVersion = map["new_version"] ?? "";
     version = map["version"] ?? "";
     url = map["url"] ?? "";
-    force = map["force"] ?? false;
+    sha256 = map["sha256"] ?? "";
   }
 
   static AutoUpdateCheckVersion fromJsonStatic(Map<String, dynamic>? map) {
@@ -85,7 +87,7 @@ class AutoUpdateCheckVersion {
     newVersion = false;
     version = "";
     url = "";
-    force = false;
+    sha256 = "";
   }
 }
 
@@ -105,7 +107,7 @@ class AutoUpdateManager {
   }
 
   static Future<void> init() async {
-    await loadConfig();
+    await load();
     String version = AppUtils.getBuildinVersion();
 
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) >=
@@ -123,7 +125,7 @@ class AutoUpdateManager {
 
       _versionCheck.clear();
 
-      saveConfig();
+      save();
     }
     VPNService.onEventStateChanged.add((
       FlutterVpnServiceState state,
@@ -155,7 +157,7 @@ class AutoUpdateManager {
     return _versionCheck;
   }
 
-  static Future<void> loadConfig() async {
+  static Future<void> load() async {
     String filePath = await PathUtils.autoUpdateFilePath();
     var file = File(filePath);
     bool exists = await file.exists();
@@ -171,7 +173,7 @@ class AutoUpdateManager {
     } catch (err, stacktrace) {}
   }
 
-  static void saveConfig() async {
+  static void save() async {
     String filePath = await PathUtils.autoUpdateFilePath();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String content = encoder.convert(_versionCheck.toJson());
@@ -257,9 +259,17 @@ class AutoUpdateManager {
           _versionCheck.newVersion = false;
           _versionCheck.version = "";
           _versionCheck.url = "";
-          _versionCheck.force = false;
+          _versionCheck.sha256 = "";
 
-          saveConfig();
+          save();
+        }
+      }
+      if (_versionCheck.sha256.isNotEmpty) {
+        final hash = await CryptoUtils.getFileSha256(downloadPath);
+        if (hash != null) {
+          if (_versionCheck.sha256 != hash) {
+            await FileUtils.deletePath(downloadPath);
+          }
         }
       }
       _downloading = false;
@@ -301,7 +311,7 @@ class AutoUpdateManager {
       if (items.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);
-        saveConfig();
+        save();
         return;
       }
       _duration = const Duration(hours: 3);
@@ -314,7 +324,7 @@ class AutoUpdateManager {
         _versionCheck.newVersion = false;
         _versionCheck.version = "";
         _versionCheck.url = "";
-        _versionCheck.force = false;
+        _versionCheck.sha256 = "";
 
         for (var item in items.data!) {
           if (item.platform != Platform.operatingSystem) {
@@ -347,7 +357,7 @@ class AutoUpdateManager {
               _versionCheck.newVersion = true;
               _versionCheck.version = item.version;
               _versionCheck.url = item.url;
-              _versionCheck.force = item.force;
+              _versionCheck.sha256 = item.sha256;
             }
 
             break;
@@ -359,7 +369,7 @@ class AutoUpdateManager {
             callback();
           }
         });
-        saveConfig();
+        save();
         await download();
       }
     } catch (err, _) {
@@ -368,7 +378,7 @@ class AutoUpdateManager {
 
     _checking = false;
     Future.delayed(_duration, () async {
-      await _check();
+      _check();
     });
   }
 }

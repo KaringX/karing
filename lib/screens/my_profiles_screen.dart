@@ -55,6 +55,7 @@ class MyProfilesScreen extends LasyRenderingStatefulWidget {
 class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   static final Set<String> _expandGroup = {};
   final List<ListViewMultiPartsItem> _listViewParts = [];
+
   //TapDownDetails _tapDownDetails = TapDownDetails();
 
   Timer? _timer;
@@ -354,6 +355,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       if (!mounted) {
                         return;
                       }
+
                       if (value != null) {
                         DialogUtils.showAlertDialog(
                           context,
@@ -592,13 +594,10 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 if (value.error != null) {
                   if (value.error!.message.contains("405")) {
                     ServerManager.reload(item.groupid).then((value) {
-                      if (item.enable && item.reloadAfterProfileUpdate) {
-                        ServerManager.setDirty(true);
-                      }
                       if (!mounted) {
                         return;
                       }
-                      setState(() {});
+
                       if (value != null) {
                         DialogUtils.showAlertDialog(
                           context,
@@ -608,6 +607,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                           withVersion: true,
                         );
                       }
+                      setState(() {});
                     });
                   } else {
                     DialogUtils.showAlertDialog(
@@ -1180,12 +1180,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     );
     _buildData();
     setState(() {});
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void onTapReloadAll() {
     ServerManager.reloadAll();
-
     setState(() {});
   }
 
@@ -1239,34 +1238,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   Future<void> onChangedGroup(String groupid, bool newValue) async {
-    final tcontext = Translations.of(context);
-    if (!newValue) {
-      int count = 0;
-      for (var item in ServerManager.getConfig().items) {
-        if (item.groupid == ServerManager.getCustomGroupId()) {
-          continue;
-        }
-        if (item.enable) {
-          count++;
-        }
-        if (count >= 2) {
-          break;
-        }
-      }
-      if (count == 1) {
-        DialogUtils.showAlertDialog(
-          context,
-          tcontext.meta.myProfilesAtLeastOneReserveEnable,
-        );
-        return;
-      }
-    }
-
     await ServerManager.enableGroup(groupid, newValue);
-    // if (!newValue) {
     ServerManager.setDirty(true);
-    //}
-
     if (!mounted) {
       return;
     }

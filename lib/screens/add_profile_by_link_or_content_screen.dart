@@ -30,6 +30,7 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
   final String? ispId;
   final String? ispUser;
   final bool? autoAdd;
+  final bool? xhwid;
 
   const AddProfileByLinkOrContentScreen({
     super.key,
@@ -38,6 +39,7 @@ class AddProfileByLinkOrContentScreen extends LasyRenderingStatefulWidget {
     this.ispId,
     this.ispUser,
     this.autoAdd,
+    this.xhwid,
   });
 
   @override
@@ -53,6 +55,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _loading = false;
   bool _keepDiversionRules = false;
   String _compatible = "";
+  bool _xhwid = false;
   String _website = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
@@ -64,6 +67,7 @@ class _AddProfileByLinkOrContentScreenState
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
     _compatible = HttpUtils.getUserAgentsString();
+    _xhwid = widget.xhwid == true;
     String name = widget.name != null ? widget.name!.trim() : "";
     String urlOrContent = widget.urlOrContent.trim();
     _textControllerLink.text = urlOrContent;
@@ -205,6 +209,7 @@ class _AddProfileByLinkOrContentScreenState
       url,
       SubscriptionLinkType.unknown,
       _compatible,
+      _xhwid,
       _proxyFilter,
       [],
       _keepDiversionRules,
@@ -428,6 +433,16 @@ class _AddProfileByLinkOrContentScreenState
               : () async {
                   onTapUserAgent();
                 },
+        ),
+      ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: "X-HWID",
+          switchValue: _xhwid,
+          onSwitch: (bool value) async {
+            _xhwid = value;
+            setState(() {});
+          },
         ),
       ),
       GroupItemOptions(

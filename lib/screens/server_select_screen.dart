@@ -897,9 +897,6 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 child: InkWell(
                   onTap: () async {
                     ServerManager.reload(item.groupid).then((value) {
-                      if (item.enable && item.reloadAfterProfileUpdate) {
-                        ServerManager.setDirty(true);
-                      }
                       if (!mounted) {
                         return;
                       }
@@ -1767,7 +1764,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     );
     _buildData();
     setState(() {});
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void onTapTestOutboundLatencyAll() async {

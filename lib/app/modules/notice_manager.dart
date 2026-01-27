@@ -148,7 +148,7 @@ class NoticeLoadAndCheck {
     return Notice();
   }
 
-  Future<void> loadConfig() async {
+  Future<void> load() async {
     if (filePath.isEmpty) {
       return;
     }
@@ -160,7 +160,7 @@ class NoticeLoadAndCheck {
     _notice.items.clear();
   }
 
-  Future<void> saveConfig() async {
+  Future<void> save() async {
     if (filePath.isEmpty) {
       return;
     }
@@ -201,19 +201,19 @@ class NoticeLoadAndCheck {
       if (gnotice.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);
-        saveConfig();
+        save();
         return;
       }
       _duration = _checkDuration;
       if (gnotice.data!.content.isEmpty && gnotice.data!.url.isEmpty) {
         _checking = false;
-        saveConfig();
+        save();
         return;
       }
       NoticeItem? item = _notice.getByUpdateTime(gnotice.data!.updateTime);
       if (item != null) {
         _checking = false;
-        saveConfig();
+        save();
         return;
       }
       if (url.isEmpty) {
@@ -230,7 +230,7 @@ class NoticeLoadAndCheck {
       newItem.content = gnotice.data!.content;
       newItem.url = gnotice.data!.url;
       _notice.items.insert(0, newItem);
-      saveConfig();
+      save();
 
       Future.delayed(const Duration(milliseconds: 300), () async {
         checkUpdate?.call();
@@ -258,7 +258,7 @@ class NoticeManager {
     _selfNotice.url = remoteConfig.notice;
     _selfNotice.filePath = await PathUtils.noticeFilePath();
     _selfNotice.checkUpdate = _onCheckUpdate;
-    await _selfNotice.loadConfig();
+    await _selfNotice.load();
 
     await resetISP();
     VPNService.onEventStateChanged.add((
@@ -294,7 +294,7 @@ class NoticeManager {
       _ispNotice.ispId = remoteISPConfig.id;
       _ispNotice.name = remoteISPConfig.name;
       _ispNotice._checkDuration = remoteISPConfig.noticeUpdateInterval;
-      await _ispNotice.loadConfig();
+      await _ispNotice.load();
     } else {
       _ispNotice.url = "";
       _ispNotice.filePath = "";
@@ -302,7 +302,7 @@ class NoticeManager {
       _ispNotice.ispId = "";
       _ispNotice.name = "";
       _ispNotice.clear();
-      await _ispNotice.saveConfig();
+      await _ispNotice.save();
     }
   }
 
@@ -322,12 +322,12 @@ class NoticeManager {
     });
   }
 
-  static Future<void> saveConfig() async {
-    await _selfNotice.saveConfig();
+  static Future<void> save() async {
+    await _selfNotice.save();
 
     var remoteISPConfig = RemoteISPConfigManager.getConfig();
     if (remoteISPConfig.id.isNotEmpty) {
-      await _ispNotice.saveConfig();
+      await _ispNotice.save();
     }
   }
 }

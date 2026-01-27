@@ -77,7 +77,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     _timer?.cancel();
     _timer = null;
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void _buildData() {
@@ -636,7 +636,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                         SettingConfigItemDNS.kDNSIsp: ispText,
                         SettingConfigItemDNS.kDNSUrl: urlText,
                       });
-                      SettingManager.saveConfig();
+                      SettingManager.save();
                     }
 
                     Navigator.pop(context);

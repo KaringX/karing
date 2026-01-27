@@ -32,7 +32,7 @@ class _TvModeScreenState extends LasyRenderingState<TvModeScreen> {
 
   @override
   void dispose() {
-    SettingManager.saveConfig();
+    SettingManager.save();
     _focusNodeNext.dispose();
     super.dispose();
   }

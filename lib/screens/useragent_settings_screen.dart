@@ -31,7 +31,7 @@ class _UserAgentSettingsScreenState
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void _buildData() {
@@ -203,7 +203,7 @@ class _UserAgentSettingsScreenState
         !SettingConfig.kUserAgentList.contains(text) &&
         !SettingManager.getConfig().userAgents.contains(text)) {
       SettingManager.getConfig().userAgents.add(text);
-      SettingManager.saveConfig();
+      SettingManager.save();
       _buildData();
       setState(() {});
     }
@@ -211,7 +211,7 @@ class _UserAgentSettingsScreenState
 
   void onTapDelete(String url) {
     SettingManager.getConfig().userAgents.remove(url);
-    SettingManager.saveConfig();
+    SettingManager.save();
     _buildData();
     setState(() {});
   }

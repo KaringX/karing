@@ -579,6 +579,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get feedbackContentHit => 'مطلوب ، ما يصل إلى 500 حرف';
 	@override String get feedbackContentCannotEmpty => 'لا يمكن أن يكون محتوى التعليقات فارغًا';
 	@override String get faq => 'أسئلة مكررة';
+	@override String get htmlTools => 'مجموعة أدوات HTML';
 	@override String get download => 'تحميل';
 	@override String get upload => 'رفع';
 	@override String get downloadSpeed => 'سرعة التنزيل';
@@ -774,7 +775,6 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get getProfile => 'احصل على التكوين';
 	@override String get addProfile => 'إضافة ملف تعريف';
 	@override String get myProfiles => 'مظهر';
-	@override String get myProfilesAtLeastOneReserveEnable => 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل';
 	@override String get profileEdit => 'تحرير الملف الشخصي';
 	@override String get profileEditUrlExist => 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر';
 	@override String get profileEditReloadAfterProfileUpdate => 'إعادة التحميل بعد تحديث الملف الشخصي';
@@ -910,8 +910,8 @@ class _TranslationsMainTrayAr implements TranslationsMainTrayEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    يفتح    ';
-	@override String get menuExit => '    مخرج    ';
+	@override String get menuOpen => 'يفتح';
+	@override String get menuExit => 'مخرج';
 }
 
 /// The flat map containing all translations for locale <ar>.
@@ -1161,8 +1161,8 @@ extension on TranslationsAr {
 			'VersionUpdateScreen.cancel' => 'ليس الآن',
 			'CommonWidget.diableAlwayOnVPN' => 'إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.',
 			'CommonWidget.resetPort' => 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.',
-			'main.tray.menuOpen' => '    يفتح    ',
-			'main.tray.menuExit' => '    مخرج    ',
+			'main.tray.menuOpen' => 'يفتح',
+			'main.tray.menuExit' => 'مخرج',
 			'meta.enable' => 'يُمكَِن',
 			'meta.disable' => 'إبطال',
 			'meta.bydefault' => 'تقصير',
@@ -1194,6 +1194,7 @@ extension on TranslationsAr {
 			'meta.feedbackContentHit' => 'مطلوب ، ما يصل إلى 500 حرف',
 			'meta.feedbackContentCannotEmpty' => 'لا يمكن أن يكون محتوى التعليقات فارغًا',
 			'meta.faq' => 'أسئلة مكررة',
+			'meta.htmlTools' => 'مجموعة أدوات HTML',
 			'meta.download' => 'تحميل',
 			'meta.upload' => 'رفع',
 			'meta.downloadSpeed' => 'سرعة التنزيل',
@@ -1389,7 +1390,6 @@ extension on TranslationsAr {
 			'meta.getProfile' => 'احصل على التكوين',
 			'meta.addProfile' => 'إضافة ملف تعريف',
 			'meta.myProfiles' => 'مظهر',
-			'meta.myProfilesAtLeastOneReserveEnable' => 'لا يمكن تعطيله ، يرجى الاحتفاظ بملف تعريف واحد على الأقل',
 			'meta.profileEdit' => 'تحرير الملف الشخصي',
 			'meta.profileEditUrlExist' => 'عنوان URL موجود بالفعل ، يرجى استخدام عنوان URL آخر',
 			'meta.profileEditReloadAfterProfileUpdate' => 'إعادة التحميل بعد تحديث الملف الشخصي',

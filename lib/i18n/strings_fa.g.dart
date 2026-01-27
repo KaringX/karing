@@ -579,6 +579,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get feedbackContentHit => 'الزامی، تا 500 حرف';
 	@override String get feedbackContentCannotEmpty => 'محتوای بازخورد نمی‌تواند خالی باشد';
 	@override String get faq => 'سوالات متداول';
+	@override String get htmlTools => 'مجموعه ابزارهای HTML';
 	@override String get download => 'دانلود';
 	@override String get upload => 'آپلود';
 	@override String get downloadSpeed => 'سرعت دانلود';
@@ -774,7 +775,6 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get getProfile => 'پیکربندی را دریافت کنید';
 	@override String get addProfile => 'افزودن پروفایل';
 	@override String get myProfiles => 'پروفایل‌ها';
-	@override String get myProfilesAtLeastOneReserveEnable => 'نمی‌تواند غیرغعال شود، لطفا حداقل یک پروفایل را فعال نگه دارید';
 	@override String get profileEdit => 'ویرایش پروفایل';
 	@override String get profileEditUrlExist => 'آدرس URL از‌قبل وجود دارد، لطفا از URL دیگری استفاده کنید';
 	@override String get profileEditReloadAfterProfileUpdate => 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل';
@@ -910,8 +910,8 @@ class _TranslationsMainTrayFa implements TranslationsMainTrayEn {
 	final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    بازکردن    ';
-	@override String get menuExit => '    بستن    ';
+	@override String get menuOpen => 'بازکردن';
+	@override String get menuExit => 'بستن';
 }
 
 /// The flat map containing all translations for locale <fa>.
@@ -1161,8 +1161,8 @@ extension on TranslationsFa {
 			'VersionUpdateScreen.cancel' => 'الان‌ نه',
 			'CommonWidget.diableAlwayOnVPN' => 'اگر [وی‌پی‌ان همیشه روشن] روشن است لطفا [وی‌پی‌ان همیشه روشن] را خاموش کنید و مجدد برای اتصال تلاش کنید',
 			'CommonWidget.resetPort' => 'لطفاً پورت را به پورت موجود دیگری تغییر دهید یا برنامه ای را که پورت را اشغال می کند ببندید.',
-			'main.tray.menuOpen' => '    بازکردن    ',
-			'main.tray.menuExit' => '    بستن    ',
+			'main.tray.menuOpen' => 'بازکردن',
+			'main.tray.menuExit' => 'بستن',
 			'meta.enable' => 'فعال‌سازی',
 			'meta.disable' => 'غیرفعال',
 			'meta.bydefault' => 'پیش‌فرض',
@@ -1194,6 +1194,7 @@ extension on TranslationsFa {
 			'meta.feedbackContentHit' => 'الزامی، تا 500 حرف',
 			'meta.feedbackContentCannotEmpty' => 'محتوای بازخورد نمی‌تواند خالی باشد',
 			'meta.faq' => 'سوالات متداول',
+			'meta.htmlTools' => 'مجموعه ابزارهای HTML',
 			'meta.download' => 'دانلود',
 			'meta.upload' => 'آپلود',
 			'meta.downloadSpeed' => 'سرعت دانلود',
@@ -1389,7 +1390,6 @@ extension on TranslationsFa {
 			'meta.getProfile' => 'پیکربندی را دریافت کنید',
 			'meta.addProfile' => 'افزودن پروفایل',
 			'meta.myProfiles' => 'پروفایل‌ها',
-			'meta.myProfilesAtLeastOneReserveEnable' => 'نمی‌تواند غیرغعال شود، لطفا حداقل یک پروفایل را فعال نگه دارید',
 			'meta.profileEdit' => 'ویرایش پروفایل',
 			'meta.profileEditUrlExist' => 'آدرس URL از‌قبل وجود دارد، لطفا از URL دیگری استفاده کنید',
 			'meta.profileEditReloadAfterProfileUpdate' => 'بارگذاری مجدد پس‌از به‌روزرسانی پروفایل',

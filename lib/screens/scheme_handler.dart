@@ -11,15 +11,13 @@ import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
+import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/screens/add_profile_by_link_or_content_screen.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SchemeHandler {
-  static void Function(bool)? vpnConnect;
-  static void Function(bool)? vpnDisconnect;
-  static void Function(bool)? vpnReconnect;
   static Future<ReturnResultError?> handle(
     BuildContext context,
     String url,
@@ -31,7 +29,7 @@ class SchemeHandler {
     //karing://connect?background=false
     //karing://disconnect?background=false
     //karing://reconnect?background=false
-    //karing://install-config?url=xxx&name=xxx&&isp-name=xxx&isp-code=xxx;connect; disconnect; reconnect;
+    //karing://install-config?url=xxx&name=xxx&&isp-name=xxx&isp-code=xxx&hwid=true;connect; disconnect; reconnect;
     //karing://install-config?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash&name=gdy&&isp-name=%E8%B7%9F%E6%96%97%E4%BA%91&isp-code=https%3A%2F%2Fxn--9kq147c4p2a.com%2Fuser
     //karing://restore-backup?url=https%3A%2F%2Fxn--xxxxx.com%2Fsub%2Fa363e83fd1f559df%2Fclash
     //karing://tvos?ips=192.168.1.102&port=4040&uuid=728EC1AB-7AC8-4E8F-8406-3856F6C70506&cport=3057&secret=0191eee9f89d7cd29fda94c0b663efb2&version=1.0.29.293
@@ -49,30 +47,30 @@ class SchemeHandler {
       }
     } else if (uri.isScheme(SystemSchemeUtils.getKaringScheme())) {
       if (uri.host == AppSchemeActions.connectAction()) {
-        if (vpnConnect != null) {
+        if (VpnActionHandler.vpnConnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnConnect!.call(background);
+          VpnActionHandler.vpnConnect!.call("scheme", background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.disconnectAction()) {
-        if (vpnDisconnect != null) {
+        if (VpnActionHandler.vpnDisconnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnDisconnect!.call(background);
+          VpnActionHandler.vpnDisconnect!.call("scheme", background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.reconnectAction()) {
-        if (vpnReconnect != null) {
+        if (VpnActionHandler.vpnReconnect != null) {
           bool background = false;
           try {
             background = uri.queryParameters["background"] == "true";
           } catch (err) {}
-          vpnReconnect!.call(background);
+          VpnActionHandler.vpnReconnect!.call("scheme", background);
         }
         return null;
       } else if (uri.host == AppSchemeActions.installConfigAction()) {
@@ -101,6 +99,7 @@ class SchemeHandler {
     String? url;
     String? ispId;
     String? ispUser;
+    bool? xhwid;
 
     try {
       name = uri.queryParameters["name"];
@@ -108,6 +107,14 @@ class SchemeHandler {
       if (uri.scheme == SystemSchemeUtils.getKaringScheme()) {
         ispId = uri.queryParameters["isp-id"];
         ispUser = uri.queryParameters["isp-user"];
+      }
+      String? xh = uri.queryParameters["xhwid"] ?? uri.queryParameters["hwid"];
+      if (xh != null) {
+        if (xh == "true" || xh == "1" || xh == "yes") {
+          xhwid = true;
+        } else if (xh == "false" || xh == "0" || xh == "no") {
+          xhwid = false;
+        }
       }
     } catch (err) {
       if (!context.mounted) {
@@ -176,6 +183,7 @@ class SchemeHandler {
       ispUser,
       ispConfig,
       false,
+      xhwid,
     );
     if (result == null) {
       if (ispConfig != null) {
@@ -218,6 +226,7 @@ class SchemeHandler {
     String? ispUser,
     RemoteISPConfig? ispConfig,
     bool autoAdd,
+    bool? xhwid,
   ) async {
     ServerConfigGroupItem? item = ServerManager.getGroupByUrlOrPath(
       urlOrContent,
@@ -244,6 +253,7 @@ class SchemeHandler {
           ispId: ispConfig?.id,
           ispUser: ispUser,
           autoAdd: autoAdd,
+          xhwid: xhwid,
         ),
       ),
     );

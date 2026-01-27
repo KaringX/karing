@@ -73,7 +73,7 @@ class _PackageIdMultiSelectAndroidScreenState
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   _loadSearch(String? textVal) {

@@ -42,7 +42,7 @@ class _BackupAndSyncAutoBackupScreenState
 
   @override
   void dispose() {
-    SettingManager.saveConfig();
+    SettingManager.save();
     super.dispose();
   }
 

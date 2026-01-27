@@ -163,6 +163,14 @@
         },
         {
             "rule_set_build_in": [
+                "acl:Claude"
+            ],
+            "outbound": "currentSelected",
+            "name": "💬 Claude",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
                 "geoip:openai",
                 "geosite:openai"
             ],

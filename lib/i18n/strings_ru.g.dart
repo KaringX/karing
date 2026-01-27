@@ -579,6 +579,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get feedbackContentHit => 'Не более 500 символов';
 	@override String get feedbackContentCannotEmpty => 'Содержание не может быть пустым';
 	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
+	@override String get htmlTools => 'HTML Toolset';
 	@override String get download => 'Скачать';
 	@override String get upload => 'Загрузить';
 	@override String get downloadSpeed => 'Скорость загрузки';
@@ -774,7 +775,6 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get getProfile => 'Получить конфигурацию';
 	@override String get addProfile => 'Добавить профиль';
 	@override String get myProfiles => 'Профили';
-	@override String get myProfilesAtLeastOneReserveEnable => 'Невозможно отключить, оставьте включенным хотя бы один профиль';
 	@override String get profileEdit => 'Редактирование профилей';
 	@override String get profileEditUrlExist => 'URL-адрес уже существует, используйте другой URL-адрес';
 	@override String get profileEditReloadAfterProfileUpdate => 'Перезагрузить после обновления профиля';
@@ -910,8 +910,8 @@ class _TranslationsMainTrayRu implements TranslationsMainTrayEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => '    Открыть    ';
-	@override String get menuExit => '    Выйти    ';
+	@override String get menuOpen => 'Открыть';
+	@override String get menuExit => 'Выйти';
 }
 
 /// The flat map containing all translations for locale <ru>.
@@ -1161,8 +1161,8 @@ extension on TranslationsRu {
 			'VersionUpdateScreen.cancel' => 'Не сейчас',
 			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз',
 			'CommonWidget.resetPort' => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.',
-			'main.tray.menuOpen' => '    Открыть    ',
-			'main.tray.menuExit' => '    Выйти    ',
+			'main.tray.menuOpen' => 'Открыть',
+			'main.tray.menuExit' => 'Выйти',
 			'meta.enable' => 'Включить',
 			'meta.disable' => 'Запретить',
 			'meta.bydefault' => 'по умолчанию',
@@ -1194,6 +1194,7 @@ extension on TranslationsRu {
 			'meta.feedbackContentHit' => 'Не более 500 символов',
 			'meta.feedbackContentCannotEmpty' => 'Содержание не может быть пустым',
 			'meta.faq' => 'Часто задаваемые вопросы (FAQ)',
+			'meta.htmlTools' => 'HTML Toolset',
 			'meta.download' => 'Скачать',
 			'meta.upload' => 'Загрузить',
 			'meta.downloadSpeed' => 'Скорость загрузки',
@@ -1389,7 +1390,6 @@ extension on TranslationsRu {
 			'meta.getProfile' => 'Получить конфигурацию',
 			'meta.addProfile' => 'Добавить профиль',
 			'meta.myProfiles' => 'Профили',
-			'meta.myProfilesAtLeastOneReserveEnable' => 'Невозможно отключить, оставьте включенным хотя бы один профиль',
 			'meta.profileEdit' => 'Редактирование профилей',
 			'meta.profileEditUrlExist' => 'URL-адрес уже существует, используйте другой URL-адрес',
 			'meta.profileEditReloadAfterProfileUpdate' => 'Перезагрузить после обновления профиля',

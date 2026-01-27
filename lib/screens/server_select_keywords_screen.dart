@@ -17,10 +17,10 @@ class ServerSelectKeywordsScreen extends LasyRenderingStatefulWidget {
 
   @override
   State<ServerSelectKeywordsScreen> createState() =>
-      _ServerSelectSearchSettingsScreenState();
+      _ServerSelectKeywordsScreenState();
 }
 
-class _ServerSelectSearchSettingsScreenState
+class _ServerSelectKeywordsScreenState
     extends LasyRenderingState<ServerSelectKeywordsScreen> {
   List _allData = [];
 

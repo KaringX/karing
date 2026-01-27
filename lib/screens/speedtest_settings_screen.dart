@@ -31,7 +31,7 @@ class _SpeedTestSettingsScreenState
   @override
   void dispose() {
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   void _buildData() {
@@ -213,7 +213,7 @@ class _SpeedTestSettingsScreenState
         !SettingConfig.kSpeedTestList.contains(text) &&
         !SettingManager.getConfig().speedTestList.contains(text)) {
       SettingManager.getConfig().speedTestList.add(text);
-      SettingManager.saveConfig();
+      SettingManager.save();
       _buildData();
       setState(() {});
     }
@@ -221,7 +221,7 @@ class _SpeedTestSettingsScreenState
 
   void onTapDelete(String url) {
     SettingManager.getConfig().speedTestList.remove(url);
-    SettingManager.saveConfig();
+    SettingManager.save();
     _buildData();
     setState(() {});
   }

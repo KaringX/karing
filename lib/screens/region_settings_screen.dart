@@ -51,7 +51,7 @@ class _RegionSetingsScreenState
     _focusNodeNext.dispose();
     _searchController.dispose();
     super.dispose();
-    SettingManager.saveConfig();
+    SettingManager.save();
   }
 
   Future<void> _initAssets() async {

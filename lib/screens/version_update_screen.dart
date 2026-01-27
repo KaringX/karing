@@ -24,8 +24,7 @@ class VersionUpdateScreen extends LasyRenderingStatefulWidget {
     return const RouteSettings(name: "VersionUpdateScreen");
   }
 
-  final bool force;
-  const VersionUpdateScreen({super.key, required this.force});
+  const VersionUpdateScreen({super.key});
 
   @override
   State<VersionUpdateScreen> createState() => _VersionUpdateScreenState();
@@ -110,18 +109,6 @@ class _VersionUpdateScreenState
                             : Text(tcontext.VersionUpdateScreen.update),
                       ),
                     ),
-                    const SizedBox(height: 30),
-                    widget.force && checkVersion.force
-                        ? const SizedBox(height: 30)
-                        : SizedBox(
-                            height: 45.0,
-                            child: ElevatedButton(
-                              child: Text(tcontext.VersionUpdateScreen.cancel),
-                              onPressed: () async {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
                   ],
                 ),
               ],

@@ -1197,6 +1197,9 @@ class TranslationsMetaEn {
 	/// en: 'FAQ'
 	String get faq => 'FAQ';
 
+	/// en: 'HTML Toolset'
+	String get htmlTools => 'HTML Toolset';
+
 	/// en: 'Download'
 	String get download => 'Download';
 
@@ -1782,9 +1785,6 @@ class TranslationsMetaEn {
 	/// en: 'My Profiles'
 	String get myProfiles => 'My Profiles';
 
-	/// en: 'Cannot be disabled, please keep at least one profile enable'
-	String get myProfilesAtLeastOneReserveEnable => 'Cannot be disabled, please keep at least one profile enable';
-
 	/// en: 'Profile Edit'
 	String get profileEdit => 'Profile Edit';
 
@@ -2028,11 +2028,11 @@ class TranslationsMainTrayEn {
 
 	// Translations
 
-	/// en: ' Open '
-	String get menuOpen => '    Open    ';
+	/// en: 'Open'
+	String get menuOpen => 'Open';
 
-	/// en: ' Exit '
-	String get menuExit => '    Exit    ';
+	/// en: 'Exit'
+	String get menuExit => 'Exit';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -2282,8 +2282,8 @@ extension on Translations {
 			'VersionUpdateScreen.cancel' => 'Not Now',
 			'CommonWidget.diableAlwayOnVPN' => 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again',
 			'CommonWidget.resetPort' => 'Please change the port to another available port or close the application occupying the port.',
-			'main.tray.menuOpen' => '    Open    ',
-			'main.tray.menuExit' => '    Exit    ',
+			'main.tray.menuOpen' => 'Open',
+			'main.tray.menuExit' => 'Exit',
 			'meta.enable' => 'Enable',
 			'meta.disable' => 'Disable',
 			'meta.bydefault' => 'Default',
@@ -2315,6 +2315,7 @@ extension on Translations {
 			'meta.feedbackContentHit' => 'Required, up to 500 characters',
 			'meta.feedbackContentCannotEmpty' => 'Feedback content can not be empty',
 			'meta.faq' => 'FAQ',
+			'meta.htmlTools' => 'HTML Toolset',
 			'meta.download' => 'Download',
 			'meta.upload' => 'Upload',
 			'meta.downloadSpeed' => 'Download Speed',
@@ -2510,7 +2511,6 @@ extension on Translations {
 			'meta.getProfile' => 'Get Profile',
 			'meta.addProfile' => 'Add Profile',
 			'meta.myProfiles' => 'My Profiles',
-			'meta.myProfilesAtLeastOneReserveEnable' => 'Cannot be disabled, please keep at least one profile enable',
 			'meta.profileEdit' => 'Profile Edit',
 			'meta.profileEditUrlExist' => 'URL already exists, please use another URL',
 			'meta.profileEditReloadAfterProfileUpdate' => 'Reload after Profile update',
