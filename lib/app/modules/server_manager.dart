@@ -1419,6 +1419,32 @@ class ServerManager {
     return count;
   }
 
+  static void _checkAndUpdateGroupAfterTestComplete(String groupid) {
+    ServerConfigGroupItem? item = getByGroupId(groupid);
+    if (item == null) {
+      return;
+    }
+
+    // Check if this group has any servers still being tested
+    int testingCount = getTestOutboundServerLatencyTestingCount(groupid);
+
+    // If no servers are being tested for this group and it has auto-remove enabled
+    if (testingCount == 0 && item.testLatencyAutoRemove) {
+      bool change = item.removeLatencyError();
+      if (change) {
+        Set<ServerConfigGroupItem> groups = {};
+        groups.add(item);
+        Future.delayed(const Duration(milliseconds: 10), () {
+          var list = _onLatencyUpdateConfigs.values.toList();
+          for (var callback in list) {
+            callback(groups);
+          }
+        });
+        saveServerConfig();
+      }
+    }
+  }
+
   static Future<ReturnResultError?> _testOutboundLatencyForServer(
     String tag,
     String groupid,
@@ -1484,6 +1510,7 @@ class ServerManager {
       _onTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
+      _checkAndUpdateGroupAfterTestComplete(groupid);
       schedulerTestLatency();
       Log.w(
         "_testOutboundLatencyForServer error $groupid $tag ${config.server} ${result.error!.message}",
@@ -1501,6 +1528,7 @@ class ServerManager {
     _onTestOutboundLatency.forEach((key, valueCallback) {
       valueCallback(groupid, tag, false, false);
     });
+    _checkAndUpdateGroupAfterTestComplete(groupid);
     schedulerTestLatency();
     return null;
   }
