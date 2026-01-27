@@ -429,6 +429,7 @@ class ServerManager {
   static bool _savingDiversionGroupConfig = false;
   static bool _savingUse = false;
   static bool _updatingSubscription = false;
+  static bool _speedTestInProgress = false;
   static bool _updateLatencyByHistory = false;
   static bool _dirty = false;
 
@@ -1281,6 +1282,12 @@ class ServerManager {
     if (item.testLatencyIndepends.contains(tag)) {
       return ReturnResultError("already testing");
     }
+
+    // Check if this specific subscription is updating
+    if (_remoteReloading.contains(groupid)) {
+      return ReturnResultError("subscription update in progress");
+    }
+
     for (var server in item.servers) {
       if (server.tag != tag) {
         continue;
@@ -1306,6 +1313,7 @@ class ServerManager {
         item.testLatency.clear();
         item.testLatencyIndepends.clear();
       }
+      _speedTestInProgress = false;
       return;
     }
     int maxTestLatency = SettingManager.getConfig().latencyCheckConcurrency;
@@ -1319,6 +1327,10 @@ class ServerManager {
         if (item.testLatency.isEmpty && item.testLatencyIndepends.isEmpty) {
           continue;
         }
+        // Check if this specific subscription is updating before starting new test
+        if (_remoteReloading.contains(item.groupid)) {
+          continue;
+        }
         for (int i = 0; i < item.testLatency.length; ++i) {
           TestOutboundPair pair = TestOutboundPair();
           pair.groupid = item.groupid;
@@ -1330,7 +1342,12 @@ class ServerManager {
             break;
           }
         }
+        _speedTestInProgress = _testOutboundServerLatencying.isNotEmpty;
         for (int i = 0; i < item.testLatencyIndepends.length; ++i) {
+          // Check if this specific subscription is updating before starting dependent test
+          if (_remoteReloading.contains(item.groupid)) {
+            continue;
+          }
           TestOutboundPair pair = TestOutboundPair();
           pair.groupid = item.groupid;
           pair.running = false;
