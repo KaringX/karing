@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:country/country.dart' as country;
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/runtime/type_checker.dart';
 import 'package:karing/app/utils/app_utils.dart';
@@ -52,74 +51,6 @@ class SettingConfigItemUICloudflareWarp {
         SettingConfigItemUICloudflareWarp();
     config.fromJson(map);
     return config;
-  }
-}
-
-class SettingConfigItemAds {
-  static const int rewardDays = 7;
-  static const int shareRewardTimes = 4;
-  String bannerRewardAdExpire = "";
-  String bannerShareExpire = "";
-  bool bannerEnable = false;
-
-  Map<String, dynamic> toJson() => {
-    'banner_enable': bannerEnable,
-    'banner_reward_ad_expire': bannerRewardAdExpire,
-    'banner_share_expire': bannerShareExpire,
-  };
-  void fromJson(Map<String, dynamic>? map) {
-    if (map == null) {
-      return;
-    }
-    bannerEnable = map["banner_enable"] ?? false;
-    bannerRewardAdExpire = map["banner_reward_ad_expire"] ?? "";
-    bannerShareExpire = map["banner_share_expire"] ?? "";
-    var expireReward = DateTime.tryParse(bannerRewardAdExpire);
-    var expireShare = DateTime.tryParse(bannerShareExpire);
-    if (expireReward != null &&
-        expireReward.difference(DateTime.now()).inDays > rewardDays) {
-      bannerRewardAdExpire = "";
-    }
-    if (expireShare != null &&
-        expireShare.difference(DateTime.now()).inDays >
-            rewardDays * shareRewardTimes) {
-      bannerShareExpire = "";
-    }
-  }
-
-  static SettingConfigItemAds fromJsonStatic(Map<String, dynamic>? map) {
-    SettingConfigItemAds config = SettingConfigItemAds();
-    config.fromJson(map);
-    return config;
-  }
-
-  void clear() {
-    bannerRewardAdExpire = "";
-    bannerShareExpire = "";
-  }
-
-  String getBannerRewardAdExpire(String languageTag) {
-    DateTime? date = DateTime.tryParse(bannerRewardAdExpire);
-    if (date != null) {
-      if (!DateTime.now().isAfter(date)) {
-        try {
-          return DateFormat.yMd(languageTag).format(date);
-        } catch (e) {}
-      }
-    }
-    return "";
-  }
-
-  String getBannerShareExpire(String languageTag) {
-    DateTime? date = DateTime.tryParse(bannerShareExpire);
-    if (date != null) {
-      if (!DateTime.now().isAfter(date)) {
-        try {
-          return DateFormat.yMd(languageTag).format(date);
-        } catch (e) {}
-      }
-    }
-    return "";
   }
 }
 
@@ -1567,7 +1498,6 @@ class SettingConfig {
   SettingConfigItemUICloudflareWarp warp = SettingConfigItemUICloudflareWarp();
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   SettingConfigItemAutobackup autoBackup = SettingConfigItemAutobackup();
-  SettingConfigItemAds ads = SettingConfigItemAds();
   SettingConfigItemStatistics statistics = SettingConfigItemStatistics();
 
   bool autoConnectAfterLaunch = true;
@@ -1614,7 +1544,6 @@ class SettingConfig {
     'warp': warp,
     'webdav': webdav,
     'auto_backup': autoBackup,
-    'ads': ads,
     'statistics': statistics,
     'auto_connect_after_launch': autoConnectAfterLaunch,
     'auto_connect_at_boot': autoConnectAtBoot,
@@ -1683,7 +1612,6 @@ class SettingConfig {
     warp = SettingConfigItemUICloudflareWarp.fromJsonStatic(map["warp"] ?? map);
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     autoBackup = SettingConfigItemAutobackup.fromJsonStatic(map["auto_backup"]);
-    ads = SettingConfigItemAds.fromJsonStatic(map["ads"]);
     statistics = SettingConfigItemStatistics.fromJsonStatic(map["statistics"]);
 
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? true;
@@ -1842,7 +1770,6 @@ class SettingManager {
   static Future<void> init({bool fromBackupRestore = false}) async {
     await load();
     if (fromBackupRestore) {
-      _config.ads.clear();
       if (!Platform.isWindows) {
         _config.tun.enable = true;
       }

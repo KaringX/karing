@@ -96,12 +96,6 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override String get turnOffNetworkBeforeInstall => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث';
 	@override String get latencyTestResolveIP => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.';
 	@override String get latencyTestConcurrency => 'التزامن';
-	@override String get removeBannerAdsByShare => 'شارك[Karing]اذهب إلى الإعلانات';
-	@override String get removeBannerAdsByReward => 'مشاهدة الإعلانات انتقل إلى الإعلانات';
-	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)';
-	@override String removeBannerAdsByRewardTip({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)';
-	@override String removeBannerAdsDone({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات';
-	@override String get maybeAdsByReward => 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.';
 	@override String get edgeRuntimeNotInstalled => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -360,7 +354,6 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get getTranffic => 'احصل على حركة المرور';
 	@override String get tutorial => 'درس تعليمي';
 	@override String get commonlyUsedRulesets => 'مجموعات القواعد شائعة الاستخدام';
-	@override String get howToRemoveAds => 'كيفية إزالة الإعلانات';
 	@override String get htmlBoard => 'لوحة على الانترنت';
 	@override String get dnsLeakDetection => 'كشف تسرب DNS';
 	@override String get proxyLeakDetection => 'كشف تسرب الوكيل';
@@ -743,7 +736,6 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get server => 'الخادم';
 	@override String get ads => 'أعلن';
 	@override String get adsRemove => 'إزالة الإعلانات';
-	@override String get adsBanner => 'إعلانات البانر';
 	@override String get donate => 'يتبرع';
 	@override String get diversion => 'تحويل';
 	@override String get diversionRules => 'قواعد التحويل';
@@ -1019,7 +1011,6 @@ extension on TranslationsAr {
 			'SettingsScreen.getTranffic' => 'احصل على حركة المرور',
 			'SettingsScreen.tutorial' => 'درس تعليمي',
 			'SettingsScreen.commonlyUsedRulesets' => 'مجموعات القواعد شائعة الاستخدام',
-			'SettingsScreen.howToRemoveAds' => 'كيفية إزالة الإعلانات',
 			'SettingsScreen.htmlBoard' => 'لوحة على الانترنت',
 			'SettingsScreen.dnsLeakDetection' => 'كشف تسرب DNS',
 			'SettingsScreen.proxyLeakDetection' => 'كشف تسرب الوكيل',
@@ -1358,7 +1349,6 @@ extension on TranslationsAr {
 			'meta.server' => 'الخادم',
 			'meta.ads' => 'أعلن',
 			'meta.adsRemove' => 'إزالة الإعلانات',
-			'meta.adsBanner' => 'إعلانات البانر',
 			'meta.donate' => 'يتبرع',
 			'meta.diversion' => 'تحويل',
 			'meta.diversionRules' => 'قواعد التحويل',
@@ -1434,10 +1424,10 @@ extension on TranslationsAr {
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
 			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
 			'tls.paddingEnable' => 'تمكين الحشو TLS',
-			_ => null,
-		} ?? switch (path) {
 			'tls.paddingSize' => 'حجم الحشو TLS',
 			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
+			_ => null,
+		} ?? switch (path) {
 			'outboundRuleMode.urltest' => 'اختيار آلي',
 			'outboundRuleMode.direct' => 'مباشر',
 			'outboundRuleMode.block' => 'حاجز',
@@ -1475,12 +1465,6 @@ extension on TranslationsAr {
 			'turnOffNetworkBeforeInstall' => 'يوصى بالتبديل إلى [وضع الطيران] قبل تثبيت التحديث',
 			'latencyTestResolveIP' => 'أثناء الكشف اليدوي، يتم أيضًا تحليل عنوان IP الخاص بالتصدير.',
 			'latencyTestConcurrency' => 'التزامن',
-			'removeBannerAdsByShare' => 'شارك[Karing]اذهب إلى الإعلانات',
-			'removeBannerAdsByReward' => 'مشاهدة الإعلانات انتقل إلى الإعلانات',
-			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'شارك مرة واحدة وستحصل على ${p} من الأيام بدون مكافآت إعلانية (يمكن تكديسها، حتى ${d} من الأيام)',
-			'removeBannerAdsByRewardTip' => ({required Object p}) => 'شاهد إعلانًا وستحصل على مكافأة للأيام الخالية من الإعلانات بقيمة ${p} (لا يمكن تجميعها)',
-			'removeBannerAdsDone' => ({required Object p}) => 'تلقى ${p} أيام مكافأة خالية من الإعلانات',
-			'maybeAdsByReward' => 'قد تحتاج لمشاهدة إعلان قبل استخدام هذه الميزة. انقر [${_root.meta.ok}] للمتابعة.',
 			'edgeRuntimeNotInstalled' => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

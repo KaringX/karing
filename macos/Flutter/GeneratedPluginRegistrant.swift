@@ -32,7 +32,6 @@ import sqlite3_flutter_libs
 import tray_manager
 import url_launcher_macos
 import vpn_service
-import webview_flutter_wkwebview
 import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
@@ -63,6 +62,5 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   TrayManagerPlugin.register(with: registry.registrar(forPlugin: "TrayManagerPlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
   VpnServicePlugin.register(with: registry.registrar(forPlugin: "VpnServicePlugin"))
-  WebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "WebViewFlutterPlugin"))
   WindowManagerPlugin.register(with: registry.registrar(forPlugin: "WindowManagerPlugin"))
 }

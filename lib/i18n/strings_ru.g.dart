@@ -96,12 +96,6 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override String get turnOffNetworkBeforeInstall => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
 	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
 	@override String get latencyTestConcurrency => 'Параллелизм';
-	@override String get removeBannerAdsByShare => 'Поделиться [Karing] для удаления рекламы';
-	@override String get removeBannerAdsByReward => 'Просмотреть рекламу для удаления новой рекламы';
-	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)';
-	@override String removeBannerAdsByRewardTip({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).';
-	@override String removeBannerAdsDone({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.';
-	@override String get maybeAdsByReward => 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.';
 	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -360,7 +354,6 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get getTranffic => 'Получить трафик';
 	@override String get tutorial => 'Руководство';
 	@override String get commonlyUsedRulesets => 'Коллекция наборов правил';
-	@override String get howToRemoveAds => 'Как удалить рекламу';
 	@override String get htmlBoard => 'Веб-панель';
 	@override String get dnsLeakDetection => 'Тест утечки DNS';
 	@override String get proxyLeakDetection => 'Обнаружение утечки наличия прокси';
@@ -743,7 +736,6 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get server => 'Сервер';
 	@override String get ads => 'Удалять';
 	@override String get adsRemove => 'Удалить рекламу';
-	@override String get adsBanner => 'баннерная реклама';
 	@override String get donate => 'Пожертвовать';
 	@override String get diversion => 'Правила';
 	@override String get diversionRules => 'Правила перенаправления';
@@ -1019,7 +1011,6 @@ extension on TranslationsRu {
 			'SettingsScreen.getTranffic' => 'Получить трафик',
 			'SettingsScreen.tutorial' => 'Руководство',
 			'SettingsScreen.commonlyUsedRulesets' => 'Коллекция наборов правил',
-			'SettingsScreen.howToRemoveAds' => 'Как удалить рекламу',
 			'SettingsScreen.htmlBoard' => 'Веб-панель',
 			'SettingsScreen.dnsLeakDetection' => 'Тест утечки DNS',
 			'SettingsScreen.proxyLeakDetection' => 'Обнаружение утечки наличия прокси',
@@ -1358,7 +1349,6 @@ extension on TranslationsRu {
 			'meta.server' => 'Сервер',
 			'meta.ads' => 'Удалять',
 			'meta.adsRemove' => 'Удалить рекламу',
-			'meta.adsBanner' => 'баннерная реклама',
 			'meta.donate' => 'Пожертвовать',
 			'meta.diversion' => 'Правила',
 			'meta.diversionRules' => 'Правила перенаправления',
@@ -1434,10 +1424,10 @@ extension on TranslationsRu {
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
-			_ => null,
-		} ?? switch (path) {
 			'tls.paddingSize' => 'Размер заполнения TLS',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
+			_ => null,
+		} ?? switch (path) {
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
 			'outboundRuleMode.block' => 'Блокировать',
@@ -1475,12 +1465,6 @@ extension on TranslationsRu {
 			'turnOffNetworkBeforeInstall' => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].',
 			'latencyTestResolveIP' => 'При ручном определении анализируется исходящий IP-адрес',
 			'latencyTestConcurrency' => 'Параллелизм',
-			'removeBannerAdsByShare' => 'Поделиться [Karing] для удаления рекламы',
-			'removeBannerAdsByReward' => 'Просмотреть рекламу для удаления новой рекламы',
-			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Поделитесь ссылкой один раз, и вы получите ${p} дней без рекламных окон (можно суммировать до ${d} дней)',
-			'removeBannerAdsByRewardTip' => ({required Object p}) => 'Посмотрите рекламу и получите дни без рекламы в размере ${p} (не суммируются).',
-			'removeBannerAdsDone' => ({required Object p}) => 'Получено вознаграждение в размере ${p} дней без рекламы.',
-			'maybeAdsByReward' => 'Возможно, вам потребуется посмотреть рекламу перед использованием этой функции. Нажмите [${_root.meta.ok}], чтобы продолжить.',
 			'edgeRuntimeNotInstalled' => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

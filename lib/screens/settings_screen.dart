@@ -12,13 +12,11 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/notice_manager.dart';
-import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_registry_utils.dart';
 import 'package:karing/app/utils/apple_utils.dart';
@@ -56,12 +54,10 @@ import 'package:karing/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/webview_isp_helper.dart';
-import 'package:karing/screens/widgets/ads_widget.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn_service/vpn_service.dart';
@@ -178,18 +174,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                                 ? snapshot.data!
                                 : [];
                             List<Widget> children = [];
-                            /*if (AdsPrivate.getEnable()) {
-                        var settingConfig = SettingManager.getConfig();
-                        var expire = DateTime.tryParse(
-                            settingConfig.ads.bannerRewardExpire);
-                        if (expire == null || DateTime.now().isAfter(expire)) {
-                          children.add(AdsBannerWidget(
-                              fixedHeight: false,
-                              adWidth: windowSize.width,
-                              bannerName: "banner2"));
-                          children.add(const SizedBox(height: 20));
-                        }
-                      }*/
+
                             children.addAll(
                               GroupItemCreator.createGroups(context, data),
                             );
@@ -1480,32 +1465,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ),
       );
     }
-    if (AdsPrivate.getEnable()) {
-      groupOptions.add(
-        GroupItem(
-          options: [
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.adsRemove,
-                onPush: () async {
-                  onTapAdRemove();
-                },
-              ),
-            ),
-          ],
-        ),
-      );
-    }
 
-    bool ads =
-        PlatformUtils.isMobile() &&
-        !AdsPrivate.getEnable() &&
-        remoteConfig.adManualEnable;
-    bool donate =
-        !Platform.isIOS &&
-        !Platform.isMacOS &&
-        remoteConfig.donateUrl.isNotEmpty;
-    bool showSupportUs = ads || donate;
     String rateUrl = await AppleUtils.getRateUrl();
     groupOptions.add(
       GroupItem(
@@ -1554,7 +1514,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               ),
             ),
           ],
-          if (showSupportUs) ...[
+          if (!Platform.isIOS &&
+              //!Platform.isMacOS &&
+              remoteConfig.donateUrl.isNotEmpty) ...[
             GroupItemOptions(
               pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.supportUs,
@@ -3334,181 +3296,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     await ServicesBinding.instance.exitApplication(AppExitType.required);
   }
 
-  Future<void> onTapAdRemove() async {
-    final tcontext = Translations.of(context);
-
-    Future<List<GroupItem>> getOptions(
-      BuildContext context,
-      SetStateCallback? setstate,
-    ) async {
-      var settingConfig = SettingManager.getConfig();
-      String rewardAdExpireTime = settingConfig.ads.getBannerRewardAdExpire(
-        settingConfig.languageTag,
-      );
-      String shareExpireTime = settingConfig.ads.getBannerShareExpire(
-        settingConfig.languageTag,
-      );
-      List<GroupItemOptions> options = [
-        GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: tcontext.removeBannerAdsByReward,
-            text: rewardAdExpireTime,
-            onPush: rewardAdExpireTime.isNotEmpty
-                ? null
-                : () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'adsReward',
-                      repeatable: true,
-                    );*/
-
-                    bool? ok = await DialogUtils.showConfirmDialog(
-                      context,
-                      tcontext.removeBannerAdsByRewardTip(
-                        p: SettingConfigItemAds.rewardDays,
-                      ),
-                    );
-                    if (ok == true) {
-                      DialogUtils.showLoadingDialog(context, text: "");
-                      AdsRewardWidget.loadGoogleRewardedAd((
-                        AdsRewardError? err,
-                      ) {
-                        if (!mounted) {
-                          return;
-                        }
-                        Navigator.pop(context);
-                        if (err == null) {
-                          settingConfig.ads.bannerRewardAdExpire =
-                              DateTime.now()
-                                  .add(
-                                    const Duration(
-                                      days: SettingConfigItemAds.rewardDays,
-                                    ),
-                                  )
-                                  .toString();
-                          setState(() {});
-                          DialogUtils.showAlertDialog(
-                            context,
-                            tcontext.removeBannerAdsDone(
-                              p: SettingConfigItemAds.rewardDays,
-                            ),
-                          );
-                        } else {
-                          DialogUtils.showAlertDialog(
-                            context,
-                            err.toString(),
-                            showCopy: true,
-                            showFAQ: true,
-                            withVersion: true,
-                          );
-                        }
-                      });
-                    }
-                  },
-          ),
-        ),
-        GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: tcontext.removeBannerAdsByShare,
-            text: shareExpireTime,
-            onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                analyticsEventType: analyticsEventTypeUA,
-                name: 'adsShare',
-                repeatable: true,
-              );*/
-
-              bool? ok = await DialogUtils.showConfirmDialog(
-                context,
-                tcontext.removeBannerAdsByShareTip(
-                  p: SettingConfigItemAds.rewardDays,
-                  d:
-                      SettingConfigItemAds.rewardDays *
-                      SettingConfigItemAds.shareRewardTimes,
-                ),
-              );
-              if (ok == true) {
-                try {
-                  RemoteConfig config = RemoteConfigManager.getConfig();
-                  String content =
-                      '''Karing
-
- Simple & Powerful, rule-based network proxy utility
- Support Clash,V2ray,Stash,Singbox,Shadowsocks,Github,Sub Subscription configuration
-
- Download/Install
-   iOS/macOS/tvOS AppStore: ${AppleUtils.getAppStoreUrl()}
-   Android: ${config.download} or https://apkpure.com/p/com.nebula.karing
-   Windows: ${config.download}''';
-                  final box = context.findRenderObject() as RenderBox?;
-                  final rect = box != null
-                      ? box.localToGlobal(Offset.zero) & box.size
-                      : null;
-                  ShareResult result = await SharePlus.instance.share(
-                    ShareParams(text: content, sharePositionOrigin: rect),
-                  );
-
-                  if (result.status == ShareResultStatus.success) {
-                    DateTime? date = DateTime.tryParse(
-                      settingConfig.ads.bannerShareExpire,
-                    );
-                    if (date != null) {
-                      var newDate = date.add(
-                        Duration(days: SettingConfigItemAds.rewardDays),
-                      );
-                      if ((newDate.difference(DateTime.now()).inDays /
-                                  SettingConfigItemAds.rewardDays)
-                              .ceil() >
-                          SettingConfigItemAds.shareRewardTimes) {
-                        return;
-                      }
-                      settingConfig.ads.bannerShareExpire = newDate.toString();
-                    } else {
-                      settingConfig.ads.bannerShareExpire = DateTime.now()
-                          .add(
-                            const Duration(
-                              days: SettingConfigItemAds.rewardDays,
-                            ),
-                          )
-                          .toString();
-                    }
-
-                    setState(() {});
-                    DialogUtils.showAlertDialog(
-                      context,
-                      tcontext.removeBannerAdsDone(
-                        p: SettingConfigItemAds.rewardDays,
-                      ),
-                    );
-                  }
-                } catch (err) {
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.toString(),
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
-                }
-              }
-            },
-          ),
-        ),
-      ];
-      return [GroupItem(options: options)];
-    }
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        settings: GroupScreen.routSettings("ads"),
-        builder: (context) =>
-            GroupScreen(title: tcontext.meta.ads, getOptions: getOptions),
-      ),
-    );
-    setState(() {});
-  }
-
   Future<void> onTapSupportUS() async {
     final tcontext = Translations.of(context);
 
@@ -3516,52 +3303,30 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       BuildContext context,
       SetStateCallback? setstate,
     ) async {
-      var settingConfig = SettingManager.getConfig();
       var remoteConfig = RemoteConfigManager.getConfig();
       List<GroupItemOptions> options = [
-        if (PlatformUtils.isMobile() &&
-            !AdsPrivate.getEnable() &&
-            remoteConfig.adManualEnable) ...[
-          GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-              name: tcontext.meta.adsBanner,
-              switchValue: settingConfig.ads.bannerEnable,
-              onSwitch: (bool value) async {
-                settingConfig.ads.bannerEnable = value;
-                setState(() {});
-              },
-            ),
-          ),
-        ],
-      ];
-
-      if (!Platform.isIOS &&
-          !Platform.isMacOS &&
-          remoteConfig.donateUrl.isNotEmpty) {
-        options.add(
-          GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-              name: tcontext.meta.donate,
-              onPush: () async {
-                /*AnalyticsUtils.logEvent(
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.donate,
+            onPush: () async {
+              /*AnalyticsUtils.logEvent(
                   analyticsEventType: analyticsEventTypeUA,
                   name: "donate",
                   repeatable: false,
                 );*/
-                String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                  remoteConfig.donateUrl,
-                );
-                await WebviewHelper.loadUrl(
-                  context,
-                  url,
-                  "donate",
-                  title: tcontext.meta.donate,
-                );
-              },
-            ),
+              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                remoteConfig.donateUrl,
+              );
+              await WebviewHelper.loadUrl(
+                context,
+                url,
+                "donate",
+                title: tcontext.meta.donate,
+              );
+            },
           ),
-        );
-      }
+        ),
+      ];
 
       return [GroupItem(options: options)];
     }

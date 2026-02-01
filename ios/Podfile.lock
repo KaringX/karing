@@ -55,13 +55,6 @@ PODS:
     - Flutter
   - flutter_secure_storage (6.0.0):
     - Flutter
-  - Google-Mobile-Ads-SDK (11.13.0):
-    - GoogleUserMessagingPlatform (>= 1.1)
-  - google_mobile_ads (5.3.1):
-    - Flutter
-    - Google-Mobile-Ads-SDK (~> 11.13.0)
-    - webview_flutter_wkwebview
-  - GoogleUserMessagingPlatform (3.0.0)
   - icloud_storage (0.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
@@ -88,9 +81,9 @@ PODS:
     - MTBBarcodeScanner
   - quick_actions_ios (0.0.1):
     - Flutter
-  - SDWebImage (5.21.1):
-    - SDWebImage/Core (= 5.21.1)
-  - SDWebImage/Core (5.21.1)
+  - SDWebImage (5.21.5):
+    - SDWebImage/Core (= 5.21.5)
+  - SDWebImage/Core (5.21.5)
   - Sentry (8.46.0):
     - Sentry/Core (= 8.46.0)
   - Sentry/Core (8.46.0)
@@ -134,9 +127,6 @@ PODS:
     - Flutter
   - vpn_service (0.1.0):
     - Flutter
-  - webview_flutter_wkwebview (0.0.1):
-    - Flutter
-    - FlutterMacOS
 
 DEPENDENCIES:
   - app_installer (from `.symlinks/plugins/app_installer/ios`)
@@ -149,7 +139,6 @@ DEPENDENCIES:
   - flutter_install_referrer (from `.symlinks/plugins/flutter_install_referrer/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
-  - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - icloud_storage (from `.symlinks/plugins/icloud_storage/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
@@ -168,14 +157,11 @@ DEPENDENCIES:
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - vpn_service (from `.symlinks/plugins/vpn_service/ios`)
-  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
 
 SPEC REPOS:
   trunk:
     - DKImagePickerController
     - DKPhotoGallery
-    - Google-Mobile-Ads-SDK
-    - GoogleUserMessagingPlatform
     - MTBBarcodeScanner
     - OrderedSet
     - SDWebImage
@@ -203,8 +189,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_secure_storage:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
-  google_mobile_ads:
-    :path: ".symlinks/plugins/google_mobile_ads/ios"
   icloud_storage:
     :path: ".symlinks/plugins/icloud_storage/ios"
   image_picker_ios:
@@ -242,8 +226,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   vpn_service:
     :path: ".symlinks/plugins/vpn_service/ios"
-  webview_flutter_wkwebview:
-    :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 CHECKOUT OPTIONS:
   Sentry:
@@ -263,9 +245,6 @@ SPEC CHECKSUMS:
   flutter_install_referrer: 53ec577bd6188e3408d239f0b578614f02de6edb
   flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
-  Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
-  google_mobile_ads: 16ad301354fa6a7ea55770c6254bd4339bf8558b
-  GoogleUserMessagingPlatform: f8d0cdad3ca835406755d0a69aa634f00e76d576
   icloud_storage: e55639f0c0d7cb2b0ba9c0b3d5968ccca9cd9aa2
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   in_app_review: 7dd1ea365263f834b8464673f9df72c80c17c937
@@ -279,7 +258,7 @@ SPEC CHECKSUMS:
   protocol_handler: 1da40ea1d5e307f725c72fbec4781d234ef46f66
   qr_code_scanner_plus: 7e087021bc69873140e0754750eb87d867bed755
   quick_actions_ios: 4b07fb49d8d8f3518d7565fbb7a91014067a7d82
-  SDWebImage: f29024626962457f3470184232766516dee8dfea
+  SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
   Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
   sentry_flutter: 27892878729f42701297c628eb90e7c6529f3684
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
@@ -289,7 +268,6 @@ SPEC CHECKSUMS:
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   vpn_service: 4633caa8f51d2832ab04c203359bcefda4a0a629
-  webview_flutter_wkwebview: 8ebf4fded22593026f7dbff1fbff31ea98573c8d
 
 PODFILE CHECKSUM: 6f2d3bbda3f9d20d08fafc4406271367ca6af837
 

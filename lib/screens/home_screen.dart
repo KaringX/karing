@@ -72,7 +72,6 @@ import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/tv_mode_screen.dart';
 import 'package:karing/screens/user_agreement_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
-import 'package:karing/screens/widgets/ads_widget.dart';
 import 'package:karing/screens/widgets/fab2.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/grid.dart';
@@ -2339,8 +2338,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
 
-    bool showAds = AdsBannerWidget.getEnable();
-
     var themes = Provider.of<Themes>(context, listen: false);
     Color? color = theme.colorScheme.surface;
     final groupid = getCurrentGroupId();
@@ -2514,12 +2511,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                     ],
                   ),
                 ),
-                showAds
-                    ? AdsBannerWidget(
-                        fixedHeight: true,
-                        adWidth: windowSize.width,
-                      )
-                    : SizedBox(height: 20),
+                SizedBox(height: 20),
                 Expanded(
                   child: Stack(
                     children: [

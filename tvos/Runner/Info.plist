@@ -19,9 +19,9 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.12</string>
+	<string>1.2.13</string>
 	<key>CFBundleVersion</key>
-	<string>1506</string>
+	<string>1600</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleURLTypes</key>

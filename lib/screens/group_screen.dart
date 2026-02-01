@@ -166,23 +166,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                                   ? snapshot.data!
                                   : [];
                               List<Widget> children = [];
-                              /*if (AdsPrivate.getEnable() &&
-                          (_hasAds || GroupScreenState._adsCount < 1)) {
-                        if (!_hasAds) {
-                          ++GroupScreenState._adsCount;
-                          _hasAds = true;
-                        }
-                        var settingConfig = SettingManager.getConfig();
-                        var expire = DateTime.tryParse(
-                            settingConfig.ads.bannerRewardExpire);
-                        if (expire == null || DateTime.now().isAfter(expire)) {
-                          children.add(AdsBannerWidget(
-                              fixedHeight: false,
-                              adWidth: windowSize.width,
-                              bannerName: "banner3"));
-                          children.add(const SizedBox(height: 20));
-                        }
-                      }*/
+
                               children.addAll(
                                 GroupItemCreator.createGroups(context, data),
                               );

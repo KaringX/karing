@@ -32,32 +32,6 @@ class RemoteConfigChannel {
   }
 }
 
-class RemoteConfigAds {
-  String platform = "";
-  List<String> region = [];
-  int percent = 0;
-
-  Map<String, dynamic> toJson() => {
-    'platform': platform,
-    'region': region,
-    'pc': percent,
-  };
-  void fromJson(Map<String, dynamic>? map) {
-    if (map == null) {
-      return;
-    }
-    platform = map["platform"] ?? "";
-    region = ConvertUtils.getListStringFromDynamic(map["region"], true, [])!;
-    percent = map["pc"] ?? 0;
-  }
-
-  static RemoteConfigAds fromJsonStatic(Map<String, dynamic>? map) {
-    RemoteConfigAds config = RemoteConfigAds();
-    config.fromJson(map);
-    return config;
-  }
-}
-
 class RemoteConfigGetProfile {
   String platform = "";
   List<String> region = [];
@@ -147,8 +121,6 @@ class RemoteConfig {
   bool ispBindNeedConnect = true;
   String ispPanelJs = "";
   List<String> faqAnchor = [];
-  List<RemoteConfigAds> ad = [];
-  bool adManualEnable = false;
   List<RemoteConfigGetProfile> getProfile = [];
   List<RemoteConfigChannel> channels = [];
   String host = kDefaultHost;
@@ -190,8 +162,6 @@ class RemoteConfig {
       "isp_bind_need_connect": ispBindNeedConnect,
       "isp_panel_js": ispPanelJs,
       'faq_anchor': faqAnchor,
-      "ad": ad,
-      "ad_manual_enable": adManualEnable,
       "get_profile": getProfile,
       "channel": channels,
     };
@@ -283,14 +253,7 @@ class RemoteConfig {
       true,
       [],
     )!;
-    if (map["ad"] != null) {
-      for (var i in map["ad"]) {
-        RemoteConfigAds ch = RemoteConfigAds();
-        ch.fromJson(i);
-        ad.add(ch);
-      }
-    }
-    adManualEnable = map["ad_manual_enable"] ?? false;
+
     if (map["get_profile"] != null) {
       for (var i in map["get_profile"]) {
         RemoteConfigGetProfile ch = RemoteConfigGetProfile();
@@ -384,18 +347,6 @@ class RemoteConfig {
           if (item.url.isNotEmpty) {
             return item;
           }
-        }
-      }
-    }
-    return null;
-  }
-
-  RemoteConfigAds? getAdByRegionCode(String regionCode) {
-    regionCode = regionCode.toLowerCase();
-    for (var item in ad) {
-      if (item.platform == Platform.operatingSystem) {
-        if (item.region.contains("*") || item.region.contains(regionCode)) {
-          return item;
         }
       }
     }

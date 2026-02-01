@@ -96,12 +96,6 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override String get turnOffNetworkBeforeInstall => '建议切换到[飞行模式]后再安装更新';
 	@override String get latencyTestResolveIP => '手动检测时,同时解析出口IP';
 	@override String get latencyTestConcurrency => '并发数量';
-	@override String get removeBannerAdsByShare => '分享[Karing]去广告';
-	@override String get removeBannerAdsByReward => '观看广告去广告';
-	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)';
-	@override String removeBannerAdsByRewardTip({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)';
-	@override String removeBannerAdsDone({required Object p}) => '已获得${p}天无广告奖励';
-	@override String get maybeAdsByReward => '你可能需要观看一段广告才能使用此功能,点击[${_root.meta.ok}]继续';
 	@override String get edgeRuntimeNotInstalled => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -360,7 +354,6 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get getTranffic => '获取流量';
 	@override String get tutorial => '使用教程';
 	@override String get commonlyUsedRulesets => '常用规则集';
-	@override String get howToRemoveAds => '如何移除广告';
 	@override String get htmlBoard => '在线面板';
 	@override String get dnsLeakDetection => 'DNS泄露检测';
 	@override String get proxyLeakDetection => '代理泄露检测';
@@ -743,7 +736,6 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get server => '服务器';
 	@override String get ads => '广告';
 	@override String get adsRemove => '移除广告';
-	@override String get adsBanner => '横幅广告';
 	@override String get donate => '捐助';
 	@override String get diversion => '分流';
 	@override String get diversionRules => '分流规则';
@@ -1019,7 +1011,6 @@ extension on TranslationsZhCn {
 			'SettingsScreen.getTranffic' => '获取流量',
 			'SettingsScreen.tutorial' => '使用教程',
 			'SettingsScreen.commonlyUsedRulesets' => '常用规则集',
-			'SettingsScreen.howToRemoveAds' => '如何移除广告',
 			'SettingsScreen.htmlBoard' => '在线面板',
 			'SettingsScreen.dnsLeakDetection' => 'DNS泄露检测',
 			'SettingsScreen.proxyLeakDetection' => '代理泄露检测',
@@ -1358,7 +1349,6 @@ extension on TranslationsZhCn {
 			'meta.server' => '服务器',
 			'meta.ads' => '广告',
 			'meta.adsRemove' => '移除广告',
-			'meta.adsBanner' => '横幅广告',
 			'meta.donate' => '捐助',
 			'meta.diversion' => '分流',
 			'meta.diversionRules' => '分流规则',
@@ -1434,10 +1424,10 @@ extension on TranslationsZhCn {
 			'tls.fragmentSleep' => 'TLS分段休眠',
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
-			_ => null,
-		} ?? switch (path) {
 			'tls.paddingSize' => 'TLS填充大小',
 			'outboundRuleMode.currentSelected' => '当前选择',
+			_ => null,
+		} ?? switch (path) {
 			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',
 			'outboundRuleMode.block' => '拦截',
@@ -1475,12 +1465,6 @@ extension on TranslationsZhCn {
 			'turnOffNetworkBeforeInstall' => '建议切换到[飞行模式]后再安装更新',
 			'latencyTestResolveIP' => '手动检测时,同时解析出口IP',
 			'latencyTestConcurrency' => '并发数量',
-			'removeBannerAdsByShare' => '分享[Karing]去广告',
-			'removeBannerAdsByReward' => '观看广告去广告',
-			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => '分享一次,将会获得${p}天无广告奖励(可叠加,最多${d}天)',
-			'removeBannerAdsByRewardTip' => ({required Object p}) => '观看一段广告,将会获得${p}天无广告奖励(不可叠加)',
-			'removeBannerAdsDone' => ({required Object p}) => '已获得${p}天无广告奖励',
-			'maybeAdsByReward' => '你可能需要观看一段广告才能使用此功能,点击[${_root.meta.ok}]继续',
 			'edgeRuntimeNotInstalled' => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

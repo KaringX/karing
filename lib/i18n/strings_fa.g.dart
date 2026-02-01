@@ -96,12 +96,6 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get turnOffNetworkBeforeInstall => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید';
 	@override String get latencyTestResolveIP => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.';
 	@override String get latencyTestConcurrency => 'همزمانی';
-	@override String get removeBannerAdsByShare => 'اشتراک گذاری[Karing]رفتن به تبلیغات';
-	@override String get removeBannerAdsByReward => 'تماشای تبلیغات برو به تبلیغات';
-	@override String removeBannerAdsByShareTip({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)';
-	@override String removeBannerAdsByRewardTip({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)';
-	@override String removeBannerAdsDone({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد';
-	@override String get maybeAdsByReward => 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.';
 	@override String get edgeRuntimeNotInstalled => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -360,7 +354,6 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get getTranffic => 'دریافت ترافیک';
 	@override String get tutorial => 'آموزش';
 	@override String get commonlyUsedRulesets => 'قوانین رایج';
-	@override String get howToRemoveAds => 'نحوه حذف تبلیغات';
 	@override String get htmlBoard => 'پنل آنلاین';
 	@override String get dnsLeakDetection => 'تشخیص نشت DNS';
 	@override String get proxyLeakDetection => 'تشخیص نشت عامل';
@@ -743,7 +736,6 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get server => 'سرور';
 	@override String get ads => 'تبلیغ کنید';
 	@override String get adsRemove => 'تبلیغات را حذف کنید';
-	@override String get adsBanner => 'تبلیغات بنری';
 	@override String get donate => 'اهدا کنید';
 	@override String get diversion => 'انحراف';
 	@override String get diversionRules => 'قوانین انحراف';
@@ -1019,7 +1011,6 @@ extension on TranslationsFa {
 			'SettingsScreen.getTranffic' => 'دریافت ترافیک',
 			'SettingsScreen.tutorial' => 'آموزش',
 			'SettingsScreen.commonlyUsedRulesets' => 'قوانین رایج',
-			'SettingsScreen.howToRemoveAds' => 'نحوه حذف تبلیغات',
 			'SettingsScreen.htmlBoard' => 'پنل آنلاین',
 			'SettingsScreen.dnsLeakDetection' => 'تشخیص نشت DNS',
 			'SettingsScreen.proxyLeakDetection' => 'تشخیص نشت عامل',
@@ -1358,7 +1349,6 @@ extension on TranslationsFa {
 			'meta.server' => 'سرور',
 			'meta.ads' => 'تبلیغ کنید',
 			'meta.adsRemove' => 'تبلیغات را حذف کنید',
-			'meta.adsBanner' => 'تبلیغات بنری',
 			'meta.donate' => 'اهدا کنید',
 			'meta.diversion' => 'انحراف',
 			'meta.diversionRules' => 'قوانین انحراف',
@@ -1434,10 +1424,10 @@ extension on TranslationsFa {
 			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
-			_ => null,
-		} ?? switch (path) {
 			'tls.paddingSize' => 'اندازه پد TLS',
 			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
+			_ => null,
+		} ?? switch (path) {
 			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			'outboundRuleMode.direct' => 'مستقیم',
 			'outboundRuleMode.block' => 'مسدود',
@@ -1475,12 +1465,6 @@ extension on TranslationsFa {
 			'turnOffNetworkBeforeInstall' => 'توصیه می‌شود قبل از نصب به‌روزرسانی، به [حالت هواپیما] بروید',
 			'latencyTestResolveIP' => 'در طی تشخیص دستی، IP صادرات نیز تجزیه و تحلیل می شود.',
 			'latencyTestConcurrency' => 'همزمانی',
-			'removeBannerAdsByShare' => 'اشتراک گذاری[Karing]رفتن به تبلیغات',
-			'removeBannerAdsByReward' => 'تماشای تبلیغات برو به تبلیغات',
-			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'یک بار به اشتراک بگذارید و ${p} روز بدون پاداش تبلیغاتی دریافت خواهید کرد (تا ${d}  روز قابل انباشته شدن است)',
-			'removeBannerAdsByRewardTip' => ({required Object p}) => 'یک تبلیغ را تماشا کنید و پاداش روز بدون آگهی ${p} دریافت خواهید کرد (نمی توان روی هم گذاشت)',
-			'removeBannerAdsDone' => ({required Object p}) => 'پاداش ${p} روز بدون آگهی دریافت کرد',
-			'maybeAdsByReward' => 'ممکن است لازم باشد قبل از استفاده از این ویژگی، یک تبلیغ تماشا کنید. برای ادامه، روی [${_root.meta.ok}] کلیک کنید.',
 			'edgeRuntimeNotInstalled' => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',

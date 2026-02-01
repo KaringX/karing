@@ -159,24 +159,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Concurrency'
 	String get latencyTestConcurrency => 'Concurrency';
 
-	/// en: 'Share [Karing] to remove ads'
-	String get removeBannerAdsByShare => 'Share [Karing] to remove ads';
-
-	/// en: 'Watch an ad to remove ads'
-	String get removeBannerAdsByReward => 'Watch an ad to remove ads';
-
-	/// en: 'Share once and you will get $p days of ad-free rewards (can be stacked, up to $d days)'
-	String removeBannerAdsByShareTip({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)';
-
-	/// en: 'Watch an ad and you will get $p days of ad-free rewards (not cumulative)'
-	String removeBannerAdsByRewardTip({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)';
-
-	/// en: 'Received $p days of ad-free rewards'
-	String removeBannerAdsDone({required Object p}) => 'Received ${p} days of ad-free rewards';
-
-	/// en: 'You may need to watch an ad before using this feature. Click [Ok] to continue'
-	String get maybeAdsByReward => 'You may need to watch an ad before using this feature. Click [${_root.meta.ok}] to continue';
-
 	/// en: 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.'
 	String get edgeRuntimeNotInstalled => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.';
 
@@ -631,9 +613,6 @@ class TranslationsSettingsScreenEn {
 
 	/// en: 'Commonly Used Rulesets'
 	String get commonlyUsedRulesets => 'Commonly Used Rulesets';
-
-	/// en: 'How to remove ads'
-	String get howToRemoveAds => 'How to remove ads';
 
 	/// en: 'Online Panel'
 	String get htmlBoard => 'Online Panel';
@@ -1689,9 +1668,6 @@ class TranslationsMetaEn {
 	/// en: 'Remove ads'
 	String get adsRemove => 'Remove ads';
 
-	/// en: 'Banner ads'
-	String get adsBanner => 'Banner ads';
-
 	/// en: 'Donate'
 	String get donate => 'Donate';
 
@@ -2140,7 +2116,6 @@ extension on Translations {
 			'SettingsScreen.getTranffic' => 'Get Traffic',
 			'SettingsScreen.tutorial' => 'Tutorial',
 			'SettingsScreen.commonlyUsedRulesets' => 'Commonly Used Rulesets',
-			'SettingsScreen.howToRemoveAds' => 'How to remove ads',
 			'SettingsScreen.htmlBoard' => 'Online Panel',
 			'SettingsScreen.dnsLeakDetection' => 'DNS Leaks Detection',
 			'SettingsScreen.proxyLeakDetection' => 'Proxy Leaks Detection',
@@ -2479,7 +2454,6 @@ extension on Translations {
 			'meta.server' => 'Server',
 			'meta.ads' => 'Ads',
 			'meta.adsRemove' => 'Remove ads',
-			'meta.adsBanner' => 'Banner ads',
 			'meta.donate' => 'Donate',
 			'meta.diversion' => 'Diversion',
 			'meta.diversionRules' => 'Diversion Rules',
@@ -2555,10 +2529,10 @@ extension on Translations {
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			'tls.paddingEnable' => 'Enable TLS Padding',
-			_ => null,
-		} ?? switch (path) {
 			'tls.paddingSize' => 'TLS Padding Size',
 			'outboundRuleMode.currentSelected' => 'Current Selected',
+			_ => null,
+		} ?? switch (path) {
 			'outboundRuleMode.urltest' => 'Auto Select',
 			'outboundRuleMode.direct' => 'Direct',
 			'outboundRuleMode.block' => 'Block',
@@ -2596,12 +2570,6 @@ extension on Translations {
 			'turnOffNetworkBeforeInstall' => 'It is recommended to switch to [Airplane Mode] before installing the update',
 			'latencyTestResolveIP' => 'When manually checking, resolve the outlet IP',
 			'latencyTestConcurrency' => 'Concurrency',
-			'removeBannerAdsByShare' => 'Share [Karing] to remove ads',
-			'removeBannerAdsByReward' => 'Watch an ad to remove ads',
-			'removeBannerAdsByShareTip' => ({required Object p, required Object d}) => 'Share once and you will get ${p} days of ad-free rewards (can be stacked, up to ${d} days)',
-			'removeBannerAdsByRewardTip' => ({required Object p}) => 'Watch an ad and you will get ${p} days of ad-free rewards (not cumulative)',
-			'removeBannerAdsDone' => ({required Object p}) => 'Received ${p} days of ad-free rewards',
-			'maybeAdsByReward' => 'You may need to watch an ad before using this feature. Click [${_root.meta.ok}] to continue',
 			'edgeRuntimeNotInstalled' => 'The current device has not installed the Edge WebView2 runtime, so the page cannot be displayed. Please download and install the Edge WebView2 runtime (x64), restart the App and try again.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
