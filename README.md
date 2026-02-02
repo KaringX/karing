@@ -9,8 +9,8 @@
 A <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI based on <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
+English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
 
-English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./README_fa.md)
 ### Note: Karing has not opened any channel related to Karing on any video platform
 
 ## Features
@@ -32,11 +32,9 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - Introduces a beginner mode for simpler configuration.
 - Plan to support more platforms.
 
-
 ## Promotion
 <details>
 <summary>View all promotions
-
 
 ### 推荐机场
 
@@ -48,9 +46,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - 全球首家支持`Hysteria2` 协议，集群负载均衡设计，高速专线，极低延迟，无视晚高峰，4K 秒开
 - 解锁流媒体及 ChatGPT
 
-
 [👉更多机场优惠 每日更新](https://1.x31415926.top/)
-
 
 </summary>
 
@@ -79,13 +75,10 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - **Windows/Macos/Linux**:
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
- 
-
 
 ### FAQ
 
 > [FAQ|en](https://karing.app/en/faq/)
-
 
 ## Todos
 - Platform to be supported:
@@ -93,8 +86,7 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - Globalization(multi-language)
   - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
 
-
-## Screenshots (Windows version)
+## Screenshots
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -110,16 +102,13 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
   <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
-
 ## Contributions
 [welcome to report issue!](https://github.com/KaringX/karing/issues)
-
 
 ## Donate
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-
-## Projects 
+## Projects
 ### Acknowledgement: Karing was based on or inspired by these projects and so on:
 
 - [flutter](https://flutter.dev/): makes it easy and fast to build beautiful apps for mobile and beyond.
@@ -131,9 +120,6 @@ English | [Chinese](./README_cn.md) | [Russian](./README_ru.md) | [Persian](./RE
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)
 
-
-
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
-

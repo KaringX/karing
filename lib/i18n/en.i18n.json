@@ -614,8 +614,28 @@
     "locales(map)": {
         "en": "English",
         "zh-CN": "简体中文",
+        "zh-TW": "繁體中文",
+        "ja": "日本語",
+        "ko": "한국어",
+        "fr": "Français",
+        "es": "Español",
         "ar": "عربي",
         "ru": "Русский",
-        "fa": "فارسی"
+        "fa": "فارسی",
+        "de": "Deutsch",
+        "pt": "Português",
+        "it": "Italiano",
+        "uk": "Українська",
+        "pl": "Polski",
+        "nl": "Nederlands",
+        "sv": "Svenska",
+        "no": "Norsk",
+        "da": "Dansk",
+        "hi": "हिन्दी",
+        "ur": "اردو",
+        "bn": "বাংলা",
+        "el": "Ελληνικά",
+        "vi": "Tiếng Việt",
+        "tr": "Türkçe"
     }
 }

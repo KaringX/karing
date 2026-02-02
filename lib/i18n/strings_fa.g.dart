@@ -100,9 +100,29 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
+		'zh-TW': '繁體中文',
+		'ja': '日本語',
+		'ko': '한국어',
+		'fr': 'Français',
+		'es': 'Español',
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -443,11 +463,11 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get allowOtherHostsConnect => 'اجازه اتصال دیگران';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
-	@override String get tunStrictRoute => 'Strict Route';
+	@override String get tunAutoRoute => 'مسیر خودکار';
+	@override String get tunAutoRedirect => 'تغییر مسیر خودکار';
+	@override String get tunStrictRoute => 'مسیر سخت‌گیرانه';
 	@override String get tunStrictRouteTips => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
-	@override String get loopbackAddress => 'Loopback Address';
+	@override String get loopbackAddress => 'آدرس لوپ‌بک';
 	@override String get enableCluster => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای';
 	@override String get clusterAllowOtherHostsConnect => 'اجازه اتصال دیگران به خوشه';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -595,8 +615,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get inbound => 'ورودی';
 	@override String get outbound => 'خارج شوید';
 	@override String get destination => 'هدف';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => 'IP خروجی';
+	@override String get outletIpByDirect => 'IP خروجی:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'اتصال';
 	@override String get disconnect => 'قطع‌ اتصال';
 	@override String get reconnect => 'دوباره وصل شوید';
@@ -1100,11 +1120,11 @@ extension on TranslationsFa {
 			'SettingsScreen.allowOtherHostsConnect' => 'اجازه اتصال دیگران',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
-			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunAutoRoute' => 'مسیر خودکار',
+			'SettingsScreen.tunAutoRedirect' => 'تغییر مسیر خودکار',
+			'SettingsScreen.tunStrictRoute' => 'مسیر سخت‌گیرانه',
 			'SettingsScreen.tunStrictRouteTips' => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.',
-			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.loopbackAddress' => 'آدرس لوپ‌بک',
 			'SettingsScreen.enableCluster' => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'اجازه اتصال دیگران به خوشه',
 			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
@@ -1208,8 +1228,8 @@ extension on TranslationsFa {
 			'meta.inbound' => 'ورودی',
 			'meta.outbound' => 'خارج شوید',
 			'meta.destination' => 'هدف',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => 'IP خروجی',
+			'meta.outletIpByDirect' => 'IP خروجی:${_root.outboundRuleMode.direct}',
 			'meta.connect' => 'اتصال',
 			'meta.disconnect' => 'قطع‌ اتصال',
 			'meta.reconnect' => 'دوباره وصل شوید',
@@ -1468,9 +1488,29 @@ extension on TranslationsFa {
 			'edgeRuntimeNotInstalled' => 'زمان اجرا Edge WebView2 روی دستگاه فعلی نصب نشده است و صفحه قابل نمایش نیست لطفاً زمان اجرا Edge WebView2 (x64) را بارگیری و نصب کنید، برنامه را مجدداً راه اندازی کنید و دوباره امتحان کنید.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
+			'locales.zh-TW' => '繁體中文',
+			'locales.ja' => '日本語',
+			'locales.ko' => '한국어',
+			'locales.fr' => 'Français',
+			'locales.es' => 'Español',
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}

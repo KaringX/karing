@@ -9,9 +9,9 @@
 一个基于 <a href="https://github.com/flutter/flutter">flutter</a> 的 <a href="https://github.com/SagerNet/sing-box">singbox</a> 图形用户界面。
 </h3>
 
-[英语](./README.md) | 中文 | [俄语](./README_ru.md) | [波斯文](./README_fa.md)
-### 注意: 
-- **Karing未在任何视频平台开设过有关Karing的任何频道**
+English | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+
+### Note: - **Karing未在任何视频平台开设过有关Karing的任何频道**
 - **官方网站: https://karing.app**
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
@@ -32,8 +32,6 @@
 <details>
 <summary>查看所有推广
 
-
-
 ### ✈️推荐机场
 
 [狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
@@ -51,7 +49,6 @@
 ### 🤝机场合作招募
 - 👉[联系方式与合作形式](https://karing.app/blog/isp/cooperation)👈
 </details>
-
 
 ## 系统要求
 - Windows >= 10 （仅支持64位）
@@ -75,7 +72,6 @@
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
 
-
 ### 常见问题
 
 > [FAQ|cn](https://karing.app/en/faq/)
@@ -86,7 +82,7 @@
 - 全球化（多语言）
   - 如果您愿意与我们合作支持 Karing 全球化，请联系 [Telegram](https://t.me/ovowe)
 
-## 截图（Windows 版本）
+## 截图
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -120,3 +116,6 @@
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)

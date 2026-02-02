@@ -100,9 +100,29 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
+		'zh-TW': '繁體中文',
+		'ja': '日本語',
+		'ko': '한국어',
+		'fr': 'Français',
+		'es': 'Español',
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -443,8 +463,8 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get allowOtherHostsConnect => '允许其他主机接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
+	@override String get tunAutoRoute => '自动路由';
+	@override String get tunAutoRedirect => '自动重定向';
 	@override String get tunStrictRoute => '严格路由';
 	@override String get tunStrictRouteTips => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
 	@override String get loopbackAddress => '环回地址';
@@ -595,8 +615,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get inbound => '入站';
 	@override String get outbound => '出站';
 	@override String get destination => '目标';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => '出口IP';
+	@override String get outletIpByDirect => '出口IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => '连接';
 	@override String get disconnect => '断开';
 	@override String get reconnect => '重新连接';
@@ -1100,8 +1120,8 @@ extension on TranslationsZhCn {
 			'SettingsScreen.allowOtherHostsConnect' => '允许其他主机接入',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunAutoRoute' => '自动路由',
+			'SettingsScreen.tunAutoRedirect' => '自动重定向',
 			'SettingsScreen.tunStrictRoute' => '严格路由',
 			'SettingsScreen.tunStrictRouteTips' => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关',
 			'SettingsScreen.loopbackAddress' => '环回地址',
@@ -1208,8 +1228,8 @@ extension on TranslationsZhCn {
 			'meta.inbound' => '入站',
 			'meta.outbound' => '出站',
 			'meta.destination' => '目标',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => '出口IP',
+			'meta.outletIpByDirect' => '出口IP:${_root.outboundRuleMode.direct}',
 			'meta.connect' => '连接',
 			'meta.disconnect' => '断开',
 			'meta.reconnect' => '重新连接',
@@ -1468,9 +1488,29 @@ extension on TranslationsZhCn {
 			'edgeRuntimeNotInstalled' => '当前设备尚未安装Edge WebView2运行时,无法展示页面,请下载安装Edge WebView2运行时(x64)后,重启App再试',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
+			'locales.zh-TW' => '繁體中文',
+			'locales.ja' => '日本語',
+			'locales.ko' => '한국어',
+			'locales.fr' => 'Français',
+			'locales.es' => 'Español',
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}

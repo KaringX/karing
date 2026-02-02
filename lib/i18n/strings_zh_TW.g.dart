@@ -108,6 +108,21 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -448,8 +463,8 @@ class _TranslationsSettingsScreenZhTw implements TranslationsSettingsScreenEn {
 	@override String get allowOtherHostsConnect => '允許其他主機接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
+	@override String get tunAutoRoute => '自動路由';
+	@override String get tunAutoRedirect => '自動重新導向';
 	@override String get tunStrictRoute => '嚴格路由';
 	@override String get tunStrictRouteTips => '如果開啟共享後, 其他無法接入此設備, 請嘗試關閉此開關';
 	@override String get loopbackAddress => '環回位址';
@@ -600,8 +615,8 @@ class _TranslationsMetaZhTw implements TranslationsMetaEn {
 	@override String get inbound => '入站';
 	@override String get outbound => '出站';
 	@override String get destination => '目標';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => '出口 IP';
+	@override String get outletIpByDirect => '出口 IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => '連線';
 	@override String get disconnect => '中斷';
 	@override String get reconnect => '重新連線';
@@ -1105,8 +1120,8 @@ extension on TranslationsZhTw {
 			'SettingsScreen.allowOtherHostsConnect' => '允許其他主機接入',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
+			'SettingsScreen.tunAutoRoute' => '自動路由',
+			'SettingsScreen.tunAutoRedirect' => '自動重新導向',
 			'SettingsScreen.tunStrictRoute' => '嚴格路由',
 			'SettingsScreen.tunStrictRouteTips' => '如果開啟共享後, 其他無法接入此設備, 請嘗試關閉此開關',
 			'SettingsScreen.loopbackAddress' => '環回位址',
@@ -1213,8 +1228,8 @@ extension on TranslationsZhTw {
 			'meta.inbound' => '入站',
 			'meta.outbound' => '出站',
 			'meta.destination' => '目標',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => '出口 IP',
+			'meta.outletIpByDirect' => '出口 IP:${_root.outboundRuleMode.direct}',
 			'meta.connect' => '連線',
 			'meta.disconnect' => '中斷',
 			'meta.reconnect' => '重新連線',
@@ -1481,6 +1496,21 @@ extension on TranslationsZhTw {
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}

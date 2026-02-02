@@ -9,9 +9,10 @@
 Графический интерфейс <a href="https://github.com/SagerNet/sing-box">singbox</a> на основе <a href="https://github.com/flutter/flutter">flutter</a>
 </h3>
 
+English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | Русский | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
 
-[Английский](./README.md) | [Китайский](./README_cn.md) | Русский | [Персидский](./README_fa.md)
-### Примечание: Karing не открывал ни одного канала ни на одной видеоплатформе.
+### Note: Karing не открывал ни одного канала ни на одной видеоплатформе.
+
 ## Особенности
 - Совместим с Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, подписками на GitHub.
   - Полная поддержка конфигурации `clash`, частичная поддержка конфигурации `clash.meta`.
@@ -27,7 +28,6 @@
 - Встроенная поддержка [модифицированного ядра sing-box](https://github.com/KaringX/sing-box).
 - Имеет режим для новичков, упрощающий настройку.
 - Планируется поддержка большего количества платформ.
-
 
 ## Продвижение
 <details> <summary>Раскрыть</summary>
@@ -64,22 +64,12 @@
 - **Windows/MacOS/Linux**:
   - [Сайт](https://karing.app/download)
   - [GitHub](https://github.com/KaringX/karing/releases/latest)
- 
-
 
 ### FAQ
 
 > [FAQ│en](https://karing.app/en/faq/)
 
-
-## Планы
-- Поддерживаемые платформы:
-  - Linux│[linglong](https://linglong.dev/)
-- Глобализация (многоязычность)
-  - Если вы готовы сотрудничать с нами для поддержки глобализации Karing, отправьте электронное письмо на gooringx@gmail.com для участия
-
-
-## Скриншоты (Windows)
+## Скриншоты
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -95,14 +85,11 @@
   <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
-
 ## Вклад
 [Добро пожаловать в Issues!](https://github.com/KaringX/karing/issues)
 
-
 ## Донат
 ![donate](./README_assets/img/donate-usdt.jpg)
-
 
 ## Проекты
 ### Благодарности: Karing был создан на основе или вдохновлен этими проектами:
@@ -116,8 +103,6 @@
 - [Clash Mi](https://clashmi.app/)
 - [sing-poet](https://github.com/KaringX/sing-poet)
 
-
-
 ## История проставленных звёзд
 
-[![История проставленных звёзд](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)

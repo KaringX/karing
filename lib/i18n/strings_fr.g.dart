@@ -108,6 +108,21 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -118,20 +133,20 @@ class _TranslationsAboutScreenFr implements TranslationsAboutScreenEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'Install Refer';
-	@override String get installTime => 'Install Time';
-	@override String get versionChannel => 'Auto Update Channel';
-	@override String get autoDownloadPkg => 'Auto Download Update Packages';
-	@override String get disableAppImproveData => 'Application Improvement Data';
-	@override String get disableUAReportTip => 'Enabling [${_root.AboutScreen.disableAppImproveData}] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.';
-	@override String get devOptions => 'Developer Options';
-	@override String get enableDebugLog => 'Enable Debug Log';
-	@override String get viewFilsContent => 'View Files';
-	@override String get enablePprof => 'Enable pprof';
-	@override String get pprofPanel => 'pprof Panel';
-	@override String get allowRemoteAccessPprof => 'Allow remote access to ${_root.AboutScreen.pprofPanel}';
-	@override String get allowRemoteAccessHtmlBoard => 'Allow remote access${_root.SettingsScreen.htmlBoard}';
-	@override String get useOriginalSBProfile => 'Use original sing-box Profile';
+	@override String get installRefer => 'Référence d\'installation';
+	@override String get installTime => 'Heure d\'installation';
+	@override String get versionChannel => 'Canal de mise à jour automatique';
+	@override String get autoDownloadPkg => 'Téléchargement automatique des packages de mise à jour';
+	@override String get disableAppImproveData => 'Données d\'amélioration de l\'application';
+	@override String get disableUAReportTip => 'L\'activation de [${_root.AboutScreen.disableAppImproveData}] nous aide à améliorer la stabilité et l\'ergonomie du produit ; nous ne collectons aucune donnée privée. La désactivation empêchera l\'application de collecter toute donnée.';
+	@override String get devOptions => 'Options développeur';
+	@override String get enableDebugLog => 'Activer le journal de débogage';
+	@override String get viewFilsContent => 'Voir les fichiers';
+	@override String get enablePprof => 'Activer pprof';
+	@override String get pprofPanel => 'Panneau pprof';
+	@override String get allowRemoteAccessPprof => 'Autoriser l\'accès à distance à ${_root.AboutScreen.pprofPanel}';
+	@override String get allowRemoteAccessHtmlBoard => 'Autoriser l\'accès à distance à ${_root.SettingsScreen.htmlBoard}';
+	@override String get useOriginalSBProfile => 'Utiliser le profil sing-box original';
 }
 
 // Path: BackupAndSyncWebdavScreen
@@ -141,10 +156,10 @@ class _TranslationsBackupAndSyncWebdavScreenFr implements TranslationsBackupAndS
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get webdavServerUrl => 'Server Url';
-	@override String get webdavRequired => 'Can not be empty';
-	@override String get webdavLoginFailed => 'Login failed:';
-	@override String get webdavListFailed => 'Failed to get file list:';
+	@override String get webdavServerUrl => 'URL du serveur';
+	@override String get webdavRequired => 'Ne peut pas être vide';
+	@override String get webdavLoginFailed => 'Échec de la connexion :';
+	@override String get webdavListFailed => 'Échec de l\'obtention de la liste des fichiers :';
 }
 
 // Path: DiversionGroupCustomEditScreen
@@ -154,13 +169,13 @@ class _TranslationsDiversionGroupCustomEditScreenFr implements TranslationsDiver
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String invalidDomain({required Object p}) => 'Invalid [Domain]:${p}';
-	@override String invalidIpCidr({required Object p}) => 'Invalid [IP Cidr]:${p}';
-	@override String invalid({required Object p0, required Object p}) => 'Invalid [${p0}]:${p}';
-	@override String invalidRuleSet({required Object p}) => 'Invalid [Rule Set]:${p}, The URL must be a valid https URL and a binary file with the file extension .srs/.json';
-	@override String invalidRuleSetBuildIn({required Object p}) => 'Invalid [Rule Set(build-in)]:${p}, The format is geosite:xxx or geoip:xxx or acl:xxx, and xxx should be a valid rule name';
-	@override String invalidPackageId({required Object p}) => 'Invalid [${_root.meta.appPackage}]:${p}';
-	@override String get setDiversionRule => 'Tip: After saving, please go to [${_root.meta.diversionRules}] to set relevant rules, otherwise they will not take effect';
+	@override String invalidDomain({required Object p}) => '[Domaine] invalide : ${p}';
+	@override String invalidIpCidr({required Object p}) => '[IP Cidr] invalide : ${p}';
+	@override String invalid({required Object p0, required Object p}) => '[${p0}] invalide : ${p}';
+	@override String invalidRuleSet({required Object p}) => '[Rule Set] invalide : ${p}, l\'URL doit être une URL https valide et un fichier binaire avec l\'extension .srs/.json';
+	@override String invalidRuleSetBuildIn({required Object p}) => '[Rule Set(intégré)] invalide : ${p}, le format est geosite:xxx ou geoip:xxx ou acl:xxx, et xxx doit être un nom de règle valide';
+	@override String invalidPackageId({required Object p}) => '[${_root.meta.appPackage}] invalide : ${p}';
+	@override String get setDiversionRule => 'Conseil : Après l\'enregistrement, veuillez aller dans [${_root.meta.diversionRules}] pour définir les règles correspondantes, sinon elles ne prendront pas effet';
 }
 
 // Path: DiversionRuleDetectScreen
@@ -170,9 +185,9 @@ class _TranslationsDiversionRuleDetectScreenFr implements TranslationsDiversionR
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Diversion Rule Detect';
-	@override String get rule => 'Rule:';
-	@override String get outbound => 'Proxy Server:';
+	@override String get title => 'Détection de règle de diversion';
+	@override String get rule => 'Règle :';
+	@override String get outbound => 'Serveur proxy :';
 }
 
 // Path: DiversionRulesScreen
@@ -182,7 +197,7 @@ class _TranslationsDiversionRulesScreenFr implements TranslationsDiversionRulesS
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get diversionRulesMatchTips => 'Tip: Try to match the rules from top to bottom. If no rule is matched, use [final]';
+	@override String get diversionRulesMatchTips => 'Conseil : Essayez de faire correspondre les règles de haut en bas. Si aucune règle ne correspond, utilisez [final]';
 }
 
 // Path: DnsSettingsScreen
@@ -192,10 +207,10 @@ class _TranslationsDnsSettingsScreenFr implements TranslationsDnsSettingsScreenE
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get ispCanNotEmpty => 'ISP can not be empty';
-	@override String get urlCanNotEmpty => 'URL can not be empty';
-	@override String error({required Object p}) => 'Unsupported type:${p}';
-	@override String get dnsDesc => 'The first column of delay data is the direct connection query delay;\nThe second column: Turn on [[Proxy Traffic]Resolve DNS through proxy server]: the delay data is the query delay forwarded through the current proxy server; if the [[Proxy Traffic]Resolve DNS through proxy server]: The delay data is the direct connection query delay';
+	@override String get ispCanNotEmpty => 'L\'ISP ne peut pas être vide';
+	@override String get urlCanNotEmpty => 'L\'URL ne peut pas être vide';
+	@override String error({required Object p}) => 'Type non supporté : ${p}';
+	@override String get dnsDesc => 'La première colonne des données de délai est le délai de requête en connexion directe ;\nLa deuxième colonne : Activez [[Trafic Proxy] Résoudre le DNS via le serveur proxy] : les données de délai correspondent au délai de requête transféré via le serveur proxy actuel ; si désactivé : les données de délai correspondent au délai de requête en connexion directe';
 }
 
 // Path: FileContentViewerScreen
@@ -205,9 +220,9 @@ class _TranslationsFileContentViewerScreenFr implements TranslationsFileContentV
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'File Content Viewer';
-	@override String get clearFileContent => 'Are you sure to clear the content of the file?';
-	@override String get clearFileContentTips => 'Are you sure to clear the content of the Profile file? Clearing the Profile file may cause data loss or abnormal application functions, please operate with caution';
+	@override String get title => 'Visionneuse de contenu de fichier';
+	@override String get clearFileContent => 'Êtes-vous sûr de vouloir effacer le contenu du fichier ?';
+	@override String get clearFileContentTips => 'Êtes-vous sûr de vouloir effacer le contenu du fichier de profil ? L\'effacement du fichier de profil peut entraîner une perte de données ou des dysfonctionnements de l\'application, veuillez agir avec prudence';
 }
 
 // Path: HomeScreen
@@ -217,14 +232,14 @@ class _TranslationsHomeScreenFr implements TranslationsHomeScreenEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get toSelectServer => 'Please Select a Server';
-	@override String get invalidServer => 'is invalid, please select again';
-	@override String get disabledServer => 'is disabled, please select again';
-	@override String get expiredServer => 'No servers available, profiles may be expired or disabled';
-	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-	@override String get myLinkEmpty => 'Please set up [Shortcut Link] before using it';
-	@override String tooMuchServers({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations';
-	@override String tooMuchServers2({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections';
+	@override String get toSelectServer => 'Veuillez sélectionner un serveur';
+	@override String get invalidServer => 'est invalide, veuillez sélectionner à nouveau';
+	@override String get disabledServer => 'est désactivé, veuillez sélectionner à nouveau';
+	@override String get expiredServer => 'Aucun serveur disponible, les profils peuvent être expirés ou désactivés';
+	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}';
+	@override String get myLinkEmpty => 'Veuillez configurer un [Lien raccourci] avant de l\'utiliser';
+	@override String tooMuchServers({required Object p, required Object p1}) => 'Trop de serveurs proxy [${p}>${p1}], la connexion peut échouer en raison des limitations de mémoire système';
+	@override String tooMuchServers2({required Object p, required Object p1}) => 'Trop de serveurs proxy [${p}>${p1}] peut entraîner des connexions lentes ou inaccessibles';
 }
 
 // Path: LaunchFailedScreen
@@ -234,11 +249,11 @@ class _TranslationsLaunchFailedScreenFr implements TranslationsLaunchFailedScree
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get invalidProcess => 'The app failed to start [Invalid process name], please reinstall the app to a separate directory';
-	@override String get invalidProfile => 'The app failed to start [Failed to access the profile], please reinstall the app';
-	@override String get invalidVersion => 'The app failed to start [Invalid version], please reinstall the app';
-	@override String get systemVersionLow => 'The app failed to start [system version too low]';
-	@override String get invalidInstallPath => 'The installation path is invalid, please reinstall it to a valid path';
+	@override String get invalidProcess => 'L\'application n\'a pas pu démarrer [Nom de processus invalide], veuillez réinstaller l\'application dans un répertoire séparé';
+	@override String get invalidProfile => 'L\'application n\'a pas pu démarrer [Échec de l\'accès au profil], veuillez réinstaller l\'application';
+	@override String get invalidVersion => 'L\'application n\'a pas pu démarrer [Version invalide], veuillez réinstaller l\'application';
+	@override String get systemVersionLow => 'L\'application n\'a pas pu démarrer [Version système trop basse]';
+	@override String get invalidInstallPath => 'Le chemin d\'installation est invalide, veuillez réinstaller dans un chemin valide';
 }
 
 // Path: MyProfilesMergeScreen
@@ -248,10 +263,10 @@ class _TranslationsMyProfilesMergeScreenFr implements TranslationsMyProfilesMerg
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get profilesMerge => 'Profiles Merge';
-	@override String get profilesMergeTarget => 'Target Profile';
-	@override String get profilesMergeSource => 'Source Profiles';
-	@override String get profilesMergeTips => 'Tip: Diversion of the source profiles will be discarded';
+	@override String get profilesMerge => 'Fusion de profils';
+	@override String get profilesMergeTarget => 'Profil cible';
+	@override String get profilesMergeSource => 'Profils sources';
+	@override String get profilesMergeTips => 'Conseil : La diversion des profils sources sera ignorée';
 }
 
 // Path: NetCheckScreen
@@ -261,28 +276,28 @@ class _TranslationsNetCheckScreenFr implements TranslationsNetCheckScreenEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Net Check';
-	@override String get warn => 'Note: Due to the influence of network environment and diversion rules, the test results are not completely equivalent to the actual results.';
-	@override String get invalidDomain => 'Invalid Domain Name';
-	@override String get connectivity => 'Network Connectivity';
-	@override String connectivityTestIpv4AllFailed({required Object p}) => 'Ipv4 Connection test [${p}] all failed';
-	@override String get connectivityTestIpv4Ok => 'Ipv4 connection succeeded';
-	@override String connectivityTestIpv6AllFailed({required Object p}) => 'Ipv6 Connection test [${p}] all failed, Your network may not support ipv6';
-	@override String get connectivityTestIpv6Ok => 'Ipv6 connection succeeded';
-	@override String get connectivityTestOk => 'The network is connected to the Internet';
-	@override String get connectivityTestFailed => 'The network is not yet connected to the Internet';
-	@override String get remoteRulesetsDownloadOk => 'All downloaded successfully';
-	@override String get remoteRulesetsDownloadNotOk => 'Downloading or download failed';
-	@override String get outbound => 'Proxy Server';
-	@override String outboundOk({required Object p}) => '[${p}] connection succeeded';
-	@override String outboundFailed({required Object p1, required Object p2}) => '[${p1}] connection failed\nError:[${p2}]';
-	@override String get dnsServer => 'DNS Server';
-	@override String dnsOk({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule:[${p2}]\nLatency:[${p3} ms]\nAddress:[${p4}]';
-	@override String dnsFailed({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS query succeeded\n nDNS Rule:[${p2}]\nError:[${p3}]';
-	@override String get host => 'HTTP Connection';
-	@override String hostConnection({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nDiversionRule:[${p2}]\nProxy Server:[${p3}]';
-	@override String get hostConnectionOk => 'connection succeeded';
-	@override String hostConnectionFailed({required Object p}) => 'connection failed:[${p}]';
+	@override String get title => 'Vérification réseau';
+	@override String get warn => 'Remarque : En raison de l\'influence de l\'environnement réseau et des règles de diversion, les résultats des tests ne sont pas totalement équivalents aux résultats réels.';
+	@override String get invalidDomain => 'Nom de domaine invalide';
+	@override String get connectivity => 'Connectivité réseau';
+	@override String connectivityTestIpv4AllFailed({required Object p}) => 'Tous les tests de connexion IPv4 [${p}] ont échoué';
+	@override String get connectivityTestIpv4Ok => 'Connexion IPv4 réussie';
+	@override String connectivityTestIpv6AllFailed({required Object p}) => 'Tous les tests de connexion IPv6 [${p}] ont échoué, votre réseau ne supporte peut-être pas l\'IPv6';
+	@override String get connectivityTestIpv6Ok => 'Connexion IPv6 réussie';
+	@override String get connectivityTestOk => 'Le réseau est connecté à Internet';
+	@override String get connectivityTestFailed => 'Le réseau n\'est pas encore connecté à Internet';
+	@override String get remoteRulesetsDownloadOk => 'Tous les téléchargements ont réussi';
+	@override String get remoteRulesetsDownloadNotOk => 'Téléchargement en cours ou échec du téléchargement';
+	@override String get outbound => 'Serveur proxy';
+	@override String outboundOk({required Object p}) => 'Connexion à [${p}] réussie';
+	@override String outboundFailed({required Object p1, required Object p2}) => 'Échec de la connexion à [${p1}]\nErreur : [${p2}]';
+	@override String get dnsServer => 'Serveur DNS';
+	@override String dnsOk({required Object p1, required Object p2, required Object p3, required Object p4}) => 'Requête DNS pour [${p1}] réussie\nRègle DNS : [${p2}]\nLatence : [${p3} ms]\nAdresse : [${p4}]';
+	@override String dnsFailed({required Object p1, required Object p2, required Object p3}) => 'Requête DNS pour [${p1}] réussie\nRègle DNS : [${p2}]\nErreur : [${p3}]';
+	@override String get host => 'Connexion HTTP';
+	@override String hostConnection({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nRègle de diversion : [${p2}]\nServeur proxy : [${p3}]';
+	@override String get hostConnectionOk => 'Connexion réussie';
+	@override String hostConnectionFailed({required Object p}) => 'Échec de la connexion : [${p}]';
 }
 
 // Path: NetConnectionsFilterScreen
@@ -292,10 +307,10 @@ class _TranslationsNetConnectionsFilterScreenFr implements TranslationsNetConnec
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get hostIp => 'Domain/IP';
-	@override String get app => 'App';
-	@override String get rule => 'Rule';
-	@override String get chain => 'Outbound';
+	@override String get hostIp => 'Domaine/IP';
+	@override String get app => 'Application';
+	@override String get rule => 'Règle';
+	@override String get chain => 'Sortant';
 }
 
 // Path: NetConnectionsScreen
@@ -305,8 +320,8 @@ class _TranslationsNetConnectionsScreenFr implements TranslationsNetConnectionsS
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get copyAsCSV => 'Copied to CSV format';
-	@override String get selectType => 'Select Diversion Type';
+	@override String get copyAsCSV => 'Copié au format CSV';
+	@override String get selectType => 'Sélectionner le type de diversion';
 }
 
 // Path: PerAppAndroidScreen
@@ -316,9 +331,9 @@ class _TranslationsPerAppAndroidScreenFr implements TranslationsPerAppAndroidScr
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Per-App Proxy';
-	@override String get whiteListMode => 'Whitelist Mode';
-	@override String get whiteListModeTip => 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies';
+	@override String get title => 'Proxy par application';
+	@override String get whiteListMode => 'Mode liste blanche';
+	@override String get whiteListModeTip => 'Si activé : seules les applications cochées passent par le proxy ; si désactivé : seules les applications non cochées passent par le proxy';
 }
 
 // Path: RegionSettingsScreen
@@ -328,8 +343,8 @@ class _TranslationsRegionSettingsScreenFr implements TranslationsRegionSettingsS
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Country Or Region';
-	@override String get Regions => 'Tip: Please set your current country or region correctly, otherwise it may cause network diversion problems';
+	@override String get title => 'Pays ou région';
+	@override String get Regions => 'Conseil : Veuillez définir correctement votre pays ou région actuel, sinon cela pourrait causer des problèmes de diversion réseau';
 }
 
 // Path: ServerSelectScreen
@@ -339,14 +354,14 @@ class _TranslationsServerSelectScreenFr implements TranslationsServerSelectScree
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Select Server';
-	@override String get autoSelectServer => 'Auto select the server with the lowest latency';
-	@override String get recentUse => 'Recently Used';
-	@override String get myFav => 'My Favs';
-	@override String selectLocal({required Object p}) => 'The selected server is a local address and may not work properly:${p}';
-	@override String get selectRequireEnableIPv6 => 'The selected server is an IPv6 address and requires [Enable IPv6]';
-	@override String get selectDisabled => 'This server has been disabled';
-	@override String get error404 => 'Latency detection encountered an error, please check if there is a configuration with the same content';
+	@override String get title => 'Sélectionner un serveur';
+	@override String get autoSelectServer => 'Sélectionner automatiquement le serveur avec la latence la plus basse';
+	@override String get recentUse => 'Récemment utilisés';
+	@override String get myFav => 'Mes favoris';
+	@override String selectLocal({required Object p}) => 'Le serveur sélectionné est une adresse locale et peut ne pas fonctionner correctement : ${p}';
+	@override String get selectRequireEnableIPv6 => 'Le serveur sélectionné est une adresse IPv6 et nécessite [Activer l\'IPv6]';
+	@override String get selectDisabled => 'Ce serveur a été désactivé';
+	@override String get error404 => 'La détection de latence a rencontré une erreur, veuillez vérifier s\'il existe une configuration avec le même contenu';
 }
 
 // Path: SettingsScreen
@@ -356,143 +371,143 @@ class _TranslationsSettingsScreenFr implements TranslationsSettingsScreenEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get getTranffic => 'Get Traffic';
-	@override String get tutorial => 'Tutorial';
-	@override String get commonlyUsedRulesets => 'Commonly Used Rulesets';
-	@override String get htmlBoard => 'Online Panel';
-	@override String get dnsLeakDetection => 'DNS Leaks Detection';
-	@override String get proxyLeakDetection => 'Proxy Leaks Detection';
-	@override String get speedTest => 'Speed Test';
-	@override String get rulesetDirectDownlad => 'Rule Set Direct Download';
-	@override String get hideUnusedDiversionGroup => 'Hide Unused Diversion Rules';
-	@override String get disableISPDiversionGroup => 'Disable [${_root.meta.isp}] ${_root.meta.diversionRules}';
-	@override String get portSettingRule => 'Rule Based';
-	@override String get portSettingDirectAll => 'Direct All';
-	@override String get portSettingProxyAll => 'Proxy All';
-	@override String get portSettingControl => 'Control and Sync';
-	@override String get portSettingCluster => 'Cluster Service';
-	@override String get modifyPort => 'Modify Port';
-	@override String get modifyPortOccupied => 'The port is occupied, please use another port';
-	@override String get ipStrategyTips => 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.';
-	@override String get tunAppendHttpProxy => 'Append HTTP Proxy to VPN';
-	@override String get tunAppendHttpProxyTips => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy';
-	@override String get tunAllowBypassHttpProxyDomain => 'Domains allowed to bypass HTTP proxy';
-	@override String get dnsEnableRule => 'Enable DNS Diversion rules';
-	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Resolve Channel';
-	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] Enable ECS';
-	@override String get dnsTestDomain => 'Test Domain';
-	@override String get dnsTestDomainInvalid => 'Invalid Domain';
-	@override String get dnsTypeOutbound => 'Proxy Server';
+	@override String get getTranffic => 'Obtenir le trafic';
+	@override String get tutorial => 'Tutoriel';
+	@override String get commonlyUsedRulesets => 'Jeux de règles courants';
+	@override String get htmlBoard => 'Panneau en ligne';
+	@override String get dnsLeakDetection => 'Détection de fuites DNS';
+	@override String get proxyLeakDetection => 'Détection de fuites proxy';
+	@override String get speedTest => 'Test de vitesse';
+	@override String get rulesetDirectDownlad => 'Téléchargement direct du jeu de règles';
+	@override String get hideUnusedDiversionGroup => 'Masquer les groupes de diversion inutilisés';
+	@override String get disableISPDiversionGroup => 'Désactiver [${_root.meta.isp}] ${_root.meta.diversionRules}';
+	@override String get portSettingRule => 'Basé sur les règles';
+	@override String get portSettingDirectAll => 'Tout en direct';
+	@override String get portSettingProxyAll => 'Tout en proxy';
+	@override String get portSettingControl => 'Contrôle et synchronisation';
+	@override String get portSettingCluster => 'Service de cluster';
+	@override String get modifyPort => 'Modifier le port';
+	@override String get modifyPortOccupied => 'Le port est occupé, veuillez utiliser un autre port';
+	@override String get ipStrategyTips => 'Avant d\'activer, veuillez confirmer que votre réseau supporte l\'IPv6, sinon certains trafics ne pourront pas être accédés normalement.';
+	@override String get tunAppendHttpProxy => 'Ajouter le proxy HTTP au VPN';
+	@override String get tunAppendHttpProxyTips => 'Certaines applications contourneront le périphérique NIC virtuel et se connecteront directement au proxy HTTP';
+	@override String get tunAllowBypassHttpProxyDomain => 'Domaines autorisés à contourner le proxy HTTP';
+	@override String get dnsEnableRule => 'Activer les règles de diversion DNS';
+	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Canal de résolution';
+	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] Activer l\'ECS';
+	@override String get dnsTestDomain => 'Domaine de test';
+	@override String get dnsTestDomainInvalid => 'Domaine invalide';
+	@override String get dnsTypeOutbound => 'Serveur proxy';
 	@override String get dnsTypeDirect => _root.meta.trafficDirect;
 	@override String get dnsTypeProxy => _root.meta.trafficProxy;
-	@override String get dnsTypeResolver => 'DNS Server';
-	@override String get dnsEnableRuleTips => 'After enabling, the domain name will select the corresponding DNS server for resolution according to the diversion rules';
-	@override String get dnsEnableFakeIpTips => 'After enabling FakeIP, if you disconnect from VPN, your app may need to be restarted; this feature requires [TUN mode] to be enabled';
-	@override String get dnsTypeOutboundTips => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeOutbound}]';
-	@override String get dnsTypeDirectTips => 'Domain name resolution for [${_root.meta.trafficDirect}]';
-	@override String get dnsTypeProxyTips => 'Domain name resolution for [${_root.meta.trafficProxy}]';
-	@override String get dnsTypeResolverTips => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeResolver}]';
-	@override String get dnsAutoSetServer => 'Auto Setup Server';
-	@override String get dnsResetServer => 'Reset Server';
-	@override String get inboundDomainResolve => 'Resolve Inbound Domain names';
-	@override String get privateDirect => 'Private Network Direct connection';
-	@override String inboundDomainResolveTips({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]';
-	@override String get useRomoteRes => 'Use Remote Resources';
-	@override String get autoAppendRegion => 'Auto attach basic rules';
-	@override String get autoSelect => 'Auto Select';
-	@override String get autoSelectServerIgnorePerProxyServer => 'Ignore [Front/Chaine] Proxy Servers';
-	@override String get autoSelectServerInterval => 'Latency Checks Interval';
-	@override String get autoSelectSelectedHealthCheckInterval => 'Current server health check interval';
-	@override String get autoSelectServerReTestIfNetworkUpdate => 'Re-check Latency when Network Changes';
-	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Update the Current Server after Manual Latency Check';
-	@override String get autoSelectServerIntervalTips => 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power';
-	@override String get autoSelectSelectedHealthCheckIntervalTips => 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency';
-	@override String get autoSelectServerFavFirst => 'Pri-Use [My Favs]';
-	@override String get autoSelectServerFavFirstTips => 'If the [My Favs] list is not empty, Then use the servers in [My Favs]';
-	@override String get autoSelectServerFilter => 'Filter Invalid Servers';
-	@override String autoSelectServerFilterTips({required Object p}) => 'Server latency checks that fail will be filtered out; if no server is available after filtering, the first [${p}] servers will be used instead';
-	@override String get autoSelectServerLimitedNum => 'Maximum number of servers';
-	@override String get autoSelectServerLimitedNumTips => 'Servers exceeding this number will be filtered out';
-	@override String get numInvalid => 'Invalid number';
-	@override String get hideInvalidServer => 'Hide Invalid Servers';
-	@override String get sortServer => 'Servers Sorting';
-	@override String get sortServerTips => 'Sort by latency from low to high';
-	@override String get selectServerHideRecommand => 'Hide [Recommend]';
-	@override String get selectServerHideRecent => 'Hide [Recently Used]';
-	@override String get selectServerHideFav => 'Hide [My Favs]';
-	@override String get homeScreen => 'Home Screen';
-	@override String get theme => 'Theme';
-	@override String get widgetsAlpha => 'Widgets Alpha';
-	@override String get widgetsEmpty => 'No Widget Available';
-	@override String get backgroundImage => 'Background Image';
-	@override String get myLink => 'Shortcut Link';
-	@override String get autoConnectAfterLaunch => 'Auto Connection after Launch';
-	@override String get autoConnectAtBoot => 'Auto Connection after System Startup';
-	@override String get autoConnectAtBootTips => 'System support is required; some systems may also require [auto-start] to be enabled.';
-	@override String get hideAfterLaunch => 'Hide window after startup';
-	@override String get autoSetSystemProxy => 'Auto Set System Proxy when Connected';
-	@override String get bypassSystemProxy => 'Domain names that are allowed to bypass the system proxy';
-	@override String get disconnectWhenQuit => 'Disconnect when App Exits';
-	@override String get autoAddToFirewall => 'Auto Add Firewall Rules';
-	@override String get excludeFromRecent => 'Hide from [Recent Tasks]';
-	@override String get wakeLock => 'Wake Lock';
-	@override String get hideVpn => 'Hide VPN Icon';
-	@override String get hideVpnTips => 'Enabling IPv6 will cause this function to fail';
-	@override String get allowBypass => 'Allow Apps to Bypass VPN';
-	@override String get importSuccess => 'Import Success';
-	@override String get rewriteConfirm => 'This file will overwrite the existing local configuration. Do you want to continue?';
-	@override String get mergePerapp => 'Merge local [${_root.PerAppAndroidScreen.title}] lists';
-	@override String get networkShare => 'Network Sharing';
-	@override String get frontProxy => 'Front/Chain Proxy';
-	@override String frontProxyTips({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
-	@override String get allowOtherHostsConnect => 'Allow Others to Connect';
-	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-	@override String get allowOtherHostsConnectWarn => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
-	@override String get tunStrictRoute => 'Strict Route';
-	@override String get tunStrictRouteTips => 'If after turning on sharing, others cannot access this device, please try turning off this switch';
-	@override String get loopbackAddress => 'Loopback Address';
-	@override String get enableCluster => 'Enable Socks/Http Proxy Cluster';
-	@override String get clusterAllowOtherHostsConnect => 'Allow Others to Connect to Cluster';
+	@override String get dnsTypeResolver => 'Serveur DNS';
+	@override String get dnsEnableRuleTips => 'Une fois activé, le nom de domaine sélectionnera le serveur DNS correspondant pour la résolution selon les règles de diversion';
+	@override String get dnsEnableFakeIpTips => 'Après avoir activé FakeIP, si vous vous déconnectez du VPN, votre application peut avoir besoin d\'être redémarrée ; cette fonctionnalité nécessite l\'activation du [Mode TUN]';
+	@override String get dnsTypeOutboundTips => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get dnsTypeDirectTips => 'Résolution de nom de domaine pour [${_root.meta.trafficDirect}]';
+	@override String get dnsTypeProxyTips => 'Résolution de nom de domaine pour [${_root.meta.trafficProxy}]';
+	@override String get dnsTypeResolverTips => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeResolver}]';
+	@override String get dnsAutoSetServer => 'Configuration automatique du serveur';
+	@override String get dnsResetServer => 'Réinitialiser le serveur';
+	@override String get inboundDomainResolve => 'Résoudre les noms de domaine entrants';
+	@override String get privateDirect => 'Connexion directe au réseau privé';
+	@override String inboundDomainResolveTips({required Object p}) => 'Certains noms de domaine qui ne sont pas configurés avec des règles de diversion doivent être résolus avant de pouvoir correspondre aux règles de diversion basées sur l\'IP ; cette fonctionnalité affecte les requêtes entrantes sur le port proxy [${p}]';
+	@override String get useRomoteRes => 'Utiliser des ressources distantes';
+	@override String get autoAppendRegion => 'Attacher automatiquement les règles de base';
+	@override String get autoSelect => 'Sélection automatique';
+	@override String get autoSelectServerIgnorePerProxyServer => 'Ignorer les serveurs proxy [Front/Chain]';
+	@override String get autoSelectServerInterval => 'Intervalle de vérification de latence';
+	@override String get autoSelectSelectedHealthCheckInterval => 'Intervalle de vérification de santé du serveur actuel';
+	@override String get autoSelectServerReTestIfNetworkUpdate => 'Vérifier à nouveau la latence lors d\'un changement de réseau';
+	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Mettre à jour le serveur actuel après une vérification manuelle de latence';
+	@override String get autoSelectServerIntervalTips => 'Plus l\'intervalle est court, plus les données de latence du serveur sont mises à jour à temps, ce qui occupera plus de ressources et consommera plus d\'énergie';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Si la vérification échoue, le serveur est commuté ; si aucun serveur disponible n\'est trouvé lors de la commutation, le groupe revérifiera la latence';
+	@override String get autoSelectServerFavFirst => 'Utiliser prioritairement [Mes favoris]';
+	@override String get autoSelectServerFavFirstTips => 'Si la liste [Mes favoris] n\'est pas vide, alors utiliser les serveurs de [Mes favoris]';
+	@override String get autoSelectServerFilter => 'Filtrer les serveurs invalides';
+	@override String autoSelectServerFilterTips({required Object p}) => 'Les serveurs dont la vérification de latence échoue seront filtrés ; si aucun serveur n\'est disponible après filtrage, les [${p}] premiers serveurs seront utilisés à la place';
+	@override String get autoSelectServerLimitedNum => 'Nombre maximum de serveurs';
+	@override String get autoSelectServerLimitedNumTips => 'Les serveurs dépassant ce nombre seront filtrés';
+	@override String get numInvalid => 'Nombre invalide';
+	@override String get hideInvalidServer => 'Masquer les serveurs invalides';
+	@override String get sortServer => 'Tri des serveurs';
+	@override String get sortServerTips => 'Trier par latence de la plus basse à la plus haute';
+	@override String get selectServerHideRecommand => 'Masquer [Recommandé]';
+	@override String get selectServerHideRecent => 'Masquer [Récemment utilisés]';
+	@override String get selectServerHideFav => 'Masquer [Mes favoris]';
+	@override String get homeScreen => 'Écran d\'accueil';
+	@override String get theme => 'Thème';
+	@override String get widgetsAlpha => 'Transparence des widgets';
+	@override String get widgetsEmpty => 'Aucun widget disponible';
+	@override String get backgroundImage => 'Image d\'arrière-plan';
+	@override String get myLink => 'Lien raccourci';
+	@override String get autoConnectAfterLaunch => 'Connexion automatique après le lancement';
+	@override String get autoConnectAtBoot => 'Connexion automatique au démarrage du système';
+	@override String get autoConnectAtBootTips => 'Le support du système est requis ; certains systèmes peuvent également nécessiter l\'activation du [lancement automatique].';
+	@override String get hideAfterLaunch => 'Masquer la fenêtre après le démarrage';
+	@override String get autoSetSystemProxy => 'Définir automatiquement le proxy système lors de la connexion';
+	@override String get bypassSystemProxy => 'Noms de domaine autorisés à contourner le proxy système';
+	@override String get disconnectWhenQuit => 'Déconnecter lorsque l\'application quitte';
+	@override String get autoAddToFirewall => 'Ajouter automatiquement des règles de pare-feu';
+	@override String get excludeFromRecent => 'Masquer des [Tâches récentes]';
+	@override String get wakeLock => 'Empêcher la mise en veille';
+	@override String get hideVpn => 'Masquer l\'icône VPN';
+	@override String get hideVpnTips => 'L\'activation de l\'IPv6 fera échouer cette fonction';
+	@override String get allowBypass => 'Autoriser les applications à contourner le VPN';
+	@override String get importSuccess => 'Importation réussie';
+	@override String get rewriteConfirm => 'Ce fichier écrasera la configuration locale existante. Voulez-vous continuer ?';
+	@override String get mergePerapp => 'Fusionner les listes [${_root.PerAppAndroidScreen.title}] locales';
+	@override String get networkShare => 'Partage réseau';
+	@override String get frontProxy => 'Proxy Front/Chain';
+	@override String frontProxyTips({required Object p}) => 'Données -> Serveur proxy Front/Chain [Plusieurs serveurs : de haut en bas] -> Serveur proxy [${p}] -> Serveur cible';
+	@override String get allowOtherHostsConnect => 'Autoriser les autres à se connecter';
+	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}';
+	@override String get allowOtherHostsConnectWarn => 'En raison des limitations du système, une fois activé, les applications de cet appareil qui utilisent le http pour accéder au réseau peuvent ne pas être en mesure de se connecter correctement au réseau.';
+	@override String get tunAutoRoute => 'Route automatique';
+	@override String get tunAutoRedirect => 'Redirection automatique';
+	@override String get tunStrictRoute => 'Route stricte';
+	@override String get tunStrictRouteTips => 'Si après l\'activation du partage, d\'autres ne peuvent pas accéder à cet appareil, veuillez essayer de désactiver ce commutateur';
+	@override String get loopbackAddress => 'Adresse de bouclage';
+	@override String get enableCluster => 'Activer le cluster de proxy Socks/Http';
+	@override String get clusterAllowOtherHostsConnect => 'Autoriser les autres à se connecter au cluster';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
-	@override String get clusterAuth => 'Proxy Cluster Authentication';
-	@override String get tunMode => 'TUN Mode';
-	@override String get tuni4Address => 'IP address';
-	@override String get tunModeTips => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
-	@override String get tunModeRunAsAdmin => 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
-	@override String get tunStack => 'Stack';
-	@override String get tunHijackTips => 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server';
-	@override String get launchAtStartup => 'Launch at Startup';
-	@override String get quitWhenSwitchSystemUser => 'Exit App when Switch System Users';
-	@override String get handleScheme => 'System Scheme Call';
-	@override String get portableMode => 'Portable Mode';
-	@override String get portableModeDisableTips => 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]';
-	@override String get accessibility => 'Accessibility';
-	@override String get handleKaringScheme => 'Handle karing:// Call';
-	@override String get handleClashScheme => 'Handle clash:// Call';
-	@override String get handleSingboxScheme => 'Handle sing-box:// Call';
-	@override String get alwayOnVPN => 'Always-on Connection';
-	@override String get disconnectAfterSleep => 'Disconnect after system sleep';
-	@override String get removeSystemVPNConfig => 'Delete system VPN configuration';
-	@override String get timeConnectOrDisconnect => 'Scheduled connect/disconnect';
-	@override String get timeConnectOrDisconnectTips => 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled';
-	@override String timeConnectAndDisconnectInterval({required Object p}) => 'The connection/disconnection interval cannot be less than ${p} minutes';
-	@override String get disableFontScaler => 'Disable Font scaling(Restart takes effect)';
-	@override String get autoOrientation => 'Rotate with the screen';
-	@override String get restartTakesEffect => 'Restart takes effect';
-	@override String get reconnectTakesEffect => 'Reconnect takes effect';
-	@override String get resetSettings => 'Reset Settings';
-	@override String get cleanCache => 'Cleanup Cache';
-	@override String get cleanCacheDone => 'Cleanup completed';
+	@override String get clusterAuth => 'Authentification du cluster de proxy';
+	@override String get tunMode => 'Mode TUN';
+	@override String get tuni4Address => 'Adresse IP';
+	@override String get tunModeTips => 'Le mode TUN prendra en charge tout le trafic du système [Dans ce mode, vous pouvez laisser le proxy système non activé]';
+	@override String get tunModeRunAsAdmin => 'Le mode TUN nécessite des autorisations d\'administrateur système, veuillez redémarrer l\'application en tant qu\'administrateur';
+	@override String get tunStack => 'Pile';
+	@override String get tunHijackTips => 'Après la fermeture, les requêtes DNS du TUN seront transférées directement au serveur DNS correspondant';
+	@override String get launchAtStartup => 'Lancer au démarrage';
+	@override String get quitWhenSwitchSystemUser => 'Quitter l\'application lors du changement d\'utilisateur système';
+	@override String get handleScheme => 'Appel du schéma système';
+	@override String get portableMode => 'Mode portable';
+	@override String get portableModeDisableTips => 'Si vous devez quitter le mode portable, veuillez quitter [karing] et supprimer manuellement le dossier [profiles] dans le même répertoire que [karing.exe]';
+	@override String get accessibility => 'Accessibilité';
+	@override String get handleKaringScheme => 'Gérer l\'appel karing://';
+	@override String get handleClashScheme => 'Gérer l\'appel clash://';
+	@override String get handleSingboxScheme => 'Gérer l\'appel sing-box://';
+	@override String get alwayOnVPN => 'Connexion permanente';
+	@override String get disconnectAfterSleep => 'Déconnecter après la mise en veille du système';
+	@override String get removeSystemVPNConfig => 'Supprimer la configuration VPN du système';
+	@override String get timeConnectOrDisconnect => 'Connexion/déconnexion programmée';
+	@override String get timeConnectOrDisconnectTips => 'Le VPN doit être connecté pour prendre effet ; une fois activé, la [Mise en veille automatique] sera désactivée';
+	@override String timeConnectAndDisconnectInterval({required Object p}) => 'L\'intervalle de connexion/déconnexion ne peut pas être inférieur à ${p} minutes';
+	@override String get disableFontScaler => 'Désactiver la mise à l\'échelle des polices (le redémarrage prend effet)';
+	@override String get autoOrientation => 'Rotation avec l\'écran';
+	@override String get restartTakesEffect => 'Le redémarrage prend effet';
+	@override String get reconnectTakesEffect => 'La reconnexion prend effet';
+	@override String get resetSettings => 'Réinitialiser les paramètres';
+	@override String get cleanCache => 'Nettoyer le cache';
+	@override String get cleanCacheDone => 'Nettoyage terminé';
 	@override String get appleTestFlight => 'Apple TestFlight';
 	@override String get appleAppStore => 'Apple AppStore';
-	@override String hasNewVersion({required Object p}) => 'Update Version ${p}';
-	@override String get follow => 'Follow Us';
-	@override String get contactUs => 'Contact Us';
-	@override String get supportUs => 'Support Us';
-	@override String get rateInApp => 'Rate Us';
-	@override String get rateInAppStore => 'Rate Us in AppStore';
+	@override String hasNewVersion({required Object p}) => 'Mettre à jour vers la version ${p}';
+	@override String get follow => 'Suivez-nous';
+	@override String get contactUs => 'Contactez-nous';
+	@override String get supportUs => 'Soutenez-nous';
+	@override String get rateInAppStore => 'Évaluez-nous sur l\'AppStore';
+	@override String get rateInApp => 'Évaluez-nous';
 }
 
 // Path: UserAgreementScreen
@@ -502,8 +517,8 @@ class _TranslationsUserAgreementScreenFr implements TranslationsUserAgreementScr
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get privacyFirst => 'Your Privacy Comes First';
-	@override String get agreeAndContinue => 'Accept & Continue';
+	@override String get privacyFirst => 'Votre vie privée passe avant tout';
+	@override String get agreeAndContinue => 'Accepter et continuer';
 }
 
 // Path: VersionUpdateScreen
@@ -513,9 +528,9 @@ class _TranslationsVersionUpdateScreenFr implements TranslationsVersionUpdateScr
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String versionReady({required Object p}) => 'The new version[${p}] is ready';
-	@override String get update => 'Restart To Update';
-	@override String get cancel => 'Not Now';
+	@override String versionReady({required Object p}) => 'La nouvelle version [${p}] est prête';
+	@override String get update => 'Redémarrer pour mettre à jour';
+	@override String get cancel => 'Pas maintenant';
 }
 
 // Path: CommonWidget
@@ -525,8 +540,8 @@ class _TranslationsCommonWidgetFr implements TranslationsCommonWidgetEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get diableAlwayOnVPN => 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again';
-	@override String get resetPort => 'Please change the port to another available port or close the application occupying the port.';
+	@override String get diableAlwayOnVPN => 'Si [VPN toujours activé] est activé, veuillez le désactiver et essayer de vous reconnecter';
+	@override String get resetPort => 'Veuillez changer le port pour un autre port disponible ou fermer l\'application occupant le port.';
 }
 
 // Path: main
@@ -600,8 +615,8 @@ class _TranslationsMetaFr implements TranslationsMetaEn {
 	@override String get inbound => 'Entrant';
 	@override String get outbound => 'Sortant';
 	@override String get destination => 'Destination';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => 'IP de sortie';
+	@override String get outletIpByDirect => 'IP : ${_root.outboundRuleMode.direct}';
 	@override String get connect => 'Connecter';
 	@override String get disconnect => 'Déconnecter';
 	@override String get reconnect => 'Reconnecter';
@@ -907,8 +922,8 @@ class _TranslationsMainTrayFr implements TranslationsMainTrayEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get menuOpen => 'Open';
-	@override String get menuExit => 'Exit';
+	@override String get menuOpen => 'Ouvrir';
+	@override String get menuExit => 'Quitter';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -919,246 +934,246 @@ class _TranslationsMainTrayFr implements TranslationsMainTrayEn {
 extension on TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'Install Refer',
-			'AboutScreen.installTime' => 'Install Time',
-			'AboutScreen.versionChannel' => 'Auto Update Channel',
-			'AboutScreen.autoDownloadPkg' => 'Auto Download Update Packages',
-			'AboutScreen.disableAppImproveData' => 'Application Improvement Data',
-			'AboutScreen.disableUAReportTip' => 'Enabling [${_root.AboutScreen.disableAppImproveData}] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.',
-			'AboutScreen.devOptions' => 'Developer Options',
-			'AboutScreen.enableDebugLog' => 'Enable Debug Log',
-			'AboutScreen.viewFilsContent' => 'View Files',
-			'AboutScreen.enablePprof' => 'Enable pprof',
-			'AboutScreen.pprofPanel' => 'pprof Panel',
-			'AboutScreen.allowRemoteAccessPprof' => 'Allow remote access to ${_root.AboutScreen.pprofPanel}',
-			'AboutScreen.allowRemoteAccessHtmlBoard' => 'Allow remote access${_root.SettingsScreen.htmlBoard}',
-			'AboutScreen.useOriginalSBProfile' => 'Use original sing-box Profile',
-			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'Server Url',
-			'BackupAndSyncWebdavScreen.webdavRequired' => 'Can not be empty',
-			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Login failed:',
-			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Failed to get file list:',
-			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'Invalid [Domain]:${p}',
-			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'Invalid [IP Cidr]:${p}',
-			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'Invalid [${p0}]:${p}',
-			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'Invalid [Rule Set]:${p}, The URL must be a valid https URL and a binary file with the file extension .srs/.json',
-			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'Invalid [Rule Set(build-in)]:${p}, The format is geosite:xxx or geoip:xxx or acl:xxx, and xxx should be a valid rule name',
-			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'Invalid [${_root.meta.appPackage}]:${p}',
-			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Tip: After saving, please go to [${_root.meta.diversionRules}] to set relevant rules, otherwise they will not take effect',
-			'DiversionRuleDetectScreen.title' => 'Diversion Rule Detect',
-			'DiversionRuleDetectScreen.rule' => 'Rule:',
-			'DiversionRuleDetectScreen.outbound' => 'Proxy Server:',
-			'DiversionRulesScreen.diversionRulesMatchTips' => 'Tip: Try to match the rules from top to bottom. If no rule is matched, use [final]',
-			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP can not be empty',
-			'DnsSettingsScreen.urlCanNotEmpty' => 'URL can not be empty',
-			'DnsSettingsScreen.error' => ({required Object p}) => 'Unsupported type:${p}',
-			'DnsSettingsScreen.dnsDesc' => 'The first column of delay data is the direct connection query delay;\nThe second column: Turn on [[Proxy Traffic]Resolve DNS through proxy server]: the delay data is the query delay forwarded through the current proxy server; if the [[Proxy Traffic]Resolve DNS through proxy server]: The delay data is the direct connection query delay',
-			'FileContentViewerScreen.title' => 'File Content Viewer',
-			'FileContentViewerScreen.clearFileContent' => 'Are you sure to clear the content of the file?',
-			'FileContentViewerScreen.clearFileContentTips' => 'Are you sure to clear the content of the Profile file? Clearing the Profile file may cause data loss or abnormal application functions, please operate with caution',
-			'HomeScreen.toSelectServer' => 'Please Select a Server',
-			'HomeScreen.invalidServer' => 'is invalid, please select again',
-			'HomeScreen.disabledServer' => 'is disabled, please select again',
-			'HomeScreen.expiredServer' => 'No servers available, profiles may be expired or disabled',
-			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
-			'HomeScreen.myLinkEmpty' => 'Please set up [Shortcut Link] before using it',
-			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}], and the connection may fail due to system memory limitations',
-			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Too many proxy servers [${p}>${p1}] may cause slow or inaccessible connections',
-			'LaunchFailedScreen.invalidProcess' => 'The app failed to start [Invalid process name], please reinstall the app to a separate directory',
-			'LaunchFailedScreen.invalidProfile' => 'The app failed to start [Failed to access the profile], please reinstall the app',
-			'LaunchFailedScreen.invalidVersion' => 'The app failed to start [Invalid version], please reinstall the app',
-			'LaunchFailedScreen.systemVersionLow' => 'The app failed to start [system version too low]',
-			'LaunchFailedScreen.invalidInstallPath' => 'The installation path is invalid, please reinstall it to a valid path',
-			'MyProfilesMergeScreen.profilesMerge' => 'Profiles Merge',
-			'MyProfilesMergeScreen.profilesMergeTarget' => 'Target Profile',
-			'MyProfilesMergeScreen.profilesMergeSource' => 'Source Profiles',
-			'MyProfilesMergeScreen.profilesMergeTips' => 'Tip: Diversion of the source profiles will be discarded',
-			'NetCheckScreen.title' => 'Net Check',
-			'NetCheckScreen.warn' => 'Note: Due to the influence of network environment and diversion rules, the test results are not completely equivalent to the actual results.',
-			'NetCheckScreen.invalidDomain' => 'Invalid Domain Name',
-			'NetCheckScreen.connectivity' => 'Network Connectivity',
-			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'Ipv4 Connection test [${p}] all failed',
-			'NetCheckScreen.connectivityTestIpv4Ok' => 'Ipv4 connection succeeded',
-			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'Ipv6 Connection test [${p}] all failed, Your network may not support ipv6',
-			'NetCheckScreen.connectivityTestIpv6Ok' => 'Ipv6 connection succeeded',
-			'NetCheckScreen.connectivityTestOk' => 'The network is connected to the Internet',
-			'NetCheckScreen.connectivityTestFailed' => 'The network is not yet connected to the Internet',
-			'NetCheckScreen.remoteRulesetsDownloadOk' => 'All downloaded successfully',
-			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'Downloading or download failed',
-			'NetCheckScreen.outbound' => 'Proxy Server',
-			'NetCheckScreen.outboundOk' => ({required Object p}) => '[${p}] connection succeeded',
-			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => '[${p1}] connection failed\nError:[${p2}]',
-			'NetCheckScreen.dnsServer' => 'DNS Server',
-			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS query succeeded\nDNS Rule:[${p2}]\nLatency:[${p3} ms]\nAddress:[${p4}]',
-			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS query succeeded\n nDNS Rule:[${p2}]\nError:[${p3}]',
-			'NetCheckScreen.host' => 'HTTP Connection',
-			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nDiversionRule:[${p2}]\nProxy Server:[${p3}]',
-			'NetCheckScreen.hostConnectionOk' => 'connection succeeded',
-			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'connection failed:[${p}]',
-			'NetConnectionsFilterScreen.hostIp' => 'Domain/IP',
-			'NetConnectionsFilterScreen.app' => 'App',
-			'NetConnectionsFilterScreen.rule' => 'Rule',
-			'NetConnectionsFilterScreen.chain' => 'Outbound',
-			'NetConnectionsScreen.copyAsCSV' => 'Copied to CSV format',
-			'NetConnectionsScreen.selectType' => 'Select Diversion Type',
-			'PerAppAndroidScreen.title' => 'Per-App Proxy',
-			'PerAppAndroidScreen.whiteListMode' => 'Whitelist Mode',
-			'PerAppAndroidScreen.whiteListModeTip' => 'When enabled: only the apps that have been checked are proxies; when not enabled: only the apps that are not checked are proxies',
-			'RegionSettingsScreen.title' => 'Country Or Region',
-			'RegionSettingsScreen.Regions' => 'Tip: Please set your current country or region correctly, otherwise it may cause network diversion problems',
-			'ServerSelectScreen.title' => 'Select Server',
-			'ServerSelectScreen.autoSelectServer' => 'Auto select the server with the lowest latency',
-			'ServerSelectScreen.recentUse' => 'Recently Used',
-			'ServerSelectScreen.myFav' => 'My Favs',
-			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'The selected server is a local address and may not work properly:${p}',
-			'ServerSelectScreen.selectRequireEnableIPv6' => 'The selected server is an IPv6 address and requires [Enable IPv6]',
-			'ServerSelectScreen.selectDisabled' => 'This server has been disabled',
-			'ServerSelectScreen.error404' => 'Latency detection encountered an error, please check if there is a configuration with the same content',
-			'SettingsScreen.getTranffic' => 'Get Traffic',
-			'SettingsScreen.tutorial' => 'Tutorial',
-			'SettingsScreen.commonlyUsedRulesets' => 'Commonly Used Rulesets',
-			'SettingsScreen.htmlBoard' => 'Online Panel',
-			'SettingsScreen.dnsLeakDetection' => 'DNS Leaks Detection',
-			'SettingsScreen.proxyLeakDetection' => 'Proxy Leaks Detection',
-			'SettingsScreen.speedTest' => 'Speed Test',
-			'SettingsScreen.rulesetDirectDownlad' => 'Rule Set Direct Download',
-			'SettingsScreen.hideUnusedDiversionGroup' => 'Hide Unused Diversion Rules',
-			'SettingsScreen.disableISPDiversionGroup' => 'Disable [${_root.meta.isp}] ${_root.meta.diversionRules}',
-			'SettingsScreen.portSettingRule' => 'Rule Based',
-			'SettingsScreen.portSettingDirectAll' => 'Direct All',
-			'SettingsScreen.portSettingProxyAll' => 'Proxy All',
-			'SettingsScreen.portSettingControl' => 'Control and Sync',
-			'SettingsScreen.portSettingCluster' => 'Cluster Service',
-			'SettingsScreen.modifyPort' => 'Modify Port',
-			'SettingsScreen.modifyPortOccupied' => 'The port is occupied, please use another port',
-			'SettingsScreen.ipStrategyTips' => 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.',
-			'SettingsScreen.tunAppendHttpProxy' => 'Append HTTP Proxy to VPN',
-			'SettingsScreen.tunAppendHttpProxyTips' => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy',
-			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
-			'SettingsScreen.dnsEnableRule' => 'Enable DNS Diversion rules',
-			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Resolve Channel',
-			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] Enable ECS',
-			'SettingsScreen.dnsTestDomain' => 'Test Domain',
-			'SettingsScreen.dnsTestDomainInvalid' => 'Invalid Domain',
-			'SettingsScreen.dnsTypeOutbound' => 'Proxy Server',
+			'AboutScreen.installRefer' => 'Référence d\'installation',
+			'AboutScreen.installTime' => 'Heure d\'installation',
+			'AboutScreen.versionChannel' => 'Canal de mise à jour automatique',
+			'AboutScreen.autoDownloadPkg' => 'Téléchargement automatique des packages de mise à jour',
+			'AboutScreen.disableAppImproveData' => 'Données d\'amélioration de l\'application',
+			'AboutScreen.disableUAReportTip' => 'L\'activation de [${_root.AboutScreen.disableAppImproveData}] nous aide à améliorer la stabilité et l\'ergonomie du produit ; nous ne collectons aucune donnée privée. La désactivation empêchera l\'application de collecter toute donnée.',
+			'AboutScreen.devOptions' => 'Options développeur',
+			'AboutScreen.enableDebugLog' => 'Activer le journal de débogage',
+			'AboutScreen.viewFilsContent' => 'Voir les fichiers',
+			'AboutScreen.enablePprof' => 'Activer pprof',
+			'AboutScreen.pprofPanel' => 'Panneau pprof',
+			'AboutScreen.allowRemoteAccessPprof' => 'Autoriser l\'accès à distance à ${_root.AboutScreen.pprofPanel}',
+			'AboutScreen.allowRemoteAccessHtmlBoard' => 'Autoriser l\'accès à distance à ${_root.SettingsScreen.htmlBoard}',
+			'AboutScreen.useOriginalSBProfile' => 'Utiliser le profil sing-box original',
+			'BackupAndSyncWebdavScreen.webdavServerUrl' => 'URL du serveur',
+			'BackupAndSyncWebdavScreen.webdavRequired' => 'Ne peut pas être vide',
+			'BackupAndSyncWebdavScreen.webdavLoginFailed' => 'Échec de la connexion :',
+			'BackupAndSyncWebdavScreen.webdavListFailed' => 'Échec de l\'obtention de la liste des fichiers :',
+			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => '[Domaine] invalide : ${p}',
+			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => '[IP Cidr] invalide : ${p}',
+			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => '[${p0}] invalide : ${p}',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => '[Rule Set] invalide : ${p}, l\'URL doit être une URL https valide et un fichier binaire avec l\'extension .srs/.json',
+			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => '[Rule Set(intégré)] invalide : ${p}, le format est geosite:xxx ou geoip:xxx ou acl:xxx, et xxx doit être un nom de règle valide',
+			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => '[${_root.meta.appPackage}] invalide : ${p}',
+			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Conseil : Après l\'enregistrement, veuillez aller dans [${_root.meta.diversionRules}] pour définir les règles correspondantes, sinon elles ne prendront pas effet',
+			'DiversionRuleDetectScreen.title' => 'Détection de règle de diversion',
+			'DiversionRuleDetectScreen.rule' => 'Règle :',
+			'DiversionRuleDetectScreen.outbound' => 'Serveur proxy :',
+			'DiversionRulesScreen.diversionRulesMatchTips' => 'Conseil : Essayez de faire correspondre les règles de haut en bas. Si aucune règle ne correspond, utilisez [final]',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'L\'ISP ne peut pas être vide',
+			'DnsSettingsScreen.urlCanNotEmpty' => 'L\'URL ne peut pas être vide',
+			'DnsSettingsScreen.error' => ({required Object p}) => 'Type non supporté : ${p}',
+			'DnsSettingsScreen.dnsDesc' => 'La première colonne des données de délai est le délai de requête en connexion directe ;\nLa deuxième colonne : Activez [[Trafic Proxy] Résoudre le DNS via le serveur proxy] : les données de délai correspondent au délai de requête transféré via le serveur proxy actuel ; si désactivé : les données de délai correspondent au délai de requête en connexion directe',
+			'FileContentViewerScreen.title' => 'Visionneuse de contenu de fichier',
+			'FileContentViewerScreen.clearFileContent' => 'Êtes-vous sûr de vouloir effacer le contenu du fichier ?',
+			'FileContentViewerScreen.clearFileContentTips' => 'Êtes-vous sûr de vouloir effacer le contenu du fichier de profil ? L\'effacement du fichier de profil peut entraîner une perte de données ou des dysfonctionnements de l\'application, veuillez agir avec prudence',
+			'HomeScreen.toSelectServer' => 'Veuillez sélectionner un serveur',
+			'HomeScreen.invalidServer' => 'est invalide, veuillez sélectionner à nouveau',
+			'HomeScreen.disabledServer' => 'est désactivé, veuillez sélectionner à nouveau',
+			'HomeScreen.expiredServer' => 'Aucun serveur disponible, les profils peuvent être expirés ou désactivés',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}',
+			'HomeScreen.myLinkEmpty' => 'Veuillez configurer un [Lien raccourci] avant de l\'utiliser',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Trop de serveurs proxy [${p}>${p1}], la connexion peut échouer en raison des limitations de mémoire système',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Trop de serveurs proxy [${p}>${p1}] peut entraîner des connexions lentes ou inaccessibles',
+			'LaunchFailedScreen.invalidProcess' => 'L\'application n\'a pas pu démarrer [Nom de processus invalide], veuillez réinstaller l\'application dans un répertoire séparé',
+			'LaunchFailedScreen.invalidProfile' => 'L\'application n\'a pas pu démarrer [Échec de l\'accès au profil], veuillez réinstaller l\'application',
+			'LaunchFailedScreen.invalidVersion' => 'L\'application n\'a pas pu démarrer [Version invalide], veuillez réinstaller l\'application',
+			'LaunchFailedScreen.systemVersionLow' => 'L\'application n\'a pas pu démarrer [Version système trop basse]',
+			'LaunchFailedScreen.invalidInstallPath' => 'Le chemin d\'installation est invalide, veuillez réinstaller dans un chemin valide',
+			'MyProfilesMergeScreen.profilesMerge' => 'Fusion de profils',
+			'MyProfilesMergeScreen.profilesMergeTarget' => 'Profil cible',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'Profils sources',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'Conseil : La diversion des profils sources sera ignorée',
+			'NetCheckScreen.title' => 'Vérification réseau',
+			'NetCheckScreen.warn' => 'Remarque : En raison de l\'influence de l\'environnement réseau et des règles de diversion, les résultats des tests ne sont pas totalement équivalents aux résultats réels.',
+			'NetCheckScreen.invalidDomain' => 'Nom de domaine invalide',
+			'NetCheckScreen.connectivity' => 'Connectivité réseau',
+			'NetCheckScreen.connectivityTestIpv4AllFailed' => ({required Object p}) => 'Tous les tests de connexion IPv4 [${p}] ont échoué',
+			'NetCheckScreen.connectivityTestIpv4Ok' => 'Connexion IPv4 réussie',
+			'NetCheckScreen.connectivityTestIpv6AllFailed' => ({required Object p}) => 'Tous les tests de connexion IPv6 [${p}] ont échoué, votre réseau ne supporte peut-être pas l\'IPv6',
+			'NetCheckScreen.connectivityTestIpv6Ok' => 'Connexion IPv6 réussie',
+			'NetCheckScreen.connectivityTestOk' => 'Le réseau est connecté à Internet',
+			'NetCheckScreen.connectivityTestFailed' => 'Le réseau n\'est pas encore connecté à Internet',
+			'NetCheckScreen.remoteRulesetsDownloadOk' => 'Tous les téléchargements ont réussi',
+			'NetCheckScreen.remoteRulesetsDownloadNotOk' => 'Téléchargement en cours ou échec du téléchargement',
+			'NetCheckScreen.outbound' => 'Serveur proxy',
+			'NetCheckScreen.outboundOk' => ({required Object p}) => 'Connexion à [${p}] réussie',
+			'NetCheckScreen.outboundFailed' => ({required Object p1, required Object p2}) => 'Échec de la connexion à [${p1}]\nErreur : [${p2}]',
+			'NetCheckScreen.dnsServer' => 'Serveur DNS',
+			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => 'Requête DNS pour [${p1}] réussie\nRègle DNS : [${p2}]\nLatence : [${p3} ms]\nAdresse : [${p4}]',
+			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => 'Requête DNS pour [${p1}] réussie\nRègle DNS : [${p2}]\nErreur : [${p3}]',
+			'NetCheckScreen.host' => 'Connexion HTTP',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nRègle de diversion : [${p2}]\nServeur proxy : [${p3}]',
+			'NetCheckScreen.hostConnectionOk' => 'Connexion réussie',
+			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'Échec de la connexion : [${p}]',
+			'NetConnectionsFilterScreen.hostIp' => 'Domaine/IP',
+			'NetConnectionsFilterScreen.app' => 'Application',
+			'NetConnectionsFilterScreen.rule' => 'Règle',
+			'NetConnectionsFilterScreen.chain' => 'Sortant',
+			'NetConnectionsScreen.copyAsCSV' => 'Copié au format CSV',
+			'NetConnectionsScreen.selectType' => 'Sélectionner le type de diversion',
+			'PerAppAndroidScreen.title' => 'Proxy par application',
+			'PerAppAndroidScreen.whiteListMode' => 'Mode liste blanche',
+			'PerAppAndroidScreen.whiteListModeTip' => 'Si activé : seules les applications cochées passent par le proxy ; si désactivé : seules les applications non cochées passent par le proxy',
+			'RegionSettingsScreen.title' => 'Pays ou région',
+			'RegionSettingsScreen.Regions' => 'Conseil : Veuillez définir correctement votre pays ou région actuel, sinon cela pourrait causer des problèmes de diversion réseau',
+			'ServerSelectScreen.title' => 'Sélectionner un serveur',
+			'ServerSelectScreen.autoSelectServer' => 'Sélectionner automatiquement le serveur avec la latence la plus basse',
+			'ServerSelectScreen.recentUse' => 'Récemment utilisés',
+			'ServerSelectScreen.myFav' => 'Mes favoris',
+			'ServerSelectScreen.selectLocal' => ({required Object p}) => 'Le serveur sélectionné est une adresse locale et peut ne pas fonctionner correctement : ${p}',
+			'ServerSelectScreen.selectRequireEnableIPv6' => 'Le serveur sélectionné est une adresse IPv6 et nécessite [Activer l\'IPv6]',
+			'ServerSelectScreen.selectDisabled' => 'Ce serveur a été désactivé',
+			'ServerSelectScreen.error404' => 'La détection de latence a rencontré une erreur, veuillez vérifier s\'il existe une configuration avec le même contenu',
+			'SettingsScreen.getTranffic' => 'Obtenir le trafic',
+			'SettingsScreen.tutorial' => 'Tutoriel',
+			'SettingsScreen.commonlyUsedRulesets' => 'Jeux de règles courants',
+			'SettingsScreen.htmlBoard' => 'Panneau en ligne',
+			'SettingsScreen.dnsLeakDetection' => 'Détection de fuites DNS',
+			'SettingsScreen.proxyLeakDetection' => 'Détection de fuites proxy',
+			'SettingsScreen.speedTest' => 'Test de vitesse',
+			'SettingsScreen.rulesetDirectDownlad' => 'Téléchargement direct du jeu de règles',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'Masquer les groupes de diversion inutilisés',
+			'SettingsScreen.disableISPDiversionGroup' => 'Désactiver [${_root.meta.isp}] ${_root.meta.diversionRules}',
+			'SettingsScreen.portSettingRule' => 'Basé sur les règles',
+			'SettingsScreen.portSettingDirectAll' => 'Tout en direct',
+			'SettingsScreen.portSettingProxyAll' => 'Tout en proxy',
+			'SettingsScreen.portSettingControl' => 'Contrôle et synchronisation',
+			'SettingsScreen.portSettingCluster' => 'Service de cluster',
+			'SettingsScreen.modifyPort' => 'Modifier le port',
+			'SettingsScreen.modifyPortOccupied' => 'Le port est occupé, veuillez utiliser un autre port',
+			'SettingsScreen.ipStrategyTips' => 'Avant d\'activer, veuillez confirmer que votre réseau supporte l\'IPv6, sinon certains trafics ne pourront pas être accédés normalement.',
+			'SettingsScreen.tunAppendHttpProxy' => 'Ajouter le proxy HTTP au VPN',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'Certaines applications contourneront le périphérique NIC virtuel et se connecteront directement au proxy HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domaines autorisés à contourner le proxy HTTP',
+			'SettingsScreen.dnsEnableRule' => 'Activer les règles de diversion DNS',
+			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Canal de résolution',
+			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] Activer l\'ECS',
+			'SettingsScreen.dnsTestDomain' => 'Domaine de test',
+			'SettingsScreen.dnsTestDomainInvalid' => 'Domaine invalide',
+			'SettingsScreen.dnsTypeOutbound' => 'Serveur proxy',
 			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
 			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
-			'SettingsScreen.dnsTypeResolver' => 'DNS Server',
-			'SettingsScreen.dnsEnableRuleTips' => 'After enabling, the domain name will select the corresponding DNS server for resolution according to the diversion rules',
-			'SettingsScreen.dnsEnableFakeIpTips' => 'After enabling FakeIP, if you disconnect from VPN, your app may need to be restarted; this feature requires [TUN mode] to be enabled',
-			'SettingsScreen.dnsTypeOutboundTips' => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeOutbound}]',
-			'SettingsScreen.dnsTypeDirectTips' => 'Domain name resolution for [${_root.meta.trafficDirect}]',
-			'SettingsScreen.dnsTypeProxyTips' => 'Domain name resolution for [${_root.meta.trafficProxy}]',
-			'SettingsScreen.dnsTypeResolverTips' => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeResolver}]',
-			'SettingsScreen.dnsAutoSetServer' => 'Auto Setup Server',
-			'SettingsScreen.dnsResetServer' => 'Reset Server',
-			'SettingsScreen.inboundDomainResolve' => 'Resolve Inbound Domain names',
-			'SettingsScreen.privateDirect' => 'Private Network Direct connection',
-			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]',
-			'SettingsScreen.useRomoteRes' => 'Use Remote Resources',
-			'SettingsScreen.autoAppendRegion' => 'Auto attach basic rules',
-			'SettingsScreen.autoSelect' => 'Auto Select',
-			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'Ignore [Front/Chaine] Proxy Servers',
-			'SettingsScreen.autoSelectServerInterval' => 'Latency Checks Interval',
-			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Current server health check interval',
-			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Re-check Latency when Network Changes',
-			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Update the Current Server after Manual Latency Check',
-			'SettingsScreen.autoSelectServerIntervalTips' => 'The shorter the time interval, the more timely the server latency data updates, which will occupy more resources and consume more power',
-			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'If the check fails, the server is switched; if no available server is found when switching the server, the group will re-check latency',
-			'SettingsScreen.autoSelectServerFavFirst' => 'Pri-Use [My Favs]',
-			'SettingsScreen.autoSelectServerFavFirstTips' => 'If the [My Favs] list is not empty, Then use the servers in [My Favs]',
-			'SettingsScreen.autoSelectServerFilter' => 'Filter Invalid Servers',
-			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Server latency checks that fail will be filtered out; if no server is available after filtering, the first [${p}] servers will be used instead',
-			'SettingsScreen.autoSelectServerLimitedNum' => 'Maximum number of servers',
-			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Servers exceeding this number will be filtered out',
-			'SettingsScreen.numInvalid' => 'Invalid number',
-			'SettingsScreen.hideInvalidServer' => 'Hide Invalid Servers',
-			'SettingsScreen.sortServer' => 'Servers Sorting',
-			'SettingsScreen.sortServerTips' => 'Sort by latency from low to high',
-			'SettingsScreen.selectServerHideRecommand' => 'Hide [Recommend]',
-			'SettingsScreen.selectServerHideRecent' => 'Hide [Recently Used]',
-			'SettingsScreen.selectServerHideFav' => 'Hide [My Favs]',
-			'SettingsScreen.homeScreen' => 'Home Screen',
-			'SettingsScreen.theme' => 'Theme',
-			'SettingsScreen.widgetsAlpha' => 'Widgets Alpha',
-			'SettingsScreen.widgetsEmpty' => 'No Widget Available',
-			'SettingsScreen.backgroundImage' => 'Background Image',
-			'SettingsScreen.myLink' => 'Shortcut Link',
-			'SettingsScreen.autoConnectAfterLaunch' => 'Auto Connection after Launch',
-			'SettingsScreen.autoConnectAtBoot' => 'Auto Connection after System Startup',
-			'SettingsScreen.autoConnectAtBootTips' => 'System support is required; some systems may also require [auto-start] to be enabled.',
-			'SettingsScreen.hideAfterLaunch' => 'Hide window after startup',
-			'SettingsScreen.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
-			'SettingsScreen.bypassSystemProxy' => 'Domain names that are allowed to bypass the system proxy',
-			'SettingsScreen.disconnectWhenQuit' => 'Disconnect when App Exits',
-			'SettingsScreen.autoAddToFirewall' => 'Auto Add Firewall Rules',
-			'SettingsScreen.excludeFromRecent' => 'Hide from [Recent Tasks]',
-			'SettingsScreen.wakeLock' => 'Wake Lock',
-			'SettingsScreen.hideVpn' => 'Hide VPN Icon',
-			'SettingsScreen.hideVpnTips' => 'Enabling IPv6 will cause this function to fail',
-			'SettingsScreen.allowBypass' => 'Allow Apps to Bypass VPN',
-			'SettingsScreen.importSuccess' => 'Import Success',
-			'SettingsScreen.rewriteConfirm' => 'This file will overwrite the existing local configuration. Do you want to continue?',
-			'SettingsScreen.mergePerapp' => 'Merge local [${_root.PerAppAndroidScreen.title}] lists',
-			'SettingsScreen.networkShare' => 'Network Sharing',
-			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
-			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server',
-			'SettingsScreen.allowOtherHostsConnect' => 'Allow Others to Connect',
-			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
-			'SettingsScreen.allowOtherHostsConnectWarn' => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
-			'SettingsScreen.tunStrictRoute' => 'Strict Route',
-			'SettingsScreen.tunStrictRouteTips' => 'If after turning on sharing, others cannot access this device, please try turning off this switch',
-			'SettingsScreen.loopbackAddress' => 'Loopback Address',
-			'SettingsScreen.enableCluster' => 'Enable Socks/Http Proxy Cluster',
-			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Allow Others to Connect to Cluster',
+			'SettingsScreen.dnsTypeResolver' => 'Serveur DNS',
+			'SettingsScreen.dnsEnableRuleTips' => 'Une fois activé, le nom de domaine sélectionnera le serveur DNS correspondant pour la résolution selon les règles de diversion',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'Après avoir activé FakeIP, si vous vous déconnectez du VPN, votre application peut avoir besoin d\'être redémarrée ; cette fonctionnalité nécessite l\'activation du [Mode TUN]',
+			'SettingsScreen.dnsTypeOutboundTips' => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'SettingsScreen.dnsTypeDirectTips' => 'Résolution de nom de domaine pour [${_root.meta.trafficDirect}]',
+			'SettingsScreen.dnsTypeProxyTips' => 'Résolution de nom de domaine pour [${_root.meta.trafficProxy}]',
+			'SettingsScreen.dnsTypeResolverTips' => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeResolver}]',
+			'SettingsScreen.dnsAutoSetServer' => 'Configuration automatique du serveur',
+			'SettingsScreen.dnsResetServer' => 'Réinitialiser le serveur',
+			'SettingsScreen.inboundDomainResolve' => 'Résoudre les noms de domaine entrants',
+			'SettingsScreen.privateDirect' => 'Connexion directe au réseau privé',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Certains noms de domaine qui ne sont pas configurés avec des règles de diversion doivent être résolus avant de pouvoir correspondre aux règles de diversion basées sur l\'IP ; cette fonctionnalité affecte les requêtes entrantes sur le port proxy [${p}]',
+			'SettingsScreen.useRomoteRes' => 'Utiliser des ressources distantes',
+			'SettingsScreen.autoAppendRegion' => 'Attacher automatiquement les règles de base',
+			'SettingsScreen.autoSelect' => 'Sélection automatique',
+			'SettingsScreen.autoSelectServerIgnorePerProxyServer' => 'Ignorer les serveurs proxy [Front/Chain]',
+			'SettingsScreen.autoSelectServerInterval' => 'Intervalle de vérification de latence',
+			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Intervalle de vérification de santé du serveur actuel',
+			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Vérifier à nouveau la latence lors d\'un changement de réseau',
+			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Mettre à jour le serveur actuel après une vérification manuelle de latence',
+			'SettingsScreen.autoSelectServerIntervalTips' => 'Plus l\'intervalle est court, plus les données de latence du serveur sont mises à jour à temps, ce qui occupera plus de ressources et consommera plus d\'énergie',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Si la vérification échoue, le serveur est commuté ; si aucun serveur disponible n\'est trouvé lors de la commutation, le groupe revérifiera la latence',
+			'SettingsScreen.autoSelectServerFavFirst' => 'Utiliser prioritairement [Mes favoris]',
+			'SettingsScreen.autoSelectServerFavFirstTips' => 'Si la liste [Mes favoris] n\'est pas vide, alors utiliser les serveurs de [Mes favoris]',
+			'SettingsScreen.autoSelectServerFilter' => 'Filtrer les serveurs invalides',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Les serveurs dont la vérification de latence échoue seront filtrés ; si aucun serveur n\'est disponible après filtrage, les [${p}] premiers serveurs seront utilisés à la place',
+			'SettingsScreen.autoSelectServerLimitedNum' => 'Nombre maximum de serveurs',
+			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Les serveurs dépassant ce nombre seront filtrés',
+			'SettingsScreen.numInvalid' => 'Nombre invalide',
+			'SettingsScreen.hideInvalidServer' => 'Masquer les serveurs invalides',
+			'SettingsScreen.sortServer' => 'Tri des serveurs',
+			'SettingsScreen.sortServerTips' => 'Trier par latence de la plus basse à la plus haute',
+			'SettingsScreen.selectServerHideRecommand' => 'Masquer [Recommandé]',
+			'SettingsScreen.selectServerHideRecent' => 'Masquer [Récemment utilisés]',
+			'SettingsScreen.selectServerHideFav' => 'Masquer [Mes favoris]',
+			'SettingsScreen.homeScreen' => 'Écran d\'accueil',
+			'SettingsScreen.theme' => 'Thème',
+			'SettingsScreen.widgetsAlpha' => 'Transparence des widgets',
+			'SettingsScreen.widgetsEmpty' => 'Aucun widget disponible',
+			'SettingsScreen.backgroundImage' => 'Image d\'arrière-plan',
+			'SettingsScreen.myLink' => 'Lien raccourci',
+			'SettingsScreen.autoConnectAfterLaunch' => 'Connexion automatique après le lancement',
+			'SettingsScreen.autoConnectAtBoot' => 'Connexion automatique au démarrage du système',
+			'SettingsScreen.autoConnectAtBootTips' => 'Le support du système est requis ; certains systèmes peuvent également nécessiter l\'activation du [lancement automatique].',
+			'SettingsScreen.hideAfterLaunch' => 'Masquer la fenêtre après le démarrage',
+			'SettingsScreen.autoSetSystemProxy' => 'Définir automatiquement le proxy système lors de la connexion',
+			'SettingsScreen.bypassSystemProxy' => 'Noms de domaine autorisés à contourner le proxy système',
+			'SettingsScreen.disconnectWhenQuit' => 'Déconnecter lorsque l\'application quitte',
+			'SettingsScreen.autoAddToFirewall' => 'Ajouter automatiquement des règles de pare-feu',
+			'SettingsScreen.excludeFromRecent' => 'Masquer des [Tâches récentes]',
+			'SettingsScreen.wakeLock' => 'Empêcher la mise en veille',
+			'SettingsScreen.hideVpn' => 'Masquer l\'icône VPN',
+			'SettingsScreen.hideVpnTips' => 'L\'activation de l\'IPv6 fera échouer cette fonction',
+			'SettingsScreen.allowBypass' => 'Autoriser les applications à contourner le VPN',
+			'SettingsScreen.importSuccess' => 'Importation réussie',
+			'SettingsScreen.rewriteConfirm' => 'Ce fichier écrasera la configuration locale existante. Voulez-vous continuer ?',
+			'SettingsScreen.mergePerapp' => 'Fusionner les listes [${_root.PerAppAndroidScreen.title}] locales',
+			'SettingsScreen.networkShare' => 'Partage réseau',
+			'SettingsScreen.frontProxy' => 'Proxy Front/Chain',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Données -> Serveur proxy Front/Chain [Plusieurs serveurs : de haut en bas] -> Serveur proxy [${p}] -> Serveur cible',
+			'SettingsScreen.allowOtherHostsConnect' => 'Autoriser les autres à se connecter',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'En raison des limitations du système, une fois activé, les applications de cet appareil qui utilisent le http pour accéder au réseau peuvent ne pas être en mesure de se connecter correctement au réseau.',
+			'SettingsScreen.tunAutoRoute' => 'Route automatique',
+			'SettingsScreen.tunAutoRedirect' => 'Redirection automatique',
+			'SettingsScreen.tunStrictRoute' => 'Route stricte',
+			'SettingsScreen.tunStrictRouteTips' => 'Si après l\'activation du partage, d\'autres ne peuvent pas accéder à cet appareil, veuillez essayer de désactiver ce commutateur',
+			'SettingsScreen.loopbackAddress' => 'Adresse de bouclage',
+			'SettingsScreen.enableCluster' => 'Activer le cluster de proxy Socks/Http',
+			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Autoriser les autres à se connecter au cluster',
 			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
-			'SettingsScreen.clusterAuth' => 'Proxy Cluster Authentication',
-			'SettingsScreen.tunMode' => 'TUN Mode',
-			'SettingsScreen.tuni4Address' => 'IP address',
-			'SettingsScreen.tunModeTips' => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'The TUN mode requires system administrator permissions, please restart the app as an administrator',
-			'SettingsScreen.tunStack' => 'Stack',
-			'SettingsScreen.tunHijackTips' => 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server',
-			'SettingsScreen.launchAtStartup' => 'Launch at Startup',
-			'SettingsScreen.quitWhenSwitchSystemUser' => 'Exit App when Switch System Users',
-			'SettingsScreen.handleScheme' => 'System Scheme Call',
-			'SettingsScreen.portableMode' => 'Portable Mode',
-			'SettingsScreen.portableModeDisableTips' => 'If you need to exit portable mode, please exit [karing] and manually delete the [profiles] folder in the same directory as [karing.exe]',
-			'SettingsScreen.accessibility' => 'Accessibility',
-			'SettingsScreen.handleKaringScheme' => 'Handle karing:// Call',
-			'SettingsScreen.handleClashScheme' => 'Handle clash:// Call',
-			'SettingsScreen.handleSingboxScheme' => 'Handle sing-box:// Call',
-			'SettingsScreen.alwayOnVPN' => 'Always-on Connection',
-			'SettingsScreen.disconnectAfterSleep' => 'Disconnect after system sleep',
-			'SettingsScreen.removeSystemVPNConfig' => 'Delete system VPN configuration',
-			'SettingsScreen.timeConnectOrDisconnect' => 'Scheduled connect/disconnect',
-			'SettingsScreen.timeConnectOrDisconnectTips' => 'VPN must be connected to take effect; after it is turned on, [Automatic Sleep] will be disabled',
-			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'The connection/disconnection interval cannot be less than ${p} minutes',
-			'SettingsScreen.disableFontScaler' => 'Disable Font scaling(Restart takes effect)',
-			'SettingsScreen.autoOrientation' => 'Rotate with the screen',
-			'SettingsScreen.restartTakesEffect' => 'Restart takes effect',
-			'SettingsScreen.reconnectTakesEffect' => 'Reconnect takes effect',
-			'SettingsScreen.resetSettings' => 'Reset Settings',
-			'SettingsScreen.cleanCache' => 'Cleanup Cache',
-			'SettingsScreen.cleanCacheDone' => 'Cleanup completed',
+			'SettingsScreen.clusterAuth' => 'Authentification du cluster de proxy',
+			'SettingsScreen.tunMode' => 'Mode TUN',
+			'SettingsScreen.tuni4Address' => 'Adresse IP',
+			'SettingsScreen.tunModeTips' => 'Le mode TUN prendra en charge tout le trafic du système [Dans ce mode, vous pouvez laisser le proxy système non activé]',
+			'SettingsScreen.tunModeRunAsAdmin' => 'Le mode TUN nécessite des autorisations d\'administrateur système, veuillez redémarrer l\'application en tant qu\'administrateur',
+			'SettingsScreen.tunStack' => 'Pile',
+			'SettingsScreen.tunHijackTips' => 'Après la fermeture, les requêtes DNS du TUN seront transférées directement au serveur DNS correspondant',
+			'SettingsScreen.launchAtStartup' => 'Lancer au démarrage',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'Quitter l\'application lors du changement d\'utilisateur système',
+			'SettingsScreen.handleScheme' => 'Appel du schéma système',
+			'SettingsScreen.portableMode' => 'Mode portable',
+			'SettingsScreen.portableModeDisableTips' => 'Si vous devez quitter le mode portable, veuillez quitter [karing] et supprimer manuellement le dossier [profiles] dans le même répertoire que [karing.exe]',
+			'SettingsScreen.accessibility' => 'Accessibilité',
+			'SettingsScreen.handleKaringScheme' => 'Gérer l\'appel karing://',
+			'SettingsScreen.handleClashScheme' => 'Gérer l\'appel clash://',
+			'SettingsScreen.handleSingboxScheme' => 'Gérer l\'appel sing-box://',
+			'SettingsScreen.alwayOnVPN' => 'Connexion permanente',
+			'SettingsScreen.disconnectAfterSleep' => 'Déconnecter après la mise en veille du système',
+			'SettingsScreen.removeSystemVPNConfig' => 'Supprimer la configuration VPN du système',
+			'SettingsScreen.timeConnectOrDisconnect' => 'Connexion/déconnexion programmée',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'Le VPN doit être connecté pour prendre effet ; une fois activé, la [Mise en veille automatique] sera désactivée',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'L\'intervalle de connexion/déconnexion ne peut pas être inférieur à ${p} minutes',
+			'SettingsScreen.disableFontScaler' => 'Désactiver la mise à l\'échelle des polices (le redémarrage prend effet)',
+			'SettingsScreen.autoOrientation' => 'Rotation avec l\'écran',
+			'SettingsScreen.restartTakesEffect' => 'Le redémarrage prend effet',
+			'SettingsScreen.reconnectTakesEffect' => 'La reconnexion prend effet',
+			'SettingsScreen.resetSettings' => 'Réinitialiser les paramètres',
+			'SettingsScreen.cleanCache' => 'Nettoyer le cache',
+			'SettingsScreen.cleanCacheDone' => 'Nettoyage terminé',
 			'SettingsScreen.appleTestFlight' => 'Apple TestFlight',
 			'SettingsScreen.appleAppStore' => 'Apple AppStore',
-			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Update Version ${p}',
-			'SettingsScreen.follow' => 'Follow Us',
-			'SettingsScreen.contactUs' => 'Contact Us',
-			'SettingsScreen.supportUs' => 'Support Us',
-			'SettingsScreen.rateInApp' => 'Rate Us',
-			'SettingsScreen.rateInAppStore' => 'Rate Us in AppStore',
-			'UserAgreementScreen.privacyFirst' => 'Your Privacy Comes First',
-			'UserAgreementScreen.agreeAndContinue' => 'Accept & Continue',
-			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'The new version[${p}] is ready',
-			'VersionUpdateScreen.update' => 'Restart To Update',
-			'VersionUpdateScreen.cancel' => 'Not Now',
-			'CommonWidget.diableAlwayOnVPN' => 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again',
-			'CommonWidget.resetPort' => 'Please change the port to another available port or close the application occupying the port.',
-			'main.tray.menuOpen' => 'Open',
-			'main.tray.menuExit' => 'Exit',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Mettre à jour vers la version ${p}',
+			'SettingsScreen.follow' => 'Suivez-nous',
+			'SettingsScreen.contactUs' => 'Contactez-nous',
+			'SettingsScreen.supportUs' => 'Soutenez-nous',
+			'SettingsScreen.rateInAppStore' => 'Évaluez-nous sur l\'AppStore',
+			'SettingsScreen.rateInApp' => 'Évaluez-nous',
+			'UserAgreementScreen.privacyFirst' => 'Votre vie privée passe avant tout',
+			'UserAgreementScreen.agreeAndContinue' => 'Accepter et continuer',
+			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'La nouvelle version [${p}] est prête',
+			'VersionUpdateScreen.update' => 'Redémarrer pour mettre à jour',
+			'VersionUpdateScreen.cancel' => 'Pas maintenant',
+			'CommonWidget.diableAlwayOnVPN' => 'Si [VPN toujours activé] est activé, veuillez le désactiver et essayer de vous reconnecter',
+			'CommonWidget.resetPort' => 'Veuillez changer le port pour un autre port disponible ou fermer l\'application occupant le port.',
+			'main.tray.menuOpen' => 'Ouvrir',
+			'main.tray.menuExit' => 'Quitter',
 			'meta.enable' => 'Activer',
 			'meta.disable' => 'Désactiver',
 			'meta.bydefault' => 'Par défaut',
@@ -1213,8 +1228,8 @@ extension on TranslationsFr {
 			'meta.inbound' => 'Entrant',
 			'meta.outbound' => 'Sortant',
 			'meta.destination' => 'Destination',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => 'IP de sortie',
+			'meta.outletIpByDirect' => 'IP : ${_root.outboundRuleMode.direct}',
 			'meta.connect' => 'Connecter',
 			'meta.disconnect' => 'Déconnecter',
 			'meta.reconnect' => 'Reconnecter',
@@ -1481,6 +1496,21 @@ extension on TranslationsFr {
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}

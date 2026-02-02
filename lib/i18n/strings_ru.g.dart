@@ -100,9 +100,29 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
+		'zh-TW': '繁體中文',
+		'ja': '日本語',
+		'ko': '한국어',
+		'fr': 'Français',
+		'es': 'Español',
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -443,11 +463,11 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
-	@override String get tunStrictRoute => 'Strict Route';
+	@override String get tunAutoRoute => 'Автоматический маршрут';
+	@override String get tunAutoRedirect => 'Автоматическое перенаправление';
+	@override String get tunStrictRoute => 'Строгий маршрут';
 	@override String get tunStrictRouteTips => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
-	@override String get loopbackAddress => 'Loopback Address';
+	@override String get loopbackAddress => 'Петлевой адрес';
 	@override String get enableCluster => 'Включить кластер прокси Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Разрешить подключение по локальной сети к кластеру';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -595,8 +615,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get inbound => 'Входящий';
 	@override String get outbound => 'Выход';
 	@override String get destination => 'Цель';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => 'Выходной IP';
+	@override String get outletIpByDirect => 'Выходной IP:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'Соединить';
 	@override String get disconnect => 'Отключить';
 	@override String get reconnect => 'Повторное подключение';
@@ -1100,11 +1120,11 @@ extension on TranslationsRu {
 			'SettingsScreen.allowOtherHostsConnect' => 'Разрешить подключение по локальной сети',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
-			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunAutoRoute' => 'Автоматический маршрут',
+			'SettingsScreen.tunAutoRedirect' => 'Автоматическое перенаправление',
+			'SettingsScreen.tunStrictRoute' => 'Строгий маршрут',
 			'SettingsScreen.tunStrictRouteTips' => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.',
-			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.loopbackAddress' => 'Петлевой адрес',
 			'SettingsScreen.enableCluster' => 'Включить кластер прокси Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Разрешить подключение по локальной сети к кластеру',
 			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
@@ -1208,8 +1228,8 @@ extension on TranslationsRu {
 			'meta.inbound' => 'Входящий',
 			'meta.outbound' => 'Выход',
 			'meta.destination' => 'Цель',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => 'Выходной IP',
+			'meta.outletIpByDirect' => 'Выходной IP:${_root.outboundRuleMode.direct}',
 			'meta.connect' => 'Соединить',
 			'meta.disconnect' => 'Отключить',
 			'meta.reconnect' => 'Повторное подключение',
@@ -1468,9 +1488,29 @@ extension on TranslationsRu {
 			'edgeRuntimeNotInstalled' => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
+			'locales.zh-TW' => '繁體中文',
+			'locales.ja' => '日本語',
+			'locales.ko' => '한국어',
+			'locales.fr' => 'Français',
+			'locales.es' => 'Español',
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}

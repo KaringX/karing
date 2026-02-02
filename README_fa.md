@@ -9,8 +9,10 @@
 واسط گرافیکی <a href="https://github.com/SagerNet/sing-box">singbox</a> بر اساس <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
-[انگلیسی](./README.md) | [چینی](./README_cn.md) | [روسی](./README_ru.md) | فارسی
-### توجه: Karing هیچ کانالی در مورد Karing در هیچ پلتفرم ویدیویی باز نکرده است.
+English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | فارسی | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+
+### Note: Karing هیچ کانالی در مورد Karing در هیچ پلتفرم ویدیویی باز نکرده است.
+
 ## ویژگی‌ها
 - سازگار با Clash، V2ray/V2fly، Sing-box، Shadowsocks، Sub و Github Subscriptions.
 - پشتیبانی کامل از تنظیمات `clash`، پشتیبانی جزئی از تنظیمات `clash.meta`.
@@ -31,13 +33,7 @@
 
 </details>
 
-## نیازمندی‌های سیستم (تنها 64 بیت)
-- Windows >= 10 (64bits only)
-- Android >= 8 (arm64-v8a, armeabi-v7a)
-- Linux >= 10 (64bits only)
-- IOS >= 15
-- MacOS >= 12 (Intel, Apple Silicon)
-- TvOS >= 17
+## نیازمندی‌های سیستم
 
 ## نصب
 - **IOS/TvOS AppStore**: (جستجو با کلمات کلیدی: karing vpn)
@@ -54,8 +50,6 @@
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
 
-
-
 ### سوالات متداول
 
 > [FAQ|en](https://karing.app/en/faq/)
@@ -65,7 +59,7 @@
 - جهانی‌سازی (چندزبانه)
   - اگر مایل به همکاری برای پشتیبانی از جهانی‌سازی Karing هستید، لطفاً ایمیل به gooringx@gmail.com ارسال کنید
 
-## تصاویر (نسخه ویندوز)
+## تصاویر
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -88,7 +82,6 @@
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 ## قدردانی
-
 Karing بر اساس یا الهام‌گیری شده از این پروژه‌ها و غیره بوده است:
 
 - [فلاتر](https://flutter.dev/): امکان ساخت برنامه‌های زیبا برای موبایل و موارد دیگر را ساده و سریع می‌کند.
@@ -100,4 +93,6 @@ Karing بر اساس یا الهام‌گیری شده از این پروژه‌
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)
 
+## Star History
 
+[![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)

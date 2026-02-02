@@ -100,9 +100,29 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
+		'zh-TW': '繁體中文',
+		'ja': '日本語',
+		'ko': '한국어',
+		'fr': 'Français',
+		'es': 'Español',
 		'ar': 'عربي',
 		'ru': 'Русский',
 		'fa': 'فارسی',
+		'de': 'Deutsch',
+		'pt': 'Português',
+		'it': 'Italiano',
+		'uk': 'Українська',
+		'pl': 'Polski',
+		'nl': 'Nederlands',
+		'sv': 'Svenska',
+		'no': 'Norsk',
+		'da': 'Dansk',
+		'hi': 'हिन्दी',
+		'ur': 'اردو',
+		'bn': 'বাংলা',
+		'el': 'Ελληνικά',
+		'vi': 'Tiếng Việt',
+		'tr': 'Türkçe',
 	};
 }
 
@@ -443,11 +463,11 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get allowOtherHostsConnect => 'اسمح للآخرين بالاتصال';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
-	@override String get tunAutoRoute => 'Auto Route';
-	@override String get tunAutoRedirect => 'Auto Redirect';
-	@override String get tunStrictRoute => 'Strict Route';
+	@override String get tunAutoRoute => 'مسار تلقائي';
+	@override String get tunAutoRedirect => 'إعادة توجيه تلقائية';
+	@override String get tunStrictRoute => 'مسار صارم';
 	@override String get tunStrictRouteTips => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
-	@override String get loopbackAddress => 'Loopback Address';
+	@override String get loopbackAddress => 'عنوان الاسترجاع';
 	@override String get enableCluster => 'تمكين مجموعة الوكيل الجوارب/HTTP';
 	@override String get clusterAllowOtherHostsConnect => 'السماح للآخرين بالاتصال بـ CLUSTER';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -595,8 +615,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get inbound => 'وارد';
 	@override String get outbound => 'مخرج';
 	@override String get destination => 'هدف';
-	@override String get outletIpByCurrentSelected => 'IP';
-	@override String get outletIpByDirect => 'IP:${_root.outboundRuleMode.direct}';
+	@override String get outletIpByCurrentSelected => 'IP الخروج';
+	@override String get outletIpByDirect => 'IP الخروج:${_root.outboundRuleMode.direct}';
 	@override String get connect => 'يتصل';
 	@override String get disconnect => 'قطع الاتصال';
 	@override String get reconnect => 'إعادة الاتصال';
@@ -1100,11 +1120,11 @@ extension on TranslationsAr {
 			'SettingsScreen.allowOtherHostsConnect' => 'اسمح للآخرين بالاتصال',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.',
-			'SettingsScreen.tunAutoRoute' => 'Auto Route',
-			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
-			'SettingsScreen.tunStrictRoute' => 'Strict Route',
+			'SettingsScreen.tunAutoRoute' => 'مسار تلقائي',
+			'SettingsScreen.tunAutoRedirect' => 'إعادة توجيه تلقائية',
+			'SettingsScreen.tunStrictRoute' => 'مسار صارم',
 			'SettingsScreen.tunStrictRouteTips' => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.',
-			'SettingsScreen.loopbackAddress' => 'Loopback Address',
+			'SettingsScreen.loopbackAddress' => 'عنوان الاسترجاع',
 			'SettingsScreen.enableCluster' => 'تمكين مجموعة الوكيل الجوارب/HTTP',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'السماح للآخرين بالاتصال بـ CLUSTER',
 			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
@@ -1208,8 +1228,8 @@ extension on TranslationsAr {
 			'meta.inbound' => 'وارد',
 			'meta.outbound' => 'مخرج',
 			'meta.destination' => 'هدف',
-			'meta.outletIpByCurrentSelected' => 'IP',
-			'meta.outletIpByDirect' => 'IP:${_root.outboundRuleMode.direct}',
+			'meta.outletIpByCurrentSelected' => 'IP الخروج',
+			'meta.outletIpByDirect' => 'IP الخروج:${_root.outboundRuleMode.direct}',
 			'meta.connect' => 'يتصل',
 			'meta.disconnect' => 'قطع الاتصال',
 			'meta.reconnect' => 'إعادة الاتصال',
@@ -1468,9 +1488,29 @@ extension on TranslationsAr {
 			'edgeRuntimeNotInstalled' => 'لم يتم تثبيت وقت تشغيل Edge WebView2 على الجهاز الحالي ولا يمكن عرض الصفحة، يرجى تنزيل وتثبيت وقت تشغيل Edge WebView2 (x64)، وإعادة تشغيل التطبيق والمحاولة مرة أخرى.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
+			'locales.zh-TW' => '繁體中文',
+			'locales.ja' => '日本語',
+			'locales.ko' => '한국어',
+			'locales.fr' => 'Français',
+			'locales.es' => 'Español',
 			'locales.ar' => 'عربي',
 			'locales.ru' => 'Русский',
 			'locales.fa' => 'فارسی',
+			'locales.de' => 'Deutsch',
+			'locales.pt' => 'Português',
+			'locales.it' => 'Italiano',
+			'locales.uk' => 'Українська',
+			'locales.pl' => 'Polski',
+			'locales.nl' => 'Nederlands',
+			'locales.sv' => 'Svenska',
+			'locales.no' => 'Norsk',
+			'locales.da' => 'Dansk',
+			'locales.hi' => 'हिन्दी',
+			'locales.ur' => 'اردو',
+			'locales.bn' => 'বাংলা',
+			'locales.el' => 'Ελληνικά',
+			'locales.vi' => 'Tiếng Việt',
+			'locales.tr' => 'Türkçe',
 			_ => null,
 		};
 	}
