@@ -133,7 +133,7 @@ class _TranslationsAboutScreenJa implements TranslationsAboutScreenEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'インストール参照';
+	@override String get installRefer => 'インストールリファラー';
 	@override String get installTime => 'インストール時間';
 	@override String get versionChannel => '自動更新チャネル';
 	@override String get autoDownloadPkg => '更新パッケージを自動的にダウンロードする';
@@ -757,8 +757,8 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 	@override String get ads => '広告';
 	@override String get adsRemove => '広告を削除';
 	@override String get donate => '寄付';
-	@override String get diversion => '分流';
-	@override String get diversionRules => '分流ルール';
+	@override String get diversion => 'ルーティング';
+	@override String get diversionRules => 'ルーティングルール';
 	@override String get diversionCustomGroup => 'カスタム分流グループ';
 	@override String get urlTestCustomGroup => 'カスタム自動選択';
 	@override String get setting => '設定';
@@ -934,7 +934,7 @@ class _TranslationsMainTrayJa implements TranslationsMainTrayEn {
 extension on TranslationsJa {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'インストール参照',
+			'AboutScreen.installRefer' => 'インストールリファラー',
 			'AboutScreen.installTime' => 'インストール時間',
 			'AboutScreen.versionChannel' => '自動更新チャネル',
 			'AboutScreen.autoDownloadPkg' => '更新パッケージを自動的にダウンロードする',
@@ -1370,8 +1370,8 @@ extension on TranslationsJa {
 			'meta.ads' => '広告',
 			'meta.adsRemove' => '広告を削除',
 			'meta.donate' => '寄付',
-			'meta.diversion' => '分流',
-			'meta.diversionRules' => '分流ルール',
+			'meta.diversion' => 'ルーティング',
+			'meta.diversionRules' => 'ルーティングルール',
 			'meta.diversionCustomGroup' => 'カスタム分流グループ',
 			'meta.urlTestCustomGroup' => 'カスタム自動選択',
 			'meta.setting' => '設定',

@@ -881,6 +881,7 @@ class SettingConfigItemDNS {
       _outbound.add(SettingConfigItemDNS.kDNSDHCP);
     }
     _outbound.add("udp://8.8.8.8");
+    _outbound.add("udp://8.8.4.4");
     if (regioncode.toLowerCase() == "cn") {
       _outbound.add("udp://223.6.6.6");
     }
@@ -897,6 +898,7 @@ class SettingConfigItemDNS {
       _direct.add(SettingConfigItemDNS.kDNSDHCP);
     }
     _direct.add("udp://8.8.8.8");
+    _direct.add("udp://8.8.4.4");
     if (regioncode.toLowerCase() == "cn") {
       _direct.add("udp://223.6.6.6");
     }
@@ -910,6 +912,7 @@ class SettingConfigItemDNS {
     }
 
     _proxy.add("https://1.1.1.1/dns-query");
+    _proxy.add("https://8.8.8.8/dns-query");
     _proxy.add("https://dns.google/dns-query");
 
     return _updateDns(_proxy, tunMode);
@@ -925,6 +928,7 @@ class SettingConfigItemDNS {
       _resolver.add(SettingConfigItemDNS.kDNSDHCP);
     }
     _resolver.add("https://1.1.1.1/dns-query");
+    _resolver.add("https://8.8.8.8/dns-query");
     if (regioncode.toLowerCase() == "cn") {
       _resolver.add("udp://223.6.6.6");
     }

@@ -11,7 +11,7 @@
 
 [English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日本語 | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### 注：Karing は、どの動画プラットフォームでも Karing 関連のチャンネルを開設していません
+### 注：Karingは動画プラットフォーム等で公式チャンネルを一切開設していません。
 
 ## 特徴
 - Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github サブスクリプションに対応。
@@ -36,11 +36,11 @@
 <details>
 <summary>すべてのプロモーションを表示
 
-### おすすめの空港（ISP）
+### おすすめのプロキシプロバイダー
 
-[狗狗加速 —— 技術流空港 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[狗狗加速 —— 技術重視のプロバイダー Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- 高性能な海外空港、海外チーム、運営停止のリスクなし
+- 高性能な海外プロバイダー、海外チーム、運営停止のリスクなし
 - 専用リンクからの登録で 3 日間、毎日 1G のトラフィックを[無料でお試し](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - お得なプランは月額わずか 15.8 元、160G のトラフィック、年払いで 20% オフ
 - 世界初 `Hysteria2` プロトコル対応、クラスター負荷分散設計、高速専用線、超低遅延、夜間の混雑なし、4K 動画もスムーズ

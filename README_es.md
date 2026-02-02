@@ -11,7 +11,7 @@ Una GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> basada 
 
 [English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | Español | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Nota: Karing no ha abierto ningún canal relacionado con Karing en ninguna plataforma de video.
+### Nota: Karing no cuenta con canales oficiales en ninguna plataforma de video.
 
 ## Características
 - Compatible con suscripciones de Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
@@ -40,7 +40,7 @@ Una GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> basada 
 
 [Doggygo VPN —— Aceleración para expertos](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- Aeropuerto (ISP) de alto rendimiento en el extranjero, equipo internacional, sin riesgo de cierre.
+- Proveedor de VPN/Proxy de alto rendimiento en el extranjero, equipo internacional, sin riesgo de cierre.
 - El registro con enlace exclusivo otorga 3 días y 1G de tráfico diario [Prueba gratuita](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - Paquetes de descuento desde solo 15.8 yuanes al mes, 160G de tráfico, 20% de descuento en pago anual.
 - El primero en el mundo en soportar el protocolo `Hysteria2`, diseño de equilibrio de carga en clúster, línea dedicada de alta velocidad, latencia extremadamente baja, ignora picos nocturnos, 4K instantáneo.

@@ -11,7 +11,7 @@ Una GUI <a href="https://github.com/SagerNet/sing-box">singbox</a> basata su <a 
 
 [English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | Italiano | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Nota: Karing non ha aperto alcun canale relativo a Karing su nessuna piattaforma video.
+### Nota: Karing non dispone di canali ufficiali sulle piattaforme video.
 
 ## Caratteristiche
 - Compatibile con gli abbonamenti Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
@@ -40,7 +40,7 @@ Una GUI <a href="https://github.com/SagerNet/sing-box">singbox</a> basata su <a 
 
 [Doggygo VPN —— Accelerazione per esperti](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- ISP (Airport) ad alte prestazioni all'estero, team internazionale, nessun rischio di chiusura.
+- Fornitore VPN/Proxy ad alte prestazioni all'estero, team internazionale, nessun rischio di chiusura.
 - La registrazione tramite link esclusivo offre 3 giorni e 1 GB di traffico giornaliero [Prova gratuita](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Pacchetti a partire da soli 15,8 yuan al mese, 160 GB di traffico, sconto del 20% per il pagamento annual.
 - Il primo al mondo a supportare il protocollo `Hysteria2`, design di bilanciamento del carico cluster, linea dedicata ad alta velocità, latenza estremamente bassa, ignora i picchi notturni, 4K istantaneo.

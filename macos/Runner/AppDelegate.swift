@@ -3,7 +3,7 @@ import FlutterMacOS
 //https://github.com/buresdv/Cork/blob/8de118d07a7e9ddd503da91f3a7539ef1e0cb78c/Cork/AppDelegate.swift#L31
 @main
 class AppDelegate: FlutterAppDelegate {
-    var token: NSObjectProtocol! // disable App Nap
+    var token: NSObjectProtocol? // disable App Nap
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
     }

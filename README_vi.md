@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
-  Karing - Công cụ proxy đơn giản và mạnh mẽ
+  Karing - Tiện ích proxy đơn giản và mạnh mẽ
   <br>
 </h1>
 
@@ -11,7 +11,7 @@ Giao diện người dùng <a href="https://github.com/SagerNet/sing-box">singbo
 
 [English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | Tiếng Việt | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Lưu ý: Karing không mở bất kỳ kênh nào liên quan đến Karing trên bất kỳ nền tảng video nào.
+### Lưu ý: Karing không có bất kỳ kênh chính thức nào trên các nền tảng video.
 
 ## Tính năng
 - Tương thích với các đăng ký Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
@@ -40,7 +40,7 @@ Giao diện người dùng <a href="https://github.com/SagerNet/sing-box">singbo
 
 [Doggygo VPN —— Tăng tốc cho chuyên gia](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- Nhà cung cấp dịch vụ (Airport) hiệu suất cao ở nước ngoài, đội ngũ quốc tế, không có rủi ro đóng cửa.
+- Nhà cung cấp Proxy/VPN hiệu suất cao ở nước ngoài, đội ngũ quốc tế, không có rủi ro đóng cửa.
 - Đăng ký qua liên kết độc quyền được tặng 3 ngày và 1G lưu lượng hàng ngày [Dùng thử miễn phí](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Các gói cước chỉ từ 15.8 nhân dân tệ mỗi tháng, 160G lưu lượng, giảm giá 20% khi thanh toán hàng năm.
 - Đầu tiên trên thế giới hỗ trợ giao thức `Hysteria2`, thiết kế cân bằng tải cụm, đường truyền chuyên dụng tốc độ cao, độ trễ cực thấp, không lo giờ cao điểm, xem 4K mượt mà.

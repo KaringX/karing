@@ -133,7 +133,7 @@ class _TranslationsAboutScreenVi implements TranslationsAboutScreenEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'Nguồn cài đặt';
+	@override String get installRefer => 'Mã giới thiệu cài đặt';
 	@override String get installTime => 'Thời gian cài đặt';
 	@override String get versionChannel => 'Kênh cập nhật tự động';
 	@override String get autoDownloadPkg => 'Tự động tải gói cập nhật';
@@ -757,8 +757,8 @@ class _TranslationsMetaVi implements TranslationsMetaEn {
 	@override String get ads => 'Quảng cáo';
 	@override String get adsRemove => 'Gỡ quảng cáo';
 	@override String get donate => 'Quyên góp';
-	@override String get diversion => 'Phân luồng';
-	@override String get diversionRules => 'Quy tắc phân luồng';
+	@override String get diversion => 'Định tuyến';
+	@override String get diversionRules => 'Quy tắc định tuyến';
 	@override String get diversionCustomGroup => 'Nhóm phân luồng tùy chỉnh';
 	@override String get urlTestCustomGroup => 'Tự động chọn tùy chỉnh';
 	@override String get setting => 'Cài đặt';
@@ -934,7 +934,7 @@ class _TranslationsMainTrayVi implements TranslationsMainTrayEn {
 extension on TranslationsVi {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'Nguồn cài đặt',
+			'AboutScreen.installRefer' => 'Mã giới thiệu cài đặt',
 			'AboutScreen.installTime' => 'Thời gian cài đặt',
 			'AboutScreen.versionChannel' => 'Kênh cập nhật tự động',
 			'AboutScreen.autoDownloadPkg' => 'Tự động tải gói cập nhật',
@@ -1370,8 +1370,8 @@ extension on TranslationsVi {
 			'meta.ads' => 'Quảng cáo',
 			'meta.adsRemove' => 'Gỡ quảng cáo',
 			'meta.donate' => 'Quyên góp',
-			'meta.diversion' => 'Phân luồng',
-			'meta.diversionRules' => 'Quy tắc phân luồng',
+			'meta.diversion' => 'Định tuyến',
+			'meta.diversionRules' => 'Quy tắc định tuyến',
 			'meta.diversionCustomGroup' => 'Nhóm phân luồng tùy chỉnh',
 			'meta.urlTestCustomGroup' => 'Tự động chọn tùy chỉnh',
 			'meta.setting' => 'Cài đặt',

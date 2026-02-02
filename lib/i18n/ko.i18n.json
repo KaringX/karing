@@ -1,6 +1,6 @@
 {
     "AboutScreen": {
-        "installRefer": "설치 참조",
+        "installRefer": "설치 리퍼러",
         "installTime": "설치 시간",
         "versionChannel": "자동 업데이트 채널",
         "autoDownloadPkg": "업데이트 패키지 자동 다운로드",
@@ -479,9 +479,9 @@
         "server": "서버",
         "ads": "광고",
         "adsRemove": "광고 제거",
-        "donate": "기부",
-        "diversion": "분류",
-        "diversionRules": "분류 규칙",
+        "donate": "후원",
+        "diversion": "라우팅",
+        "diversionRules": "라우팅 규칙",
         "diversionCustomGroup": "사용자 정의 분류 그룹",
         "urlTestCustomGroup": "사용자 정의 자동 선택",
         "setting": "설정",

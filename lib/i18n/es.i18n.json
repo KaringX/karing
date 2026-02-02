@@ -1,6 +1,6 @@
 {
     "AboutScreen": {
-        "installRefer": "Referencia de instalación",
+        "installRefer": "Referente de instalación",
         "installTime": "Hora de instalación",
         "versionChannel": "Canal de actualización automática",
         "autoDownloadPkg": "Descargar paquetes de actualización automáticamente",
@@ -479,9 +479,9 @@
         "server": "Servidor",
         "ads": "Anuncios",
         "adsRemove": "Eliminar anuncios",
-        "donate": "Donar",
-        "diversion": "Desvío",
-        "diversionRules": "Reglas de desvío",
+        "donate": "Donaciones",
+        "diversion": "Enrutamiento",
+        "diversionRules": "Reglas de enrutamiento",
         "diversionCustomGroup": "Grupo de desvío personalizado",
         "urlTestCustomGroup": "Selección automática personalizada",
         "setting": "Ajustes",

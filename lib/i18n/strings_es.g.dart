@@ -133,7 +133,7 @@ class _TranslationsAboutScreenEs implements TranslationsAboutScreenEn {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'Referencia de instalación';
+	@override String get installRefer => 'Referente de instalación';
 	@override String get installTime => 'Hora de instalación';
 	@override String get versionChannel => 'Canal de actualización automática';
 	@override String get autoDownloadPkg => 'Descargar paquetes de actualización automáticamente';
@@ -756,9 +756,9 @@ class _TranslationsMetaEs implements TranslationsMetaEn {
 	@override String get server => 'Servidor';
 	@override String get ads => 'Anuncios';
 	@override String get adsRemove => 'Eliminar anuncios';
-	@override String get donate => 'Donar';
-	@override String get diversion => 'Desvío';
-	@override String get diversionRules => 'Reglas de desvío';
+	@override String get donate => 'Donaciones';
+	@override String get diversion => 'Enrutamiento';
+	@override String get diversionRules => 'Reglas de enrutamiento';
 	@override String get diversionCustomGroup => 'Grupo de desvío personalizado';
 	@override String get urlTestCustomGroup => 'Selección automática personalizada';
 	@override String get setting => 'Ajustes';
@@ -934,7 +934,7 @@ class _TranslationsMainTrayEs implements TranslationsMainTrayEn {
 extension on TranslationsEs {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'Referencia de instalación',
+			'AboutScreen.installRefer' => 'Referente de instalación',
 			'AboutScreen.installTime' => 'Hora de instalación',
 			'AboutScreen.versionChannel' => 'Canal de actualización automática',
 			'AboutScreen.autoDownloadPkg' => 'Descargar paquetes de actualización automáticamente',
@@ -1369,9 +1369,9 @@ extension on TranslationsEs {
 			'meta.server' => 'Servidor',
 			'meta.ads' => 'Anuncios',
 			'meta.adsRemove' => 'Eliminar anuncios',
-			'meta.donate' => 'Donar',
-			'meta.diversion' => 'Desvío',
-			'meta.diversionRules' => 'Reglas de desvío',
+			'meta.donate' => 'Donaciones',
+			'meta.diversion' => 'Enrutamiento',
+			'meta.diversionRules' => 'Reglas de enrutamiento',
 			'meta.diversionCustomGroup' => 'Grupo de desvío personalizado',
 			'meta.urlTestCustomGroup' => 'Selección automática personalizada',
 			'meta.setting' => 'Ajustes',

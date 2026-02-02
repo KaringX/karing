@@ -133,7 +133,7 @@ class _TranslationsAboutScreenKo implements TranslationsAboutScreenEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => '설치 참조';
+	@override String get installRefer => '설치 리퍼러';
 	@override String get installTime => '설치 시간';
 	@override String get versionChannel => '자동 업데이트 채널';
 	@override String get autoDownloadPkg => '업데이트 패키지 자동 다운로드';
@@ -756,9 +756,9 @@ class _TranslationsMetaKo implements TranslationsMetaEn {
 	@override String get server => '서버';
 	@override String get ads => '광고';
 	@override String get adsRemove => '광고 제거';
-	@override String get donate => '기부';
-	@override String get diversion => '분류';
-	@override String get diversionRules => '분류 규칙';
+	@override String get donate => '후원';
+	@override String get diversion => '라우팅';
+	@override String get diversionRules => '라우팅 규칙';
 	@override String get diversionCustomGroup => '사용자 정의 분류 그룹';
 	@override String get urlTestCustomGroup => '사용자 정의 자동 선택';
 	@override String get setting => '설정';
@@ -934,7 +934,7 @@ class _TranslationsMainTrayKo implements TranslationsMainTrayEn {
 extension on TranslationsKo {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => '설치 참조',
+			'AboutScreen.installRefer' => '설치 리퍼러',
 			'AboutScreen.installTime' => '설치 시간',
 			'AboutScreen.versionChannel' => '자동 업데이트 채널',
 			'AboutScreen.autoDownloadPkg' => '업데이트 패키지 자동 다운로드',
@@ -1369,9 +1369,9 @@ extension on TranslationsKo {
 			'meta.server' => '서버',
 			'meta.ads' => '광고',
 			'meta.adsRemove' => '광고 제거',
-			'meta.donate' => '기부',
-			'meta.diversion' => '분류',
-			'meta.diversionRules' => '분류 규칙',
+			'meta.donate' => '후원',
+			'meta.diversion' => '라우팅',
+			'meta.diversionRules' => '라우팅 규칙',
 			'meta.diversionCustomGroup' => '사용자 정의 분류 그룹',
 			'meta.urlTestCustomGroup' => '사용자 정의 자동 선택',
 			'meta.setting' => '설정',

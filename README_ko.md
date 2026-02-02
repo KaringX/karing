@@ -11,7 +11,7 @@
 
 [English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | 한국어 | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### 참고: Karing은 어떤 영상 플랫폼에서도 Karing 관련 채널을 개설하지 않았습니다.
+### 참고: Karing은 어떠한 영상 플랫폼에서도 공식 채널을 운영하고 있지 않습니다.
 
 ## 주요 기능
 - Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github 구독과 호환됩니다.
@@ -36,17 +36,17 @@
 <details>
 <summary>모든 홍보 보기
 
-### 추천 공항 (ISP)
+### 추천 VPN/프록시 업체
 
-[Doggygo VPN —— 기술 중심 공항](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— 기술 중심의 고성능 업체](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- 고성능 해외 공항, 해외 팀 운영, 서비스 중단 위험 없음
+- 고성능 해외 업체, 해외 팀 운영, 서비스 중단 위험 없음
 - 전용 링크로 가입 시 3일간 매일 1G 트래픽 [무료 체험](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - 실속형 패키지 월 15.8위안부터, 160G 트래픽, 연 결제 시 20% 할인
 - 세계 최초 `Hysteria2` 프로토콜 지원, 클러스터 부하 분산 설계, 고속 전용선, 초저지연, 피크 시간대 끊김 없음, 4K 즉시 재생
 - 스트리밍 서비스 및 ChatGPT 차단 해제
 
-[👉더 많은 공항 혜택 매일 업데이트](https://1.x31415926.top/)
+[👉더 많은 업체 혜택 매일 업데이트](https://1.x31415926.top/)
 
 </summary>
 

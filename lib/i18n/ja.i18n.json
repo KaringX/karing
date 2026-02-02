@@ -1,6 +1,6 @@
 {
     "AboutScreen": {
-        "installRefer": "インストール参照",
+        "installRefer": "インストールリファラー",
         "installTime": "インストール時間",
         "versionChannel": "自動更新チャネル",
         "autoDownloadPkg": "更新パッケージを自動的にダウンロードする",
@@ -480,8 +480,8 @@
         "ads": "広告",
         "adsRemove": "広告を削除",
         "donate": "寄付",
-        "diversion": "分流",
-        "diversionRules": "分流ルール",
+        "diversion": "ルーティング",
+        "diversionRules": "ルーティングルール",
         "diversionCustomGroup": "カスタム分流グループ",
         "urlTestCustomGroup": "カスタム自動選択",
         "setting": "設定",

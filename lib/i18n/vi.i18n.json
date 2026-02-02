@@ -1,6 +1,6 @@
 {
     "AboutScreen": {
-        "installRefer": "Nguồn cài đặt",
+        "installRefer": "Mã giới thiệu cài đặt",
         "installTime": "Thời gian cài đặt",
         "versionChannel": "Kênh cập nhật tự động",
         "autoDownloadPkg": "Tự động tải gói cập nhật",
@@ -480,8 +480,8 @@
         "ads": "Quảng cáo",
         "adsRemove": "Gỡ quảng cáo",
         "donate": "Quyên góp",
-        "diversion": "Phân luồng",
-        "diversionRules": "Quy tắc phân luồng",
+        "diversion": "Định tuyến",
+        "diversionRules": "Quy tắc định tuyến",
         "diversionCustomGroup": "Nhóm phân luồng tùy chỉnh",
         "urlTestCustomGroup": "Tự động chọn tùy chỉnh",
         "setting": "Cài đặt",

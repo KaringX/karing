@@ -133,7 +133,7 @@ class _TranslationsAboutScreenFr implements TranslationsAboutScreenEn {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'Référence d\'installation';
+	@override String get installRefer => 'Référent d\'installation';
 	@override String get installTime => 'Heure d\'installation';
 	@override String get versionChannel => 'Canal de mise à jour automatique';
 	@override String get autoDownloadPkg => 'Téléchargement automatique des packages de mise à jour';
@@ -757,8 +757,8 @@ class _TranslationsMetaFr implements TranslationsMetaEn {
 	@override String get ads => 'Publicités';
 	@override String get adsRemove => 'Supprimer les publicités';
 	@override String get donate => 'Faire un don';
-	@override String get diversion => 'Diversion';
-	@override String get diversionRules => 'Règles de diversion';
+	@override String get diversion => 'Routage';
+	@override String get diversionRules => 'Règles de routage';
 	@override String get diversionCustomGroup => 'Groupe de diversion personnalisé';
 	@override String get urlTestCustomGroup => 'Sélection automatique personnalisée';
 	@override String get setting => 'Paramètres';
@@ -934,7 +934,7 @@ class _TranslationsMainTrayFr implements TranslationsMainTrayEn {
 extension on TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'Référence d\'installation',
+			'AboutScreen.installRefer' => 'Référent d\'installation',
 			'AboutScreen.installTime' => 'Heure d\'installation',
 			'AboutScreen.versionChannel' => 'Canal de mise à jour automatique',
 			'AboutScreen.autoDownloadPkg' => 'Téléchargement automatique des packages de mise à jour',
@@ -1370,8 +1370,8 @@ extension on TranslationsFr {
 			'meta.ads' => 'Publicités',
 			'meta.adsRemove' => 'Supprimer les publicités',
 			'meta.donate' => 'Faire un don',
-			'meta.diversion' => 'Diversion',
-			'meta.diversionRules' => 'Règles de diversion',
+			'meta.diversion' => 'Routage',
+			'meta.diversionRules' => 'Règles de routage',
 			'meta.diversionCustomGroup' => 'Groupe de diversion personnalisé',
 			'meta.urlTestCustomGroup' => 'Sélection automatique personnalisée',
 			'meta.setting' => 'Paramètres',
