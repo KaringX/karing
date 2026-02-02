@@ -36,8 +36,17 @@ class _LanguageSettingsScreenState
 
   @override
   void initState() {
+    _langData.addAll([
+      AppLocale.en,
+      AppLocale.zhCn,
+      AppLocale.zhTw,
+      AppLocale.ru,
+      AppLocale.fr,
+    ]);
     for (var locale in AppLocale.values) {
-      _langData.add(locale);
+      if (!_langData.contains(locale)) {
+        _langData.add(locale);
+      }
     }
 
     _searchedData = _langData;
