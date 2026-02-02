@@ -47,6 +47,8 @@ adidas
 adidas@cn
 adjust-ads
 adjust-ads@ads
+adjust
+adjust@ads
 adobe-activation
 adobe-ads
 adobe-ads@ads
@@ -225,6 +227,7 @@ bmw@cn
 boboporn
 boc
 boc@!cn
+bohemia
 bongacams
 booking
 booking@cn
@@ -317,6 +320,7 @@ category-cryptocurrency@cn
 category-ddns
 category-dev-cn
 category-dev-cn@!cn
+category-dev-cn@ads
 category-dev-cn@cn
 category-dev
 category-dev@ads
@@ -433,6 +437,7 @@ cbs
 ccb
 ccb@!cn
 cctv
+cctv@ads
 cdn77
 ceno
 cerebras
@@ -469,6 +474,8 @@ clearasil
 clearasil@cn
 clearbit-ads
 clearbit-ads@ads
+clearbit
+clearbit@ads
 clearbitjs-ads
 clearbitjs-ads@ads
 clips4sale
@@ -639,6 +646,7 @@ embl
 emogi-ads
 emogi-ads@ads
 emojipedia
+eneba
 enfa
 entermediadb
 entrust
@@ -1057,6 +1065,7 @@ linux
 linuxdo
 lisiku
 litv
+liveperson
 lizhi
 lkcoffee
 localbitcoins
@@ -1064,6 +1073,8 @@ localizejs
 logitech
 londonreal
 longbridge
+louisvuitton
+louisvuitton@cn
 lowiro
 ltn
 lumion
@@ -1242,6 +1253,8 @@ oan
 oculus
 ogury-ads
 ogury-ads@ads
+ogury
+ogury@ads
 ok
 okaapps
 okaapps@cn
@@ -1273,6 +1286,8 @@ openweather
 openwrt
 openx-ads
 openx-ads@ads
+openx
+openx@ads
 oppo
 oppo@!cn
 oracle
@@ -1352,6 +1367,7 @@ proquest
 protonmail
 pstorage
 ptt
+pubg
 pubmatic-ads
 pubmatic-ads@ads
 pubmatic
@@ -1451,6 +1467,8 @@ sectigo
 sectigo@cn
 segment-ads
 segment-ads@ads
+segment
+segment@ads
 segmentfault
 sehuatang
 sensorsdata-ads
@@ -1533,6 +1551,7 @@ st@cn
 stackexchange
 stackpath
 stage1st
+standardchartered
 starbucks
 starbucks@cn
 starfieldtech
@@ -1542,6 +1561,7 @@ starworld
 staticfile
 steam
 steam@cn
+steaminventoryhelper
 steamunlocked
 steemit
 sto-express
@@ -1558,6 +1578,8 @@ suning
 supercell
 supersonic-ads
 supersonic-ads@ads
+supersonic
+supersonic@ads
 surflite
 suruga-ya
 svp
@@ -1608,6 +1630,7 @@ tencent@!cn
 tencent@ads
 tencent@cn
 tendcloud
+tendcloud@ads
 terabox
 termux
 tesla
@@ -1701,6 +1724,8 @@ unity-ads
 unity-ads@ads
 unity
 unity@ads
+unitychina
+unitychina@ads
 upai
 usersdrive
 uu-chat
@@ -1816,6 +1841,7 @@ xiaohongshu
 xiaomi-ads
 xiaomi-ads@ads
 xiaomi-ai
+xiaomi-iot
 xiaomi
 xiaomi@!cn
 xiaomi@ads
@@ -1849,6 +1875,7 @@ youjizz
 youku-ads
 youku-ads@ads
 youku
+youmind
 youporn
 youquan
 youtube
