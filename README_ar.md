@@ -1,3 +1,5 @@
+<div align="right" dir="rtl">
+
 <h1 align="center">
   <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
@@ -6,52 +8,54 @@
 </h1>
 
 <h3 align="center">
-واجهة رسومية لـ <a href="https://github.com/SagerNet/sing-box">sing-box</a> تعتمد على <a href="https://github.com/flutter/flutter">flutter</a>.
+واجهة مستخدم رسومية لـ <a href="https://github.com/SagerNet/sing-box">singbox</a> تعتمد على <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | العربية | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+<p align="center">
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | العربية | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
+</p>
 
-### Note: لم يفتح Karing أي قناة تتعلق بـ Karing على أي منصة فيديو.
+### ملاحظة: لم يقم Karing بفتح أي قناة متعلقة بـ Karing على أي منصة فيديو.
 
-## الميزات
+## المميزات
 - متوافق مع اشتراكات Clash و V2ray/V2fly و Sing-box و Shadowsocks و Sub و Github.
-  - دعم كامل لتكوين `clash` ، ودعم جزئي لتكوين `clash.meta`.
+  - دعم كامل لتكوين `clash` ودعم جزئي لتكوين `clash.meta`.
 
 - مجموعة من قواعد التوجيه المطبقة على مصادر اشتراك متعددة تختار تلقائيًا العقد الفعالة.
 - يدعم مجموعات قواعد التوجيه المخصصة ومجموعات العقد.
-  - يخصص مجموعات قواعد التوجيه الافتراضية للمستخدمين المبتدئين - جاهز للاستخدام فور إخراجه من الصندوق.
-  - دعم مدمج لـ geo-IP و geo-site و ACL و [مجموعات القواعد الأخرى](https://github.com/KaringX/karing-ruleset/).
+  - تخصيص مجموعات قواعد التوجيه الافتراضية للمستخدمين المبتدئين - جاهز للاستخدام فورًا.
+  - مدمج مع geo-IP و geo-site و ACL و [مجموعات القواعد الأخرى](https://github.com/KaringX/karing-ruleset/).
 
-- النسخ الاحتياطي والمزامنة ، مزامنة أجهزة متعددة بتكوين واحد.
+- النسخ الاحتياطي والمزامنة، مزامنة أجهزة متعددة بتكوين واحد.
   - يدعم مزامنة iCloud [IOS/MacOS].
   - يدعم المزامنة داخل الشبكة المحلية.
   - يدعم WebDAV.
   - يدعم استيراد/تصدير ملفات ZIP.
 
 - دعم مدمج لـ [نواة sing-box المعدلة](https://github.com/KaringX/sing-box).
-- يقدم وضع المبتدئين لتكوين أبسط.
+- تقديم وضع المبتدئين لتكوين أبسط.
 - خطة لدعم المزيد من المنصات.
 
 ## ترويج
 <details>
-<summary>View all promotions
+<summary>عرض جميع العروض الترويجية
 
-### Recommend VPN
+### VPN الموصى به
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— تسريع للمحترفين](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- High-performance overseas airport, overseas team, no risk of running away
-- Exclusive link registration gives 3 days, 1G traffic per day [Free trial](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
-- Discount package is only 15.8 yuan per month, 160G traffic, 20% off for annual payment
-- The world's first to support `Hysteria2` protocol, cluster load balancing design, high-speed dedicated line, extremely low latency, ignore evening peak, 4K second open
-- Unlock streaming media and ChatGPT
+- مزود خدمة (Airport) عالي الأداء في الخارج، فريق دولي، لا يوجد خطر من الإغلاق.
+- التسجيل عبر رابط حصري يمنح 3 أيام و 1 جيجابايت من حركة المرور اليومية [تجربة مجانية](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- حزم مخفضة تبدأ من 15.8 يوان فقط شهريًا، 160 جيجابايت من حركة المرور، خصم 20% للدفع السنوي.
+- الأول في العالم الذي يدعم بروتوكول `Hysteria2` ، تصميم موازنة تحميل المجموعة، خط مخصص عالي السرعة، زمن وصول منخفض للغاية، يتجاهل ذروة الليل، فتح 4K فوري.
+- يفتح وسائط البث و ChatGPT.
 
-[👉More airport discounts updated daily](https://1.x31415926.top/)
+[👉 المزيد من العروض المحدثة يوميًا](https://1.x31415926.top/)
 
 </summary>
 
-### 🤝VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+### 🤝 إعلان تعاون لمزودي VPN
+- 👉 [معلومات الاتصال ونماذج التعاون](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions) 👈
 </details>
 
 ## متطلبات النظام
@@ -78,15 +82,15 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ### الأسئلة الشائعة (FAQ)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|ar](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
+## المهام القادمة (Todos)
+- المنصات التي سيتم دعمها:
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- العولمة (متعدد اللغات)
+  - إذا كنت ترغب في العمل معنا لدعم عولمة Karing، يرجى الاتصال بنا عبر [Telegram](https://t.me/ovowe).
 
-## لقطات شاشة
+## لقطات الشاشة
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -105,11 +109,12 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 ## المساهمات
 [نرحب بالإبلاغ عن المشكلات!](https://github.com/KaringX/karing/issues)
 
-## التبرع
+## تبرع
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 ## المشاريع
-### شكر وتقدير: استند Karing إلى هذه المشاريع أو استلهم منها:
+### شكر وتقدير: تم بناء Karing بناءً على هذه المشاريع أو استلهامها منها:
+
 - [flutter](https://flutter.dev/): يجعل من السهل والسريع بناء تطبيقات جميلة للهاتف المحمول وما بعده.
 - [singbox](https://sing-box.sagernet.org/): منصة الوكيل العالمية.
 - [Meta-Docs](https://wiki.metacubex.one/config/): وثائق Clash.Meta
@@ -122,3 +127,5 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+
+</div>

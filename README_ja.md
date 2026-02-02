@@ -6,21 +6,21 @@
 </h1>
 
 <h3 align="center">
-<a href="https://github.com/flutter/flutter">flutter</a> ベースの <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI。
+<a href="https://github.com/flutter/flutter">flutter</a> ベースの <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI。
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日本語 | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日本語 | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: 
+### 注：Karing は、どの動画プラットフォームでも Karing 関連のチャンネルを開設していません
 
 ## 特徴
-- Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github サブスクリプションと互換性があります。
-  - 完全な `clash` 設定をサポート、一部の `clash.meta` 設定をサポート。
+- Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github サブスクリプションに対応。
+  - `clash` 設定を完全サポート、`clash.meta` 設定を一部サポート。
 
-- 複数のサブスクリプションソースに適用される一連のルーティングルールにより、効率的なノードを自動的に選択します。
+- 複数のサブスクリプションソースに適用される一連のルーティングルールにより、効率的なノードを自動的に選択。
 - カスタムルーティングルールグループとノードグループをサポート。
-  - 初心者ユーザー向けにデフォルトのルーティングルールグループをカスタマイズ - インストール後すぐに使用可能。
-  - 内蔵の geo-IP, geo-site, ACL、および [その他のルールセット](https://github.com/KaringX/karing-ruleset/) をサポート。
+  - 初心者向けのデフォルトルーティングルールグループをカスタマイズ - すぐに使用可能。
+  - geo-IP、geo-site、ACL、および[その他のルールセット](https://github.com/KaringX/karing-ruleset/)を内蔵。
 
 - バックアップと同期、単一の設定で複数のデバイスを同期。
   - iCloud 同期をサポート [IOS/MacOS]。
@@ -28,30 +28,30 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日�
   - WebDAV をサポート。
   - ZIP ファイルのインポート/エクスポートをサポート。
 
-- [カスタマイズされた sing-box コア](https://github.com/KaringX/sing-box) の内蔵サポート。
+- [カスタマイズされた sing-box コア](https://github.com/KaringX/sing-box)のサポートを内蔵。
 - より簡単な設定のためのビギナーモードを導入。
 - より多くのプラットフォームをサポートする計画。
 
 ## プロモーション
 <details>
-<summary>View all promotions
+<summary>すべてのプロモーションを表示
 
-### Recommend VPN
+### おすすめの空港（ISP）
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[狗狗加速 —— 技術流空港 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- High-performance overseas airport, overseas team, no risk of running away
-- Exclusive link registration gives 3 days, 1G traffic per day [Free trial](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
-- Discount package is only 15.8 yuan per month, 160G traffic, 20% off for annual payment
-- The world's first to support `Hysteria2` protocol, cluster load balancing design, high-speed dedicated line, extremely low latency, ignore evening peak, 4K second open
-- Unlock streaming media and ChatGPT
+- 高性能な海外空港、海外チーム、運営停止のリスクなし
+- 専用リンクからの登録で 3 日間、毎日 1G のトラフィックを[無料でお試し](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- お得なプランは月額わずか 15.8 元、160G のトラフィック、年払いで 20% オフ
+- 世界初 `Hysteria2` プロトコル対応、クラスター負荷分散設計、高速専用線、超低遅延、夜間の混雑なし、4K 動画もスムーズ
+- ストリーミングサービスおよび ChatGPT の制限解除
 
-[👉More airport discounts updated daily](https://1.x31415926.top/)
+[👉その他の空港特典 毎日更新](https://1.x31415926.top/)
 
 </summary>
 
-### 🤝VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+### 🤝VPN プロバイダー提携のお知らせ
+- 👉[お問い合わせ先と提携形態](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
 </details>
 
 ## システム要件
@@ -63,7 +63,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日�
 - TvOS >= 17
 
 ## インストール
-- **IOS/TvOS AppStore**: (検索キーワード: karing vpn)
+- **IOS/TvOS AppStore**: (検索キーワード：karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
@@ -76,15 +76,15 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日�
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
 
-### FAQ
+### よくある質問 (FAQ)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|ja](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
+## 予定 (Todos)
+- サポート予定のプラットフォーム：
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- グローバル化（多言語対応）
+  - Karing のグローバル化を支援していただける場合は、[Telegram](https://t.me/ovowe) までご連絡ください。
 
 ## スクリーンショット
 
@@ -103,18 +103,19 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | 日�
 </div>
 
 ## 貢献
-[バグ報告をお待ちしています！](https://github.com/KaringX/karing/issues)
+[イシューの報告を歓迎します！](https://github.com/KaringX/karing/issues)
 
 ## 寄付
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 ## プロジェクト
-### 謝辞: Karing は以下のプロジェクトに基づいているか、インスピレーションを受けています:
-- [flutter](https://flutter.dev/): モバイルやその他のための美しいアプリを簡単かつ迅速に構築できます。
+### 謝辞：Karing は以下のプロジェクトなどに基づいているか、インスピレーションを受けています：
+
+- [flutter](https://flutter.dev/): モバイルやその他のプラットフォーム向けの美しいアプリを簡単かつ迅速に構築できます。
 - [singbox](https://sing-box.sagernet.org/): ユニバーサルプロキシプラットフォーム。
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta ドキュメント
 
-### Karing チーム:
+### Karing チーム：
 - [Karing](https://karing.app): https://karing.app
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)

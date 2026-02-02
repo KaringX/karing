@@ -9,9 +9,9 @@
 Una GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> basada en <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | Español | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | Español | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: 
+### Nota: Karing no ha abierto ningún canal relacionado con Karing en ninguna plataforma de video.
 
 ## Características
 - Compatible con suscripciones de Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
@@ -34,24 +34,24 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ## Promoción
 <details>
-<summary>View all promotions
+<summary>Ver todas las promociones
 
-### Recommend VPN
+### VPN Recomendada
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Aceleración para expertos](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- High-performance overseas airport, overseas team, no risk of running away
-- Exclusive link registration gives 3 days, 1G traffic per day [Free trial](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
-- Discount package is only 15.8 yuan per month, 160G traffic, 20% off for annual payment
-- The world's first to support `Hysteria2` protocol, cluster load balancing design, high-speed dedicated line, extremely low latency, ignore evening peak, 4K second open
-- Unlock streaming media and ChatGPT
+- Aeropuerto (ISP) de alto rendimiento en el extranjero, equipo internacional, sin riesgo de cierre.
+- El registro con enlace exclusivo otorga 3 días y 1G de tráfico diario [Prueba gratuita](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- Paquetes de descuento desde solo 15.8 yuanes al mes, 160G de tráfico, 20% de descuento en pago anual.
+- El primero en el mundo en soportar el protocolo `Hysteria2`, diseño de equilibrio de carga en clúster, línea dedicada de alta velocidad, latencia extremadamente baja, ignora picos nocturnos, 4K instantáneo.
+- Desbloquea medios de streaming y ChatGPT.
 
-[👉More airport discounts updated daily](https://1.x31415926.top/)
+[👉 Más ofertas actualizadas diariamente](https://1.x31415926.top/)
 
 </summary>
 
-### 🤝VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+### 🤝 Anuncio de colaboración para proveedores de VPN
+- 👉 [Información de contacto y formas de cooperación](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions) 👈
 </details>
 
 ## Requisitos del sistema
@@ -78,13 +78,13 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ### Preguntas frecuentes (FAQ)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|es](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
+## Pendientes (Todos)
+- Plataformas que serán soportadas:
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- Globalización (multi-idioma)
+  - Si estás dispuesto a trabajar con nosotros para apoyar la globalización de Karing, contáctanos en [Telegram](https://t.me/ovowe).
 
 ## Capturas de pantalla
 
@@ -110,6 +110,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ## Proyectos
 ### Agradecimientos: Karing se basó o inspiró en estos proyectos:
+
 - [flutter](https://flutter.dev/): facilita y agiliza la creación de aplicaciones hermosas para móviles y más allá.
 - [singbox](https://sing-box.sagernet.org/): La plataforma de proxy universal.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Documentación de Clash.Meta

@@ -6,55 +6,55 @@
 </h1>
 
 <h3 align="center">
-Uma GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> baseada em <a href="https://github.com/flutter/flutter">flutter</a>.
+Uma GUI para <a href="https://github.com/SagerNet/sing-box">singbox</a> baseada em <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | Português | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | Português | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: 
+### Nota: O Karing não abriu nenhum canal relacionado ao Karing em nenhuma plataforma de vídeo.
 
-## Recursos
-- Compatível com assinaturas Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
-  - Suporte total para configuração `clash`, suporte parcial para configuração `clash.meta`.
+## Características
+- Compatível com subscrições Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
+  - Suporte completo para configuração `clash`, suporte parcial para configuração `clash.meta`.
 
-- Um conjunto de regras de roteamento aplicadas a várias fontes de assinatura seleciona automaticamente nós eficientes.
+- Um conjunto de regras de roteamento aplicado a múltiplas fontes de subscrição seleciona automaticamente os nós mais eficientes.
 - Suporta grupos de regras de roteamento personalizados e grupos de nós.
-  - Personaliza grupos de regras de roteamento padrão para usuários iniciantes - pronto para usar.
-  - Integração de geo-IP, geo-site, ACL e [outros conjuntos de regras](https://github.com/KaringX/karing-ruleset/).
+  - Personaliza grupos de regras de roteamento padrão para utilizadores iniciantes - pronto a usar.
+  - Inclui geo-IP, geo-site, ACL e [outros conjuntos de regras](https://github.com/KaringX/karing-ruleset/) integrados.
 
-- Backup e sincronização, sincronizando vários dispositivos com uma única configuração.
+- Cópia de segurança e sincronização, sincronizando múltiplos dispositivos com uma única configuração.
   - Suporta sincronização iCloud [IOS/MacOS].
   - Suporta sincronização dentro da rede local.
   - Suporta WebDAV.
-  - Suporta importação/exportação de arquivos ZIP.
+  - Suporta importação/exportação de ficheiros ZIP.
 
-- Suporte nativo para o [núcleo sing-box modificado](https://github.com/KaringX/sing-box).
-- Introduz um modo iniciante para uma configuração mais simples.
+- Suporte integrado para o [núcleo sing-box modificado](https://github.com/KaringX/sing-box).
+- Introduz um modo de iniciante para uma configuração mais simples.
 - Plano para suportar mais plataformas.
 
 ## Promoção
 <details>
-<summary>View all promotions
+<summary>Ver todas as promoções
 
-### Recommend VPN
+### VPN Recomendada
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Aceleração para especialistas](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- High-performance overseas airport, overseas team, no risk of running away
-- Exclusive link registration gives 3 days, 1G traffic per day [Free trial](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
-- Discount package is only 15.8 yuan per month, 160G traffic, 20% off for annual payment
-- The world's first to support `Hysteria2` protocol, cluster load balancing design, high-speed dedicated line, extremely low latency, ignore evening peak, 4K second open
-- Unlock streaming media and ChatGPT
+- Provedor (Airport) de alto desempenho no exterior, equipa internacional, sem risco de encerramento.
+- O registo através de link exclusivo oferece 3 dias e 1 GB de tráfego diário [Teste gratuito](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Pacotes de desconto a partir de apenas 15,8 yuans por mês, 160 GB de tráfego, 20% de desconto no pagamento anual.
+- O primeiro no mundo a suportar o protocolo `Hysteria2`, design de equilíbrio de carga em cluster, linha dedicada de alta velocidade, latência extremamente baixa, ignora picos noturnos, 4K instantâneo.
+- Desbloqueia media em streaming e ChatGPT.
 
-[👉More airport discounts updated daily](https://1.x31415926.top/)
+[👉 Mais ofertas atualizadas diariamente](https://1.x31415926.top/)
 
 </summary>
 
-### 🤝VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+### 🤝 Anúncio de colaboração para provedores de VPN
+- 👉 [Informações de contacto e formas de cooperação](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions) 👈
 </details>
 
-## Requisitos do sistema
+## Requisitos do Sistema
 - Windows >= 10 (apenas 64 bits)
 - Android >= 8 (arm64-v8a, armeabi-v7a)
 - Linux (apenas 64 bits)
@@ -63,7 +63,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 - TvOS >= 17
 
 ## Instalação
-- **IOS/TvOS AppStore**: (Palavras-chave de busca: karing vpn)
+- **IOS/TvOS AppStore**: (Palavras-chave de pesquisa: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
@@ -76,17 +76,17 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
 
-### FAQ
+### FAQ (Perguntas Frequentes)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|pt](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
+## Tarefas (Todos)
+- Plataformas a serem suportadas:
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- Globalização (multi-idioma)
+  - Se estiver disposto a trabalhar connosco para apoiar a globalização do Karing, por favor contacte-nos via [Telegram](https://t.me/ovowe).
 
-## Capturas de tela
+## Capturas de Ecrã
 
 <div align="center">
   <img src="./README_assets/demo/home.png" alt="demo1" width="50%" />
@@ -103,18 +103,19 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 </div>
 
 ## Contribuições
-[Bem-vindo a reportar problemas!](https://github.com/KaringX/karing/issues)
+[Bem-vindo a reportar erros!](https://github.com/KaringX/karing/issues)
 
 ## Doações
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 ## Projetos
-### Agradecimentos: O Karing baseou-se ou inspirou-se nestes projetos:
-- [flutter](https://flutter.dev/): torna fácil e rápido criar aplicativos bonitos para celular e além.
-- [singbox](https://sing-box.sagernet.org/): A plataforma de proxy universal.
-- [Meta-Docs](https://wiki.metacubex.one/config/): Documentação Clash.Meta
+### Agradecimentos: O Karing foi baseado ou inspirado nestes projetos:
 
-### Equipe Karing:
+- [flutter](https://flutter.dev/): torna fácil e rápido construir aplicações bonitas para telemóveis e não só.
+- [singbox](https://sing-box.sagernet.org/): A plataforma de proxy universal.
+- [Meta-Docs](https://wiki.metacubex.one/config/): Documentação do Clash.Meta
+
+### Equipa Karing:
 - [Karing](https://karing.app): https://karing.app
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)

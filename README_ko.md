@@ -1,36 +1,58 @@
 <h1 align="center">
   <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
-  Karing - 간단하고 강력한 프록시 유틸리티
+  Karing - 간편하고 강력한 프록시 유틸리티
   <br>
 </h1>
 
 <h3 align="center">
-<a href="https://github.com/flutter/flutter">flutter</a> 기반의 <a href="https://github.com/SagerNet/sing-box">sing-box</a> GUI.
+<a href="https://github.com/flutter/flutter">flutter</a> 기반의 <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI.
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | 한국어 | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | 한국어 | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: 
+### 참고: Karing은 어떤 영상 플랫폼에서도 Karing 관련 채널을 개설하지 않았습니다.
 
-## 특징
+## 주요 기능
 - Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github 구독과 호환됩니다.
-  - 전체 `clash` 설정 지원, 일부 `clash.meta` 설정 지원.
+  - `clash` 설정을 완벽하게 지원하며, `clash.meta` 설정은 부분적으로 지원합니다.
 
-- 여러 구독 소스에 적용되는 일련의 라우팅 규칙을 통해 효율적인 노드를 자동으로 선택합니다.
-- 사용자 정의 라우팅 규칙 그룹 및 노드 그룹 지원.
-  - 초보 사용자를 위한 기본 라우팅 규칙 그룹 사용자 정의 - 설치 즉시 사용 가능.
-  - 내장된 geo-IP, geo-site, ACL 및 [기타 규칙 세트](https://github.com/KaringX/karing-ruleset/) 지원.
+- 여러 구독 소스에 적용되는 라우팅 규칙 세트를 통해 효율적인 노드를 자동으로 선택합니다.
+- 사용자 정의 라우팅 규칙 그룹 및 노드 그룹을 지원합니다.
+  - 초보 사용자를 위해 기본 라우팅 규칙 그룹을 제공하여 즉시 사용이 가능합니다.
+  - geo-IP, geo-site, ACL 및 [기타 규칙 세트](https://github.com/KaringX/karing-ruleset/)가 내장되어 있습니다.
 
-- 백업 및 동기화, 단일 설정으로 여러 장치 동기화.
+- 백업 및 동기화 기능을 통해 단일 설정으로 여러 기기를 동기화할 수 있습니다.
   - iCloud 동기화 지원 [IOS/MacOS].
-  - 로컬 영역 네트워크 내 동기화 지원.
+  - 로컬 네트워크 내 동기화 지원.
   - WebDAV 지원.
   - ZIP 파일 가져오기/내보내기 지원.
 
-- [수정된 sing-box 코어](https://github.com/KaringX/sing-box) 기본 지원.
-- 더 간단한 구성을 위한 초보자 모드 도입.
-- 더 많은 플랫폼 지원 계획.
+- [수정된 sing-box 코어](https://github.com/KaringX/sing-box)를 기본적으로 지원합니다.
+- 더 쉬운 설정을 위한 초보자 모드를 도입했습니다.
+- 더 많은 플랫폼을 지원할 계획입니다.
+
+## 홍보
+<details>
+<summary>모든 홍보 보기
+
+### 추천 공항 (ISP)
+
+[Doggygo VPN —— 기술 중심 공항](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+
+- 고성능 해외 공항, 해외 팀 운영, 서비스 중단 위험 없음
+- 전용 링크로 가입 시 3일간 매일 1G 트래픽 [무료 체험](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- 실속형 패키지 월 15.8위안부터, 160G 트래픽, 연 결제 시 20% 할인
+- 세계 최초 `Hysteria2` 프로토콜 지원, 클러스터 부하 분산 설계, 고속 전용선, 초저지연, 피크 시간대 끊김 없음, 4K 즉시 재생
+- 스트리밍 서비스 및 ChatGPT 차단 해제
+
+[👉더 많은 공항 혜택 매일 업데이트](https://1.x31415926.top/)
+
+</summary>
+
+### 🤝VPN 제공업체 협력 공지
+- 👉[연락처 및 협력 방식](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+</details>
 
 ## 시스템 요구 사항
 - Windows >= 10 (64비트 전용)
@@ -56,13 +78,13 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ### 자주 묻는 질문 (FAQ)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|ko](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
+## 할 일 (Todos)
+- 지원 예정 플랫폼:
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- 세계화 (다국어 지원)
+  - Karing의 세계화를 돕고 싶으신 분은 [Telegram](https://t.me/ovowe)으로 연락주세요.
 
 ## 스크린샷
 
@@ -81,15 +103,16 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 </div>
 
 ## 기여
-[버그 보고를 환영합니다!](https://github.com/KaringX/karing/issues)
+[이슈 제보를 환영합니다!](https://github.com/KaringX/karing/issues)
 
-## 기부
+## 후원
 ![donate](./README_assets/img/donate-usdt.jpg)
 
 ## 프로젝트
-### 감사 인사: Karing은 다음 프로젝트를 기반으로 하거나 영감을 받았습니다:
-- [flutter](https://flutter.dev/): 모바일 및 그 이상의 플랫폼을 위한 아름다운 앱을 쉽고 빠르게 구축할 수 있게 해줍니다.
-- [singbox](https://sing-box.sagernet.org/): 유니버설 프록시 플랫폼.
+### 감사 인사: Karing은 다음 프로젝트들을 기반으로 하거나 영감을 받았습니다:
+
+- [flutter](https://flutter.dev/): 모바일 및 다양한 플랫폼을 위한 아름다운 앱을 쉽고 빠르게 구축할 수 있게 해줍니다.
+- [singbox](https://sing-box.sagernet.org/): 범용 프록시 플랫폼.
 - [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta 문서
 
 ### Karing 팀:

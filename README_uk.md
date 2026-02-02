@@ -1,40 +1,57 @@
 <h1 align="center">
   <img src="./README_assets/img/mascot.jpg" alt="Karing" width="256" />
   <br>
-  Karing - Проста та потужна утиліта проксі
+  Karing - Простий і потужний проксі-інструмент
   <br>
 </h1>
 
 <h3 align="center">
-Графічний інтерфейс для <a href="https://github.com/SagerNet/sing-box">sing-box</a> на основі <a href="https://github.com/flutter/flutter">flutter</a>.
+Графічний інтерфейс для <a href="https://github.com/SagerNet/sing-box">singbox</a> на базі <a href="https://github.com/flutter/flutter">flutter</a>.
 </h3>
 
-English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | Українська | [Polski](./README_pl.md)
+[English](./README.md) | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فарسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | Українська | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: 
+### Примітка: Karing не відкривав жодних каналів, пов'язаних з Karing, на жодній відеоплатформі.
 
-## Features
+## Особливості
+- Сумісність з підписками Clash, V2ray/V2fly, Sing-box, Shadowsocks, Sub, Github.
+  - Повна підтримка конфігурації `clash`, часткова підтримка конфігурації `clash.meta`.
 
-## Просування
+- Набір правил маршрутизації, застосований до кількох джерел підписки, автоматично вибирає ефективні вузли.
+- Підтримка настроюваних груп правил маршрутизації та груп вузлів.
+  - Налаштування груп правил маршрутизації за замовчуванням для початківців - готово до використання відразу після встановлення.
+  - Вбудовані geo-IP, geo-site, ACL та [інші набори правил](https://github.com/KaringX/karing-ruleset/).
+
+- Резервне копіювання та синхронізація, синхронізація кількох пристроїв з однією конфігурацією.
+  - Підтримка синхронізації iCloud [IOS/MacOS].
+  - Підтримка синхронізації в локальній мережі.
+  - Підтримка WebDAV.
+  - Підтримка імпорту/експорту ZIP-файлів.
+
+- Вбудована підтримка [модифікованого ядра sing-box](https://github.com/KaringX/sing-box).
+- Наявність режиму для новачків для простішого налаштування.
+- Плани щодо підтримки більшої кількості платформ.
+
+## Реклама
 <details>
-<summary>View all promotions
+<summary>Переглянути всі акції
 
-### Recommend VPN
+### Рекомендований VPN
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Прискорення для експертів](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
-- High-performance overseas airport, overseas team, no risk of running away
-- Exclusive link registration gives 3 days, 1G traffic per day [Free trial](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
-- Discount package is only 15.8 yuan per month, 160G traffic, 20% off for annual payment
-- The world's first to support `Hysteria2` protocol, cluster load balancing design, high-speed dedicated line, extremely low latency, ignore evening peak, 4K second open
-- Unlock streaming media and ChatGPT
+- Високопродуктивний закордонний провайдер (Airport), міжнародна команда, відсутність ризику закриття.
+- Реєстрація за ексклюзивним посиланням дає 3 дні та 1 ГБ щоденного трафіку [Безкоштовна пробна версія](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Пакети зі знижкою всього від 15,8 юанів на місяць, 160 ГБ трафіку, знижка 20% при річній оплаті.
+- Перший у світі з підтримкою протоколу `Hysteria2`, конструкція балансування навантаження кластера, високошвидкісна виділена лінія, надзвичайно низька затримка, ігнорує нічні піки, миттєве 4K.
+- Розблоковує потокові мультимедіа та ChatGPT.
 
-[👉More airport discounts updated daily](https://1.x31415926.top/)
+[👉 Більше пропозицій, що оновлюються щодня](https://1.x31415926.top/)
 
 </summary>
 
-### 🤝VPN Providers Collaboration Announcement
-- 👉[Contact information and forms of cooperation](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
+### 🤝 Оголошення про співпрацю для VPN-провайдерів
+- 👉 [Контактна інформація та форми співпраці](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions) 👈
 </details>
 
 ## Системні вимоги
@@ -46,7 +63,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 - TvOS >= 17
 
 ## Встановлення
-- **IOS/TvOS AppStore**: (Пошукові запити: karing vpn)
+- **IOS/TvOS AppStore**: (Ключові слова для пошуку: karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
@@ -59,15 +76,15 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
 
-### FAQ
+### FAQ (Часті запитання)
 
-> [FAQ|en](https://karing.app/en/faq/)
+> [FAQ|uk](https://karing.app/en/faq/)
 
-## Плани
-- Platform to be supported:
+## Плани (Todos)
+- Платформи, що будуть підтримуватися:
   - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
+- Глобалізація (багатомовність)
+  - Якщо ви готові працювати з нами над підтримкою глобалізації Karing, будь ласка, зв'яжіться з нами через [Telegram](https://t.me/ovowe).
 
 ## Скріншоти
 
@@ -86,16 +103,17 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 </div>
 
 ## Внесок
-[Ласкаво просимо повідомляти про проблеми!](https://github.com/KaringX/karing/issues)
+[Ми вітаємо повідомлення про помилки!](https://github.com/KaringX/karing/issues)
 
-## Донат
+## Пожертвувати
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-## Проекти
-### Подяка: Karing базується на цих проектах або натхненний ними:
-- [flutter](https://flutter.dev/): дозволяє легко та швидко створювати красиві додатки для мобільних пристроїв та інших платформ.
-- [singbox](https://sing-box.sagernet.org/): Універсальна проксі-платформа.
-- [Meta-Docs](https://wiki.metacubex.one/config/): Документація Clash.Meta
+## Проєкти
+### Подяка: Karing базується на цих проєктах або натхненний ними:
+
+- [flutter](https://flutter.dev/): дозволяє легко і швидко створювати красиві додатки для мобільних пристроїв та інших платформ.
+- [singbox](https://sing-box.sagernet.org/): універсальна проксі-платформа.
+- [Meta-Docs](https://wiki.metacubex.one/config/): документація Clash.Meta
 
 ### Команда Karing:
 - [Karing](https://karing.app): https://karing.app

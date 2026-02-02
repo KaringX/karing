@@ -9,30 +9,34 @@
 一个基于 <a href="https://github.com/flutter/flutter">flutter</a> 的 <a href="https://github.com/SagerNet/sing-box">singbox</a> 图形用户界面。
 </h3>
 
-English | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md)
+[English](./README.md) | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_ja.md) | [한국어](./README_ko.md) | [Español](./README_es.md) | [Français](./README_fr.md) | [Deutsch](./README_de.md) | [Italiano](./README_it.md) | [Tiếng Việt](./README_vi.md) | [Türkçe](./README_tr.md) | [Русский](./README_ru.md) | [فارسی](./README_fa.md) | [العربية](./README_ar.md) | [Português](./README_pt.md) | [Українська](./README_uk.md) | [Polski](./README_pl.md) | [اردو](./README_ur.md) | [Svenska](./README_sv.md) | [Norsk](./README_no.md) | [Nederlands](./README_nl.md) | [हिन्दी](./README_hi.md) | [Ελληνικά](./README_el.md) | [Dansk](./README_da.md) | [বাংলা](./README_bn.md)
 
-### Note: - **Karing未在任何视频平台开设过有关Karing的任何频道**
+### 注意：Karing 未在任何视频平台开设过有关 Karing 的任何频道
 - **官方网站: https://karing.app**
 ## 特点
 - 兼容 Clash、V2ray/V2fly、Sing-box、Shadowsocks、Sub、Github 订阅。
   - 完全支持 `clash` 配置，部分支持 `clash.meta` 配置。
-- 一套路由规则应用于多个订阅源, 自动选择高效节点。
-- 支持自定义路由规则组、节点组
+
+- 一套路由规则应用于多个订阅源，自动选择高效节点。
+- 支持自定义路由规则组和节点组。
   - 为小白用户定制默认路由规则组 - 开箱即用。
-  - 内置 geo-ip、geo-site、acl等[规则集](https://github.com/KaringX/karing-ruleset/)
-- 备份和同步, 一次配置多设备同步
-  - 支持局域网内同步
-  - 支持Webdav
-  - 支持zip文件导入/导出
-- 内置支持 [魔改版 singbox](https://github.com/KaringX/sing-box) 核心。
-- 增加新手模式 配置更简单。
-- 计划支持所有平台。
+  - 内置 geo-IP、geo-site、ACL 和[其他规则集](https://github.com/KaringX/karing-ruleset/)
+
+- 备份和同步，一次配置多设备同步。
+  - 支持 iCloud 同步 [IOS/MacOS]。
+  - 支持局域网内同步。
+  - 支持 WebDAV。
+  - 支持导入/导出 ZIP 文件。
+
+- 内置支持[魔改版 sing-box 核心](https://github.com/KaringX/sing-box)。
+- 增加新手模式，配置更简单。
+- 计划支持更多平台。
 
 ## 推广
 <details>
 <summary>查看所有推广
 
-### ✈️推荐机场
+### 推荐机场
 
 [狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
@@ -46,20 +50,20 @@ English | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_j
 
 </summary>
 
-### 🤝机场合作招募
-- 👉[联系方式与合作形式](https://karing.app/blog/isp/cooperation)👈
+### 🤝VPN 提供商合作公告
+- 👉[联系方式与合作形式](https://karing.app/blog/isp/cooperation#for-vpn-providers-from-other-regions)👈
 </details>
 
 ## 系统要求
-- Windows >= 10 （仅支持64位）
-- Android >= 8  (arm64-v8a, armeabi-v7a)
-- Linux （仅支持64位）
+- Windows >= 10 (仅限 64 位)
+- Android >= 8 (arm64-v8a, armeabi-v7a)
+- Linux (仅限 64 位)
 - IOS >= 15
 - MacOS >= 12 (Intel, Apple Silicon)
 - TvOS >= 17
 
 ## 安装
-- **IOS/TvOS AppStore**: （搜索关键词：karing vpn）
+- **IOS/TvOS AppStore**: (搜索关键词：karing vpn)
   - https://apps.apple.com/us/app/karing/id6472431552
 - **IOS/TvOS TestFlight**:
   - https://testflight.apple.com/join/RLU59OsJ
@@ -78,9 +82,9 @@ English | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_j
 
 ## 待办事项
 - 待支持的平台：
-  - Linux | [linglong](https://linglong.dev/)
+  - linux | [linglong](https://linglong.dev/)
 - 全球化（多语言）
-  - 如果您愿意与我们合作支持 Karing 全球化，请联系 [Telegram](https://t.me/ovowe)
+  - 如果您愿意与我们合作支持 Karing 全球化，请联系我们 [Telegram](https://t.me/ovowe)
 
 ## 截图
 
@@ -98,20 +102,20 @@ English | 简体中文 | [繁體中文](./README_tw.md) | [日本語](./README_j
   <img src="./README_assets/demo/add_profile_link.png" alt="demo6" width="50%" />
 </div>
 
-## 提交需求/bug
+## 贡献
 [欢迎报告问题！](https://github.com/KaringX/karing/issues)
 
 ## 捐赠
 ![donate](./README_assets/img/donate-usdt.jpg)
 
-## Projects
-### 致谢: Karing 基于或受到这些项目的启发：
+## 项目
+### 致谢：Karing 基于或受到这些项目的启发：
 
-- [flutter](https://flutter.dev/)：使构建美观应用变得轻松快捷。
-- [singbox](https://sing-box.sagernet.org/)：通用代理平台。
-- [Meta-Docs](https://wiki.metacubex.one/config/)：Clash.Meta 文档
+- [flutter](https://flutter.dev/): 使构建美观的移动端及跨平台应用变得轻松快捷。
+- [singbox](https://sing-box.sagernet.org/): 通用代理平台。
+- [Meta-Docs](https://wiki.metacubex.one/config/): Clash.Meta 文档
 
-### Karing Team:
+### Karing 团队：
 - [Karing](https://karing.app): https://karing.app
 - [Clash Mi](https://clashmi.app/): https://clashmi.app/
 - [sing-poet](https://github.com/KaringX/sing-poet)
