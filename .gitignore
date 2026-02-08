@@ -71,3 +71,4 @@ app.*.map.json
 /android/.kotlin
 
 *.hprof
+/android/build

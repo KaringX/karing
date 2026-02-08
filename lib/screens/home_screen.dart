@@ -792,8 +792,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     );
 
     _widgetOptions.outletIpByCurrentSelectedInfo!.notifier.value =
-        iplocal != null
-        ? "${EmojiUtils.countryCodeToEmoji(iplocal.item2)} ${iplocal.item1}"
+        iplocal.item1 != null
+        ? "${EmojiUtils.countryCodeToEmoji(iplocal.item1!.countryCode)} ${iplocal.item1!.ip}"
         : "";
   }
 

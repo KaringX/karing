@@ -1078,6 +1078,8 @@ class SettingConfigItemProxy {
   List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
   bool autoAddToFirewall = true;
+  String socksUsername = "";
+  String socksPassword = "";
 
   void setAllowAllInbounds(bool allow) {
     host = allow ? hostNetwork : hostLocal;
@@ -1110,6 +1112,8 @@ class SettingConfigItemProxy {
     'system_proxy_bypass_domain': systemProxyBypassDomain,
     'disconnect_when_quit': disconnectWhenQuit,
     'auto_add_to_firewall': autoAddToFirewall,
+    'socks_username': socksUsername,
+    'socks_password': socksPassword,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -1159,6 +1163,8 @@ class SettingConfigItemProxy {
     disconnectWhenQuit =
         map["disconnect_when_quit"] ?? getDisconnectWhenQuitDefault();
     autoAddToFirewall = map["auto_add_to_firewall"] ?? true;
+    socksUsername = map["socks_username"] ?? "";
+    socksPassword = map["socks_password"] ?? "";
   }
 
   static SettingConfigItemProxy fromJsonStatic(Map<String, dynamic>? map) {

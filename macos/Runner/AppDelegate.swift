@@ -1,9 +1,8 @@
 import Cocoa
 import FlutterMacOS
-//https://github.com/buresdv/Cork/blob/8de118d07a7e9ddd503da91f3a7539ef1e0cb78c/Cork/AppDelegate.swift#L31
+
 @main
 class AppDelegate: FlutterAppDelegate {
-    var token: NSObjectProtocol? // disable App Nap
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
     }
@@ -23,14 +22,9 @@ class AppDelegate: FlutterAppDelegate {
     }
 
     override func applicationDidFinishLaunching(_ notify: Notification) {
-        token = ProcessInfo.processInfo.beginActivity(options: .userInitiated, reason: "Karing VPN Service")
     }
 
     override func applicationWillTerminate(_ notify: Notification) {
-        if let activityToken = token {
-            ProcessInfo.processInfo.endActivity(activityToken)
-            token = nil
-        }
     }
 
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {

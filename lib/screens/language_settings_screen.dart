@@ -41,7 +41,7 @@ class _LanguageSettingsScreenState
       AppLocale.zhCn,
       AppLocale.zhTw,
       AppLocale.ru,
-      AppLocale.fr,
+      AppLocale.fa,
     ]);
     for (var locale in AppLocale.values) {
       if (!_langData.contains(locale)) {

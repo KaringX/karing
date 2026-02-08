@@ -652,6 +652,30 @@ class GroupHelper {
             },
           ),
         ),
+        if (settingConfig.proxy.getAllowAllInbounds()) ...[
+          GroupItemOptions(
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "UserName",
+              text: settingConfig.proxy.socksUsername,
+              textWidthPercent: 0.6,
+              onChanged: (String value) {
+                settingConfig.proxy.socksUsername = value;
+                SettingManager.setDirty(true);
+              },
+            ),
+          ),
+          GroupItemOptions(
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "Password",
+              text: settingConfig.proxy.socksPassword,
+              textWidthPercent: 0.6,
+              onChanged: (String value) {
+                settingConfig.proxy.socksPassword = value;
+                SettingManager.setDirty(true);
+              },
+            ),
+          ),
+        ],
       ];
 
       List<GroupItemOptions> options2 = [
