@@ -75,6 +75,7 @@ GUI для <a href="https://github.com/SagerNet/sing-box">singbox</a> на ба�
 - **Windows/Macos/Linux**:
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
+  - `brew install karing`
 
 ### FAQ (Часто задаваемые вопросы)
 
