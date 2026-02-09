@@ -75,6 +75,7 @@ Eine <a href="https://github.com/flutter/flutter">flutter</a>-basierte GUI für 
 - **Windows/Macos/Linux**:
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
+  - `brew install karing`
 
 ### FAQ
 

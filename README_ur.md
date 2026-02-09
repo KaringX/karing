@@ -79,6 +79,7 @@
 - **Windows/Macos/Linux**:
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
+  - `brew install karing`
 
 ### اکثر پوچھے گئے سوالات (FAQ)
 
