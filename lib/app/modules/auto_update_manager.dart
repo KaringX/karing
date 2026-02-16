@@ -106,6 +106,10 @@ class AutoUpdateManager {
         Platform.isLinux;
   }
 
+  static List<String> updateChannels() {
+    return ["beta", "stable"];
+  }
+
   static Future<void> init() async {
     await load();
     String version = AppUtils.getBuildinVersion();
@@ -218,14 +222,18 @@ class AutoUpdateManager {
     if (!isSupport()) {
       return;
     }
-
     if (_versionCheck.version.isEmpty || _versionCheck.url.isEmpty) {
       return;
     }
     if (_downloading) {
       return;
     }
-
+    if (SettingManager.getConfig().updateWhenConnected) {
+      final started = await VPNService.getStarted();
+      if (!started) {
+        return;
+      }
+    }
     String version = AppUtils.getBuildinVersion();
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) <
         0) {
@@ -285,7 +293,12 @@ class AutoUpdateManager {
     if (_checking) {
       return;
     }
-
+    if (SettingManager.getConfig().updateWhenConnected) {
+      final started = await VPNService.getStarted();
+      if (!started) {
+        return;
+      }
+    }
     var last = DateTime.tryParse(_versionCheck.latestCheck);
     DateTime now = DateTime.now();
     if (last != null) {
@@ -296,7 +309,7 @@ class AutoUpdateManager {
       }
     }
     var autoUpdateChannel = SettingManager.getConfig().autoUpdateChannel;
-    if (!SettingConfig.updateChannels().contains(autoUpdateChannel)) {
+    if (!updateChannels().contains(autoUpdateChannel)) {
       autoUpdateChannel = "stable";
     }
     _versionCheck.latestCheck = now.toString();

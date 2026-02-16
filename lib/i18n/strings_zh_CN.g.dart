@@ -136,6 +136,7 @@ class _TranslationsAboutScreenZhCn implements TranslationsAboutScreenEn {
 	@override String get installRefer => '安装参考';
 	@override String get installTime => '安装时间';
 	@override String get versionChannel => '自动更新通道';
+	@override String get updateWhenConnected => '连接后再检查更新';
 	@override String get autoDownloadPkg => '自动下载更新包';
 	@override String get disableAppImproveData => '应用改进数据';
 	@override String get disableUAReportTip => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据';
@@ -937,6 +938,7 @@ extension on TranslationsZhCn {
 			'AboutScreen.installRefer' => '安装参考',
 			'AboutScreen.installTime' => '安装时间',
 			'AboutScreen.versionChannel' => '自动更新通道',
+			'AboutScreen.updateWhenConnected' => '连接后再检查更新',
 			'AboutScreen.autoDownloadPkg' => '自动下载更新包',
 			'AboutScreen.disableAppImproveData' => '应用改进数据',
 			'AboutScreen.disableUAReportTip' => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据',
@@ -1445,9 +1447,9 @@ extension on TranslationsZhCn {
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
 			'tls.paddingSize' => 'TLS填充大小',
-			'outboundRuleMode.currentSelected' => '当前选择',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => '当前选择',
 			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',
 			'outboundRuleMode.block' => '拦截',

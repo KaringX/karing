@@ -3,6 +3,7 @@
         "installRefer": "Mã giới thiệu cài đặt",
         "installTime": "Thời gian cài đặt",
         "versionChannel": "Kênh cập nhật tự động",
+        "updateWhenConnected": "Kiểm tra cập nhật sau khi kết nối",
         "autoDownloadPkg": "Tự động tải gói cập nhật",
         "disableAppImproveData": "Dữ liệu cải thiện ứng dụng",
         "disableUAReportTip": "Bật [@:{AboutScreen.disableAppImproveData}] giúp chúng tôi cải thiện độ ổn định và khả năng sử dụng của sản phẩm; chúng tôi không thu thập bất kỳ dữ liệu riêng tư nào. Tắt tính năng này sẽ ngăn ứng dụng thu thập bất kỳ dữ liệu nào.",

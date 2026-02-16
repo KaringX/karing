@@ -136,6 +136,7 @@ class _TranslationsAboutScreenNo implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Installasjonskilde';
 	@override String get installTime => 'Installasjonstid';
 	@override String get versionChannel => 'Automatisk oppdateringskanal';
+	@override String get updateWhenConnected => 'Se etter oppdateringer etter tilkobling';
 	@override String get autoDownloadPkg => 'Last ned oppdateringspakker automatisk';
 	@override String get disableAppImproveData => 'Appforbedringsdata';
 	@override String get disableUAReportTip => 'Aktivering av [${_root.AboutScreen.disableAppImproveData}] hjelper oss med å forbedre produktets stabilitet og brukervennlighet; vi samler ikke inn noen personlige personverndata. Deaktivering vil forhindre appen i å samle inn data.';
@@ -937,6 +938,7 @@ extension on TranslationsNo {
 			'AboutScreen.installRefer' => 'Installasjonskilde',
 			'AboutScreen.installTime' => 'Installasjonstid',
 			'AboutScreen.versionChannel' => 'Automatisk oppdateringskanal',
+			'AboutScreen.updateWhenConnected' => 'Se etter oppdateringer etter tilkobling',
 			'AboutScreen.autoDownloadPkg' => 'Last ned oppdateringspakker automatisk',
 			'AboutScreen.disableAppImproveData' => 'Appforbedringsdata',
 			'AboutScreen.disableUAReportTip' => 'Aktivering av [${_root.AboutScreen.disableAppImproveData}] hjelper oss med å forbedre produktets stabilitet og brukervennlighet; vi samler ikke inn noen personlige personverndata. Deaktivering vil forhindre appen i å samle inn data.',
@@ -1445,9 +1447,9 @@ extension on TranslationsNo {
 			'tls.mixedCaseSNIEnable' => 'Aktiver TLS Mixed SNI',
 			'tls.paddingEnable' => 'Aktiver TLS-utfylling',
 			'tls.paddingSize' => 'TLS-utfyllingsstørrelse',
-			'outboundRuleMode.currentSelected' => 'Gjeldende valgt',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Gjeldende valgt',
 			'outboundRuleMode.urltest' => 'Automatisk valg',
 			'outboundRuleMode.direct' => 'Direkte',
 			'outboundRuleMode.block' => 'Blokker',

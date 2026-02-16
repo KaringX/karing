@@ -136,6 +136,7 @@ class _TranslationsAboutScreenEs implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Referente de instalación';
 	@override String get installTime => 'Hora de instalación';
 	@override String get versionChannel => 'Canal de actualización automática';
+	@override String get updateWhenConnected => 'Buscar actualizaciones después de conectarse';
 	@override String get autoDownloadPkg => 'Descargar paquetes de actualización automáticamente';
 	@override String get disableAppImproveData => 'Datos de mejora de la aplicación';
 	@override String get disableUAReportTip => 'Habilitar [${_root.AboutScreen.disableAppImproveData}] nos ayuda a mejorar la estabilidad y usabilidad del producto; no recopilamos ningún dato de privacidad personal. Deshabilitarlo evitará que la aplicación recopile cualquier dato.';
@@ -937,6 +938,7 @@ extension on TranslationsEs {
 			'AboutScreen.installRefer' => 'Referente de instalación',
 			'AboutScreen.installTime' => 'Hora de instalación',
 			'AboutScreen.versionChannel' => 'Canal de actualización automática',
+			'AboutScreen.updateWhenConnected' => 'Buscar actualizaciones después de conectarse',
 			'AboutScreen.autoDownloadPkg' => 'Descargar paquetes de actualización automáticamente',
 			'AboutScreen.disableAppImproveData' => 'Datos de mejora de la aplicación',
 			'AboutScreen.disableUAReportTip' => 'Habilitar [${_root.AboutScreen.disableAppImproveData}] nos ayuda a mejorar la estabilidad y usabilidad del producto; no recopilamos ningún dato de privacidad personal. Deshabilitarlo evitará que la aplicación recopile cualquier dato.',
@@ -1445,9 +1447,9 @@ extension on TranslationsEs {
 			'tls.mixedCaseSNIEnable' => 'Habilitar SNI mixto TLS',
 			'tls.paddingEnable' => 'Habilitar padding TLS',
 			'tls.paddingSize' => 'Tamaño de padding TLS',
-			'outboundRuleMode.currentSelected' => 'Seleccionado actualmente',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Seleccionado actualmente',
 			'outboundRuleMode.urltest' => 'Selección automática',
 			'outboundRuleMode.direct' => 'Directo',
 			'outboundRuleMode.block' => 'Bloquear',

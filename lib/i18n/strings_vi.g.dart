@@ -136,6 +136,7 @@ class _TranslationsAboutScreenVi implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Mã giới thiệu cài đặt';
 	@override String get installTime => 'Thời gian cài đặt';
 	@override String get versionChannel => 'Kênh cập nhật tự động';
+	@override String get updateWhenConnected => 'Kiểm tra cập nhật sau khi kết nối';
 	@override String get autoDownloadPkg => 'Tự động tải gói cập nhật';
 	@override String get disableAppImproveData => 'Dữ liệu cải thiện ứng dụng';
 	@override String get disableUAReportTip => 'Bật [${_root.AboutScreen.disableAppImproveData}] giúp chúng tôi cải thiện độ ổn định và khả năng sử dụng của sản phẩm; chúng tôi không thu thập bất kỳ dữ liệu riêng tư nào. Tắt tính năng này sẽ ngăn ứng dụng thu thập bất kỳ dữ liệu nào.';
@@ -937,6 +938,7 @@ extension on TranslationsVi {
 			'AboutScreen.installRefer' => 'Mã giới thiệu cài đặt',
 			'AboutScreen.installTime' => 'Thời gian cài đặt',
 			'AboutScreen.versionChannel' => 'Kênh cập nhật tự động',
+			'AboutScreen.updateWhenConnected' => 'Kiểm tra cập nhật sau khi kết nối',
 			'AboutScreen.autoDownloadPkg' => 'Tự động tải gói cập nhật',
 			'AboutScreen.disableAppImproveData' => 'Dữ liệu cải thiện ứng dụng',
 			'AboutScreen.disableUAReportTip' => 'Bật [${_root.AboutScreen.disableAppImproveData}] giúp chúng tôi cải thiện độ ổn định và khả năng sử dụng của sản phẩm; chúng tôi không thu thập bất kỳ dữ liệu riêng tư nào. Tắt tính năng này sẽ ngăn ứng dụng thu thập bất kỳ dữ liệu nào.',
@@ -1445,9 +1447,9 @@ extension on TranslationsVi {
 			'tls.mixedCaseSNIEnable' => 'Bật SNI hỗn hợp TLS',
 			'tls.paddingEnable' => 'Bật TLS Padding',
 			'tls.paddingSize' => 'Kích thước TLS Padding',
-			'outboundRuleMode.currentSelected' => 'Đã chọn hiện tại',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Đã chọn hiện tại',
 			'outboundRuleMode.urltest' => 'Tự động chọn',
 			'outboundRuleMode.direct' => 'Trực tiếp',
 			'outboundRuleMode.block' => 'Chặn',

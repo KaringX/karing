@@ -136,6 +136,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Ссылка на установку';
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
+	@override String get updateWhenConnected => 'Проверьте наличие обновлений после подключения.';
 	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
 	@override String get disableAppImproveData => 'Применить данные улучшения';
 	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
@@ -937,6 +938,7 @@ extension on TranslationsRu {
 			'AboutScreen.installRefer' => 'Ссылка на установку',
 			'AboutScreen.installTime' => 'Время установки',
 			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
+			'AboutScreen.updateWhenConnected' => 'Проверьте наличие обновлений после подключения.',
 			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
 			'AboutScreen.disableAppImproveData' => 'Применить данные улучшения',
 			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',
@@ -1445,9 +1447,9 @@ extension on TranslationsRu {
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
 			'tls.paddingSize' => 'Размер заполнения TLS',
-			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
 			'outboundRuleMode.block' => 'Блокировать',

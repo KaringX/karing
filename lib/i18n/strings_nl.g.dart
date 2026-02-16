@@ -136,6 +136,7 @@ class _TranslationsAboutScreenNl implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Installatiebron';
 	@override String get installTime => 'Installatietijd';
 	@override String get versionChannel => 'Auto Update-kanaal';
+	@override String get updateWhenConnected => 'Controleer na het verbinden op updates.';
 	@override String get autoDownloadPkg => 'Updatepakketten automatisch downloaden';
 	@override String get disableAppImproveData => 'App-verbeteringsgegevens';
 	@override String get disableUAReportTip => 'Het inschakelen van [${_root.AboutScreen.disableAppImproveData}] helpt ons de stabiliteit en bruikbaarheid van het product te verbeteren; we verzamelen geen persoonlijke privacygegevens. Uitschakelen voorkomt dat de app gegevens verzamelt.';
@@ -937,6 +938,7 @@ extension on TranslationsNl {
 			'AboutScreen.installRefer' => 'Installatiebron',
 			'AboutScreen.installTime' => 'Installatietijd',
 			'AboutScreen.versionChannel' => 'Auto Update-kanaal',
+			'AboutScreen.updateWhenConnected' => 'Controleer na het verbinden op updates.',
 			'AboutScreen.autoDownloadPkg' => 'Updatepakketten automatisch downloaden',
 			'AboutScreen.disableAppImproveData' => 'App-verbeteringsgegevens',
 			'AboutScreen.disableUAReportTip' => 'Het inschakelen van [${_root.AboutScreen.disableAppImproveData}] helpt ons de stabiliteit en bruikbaarheid van het product te verbeteren; we verzamelen geen persoonlijke privacygegevens. Uitschakelen voorkomt dat de app gegevens verzamelt.',
@@ -1445,9 +1447,9 @@ extension on TranslationsNl {
 			'tls.mixedCaseSNIEnable' => 'TLS Mixed SNI inschakelen',
 			'tls.paddingEnable' => 'TLS Padding inschakelen',
 			'tls.paddingSize' => 'TLS Padding grootte',
-			'outboundRuleMode.currentSelected' => 'Huidige geselecteerde',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Huidige geselecteerde',
 			'outboundRuleMode.urltest' => 'Automatische selectie',
 			'outboundRuleMode.direct' => 'Direct',
 			'outboundRuleMode.block' => 'Blokkeren',

@@ -1169,6 +1169,7 @@ class GroupHelper {
                   false,
                   ProxyStrategy.preferProxy,
                   null,
+                  null,
                 );
                 if (!context.mounted) {
                   return;

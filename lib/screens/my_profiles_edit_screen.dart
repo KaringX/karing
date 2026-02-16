@@ -275,6 +275,9 @@ class _MyProfilesEditScreenState
       return [];
     }
     final tcontext = Translations.of(context);
+    String userAgent = await HttpUtils.getUserAgent(
+      compatible: HttpUtils.getUserAgentsByUaString(_compatible),
+    );
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
         ProxyStrategy.preferProxy.name,
@@ -307,7 +310,7 @@ class _MyProfilesEditScreenState
             name: tcontext.meta.userAgent,
             text: HttpUtils.getUserAgentsByUaStringShort(_compatible),
             textWidthPercent: 0.5,
-            tips: tcontext.ispUserAgentTips,
+            tips: "${tcontext.ispUserAgentTips}\n$userAgent",
             onPush: () async {
               onTapUserAgent();
             },

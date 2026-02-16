@@ -136,6 +136,7 @@ class _TranslationsAboutScreenDa implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Installationskilde';
 	@override String get installTime => 'Installationstidspunkt';
 	@override String get versionChannel => 'Auto-opdateringskanal';
+	@override String get updateWhenConnected => 'Søg efter opdateringer efter tilslutning';
 	@override String get autoDownloadPkg => 'Download automatisk opdateringspakker';
 	@override String get disableAppImproveData => 'App-forbedringsdata';
 	@override String get disableUAReportTip => 'Aktivering af [${_root.AboutScreen.disableAppImproveData}] hjælper os med at forbedre produktets stabilitet og brugervenlighed; vi indsamler ingen personlige privatlivsdata. Deaktivering vil forhindre appen i at indsamle data.';
@@ -937,6 +938,7 @@ extension on TranslationsDa {
 			'AboutScreen.installRefer' => 'Installationskilde',
 			'AboutScreen.installTime' => 'Installationstidspunkt',
 			'AboutScreen.versionChannel' => 'Auto-opdateringskanal',
+			'AboutScreen.updateWhenConnected' => 'Søg efter opdateringer efter tilslutning',
 			'AboutScreen.autoDownloadPkg' => 'Download automatisk opdateringspakker',
 			'AboutScreen.disableAppImproveData' => 'App-forbedringsdata',
 			'AboutScreen.disableUAReportTip' => 'Aktivering af [${_root.AboutScreen.disableAppImproveData}] hjælper os med at forbedre produktets stabilitet og brugervenlighed; vi indsamler ingen personlige privatlivsdata. Deaktivering vil forhindre appen i at indsamle data.',
@@ -1445,9 +1447,9 @@ extension on TranslationsDa {
 			'tls.mixedCaseSNIEnable' => 'Aktiver TLS Mixed SNI',
 			'tls.paddingEnable' => 'Aktiver TLS-padding',
 			'tls.paddingSize' => 'TLS-paddingstørrelse',
-			'outboundRuleMode.currentSelected' => 'Nuværende valgte',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Nuværende valgte',
 			'outboundRuleMode.urltest' => 'Automatisk valg',
 			'outboundRuleMode.direct' => 'Direkte',
 			'outboundRuleMode.block' => 'Bloker',

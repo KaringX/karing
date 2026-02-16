@@ -136,6 +136,7 @@ class _TranslationsAboutScreenJa implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'インストールリファラー';
 	@override String get installTime => 'インストール時間';
 	@override String get versionChannel => '自動更新チャネル';
+	@override String get updateWhenConnected => '接続後にアップデートを確認する';
 	@override String get autoDownloadPkg => '更新パッケージを自動的にダウンロードする';
 	@override String get disableAppImproveData => 'アプリ改善データ';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}] を有効にすると、製品の安定性と使いやすさの向上に役立ちます。個人情報は収集しません。無効にすると、アプリによるデータの収集が停止されます。';
@@ -937,6 +938,7 @@ extension on TranslationsJa {
 			'AboutScreen.installRefer' => 'インストールリファラー',
 			'AboutScreen.installTime' => 'インストール時間',
 			'AboutScreen.versionChannel' => '自動更新チャネル',
+			'AboutScreen.updateWhenConnected' => '接続後にアップデートを確認する',
 			'AboutScreen.autoDownloadPkg' => '更新パッケージを自動的にダウンロードする',
 			'AboutScreen.disableAppImproveData' => 'アプリ改善データ',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}] を有効にすると、製品の安定性と使いやすさの向上に役立ちます。個人情報は収集しません。無効にすると、アプリによるデータの収集が停止されます。',
@@ -1445,9 +1447,9 @@ extension on TranslationsJa {
 			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',
 			'tls.paddingEnable' => 'TLS パディングを有効にする',
 			'tls.paddingSize' => 'TLS パディングサイズ',
-			'outboundRuleMode.currentSelected' => '現在の選択',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => '現在の選択',
 			'outboundRuleMode.urltest' => '自動選択',
 			'outboundRuleMode.direct' => '直接接続',
 			'outboundRuleMode.block' => 'ブロック',

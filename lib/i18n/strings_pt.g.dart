@@ -136,6 +136,7 @@ class _TranslationsAboutScreenPt implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Referência de Instalação';
 	@override String get installTime => 'Hora de Instalação';
 	@override String get versionChannel => 'Canal de Atualização Automática';
+	@override String get updateWhenConnected => 'Verifique se há atualizações após ligar';
 	@override String get autoDownloadPkg => 'Descarregar Pacotes de Atualização Automaticamente';
 	@override String get disableAppImproveData => 'Dados de Melhoria da Aplicação';
 	@override String get disableUAReportTip => 'Ativar [${_root.AboutScreen.disableAppImproveData}] ajuda-nos a melhorar a estabilidade e usabilidade do produto; não recolhemos nenhuns dados de privacidade pessoal. Desativar impedirá a aplicação de recolher quaisquer dados.';
@@ -937,6 +938,7 @@ extension on TranslationsPt {
 			'AboutScreen.installRefer' => 'Referência de Instalação',
 			'AboutScreen.installTime' => 'Hora de Instalação',
 			'AboutScreen.versionChannel' => 'Canal de Atualização Automática',
+			'AboutScreen.updateWhenConnected' => 'Verifique se há atualizações após ligar',
 			'AboutScreen.autoDownloadPkg' => 'Descarregar Pacotes de Atualização Automaticamente',
 			'AboutScreen.disableAppImproveData' => 'Dados de Melhoria da Aplicação',
 			'AboutScreen.disableUAReportTip' => 'Ativar [${_root.AboutScreen.disableAppImproveData}] ajuda-nos a melhorar a estabilidade e usabilidade do produto; não recolhemos nenhuns dados de privacidade pessoal. Desativar impedirá a aplicação de recolher quaisquer dados.',
@@ -1445,9 +1447,9 @@ extension on TranslationsPt {
 			'tls.mixedCaseSNIEnable' => 'Ativar SNI de Caixa Mista TLS',
 			'tls.paddingEnable' => 'Ativar Preenchimento TLS',
 			'tls.paddingSize' => 'Tamanho do Preenchimento TLS',
-			'outboundRuleMode.currentSelected' => 'Selecionado Atualmente',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Selecionado Atualmente',
 			'outboundRuleMode.urltest' => 'Seleção Automática',
 			'outboundRuleMode.direct' => 'Direto',
 			'outboundRuleMode.block' => 'Bloquear',

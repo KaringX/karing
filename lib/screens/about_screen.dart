@@ -203,6 +203,17 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
             ),
           ),
         ],
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.AboutScreen.updateWhenConnected,
+            switchValue: SettingManager.getConfig().updateWhenConnected,
+            onSwitch: (bool value) async {
+              SettingManager.getConfig().updateWhenConnected = value;
+              SettingManager.save();
+              setState(() {});
+            },
+          ),
+        ),
         if (AutoUpdateManager.isSupport()) ...[
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -213,6 +224,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
               },
             ),
           ),
+
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.AboutScreen.autoDownloadPkg,
@@ -493,7 +505,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     ) async {
       List<GroupItemOptions> options = [];
 
-      for (var channel in SettingConfig.updateChannels()) {
+      for (var channel in AutoUpdateManager.updateChannels()) {
         options.add(
           GroupItemOptions(
             textOptions: GroupItemTextOptions(

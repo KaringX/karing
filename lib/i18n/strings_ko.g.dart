@@ -136,6 +136,7 @@ class _TranslationsAboutScreenKo implements TranslationsAboutScreenEn {
 	@override String get installRefer => '설치 리퍼러';
 	@override String get installTime => '설치 시간';
 	@override String get versionChannel => '자동 업데이트 채널';
+	@override String get updateWhenConnected => '연결 후 업데이트를 확인하세요';
 	@override String get autoDownloadPkg => '업데이트 패키지 자동 다운로드';
 	@override String get disableAppImproveData => '앱 개선 데이터';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}]를 활성화하면 제품의 안정성과 사용성을 개선하는 데 도움이 됩니다. 당사는 개인 정보를 수집하지 않습니다. 비활성화하면 앱에서 어떠한 데이터도 수집하지 않습니다.';
@@ -937,6 +938,7 @@ extension on TranslationsKo {
 			'AboutScreen.installRefer' => '설치 리퍼러',
 			'AboutScreen.installTime' => '설치 시간',
 			'AboutScreen.versionChannel' => '자동 업데이트 채널',
+			'AboutScreen.updateWhenConnected' => '연결 후 업데이트를 확인하세요',
 			'AboutScreen.autoDownloadPkg' => '업데이트 패키지 자동 다운로드',
 			'AboutScreen.disableAppImproveData' => '앱 개선 데이터',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}]를 활성화하면 제품의 안정성과 사용성을 개선하는 데 도움이 됩니다. 당사는 개인 정보를 수집하지 않습니다. 비활성화하면 앱에서 어떠한 데이터도 수집하지 않습니다.',
@@ -1445,9 +1447,9 @@ extension on TranslationsKo {
 			'tls.mixedCaseSNIEnable' => 'TLS 혼합 케이스 SNI 활성화',
 			'tls.paddingEnable' => 'TLS 패딩 활성화',
 			'tls.paddingSize' => 'TLS 패딩 크기',
-			'outboundRuleMode.currentSelected' => '현재 선택됨',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => '현재 선택됨',
 			'outboundRuleMode.urltest' => '자동 선택',
 			'outboundRuleMode.direct' => '직접 연결',
 			'outboundRuleMode.block' => '차단',

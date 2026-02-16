@@ -11,6 +11,7 @@ import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
+import 'package:karing/screens/file_view_screen.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -57,6 +58,7 @@ class _AddProfileByLinkOrContentScreenState
   String _compatible = "";
   bool _xhwid = false;
   String _website = "";
+  RemoteContent _remoteContent = RemoteContent();
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
@@ -218,6 +220,7 @@ class _AddProfileByLinkOrContentScreenState
       _testLatencyAfterProfileUpdate,
       _testLatencyAutoRemove,
       _downloadMode,
+      _remoteContent,
       _updateTimeInterval,
       website: _website,
       ispId: widget.ispId,
@@ -289,7 +292,11 @@ class _AddProfileByLinkOrContentScreenState
                     ),
                   ),
                   SizedBox(
-                    width: windowSize.width - 50 * 2,
+                    width:
+                        windowSize.width -
+                        (!_loading && _remoteContent.text.isNotEmpty
+                            ? 50 * 3
+                            : 50 * 2),
                     child: Text(
                       tcontext.meta.profileAddUrlOrContent,
                       textAlign: TextAlign.center,
@@ -300,6 +307,27 @@ class _AddProfileByLinkOrContentScreenState
                       ),
                     ),
                   ),
+                  if (!_loading && _remoteContent.text.isNotEmpty) ...[
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            settings: FileViewScreen.routSettings(),
+                            builder: (context) => FileViewScreen(
+                              title: tcontext.meta.profile,
+                              content: _remoteContent.text,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.file_present, size: 26),
+                      ),
+                    ),
+                  ],
                   _loading
                       ? const Row(
                           children: [
@@ -395,6 +423,9 @@ class _AddProfileByLinkOrContentScreenState
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
+    String userAgent = await HttpUtils.getUserAgent(
+      compatible: HttpUtils.getUserAgentsByUaString(_compatible),
+    );
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
         ProxyStrategy.preferProxy.name,
@@ -427,7 +458,7 @@ class _AddProfileByLinkOrContentScreenState
           name: tcontext.meta.userAgent,
           text: HttpUtils.getUserAgentsByUaStringShort(_compatible),
           textWidthPercent: 0.5,
-          tips: tcontext.ispUserAgentTips,
+          tips: "${tcontext.ispUserAgentTips}\n$userAgent",
           onPush: _loading
               ? null
               : () async {

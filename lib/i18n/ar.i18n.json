@@ -3,6 +3,7 @@
         "installRefer": "تثبيت الرجوع",
         "installTime": "وقت التثبيت",
         "versionChannel": "تحديث القنوات تلقائيا",
+        "updateWhenConnected": "تحقق من وجود تحديثات بعد الاتصال",
         "autoDownloadPkg": "تنزيل حزم التحديث تلقائيًا",
         "disableAppImproveData": "تطبيق بيانات التحسين",
         "disableUAReportTip": "تفعيل [@:{AboutScreen.disableAppImproveData}] يساعدنا على تحسين استقرار المنتج وسهولة استخدامه؛ ولا نقوم بجمع أي بيانات شخصية. تعطيله سيمنع التطبيق من جمع أي بيانات.",

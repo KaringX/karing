@@ -1448,10 +1448,6 @@ enum IPStrategy {
 }
 
 class SettingConfig {
-  static List<String> updateChannels() {
-    return ["beta", "stable"];
-  }
-
   static int htmlBoardPortDefault = 3072;
   static const String kCoreVersion = "1.12.0";
   static const List<String> kSpeedTestList = [
@@ -1531,6 +1527,7 @@ class SettingConfig {
   bool latencyCheckResoveIP = false;
 
   String autoUpdateChannel = "stable"; //stable, beta
+  bool updateWhenConnected = false;
   bool autoDownloadUpdatePkg = true;
   String originSBProfile = "";
   int htmlBoardPort = htmlBoardPortDefault;
@@ -1574,6 +1571,7 @@ class SettingConfig {
     'latency_check_concurrency': latencyCheckConcurrency,
     'latency_check_resolve_ip': latencyCheckResoveIP,
     'auto_update_channel': autoUpdateChannel,
+    'update_when_connected': updateWhenConnected,
     'auto_download_udpate_pkg': autoDownloadUpdatePkg,
     'origin_sb_profile': originSBProfile,
     'html_board_port': htmlBoardPort,
@@ -1724,9 +1722,10 @@ class SettingConfig {
         false;
 
     autoUpdateChannel = map["auto_update_channel"] ?? "stable";
-    if (!updateChannels().contains(autoUpdateChannel)) {
+    if (autoUpdateChannel.isEmpty) {
       autoUpdateChannel = "stable";
     }
+    updateWhenConnected = map["update_when_connected"] ?? false;
     autoDownloadUpdatePkg = map["auto_download_udpate_pkg"] ?? true;
     originSBProfile = map["origin_sb_profile"] ?? "";
     htmlBoardPort = map["html_board_port"] ?? htmlBoardPortDefault;

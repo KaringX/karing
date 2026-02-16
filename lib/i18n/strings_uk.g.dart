@@ -136,6 +136,7 @@ class _TranslationsAboutScreenUk implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Джерело встановлення';
 	@override String get installTime => 'Час встановлення';
 	@override String get versionChannel => 'Канал автоматичного оновлення';
+	@override String get updateWhenConnected => 'Перевірте наявність оновлень після підключення';
 	@override String get autoDownloadPkg => 'Автоматично завантажувати пакети оновлень';
 	@override String get disableAppImproveData => 'Дані про покращення програми';
 	@override String get disableUAReportTip => 'Увімкнення [${_root.AboutScreen.disableAppImproveData}] допомагає нам покращити стабільність та зручність використання продукту; ми не збираємо жодних особистих конфіденційних даних. Вимкнення запобіжить збору будь-яких даних програмою.';
@@ -937,6 +938,7 @@ extension on TranslationsUk {
 			'AboutScreen.installRefer' => 'Джерело встановлення',
 			'AboutScreen.installTime' => 'Час встановлення',
 			'AboutScreen.versionChannel' => 'Канал автоматичного оновлення',
+			'AboutScreen.updateWhenConnected' => 'Перевірте наявність оновлень після підключення',
 			'AboutScreen.autoDownloadPkg' => 'Автоматично завантажувати пакети оновлень',
 			'AboutScreen.disableAppImproveData' => 'Дані про покращення програми',
 			'AboutScreen.disableUAReportTip' => 'Увімкнення [${_root.AboutScreen.disableAppImproveData}] допомагає нам покращити стабільність та зручність використання продукту; ми не збираємо жодних особистих конфіденційних даних. Вимкнення запобіжить збору будь-яких даних програмою.',
@@ -1445,9 +1447,9 @@ extension on TranslationsUk {
 			'tls.mixedCaseSNIEnable' => 'Увімкнути змішаний регістр SNI TLS',
 			'tls.paddingEnable' => 'Увімкнути заповнення (Padding) TLS',
 			'tls.paddingSize' => 'Розмір заповнення (Padding) TLS',
-			'outboundRuleMode.currentSelected' => 'Поточний вибраний',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Поточний вибраний',
 			'outboundRuleMode.urltest' => 'Автовибір',
 			'outboundRuleMode.direct' => 'Прямий',
 			'outboundRuleMode.block' => 'Блокувати',

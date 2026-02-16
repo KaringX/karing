@@ -3,6 +3,7 @@
         "installRefer": "安裝參考",
         "installTime": "安裝時間",
         "versionChannel": "自動更新通道",
+        "updateWhenConnected": "連接後再檢查更新",
         "autoDownloadPkg": "自動下載更新包",
         "disableAppImproveData": "應用改進數據",
         "disableUAReportTip": "開啟[@:{AboutScreen.disableAppImproveData}]有助於我們改進產品穩定性與可用性，我們不會收集任何個人隱私數據；停用後，應用程式將不會再收集任何數據",

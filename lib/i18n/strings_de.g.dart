@@ -136,6 +136,7 @@ class _TranslationsAboutScreenDe implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Installationsquelle';
 	@override String get installTime => 'Installationszeit';
 	@override String get versionChannel => 'Auto-Update-Kanal';
+	@override String get updateWhenConnected => 'Nach dem Verbinden auf Updates prüfen';
 	@override String get autoDownloadPkg => 'Update-Pakete automatisch herunterladen';
 	@override String get disableAppImproveData => 'Anwendungsverbesserungsdaten';
 	@override String get disableUAReportTip => 'Das Aktivieren von [${_root.AboutScreen.disableAppImproveData}] hilft uns, die Stabilität und Benutzerfreundlichkeit des Produkts zu verbessern; wir sammeln keine persönlichen Datenschutzdaten. Das Deaktivieren verhindert, dass die App Daten sammelt.';
@@ -937,6 +938,7 @@ extension on TranslationsDe {
 			'AboutScreen.installRefer' => 'Installationsquelle',
 			'AboutScreen.installTime' => 'Installationszeit',
 			'AboutScreen.versionChannel' => 'Auto-Update-Kanal',
+			'AboutScreen.updateWhenConnected' => 'Nach dem Verbinden auf Updates prüfen',
 			'AboutScreen.autoDownloadPkg' => 'Update-Pakete automatisch herunterladen',
 			'AboutScreen.disableAppImproveData' => 'Anwendungsverbesserungsdaten',
 			'AboutScreen.disableUAReportTip' => 'Das Aktivieren von [${_root.AboutScreen.disableAppImproveData}] hilft uns, die Stabilität und Benutzerfreundlichkeit des Produkts zu verbessern; wir sammeln keine persönlichen Datenschutzdaten. Das Deaktivieren verhindert, dass die App Daten sammelt.',
@@ -1445,9 +1447,9 @@ extension on TranslationsDe {
 			'tls.mixedCaseSNIEnable' => 'Gemischte SNI-Schreibweise aktivieren',
 			'tls.paddingEnable' => 'TLS-Padding aktivieren',
 			'tls.paddingSize' => 'TLS-Padding-Größe',
-			'outboundRuleMode.currentSelected' => 'Aktuell ausgewählt',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Aktuell ausgewählt',
 			'outboundRuleMode.urltest' => 'Automatische Auswahl',
 			'outboundRuleMode.direct' => 'Direkt',
 			'outboundRuleMode.block' => 'Blockieren',

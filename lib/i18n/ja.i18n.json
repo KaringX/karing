@@ -3,6 +3,7 @@
         "installRefer": "インストールリファラー",
         "installTime": "インストール時間",
         "versionChannel": "自動更新チャネル",
+        "updateWhenConnected": "接続後にアップデートを確認する",
         "autoDownloadPkg": "更新パッケージを自動的にダウンロードする",
         "disableAppImproveData": "アプリ改善データ",
         "disableUAReportTip": "[@:{AboutScreen.disableAppImproveData}] を有効にすると、製品の安定性と使いやすさの向上に役立ちます。個人情報は収集しません。無効にすると、アプリによるデータの収集が停止されます。",

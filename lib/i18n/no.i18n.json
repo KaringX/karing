@@ -3,6 +3,7 @@
         "installRefer": "Installasjonskilde",
         "installTime": "Installasjonstid",
         "versionChannel": "Automatisk oppdateringskanal",
+        "updateWhenConnected": "Se etter oppdateringer etter tilkobling",
         "autoDownloadPkg": "Last ned oppdateringspakker automatisk",
         "disableAppImproveData": "Appforbedringsdata",
         "disableUAReportTip": "Aktivering av [@:{AboutScreen.disableAppImproveData}] hjelper oss med å forbedre produktets stabilitet og brukervennlighet; vi samler ikke inn noen personlige personverndata. Deaktivering vil forhindre appen i å samle inn data.",

@@ -136,6 +136,7 @@ class _TranslationsAboutScreenEl implements TranslationsAboutScreenEn {
 	@override String get installRefer => 'Πηγή εγκατάστασης';
 	@override String get installTime => 'Ώρα εγκατάστασης';
 	@override String get versionChannel => 'Κανάλι αυτόματης ενημέρωσης';
+	@override String get updateWhenConnected => 'Ελέγξτε για ενημερώσεις μετά τη σύνδεση';
 	@override String get autoDownloadPkg => 'Αυτόματη λήψη πακέτων ενημέρωσης';
 	@override String get disableAppImproveData => 'Δεδομένα βελτίωσης εφαρμογής';
 	@override String get disableUAReportTip => 'Η ενεργοποίηση του [${_root.AboutScreen.disableAppImproveData}] μας βοηθά να βελτιώσουμε τη σταθερότητα και τη χρηστικότητα του προϊόντος. Δεν συλλέγουμε προσωπικά δεδομένα απορρήτου. Η απενεργοποίηση θα εμποδίσει την εφαρμογή από τη συλλογή οποιωνδήποτε δεδομένων.';
@@ -937,6 +938,7 @@ extension on TranslationsEl {
 			'AboutScreen.installRefer' => 'Πηγή εγκατάστασης',
 			'AboutScreen.installTime' => 'Ώρα εγκατάστασης',
 			'AboutScreen.versionChannel' => 'Κανάλι αυτόματης ενημέρωσης',
+			'AboutScreen.updateWhenConnected' => 'Ελέγξτε για ενημερώσεις μετά τη σύνδεση',
 			'AboutScreen.autoDownloadPkg' => 'Αυτόματη λήψη πακέτων ενημέρωσης',
 			'AboutScreen.disableAppImproveData' => 'Δεδομένα βελτίωσης εφαρμογής',
 			'AboutScreen.disableUAReportTip' => 'Η ενεργοποίηση του [${_root.AboutScreen.disableAppImproveData}] μας βοηθά να βελτιώσουμε τη σταθερότητα και τη χρηστικότητα του προϊόντος. Δεν συλλέγουμε προσωπικά δεδομένα απορρήτου. Η απενεργοποίηση θα εμποδίσει την εφαρμογή από τη συλλογή οποιωνδήποτε δεδομένων.',
@@ -1445,9 +1447,9 @@ extension on TranslationsEl {
 			'tls.mixedCaseSNIEnable' => 'Ενεργοποίηση TLS Mixed Case SNI',
 			'tls.paddingEnable' => 'Ενεργοποίηση TLS Padding',
 			'tls.paddingSize' => 'Μέγεθος TLS Padding',
-			'outboundRuleMode.currentSelected' => 'Τρέχουσα επιλογή',
 			_ => null,
 		} ?? switch (path) {
+			'outboundRuleMode.currentSelected' => 'Τρέχουσα επιλογή',
 			'outboundRuleMode.urltest' => 'Αυτόματη επιλογή',
 			'outboundRuleMode.direct' => 'Άμεση',
 			'outboundRuleMode.block' => 'Αποκλεισμός',

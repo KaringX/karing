@@ -569,6 +569,7 @@ class ServerManager {
               item.testLatencyAutoRemove,
               item.proxyStrategy,
               null,
+              null,
               website: item.site,
               ispId: item.isp?.id,
               ispUser: item.isp?.user,
@@ -1619,6 +1620,7 @@ class ServerManager {
     bool testLatencyAfterProfileUpdate,
     bool testLatencyAutoRemove,
     ProxyStrategy proxyStrategy,
+    RemoteContent? remoteContent,
     Duration? duration, {
     String? website,
     String? ispId,
@@ -1659,6 +1661,7 @@ class ServerManager {
       item,
       _diversionGroupConfig.ruleSetItems,
       keepDiversionRules ? diversionGroupItem : null,
+      remoteContent,
     );
     if (error != null) {
       if (groupid.isNotEmpty) {
@@ -1845,6 +1848,7 @@ class ServerManager {
       testLatencyAutoRemove,
       ProxyStrategy.preferProxy,
       null,
+      null,
     );
 
     return result.error;
@@ -1865,6 +1869,7 @@ class ServerManager {
     bool testLatencyAfterProfileUpdate,
     bool testLatencyAutoRemove,
     ProxyStrategy proxyStrategy,
+    RemoteContent? remoteContent,
     Duration? duration, {
     String? website,
     String? ispId,
@@ -1886,6 +1891,7 @@ class ServerManager {
       testLatencyAfterProfileUpdate,
       testLatencyAutoRemove,
       proxyStrategy,
+      remoteContent,
       duration,
       website: website,
       ispId: ispId,
@@ -2269,6 +2275,7 @@ class ServerManager {
       item.testLatencyAutoRemove,
       item.proxyStrategy,
       null,
+      null,
       website: item.site,
       ispId: item.isp?.id,
       ispUser: item.isp?.user,
@@ -2335,6 +2342,7 @@ class ServerManager {
         item.testLatencyAfterProfileUpdate,
         item.testLatencyAutoRemove,
         item.proxyStrategy,
+        null,
         null,
         website: item.site,
         ispId: item.isp?.id,
