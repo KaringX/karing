@@ -28,6 +28,7 @@ class _MyProfilesEditScreenState
     extends LasyRenderingState<MyProfilesEditScreen> {
   final _textControllerRemark = TextEditingController();
   final _textControllerLink = TextEditingController();
+  final _textControllerSubscriptionPassword = TextEditingController();
   ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
   String _compatible = "";
@@ -60,11 +61,16 @@ class _MyProfilesEditScreenState
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
       _testLatencyAutoRemove = item.testLatencyAutoRemove;
+      final savedPassword = ServerManager.getSubscriptionPassword(widget.groupid);
+      if (savedPassword != null && savedPassword.isNotEmpty) {
+        _textControllerSubscriptionPassword.text = savedPassword;
+      }
     }
   }
 
   @override
   void dispose() {
+    _textControllerSubscriptionPassword.dispose();
     super.dispose();
   }
 
@@ -139,7 +145,7 @@ class _MyProfilesEditScreenState
                           const SizedBox(height: 20),
                         ],
                         TextFieldEx(
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.next,
                           controller: _textControllerRemark,
                           decoration: InputDecoration(
                             labelText: tcontext.meta.remark,
@@ -148,6 +154,19 @@ class _MyProfilesEditScreenState
                           ),
                         ),
                         const SizedBox(height: 20),
+                        if (item != null && item.isRemote()) ...[
+                          TextFieldEx(
+                            textInputAction: TextInputAction.done,
+                            controller: _textControllerSubscriptionPassword,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              labelText: 'Subscription password (for encrypted)',
+                              hintText: 'Optional',
+                              prefixIcon: Icon(Icons.lock_outline),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                         FutureBuilder(
                           future: getGroupOptions(),
                           builder:
@@ -187,6 +206,8 @@ class _MyProfilesEditScreenState
 
     String remarkText = _textControllerRemark.text.trim();
     String urlText = _textControllerLink.text.trim();
+    final subscriptionPassword = _textControllerSubscriptionPassword.text.trim();
+    final savedPassword = ServerManager.getSubscriptionPassword(widget.groupid);
     if (item.remark == remarkText &&
         item.urlOrPath == urlText &&
         item.site == _website &&
@@ -199,7 +220,8 @@ class _MyProfilesEditScreenState
         item.keepDiversionRules == _keepDiversionRules &&
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
-        item.testLatencyAutoRemove == _testLatencyAutoRemove) {
+        item.testLatencyAutoRemove == _testLatencyAutoRemove &&
+        (subscriptionPassword.isEmpty ? savedPassword == null : subscriptionPassword == (savedPassword ?? ''))) {
       Navigator.pop(context);
       return;
     }
@@ -228,6 +250,12 @@ class _MyProfilesEditScreenState
 
     ServerManager.modifyRemark(item.groupid, remarkText);
     ServerManager.modifyUrl(item.groupid, urlText);
+    ServerManager.setSubscriptionPassword(
+      item.groupid,
+      _textControllerSubscriptionPassword.text.trim().isEmpty
+          ? null
+          : _textControllerSubscriptionPassword.text.trim(),
+    );
 
     if (dirty) {
       ServerManager.setDirty(true);

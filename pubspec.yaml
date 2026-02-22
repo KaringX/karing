@@ -105,6 +105,7 @@ dependencies:
   tuple: 2.0.2
   crypto: 3.0.7
   cryptography: 2.9.0
+  encrypt: 5.0.3
   open_dir: 0.0.2+1
   in_app_review: 2.0.11
   path: 1.9.1 #flutter_test

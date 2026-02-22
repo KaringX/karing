@@ -53,6 +53,7 @@ class _AddProfileByLinkOrContentScreenState
     with AfterLayoutMixin {
   final _textControllerLink = TextEditingController();
   final _textControllerRemark = TextEditingController();
+  final _textControllerSubscriptionPassword = TextEditingController();
   bool _loading = false;
   bool _keepDiversionRules = false;
   String _compatible = "";
@@ -94,6 +95,7 @@ class _AddProfileByLinkOrContentScreenState
     --AddProfileByLinkOrContentScreen.pushed;
     _textControllerLink.dispose();
     _textControllerRemark.dispose();
+    _textControllerSubscriptionPassword.dispose();
     super.dispose();
   }
 
@@ -225,6 +227,9 @@ class _AddProfileByLinkOrContentScreenState
       website: _website,
       ispId: widget.ispId,
       ispUser: widget.ispUser,
+      subscriptionPassword: _textControllerSubscriptionPassword.text.trim().isEmpty
+          ? null
+          : _textControllerSubscriptionPassword.text.trim(),
     );
 
     if (!mounted) {
@@ -382,12 +387,23 @@ class _AddProfileByLinkOrContentScreenState
                         ),
                         const SizedBox(height: 20),
                         TextFieldEx(
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.next,
                           controller: _textControllerRemark,
                           decoration: InputDecoration(
                             labelText: tcontext.meta.remark,
                             hintText: tcontext.meta.required,
                             prefixIcon: const Icon(Icons.edit_note_outlined),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        TextFieldEx(
+                          textInputAction: TextInputAction.done,
+                          controller: _textControllerSubscriptionPassword,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: 'Subscription password (for encrypted)',
+                            hintText: 'Optional',
+                            prefixIcon: Icon(Icons.lock_outline),
                           ),
                         ),
                         const SizedBox(height: 20),
