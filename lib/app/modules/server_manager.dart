@@ -12,6 +12,7 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
+import 'package:karing/app/utils/subscription_decrypt.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
@@ -434,8 +435,13 @@ class ServerManager {
   static bool _dirty = false;
   static bool _updatedDirty = false;
 
+  /// Subscription passwords for encrypted subscriptions (groupid -> password).
+  static final Map<String, String> _subscriptionPasswords = {};
+  static bool _subscriptionPasswordsLoaded = false;
+
   static Future<void> init() async {
     await loadServerConfig();
+    await loadSubscriptionPasswords();
     await loadDiversionGroupConfig();
     await loadUse();
 
@@ -573,6 +579,7 @@ class ServerManager {
               website: item.site,
               ispId: item.isp?.id,
               ispUser: item.isp?.user,
+              subscriptionPassword: _subscriptionPasswords[item.groupid],
             );
 
             if (err != null) {
@@ -915,6 +922,52 @@ class ServerManager {
     }
 
     _savingServerConfig = false;
+  }
+
+  static Future<String> _subscriptionPasswordsFilePath() async {
+    final p = await PathUtils.subscribeFilePath();
+    return path.join(path.dirname(p), 'subscription_passwords.json');
+  }
+
+  static Future<void> loadSubscriptionPasswords() async {
+    if (_subscriptionPasswordsLoaded) return;
+    _subscriptionPasswordsLoaded = true;
+    try {
+      final filePath = await _subscriptionPasswordsFilePath();
+      final f = File(filePath);
+      if (!await f.exists()) return;
+      final content = await f.readAsString();
+      if (content.isEmpty) return;
+      final map = jsonDecode(content) as Map<String, dynamic>?;
+      if (map == null) return;
+      _subscriptionPasswords.clear();
+      for (final e in map.entries) {
+        if (e.value is String) _subscriptionPasswords[e.key] = e.value as String;
+      }
+    } catch (_) {}
+  }
+
+  static Future<void> saveSubscriptionPasswords() async {
+    try {
+      final filePath = await _subscriptionPasswordsFilePath();
+      final content = const JsonEncoder.withIndent('  ').convert(_subscriptionPasswords);
+      await File(filePath).writeAsString(content, flush: true);
+    } catch (_) {}
+  }
+
+  /// Returns stored subscription password for encrypted subscriptions.
+  static String? getSubscriptionPassword(String groupid) {
+    return _subscriptionPasswords[groupid];
+  }
+
+  /// Saves subscription password for an encrypted subscription.
+  static void setSubscriptionPassword(String groupid, String? password) {
+    if (password == null || password.isEmpty) {
+      _subscriptionPasswords.remove(groupid);
+    } else {
+      _subscriptionPasswords[groupid] = password;
+    }
+    saveSubscriptionPasswords();
   }
 
   static Future<void> loadDiversionGroupConfig() async {
@@ -1625,6 +1678,7 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
+    String? subscriptionPassword,
   }) async {
     ServerConfigGroupItem item = ServerConfigGroupItem();
     ServerDiversionGroupItem diversionGroupItem = ServerDiversionGroupItem();
@@ -1654,6 +1708,8 @@ class ServerManager {
     }
 
     diversionGroupItem.groupid = item.groupid;
+    // Pass subscriptionPassword so tryConvert can decrypt when header subscription-encryption=true.
+    // tryConvert should call SubscriptionDecrypt.decryptSubscriptionResponse(header, body, subscriptionPassword).
     ReturnResultError? error = await AutoConfUtils.tryConvert(
       urlOrPath,
       local,
@@ -1662,6 +1718,7 @@ class ServerManager {
       _diversionGroupConfig.ruleSetItems,
       keepDiversionRules ? diversionGroupItem : null,
       remoteContent,
+      subscriptionPassword,
     );
     if (error != null) {
       if (groupid.isNotEmpty) {
@@ -1874,8 +1931,11 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
+    String? subscriptionPassword,
   }) async {
-    ReturnResult<ServerConfigGroupItem> result = await loadFrom(
+    ReturnResult<ServerConfigGroupItem> result;
+    try {
+      result = await loadFrom(
       type,
       groupid,
       remark,
@@ -1896,8 +1956,19 @@ class ServerManager {
       website: website,
       ispId: ispId,
       ispUser: ispUser,
+      subscriptionPassword: subscriptionPassword,
     );
-
+    } on SubscriptionEncryptedException catch (e) {
+      return ReturnResultError(
+        e.passwordWrong
+            ? 'Incorrect subscription password. Please check and try again.'
+            : 'This subscription is encrypted. Please enter the subscription password.',
+      );
+    }
+    if (result.data != null && subscriptionPassword != null && subscriptionPassword.isNotEmpty) {
+      _subscriptionPasswords[result.data!.groupid] = subscriptionPassword;
+      saveSubscriptionPasswords();
+    }
     return result.error;
   }
 
@@ -2279,6 +2350,7 @@ class ServerManager {
       website: item.site,
       ispId: item.isp?.id,
       ispUser: item.isp?.user,
+      subscriptionPassword: _subscriptionPasswords[groupid],
     );
     _remoteReloading.remove(groupid);
     if (err != null) {
@@ -2347,6 +2419,7 @@ class ServerManager {
         website: item.site,
         ispId: item.isp?.id,
         ispUser: item.isp?.user,
+        subscriptionPassword: _subscriptionPasswords[groupid],
       );
       _remoteReloading.remove(groupid);
       if (err != null) {
