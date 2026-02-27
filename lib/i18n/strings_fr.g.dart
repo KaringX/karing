@@ -123,6 +123,7 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaFr implements TranslationsMetaEn {
 	@override String get more => 'Plus';
 	@override String get tips => 'Info';
 	@override String get copy => 'Copier';
+	@override String get paste => 'Coller';
+	@override String get cut => 'Couper';
 	@override String get save => 'Enregistrer';
 	@override String get ok => 'OK';
 	@override String get cancel => 'Annuler';
@@ -1199,6 +1202,8 @@ extension on TranslationsFr {
 			'meta.more' => 'Plus',
 			'meta.tips' => 'Info',
 			'meta.copy' => 'Copier',
+			'meta.paste' => 'Coller',
+			'meta.cut' => 'Couper',
 			'meta.save' => 'Enregistrer',
 			'meta.ok' => 'OK',
 			'meta.cancel' => 'Annuler',
@@ -1445,10 +1450,10 @@ extension on TranslationsFr {
 			'tls.fragmentSize' => 'Taille du fragment TLS',
 			'tls.fragmentSleep' => 'Sommeil du fragment TLS',
 			'tls.mixedCaseSNIEnable' => 'Activer le SNI mixte TLS',
-			'tls.paddingEnable' => 'Activer le remplissage TLS',
-			'tls.paddingSize' => 'Taille du remplissage TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Activer le remplissage TLS',
+			'tls.paddingSize' => 'Taille du remplissage TLS',
 			'outboundRuleMode.currentSelected' => 'Actuellement sélectionné',
 			'outboundRuleMode.urltest' => 'Sélection automatique',
 			'outboundRuleMode.direct' => 'Direct',
@@ -1513,6 +1518,7 @@ extension on TranslationsFr {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

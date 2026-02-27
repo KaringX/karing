@@ -123,6 +123,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaBn implements TranslationsMetaEn {
 	@override String get more => 'আরও';
 	@override String get tips => 'তথ্য';
 	@override String get copy => 'কপি করুন';
+	@override String get paste => 'আটকান';
+	@override String get cut => 'কাটা';
 	@override String get save => 'সেভ করুন';
 	@override String get ok => 'ঠিক আছে';
 	@override String get cancel => 'বাতিল করুন';
@@ -1199,6 +1202,8 @@ extension on TranslationsBn {
 			'meta.more' => 'আরও',
 			'meta.tips' => 'তথ্য',
 			'meta.copy' => 'কপি করুন',
+			'meta.paste' => 'আটকান',
+			'meta.cut' => 'কাটা',
 			'meta.save' => 'সেভ করুন',
 			'meta.ok' => 'ঠিক আছে',
 			'meta.cancel' => 'বাতিল করুন',
@@ -1445,10 +1450,10 @@ extension on TranslationsBn {
 			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
 			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
 			'tls.mixedCaseSNIEnable' => 'TLS মিক্সড কেস SNI সক্ষম করুন',
-			'tls.paddingEnable' => 'TLS প্যাডিং সক্ষম করুন',
-			'tls.paddingSize' => 'TLS প্যাডিং সাইজ',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS প্যাডিং সক্ষম করুন',
+			'tls.paddingSize' => 'TLS প্যাডিং সাইজ',
 			'outboundRuleMode.currentSelected' => 'বর্তমানে নির্বাচিত',
 			'outboundRuleMode.urltest' => 'স্বয়ংক্রিয় নির্বাচন',
 			'outboundRuleMode.direct' => 'সরাসরি',
@@ -1513,6 +1518,7 @@ extension on TranslationsBn {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

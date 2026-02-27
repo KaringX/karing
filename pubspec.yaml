@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.15+1800
+version: 1.2.15+1803
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"

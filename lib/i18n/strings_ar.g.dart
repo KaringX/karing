@@ -123,6 +123,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get more => 'أكثر';
 	@override String get tips => 'معلومات';
 	@override String get copy => 'ينسخ';
+	@override String get paste => 'لصق';
+	@override String get cut => 'يقطع';
 	@override String get save => 'يحفظ';
 	@override String get ok => 'نعم';
 	@override String get cancel => 'يلغي';
@@ -1199,6 +1202,8 @@ extension on TranslationsAr {
 			'meta.more' => 'أكثر',
 			'meta.tips' => 'معلومات',
 			'meta.copy' => 'ينسخ',
+			'meta.paste' => 'لصق',
+			'meta.cut' => 'يقطع',
 			'meta.save' => 'يحفظ',
 			'meta.ok' => 'نعم',
 			'meta.cancel' => 'يلغي',
@@ -1445,10 +1450,10 @@ extension on TranslationsAr {
 			'tls.fragmentSize' => 'حجم شريحة TLS',
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
 			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
-			'tls.paddingEnable' => 'تمكين الحشو TLS',
-			'tls.paddingSize' => 'حجم الحشو TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'تمكين الحشو TLS',
+			'tls.paddingSize' => 'حجم الحشو TLS',
 			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
 			'outboundRuleMode.urltest' => 'اختيار آلي',
 			'outboundRuleMode.direct' => 'مباشر',
@@ -1513,6 +1518,7 @@ extension on TranslationsAr {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

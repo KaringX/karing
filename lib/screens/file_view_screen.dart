@@ -1,5 +1,6 @@
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:re_editor/re_editor.dart';
@@ -31,12 +32,14 @@ class FileViewScreen extends StatefulWidget {
 
 class _FileViewScreenState extends State<FileViewScreen> {
   late CodeLineEditingController _controller;
+  late final SelectionToolbarController _toolbarController;
   final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _controller = CodeLineEditingController.fromText(widget.content);
+    _toolbarController = ContextMenuControllerImpl(widget.onSave == null);
     _focusNode.onKeyEvent = ((_, event) {
       final keys = HardwareKeyboard.instance.logicalKeysPressed;
       final key = event.logicalKey;
@@ -63,6 +66,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
 
   @override
   void dispose() {
+    _toolbarController.hide(context);
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -182,6 +186,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
                     shortcutsActivatorsBuilder:
                         DefaultCodeShortcutsActivatorsBuilder(),
                     controller: _controller,
+                    toolbarController: _toolbarController,
                     style: CodeEditorStyle(
                       fontSize: 14,
                       codeTheme: CodeHighlightTheme(
@@ -196,6 +201,71 @@ class _FileViewScreenState extends State<FileViewScreen> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ContextMenuControllerImpl implements SelectionToolbarController {
+  bool readOnly = false;
+  ContextMenuControllerImpl(this.readOnly);
+
+  @override
+  void hide(BuildContext context) {}
+
+  @override
+  void show({
+    required BuildContext context,
+    required CodeLineEditingController controller,
+    required TextSelectionToolbarAnchors anchors,
+    Rect? renderRect,
+    required LayerLink layerLink,
+    required ValueNotifier<bool> visibility,
+  }) {
+    final tcontext = Translations.of(context);
+    var widgets = [
+      ListTile(
+        title: Text(tcontext.meta.copy),
+        onTap: () async {
+          controller.copy();
+          Navigator.of(context).pop();
+        },
+      ),
+      if (!readOnly) ...[
+        ListTile(
+          title: Text(tcontext.meta.paste),
+          onTap: () async {
+            controller.paste();
+            Navigator.of(context).pop();
+          },
+        ),
+        ListTile(
+          title: Text(tcontext.meta.cut),
+          onTap: () async {
+            controller.cut();
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    ];
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
           ),
         ),
       ),

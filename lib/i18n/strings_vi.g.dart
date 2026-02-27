@@ -123,6 +123,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaVi implements TranslationsMetaEn {
 	@override String get more => 'Thêm';
 	@override String get tips => 'Thông tin';
 	@override String get copy => 'Sao chép';
+	@override String get paste => 'Dán';
+	@override String get cut => 'Cắt';
 	@override String get save => 'Lưu';
 	@override String get ok => 'Đồng ý';
 	@override String get cancel => 'Hủy';
@@ -1199,6 +1202,8 @@ extension on TranslationsVi {
 			'meta.more' => 'Thêm',
 			'meta.tips' => 'Thông tin',
 			'meta.copy' => 'Sao chép',
+			'meta.paste' => 'Dán',
+			'meta.cut' => 'Cắt',
 			'meta.save' => 'Lưu',
 			'meta.ok' => 'Đồng ý',
 			'meta.cancel' => 'Hủy',
@@ -1445,10 +1450,10 @@ extension on TranslationsVi {
 			'tls.fragmentSize' => 'Kích thước phân đoạn TLS',
 			'tls.fragmentSleep' => 'Thời gian chờ phân đoạn TLS',
 			'tls.mixedCaseSNIEnable' => 'Bật SNI hỗn hợp TLS',
-			'tls.paddingEnable' => 'Bật TLS Padding',
-			'tls.paddingSize' => 'Kích thước TLS Padding',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Bật TLS Padding',
+			'tls.paddingSize' => 'Kích thước TLS Padding',
 			'outboundRuleMode.currentSelected' => 'Đã chọn hiện tại',
 			'outboundRuleMode.urltest' => 'Tự động chọn',
 			'outboundRuleMode.direct' => 'Trực tiếp',
@@ -1513,6 +1518,7 @@ extension on TranslationsVi {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

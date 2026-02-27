@@ -188,6 +188,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -1174,6 +1175,12 @@ class TranslationsMetaEn {
 
 	/// en: 'Copy'
 	String get copy => 'Copy';
+
+	/// en: 'Paste'
+	String get paste => 'Paste';
+
+	/// en: 'Cut'
+	String get cut => 'Cut';
 
 	/// en: 'Save'
 	String get save => 'Save';
@@ -2306,6 +2313,8 @@ extension on Translations {
 			'meta.more' => 'More',
 			'meta.tips' => 'Info',
 			'meta.copy' => 'Copy',
+			'meta.paste' => 'Paste',
+			'meta.cut' => 'Cut',
 			'meta.save' => 'Save',
 			'meta.ok' => 'Ok',
 			'meta.cancel' => 'Cancel',
@@ -2552,10 +2561,10 @@ extension on Translations {
 			'tls.fragmentSize' => 'TLS Fragment Size',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
-			'tls.paddingEnable' => 'Enable TLS Padding',
-			'tls.paddingSize' => 'TLS Padding Size',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Enable TLS Padding',
+			'tls.paddingSize' => 'TLS Padding Size',
 			'outboundRuleMode.currentSelected' => 'Current Selected',
 			'outboundRuleMode.urltest' => 'Auto Select',
 			'outboundRuleMode.direct' => 'Direct',
@@ -2620,6 +2629,7 @@ extension on Translations {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

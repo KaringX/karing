@@ -308,6 +308,8 @@
         "more": "Más",
         "tips": "Información",
         "copy": "Copiar",
+        "paste": "Pasta",
+        "cut": "Cortar",
         "save": "Guardar",
         "ok": "OK",
         "cancel": "Cancelar",
@@ -637,6 +639,7 @@
         "bn": "বাংলা",
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "th": "ไทย"
     }
 }

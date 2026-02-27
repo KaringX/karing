@@ -123,6 +123,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaKo implements TranslationsMetaEn {
 	@override String get more => '더 보기';
 	@override String get tips => '정보';
 	@override String get copy => '복사';
+	@override String get paste => '반죽';
+	@override String get cut => '자르다';
 	@override String get save => '저장';
 	@override String get ok => '확인';
 	@override String get cancel => '취소';
@@ -1199,6 +1202,8 @@ extension on TranslationsKo {
 			'meta.more' => '더 보기',
 			'meta.tips' => '정보',
 			'meta.copy' => '복사',
+			'meta.paste' => '반죽',
+			'meta.cut' => '자르다',
 			'meta.save' => '저장',
 			'meta.ok' => '확인',
 			'meta.cancel' => '취소',
@@ -1445,10 +1450,10 @@ extension on TranslationsKo {
 			'tls.fragmentSize' => 'TLS 조각 크기',
 			'tls.fragmentSleep' => 'TLS 조각 대기 시간',
 			'tls.mixedCaseSNIEnable' => 'TLS 혼합 케이스 SNI 활성화',
-			'tls.paddingEnable' => 'TLS 패딩 활성화',
-			'tls.paddingSize' => 'TLS 패딩 크기',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS 패딩 활성화',
+			'tls.paddingSize' => 'TLS 패딩 크기',
 			'outboundRuleMode.currentSelected' => '현재 선택됨',
 			'outboundRuleMode.urltest' => '자동 선택',
 			'outboundRuleMode.direct' => '직접 연결',
@@ -1513,6 +1518,7 @@ extension on TranslationsKo {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

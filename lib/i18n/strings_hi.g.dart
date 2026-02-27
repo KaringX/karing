@@ -123,6 +123,7 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaHi implements TranslationsMetaEn {
 	@override String get more => 'अधिक';
 	@override String get tips => 'जानकारी';
 	@override String get copy => 'कॉपी करें';
+	@override String get paste => 'पेस्ट करें';
+	@override String get cut => 'काटना';
 	@override String get save => 'सहेजें';
 	@override String get ok => 'ठीक है';
 	@override String get cancel => 'रद्द करें';
@@ -1199,6 +1202,8 @@ extension on TranslationsHi {
 			'meta.more' => 'अधिक',
 			'meta.tips' => 'जानकारी',
 			'meta.copy' => 'कॉपी करें',
+			'meta.paste' => 'पेस्ट करें',
+			'meta.cut' => 'काटना',
 			'meta.save' => 'सहेजें',
 			'meta.ok' => 'ठीक है',
 			'meta.cancel' => 'रद्द करें',
@@ -1445,10 +1450,10 @@ extension on TranslationsHi {
 			'tls.fragmentSize' => 'TLS फ्रैगमेंट आकार',
 			'tls.fragmentSleep' => 'TLS फ्रैगमेंट स्लीप',
 			'tls.mixedCaseSNIEnable' => 'TLS मिक्स्ड केस SNI सक्षम करें',
-			'tls.paddingEnable' => 'TLS पैडिंग सक्षम करें',
-			'tls.paddingSize' => 'TLS पैडिंग आकार',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS पैडिंग सक्षम करें',
+			'tls.paddingSize' => 'TLS पैडिंग आकार',
 			'outboundRuleMode.currentSelected' => 'वर्तमान में चयनित',
 			'outboundRuleMode.urltest' => 'स्वचालित चयन',
 			'outboundRuleMode.direct' => 'सीधा',
@@ -1513,6 +1518,7 @@ extension on TranslationsHi {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

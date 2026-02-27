@@ -2983,7 +2983,7 @@ class GroupHelper {
 
   static Future<void> onTapImport(BuildContext context) async {
     final tcontext = Translations.of(context);
-    List<String> extensions = [BackupAndSyncUtils.getZipExtension()];
+    List<String> extensions = [BackupAndSyncUtils.zipExtension];
     try {
       FilePickerResult? pickResult = await FilePicker.platform.pickFiles(
         type: FileType.custom,

@@ -123,6 +123,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 	@override String get more => 'もっと見る';
 	@override String get tips => '情報';
 	@override String get copy => 'コピー';
+	@override String get paste => '貼り付け';
+	@override String get cut => '切り取り';
 	@override String get save => '保存';
 	@override String get ok => 'OK';
 	@override String get cancel => 'キャンセル';
@@ -1199,6 +1202,8 @@ extension on TranslationsJa {
 			'meta.more' => 'もっと見る',
 			'meta.tips' => '情報',
 			'meta.copy' => 'コピー',
+			'meta.paste' => '貼り付け',
+			'meta.cut' => '切り取り',
 			'meta.save' => '保存',
 			'meta.ok' => 'OK',
 			'meta.cancel' => 'キャンセル',
@@ -1445,10 +1450,10 @@ extension on TranslationsJa {
 			'tls.fragmentSize' => 'TLS フラグメントサイズ',
 			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
 			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',
-			'tls.paddingEnable' => 'TLS パディングを有効にする',
-			'tls.paddingSize' => 'TLS パディングサイズ',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS パディングを有効にする',
+			'tls.paddingSize' => 'TLS パディングサイズ',
 			'outboundRuleMode.currentSelected' => '現在の選択',
 			'outboundRuleMode.urltest' => '自動選択',
 			'outboundRuleMode.direct' => '直接接続',
@@ -1513,6 +1518,7 @@ extension on TranslationsJa {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

@@ -123,6 +123,7 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get more => 'بیشتر';
 	@override String get tips => 'اطلاعات';
 	@override String get copy => 'کپی';
+	@override String get paste => 'چسباندن';
+	@override String get cut => 'برش';
 	@override String get save => 'ذخیره کنید';
 	@override String get ok => 'خُب';
 	@override String get cancel => 'لغو';
@@ -1199,6 +1202,8 @@ extension on TranslationsFa {
 			'meta.more' => 'بیشتر',
 			'meta.tips' => 'اطلاعات',
 			'meta.copy' => 'کپی',
+			'meta.paste' => 'چسباندن',
+			'meta.cut' => 'برش',
 			'meta.save' => 'ذخیره کنید',
 			'meta.ok' => 'خُب',
 			'meta.cancel' => 'لغو',
@@ -1445,10 +1450,10 @@ extension on TranslationsFa {
 			'tls.fragmentSize' => 'اندازه بخش TLS',
 			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
-			'tls.paddingEnable' => 'فعال کردن TLS Padding',
-			'tls.paddingSize' => 'اندازه پد TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'فعال کردن TLS Padding',
+			'tls.paddingSize' => 'اندازه پد TLS',
 			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
 			'outboundRuleMode.urltest' => 'انتخاب خودکار',
 			'outboundRuleMode.direct' => 'مستقیم',
@@ -1513,6 +1518,7 @@ extension on TranslationsFa {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

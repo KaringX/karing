@@ -2744,8 +2744,8 @@ class ServerManager {
     List<String> zipFileList = [];
     try {
       for (var file in fileList) {
-        var filePath = path.join(dir, file.item1);
-        if (file.item2) {
+        var filePath = path.join(dir, file.fileName);
+        if (file.required) {
           var f = File(filePath);
           bool exist = await f.exists();
           if (!exist) {

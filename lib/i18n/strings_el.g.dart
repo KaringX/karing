@@ -123,6 +123,7 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaEl implements TranslationsMetaEn {
 	@override String get more => 'Περισσότερα';
 	@override String get tips => 'Πληροφορίες';
 	@override String get copy => 'Αντιγραφή';
+	@override String get paste => 'Πάστα';
+	@override String get cut => 'Τομή';
 	@override String get save => 'Αποθήκευση';
 	@override String get ok => 'Οκ';
 	@override String get cancel => 'Ακύρωση';
@@ -1199,6 +1202,8 @@ extension on TranslationsEl {
 			'meta.more' => 'Περισσότερα',
 			'meta.tips' => 'Πληροφορίες',
 			'meta.copy' => 'Αντιγραφή',
+			'meta.paste' => 'Πάστα',
+			'meta.cut' => 'Τομή',
 			'meta.save' => 'Αποθήκευση',
 			'meta.ok' => 'Οκ',
 			'meta.cancel' => 'Ακύρωση',
@@ -1445,10 +1450,10 @@ extension on TranslationsEl {
 			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',
 			'tls.fragmentSleep' => 'Αναστολή TLS Fragment',
 			'tls.mixedCaseSNIEnable' => 'Ενεργοποίηση TLS Mixed Case SNI',
-			'tls.paddingEnable' => 'Ενεργοποίηση TLS Padding',
-			'tls.paddingSize' => 'Μέγεθος TLS Padding',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Ενεργοποίηση TLS Padding',
+			'tls.paddingSize' => 'Μέγεθος TLS Padding',
 			'outboundRuleMode.currentSelected' => 'Τρέχουσα επιλογή',
 			'outboundRuleMode.urltest' => 'Αυτόματη επιλογή',
 			'outboundRuleMode.direct' => 'Άμεση',
@@ -1513,6 +1518,7 @@ extension on TranslationsEl {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

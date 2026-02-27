@@ -123,6 +123,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaTr implements TranslationsMetaEn {
 	@override String get more => 'Daha Fazla';
 	@override String get tips => 'Bilgi';
 	@override String get copy => 'Kopyala';
+	@override String get paste => 'Yapıştır';
+	@override String get cut => 'Kesmek';
 	@override String get save => 'Kaydet';
 	@override String get ok => 'Tamam';
 	@override String get cancel => 'İptal';
@@ -1199,6 +1202,8 @@ extension on TranslationsTr {
 			'meta.more' => 'Daha Fazla',
 			'meta.tips' => 'Bilgi',
 			'meta.copy' => 'Kopyala',
+			'meta.paste' => 'Yapıştır',
+			'meta.cut' => 'Kesmek',
 			'meta.save' => 'Kaydet',
 			'meta.ok' => 'Tamam',
 			'meta.cancel' => 'İptal',
@@ -1445,10 +1450,10 @@ extension on TranslationsTr {
 			'tls.fragmentSize' => 'TLS Parça Boyutu',
 			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
 			'tls.mixedCaseSNIEnable' => 'TLS Karışık SNI\'yı Etkinleştir',
-			'tls.paddingEnable' => 'TLS Padding\'i Etkinleştir',
-			'tls.paddingSize' => 'TLS Padding Boyutu',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS Padding\'i Etkinleştir',
+			'tls.paddingSize' => 'TLS Padding Boyutu',
 			'outboundRuleMode.currentSelected' => 'Şu An Seçili',
 			'outboundRuleMode.urltest' => 'Otomatik Seç',
 			'outboundRuleMode.direct' => 'Doğrudan',
@@ -1513,6 +1518,7 @@ extension on TranslationsTr {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

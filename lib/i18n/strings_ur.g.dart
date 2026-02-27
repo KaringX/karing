@@ -123,6 +123,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaUr implements TranslationsMetaEn {
 	@override String get more => 'مزید';
 	@override String get tips => 'معلومات';
 	@override String get copy => 'کاپی کریں';
+	@override String get paste => 'چسپاں کریں۔';
+	@override String get cut => 'کاٹنا';
 	@override String get save => 'محفوظ کریں';
 	@override String get ok => 'ٹھیک ہے';
 	@override String get cancel => 'منسوخ کریں';
@@ -1199,6 +1202,8 @@ extension on TranslationsUr {
 			'meta.more' => 'مزید',
 			'meta.tips' => 'معلومات',
 			'meta.copy' => 'کاپی کریں',
+			'meta.paste' => 'چسپاں کریں۔',
+			'meta.cut' => 'کاٹنا',
 			'meta.save' => 'محفوظ کریں',
 			'meta.ok' => 'ٹھیک ہے',
 			'meta.cancel' => 'منسوخ کریں',
@@ -1445,10 +1450,10 @@ extension on TranslationsUr {
 			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
 			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
 			'tls.mixedCaseSNIEnable' => 'TLS مکسڈ کیس SNI فعال کریں',
-			'tls.paddingEnable' => 'TLS پیڈنگ فعال کریں',
-			'tls.paddingSize' => 'TLS پیڈنگ سائز',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'TLS پیڈنگ فعال کریں',
+			'tls.paddingSize' => 'TLS پیڈنگ سائز',
 			'outboundRuleMode.currentSelected' => 'فی الحال منتخب شدہ',
 			'outboundRuleMode.urltest' => 'خودکار انتخاب',
 			'outboundRuleMode.direct' => 'براہ راست',
@@ -1513,6 +1518,7 @@ extension on TranslationsUr {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

@@ -308,6 +308,8 @@
         "more": "Mer",
         "tips": "Info",
         "copy": "Kopiera",
+        "paste": "Klistra",
+        "cut": "Skära",
         "save": "Spara",
         "ok": "Ok",
         "cancel": "Avbryt",
@@ -637,6 +639,7 @@
         "bn": "বাংলা",
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "th": "ไทย"
     }
 }

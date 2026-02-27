@@ -71,7 +71,7 @@ void main(List<String> args) async {
     await SentryUtilsPrivate.init();
   }
 
-  SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
+  //SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
 
   await run(args);
 }
@@ -338,7 +338,7 @@ class MyAppState extends State<MyApp>
                   ActivateIntent(), // for android tv OK/Select button
             },
             child: MaterialApp(
-              showSemanticsDebugger: false,
+              //showSemanticsDebugger: false,
               debugShowCheckedModeBanner: false,
               locale: TranslationProvider.of(context).flutterLocale,
               supportedLocales: AppLocaleUtils.supportedLocales,

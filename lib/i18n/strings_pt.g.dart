@@ -123,6 +123,7 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaPt implements TranslationsMetaEn {
 	@override String get more => 'Mais';
 	@override String get tips => 'Informação';
 	@override String get copy => 'Copiar';
+	@override String get paste => 'Colar';
+	@override String get cut => 'Corte';
 	@override String get save => 'Guardar';
 	@override String get ok => 'Ok';
 	@override String get cancel => 'Cancelar';
@@ -1199,6 +1202,8 @@ extension on TranslationsPt {
 			'meta.more' => 'Mais',
 			'meta.tips' => 'Informação',
 			'meta.copy' => 'Copiar',
+			'meta.paste' => 'Colar',
+			'meta.cut' => 'Corte',
 			'meta.save' => 'Guardar',
 			'meta.ok' => 'Ok',
 			'meta.cancel' => 'Cancelar',
@@ -1445,10 +1450,10 @@ extension on TranslationsPt {
 			'tls.fragmentSize' => 'Tamanho do Fragmento TLS',
 			'tls.fragmentSleep' => 'Pausa do Fragmento TLS',
 			'tls.mixedCaseSNIEnable' => 'Ativar SNI de Caixa Mista TLS',
-			'tls.paddingEnable' => 'Ativar Preenchimento TLS',
-			'tls.paddingSize' => 'Tamanho do Preenchimento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Ativar Preenchimento TLS',
+			'tls.paddingSize' => 'Tamanho do Preenchimento TLS',
 			'outboundRuleMode.currentSelected' => 'Selecionado Atualmente',
 			'outboundRuleMode.urltest' => 'Seleção Automática',
 			'outboundRuleMode.direct' => 'Direto',
@@ -1513,6 +1518,7 @@ extension on TranslationsPt {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

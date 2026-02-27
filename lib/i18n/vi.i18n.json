@@ -308,6 +308,8 @@
         "more": "Thêm",
         "tips": "Thông tin",
         "copy": "Sao chép",
+        "paste": "Dán",
+        "cut": "Cắt",
         "save": "Lưu",
         "ok": "Đồng ý",
         "cancel": "Hủy",
@@ -637,6 +639,7 @@
         "bn": "বাংলা",
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
-        "tr": "Türkçe"
+        "tr": "Türkçe",
+        "th": "ไทย"
     }
 }

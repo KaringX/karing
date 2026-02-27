@@ -123,6 +123,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
 	@override String get copy => 'Скопировать';
+	@override String get paste => 'Вставить';
+	@override String get cut => 'Вырезать';
 	@override String get save => 'Сохранить';
 	@override String get ok => 'Ок';
 	@override String get cancel => 'Закрыть';
@@ -1199,6 +1202,8 @@ extension on TranslationsRu {
 			'meta.more' => 'Больше',
 			'meta.tips' => 'Инфо',
 			'meta.copy' => 'Скопировать',
+			'meta.paste' => 'Вставить',
+			'meta.cut' => 'Вырезать',
 			'meta.save' => 'Сохранить',
 			'meta.ok' => 'Ок',
 			'meta.cancel' => 'Закрыть',
@@ -1445,10 +1450,10 @@ extension on TranslationsRu {
 			'tls.fragmentSize' => 'Размер фрагмента TLS',
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
-			'tls.paddingEnable' => 'Включить заполнение TLS',
-			'tls.paddingSize' => 'Размер заполнения TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => 'Включить заполнение TLS',
+			'tls.paddingSize' => 'Размер заполнения TLS',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
@@ -1513,6 +1518,7 @@ extension on TranslationsRu {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}

@@ -3,6 +3,7 @@
 17zuoye
 18comic
 2ch
+2gis
 2kgames
 36kr
 4399
@@ -50,11 +51,13 @@ adobe@cn
 ads
 aerogard
 aerogard@cn
+af
 afdian
 afp
 agilebits
 agora
 aiqicha
+airbnb
 airchina
 airwick
 airwick@cn
@@ -92,6 +95,8 @@ anandtech
 android
 anexia
 anime
+anker
+anker@!cn
 annas-archive
 anon-v
 anthropic
@@ -217,6 +222,7 @@ borneoschematics
 boslife
 boxun
 boylove
+br
 braveux
 brazzers
 bridgestone
@@ -279,6 +285,7 @@ category-bank-cn
 category-bank-ir
 category-bank-jp
 category-bank-mm
+category-bank-ru
 category-blog-cn
 category-bourse-ir
 category-browser-!cn
@@ -408,6 +415,7 @@ category-tech-media
 category-tech-media@cn
 category-tm
 category-travel-ir
+category-travel-ru
 category-voip
 category-vpnservices
 category-web-archive
@@ -845,6 +853,7 @@ icbc@!cn
 icloud
 icloud@cn
 icloudprivaterelay
+id
 identrust
 idg
 ieee
@@ -947,6 +956,7 @@ kindle4rss
 kindle@cn
 kingkonglive
 kingsoft
+kinopoisk
 kinopub
 kkbox
 kktv
@@ -1090,6 +1100,7 @@ missav
 misskey-universe
 misskey
 mit
+mixi
 mobile01
 mocha
 modrinth
@@ -1351,6 +1362,7 @@ roku
 rsshub-3rd
 rsshub
 rthk
+ru
 ruanmei
 ruby
 rubychina
@@ -1568,6 +1580,7 @@ tinyurl
 tld-!cn
 tld-cn
 tld-opennic
+tld-ru
 tmdb
 tmtpost
 tokyo-sports
@@ -1578,6 +1591,7 @@ tongfang
 topcoder
 tor
 torproject
+tr
 tracker
 trackernetwork
 trae
@@ -1763,6 +1777,8 @@ ynet
 ynoproject
 yokaverse
 yomiuri
+yostar
+yostar@cn
 youjizz
 youku-ads
 youku
@@ -1802,6 +1818,7 @@ ziroom
 zoho
 zoom
 zotero
+zscaler
 zte
 zto-express
 zuoyebang-ads

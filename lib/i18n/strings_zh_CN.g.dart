@@ -123,6 +123,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 		'el': 'Ελληνικά',
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
+		'th': 'ไทย',
 	};
 }
 
@@ -585,6 +586,8 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get more => '更多';
 	@override String get tips => '提示';
 	@override String get copy => '拷贝';
+	@override String get paste => '粘贴';
+	@override String get cut => '剪切';
 	@override String get save => '保存';
 	@override String get ok => '确定';
 	@override String get cancel => '取消';
@@ -1199,6 +1202,8 @@ extension on TranslationsZhCn {
 			'meta.more' => '更多',
 			'meta.tips' => '提示',
 			'meta.copy' => '拷贝',
+			'meta.paste' => '粘贴',
+			'meta.cut' => '剪切',
 			'meta.save' => '保存',
 			'meta.ok' => '确定',
 			'meta.cancel' => '取消',
@@ -1445,10 +1450,10 @@ extension on TranslationsZhCn {
 			'tls.fragmentSize' => 'TLS分段大小',
 			'tls.fragmentSleep' => 'TLS分段休眠',
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
-			'tls.paddingEnable' => '启用TLS填充',
-			'tls.paddingSize' => 'TLS填充大小',
 			_ => null,
 		} ?? switch (path) {
+			'tls.paddingEnable' => '启用TLS填充',
+			'tls.paddingSize' => 'TLS填充大小',
 			'outboundRuleMode.currentSelected' => '当前选择',
 			'outboundRuleMode.urltest' => '自动选择',
 			'outboundRuleMode.direct' => '直连',
@@ -1513,6 +1518,7 @@ extension on TranslationsZhCn {
 			'locales.el' => 'Ελληνικά',
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
+			'locales.th' => 'ไทย',
 			_ => null,
 		};
 	}
