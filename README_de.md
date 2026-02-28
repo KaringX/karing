@@ -81,11 +81,6 @@ Eine <a href="https://github.com/flutter/flutter">flutter</a>-basierte GUI für 
 
 > [FAQ|de](https://karing.app/en/faq/)
 
-## Aufgaben (Todos)
-- Zu unterstützende Plattformen:
-  - linux | [linglong](https://linglong.dev/)
-- Globalisierung (Mehrsprachigkeit)
-  - Wenn Sie bereit sind, mit uns an der Globalisierung von Karing zu arbeiten, kontaktieren Sie uns bitte über [Telegram](https://t.me/ovowe).
 
 ## Screenshots
 

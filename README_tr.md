@@ -81,11 +81,6 @@
 
 > [FAQ|tr](https://karing.app/en/faq/)
 
-## Yapılacaklar (Todos)
-- Desteklenecek platformlar:
-  - linux | [linglong](https://linglong.dev/)
-- Küreselleşme (çoklu dil)
-  - Karing küreselleşmesini desteklemek için bizimle çalışmaya istekliyseniz, lütfen [Telegram](https://t.me/ovowe) üzerinden bizimle iletişime geçin.
 
 ## Ekran Görüntüleri
 

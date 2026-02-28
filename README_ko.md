@@ -81,11 +81,6 @@
 
 > [FAQ|ko](https://karing.app/en/faq/)
 
-## 할 일 (Todos)
-- 지원 예정 플랫폼:
-  - linux | [linglong](https://linglong.dev/)
-- 세계화 (다국어 지원)
-  - Karing의 세계화를 돕고 싶으신 분은 [Telegram](https://t.me/ovowe)으로 연락주세요.
 
 ## 스크린샷
 

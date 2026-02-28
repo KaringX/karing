@@ -81,12 +81,6 @@ Giao diện người dùng <a href="https://github.com/SagerNet/sing-box">singbo
 
 > [FAQ|vi](https://karing.app/en/faq/)
 
-## Việc cần làm (Todos)
-- Nền tảng sẽ được hỗ trợ:
-  - linux | [linglong](https://linglong.dev/)
-- Toàn cầu hóa (đa ngôn ngữ)
-  - Nếu bạn sẵn lòng làm việc với chúng tôi để hỗ trợ toàn cầu hóa Karing, vui lòng liên hệ với chúng tôi qua [Telegram](https://t.me/ovowe).
-
 ## Ảnh chụp màn hình
 
 <div align="center">

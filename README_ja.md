@@ -81,12 +81,6 @@
 
 > [FAQ|ja](https://karing.app/en/faq/)
 
-## 予定 (Todos)
-- サポート予定のプラットフォーム：
-  - linux | [linglong](https://linglong.dev/)
-- グローバル化（多言語対応）
-  - Karing のグローバル化を支援していただける場合は、[Telegram](https://t.me/ovowe) までご連絡ください。
-
 ## スクリーンショット
 
 <div align="center">

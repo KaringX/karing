@@ -81,11 +81,6 @@
 
 > [FAQ|cn](https://karing.app/en/faq/)
 
-## 待办事项
-- 待支持的平台：
-  - linux | [linglong](https://linglong.dev/)
-- 全球化（多语言）
-  - 如果您愿意与我们合作支持 Karing 全球化，请联系我们 [Telegram](https://t.me/ovowe)
 
 ## 截图
 

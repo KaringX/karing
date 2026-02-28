@@ -81,11 +81,6 @@ Une interface graphique <a href="https://github.com/SagerNet/sing-box">singbox</
 
 > [FAQ|fr](https://karing.app/en/faq/)
 
-## À faire (Todos)
-- Plateformes qui seront supportées :
-  - linux | [linglong](https://linglong.dev/)
-- Globalisation (multi-langue)
-  - Si vous êtes prêt à travailler avec nous pour soutenir la globalisation de Karing, contactez-nous sur [Telegram](https://t.me/ovowe).
 
 ## Captures d'écran
 

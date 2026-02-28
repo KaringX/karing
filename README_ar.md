@@ -85,11 +85,6 @@
 
 > [FAQ|ar](https://karing.app/en/faq/)
 
-## المهام القادمة (Todos)
-- المنصات التي سيتم دعمها:
-  - linux | [linglong](https://linglong.dev/)
-- العولمة (متعدد اللغات)
-  - إذا كنت ترغب في العمل معنا لدعم عولمة Karing، يرجى الاتصال بنا عبر [Telegram](https://t.me/ovowe).
 
 ## لقطات الشاشة
 

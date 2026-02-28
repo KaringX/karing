@@ -81,11 +81,6 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 > [FAQ|en](https://karing.app/en/faq/)
 
-## Todos
-- Platform to be supported:
-  - linux | [linglong](https://linglong.dev/)
-- Globalization(multi-language)
-  - If you are willing to work with us to support Karing globalization, please contact us [Telegram](https://t.me/ovowe)
 
 ## Screenshots
 
