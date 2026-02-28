@@ -124,6 +124,7 @@ class TranslationsIt with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaIt implements TranslationsMetaEn {
 	@override String get user => 'Utente';
 	@override String get account => 'Account';
 	@override String get password => 'Password';
+	@override String get decryptPassword => 'Password di decrittazione';
 	@override String get required => 'Richiesto';
 	@override String get type => 'Tipo';
 	@override String get path => 'Percorso';
@@ -1270,6 +1272,7 @@ extension on TranslationsIt {
 			'meta.user' => 'Utente',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
+			'meta.decryptPassword' => 'Password di decrittazione',
 			'meta.required' => 'Richiesto',
 			'meta.type' => 'Tipo',
 			'meta.path' => 'Percorso',
@@ -1449,9 +1452,9 @@ extension on TranslationsIt {
 			'tls.fragmentEnable' => 'Abilita Frammento TLS',
 			'tls.fragmentSize' => 'Dimensione Frammento TLS',
 			'tls.fragmentSleep' => 'Pausa Frammento TLS',
-			'tls.mixedCaseSNIEnable' => 'Abilita SNI TLS Case Misto',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Abilita SNI TLS Case Misto',
 			'tls.paddingEnable' => 'Abilita Padding TLS',
 			'tls.paddingSize' => 'Dimensione Padding TLS',
 			'outboundRuleMode.currentSelected' => 'Attuale Selezionato',
@@ -1519,6 +1522,7 @@ extension on TranslationsIt {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

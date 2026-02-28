@@ -124,6 +124,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 	@override String get user => 'ユーザー';
 	@override String get account => 'アカウント';
 	@override String get password => 'パスワード';
+	@override String get decryptPassword => '複号化パスワード';
 	@override String get required => '必須';
 	@override String get type => 'タイプ';
 	@override String get path => 'パス';
@@ -1270,6 +1272,7 @@ extension on TranslationsJa {
 			'meta.user' => 'ユーザー',
 			'meta.account' => 'アカウント',
 			'meta.password' => 'パスワード',
+			'meta.decryptPassword' => '複号化パスワード',
 			'meta.required' => '必須',
 			'meta.type' => 'タイプ',
 			'meta.path' => 'パス',
@@ -1449,9 +1452,9 @@ extension on TranslationsJa {
 			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
 			'tls.fragmentSize' => 'TLS フラグメントサイズ',
 			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
-			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',
 			'tls.paddingEnable' => 'TLS パディングを有効にする',
 			'tls.paddingSize' => 'TLS パディングサイズ',
 			'outboundRuleMode.currentSelected' => '現在の選択',
@@ -1519,6 +1522,7 @@ extension on TranslationsJa {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

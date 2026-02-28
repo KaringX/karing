@@ -124,6 +124,7 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaFa implements TranslationsMetaEn {
 	@override String get user => 'کاربر';
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
+	@override String get decryptPassword => 'دکريپت رمز‌عبور';
 	@override String get required => 'الزامی';
 	@override String get type => 'نوع';
 	@override String get path => 'مسیر';
@@ -1270,6 +1272,7 @@ extension on TranslationsFa {
 			'meta.user' => 'کاربر',
 			'meta.account' => 'نام‌کاربری',
 			'meta.password' => 'رمز‌عبور',
+			'meta.decryptPassword' => 'دکريپت رمز‌عبور',
 			'meta.required' => 'الزامی',
 			'meta.type' => 'نوع',
 			'meta.path' => 'مسیر',
@@ -1449,9 +1452,9 @@ extension on TranslationsFa {
 			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
 			'tls.fragmentSize' => 'اندازه بخش TLS',
 			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
-			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
 			'tls.paddingSize' => 'اندازه پد TLS',
 			'outboundRuleMode.currentSelected' => 'فعلی انتخاب شده',
@@ -1519,6 +1522,7 @@ extension on TranslationsFa {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

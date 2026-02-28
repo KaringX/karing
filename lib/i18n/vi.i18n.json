@@ -376,6 +376,7 @@
         "user": "Người dùng",
         "account": "Tài khoản",
         "password": "Mật khẩu",
+        "decryptPassword": "Mật khẩu giải mã",
         "required": "Bắt buộc",
         "type": "Loại",
         "path": "Đường dẫn",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

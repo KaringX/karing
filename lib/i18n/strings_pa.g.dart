@@ -11,13 +11,13 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsHi with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsPa with BaseTranslations<AppLocale, Translations> implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsHi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+	TranslationsPa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = meta ?? TranslationMetadata(
-		    locale: AppLocale.hi,
+		    locale: AppLocale.pa,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
@@ -25,40 +25,40 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
-	/// Metadata for the translations of <hi>.
+	/// Metadata for the translations of <pa>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
 	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final TranslationsHi _root = this; // ignore: unused_field
+	late final TranslationsPa _root = this; // ignore: unused_field
 
 	@override 
-	TranslationsHi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHi(meta: meta ?? this.$meta);
+	TranslationsPa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsPa(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsAboutScreenHi AboutScreen = _TranslationsAboutScreenHi._(_root);
-	@override late final _TranslationsBackupAndSyncWebdavScreenHi BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenHi._(_root);
-	@override late final _TranslationsDiversionGroupCustomEditScreenHi DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenHi._(_root);
-	@override late final _TranslationsDiversionRuleDetectScreenHi DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenHi._(_root);
-	@override late final _TranslationsDiversionRulesScreenHi DiversionRulesScreen = _TranslationsDiversionRulesScreenHi._(_root);
-	@override late final _TranslationsDnsSettingsScreenHi DnsSettingsScreen = _TranslationsDnsSettingsScreenHi._(_root);
-	@override late final _TranslationsFileContentViewerScreenHi FileContentViewerScreen = _TranslationsFileContentViewerScreenHi._(_root);
-	@override late final _TranslationsHomeScreenHi HomeScreen = _TranslationsHomeScreenHi._(_root);
-	@override late final _TranslationsLaunchFailedScreenHi LaunchFailedScreen = _TranslationsLaunchFailedScreenHi._(_root);
-	@override late final _TranslationsMyProfilesMergeScreenHi MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenHi._(_root);
-	@override late final _TranslationsNetCheckScreenHi NetCheckScreen = _TranslationsNetCheckScreenHi._(_root);
-	@override late final _TranslationsNetConnectionsFilterScreenHi NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenHi._(_root);
-	@override late final _TranslationsNetConnectionsScreenHi NetConnectionsScreen = _TranslationsNetConnectionsScreenHi._(_root);
-	@override late final _TranslationsPerAppAndroidScreenHi PerAppAndroidScreen = _TranslationsPerAppAndroidScreenHi._(_root);
-	@override late final _TranslationsRegionSettingsScreenHi RegionSettingsScreen = _TranslationsRegionSettingsScreenHi._(_root);
-	@override late final _TranslationsServerSelectScreenHi ServerSelectScreen = _TranslationsServerSelectScreenHi._(_root);
-	@override late final _TranslationsSettingsScreenHi SettingsScreen = _TranslationsSettingsScreenHi._(_root);
-	@override late final _TranslationsUserAgreementScreenHi UserAgreementScreen = _TranslationsUserAgreementScreenHi._(_root);
-	@override late final _TranslationsVersionUpdateScreenHi VersionUpdateScreen = _TranslationsVersionUpdateScreenHi._(_root);
-	@override late final _TranslationsCommonWidgetHi CommonWidget = _TranslationsCommonWidgetHi._(_root);
-	@override late final _TranslationsMainHi main = _TranslationsMainHi._(_root);
-	@override late final _TranslationsMetaHi meta = _TranslationsMetaHi._(_root);
+	@override late final _TranslationsAboutScreenPa AboutScreen = _TranslationsAboutScreenPa._(_root);
+	@override late final _TranslationsBackupAndSyncWebdavScreenPa BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenPa._(_root);
+	@override late final _TranslationsDiversionGroupCustomEditScreenPa DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenPa._(_root);
+	@override late final _TranslationsDiversionRuleDetectScreenPa DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenPa._(_root);
+	@override late final _TranslationsDiversionRulesScreenPa DiversionRulesScreen = _TranslationsDiversionRulesScreenPa._(_root);
+	@override late final _TranslationsDnsSettingsScreenPa DnsSettingsScreen = _TranslationsDnsSettingsScreenPa._(_root);
+	@override late final _TranslationsFileContentViewerScreenPa FileContentViewerScreen = _TranslationsFileContentViewerScreenPa._(_root);
+	@override late final _TranslationsHomeScreenPa HomeScreen = _TranslationsHomeScreenPa._(_root);
+	@override late final _TranslationsLaunchFailedScreenPa LaunchFailedScreen = _TranslationsLaunchFailedScreenPa._(_root);
+	@override late final _TranslationsMyProfilesMergeScreenPa MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenPa._(_root);
+	@override late final _TranslationsNetCheckScreenPa NetCheckScreen = _TranslationsNetCheckScreenPa._(_root);
+	@override late final _TranslationsNetConnectionsFilterScreenPa NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenPa._(_root);
+	@override late final _TranslationsNetConnectionsScreenPa NetConnectionsScreen = _TranslationsNetConnectionsScreenPa._(_root);
+	@override late final _TranslationsPerAppAndroidScreenPa PerAppAndroidScreen = _TranslationsPerAppAndroidScreenPa._(_root);
+	@override late final _TranslationsRegionSettingsScreenPa RegionSettingsScreen = _TranslationsRegionSettingsScreenPa._(_root);
+	@override late final _TranslationsServerSelectScreenPa ServerSelectScreen = _TranslationsServerSelectScreenPa._(_root);
+	@override late final _TranslationsSettingsScreenPa SettingsScreen = _TranslationsSettingsScreenPa._(_root);
+	@override late final _TranslationsUserAgreementScreenPa UserAgreementScreen = _TranslationsUserAgreementScreenPa._(_root);
+	@override late final _TranslationsVersionUpdateScreenPa VersionUpdateScreen = _TranslationsVersionUpdateScreenPa._(_root);
+	@override late final _TranslationsCommonWidgetPa CommonWidget = _TranslationsCommonWidgetPa._(_root);
+	@override late final _TranslationsMainPa main = _TranslationsMainPa._(_root);
+	@override late final _TranslationsMetaPa meta = _TranslationsMetaPa._(_root);
 	@override String get diversionRulesKeep => '[${_root.meta.isp}] के [${_root.meta.diversionRules}] को बनाए रखें';
 	@override String get diversionCustomGroupPreset => 'प्रीसेट [${_root.meta.diversionCustomGroup}]';
 	@override String get diversionCustomGroupPresetTips => 'नोट: सक्षम किए गए आइटम [${_root.meta.diversionCustomGroup}] और [${_root.meta.diversionRules}] में जोड़े/ओवरराइट किए जाएंगे';
@@ -66,14 +66,14 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get rulesetEnableTips => 'टिप: विकल्पों को चालू करने के बाद, कृपया प्रासंगिक नियम सेट करने के लिए [${_root.meta.diversionRules}] पर जाएं, अन्यथा वे प्रभावी नहीं होंगे';
 	@override String get ispUserAgentTips => '[${_root.meta.isp}] [HTTP] अनुरोध में [UserAgent] के आधार पर विभिन्न सदस्यता प्रकारों का डेटा भेजेगा';
 	@override String get ispDiversionTips => '[${_root.meta.isp}] ट्रैफ़िक विचलन नियम प्रदान करता है; [V2Ray] प्रकार की सदस्यता ट्रैफ़िक विचलन नियमों का समर्थन नहीं करती है';
-	@override late final _TranslationsIspHi isp = _TranslationsIspHi._(_root);
-	@override late final _TranslationsPermissionHi permission = _TranslationsPermissionHi._(_root);
-	@override late final _TranslationsTlsHi tls = _TranslationsTlsHi._(_root);
-	@override late final _TranslationsOutboundRuleModeHi outboundRuleMode = _TranslationsOutboundRuleModeHi._(_root);
-	@override late final _TranslationsDnsProxyResolveModeHi dnsProxyResolveMode = _TranslationsDnsProxyResolveModeHi._(_root);
-	@override late final _TranslationsProxyStrategyHi proxyStrategy = _TranslationsProxyStrategyHi._(_root);
-	@override late final _TranslationsReloadReasonHi reloadReason = _TranslationsReloadReasonHi._(_root);
-	@override late final _TranslationsThemeHi theme = _TranslationsThemeHi._(_root);
+	@override late final _TranslationsIspPa isp = _TranslationsIspPa._(_root);
+	@override late final _TranslationsPermissionPa permission = _TranslationsPermissionPa._(_root);
+	@override late final _TranslationsTlsPa tls = _TranslationsTlsPa._(_root);
+	@override late final _TranslationsOutboundRuleModePa outboundRuleMode = _TranslationsOutboundRuleModePa._(_root);
+	@override late final _TranslationsDnsProxyResolveModePa dnsProxyResolveMode = _TranslationsDnsProxyResolveModePa._(_root);
+	@override late final _TranslationsProxyStrategyPa proxyStrategy = _TranslationsProxyStrategyPa._(_root);
+	@override late final _TranslationsReloadReasonPa reloadReason = _TranslationsReloadReasonPa._(_root);
+	@override late final _TranslationsThemePa theme = _TranslationsThemePa._(_root);
 	@override String get downloadProxyStrategy => 'डाउनलोड चैनल';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: डोमेन नाम को हल करने के लिए प्रॉक्सी सर्वर के माध्यम से DNS सर्वर से जुड़ें\n[${_root.dnsProxyResolveMode.direct}]: डोमेन नाम को हल करने के लिए सीधे DNS सर्वर से जुड़ें\n[${_root.dnsProxyResolveMode.fakeip}]: प्रॉक्सी सर्वर आपकी ओर से डोमेन नाम हल करता है; यदि आप VPN कनेक्शन डिस्कनेक्ट करते हैं, तो आपके एप्लिकेशन को पुनरारंभ करने की आवश्यकता हो सकती है; केवल [TUN] इनबाउंड ट्रैफ़िक के लिए प्रभावी';
 	@override String get routeFinal => 'final';
@@ -129,10 +129,10 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: AboutScreen
-class _TranslationsAboutScreenHi implements TranslationsAboutScreenEn {
-	_TranslationsAboutScreenHi._(this._root);
+class _TranslationsAboutScreenPa implements TranslationsAboutScreenEn {
+	_TranslationsAboutScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get installRefer => 'इंस्टॉलेशन स्रोत';
@@ -153,10 +153,10 @@ class _TranslationsAboutScreenHi implements TranslationsAboutScreenEn {
 }
 
 // Path: BackupAndSyncWebdavScreen
-class _TranslationsBackupAndSyncWebdavScreenHi implements TranslationsBackupAndSyncWebdavScreenEn {
-	_TranslationsBackupAndSyncWebdavScreenHi._(this._root);
+class _TranslationsBackupAndSyncWebdavScreenPa implements TranslationsBackupAndSyncWebdavScreenEn {
+	_TranslationsBackupAndSyncWebdavScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get webdavServerUrl => 'सर्वर URL';
@@ -166,10 +166,10 @@ class _TranslationsBackupAndSyncWebdavScreenHi implements TranslationsBackupAndS
 }
 
 // Path: DiversionGroupCustomEditScreen
-class _TranslationsDiversionGroupCustomEditScreenHi implements TranslationsDiversionGroupCustomEditScreenEn {
-	_TranslationsDiversionGroupCustomEditScreenHi._(this._root);
+class _TranslationsDiversionGroupCustomEditScreenPa implements TranslationsDiversionGroupCustomEditScreenEn {
+	_TranslationsDiversionGroupCustomEditScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String invalidDomain({required Object p}) => 'अमान्य [डोमेन]:${p}';
@@ -182,10 +182,10 @@ class _TranslationsDiversionGroupCustomEditScreenHi implements TranslationsDiver
 }
 
 // Path: DiversionRuleDetectScreen
-class _TranslationsDiversionRuleDetectScreenHi implements TranslationsDiversionRuleDetectScreenEn {
-	_TranslationsDiversionRuleDetectScreenHi._(this._root);
+class _TranslationsDiversionRuleDetectScreenPa implements TranslationsDiversionRuleDetectScreenEn {
+	_TranslationsDiversionRuleDetectScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'विचलन नियम पहचान';
@@ -194,20 +194,20 @@ class _TranslationsDiversionRuleDetectScreenHi implements TranslationsDiversionR
 }
 
 // Path: DiversionRulesScreen
-class _TranslationsDiversionRulesScreenHi implements TranslationsDiversionRulesScreenEn {
-	_TranslationsDiversionRulesScreenHi._(this._root);
+class _TranslationsDiversionRulesScreenPa implements TranslationsDiversionRulesScreenEn {
+	_TranslationsDiversionRulesScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get diversionRulesMatchTips => 'टिप: नियमों को ऊपर से नीचे तक मिलाने का प्रयास करें। यदि कोई नियम मेल नहीं खाता है, तो [final] का उपयोग करें';
 }
 
 // Path: DnsSettingsScreen
-class _TranslationsDnsSettingsScreenHi implements TranslationsDnsSettingsScreenEn {
-	_TranslationsDnsSettingsScreenHi._(this._root);
+class _TranslationsDnsSettingsScreenPa implements TranslationsDnsSettingsScreenEn {
+	_TranslationsDnsSettingsScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get ispCanNotEmpty => 'ISP खाली नहीं हो सकता';
@@ -217,10 +217,10 @@ class _TranslationsDnsSettingsScreenHi implements TranslationsDnsSettingsScreenE
 }
 
 // Path: FileContentViewerScreen
-class _TranslationsFileContentViewerScreenHi implements TranslationsFileContentViewerScreenEn {
-	_TranslationsFileContentViewerScreenHi._(this._root);
+class _TranslationsFileContentViewerScreenPa implements TranslationsFileContentViewerScreenEn {
+	_TranslationsFileContentViewerScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'फ़ाइल सामग्री दर्शक';
@@ -229,10 +229,10 @@ class _TranslationsFileContentViewerScreenHi implements TranslationsFileContentV
 }
 
 // Path: HomeScreen
-class _TranslationsHomeScreenHi implements TranslationsHomeScreenEn {
-	_TranslationsHomeScreenHi._(this._root);
+class _TranslationsHomeScreenPa implements TranslationsHomeScreenEn {
+	_TranslationsHomeScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get toSelectServer => 'कृपया एक सर्वर चुनें';
@@ -246,10 +246,10 @@ class _TranslationsHomeScreenHi implements TranslationsHomeScreenEn {
 }
 
 // Path: LaunchFailedScreen
-class _TranslationsLaunchFailedScreenHi implements TranslationsLaunchFailedScreenEn {
-	_TranslationsLaunchFailedScreenHi._(this._root);
+class _TranslationsLaunchFailedScreenPa implements TranslationsLaunchFailedScreenEn {
+	_TranslationsLaunchFailedScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get invalidProcess => 'ऐप शुरू होने में विफल रहा [अमान्य प्रक्रिया नाम], कृपया ऐप को एक अलग निर्देशिका में फिर से इंस्टॉल करें';
@@ -260,10 +260,10 @@ class _TranslationsLaunchFailedScreenHi implements TranslationsLaunchFailedScree
 }
 
 // Path: MyProfilesMergeScreen
-class _TranslationsMyProfilesMergeScreenHi implements TranslationsMyProfilesMergeScreenEn {
-	_TranslationsMyProfilesMergeScreenHi._(this._root);
+class _TranslationsMyProfilesMergeScreenPa implements TranslationsMyProfilesMergeScreenEn {
+	_TranslationsMyProfilesMergeScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get profilesMerge => 'प्रोफ़ाइल मर्ज करें';
@@ -273,10 +273,10 @@ class _TranslationsMyProfilesMergeScreenHi implements TranslationsMyProfilesMerg
 }
 
 // Path: NetCheckScreen
-class _TranslationsNetCheckScreenHi implements TranslationsNetCheckScreenEn {
-	_TranslationsNetCheckScreenHi._(this._root);
+class _TranslationsNetCheckScreenPa implements TranslationsNetCheckScreenEn {
+	_TranslationsNetCheckScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'नेटवर्क चेक';
@@ -304,10 +304,10 @@ class _TranslationsNetCheckScreenHi implements TranslationsNetCheckScreenEn {
 }
 
 // Path: NetConnectionsFilterScreen
-class _TranslationsNetConnectionsFilterScreenHi implements TranslationsNetConnectionsFilterScreenEn {
-	_TranslationsNetConnectionsFilterScreenHi._(this._root);
+class _TranslationsNetConnectionsFilterScreenPa implements TranslationsNetConnectionsFilterScreenEn {
+	_TranslationsNetConnectionsFilterScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get hostIp => 'डोमेन/IP';
@@ -317,10 +317,10 @@ class _TranslationsNetConnectionsFilterScreenHi implements TranslationsNetConnec
 }
 
 // Path: NetConnectionsScreen
-class _TranslationsNetConnectionsScreenHi implements TranslationsNetConnectionsScreenEn {
-	_TranslationsNetConnectionsScreenHi._(this._root);
+class _TranslationsNetConnectionsScreenPa implements TranslationsNetConnectionsScreenEn {
+	_TranslationsNetConnectionsScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get copyAsCSV => 'CSV प्रारूप में कॉपी किया गया';
@@ -328,10 +328,10 @@ class _TranslationsNetConnectionsScreenHi implements TranslationsNetConnectionsS
 }
 
 // Path: PerAppAndroidScreen
-class _TranslationsPerAppAndroidScreenHi implements TranslationsPerAppAndroidScreenEn {
-	_TranslationsPerAppAndroidScreenHi._(this._root);
+class _TranslationsPerAppAndroidScreenPa implements TranslationsPerAppAndroidScreenEn {
+	_TranslationsPerAppAndroidScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'प्रति-ऐप प्रॉक्सी';
@@ -340,10 +340,10 @@ class _TranslationsPerAppAndroidScreenHi implements TranslationsPerAppAndroidScr
 }
 
 // Path: RegionSettingsScreen
-class _TranslationsRegionSettingsScreenHi implements TranslationsRegionSettingsScreenEn {
-	_TranslationsRegionSettingsScreenHi._(this._root);
+class _TranslationsRegionSettingsScreenPa implements TranslationsRegionSettingsScreenEn {
+	_TranslationsRegionSettingsScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'देश या क्षेत्र';
@@ -351,10 +351,10 @@ class _TranslationsRegionSettingsScreenHi implements TranslationsRegionSettingsS
 }
 
 // Path: ServerSelectScreen
-class _TranslationsServerSelectScreenHi implements TranslationsServerSelectScreenEn {
-	_TranslationsServerSelectScreenHi._(this._root);
+class _TranslationsServerSelectScreenPa implements TranslationsServerSelectScreenEn {
+	_TranslationsServerSelectScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'सर्वर चुनें';
@@ -368,10 +368,10 @@ class _TranslationsServerSelectScreenHi implements TranslationsServerSelectScree
 }
 
 // Path: SettingsScreen
-class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
-	_TranslationsSettingsScreenHi._(this._root);
+class _TranslationsSettingsScreenPa implements TranslationsSettingsScreenEn {
+	_TranslationsSettingsScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get getTranffic => 'ट्रैफ़िक प्राप्त करें';
@@ -514,10 +514,10 @@ class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
 }
 
 // Path: UserAgreementScreen
-class _TranslationsUserAgreementScreenHi implements TranslationsUserAgreementScreenEn {
-	_TranslationsUserAgreementScreenHi._(this._root);
+class _TranslationsUserAgreementScreenPa implements TranslationsUserAgreementScreenEn {
+	_TranslationsUserAgreementScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get privacyFirst => 'आपकी गोपनीयता सबसे पहले आती है';
@@ -525,10 +525,10 @@ class _TranslationsUserAgreementScreenHi implements TranslationsUserAgreementScr
 }
 
 // Path: VersionUpdateScreen
-class _TranslationsVersionUpdateScreenHi implements TranslationsVersionUpdateScreenEn {
-	_TranslationsVersionUpdateScreenHi._(this._root);
+class _TranslationsVersionUpdateScreenPa implements TranslationsVersionUpdateScreenEn {
+	_TranslationsVersionUpdateScreenPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String versionReady({required Object p}) => 'नया संस्करण [${p}] तैयार है';
@@ -537,10 +537,10 @@ class _TranslationsVersionUpdateScreenHi implements TranslationsVersionUpdateScr
 }
 
 // Path: CommonWidget
-class _TranslationsCommonWidgetHi implements TranslationsCommonWidgetEn {
-	_TranslationsCommonWidgetHi._(this._root);
+class _TranslationsCommonWidgetPa implements TranslationsCommonWidgetEn {
+	_TranslationsCommonWidgetPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get diableAlwayOnVPN => 'यदि [हमेशा चालू VPN] चालू है, तो कृपया [हमेशा चालू VPN] बंद करें और फिर से कनेक्ट करने का प्रयास करें';
@@ -548,20 +548,20 @@ class _TranslationsCommonWidgetHi implements TranslationsCommonWidgetEn {
 }
 
 // Path: main
-class _TranslationsMainHi implements TranslationsMainEn {
-	_TranslationsMainHi._(this._root);
+class _TranslationsMainPa implements TranslationsMainEn {
+	_TranslationsMainPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsMainTrayHi tray = _TranslationsMainTrayHi._(_root);
+	@override late final _TranslationsMainTrayPa tray = _TranslationsMainTrayPa._(_root);
 }
 
 // Path: meta
-class _TranslationsMetaHi implements TranslationsMetaEn {
-	_TranslationsMetaHi._(this._root);
+class _TranslationsMetaPa implements TranslationsMetaEn {
+	_TranslationsMetaPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get enable => 'सक्षम करें';
@@ -815,10 +815,10 @@ class _TranslationsMetaHi implements TranslationsMetaEn {
 }
 
 // Path: isp
-class _TranslationsIspHi implements TranslationsIspEn {
-	_TranslationsIspHi._(this._root);
+class _TranslationsIspPa implements TranslationsIspEn {
+	_TranslationsIspPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get bind => '[${_root.meta.isp}] से बांधें ';
@@ -830,10 +830,10 @@ class _TranslationsIspHi implements TranslationsIspEn {
 }
 
 // Path: permission
-class _TranslationsPermissionHi implements TranslationsPermissionEn {
-	_TranslationsPermissionHi._(this._root);
+class _TranslationsPermissionPa implements TranslationsPermissionEn {
+	_TranslationsPermissionPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get camera => 'कैमरा';
@@ -844,10 +844,10 @@ class _TranslationsPermissionHi implements TranslationsPermissionEn {
 }
 
 // Path: tls
-class _TranslationsTlsHi implements TranslationsTlsEn {
-	_TranslationsTlsHi._(this._root);
+class _TranslationsTlsPa implements TranslationsTlsEn {
+	_TranslationsTlsPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get insecure => 'प्रमाणपत्र सत्यापन छोड़ें';
@@ -861,10 +861,10 @@ class _TranslationsTlsHi implements TranslationsTlsEn {
 }
 
 // Path: outboundRuleMode
-class _TranslationsOutboundRuleModeHi implements TranslationsOutboundRuleModeEn {
-	_TranslationsOutboundRuleModeHi._(this._root);
+class _TranslationsOutboundRuleModePa implements TranslationsOutboundRuleModeEn {
+	_TranslationsOutboundRuleModePa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get currentSelected => 'वर्तमान में चयनित';
@@ -874,10 +874,10 @@ class _TranslationsOutboundRuleModeHi implements TranslationsOutboundRuleModeEn 
 }
 
 // Path: dnsProxyResolveMode
-class _TranslationsDnsProxyResolveModeHi implements TranslationsDnsProxyResolveModeEn {
-	_TranslationsDnsProxyResolveModeHi._(this._root);
+class _TranslationsDnsProxyResolveModePa implements TranslationsDnsProxyResolveModeEn {
+	_TranslationsDnsProxyResolveModePa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get proxy => _root.outboundRuleMode.currentSelected;
@@ -886,10 +886,10 @@ class _TranslationsDnsProxyResolveModeHi implements TranslationsDnsProxyResolveM
 }
 
 // Path: proxyStrategy
-class _TranslationsProxyStrategyHi implements TranslationsProxyStrategyEn {
-	_TranslationsProxyStrategyHi._(this._root);
+class _TranslationsProxyStrategyPa implements TranslationsProxyStrategyEn {
+	_TranslationsProxyStrategyPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get perferProxy => '${_root.meta.prefer} ${_root.outboundRuleMode.currentSelected}';
@@ -899,10 +899,10 @@ class _TranslationsProxyStrategyHi implements TranslationsProxyStrategyEn {
 }
 
 // Path: reloadReason
-class _TranslationsReloadReasonHi implements TranslationsReloadReasonEn {
-	_TranslationsReloadReasonHi._(this._root);
+class _TranslationsReloadReasonPa implements TranslationsReloadReasonEn {
+	_TranslationsReloadReasonPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get latencyTest => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}';
@@ -910,10 +910,10 @@ class _TranslationsReloadReasonHi implements TranslationsReloadReasonEn {
 }
 
 // Path: theme
-class _TranslationsThemeHi implements TranslationsThemeEn {
-	_TranslationsThemeHi._(this._root);
+class _TranslationsThemePa implements TranslationsThemeEn {
+	_TranslationsThemePa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get light => 'लाइट';
@@ -922,22 +922,22 @@ class _TranslationsThemeHi implements TranslationsThemeEn {
 }
 
 // Path: main.tray
-class _TranslationsMainTrayHi implements TranslationsMainTrayEn {
-	_TranslationsMainTrayHi._(this._root);
+class _TranslationsMainTrayPa implements TranslationsMainTrayEn {
+	_TranslationsMainTrayPa._(this._root);
 
-	final TranslationsHi _root; // ignore: unused_field
+	final TranslationsPa _root; // ignore: unused_field
 
 	// Translations
 	@override String get menuOpen => 'खोलें';
 	@override String get menuExit => 'बाहर निकलें';
 }
 
-/// The flat map containing all translations for locale <hi>.
+/// The flat map containing all translations for locale <pa>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
-extension on TranslationsHi {
+extension on TranslationsPa {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'AboutScreen.installRefer' => 'इंस्टॉलेशन स्रोत',

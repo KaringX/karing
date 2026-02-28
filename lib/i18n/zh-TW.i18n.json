@@ -376,6 +376,7 @@
         "user": "用戶",
         "account": "帳號",
         "password": "密碼",
+        "decryptPassword": "解密密碼",
         "required": "必填",
         "type": "類型",
         "path": "路徑",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

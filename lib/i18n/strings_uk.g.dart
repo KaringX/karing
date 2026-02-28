@@ -124,6 +124,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaUk implements TranslationsMetaEn {
 	@override String get user => 'Користувач';
 	@override String get account => 'Обліковий запис';
 	@override String get password => 'Пароль';
+	@override String get decryptPassword => 'Пароль розшифровки';
 	@override String get required => 'Обов\'язково';
 	@override String get type => 'Тип';
 	@override String get path => 'Шлях';
@@ -1270,6 +1272,7 @@ extension on TranslationsUk {
 			'meta.user' => 'Користувач',
 			'meta.account' => 'Обліковий запис',
 			'meta.password' => 'Пароль',
+			'meta.decryptPassword' => 'Пароль розшифровки',
 			'meta.required' => 'Обов\'язково',
 			'meta.type' => 'Тип',
 			'meta.path' => 'Шлях',
@@ -1449,9 +1452,9 @@ extension on TranslationsUk {
 			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
 			'tls.fragmentSize' => 'Розмір фрагмента TLS',
 			'tls.fragmentSleep' => 'Пауза фрагментації TLS',
-			'tls.mixedCaseSNIEnable' => 'Увімкнути змішаний регістр SNI TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Увімкнути змішаний регістр SNI TLS',
 			'tls.paddingEnable' => 'Увімкнути заповнення (Padding) TLS',
 			'tls.paddingSize' => 'Розмір заповнення (Padding) TLS',
 			'outboundRuleMode.currentSelected' => 'Поточний вибраний',
@@ -1519,6 +1522,7 @@ extension on TranslationsUk {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

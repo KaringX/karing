@@ -124,6 +124,7 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaDa implements TranslationsMetaEn {
 	@override String get user => 'Bruger';
 	@override String get account => 'Konto';
 	@override String get password => 'Adgangskode';
+	@override String get decryptPassword => 'Dekryptering adgangskode';
 	@override String get required => 'Påkrævet';
 	@override String get type => 'Type';
 	@override String get path => 'Sti';
@@ -1270,6 +1272,7 @@ extension on TranslationsDa {
 			'meta.user' => 'Bruger',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Adgangskode',
+			'meta.decryptPassword' => 'Dekryptering adgangskode',
 			'meta.required' => 'Påkrævet',
 			'meta.type' => 'Type',
 			'meta.path' => 'Sti',
@@ -1449,9 +1452,9 @@ extension on TranslationsDa {
 			'tls.fragmentEnable' => 'Aktiver TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstørrelse',
 			'tls.fragmentSleep' => 'TLS-fragment-pause',
-			'tls.mixedCaseSNIEnable' => 'Aktiver TLS Mixed SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Aktiver TLS Mixed SNI',
 			'tls.paddingEnable' => 'Aktiver TLS-padding',
 			'tls.paddingSize' => 'TLS-paddingstørrelse',
 			'outboundRuleMode.currentSelected' => 'Nuværende valgte',
@@ -1519,6 +1522,7 @@ extension on TranslationsDa {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

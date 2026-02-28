@@ -33,6 +33,7 @@ class _MyProfilesEditScreenState
   String _compatible = "";
   bool _xhwid = false;
   String _website = "";
+  String _decryptPassword = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   bool _keepDiversionRules = false;
   bool _reloadAfterProfileUpdate = false;
@@ -60,6 +61,7 @@ class _MyProfilesEditScreenState
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
       _testLatencyAutoRemove = item.testLatencyAutoRemove;
+      _decryptPassword = item.decryptPassword;
     }
   }
 
@@ -199,7 +201,8 @@ class _MyProfilesEditScreenState
         item.keepDiversionRules == _keepDiversionRules &&
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
-        item.testLatencyAutoRemove == _testLatencyAutoRemove) {
+        item.testLatencyAutoRemove == _testLatencyAutoRemove &&
+        item.decryptPassword == _decryptPassword) {
       Navigator.pop(context);
       return;
     }
@@ -225,7 +228,7 @@ class _MyProfilesEditScreenState
     item.reloadAfterProfileUpdate = _reloadAfterProfileUpdate;
     item.testLatencyAfterProfileUpdate = _testLatencyAfterProfileUpdate;
     item.testLatencyAutoRemove = _testLatencyAutoRemove;
-
+    item.decryptPassword = _decryptPassword;
     ServerManager.modifyRemark(item.groupid, remarkText);
     ServerManager.modifyUrl(item.groupid, urlText);
 
@@ -322,6 +325,17 @@ class _MyProfilesEditScreenState
             switchValue: _xhwid,
             onSwitch: (bool value) async {
               _xhwid = value;
+              setState(() {});
+            },
+          ),
+        ),
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.meta.decryptPassword,
+            text: _decryptPassword,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              _decryptPassword = value;
               setState(() {});
             },
           ),

@@ -376,6 +376,7 @@
         "user": "Usuario",
         "account": "Cuenta",
         "password": "Contraseña",
+        "decryptPassword": "Contraseña de descifrado",
         "required": "Requerido",
         "type": "Tipo",
         "path": "Ruta",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

@@ -189,6 +189,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -1380,6 +1381,9 @@ class TranslationsMetaEn {
 	/// en: 'Password'
 	String get password => 'Password';
 
+	/// en: 'Decrypt Password'
+	String get decryptPassword => 'Decrypt Password';
+
 	/// en: 'Required'
 	String get required => 'Required';
 
@@ -2381,6 +2385,7 @@ extension on Translations {
 			'meta.user' => 'User',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
+			'meta.decryptPassword' => 'Decrypt Password',
 			'meta.required' => 'Required',
 			'meta.type' => 'Type',
 			'meta.path' => 'Path',
@@ -2560,9 +2565,9 @@ extension on Translations {
 			'tls.fragmentEnable' => 'Enable TLS Fragment',
 			'tls.fragmentSize' => 'TLS Fragment Size',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
-			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			'tls.paddingEnable' => 'Enable TLS Padding',
 			'tls.paddingSize' => 'TLS Padding Size',
 			'outboundRuleMode.currentSelected' => 'Current Selected',
@@ -2630,6 +2635,7 @@ extension on Translations {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

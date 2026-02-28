@@ -376,6 +376,7 @@
         "user": "Utilisateur",
         "account": "Compte",
         "password": "Mot de passe",
+        "decryptPassword": "Mot de passe de déchiffrement",
         "required": "Requis",
         "type": "Type",
         "path": "Chemin",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

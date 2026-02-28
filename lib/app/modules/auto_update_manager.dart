@@ -9,12 +9,12 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/auto_update_utils.dart';
 import 'package:karing/app/utils/crypto_utils.dart';
 import 'package:karing/app/utils/download_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
-import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/version_compare_utils.dart';
@@ -177,7 +177,7 @@ class AutoUpdateManager {
     } catch (err, stacktrace) {}
   }
 
-  static void save() async {
+  static Future<void> save() async {
     String filePath = await PathUtils.autoUpdateFilePath();
     const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     String content = encoder.convert(_versionCheck.toJson());
@@ -222,6 +222,7 @@ class AutoUpdateManager {
     if (!isSupport()) {
       return;
     }
+
     if (_versionCheck.version.isEmpty || _versionCheck.url.isEmpty) {
       return;
     }
@@ -318,8 +319,8 @@ class AutoUpdateManager {
       bool body =
           _lastCheck == null ||
           DateTime.now().difference(_lastCheck!).inHours > 12;
-      ReturnResult<List<KaringAutoupdateItem>> items =
-          await KaringUtils.getAutoupdate(body);
+      ReturnResult<List<AutoupdateItem>> items =
+          await AutoupdateUtils.getAutoupdate(body);
       _lastCheck = DateTime.now();
       if (items.error != null) {
         _checking = false;

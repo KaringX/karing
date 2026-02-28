@@ -124,6 +124,7 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaTh implements TranslationsMetaEn {
 	@override String get user => 'ผู้ใช้';
 	@override String get account => 'บัญชี';
 	@override String get password => 'รหัสผ่าน';
+	@override String get decryptPassword => 'รหัสผ่านถอดรหัส';
 	@override String get required => 'จำเป็น';
 	@override String get type => 'ประเภท';
 	@override String get path => 'เส้นทาง';
@@ -1270,6 +1272,7 @@ extension on TranslationsTh {
 			'meta.user' => 'ผู้ใช้',
 			'meta.account' => 'บัญชี',
 			'meta.password' => 'รหัสผ่าน',
+			'meta.decryptPassword' => 'รหัสผ่านถอดรหัส',
 			'meta.required' => 'จำเป็น',
 			'meta.type' => 'ประเภท',
 			'meta.path' => 'เส้นทาง',
@@ -1449,9 +1452,9 @@ extension on TranslationsTh {
 			'tls.fragmentEnable' => 'เปิดใช้งาน TLS Fragment',
 			'tls.fragmentSize' => 'ขนาด TLS Fragment',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
-			'tls.mixedCaseSNIEnable' => 'เปิดใช้งาน TLS Mixed SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'เปิดใช้งาน TLS Mixed SNI',
 			'tls.paddingEnable' => 'เปิดใช้งาน TLS Padding',
 			'tls.paddingSize' => 'ขนาด TLS Padding',
 			'outboundRuleMode.currentSelected' => 'เลือกปัจจุบัน',
@@ -1519,6 +1522,7 @@ extension on TranslationsTh {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

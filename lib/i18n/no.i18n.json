@@ -376,6 +376,7 @@
         "user": "Bruker",
         "account": "Konto",
         "password": "Passord",
+        "decryptPassword": "Dekryptering passord",
         "required": "Påkrevd",
         "type": "Type",
         "path": "Bane",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

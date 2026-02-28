@@ -376,6 +376,7 @@
         "user": "사용자",
         "account": "계정",
         "password": "비밀번호",
+        "decryptPassword": "복호화 비밀번호",
         "required": "필수",
         "type": "유형",
         "path": "경로",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

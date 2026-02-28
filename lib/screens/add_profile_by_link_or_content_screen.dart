@@ -58,6 +58,7 @@ class _AddProfileByLinkOrContentScreenState
   String _compatible = "";
   bool _xhwid = false;
   String _website = "";
+  String _decryptPassword = "";
   RemoteContent _remoteContent = RemoteContent();
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
@@ -225,6 +226,7 @@ class _AddProfileByLinkOrContentScreenState
       website: _website,
       ispId: widget.ispId,
       ispUser: widget.ispUser,
+      decryptPassword: _decryptPassword,
     );
 
     if (!mounted) {
@@ -472,6 +474,17 @@ class _AddProfileByLinkOrContentScreenState
           switchValue: _xhwid,
           onSwitch: (bool value) async {
             _xhwid = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPassword,
+          text: _decryptPassword,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _decryptPassword = value;
             setState(() {});
           },
         ),

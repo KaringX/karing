@@ -9,9 +9,9 @@ import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/auto_update_utils.dart';
 import 'package:karing/app/utils/did.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/version_compare_utils.dart';
@@ -122,7 +122,8 @@ class RemoteConfigManager {
     _config.latestCheck = now.toString();
     _checking = true;
     try {
-      ReturnResult<RemoteConfig> gConfig = await KaringUtils.getRemoteConfig();
+      ReturnResult<RemoteConfig> gConfig =
+          await AutoupdateUtils.getRemoteConfig();
       if (gConfig.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);

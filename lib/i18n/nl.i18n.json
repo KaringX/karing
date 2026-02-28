@@ -376,6 +376,7 @@
         "user": "Gebruiker",
         "account": "Account",
         "password": "Wachtwoord",
+        "decryptPassword": "Ontcijferingswachtwoord",
         "required": "Vereist",
         "type": "Type",
         "path": "Pad",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

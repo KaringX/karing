@@ -376,6 +376,7 @@
         "user": "Użytkownik",
         "account": "Konto",
         "password": "Hasło",
+        "decryptPassword": "Hasło deszyfrujące",
         "required": "Wymagane",
         "type": "Typ",
         "path": "Ścieżka",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

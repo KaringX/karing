@@ -124,6 +124,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaBn implements TranslationsMetaEn {
 	@override String get user => 'ব্যবহারকারী';
 	@override String get account => 'অ্যাকাউন্ট';
 	@override String get password => 'পাসওয়ার্ড';
+	@override String get decryptPassword => 'ডিক্রিপ্ট পাসওয়ার্ড';
 	@override String get required => 'প্রয়োজন';
 	@override String get type => 'ধরন';
 	@override String get path => 'পাথ';
@@ -1270,6 +1272,7 @@ extension on TranslationsBn {
 			'meta.user' => 'ব্যবহারকারী',
 			'meta.account' => 'অ্যাকাউন্ট',
 			'meta.password' => 'পাসওয়ার্ড',
+			'meta.decryptPassword' => 'ডিক্রিপ্ট পাসওয়ার্ড',
 			'meta.required' => 'প্রয়োজন',
 			'meta.type' => 'ধরন',
 			'meta.path' => 'পাথ',
@@ -1449,9 +1452,9 @@ extension on TranslationsBn {
 			'tls.fragmentEnable' => 'TLS ফ্র্যাগমেন্ট সক্ষম করুন',
 			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
 			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
-			'tls.mixedCaseSNIEnable' => 'TLS মিক্সড কেস SNI সক্ষম করুন',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS মিক্সড কেস SNI সক্ষম করুন',
 			'tls.paddingEnable' => 'TLS প্যাডিং সক্ষম করুন',
 			'tls.paddingSize' => 'TLS প্যাডিং সাইজ',
 			'outboundRuleMode.currentSelected' => 'বর্তমানে নির্বাচিত',
@@ -1519,6 +1522,7 @@ extension on TranslationsBn {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

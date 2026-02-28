@@ -376,6 +376,7 @@
         "user": "Kullanıcı",
         "account": "Hesap",
         "password": "Şifre",
+        "decryptPassword": "Şifre Çözme Şifresi",
         "required": "Gerekli",
         "type": "Tür",
         "path": "Yol",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

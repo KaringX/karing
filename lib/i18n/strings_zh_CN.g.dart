@@ -124,6 +124,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get user => '用户';
 	@override String get account => '账号';
 	@override String get password => '密码';
+	@override String get decryptPassword => '解密密码';
 	@override String get required => '必填';
 	@override String get type => '类型';
 	@override String get path => '路径';
@@ -1270,6 +1272,7 @@ extension on TranslationsZhCn {
 			'meta.user' => '用户',
 			'meta.account' => '账号',
 			'meta.password' => '密码',
+			'meta.decryptPassword' => '解密密码',
 			'meta.required' => '必填',
 			'meta.type' => '类型',
 			'meta.path' => '路径',
@@ -1449,9 +1452,9 @@ extension on TranslationsZhCn {
 			'tls.fragmentEnable' => '启用TLS分段',
 			'tls.fragmentSize' => 'TLS分段大小',
 			'tls.fragmentSleep' => 'TLS分段休眠',
-			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
 			'tls.paddingSize' => 'TLS填充大小',
 			'outboundRuleMode.currentSelected' => '当前选择',
@@ -1519,6 +1522,7 @@ extension on TranslationsZhCn {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

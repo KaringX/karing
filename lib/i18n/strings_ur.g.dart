@@ -124,6 +124,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaUr implements TranslationsMetaEn {
 	@override String get user => 'صارف';
 	@override String get account => 'اکاؤنٹ';
 	@override String get password => 'پاس ورڈ';
+	@override String get decryptPassword => 'ڈی کرپٹ پاس ورڈ';
 	@override String get required => 'ضروری';
 	@override String get type => 'قسم';
 	@override String get path => 'راستہ';
@@ -1270,6 +1272,7 @@ extension on TranslationsUr {
 			'meta.user' => 'صارف',
 			'meta.account' => 'اکاؤنٹ',
 			'meta.password' => 'پاس ورڈ',
+			'meta.decryptPassword' => 'ڈی کرپٹ پاس ورڈ',
 			'meta.required' => 'ضروری',
 			'meta.type' => 'قسم',
 			'meta.path' => 'راستہ',
@@ -1449,9 +1452,9 @@ extension on TranslationsUr {
 			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
 			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
 			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
-			'tls.mixedCaseSNIEnable' => 'TLS مکسڈ کیس SNI فعال کریں',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS مکسڈ کیس SNI فعال کریں',
 			'tls.paddingEnable' => 'TLS پیڈنگ فعال کریں',
 			'tls.paddingSize' => 'TLS پیڈنگ سائز',
 			'outboundRuleMode.currentSelected' => 'فی الحال منتخب شدہ',
@@ -1519,6 +1522,7 @@ extension on TranslationsUr {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

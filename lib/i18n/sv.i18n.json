@@ -376,6 +376,7 @@
         "user": "Användare",
         "account": "Konto",
         "password": "Lösenord",
+        "decryptPassword": "Dekrypterringslösenord",
         "required": "Krävs",
         "type": "Typ",
         "path": "Sökväg",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

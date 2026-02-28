@@ -124,6 +124,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get user => 'Пользователь';
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
+	@override String get decryptPassword => 'Пароль расшифровки';
 	@override String get required => 'Необходимо';
 	@override String get type => 'тип';
 	@override String get path => 'путь';
@@ -1270,6 +1272,7 @@ extension on TranslationsRu {
 			'meta.user' => 'Пользователь',
 			'meta.account' => 'Аккаунт',
 			'meta.password' => 'Пароль',
+			'meta.decryptPassword' => 'Пароль расшифровки',
 			'meta.required' => 'Необходимо',
 			'meta.type' => 'тип',
 			'meta.path' => 'путь',
@@ -1449,9 +1452,9 @@ extension on TranslationsRu {
 			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
 			'tls.fragmentSize' => 'Размер фрагмента TLS',
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
-			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
 			'tls.paddingSize' => 'Размер заполнения TLS',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
@@ -1519,6 +1522,7 @@ extension on TranslationsRu {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

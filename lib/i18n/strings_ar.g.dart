@@ -124,6 +124,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaAr implements TranslationsMetaEn {
 	@override String get user => 'مستخدم';
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
+	@override String get decryptPassword => 'فك تشفير كلمة المرور';
 	@override String get required => 'مطلوب';
 	@override String get type => 'يكتب';
 	@override String get path => 'طريق';
@@ -1270,6 +1272,7 @@ extension on TranslationsAr {
 			'meta.user' => 'مستخدم',
 			'meta.account' => 'حساب',
 			'meta.password' => 'كلمة المرور',
+			'meta.decryptPassword' => 'فك تشفير كلمة المرور',
 			'meta.required' => 'مطلوب',
 			'meta.type' => 'يكتب',
 			'meta.path' => 'طريق',
@@ -1449,9 +1452,9 @@ extension on TranslationsAr {
 			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
 			'tls.fragmentSize' => 'حجم شريحة TLS',
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
-			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',
 			'tls.paddingEnable' => 'تمكين الحشو TLS',
 			'tls.paddingSize' => 'حجم الحشو TLS',
 			'outboundRuleMode.currentSelected' => 'المحدد الحالي',
@@ -1519,6 +1522,7 @@ extension on TranslationsAr {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

@@ -1625,6 +1625,7 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
+    String decryptPassword = "",
   }) async {
     ServerConfigGroupItem item = ServerConfigGroupItem();
     ServerDiversionGroupItem diversionGroupItem = ServerDiversionGroupItem();
@@ -1649,6 +1650,7 @@ class ServerManager {
       item.isp!.user = ispUser ?? "";
       item.isp!.id = ispId;
     }
+    item.decryptPassword = decryptPassword;
     if (duration != null) {
       item.updateDuration = duration;
     }
@@ -1874,6 +1876,7 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
+    String decryptPassword = "",
   }) async {
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
       type,
@@ -1896,6 +1899,7 @@ class ServerManager {
       website: website,
       ispId: ispId,
       ispUser: ispUser,
+      decryptPassword: decryptPassword,
     );
 
     return result.error;

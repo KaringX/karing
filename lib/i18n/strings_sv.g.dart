@@ -124,6 +124,7 @@ class TranslationsSv with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaSv implements TranslationsMetaEn {
 	@override String get user => 'Användare';
 	@override String get account => 'Konto';
 	@override String get password => 'Lösenord';
+	@override String get decryptPassword => 'Dekrypterringslösenord';
 	@override String get required => 'Krävs';
 	@override String get type => 'Typ';
 	@override String get path => 'Sökväg';
@@ -1270,6 +1272,7 @@ extension on TranslationsSv {
 			'meta.user' => 'Användare',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Lösenord',
+			'meta.decryptPassword' => 'Dekrypterringslösenord',
 			'meta.required' => 'Krävs',
 			'meta.type' => 'Typ',
 			'meta.path' => 'Sökväg',
@@ -1449,9 +1452,9 @@ extension on TranslationsSv {
 			'tls.fragmentEnable' => 'Aktivera TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstorlek',
 			'tls.fragmentSleep' => 'TLS-fragment-vila',
-			'tls.mixedCaseSNIEnable' => 'Aktivera TLS Mixed SNI',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'Aktivera TLS Mixed SNI',
 			'tls.paddingEnable' => 'Aktivera TLS-padding',
 			'tls.paddingSize' => 'TLS-paddingstorlek',
 			'outboundRuleMode.currentSelected' => 'Nuvarande vald',
@@ -1519,6 +1522,7 @@ extension on TranslationsSv {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

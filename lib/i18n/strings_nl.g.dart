@@ -124,6 +124,7 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaNl implements TranslationsMetaEn {
 	@override String get user => 'Gebruiker';
 	@override String get account => 'Account';
 	@override String get password => 'Wachtwoord';
+	@override String get decryptPassword => 'Ontcijferingswachtwoord';
 	@override String get required => 'Vereist';
 	@override String get type => 'Type';
 	@override String get path => 'Pad';
@@ -1270,6 +1272,7 @@ extension on TranslationsNl {
 			'meta.user' => 'Gebruiker',
 			'meta.account' => 'Account',
 			'meta.password' => 'Wachtwoord',
+			'meta.decryptPassword' => 'Ontcijferingswachtwoord',
 			'meta.required' => 'Vereist',
 			'meta.type' => 'Type',
 			'meta.path' => 'Pad',
@@ -1449,9 +1452,9 @@ extension on TranslationsNl {
 			'tls.fragmentEnable' => 'TLS Fragment inschakelen',
 			'tls.fragmentSize' => 'TLS Fragment grootte',
 			'tls.fragmentSleep' => 'TLS Fragment slaap',
-			'tls.mixedCaseSNIEnable' => 'TLS Mixed SNI inschakelen',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS Mixed SNI inschakelen',
 			'tls.paddingEnable' => 'TLS Padding inschakelen',
 			'tls.paddingSize' => 'TLS Padding grootte',
 			'outboundRuleMode.currentSelected' => 'Huidige geselecteerde',
@@ -1519,6 +1522,7 @@ extension on TranslationsNl {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

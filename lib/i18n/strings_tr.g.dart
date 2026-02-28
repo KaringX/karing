@@ -124,6 +124,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 		'vi': 'Tiếng Việt',
 		'tr': 'Türkçe',
 		'th': 'ไทย',
+		'pa': 'ਪੰਜਾਬੀ',
 	};
 }
 
@@ -654,6 +655,7 @@ class _TranslationsMetaTr implements TranslationsMetaEn {
 	@override String get user => 'Kullanıcı';
 	@override String get account => 'Hesap';
 	@override String get password => 'Şifre';
+	@override String get decryptPassword => 'Şifre Çözme Şifresi';
 	@override String get required => 'Gerekli';
 	@override String get type => 'Tür';
 	@override String get path => 'Yol';
@@ -1270,6 +1272,7 @@ extension on TranslationsTr {
 			'meta.user' => 'Kullanıcı',
 			'meta.account' => 'Hesap',
 			'meta.password' => 'Şifre',
+			'meta.decryptPassword' => 'Şifre Çözme Şifresi',
 			'meta.required' => 'Gerekli',
 			'meta.type' => 'Tür',
 			'meta.path' => 'Yol',
@@ -1449,9 +1452,9 @@ extension on TranslationsTr {
 			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
 			'tls.fragmentSize' => 'TLS Parça Boyutu',
 			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
-			'tls.mixedCaseSNIEnable' => 'TLS Karışık SNI\'yı Etkinleştir',
 			_ => null,
 		} ?? switch (path) {
+			'tls.mixedCaseSNIEnable' => 'TLS Karışık SNI\'yı Etkinleştir',
 			'tls.paddingEnable' => 'TLS Padding\'i Etkinleştir',
 			'tls.paddingSize' => 'TLS Padding Boyutu',
 			'outboundRuleMode.currentSelected' => 'Şu An Seçili',
@@ -1519,6 +1522,7 @@ extension on TranslationsTr {
 			'locales.vi' => 'Tiếng Việt',
 			'locales.tr' => 'Türkçe',
 			'locales.th' => 'ไทย',
+			'locales.pa' => 'ਪੰਜਾਬੀ',
 			_ => null,
 		};
 	}

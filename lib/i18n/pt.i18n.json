@@ -376,6 +376,7 @@
         "user": "Utilizador",
         "account": "Conta",
         "password": "Palavra-passe",
+        "decryptPassword": "Palavra-passe de descriptografia",
         "required": "Obrigatório",
         "type": "Tipo",
         "path": "Caminho",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

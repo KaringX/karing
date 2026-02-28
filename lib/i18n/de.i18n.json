@@ -376,6 +376,7 @@
         "user": "Benutzer",
         "account": "Konto",
         "password": "Passwort",
+        "decryptPassword": "Entschlüsselungspasswort",
         "required": "Erforderlich",
         "type": "Typ",
         "path": "Pfad",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }

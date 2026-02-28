@@ -376,6 +376,7 @@
         "user": "ユーザー",
         "account": "アカウント",
         "password": "パスワード",
+        "decryptPassword": "複号化パスワード",
         "required": "必須",
         "type": "タイプ",
         "path": "パス",
@@ -640,6 +641,7 @@
         "el": "Ελληνικά",
         "vi": "Tiếng Việt",
         "tr": "Türkçe",
-        "th": "ไทย"
+        "th": "ไทย",
+        "pa": "ਪੰਜਾਬੀ"
     }
 }
