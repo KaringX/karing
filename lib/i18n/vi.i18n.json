@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Giải quyết tên miền cho [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Tự động thiết lập máy chủ",
         "dnsResetServer": "Đặt lại máy chủ",
+        "dnsEnableStaticIPForResolver": "Ưu tiên phân giải IP tĩnh",
+        "dnsEnableStaticIPForResolverTips": "Ngăn chặn hiệu quả máy chủ DNS bị ô nhiễm trong quá trình phân giải",
         "inboundDomainResolve": "Giải quyết tên miền đến",
         "privateDirect": "Kết nối trực tiếp mạng nội bộ",
         "inboundDomainResolveTips": "Một số tên miền không được cấu hình quy tắc phân luồng cần được giải quyết trước khi có thể khớp với các quy tắc dựa trên IP; tính năng này ảnh hưởng đến các yêu cầu đến cổng proxy [$p]",

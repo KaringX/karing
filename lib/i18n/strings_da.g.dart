@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenDa implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Domænenavnsopløsning for [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Opsæt server automatisk';
 	@override String get dnsResetServer => 'Nulstil server';
+	@override String get dnsEnableStaticIPForResolver => 'Foretrækker statisk IP-opløsning';
+	@override String get dnsEnableStaticIPForResolverTips => 'Effektivt forhindre, at DNS-server selv bliver forurenet under opløsning';
 	@override String get inboundDomainResolve => 'Løs indgående domænenavne';
 	@override String get privateDirect => 'Direkte forbindelse til privat netværk';
 	@override String inboundDomainResolveTips({required Object p}) => 'Nogle domænenavne, der ikke er konfigureret med omledningsregler, skal løses, før de kan ramme de IP-baserede omledningsregler; denne funktion påvirker indgående anmodninger til proxyporten [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsDa {
 			'SettingsScreen.dnsTypeResolverTips' => 'Domænenavnsopløsning for [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Opsæt server automatisk',
 			'SettingsScreen.dnsResetServer' => 'Nulstil server',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Foretrækker statisk IP-opløsning',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Effektivt forhindre, at DNS-server selv bliver forurenet under opløsning',
 			'SettingsScreen.inboundDomainResolve' => 'Løs indgående domænenavne',
 			'SettingsScreen.privateDirect' => 'Direkte forbindelse til privat netværk',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Nogle domænenavne, der ikke er konfigureret med omledningsregler, skal løses, før de kan ramme de IP-baserede omledningsregler; denne funktion påvirker indgående anmodninger til proxyporten [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsDa {
 			'tls.insecure' => 'Spring certifikatverificering over',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Aktiver TLS-fragment',
-			'tls.fragmentSize' => 'TLS-fragmentstørrelse',
-			'tls.fragmentSleep' => 'TLS-fragment-pause',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS-fragmentstørrelse',
+			'tls.fragmentSleep' => 'TLS-fragment-pause',
 			'tls.mixedCaseSNIEnable' => 'Aktiver TLS Mixed SNI',
 			'tls.paddingEnable' => 'Aktiver TLS-padding',
 			'tls.paddingSize' => 'TLS-paddingstørrelse',

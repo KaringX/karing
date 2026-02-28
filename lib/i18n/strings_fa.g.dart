@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس';
 	@override String get dnsAutoSetServer => 'به طور خودکار سرور را راه اندازی کنید';
 	@override String get dnsResetServer => 'بازنشانی سرور';
+	@override String get dnsEnableStaticIPForResolver => 'ترجیح حل IP ثابت';
+	@override String get dnsEnableStaticIPForResolverTips => 'به طور موثر از آلوده شدن خود سرور DNS در طول حل و فصل جلوگیری کنید';
 	@override String get inboundDomainResolve => 'حل نام دامنه های ورودی';
 	@override String get privateDirect => 'اتصال مستقیم شبکه خصوصی';
 	@override String inboundDomainResolveTips({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].';
@@ -1073,6 +1075,8 @@ extension on TranslationsFa {
 			'SettingsScreen.dnsTypeResolverTips' => 'سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس',
 			'SettingsScreen.dnsAutoSetServer' => 'به طور خودکار سرور را راه اندازی کنید',
 			'SettingsScreen.dnsResetServer' => 'بازنشانی سرور',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'ترجیح حل IP ثابت',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'به طور موثر از آلوده شدن خود سرور DNS در طول حل و فصل جلوگیری کنید',
 			'SettingsScreen.inboundDomainResolve' => 'حل نام دامنه های ورودی',
 			'SettingsScreen.privateDirect' => 'اتصال مستقیم شبکه خصوصی',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [${p}].',
@@ -1450,10 +1454,10 @@ extension on TranslationsFa {
 			'tls.insecure' => 'رد شدن از تأیید گواهی',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
-			'tls.fragmentSize' => 'اندازه بخش TLS',
-			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'اندازه بخش TLS',
+			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',
 			'tls.paddingEnable' => 'فعال کردن TLS Padding',
 			'tls.paddingSize' => 'اندازه پد TLS',

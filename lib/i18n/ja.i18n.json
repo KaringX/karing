@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}] のドメイン名解決",
         "dnsAutoSetServer": "サーバーを自動設定",
         "dnsResetServer": "サーバーをリセット",
+        "dnsEnableStaticIPForResolver": "静的IP解決を優先する",
+        "dnsEnableStaticIPForResolverTips": "解決中にDNSサーバー自体が汚染されるのを効果的に防ぐ",
         "inboundDomainResolve": "着信ドメイン名を解決する",
         "privateDirect": "プライベートネットワークの直接接続",
         "inboundDomainResolveTips": "分流ルールが設定されていない一部のドメイン名は、IP ベースの分流ルールに一致させる前に解決する必要があります。この機能はプロキシポート [$p] への着信リクエストに影響します",

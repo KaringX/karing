@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "سامانه نام دامنه (DNS) برای بقیه سرور دی‌ان‌اس",
         "dnsAutoSetServer": "به طور خودکار سرور را راه اندازی کنید",
         "dnsResetServer": "بازنشانی سرور",
+        "dnsEnableStaticIPForResolver": "ترجیح حل IP ثابت",
+        "dnsEnableStaticIPForResolverTips": "به طور موثر از آلوده شدن خود سرور DNS در طول حل و فصل جلوگیری کنید",
         "inboundDomainResolve": "حل نام دامنه های ورودی",
         "privateDirect": "اتصال مستقیم شبکه خصوصی",
         "inboundDomainResolveTips": "برخی از نام‌های دامنه بدون قوانین انحراف پیکربندی شده باید حل و فصل شوند تا بتوانند قوانین انحراف مبتنی بر IP را تحت تأثیر قرار دهند [$p].",

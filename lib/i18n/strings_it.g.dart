@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenIt implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Risoluzione del nome di dominio per [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Configurazione Automatica Server';
 	@override String get dnsResetServer => 'Ripristina Server';
+	@override String get dnsEnableStaticIPForResolver => 'Preferisci Risoluzione IP Statica';
+	@override String get dnsEnableStaticIPForResolverTips => 'Previeni efficacemente che il server DNS stesso si inquini durante la risoluzione';
 	@override String get inboundDomainResolve => 'Risolvi nomi di Dominio in entrata';
 	@override String get privateDirect => 'Connessione Diretta Rete Privata';
 	@override String inboundDomainResolveTips({required Object p}) => 'Alcuni nomi di dominio che non sono configurati con regole di diversione devono essere risolti prima di poter colpire le regole di diversione basate su IP; questa funzione influisce sulle richieste in entrata alla porta proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsIt {
 			'SettingsScreen.dnsTypeResolverTips' => 'Risoluzione del nome di dominio per [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Configurazione Automatica Server',
 			'SettingsScreen.dnsResetServer' => 'Ripristina Server',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Preferisci Risoluzione IP Statica',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Previeni efficacemente che il server DNS stesso si inquini durante la risoluzione',
 			'SettingsScreen.inboundDomainResolve' => 'Risolvi nomi di Dominio in entrata',
 			'SettingsScreen.privateDirect' => 'Connessione Diretta Rete Privata',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Alcuni nomi di dominio che non sono configurati con regole di diversione devono essere risolti prima di poter colpire le regole di diversione basate su IP; questa funzione influisce sulle richieste in entrata alla porta proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsIt {
 			'tls.insecure' => 'Salta Verifica Certificato',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Abilita Frammento TLS',
-			'tls.fragmentSize' => 'Dimensione Frammento TLS',
-			'tls.fragmentSleep' => 'Pausa Frammento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Dimensione Frammento TLS',
+			'tls.fragmentSleep' => 'Pausa Frammento TLS',
 			'tls.mixedCaseSNIEnable' => 'Abilita SNI TLS Case Misto',
 			'tls.paddingEnable' => 'Abilita Padding TLS',
 			'tls.paddingSize' => 'Dimensione Padding TLS',

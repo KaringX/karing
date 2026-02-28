@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenBn implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '[${_root.SettingsScreen.dnsTypeResolver}] এর জন্য ডোমেইন নাম রেজোলিউশন';
 	@override String get dnsAutoSetServer => 'স্বয়ংক্রিয়ভাবে সার্ভার সেট করুন';
 	@override String get dnsResetServer => 'সার্ভার রিসেট করুন';
+	@override String get dnsEnableStaticIPForResolver => 'স্ট্যাটিক IP রেজোলিউশন পছন্দ করুন';
+	@override String get dnsEnableStaticIPForResolverTips => 'রেজোলিউশনের সময় DNS সার্ভার নিজেই দূষিত হতে কার্যকরভাবে প্রতিরোধ করুন';
 	@override String get inboundDomainResolve => 'ইনকামিং ডোমেইন নাম রেজলভ করুন';
 	@override String get privateDirect => 'প্রাইভেট নেটওয়ার্ক সরাসরি সংযোগ';
 	@override String inboundDomainResolveTips({required Object p}) => 'কিছু ডোমেইন নাম যা ডাইভারশন রুল দিয়ে কনফিগার করা নেই, সেগুলি IP-ভিত্তিক ডাইভারশন রুলের সাথে সংঘর্ষের আগে রেজলভ করা প্রয়োজন; এই ফিচারটি প্রক্সি পোর্ট [${p}]-এ ইনকামিং রিকোয়েস্টগুলিকে প্রভাবিত করে';
@@ -1073,6 +1075,8 @@ extension on TranslationsBn {
 			'SettingsScreen.dnsTypeResolverTips' => '[${_root.SettingsScreen.dnsTypeResolver}] এর জন্য ডোমেইন নাম রেজোলিউশন',
 			'SettingsScreen.dnsAutoSetServer' => 'স্বয়ংক্রিয়ভাবে সার্ভার সেট করুন',
 			'SettingsScreen.dnsResetServer' => 'সার্ভার রিসেট করুন',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'স্ট্যাটিক IP রেজোলিউশন পছন্দ করুন',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'রেজোলিউশনের সময় DNS সার্ভার নিজেই দূষিত হতে কার্যকরভাবে প্রতিরোধ করুন',
 			'SettingsScreen.inboundDomainResolve' => 'ইনকামিং ডোমেইন নাম রেজলভ করুন',
 			'SettingsScreen.privateDirect' => 'প্রাইভেট নেটওয়ার্ক সরাসরি সংযোগ',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'কিছু ডোমেইন নাম যা ডাইভারশন রুল দিয়ে কনফিগার করা নেই, সেগুলি IP-ভিত্তিক ডাইভারশন রুলের সাথে সংঘর্ষের আগে রেজলভ করা প্রয়োজন; এই ফিচারটি প্রক্সি পোর্ট [${p}]-এ ইনকামিং রিকোয়েস্টগুলিকে প্রভাবিত করে',
@@ -1450,10 +1454,10 @@ extension on TranslationsBn {
 			'tls.insecure' => 'সার্টিফিকেট যাচাইকরণ এড়িয়ে যান',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS ফ্র্যাগমেন্ট সক্ষম করুন',
-			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
-			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
+			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
 			'tls.mixedCaseSNIEnable' => 'TLS মিক্সড কেস SNI সক্ষম করুন',
 			'tls.paddingEnable' => 'TLS প্যাডিং সক্ষম করুন',
 			'tls.paddingSize' => 'TLS প্যাডিং সাইজ',

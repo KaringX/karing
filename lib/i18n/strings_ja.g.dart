@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '[${_root.SettingsScreen.dnsTypeResolver}] のドメイン名解決';
 	@override String get dnsAutoSetServer => 'サーバーを自動設定';
 	@override String get dnsResetServer => 'サーバーをリセット';
+	@override String get dnsEnableStaticIPForResolver => '静的IP解決を優先する';
+	@override String get dnsEnableStaticIPForResolverTips => '解決中にDNSサーバー自体が汚染されるのを効果的に防ぐ';
 	@override String get inboundDomainResolve => '着信ドメイン名を解決する';
 	@override String get privateDirect => 'プライベートネットワークの直接接続';
 	@override String inboundDomainResolveTips({required Object p}) => '分流ルールが設定されていない一部のドメイン名は、IP ベースの分流ルールに一致させる前に解決する必要があります。この機能はプロキシポート [${p}] への着信リクエストに影響します';
@@ -1073,6 +1075,8 @@ extension on TranslationsJa {
 			'SettingsScreen.dnsTypeResolverTips' => '[${_root.SettingsScreen.dnsTypeResolver}] のドメイン名解決',
 			'SettingsScreen.dnsAutoSetServer' => 'サーバーを自動設定',
 			'SettingsScreen.dnsResetServer' => 'サーバーをリセット',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => '静的IP解決を優先する',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => '解決中にDNSサーバー自体が汚染されるのを効果的に防ぐ',
 			'SettingsScreen.inboundDomainResolve' => '着信ドメイン名を解決する',
 			'SettingsScreen.privateDirect' => 'プライベートネットワークの直接接続',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => '分流ルールが設定されていない一部のドメイン名は、IP ベースの分流ルールに一致させる前に解決する必要があります。この機能はプロキシポート [${p}] への着信リクエストに影響します',
@@ -1450,10 +1454,10 @@ extension on TranslationsJa {
 			'tls.insecure' => '証明書の検証をスキップする',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
-			'tls.fragmentSize' => 'TLS フラグメントサイズ',
-			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS フラグメントサイズ',
+			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
 			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',
 			'tls.paddingEnable' => 'TLS パディングを有効にする',
 			'tls.paddingSize' => 'TLS パディングサイズ',

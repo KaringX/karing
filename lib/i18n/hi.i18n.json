@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}] के लिए डोमेन नाम समाधान",
         "dnsAutoSetServer": "स्वचालित रूप से सर्वर सेट करें",
         "dnsResetServer": "सर्वर रीसेट करें",
+        "dnsEnableStaticIPForResolver": "स्थिर IP समाधान को प्राथमिकता दें",
+        "dnsEnableStaticIPForResolverTips": "समाधान के दौरान DNS सर्वर को स्वयं को प्रदूषित होने से प्रभावी ढंग से रोकें",
         "inboundDomainResolve": "आने वाले डोमेन नामों को हल करें",
         "privateDirect": "निजी नेटवर्क सीधा कनेक्शन",
         "inboundDomainResolveTips": "कुछ डोमेन नाम जो विचलन नियमों के साथ कॉन्फ़िगर नहीं किए गए हैं, उन्हें IP-आधारित विचलन नियमों से टकराने से पहले हल करने की आवश्यकता है; यह सुविधा प्रॉक्सी पोर्ट [$p] पर आने वाले अनुरोधों को प्रभावित करती है",

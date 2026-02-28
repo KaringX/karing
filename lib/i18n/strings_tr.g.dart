@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenTr implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '[${_root.SettingsScreen.dnsTypeResolver}] için alan adı çözümlemesi';
 	@override String get dnsAutoSetServer => 'Otomatik Sunucu Kurulumu';
 	@override String get dnsResetServer => 'Sunucuyu Sıfırla';
+	@override String get dnsEnableStaticIPForResolver => 'Statik IP Çözümlemesini Tercih Et';
+	@override String get dnsEnableStaticIPForResolverTips => 'Çözümleme sırasında DNS sunucusu kendisinin kirletilmesini etkili bir şekilde önleyin';
 	@override String get inboundDomainResolve => 'Gelen Alan Adlarını Çözümle';
 	@override String get privateDirect => 'Özel Ağ Doğrudan Bağlantısı';
 	@override String inboundDomainResolveTips({required Object p}) => 'Yönlendirme kurallarıyla yapılandırılmamış bazı alan adlarının, IP tabanlı yönlendirme kurallarına ulaşabilmesi için çözümlenmesi gerekir; bu özellik proxy bağlantı noktasına [${p}] gelen istekleri etkiler';
@@ -1073,6 +1075,8 @@ extension on TranslationsTr {
 			'SettingsScreen.dnsTypeResolverTips' => '[${_root.SettingsScreen.dnsTypeResolver}] için alan adı çözümlemesi',
 			'SettingsScreen.dnsAutoSetServer' => 'Otomatik Sunucu Kurulumu',
 			'SettingsScreen.dnsResetServer' => 'Sunucuyu Sıfırla',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Statik IP Çözümlemesini Tercih Et',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Çözümleme sırasında DNS sunucusu kendisinin kirletilmesini etkili bir şekilde önleyin',
 			'SettingsScreen.inboundDomainResolve' => 'Gelen Alan Adlarını Çözümle',
 			'SettingsScreen.privateDirect' => 'Özel Ağ Doğrudan Bağlantısı',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Yönlendirme kurallarıyla yapılandırılmamış bazı alan adlarının, IP tabanlı yönlendirme kurallarına ulaşabilmesi için çözümlenmesi gerekir; bu özellik proxy bağlantı noktasına [${p}] gelen istekleri etkiler',
@@ -1450,10 +1454,10 @@ extension on TranslationsTr {
 			'tls.insecure' => 'Sertifika Doğrulamasını Atla',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
-			'tls.fragmentSize' => 'TLS Parça Boyutu',
-			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS Parça Boyutu',
+			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
 			'tls.mixedCaseSNIEnable' => 'TLS Karışık SNI\'yı Etkinleştir',
 			'tls.paddingEnable' => 'TLS Padding\'i Etkinleştir',
 			'tls.paddingSize' => 'TLS Padding Boyutu',

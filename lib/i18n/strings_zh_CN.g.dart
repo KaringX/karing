@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '用于[${_root.SettingsScreen.dnsTypeResolver}]的域名解析';
 	@override String get dnsAutoSetServer => '自动设置服务器';
 	@override String get dnsResetServer => '重置服务器';
+	@override String get dnsEnableStaticIPForResolver => '优先静态解析';
+	@override String get dnsEnableStaticIPForResolverTips => '有效防止DNS服务器本身解析时被污染';
 	@override String get inboundDomainResolve => '解析入站域名';
 	@override String get privateDirect => '私有网络直连';
 	@override String inboundDomainResolveTips({required Object p}) => '某些未配置分流规则的域名需要解析后才可能命中基于IP的分流规则;此功能影响代理端口[${p}]的入站请求';
@@ -1073,6 +1075,8 @@ extension on TranslationsZhCn {
 			'SettingsScreen.dnsTypeResolverTips' => '用于[${_root.SettingsScreen.dnsTypeResolver}]的域名解析',
 			'SettingsScreen.dnsAutoSetServer' => '自动设置服务器',
 			'SettingsScreen.dnsResetServer' => '重置服务器',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => '优先静态解析',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => '有效防止DNS服务器本身解析时被污染',
 			'SettingsScreen.inboundDomainResolve' => '解析入站域名',
 			'SettingsScreen.privateDirect' => '私有网络直连',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => '某些未配置分流规则的域名需要解析后才可能命中基于IP的分流规则;此功能影响代理端口[${p}]的入站请求',
@@ -1450,10 +1454,10 @@ extension on TranslationsZhCn {
 			'tls.insecure' => '跳过证书验证',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => '启用TLS分段',
-			'tls.fragmentSize' => 'TLS分段大小',
-			'tls.fragmentSleep' => 'TLS分段休眠',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS分段大小',
+			'tls.fragmentSleep' => 'TLS分段休眠',
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',
 			'tls.paddingEnable' => '启用TLS填充',
 			'tls.paddingSize' => 'TLS填充大小',

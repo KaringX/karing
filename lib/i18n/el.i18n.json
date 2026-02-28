@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Ανάλυση ονόματος τομέα για [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Αυτόματη ρύθμιση διακομιστή",
         "dnsResetServer": "Επαναφορά διακομιστή",
+        "dnsEnableStaticIPForResolver": "Προτίμηση στατικής ανάλυσης IP",
+        "dnsEnableStaticIPForResolverTips": "Αποτρέψτε αποτελεσματικά τον DNS server από το να ρυπανθεί κατά την ανάλυση",
         "inboundDomainResolve": "Επίλυση εισερχόμενων ονομάτων τομέα",
         "privateDirect": "Άμεση σύνδεση ιδιωτικού δικτύου",
         "inboundDomainResolveTips": "Ορισμένα ονόματα τομέα που δεν έχουν διαμορφωθεί με κανόνες εκτροπής πρέπει να επιλυθούν πριν μπορέσουν να χτυπήσουν τους κανόνες εκτροπής που βασίζονται σε IP. Αυτή η λειτουργία επηρεάζει τα εισερχόμενα αιτήματα στη θύρα proxy [$p]",

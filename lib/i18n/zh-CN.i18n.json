@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "用于[@:{SettingsScreen.dnsTypeResolver}]的域名解析",
         "dnsAutoSetServer": "自动设置服务器",
         "dnsResetServer": "重置服务器",
+        "dnsEnableStaticIPForResolver": "优先静态解析",
+        "dnsEnableStaticIPForResolverTips": "有效防止DNS服务器本身解析时被污染",
         "inboundDomainResolve": "解析入站域名",
         "privateDirect": "私有网络直连",
         "inboundDomainResolveTips": "某些未配置分流规则的域名需要解析后才可能命中基于IP的分流规则;此功能影响代理端口[$p]的入站请求",

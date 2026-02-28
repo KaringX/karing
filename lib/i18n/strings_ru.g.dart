@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Разрешение доменных имен для DNS-серверов';
 	@override String get dnsAutoSetServer => 'Автоматически настроить сервер';
 	@override String get dnsResetServer => 'Сбросить сервер';
+	@override String get dnsEnableStaticIPForResolver => 'Предпочитать разрешение статического IP';
+	@override String get dnsEnableStaticIPForResolverTips => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения';
 	@override String get inboundDomainResolve => 'Разрешение входящих доменных имен';
 	@override String get privateDirect => 'Прямое подключение к частной сети';
 	@override String inboundDomainResolveTips({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsRu {
 			'SettingsScreen.dnsTypeResolverTips' => 'Разрешение доменных имен для DNS-серверов',
 			'SettingsScreen.dnsAutoSetServer' => 'Автоматически настроить сервер',
 			'SettingsScreen.dnsResetServer' => 'Сбросить сервер',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Предпочитать разрешение статического IP',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения',
 			'SettingsScreen.inboundDomainResolve' => 'Разрешение входящих доменных имен',
 			'SettingsScreen.privateDirect' => 'Прямое подключение к частной сети',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsRu {
 			'tls.insecure' => 'Пропустить проверку сертификата',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
-			'tls.fragmentSize' => 'Размер фрагмента TLS',
-			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Размер фрагмента TLS',
+			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
 			'tls.paddingEnable' => 'Включить заполнение TLS',
 			'tls.paddingSize' => 'Размер заполнения TLS',

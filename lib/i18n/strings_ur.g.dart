@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenUr implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '[${_root.SettingsScreen.dnsTypeResolver}] کے لیے ڈومین نام کی ریزولیوشن';
 	@override String get dnsAutoSetServer => 'خود بخود سرور ترتیب دیں';
 	@override String get dnsResetServer => 'سرور ری سیٹ کریں';
+	@override String get dnsEnableStaticIPForResolver => 'اسٹیٹک IP ریزولیوشن کو ترجیح دیں';
+	@override String get dnsEnableStaticIPForResolverTips => 'ریزولیوشن کے دوران DNS سرور خود آلودہ ہونے سے موثر طریقے سے روکیں';
 	@override String get inboundDomainResolve => 'آنے والے ڈومین ناموں کو حل کریں';
 	@override String get privateDirect => 'نجی نیٹ ورک براہ راست کنکشن';
 	@override String inboundDomainResolveTips({required Object p}) => 'کچھ ڈومین نام جو ڈائیورژن رولز کے ساتھ کنفیگر نہیں کیے گئے ہیں، انہیں IP پر مبنی ڈائیورژن رولز سے ٹکرانے سے پہلے حل کرنے کی ضرورت ہے؛ یہ خصوصیت پراکسی پورٹ [${p}] پر آنے والی درخواستوں کو متاثر کرتی ہے';
@@ -1073,6 +1075,8 @@ extension on TranslationsUr {
 			'SettingsScreen.dnsTypeResolverTips' => '[${_root.SettingsScreen.dnsTypeResolver}] کے لیے ڈومین نام کی ریزولیوشن',
 			'SettingsScreen.dnsAutoSetServer' => 'خود بخود سرور ترتیب دیں',
 			'SettingsScreen.dnsResetServer' => 'سرور ری سیٹ کریں',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'اسٹیٹک IP ریزولیوشن کو ترجیح دیں',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'ریزولیوشن کے دوران DNS سرور خود آلودہ ہونے سے موثر طریقے سے روکیں',
 			'SettingsScreen.inboundDomainResolve' => 'آنے والے ڈومین ناموں کو حل کریں',
 			'SettingsScreen.privateDirect' => 'نجی نیٹ ورک براہ راست کنکشن',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'کچھ ڈومین نام جو ڈائیورژن رولز کے ساتھ کنفیگر نہیں کیے گئے ہیں، انہیں IP پر مبنی ڈائیورژن رولز سے ٹکرانے سے پہلے حل کرنے کی ضرورت ہے؛ یہ خصوصیت پراکسی پورٹ [${p}] پر آنے والی درخواستوں کو متاثر کرتی ہے',
@@ -1450,10 +1454,10 @@ extension on TranslationsUr {
 			'tls.insecure' => 'سرٹیفکیٹ کی تصدیق نظر انداز کریں',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
-			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
-			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
+			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
 			'tls.mixedCaseSNIEnable' => 'TLS مکسڈ کیس SNI فعال کریں',
 			'tls.paddingEnable' => 'TLS پیڈنگ فعال کریں',
 			'tls.paddingSize' => 'TLS پیڈنگ سائز',

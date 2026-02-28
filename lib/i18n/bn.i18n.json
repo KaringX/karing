@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}] এর জন্য ডোমেইন নাম রেজোলিউশন",
         "dnsAutoSetServer": "স্বয়ংক্রিয়ভাবে সার্ভার সেট করুন",
         "dnsResetServer": "সার্ভার রিসেট করুন",
+        "dnsEnableStaticIPForResolver": "স্ট্যাটিক IP রেজোলিউশন পছন্দ করুন",
+        "dnsEnableStaticIPForResolverTips": "রেজোলিউশনের সময় DNS সার্ভার নিজেই দূষিত হতে কার্যকরভাবে প্রতিরোধ করুন",
         "inboundDomainResolve": "ইনকামিং ডোমেইন নাম রেজলভ করুন",
         "privateDirect": "প্রাইভেট নেটওয়ার্ক সরাসরি সংযোগ",
         "inboundDomainResolveTips": "কিছু ডোমেইন নাম যা ডাইভারশন রুল দিয়ে কনফিগার করা নেই, সেগুলি IP-ভিত্তিক ডাইভারশন রুলের সাথে সংঘর্ষের আগে রেজলভ করা প্রয়োজন; এই ফিচারটি প্রক্সি পোর্ট [$p]-এ ইনকামিং রিকোয়েস্টগুলিকে প্রভাবিত করে",

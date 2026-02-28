@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}] için alan adı çözümlemesi",
         "dnsAutoSetServer": "Otomatik Sunucu Kurulumu",
         "dnsResetServer": "Sunucuyu Sıfırla",
+        "dnsEnableStaticIPForResolver": "Statik IP Çözümlemesini Tercih Et",
+        "dnsEnableStaticIPForResolverTips": "Çözümleme sırasında DNS sunucusu kendisinin kirletilmesini etkili bir şekilde önleyin",
         "inboundDomainResolve": "Gelen Alan Adlarını Çözümle",
         "privateDirect": "Özel Ağ Doğrudan Bağlantısı",
         "inboundDomainResolveTips": "Yönlendirme kurallarıyla yapılandırılmamış bazı alan adlarının, IP tabanlı yönlendirme kurallarına ulaşabilmesi için çözümlenmesi gerekir; bu özellik proxy bağlantı noktasına [$p] gelen istekleri etkiler",

@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Domeinnaamoplossing voor [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Server automatisch instellen",
         "dnsResetServer": "Server resetten",
+        "dnsEnableStaticIPForResolver": "Statische IP-resolutie voorkeur",
+        "dnsEnableStaticIPForResolverTips": "Voorkomen dat de DNS-server zelf tijdens het omzetten wordt vervuild",
         "inboundDomainResolve": "Inkomende domeinnamen oplossen",
         "privateDirect": "Directe verbinding met privénetwerk",
         "inboundDomainResolveTips": "Sommige domeinnamen die niet zijn geconfigureerd met omleidingsregels, moeten worden opgelost voordat ze de op IP gebaseerde omleidingsregels kunnen raken; deze functie is van invloed op inkomende verzoeken naar de proxypoort [$p]",

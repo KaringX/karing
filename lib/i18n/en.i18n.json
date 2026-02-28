@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Domain name resolution for [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Auto Setup Server",
         "dnsResetServer": "Reset Server",
+        "dnsEnableStaticIPForResolver": "Prefer Static IP Resolution",
+        "dnsEnableStaticIPForResolverTips": "Effectively prevent DNS server itself from being polluted during resolution",
         "inboundDomainResolve": "Resolve Inbound Domain names",
         "privateDirect": "Private Network Direct connection",
         "inboundDomainResolveTips": "Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [$p]",

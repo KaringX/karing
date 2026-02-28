@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Domännamnsupplösning för [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Ställ in server automatiskt",
         "dnsResetServer": "Återställ server",
+        "dnsEnableStaticIPForResolver": "Föredrar statisk IP-lösning",
+        "dnsEnableStaticIPForResolverTips": "Effektivt förhindra att DNS-servern själv blir förorenad under upplösningen",
         "inboundDomainResolve": "Lös inkommande domännamn",
         "privateDirect": "Direktanslutning till privat nätverk",
         "inboundDomainResolveTips": "Vissa domännamn som inte är konfigurerade med omledningsregler måste lösas innan de kan träffa de IP-baserade omledningsreglerna; den här funktionen påverkar inkommande förfrågningar till proxyporten [$p]",

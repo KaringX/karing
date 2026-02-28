@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "Domainnamen-Auflösung für [@:{SettingsScreen.dnsTypeResolver}]",
         "dnsAutoSetServer": "Server automatisch einrichten",
         "dnsResetServer": "Server zurücksetzen",
+        "dnsEnableStaticIPForResolver": "Statische IP-Auflösung bevorzugen",
+        "dnsEnableStaticIPForResolverTips": "Wirksam verhindern, dass DNS-Server selbst während der Auflösung verunreinigt werden",
         "inboundDomainResolve": "Eingehende Domainnamen auflösen",
         "privateDirect": "Private Netzwerk-Direktverbindung",
         "inboundDomainResolveTips": "Einige Domainnamen, die nicht mit Umleitungsregeln konfiguriert sind, müssen aufgelöst werden, bevor sie die IP-basierten Umleitungsregeln treffen können; diese Funktion betrifft eingehende Anfragen an den Proxy-Port [$p]",

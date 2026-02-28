@@ -613,6 +613,9 @@ class SettingConfigItemDNS {
     {kDNSIsp: "OpenDNS", kDNSUrl: "udp://208.67.220.220"},
     {kDNSIsp: "Yandex DNS", kDNSUrl: "udp://77.88.8.1"},
     {kDNSIsp: "Yandex DNS", kDNSUrl: "udp://77.88.8.8"},
+    {kDNSIsp: "Yandex DNS", kDNSUrl: "udp://dns.yandex.net"},
+    {kDNSIsp: "Yandex DNS", kDNSUrl: "udp://2a02:6b8::feed:0ff"},
+    {kDNSIsp: "Yandex DNS", kDNSUrl: "udp://2a02:6b8:0:1::feed:0ff"},
     {kDNSIsp: "Comodo DNS", kDNSUrl: "udp://8.26.56.26"},
     {kDNSIsp: "Comodo DNS", kDNSUrl: "udp://8.20.247.20"},
     {kDNSIsp: "AdGuard DNS", kDNSUrl: "udp://94.140.14.14"},
@@ -628,6 +631,7 @@ class SettingConfigItemDNS {
   bool enableClientSubnet = true;
   bool enableInboundDomainResolve = false;
   bool enableStaticIP = false;
+  bool enableStaticIPForResolver = true;
   SettingConfigItemDNSProxyResolveMode proxyResolveMode =
       SettingConfigItemDNSProxyResolveMode.fakeip;
 
@@ -650,6 +654,7 @@ class SettingConfigItemDNS {
       'enable_client_subnet': enableClientSubnet,
       'enable_inbound_domain_resolve': enableInboundDomainResolve,
       'enable_static_ip': enableStaticIP,
+      'enable_static_ip_for_resolver': enableStaticIPForResolver,
       'proxy_resolve_mode': proxyResolveMode.name,
       'resolver_addresses': _resolver,
       'outbound_addresses': _outbound,
@@ -684,6 +689,7 @@ class SettingConfigItemDNS {
     enableClientSubnet = map["enable_client_subnet"] ?? true;
     enableInboundDomainResolve = map["enable_inbound_domain_resolve"] ?? false;
     enableStaticIP = map["enable_static_ip"] ?? false;
+    enableStaticIPForResolver = map["enable_static_ip_for_resolver"] ?? true;
     String? proxyResolveMode_ = map["proxy_resolve_mode"];
     if (proxyResolveMode_ == null) {
       do {

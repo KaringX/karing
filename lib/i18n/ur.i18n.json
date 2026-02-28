@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}] کے لیے ڈومین نام کی ریزولیوشن",
         "dnsAutoSetServer": "خود بخود سرور ترتیب دیں",
         "dnsResetServer": "سرور ری سیٹ کریں",
+        "dnsEnableStaticIPForResolver": "اسٹیٹک IP ریزولیوشن کو ترجیح دیں",
+        "dnsEnableStaticIPForResolverTips": "ریزولیوشن کے دوران DNS سرور خود آلودہ ہونے سے موثر طریقے سے روکیں",
         "inboundDomainResolve": "آنے والے ڈومین ناموں کو حل کریں",
         "privateDirect": "نجی نیٹ ورک براہ راست کنکشن",
         "inboundDomainResolveTips": "کچھ ڈومین نام جو ڈائیورژن رولز کے ساتھ کنفیگر نہیں کیے گئے ہیں، انہیں IP پر مبنی ڈائیورژن رولز سے ٹکرانے سے پہلے حل کرنے کی ضرورت ہے؛ یہ خصوصیت پراکسی پورٹ [$p] پر آنے والی درخواستوں کو متاثر کرتی ہے",

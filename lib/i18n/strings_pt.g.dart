@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenPt implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Resolução de nome de domínio para [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Configuração Automática do Servidor';
 	@override String get dnsResetServer => 'Repor Servidor';
+	@override String get dnsEnableStaticIPForResolver => 'Preferir Resolução de IP Estático';
+	@override String get dnsEnableStaticIPForResolverTips => 'Evitar efetivamente que o próprio servidor DNS seja poluído durante a resolução';
 	@override String get inboundDomainResolve => 'Resolver nomes de Domínio de Entrada';
 	@override String get privateDirect => 'Ligação direta de Rede Privada';
 	@override String inboundDomainResolveTips({required Object p}) => 'Alguns nomes de domínio que não estão configurados com regras de desvio precisam de ser resolvidos antes de poderem atingir as regras de desvio baseadas em IP; esta funcionalidade afeta pedidos de entrada na porta proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsPt {
 			'SettingsScreen.dnsTypeResolverTips' => 'Resolução de nome de domínio para [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Configuração Automática do Servidor',
 			'SettingsScreen.dnsResetServer' => 'Repor Servidor',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Preferir Resolução de IP Estático',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Evitar efetivamente que o próprio servidor DNS seja poluído durante a resolução',
 			'SettingsScreen.inboundDomainResolve' => 'Resolver nomes de Domínio de Entrada',
 			'SettingsScreen.privateDirect' => 'Ligação direta de Rede Privada',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Alguns nomes de domínio que não estão configurados com regras de desvio precisam de ser resolvidos antes de poderem atingir as regras de desvio baseadas em IP; esta funcionalidade afeta pedidos de entrada na porta proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsPt {
 			'tls.insecure' => 'Saltar Verificação de Certificado',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Ativar Fragmento TLS',
-			'tls.fragmentSize' => 'Tamanho do Fragmento TLS',
-			'tls.fragmentSleep' => 'Pausa do Fragmento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Tamanho do Fragmento TLS',
+			'tls.fragmentSleep' => 'Pausa do Fragmento TLS',
 			'tls.mixedCaseSNIEnable' => 'Ativar SNI de Caixa Mista TLS',
 			'tls.paddingEnable' => 'Ativar Preenchimento TLS',
 			'tls.paddingSize' => 'Tamanho do Preenchimento TLS',

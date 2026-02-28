@@ -3321,6 +3321,17 @@ class GroupHelper {
       ];
       List<GroupItemOptions> options1 = [
         GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.dnsEnableStaticIPForResolver,
+            tips: tcontext.SettingsScreen.dnsEnableStaticIPForResolverTips,
+            switchValue: settingConfig.dns.enableStaticIPForResolver,
+            onSwitch: (bool value) async {
+              settingConfig.dns.enableStaticIPForResolver = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
+        GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.dnsAutoSetServer,
             onPush: () async {

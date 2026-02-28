@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => '[${_root.SettingsScreen.dnsTypeResolver}] के लिए डोमेन नाम समाधान';
 	@override String get dnsAutoSetServer => 'स्वचालित रूप से सर्वर सेट करें';
 	@override String get dnsResetServer => 'सर्वर रीसेट करें';
+	@override String get dnsEnableStaticIPForResolver => 'स्थिर IP समाधान को प्राथमिकता दें';
+	@override String get dnsEnableStaticIPForResolverTips => 'समाधान के दौरान DNS सर्वर को स्वयं को प्रदूषित होने से प्रभावी ढंग से रोकें';
 	@override String get inboundDomainResolve => 'आने वाले डोमेन नामों को हल करें';
 	@override String get privateDirect => 'निजी नेटवर्क सीधा कनेक्शन';
 	@override String inboundDomainResolveTips({required Object p}) => 'कुछ डोमेन नाम जो विचलन नियमों के साथ कॉन्फ़िगर नहीं किए गए हैं, उन्हें IP-आधारित विचलन नियमों से टकराने से पहले हल करने की आवश्यकता है; यह सुविधा प्रॉक्सी पोर्ट [${p}] पर आने वाले अनुरोधों को प्रभावित करती है';
@@ -1073,6 +1075,8 @@ extension on TranslationsHi {
 			'SettingsScreen.dnsTypeResolverTips' => '[${_root.SettingsScreen.dnsTypeResolver}] के लिए डोमेन नाम समाधान',
 			'SettingsScreen.dnsAutoSetServer' => 'स्वचालित रूप से सर्वर सेट करें',
 			'SettingsScreen.dnsResetServer' => 'सर्वर रीसेट करें',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'स्थिर IP समाधान को प्राथमिकता दें',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'समाधान के दौरान DNS सर्वर को स्वयं को प्रदूषित होने से प्रभावी ढंग से रोकें',
 			'SettingsScreen.inboundDomainResolve' => 'आने वाले डोमेन नामों को हल करें',
 			'SettingsScreen.privateDirect' => 'निजी नेटवर्क सीधा कनेक्शन',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'कुछ डोमेन नाम जो विचलन नियमों के साथ कॉन्फ़िगर नहीं किए गए हैं, उन्हें IP-आधारित विचलन नियमों से टकराने से पहले हल करने की आवश्यकता है; यह सुविधा प्रॉक्सी पोर्ट [${p}] पर आने वाले अनुरोधों को प्रभावित करती है',
@@ -1450,10 +1454,10 @@ extension on TranslationsHi {
 			'tls.insecure' => 'प्रमाणपत्र सत्यापन छोड़ें',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS फ्रैगमेंट सक्षम करें',
-			'tls.fragmentSize' => 'TLS फ्रैगमेंट आकार',
-			'tls.fragmentSleep' => 'TLS फ्रैगमेंट स्लीप',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS फ्रैगमेंट आकार',
+			'tls.fragmentSleep' => 'TLS फ्रैगमेंट स्लीप',
 			'tls.mixedCaseSNIEnable' => 'TLS मिक्स्ड केस SNI सक्षम करें',
 			'tls.paddingEnable' => 'TLS पैडिंग सक्षम करें',
 			'tls.paddingSize' => 'TLS पैडिंग आकार',

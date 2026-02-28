@@ -744,6 +744,12 @@ class TranslationsSettingsScreenEn {
 	/// en: 'Reset Server'
 	String get dnsResetServer => 'Reset Server';
 
+	/// en: 'Prefer Static IP Resolution'
+	String get dnsEnableStaticIPForResolver => 'Prefer Static IP Resolution';
+
+	/// en: 'Effectively prevent DNS server itself from being polluted during resolution'
+	String get dnsEnableStaticIPForResolverTips => 'Effectively prevent DNS server itself from being polluted during resolution';
+
 	/// en: 'Resolve Inbound Domain names'
 	String get inboundDomainResolve => 'Resolve Inbound Domain names';
 
@@ -2186,6 +2192,8 @@ extension on Translations {
 			'SettingsScreen.dnsTypeResolverTips' => 'Domain name resolution for [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Auto Setup Server',
 			'SettingsScreen.dnsResetServer' => 'Reset Server',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Prefer Static IP Resolution',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Effectively prevent DNS server itself from being polluted during resolution',
 			'SettingsScreen.inboundDomainResolve' => 'Resolve Inbound Domain names',
 			'SettingsScreen.privateDirect' => 'Private Network Direct connection',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Some domain names that are not configured with diversion rules need to be resolved before they can hit the IP-based diversion rules; this feature affects inbound requests to the proxy port [${p}]',
@@ -2563,10 +2571,10 @@ extension on Translations {
 			'tls.insecure' => 'Skip Certificate Verification',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Enable TLS Fragment',
-			'tls.fragmentSize' => 'TLS Fragment Size',
-			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS Fragment Size',
+			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',
 			'tls.paddingEnable' => 'Enable TLS Padding',
 			'tls.paddingSize' => 'TLS Padding Size',

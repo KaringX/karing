@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "دقة اسم المجال لخادم DNS الآخر",
         "dnsAutoSetServer": "إعداد الخادم تلقائيا",
         "dnsResetServer": "إعادة تعيين الخادم",
+        "dnsEnableStaticIPForResolver": "تفضيل حل IP الثابت",
+        "dnsEnableStaticIPForResolverTips": "منع خادم DNS نفسه من التلوث بشكل فعال أثناء الدقة",
         "inboundDomainResolve": "حل أسماء النطاقات الواردة",
         "privateDirect": "اتصال مباشر بالشبكة الخاصة",
         "inboundDomainResolveTips": "تحتاج بعض أسماء النطاقات التي لا تحتوي على قواعد تحويل تم تكوينها إلى حلها قبل أن تتمكن من الوصول إلى قواعد التحويل المستندة إلى IP؛ وتؤثر هذه الميزة على الطلبات الواردة إلى منفذ الوكيل [$p]",

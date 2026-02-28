@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenEs implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Resolución de nombres de dominio para [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Configuración automática del servidor';
 	@override String get dnsResetServer => 'Restablecer servidor';
+	@override String get dnsEnableStaticIPForResolver => 'Preferir resolución de IP estática';
+	@override String get dnsEnableStaticIPForResolverTips => 'Impedir efectivamente que el servidor DNS se contamine durante la resolución';
 	@override String get inboundDomainResolve => 'Resolver nombres de dominio entrantes';
 	@override String get privateDirect => 'Conexión directa de red privada';
 	@override String inboundDomainResolveTips({required Object p}) => 'Algunos nombres de dominio que no están configurados con reglas de desvío deben resolverse antes de poder coincidir con las reglas de desvío basadas en IP; esta función afecta a las solicitudes entrantes al puerto proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsEs {
 			'SettingsScreen.dnsTypeResolverTips' => 'Resolución de nombres de dominio para [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Configuración automática del servidor',
 			'SettingsScreen.dnsResetServer' => 'Restablecer servidor',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Preferir resolución de IP estática',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Impedir efectivamente que el servidor DNS se contamine durante la resolución',
 			'SettingsScreen.inboundDomainResolve' => 'Resolver nombres de dominio entrantes',
 			'SettingsScreen.privateDirect' => 'Conexión directa de red privada',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Algunos nombres de dominio que no están configurados con reglas de desvío deben resolverse antes de poder coincidir con las reglas de desvío basadas en IP; esta función afecta a las solicitudes entrantes al puerto proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsEs {
 			'tls.insecure' => 'Omitir verificación de certificado',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Habilitar fragmento TLS',
-			'tls.fragmentSize' => 'Tamaño de fragmento TLS',
-			'tls.fragmentSleep' => 'Espera de fragmento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Tamaño de fragmento TLS',
+			'tls.fragmentSleep' => 'Espera de fragmento TLS',
 			'tls.mixedCaseSNIEnable' => 'Habilitar SNI mixto TLS',
 			'tls.paddingEnable' => 'Habilitar padding TLS',
 			'tls.paddingSize' => 'Tamaño de padding TLS',

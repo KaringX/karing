@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenUk implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Вирішення доменного імені для [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Автоматичне налаштування сервера';
 	@override String get dnsResetServer => 'Скинути сервер';
+	@override String get dnsEnableStaticIPForResolver => 'Надання переваги статичному розпізнаванню IP';
+	@override String get dnsEnableStaticIPForResolverTips => 'Ефективно запобігти забрудненню самого DNS-сервера під час розпізнавання';
 	@override String get inboundDomainResolve => 'Вирішувати вхідні доменні імена';
 	@override String get privateDirect => 'Пряме підключення до приватної мережі';
 	@override String inboundDomainResolveTips({required Object p}) => 'Деякі доменні імена, для яких не налаштовані правила відхилення, потрібно вирішити, перш ніж вони зможуть потрапити під правила відхилення на основі IP; ця функція впливає на вхідні запити до проксі-порту [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsUk {
 			'SettingsScreen.dnsTypeResolverTips' => 'Вирішення доменного імені для [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Автоматичне налаштування сервера',
 			'SettingsScreen.dnsResetServer' => 'Скинути сервер',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Надання переваги статичному розпізнаванню IP',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Ефективно запобігти забрудненню самого DNS-сервера під час розпізнавання',
 			'SettingsScreen.inboundDomainResolve' => 'Вирішувати вхідні доменні імена',
 			'SettingsScreen.privateDirect' => 'Пряме підключення до приватної мережі',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Деякі доменні імена, для яких не налаштовані правила відхилення, потрібно вирішити, перш ніж вони зможуть потрапити під правила відхилення на основі IP; ця функція впливає на вхідні запити до проксі-порту [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsUk {
 			'tls.insecure' => 'Пропустити перевірку сертифіката',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
-			'tls.fragmentSize' => 'Розмір фрагмента TLS',
-			'tls.fragmentSleep' => 'Пауза фрагментації TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Розмір фрагмента TLS',
+			'tls.fragmentSleep' => 'Пауза фрагментації TLS',
 			'tls.mixedCaseSNIEnable' => 'Увімкнути змішаний регістр SNI TLS',
 			'tls.paddingEnable' => 'Увімкнути заповнення (Padding) TLS',
 			'tls.paddingSize' => 'Розмір заповнення (Padding) TLS',

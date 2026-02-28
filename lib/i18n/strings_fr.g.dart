@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenFr implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Configuration automatique du serveur';
 	@override String get dnsResetServer => 'Réinitialiser le serveur';
+	@override String get dnsEnableStaticIPForResolver => 'Préférer la résolution IP statique';
+	@override String get dnsEnableStaticIPForResolverTips => 'Empêcher efficacement les serveurs DNS eux-mêmes d\'être pollués lors de la résolution';
 	@override String get inboundDomainResolve => 'Résoudre les noms de domaine entrants';
 	@override String get privateDirect => 'Connexion directe au réseau privé';
 	@override String inboundDomainResolveTips({required Object p}) => 'Certains noms de domaine qui ne sont pas configurés avec des règles de diversion doivent être résolus avant de pouvoir correspondre aux règles de diversion basées sur l\'IP ; cette fonctionnalité affecte les requêtes entrantes sur le port proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsFr {
 			'SettingsScreen.dnsTypeResolverTips' => 'Résolution de nom de domaine pour [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Configuration automatique du serveur',
 			'SettingsScreen.dnsResetServer' => 'Réinitialiser le serveur',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Préférer la résolution IP statique',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Empêcher efficacement les serveurs DNS eux-mêmes d\'être pollués lors de la résolution',
 			'SettingsScreen.inboundDomainResolve' => 'Résoudre les noms de domaine entrants',
 			'SettingsScreen.privateDirect' => 'Connexion directe au réseau privé',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Certains noms de domaine qui ne sont pas configurés avec des règles de diversion doivent être résolus avant de pouvoir correspondre aux règles de diversion basées sur l\'IP ; cette fonctionnalité affecte les requêtes entrantes sur le port proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsFr {
 			'tls.insecure' => 'Passer la vérification du certificat',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Activer le fragment TLS',
-			'tls.fragmentSize' => 'Taille du fragment TLS',
-			'tls.fragmentSleep' => 'Sommeil du fragment TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Taille du fragment TLS',
+			'tls.fragmentSleep' => 'Sommeil du fragment TLS',
 			'tls.mixedCaseSNIEnable' => 'Activer le SNI mixte TLS',
 			'tls.paddingEnable' => 'Activer le remplissage TLS',
 			'tls.paddingSize' => 'Taille du remplissage TLS',

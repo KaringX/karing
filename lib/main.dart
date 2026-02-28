@@ -5,9 +5,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/private/ads_private.dart';
 import 'package:karing/app/utils/device_utils.dart';
-import 'package:karing/app/utils/did.dart';
 import 'package:karing/app/utils/http_overrides_utils.dart';
 import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/screens/home_screen.dart';
@@ -197,8 +195,8 @@ Future<void> run(List<String> args) async {
         SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
       }
     }
-    bool first = await Did.getFirstTime();
-    AdsPrivate.init(first);
+    //bool first = await Did.getFirstTime();
+    //AdsPrivate.init(first);
   } catch (err, stacktrace) {
     startFailedReason = StartFailedReason.exception;
     startFailedReasonDesc = err.toString();

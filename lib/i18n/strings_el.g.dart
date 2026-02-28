@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenEl implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Ανάλυση ονόματος τομέα για [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Αυτόματη ρύθμιση διακομιστή';
 	@override String get dnsResetServer => 'Επαναφορά διακομιστή';
+	@override String get dnsEnableStaticIPForResolver => 'Προτίμηση στατικής ανάλυσης IP';
+	@override String get dnsEnableStaticIPForResolverTips => 'Αποτρέψτε αποτελεσματικά τον DNS server από το να ρυπανθεί κατά την ανάλυση';
 	@override String get inboundDomainResolve => 'Επίλυση εισερχόμενων ονομάτων τομέα';
 	@override String get privateDirect => 'Άμεση σύνδεση ιδιωτικού δικτύου';
 	@override String inboundDomainResolveTips({required Object p}) => 'Ορισμένα ονόματα τομέα που δεν έχουν διαμορφωθεί με κανόνες εκτροπής πρέπει να επιλυθούν πριν μπορέσουν να χτυπήσουν τους κανόνες εκτροπής που βασίζονται σε IP. Αυτή η λειτουργία επηρεάζει τα εισερχόμενα αιτήματα στη θύρα proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsEl {
 			'SettingsScreen.dnsTypeResolverTips' => 'Ανάλυση ονόματος τομέα για [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Αυτόματη ρύθμιση διακομιστή',
 			'SettingsScreen.dnsResetServer' => 'Επαναφορά διακομιστή',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Προτίμηση στατικής ανάλυσης IP',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Αποτρέψτε αποτελεσματικά τον DNS server από το να ρυπανθεί κατά την ανάλυση',
 			'SettingsScreen.inboundDomainResolve' => 'Επίλυση εισερχόμενων ονομάτων τομέα',
 			'SettingsScreen.privateDirect' => 'Άμεση σύνδεση ιδιωτικού δικτύου',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Ορισμένα ονόματα τομέα που δεν έχουν διαμορφωθεί με κανόνες εκτροπής πρέπει να επιλυθούν πριν μπορέσουν να χτυπήσουν τους κανόνες εκτροπής που βασίζονται σε IP. Αυτή η λειτουργία επηρεάζει τα εισερχόμενα αιτήματα στη θύρα proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsEl {
 			'tls.insecure' => 'Παράλειψη επαλήθευσης πιστοποιητικού',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Ενεργοποίηση TLS Fragment',
-			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',
-			'tls.fragmentSleep' => 'Αναστολή TLS Fragment',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',
+			'tls.fragmentSleep' => 'Αναστολή TLS Fragment',
 			'tls.mixedCaseSNIEnable' => 'Ενεργοποίηση TLS Mixed Case SNI',
 			'tls.paddingEnable' => 'Ενεργοποίηση TLS Padding',
 			'tls.paddingSize' => 'Μέγεθος TLS Padding',

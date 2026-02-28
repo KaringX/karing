@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenPl implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Rozwiązywanie nazw domen dla [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Automatyczna konfiguracja serwera';
 	@override String get dnsResetServer => 'Resetuj serwer';
+	@override String get dnsEnableStaticIPForResolver => 'Preferuj rozdzielczość statycznego IP';
+	@override String get dnsEnableStaticIPForResolverTips => 'Skutecznie zapobiega zanieczyszczeniu samego serwera DNS podczas rozdzielczości';
 	@override String get inboundDomainResolve => 'Rozwiązywanie przychodzących nazw domen';
 	@override String get privateDirect => 'Bezpośrednie połączenie z siecią prywatną';
 	@override String inboundDomainResolveTips({required Object p}) => 'Niektóre nazwy domen, które nie są skonfigurowane z regułami przekierowania, muszą zostać rozwiązane przed dopasowaniem do reguł przekierowania opartych na IP; ta funkcja wpływa na przychodzące żądania do portu proxy [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsPl {
 			'SettingsScreen.dnsTypeResolverTips' => 'Rozwiązywanie nazw domen dla [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Automatyczna konfiguracja serwera',
 			'SettingsScreen.dnsResetServer' => 'Resetuj serwer',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Preferuj rozdzielczość statycznego IP',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Skutecznie zapobiega zanieczyszczeniu samego serwera DNS podczas rozdzielczości',
 			'SettingsScreen.inboundDomainResolve' => 'Rozwiązywanie przychodzących nazw domen',
 			'SettingsScreen.privateDirect' => 'Bezpośrednie połączenie z siecią prywatną',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Niektóre nazwy domen, które nie są skonfigurowane z regułami przekierowania, muszą zostać rozwiązane przed dopasowaniem do reguł przekierowania opartych na IP; ta funkcja wpływa na przychodzące żądania do portu proxy [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsPl {
 			'tls.insecure' => 'Pomiń weryfikację certyfikatu',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Włącz fragmentację TLS',
-			'tls.fragmentSize' => 'Rozmiar fragmentu TLS',
-			'tls.fragmentSleep' => 'Pauza fragmentacji TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'Rozmiar fragmentu TLS',
+			'tls.fragmentSleep' => 'Pauza fragmentacji TLS',
 			'tls.mixedCaseSNIEnable' => 'Włącz TLS Mixed SNI',
 			'tls.paddingEnable' => 'Włącz TLS Padding',
 			'tls.paddingSize' => 'Rozmiar TLS Padding',

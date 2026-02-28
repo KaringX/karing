@@ -165,6 +165,8 @@
         "dnsTypeResolverTips": "[@:{SettingsScreen.dnsTypeResolver}]에 대한 도메인 이름 확인",
         "dnsAutoSetServer": "자동 서버 설정",
         "dnsResetServer": "서버 리셋",
+        "dnsEnableStaticIPForResolver": "정적 IP 확인 우선",
+        "dnsEnableStaticIPForResolverTips": "확인 중에 DNS 서버 자체가 오염되는 것을 효과적으로 방지",
         "inboundDomainResolve": "수신 도메인 이름 확인",
         "privateDirect": "개인 네트워크 직접 연결",
         "inboundDomainResolveTips": "분류 규칙이 구성되지 않은 일부 도메인 이름은 IP 기반 분류 규칙과 일치시키기 전에 확인해야 합니다. 이 기능은 프록시 포트 [$p]로의 수신 요청에 영향을 미칩니다",

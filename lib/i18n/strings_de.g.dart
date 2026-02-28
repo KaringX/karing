@@ -412,6 +412,8 @@ class _TranslationsSettingsScreenDe implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Domainnamen-Auflösung für [${_root.SettingsScreen.dnsTypeResolver}]';
 	@override String get dnsAutoSetServer => 'Server automatisch einrichten';
 	@override String get dnsResetServer => 'Server zurücksetzen';
+	@override String get dnsEnableStaticIPForResolver => 'Statische IP-Auflösung bevorzugen';
+	@override String get dnsEnableStaticIPForResolverTips => 'Wirksam verhindern, dass DNS-Server selbst während der Auflösung verunreinigt werden';
 	@override String get inboundDomainResolve => 'Eingehende Domainnamen auflösen';
 	@override String get privateDirect => 'Private Netzwerk-Direktverbindung';
 	@override String inboundDomainResolveTips({required Object p}) => 'Einige Domainnamen, die nicht mit Umleitungsregeln konfiguriert sind, müssen aufgelöst werden, bevor sie die IP-basierten Umleitungsregeln treffen können; diese Funktion betrifft eingehende Anfragen an den Proxy-Port [${p}]';
@@ -1073,6 +1075,8 @@ extension on TranslationsDe {
 			'SettingsScreen.dnsTypeResolverTips' => 'Domainnamen-Auflösung für [${_root.SettingsScreen.dnsTypeResolver}]',
 			'SettingsScreen.dnsAutoSetServer' => 'Server automatisch einrichten',
 			'SettingsScreen.dnsResetServer' => 'Server zurücksetzen',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Statische IP-Auflösung bevorzugen',
+			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Wirksam verhindern, dass DNS-Server selbst während der Auflösung verunreinigt werden',
 			'SettingsScreen.inboundDomainResolve' => 'Eingehende Domainnamen auflösen',
 			'SettingsScreen.privateDirect' => 'Private Netzwerk-Direktverbindung',
 			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Einige Domainnamen, die nicht mit Umleitungsregeln konfiguriert sind, müssen aufgelöst werden, bevor sie die IP-basierten Umleitungsregeln treffen können; diese Funktion betrifft eingehende Anfragen an den Proxy-Port [${p}]',
@@ -1450,10 +1454,10 @@ extension on TranslationsDe {
 			'tls.insecure' => 'Zertifikatsprüfung überspringen',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS-Fragment aktivieren',
-			'tls.fragmentSize' => 'TLS-Fragmentgröße',
-			'tls.fragmentSleep' => 'TLS-Fragment-Ruhezeit',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentSize' => 'TLS-Fragmentgröße',
+			'tls.fragmentSleep' => 'TLS-Fragment-Ruhezeit',
 			'tls.mixedCaseSNIEnable' => 'Gemischte SNI-Schreibweise aktivieren',
 			'tls.paddingEnable' => 'TLS-Padding aktivieren',
 			'tls.paddingSize' => 'TLS-Padding-Größe',
