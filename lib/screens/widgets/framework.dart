@@ -12,20 +12,22 @@ void _lasyhandleBeginFrame(Duration rawTimeStamp) {
   if (AppLifecycleStateNofity.isPaused()) {
     return;
   }
-  if (_handleBeginFrameCallback == null) {
+  final callback = _handleBeginFrameCallback;
+  if (callback == null) {
     return;
   }
-  _handleBeginFrameCallback!.call(rawTimeStamp);
+  callback.call(rawTimeStamp);
 }
 
 void _lasyhandleDrawFrame() {
   if (AppLifecycleStateNofity.isPaused()) {
     return;
   }
-  if (_handleDrawFrameCallback == null) {
+  final callback = _handleDrawFrameCallback;
+  if (callback == null) {
     return;
   }
-  _handleDrawFrameCallback!.call();
+  callback.call();
 }
 
 void initLasyFrameDrawHook() {

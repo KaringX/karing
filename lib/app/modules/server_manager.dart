@@ -2283,6 +2283,7 @@ class ServerManager {
       website: item.site,
       ispId: item.isp?.id,
       ispUser: item.isp?.user,
+      decryptPassword: item.decryptPassword,
     );
     _remoteReloading.remove(groupid);
     if (err != null) {
