@@ -1088,7 +1088,6 @@ class _SystemProxySwitchCardState
       createChecker();
       AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
       AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
-      AppLifecycleStateNofity.onStateInactive(hashCode, _onStateHidden);
     }
   }
 
@@ -1097,7 +1096,6 @@ class _SystemProxySwitchCardState
     if (Platform.isWindows) {
       AppLifecycleStateNofity.onStateResumed(hashCode, null);
       AppLifecycleStateNofity.onStatePaused(hashCode, null);
-      AppLifecycleStateNofity.onStateInactive(hashCode, null);
     }
     destroyChecker();
     super.dispose();
@@ -1108,10 +1106,6 @@ class _SystemProxySwitchCardState
   }
 
   Future<void> _onStatePaused() async {
-    destroyChecker();
-  }
-
-  Future<void> _onStateHidden() async {
     destroyChecker();
   }
 

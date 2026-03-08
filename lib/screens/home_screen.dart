@@ -978,7 +978,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     ServerManager.onEventTestLatency(hashCode, _onTestLatency);
     AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
-    AppLifecycleStateNofity.onStateInactive(hashCode, _onStateHidden);
 
     if (Platform.isWindows) {
       bool reg = SystemSchemeUtils.isRegistered(
@@ -1355,13 +1354,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   Future<void> _onStatePaused() async {
-    _stopStateCheckTimer();
-
-    _disconnectToCurrent();
-    _disconnectToService();
-  }
-
-  Future<void> _onStateHidden() async {
     _stopStateCheckTimer();
 
     _disconnectToCurrent();

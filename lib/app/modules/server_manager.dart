@@ -2045,13 +2045,6 @@ class ServerManager {
       }
       _use.diversionGroup = diversionGroup;
     } catch (err, stacktrace) {
-      SentryUtils.captureException(
-        'ServerManager.loadUse.exception',
-        [],
-        err,
-        stacktrace,
-        attachments: {filePath: content},
-      );
       Log.w("ServerManager.loadUse exception $filePath ${err.toString()}");
     }
   }
