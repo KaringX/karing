@@ -69,7 +69,6 @@ void main(List<String> args) async {
   if (!SettingManager.getConfig().disableAppImproveData) {
     await SentryUtilsPrivate.init();
   }
-  await FastCachedImageConfig.init();
 
   //SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
 
@@ -153,6 +152,7 @@ Future<void> run(List<String> args) async {
         }
       }
     } while (false);
+
     if (PlatformUtils.isPC()) {
       await windowManager.ensureInitialized();
       const inProduction = bool.fromEnvironment("dart.vm.product");
@@ -210,6 +210,11 @@ Future<void> run(List<String> args) async {
       err,
       stacktrace,
     );
+  }
+  try {
+    await FastCachedImageConfig.init();
+  } catch (err, stacktrace) {
+    Log.w("FastCachedImageConfig.init() exception: ${err.toString()}");
   }
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
