@@ -68,7 +68,7 @@ class _PerAppAndroidScreenState
     SettingManager.save();
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       String search = textVal.toLowerCase();
       final data = _applicationInfoList.where((app) {
@@ -84,7 +84,7 @@ class _PerAppAndroidScreenState
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _searchedData = _applicationInfoList;
     setState(() {});

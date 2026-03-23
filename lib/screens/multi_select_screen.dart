@@ -63,7 +63,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
     setState(() {});
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       String search = textVal.toLowerCase();
       final data = _allData.where((name) {
@@ -79,7 +79,7 @@ class _MultiSelectScreenState extends LasyRenderingState<MultiSelectScreen> {
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _searchedData = _allData;
     setState(() {});

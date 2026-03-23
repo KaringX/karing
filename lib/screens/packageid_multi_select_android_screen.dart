@@ -76,7 +76,7 @@ class _PackageIdMultiSelectAndroidScreenState
     SettingManager.save();
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       String search = textVal.toLowerCase();
       final data = widget.installedApps.where((app) {
@@ -92,7 +92,7 @@ class _PackageIdMultiSelectAndroidScreenState
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _searchedData = widget.installedApps;
     setState(() {});

@@ -5,7 +5,7 @@ typedef FunctionTag = String;
 class Debouncer {
   final Map<FunctionTag, Timer?> _operations = {};
 
-  call(
+  void call(
     FunctionTag tag,
     Function func, {
     List<dynamic>? args,
@@ -22,7 +22,7 @@ class Debouncer {
     });
   }
 
-  cancel(dynamic tag) {
+  void cancel(dynamic tag) {
     _operations[tag]?.cancel();
     _operations[tag] = null;
   }
@@ -31,7 +31,7 @@ class Debouncer {
 class Throttler {
   final Map<FunctionTag, Timer?> _operations = {};
 
-  call(
+  bool call(
     FunctionTag tag,
     Function func, {
     List<dynamic>? args,
@@ -49,7 +49,7 @@ class Throttler {
     return false;
   }
 
-  cancel(dynamic tag) {
+  void cancel(dynamic tag) {
     _operations[tag]?.cancel();
     _operations[tag] = null;
   }

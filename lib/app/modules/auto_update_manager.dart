@@ -320,7 +320,10 @@ class AutoUpdateManager {
           _lastCheck == null ||
           DateTime.now().difference(_lastCheck!).inHours > 12;
       ReturnResult<List<AutoupdateItem>> items =
-          await AutoupdateUtils.getAutoupdate(body);
+          await AutoupdateUtils.getAutoupdate(
+            body,
+            SettingManager.getConfig().updateWhenConnected,
+          );
       _lastCheck = DateTime.now();
       if (items.error != null) {
         _checking = false;

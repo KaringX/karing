@@ -109,7 +109,7 @@ class _RegionSetingsScreenState
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     if (_countriesAssets.isEmpty) {
       return;
     }

@@ -145,13 +145,13 @@ class InAppWebViewScreen extends StatefulWidget {
     return false;
   }
 
-  static addRef() {
+  static void addRef() {
     if (Platform.isWindows) {
       _webViewEnvironmentRef += 1;
     }
   }
 
-  static delRef() async {
+  static void delRef() async {
     if (Platform.isWindows) {
       _webViewEnvironmentRef -= 1;
       if (_webViewEnvironmentRef < 0) {

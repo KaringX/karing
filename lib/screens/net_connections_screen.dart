@@ -119,6 +119,15 @@ class TrackerMetaData {
       if (int.tryParse(processPath) != null) {
         processPath = "";
       }
+
+      final parts = processPath.split("(");
+      if (parts.length > 1) {
+        processPath = parts[0].trim();
+      }
+      if (packageName.isEmpty && processPath.isNotEmpty) {
+        packageName = processPath;
+        processPath = "";
+      }
     }
   }
 }
@@ -1325,9 +1334,9 @@ class _NetConnectionsScreenState
       list3.add(i.getDownload());
       list2.add(list3);
     }
-    String csv = const ListToCsvConverter().convert(list2);
+    String data = csv.encode(list2);
     try {
-      await Clipboard.setData(ClipboardData(text: csv));
+      await Clipboard.setData(ClipboardData(text: data));
     } catch (e) {}
 
     if (!mounted) {

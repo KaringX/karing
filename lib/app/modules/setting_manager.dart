@@ -1455,7 +1455,7 @@ enum IPStrategy {
 
 class SettingConfig {
   static int htmlBoardPortDefault = 3072;
-  static const String kCoreVersion = "1.12.0";
+  static const String kCoreVersion = "1.13.0";
   static const List<String> kSpeedTestList = [
     "https://speed.cloudflare.com/",
     "https://speedtest.net/",

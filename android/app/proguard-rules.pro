@@ -39,3 +39,8 @@
 -dontwarn com.google.android.play.core.tasks.OnSuccessListener
 -dontwarn com.google.android.play.core.tasks.Task
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+# SDK 36 compatibility
+-dontwarn com.google.android.material.**
+-dontwarn com.google.firebase.**
+-dontwarn com.google.ads.**
+-dontwarn androidx.**

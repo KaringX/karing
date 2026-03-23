@@ -719,7 +719,7 @@ class _DiversionGroupCustomEditScreenState
         return createTextFieldWithSelect(
           _textControllerLinkNetwork,
           "Network",
-          "tcp\nudp",
+          "tcp\nudp\nicmp",
           () async {
             List<String> selectedData = convertToList(
               _textControllerLinkNetwork.text,
@@ -734,6 +734,7 @@ class _DiversionGroupCustomEditScreenState
                     return [
                       MultiSelectScreenDateItem(key: "tcp", text: "tcp"),
                       MultiSelectScreenDateItem(key: "udp", text: "udp"),
+                      MultiSelectScreenDateItem(key: "icmp", text: "icmp"),
                     ];
                   },
                   selectedData: selectedData,
@@ -745,7 +746,10 @@ class _DiversionGroupCustomEditScreenState
       };
       _listViewParts.add(item);
     }
-    if (Platform.isIOS /*|| Platform.isMacOS || Platform.isAndroid*/ ) {
+    if (Platform.isIOS /*|| Platform.isMacOS*/ ||
+        Platform.isAndroid ||
+        Platform.isWindows ||
+        Platform.isLinux) {
       if (widget.options.wifiSsid != null) {
         ListViewMultiPartsItem item = ListViewMultiPartsItem();
         item.creator = (data, index, bindNO) {

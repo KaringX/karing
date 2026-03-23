@@ -31,11 +31,11 @@ void _lasyhandleDrawFrame() {
 }
 
 void initLasyFrameDrawHook() {
-  if (!Platform.isMacOS &&
-      !Platform.isAndroid &&
-      _handleBeginFrameCallback == null &&
-      _handleDrawFrameCallback == null) {
+  if (Platform.isMacOS || Platform.isAndroid) {
     //macos:render pause;android: black screen
+    return;
+  }
+  if (_handleBeginFrameCallback == null && _handleDrawFrameCallback == null) {
     _handleBeginFrameCallback =
         WidgetsBinding.instance.platformDispatcher.onBeginFrame;
     _handleDrawFrameCallback =

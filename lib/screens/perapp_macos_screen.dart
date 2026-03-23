@@ -66,7 +66,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     SettingManager.save();
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       String search = textVal.toLowerCase();
       final data = _processInfoList.where((app) {
@@ -82,7 +82,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _searchedData = _processInfoList;
     setState(() {});

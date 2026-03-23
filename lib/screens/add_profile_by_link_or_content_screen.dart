@@ -59,7 +59,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _xhwid = false;
   String _website = "";
   String _decryptPassword = "";
-  RemoteContent _remoteContent = RemoteContent();
+  final RemoteContent _remoteContent = RemoteContent();
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);

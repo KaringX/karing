@@ -12,6 +12,9 @@ class WebviewHelper {
     String? title,
     bool useInappWebViewForPC = false,
     bool inappWebViewOpenExternal = false,
+    Map<String, String>? headers,
+    Map<String, String>? cookies,
+    Map<String, String>? localStorage,
   }) async {
     if (PlatformUtils.isPC()) {
       if (!useInappWebViewForPC) {
@@ -33,6 +36,9 @@ class WebviewHelper {
             title: title ?? "",
             url: url,
             showOpenExternal: inappWebViewOpenExternal,
+            headers: headers,
+            cookies: cookies,
+            localStorage: localStorage,
           ),
         ),
       );

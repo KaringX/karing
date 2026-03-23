@@ -259,20 +259,20 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     }
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     _searchText = (textVal ?? "").toLowerCase();
     _buildData();
     setState(() {});
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _searchText = "";
     _buildData();
     setState(() {});
   }
 
-  _pushSearchSelect() async {
+  void _pushSearchSelect() async {
     String? searchText = await Navigator.push(
       context,
       MaterialPageRoute(

@@ -140,7 +140,7 @@ class _TranslationsAboutScreenRu implements TranslationsAboutScreenEn {
 	@override String get versionChannel => 'Канал автоматического обновления';
 	@override String get updateWhenConnected => 'Проверьте наличие обновлений после подключения.';
 	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
-	@override String get disableAppImproveData => 'Применить данные улучшения';
+	@override String get disableAppImproveData => 'Использовать данные для улучшения';
 	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get enableDebugLog => 'Включить debug-лог';
@@ -175,7 +175,7 @@ class _TranslationsDiversionGroupCustomEditScreenRu implements TranslationsDiver
 	@override String invalidDomain({required Object p}) => 'Неверный [Domain]:${p}';
 	@override String invalidIpCidr({required Object p}) => 'Неверный [IP Cidr]:${p}';
 	@override String invalid({required Object p0, required Object p}) => 'Неверный [${p0}]:${p}';
-	@override String invalidRuleSet({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json';
+	@override String invalidRuleSet({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файла с расширением .srs/.json';
 	@override String invalidRuleSetBuildIn({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.';
 	@override String invalidPackageId({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}';
 	@override String get setDiversionRule => 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.';
@@ -210,7 +210,7 @@ class _TranslationsDnsSettingsScreenRu implements TranslationsDnsSettingsScreenE
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get ispCanNotEmpty => 'ISP не может быть пустой';
+	@override String get ispCanNotEmpty => 'ISP не может быть пустым';
 	@override String get urlCanNotEmpty => 'URL не может быть пустой';
 	@override String error({required Object p}) => 'Неподдерживаемый тип:${p}';
 	@override String get dnsDesc => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.';
@@ -379,7 +379,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get commonlyUsedRulesets => 'Коллекция наборов правил';
 	@override String get htmlBoard => 'Веб-панель';
 	@override String get dnsLeakDetection => 'Тест утечки DNS';
-	@override String get proxyLeakDetection => 'Обнаружение утечки наличия прокси';
+	@override String get proxyLeakDetection => 'Проверка заметности наличия прокси';
 	@override String get speedTest => 'Тест скорости';
 	@override String get rulesetDirectDownlad => 'Правила прямой загрузки';
 	@override String get hideUnusedDiversionGroup => 'Скрыть неактивные правила перенаправления трафика';
@@ -412,7 +412,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get dnsTypeResolverTips => 'Разрешение доменных имен для DNS-серверов';
 	@override String get dnsAutoSetServer => 'Автоматически настроить сервер';
 	@override String get dnsResetServer => 'Сбросить сервер';
-	@override String get dnsEnableStaticIPForResolver => 'Предпочитать разрешение статического IP';
+	@override String get dnsEnableStaticIPForResolver => 'Предпочитать статическое разрешение IP';
 	@override String get dnsEnableStaticIPForResolverTips => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения';
 	@override String get inboundDomainResolve => 'Разрешение входящих доменных имен';
 	@override String get privateDirect => 'Прямое подключение к частной сети';
@@ -425,12 +425,12 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoSelectSelectedHealthCheckInterval => 'Текущий интервал проверки работоспособности сервера';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'Перетестировать после смены сети';
 	@override String get autoSelectServerIntervalTips => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
-	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, группа повторно тестируется с задержкой.';
 	@override String get autoSelectServerFavFirst => 'Предпочитать [Мои избранные]';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Обновить текущий сервер после измерения задержки вручную';
 	@override String get autoSelectServerFavFirstTips => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
 	@override String get autoSelectServerFilter => 'Отфильтровать сервера';
-	@override String autoSelectServerFilterTips({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы';
+	@override String autoSelectServerFilterTips({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверов';
 	@override String get autoSelectServerLimitedNum => 'Максимальное количество серверов';
 	@override String get autoSelectServerLimitedNumTips => 'Если серверов больше этого числа, лишние будут отброшены.';
 	@override String get numInvalid => 'Неправильный номер';
@@ -440,7 +440,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get selectServerHideRecommand => 'Скрыть [Рекомендуемые]';
 	@override String get selectServerHideRecent => 'Скрыть [Недавно использованные]';
 	@override String get selectServerHideFav => 'Скрыть [Мои избранные]';
-	@override String get homeScreen => 'Настройка главного экрана';
+	@override String get homeScreen => 'Оформление главного экрана';
 	@override String get theme => 'Тема';
 	@override String get widgetsAlpha => 'Прозрачность виджетов';
 	@override String get widgetsEmpty => 'Виджет недоступен';
@@ -451,11 +451,11 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
 	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
-	@override String get bypassSystemProxy => 'Доменные имена, которым разрешено обходить системный прокси-сервер';
+	@override String get bypassSystemProxy => 'Домены, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
 	@override String get autoAddToFirewall => 'Автоматическое добавление правил брандмауэра';
 	@override String get excludeFromRecent => 'Скрыть из недавних задач';
-	@override String get wakeLock => 'Блокировка пробуждения';
+	@override String get wakeLock => 'Блокировка засыпания';
 	@override String get hideVpn => 'Скрыть значок VPN';
 	@override String get hideVpnTips => 'Включение IPv6 приведет к сбою этой функции.';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
@@ -492,7 +492,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get handleKaringScheme => 'Вызов karing://[параметры]';
 	@override String get handleClashScheme => 'Вызов clash://[параметры]';
 	@override String get handleSingboxScheme => 'Вызов sing-box://[параметры]';
-	@override String get alwayOnVPN => 'всегда открытое соединение';
+	@override String get alwayOnVPN => 'VPN всегда включен';
 	@override String get disconnectAfterSleep => 'Отключение после спящего режима системы';
 	@override String get removeSystemVPNConfig => 'Удалить профиль VPN';
 	@override String get timeConnectOrDisconnect => 'Запланированное подключение/отключение';
@@ -507,7 +507,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get cleanCacheDone => 'Очистка завершена';
 	@override String get appleTestFlight => 'Apple TestFlight';
 	@override String get appleAppStore => 'Apple AppStore';
-	@override String hasNewVersion({required Object p}) => 'Обновить версию ${p}';
+	@override String hasNewVersion({required Object p}) => 'Обновить до версии ${p}';
 	@override String get follow => 'Подписаться на нас';
 	@override String get contactUs => 'Связаться с нами';
 	@override String get supportUs => 'Поддержите нас';
@@ -535,7 +535,7 @@ class _TranslationsVersionUpdateScreenRu implements TranslationsVersionUpdateScr
 	// Translations
 	@override String versionReady({required Object p}) => 'Новая версия [${p}] доступна';
 	@override String get update => 'Перезапустить';
-	@override String get cancel => 'Не сейчас';
+	@override String get cancel => 'Отменить';
 }
 
 // Path: CommonWidget
@@ -566,9 +566,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get enable => 'Включить';
+	@override String get enable => 'Разрешить';
 	@override String get disable => 'Запретить';
-	@override String get bydefault => 'по умолчанию';
+	@override String get bydefault => 'По умолчанию';
 	@override String get filter => 'Фильтр';
 	@override String get filterMethod => 'Метод фильтра';
 	@override String get include => 'Включать';
@@ -612,14 +612,14 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get days => 'дни';
 	@override String get hours => 'часы';
 	@override String get minutes => 'минуты';
-	@override String get seconds => 'Второй';
-	@override String get milliseconds => 'миллисекунда';
-	@override String get tolerance => 'Толерантность';
+	@override String get seconds => 'секунды';
+	@override String get milliseconds => 'миллисекунды';
+	@override String get tolerance => 'Допустимая погрешность';
 	@override String get dateTimePeriod => 'Период времени';
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
 	@override String get custom => 'Самостоятельная настройка';
-	@override String get inbound => 'Входящий';
+	@override String get inbound => 'Вход';
 	@override String get outbound => 'Выход';
 	@override String get destination => 'Цель';
 	@override String get outletIpByCurrentSelected => 'Выходной IP';
@@ -633,9 +633,9 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get connectTimeout => 'Таймаут при соединении';
 	@override String get timeout => 'Тайм-аут';
 	@override String get timeoutDuration => 'Длительность тайм-аута';
-	@override String get runDuration => 'Время выполнения';
-	@override String get latency => 'Задерживать';
-	@override String get latencyTest => 'Обнаружение задержки';
+	@override String get runDuration => 'Время работы';
+	@override String get latency => 'Задержка';
+	@override String get latencyTest => 'Измерение задержки';
 	@override String get language => 'Язык';
 	@override String get next => 'Дальше';
 	@override String get done => 'Готово';
@@ -661,7 +661,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get required => 'Необходимо';
 	@override String get type => 'тип';
 	@override String get path => 'путь';
-	@override String get local => 'местный';
+	@override String get local => 'локальный';
 	@override String get remote => 'удаленный';
 	@override String get other => 'Другой';
 	@override String get dns => 'DNS';
@@ -762,7 +762,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get importFromClipboard => 'Импорт из буфера обмена';
 	@override String get exportToClipboard => 'Экспорт в буфер обмена';
 	@override String get server => 'Сервер';
-	@override String get ads => 'Удалять';
+	@override String get ads => 'Реклама';
 	@override String get adsRemove => 'Удалить рекламу';
 	@override String get donate => 'Пожертвовать';
 	@override String get diversion => 'Правила';
@@ -773,7 +773,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
 	@override String get webdav => 'Webdav';
-	@override String get lanSync => 'Синхронизация локально (QR-код)';
+	@override String get lanSync => 'Синхронизация через LAN с помощью QR-кода';
 	@override String get lanSyncNotQuitTips => 'Не выходите из этого окна до завершения синхронизации.';
 	@override String get deviceNoSpace => 'Недостаточно места на диске';
 	@override String get hideSystemApp => 'Скрыть системные приложения';
@@ -788,7 +788,7 @@ class _TranslationsMetaRu implements TranslationsMetaEn {
 	@override String get filePathCannotEmpty => 'Путь к файлу не может быть пустым';
 	@override String fileNotExist({required Object p}) => 'Файла не существует:${p}';
 	@override String fileTypeInvalid({required Object p}) => 'Неверный тип файла:${p}';
-	@override String get uwpExemption => 'Исключение из изоляции сети UWP';
+	@override String get uwpExemption => 'Исключение приложений UWP из изоляции сети';
 	@override String get rulesetGeoSite => 'GeoSite';
 	@override String get rulesetGeoIp => 'GeoIP';
 	@override String get rulesetAcl => 'ACL';
@@ -919,8 +919,8 @@ class _TranslationsThemeRu implements TranslationsThemeEn {
 
 	// Translations
 	@override String get light => 'Светлый цвет';
-	@override String get dark => 'черный';
-	@override String get auto => 'автоматический';
+	@override String get dark => 'Черный цвет';
+	@override String get auto => 'Автоматически';
 }
 
 // Path: main.tray
@@ -947,7 +947,7 @@ extension on TranslationsRu {
 			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
 			'AboutScreen.updateWhenConnected' => 'Проверьте наличие обновлений после подключения.',
 			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
-			'AboutScreen.disableAppImproveData' => 'Применить данные улучшения',
+			'AboutScreen.disableAppImproveData' => 'Использовать данные для улучшения',
 			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',
 			'AboutScreen.devOptions' => 'Параметры разработчика',
 			'AboutScreen.enableDebugLog' => 'Включить debug-лог',
@@ -964,7 +964,7 @@ extension on TranslationsRu {
 			'DiversionGroupCustomEditScreen.invalidDomain' => ({required Object p}) => 'Неверный [Domain]:${p}',
 			'DiversionGroupCustomEditScreen.invalidIpCidr' => ({required Object p}) => 'Неверный [IP Cidr]:${p}',
 			'DiversionGroupCustomEditScreen.invalid' => ({required Object p0, required Object p}) => 'Неверный [${p0}]:${p}',
-			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файлом с расширением .srs/.json',
+			'DiversionGroupCustomEditScreen.invalidRuleSet' => ({required Object p}) => 'Неверный [Rule Set]:${p}, URL-адрес должен быть действительным URL-адресом https двоичного файла с расширением .srs/.json',
 			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.',
 			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}',
 			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.',
@@ -972,7 +972,7 @@ extension on TranslationsRu {
 			'DiversionRuleDetectScreen.rule' => 'Правило:',
 			'DiversionRuleDetectScreen.outbound' => 'Прокси-сервер:',
 			'DiversionRulesScreen.diversionRulesMatchTips' => 'Совет: Правила применяются по очереди сверху вниз. Если ни одно соответствие не обнаружено, то действует правило [Final]',
-			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP не может быть пустой',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP не может быть пустым',
 			'DnsSettingsScreen.urlCanNotEmpty' => 'URL не может быть пустой',
 			'DnsSettingsScreen.error' => ({required Object p}) => 'Неподдерживаемый тип:${p}',
 			'DnsSettingsScreen.dnsDesc' => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.',
@@ -1042,7 +1042,7 @@ extension on TranslationsRu {
 			'SettingsScreen.commonlyUsedRulesets' => 'Коллекция наборов правил',
 			'SettingsScreen.htmlBoard' => 'Веб-панель',
 			'SettingsScreen.dnsLeakDetection' => 'Тест утечки DNS',
-			'SettingsScreen.proxyLeakDetection' => 'Обнаружение утечки наличия прокси',
+			'SettingsScreen.proxyLeakDetection' => 'Проверка заметности наличия прокси',
 			'SettingsScreen.speedTest' => 'Тест скорости',
 			'SettingsScreen.rulesetDirectDownlad' => 'Правила прямой загрузки',
 			'SettingsScreen.hideUnusedDiversionGroup' => 'Скрыть неактивные правила перенаправления трафика',
@@ -1075,7 +1075,7 @@ extension on TranslationsRu {
 			'SettingsScreen.dnsTypeResolverTips' => 'Разрешение доменных имен для DNS-серверов',
 			'SettingsScreen.dnsAutoSetServer' => 'Автоматически настроить сервер',
 			'SettingsScreen.dnsResetServer' => 'Сбросить сервер',
-			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Предпочитать разрешение статического IP',
+			'SettingsScreen.dnsEnableStaticIPForResolver' => 'Предпочитать статическое разрешение IP',
 			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения',
 			'SettingsScreen.inboundDomainResolve' => 'Разрешение входящих доменных имен',
 			'SettingsScreen.privateDirect' => 'Прямое подключение к частной сети',
@@ -1088,12 +1088,12 @@ extension on TranslationsRu {
 			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Текущий интервал проверки работоспособности сервера',
 			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Перетестировать после смены сети',
 			'SettingsScreen.autoSelectServerIntervalTips' => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии',
-			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Если обнаружение не удалось, узел переключается; если при переключении узла не найдено ни одного доступного узла, группа повторно обнаруживается с задержкой.',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, группа повторно тестируется с задержкой.',
 			'SettingsScreen.autoSelectServerFavFirst' => 'Предпочитать [Мои избранные]',
 			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Обновить текущий сервер после измерения задержки вручную',
 			'SettingsScreen.autoSelectServerFavFirstTips' => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]',
 			'SettingsScreen.autoSelectServerFilter' => 'Отфильтровать сервера',
-			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверы',
+			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверов',
 			'SettingsScreen.autoSelectServerLimitedNum' => 'Максимальное количество серверов',
 			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Если серверов больше этого числа, лишние будут отброшены.',
 			'SettingsScreen.numInvalid' => 'Неправильный номер',
@@ -1103,7 +1103,7 @@ extension on TranslationsRu {
 			'SettingsScreen.selectServerHideRecommand' => 'Скрыть [Рекомендуемые]',
 			'SettingsScreen.selectServerHideRecent' => 'Скрыть [Недавно использованные]',
 			'SettingsScreen.selectServerHideFav' => 'Скрыть [Мои избранные]',
-			'SettingsScreen.homeScreen' => 'Настройка главного экрана',
+			'SettingsScreen.homeScreen' => 'Оформление главного экрана',
 			'SettingsScreen.theme' => 'Тема',
 			'SettingsScreen.widgetsAlpha' => 'Прозрачность виджетов',
 			'SettingsScreen.widgetsEmpty' => 'Виджет недоступен',
@@ -1114,11 +1114,11 @@ extension on TranslationsRu {
 			'SettingsScreen.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].',
 			'SettingsScreen.hideAfterLaunch' => 'Скрыть окно после запуска',
 			'SettingsScreen.autoSetSystemProxy' => 'Установить системный прокси после подключения',
-			'SettingsScreen.bypassSystemProxy' => 'Доменные имена, которым разрешено обходить системный прокси-сервер',
+			'SettingsScreen.bypassSystemProxy' => 'Домены, которым разрешено обходить системный прокси-сервер',
 			'SettingsScreen.disconnectWhenQuit' => 'Отключаться при выходе из приложения',
 			'SettingsScreen.autoAddToFirewall' => 'Автоматическое добавление правил брандмауэра',
 			'SettingsScreen.excludeFromRecent' => 'Скрыть из недавних задач',
-			'SettingsScreen.wakeLock' => 'Блокировка пробуждения',
+			'SettingsScreen.wakeLock' => 'Блокировка засыпания',
 			'SettingsScreen.hideVpn' => 'Скрыть значок VPN',
 			'SettingsScreen.hideVpnTips' => 'Включение IPv6 приведет к сбою этой функции.',
 			'SettingsScreen.allowBypass' => 'Разрешить приложениям обходить VPN',
@@ -1155,7 +1155,7 @@ extension on TranslationsRu {
 			'SettingsScreen.handleKaringScheme' => 'Вызов karing://[параметры]',
 			'SettingsScreen.handleClashScheme' => 'Вызов clash://[параметры]',
 			'SettingsScreen.handleSingboxScheme' => 'Вызов sing-box://[параметры]',
-			'SettingsScreen.alwayOnVPN' => 'всегда открытое соединение',
+			'SettingsScreen.alwayOnVPN' => 'VPN всегда включен',
 			'SettingsScreen.disconnectAfterSleep' => 'Отключение после спящего режима системы',
 			'SettingsScreen.removeSystemVPNConfig' => 'Удалить профиль VPN',
 			'SettingsScreen.timeConnectOrDisconnect' => 'Запланированное подключение/отключение',
@@ -1170,7 +1170,7 @@ extension on TranslationsRu {
 			'SettingsScreen.cleanCacheDone' => 'Очистка завершена',
 			'SettingsScreen.appleTestFlight' => 'Apple TestFlight',
 			'SettingsScreen.appleAppStore' => 'Apple AppStore',
-			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Обновить версию ${p}',
+			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Обновить до версии ${p}',
 			'SettingsScreen.follow' => 'Подписаться на нас',
 			'SettingsScreen.contactUs' => 'Связаться с нами',
 			'SettingsScreen.supportUs' => 'Поддержите нас',
@@ -1180,14 +1180,14 @@ extension on TranslationsRu {
 			'UserAgreementScreen.agreeAndContinue' => 'Принять и продолжить',
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
 			'VersionUpdateScreen.update' => 'Перезапустить',
-			'VersionUpdateScreen.cancel' => 'Не сейчас',
+			'VersionUpdateScreen.cancel' => 'Отменить',
 			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз',
 			'CommonWidget.resetPort' => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.',
 			'main.tray.menuOpen' => 'Открыть',
 			'main.tray.menuExit' => 'Выйти',
-			'meta.enable' => 'Включить',
+			'meta.enable' => 'Разрешить',
 			'meta.disable' => 'Запретить',
-			'meta.bydefault' => 'по умолчанию',
+			'meta.bydefault' => 'По умолчанию',
 			'meta.filter' => 'Фильтр',
 			'meta.filterMethod' => 'Метод фильтра',
 			'meta.include' => 'Включать',
@@ -1231,14 +1231,14 @@ extension on TranslationsRu {
 			'meta.days' => 'дни',
 			'meta.hours' => 'часы',
 			'meta.minutes' => 'минуты',
-			'meta.seconds' => 'Второй',
-			'meta.milliseconds' => 'миллисекунда',
-			'meta.tolerance' => 'Толерантность',
+			'meta.seconds' => 'секунды',
+			'meta.milliseconds' => 'миллисекунды',
+			'meta.tolerance' => 'Допустимая погрешность',
 			'meta.dateTimePeriod' => 'Период времени',
 			'meta.protocol' => 'Протокол',
 			'meta.search' => 'Поиск',
 			'meta.custom' => 'Самостоятельная настройка',
-			'meta.inbound' => 'Входящий',
+			'meta.inbound' => 'Вход',
 			'meta.outbound' => 'Выход',
 			'meta.destination' => 'Цель',
 			'meta.outletIpByCurrentSelected' => 'Выходной IP',
@@ -1252,9 +1252,9 @@ extension on TranslationsRu {
 			'meta.connectTimeout' => 'Таймаут при соединении',
 			'meta.timeout' => 'Тайм-аут',
 			'meta.timeoutDuration' => 'Длительность тайм-аута',
-			'meta.runDuration' => 'Время выполнения',
-			'meta.latency' => 'Задерживать',
-			'meta.latencyTest' => 'Обнаружение задержки',
+			'meta.runDuration' => 'Время работы',
+			'meta.latency' => 'Задержка',
+			'meta.latencyTest' => 'Измерение задержки',
 			'meta.language' => 'Язык',
 			'meta.next' => 'Дальше',
 			'meta.done' => 'Готово',
@@ -1280,7 +1280,7 @@ extension on TranslationsRu {
 			'meta.required' => 'Необходимо',
 			'meta.type' => 'тип',
 			'meta.path' => 'путь',
-			'meta.local' => 'местный',
+			'meta.local' => 'локальный',
 			'meta.remote' => 'удаленный',
 			'meta.other' => 'Другой',
 			'meta.dns' => 'DNS',
@@ -1381,7 +1381,7 @@ extension on TranslationsRu {
 			'meta.importFromClipboard' => 'Импорт из буфера обмена',
 			'meta.exportToClipboard' => 'Экспорт в буфер обмена',
 			'meta.server' => 'Сервер',
-			'meta.ads' => 'Удалять',
+			'meta.ads' => 'Реклама',
 			'meta.adsRemove' => 'Удалить рекламу',
 			'meta.donate' => 'Пожертвовать',
 			'meta.diversion' => 'Правила',
@@ -1392,7 +1392,7 @@ extension on TranslationsRu {
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
 			'meta.webdav' => 'Webdav',
-			'meta.lanSync' => 'Синхронизация локально (QR-код)',
+			'meta.lanSync' => 'Синхронизация через LAN с помощью QR-кода',
 			'meta.lanSyncNotQuitTips' => 'Не выходите из этого окна до завершения синхронизации.',
 			'meta.deviceNoSpace' => 'Недостаточно места на диске',
 			'meta.hideSystemApp' => 'Скрыть системные приложения',
@@ -1407,7 +1407,7 @@ extension on TranslationsRu {
 			'meta.filePathCannotEmpty' => 'Путь к файлу не может быть пустым',
 			'meta.fileNotExist' => ({required Object p}) => 'Файла не существует:${p}',
 			'meta.fileTypeInvalid' => ({required Object p}) => 'Неверный тип файла:${p}',
-			'meta.uwpExemption' => 'Исключение из изоляции сети UWP',
+			'meta.uwpExemption' => 'Исключение приложений UWP из изоляции сети',
 			'meta.rulesetGeoSite' => 'GeoSite',
 			'meta.rulesetGeoIp' => 'GeoIP',
 			'meta.rulesetAcl' => 'ACL',
@@ -1475,8 +1475,8 @@ extension on TranslationsRu {
 			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
 			'reloadReason.profileUpdate' => 'Обновления конфигурации',
 			'theme.light' => 'Светлый цвет',
-			'theme.dark' => 'черный',
-			'theme.auto' => 'автоматический',
+			'theme.dark' => 'Черный цвет',
+			'theme.auto' => 'Автоматически',
 			'downloadProxyStrategy' => 'Канал загрузки',
 			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]',
 			'routeFinal' => 'Final',

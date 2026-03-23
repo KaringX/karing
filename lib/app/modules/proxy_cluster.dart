@@ -46,7 +46,7 @@ class ProxyCluster {
     _server!.listen((HttpRequest req) async {
       switch (req.method) {
         case "GET":
-          await _getRouting(req.uri.path, req);
+          _getRouting(req.uri.path, req);
           break;
         default:
           req.response
@@ -79,15 +79,15 @@ class ProxyCluster {
     }
   }
 
-  static get(String routing, Function(HttpRequest httpRequest) callback) {
+  static void get(String routing, Function(HttpRequest httpRequest) callback) {
     _routerGet.add(routing);
     _requestCallback.add(callback);
   }
 
-  static _getRouting(String routing, HttpRequest httpRequest) {
+  static void _getRouting(String routing, HttpRequest httpRequest) {
     if (_routerGet.contains(routing)) {
       int index = _routerGet.indexOf(routing);
-      return _requestCallback.elementAt(index).call(httpRequest);
+      _requestCallback.elementAt(index).call(httpRequest);
     }
   }
 

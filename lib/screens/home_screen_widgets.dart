@@ -287,7 +287,7 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
                 //height: 30, // globalState.measure.bodyMediumHeight + 2,
                 child: ValueListenableBuilder(
                   valueListenable: widget.notifier,
-                  builder: (_, value, __) {
+                  builder: (_, value, _) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -363,7 +363,7 @@ abstract class TextCard2LineState<T extends TextCard2Line> extends State<T> {
                 //height: 30, // globalState.measure.bodyMediumHeight + 2,
                 child: ValueListenableBuilder(
                   valueListenable: widget.notifier,
-                  builder: (_, value, __) {
+                  builder: (_, value, _) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -382,7 +382,7 @@ abstract class TextCard2LineState<T extends TextCard2Line> extends State<T> {
                 //height: 30, // globalState.measure.bodyMediumHeight + 2,
                 child: ValueListenableBuilder(
                   valueListenable: widget.notifier2,
-                  builder: (_, value, __) {
+                  builder: (_, value, _) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

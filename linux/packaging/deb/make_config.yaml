@@ -17,6 +17,7 @@ dependencies:
   - libkeybinder-3.0-0
   - libsecret-1-0
   - libstdc++6
+#  - libcronet
 keywords:
   - Karing
 

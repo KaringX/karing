@@ -154,7 +154,7 @@ class _BackupAndSyncLanSyncScreenState
         switch (req.method) {
           case "GET":
           case "POST":
-            await _routing(path: req.uri.path, httpRequest: req);
+            _routing(path: req.uri.path, httpRequest: req);
             break;
           default:
             req.response.statusCode = HttpStatus.methodNotAllowed;
@@ -247,7 +247,7 @@ class _BackupAndSyncLanSyncScreenState
     ).firstMatch(contentDisposition)?.group(1);
   }
 
-  _sendNotFound(HttpResponse response) {
+  void _sendNotFound(HttpResponse response) {
     response.statusCode = HttpStatus.notFound;
     response.close();
   }
@@ -260,7 +260,7 @@ class _BackupAndSyncLanSyncScreenState
     }
   }
 
-  _onRouting(
+  void _onRouting(
     String routing,
     String method,
     Function(HttpRequest httpRequest) callback,
@@ -268,7 +268,7 @@ class _BackupAndSyncLanSyncScreenState
     _router[routing] = Tuple2(method, callback);
   }
 
-  _routing({String? path, HttpRequest? httpRequest}) {
+  void _routing({String? path, HttpRequest? httpRequest}) {
     if (httpRequest == null) {
       return;
     }

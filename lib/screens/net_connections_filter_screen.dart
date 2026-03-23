@@ -60,7 +60,7 @@ class _NetConnectionsFilterScreenState
     super.dispose();
   }
 
-  _loadSearch(String? textVal) {
+  void _loadSearch(String? textVal) {
     if ((textVal != null) && textVal.isNotEmpty) {
       _options = NetConnectionFilter();
       RegExp? searchTextReg;
@@ -119,7 +119,7 @@ class _NetConnectionsFilterScreenState
     }
   }
 
-  _clearSearch() {
+  void _clearSearch() {
     _searchController.clear();
     _options = widget.options;
     _buildData();

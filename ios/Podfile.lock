@@ -55,8 +55,9 @@ PODS:
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
-  - flutter_secure_storage (6.0.0):
+  - flutter_secure_storage_darwin (10.0.0):
     - Flutter
+    - FlutterMacOS
   - icloud_storage (0.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
@@ -68,7 +69,7 @@ PODS:
   - MTBBarcodeScanner (5.0.11)
   - network_info_plus (0.0.1):
     - Flutter
-  - open_file_ios (0.0.1):
+  - open_file_ios (1.0.3):
     - Flutter
   - OrderedSet (6.0.3)
   - package_info_plus (0.4.5):
@@ -86,19 +87,16 @@ PODS:
   - SDWebImage (5.21.5):
     - SDWebImage/Core (= 5.21.5)
   - SDWebImage/Core (5.21.5)
-  - Sentry (8.46.0):
-    - Sentry/Core (= 8.46.0)
-  - Sentry/Core (8.46.0)
-  - Sentry/HybridSDK (8.46.0)
-  - sentry_flutter (8.14.2):
+  - Sentry (8.58.0):
+    - Sentry/Core (= 8.58.0)
+  - Sentry/Core (8.58.0)
+  - Sentry/HybridSDK (8.58.0)
+  - sentry_flutter (9.15.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.46.0)
+    - Sentry/HybridSDK (= 8.58.0)
   - share_plus (0.0.1):
     - Flutter
-  - sqflite_darwin (0.0.4):
-    - Flutter
-    - FlutterMacOS
   - sqlite3 (3.50.4):
     - sqlite3/common (= 3.50.4)
   - sqlite3/common (3.50.4)
@@ -141,7 +139,7 @@ DEPENDENCIES:
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
   - flutter_install_referrer (from `.symlinks/plugins/flutter_install_referrer/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
-  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - flutter_secure_storage_darwin (from `.symlinks/plugins/flutter_secure_storage_darwin/darwin`)
   - icloud_storage (from `.symlinks/plugins/icloud_storage/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
@@ -153,10 +151,9 @@ DEPENDENCIES:
   - protocol_handler (from `.symlinks/plugins/protocol_handler/ios`)
   - qr_code_scanner_plus (from `.symlinks/plugins/qr_code_scanner_plus/ios`)
   - quick_actions_ios (from `.symlinks/plugins/quick_actions_ios/ios`)
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.46.0`)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.58.0`)
   - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
-  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - vpn_service (from `.symlinks/plugins/vpn_service/ios`)
@@ -192,8 +189,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_install_referrer/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
-  flutter_secure_storage:
-    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  flutter_secure_storage_darwin:
+    :path: ".symlinks/plugins/flutter_secure_storage_darwin/darwin"
   icloud_storage:
     :path: ".symlinks/plugins/icloud_storage/ios"
   image_picker_ios:
@@ -218,13 +215,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/quick_actions_ios/ios"
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.46.0
+    :tag: 8.58.0
   sentry_flutter:
     :path: ".symlinks/plugins/sentry_flutter/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
-  sqflite_darwin:
-    :path: ".symlinks/plugins/sqflite_darwin/darwin"
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/darwin"
   url_launcher_ios:
@@ -235,7 +230,7 @@ EXTERNAL SOURCES:
 CHECKOUT OPTIONS:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.46.0
+    :tag: 8.58.0
 
 SPEC CHECKSUMS:
   app_installer: 087516293c5a0a1ad15f8c021f9a947e23e2dacf
@@ -249,32 +244,31 @@ SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
   flutter_install_referrer: 53ec577bd6188e3408d239f0b578614f02de6edb
-  flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
-  flutter_secure_storage: 1ed9476fba7e7a782b22888f956cce43e2c62f13
+  flutter_local_notifications: 643a3eda1ce1c0599413ca31672536d423dee214
+  flutter_secure_storage_darwin: acdb3f316ed05a3e68f856e0353b133eec373a23
   icloud_storage: e55639f0c0d7cb2b0ba9c0b3d5968ccca9cd9aa2
-  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
   in_app_review: 7dd1ea365263f834b8464673f9df72c80c17c937
   move_to_background: 155f7bfbd34d43ad847cb630d2d2d87c17199710
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   network_info_plus: cf61925ab5205dce05a4f0895989afdb6aade5fc
-  open_file_ios: 5ff7526df64e4394b4fe207636b67a95e83078bb
+  open_file_ios: 46184d802ee7959203f6392abcfa0dd49fdb5be0
   OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
-  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  path_provider_foundation: 608fcb11be570ce83519b076ab6a1fffe2474f05
   protocol_handler: 1da40ea1d5e307f725c72fbec4781d234ef46f66
   qr_code_scanner_plus: 7e087021bc69873140e0754750eb87d867bed755
-  quick_actions_ios: 4b07fb49d8d8f3518d7565fbb7a91014067a7d82
+  quick_actions_ios: 500fcc11711d9f646739093395c4ae8eec25f779
   SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
-  Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
-  sentry_flutter: 27892878729f42701297c628eb90e7c6529f3684
+  Sentry: d587a8fe91ca13503ecd69a1905f3e8a0fcf61be
+  sentry_flutter: 8939e491bc1511868118c96cae47d945e6f69798
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
-  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
   sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
-  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+  url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
   vpn_service: 4633caa8f51d2832ab04c203359bcefda4a0a629
 
-PODFILE CHECKSUM: 6f2d3bbda3f9d20d08fafc4406271367ca6af837
+PODFILE CHECKSUM: 87f4dbac33bb99d8293950f5b0989b7cc654b425
 
 COCOAPODS: 1.16.2

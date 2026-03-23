@@ -2676,7 +2676,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 .SettingsScreen
                 .autoSelectSelectedHealthCheckIntervalTips,
             duration: settingConfig.autoSelect.selectedHealthCheckInterval,
-            showMinutes: false,
+            showMinutes: true,
             showSeconds: true,
             showMilliSeconds: false,
             showHours: false,

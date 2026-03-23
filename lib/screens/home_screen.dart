@@ -6,7 +6,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -607,7 +607,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return;
     }
 
-    _timerCurrentUrltest ??= Timer.periodic(const Duration(seconds: 3), (
+    _timerCurrentUrltest ??= Timer.periodic(const Duration(seconds: 1), (
       timer,
     ) async {
       bool started = await VPNService.getStarted();
@@ -2656,7 +2656,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       return BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fitHeight,
-          image: CachedNetworkImageProvider(
+          image: FastCachedImageProvider(
             settingConfig.uiScreen.backgroundImageUrl,
           ),
         ),

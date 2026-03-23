@@ -446,7 +446,6 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
       if (!dev.devMode) {
         return [
           GroupItem(options: options),
-          GroupItem(options: options0),
           GroupItem(options: options1),
           GroupItem(options: options2),
           GroupItem(options: options3),

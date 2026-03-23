@@ -108,7 +108,10 @@ class SchemeHandler {
         ispId = uri.queryParameters["isp-id"];
         ispUser = uri.queryParameters["isp-user"];
       }
-      String? xh = uri.queryParameters["xhwid"] ?? uri.queryParameters["hwid"];
+      String? xh =
+          uri.queryParameters["x-hwid"] ??
+          uri.queryParameters["xhwid"] ??
+          uri.queryParameters["hwid"];
       if (xh != null) {
         if (xh == "true" || xh == "1" || xh == "yes") {
           xhwid = true;

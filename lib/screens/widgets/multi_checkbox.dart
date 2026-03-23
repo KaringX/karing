@@ -84,7 +84,7 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
     );
   }
 
-  _expandButton() {
+  GestureDetector _expandButton() {
     return GestureDetector(
       onTap: () async {
         List<String> selectedData = [];
