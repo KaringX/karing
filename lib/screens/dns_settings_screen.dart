@@ -17,10 +17,12 @@ import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:karing/app/utils/uri_utils.dart';
+import 'package:provider/provider.dart';
 
 class DnsSettingsScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -223,6 +225,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
     String regionCode = settingConfig.regionCode.toLowerCase();
+    final themes = Provider.of<Themes>(context, listen: false);
 
     List<String> dnsAddress = [];
     Set<String> disabled = {};
@@ -259,6 +262,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         itemBuilder: (BuildContext context, int index) {
           var current = _searchedData[index];
           return createWidget(
+            themes,
             current,
             dnsAddress,
             disabled,
@@ -363,6 +367,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   }
 
   Widget createWidget(
+    Themes themes,
     dynamic current,
     List<String> dnsAddress,
     Set<String> disabled,
@@ -428,6 +433,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 ),
                 CommonWidget.createLatencyWidget(
                   context,
+                  themes,
                   ThemeConfig.kListItemHeight,
                   _taskQueue != null && directLatenty == null,
                   _taskQueue != null && _taskQueue!.running(addr),
@@ -446,6 +452,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 ),
                 CommonWidget.createLatencyWidget(
                   context,
+                  themes,
                   ThemeConfig.kListItemHeight,
                   _taskQueue != null && currentLatenty == null,
                   _taskQueue != null && _taskQueue!.running(addr),

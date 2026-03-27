@@ -25,9 +25,11 @@ import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/server_select_keywords_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
+import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class ServerSelectScreenSingleSelectedOption {
@@ -294,6 +296,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   }
 
   void _buildData() {
+    final themes = Provider.of<Themes>(context, listen: false);
     RegExp? searchTextReg;
     try {
       if (_searchText.isNotEmpty) {
@@ -393,7 +396,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 item.bindNO = i + 1;
                 item.data = _recommend[i];
                 item.creator = (data, index, bindNO) {
-                  return createServer(data, bindNO!);
+                  return createServer(themes, data, bindNO!);
                 };
                 _listViewParts.add(item);
               }
@@ -437,7 +440,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 item.bindNO = i + 1;
                 item.data = server;
                 item.creator = (data, index, bindNO) {
-                  return createServer(data, bindNO!);
+                  return createServer(themes, data, bindNO!);
                 };
                 _listViewParts.add(item);
               }
@@ -497,7 +500,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 item.bindNO = i + 1;
                 item.data = server;
                 item.creator = (data, index, bindNO) {
-                  return createServer(data, bindNO!);
+                  return createServer(themes, data, bindNO!);
                 };
                 _listViewParts.add(item);
               }
@@ -627,6 +630,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 }
                 String count = "$avaliableCount/${item.data.outbounds.length}";
                 return createServer(
+                  themes,
                   server,
                   bindNO!,
                   count: count,
@@ -721,7 +725,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
         item.bindNO = i + 1;
         item.data = searchServers[i];
         item.creator = (data, index, bindNO) {
-          return createServer(data, bindNO!);
+          return createServer(themes, data, bindNO!);
         };
         _listViewParts.add(item);
       }
@@ -893,7 +897,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
           Row(
             children: [
               Tooltip(
-                message: tcontext.meta.update,
+                message: "${tcontext.meta.update} ${tcontext.meta.profile}",
                 child: InkWell(
                   onTap: () async {
                     ServerManager.reload(item.groupid).then((value) {
@@ -1124,6 +1128,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
   }
 
   Widget createServer(
+    Themes themes,
     ProxyConfig server,
     int index, {
     String? count,
@@ -1383,6 +1388,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                               const SizedBox(width: 2),
                               CommonWidget.createLatencyWidget(
                                 context,
+                                themes,
                                 ThemeConfig.kListItemHeight,
                                 isTesting | isWaitTesting,
                                 isTesting,

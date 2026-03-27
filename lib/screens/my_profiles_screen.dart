@@ -35,9 +35,11 @@ import 'package:karing/screens/my_profiles_reorder_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 import 'package:path/path.dart' as path;
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 
@@ -348,7 +350,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           Row(
             children: [
               Tooltip(
-                message: tcontext.meta.update,
+                message: "${tcontext.meta.update} ${tcontext.meta.profile}",
                 child: InkWell(
                   onTap: () async {
                     ServerManager.reload(item.groupid).then((value) {
@@ -629,6 +631,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   Widget createServer(ProxyConfig server, int index) {
+    final themes = Provider.of<Themes>(context, listen: false);
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
     ServerConfigGroupItem? item = ServerManager.getByGroupId(server.groupid);
@@ -783,6 +786,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                               const SizedBox(width: 2),
                               CommonWidget.createLatencyWidget(
                                 context,
+                                themes,
                                 ThemeConfig.kListItemHeight,
                                 isTesting | isWaitTesting,
                                 isTesting,
@@ -1309,6 +1313,9 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       case "mieru":
         sbOptions.mieru = SingboxOutboundMieruOptions();
         break;
+      case "naive":
+        sbOptions.naive = SingboxOutboundNaiveOptions();
+        break;
       default:
         return;
     }
@@ -1443,6 +1450,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 ret = sbOptions.mieru!.getRequired();
                 sbOptions.server = sbOptions.mieru!.server ?? "";
                 sbOptions.server_port = sbOptions.mieru!.server_port ?? 0;
+                break;
+              case "naive":
+                ret = sbOptions.naive!.getRequired();
+                sbOptions.server = sbOptions.naive!.server ?? "";
+                sbOptions.server_port = sbOptions.naive!.server_port ?? 0;
                 break;
             }
             if (ret != null) {

@@ -471,7 +471,7 @@
         "novice": "Novice Mode",
         "willCompleteAfterRebootInstall": "Please restart your device to complete the system extension installation",
         "willCompleteAfterRebootUninstall": "Please restart your device to complete the the system extension uninstallation",
-        "requestNeedsUserApproval": "1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion",
+        "requestNeedsUserApproval": "1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion",
         "FullDiskAccessPermissionRequired": "Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect",
         "tvMode": "TV Mode",
         "recommended": "Recommend",

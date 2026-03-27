@@ -7,12 +7,14 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:tuple/tuple.dart';
 
 class CommonWidget {
   static const double kLatencyWidget = 60;
   static Widget createLatencyWidget(
     BuildContext context,
+    Themes themes,
     double? height,
     bool loading,
     bool isTesting,
@@ -78,7 +80,7 @@ class CommonWidget {
     if (la < 800) {
       color = ThemeDefine.kColorGreenBright;
     } else if (la < 1500) {
-      color = Colors.black;
+      color = themes.getThemeInvertBgColor(context);
     } else {
       color = Colors.red;
     }
@@ -172,7 +174,8 @@ class CommonWidget {
                       ),
                     )
                   : Tooltip(
-                      message: tcontext.meta.refresh,
+                      message:
+                          "${tcontext.meta.refresh} ${tcontext.meta.traffic}",
                       child: const Icon(Icons.refresh_outlined, size: 26),
                     ),
             ],

@@ -31,6 +31,7 @@
 		CE35BDAC2E31DE9000E92FA7 /* com.nebula.karing.karingServiceSE.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = CE35BDA12E31DE8F00E92FA7 /* com.nebula.karing.karingServiceSE.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CE35BDB32E31DEBF00E92FA7 /* LibVpnCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; };
 		CE35BDB42E31DEBF00E92FA7 /* LibVpnCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC19F82B142FA90076CA70 /* LibVpnCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEFA00012F01ABCD00000001 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFA00002F01ABCD00000001 /* CoreText.framework */; };
 		CE3CC9042E5EEB9E00EA3770 /* libswiftCore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9022E5EEB9E00EA3770 /* libswiftCore.dylib */; };
 		CE3CC9052E5EEB9E00EA3770 /* libswift_Concurrency.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */; };
 		CE3CC9062E5EEBA700EA3770 /* libswift_Concurrency.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE3CC9032E5EEB9E00EA3770 /* libswift_Concurrency.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -41,6 +42,12 @@
 		CEEC1A192B1430910076CA70 /* Extension+RunBlocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A152B1430910076CA70 /* Extension+RunBlocking.swift */; };
 		CEEC1A1A2B1430910076CA70 /* ExtensionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC1A162B1430910076CA70 /* ExtensionProvider.swift */; };
 		CEEC1A242B1436050076CA70 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEC1A232B1436050076CA70 /* libresolv.tbd */; };
+		CEFA00022F01ABCD00000001 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFA00002F01ABCD00000001 /* CoreText.framework */; };
+		CEFB00012F01ABCD00000001 /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFB00002F01ABCD00000001 /* UniformTypeIdentifiers.framework */; };
+		CEFC00012F01ABCD00000001 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFC00002F01ABCD00000001 /* SystemConfiguration.framework */; };
+		CEFC00032F01ABCD00000001 /* libbsm.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFC00022F01ABCD00000001 /* libbsm.tbd */; };
+		CEFF00052F01ABCD00000001 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFF00032F01ABCD00000001 /* AppKit.framework */; };
+		CEFF00042F01ABCD00000001 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEFF00032F01ABCD00000001 /* AppKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +147,11 @@
 		CE5C44CE2A39840D00E15AC8 /* libbox_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbox_bridge.h; sourceTree = "<group>"; };
 		CE5C44CF2A39840D00E15AC8 /* libbox_bridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = libbox_bridge.c; sourceTree = "<group>"; };
 		CE8B929F2A5C07360071C495 /* karingService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = karingService.entitlements; sourceTree = "<group>"; };
+		CEFA00002F01ABCD00000001 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		CEFB00002F01ABCD00000001 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		CEFC00002F01ABCD00000001 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CEFC00022F01ABCD00000001 /* libbsm.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbsm.tbd; path = usr/lib/libbsm.tbd; sourceTree = SDKROOT; };
+		CEFF00032F01ABCD00000001 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		CEBE65DB2A22EAE0004691A4 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		CEBE65DE2A22EAE1004691A4 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		CEBE65E02A22EAE1004691A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,6 +204,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFF00042F01ABCD00000001 /* AppKit.framework in Frameworks */,
+				CEFA00012F01ABCD00000001 /* CoreText.framework in Frameworks */,
 				CE3CC9042E5EEB9E00EA3770 /* libswiftCore.dylib in Frameworks */,
 				CE3CC9052E5EEB9E00EA3770 /* libswift_Concurrency.dylib in Frameworks */,
 				CE35BDB32E31DEBF00E92FA7 /* LibVpnCore.framework in Frameworks */,
@@ -203,6 +217,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFF00052F01ABCD00000001 /* AppKit.framework in Frameworks */,
+				CEFC00012F01ABCD00000001 /* SystemConfiguration.framework in Frameworks */,
+				CEFC00032F01ABCD00000001 /* libbsm.tbd in Frameworks */,
+				CEFB00012F01ABCD00000001 /* UniformTypeIdentifiers.framework in Frameworks */,
+				CEFA00022F01ABCD00000001 /* CoreText.framework in Frameworks */,
 				CEEC1A242B1436050076CA70 /* libresolv.tbd in Frameworks */,
 				CEEC1A062B142FFC0076CA70 /* Libbox.xcframework in Frameworks */,
 			);
@@ -920,7 +939,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1902;
+				CURRENT_PROJECT_VERSION = 1905;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
@@ -971,7 +990,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1902;
+				CURRENT_PROJECT_VERSION = 1905;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1019,7 +1038,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1902;
+				CURRENT_PROJECT_VERSION = 1905;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = TNPM9PFX3W;
 				ENABLE_HARDENED_RUNTIME = YES;

@@ -2198,6 +2198,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             return err;
           }
         } catch (ex) {}*/
+        Log.w("start failed: FullDiskAccessPermissionRequired ${err.message}");
         err.message = t.meta.FullDiskAccessPermissionRequired;
       }
       if (!disableShowAlertDialog) {

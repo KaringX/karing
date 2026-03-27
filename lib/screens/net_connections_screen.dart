@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:android_package_manager/android_package_manager.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +12,7 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
-import 'package:karing/app/utils/log.dart';
+import 'package:karing/app/utils/package_manager_android.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -321,18 +320,12 @@ class NetConnectionsScreen extends LasyRenderingStatefulWidget {
   State<NetConnectionsScreen> createState() => _NetConnectionsScreenState();
 }
 
-class PackageInfoEx {
-  late PackageInfo info;
-  String name = "";
-  Image? icon;
-}
-
 class _NetConnectionsScreenState
     extends LasyRenderingState<NetConnectionsScreen> {
   final Map<String, NetConnectionStateIn> _states = {};
   List<NetConnectionStateIn> _connectionInList = [];
   final List<NetConnectionStateOut> _connectionOutList = [];
-  AndroidPackageManager? _pkgMgr;
+
   Websocket? _websocket;
   final Map<String, PackageInfoEx> _applicationInfoList = {};
   bool _pause = false;
@@ -356,43 +349,10 @@ class _NetConnectionsScreenState
 
   Future<void> getInstalledPackages() async {
     if (Platform.isAndroid) {
-      _pkgMgr = AndroidPackageManager();
-      _pkgMgr!
-          .getInstalledPackages(flags: PackageInfoFlags({PMFlag.getMetaData}))
-          .then((value) async {
-            if (!mounted) {
-              return;
-            }
-            if (value == null) {
-              return;
-            }
-
-            for (var app in value) {
-              if (app.packageName == null) {
-                continue;
-              }
-              PackageInfoEx info = PackageInfoEx();
-              info.info = app;
-              info.name = await getAppName(app.packageName!);
-
-              if (!mounted) {
-                return;
-              }
-              _applicationInfoList[app.packageName!] = info;
-            }
-          });
-    }
-  }
-
-  Future<String> getAppName(String? packageName) async {
-    if (packageName == null) {
-      return "";
-    }
-    try {
-      return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
-    } catch (err, stacktrace) {
-      Log.w("getAppName exception: ${err.toString()}");
-      return "";
+      final packages = await PackageManagerAndroid.getInstalledPackages();
+      for (var info in packages) {
+        _applicationInfoList[info.info.packageName!] = info;
+      }
     }
   }
 

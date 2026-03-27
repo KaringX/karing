@@ -40,10 +40,25 @@ post_install do |installer|
     flutter_additional_macos_build_settings(target)
     target.build_configurations.each do |config|
       config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '12.0'
-      if target.name == 'karingService' || target.name == 'karingServiceSE' || target.name == 'Sentry'
+      # System extensions should not use any pods
+      if target.name == 'karingServiceSE'
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'YES'
+      elsif target.name == 'karingService' || target.name == 'Sentry'
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'YES'
       else
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+      end
+    end
+  end
+  
+  # Remove pod frameworks from system extension and internal framework targets
+  isolated_targets = ['karingServiceSE', 'LibVpnCore']
+  installer.pods_project.native_targets.each do |target|
+    next unless target.name.start_with?('Pods-')
+    target.build_configurations.each do |config|
+      # Clear pod-injected linker flags for isolated targets
+      if isolated_targets.any? { |ext| target.name.include?(ext) }
+        config.build_settings['OTHER_LDFLAGS'] = '$(inherited)'
       end
     end
   end

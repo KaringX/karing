@@ -750,7 +750,7 @@ class _TranslationsMetaZhCn implements TranslationsMetaEn {
 	@override String get novice => '新手模式';
 	@override String get willCompleteAfterRebootInstall => '请重启设备,以便完成系统扩展安装';
 	@override String get willCompleteAfterRebootUninstall => '请重启设备,以便完成系统扩展卸载';
-	@override String get requestNeedsUserApproval => '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展-网络扩展]启用[karingServiceSE]\n完成后重新连接';
+	@override String get requestNeedsUserApproval => '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展]-[网络扩展]启用[karingServiceSE]\n完成后重新连接';
 	@override String get FullDiskAccessPermissionRequired => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启[karingServiceSE]权限后,重新连接';
 	@override String get tvMode => 'TV模式';
 	@override String get recommended => '推荐';
@@ -1369,7 +1369,7 @@ extension on TranslationsZhCn {
 			'meta.novice' => '新手模式',
 			'meta.willCompleteAfterRebootInstall' => '请重启设备,以便完成系统扩展安装',
 			'meta.willCompleteAfterRebootUninstall' => '请重启设备,以便完成系统扩展卸载',
-			'meta.requestNeedsUserApproval' => '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展-网络扩展]启用[karingServiceSE]\n完成后重新连接',
+			'meta.requestNeedsUserApproval' => '1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展]-[网络扩展]启用[karingServiceSE]\n完成后重新连接',
 			'meta.FullDiskAccessPermissionRequired' => '请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启[karingServiceSE]权限后,重新连接',
 			'meta.tvMode' => 'TV模式',
 			'meta.recommended' => '推荐',

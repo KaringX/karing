@@ -471,7 +471,7 @@
         "novice": "新手模式",
         "willCompleteAfterRebootInstall": "请重启设备,以便完成系统扩展安装",
         "willCompleteAfterRebootUninstall": "请重启设备,以便完成系统扩展卸载",
-        "requestNeedsUserApproval": "1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展-网络扩展]启用[karingServiceSE]\n完成后重新连接",
+        "requestNeedsUserApproval": "1. [系统设置]-[隐私与安全性]里[允许] Karing安装系统扩展\n2. [系统设置]-[通用]-[登录项与扩展]-[网络扩展]启用[karingServiceSE]\n完成后重新连接",
         "FullDiskAccessPermissionRequired": "请在[系统设置]-[隐私与安全性]-[完全磁盘访问权限]里开启[karingServiceSE]权限后,重新连接",
         "tvMode": "TV模式",
         "recommended": "推荐",

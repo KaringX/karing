@@ -1666,8 +1666,8 @@ class TranslationsMetaEn {
 	/// en: 'Please restart your device to complete the the system extension uninstallation'
 	String get willCompleteAfterRebootUninstall => 'Please restart your device to complete the the system extension uninstallation';
 
-	/// en: '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security] 2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE] reconnect after completion'
-	String get requestNeedsUserApproval => '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion';
+	/// en: '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security] 2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] enable [karingServiceSE] reconnect after completion'
+	String get requestNeedsUserApproval => '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion';
 
 	/// en: 'Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect'
 	String get FullDiskAccessPermissionRequired => 'Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect';
@@ -2486,7 +2486,7 @@ extension on Translations {
 			'meta.novice' => 'Novice Mode',
 			'meta.willCompleteAfterRebootInstall' => 'Please restart your device to complete the system extension installation',
 			'meta.willCompleteAfterRebootUninstall' => 'Please restart your device to complete the the system extension uninstallation',
-			'meta.requestNeedsUserApproval' => '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion',
+			'meta.requestNeedsUserApproval' => '1. Please [Allow] Karing to install system extensions in [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] enable [karingServiceSE]\nreconnect after completion',
 			'meta.FullDiskAccessPermissionRequired' => 'Please enable [karingServiceSE] permission in [System Settings]-[Privacy and Security]-[Full Disk Access Permission] and reconnect',
 			'meta.tvMode' => 'TV Mode',
 			'meta.recommended' => 'Recommend',

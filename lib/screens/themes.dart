@@ -41,7 +41,7 @@ class Themes with ChangeNotifier {
         : ThemeDataLight.theme(context);
   }
 
-  Color? getThemeInvertBgColor(BuildContext context) {
+  Color getThemeInvertBgColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeLight:
@@ -54,7 +54,7 @@ class Themes with ChangeNotifier {
         ? ThemeDataLight.mainBgColor
         : ThemeDataDark.mainBgColor;
   }
-  /* Color? getThemeBgColor(BuildContext context) {
+  /* Color getThemeBgColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeLight:
@@ -68,7 +68,7 @@ class Themes with ChangeNotifier {
         : ThemeDataLight.mainBgColor;
   }
 
-  Color? getThemeInvertBgColor(BuildContext context) {
+  Color getThemeInvertBgColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeLight:
@@ -82,7 +82,7 @@ class Themes with ChangeNotifier {
         : ThemeDataDark.mainBgColor;
   }
 
-  Color? getThemeIconColor(BuildContext context) {
+  Color getThemeIconColor(BuildContext context) {
     var brightness = MediaQuery.platformBrightnessOf(context);
     switch (_theme) {
       case ThemeDefine.kThemeSystem:

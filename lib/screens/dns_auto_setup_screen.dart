@@ -18,7 +18,9 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/dns_settings_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class DnsAutoSetupScreen extends LasyRenderingStatefulWidget {
@@ -235,14 +237,14 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
 
   Widget _loadListView(bool tun) {
     Size windowSize = MediaQuery.of(context).size;
-
+    final themes = Provider.of<Themes>(context, listen: false);
     return Scrollbar(
       thumbVisibility: true,
       child: ListView.separated(
         itemCount: _searchedData.length,
         itemBuilder: (BuildContext context, int index) {
           var current = _searchedData[index];
-          return createWidget(current, windowSize);
+          return createWidget(current, windowSize, themes);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(height: 1, thickness: 0.3);
@@ -429,7 +431,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     return result;
   }
 
-  Widget createWidget(dynamic current, Size windowSize) {
+  Widget createWidget(dynamic current, Size windowSize, Themes themes) {
     const double latencyWidth = 60.0;
 
     double centerWidth = windowSize.width - latencyWidth * 2 - 30;
@@ -480,6 +482,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                 ),
                 CommonWidget.createLatencyWidget(
                   context,
+                  themes,
                   ThemeConfig.kListItemHeight,
                   _taskQueue != null && directLatenty == null,
                   _taskQueue != null && _taskQueue!.running(addr),
@@ -487,6 +490,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
                 ),
                 CommonWidget.createLatencyWidget(
                   context,
+                  themes,
                   ThemeConfig.kListItemHeight,
                   _taskQueue != null && currentLatenty == null,
                   _taskQueue != null && _taskQueue!.running(addr),

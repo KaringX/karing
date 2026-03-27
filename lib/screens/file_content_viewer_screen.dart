@@ -412,11 +412,24 @@ class FileContentViewerScreenState
     if (del == true) {
       String filePath = await PathUtils.profileDir();
       filePath = path.join(filePath, _fileName);
-      var file = File(filePath);
-      if (await file.exists()) {
-        await file.writeAsString("", flush: true);
-        setState(() {});
+      try {
+        var file = File(filePath);
+        if (await file.exists()) {
+          await file.writeAsString("", flush: true);
+        }
+      } catch (err) {
+        if (!mounted) {
+          return;
+        }
+        DialogUtils.showAlertDialog(
+          context,
+          err.toString(),
+          showCopy: false,
+          showFAQ: false,
+          withVersion: true,
+        );
       }
+      setState(() {});
     }
   }
 

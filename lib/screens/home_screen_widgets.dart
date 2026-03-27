@@ -19,6 +19,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
+import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/card.dart';
 import 'package:karing/screens/widgets/constant.dart';
 import 'package:karing/screens/widgets/grid.dart';
@@ -26,6 +27,7 @@ import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/tab.dart';
 import 'package:karing/screens/widgets/text.dart';
 import 'package:path/path.dart' as path;
+import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 abstract class SwitchCard extends StatefulWidget {
@@ -943,7 +945,7 @@ class _ProfileSubTrafficInfoState extends State<ProfileSubTrafficInfoCard> {
     }
     List<Widget> widgets = [
       ListTile(
-        title: Text("${t.meta.refresh} ${t.meta.profile}"),
+        title: Text("${t.meta.refresh} ${t.meta.traffic}"),
         onTap: () async {
           Navigator.pop(context);
           ServerManager.reloadTraffic(group.groupid);
@@ -1607,6 +1609,7 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final themes = Provider.of<Themes>(context, listen: false);
     final tcontext = Translations.of(context);
     var setting = SettingManager.getConfig();
 
@@ -1715,6 +1718,7 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                               const SizedBox(width: 5),
                               CommonWidget.createLatencyWidget(
                                 context,
+                                themes,
                                 null,
                                 false,
                                 false,

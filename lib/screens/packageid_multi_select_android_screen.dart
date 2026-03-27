@@ -5,6 +5,7 @@ import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/package_manager_android.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/common_widget.dart';
 import 'package:karing/screens/group_item_creator.dart';
@@ -32,26 +33,10 @@ class PackageIdMultiSelectAndroidScreen extends LasyRenderingStatefulWidget {
       _PackageIdMultiSelectAndroidScreenState();
 }
 
-class PackageInfoImpl extends PackageInfo {
-  PackageInfoImpl(String packageName)
-    : super(
-        packageName: packageName,
-        installLocation: AndroidInstallLocation.unspecified,
-      );
-}
-
-class PackageInfoEx {
-  late PackageInfo info;
-  String name = "";
-  Image? icon;
-}
-
 class _PackageIdMultiSelectAndroidScreenState
     extends LasyRenderingState<PackageIdMultiSelectAndroidScreen> {
   //https://github.com/ekoputrapratama/flutter_android_native/blob/6dacb8a0bcc9c8c05159eb916b2f0bea9db60826/lib/content/pm/ApplicationInfo.dart#L14
-  static const int kAndroidFlagSystem = 1;
-  static const _removed = "[removed]";
-  AndroidPackageManager? _pkgMgr;
+
   bool _loading = true;
   final _searchController = TextEditingController();
   List<PackageInfoEx> _searchedData = [];
@@ -60,7 +45,6 @@ class _PackageIdMultiSelectAndroidScreenState
   @override
   void initState() {
     if (widget.installedApps.isEmpty) {
-      _loading = true;
       getInstalledPackages();
     } else {
       _loading = false;
@@ -101,135 +85,81 @@ class _PackageIdMultiSelectAndroidScreenState
   Future<void> getInstalledPackages() async {
     widget.installedApps.clear();
     _searchedData.clear();
-    _pkgMgr ??= AndroidPackageManager();
-    _pkgMgr!
-        .getInstalledPackages(flags: PackageInfoFlags({PMFlag.getMetaData}))
-        .then((value) async {
-          if (!mounted) {
-            return;
-          }
-          _loading = false;
-          if (value == null) {
-            return;
-          }
+    _loading = true;
+    setState(() {});
+    var perapp = SettingManager.getConfig().perapp;
+    final packages = await PackageManagerAndroid.getInstalledPackages(
+      onValid: (PackageInfo info) {
+        if (info.packageName == AppUtils.getId()) {
+          return false;
+        }
 
-          if (value.length <= 1) {
-            _needPermission = true;
-            _loading = false;
-            setState(() {});
-            return;
+        if (perapp.hideSystemApp) {
+          if ((info.applicationInfo != null) &&
+              (info.applicationInfo!.flags &
+                      PackageManagerAndroid.kAndroidFlagSystem !=
+                  0)) {
+            return false;
           }
-          List<PackageInfoEx> notExists = [];
-          List<PackageInfoEx> added = [];
-          List<PackageInfoEx> notAdded = [];
-          Set<String> exists = {};
-          var perapp = SettingManager.getConfig().perapp;
-          for (var app in value) {
-            if (app.packageName == null ||
-                app.packageName == AppUtils.getId()) {
-              continue;
-            }
+        }
+        return true;
+      },
+    );
+    _loading = false;
+    _needPermission = packages.length <= 1;
+    if (!mounted) {
+      return;
+    }
+    if (_needPermission) {
+      setState(() {});
+      return;
+    }
+    List<PackageInfoEx> notExists = [];
+    List<PackageInfoEx> added = [];
+    List<PackageInfoEx> notAdded = [];
+    Set<String> exists = {};
 
-            if (perapp.hideSystemApp) {
-              if ((app.applicationInfo != null) &&
-                  (app.applicationInfo!.flags & kAndroidFlagSystem != 0)) {
-                continue;
-              }
-            }
+    for (var app in packages) {
+      exists.add(app.info.packageName!);
+      if (widget.selectedData.contains(app.info.packageName!)) {
+        added.add(app);
+      } else {
+        notAdded.add(app);
+      }
+    }
+    for (var papp in widget.selectedData) {
+      if (!exists.contains(papp)) {
+        PackageInfoEx info = PackageInfoEx();
+        info.info = PackageInfoImpl(papp);
+        info.name = PackageManagerAndroid.kRemoved;
+        info.icon = null;
 
-            exists.add(app.packageName!);
-            PackageInfoEx info = PackageInfoEx();
-            info.info = app;
-            info.name = await getAppName(app.packageName!);
-            if (!mounted) {
-              return;
-            }
-            if (widget.selectedData.contains(info.info.packageName!)) {
-              added.add(info);
-            } else {
-              notAdded.add(info);
-            }
-          }
-          for (var papp in widget.selectedData) {
-            if (!exists.contains(papp)) {
-              PackageInfoEx info = PackageInfoEx();
-              info.info = PackageInfoImpl(papp);
-              info.name = _removed;
-              info.icon = null;
+        notExists.add(info);
+      }
+    }
+    notExists.sort(PackageManagerAndroid.sortByName);
+    added.sort(PackageManagerAndroid.sortByName);
+    notAdded.sort(PackageManagerAndroid.sortByName);
+    widget.installedApps.addAll(notExists);
+    widget.installedApps.addAll(added);
+    widget.installedApps.addAll(notAdded);
 
-              notExists.add(info);
-            }
-          }
-          notExists.sort(sort);
-          added.sort(sort);
-          notAdded.sort(sort);
-          widget.installedApps.addAll(notExists);
-          widget.installedApps.addAll(added);
-          widget.installedApps.addAll(notAdded);
+    _searchedData = widget.installedApps;
+    if (!mounted) {
+      return;
+    }
 
-          _searchedData = widget.installedApps;
-          _loading = false;
-          setState(() {});
-        });
+    setState(() {});
   }
 
   Future<Image?> getInstalledPackageIcon(String packageName) async {
     if (SettingManager.getConfig().perapp.hideAppIcon) {
       return null;
     }
-    for (var app in widget.installedApps) {
-      if (app.info.packageName == packageName) {
-        if (app.icon != null) {
-          return app.icon;
-        }
-        if (app.name == _removed) {
-          return null;
-        }
-        Image? image = await getAppIcon(app.info.packageName);
-        if (!mounted) {
-          return null;
-        }
-        app.icon = image;
-        return app.icon;
-      }
-    }
-    return null;
-  }
-
-  int sort(PackageInfoEx a, PackageInfoEx b) {
-    return a.name.compareTo(b.name);
-  }
-
-  Future<String> getAppName(String? packageName) async {
-    if (_pkgMgr == null || packageName == null) {
-      return "";
-    }
-    try {
-      return await _pkgMgr!.getApplicationLabel(packageName: packageName) ?? "";
-    } catch (err, stacktrace) {
-      return packageName;
-    }
-  }
-
-  Future<Image?> getAppIcon(String? packageName) async {
-    if (SettingManager.getConfig().perapp.hideAppIcon) {
-      return null;
-    }
-    if (_pkgMgr == null || packageName == null) {
-      return null;
-    }
-    try {
-      var data = await _pkgMgr!.getApplicationIcon(
-        packageName: packageName,
-        format: BitmapCompressFormat.png,
-      );
-      if (data == null) {
-        return null;
-      }
-      return Image.memory(data, cacheHeight: 96, cacheWidth: 96);
-    } catch (err, stacktrace) {
-      return null;
-    }
+    return PackageManagerAndroid.getInstalledPackageIcon(
+      widget.installedApps,
+      packageName,
+    );
   }
 
   @override
@@ -336,9 +266,7 @@ class _PackageIdMultiSelectAndroidScreenState
                         },
                         () {
                           _needPermission = false;
-                          _loading = true;
                           getInstalledPackages();
-                          setState(() {});
                         },
                       )
                     : _loadListView(),
@@ -486,9 +414,7 @@ class _PackageIdMultiSelectAndroidScreenState
           switchValue: SettingManager.getConfig().perapp.hideSystemApp,
           onSwitch: (bool value) async {
             SettingManager.getConfig().perapp.hideSystemApp = value;
-            _loading = true;
             getInstalledPackages();
-            setState(() {});
           },
         ),
       ),
