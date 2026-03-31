@@ -121,6 +121,7 @@ class HomeScreen extends LasyRenderingStatefulWidget {
 class _HomeScreenState extends LasyRenderingState<HomeScreen>
     with WidgetsBindingObserver, ProtocolListener, AfterLayoutMixin {
   final _superGridKey = GlobalKey<SuperGridState>();
+  String? _invalidBackgroundImageUrl;
 
   static const String userAgreementAgreedIdKey = 'userAgreementAgreedKey';
 
@@ -2654,12 +2655,31 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeRemote &&
         settingConfig.uiScreen.backgroundImageUrl.isNotEmpty) {
+      final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
+      if (_invalidBackgroundImageUrl == backgroundImageUrl) {
+        return null;
+      }
       return BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fitHeight,
-          image: FastCachedImageProvider(
-            settingConfig.uiScreen.backgroundImageUrl,
-          ),
+          image: FastCachedImageProvider(backgroundImageUrl),
+          onError: (Object error, StackTrace? stackTrace) {
+            Log.w(
+              "background image load failed: $backgroundImageUrl error:${error.toString()}",
+            );
+            unawaited(
+              FastCachedImageConfig.deleteCachedImage(
+                imageUrl: backgroundImageUrl,
+                showLog: false,
+              ),
+            );
+            if (_invalidBackgroundImageUrl == backgroundImageUrl || !mounted) {
+              return;
+            }
+            setState(() {
+              _invalidBackgroundImageUrl = backgroundImageUrl;
+            });
+          },
         ),
       );
     }
