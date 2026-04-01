@@ -212,7 +212,7 @@ Future<void> run(List<String> args) async {
     );
   }
   try {
-    await FastCachedImageConfig.init();
+     await FastCachedImageConfig.init(subDir: AppUtils.getName());
   } catch (err, stacktrace) {
     Log.w("FastCachedImageConfig.init() exception: ${err.toString()}");
   }

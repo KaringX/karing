@@ -75,8 +75,11 @@ Name: "{autoprograms}\\{{DISPLAY_NAME}}"; Filename: "{app}\\{{EXECUTABLE_NAME}}"
 Name: "{autodesktop}\\{{DISPLAY_NAME}}"; Filename: "{app}\\{{EXECUTABLE_NAME}}"; Tasks: desktopicon
 
 [UninstallDelete]
+; Only delete user data generated at runtime, not the entire app directory
+; The [Files] section automatically handles deletion of installed files
 Type: filesandordirs; Name: "{app}\data"
-Type: filesandordirs; Name: "{app}"
+Type: filesandordirs; Name: "{app}\.sentry-native"
+
 
 [InstallDelete]
 Type: filesandordirs; Name: "{app}\unins000.dat"
@@ -84,4 +87,172 @@ Type: filesandordirs; Name: "{app}\unins000.exe"
 
 [Run]
 Filename: "{app}\\{{EXECUTABLE_NAME}}"; Description: "{cm:LaunchProgram,{{DISPLAY_NAME}}}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+var
+  PreserveUserData: Boolean;
+
+function InitializeUninstall(): Boolean;
+var
+  LocalAppDataPath: string;
+  MsgText: string;
+  MsgTitle: string;
+begin
+  Result := True;
+  LocalAppDataPath := ExpandConstant('{userappdata}\{{DISPLAY_NAME}}');
+
+  if DirExists(LocalAppDataPath) then
+  begin
+    // Set message text based on installation language
+    case ActiveLanguage of
+      'english':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Uninstall';
+          MsgText := 'Do you want to preserve user data and settings?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'chinesesimplified':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - 卸载';
+          MsgText := '是否保留用户数据和设置?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'chinesetraditional':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - 卸載';
+          MsgText := '是否保留使用者資料和設定?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'japanese':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - アンインストール';
+          MsgText := 'ユーザーデータと設定を保持しますか?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'korean':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - 제거';
+          MsgText := '사용자 데이터 및 설정을 유지하시겠습니까?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'spanish':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Desinstalar';
+          MsgText := '¿Desea conservar los datos y la configuración del usuario?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'french':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Désinstallation';
+          MsgText := 'Voulez-vous conserver les données et les paramètres utilisateur?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'german':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Deinstallation';
+          MsgText := 'Möchten Sie Benutzerdaten und Einstellungen behalten?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'russian':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Удаление';
+          MsgText := 'Вы хотите сохранить данные и параметры пользователя?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+      'portuguese':
+        begin
+          MsgTitle := '{{DISPLAY_NAME}} - Desinstalar';
+          MsgText := 'Deseja preservar dados e configurações do usuário?' + #13#10#13#10 + 
+                     LocalAppDataPath;
+        end;
+    else
+      begin
+        MsgTitle := '{{DISPLAY_NAME}} - Uninstall';
+        MsgText := 'Do you want to preserve user data and settings?' + #13#10#13#10 + 
+                   LocalAppDataPath;
+      end;
+    end;
+    
+    { Default is to preserve (IDYES button) }
+    PreserveUserData := MsgBox(MsgText, mbConfirmation, MB_YESNO or MB_DEFBUTTON1) = IDYES;
+  end else
+  begin
+    PreserveUserData := True;
+  end;
+end;
+
+procedure DeleteNamedSubdirsRecursive(const BaseDir, TargetName: string);
+var
+  FindRec: TFindRec;
+  CurrentPath: string;
+begin
+  if FindFirst(AddBackslash(BaseDir) + '*', FindRec) then
+  begin
+    try
+      repeat
+        if (FindRec.Name <> '.') and (FindRec.Name <> '..') and
+           ((FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0) then
+        begin
+          CurrentPath := AddBackslash(BaseDir) + FindRec.Name;
+          if CompareText(FindRec.Name, TargetName) = 0 then
+          begin
+            DelTree(CurrentPath, True, True, True);
+          end
+          else
+          begin
+            DeleteNamedSubdirsRecursive(CurrentPath, TargetName);
+          end;
+        end;
+      until not FindNext(FindRec);
+    finally
+      FindClose(FindRec);
+    end;
+  end;
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  LocalAppDataPath: string;
+  AppPath: string;
+begin
+  if CurUninstallStep = usUninstall then
+  begin
+    AppPath := ExpandConstant('{app}');
+    DeleteNamedSubdirsRecursive(AppPath, '{{DISPLAY_NAME}}');
+
+    { Only delete user data if user did not choose to preserve it }
+    if not PreserveUserData then
+    begin
+      LocalAppDataPath := ExpandConstant('{userappdata}\{{DISPLAY_NAME}}');
+      if DirExists(LocalAppDataPath) then
+      begin
+        DelTree(LocalAppDataPath, True, True, True);
+      end;
+    end;
+  end;
+end;
+
+function DirPathEndsWithApp(Path, AppName: String): Boolean;
+begin
+  Result := (CompareText(ExtractFileName(RemoveBackslashUnlessRoot(Path)), AppName) = 0);
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+var
+  SelectedPath: string;
+  AppName: string;
+begin
+  Result := True;
+  if CurPageID = wpSelectDir then
+  begin
+    SelectedPath := RemoveBackslashUnlessRoot(WizardForm.DirEdit.Text);
+    AppName := '{{DISPLAY_NAME}}';
+
+    // Ensure custom path ends with app folder name to avoid installing into arbitrary folders.
+    if not DirPathEndsWithApp(SelectedPath, AppName) then
+    begin
+      WizardForm.DirEdit.Text := AddBackslash(SelectedPath) + AppName;
+    end;
+  end;
+end;
 
