@@ -92,6 +92,15 @@ Filename: "{app}\\{{EXECUTABLE_NAME}}"; Description: "{cm:LaunchProgram,{{DISPLA
 var
   PreserveUserData: Boolean;
 
+function GetLocalAppDataPath(): string;
+var
+  AppNameNoSpace: string;
+begin
+  AppNameNoSpace := '{{DISPLAY_NAME}}';
+  StringChangeEx(AppNameNoSpace, ' ', '', True);
+  Result := ExpandConstant('{userappdata}\' + AppNameNoSpace);
+end;
+
 function InitializeUninstall(): Boolean;
 var
   LocalAppDataPath: string;
@@ -99,7 +108,7 @@ var
   MsgTitle: string;
 begin
   Result := True;
-  LocalAppDataPath := ExpandConstant('{userappdata}\{{DISPLAY_NAME}}');
+  LocalAppDataPath := GetLocalAppDataPath();
 
   if DirExists(LocalAppDataPath) then
   begin
@@ -223,7 +232,7 @@ begin
     { Only delete user data if user did not choose to preserve it }
     if not PreserveUserData then
     begin
-      LocalAppDataPath := ExpandConstant('{userappdata}\{{DISPLAY_NAME}}');
+      LocalAppDataPath := GetLocalAppDataPath();
       if DirExists(LocalAppDataPath) then
       begin
         DelTree(LocalAppDataPath, True, True, True);

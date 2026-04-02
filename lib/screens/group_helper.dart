@@ -3259,6 +3259,7 @@ class GroupHelper {
               name: tcontext.SettingsScreen.dnsTypeOutbound,
               tips: tcontext.SettingsScreen.dnsTypeOutboundTips,
               text: outbound.length == 1 ? outbound[0] : "${outbound[0]}...",
+              textWidthPercent: 0.5,
               onPush: () async {
                 await Navigator.push(
                   context,

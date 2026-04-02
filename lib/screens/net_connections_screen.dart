@@ -128,6 +128,12 @@ class TrackerMetaData {
         processPath = "";
       }
     }
+    else if(Platform.isMacOS|| Platform.isLinux){
+      final index = processPath.lastIndexOf(" (");
+      if(index > 0){
+        processPath = processPath.substring(0, index);
+      }
+    }
   }
 }
 
