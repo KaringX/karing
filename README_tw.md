@@ -38,15 +38,15 @@
 
 ### 推薦機場
 
-[狗狗加速 —— 技術流機場 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[狗狗加速 —— 技術流機場 Doggygo VPN](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - 高性能海外機場，海外團隊，無跑路風險
-- 專屬連結註冊送 3 天，每天 1G 流量 [免費試用](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- 專屬連結註冊送 3 天，每天 1G 流量 [免費試用](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - 優惠套餐每月僅需 15.8 元，160G 流量，年付 8 折
 - 全球首家支援`Hysteria2` 協議，集群負載均衡設計，高速專線，極低延遲，無視晚高峰，4K 秒開
 - 解鎖串流媒體及 ChatGPT
 
-[👉更多機場優惠 每日更新](https://1.x31415926.top/)
+[👉更多機場優惠 每日更新](https://2.x31415926.top/)
 
 </summary>
 

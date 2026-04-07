@@ -38,15 +38,15 @@ Een <a href="https://github.com/SagerNet/sing-box">singbox</a> GUI gebaseerd op 
 
 ### Aanbevolen VPN
 
-[Doggygo VPN —— Versnelling voor experts](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Versnelling voor experts](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Krachtige overzeese provider (Airport), internationaal team, geen risico op sluiting.
-- Registratie via exclusieve link geeft 3 dagen en 1G dagelijks verkeer [Gratis proefperiode](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Registratie via exclusieve link geeft 3 dagen en 1G dagelijks verkeer [Gratis proefperiode](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Kortingspakketten vanaf slechts 15,8 yuan per maand, 160G verkeer, 20% korting bij jaarbetaling.
 - De eerste ter wereld die het `Hysteria2`-protocol ondersteunt, cluster load balancing-ontwerp, snelle dedicated lijn, extreem lage latentie, negeert nachtelijke pieken, 4K direct klaar.
 - Ontgrendelt streaming media en ChatGPT.
 
-[👉 Meer aanbiedingen, dagelijks bijgewerkt](https://1.x31415926.top/)
+[👉 Meer aanbiedingen, dagelijks bijgewerkt](https://2.x31415926.top/)
 
 </summary>
 

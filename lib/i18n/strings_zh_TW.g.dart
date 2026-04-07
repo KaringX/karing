@@ -239,7 +239,7 @@ class _TranslationsHomeScreenZhTw implements TranslationsHomeScreenEn {
 	@override String get invalidServer => '已失效, 請重新選擇';
 	@override String get disabledServer => '已被停用, 請重新選擇';
 	@override String get expiredServer => '無可用伺服器: 設定可能已過期或被停用';
-	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}';
+	@override String systemProxyTips({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}';
 	@override String get myLinkEmpty => '請先設定 [快捷連結] 後再使用';
 	@override String tooMuchServers({required Object p, required Object p1}) => '代理伺服器 [${p}>${p1}] 過多, 可能因系統記憶體限制而無法連線';
 	@override String tooMuchServers2({required Object p, required Object p1}) => '代理伺服器 [${p}>${p1}] 過多, 可能導致連線緩慢或無法連線';
@@ -466,7 +466,7 @@ class _TranslationsSettingsScreenZhTw implements TranslationsSettingsScreenEn {
 	@override String get frontProxy => '前置/鏈式代理';
 	@override String frontProxyTips({required Object p}) => '數據 -> 前置/鏈式代理伺服器 [多個代理伺服器: 由上到下] -> 代理伺服器 [${p}] -> 目標伺服器';
 	@override String get allowOtherHostsConnect => '允許其他主機接入';
-	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}';
+	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}';
 	@override String get allowOtherHostsConnectWarn => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路';
 	@override String get tunAutoRoute => '自動路由';
 	@override String get tunAutoRedirect => '自動重新導向';
@@ -475,7 +475,7 @@ class _TranslationsSettingsScreenZhTw implements TranslationsSettingsScreenEn {
 	@override String get loopbackAddress => '環回位址';
 	@override String get enableCluster => '開啟 Socks/Http 代理集群';
 	@override String get clusterAllowOtherHostsConnect => '允許其他主機接入代理集群';
-	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
+	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => '叢集介面網址: http://${ip}:${port}/get_proxies';
 	@override String get clusterAuth => '代理集群認證';
 	@override String get tunMode => 'TUN 模式';
 	@override String get tuni4Address => 'IP 位址';
@@ -983,7 +983,7 @@ extension on TranslationsZhTw {
 			'HomeScreen.invalidServer' => '已失效, 請重新選擇',
 			'HomeScreen.disabledServer' => '已被停用, 請重新選擇',
 			'HomeScreen.expiredServer' => '無可用伺服器: 設定可能已過期或被停用',
-			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}',
+			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}',
 			'HomeScreen.myLinkEmpty' => '請先設定 [快捷連結] 後再使用',
 			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => '代理伺服器 [${p}>${p1}] 過多, 可能因系統記憶體限制而無法連線',
 			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => '代理伺服器 [${p}>${p1}] 過多, 可能導致連線緩慢或無法連線',
@@ -1129,7 +1129,7 @@ extension on TranslationsZhTw {
 			'SettingsScreen.frontProxy' => '前置/鏈式代理',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => '數據 -> 前置/鏈式代理伺服器 [多個代理伺服器: 由上到下] -> 代理伺服器 [${p}] -> 目標伺服器',
 			'SettingsScreen.allowOtherHostsConnect' => '允許其他主機接入',
-			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp}, http(s):${hp}',
+			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路',
 			'SettingsScreen.tunAutoRoute' => '自動路由',
 			'SettingsScreen.tunAutoRedirect' => '自動重新導向',
@@ -1138,7 +1138,7 @@ extension on TranslationsZhTw {
 			'SettingsScreen.loopbackAddress' => '環回位址',
 			'SettingsScreen.enableCluster' => '開啟 Socks/Http 代理集群',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => '允許其他主機接入代理集群',
-			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
+			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => '叢集介面網址: http://${ip}:${port}/get_proxies',
 			'SettingsScreen.clusterAuth' => '代理集群認證',
 			'SettingsScreen.tunMode' => 'TUN 模式',
 			'SettingsScreen.tuni4Address' => 'IP 位址',

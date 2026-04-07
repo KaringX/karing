@@ -42,15 +42,15 @@
 
 ### تجویز کردہ VPN
 
-[Doggygo VPN —— ماہرین کے لیے ایکسلریشن](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— ماہرین کے لیے ایکسلریشن](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - اعلی کارکردگی والا بیرون ملک فراہم کنندہ (Airport)، بین الاقوامی ٹیم، بند ہونے کا کوئی خطرہ نہیں۔
-- خصوصی لنک کے ذریعے رجسٹریشن پر 3 دن اور 1G یومیہ ٹریفک ملتی ہے [مفت آزمائش](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)۔
+- خصوصی لنک کے ذریعے رجسٹریشن پر 3 دن اور 1G یومیہ ٹریفک ملتی ہے [مفت آزمائش](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)۔
 - رعایتی پیکجز صرف 15.8 یوآن ماہانہ سے، 160G ٹریفک، سالانہ ادائیگی پر 20% رعایت۔
 - دنیا میں پہلا جو `Hysteria2` پروٹوکول کو سپورٹ کرتا ہے، کلسٹر لوڈ بیلنسنگ ڈیزائن، تیز رفتار وقف شدہ لائن، انتہائی کم تاخیر، رات کے رش کو نظر انداز کرتا ہے، 4K فوری پلے۔
 - اسٹریمنگ میڈیا اور ChatGPT کو ان بلاک کرتا ہے۔
 
-[👉 روزانہ اپ ڈیٹ ہونے والی مزید پیشکشیں](https://1.x31415926.top/)
+[👉 روزانہ اپ ڈیٹ ہونے والی مزید پیشکشیں](https://2.x31415926.top/)
 
 </summary>
 

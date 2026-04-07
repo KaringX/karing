@@ -38,15 +38,15 @@ Una GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> basada 
 
 ### VPN Recomendada
 
-[Doggygo VPN —— Aceleración para expertos](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Aceleración para expertos](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Proveedor de VPN/Proxy de alto rendimiento en el extranjero, equipo internacional, sin riesgo de cierre.
-- El registro con enlace exclusivo otorga 3 días y 1G de tráfico diario [Prueba gratuita](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- El registro con enlace exclusivo otorga 3 días y 1G de tráfico diario [Prueba gratuita](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - Paquetes de descuento desde solo 15.8 yuanes al mes, 160G de tráfico, 20% de descuento en pago anual.
 - El primero en el mundo en soportar el protocolo `Hysteria2`, diseño de equilibrio de carga en clúster, línea dedicada de alta velocidad, latencia extremadamente baja, ignora picos nocturnos, 4K instantáneo.
 - Desbloquea medios de streaming y ChatGPT.
 
-[👉 Más ofertas actualizadas diariamente](https://1.x31415926.top/)
+[👉 Más ofertas actualizadas diariamente](https://2.x31415926.top/)
 
 </summary>
 

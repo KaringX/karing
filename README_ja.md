@@ -38,15 +38,15 @@
 
 ### おすすめのプロキシプロバイダー
 
-[狗狗加速 —— 技術重視のプロバイダー Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[狗狗加速 —— 技術重視のプロバイダー Doggygo VPN](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - 高性能な海外プロバイダー、海外チーム、運営停止のリスクなし
-- 専用リンクからの登録で 3 日間、毎日 1G のトラフィックを[無料でお試し](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- 専用リンクからの登録で 3 日間、毎日 1G のトラフィックを[無料でお試し](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - お得なプランは月額わずか 15.8 元、160G のトラフィック、年払いで 20% オフ
 - 世界初 `Hysteria2` プロトコル対応、クラスター負荷分散設計、高速専用線、超低遅延、夜間の混雑なし、4K 動画もスムーズ
 - ストリーミングサービスおよび ChatGPT の制限解除
 
-[👉その他の空港特典 毎日更新](https://1.x31415926.top/)
+[👉その他の空港特典 毎日更新](https://2.x31415926.top/)
 
 </summary>
 

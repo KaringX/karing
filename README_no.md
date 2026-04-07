@@ -38,15 +38,15 @@ En <a href="https://github.com/SagerNet/sing-box">singbox</a>-GUI basert på <a 
 
 ### Anbefalt VPN
 
-[Doggygo VPN —— Akselerasjon for eksperter](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Akselerasjon for eksperter](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Høyytelses utenlandsk leverandør (Airport), internasjonalt team, ingen risiko for stenging.
-- Registrering via eksklusiv lenke gir 3 dager og 1G daglig trafikk [Gratis prøveperiode](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Registrering via eksklusiv lenke gir 3 dager og 1G daglig trafikk [Gratis prøveperiode](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Rabatterte pakker fra bare 15,8 yuan per måned, 160G trafikk, 20 % rabatt ved årsbetaling.
 - Først i verden med støtte for `Hysteria2`-protokollen, klynge-lastbalanseringsdesign, høyhastighets dedikert linje, ekstremt lav ventetid, ignorerer nattlige topper, 4K umiddelbart.
 - Låser opp strømmemedier og ChatGPT.
 
-[👉 Flere tilbud oppdateres daglig](https://1.x31415926.top/)
+[👉 Flere tilbud oppdateres daglig](https://2.x31415926.top/)
 
 </summary>
 

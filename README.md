@@ -38,15 +38,15 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ### 推荐机场
 
-[狗狗加速 —— 技术流机场 Doggygo VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[狗狗加速 —— 技术流机场 Doggygo VPN](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - 高性能海外机场，海外团队，无跑路风险
-- 专属链接注册送 3 天，每天 1G 流量 [免费试用](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- 专属链接注册送 3 天，每天 1G 流量 [免费试用](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - 优惠套餐每月仅需 15.8 元，160G 流量，年付 8 折
 - 全球首家支持`Hysteria2` 协议，集群负载均衡设计，高速专线，极低延迟，无视晚高峰，4K 秒开
 - 解锁流媒体及 ChatGPT
 
-[👉更多机场优惠 每日更新](https://1.x31415926.top/)
+[👉更多机场优惠 每日更新](https://2.x31415926.top/)
 
 </summary>
 

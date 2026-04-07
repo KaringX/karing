@@ -42,15 +42,15 @@
 
 ### VPN الموصى به
 
-[Doggygo VPN —— تسريع للمحترفين](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— تسريع للمحترفين](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - مزود خدمة (Airport) عالي الأداء في الخارج، فريق دولي، لا يوجد خطر من الإغلاق.
-- التسجيل عبر رابط حصري يمنح 3 أيام و 1 جيجابايت من حركة المرور اليومية [تجربة مجانية](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- التسجيل عبر رابط حصري يمنح 3 أيام و 1 جيجابايت من حركة المرور اليومية [تجربة مجانية](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - حزم مخفضة تبدأ من 15.8 يوان فقط شهريًا، 160 جيجابايت من حركة المرور، خصم 20% للدفع السنوي.
 - الأول في العالم الذي يدعم بروتوكول `Hysteria2` ، تصميم موازنة تحميل المجموعة، خط مخصص عالي السرعة، زمن وصول منخفض للغاية، يتجاهل ذروة الليل، فتح 4K فوري.
 - يفتح وسائط البث و ChatGPT.
 
-[👉 المزيد من العروض المحدثة يوميًا](https://1.x31415926.top/)
+[👉 المزيد من العروض المحدثة يوميًا](https://2.x31415926.top/)
 
 </summary>
 

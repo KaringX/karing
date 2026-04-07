@@ -38,15 +38,15 @@ GUI dla <a href="https://github.com/SagerNet/sing-box">singbox</a> oparte na <a 
 
 ### Zalecany VPN
 
-[Doggygo VPN —— Przyspieszenie dla ekspertów](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Przyspieszenie dla ekspertów](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Wysokowydajny zagraniczny dostawca (Airport), międzynarodowy zespół, brak ryzyka zamknięcia.
-- Rejestracja przez ekskluzywny link daje 3 dni i 1 GB dziennego transferu [Bezpłatna wersja próbna](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Rejestracja przez ekskluzywny link daje 3 dni i 1 GB dziennego transferu [Bezpłatna wersja próbna](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Pakiety zniżkowe już od 15,8 juańskich miesięcznie, 160 GB transferu, 20% zniżki przy płatności rocznej.
 - Pierwszy na świecie z obsługą protokołu `Hysteria2`, konstrukcja równoważenia obciążenia klastra, szybka linia dedykowana, niezwykle niskie opóźnienia, ignoruje nocne szczyty, błyskawiczne 4K.
 - Odblokowuje media strumieniowe i ChatGPT.
 
-[👉 Więcej ofert aktualizowanych codziennie](https://1.x31415926.top/)
+[👉 Więcej ofert aktualizowanych codziennie](https://2.x31415926.top/)
 
 </summary>
 

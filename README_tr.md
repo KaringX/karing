@@ -38,15 +38,15 @@
 
 ### Önerilen VPN Sağlayıcısı
 
-[Doggygo VPN —— Uzmanlar için Hızlandırma](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Uzmanlar için Hızlandırma](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Yüksek performanslı denizaşırı sağlayıcı (Airport), uluslararası ekip, kapanma riski yok.
-- Özel bağlantı ile kayıt 3 gün ve günlük 1G trafik verir [Ücretsiz deneme](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Özel bağlantı ile kayıt 3 gün ve günlük 1G trafik verir [Ücretsiz deneme](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - İndirimli paketler aylık sadece 15.8 yuan, 160G trafik, yıllık ödemede %20 indirim.
 - Dünyada `Hysteria2` protokolünü destekleyen ilk, küme yük dengeleme tasarımı, yüksek hızlı özel hat, son derece düşük gecikme süresi, gece yoğunluğunu görmezden gelir, 4K anında açılır.
 - Akış medyasının ve ChatGPT'nin kilidini açar.
 
-[👉 Günlük güncellenen daha fazla fırsat](https://1.x31415926.top/)
+[👉 Günlük güncellenen daha fazla fırsat](https://2.x31415926.top/)
 
 </summary>
 

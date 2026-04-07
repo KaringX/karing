@@ -38,15 +38,15 @@
 
 ### 추천 VPN/프록시 업체
 
-[Doggygo VPN —— 기술 중심의 고성능 업체](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— 기술 중심의 고성능 업체](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - 고성능 해외 업체, 해외 팀 운영, 서비스 중단 위험 없음
-- 전용 링크로 가입 시 3일간 매일 1G 트래픽 [무료 체험](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+- 전용 링크로 가입 시 3일간 매일 1G 트래픽 [무료 체험](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 - 실속형 패키지 월 15.8위안부터, 160G 트래픽, 연 결제 시 20% 할인
 - 세계 최초 `Hysteria2` 프로토콜 지원, 클러스터 부하 분산 설계, 고속 전용선, 초저지연, 피크 시간대 끊김 없음, 4K 즉시 재생
 - 스트리밍 서비스 및 ChatGPT 차단 해제
 
-[👉더 많은 업체 혜택 매일 업데이트](https://1.x31415926.top/)
+[👉더 많은 업체 혜택 매일 업데이트](https://2.x31415926.top/)
 
 </summary>
 

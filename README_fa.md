@@ -42,15 +42,15 @@
 
 ### VPN پیشنهادی
 
-[Doggygo VPN —— شتاب‌دهنده برای متخصصان](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— شتاب‌دهنده برای متخصصان](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - ارائه‌دهنده خدمات (Airport) با کارایی بالا در خارج از کشور، تیم بین‌المللی، بدون خطر بسته شدن.
-- ثبت‌نام با لینک اختصاصی ۳ روز و ۱ گیگابایت ترافیک روزانه هدیه می‌دهد [امتحان رایگان](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- ثبت‌نام با لینک اختصاصی ۳ روز و ۱ گیگابایت ترافیک روزانه هدیه می‌دهد [امتحان رایگان](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - بسته‌های تخفیفی فقط از ۱۵.۸ یوان در ماه، ۱۶۰ گیگابایت ترافیک، ۲۰٪ تخفیف برای پرداخت سالانه.
 - اولین در جهان با پشتیبانی از پروتکل `Hysteria2` ، طراحی متعادل‌سازی بار خوشه‌ای، خط اختصاصی پرسرعت، تأخیر بسیار کم، نادیده گرفتن پیک شبانه، پخش آنی 4K.
 - باز کردن قفل رسانه‌های جریانی و ChatGPT.
 
-[👉 پیشنهادات بیشتر که روزانه به روز می‌شوند](https://1.x31415926.top/)
+[👉 پیشنهادات بیشتر که روزانه به روز می‌شوند](https://2.x31415926.top/)
 
 </summary>
 

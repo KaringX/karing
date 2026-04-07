@@ -38,15 +38,15 @@
 
 ### अनुशंसित VPN
 
-[Doggygo VPN —— विशेषज्ञों के लिए त्वरण](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— विशेषज्ञों के लिए त्वरण](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - उच्च प्रदर्शन वाला विदेशी प्रदाता (Airport), अंतरराष्ट्रीय टीम, बंद होने का कोई जोखिम नहीं।
-- विशेष लिंक के माध्यम से पंजीकरण 3 दिन और 1G दैनिक डेटा देता है [मुफ्त परीक्षण](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)।
+- विशेष लिंक के माध्यम से पंजीकरण 3 दिन और 1G दैनिक डेटा देता है [मुफ्त परीक्षण](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)।
 - रियायती पैकेज केवल 15.8 युआन प्रति माह से, 160G डेटा, वार्षिक भुगतान पर 20% की छूट।
 - दुनिया में पहला जो `Hysteria2` प्रोटोकॉल का समर्थन करता है, क्लस्टर लोड बैलेंसिंग डिज़ाइन, हाई-स्पीड समर्पित लाइन, बेहद कम विलंबता, रात के रश को नजरअंदाज करता है, 4K तुरंत प्ले।
 - स्ट्रीमिंग मीडिया और ChatGPT को अनब्लॉक करता है।
 
-[👉 रोजाना अपडेट होने वाले अधिक ऑफ़र](https://1.x31415926.top/)
+[👉 रोजाना अपडेट होने वाले अधिक ऑफ़र](https://2.x31415926.top/)
 
 </summary>
 

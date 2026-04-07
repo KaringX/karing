@@ -38,15 +38,15 @@ Eine <a href="https://github.com/flutter/flutter">flutter</a>-basierte GUI für 
 
 ### Empfohlener VPN-Anbieter
 
-[Doggygo VPN —— Hochleistungs-VPN](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Hochleistungs-VPN](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Leistungsstarker Übersee-Anbieter, internationales Team, kein Risiko einer Schließung.
-- Registrierung über exklusiven Link gibt 3 Tage und 1G tägliches Datenvolumen [Kostenlose Testversion](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Registrierung über exklusiven Link gibt 3 Tage und 1G tägliches Datenvolumen [Kostenlose Testversion](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Pakete ab nur 15,8 Yuan pro Monat, 160G Datenvolumen, 20% Rabatt bei jährlicher Zahlung.
 - Weltweit erster Anbieter mit Unterstützung für das `Hysteria2`-Protokoll, Cluster-Lastverteilungsdesign, Hochgeschwindigkeits-Dedizierte Leitung, extrem niedrige Latenz, ignoriert Spitzenzeiten, 4K sofort bereit.
 - Entsperrt Streaming-Medien und ChatGPT.
 
-[👉 Mehr Angebote, täglich aktualisiert](https://1.x31415926.top/)
+[👉 Mehr Angebote, täglich aktualisiert](https://2.x31415926.top/)
 
 </summary>
 

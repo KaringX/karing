@@ -38,15 +38,15 @@ Giao diện người dùng <a href="https://github.com/SagerNet/sing-box">singbo
 
 ### VPN được đề xuất
 
-[Doggygo VPN —— Tăng tốc cho chuyên gia](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
+[Doggygo VPN —— Tăng tốc cho chuyên gia](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053)
 
 - Nhà cung cấp Proxy/VPN hiệu suất cao ở nước ngoài, đội ngũ quốc tế, không có rủi ro đóng cửa.
-- Đăng ký qua liên kết độc quyền được tặng 3 ngày và 1G lưu lượng hàng ngày [Dùng thử miễn phí](https://1.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
+- Đăng ký qua liên kết độc quyền được tặng 3 ngày và 1G lưu lượng hàng ngày [Dùng thử miễn phí](https://2.x31415926.top/redir.html?url=aHR0cHM6Ly93d3cuZGc2LnRvcC8jL3JlZ2lzdGVyP2NvZGU9bEZINGlpOUQ=&i=3eb&t=1723644053).
 - Các gói cước chỉ từ 15.8 nhân dân tệ mỗi tháng, 160G lưu lượng, giảm giá 20% khi thanh toán hàng năm.
 - Đầu tiên trên thế giới hỗ trợ giao thức `Hysteria2`, thiết kế cân bằng tải cụm, đường truyền chuyên dụng tốc độ cao, độ trễ cực thấp, không lo giờ cao điểm, xem 4K mượt mà.
 - Mở khóa các phương tiện truyền thông trực tuyến và ChatGPT.
 
-[👉 Xem thêm ưu đãi được cập nhật hàng ngày](https://1.x31415926.top/)
+[👉 Xem thêm ưu đãi được cập nhật hàng ngày](https://2.x31415926.top/)
 
 </summary>
 
