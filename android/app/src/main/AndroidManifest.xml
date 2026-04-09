@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"  
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="internalOnly">
     <!-- The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
@@ -25,6 +26,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.OBSERVE_GRANT_REVOKE_PERMISSIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <!--TV-->
     <uses-feature android:name="android.software.leanback" android:required="false"/>
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
@@ -54,10 +56,8 @@
     <application android:label="Karing" android:name=".MyApplication"
         android:usesCleartextTraffic="true"
         android:banner="@mipmap/ic_tv_banner"
-        android:icon="@mipmap/ic_launcher">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3393064772563517~9750486292"/>
+        android:icon="@mipmap/ic_launcher"
+        android:extractNativeLibs="true">
         <activity android:name=".MainActivity" 
             android:exported="true" 
             android:launchMode="singleTask" 
@@ -117,5 +117,6 @@
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data android:name="flutterEmbedding" android:value="2" />
+        <!-- <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="true" /> -->
     </application>
 </manifest>

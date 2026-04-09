@@ -1084,6 +1084,8 @@ class SettingConfigItemProxy {
   List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
   bool autoAddToFirewall = true;
+  String socksLocalUsername = "";
+  String socksLocalPassword = "";
   String socksUsername = "";
   String socksPassword = "";
 
@@ -1118,6 +1120,8 @@ class SettingConfigItemProxy {
     'system_proxy_bypass_domain': systemProxyBypassDomain,
     'disconnect_when_quit': disconnectWhenQuit,
     'auto_add_to_firewall': autoAddToFirewall,
+    'socks_local_username': socksLocalUsername,
+    'socks_local_password': socksLocalPassword,
     'socks_username': socksUsername,
     'socks_password': socksPassword,
   };
@@ -1169,6 +1173,8 @@ class SettingConfigItemProxy {
     disconnectWhenQuit =
         map["disconnect_when_quit"] ?? getDisconnectWhenQuitDefault();
     autoAddToFirewall = map["auto_add_to_firewall"] ?? true;
+    socksLocalUsername = map["socks_local_username"] ?? "";
+    socksLocalPassword = map["socks_local_password"] ?? "";
     socksUsername = map["socks_username"] ?? "";
     socksPassword = map["socks_password"] ?? "";
   }

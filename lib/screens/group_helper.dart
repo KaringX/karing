@@ -586,6 +586,51 @@ class GroupHelper {
     );
   }
 
+  static Future<void> showSocksLocal(BuildContext context, String from) async {
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var settingConfig = SettingManager.getConfig();
+
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "UserName",
+            text: settingConfig.proxy.socksLocalUsername,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              settingConfig.proxy.socksLocalUsername = value.trim();
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "Password",
+            text: settingConfig.proxy.socksLocalPassword,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              settingConfig.proxy.socksLocalPassword = value.trim();
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("Mixed"),
+        builder: (context) =>
+            GroupScreen(title: "Mixed", getOptions: getOptions),
+      ),
+    );
+  }
+
   static Future<void> showNetShare(BuildContext context, String from) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
@@ -659,7 +704,7 @@ class GroupHelper {
               text: settingConfig.proxy.socksUsername,
               textWidthPercent: 0.6,
               onChanged: (String value) {
-                settingConfig.proxy.socksUsername = value;
+                settingConfig.proxy.socksUsername = value.trim();
                 SettingManager.setDirty(true);
               },
             ),
@@ -670,7 +715,7 @@ class GroupHelper {
               text: settingConfig.proxy.socksPassword,
               textWidthPercent: 0.6,
               onChanged: (String value) {
-                settingConfig.proxy.socksPassword = value;
+                settingConfig.proxy.socksPassword = value.trim();
                 SettingManager.setDirty(true);
               },
             ),

@@ -780,6 +780,35 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           ),
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
+              name: "Mixed",
+              tips:
+                  tcontext.SettingsScreen.portSettingRule +
+                  ":" +
+                  tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                    hp: settingConfig.proxy.mixedRulePort,
+                    sp: settingConfig.proxy.mixedRulePort,
+                  ) +
+                  "\n" +
+                  tcontext.SettingsScreen.portSettingProxyAll +
+                  ":" +
+                  tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                    hp: settingConfig.proxy.mixedForwordPort,
+                    sp: settingConfig.proxy.mixedForwordPort,
+                  ) +
+                  "\n" +
+                  tcontext.SettingsScreen.portSettingDirectAll +
+                  ":" +
+                  tcontext.SettingsScreen.allowOtherHostsConnectTips(
+                    hp: settingConfig.proxy.mixedDirectPort,
+                    sp: settingConfig.proxy.mixedDirectPort,
+                  ),
+              onPush: () async {
+                await onTapSocksLocal();
+              },
+            ),
+          ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
               name: tcontext.meta.dns,
               onPush: () async {
                 await onTapDns();
@@ -2252,6 +2281,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<void> onTapTun() async {
     GroupHelper.showTun(context, "settings");
+  }
+
+  Future<void> onTapSocksLocal() async {
+    GroupHelper.showSocksLocal(context, "settings");
   }
 
   Future<void> onTapTLS() async {

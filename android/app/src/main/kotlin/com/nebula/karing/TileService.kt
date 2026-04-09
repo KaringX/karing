@@ -66,19 +66,27 @@ class TileService : TileService() {
         ) {
             return
         }
-        var intent = Intent()
-        intent.setClassName(getPackageName(), io.nebula.vpn_service.VpnServiceImpl::class.java.name)
-        intent.putExtra("actionBy", "tile")
-        if (state == io.nebula.vpn_service.VpnState.CONNECTED) {
-            intent.setAction(io.nebula.vpn_service.VpnServiceImpl.ACTION_STOP)
-            startService(intent)
-        } else {
-            intent.setAction(io.nebula.vpn_service.VpnServiceImpl.ACTION_START)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent)
-            } else {
+        try {
+            var intent = Intent()
+            intent.setClassName(
+                    getPackageName(),
+                    io.nebula.vpn_service.VpnServiceImpl::class.java.name
+            )
+            intent.putExtra("actionBy", "tile")
+            if (state == io.nebula.vpn_service.VpnState.CONNECTED) {
+                intent.setAction(io.nebula.vpn_service.VpnServiceImpl.ACTION_STOP)
                 startService(intent)
+            } else {
+                intent.setAction(io.nebula.vpn_service.VpnServiceImpl.ACTION_START)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(intent)
+                } else {
+                    startService(intent)
+                }
             }
+        } catch (e: SecurityException) {
+            writeLog("onClick security exception: $e")
+            return
         }
 
         update()
