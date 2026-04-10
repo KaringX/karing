@@ -558,6 +558,7 @@ class ServerManager {
               item.remark,
               item.urlOrPath,
               item.type,
+              item.userAgentAppend,
               item.userAgentCompatible,
               item.xhwid,
               item.proxyFilter,
@@ -1610,6 +1611,7 @@ class ServerManager {
     String remark,
     String urlOrPath,
     bool local,
+    bool userAgentAppend,
     String userAgentCompatible,
     bool xhwid,
     ProxyFilter filter,
@@ -1636,6 +1638,7 @@ class ServerManager {
     item.updateTime = DateTime.now().toString();
     item.proxyFilter = filter;
     item.proxyFilterRemove = proxyFilterRemove;
+    item.userAgentAppend = userAgentAppend;
     item.userAgentCompatible = userAgentCompatible;
     item.xhwid = xhwid;
     item.site = website ?? "";
@@ -1839,6 +1842,7 @@ class ServerManager {
       remark,
       filePath,
       true,
+      false,
       "",
       false,
       filter,
@@ -1861,6 +1865,7 @@ class ServerManager {
     String remark,
     String url,
     SubscriptionLinkType type,
+    bool userAgentAppend,
     String userAgentCompatible,
     bool xhwid,
     ProxyFilter filter,
@@ -1884,6 +1889,7 @@ class ServerManager {
       remark,
       url,
       false,
+      userAgentAppend,
       userAgentCompatible,
       xhwid,
       filter,
@@ -2261,6 +2267,7 @@ class ServerManager {
       item.remark,
       item.urlOrPath,
       item.type,
+      item.userAgentAppend,
       item.userAgentCompatible,
       item.xhwid,
       item.proxyFilter,
@@ -2330,6 +2337,7 @@ class ServerManager {
         item.remark,
         item.urlOrPath,
         item.type,
+        item.userAgentAppend,
         item.userAgentCompatible,
         item.xhwid,
         item.proxyFilter,

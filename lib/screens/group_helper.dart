@@ -249,9 +249,10 @@ class GroupHelper {
     );
   }
 
-  static Future<String> showUserAgent(
+  static Future<Tuple2<String, bool>> showUserAgent(
     BuildContext context,
     List<String> userAgent,
+    bool append,
   ) async {
     final tcontext = Translations.of(context);
     List<String> userAgents = HttpUtils.getUserAgents();
@@ -260,7 +261,19 @@ class GroupHelper {
       BuildContext context,
       SetStateCallback? setstate,
     ) async {
-      GroupItem options = GroupItem(options: []);
+      GroupItem options = GroupItem(
+        options: [
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: HttpUtils.getUserAgentAppend(),
+              switchValue: append,
+              onSwitch: (bool value) async {
+                append = value;
+              },
+            ),
+          ),
+        ],
+      );
       for (var ua in userAgents) {
         options.options.add(
           GroupItemOptions(
@@ -303,7 +316,7 @@ class GroupHelper {
       }
     }
     userAgentSorted.addAll(userAgent);
-    return userAgentSorted.join(";");
+    return Tuple2(userAgentSorted.join(";"), append);
   }
 
   static Future<void> showTun(BuildContext context, String from) async {
@@ -1203,6 +1216,7 @@ class GroupHelper {
                   tagGen.gen("WARP"),
                   urls.join("\n"),
                   SubscriptionLinkType.v2ray,
+                  true,
                   "",
                   false,
                   ProxyFilter(),

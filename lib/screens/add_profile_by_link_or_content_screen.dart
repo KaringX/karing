@@ -55,6 +55,7 @@ class _AddProfileByLinkOrContentScreenState
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
   bool _keepDiversionRules = false;
+  bool _append = true;
   String _compatible = "";
   bool _xhwid = false;
   String _website = "";
@@ -211,6 +212,7 @@ class _AddProfileByLinkOrContentScreenState
       remark,
       url,
       SubscriptionLinkType.unknown,
+      _append,
       _compatible,
       _xhwid,
       _proxyFilter,
@@ -425,9 +427,11 @@ class _AddProfileByLinkOrContentScreenState
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
-    String userAgent = await HttpUtils.getUserAgent(
-      compatible: HttpUtils.getUserAgentsByUaString(_compatible),
-    );
+    String userAgent = _append
+        ? await HttpUtils.getUserAgent(
+            compatible: HttpUtils.getUserAgentsByUaString(_compatible),
+          )
+        : _compatible;
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
         ProxyStrategy.preferProxy.name,
@@ -601,10 +605,13 @@ class _AddProfileByLinkOrContentScreenState
   }
 
   void onTapUserAgent() async {
-    _compatible = await GroupHelper.showUserAgent(
+    final result = await GroupHelper.showUserAgent(
       context,
       HttpUtils.getUserAgentsByUa(_compatible, false),
+      _append,
     );
+    _compatible = result.item1;
+    _append = result.item2;
     setState(() {});
   }
 

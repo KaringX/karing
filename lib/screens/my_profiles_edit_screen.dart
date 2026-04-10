@@ -30,6 +30,7 @@ class _MyProfilesEditScreenState
   final _textControllerLink = TextEditingController();
   ProxyStrategy _proxyStrategy = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
+  bool _append = true;
   String _compatible = "";
   bool _xhwid = false;
   String _website = "";
@@ -54,6 +55,7 @@ class _MyProfilesEditScreenState
       _website = item.site;
       _proxyStrategy = item.proxyStrategy;
       _updateTimeInterval = item.updateDuration;
+      _append = item.userAgentAppend;
       _compatible = item.userAgentCompatible;
       _xhwid = item.xhwid;
       _proxyFilter = item.proxyFilter;
@@ -194,6 +196,7 @@ class _MyProfilesEditScreenState
         item.site == _website &&
         item.proxyStrategy == _proxyStrategy &&
         item.updateDuration == _updateTimeInterval &&
+        item.userAgentAppend == _append &&
         item.userAgentCompatible == _compatible &&
         item.xhwid == _xhwid &&
         item.proxyFilter.method == _proxyFilter.method &&
@@ -221,6 +224,7 @@ class _MyProfilesEditScreenState
     item.site = _website;
     item.proxyStrategy = _proxyStrategy;
     item.updateDuration = _updateTimeInterval;
+    item.userAgentAppend = _append;
     item.userAgentCompatible = _compatible;
     item.xhwid = _xhwid;
     item.proxyFilter = _proxyFilter;
@@ -278,9 +282,11 @@ class _MyProfilesEditScreenState
       return [];
     }
     final tcontext = Translations.of(context);
-    String userAgent = await HttpUtils.getUserAgent(
-      compatible: HttpUtils.getUserAgentsByUaString(_compatible),
-    );
+    String userAgent = _append
+        ? await HttpUtils.getUserAgent(
+            compatible: HttpUtils.getUserAgentsByUaString(_compatible),
+          )
+        : _compatible;
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
         ProxyStrategy.preferProxy.name,
@@ -450,10 +456,13 @@ class _MyProfilesEditScreenState
   }
 
   void onTapUserAgent() async {
-    _compatible = await GroupHelper.showUserAgent(
+    final result = await GroupHelper.showUserAgent(
       context,
       HttpUtils.getUserAgentsByUa(_compatible, false),
+      _append,
     );
+    _compatible = result.item1;
+    _append = result.item2;
     setState(() {});
   }
 
