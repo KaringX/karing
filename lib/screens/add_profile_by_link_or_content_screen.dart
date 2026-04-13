@@ -56,7 +56,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _loading = false;
   bool _keepDiversionRules = false;
   bool _append = true;
-  String _compatible = "";
+  List<String> _compatible = [];
   bool _xhwid = false;
   String _website = "";
   String _decryptPassword = "";
@@ -70,7 +70,7 @@ class _AddProfileByLinkOrContentScreenState
   @override
   void initState() {
     ++AddProfileByLinkOrContentScreen.pushed;
-    _compatible = HttpUtils.getUserAgentsString();
+    _compatible = HttpUtils.getUserAgents();
     _xhwid = widget.xhwid == true;
     String name = widget.name != null ? widget.name!.trim() : "";
     String urlOrContent = widget.urlOrContent.trim();
@@ -137,7 +137,7 @@ class _AddProfileByLinkOrContentScreenState
       if (remarks == null || remarks.isEmpty) {
         final titleResult = await HttpUtils.httpGetTitle(
           result.data!,
-          _compatible,
+          _compatible.join(";"),
         );
         if (titleResult.data != null && titleResult.data!.length < 32) {
           remarks = titleResult.data!;
@@ -431,7 +431,7 @@ class _AddProfileByLinkOrContentScreenState
         ? await HttpUtils.getUserAgent(
             compatible: HttpUtils.getUserAgentsByUaString(_compatible),
           )
-        : _compatible;
+        : _compatible.join(";");
     List<Tuple2<String, String>> tupleStrings = [
       Tuple2(
         ProxyStrategy.preferProxy.name,

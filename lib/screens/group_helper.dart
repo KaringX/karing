@@ -249,7 +249,7 @@ class GroupHelper {
     );
   }
 
-  static Future<Tuple2<String, bool>> showUserAgent(
+  static Future<Tuple2<List<String>, bool>> showUserAgent(
     BuildContext context,
     List<String> userAgent,
     bool append,
@@ -286,9 +286,6 @@ class GroupHelper {
                     userAgent.add(ua);
                   }
                 } else {
-                  if (userAgent.length == 1) {
-                    return;
-                  }
                   userAgent.remove(ua);
                 }
               },
@@ -316,7 +313,7 @@ class GroupHelper {
       }
     }
     userAgentSorted.addAll(userAgent);
-    return Tuple2(userAgentSorted.join(";"), append);
+    return Tuple2(userAgentSorted, append);
   }
 
   static Future<void> showTun(BuildContext context, String from) async {
@@ -1217,7 +1214,7 @@ class GroupHelper {
                   urls.join("\n"),
                   SubscriptionLinkType.v2ray,
                   true,
-                  "",
+                  [],
                   false,
                   ProxyFilter(),
                   [],
@@ -3391,6 +3388,9 @@ class GroupHelper {
             },
           ),
         ),
+      ];
+
+      List<GroupItemOptions> options2 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.dnsAutoSetServer,
@@ -3420,7 +3420,11 @@ class GroupHelper {
         ),
       ];
 
-      return [GroupItem(options: options), GroupItem(options: options1)];
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options1),
+        GroupItem(options: options2),
+      ];
     }
 
     await Navigator.push(

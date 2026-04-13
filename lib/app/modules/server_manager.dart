@@ -559,7 +559,7 @@ class ServerManager {
               item.urlOrPath,
               item.type,
               item.userAgentAppend,
-              item.userAgentCompatible,
+              item.userAgentCompatibles,
               item.xhwid,
               item.proxyFilter,
               item.proxyFilterRemove,
@@ -1612,7 +1612,7 @@ class ServerManager {
     String urlOrPath,
     bool local,
     bool userAgentAppend,
-    String userAgentCompatible,
+    List<String> userAgentCompatibles,
     bool xhwid,
     ProxyFilter filter,
     List<String> proxyFilterRemove,
@@ -1639,7 +1639,7 @@ class ServerManager {
     item.proxyFilter = filter;
     item.proxyFilterRemove = proxyFilterRemove;
     item.userAgentAppend = userAgentAppend;
-    item.userAgentCompatible = userAgentCompatible;
+    item.userAgentCompatibles = userAgentCompatibles.toList();
     item.xhwid = xhwid;
     item.site = website ?? "";
     item.keepDiversionRules = keepDiversionRules;
@@ -1709,7 +1709,7 @@ class ServerManager {
         exist.site = item.site;
         exist.remark = item.remark;
         exist.urlOrPath = item.urlOrPath;
-        exist.userAgentCompatible = item.userAgentCompatible;
+        exist.userAgentCompatibles = item.userAgentCompatibles.toList();
         exist.xhwid = item.xhwid;
         exist.keepDiversionRules = item.keepDiversionRules;
         exist.enableDiversionRules = item.enableDiversionRules;
@@ -1843,7 +1843,7 @@ class ServerManager {
       filePath,
       true,
       false,
-      "",
+      [],
       false,
       filter,
       [],
@@ -1866,7 +1866,7 @@ class ServerManager {
     String url,
     SubscriptionLinkType type,
     bool userAgentAppend,
-    String userAgentCompatible,
+    List<String> userAgentCompatibles,
     bool xhwid,
     ProxyFilter filter,
     List<String> proxyFilterRemove,
@@ -1890,7 +1890,7 @@ class ServerManager {
       url,
       false,
       userAgentAppend,
-      userAgentCompatible,
+      userAgentCompatibles,
       xhwid,
       filter,
       proxyFilterRemove,
@@ -2268,7 +2268,7 @@ class ServerManager {
       item.urlOrPath,
       item.type,
       item.userAgentAppend,
-      item.userAgentCompatible,
+      item.userAgentCompatibles,
       item.xhwid,
       item.proxyFilter,
       item.proxyFilterRemove,
@@ -2338,7 +2338,7 @@ class ServerManager {
         item.urlOrPath,
         item.type,
         item.userAgentAppend,
-        item.userAgentCompatible,
+        item.userAgentCompatibles,
         item.xhwid,
         item.proxyFilter,
         item.proxyFilterRemove,
