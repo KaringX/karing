@@ -345,7 +345,7 @@
         "destination": "Цель",
         "outletIpByCurrentSelected": "Выходной IP",
         "outletIpByDirect": "Выходной IP:@:{outboundRuleMode.direct}",
-        "connect": "Соединений",
+        "connect": "Соединения",
         "disconnect": "Отключить",
         "reconnect": "Повторное подключение",
         "connected": "Подключено",
