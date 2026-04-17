@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Vanwege systeembeperkingen kunnen toepassingen op dit apparaat die http gebruiken voor netwerktoegang, na inschakeling mogelijk niet correct verbinding maken met het netwerk.",
         "tunAutoRoute": "Automatische route",
+        "tunDefaultRoute": "Standaardroute",
         "tunAutoRedirect": "Automatische omleiding",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Als na het inschakelen van delen anderen geen toegang hebben tot dit apparaat, probeer dan deze schakelaar uit te schakelen",

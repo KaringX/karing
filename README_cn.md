@@ -57,7 +57,7 @@
 ## 系统要求
 - Windows >= 10 (仅限 64 位)
 - Android >= 8 (arm64-v8a, armeabi-v7a)
-- Linux (仅限 64 位)
+- Linux (仅限 64 位，当前 .deb 包要求 glibc >= 2.38)
 - IOS >= 15
 - MacOS >= 12 (Intel, Apple Silicon)
 - TvOS >= 17

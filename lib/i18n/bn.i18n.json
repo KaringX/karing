@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "সিস্টেম সীমাবদ্ধতার কারণে, এটি সক্ষম করার পরে, এই ডিভাইসের যেসব অ্যাপ্লিকেশন নেটওয়ার্ক অ্যাক্সেসের জন্য http ব্যবহার করে, সেগুলি নেটওয়ার্কের সাথে সঠিকভাবে সংযোগ করতে পারবে না।",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "ডিফল্ট রুট",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "যদি শেয়ার চালু করার পরে অন্য কেউ এই ডিভাইসে পৌঁছাতে না পারে, তবে অনুগ্রহ করে এই সুইচটি বন্ধ করার চেষ্টা করুন",

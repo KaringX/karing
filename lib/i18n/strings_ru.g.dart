@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
 	@override String get tunAutoRoute => 'Автоматический маршрут';
+	@override String get tunDefaultRoute => 'Маршрут по умолчанию';
 	@override String get tunAutoRedirect => 'Автоматическое перенаправление';
 	@override String get tunStrictRoute => 'Строгий маршрут';
 	@override String get tunStrictRouteTips => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
@@ -1132,6 +1133,7 @@ extension on TranslationsRu {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.',
 			'SettingsScreen.tunAutoRoute' => 'Автоматический маршрут',
+			'SettingsScreen.tunDefaultRoute' => 'Маршрут по умолчанию',
 			'SettingsScreen.tunAutoRedirect' => 'Автоматическое перенаправление',
 			'SettingsScreen.tunStrictRoute' => 'Строгий маршрут',
 			'SettingsScreen.tunStrictRouteTips' => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.',
@@ -1453,9 +1455,9 @@ extension on TranslationsRu {
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
 			'tls.insecure' => 'Пропустить проверку сертификата',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
 			'tls.fragmentSize' => 'Размер фрагмента TLS',
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
 			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',

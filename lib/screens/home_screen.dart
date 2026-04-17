@@ -247,7 +247,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         _focusNodeConnectionsInfo,
       ),
       outletIpByCurrentSelectedInfo: HomeWidgetCard1Options(
-        () {},
+        () {
+          onTapOutletIp(context);
+        },
         null,
         _focusNodeOutletIpByCurrentSelectedInfo,
       ),
@@ -1398,6 +1400,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
     ReturnResultError? resultError;
+    if (_currentServer.groupid.isEmpty) {
+      _currentServer = ServerManager.getUrltest();
+    }
     try {
       resultError = await VPNService.setServer(
         _currentServer,
@@ -1671,6 +1676,32 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         builder: (context) => const NetCheckScreen(),
       ),
     );
+  }
+
+  void onTapOutletIp(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    var widgets = [];
+    widgets.add(
+      ListTile(
+        leading: Icon(Icons.copy),
+        title: Text(tcontext.meta.copy),
+        onTap: () async {
+          Navigator.pop(context);
+          try {
+            await Clipboard.setData(
+              ClipboardData(
+                text: _widgetOptions
+                    .outletIpByCurrentSelectedInfo!
+                    .notifier
+                    .value,
+              ),
+            );
+          } catch (e) {}
+        },
+      ),
+    );
+
+    showSheetWidgets(context: context, widgets: widgets);
   }
 
   void onTapAddWidget(BuildContext context) async {
@@ -2108,19 +2139,6 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
 
-    if (_currentServer.groupid.isEmpty) {
-      if (!disableShowAlertDialog) {
-        DialogUtils.showAlertDialog(
-          context,
-          "start failed: groupid is empty",
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true,
-        );
-      }
-      Log.w("start failed: groupid is empty, from $from");
-      return ReturnResultError("start failed: groupid is empty");
-    }
     var state = await VPNService.getState();
     if (state == FlutterVpnServiceState.connecting ||
         state == FlutterVpnServiceState.connected ||

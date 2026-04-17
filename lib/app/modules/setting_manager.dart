@@ -442,6 +442,7 @@ class SettingConfigItemTUN {
   bool autoRoute = true;
   bool autoRedirect = false;
   bool strictRoute = false;
+  bool autoRouteUseSubRangesByDefault = false; // ios/macos
   bool allowBypass = false; //android
   bool appendHttpProxy =
       getAppendHttp(); //android, ios: some apps skip tun route
@@ -459,6 +460,7 @@ class SettingConfigItemTUN {
       'auto_route': autoRoute,
       'auto_redirect': autoRedirect,
       'strict_route': strictRoute,
+      'auto_route_use_sub_ranges_by_default': autoRouteUseSubRangesByDefault,
       'allow_bypass': allowBypass,
       'append_http_proxy': appendHttpProxy,
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
@@ -498,6 +500,8 @@ class SettingConfigItemTUN {
     autoRoute = map["auto_route"] ?? true;
     autoRedirect = map["auto_redirect"] ?? false;
     strictRoute = map["strict_route"] ?? false;
+    autoRouteUseSubRangesByDefault =
+        map["auto_route_use_sub_ranges_by_default"] ?? false;
     allowBypass = map["allow_bypass"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
     allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(

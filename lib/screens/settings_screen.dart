@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, unused_catch_stacktrace, unused_catch_stack
+// ignore_for_file: prefer_interpolation_to_compose_strings, use_build_context_synchronously, unused_catch_stacktrace, unused_catch_stack
 
 import 'dart:io';
 import 'dart:ui';

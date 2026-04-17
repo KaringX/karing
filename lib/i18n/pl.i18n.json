@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Ze względu na ograniczenia systemowe, po włączeniu tej opcji aplikacje na tym urządzeniu używające http do dostępu do sieci mogą nie być w stanie prawidłowo połączyć się z siecią.",
         "tunAutoRoute": "Automatyczna trasa",
+        "tunDefaultRoute": "Trasa domyślna",
         "tunAutoRedirect": "Automatyczne przekierowanie",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Jeśli po włączeniu udostępniania inni nie mogą uzyskać dostępu do tego urządzenia, spróbuj wyłączyć ten przełącznik",

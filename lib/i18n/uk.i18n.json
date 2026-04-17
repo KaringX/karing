@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Через системні обмеження після ввімкнення цієї функції програми на цьому пристрої, які використовують http для доступу до мережі, можуть не мати змоги належним чином підключитися до мережі.",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "Маршрут за замовчуванням",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Якщо після ввімкнення спільного доступу інші не можуть отримати доступ до цього пристрою, спробуйте вимкнути цей перемикач",

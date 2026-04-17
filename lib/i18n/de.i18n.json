@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Aufgrund von Systembeschränkungen können Anwendungen auf diesem Gerät, die http für den Netzwerkzugriff verwenden, nach Aktivierung dieser Option möglicherweise nicht mehr ordnungsgemäß mit dem Netzwerk verbunden werden.",
         "tunAutoRoute": "Automatische Route",
+        "tunDefaultRoute": "Standardroute",
         "tunAutoRedirect": "Automatische Umleitung",
         "tunStrictRoute": "Strikte Route",
         "tunStrictRouteTips": "Wenn nach dem Einschalten der Freigabe andere nicht auf dieses Gerät zugreifen können, versuchen Sie bitte, diesen Schalter auszuschalten",

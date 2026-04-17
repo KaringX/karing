@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks : $sp, http(s) : $hp",
         "allowOtherHostsConnectWarn": "En raison des limitations du système, une fois activé, les applications de cet appareil qui utilisent le http pour accéder au réseau peuvent ne pas être en mesure de se connecter correctement au réseau.",
         "tunAutoRoute": "Route automatique",
+        "tunDefaultRoute": "Route par défaut",
         "tunAutoRedirect": "Redirection automatique",
         "tunStrictRoute": "Route stricte",
         "tunStrictRouteTips": "Si après l'activation du partage, d'autres ne peuvent pas accéder à cet appareil, veuillez essayer de désactiver ce commutateur",

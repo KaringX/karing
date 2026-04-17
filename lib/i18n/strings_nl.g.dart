@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenNl implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Vanwege systeembeperkingen kunnen toepassingen op dit apparaat die http gebruiken voor netwerktoegang, na inschakeling mogelijk niet correct verbinding maken met het netwerk.';
 	@override String get tunAutoRoute => 'Automatische route';
+	@override String get tunDefaultRoute => 'Standaardroute';
 	@override String get tunAutoRedirect => 'Automatische omleiding';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Als na het inschakelen van delen anderen geen toegang hebben tot dit apparaat, probeer dan deze schakelaar uit te schakelen';
@@ -1132,6 +1133,7 @@ extension on TranslationsNl {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Vanwege systeembeperkingen kunnen toepassingen op dit apparaat die http gebruiken voor netwerktoegang, na inschakeling mogelijk niet correct verbinding maken met het netwerk.',
 			'SettingsScreen.tunAutoRoute' => 'Automatische route',
+			'SettingsScreen.tunDefaultRoute' => 'Standaardroute',
 			'SettingsScreen.tunAutoRedirect' => 'Automatische omleiding',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Als na het inschakelen van delen anderen geen toegang hebben tot dit apparaat, probeer dan deze schakelaar uit te schakelen',
@@ -1453,9 +1455,9 @@ extension on TranslationsNl {
 			'permission.requestNeed' => ({required Object p}) => 'Schakel machtiging [${p}] in a.u.b.',
 			'tls.insecure' => 'Certificaatverificatie overslaan',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS Fragment inschakelen',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS Fragment inschakelen',
 			'tls.fragmentSize' => 'TLS Fragment grootte',
 			'tls.fragmentSleep' => 'TLS Fragment slaap',
 			'tls.mixedCaseSNIEnable' => 'TLS Mixed SNI inschakelen',

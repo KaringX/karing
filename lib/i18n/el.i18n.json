@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Λόγω περιορισμών του συστήματος, μετά την ενεργοποίηση αυτού, οι εφαρμογές σε αυτήν τη συσκευή που χρησιμοποιούν http για πρόσβαση στο δίκτυο ενδέχεται να μην μπορούν να συνδεθούν σωστά στο δίκτυο.",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "Προεπιλεγμένη διαδρομή",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Εάν μετά την ενεργοποίηση της κοινής χρήσης άλλοι δεν μπορούν να έχουν πρόσβαση σε αυτήν τη συσκευή, παρακαλούμε δοκιμάστε να απενεργοποιήσετε αυτόν τον διακόπτη",

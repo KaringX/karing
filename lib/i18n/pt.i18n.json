@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Devido a limitações do sistema, após isto ser ativado, as aplicações neste dispositivo que usem http para aceder à rede podem não conseguir ligar-se à rede corretamente.",
         "tunAutoRoute": "Rota automática",
+        "tunDefaultRoute": "Rota padrão",
         "tunAutoRedirect": "Redirecionamento automático",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Se após ligar a partilha outros não conseguirem aceder a este dispositivo, por favor tente desligar este interruptor",

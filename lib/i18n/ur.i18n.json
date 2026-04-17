@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "سسٹم کی حدود کی وجہ سے، اسے فعال کرنے کے بعد، اس ڈیوائس پر وہ ایپلی کیشنز جو نیٹ ورک تک رسائی کے لیے http استعمال کرتی ہیں، نیٹ ورک سے ٹھیک سے منسلک نہیں ہو سکیں گی۔",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "ڈیفالٹ روٹ",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "اگر شیئر آن کرنے کے بعد دوسرے اس ڈیوائس تک نہیں پہنچ پا رہے ہیں تو براہ کرم اس سوئچ کو آف کرنے کی کوشش کریں",

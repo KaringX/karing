@@ -9,7 +9,7 @@ import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/network_utils.dart';
+
 import 'package:karing/app/utils/parallel_task_queue.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -30,11 +30,20 @@ class DnsSettingsScreen extends LasyRenderingStatefulWidget {
   }
 
   final String title;
-  final DNSType dnsType;
+  final Set<String> servers;
+  final Set<String> disabled;
+  final bool tunMode;
+  final int maxServers;
+  final void Function(String server, bool selected) onChanged;
+
   const DnsSettingsScreen({
     super.key,
     required this.title,
-    required this.dnsType,
+    required this.servers,
+    required this.disabled,
+    required this.tunMode,
+    required this.maxServers,
+    required this.onChanged,
   });
 
   static Map<String, String> getDirect() {
@@ -54,6 +63,8 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   static const int _kMaxTasks = 5;
   static Map<String, String> _contectDirectLatency = {};
   static Map<String, String> _contectCurrentLatency = {};
+  Set<String> servers = {};
+  Set<String> disabled = {};
   final List _searchedData = [];
   Timer? _timer;
   static Map<String, String> getDirect() {
@@ -66,6 +77,15 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
 
   @override
   void initState() {
+    servers = widget.servers.toSet();
+    disabled = widget.disabled.toSet();
+    if (Platform.isAndroid) {
+      disabled.add(SettingConfigItemDNS.kDNSDHCP);
+    } else if (Platform.isWindows) {
+      if (widget.tunMode) {
+        disabled.add(SettingConfigItemDNS.kDNSLocal);
+      }
+    }
     _buildData();
     const Duration duration = Duration(seconds: 1);
     _timer ??= Timer.periodic(duration, (timer) async {
@@ -223,37 +243,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
 
   Widget _loadListView(bool tunMode) {
     Size windowSize = MediaQuery.of(context).size;
-    var settingConfig = SettingManager.getConfig();
-    String regionCode = settingConfig.regionCode.toLowerCase();
     final themes = Provider.of<Themes>(context, listen: false);
-
-    List<String> dnsAddress = [];
-    Set<String> disabled = {};
-    if (widget.dnsType == DNSType.dnsTypeResolver) {
-      dnsAddress = settingConfig.dns.getResolverDns(regionCode, tunMode);
-      for (var item in _searchedData) {
-        var addr = item[SettingConfigItemDNS.kDNSUrl];
-        Uri? uri = Uri.tryParse(addr);
-        if (uri != null) {
-          if (NetworkUtils.isDomain(uri.host, false)) {
-            disabled.add(addr);
-          }
-        }
-      }
-    } else if (widget.dnsType == DNSType.dnsTypeOutbound) {
-      dnsAddress = settingConfig.dns.getOutboundDns(regionCode, tunMode);
-    } else if (widget.dnsType == DNSType.dnsTypeDirect) {
-      dnsAddress = settingConfig.dns.getDirectDns(regionCode, tunMode);
-    } else if (widget.dnsType == DNSType.dnsTypeProxy) {
-      dnsAddress = settingConfig.dns.getProxyDns(regionCode, tunMode);
-    }
-    if (Platform.isAndroid) {
-      disabled.add(SettingConfigItemDNS.kDNSDHCP);
-    } else if (Platform.isWindows) {
-      if (tunMode) {
-        disabled.add(SettingConfigItemDNS.kDNSLocal);
-      }
-    }
 
     return Scrollbar(
       thumbVisibility: true,
@@ -261,14 +251,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         itemCount: _searchedData.length,
         itemBuilder: (BuildContext context, int index) {
           var current = _searchedData[index];
-          return createWidget(
-            themes,
-            current,
-            dnsAddress,
-            disabled,
-            windowSize,
-            tunMode,
-          );
+          return createWidget(themes, current, windowSize, tunMode);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(height: 1, thickness: 0.3);
@@ -369,8 +352,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
   Widget createWidget(
     Themes themes,
     dynamic current,
-    List<String> dnsAddress,
-    Set<String> disabled,
+
     Size windowSize,
     bool tunMode,
   ) {
@@ -385,8 +367,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     String? currentLatenty = _contectCurrentLatency[addr];
     bool disable = disabled.contains(addr);
     if (!disable) {
-      if (dnsAddress.length >= SettingConfigItemDNS.kDNSServerMax &&
-          !dnsAddress.contains(addr)) {
+      if (servers.length >= widget.maxServers && !servers.contains(addr)) {
         disable = true;
       }
     }
@@ -471,35 +452,16 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 ),
                 Checkbox(
                   tristate: true,
-                  value: dnsAddress.contains(addr),
+                  value: servers.contains(addr),
                   onChanged: disable
                       ? null
                       : (bool? value) {
-                          var settingConfig = SettingManager.getConfig();
-
-                          if (widget.dnsType == DNSType.dnsTypeResolver) {
-                            settingConfig.dns.addOrRemoveResolverDns(
-                              addr,
-                              value == true,
-                            );
-                          } else if (widget.dnsType ==
-                              DNSType.dnsTypeOutbound) {
-                            settingConfig.dns.addOrRemoveOutboundDns(
-                              addr,
-                              value == true,
-                            );
-                          } else if (widget.dnsType == DNSType.dnsTypeDirect) {
-                            settingConfig.dns.addOrRemoveDirectDns(
-                              addr,
-                              value == true,
-                            );
-                          } else if (widget.dnsType == DNSType.dnsTypeProxy) {
-                            settingConfig.dns.addOrRemoveProxyDns(
-                              addr,
-                              value == true,
-                            );
+                          if (value == true) {
+                            servers.add(addr);
+                          } else {
+                            servers.remove(addr);
                           }
-                          SettingManager.setDirty(true);
+                          widget.onChanged.call(addr, value == true);
                           setState(() {});
                         },
                 ),

@@ -915,6 +915,9 @@ class TranslationsSettingsScreenEn {
 	/// en: 'Auto Route'
 	String get tunAutoRoute => 'Auto Route';
 
+	/// en: 'Default Route'
+	String get tunDefaultRoute => 'Default Route';
+
 	/// en: 'Auto Redirect'
 	String get tunAutoRedirect => 'Auto Redirect';
 
@@ -2249,6 +2252,7 @@ extension on Translations {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'Default Route',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'If after turning on sharing, others cannot access this device, please try turning off this switch',
@@ -2570,9 +2574,9 @@ extension on Translations {
 			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',
 			'tls.insecure' => 'Skip Certificate Verification',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Enable TLS Fragment',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Enable TLS Fragment',
 			'tls.fragmentSize' => 'TLS Fragment Size',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'Enable TLS Mixed SNI',

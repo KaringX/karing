@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
 	@override String get tunAutoRoute => 'مسار تلقائي';
+	@override String get tunDefaultRoute => 'المسار الافتراضي';
 	@override String get tunAutoRedirect => 'إعادة توجيه تلقائية';
 	@override String get tunStrictRoute => 'مسار صارم';
 	@override String get tunStrictRouteTips => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.';
@@ -1132,6 +1133,7 @@ extension on TranslationsAr {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.',
 			'SettingsScreen.tunAutoRoute' => 'مسار تلقائي',
+			'SettingsScreen.tunDefaultRoute' => 'المسار الافتراضي',
 			'SettingsScreen.tunAutoRedirect' => 'إعادة توجيه تلقائية',
 			'SettingsScreen.tunStrictRoute' => 'مسار صارم',
 			'SettingsScreen.tunStrictRouteTips' => 'إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.',
@@ -1453,9 +1455,9 @@ extension on TranslationsAr {
 			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
 			'tls.insecure' => 'تخطي التحقق من الشهادة',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
 			'tls.fragmentSize' => 'حجم شريحة TLS',
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
 			'tls.mixedCaseSNIEnable' => 'تمكين TLS الهجين SNI',

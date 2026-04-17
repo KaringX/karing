@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "A causa delle limitazioni del sistema, dopo l'abilitazione, le applicazioni su questo dispositivo che utilizzano http per accedere alla rete potrebbero non essere in grado di connettersi correttamente.",
         "tunAutoRoute": "Percorso automatico",
+        "tunDefaultRoute": "Percorso predefinito",
         "tunAutoRedirect": "Reindirizzamento automatico",
         "tunStrictRoute": "Percorso rigoroso",
         "tunStrictRouteTips": "Se dopo aver attivato la condivisione altri non riescono ad accedere a questo dispositivo, prova a disattivare questo interruttore",

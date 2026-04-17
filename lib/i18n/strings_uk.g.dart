@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenUk implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Через системні обмеження після ввімкнення цієї функції програми на цьому пристрої, які використовують http для доступу до мережі, можуть не мати змоги належним чином підключитися до мережі.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunDefaultRoute => 'Маршрут за замовчуванням';
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Якщо після ввімкнення спільного доступу інші не можуть отримати доступ до цього пристрою, спробуйте вимкнути цей перемикач';
@@ -1132,6 +1133,7 @@ extension on TranslationsUk {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Через системні обмеження після ввімкнення цієї функції програми на цьому пристрої, які використовують http для доступу до мережі, можуть не мати змоги належним чином підключитися до мережі.',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'Маршрут за замовчуванням',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Якщо після ввімкнення спільного доступу інші не можуть отримати доступ до цього пристрою, спробуйте вимкнути цей перемикач',
@@ -1453,9 +1455,9 @@ extension on TranslationsUk {
 			'permission.requestNeed' => ({required Object p}) => 'Будь ласка, увімкніть дозвіл [${p}]',
 			'tls.insecure' => 'Пропустити перевірку сертифіката',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
 			'tls.fragmentSize' => 'Розмір фрагмента TLS',
 			'tls.fragmentSleep' => 'Пауза фрагментації TLS',
 			'tls.mixedCaseSNIEnable' => 'Увімкнути змішаний регістр SNI TLS',

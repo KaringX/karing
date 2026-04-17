@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'SOCKS代理端口:${sp}, HTTP(S)代理端口:${hp}';
 	@override String get allowOtherHostsConnectWarn => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
 	@override String get tunAutoRoute => '自动路由';
+	@override String get tunDefaultRoute => '默认路由';
 	@override String get tunAutoRedirect => '自动重定向';
 	@override String get tunStrictRoute => '严格路由';
 	@override String get tunStrictRouteTips => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关';
@@ -1132,6 +1133,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'SOCKS代理端口:${sp}, HTTP(S)代理端口:${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络',
 			'SettingsScreen.tunAutoRoute' => '自动路由',
+			'SettingsScreen.tunDefaultRoute' => '默认路由',
 			'SettingsScreen.tunAutoRedirect' => '自动重定向',
 			'SettingsScreen.tunStrictRoute' => '严格路由',
 			'SettingsScreen.tunStrictRouteTips' => '如果开启共享后,其他无法接入此设备,请尝试关闭此开关',
@@ -1453,9 +1455,9 @@ extension on TranslationsZhCn {
 			'permission.requestNeed' => ({required Object p}) => '请开启[${p}]权限',
 			'tls.insecure' => '跳过证书验证',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => '启用TLS分段',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => '启用TLS分段',
 			'tls.fragmentSize' => 'TLS分段大小',
 			'tls.fragmentSleep' => 'TLS分段休眠',
 			'tls.mixedCaseSNIEnable' => '启用TLS混合SNI',

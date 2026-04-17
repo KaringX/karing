@@ -487,6 +487,20 @@ class GroupHelper {
             ),
           ),
         ],
+        if (!settingConfig.novice && (Platform.isIOS || Platform.isMacOS)) ...[
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunDefaultRoute,
+              switchValue: !settingConfig.tun.autoRouteUseSubRangesByDefault,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.autoRouteUseSubRangesByDefault = !value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
+        ],
         if (!settingConfig.novice && Platform.isAndroid) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -3296,15 +3310,10 @@ class GroupHelper {
             text: resolver.length == 1 ? resolver[0] : "${resolver[0]}...",
             textWidthPercent: 0.5,
             onPush: () async {
-              await Navigator.push(
+              onTapByType(
                 context,
-                MaterialPageRoute(
-                  settings: DnsSettingsScreen.routSettings(),
-                  builder: (context) => DnsSettingsScreen(
-                    title: tcontext.SettingsScreen.dnsTypeResolver,
-                    dnsType: DNSType.dnsTypeResolver,
-                  ),
-                ),
+                DNSType.dnsTypeResolver,
+                tcontext.SettingsScreen.dnsTypeResolver,
               );
             },
           ),
@@ -3317,15 +3326,10 @@ class GroupHelper {
               text: outbound.length == 1 ? outbound[0] : "${outbound[0]}...",
               textWidthPercent: 0.5,
               onPush: () async {
-                await Navigator.push(
+                onTapByType(
                   context,
-                  MaterialPageRoute(
-                    settings: DnsSettingsScreen.routSettings(),
-                    builder: (context) => DnsSettingsScreen(
-                      title: tcontext.SettingsScreen.dnsTypeOutbound,
-                      dnsType: DNSType.dnsTypeOutbound,
-                    ),
-                  ),
+                  DNSType.dnsTypeOutbound,
+                  tcontext.SettingsScreen.dnsTypeOutbound,
                 );
               },
             ),
@@ -3340,15 +3344,10 @@ class GroupHelper {
             onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
                 ? null
                 : () async {
-                    await Navigator.push(
+                    onTapByType(
                       context,
-                      MaterialPageRoute(
-                        settings: DnsSettingsScreen.routSettings(),
-                        builder: (context) => DnsSettingsScreen(
-                          title: tcontext.SettingsScreen.dnsTypeDirect,
-                          dnsType: DNSType.dnsTypeDirect,
-                        ),
-                      ),
+                      DNSType.dnsTypeDirect,
+                      tcontext.SettingsScreen.dnsTypeDirect,
                     );
                   },
           ),
@@ -3362,15 +3361,10 @@ class GroupHelper {
             onPush: !settingConfig.tun.hijackDns && !settingConfig.novice
                 ? null
                 : () async {
-                    await Navigator.push(
+                    onTapByType(
                       context,
-                      MaterialPageRoute(
-                        settings: DnsSettingsScreen.routSettings(),
-                        builder: (context) => DnsSettingsScreen(
-                          title: tcontext.SettingsScreen.dnsTypeProxy,
-                          dnsType: DNSType.dnsTypeProxy,
-                        ),
-                      ),
+                      DNSType.dnsTypeProxy,
+                      tcontext.SettingsScreen.dnsTypeProxy,
                     );
                   },
           ),
@@ -3433,6 +3427,74 @@ class GroupHelper {
         settings: GroupScreen.routSettings("server"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.server, getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> onTapByType(
+    BuildContext context,
+    DNSType dnsType,
+    String title,
+  ) async {
+    final tunMode = await VPNService.getTunMode();
+    var settingConfig = SettingManager.getConfig();
+    String regionCode = settingConfig.regionCode.toLowerCase();
+    List<String> dnsAddress = [];
+    Set<String> disabled = {};
+    final List searchedData = [];
+    searchedData.addAll(SettingManager.getConfig().dns.list);
+    searchedData.addAll(SettingConfigItemDNS.kDNSList);
+    if (dnsType == DNSType.dnsTypeResolver) {
+      dnsAddress = settingConfig.dns.getResolverDns(regionCode, tunMode);
+      for (var item in searchedData) {
+        var addr = item[SettingConfigItemDNS.kDNSUrl];
+        Uri? uri = Uri.tryParse(addr);
+        if (uri != null) {
+          if (NetworkUtils.isDomain(uri.host, false)) {
+            disabled.add(addr);
+          }
+        }
+      }
+    } else if (dnsType == DNSType.dnsTypeOutbound) {
+      dnsAddress = settingConfig.dns.getOutboundDns(regionCode, tunMode);
+    } else if (dnsType == DNSType.dnsTypeDirect) {
+      dnsAddress = settingConfig.dns.getDirectDns(regionCode, tunMode);
+    } else if (dnsType == DNSType.dnsTypeProxy) {
+      dnsAddress = settingConfig.dns.getProxyDns(regionCode, tunMode);
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: DnsSettingsScreen.routSettings(),
+        builder: (context) => DnsSettingsScreen(
+          title: title,
+          servers: dnsAddress.toSet(),
+          disabled: disabled,
+          tunMode: tunMode,
+          maxServers: SettingConfigItemDNS.kDNSServerMax,
+          onChanged: (server, selected) {
+            if (dnsType == DNSType.dnsTypeResolver) {
+              settingConfig.dns.addOrRemoveResolverDns(
+                server,
+                selected == true,
+              );
+            } else if (dnsType == DNSType.dnsTypeOutbound) {
+              settingConfig.dns.addOrRemoveOutboundDns(
+                server,
+                selected == true,
+              );
+            } else if (dnsType == DNSType.dnsTypeDirect) {
+              settingConfig.dns.addOrRemoveDirectDns(server, selected == true);
+            } else if (dnsType == DNSType.dnsTypeProxy) {
+              settingConfig.dns.addOrRemoveProxyDns(server, selected == true);
+            }
+            SettingManager.setDirty(true);
+          },
+        ),
       ),
     );
   }

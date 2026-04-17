@@ -220,6 +220,7 @@
         "allowOtherHostsConnectTips": "SOCKS代理連接埠:$sp, HTTP(S)代理連接埠:$hp",
         "allowOtherHostsConnectWarn": "由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路",
         "tunAutoRoute": "自動路由",
+        "tunDefaultRoute": "預設路由",
         "tunAutoRedirect": "自動重新導向",
         "tunStrictRoute": "嚴格路由",
         "tunStrictRouteTips": "如果開啟共享後, 其他無法接入此設備, 請嘗試關閉此開關",

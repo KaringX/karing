@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "Default Route",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "If after turning on sharing, others cannot access this device, please try turning off this switch",

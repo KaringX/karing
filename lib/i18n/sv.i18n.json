@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "På grund av systembegränsningar kan program på den här enheten som använder http för nätverksåtkomst eventuellt inte ansluta till nätverket korrekt efter att detta har aktiverats.",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "Standardrutt",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "Om andra inte kan komma åt den här enheten efter att delning slagits på, försök att stänga av den här brytaren",

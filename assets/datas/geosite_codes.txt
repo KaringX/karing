@@ -27,7 +27,6 @@ abema
 accuweather
 acer
 acer@cn
-acfun-ads
 acfun
 acfun@ads
 acplay
@@ -40,11 +39,9 @@ addtoany
 adguard
 adidas
 adidas@cn
-adjust-ads
 adjust
 adjust@ads
 adobe-activation
-adobe-ads
 adobe
 adobe@ads
 adobe@cn
@@ -66,7 +63,6 @@ aixcoder
 akamai
 akamai@cn
 akiko
-alibaba-ads
 alibaba
 alibaba@!cn
 alibaba@ads
@@ -77,10 +73,8 @@ aliyun
 aliyun@!cn
 aliyun@ads
 aljazeera
-amap-ads
 amap
 amap@ads
-amazon-ads
 amazon
 amazon@ads
 amazon@cn
@@ -108,7 +102,6 @@ apipost
 apkcombo
 apkmirror
 apkpure
-apple-ads
 apple-cn
 apple-dev
 apple-dev@cn
@@ -156,7 +149,6 @@ azure
 azure@cn
 b3log
 bahamut
-baidu-ads
 baidu
 baidu@ads
 baishancloud
@@ -237,7 +229,6 @@ bushiroad
 buymeacoffee
 buypass
 bybit
-bytedance-ads
 bytedance-ai-!cn
 bytedance-ai-!cn@!cn
 bytedance
@@ -256,6 +247,8 @@ canon@cn
 canonical
 canva
 capitalonline
+carrotquest
+carrotquest@ads
 cas
 casimages
 catchplay
@@ -286,6 +279,7 @@ category-bank-ir
 category-bank-jp
 category-bank-mm
 category-bank-ru
+category-bank-ru@ads
 category-blog-cn
 category-bourse-ir
 category-browser-!cn
@@ -315,6 +309,7 @@ category-dev@cn
 category-documents-cn
 category-doh
 category-ecommerce-ru
+category-ecommerce-ru@ads
 category-ecommerce
 category-ecommerce@ads
 category-ecommerce@cn
@@ -334,10 +329,12 @@ category-entertainment@!cn
 category-entertainment@ads
 category-entertainment@cn
 category-finance
+category-finance@ads
 category-finance@cn
 category-food-cn
 category-forums-ir
 category-forums
+category-forums@ads
 category-game-accelerator-cn
 category-game-platforms-download
 category-game-platforms-download@cn
@@ -357,6 +354,8 @@ category-httpdns-cn
 category-httpdns-cn@ads
 category-insurance-ir
 category-ip-geo-detect
+category-ip-geo-detect@!cn
+category-ip-geo-detect@cn
 category-ipfs
 category-ir
 category-logistics-cn
@@ -367,6 +366,7 @@ category-media-ir
 category-media-ru
 category-media
 category-media@cn
+category-medicine-ru
 category-mobile-repair
 category-mooc-cn
 category-netdisk-cn
@@ -393,7 +393,10 @@ category-public-tracker
 category-remote-control
 category-remote-control@cn
 category-retail-ru
+category-retail-ru@ads
 category-ru
+category-ru@ads
+category-ru@cn
 category-scholar-!cn
 category-scholar-cn
 category-scholar-ir
@@ -416,6 +419,7 @@ category-tech-media@cn
 category-tm
 category-travel-ir
 category-travel-ru
+category-urlshortner
 category-voip
 category-vpnservices
 category-web-archive
@@ -459,7 +463,6 @@ ck101
 clarivate
 clearasil
 clearasil@cn
-clearbit-ads
 clearbit
 clearbit@ads
 clips4sale
@@ -567,7 +570,6 @@ dji
 dlercloud
 dlsite
 dmit
-dmm-ads
 dmm-porn
 dmm
 dmm@ads
@@ -591,7 +593,6 @@ drweb
 dslreports
 duckduckgo
 duitang
-duolingo-ads
 duolingo
 duolingo@ads
 duolingo@cn
@@ -604,6 +605,7 @@ dwion
 dyna
 dynu
 dzen
+dzen@ads
 ea
 eastmoney
 eastmoney@!cn
@@ -630,6 +632,7 @@ enfa
 entermediadb
 entrust
 entrust@cn
+envato
 epicbrowser
 epicgames
 epicgames@cn
@@ -645,7 +648,6 @@ ethereum
 everbright
 evernote
 f-droid
-facebook-ads
 facebook-dev
 facebook
 facebook@ads
@@ -692,7 +694,6 @@ fontsinuse
 forbes
 forza
 fox
-fqnovel-ads
 fqnovel
 fqnovel@ads
 framer
@@ -729,7 +730,6 @@ gigabyte@cn
 gimy
 gitbook
 gitee
-github-ads
 github-copilot
 github
 github1s
@@ -739,14 +739,16 @@ gitv
 globalsign
 globalsign@cn
 globalvoices
+globo
 glyphs
+gmo-internet
+gmo-internet@cn
 godaddy
 gofundme
 gog
 gog@cn
 golang
 goodreads
-google-ads
 google-cn
 google-deepmind
 google-gemini
@@ -789,6 +791,7 @@ haveibeenpwned
 hbo
 hcaptcha
 hdrezka
+headhunter
 hentaichen
 hentaivn
 herogame
@@ -829,6 +832,7 @@ huanghuagang
 huawei-dev
 huawei
 huawei@!cn
+huawei@ads
 huaweicloud
 huaweicloud@!cn
 hubblephone
@@ -837,7 +841,6 @@ hugecore
 huggingface
 hujiang
 hulu
-hunantv-ads
 hunantv
 hunantv@ads
 huobi
@@ -865,6 +868,7 @@ ihuman
 iina
 ikea
 ikea@cn
+illgames
 illusion-nonofficial
 illusion
 imagebam
@@ -882,7 +886,6 @@ inner-active-ads
 inoreader
 inshot
 insider
-instagram-ads
 instagram
 instagram@ads
 intel-dev
@@ -894,7 +897,6 @@ intsig
 intuit
 ipip
 ipip@!cn
-iqiyi-ads
 iqiyi
 iqiyi@!cn
 iqiyi@ads
@@ -914,7 +916,6 @@ javbus
 javcc
 javdb
 javwide
-jd-ads
 jd
 jd@!cn
 jd@ads
@@ -969,14 +970,12 @@ kraken
 ku6
 kuaidi100
 kuaikan
-kuaishou-ads
 kuaishou
 kuaishou@ads
 kuaiyikeji
 kubakuba
 kubernetes
 kucoin
-kugou-ads
 kugou
 kugou@ads
 kurogames
@@ -1036,7 +1035,9 @@ madshi
 mafengwo
 mailcom
 mailru-group
+mailru-group@ads
 mailru
+mailru@ads
 mainichi
 malware
 manhuagui
@@ -1066,14 +1067,12 @@ meitu
 meituan
 meizu
 messenger
-meta-ads
 meta
 meta@ads
 metabrainz
 metacritic
 metart
 miaomiaozhe
-microsoft-ads
 microsoft-dev
 microsoft-dev@cn
 microsoft-pki
@@ -1082,7 +1081,6 @@ microsoft
 microsoft@ads
 microsoft@cn
 midea
-mihoyo-ads
 mihoyo-cn
 mihoyo-cn@ads
 mihoyo-cn@cn
@@ -1090,6 +1088,8 @@ mihoyo
 mihoyo@ads
 mihoyo@cn
 mikrotik
+mindbox
+mindbox@ads
 mindgeek-porn
 mindgeek
 mini
@@ -1145,7 +1145,6 @@ naver
 nbcuniversal
 neowin
 netcup
-netease-ads
 netease
 netease@!cn
 netease@ads
@@ -1193,7 +1192,6 @@ nypost
 nytimes
 oan
 oculus
-ogury-ads
 ogury
 ogury@ads
 ok
@@ -1208,7 +1206,6 @@ onedrive
 onekey
 oneplus
 oneplus@!cn
-ookla-speedtest-ads
 ookla-speedtest
 ookla-speedtest@ads
 op
@@ -1217,12 +1214,12 @@ openai@ads
 opencollective
 openjsfoundation
 openjsfoundation@cn
+openrec
 opensourceinsights
 openspeedtest
 openstreetmap
 openweather
 openwrt
-openx-ads
 openx
 openx@ads
 oppo
@@ -1237,6 +1234,7 @@ osdn
 osu
 oup
 ozon
+ozon@ads
 pagecdn
 panasonic
 panasonic@cn
@@ -1280,6 +1278,7 @@ pixnet
 playboy
 playcover
 playstation
+plex
 plutotv
 pocketcasts
 pocoiq-ads
@@ -1294,6 +1293,7 @@ pptv
 primevideo
 primevideo@cn
 private
+progress
 projectpoi
 projectsekai
 proquest
@@ -1301,7 +1301,6 @@ protonmail
 pstorage
 ptt
 pubg
-pubmatic-ads
 pubmatic
 pubmatic@ads
 pugpig
@@ -1311,7 +1310,6 @@ python
 qcc
 qcloud
 qcloud@!cn
-qihoo360-ads
 qihoo360
 qihoo360@ads
 qimao
@@ -1380,6 +1378,8 @@ samsung@cn
 sanctioned
 sankei
 sb
+sber
+sber@ads
 scala
 scaleflex
 scenesource
@@ -1394,11 +1394,11 @@ seasun
 secom
 sectigo
 sectigo@cn
-segment-ads
 segment
 segment@ads
 segmentfault
 sehuatang
+selectel
 sentry
 setapp
 setn
@@ -1414,7 +1414,6 @@ shopify
 shorturl
 showtimeanytime
 signal
-sina-ads
 sina
 sina@!cn
 sina@ads
@@ -1442,7 +1441,6 @@ softbank
 softether
 sogou
 sogou@ads
-sohu-ads
 sohu
 sohu@ads
 sony
@@ -1459,7 +1457,6 @@ spankbang
 speedtest
 speedtest@ads
 spiceworks
-spotify-ads
 spotify
 spotify@ads
 springer
@@ -1498,7 +1495,6 @@ suishouji
 sumkoo
 suning
 supercell
-supersonic-ads
 supersonic
 supersonic@ads
 surflite
@@ -1525,6 +1521,7 @@ taptap
 taptap@!cn
 target
 taylorfrancis
+tbank-ru
 tcl
 tcl@ads
 teambition
@@ -1538,7 +1535,6 @@ telegram
 telekom
 television-ads
 temp-mail
-tencent-ads
 tencent-dev
 tencent-dev@ads
 tencent-games
@@ -1576,6 +1572,7 @@ tidelift
 tiktok
 tiktok@!cn
 tiktok@ads
+tilda
 tinyurl
 tld-!cn
 tld-cn
@@ -1631,11 +1628,9 @@ ucloud
 udacity
 udemy
 udn
-umeng-ads
 umeng
 umeng@ads
 unionpay
-unity-ads
 unity
 unity@ads
 unitychina
@@ -1669,6 +1664,7 @@ viu
 vivo
 vivo@!cn
 vk
+vk@ads
 vmware
 vmware@cn
 voanews
@@ -1690,6 +1686,7 @@ walmart@cn
 wanfang
 wangsu
 wantmedia
+wargaming
 wasu
 watchout
 wbgames
@@ -1703,7 +1700,6 @@ weiphone
 wenshushu
 westerndigital
 westerndigital@cn
-whatsapp-ads
 whatsapp
 whatsapp@ads
 wholefoodsmarket
@@ -1711,6 +1707,7 @@ wikidot
 wikihow
 wikimedia
 wildberries
+wildberries@ads
 win-extra
 win-spy
 win-update
@@ -1734,6 +1731,7 @@ wwe
 wynd
 x
 x5
+x5@ads
 x@ads
 xai
 xbox
@@ -1743,20 +1741,17 @@ xd@!cn
 xda
 xdty
 xedge
-xhamster-ads
 xhamster
 xhamster@ads
 xiaoheihe
 xiaohongshu
 xiaohongshu@!cn
-xiaomi-ads
 xiaomi-ai
 xiaomi-iot
 xiaomi
 xiaomi@!cn
 xiaomi@ads
 xiaoyuzhou
-ximalaya-ads
 ximalaya
 ximalaya@ads
 xingkongwuxianmedia
@@ -1766,11 +1761,11 @@ xueersi
 xueqiu
 xunlei
 xvideos
-yahoo-ads
 yahoo
 yahoo@ads
 yahoo@cn
 yandex
+yandex@ads
 ycombinator
 ymtc
 ynet
@@ -1780,7 +1775,6 @@ yomiuri
 yostar
 yostar@cn
 youjizz
-youku-ads
 youku
 youku@ads
 youmind
@@ -1821,7 +1815,6 @@ zotero
 zscaler
 zte
 zto-express
-zuoyebang-ads
 zuoyebang
 zuoyebang@ads
 zynga

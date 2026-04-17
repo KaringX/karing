@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks: $sp, http(s): $hp",
         "allowOtherHostsConnectWarn": "Sistem kısıtlamaları nedeniyle, bu etkinleştirildikten sonra bu cihazdaki ağa erişmek için http kullanan uygulamalar ağa düzgün şekilde bağlanamayabilir.",
         "tunAutoRoute": "Otomatik Rota",
+        "tunDefaultRoute": "Varsayılan rota",
         "tunAutoRedirect": "Otomatik Yönlendirme",
         "tunStrictRoute": "Sıkı Rota",
         "tunStrictRouteTips": "Paylaşımı açtıktan sonra başkaları bu cihaza erişemiyorsa lütfen bu anahtarı kapatmayı deneyin",

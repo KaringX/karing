@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenEl implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Λόγω περιορισμών του συστήματος, μετά την ενεργοποίηση αυτού, οι εφαρμογές σε αυτήν τη συσκευή που χρησιμοποιούν http για πρόσβαση στο δίκτυο ενδέχεται να μην μπορούν να συνδεθούν σωστά στο δίκτυο.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunDefaultRoute => 'Προεπιλεγμένη διαδρομή';
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Εάν μετά την ενεργοποίηση της κοινής χρήσης άλλοι δεν μπορούν να έχουν πρόσβαση σε αυτήν τη συσκευή, παρακαλούμε δοκιμάστε να απενεργοποιήσετε αυτόν τον διακόπτη';
@@ -1132,6 +1133,7 @@ extension on TranslationsEl {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Λόγω περιορισμών του συστήματος, μετά την ενεργοποίηση αυτού, οι εφαρμογές σε αυτήν τη συσκευή που χρησιμοποιούν http για πρόσβαση στο δίκτυο ενδέχεται να μην μπορούν να συνδεθούν σωστά στο δίκτυο.',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'Προεπιλεγμένη διαδρομή',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Εάν μετά την ενεργοποίηση της κοινής χρήσης άλλοι δεν μπορούν να έχουν πρόσβαση σε αυτήν τη συσκευή, παρακαλούμε δοκιμάστε να απενεργοποιήσετε αυτόν τον διακόπτη',
@@ -1453,9 +1455,9 @@ extension on TranslationsEl {
 			'permission.requestNeed' => ({required Object p}) => 'Παρακαλούμε ενεργοποιήστε την άδεια [${p}]',
 			'tls.insecure' => 'Παράλειψη επαλήθευσης πιστοποιητικού',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Ενεργοποίηση TLS Fragment',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Ενεργοποίηση TLS Fragment',
 			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',
 			'tls.fragmentSleep' => 'Αναστολή TLS Fragment',
 			'tls.mixedCaseSNIEnable' => 'Ενεργοποίηση TLS Mixed Case SNI',

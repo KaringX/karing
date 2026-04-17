@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.17+2001
+version: 1.2.17+2004
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   intl: any
 
-  cupertino_icons: 1.0.8
+  cupertino_icons: 1.0.9
   collection: 1.19.1
   #icons_plus: 5.0.0
   flutter_emoji: 2.5.1
@@ -23,7 +23,7 @@ dependencies:
   sentry_flutter: 9.15.0
   device_info_plus: 11.2.2
   network_info_plus: 7.0.0
-  connectivity_plus: 7.0.0
+  connectivity_plus: 7.1.1
   package_info_plus: 9.0.0
   build_info: 1.1.0
   build_info_android: 1.1.0

@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenFr implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'En raison des limitations du système, une fois activé, les applications de cet appareil qui utilisent le http pour accéder au réseau peuvent ne pas être en mesure de se connecter correctement au réseau.';
 	@override String get tunAutoRoute => 'Route automatique';
+	@override String get tunDefaultRoute => 'Route par défaut';
 	@override String get tunAutoRedirect => 'Redirection automatique';
 	@override String get tunStrictRoute => 'Route stricte';
 	@override String get tunStrictRouteTips => 'Si après l\'activation du partage, d\'autres ne peuvent pas accéder à cet appareil, veuillez essayer de désactiver ce commutateur';
@@ -1132,6 +1133,7 @@ extension on TranslationsFr {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks : ${sp}, http(s) : ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'En raison des limitations du système, une fois activé, les applications de cet appareil qui utilisent le http pour accéder au réseau peuvent ne pas être en mesure de se connecter correctement au réseau.',
 			'SettingsScreen.tunAutoRoute' => 'Route automatique',
+			'SettingsScreen.tunDefaultRoute' => 'Route par défaut',
 			'SettingsScreen.tunAutoRedirect' => 'Redirection automatique',
 			'SettingsScreen.tunStrictRoute' => 'Route stricte',
 			'SettingsScreen.tunStrictRouteTips' => 'Si après l\'activation du partage, d\'autres ne peuvent pas accéder à cet appareil, veuillez essayer de désactiver ce commutateur',
@@ -1453,9 +1455,9 @@ extension on TranslationsFr {
 			'permission.requestNeed' => ({required Object p}) => 'Veuillez activer l\'autorisation [${p}]',
 			'tls.insecure' => 'Passer la vérification du certificat',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Activer le fragment TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Activer le fragment TLS',
 			'tls.fragmentSize' => 'Taille du fragment TLS',
 			'tls.fragmentSleep' => 'Sommeil du fragment TLS',
 			'tls.mixedCaseSNIEnable' => 'Activer le SNI mixte TLS',

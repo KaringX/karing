@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenPt implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Devido a limitações do sistema, após isto ser ativado, as aplicações neste dispositivo que usem http para aceder à rede podem não conseguir ligar-se à rede corretamente.';
 	@override String get tunAutoRoute => 'Rota automática';
+	@override String get tunDefaultRoute => 'Rota padrão';
 	@override String get tunAutoRedirect => 'Redirecionamento automático';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Se após ligar a partilha outros não conseguirem aceder a este dispositivo, por favor tente desligar este interruptor';
@@ -1132,6 +1133,7 @@ extension on TranslationsPt {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Devido a limitações do sistema, após isto ser ativado, as aplicações neste dispositivo que usem http para aceder à rede podem não conseguir ligar-se à rede corretamente.',
 			'SettingsScreen.tunAutoRoute' => 'Rota automática',
+			'SettingsScreen.tunDefaultRoute' => 'Rota padrão',
 			'SettingsScreen.tunAutoRedirect' => 'Redirecionamento automático',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Se após ligar a partilha outros não conseguirem aceder a este dispositivo, por favor tente desligar este interruptor',
@@ -1453,9 +1455,9 @@ extension on TranslationsPt {
 			'permission.requestNeed' => ({required Object p}) => 'Por favor Ative a permissão [${p}]',
 			'tls.insecure' => 'Saltar Verificação de Certificado',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Ativar Fragmento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Ativar Fragmento TLS',
 			'tls.fragmentSize' => 'Tamanho do Fragmento TLS',
 			'tls.fragmentSleep' => 'Pausa do Fragmento TLS',
 			'tls.mixedCaseSNIEnable' => 'Ativar SNI de Caixa Mista TLS',

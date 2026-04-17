@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks: $sp, http(s): $hp",
         "allowOtherHostsConnectWarn": "Do giới hạn của hệ thống, sau khi bật tính năng này, các ứng dụng trên thiết bị này sử dụng http để truy cập mạng có thể không kết nối được mạng bình thường.",
         "tunAutoRoute": "Tự động định tuyến",
+        "tunDefaultRoute": "Tuyến mặc định",
         "tunAutoRedirect": "Tự động chuyển hướng",
         "tunStrictRoute": "Định tuyến nghiêm ngặt",
         "tunStrictRouteTips": "Nếu sau khi bật chia sẻ, các thiết bị khác không thể truy cập thiết bị này, vui lòng thử tắt công tắc này",

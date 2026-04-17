@@ -8,12 +8,14 @@ import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/diversion_group_custom_screen.dart';
+import 'package:karing/screens/dns_settings_screen.dart';
 import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/file_view_screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:tuple/tuple.dart';
 
 class DiversionRulesScreen extends LasyRenderingStatefulWidget {
@@ -185,6 +187,7 @@ class DiversionRulesScreenState
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
             name: tcontext.SettingsScreen.privateDirect,
+            tips: "${tcontext.meta.rule}/${tcontext.meta.global}",
             switchValue: settingConfig.privateDirect,
             onSwitch: (bool value) async {
               settingConfig.privateDirect = value;
@@ -244,11 +247,19 @@ class DiversionRulesScreenState
             GroupItemOptions(
               pushOptions: GroupItemPushOptions(
                 name: getDiversionShortName(item.name),
+                icon: !settingConfig.novice && selected.item3.isNotEmpty
+                    ? Icons.dns_outlined
+                    : null,
                 text: text,
                 textColor: invalid ? Colors.red : null,
                 textWidthPercent: 0.4,
                 onPush: () async {
-                  onTapItem(item, selected.item1, invalid: invalid);
+                  onTapItem(
+                    item,
+                    selected.item1,
+                    selected.item3,
+                    invalid: invalid,
+                  );
                 },
                 onLongPress: () async {
                   onTapItemName(item);
@@ -299,7 +310,12 @@ class DiversionRulesScreenState
                   : selected.item1.tag,
               textWidthPercent: 0.4,
               onPush: () async {
-                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+                onTapItem(
+                  group,
+                  selected.item1,
+                  selected.item3,
+                  deleteIfSelectNone: true,
+                );
               },
               onLongPress: () async {
                 onTapItemName(group);
@@ -347,7 +363,12 @@ class DiversionRulesScreenState
                   : selected.item1.tag,
               textWidthPercent: 0.4,
               onPush: () async {
-                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+                onTapItem(
+                  group,
+                  selected.item1,
+                  selected.item3,
+                  deleteIfSelectNone: true,
+                );
               },
               onLongPress: () async {
                 onTapItemName(group);
@@ -392,7 +413,12 @@ class DiversionRulesScreenState
                   : selected.item1.tag,
               textWidthPercent: 0.4,
               onPush: () async {
-                onTapItem(group, selected.item1, deleteIfSelectNone: true);
+                onTapItem(
+                  group,
+                  selected.item1,
+                  selected.item3,
+                  deleteIfSelectNone: true,
+                );
               },
               onLongPress: () async {
                 onTapItemName(group);
@@ -422,7 +448,7 @@ class DiversionRulesScreenState
                 : selected.item1.tag,
             textWidthPercent: 0.4,
             onPush: () async {
-              onTapItem(group, selected.item1);
+              onTapItem(group, selected.item1, selected.item3);
             },
           ),
         ),
@@ -461,6 +487,98 @@ class DiversionRulesScreenState
 
   Future<void> onTapItem(
     DiversionRulesGroup group,
+    ProxyConfig selected,
+    List<String> dnsServers, {
+    bool deleteIfSelectNone = false,
+    bool invalid = false,
+  }) async {
+    if (!SettingManager.getConfig().novice &&
+        selected.groupid.isNotEmpty &&
+        selected.groupid != ServerManager.getBlock().groupid &&
+        group.groupid != ServerManager.getFinalGroupId()) {
+      final tcontext = Translations.of(context);
+      var widgets = [
+        ListTile(
+          title: Text(tcontext.meta.rule),
+          onTap: () async {
+            Navigator.of(context).pop();
+            showItemRuleSelect(
+              group,
+              selected,
+              deleteIfSelectNone: deleteIfSelectNone,
+              invalid: invalid,
+            );
+          },
+        ),
+        ListTile(
+          title: Text(tcontext.meta.dns),
+          onTap: () async {
+            Navigator.of(context).pop();
+            final tunMode = await VPNService.getTunMode();
+            if (!mounted) {
+              return;
+            }
+            bool dirty = false;
+            Set<String> dnsServer = dnsServers.toSet();
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                settings: DnsSettingsScreen.routSettings(),
+                builder: (context) => DnsSettingsScreen(
+                  title: getDiversionShortName(group.name),
+                  servers: dnsServer,
+                  disabled: {},
+                  tunMode: tunMode,
+                  maxServers: 1,
+                  onChanged: (server, selected) {
+                    dirty = true;
+                    if (selected) {
+                      dnsServer.add(server);
+                    } else {
+                      dnsServer.remove(server);
+                    }
+                  },
+                ),
+              ),
+            );
+            if (dirty) {
+              setDnsSelected(group, selected, dnsServer.toList());
+            }
+          },
+        ),
+      ];
+      showSheet(
+        context: context,
+        body: SizedBox(
+          height: 400,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Scrollbar(
+              child: ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  return widgets[index];
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(height: 1, thickness: 0.3);
+                },
+                itemCount: widgets.length,
+              ),
+            ),
+          ),
+        ),
+      );
+      return;
+    }
+    showItemRuleSelect(
+      group,
+      selected,
+      deleteIfSelectNone: deleteIfSelectNone,
+      invalid: invalid,
+    );
+  }
+
+  Future<void> showItemRuleSelect(
+    DiversionRulesGroup group,
     ProxyConfig selected, {
     bool deleteIfSelectNone = false,
     bool invalid = false,
@@ -491,11 +609,11 @@ class DiversionRulesScreenState
       ),
     );
     if (result != null && !selected.isSame(result)) {
-      setSelected(group, result, deleteIfSelectNone: deleteIfSelectNone);
+      setRuleSelected(group, result, deleteIfSelectNone: deleteIfSelectNone);
     }
   }
 
-  void setSelected(
+  void setRuleSelected(
     DiversionRulesGroup group,
     ProxyConfig server, {
     bool deleteIfSelectNone = false,
@@ -537,7 +655,28 @@ class DiversionRulesScreenState
     }
   }
 
-  Tuple2<ProxyConfig, String> getSelected(DiversionRulesGroup group) {
+  void setDnsSelected(
+    DiversionRulesGroup group,
+    ProxyConfig server,
+    List<String> dnsServers,
+  ) {
+    if (group.groupid.isNotEmpty) {
+      var diversionGroup = ServerManager.getUse().diversionGroup;
+      for (var rts in diversionGroup) {
+        if (rts.diversionGroupId == group.groupid &&
+            rts.diversionName == group.name) {
+          rts.dnsServers = dnsServers.toList();
+          ServerManager.setDirty(true);
+          setState(() {});
+          return;
+        }
+      }
+    }
+  }
+
+  Tuple3<ProxyConfig, String, List<String>> getSelected(
+    DiversionRulesGroup group,
+  ) {
     final tcontext = Translations.of(context);
     var diversionGroup = ServerManager.getUse().diversionGroup;
     for (var rts in diversionGroup) {
@@ -545,34 +684,39 @@ class DiversionRulesScreenState
           (rts.diversionGroupId == ServerManager.getFinalGroupId() ||
               rts.diversionName == group.name)) {
         if (rts.serverGroupId == ServerManager.getByCurrentSelected().groupid) {
-          return Tuple2(
+          return Tuple3(
             ServerManager.getByCurrentSelected(),
             tcontext.outboundRuleMode.currentSelected,
+            rts.dnsServers,
           );
         } else if (rts.serverGroupId == ServerManager.getUrltest().groupid) {
-          return Tuple2(
+          return Tuple3(
             ServerManager.getUrltest(tag: rts.serverName),
             rts.serverName == kOutboundTagUrltest
                 ? tcontext.outboundRuleMode.urltest
                 : rts.serverName,
+            rts.dnsServers,
           );
         } else if (rts.serverGroupId == ServerManager.getDirect().groupid) {
-          return Tuple2(
+          return Tuple3(
             ServerManager.getDirect(),
             tcontext.outboundRuleMode.direct,
+            rts.dnsServers,
           );
         } else if (rts.serverGroupId == ServerManager.getBlock().groupid) {
-          return Tuple2(
+          return Tuple3(
             ServerManager.getBlock(),
             tcontext.outboundRuleMode.block,
+            [],
           );
         } else if (rts.serverGroupId == ServerManager.getUrltestGroupId()) {
           ServerConfigGroupItem item = ServerManager.getCustomGroup();
           for (var urltest in item.urltests) {
             if (urltest.remark == rts.serverName) {
-              return Tuple2(
+              return Tuple3(
                 ServerManager.getUrltest(tag: urltest.remark),
                 urltest.remark,
+                rts.dnsServers,
               );
             }
           }
@@ -584,7 +728,7 @@ class DiversionRulesScreenState
             if (item.groupid == rts.serverGroupId) {
               for (var server in item.servers) {
                 if (rts.serverName == server.tag) {
-                  return Tuple2(server, "");
+                  return Tuple3(server, "", rts.dnsServers);
                 }
               }
               break;
@@ -596,11 +740,12 @@ class DiversionRulesScreenState
       }
     }
     if (group.groupid == ServerManager.getFinalGroupId()) {
-      return Tuple2(
+      return Tuple3(
         ServerManager.getByCurrentSelected(),
         tcontext.outboundRuleMode.currentSelected,
+        [],
       );
     }
-    return Tuple2(ServerManager.getNone(), "");
+    return Tuple3(ServerManager.getNone(), "", []);
   }
 }

@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenBn implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'সিস্টেম সীমাবদ্ধতার কারণে, এটি সক্ষম করার পরে, এই ডিভাইসের যেসব অ্যাপ্লিকেশন নেটওয়ার্ক অ্যাক্সেসের জন্য http ব্যবহার করে, সেগুলি নেটওয়ার্কের সাথে সঠিকভাবে সংযোগ করতে পারবে না।';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunDefaultRoute => 'ডিফল্ট রুট';
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'যদি শেয়ার চালু করার পরে অন্য কেউ এই ডিভাইসে পৌঁছাতে না পারে, তবে অনুগ্রহ করে এই সুইচটি বন্ধ করার চেষ্টা করুন';
@@ -1132,6 +1133,7 @@ extension on TranslationsBn {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'সিস্টেম সীমাবদ্ধতার কারণে, এটি সক্ষম করার পরে, এই ডিভাইসের যেসব অ্যাপ্লিকেশন নেটওয়ার্ক অ্যাক্সেসের জন্য http ব্যবহার করে, সেগুলি নেটওয়ার্কের সাথে সঠিকভাবে সংযোগ করতে পারবে না।',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'ডিফল্ট রুট',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'যদি শেয়ার চালু করার পরে অন্য কেউ এই ডিভাইসে পৌঁছাতে না পারে, তবে অনুগ্রহ করে এই সুইচটি বন্ধ করার চেষ্টা করুন',
@@ -1453,9 +1455,9 @@ extension on TranslationsBn {
 			'permission.requestNeed' => ({required Object p}) => 'অনুগ্রহ করে [${p}] অনুমতি চালু করুন',
 			'tls.insecure' => 'সার্টিফিকেট যাচাইকরণ এড়িয়ে যান',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS ফ্র্যাগমেন্ট সক্ষম করুন',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS ফ্র্যাগমেন্ট সক্ষম করুন',
 			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
 			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
 			'tls.mixedCaseSNIEnable' => 'TLS মিক্সড কেস SNI সক্ষম করুন',

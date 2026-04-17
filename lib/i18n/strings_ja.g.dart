@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'システムの制限により、これを有効にすると、http を使用してネットワークにアクセスするこのデバイス上のアプリが正常にネットワークに接続できなくなる可能性があります。';
 	@override String get tunAutoRoute => '自動ルート';
+	@override String get tunDefaultRoute => 'デフォルトルート';
 	@override String get tunAutoRedirect => '自動リダイレクト';
 	@override String get tunStrictRoute => '厳格なルート';
 	@override String get tunStrictRouteTips => '共有をオンにした後、他のデバイスからこのデバイスにアクセスできない場合は、このスイッチをオフにしてみてください';
@@ -1132,6 +1133,7 @@ extension on TranslationsJa {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'システムの制限により、これを有効にすると、http を使用してネットワークにアクセスするこのデバイス上のアプリが正常にネットワークに接続できなくなる可能性があります。',
 			'SettingsScreen.tunAutoRoute' => '自動ルート',
+			'SettingsScreen.tunDefaultRoute' => 'デフォルトルート',
 			'SettingsScreen.tunAutoRedirect' => '自動リダイレクト',
 			'SettingsScreen.tunStrictRoute' => '厳格なルート',
 			'SettingsScreen.tunStrictRouteTips' => '共有をオンにした後、他のデバイスからこのデバイスにアクセスできない場合は、このスイッチをオフにしてみてください',
@@ -1453,9 +1455,9 @@ extension on TranslationsJa {
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',
 			'tls.insecure' => '証明書の検証をスキップする',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
 			'tls.fragmentSize' => 'TLS フラグメントサイズ',
 			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
 			'tls.mixedCaseSNIEnable' => 'TLS 混合ケース SNI を有効にする',

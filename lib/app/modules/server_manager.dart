@@ -266,12 +266,14 @@ class DiversionGroupSetting {
   String diversionName = "";
   String serverGroupId = "";
   String serverName = "";
+  List<String> dnsServers = [];
 
   Map<String, dynamic> toJson() => {
     'diversion_groupid': diversionGroupId,
     'diversion_name': diversionName,
     'server_groupid': serverGroupId,
     'server_name': serverName,
+    'dns_servers': dnsServers,
   };
 
   void fromJson(Map<String, dynamic>? map) {
@@ -283,6 +285,7 @@ class DiversionGroupSetting {
     diversionName = map["diversion_name"] ?? map["routing_name"] ?? "";
     serverGroupId = map["server_groupid"] ?? "";
     serverName = map["server_name"] ?? "";
+    dnsServers = List.from(map["dns_servers"] ?? []);
   }
 }
 
@@ -768,8 +771,10 @@ class ServerManager {
     return (a.serverIndex - b.serverIndex);
   }
 
-  static List<Tuple2<DiversionRulesGroup, ProxyConfig>> getDiversionGroups() {
-    List<Tuple2<DiversionRulesGroup, ProxyConfig>> diversionGroups = [];
+  static List<Tuple3<DiversionRulesGroup, ProxyConfig, List<String>>>
+  getDiversionGroups() {
+    List<Tuple3<DiversionRulesGroup, ProxyConfig, List<String>>>
+    diversionGroups = [];
     ServerConfigGroupItem? custom = getCustomGroup();
     //ServerDiversionGroupItem? customDiversion = getDiversionCustomGroup();
     Set<String> exists = {};
@@ -833,12 +838,12 @@ class ServerManager {
       if (use.serverGroupId == getUrltestGroupId()) {
         if (kOutboundTagUrltest == use.serverName) {
           ProxyConfig pc = getUrltest();
-          diversionGroups.add(Tuple2(rg, pc));
+          diversionGroups.add(Tuple3(rg, pc, use.dnsServers));
         } else {
           for (var urltest in custom.urltests) {
             if (urltest.remark == use.serverName) {
               ProxyConfig pc = getUrltest(tag: urltest.remark);
-              diversionGroups.add(Tuple2(rg, pc));
+              diversionGroups.add(Tuple3(rg, pc, use.dnsServers));
               break;
             }
           }
@@ -852,7 +857,7 @@ class ServerManager {
         if (pc == null) {
           continue;
         }
-        diversionGroups.add(Tuple2(rg, pc));
+        diversionGroups.add(Tuple3(rg, pc, use.dnsServers));
       }
     }
     return diversionGroups;

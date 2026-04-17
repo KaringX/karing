@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenUr implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'سسٹم کی حدود کی وجہ سے، اسے فعال کرنے کے بعد، اس ڈیوائس پر وہ ایپلی کیشنز جو نیٹ ورک تک رسائی کے لیے http استعمال کرتی ہیں، نیٹ ورک سے ٹھیک سے منسلک نہیں ہو سکیں گی۔';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunDefaultRoute => 'ڈیفالٹ روٹ';
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'اگر شیئر آن کرنے کے بعد دوسرے اس ڈیوائس تک نہیں پہنچ پا رہے ہیں تو براہ کرم اس سوئچ کو آف کرنے کی کوشش کریں';
@@ -1132,6 +1133,7 @@ extension on TranslationsUr {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'سسٹم کی حدود کی وجہ سے، اسے فعال کرنے کے بعد، اس ڈیوائس پر وہ ایپلی کیشنز جو نیٹ ورک تک رسائی کے لیے http استعمال کرتی ہیں، نیٹ ورک سے ٹھیک سے منسلک نہیں ہو سکیں گی۔',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'ڈیفالٹ روٹ',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'اگر شیئر آن کرنے کے بعد دوسرے اس ڈیوائس تک نہیں پہنچ پا رہے ہیں تو براہ کرم اس سوئچ کو آف کرنے کی کوشش کریں',
@@ -1453,9 +1455,9 @@ extension on TranslationsUr {
 			'permission.requestNeed' => ({required Object p}) => 'براہ کرم [${p}] اجازت آن کریں',
 			'tls.insecure' => 'سرٹیفکیٹ کی تصدیق نظر انداز کریں',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
 			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
 			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
 			'tls.mixedCaseSNIEnable' => 'TLS مکسڈ کیس SNI فعال کریں',

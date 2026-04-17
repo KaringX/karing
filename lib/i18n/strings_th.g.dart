@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenTh implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'เนื่องจากข้อจำกัดของระบบ หลังจากเปิดใช้งานนี้ แอปพลิเคชันบนอุปกรณ์นี้ที่ใช้ http เพื่อเข้าถึงเครือข่ายอาจไม่สามารถเชื่อมต่อกับเครือข่ายได้อย่างถูกต้อง';
 	@override String get tunAutoRoute => 'เส้นทางอัตโนมัติ';
+	@override String get tunDefaultRoute => 'เส้นทางเริ่มต้น';
 	@override String get tunAutoRedirect => 'เปลี่ยนเส้นทางอัตโนมัติ';
 	@override String get tunStrictRoute => 'เส้นทางที่เคร่งครัด';
 	@override String get tunStrictRouteTips => 'หากหลังจากเปิดการแชร์ผู้อื่นไม่สามารถเข้าถึงอุปกรณ์นี้ได้ โปรดปิดสวิตช์นี้';
@@ -1132,6 +1133,7 @@ extension on TranslationsTh {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'เนื่องจากข้อจำกัดของระบบ หลังจากเปิดใช้งานนี้ แอปพลิเคชันบนอุปกรณ์นี้ที่ใช้ http เพื่อเข้าถึงเครือข่ายอาจไม่สามารถเชื่อมต่อกับเครือข่ายได้อย่างถูกต้อง',
 			'SettingsScreen.tunAutoRoute' => 'เส้นทางอัตโนมัติ',
+			'SettingsScreen.tunDefaultRoute' => 'เส้นทางเริ่มต้น',
 			'SettingsScreen.tunAutoRedirect' => 'เปลี่ยนเส้นทางอัตโนมัติ',
 			'SettingsScreen.tunStrictRoute' => 'เส้นทางที่เคร่งครัด',
 			'SettingsScreen.tunStrictRouteTips' => 'หากหลังจากเปิดการแชร์ผู้อื่นไม่สามารถเข้าถึงอุปกรณ์นี้ได้ โปรดปิดสวิตช์นี้',
@@ -1453,9 +1455,9 @@ extension on TranslationsTh {
 			'permission.requestNeed' => ({required Object p}) => 'โปรดเปิดใช้งาน [${p}] สิทธิ์',
 			'tls.insecure' => 'ข้ามการตรวจสอบใบรับรอง',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'เปิดใช้งาน TLS Fragment',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'เปิดใช้งาน TLS Fragment',
 			'tls.fragmentSize' => 'ขนาด TLS Fragment',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
 			'tls.mixedCaseSNIEnable' => 'เปิดใช้งาน TLS Mixed SNI',

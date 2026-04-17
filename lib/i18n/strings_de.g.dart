@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenDe implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Aufgrund von Systembeschränkungen können Anwendungen auf diesem Gerät, die http für den Netzwerkzugriff verwenden, nach Aktivierung dieser Option möglicherweise nicht mehr ordnungsgemäß mit dem Netzwerk verbunden werden.';
 	@override String get tunAutoRoute => 'Automatische Route';
+	@override String get tunDefaultRoute => 'Standardroute';
 	@override String get tunAutoRedirect => 'Automatische Umleitung';
 	@override String get tunStrictRoute => 'Strikte Route';
 	@override String get tunStrictRouteTips => 'Wenn nach dem Einschalten der Freigabe andere nicht auf dieses Gerät zugreifen können, versuchen Sie bitte, diesen Schalter auszuschalten';
@@ -1132,6 +1133,7 @@ extension on TranslationsDe {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Aufgrund von Systembeschränkungen können Anwendungen auf diesem Gerät, die http für den Netzwerkzugriff verwenden, nach Aktivierung dieser Option möglicherweise nicht mehr ordnungsgemäß mit dem Netzwerk verbunden werden.',
 			'SettingsScreen.tunAutoRoute' => 'Automatische Route',
+			'SettingsScreen.tunDefaultRoute' => 'Standardroute',
 			'SettingsScreen.tunAutoRedirect' => 'Automatische Umleitung',
 			'SettingsScreen.tunStrictRoute' => 'Strikte Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Wenn nach dem Einschalten der Freigabe andere nicht auf dieses Gerät zugreifen können, versuchen Sie bitte, diesen Schalter auszuschalten',
@@ -1453,9 +1455,9 @@ extension on TranslationsDe {
 			'permission.requestNeed' => ({required Object p}) => 'Bitte schalten Sie die Berechtigung [${p}] ein',
 			'tls.insecure' => 'Zertifikatsprüfung überspringen',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS-Fragment aktivieren',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS-Fragment aktivieren',
 			'tls.fragmentSize' => 'TLS-Fragmentgröße',
 			'tls.fragmentSleep' => 'TLS-Fragment-Ruhezeit',
 			'tls.mixedCaseSNIEnable' => 'Gemischte SNI-Schreibweise aktivieren',

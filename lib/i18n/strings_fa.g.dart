@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenFa implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
 	@override String get tunAutoRoute => 'مسیر خودکار';
+	@override String get tunDefaultRoute => 'مسیر پیش‌فرض';
 	@override String get tunAutoRedirect => 'تغییر مسیر خودکار';
 	@override String get tunStrictRoute => 'مسیر سخت‌گیرانه';
 	@override String get tunStrictRouteTips => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.';
@@ -1132,6 +1133,7 @@ extension on TranslationsFa {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.',
 			'SettingsScreen.tunAutoRoute' => 'مسیر خودکار',
+			'SettingsScreen.tunDefaultRoute' => 'مسیر پیش‌فرض',
 			'SettingsScreen.tunAutoRedirect' => 'تغییر مسیر خودکار',
 			'SettingsScreen.tunStrictRoute' => 'مسیر سخت‌گیرانه',
 			'SettingsScreen.tunStrictRouteTips' => 'اگر پس از روشن کردن اشتراک‌گذاری، دیگران نمی‌توانند به این دستگاه دسترسی داشته باشند، لطفاً این سوئیچ را خاموش کنید.',
@@ -1453,9 +1455,9 @@ extension on TranslationsFa {
 			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',
 			'tls.insecure' => 'رد شدن از تأیید گواهی',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
 			'tls.fragmentSize' => 'اندازه بخش TLS',
 			'tls.fragmentSleep' => 'خواب بخش‌بندی شده TLS',
 			'tls.mixedCaseSNIEnable' => 'TLS ترکیبی SNI را فعال کنید',

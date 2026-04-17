@@ -57,7 +57,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 ## System Requirements
 - Windows >= 10 (64-bit only)
 - Android >= 8 (arm64-v8a, armeabi-v7a)
-- Linux (64-bit only)
+- Linux (64-bit only, glibc >= 2.38 for current .deb packages)
 - IOS >= 15
 - MacOS >= 12 (Intel, Apple Silicon)
 - TvOS >= 17

@@ -127,10 +127,9 @@ class TrackerMetaData {
         packageName = processPath;
         processPath = "";
       }
-    }
-    else if(Platform.isMacOS|| Platform.isLinux){
+    } else if (Platform.isMacOS || Platform.isLinux) {
       final index = processPath.lastIndexOf(" (");
-      if(index > 0){
+      if (index > 0) {
         processPath = processPath.substring(0, index);
       }
     }
@@ -228,6 +227,12 @@ class NetConnectionStateIn {
     return getIdDownload() + getRemoveIdDownload();
   }
 
+  num getDownloadDiff() {
+    final download = getIdDownload();
+    final lastDownload = getIdLastDownload();
+    return download - lastDownload;
+  }
+
   num getIdUpload() {
     return ids.values.fold(0, (prev, e) => prev + e.upload);
   }
@@ -240,28 +245,18 @@ class NetConnectionStateIn {
     return getIdUpload() + getRemoveIdUpload();
   }
 
+  num getUploadDiff() {
+    final upload = getIdUpload();
+    final lastUpload = getIdLastUpload();
+    return upload - lastUpload;
+  }
+
   num getIdLastDownload() {
     return ids.values.fold(0, (prev, e) => prev + e.lastDownload);
   }
 
-  num getRemoveIdLastDownload() {
-    return removedIds.values.fold(0, (prev, e) => prev + e.lastDownload);
-  }
-
-  num getLastDownload() {
-    return getIdLastDownload() + getRemoveIdLastDownload();
-  }
-
   num getIdLastUpload() {
     return ids.values.fold(0, (prev, e) => prev + e.lastUpload);
-  }
-
-  num getRemoveIdLastUpload() {
-    return removedIds.values.fold(0, (prev, e) => prev + e.lastUpload);
-  }
-
-  num getLastUpload() {
-    return getIdLastUpload() + getRemoveIdLastUpload();
   }
 
   String getProcessName() {
@@ -269,7 +264,7 @@ class NetConnectionStateIn {
     if (n > 0) {
       return process.substring(n + 1);
     }
-    n = n = process.lastIndexOf("\\");
+    n = process.lastIndexOf("\\");
     if (n > 0) {
       return process.substring(n + 1);
     }
@@ -381,8 +376,8 @@ class _NetConnectionsScreenState
       if (find == null) {
         newTrackers[key] = connection;
       } else {
-        find.download += connection.download;
-        find.upload += connection.upload;
+        find.download = connection.download;
+        find.upload = connection.upload;
         if (find.start.difference(connection.start).inMilliseconds < 0) {
           find.start = connection.start;
         }
@@ -812,10 +807,10 @@ class _NetConnectionsScreenState
     }
 
     String lastUpload = ProxyConfUtils.convertTrafficToStringDouble(
-      current.getUpload() - current.getLastUpload(),
+      current.getUploadDiff(),
     );
     String lastDownload = ProxyConfUtils.convertTrafficToStringDouble(
-      current.getDownload() - current.getLastDownload(),
+      current.getDownloadDiff(),
     );
     String noSpeed = "0 B";
     return Material(
@@ -1592,14 +1587,14 @@ class _NetConnectionsScreenState
   }
 
   int sortCompareUploadSpeed(NetConnectionStateIn a, NetConnectionStateIn b) {
-    final aSpeed = a.getUpload() - a.getLastUpload();
-    final bSpeed = b.getUpload() - b.getLastUpload();
+    final aSpeed = a.getUploadDiff();
+    final bSpeed = b.getUploadDiff();
     return (bSpeed - aSpeed).toInt();
   }
 
   int sortCompareDownloadSpeed(NetConnectionStateIn a, NetConnectionStateIn b) {
-    final aSpeed = a.getDownload() - a.getLastDownload();
-    final bSpeed = b.getDownload() - b.getLastDownload();
+    final aSpeed = a.getDownloadDiff();
+    final bSpeed = b.getDownloadDiff();
     return (bSpeed - aSpeed).toInt();
   }
 

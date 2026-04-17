@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenIt implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'A causa delle limitazioni del sistema, dopo l\'abilitazione, le applicazioni su questo dispositivo che utilizzano http per accedere alla rete potrebbero non essere in grado di connettersi correttamente.';
 	@override String get tunAutoRoute => 'Percorso automatico';
+	@override String get tunDefaultRoute => 'Percorso predefinito';
 	@override String get tunAutoRedirect => 'Reindirizzamento automatico';
 	@override String get tunStrictRoute => 'Percorso rigoroso';
 	@override String get tunStrictRouteTips => 'Se dopo aver attivato la condivisione altri non riescono ad accedere a questo dispositivo, prova a disattivare questo interruttore';
@@ -1132,6 +1133,7 @@ extension on TranslationsIt {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'A causa delle limitazioni del sistema, dopo l\'abilitazione, le applicazioni su questo dispositivo che utilizzano http per accedere alla rete potrebbero non essere in grado di connettersi correttamente.',
 			'SettingsScreen.tunAutoRoute' => 'Percorso automatico',
+			'SettingsScreen.tunDefaultRoute' => 'Percorso predefinito',
 			'SettingsScreen.tunAutoRedirect' => 'Reindirizzamento automatico',
 			'SettingsScreen.tunStrictRoute' => 'Percorso rigoroso',
 			'SettingsScreen.tunStrictRouteTips' => 'Se dopo aver attivato la condivisione altri non riescono ad accedere a questo dispositivo, prova a disattivare questo interruttore',
@@ -1453,9 +1455,9 @@ extension on TranslationsIt {
 			'permission.requestNeed' => ({required Object p}) => 'Attiva il permesso [${p}]',
 			'tls.insecure' => 'Salta Verifica Certificato',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Abilita Frammento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Abilita Frammento TLS',
 			'tls.fragmentSize' => 'Dimensione Frammento TLS',
 			'tls.fragmentSleep' => 'Pausa Frammento TLS',
 			'tls.mixedCaseSNIEnable' => 'Abilita SNI TLS Case Misto',

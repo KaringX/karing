@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenKo implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => '시스템 제한으로 인해 이 기능을 활성화하면 http를 사용하여 네트워크에 액세스하는 이 기기의 앱이 네트워크에 제대로 연결되지 않을 수 있습니다.';
 	@override String get tunAutoRoute => '자동 경로';
+	@override String get tunDefaultRoute => '기본 경로';
 	@override String get tunAutoRedirect => '자동 리디렉션';
 	@override String get tunStrictRoute => '엄격한 경로';
 	@override String get tunStrictRouteTips => '공유를 켠 후 다른 기기에서 이 기기에 액세스할 수 없는 경우 이 스위치를 꺼 보십시오';
@@ -1132,6 +1133,7 @@ extension on TranslationsKo {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '시스템 제한으로 인해 이 기능을 활성화하면 http를 사용하여 네트워크에 액세스하는 이 기기의 앱이 네트워크에 제대로 연결되지 않을 수 있습니다.',
 			'SettingsScreen.tunAutoRoute' => '자동 경로',
+			'SettingsScreen.tunDefaultRoute' => '기본 경로',
 			'SettingsScreen.tunAutoRedirect' => '자동 리디렉션',
 			'SettingsScreen.tunStrictRoute' => '엄격한 경로',
 			'SettingsScreen.tunStrictRouteTips' => '공유를 켠 후 다른 기기에서 이 기기에 액세스할 수 없는 경우 이 스위치를 꺼 보십시오',
@@ -1453,9 +1455,9 @@ extension on TranslationsKo {
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 권한을 켜주십시오',
 			'tls.insecure' => '인증서 확인 건너뛰기',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS 조각화 활성화',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS 조각화 활성화',
 			'tls.fragmentSize' => 'TLS 조각 크기',
 			'tls.fragmentSleep' => 'TLS 조각 대기 시간',
 			'tls.mixedCaseSNIEnable' => 'TLS 혼합 케이스 SNI 활성화',

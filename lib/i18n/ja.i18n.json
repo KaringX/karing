@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks: $sp, http(s): $hp",
         "allowOtherHostsConnectWarn": "システムの制限により、これを有効にすると、http を使用してネットワークにアクセスするこのデバイス上のアプリが正常にネットワークに接続できなくなる可能性があります。",
         "tunAutoRoute": "自動ルート",
+        "tunDefaultRoute": "デフォルトルート",
         "tunAutoRedirect": "自動リダイレクト",
         "tunStrictRoute": "厳格なルート",
         "tunStrictRouteTips": "共有をオンにした後、他のデバイスからこのデバイスにアクセスできない場合は、このスイッチをオフにしてみてください",

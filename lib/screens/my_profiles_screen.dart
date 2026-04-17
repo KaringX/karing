@@ -1502,8 +1502,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     dynamic selectOutbound = SingboxConfigBuilder.buildOutbound(
       ServerManager.getUrltest(),
     );
-    List<Tuple2<DiversionRulesGroup, ProxyConfig>> diversionGroups =
-        ServerManager.getDiversionGroups();
+    List<Tuple3<DiversionRulesGroup, ProxyConfig, List<String>>>
+    diversionGroups = ServerManager.getDiversionGroups();
     Set<String> selectOutboundTags = {};
     List<dynamic> allOutBounds = [];
     for (var server in item.servers) {
@@ -1514,7 +1514,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
     }
     config.ntp = SingboxConfigBuilder.ntp();
-    final dns = SingboxConfigBuilder.dns(tunMode, SingboxExportType.karing);
+    final dns = SingboxConfigBuilder.dns(
+      tunMode,
+      SingboxExportType.karing,
+      null,
+    );
     if (dns.error != null) {
       DialogUtils.showAlertDialog(
         context,

@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenEs implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Debido a limitaciones del sistema, una vez activado, las aplicaciones de este dispositivo que usan http para acceder a la red podrían no conectarse correctamente.';
 	@override String get tunAutoRoute => 'Ruta automática';
+	@override String get tunDefaultRoute => 'Ruta predeterminada';
 	@override String get tunAutoRedirect => 'Redirección automática';
 	@override String get tunStrictRoute => 'Ruta estricta';
 	@override String get tunStrictRouteTips => 'Si después de activar el intercambio otros no pueden acceder a este dispositivo, intente desactivar este interruptor';
@@ -1132,6 +1133,7 @@ extension on TranslationsEs {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Debido a limitaciones del sistema, una vez activado, las aplicaciones de este dispositivo que usan http para acceder a la red podrían no conectarse correctamente.',
 			'SettingsScreen.tunAutoRoute' => 'Ruta automática',
+			'SettingsScreen.tunDefaultRoute' => 'Ruta predeterminada',
 			'SettingsScreen.tunAutoRedirect' => 'Redirección automática',
 			'SettingsScreen.tunStrictRoute' => 'Ruta estricta',
 			'SettingsScreen.tunStrictRouteTips' => 'Si después de activar el intercambio otros no pueden acceder a este dispositivo, intente desactivar este interruptor',
@@ -1453,9 +1455,9 @@ extension on TranslationsEs {
 			'permission.requestNeed' => ({required Object p}) => 'Active el permiso [${p}]',
 			'tls.insecure' => 'Omitir verificación de certificado',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Habilitar fragmento TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Habilitar fragmento TLS',
 			'tls.fragmentSize' => 'Tamaño de fragmento TLS',
 			'tls.fragmentSleep' => 'Espera de fragmento TLS',
 			'tls.mixedCaseSNIEnable' => 'Habilitar SNI mixto TLS',

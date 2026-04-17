@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.",
         "tunAutoRoute": "مسار تلقائي",
+        "tunDefaultRoute": "المسار الافتراضي",
         "tunAutoRedirect": "إعادة توجيه تلقائية",
         "tunStrictRoute": "مسار صارم",
         "tunStrictRouteTips": "إذا لم يتمكن الآخرون من الوصول إلى هذا الجهاز بعد تشغيل المشاركة، فيرجى محاولة إيقاف تشغيل هذا المفتاح.",

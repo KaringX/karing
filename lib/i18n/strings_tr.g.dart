@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenTr implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Sistem kısıtlamaları nedeniyle, bu etkinleştirildikten sonra bu cihazdaki ağa erişmek için http kullanan uygulamalar ağa düzgün şekilde bağlanamayabilir.';
 	@override String get tunAutoRoute => 'Otomatik Rota';
+	@override String get tunDefaultRoute => 'Varsayılan rota';
 	@override String get tunAutoRedirect => 'Otomatik Yönlendirme';
 	@override String get tunStrictRoute => 'Sıkı Rota';
 	@override String get tunStrictRouteTips => 'Paylaşımı açtıktan sonra başkaları bu cihaza erişemiyorsa lütfen bu anahtarı kapatmayı deneyin';
@@ -1132,6 +1133,7 @@ extension on TranslationsTr {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Sistem kısıtlamaları nedeniyle, bu etkinleştirildikten sonra bu cihazdaki ağa erişmek için http kullanan uygulamalar ağa düzgün şekilde bağlanamayabilir.',
 			'SettingsScreen.tunAutoRoute' => 'Otomatik Rota',
+			'SettingsScreen.tunDefaultRoute' => 'Varsayılan rota',
 			'SettingsScreen.tunAutoRedirect' => 'Otomatik Yönlendirme',
 			'SettingsScreen.tunStrictRoute' => 'Sıkı Rota',
 			'SettingsScreen.tunStrictRouteTips' => 'Paylaşımı açtıktan sonra başkaları bu cihaza erişemiyorsa lütfen bu anahtarı kapatmayı deneyin',
@@ -1453,9 +1455,9 @@ extension on TranslationsTr {
 			'permission.requestNeed' => ({required Object p}) => 'Lütfen [${p}] iznini açın',
 			'tls.insecure' => 'Sertifika Doğrulamasını Atla',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
 			'tls.fragmentSize' => 'TLS Parça Boyutu',
 			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
 			'tls.mixedCaseSNIEnable' => 'TLS Karışık SNI\'yı Etkinleştir',

@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenPl implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Ze względu na ograniczenia systemowe, po włączeniu tej opcji aplikacje na tym urządzeniu używające http do dostępu do sieci mogą nie być w stanie prawidłowo połączyć się z siecią.';
 	@override String get tunAutoRoute => 'Automatyczna trasa';
+	@override String get tunDefaultRoute => 'Trasa domyślna';
 	@override String get tunAutoRedirect => 'Automatyczne przekierowanie';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Jeśli po włączeniu udostępniania inni nie mogą uzyskać dostępu do tego urządzenia, spróbuj wyłączyć ten przełącznik';
@@ -1132,6 +1133,7 @@ extension on TranslationsPl {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Ze względu na ograniczenia systemowe, po włączeniu tej opcji aplikacje na tym urządzeniu używające http do dostępu do sieci mogą nie być w stanie prawidłowo połączyć się z siecią.',
 			'SettingsScreen.tunAutoRoute' => 'Automatyczna trasa',
+			'SettingsScreen.tunDefaultRoute' => 'Trasa domyślna',
 			'SettingsScreen.tunAutoRedirect' => 'Automatyczne przekierowanie',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Jeśli po włączeniu udostępniania inni nie mogą uzyskać dostępu do tego urządzenia, spróbuj wyłączyć ten przełącznik',
@@ -1453,9 +1455,9 @@ extension on TranslationsPl {
 			'permission.requestNeed' => ({required Object p}) => 'Włącz uprawnienie [${p}]',
 			'tls.insecure' => 'Pomiń weryfikację certyfikatu',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Włącz fragmentację TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Włącz fragmentację TLS',
 			'tls.fragmentSize' => 'Rozmiar fragmentu TLS',
 			'tls.fragmentSleep' => 'Pauza fragmentacji TLS',
 			'tls.mixedCaseSNIEnable' => 'Włącz TLS Mixed SNI',

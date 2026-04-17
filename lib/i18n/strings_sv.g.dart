@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenSv implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'På grund av systembegränsningar kan program på den här enheten som använder http för nätverksåtkomst eventuellt inte ansluta till nätverket korrekt efter att detta har aktiverats.';
 	@override String get tunAutoRoute => 'Auto Route';
+	@override String get tunDefaultRoute => 'Standardrutt';
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'Om andra inte kan komma åt den här enheten efter att delning slagits på, försök att stänga av den här brytaren';
@@ -1132,6 +1133,7 @@ extension on TranslationsSv {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'På grund av systembegränsningar kan program på den här enheten som använder http för nätverksåtkomst eventuellt inte ansluta till nätverket korrekt efter att detta har aktiverats.',
 			'SettingsScreen.tunAutoRoute' => 'Auto Route',
+			'SettingsScreen.tunDefaultRoute' => 'Standardrutt',
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'Om andra inte kan komma åt den här enheten efter att delning slagits på, försök att stänga av den här brytaren',
@@ -1453,9 +1455,9 @@ extension on TranslationsSv {
 			'permission.requestNeed' => ({required Object p}) => 'Slå på behörighet [${p}] tack',
 			'tls.insecure' => 'Hoppa över certifikatverifiering',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Aktivera TLS-fragment',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Aktivera TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstorlek',
 			'tls.fragmentSleep' => 'TLS-fragment-vila',
 			'tls.mixedCaseSNIEnable' => 'Aktivera TLS Mixed SNI',

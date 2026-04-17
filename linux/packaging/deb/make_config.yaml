@@ -9,6 +9,7 @@ essential: false
 icon: assets/images/app_icon_256.png
 
 dependencies:
+#  - libc6 (>= 2.38)
   - libgtk-3-0
   - libayatana-appindicator3-1
 #  - libcurl4t64 

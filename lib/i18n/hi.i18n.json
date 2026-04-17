@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "socks:$sp,http(s):$hp",
         "allowOtherHostsConnectWarn": "सिस्टम सीमाओं के कारण, इसे सक्षम करने के बाद, इस डिवाइस पर वे एप्लिकेशन जो नेटवर्क एक्सेस के लिए http का उपयोग करते हैं, नेटवर्क से ठीक से कनेक्ट नहीं हो पाएंगे।",
         "tunAutoRoute": "Auto Route",
+        "tunDefaultRoute": "डिफ़ॉल्ट रूट",
         "tunAutoRedirect": "Auto Redirect",
         "tunStrictRoute": "Strict Route",
         "tunStrictRouteTips": "यदि शेयर चालू करने के बाद अन्य लोग इस डिवाइस तक नहीं पहुँच पा रहे हैं, तो कृपया इस स्विच को बंद करने का प्रयास करें",

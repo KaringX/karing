@@ -222,6 +222,7 @@
         "allowOtherHostsConnectTips": "SOCKS代理端口:$sp, HTTP(S)代理端口:$hp",
         "allowOtherHostsConnectWarn": "由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络",
         "tunAutoRoute": "自动路由",
+        "tunDefaultRoute": "默认路由",
         "tunAutoRedirect": "自动重定向",
         "tunStrictRoute": "严格路由",
         "tunStrictRouteTips": "如果开启共享后,其他无法接入此设备,请尝试关闭此开关",

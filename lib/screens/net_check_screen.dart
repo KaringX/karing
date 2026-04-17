@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,7 @@ import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/system_utils.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -58,6 +60,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
   NetCheckItem? _netCheckItemNonOutboundDNSQuery;
   NetCheckItem? _netCheckItemDomainDNSQuery;
   NetCheckItem? _netCheckItemHostConnectivity;
+  NetCheckItem? _netCheckItemRouteTable;
 
   @override
   void initState() {
@@ -182,6 +185,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       _netCheckItemNonOutboundDNSQuery,
       _netCheckItemDomainDNSQuery,
       _netCheckItemHostConnectivity,
+      if (!Platform.isIOS) ...[_netCheckItemRouteTable],
     ];
     for (var check in checks) {
       if (check == null) {
@@ -814,6 +818,14 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     return ok;
   }
 
+  Future<bool> _checkRouteTable() async {
+    _netCheckItemRouteTable ??= NetCheckItem();
+    _netCheckItemRouteTable!.name = "Route Table";
+    final routeTableResult = await SystemUtils.getRouteTable();
+    _netCheckItemRouteTable?.values.add(ReturnResult(data: routeTableResult));
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
@@ -848,7 +860,55 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 50),
+                  _checking
+                      ? const SizedBox(width: 50, height: 30)
+                      : InkWell(
+                          onTap: () async {
+                            List<NetCheckItem?> checks = [
+                              _netCheckItemConnectivity,
+                              _netCheckItemRemoteRulesets,
+                              _netCheckItemOutboundDNSQuery,
+                              _netCheckItemOutbound,
+                              _netCheckItemNonOutboundDNSQuery,
+                              _netCheckItemDomainDNSQuery,
+                              _netCheckItemHostConnectivity,
+                              if (!Platform.isIOS) ...[_netCheckItemRouteTable],
+                            ];
+                            String result = "";
+                            for (var check in checks) {
+                              if (check == null) {
+                                continue;
+                              }
+                              result += "${check.name}:\n";
+                              for (var item in check.values) {
+                                ReturnResult<String> checkResult = item;
+                                if (checkResult.error == null) {
+                                  result += "  - ${checkResult.data}\n";
+                                } else {
+                                  result +=
+                                      "  - ${checkResult.error!.message}\n";
+                                }
+                                result += "\n";
+                              }
+                            }
+                            try {
+                              await Clipboard.setData(
+                                ClipboardData(
+                                  text: [
+                                    "Domain: $_domain",
+                                    "OS: ${Platform.operatingSystem}",
+                                    result,
+                                  ].join('\n\n'),
+                                ),
+                              );
+                            } catch (e) {}
+                          },
+                          child: SizedBox(
+                            width: 50,
+                            height: 30,
+                            child: Icon(Icons.copy, size: 26),
+                          ),
+                        ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -1033,6 +1093,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       _checkNonOutboundDnsQuery,
       _checkDomainDnsQuery,
       _checkHostConnectivity,
+      if (!Platform.isIOS) ...[_checkRouteTable],
     ];
 
     for (var callback in callbacks) {

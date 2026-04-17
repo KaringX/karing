@@ -469,6 +469,7 @@ class _TranslationsSettingsScreenVi implements TranslationsSettingsScreenEn {
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Do giới hạn của hệ thống, sau khi bật tính năng này, các ứng dụng trên thiết bị này sử dụng http để truy cập mạng có thể không kết nối được mạng bình thường.';
 	@override String get tunAutoRoute => 'Tự động định tuyến';
+	@override String get tunDefaultRoute => 'Tuyến mặc định';
 	@override String get tunAutoRedirect => 'Tự động chuyển hướng';
 	@override String get tunStrictRoute => 'Định tuyến nghiêm ngặt';
 	@override String get tunStrictRouteTips => 'Nếu sau khi bật chia sẻ, các thiết bị khác không thể truy cập thiết bị này, vui lòng thử tắt công tắc này';
@@ -1132,6 +1133,7 @@ extension on TranslationsVi {
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Do giới hạn của hệ thống, sau khi bật tính năng này, các ứng dụng trên thiết bị này sử dụng http để truy cập mạng có thể không kết nối được mạng bình thường.',
 			'SettingsScreen.tunAutoRoute' => 'Tự động định tuyến',
+			'SettingsScreen.tunDefaultRoute' => 'Tuyến mặc định',
 			'SettingsScreen.tunAutoRedirect' => 'Tự động chuyển hướng',
 			'SettingsScreen.tunStrictRoute' => 'Định tuyến nghiêm ngặt',
 			'SettingsScreen.tunStrictRouteTips' => 'Nếu sau khi bật chia sẻ, các thiết bị khác không thể truy cập thiết bị này, vui lòng thử tắt công tắc này',
@@ -1453,9 +1455,9 @@ extension on TranslationsVi {
 			'permission.requestNeed' => ({required Object p}) => 'Vui lòng bật quyền [${p}]',
 			'tls.insecure' => 'Bỏ qua xác minh chứng chỉ',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Bật phân đoạn TLS',
 			_ => null,
 		} ?? switch (path) {
+			'tls.fragmentEnable' => 'Bật phân đoạn TLS',
 			'tls.fragmentSize' => 'Kích thước phân đoạn TLS',
 			'tls.fragmentSleep' => 'Thời gian chờ phân đoạn TLS',
 			'tls.mixedCaseSNIEnable' => 'Bật SNI hỗn hợp TLS',
