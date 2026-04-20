@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:karing/app/local_services/vpn_service.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/remote_isp_config_manager.dart';
@@ -183,6 +184,12 @@ class NoticeLoadAndCheck {
     if (_checking) {
       return;
     }
+    if (SettingManager.getConfig().updateWhenConnected) {
+      final started = await VPNService.getStarted();
+      if (!started) {
+        return;
+      }
+    }
 
     var last = DateTime.tryParse(_notice.latestCheck);
     DateTime now = DateTime.now();
@@ -197,7 +204,10 @@ class NoticeLoadAndCheck {
     _checking = true;
 
     try {
-      ReturnResult<KaringNoticeItem> gnotice = await KaringUtils.getNotice(url);
+      ReturnResult<KaringNoticeItem> gnotice = await KaringUtils.getNotice(
+        url,
+        SettingManager.getConfig().updateWhenConnected,
+      );
       if (gnotice.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);

@@ -162,11 +162,13 @@ bbc
 bdsmhub
 beats
 beats@cn
+beget
 beisen
 bestbuy
 bestbuy@cn
 bestore
 bestv
+betboom
 bethesda
 betterexplained
 bilibili-cdn
@@ -280,6 +282,7 @@ category-bank-jp
 category-bank-mm
 category-bank-ru
 category-bank-ru@ads
+category-betting-ru
 category-blog-cn
 category-bourse-ir
 category-browser-!cn
@@ -430,6 +433,7 @@ ccb
 ccb@!cn
 cctv
 cctv@ads
+cdek
 cdn77
 ceno
 cerebras
@@ -686,6 +690,7 @@ flickr
 flowus
 flurry-ads
 flutter
+fonbet
 fontawesome
 fontexplorer
 fonts
@@ -965,6 +970,8 @@ knovel
 kodi
 kodik
 konachan
+kontur
+kontur@ads
 koolearn
 kraken
 ku6
@@ -1004,6 +1011,7 @@ liberapay
 libgen
 liepin
 lifewire
+ligastavok
 lihkg
 limelight
 linakesi
@@ -1033,6 +1041,7 @@ lysol
 lysol@cn
 madshi
 mafengwo
+magnit
 mailcom
 mailru-group
 mailru-group@ads
@@ -1130,10 +1139,12 @@ mudvod
 muji
 muji@cn
 musixmatch
+mvideo
 mxplayer-ads
 mxroute
 mydirtyhobby
 myfonts
+myoffice-ru
 myradio
 mytvsuper
 mzed
@@ -1231,6 +1242,7 @@ organicmaps
 origin
 oschina
 osdn
+oskelly
 osu
 oup
 ozon
@@ -1423,6 +1435,7 @@ sitepoint
 skillshare
 sky
 sky@cn
+skyeng
 skyperfect
 slack
 slideshare
@@ -1443,6 +1456,7 @@ sogou
 sogou@ads
 sohu
 sohu@ads
+sokolov
 sony
 sonypictures
 soundcloud
@@ -1573,6 +1587,7 @@ tiktok
 tiktok@!cn
 tiktok@ads
 tilda
+timeweb
 tinyurl
 tld-!cn
 tld-cn
@@ -1625,6 +1640,8 @@ ubuntukylin
 uc
 uc@ads
 ucloud
+ucoz-ru
+ucoz
 udacity
 udemy
 udn
@@ -1703,6 +1720,7 @@ westerndigital@cn
 whatsapp
 whatsapp@ads
 wholefoodsmarket
+whoosh
 wikidot
 wikihow
 wikimedia
@@ -1714,6 +1732,7 @@ win-update
 windsurf
 windy
 wink
+winline
 wise
 wisekey
 wish

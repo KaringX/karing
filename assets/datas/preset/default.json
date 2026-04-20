@@ -33,7 +33,7 @@
         {
             "rule_set_build_in": [
                 "geosite:apple",
-                "geosite:apple-ads",
+                "geosite:apple@ads",
                 "geosite:apple-dev",
                 "geosite:apple-pki",
                 "geosite:apple-update"

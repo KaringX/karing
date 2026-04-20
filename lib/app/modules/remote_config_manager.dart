@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:karing/app/local_services/vpn_service.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -110,6 +111,12 @@ class RemoteConfigManager {
     if (_checking) {
       return;
     }
+    if (SettingManager.getConfig().updateWhenConnected) {
+      final started = await VPNService.getStarted();
+      if (!started) {
+        return;
+      }
+    }
 
     var last = DateTime.tryParse(_config.latestCheck);
     DateTime now = DateTime.now();
@@ -123,7 +130,9 @@ class RemoteConfigManager {
     _checking = true;
     try {
       ReturnResult<RemoteConfig> gConfig =
-          await AutoupdateUtils.getRemoteConfig();
+          await AutoupdateUtils.getRemoteConfig(
+            SettingManager.getConfig().updateWhenConnected,
+          );
       if (gConfig.error != null) {
         _checking = false;
         _duration = const Duration(minutes: 10);

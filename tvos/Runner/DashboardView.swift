@@ -42,6 +42,7 @@ class VpnServiceConfig: Codable {
     // var install_refer: String = ""
     var expired_time: Int64 = 0
     var disconnect_after_sleep_seconds: Int32 = 0
+    var auto_route_use_sub_ranges_by_default: Bool = false
     var sentry_minversion: String = ""
 }
 
@@ -513,6 +514,7 @@ public struct DashboardView: View {
         DashboardView.config.name = "Karing"
         DashboardView.config.expired_time = 0
         DashboardView.config.disconnect_after_sleep_seconds = 0
+        DashboardView.config.auto_route_use_sub_ranges_by_default = false
         DashboardView.config.sentry_minversion = ""
         if DashboardView.config.id == "" {
             let karingDevId = "KaringDevIdTvOS"
