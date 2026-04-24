@@ -39,11 +39,52 @@ class VpnServiceConfig: Codable {
     var version: String = ""
     var name: String = ""
     var secret: String = ""
-    // var install_refer: String = ""
+    var install_refer: String = ""
     var expired_time: Int64 = 0
     var disconnect_after_sleep_seconds: Int32 = 0
     var auto_route_use_sub_ranges_by_default: Bool = false
     var sentry_minversion: String = ""
+
+    enum CodingKeys: String, CodingKey {
+        case control_port
+        case base_dir
+        case work_dir
+        case cache_dir
+        case core_path
+        case log_path
+        case err_path
+        case id
+        case version
+        case name
+        case secret
+        case install_refer
+        case expired_time
+        case disconnect_after_sleep_seconds
+        case auto_route_use_sub_ranges_by_default
+        case sentry_minversion
+    }
+
+    init() {}
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        control_port = try container.decodeIfPresent(Int32.self, forKey: .control_port) ?? 0
+        base_dir = try container.decodeIfPresent(String.self, forKey: .base_dir) ?? ""
+        work_dir = try container.decodeIfPresent(String.self, forKey: .work_dir) ?? ""
+        cache_dir = try container.decodeIfPresent(String.self, forKey: .cache_dir) ?? ""
+        core_path = try container.decodeIfPresent(String.self, forKey: .core_path) ?? ""
+        log_path = try container.decodeIfPresent(String.self, forKey: .log_path) ?? ""
+        err_path = try container.decodeIfPresent(String.self, forKey: .err_path) ?? ""
+        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        version = try container.decodeIfPresent(String.self, forKey: .version) ?? ""
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        secret = try container.decodeIfPresent(String.self, forKey: .secret) ?? ""
+        install_refer = try container.decodeIfPresent(String.self, forKey: .install_refer) ?? ""
+        expired_time = try container.decodeIfPresent(Int64.self, forKey: .expired_time) ?? 0
+        disconnect_after_sleep_seconds = try container.decodeIfPresent(Int32.self, forKey: .disconnect_after_sleep_seconds) ?? 0
+        auto_route_use_sub_ranges_by_default = try container.decodeIfPresent(Bool.self, forKey: .auto_route_use_sub_ranges_by_default) ?? false
+        sentry_minversion = try container.decodeIfPresent(String.self, forKey: .sentry_minversion) ?? ""
+    }
 }
 
 @MainActor

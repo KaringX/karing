@@ -24,6 +24,7 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/modules/zashboard.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
 import 'package:karing/app/utils/app_utils.dart';
@@ -49,6 +50,7 @@ import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/accessibility_screen.dart';
 import 'package:karing/screens/antdesign.dart';
 import 'package:karing/screens/common_dialog.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -423,10 +425,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                       force: true,
                     )));
       }*/
-
+      AccessibilityUtils.setAccessibilityEnabled(
+        AccessibilityUtils.getAccessibilityEnabled(),
+      );
       return;
     }
 
+    AccessibilityUtils.setAccessibilityEnabled(true);
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -461,6 +466,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
           settings: TvModeScreen.routSettings(),
           fullscreenDialog: true,
           builder: (context) => TvModeScreen(nextText: tcontext.meta.next),
+        ),
+      );
+    } else if (Platform.isWindows) {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          settings: AccessibilityScreen.routSettings(),
+          fullscreenDialog: true,
+          builder: (context) =>
+              AccessibilityScreen(nextText: tcontext.meta.next),
         ),
       );
     }
@@ -1474,16 +1489,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     var result = await setServer();
     bool tunMode = await VPNService.getTunMode();
     if (result.item1 == null) {
+      final tcontext = Translations.of(context);
+      AccessibilityUtils.announce(context, tcontext.meta.reconnect);
       var err = await VPNService.reload(
         VPNService.getTimeoutByOutboundCount(result.item2!, tunMode),
       );
 
       if (err != null) {
+        AccessibilityUtils.announce(context, err.message);
         if (!disableShowAlertDialog) {
           CommonDialog.handleStartError(context, err.message);
         }
         return err;
       }
+      AccessibilityUtils.announce(context, tcontext.meta.connected);
       if (PlatformUtils.isPC()) {
         var settingConfig = SettingManager.getConfig();
         if (settingConfig.proxy.enableCluster) {
@@ -2074,6 +2093,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       _currentServerForUrltest.history.clear();
     }
     await VPNService.stop();
+    final tcontext = Translations.of(context);
+    AccessibilityUtils.announce(context, tcontext.meta.disconnected);
   }
 
   Future<ReturnResultError?> start(
@@ -2197,13 +2218,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     SettingManager.setDirty(false);
     ServerManager.setDirty(false);
     ServerManager.setUpdateDirty(false);
-
+    final tcontext = Translations.of(context);
+    AccessibilityUtils.announce(context, tcontext.meta.connecting);
     var err = await VPNService.start(
       VPNService.getTimeoutByOutboundCount(result.item2!, tunMode),
     );
 
     setState(() {});
-
     if (err != null) {
       if (err.message == "willCompleteAfterReboot") {
         err.message = t.meta.willCompleteAfterRebootInstall;
@@ -2223,26 +2244,28 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!disableShowAlertDialog) {
         CommonDialog.handleStartError(context, err.message);
       }
-    } else {
-      if (PlatformUtils.isPC()) {
-        var settingConfig = SettingManager.getConfig();
-        if (settingConfig.proxy.enableCluster) {
-          String? error = await ProxyCluster.start();
-          if (error != null) {
-            if (!disableShowAlertDialog) {
-              DialogUtils.showAlertDialog(
-                context,
-                error,
-                showCopy: true,
-                showFAQ: true,
-                withVersion: true,
-              );
-            }
+      AccessibilityUtils.announce(context, err.message);
+      return err;
+    }
+    AccessibilityUtils.announce(context, tcontext.meta.connected);
+    if (PlatformUtils.isPC()) {
+      var settingConfig = SettingManager.getConfig();
+      if (settingConfig.proxy.enableCluster) {
+        String? error = await ProxyCluster.start();
+        if (error != null) {
+          if (!disableShowAlertDialog) {
+            DialogUtils.showAlertDialog(
+              context,
+              error,
+              showCopy: true,
+              showFAQ: true,
+              withVersion: true,
+            );
           }
         }
       }
     }
-    return err;
+    return null;
   }
 
   Future<String> getChmodCmd() async {
@@ -2598,41 +2621,51 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                   width: convexIconSize,
                                   child: Tooltip(
                                     message: stateTooltip,
-                                    child: IconButton(
-                                      focusNode: _focusNodeSwitch,
-                                      iconSize: 32,
-                                      onPressed: working
-                                          ? null
-                                          : () async {
-                                              _working = true;
-                                              await onTapToggle("switch");
-                                              _working = false;
-                                              setState(() {});
-                                            },
-                                      icon: working
-                                          ? RepaintBoundary(
-                                              child: Rotation(
-                                                child: Icon(
-                                                  CupertinoIcons
-                                                      .checkmark_shield,
-                                                  color: Colors.red,
+                                    child: Semantics(
+                                      label: stateTooltip,
+                                      button: true,
+                                      enabled: !working,
+                                      toggled:
+                                          _state ==
+                                          FlutterVpnServiceState.connected,
+                                      child: IconButton(
+                                        tooltip: stateTooltip,
+                                        focusNode: _focusNodeSwitch,
+                                        iconSize: 32,
+                                        onPressed: working
+                                            ? null
+                                            : () async {
+                                                _working = true;
+                                                await onTapToggle("switch");
+                                                _working = false;
+                                                setState(() {});
+                                              },
+                                        icon: working
+                                            ? RepaintBoundary(
+                                                child: Rotation(
+                                                  child: Icon(
+                                                    CupertinoIcons
+                                                        .checkmark_shield,
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
+                                              )
+                                            : Icon(
+                                                _state ==
+                                                        FlutterVpnServiceState
+                                                            .connected
+                                                    ? CupertinoIcons
+                                                          .checkmark_shield
+                                                    : CupertinoIcons
+                                                          .xmark_shield,
+                                                color:
+                                                    _state ==
+                                                        FlutterVpnServiceState
+                                                            .connected
+                                                    ? Colors.green
+                                                    : Colors.red,
                                               ),
-                                            )
-                                          : Icon(
-                                              _state ==
-                                                      FlutterVpnServiceState
-                                                          .connected
-                                                  ? CupertinoIcons
-                                                        .checkmark_shield
-                                                  : CupertinoIcons.xmark_shield,
-                                              color:
-                                                  _state ==
-                                                      FlutterVpnServiceState
-                                                          .connected
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                            ),
+                                      ),
                                     ),
                                   ),
                                 ),

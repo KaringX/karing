@@ -64,7 +64,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkablealone
 
 [Files]
-Source: "{{SOURCE_DIR}}\\*"; DestDir: "{app}"; Excludes: "\.sentry-native\,*.pdb,*.log"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{{SOURCE_DIR}}\\*"; DestDir: "{app}"; Excludes: "\.sentry-native\,*.pdb,*.lib,*.exp,*.log"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]

@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item_options.dart';
@@ -183,7 +184,18 @@ class GroupItemSwitch extends StatelessWidget {
           child: Switch.adaptive(
             value: options.switchValue ?? false,
             activeColor: ThemeDefine.kColorGreenBright,
-            onChanged: options.onSwitch,
+            onChanged: options.onSwitch == null
+                ? null
+                : (value) {
+                    final statusText = value
+                        ? Translations.of(context).meta.enable
+                        : Translations.of(context).meta.disable;
+                    AccessibilityUtils.announce(
+                      context,
+                      '${options.name} $statusText',
+                    );
+                    options.onSwitch!(value);
+                  },
           ),
         ),
       ],

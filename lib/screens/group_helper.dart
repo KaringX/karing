@@ -1495,7 +1495,7 @@ class GroupHelper {
             name: tcontext.SettingsScreen.dnsEnableProxyResolveMode,
             tips: tcontext.dnsProxyResolveModeTips,
             selected: settingConfig.dns.proxyResolveMode.name,
-            textWidthPercent: 0.5,
+            textWidthPercent: 0.4,
             tupleStrings: tupleStrings,
             onPicker: !settingConfig.tun.hijackDns && !settingConfig.novice
                 ? null

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
@@ -59,6 +60,7 @@ class DialogUtils {
       }
     }
 
+    AccessibilityUtils.announce(context, text);
     final tcontext = Translations.of(context);
     return showDialog<void>(
       context: context,
@@ -131,6 +133,7 @@ class DialogUtils {
     if (!context.mounted) {
       return null;
     }
+    AccessibilityUtils.announce(context, text);
     final tcontext = Translations.of(context);
     return await showDialog<bool>(
       context: context,

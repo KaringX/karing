@@ -10,6 +10,7 @@ import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/date_time_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
@@ -298,6 +299,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 value: item.enable,
                 activeColor: ThemeDefine.kColorGreenBright,
                 onChanged: (bool newValue) async {
+                  final statusText = newValue
+                      ? Translations.of(context).meta.enable
+                      : Translations.of(context).meta.disable;
+                  AccessibilityUtils.announce(
+                    context,
+                    '${item.remark} $statusText',
+                  );
                   await onChangedGroup(item.groupid, newValue);
                 },
               ),

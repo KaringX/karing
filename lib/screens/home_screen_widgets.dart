@@ -8,6 +8,7 @@ import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -96,6 +97,13 @@ abstract class SwitchCardState<T extends SwitchCard> extends State<T> {
                 value: enable,
                 activeColor: ThemeDefine.kColorGreenBright,
                 onChanged: (value) {
+                  final statusText = value
+                      ? Translations.of(context).meta.enable
+                      : Translations.of(context).meta.disable;
+                  AccessibilityUtils.announce(
+                    context,
+                    '${widget.title} $statusText',
+                  );
                   enable = widget.onChanged?.call(context, value) ?? enable;
                   setState(() {});
                 },
@@ -184,6 +192,13 @@ abstract class FutureSwitchCardState<T extends FutureSwitchCard>
                     value: enabled,
                     activeColor: ThemeDefine.kColorGreenBright,
                     onChanged: (value) {
+                      final statusText = value
+                          ? Translations.of(context).meta.enable
+                          : Translations.of(context).meta.disable;
+                      AccessibilityUtils.announce(
+                        context,
+                        '${widget.title} $statusText',
+                      );
                       widget.onChanged?.call(context, value);
                       setState(() {});
                     },

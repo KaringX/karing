@@ -18,7 +18,7 @@ import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
-import 'package:karing/app/utils/app_registry_utils.dart';
+import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/apple_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/device_utils.dart';
@@ -1195,10 +1195,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
                 name: tcontext.SettingsScreen.accessibility,
-                tips: tcontext.SettingsScreen.restartTakesEffect,
-                switchValue: AppRegistryUtils.getAccessibility(),
+                switchValue: AccessibilityUtils.getAccessibilityEnabled(),
                 onSwitch: (bool value) async {
-                  AppRegistryUtils.saveAccessibility(value);
+                  AccessibilityUtils.setAccessibilityEnabled(value);
                   setState(() {});
                 },
               ),

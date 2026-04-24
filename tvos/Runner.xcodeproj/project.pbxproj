@@ -599,7 +599,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -614,7 +614,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -758,7 +758,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -773,7 +773,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -803,7 +803,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -818,7 +818,7 @@
 				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]" = "$(inherited)";
 				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]" = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MY_BUNDLE_DISPLAY_NAME = Karing;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing;
 				PRODUCT_NAME = "$(MY_BUNDLE_DISPLAY_NAME)";
@@ -850,7 +850,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -865,7 +865,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
@@ -896,7 +896,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -911,7 +911,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -938,7 +938,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2006;
+				CURRENT_PROJECT_VERSION = 2100;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -953,7 +953,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.17;
+				MARKETING_VERSION = 1.2.18;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
