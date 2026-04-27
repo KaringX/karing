@@ -939,6 +939,25 @@ class ServerManager {
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _diversionGroupConfig.fromJson(config);
+        var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();
+        for (var item in _diversionGroupConfig.items) {
+          // fix geosite rule with old geosite-ads format
+          for (var group in item.groups) {
+            for (var i = 0; i < group.ruleSetBuildIn.length; ++i) {
+              List<String> parts = group.ruleSetBuildIn[i].split(":");
+              if (parts.length == 2 && parts[0].trim() == "geosite") {
+                String value = parts[1].trim();
+                if ((value.endsWith("-ads")) &&
+                    !sitecodesHashCode.contains(value.hashCode)) {
+                  final renamed = value.replaceAll("-ads", "@ads");
+                  if (sitecodesHashCode.contains(renamed.hashCode)) {
+                    group.ruleSetBuildIn[i] = "geosite:$renamed";
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     } catch (err, stacktrace) {
       SentryUtils.captureException(

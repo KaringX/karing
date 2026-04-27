@@ -599,7 +599,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -758,7 +758,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -803,7 +803,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -850,7 +850,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -896,7 +896,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -938,7 +938,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2100;
+				CURRENT_PROJECT_VERSION = 2101;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

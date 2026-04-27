@@ -212,7 +212,7 @@ Future<void> run(List<String> args) async {
     );
   }
   try {
-     await FastCachedImageConfig.init(subDir: AppUtils.getName());
+    await FastCachedImageConfig.init(subDir: AppUtils.getName());
   } catch (err, stacktrace) {
     Log.w("FastCachedImageConfig.init() exception: ${err.toString()}");
   }
@@ -271,7 +271,7 @@ class MyAppState extends State<MyApp>
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     AppLifecycleStateNofity.uninit();
     WidgetsBinding.instance.removeObserver(this);
     if (PlatformUtils.isPC()) {
@@ -312,7 +312,9 @@ class MyAppState extends State<MyApp>
   }
 
   @override
-  void didHaveMemoryPressure() {}
+  void didHaveMemoryPressure() {
+    Log.w("memoryPressure");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -391,9 +393,9 @@ class MyAppState extends State<MyApp>
   }
 
   @override
-  void onWindowClose() {
+  void onWindowClose() async {
     Log.d("onWindowClose");
-    windowManager.hide();
+    await windowManager.hide();
     _windowVisibleForMac = false;
     AppLifecycleStateNofity.statePaused("close");
   }
@@ -527,12 +529,12 @@ class MyAppState extends State<MyApp>
       if (!Platform.isLinux) {
         await trayManager.setToolTip(AppUtils.getName());
       } else {
-        _setTrayMenu(grey);
+        await _setTrayMenu(grey);
       }
     });
   }
 
-  void _setTrayMenu(bool grey) async {
+  Future<void> _setTrayMenu(bool grey) async {
     if (!PlatformUtils.isPC()) {
       return;
     }
@@ -568,7 +570,7 @@ class MyAppState extends State<MyApp>
 
   @override
   void onTrayIconRightMouseDown() async {
-    _setTrayMenu(_trayGrey);
+    await _setTrayMenu(_trayGrey);
   }
 
   @override
