@@ -363,13 +363,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     for (var tuple in list) {
       if (tuple.item1 == SettingConfigItemDNS.kDNSLocal) {
         if (includeNotSecurity) {
-          if (Platform.isWindows) {
-            if (!tun) {
-              result.add(tuple.item1);
-            }
-          } else {
-            result.add(tuple.item1);
-          }
+          result.add(tuple.item1);
         }
       } else if (tuple.item1 == SettingConfigItemDNS.kDNSDHCP) {
         if (includeNotSecurity) {
@@ -404,13 +398,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
     List<String> result = [];
     for (var tuple in list) {
       if (tuple.item1 == SettingConfigItemDNS.kDNSLocal) {
-        if (Platform.isWindows) {
-          if (!tun) {
-            result.add(tuple.item1);
-          }
-        } else {
-          result.add(tuple.item1);
-        }
+        result.add(tuple.item1);
       } else if (tuple.item1 == SettingConfigItemDNS.kDNSDHCP) {
         if (!Platform.isAndroid) {
           result.add(tuple.item1);

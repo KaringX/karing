@@ -81,10 +81,6 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     disabled = widget.disabled.toSet();
     if (Platform.isAndroid) {
       disabled.add(SettingConfigItemDNS.kDNSDHCP);
-    } else if (Platform.isWindows) {
-      if (widget.tunMode) {
-        disabled.add(SettingConfigItemDNS.kDNSLocal);
-      }
     }
     _buildData();
     const Duration duration = Duration(seconds: 1);
@@ -193,17 +189,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Expanded(
-                child: FutureBuilder(
-                  future: VPNService.getTunMode(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        return _loadListView(
-                          snapshot.hasData && snapshot.data!,
-                        );
-                      },
-                ),
-              ),
+              Expanded(child: _loadListView()),
             ],
           ),
         ),
@@ -241,7 +227,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     setState(() {});
   }
 
-  Widget _loadListView(bool tunMode) {
+  Widget _loadListView() {
     Size windowSize = MediaQuery.of(context).size;
     final themes = Provider.of<Themes>(context, listen: false);
 
@@ -251,7 +237,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
         itemCount: _searchedData.length,
         itemBuilder: (BuildContext context, int index) {
           var current = _searchedData[index];
-          return createWidget(themes, current, windowSize, tunMode);
+          return createWidget(themes, current, windowSize);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(height: 1, thickness: 0.3);
@@ -349,13 +335,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
     _taskQueue!.run();
   }
 
-  Widget createWidget(
-    Themes themes,
-    dynamic current,
-
-    Size windowSize,
-    bool tunMode,
-  ) {
+  Widget createWidget(Themes themes, dynamic current, Size windowSize) {
     const double latencyWidth = 60.0;
     const double deleteWidth = 30.0;
 

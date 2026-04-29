@@ -947,15 +947,7 @@ class SettingConfigItemDNS {
 
   List<String> _updateDns(List<String> dns, bool tunMode) {
     List<String> newDns = dns.toList();
-    if (Platform.isWindows) {
-      if (tunMode) {
-        bool has = newDns.contains(SettingConfigItemDNS.kDNSDHCP);
-        newDns.remove(SettingConfigItemDNS.kDNSLocal);
-        if (!has && newDns.isEmpty) {
-          newDns.add(SettingConfigItemDNS.kDNSDHCP);
-        }
-      }
-    } else if (Platform.isAndroid) {
+    if (Platform.isAndroid) {
       bool has = newDns.contains(SettingConfigItemDNS.kDNSLocal);
       newDns.remove(SettingConfigItemDNS.kDNSDHCP);
       if (!has && newDns.isEmpty) {
