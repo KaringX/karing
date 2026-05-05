@@ -89,6 +89,7 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] har ikke denne funktion, opdater venligst og prøv igen';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Hovedversionen af kernen stemmer ikke overens, opdater venligst [${p}] og prøv igen';
 	@override String get remoteProfileEditConfirm => 'Efter profilopdateringen vil nodeændringerne blive gendannet. Fortsæt?';
+	@override String get continueConnectConfirm => 'Vil du fortsætte med at oprette forbindelse?';
 	@override String get mustBeValidHttpsURL => 'Skal være en gyldig https-URL';
 	@override String fileNotExistReinstall({required Object p}) => 'Fil mangler [${p}], geninstaller venligst';
 	@override String get noNetworkConnect => 'Ingen internetforbindelse';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenDa implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Skjul VPN-ikon';
 	@override String get hideVpnTips => 'Aktivering af IPv6 vil medføre, at denne funktion mislykkes';
 	@override String get allowBypass => 'Tillad apps at omgå VPN';
+	@override String get overrideAndroidVPN => 'Tilsidesæt Android VPN';
 	@override String get importSuccess => 'Import lykkedes';
 	@override String get rewriteConfirm => 'Denne fil vil overskrive den eksisterende lokale konfiguration. Vil du fortsætte?';
 	@override String get mergePerapp => 'Sammenflet lokale [${_root.PerAppAndroidScreen.title}]-lister';
@@ -1123,6 +1125,7 @@ extension on TranslationsDa {
 			'SettingsScreen.hideVpn' => 'Skjul VPN-ikon',
 			'SettingsScreen.hideVpnTips' => 'Aktivering af IPv6 vil medføre, at denne funktion mislykkes',
 			'SettingsScreen.allowBypass' => 'Tillad apps at omgå VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Tilsidesæt Android VPN',
 			'SettingsScreen.importSuccess' => 'Import lykkedes',
 			'SettingsScreen.rewriteConfirm' => 'Denne fil vil overskrive den eksisterende lokale konfiguration. Vil du fortsætte?',
 			'SettingsScreen.mergePerapp' => 'Sammenflet lokale [${_root.PerAppAndroidScreen.title}]-lister',
@@ -1454,9 +1457,9 @@ extension on TranslationsDa {
 			'permission.request' => ({required Object p}) => 'Slå tilladelse [${p}] til',
 			'permission.requestNeed' => ({required Object p}) => 'Slå venligst tilladelse [${p}] til',
 			'tls.insecure' => 'Spring certifikatverificering over',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Aktiver TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstørrelse',
 			'tls.fragmentSleep' => 'TLS-fragment-pause',
@@ -1494,6 +1497,7 @@ extension on TranslationsDa {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] har ikke denne funktion, opdater venligst og prøv igen',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Hovedversionen af kernen stemmer ikke overens, opdater venligst [${p}] og prøv igen',
 			'remoteProfileEditConfirm' => 'Efter profilopdateringen vil nodeændringerne blive gendannet. Fortsæt?',
+			'continueConnectConfirm' => 'Vil du fortsætte med at oprette forbindelse?',
 			'mustBeValidHttpsURL' => 'Skal være en gyldig https-URL',
 			'fileNotExistReinstall' => ({required Object p}) => 'Fil mangler [${p}], geninstaller venligst',
 			'noNetworkConnect' => 'Ingen internetforbindelse',

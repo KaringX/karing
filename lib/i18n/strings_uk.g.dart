@@ -89,6 +89,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] не має цієї функції, оновіться та спробуйте ще раз';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Основна версія ядра не збігається, оновіть [${p}] і спробуйте ще раз';
 	@override String get remoteProfileEditConfirm => 'Після оновлення профілю зміни вузлів будуть відновлені. Продовжити?';
+	@override String get continueConnectConfirm => 'Бажаєте продовжити підключення?';
 	@override String get mustBeValidHttpsURL => 'Має бути коректним https URL';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл відсутній [${p}], будь ласка, перевстановіть';
 	@override String get noNetworkConnect => 'Немає підключення до Інтернету';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenUk implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Приховати піктограму VPN';
 	@override String get hideVpnTips => 'Увімкнення IPv6 призведе до помилки цієї функції';
 	@override String get allowBypass => 'Дозволити програмам обходити VPN';
+	@override String get overrideAndroidVPN => 'Перевизначити Android VPN';
 	@override String get importSuccess => 'Імпорт успішний';
 	@override String get rewriteConfirm => 'Цей файл перезапише існуючу локальну конфігурацію. Продовжити?';
 	@override String get mergePerapp => 'Об\'єднати локальні списки [${_root.PerAppAndroidScreen.title}]';
@@ -1123,6 +1125,7 @@ extension on TranslationsUk {
 			'SettingsScreen.hideVpn' => 'Приховати піктограму VPN',
 			'SettingsScreen.hideVpnTips' => 'Увімкнення IPv6 призведе до помилки цієї функції',
 			'SettingsScreen.allowBypass' => 'Дозволити програмам обходити VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Перевизначити Android VPN',
 			'SettingsScreen.importSuccess' => 'Імпорт успішний',
 			'SettingsScreen.rewriteConfirm' => 'Цей файл перезапише існуючу локальну конфігурацію. Продовжити?',
 			'SettingsScreen.mergePerapp' => 'Об\'єднати локальні списки [${_root.PerAppAndroidScreen.title}]',
@@ -1454,9 +1457,9 @@ extension on TranslationsUk {
 			'permission.request' => ({required Object p}) => 'Увімкнути дозвіл [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Будь ласка, увімкніть дозвіл [${p}]',
 			'tls.insecure' => 'Пропустити перевірку сертифіката',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
 			'tls.fragmentSize' => 'Розмір фрагмента TLS',
 			'tls.fragmentSleep' => 'Пауза фрагментації TLS',
@@ -1494,6 +1497,7 @@ extension on TranslationsUk {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] не має цієї функції, оновіться та спробуйте ще раз',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Основна версія ядра не збігається, оновіть [${p}] і спробуйте ще раз',
 			'remoteProfileEditConfirm' => 'Після оновлення профілю зміни вузлів будуть відновлені. Продовжити?',
+			'continueConnectConfirm' => 'Бажаєте продовжити підключення?',
 			'mustBeValidHttpsURL' => 'Має бути коректним https URL',
 			'fileNotExistReinstall' => ({required Object p}) => 'Файл відсутній [${p}], будь ласка, перевстановіть',
 			'noNetworkConnect' => 'Немає підключення до Інтернету',

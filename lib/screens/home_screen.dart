@@ -2197,10 +2197,22 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         );
         if (result != null) {
           if (!disableShowAlertDialog) {
-            CommonDialog.handleStartError(context, result.message);
+            final tcontext = Translations.of(context);
+            bool? ok = await DialogUtils.showConfirmDialog(
+              context,
+              "${result.message}\n\n${tcontext.continueConnectConfirm}",
+            );
+            if (!mounted) {
+              return VPNService.convertErr(result);
+            }
+            setState(() {});
+            if (ok != true) {
+              return VPNService.convertErr(result);
+            }
+          } else {
+            setState(() {});
+            return VPNService.convertErr(result);
           }
-          setState(() {});
-          return VPNService.convertErr(result);
         }
       }
     }
@@ -2306,7 +2318,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   }
 
   void onConnectionsInfoLongPress() async {
-    await ClashApi.resetNetwork(SettingManager.getConfig().proxy.controlPort);
+    final port = SettingManager.getConfig().proxy.controlPort;
+    await ClashApi.resetNetwork(port);
+    await ClashApi.resetOutboundConnections(port);
   }
 
   @override
@@ -2353,6 +2367,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _focusNodeNetshare.dispose();
     _focusNodeStatistics.dispose();
     _focusNodeBackupAndSync.dispose();
+
+    VPNService.onEventStateChanged.remove(_onStateChanged);
+    ServerManager.removeListener(hashCode);
+    AppLifecycleStateNofity.onStateResumed(hashCode, null);
+    AppLifecycleStateNofity.onStatePaused(hashCode, null);
 
     ErrorReporterUtils.register(null);
     _stopStateCheckTimer();

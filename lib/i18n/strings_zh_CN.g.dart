@@ -89,6 +89,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}]无此功能,请升级后再试';
 	@override String appleCoreVersionNotMatch({required Object p}) => '核心主版本不匹配,请升级[${p}]后再试';
 	@override String get remoteProfileEditConfirm => '配置更新后,节点的修改将会被还原,是否继续?';
+	@override String get continueConnectConfirm => '是否继续连接?';
 	@override String get mustBeValidHttpsURL => '必须为有效的 https URL';
 	@override String fileNotExistReinstall({required Object p}) => '文件缺失[${p}],请重新安装';
 	@override String get noNetworkConnect => '无网络连接';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenZhCn implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => '隐藏VPN图标';
 	@override String get hideVpnTips => '开启IPv6会导致此功能失效';
 	@override String get allowBypass => '允许应用绕过VPN';
+	@override String get overrideAndroidVPN => '覆写Android VPN';
 	@override String get importSuccess => '导入成功';
 	@override String get rewriteConfirm => '该文件将覆盖本地已有配置,是否继续?';
 	@override String get mergePerapp => '合并本地[${_root.PerAppAndroidScreen.title}]列表';
@@ -1123,6 +1125,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.hideVpn' => '隐藏VPN图标',
 			'SettingsScreen.hideVpnTips' => '开启IPv6会导致此功能失效',
 			'SettingsScreen.allowBypass' => '允许应用绕过VPN',
+			'SettingsScreen.overrideAndroidVPN' => '覆写Android VPN',
 			'SettingsScreen.importSuccess' => '导入成功',
 			'SettingsScreen.rewriteConfirm' => '该文件将覆盖本地已有配置,是否继续?',
 			'SettingsScreen.mergePerapp' => '合并本地[${_root.PerAppAndroidScreen.title}]列表',
@@ -1454,9 +1457,9 @@ extension on TranslationsZhCn {
 			'permission.request' => ({required Object p}) => '开启[${p}]权限',
 			'permission.requestNeed' => ({required Object p}) => '请开启[${p}]权限',
 			'tls.insecure' => '跳过证书验证',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => '启用TLS分段',
 			'tls.fragmentSize' => 'TLS分段大小',
 			'tls.fragmentSleep' => 'TLS分段休眠',
@@ -1494,6 +1497,7 @@ extension on TranslationsZhCn {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}]无此功能,请升级后再试',
 			'appleCoreVersionNotMatch' => ({required Object p}) => '核心主版本不匹配,请升级[${p}]后再试',
 			'remoteProfileEditConfirm' => '配置更新后,节点的修改将会被还原,是否继续?',
+			'continueConnectConfirm' => '是否继续连接?',
 			'mustBeValidHttpsURL' => '必须为有效的 https URL',
 			'fileNotExistReinstall' => ({required Object p}) => '文件缺失[${p}],请重新安装',
 			'noNetworkConnect' => '无网络连接',

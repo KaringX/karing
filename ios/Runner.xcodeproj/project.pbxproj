@@ -935,7 +935,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -951,7 +951,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingWidget;
@@ -983,7 +983,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -998,7 +998,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1027,7 +1027,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1042,7 +1042,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1069,7 +1069,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1084,7 +1084,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
@@ -1114,7 +1114,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1129,7 +1129,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1155,7 +1155,7 @@
 				CODE_SIGN_ENTITLEMENTS = karingService/karingService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2102;
+				CURRENT_PROJECT_VERSION = 2200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = TNPM9PFX3W;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1170,7 +1170,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.2.18;
+				MARKETING_VERSION = 1.2.19;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebula.karing.karingService;
 				PRODUCT_NAME = "$(TARGET_NAME)";

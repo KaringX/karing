@@ -89,6 +89,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}]-এ এই ফিচারটি নেই, অনুগ্রহ করে আপডেট করুন এবং আবার চেষ্টা করুন';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'কোর মেইন সংস্করণ মিলছে না, অনুগ্রহ করে [${p}] আপডেট করুন এবং আবার চেষ্টা করুন';
 	@override String get remoteProfileEditConfirm => 'প্রোফাইল আপডেট হওয়ার পরে, নোড পরিবর্তনগুলি পুনরুদ্ধার করা হবে। চালিয়ে যাবেন?';
+	@override String get continueConnectConfirm => 'আপনি কি সংযোগ চালিয়ে যেতে চান?';
 	@override String get mustBeValidHttpsURL => 'একটি বৈধ https URL হতে হবে';
 	@override String fileNotExistReinstall({required Object p}) => 'ফাইলটি পাওয়া যাচ্ছে না [${p}], অনুগ্রহ করে পুনরায় ইনস্টল করুন';
 	@override String get noNetworkConnect => 'কোনো ইন্টারনেট সংযোগ নেই';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenBn implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'VPN আইকন লুকান';
 	@override String get hideVpnTips => 'IPv6 সক্ষম করলে এই ফিচারটি ব্যর্থ হবে';
 	@override String get allowBypass => 'অ্যাপগুলিকে VPN এড়িয়ে যাওয়ার অনুমতি দিন';
+	@override String get overrideAndroidVPN => 'Android VPN ওভাররাইড করুন';
 	@override String get importSuccess => 'আমদানি সফল হয়েছে';
 	@override String get rewriteConfirm => 'এই ফাইলটি বর্তমান স্থানীয় কনফিগারেশনকে ওভাররাইট করবে। আপনি কি চালিয়ে যেতে চান?';
 	@override String get mergePerapp => 'স্থানীয় [${_root.PerAppAndroidScreen.title}] তালিকাগুলি মার্জ করুন';
@@ -1123,6 +1125,7 @@ extension on TranslationsBn {
 			'SettingsScreen.hideVpn' => 'VPN আইকন লুকান',
 			'SettingsScreen.hideVpnTips' => 'IPv6 সক্ষম করলে এই ফিচারটি ব্যর্থ হবে',
 			'SettingsScreen.allowBypass' => 'অ্যাপগুলিকে VPN এড়িয়ে যাওয়ার অনুমতি দিন',
+			'SettingsScreen.overrideAndroidVPN' => 'Android VPN ওভাররাইড করুন',
 			'SettingsScreen.importSuccess' => 'আমদানি সফল হয়েছে',
 			'SettingsScreen.rewriteConfirm' => 'এই ফাইলটি বর্তমান স্থানীয় কনফিগারেশনকে ওভাররাইট করবে। আপনি কি চালিয়ে যেতে চান?',
 			'SettingsScreen.mergePerapp' => 'স্থানীয় [${_root.PerAppAndroidScreen.title}] তালিকাগুলি মার্জ করুন',
@@ -1454,9 +1457,9 @@ extension on TranslationsBn {
 			'permission.request' => ({required Object p}) => '[${p}] অনুমতি চালু করুন',
 			'permission.requestNeed' => ({required Object p}) => 'অনুগ্রহ করে [${p}] অনুমতি চালু করুন',
 			'tls.insecure' => 'সার্টিফিকেট যাচাইকরণ এড়িয়ে যান',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS ফ্র্যাগমেন্ট সক্ষম করুন',
 			'tls.fragmentSize' => 'TLS ফ্র্যাগমেন্ট সাইজ',
 			'tls.fragmentSleep' => 'TLS ফ্র্যাগমেন্ট স্লিপ',
@@ -1494,6 +1497,7 @@ extension on TranslationsBn {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}]-এ এই ফিচারটি নেই, অনুগ্রহ করে আপডেট করুন এবং আবার চেষ্টা করুন',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'কোর মেইন সংস্করণ মিলছে না, অনুগ্রহ করে [${p}] আপডেট করুন এবং আবার চেষ্টা করুন',
 			'remoteProfileEditConfirm' => 'প্রোফাইল আপডেট হওয়ার পরে, নোড পরিবর্তনগুলি পুনরুদ্ধার করা হবে। চালিয়ে যাবেন?',
+			'continueConnectConfirm' => 'আপনি কি সংযোগ চালিয়ে যেতে চান?',
 			'mustBeValidHttpsURL' => 'একটি বৈধ https URL হতে হবে',
 			'fileNotExistReinstall' => ({required Object p}) => 'ফাইলটি পাওয়া যাচ্ছে না [${p}], অনুগ্রহ করে পুনরায় ইনস্টল করুন',
 			'noNetworkConnect' => 'কোনো ইন্টারনেট সংযোগ নেই',

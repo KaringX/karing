@@ -89,6 +89,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз';
 	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
+	@override String get continueConnectConfirm => 'Продолжить подключение?';
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
 	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
 	@override String get noNetworkConnect => 'Нет подключения к Интернету';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenRu implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Скрыть значок VPN';
 	@override String get hideVpnTips => 'Включение IPv6 приведет к сбою этой функции.';
 	@override String get allowBypass => 'Разрешить приложениям обходить VPN';
+	@override String get overrideAndroidVPN => 'Переопределить Android VPN';
 	@override String get importSuccess => 'Импорт выполнен успешно';
 	@override String get rewriteConfirm => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 	@override String get mergePerapp => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]';
@@ -1123,6 +1125,7 @@ extension on TranslationsRu {
 			'SettingsScreen.hideVpn' => 'Скрыть значок VPN',
 			'SettingsScreen.hideVpnTips' => 'Включение IPv6 приведет к сбою этой функции.',
 			'SettingsScreen.allowBypass' => 'Разрешить приложениям обходить VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Переопределить Android VPN',
 			'SettingsScreen.importSuccess' => 'Импорт выполнен успешно',
 			'SettingsScreen.rewriteConfirm' => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?',
 			'SettingsScreen.mergePerapp' => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]',
@@ -1454,9 +1457,9 @@ extension on TranslationsRu {
 			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
 			'tls.insecure' => 'Пропустить проверку сертификата',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
 			'tls.fragmentSize' => 'Размер фрагмента TLS',
 			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
@@ -1494,6 +1497,7 @@ extension on TranslationsRu {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз',
 			'remoteProfileEditConfirm' => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?',
+			'continueConnectConfirm' => 'Продолжить подключение?',
 			'mustBeValidHttpsURL' => 'https URL должен быть действительным',
 			'fileNotExistReinstall' => ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите',
 			'noNetworkConnect' => 'Нет подключения к Интернету',

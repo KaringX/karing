@@ -443,6 +443,7 @@ class SettingConfigItemTUN {
   bool autoRedirect = false;
   bool strictRoute = false;
   bool autoRouteUseSubRangesByDefault = false; // ios/macos
+  bool overrideAndroidVPN = false; //android
   bool allowBypass = false; //android
   bool appendHttpProxy =
       getAppendHttp(); //android, ios: some apps skip tun route
@@ -461,6 +462,7 @@ class SettingConfigItemTUN {
       'auto_redirect': autoRedirect,
       'strict_route': strictRoute,
       'auto_route_use_sub_ranges_by_default': autoRouteUseSubRangesByDefault,
+      'override_android_vpn': overrideAndroidVPN,
       'allow_bypass': allowBypass,
       'append_http_proxy': appendHttpProxy,
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
@@ -503,6 +505,7 @@ class SettingConfigItemTUN {
     autoRouteUseSubRangesByDefault =
         map["auto_route_use_sub_ranges_by_default"] ?? false;
     allowBypass = map["allow_bypass"] ?? false;
+    overrideAndroidVPN = map["override_android_vpn"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
     allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
       map["allow_bypass_httpproxy_domains"],
@@ -1474,19 +1477,20 @@ class SettingConfig {
   ];
 
   static const List<String> kUserAgentList = [
-    "sing-box $kCoreVersion",
-    "mihomo/1.19.16",
+    "mihomo/1.19.23",
     "ClashMeta",
     "clash-verge",
+    "FLClash",
+    "v2ray",
+    "sing-box $kCoreVersion",
     "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "HiddifyNext",
-    "v2ray",
-    "FLClash",
   ];
   static const Map<String, String> kUserAgentListOldUpgrade = {
     "sing-box": "sing-box $kCoreVersion",
-    "mihomo/1.19.9": "mihomo/1.19.16",
-    "mihomo/1.19.12": "mihomo/1.19.16",
+    "mihomo/1.19.9": "mihomo/1.19.23",
+    "mihomo/1.19.12": "mihomo/1.19.23",
+    "mihomo/1.19.16": "mihomo/1.19.23",
     "NekoBox/Android/1.3.1 (Prefer ClashMeta Format)":
         "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)":

@@ -89,6 +89,7 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] δεν έχει αυτή τη λειτουργία, παρακαλούμε ενημερώστε και δοκιμάστε ξανά';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Η κύρια έκδοση του πυρήνα δεν ταιριάζει, παρακαλούμε ενημερώστε το [${p}] και δοκιμάστε ξανά';
 	@override String get remoteProfileEditConfirm => 'Μετά την ενημέρωση του προφίλ, οι αλλαγές στον κόμβο θα αποκατασταθούν. Συνέχεια;';
+	@override String get continueConnectConfirm => 'Θέλετε να συνεχίσετε τη σύνδεση;';
 	@override String get mustBeValidHttpsURL => 'Πρέπει να είναι ένα έγκυρο https URL';
 	@override String fileNotExistReinstall({required Object p}) => 'Το αρχείο λείπει [${p}], παρακαλούμε επανεγκαταστήστε';
 	@override String get noNetworkConnect => 'Δεν υπάρχει σύνδεση στο διαδίκτυο';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenEl implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Απόκρυψη εικονιδίου VPN';
 	@override String get hideVpnTips => 'Η ενεργοποίηση του IPv6 θα προκαλέσει την αποτυχία αυτής της λειτουργίας';
 	@override String get allowBypass => 'Να επιτρέπεται στις εφαρμογές να παρακάμπτουν το VPN';
+	@override String get overrideAndroidVPN => 'Παράκαμψη Android VPN';
 	@override String get importSuccess => 'Η εισαγωγή πέτυχε';
 	@override String get rewriteConfirm => 'Αυτό το αρχείο θα αντικαταστήσει την υπάρχουσα τοπική διαμόρφωση. Θέλετε να συνεχίσετε;';
 	@override String get mergePerapp => 'Συγχώνευση τοπικών λιστών [${_root.PerAppAndroidScreen.title}]';
@@ -1123,6 +1125,7 @@ extension on TranslationsEl {
 			'SettingsScreen.hideVpn' => 'Απόκρυψη εικονιδίου VPN',
 			'SettingsScreen.hideVpnTips' => 'Η ενεργοποίηση του IPv6 θα προκαλέσει την αποτυχία αυτής της λειτουργίας',
 			'SettingsScreen.allowBypass' => 'Να επιτρέπεται στις εφαρμογές να παρακάμπτουν το VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Παράκαμψη Android VPN',
 			'SettingsScreen.importSuccess' => 'Η εισαγωγή πέτυχε',
 			'SettingsScreen.rewriteConfirm' => 'Αυτό το αρχείο θα αντικαταστήσει την υπάρχουσα τοπική διαμόρφωση. Θέλετε να συνεχίσετε;',
 			'SettingsScreen.mergePerapp' => 'Συγχώνευση τοπικών λιστών [${_root.PerAppAndroidScreen.title}]',
@@ -1454,9 +1457,9 @@ extension on TranslationsEl {
 			'permission.request' => ({required Object p}) => 'Ενεργοποίηση άδειας [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Παρακαλούμε ενεργοποιήστε την άδεια [${p}]',
 			'tls.insecure' => 'Παράλειψη επαλήθευσης πιστοποιητικού',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Ενεργοποίηση TLS Fragment',
 			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',
 			'tls.fragmentSleep' => 'Αναστολή TLS Fragment',
@@ -1494,6 +1497,7 @@ extension on TranslationsEl {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] δεν έχει αυτή τη λειτουργία, παρακαλούμε ενημερώστε και δοκιμάστε ξανά',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Η κύρια έκδοση του πυρήνα δεν ταιριάζει, παρακαλούμε ενημερώστε το [${p}] και δοκιμάστε ξανά',
 			'remoteProfileEditConfirm' => 'Μετά την ενημέρωση του προφίλ, οι αλλαγές στον κόμβο θα αποκατασταθούν. Συνέχεια;',
+			'continueConnectConfirm' => 'Θέλετε να συνεχίσετε τη σύνδεση;',
 			'mustBeValidHttpsURL' => 'Πρέπει να είναι ένα έγκυρο https URL',
 			'fileNotExistReinstall' => ({required Object p}) => 'Το αρχείο λείπει [${p}], παρακαλούμε επανεγκαταστήστε',
 			'noNetworkConnect' => 'Δεν υπάρχει σύνδεση στο διαδίκτυο',

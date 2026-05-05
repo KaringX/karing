@@ -89,6 +89,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV: Karing[${p}] không có chức năng này, vui lòng nâng cấp và thử lại';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Phiên bản chính của lõi không khớp, vui lòng nâng cấp [${p}] và thử lại';
 	@override String get remoteProfileEditConfirm => 'Sau khi cập nhật cấu hình, các thay đổi nút sẽ được khôi phục. Tiếp tục?';
+	@override String get continueConnectConfirm => 'Bạn có muốn tiếp tục kết nối không?';
 	@override String get mustBeValidHttpsURL => 'Phải là URL https hợp lệ';
 	@override String fileNotExistReinstall({required Object p}) => 'Tệp bị thiếu [${p}], vui lòng cài đặt lại';
 	@override String get noNetworkConnect => 'Không có kết nối Internet';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenVi implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Ẩn biểu tượng VPN';
 	@override String get hideVpnTips => 'Bật IPv6 sẽ khiến chức năng này thất bại';
 	@override String get allowBypass => 'Cho phép ứng dụng bỏ qua VPN';
+	@override String get overrideAndroidVPN => 'Ghi đè Android VPN';
 	@override String get importSuccess => 'Nhập thành công';
 	@override String get rewriteConfirm => 'Tệp này sẽ ghi đè cấu hình cục bộ hiện có. Bạn có muốn tiếp tục không?';
 	@override String get mergePerapp => 'Hợp nhất danh sách [${_root.PerAppAndroidScreen.title}] cục bộ';
@@ -1123,6 +1125,7 @@ extension on TranslationsVi {
 			'SettingsScreen.hideVpn' => 'Ẩn biểu tượng VPN',
 			'SettingsScreen.hideVpnTips' => 'Bật IPv6 sẽ khiến chức năng này thất bại',
 			'SettingsScreen.allowBypass' => 'Cho phép ứng dụng bỏ qua VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Ghi đè Android VPN',
 			'SettingsScreen.importSuccess' => 'Nhập thành công',
 			'SettingsScreen.rewriteConfirm' => 'Tệp này sẽ ghi đè cấu hình cục bộ hiện có. Bạn có muốn tiếp tục không?',
 			'SettingsScreen.mergePerapp' => 'Hợp nhất danh sách [${_root.PerAppAndroidScreen.title}] cục bộ',
@@ -1454,9 +1457,9 @@ extension on TranslationsVi {
 			'permission.request' => ({required Object p}) => 'Bật quyền [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Vui lòng bật quyền [${p}]',
 			'tls.insecure' => 'Bỏ qua xác minh chứng chỉ',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Bật phân đoạn TLS',
 			'tls.fragmentSize' => 'Kích thước phân đoạn TLS',
 			'tls.fragmentSleep' => 'Thời gian chờ phân đoạn TLS',
@@ -1494,6 +1497,7 @@ extension on TranslationsVi {
 			'appleTV404' => ({required Object p}) => 'AppleTV: Karing[${p}] không có chức năng này, vui lòng nâng cấp và thử lại',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Phiên bản chính của lõi không khớp, vui lòng nâng cấp [${p}] và thử lại',
 			'remoteProfileEditConfirm' => 'Sau khi cập nhật cấu hình, các thay đổi nút sẽ được khôi phục. Tiếp tục?',
+			'continueConnectConfirm' => 'Bạn có muốn tiếp tục kết nối không?',
 			'mustBeValidHttpsURL' => 'Phải là URL https hợp lệ',
 			'fileNotExistReinstall' => ({required Object p}) => 'Tệp bị thiếu [${p}], vui lòng cài đặt lại',
 			'noNetworkConnect' => 'Không có kết nối Internet',

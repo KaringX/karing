@@ -89,6 +89,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV: Karing[${p}]에 이 기능이 없습니다. 업그레이드 후 다시 시도하십시오';
 	@override String appleCoreVersionNotMatch({required Object p}) => '코어 주 버전이 일치하지 않습니다. [${p}]로 업그레이드 후 다시 시도하십시오';
 	@override String get remoteProfileEditConfirm => '프로필 업데이트 후 노드 변경 사항이 복원됩니다. 계속하시겠습니까?';
+	@override String get continueConnectConfirm => '연결을 계속하시겠습니까?';
 	@override String get mustBeValidHttpsURL => '유효한 https URL이어야 합니다';
 	@override String fileNotExistReinstall({required Object p}) => '파일 [${p}]이 누락되었습니다. 다시 설치하십시오';
 	@override String get noNetworkConnect => '인터넷 연결 없음';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenKo implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'VPN 아이콘 숨기기';
 	@override String get hideVpnTips => 'IPv6를 활성화하면 이 기능이 실패합니다';
 	@override String get allowBypass => '앱의 VPN 우회 허용';
+	@override String get overrideAndroidVPN => 'Android VPN 재정의';
 	@override String get importSuccess => '가져오기 성공';
 	@override String get rewriteConfirm => '이 파일은 기존 로컬 구성을 덮어씁니다. 계속하시겠습니까?';
 	@override String get mergePerapp => '로컬 [${_root.PerAppAndroidScreen.title}] 목록 병합';
@@ -1123,6 +1125,7 @@ extension on TranslationsKo {
 			'SettingsScreen.hideVpn' => 'VPN 아이콘 숨기기',
 			'SettingsScreen.hideVpnTips' => 'IPv6를 활성화하면 이 기능이 실패합니다',
 			'SettingsScreen.allowBypass' => '앱의 VPN 우회 허용',
+			'SettingsScreen.overrideAndroidVPN' => 'Android VPN 재정의',
 			'SettingsScreen.importSuccess' => '가져오기 성공',
 			'SettingsScreen.rewriteConfirm' => '이 파일은 기존 로컬 구성을 덮어씁니다. 계속하시겠습니까?',
 			'SettingsScreen.mergePerapp' => '로컬 [${_root.PerAppAndroidScreen.title}] 목록 병합',
@@ -1454,9 +1457,9 @@ extension on TranslationsKo {
 			'permission.request' => ({required Object p}) => '[${p}] 권한 켜기',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 권한을 켜주십시오',
 			'tls.insecure' => '인증서 확인 건너뛰기',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS 조각화 활성화',
 			'tls.fragmentSize' => 'TLS 조각 크기',
 			'tls.fragmentSleep' => 'TLS 조각 대기 시간',
@@ -1494,6 +1497,7 @@ extension on TranslationsKo {
 			'appleTV404' => ({required Object p}) => 'AppleTV: Karing[${p}]에 이 기능이 없습니다. 업그레이드 후 다시 시도하십시오',
 			'appleCoreVersionNotMatch' => ({required Object p}) => '코어 주 버전이 일치하지 않습니다. [${p}]로 업그레이드 후 다시 시도하십시오',
 			'remoteProfileEditConfirm' => '프로필 업데이트 후 노드 변경 사항이 복원됩니다. 계속하시겠습니까?',
+			'continueConnectConfirm' => '연결을 계속하시겠습니까?',
 			'mustBeValidHttpsURL' => '유효한 https URL이어야 합니다',
 			'fileNotExistReinstall' => ({required Object p}) => '파일 [${p}]이 누락되었습니다. 다시 설치하십시오',
 			'noNetworkConnect' => '인터넷 연결 없음',

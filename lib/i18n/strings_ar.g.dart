@@ -89,6 +89,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى';
 	@override String get remoteProfileEditConfirm => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟';
+	@override String get continueConnectConfirm => 'هل تريد متابعة الاتصال؟';
 	@override String get mustBeValidHttpsURL => 'يجب أن يكون عنوان URL HTTPS صالح';
 	@override String fileNotExistReinstall({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت';
 	@override String get noNetworkConnect => 'لا يوجد اتصال بالإنترنت';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenAr implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'إخفاء أيقونة VPN';
 	@override String get hideVpnTips => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة';
 	@override String get allowBypass => 'السماح للتطبيقات بتجاوز VPN';
+	@override String get overrideAndroidVPN => 'تجاوز Android VPN';
 	@override String get importSuccess => 'استيراد نجاح ';
 	@override String get rewriteConfirm => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
 	@override String get mergePerapp => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]';
@@ -1123,6 +1125,7 @@ extension on TranslationsAr {
 			'SettingsScreen.hideVpn' => 'إخفاء أيقونة VPN',
 			'SettingsScreen.hideVpnTips' => 'سيؤدي تمكين IPv6 إلى فشل هذه الوظيفة',
 			'SettingsScreen.allowBypass' => 'السماح للتطبيقات بتجاوز VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'تجاوز Android VPN',
 			'SettingsScreen.importSuccess' => 'استيراد نجاح ',
 			'SettingsScreen.rewriteConfirm' => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟',
 			'SettingsScreen.mergePerapp' => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]',
@@ -1454,9 +1457,9 @@ extension on TranslationsAr {
 			'permission.request' => ({required Object p}) => 'تمكين أذونات [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
 			'tls.insecure' => 'تخطي التحقق من الشهادة',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
 			'tls.fragmentSize' => 'حجم شريحة TLS',
 			'tls.fragmentSleep' => 'TLS النوم المجزأ',
@@ -1494,6 +1497,7 @@ extension on TranslationsAr {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] لا يحتوي على هذه الوظيفة، يرجى الترقية والمحاولة مرة أخرى',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'لا يتطابق الإصدار الرئيسي الأساسي، يرجى ترقية [${p}] والمحاولة مرة أخرى',
 			'remoteProfileEditConfirm' => 'بعد تحديث التكوين، ستتم استعادة تعديلات العقدة. هل تريد المتابعة؟',
+			'continueConnectConfirm' => 'هل تريد متابعة الاتصال؟',
 			'mustBeValidHttpsURL' => 'يجب أن يكون عنوان URL HTTPS صالح',
 			'fileNotExistReinstall' => ({required Object p}) => 'الملف مفقود [${p}]، يرجى إعادة التثبيت',
 			'noNetworkConnect' => 'لا يوجد اتصال بالإنترنت',

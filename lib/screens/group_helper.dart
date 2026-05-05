@@ -504,6 +504,18 @@ class GroupHelper {
         if (!settingConfig.novice && Platform.isAndroid) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.overrideAndroidVPN,
+              switchValue: settingConfig.tun.overrideAndroidVPN,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.overrideAndroidVPN = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
               name: tcontext.SettingsScreen.allowBypass,
               switchValue: settingConfig.tun.allowBypass,
               onSwitch: !tunMode

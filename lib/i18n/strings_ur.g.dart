@@ -89,6 +89,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] میں یہ خصوصیت نہیں ہے، براہ کرم اپ ڈیٹ کریں اور دوبارہ کوشش کریں';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'کور کا مین ورژن مماثل نہیں ہے، براہ کرم [${p}] اپ ڈیٹ کریں اور دوبارہ کوشش کریں';
 	@override String get remoteProfileEditConfirm => 'پروفائل اپ ڈیٹ ہونے کے بعد، نوڈ کی تبدیلیاں بحال ہو جائیں گی۔ جاری رکھیں؟';
+	@override String get continueConnectConfirm => 'کیا آپ کنکشن جاری رکھنا چاہتے ہیں؟';
 	@override String get mustBeValidHttpsURL => 'ایک درست https یو آر ایل ہونا چاہیے';
 	@override String fileNotExistReinstall({required Object p}) => 'فائل غائب ہے [${p}]، براہ کرم دوبارہ انسٹال کریں';
 	@override String get noNetworkConnect => 'کوئی انٹرنیٹ کنکشن نہیں ہے';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenUr implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'VPN آئیکن چھپائیں';
 	@override String get hideVpnTips => 'IPv6 فعال کرنے سے یہ خصوصیت ناکام ہو جائے گی';
 	@override String get allowBypass => 'ایپس کو VPN نظر انداز کرنے کی اجازت دیں';
+	@override String get overrideAndroidVPN => 'Android VPN کو اوور رائیڈ کریں';
 	@override String get importSuccess => 'درآمد کامیاب رہی';
 	@override String get rewriteConfirm => 'یہ فائل موجودہ مقامی کنفیگریشن کو اوور رائٹ کر دے گی۔ کیا آپ جاری رکھنا چاہتے ہیں؟';
 	@override String get mergePerapp => 'مقامی [${_root.PerAppAndroidScreen.title}] فہرستوں کو ضم کریں';
@@ -1123,6 +1125,7 @@ extension on TranslationsUr {
 			'SettingsScreen.hideVpn' => 'VPN آئیکن چھپائیں',
 			'SettingsScreen.hideVpnTips' => 'IPv6 فعال کرنے سے یہ خصوصیت ناکام ہو جائے گی',
 			'SettingsScreen.allowBypass' => 'ایپس کو VPN نظر انداز کرنے کی اجازت دیں',
+			'SettingsScreen.overrideAndroidVPN' => 'Android VPN کو اوور رائیڈ کریں',
 			'SettingsScreen.importSuccess' => 'درآمد کامیاب رہی',
 			'SettingsScreen.rewriteConfirm' => 'یہ فائل موجودہ مقامی کنفیگریشن کو اوور رائٹ کر دے گی۔ کیا آپ جاری رکھنا چاہتے ہیں؟',
 			'SettingsScreen.mergePerapp' => 'مقامی [${_root.PerAppAndroidScreen.title}] فہرستوں کو ضم کریں',
@@ -1454,9 +1457,9 @@ extension on TranslationsUr {
 			'permission.request' => ({required Object p}) => '[${p}] اجازت آن کریں',
 			'permission.requestNeed' => ({required Object p}) => 'براہ کرم [${p}] اجازت آن کریں',
 			'tls.insecure' => 'سرٹیفکیٹ کی تصدیق نظر انداز کریں',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
 			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',
 			'tls.fragmentSleep' => 'TLS فریگمنٹ سلیپ',
@@ -1494,6 +1497,7 @@ extension on TranslationsUr {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] میں یہ خصوصیت نہیں ہے، براہ کرم اپ ڈیٹ کریں اور دوبارہ کوشش کریں',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'کور کا مین ورژن مماثل نہیں ہے، براہ کرم [${p}] اپ ڈیٹ کریں اور دوبارہ کوشش کریں',
 			'remoteProfileEditConfirm' => 'پروفائل اپ ڈیٹ ہونے کے بعد، نوڈ کی تبدیلیاں بحال ہو جائیں گی۔ جاری رکھیں؟',
+			'continueConnectConfirm' => 'کیا آپ کنکشن جاری رکھنا چاہتے ہیں؟',
 			'mustBeValidHttpsURL' => 'ایک درست https یو آر ایل ہونا چاہیے',
 			'fileNotExistReinstall' => ({required Object p}) => 'فائل غائب ہے [${p}]، براہ کرم دوبارہ انسٹال کریں',
 			'noNetworkConnect' => 'کوئی انٹرنیٹ کنکشن نہیں ہے',

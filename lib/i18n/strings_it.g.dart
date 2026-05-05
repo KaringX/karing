@@ -89,6 +89,7 @@ class TranslationsIt with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] non ha questa funzione, aggiorna e riprova';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'La versione principale del core non corrisponde, aggiorna [${p}] e riprova';
 	@override String get remoteProfileEditConfirm => 'Dopo l\'aggiornamento del Profilo, le modifiche ai nodi verranno ripristinate. Continuare?';
+	@override String get continueConnectConfirm => 'Vuoi continuare la connessione?';
 	@override String get mustBeValidHttpsURL => 'Deve essere un URL https Valido';
 	@override String fileNotExistReinstall({required Object p}) => 'File mancante [${p}], reinstalla';
 	@override String get noNetworkConnect => 'Nessuna connessione Internet';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenIt implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'Nascondi Icona VPN';
 	@override String get hideVpnTips => 'L\'abilitazione di IPv6 farà fallire questa funzione';
 	@override String get allowBypass => 'Consenti alle App di Bypassare la VPN';
+	@override String get overrideAndroidVPN => 'Sovrascrivi VPN Android';
 	@override String get importSuccess => 'Importazione Riuscita';
 	@override String get rewriteConfirm => 'Questo file sovrascriverà la configurazione locale esistente. Vuoi continuare?';
 	@override String get mergePerapp => 'Unisci elenchi locali [${_root.PerAppAndroidScreen.title}]';
@@ -1123,6 +1125,7 @@ extension on TranslationsIt {
 			'SettingsScreen.hideVpn' => 'Nascondi Icona VPN',
 			'SettingsScreen.hideVpnTips' => 'L\'abilitazione di IPv6 farà fallire questa funzione',
 			'SettingsScreen.allowBypass' => 'Consenti alle App di Bypassare la VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Sovrascrivi VPN Android',
 			'SettingsScreen.importSuccess' => 'Importazione Riuscita',
 			'SettingsScreen.rewriteConfirm' => 'Questo file sovrascriverà la configurazione locale esistente. Vuoi continuare?',
 			'SettingsScreen.mergePerapp' => 'Unisci elenchi locali [${_root.PerAppAndroidScreen.title}]',
@@ -1454,9 +1457,9 @@ extension on TranslationsIt {
 			'permission.request' => ({required Object p}) => 'Attiva permesso [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Attiva il permesso [${p}]',
 			'tls.insecure' => 'Salta Verifica Certificato',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Abilita Frammento TLS',
 			'tls.fragmentSize' => 'Dimensione Frammento TLS',
 			'tls.fragmentSleep' => 'Pausa Frammento TLS',
@@ -1494,6 +1497,7 @@ extension on TranslationsIt {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] non ha questa funzione, aggiorna e riprova',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'La versione principale del core non corrisponde, aggiorna [${p}] e riprova',
 			'remoteProfileEditConfirm' => 'Dopo l\'aggiornamento del Profilo, le modifiche ai nodi verranno ripristinate. Continuare?',
+			'continueConnectConfirm' => 'Vuoi continuare la connessione?',
 			'mustBeValidHttpsURL' => 'Deve essere un URL https Valido',
 			'fileNotExistReinstall' => ({required Object p}) => 'File mancante [${p}], reinstalla',
 			'noNetworkConnect' => 'Nessuna connessione Internet',

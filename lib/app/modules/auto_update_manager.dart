@@ -208,6 +208,7 @@ class AutoUpdateManager {
       var file = File(downloadPath);
       bool exist = await file.exists();
       if (exist) {
+        await _sanitizeMacOSInstaller(downloadPath);
         return downloadPath;
       }
     }
@@ -281,12 +282,52 @@ class AutoUpdateManager {
           }
         }
       }
+      await _sanitizeMacOSInstaller(downloadPath);
       _downloading = false;
       Future.delayed(const Duration(milliseconds: 300), () async {
         for (var callback in onEventCheck) {
           callback();
         }
       });
+    }
+  }
+
+  static Future<void> _sanitizeMacOSInstaller(String downloadPath) async {
+    if (!Platform.isMacOS || downloadPath.isEmpty) {
+      return;
+    }
+    final file = File(downloadPath);
+    if (!await file.exists()) {
+      return;
+    }
+    try {
+      final clearResult = await Process.run("xattr", ["-c", downloadPath]);
+      if (clearResult.exitCode == 0) {
+        return;
+      }
+      Log.w(
+        "AutoUpdateManager._sanitizeMacOSInstaller xattr -c failed, path=$downloadPath, exitCode=${clearResult.exitCode}, stderr=${clearResult.stderr.toString().trim()}",
+      );
+
+      final delQuarantine = await Process.run("xattr", [
+        "-d",
+        "com.apple.quarantine",
+        downloadPath,
+      ]);
+      final delProvenance = await Process.run("xattr", [
+        "-d",
+        "com.apple.provenance",
+        downloadPath,
+      ]);
+      if (delQuarantine.exitCode != 0 && delProvenance.exitCode != 0) {
+        Log.w(
+          "AutoUpdateManager._sanitizeMacOSInstaller fallback failed, path=$downloadPath, quarantineExit=${delQuarantine.exitCode}, provenanceExit=${delProvenance.exitCode}",
+        );
+      }
+    } catch (err, _) {
+      Log.w(
+        "AutoUpdateManager._sanitizeMacOSInstaller exception ${err.toString()}",
+      );
     }
   }
 

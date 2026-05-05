@@ -89,6 +89,7 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] ไม่มีฟังก์ชันนี้ โปรดอัปเกรดและลองใหม่';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'เวอร์ชันแกนหลักไม่ตรงกัน โปรดอัปเกรด [${p}] และลองใหม่';
 	@override String get remoteProfileEditConfirm => 'หลังจากอัปเดตโปรไฟล์ การเปลี่ยนแปลงโหนดจะถูกคืนค่า ดำเนินการต่อ?';
+	@override String get continueConnectConfirm => 'คุณต้องการเชื่อมต่อต่อหรือไม่?';
 	@override String get mustBeValidHttpsURL => 'ต้องเป็น URL https ที่ถูกต้อง';
 	@override String fileNotExistReinstall({required Object p}) => 'ไฟล์ที่หายไป [${p}] โปรดติดตั้งใหม่';
 	@override String get noNetworkConnect => 'ไม่มีการเชื่อมต่ออินเทอร์เน็ต';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenTh implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'ซ่อนไอคอน VPN';
 	@override String get hideVpnTips => 'การเปิดใช้งาน IPv6 จะทำให้ฟังก์ชันนี้ล้มเหลว';
 	@override String get allowBypass => 'อนุญาตให้แอปข้าม VPN';
+	@override String get overrideAndroidVPN => 'แทนที่ Android VPN';
 	@override String get importSuccess => 'นำเข้าสำเร็จ';
 	@override String get rewriteConfirm => 'ไฟล์นี้จะเขียนทับการกำหนดค่าในเครื่องที่มีอยู่ คุณต้องการดำเนินการต่อหรือไม่?';
 	@override String get mergePerapp => 'รวม [${_root.PerAppAndroidScreen.title}] รายการท้องถิ่น';
@@ -1123,6 +1125,7 @@ extension on TranslationsTh {
 			'SettingsScreen.hideVpn' => 'ซ่อนไอคอน VPN',
 			'SettingsScreen.hideVpnTips' => 'การเปิดใช้งาน IPv6 จะทำให้ฟังก์ชันนี้ล้มเหลว',
 			'SettingsScreen.allowBypass' => 'อนุญาตให้แอปข้าม VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'แทนที่ Android VPN',
 			'SettingsScreen.importSuccess' => 'นำเข้าสำเร็จ',
 			'SettingsScreen.rewriteConfirm' => 'ไฟล์นี้จะเขียนทับการกำหนดค่าในเครื่องที่มีอยู่ คุณต้องการดำเนินการต่อหรือไม่?',
 			'SettingsScreen.mergePerapp' => 'รวม [${_root.PerAppAndroidScreen.title}] รายการท้องถิ่น',
@@ -1454,9 +1457,9 @@ extension on TranslationsTh {
 			'permission.request' => ({required Object p}) => 'เปิดใช้งาน [${p}] สิทธิ์',
 			'permission.requestNeed' => ({required Object p}) => 'โปรดเปิดใช้งาน [${p}] สิทธิ์',
 			'tls.insecure' => 'ข้ามการตรวจสอบใบรับรอง',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'เปิดใช้งาน TLS Fragment',
 			'tls.fragmentSize' => 'ขนาด TLS Fragment',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
@@ -1494,6 +1497,7 @@ extension on TranslationsTh {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] ไม่มีฟังก์ชันนี้ โปรดอัปเกรดและลองใหม่',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'เวอร์ชันแกนหลักไม่ตรงกัน โปรดอัปเกรด [${p}] และลองใหม่',
 			'remoteProfileEditConfirm' => 'หลังจากอัปเดตโปรไฟล์ การเปลี่ยนแปลงโหนดจะถูกคืนค่า ดำเนินการต่อ?',
+			'continueConnectConfirm' => 'คุณต้องการเชื่อมต่อต่อหรือไม่?',
 			'mustBeValidHttpsURL' => 'ต้องเป็น URL https ที่ถูกต้อง',
 			'fileNotExistReinstall' => ({required Object p}) => 'ไฟล์ที่หายไป [${p}] โปรดติดตั้งใหม่',
 			'noNetworkConnect' => 'ไม่มีการเชื่อมต่ออินเทอร์เน็ต',

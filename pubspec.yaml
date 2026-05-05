@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.18+2102
+version: 1.2.19+2200
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -164,7 +164,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: 6.0.0
-  ffigen: 20.1.1 # install llvm, https://pub.dev/packages/ffigen,build:dart run ffigen
+  ffigen: 20.1.1
   #build_runner: 2.4.15
   #json_serializable: 6.9.0 #dart run build_runner build --delete-conflicting-outputs
 
@@ -215,7 +215,7 @@ flutter_launcher_icons: #flutter pub run flutter_launcher_icons
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: logo-round-macos.png #macos https://github.com/Yidadaa/ChatGPT-Next-Web/issues/156  1024 -> 854 -> 1024
+    image_path: logo-round-macos.png
 
 sentry:
   upload_debug_symbols: false

@@ -138,6 +138,9 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'After the Profile is updated, the node changes will be restored. Continue?'
 	String get remoteProfileEditConfirm => 'After the Profile is updated, the node changes will be restored. Continue?';
 
+	/// en: 'Do you want to continue connecting?'
+	String get continueConnectConfirm => 'Do you want to continue connecting?';
+
 	/// en: 'Must be Valid https URL'
 	String get mustBeValidHttpsURL => 'Must be Valid https URL';
 
@@ -884,6 +887,9 @@ class TranslationsSettingsScreenEn {
 
 	/// en: 'Allow Apps to Bypass VPN'
 	String get allowBypass => 'Allow Apps to Bypass VPN';
+
+	/// en: 'Override Android VPN'
+	String get overrideAndroidVPN => 'Override Android VPN';
 
 	/// en: 'Import Success'
 	String get importSuccess => 'Import Success';
@@ -2242,6 +2248,7 @@ extension on Translations {
 			'SettingsScreen.hideVpn' => 'Hide VPN Icon',
 			'SettingsScreen.hideVpnTips' => 'Enabling IPv6 will cause this function to fail',
 			'SettingsScreen.allowBypass' => 'Allow Apps to Bypass VPN',
+			'SettingsScreen.overrideAndroidVPN' => 'Override Android VPN',
 			'SettingsScreen.importSuccess' => 'Import Success',
 			'SettingsScreen.rewriteConfirm' => 'This file will overwrite the existing local configuration. Do you want to continue?',
 			'SettingsScreen.mergePerapp' => 'Merge local [${_root.PerAppAndroidScreen.title}] lists',
@@ -2573,9 +2580,9 @@ extension on Translations {
 			'permission.request' => ({required Object p}) => 'Turn on [${p}] permission',
 			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',
 			'tls.insecure' => 'Skip Certificate Verification',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Enable TLS Fragment',
 			'tls.fragmentSize' => 'TLS Fragment Size',
 			'tls.fragmentSleep' => 'TLS Fragment Sleep',
@@ -2613,6 +2620,7 @@ extension on Translations {
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] does not have this function, please upgrade and try again',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'The core major version does not match, please upgrade [${p}] and try again',
 			'remoteProfileEditConfirm' => 'After the Profile is updated, the node changes will be restored. Continue?',
+			'continueConnectConfirm' => 'Do you want to continue connecting?',
 			'mustBeValidHttpsURL' => 'Must be Valid https URL',
 			'fileNotExistReinstall' => ({required Object p}) => 'File missing [${p}], please reinstall',
 			'noNetworkConnect' => 'No Internet connection',

@@ -89,6 +89,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV: Karing[${p}] bu işleve sahip değil, lütfen yükseltin ve tekrar deneyin';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Çekirdek ana sürümü uyuşmuyor, lütfen [${p}] sürümüne yükseltin ve tekrar deneyin';
 	@override String get remoteProfileEditConfirm => 'Profil güncellendikten sonra düğüm değişiklikleri geri yüklenecektir. Devam edilsin mi?';
+	@override String get continueConnectConfirm => 'Bağlanmaya devam etmek istiyor musunuz?';
 	@override String get mustBeValidHttpsURL => 'Geçerli bir https URL\'si olmalıdır';
 	@override String fileNotExistReinstall({required Object p}) => 'Dosya eksik [${p}], lütfen yeniden yükleyin';
 	@override String get noNetworkConnect => 'İnternet bağlantısı yok';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenTr implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'VPN Simgesini Gizle';
 	@override String get hideVpnTips => 'IPv6\'nın etkinleştirilmesi bu işlevin başarısız olmasına neden olur';
 	@override String get allowBypass => 'Uygulamaların VPN\'i Atlamasına İzin Ver';
+	@override String get overrideAndroidVPN => 'Android VPN\'i geçersiz kıl';
 	@override String get importSuccess => 'İçe Aktarma Başarılı';
 	@override String get rewriteConfirm => 'Bu dosya mevcut yerel yapılandırmanın üzerine yazılacaktır. Devam etmek istiyor musunuz?';
 	@override String get mergePerapp => 'Yerel [${_root.PerAppAndroidScreen.title}] listelerini birleştir';
@@ -1123,6 +1125,7 @@ extension on TranslationsTr {
 			'SettingsScreen.hideVpn' => 'VPN Simgesini Gizle',
 			'SettingsScreen.hideVpnTips' => 'IPv6\'nın etkinleştirilmesi bu işlevin başarısız olmasına neden olur',
 			'SettingsScreen.allowBypass' => 'Uygulamaların VPN\'i Atlamasına İzin Ver',
+			'SettingsScreen.overrideAndroidVPN' => 'Android VPN\'i geçersiz kıl',
 			'SettingsScreen.importSuccess' => 'İçe Aktarma Başarılı',
 			'SettingsScreen.rewriteConfirm' => 'Bu dosya mevcut yerel yapılandırmanın üzerine yazılacaktır. Devam etmek istiyor musunuz?',
 			'SettingsScreen.mergePerapp' => 'Yerel [${_root.PerAppAndroidScreen.title}] listelerini birleştir',
@@ -1454,9 +1457,9 @@ extension on TranslationsTr {
 			'permission.request' => ({required Object p}) => '[${p}] iznini aç',
 			'permission.requestNeed' => ({required Object p}) => 'Lütfen [${p}] iznini açın',
 			'tls.insecure' => 'Sertifika Doğrulamasını Atla',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
 			'tls.fragmentSize' => 'TLS Parça Boyutu',
 			'tls.fragmentSleep' => 'TLS Parça Bekleme Süresi',
@@ -1494,6 +1497,7 @@ extension on TranslationsTr {
 			'appleTV404' => ({required Object p}) => 'AppleTV: Karing[${p}] bu işleve sahip değil, lütfen yükseltin ve tekrar deneyin',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Çekirdek ana sürümü uyuşmuyor, lütfen [${p}] sürümüne yükseltin ve tekrar deneyin',
 			'remoteProfileEditConfirm' => 'Profil güncellendikten sonra düğüm değişiklikleri geri yüklenecektir. Devam edilsin mi?',
+			'continueConnectConfirm' => 'Bağlanmaya devam etmek istiyor musunuz?',
 			'mustBeValidHttpsURL' => 'Geçerli bir https URL\'si olmalıdır',
 			'fileNotExistReinstall' => ({required Object p}) => 'Dosya eksik [${p}], lütfen yeniden yükleyin',
 			'noNetworkConnect' => 'İnternet bağlantısı yok',

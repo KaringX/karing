@@ -89,6 +89,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String appleTV404({required Object p}) => 'AppleTV: Karing[${p}] にはこの機能がありません。アップグレードして再試行してください';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'コアのメジャーバージョンが一致しません。[${p}] にアップグレードして再試行してください';
 	@override String get remoteProfileEditConfirm => 'プロファイル更新後、ノードの変更は復元されます。続行しますか？';
+	@override String get continueConnectConfirm => '接続を続行しますか？';
 	@override String get mustBeValidHttpsURL => '有効な https URL である必要があります';
 	@override String fileNotExistReinstall({required Object p}) => 'ファイル [${p}] が見つかりません。再インストールしてください';
 	@override String get noNetworkConnect => 'インターネット接続がありません';
@@ -459,6 +460,7 @@ class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
 	@override String get hideVpn => 'VPN アイコンを非表示にする';
 	@override String get hideVpnTips => 'IPv6 を有効にすると、この機能は失敗します';
 	@override String get allowBypass => 'アプリが VPN をバイパスすることを許可する';
+	@override String get overrideAndroidVPN => 'Android VPN を上書きする';
 	@override String get importSuccess => 'インポートに成功しました';
 	@override String get rewriteConfirm => 'このファイルは既存のローカル構成を上書きします。続行しますか？';
 	@override String get mergePerapp => 'ローカルの [${_root.PerAppAndroidScreen.title}] リストを結合する';
@@ -1123,6 +1125,7 @@ extension on TranslationsJa {
 			'SettingsScreen.hideVpn' => 'VPN アイコンを非表示にする',
 			'SettingsScreen.hideVpnTips' => 'IPv6 を有効にすると、この機能は失敗します',
 			'SettingsScreen.allowBypass' => 'アプリが VPN をバイパスすることを許可する',
+			'SettingsScreen.overrideAndroidVPN' => 'Android VPN を上書きする',
 			'SettingsScreen.importSuccess' => 'インポートに成功しました',
 			'SettingsScreen.rewriteConfirm' => 'このファイルは既存のローカル構成を上書きします。続行しますか？',
 			'SettingsScreen.mergePerapp' => 'ローカルの [${_root.PerAppAndroidScreen.title}] リストを結合する',
@@ -1454,9 +1457,9 @@ extension on TranslationsJa {
 			'permission.request' => ({required Object p}) => '[${p}] 権限をオンにする',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',
 			'tls.insecure' => '証明書の検証をスキップする',
-			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			_ => null,
 		} ?? switch (path) {
+			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
 			'tls.fragmentSize' => 'TLS フラグメントサイズ',
 			'tls.fragmentSleep' => 'TLS フラグメントスリープ',
@@ -1494,6 +1497,7 @@ extension on TranslationsJa {
 			'appleTV404' => ({required Object p}) => 'AppleTV: Karing[${p}] にはこの機能がありません。アップグレードして再試行してください',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'コアのメジャーバージョンが一致しません。[${p}] にアップグレードして再試行してください',
 			'remoteProfileEditConfirm' => 'プロファイル更新後、ノードの変更は復元されます。続行しますか？',
+			'continueConnectConfirm' => '接続を続行しますか？',
 			'mustBeValidHttpsURL' => '有効な https URL である必要があります',
 			'fileNotExistReinstall' => ({required Object p}) => 'ファイル [${p}] が見つかりません。再インストールしてください',
 			'noNetworkConnect' => 'インターネット接続がありません',
