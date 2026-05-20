@@ -62,8 +62,6 @@ PODS:
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
-  - in_app_review (2.0.0):
-    - Flutter
   - move_to_background (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
@@ -142,7 +140,6 @@ DEPENDENCIES:
   - flutter_secure_storage_darwin (from `.symlinks/plugins/flutter_secure_storage_darwin/darwin`)
   - icloud_storage (from `.symlinks/plugins/icloud_storage/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
-  - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
   - move_to_background (from `.symlinks/plugins/move_to_background/ios`)
   - network_info_plus (from `.symlinks/plugins/network_info_plus/ios`)
   - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
@@ -195,8 +192,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/icloud_storage/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
-  in_app_review:
-    :path: ".symlinks/plugins/in_app_review/ios"
   move_to_background:
     :path: ".symlinks/plugins/move_to_background/ios"
   network_info_plus:
@@ -248,7 +243,6 @@ SPEC CHECKSUMS:
   flutter_secure_storage_darwin: acdb3f316ed05a3e68f856e0353b133eec373a23
   icloud_storage: e55639f0c0d7cb2b0ba9c0b3d5968ccca9cd9aa2
   image_picker_ios: e0ece4aa2a75771a7de3fa735d26d90817041326
-  in_app_review: 7dd1ea365263f834b8464673f9df72c80c17c937
   move_to_background: 155f7bfbd34d43ad847cb630d2d2d87c17199710
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   network_info_plus: cf61925ab5205dce05a4f0895989afdb6aade5fc

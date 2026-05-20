@@ -2179,11 +2179,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     setState(() {});
-    if (Platform.isLinux) {
-      String? installer = await AutoUpdateManager.checkReplace();
-      if (installer != null) {
-        return null;
-      }
+    if (Platform.isLinux && await VPNService.getTunMode()) {
+      //String? installer = await AutoUpdateManager.checkReplace();
+      //if (installer != null) {
+      //  return null;
+      //}
       final servicePath = PathUtils.serviceExePath();
       if (!await FlutterVpnService.isServiceAuthorized(servicePath)) {
         String? password = await DialogUtils.showPasswordInputDialog(context);
@@ -2197,18 +2197,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         );
         if (result != null) {
           if (!disableShowAlertDialog) {
-            final tcontext = Translations.of(context);
-            bool? ok = await DialogUtils.showConfirmDialog(
-              context,
-              "${result.message}\n\n${tcontext.continueConnectConfirm}",
-            );
-            if (!mounted) {
-              return VPNService.convertErr(result);
-            }
-            setState(() {});
-            if (ok != true) {
-              return VPNService.convertErr(result);
-            }
+            await DialogUtils.showAlertDialog(context, result.message);
+            return VPNService.convertErr(result);
           } else {
             setState(() {});
             return VPNService.convertErr(result);
@@ -2724,7 +2714,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeRemote &&
-        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty) {
+        settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
+        settingConfig.uiScreen.fastCachedImageConfigInited) {
       final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
       if (_invalidBackgroundImageUrl == backgroundImageUrl) {
         return null;

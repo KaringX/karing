@@ -36,6 +36,7 @@ migrate_working_dir/
 
 # Web related
 lib/generated_plugin_registrant.dart
+lib/generated/
 
 # Symbolication related
 app.*.symbols
@@ -81,3 +82,5 @@ REFACTORING_ANALYSIS.md
 REFACTORING_SUMMARY.md
 START_HERE_SINGBOX_SPLIT.md
 TECHNICAL_INVENTORY.md
+build_log.txt
+build_output.txt

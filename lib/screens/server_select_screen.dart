@@ -1140,9 +1140,16 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
     bool disabled = use.disable.contains(disableKey);
 
     ServerConfigGroupItem? item = ServerManager.getByGroupId(server.groupid);
-    bool isTesting = ServerManager.isTestOutboundServerLatencying(server.tag);
-    bool isWaitTesting =
-        (item != null && item.testLatency.contains(server.tag));
+    bool isTesting = false;
+    bool isWaitTesting = false;
+    if (item != null && item.enable) {
+      isTesting = ServerManager.isTestOutboundServerLatencying(
+        server.groupid,
+        server.tag,
+      );
+      isWaitTesting = item.testLatency.contains(server.tag);
+    }
+
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 10;
     const double leftWidth = 30.0;

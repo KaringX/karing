@@ -684,9 +684,16 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
     ServerConfigGroupItem? item = ServerManager.getByGroupId(server.groupid);
-    bool isTesting = ServerManager.isTestOutboundServerLatencying(server.tag);
-    bool isWaitTesting =
-        (item != null && item.testLatency.contains(server.tag));
+    bool isTesting = false;
+    bool isWaitTesting = false;
+    if (item != null && item.enable) {
+      isTesting = ServerManager.isTestOutboundServerLatencying(
+        server.groupid,
+        server.tag,
+      );
+      isWaitTesting = item.testLatency.contains(server.tag);
+    }
+
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 10;
     const double leftWidth = 30.0;
@@ -1276,6 +1283,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
   void onTapAddProfile() async {
     await GroupHelper.showAddProfile(context, false);
+    _buildData();
     setState(() {});
   }
 
@@ -1285,7 +1293,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     } else {
       _expandGroup.add(groupid);
     }
-
     _buildData();
     setState(() {});
   }

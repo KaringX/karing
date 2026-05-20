@@ -560,7 +560,7 @@ class ServerManager {
     try {
       var config = _serverConfig.clone(true);
       for (var item in config.items) {
-        if (item.isRemote() && item.enable && item.updateDuration != null) {
+        if (item.isRemote() && item.updateDuration != null) {
           DateTime? updateTime = DateTime.tryParse(item.updateTime);
           if (updateTime == null ||
               now.difference(updateTime).inSeconds >=
@@ -1442,8 +1442,12 @@ class ServerManager {
     return _testOutboundServerLatencying.isNotEmpty;
   }
 
-  static bool isTestOutboundServerLatencying(String tag) {
-    return _testOutboundServerLatencying.containsKey(tag);
+  static bool isTestOutboundServerLatencying(String groupid, String tag) {
+    final pair = _testOutboundServerLatencying[tag];
+    if (pair == null) {
+      return false;
+    }
+    return pair.groupid == groupid && pair.running;
   }
 
   static int getTestOutboundServerLatencyTestingCount(String groupid) {

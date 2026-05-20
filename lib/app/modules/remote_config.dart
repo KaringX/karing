@@ -7,13 +7,11 @@ class RemoteConfigChannel {
   String platform = "";
   String channel = "";
   String url = "";
-  String rateUrl = "";
 
   Map<String, dynamic> toJson() => {
     'platform': platform,
     'channel': channel,
     "url": url,
-    "rate_url": rateUrl,
   };
   void fromJson(Map<String, dynamic>? map) {
     if (map == null) {
@@ -22,7 +20,6 @@ class RemoteConfigChannel {
     platform = map["platform"] ?? "";
     channel = map["channel"] ?? "";
     url = map["url"] ?? "";
-    rateUrl = map["rate_url"] ?? "";
   }
 
   static RemoteConfigChannel fromJsonStatic(Map<String, dynamic>? map) {

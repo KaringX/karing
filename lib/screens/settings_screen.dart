@@ -7,7 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:in_app_review/in_app_review.dart';
+
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
@@ -93,17 +93,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     if (mounted) {
       setState(() {});
     }
-  }
-
-  Future<bool> getInAppRate() async {
-    if (!Platform.isIOS) {
-      return false;
-    }
-    if (AppleUtils.getAppStoreUrl().isEmpty) {
-      return false;
-    }
-    final InAppReview inAppReview = InAppReview.instance;
-    return await inAppReview.isAvailable();
   }
 
   Future<bool> startVPN() async {
@@ -211,7 +200,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
-    bool rateInApp = await getInAppRate();
+
     //bool testFlight = await InstallReferrerUtils.isTestFlight();
     bool appStore = await InstallReferrerUtils.isAppStore();
     AutoUpdateCheckVersion versionCheck = AutoUpdateManager.getVersionCheck();
@@ -1494,7 +1483,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       );
     }
 
-    String rateUrl = await AppleUtils.getRateUrl();
     groupOptions.add(
       GroupItem(
         options: [
@@ -1559,6 +1547,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               ),
             ),
           ],
+
           /*if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
         GroupItemOptions(
             pushOptions: GroupItemPushOptions(
@@ -1571,34 +1560,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           builder: (context) => const FeedbackScreen()));
                 }))
       ],*/
-          if (rateInApp) ...[
-            //https://apps.apple.com/cn/app/id1558453472?action=write-review
-            //https://itunes.apple.com/cn/lookup?id=1558453472
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.rateInApp,
-                onPush: () async {
-                  final InAppReview inAppReview = InAppReview.instance;
-                  inAppReview.requestReview();
-                },
-              ),
-            ),
-          ],
-          if (rateUrl.isNotEmpty) ...[
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.rateInAppStore,
-                onPush: () async {
-                  await WebviewHelper.loadUrl(
-                    context,
-                    rateUrl,
-                    "SSS_rateInAppStore",
-                    title: tcontext.SettingsScreen.rateInAppStore,
-                  );
-                },
-              ),
-            ),
-          ],
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
               name: tcontext.meta.about,

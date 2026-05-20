@@ -217,6 +217,7 @@ class SettingConfigItemUIScreen {
   String backgroundImageType = backgroundTypeDisable;
   String backgroundImageUrl = "";
   String backgroundImageLocal = "";
+  bool fastCachedImageConfigInited = false;
 
   Map<String, dynamic> toJson() => {
     'widgets': widgets,

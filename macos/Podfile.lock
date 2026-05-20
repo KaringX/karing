@@ -28,8 +28,6 @@ PODS:
     - HotKey
   - icloud_storage (0.0.1):
     - FlutterMacOS
-  - in_app_review (2.0.0):
-    - FlutterMacOS
   - network_info_plus (0.0.1):
     - FlutterMacOS
   - open_dir_macos (0.0.1):
@@ -106,7 +104,6 @@ DEPENDENCIES:
   - FlutterMacOS (from `Flutter/ephemeral`)
   - hotkey_manager_macos (from `Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos`)
   - icloud_storage (from `Flutter/ephemeral/.symlinks/plugins/icloud_storage/macos`)
-  - in_app_review (from `Flutter/ephemeral/.symlinks/plugins/in_app_review/macos`)
   - network_info_plus (from `Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos`)
   - open_dir_macos (from `Flutter/ephemeral/.symlinks/plugins/open_dir_macos/macos`)
   - open_file_mac (from `Flutter/ephemeral/.symlinks/plugins/open_file_mac/macos`)
@@ -157,8 +154,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/hotkey_manager_macos/macos
   icloud_storage:
     :path: Flutter/ephemeral/.symlinks/plugins/icloud_storage/macos
-  in_app_review:
-    :path: Flutter/ephemeral/.symlinks/plugins/in_app_review/macos
   network_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/network_info_plus/macos
   open_dir_macos:
@@ -213,7 +208,6 @@ SPEC CHECKSUMS:
   HotKey: 400beb7caa29054ea8d864c96f5ba7e5b4852277
   hotkey_manager_macos: a4317849af96d2430fa89944d3c58977ca089fbe
   icloud_storage: eb5b0f20687cf5a4fabc0b541f3b079cd6df7dcb
-  in_app_review: 66e7680752b632d83f4f0e88b34d52ed303fbff4
   network_info_plus: 21d1cd6a015ccb2fdff06a1fbfa88d54b4e92f61
   open_dir_macos: 79810d7921d777f8732bf6358b3a0839a8fad9b5
   open_file_mac: 76f06c8597551249bdb5e8fd8827a98eae0f4585

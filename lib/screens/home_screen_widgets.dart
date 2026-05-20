@@ -11,6 +11,7 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/clash_api.dart';
+import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
@@ -31,6 +32,7 @@ import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 import 'package:vpn_service/state.dart';
+import 'package:vpn_service/vpn_service.dart';
 
 abstract class SwitchCard extends StatefulWidget {
   const SwitchCard({
@@ -999,15 +1001,35 @@ class TunCard extends FutureSwitchCard {
            onAfterPressed?.call();
          },
          onChanged: (context, value) async {
-           if (value && Platform.isWindows) {
-             bool admin = VPNService.isRunAsAdmin();
-             if (!admin) {
-               final tcontext = Translations.of(context);
-               await DialogUtils.showAlertDialog(
-                 context,
-                 tcontext.SettingsScreen.tunModeRunAsAdmin,
-               );
-               return;
+           if (value) {
+             if (Platform.isWindows) {
+               bool admin = VPNService.isRunAsAdmin();
+               if (!admin) {
+                 final tcontext = Translations.of(context);
+                 await DialogUtils.showAlertDialog(
+                   context,
+                   tcontext.SettingsScreen.tunModeRunAsAdmin,
+                 );
+                 return;
+               }
+             } else if (Platform.isLinux) {
+               final servicePath = PathUtils.serviceExePath();
+               if (!await FlutterVpnService.isServiceAuthorized(servicePath)) {
+                 String? password = await DialogUtils.showPasswordInputDialog(
+                   context,
+                 );
+                 if (password == null || password.isEmpty) {
+                   return;
+                 }
+                 final result = await FlutterVpnService.authorizeService(
+                   servicePath,
+                   password,
+                 );
+                 if (result != null) {
+                   await DialogUtils.showAlertDialog(context, result.message);
+                   return;
+                 }
+               }
              }
            }
            final state = await VPNService.getState();

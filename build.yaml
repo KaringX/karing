@@ -1,0 +1,8 @@
+builders:
+  build_time:
+    import: "lib/builders/build_time_builder.dart"
+    builder_factories: ["buildTimeBuilder"]
+    build_extensions: {'$lib$': ['generated/build_time.dart']}
+    build_to: source
+    auto_apply: root_package
+    runs_before: ["source_gen|combined"]
