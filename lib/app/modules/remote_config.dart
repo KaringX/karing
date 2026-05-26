@@ -81,7 +81,7 @@ class RemoteConfig {
   static const String kDefaultNotice = "";
   static const String kDefaultConfig = "";
   // TRACKING REMOVED
-  static const String kDefaultAutoUpdate =
+  static const String kDefaultAutoUpdate = "https://jsonmor.github.io/karing/autoupdate.json";
       "";
   static const String kDefaultOutpost = "";
   static const String kDefaultHarry = "";

@@ -1,0 +1,101 @@
+name: Sync upstream releases & update feed
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Sync upstream releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          UPSTREAM: KaringX/karing
+          FORK: ${{ github.repository }}
+        run: |
+          set -e
+          echo "--- Fetching upstream releases ---"
+          gh api "repos/${UPSTREAM}/releases?per_page=15" > /tmp/upstream.json
+
+          echo "--- Fetching fork releases ---"
+          gh api "repos/${FORK}/releases?per_page=100" > /tmp/fork.json 2>/dev/null || echo "[]" > /tmp/fork.json
+
+          python3 << 'PYEOF'
+          import json, subprocess, os
+
+          upstream = os.environ["UPSTREAM"]
+          fork = os.environ["FORK"]
+
+          with open("/tmp/upstream.json") as f:
+              up_rels = json.load(f)
+          with open("/tmp/fork.json") as f:
+              fork_rels = json.load(f)
+
+          fork_tags = {r["tag_name"] for r in fork_rels}
+
+          for rel in up_rels:
+              tag = rel["tag_name"]
+              if tag in fork_tags:
+                  continue
+              name = rel.get("name") or tag
+              body = (rel.get("body") or "")[:5000]
+              pre = str(rel.get("prerelease", False)).lower()
+              print(f"Creating release {tag} ...")
+              try:
+                  subprocess.run([
+                      "gh", "api", f"repos/{fork}/releases",
+                      "--method", "POST",
+                      "-f", f"tag_name={tag}",
+                      "-f", f"name={name}",
+                      "-f", f"body={body}",
+                      "-F", f"prerelease={pre}",
+                      "-F", "draft=false",
+                      "-f", "target_commitish=remove-tracking",
+                  ], check=True, capture_output=True, text=True)
+                  print(f"  OK: {tag}")
+              except subprocess.CalledProcessError as e:
+                  print(f"  SKIP: {tag} ({e.stderr[:120]})")
+          PYEOF
+
+      - name: Generate autoupdate.json
+        run: |
+          set -e
+          mkdir -p public
+
+          echo "--- Downloading upstream autoupdate.json ---"
+          curl -sfL "https://dot.karing.app/autoupdate.json" -o public/autoupdate.json
+
+          python3 -c "
+          import json
+          with open('public/autoupdate.json') as f:
+              d = json.load(f)
+          print(f'  OK: {len(d)} entries')
+          "
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
