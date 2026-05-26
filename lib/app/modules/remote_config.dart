@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:karing/app/utils/convert_utils.dart';
-import 'package:karing/app/utils/install_referrer_utils.dart';
+// TRACKING REMOVED
+// import 'package:karing/app/utils/install_referrer_utils.dart';
 
 class RemoteConfigChannel {
   String platform = "";
@@ -75,19 +76,21 @@ class RemoteConfigDonate {
 }
 
 class RemoteConfig {
-  static const String kDefaultSentry = "o4508911573663744.ingest.sentry.io";
+  static const String kDefaultSentry = "";
   static const String kDefaultHost = "karing.app";
-  static const String kDefaultNotice = "https://dot.$kDefaultHost/notice2.json";
-  static const String kDefaultConfig = "https://dot.$kDefaultHost/config.json";
+  static const String kDefaultNotice = "";
+  static const String kDefaultConfig = "";
+  // TRACKING REMOVED
   static const String kDefaultAutoUpdate =
-      "https://dot.$kDefaultHost/autoupdate.json";
-  static const String kDefaultOutpost = "https://outpost.$kDefaultHost/put";
-  static const String kDefaultHarry = "https://harry.$kDefaultHost/spell/";
-  static const String kDefaultGetTranffic = "https://2.x31415926.top/";
+      "";
+  static const String kDefaultOutpost = "";
+  static const String kDefaultHarry = "";
+  static const String kDefaultGetTranffic = "";
   static const String kDefaultGetTranfficFrom = "";
   static const String kDefaultTutorial = "https://$kDefaultHost/quickstart/";
+  // TRACKING REMOVED
   static const String kDefaultStatistic =
-      "https://$kDefaultHost/app-manual/statistics/";
+      "";
   static const String kDefaultFaq = "https://$kDefaultHost/faq/";
   static const String kDefaultRulesets =
       "https://github.com/KaringX/karing-ruleset";
@@ -95,8 +98,9 @@ class RemoteConfig {
   static const String kDefaultTelegram = "https://t.me/KaringApp";
   static const String kDefaultFollow = "https://github.com/KaringX/karing";
   static const String kDefaultHtmlTools = "https://tools.karing.app/";
+  // TRACKING REMOVED
   static const String kDefaultPrivacyPolicy =
-      "https://dot.$kDefaultHost/privacy_policy.txt";
+      "";
   static const String kDefaultDnsLeakDetection = "https://browserleaks.com/dns";
   static const String kDefaultProxyLeakDetection =
       "https://browserleaks.com/ip";
@@ -106,8 +110,9 @@ class RemoteConfig {
       "https://github.com/KaringX/karing-ruleset/raw/sing/geo/geoip";
   static const String kDefaultAcl =
       "https://github.com/KaringX/karing-ruleset/raw/sing/ACL4SSR";
+  // TRACKING REMOVED
   static const String kIspPanelJs =
-      "https://harry.karing.app/assets/bind.js?v=";
+      "";
 
   String latestCheck = "";
   List<String> forwards = [];
@@ -126,7 +131,7 @@ class RemoteConfig {
   String outpost = kDefaultOutpost;
   String harry = kDefaultHarry;
   String ispPrepare(String id) {
-    return "https://potter.$kDefaultHost/isp/$id/base.json";
+    return ""; // TRACKING REMOVED
   }
 
   String sentry = kDefaultSentry;

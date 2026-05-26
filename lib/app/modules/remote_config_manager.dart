@@ -66,7 +66,7 @@ class RemoteConfigManager {
     return _config;
   }
 
-  static bool rejectSentrySubmit() {
+  static bool rejectSentrySubmit() { return true; // TRACKING REMOVED
     var minVersion = _config.sentryMinVersion;
     if (minVersion.isNotEmpty) {
       String version = AppUtils.getBuildinVersion();
@@ -77,7 +77,7 @@ class RemoteConfigManager {
     return false;
   }
 
-  static bool rejectAnalyticsSubmit() {
+  static bool rejectAnalyticsSubmit() { return true; // TRACKING REMOVED
     var minVersion = _config.analyticsMinVersion;
     if (minVersion.isNotEmpty) {
       String version = AppUtils.getBuildinVersion();

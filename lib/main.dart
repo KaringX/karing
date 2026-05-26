@@ -65,7 +65,8 @@ void main(List<String> args) async {
   await RemoteConfigManager.init();
   await SettingManager.init();
   await RemoteISPConfigManager.init();
-  if (!SettingManager.getConfig().disableAppImproveData) {
+  // TRACKING REMOVED
+    if (false) {
     await SentryUtilsPrivate.init();
   }
 
@@ -329,7 +330,8 @@ class MyAppState extends State<MyApp>
     List<NavigatorObserver> observers = [];
 
     observers.add(AppRouteObserver.instance);
-    if (!SettingManager.getConfig().disableAppImproveData) {
+    // TRACKING REMOVED
+    if (false) {
       observers.add(SentryUtils.getOvserver());
     }
 
