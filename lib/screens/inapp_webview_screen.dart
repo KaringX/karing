@@ -451,7 +451,9 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                         if (widget.showOpenExternal) ...[
                           InkWell(
                             onTap: () async {
-                              UrlLauncherUtils.loadUrl(widget.url);
+                              UrlLauncherUtils.loadUrl(
+                                _url.isNotEmpty ? _url : widget.url,
+                              );
                             },
                             child: const SizedBox(
                               width: 50,

@@ -120,6 +120,7 @@ class GroupHelper {
                 url,
                 "SSS_getTranffic",
                 title: tcontext.SettingsScreen.getTranffic,
+                inappWebViewOpenExternal: true,
               );
             },
           ),
