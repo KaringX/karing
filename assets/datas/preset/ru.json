@@ -134,7 +134,7 @@
                 "acl:Whatsapp"
             ],
             "package": [
-                "com.whatapp"
+                "com.whatsapp"
             ],
             "processName": [
                 "WhatsApp.exe",
