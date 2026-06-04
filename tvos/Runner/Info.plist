@@ -19,7 +19,7 @@
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.19</string>
+	<string>1.2.20</string>
 	<key>CFBundleVersion</key>
 	<string>2300</string>
 	<key>CFBundlePackageType</key>
