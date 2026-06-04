@@ -110,7 +110,7 @@ configurations.configureEach {
     )
 }
 
-val sentryKeystore = rootProject.file("../private/karing/android/sign/sentry.properties")
+val sentryKeystore = rootProject.file("../../private_for_build/karing/karing/android/sign/sentry.properties")
 val sentryProp = Properties().apply { sentryKeystore.inputStream().use(this::load) }
 ///
 // import io.sentry.android.gradle.extensions.InstrumentationFeature

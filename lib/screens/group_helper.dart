@@ -368,8 +368,8 @@ class GroupHelper {
             timerIntervalPickerOptions: GroupItemTimerIntervalPickerOptions(
               name: "UDP ${tcontext.meta.timeout}",
               duration: settingConfig.tun.udpTimeout,
-              showDays: false,
-              showHours: false,
+              showDays: true,
+              showHours: true,
               showMilliSeconds: false,
               showDisable: false,
               onPicker: !tunMode
@@ -379,8 +379,8 @@ class GroupHelper {
                         return;
                       }
                       if (duration != null) {
-                        if (duration.inMinutes > 5) {
-                          duration = const Duration(minutes: 5);
+                        if (duration.inDays > 365) {
+                          duration = const Duration(days: 365);
                         } else if (duration.inSeconds < 5) {
                           duration = const Duration(seconds: 5);
                         }
@@ -1704,7 +1704,7 @@ class GroupHelper {
               ),
               text: frontProxy,
               textStyle: TextStyle(
-                fontFamily: Platform.isWindows ? 'Emoji' : null,
+                fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
                 color: invalidOutbounds.isNotEmpty ? Colors.red : null,
               ),
               onPush: () async {

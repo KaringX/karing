@@ -157,22 +157,22 @@ class DialogUtils {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  child: Text(tcontext.meta.ok),
-                  onPressed: () {
-                    if (!context.mounted) {
-                      return;
-                    }
-                    Navigator.pop(context, true);
-                  },
-                ),
-                const SizedBox(width: 60),
-                ElevatedButton(
                   child: Text(tcontext.meta.cancel),
                   onPressed: () {
                     if (!context.mounted) {
                       return;
                     }
                     Navigator.pop(context, false);
+                  },
+                ),
+                const SizedBox(width: 60),
+                ElevatedButton(
+                  child: Text(tcontext.meta.ok),
+                  onPressed: () {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    Navigator.pop(context, true);
                   },
                 ),
               ],
@@ -244,25 +244,24 @@ class DialogUtils {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  child: Text(tcontext.meta.ok),
-                  onPressed: () {
-                    if (!context.mounted) {
-                      return;
-                    }
-
-                    if (callback(textController.text)) {
-                      Navigator.pop(context, textController.text);
-                    }
-                  },
-                ),
-                const SizedBox(width: 60),
-                ElevatedButton(
                   child: Text(tcontext.meta.cancel),
                   onPressed: () {
                     if (!context.mounted) {
                       return;
                     }
                     Navigator.pop(context, null);
+                  },
+                ),
+                const SizedBox(width: 60),
+                ElevatedButton(
+                  child: Text(tcontext.meta.ok),
+                  onPressed: () {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    if (callback(textController.text)) {
+                      Navigator.pop(context, textController.text);
+                    }
                   },
                 ),
               ],
@@ -343,12 +342,21 @@ class DialogUtils {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                  child: Text(tcontext.meta.cancel),
+                  onPressed: () {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    Navigator.pop(context, null);
+                  },
+                ),
+                const SizedBox(width: 60),
+                ElevatedButton(
                   child: Text(tcontext.meta.ok),
                   onPressed: () {
                     if (!context.mounted) {
                       return;
                     }
-
                     if (textControllerL.text.isNotEmpty &&
                         textControllerR.text.isNotEmpty &&
                         callback(
@@ -365,16 +373,6 @@ class DialogUtils {
                         ),
                       );
                     }
-                  },
-                ),
-                const SizedBox(width: 60),
-                ElevatedButton(
-                  child: Text(tcontext.meta.cancel),
-                  onPressed: () {
-                    if (!context.mounted) {
-                      return;
-                    }
-                    Navigator.pop(context, null);
                   },
                 ),
               ],
@@ -565,6 +563,16 @@ class DialogUtils {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                      child: Text(tcontext.meta.cancel),
+                      onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.pop(context, null);
+                      },
+                    ),
+                    const SizedBox(width: 60),
+                    ElevatedButton(
                       child: Text(tcontext.meta.ok),
                       onPressed: () {
                         if (!context.mounted) {
@@ -589,16 +597,6 @@ class DialogUtils {
                         } else if (selected == tcontext.meta.disable) {}
 
                         Navigator.pop(context, DialogUtilsResult(duration));
-                      },
-                    ),
-                    const SizedBox(width: 60),
-                    ElevatedButton(
-                      child: Text(tcontext.meta.cancel),
-                      onPressed: () {
-                        if (!context.mounted) {
-                          return;
-                        }
-                        Navigator.pop(context, null);
                       },
                     ),
                   ],
@@ -656,22 +654,22 @@ class DialogUtils {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      child: Text(tcontext.meta.ok),
-                      onPressed: () {
-                        if (!context.mounted) {
-                          return;
-                        }
-                        Navigator.pop(context, DialogUtilsResult(selected));
-                      },
-                    ),
-                    const SizedBox(width: 60),
-                    ElevatedButton(
                       child: Text(tcontext.meta.cancel),
                       onPressed: () {
                         if (!context.mounted) {
                           return;
                         }
                         Navigator.pop(context, null);
+                      },
+                    ),
+                    const SizedBox(width: 60),
+                    ElevatedButton(
+                      child: Text(tcontext.meta.ok),
+                      onPressed: () {
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.pop(context, DialogUtilsResult(selected));
                       },
                     ),
                   ],

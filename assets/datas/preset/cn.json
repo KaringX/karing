@@ -31,6 +31,29 @@
             "switch": false
         },
         {
+            "domain_suffix": [
+                "push.apple.com",
+                "akadns.net"
+            ],
+            "domain_keyword": [
+                "apple.com.edgekey.net"
+            ],
+            "ip_cidr": [
+                "17.249.0.0/16",
+                "17.252.0.0/16",
+                "17.57.144.0/22",
+                "17.188.128.0/18",
+                "17.188.20.0/23",
+                "2620:149:a44::/48",
+                "2403:300:a42::/48",
+                "2403:300:a51::/48",
+                "2a01:b740:a42::/48"
+            ],
+            "outbound": "currentSelected",
+            "name": "📢 苹果推送通知",
+            "switch": false
+        },
+        {
             "rule_set_build_in": [
                 "geosite:apple",
                 "geosite:apple@ads",
@@ -91,6 +114,29 @@
         },
         {
             "rule_set_build_in": [
+                "geosite:facebook-dev",
+                "geosite:facebook",
+                "geosite:facebook@ads",
+                "geoip:facebook",
+                "acl:Facebook"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 Facebook",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:x",
+                "geosite:x@ads",
+                "geoip:twitter",
+                "acl:Twitter"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 X",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
                 "geosite:tiktok"
             ],
             "outbound": "currentSelected",
@@ -112,6 +158,22 @@
             ],
             "outbound": "currentSelected",
             "name": "🎥 奈飞视频",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
+                "geosite:whatsapp",
+                "acl:Whatsapp"
+            ],
+            "package": [
+                "com.whatsapp"
+            ],
+            "processName": [
+                "WhatsApp.exe",
+                "WhatsApp"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 WhatsApp",
             "switch": false
         },
         {

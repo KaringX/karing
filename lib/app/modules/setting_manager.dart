@@ -437,7 +437,7 @@ class SettingConfigItemNTP {
 class SettingConfigItemTUN {
   bool enable = getTun();
   String stack = getStack();
-  Duration udpTimeout = const Duration(minutes: 1);
+  Duration udpTimeout = const Duration(minutes: 5);
   String i4Address = SingboxInboundTunOptions.i4Address;
   int mtu = 4064;
   bool autoRoute = true;

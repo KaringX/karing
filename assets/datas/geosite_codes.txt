@@ -421,6 +421,7 @@ category-speedtest
 category-speedtest@!cn
 category-speedtest@ads
 category-speedtest@cn
+category-stun
 category-tech-ir
 category-tech-media
 category-tech-media@cn
@@ -454,6 +455,7 @@ chinabroadnet
 chinamobile
 chinamobile@!cn
 chinanews
+chinapost
 chinapower
 chinaso
 chinatelecom
@@ -983,6 +985,7 @@ knovel
 kodi
 kodik
 konachan
+konami
 kontur
 kontur@ads
 koolearn
@@ -1139,10 +1142,12 @@ morisawa
 mortein
 mortein@cn
 mosmetro
+motorola
 movefree
 movefree@cn
 moxing
 mozilla
+mozilla@ads
 msi
 msn
 msn@ads
@@ -1189,6 +1194,8 @@ nexon
 nga
 nginx
 ngrok
+nicegram
+nicegram@ads
 niconico
 nike
 nike@cn
@@ -1260,6 +1267,7 @@ oschina
 osdn
 oskelly
 osu
+otpbank
 oup
 ozon
 ozon@ads
@@ -1357,6 +1365,7 @@ quora
 qwant
 qweather
 radiko
+raiffeisenbank
 rakuten
 rarbg
 razer
@@ -1559,6 +1568,7 @@ tbank-ru
 tcl
 tcl@ads
 teambition
+teamspeak
 teamviewer
 teamviewer@cn
 technogym
@@ -1673,6 +1683,7 @@ unity
 unity@ads
 unitychina
 unitychina@ads
+uoliv
 upai
 usersdrive
 uu-chat

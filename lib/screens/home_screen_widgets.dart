@@ -320,7 +320,7 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
                           style: theme.textTheme.bodyMedium?.toLight
                               .adjustSize(1)
                               .copyWith(
-                                fontFamily: Platform.isWindows ? 'Emoji' : null,
+                                fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
                               ),
                         ),
                       ],
@@ -1759,7 +1759,7 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                                   fontWeight:
                                       ThemeConfig.kFontWeightListSubItem,
                                   fontSize: ThemeConfig.kFontSizeListSubItem,
-                                  fontFamily: Platform.isWindows
+                                  fontFamily: Platform.isWindows || Platform.isLinux
                                       ? 'Emoji'
                                       : null,
                                 ),

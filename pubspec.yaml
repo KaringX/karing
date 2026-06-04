@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.19+2209
+version: 1.2.20+2300
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -201,6 +201,7 @@ ffigen:
     - /usr/local/opt/llvm
 
 #https://www.appicon.co/
+#icons_launcher 
 flutter_launcher_icons: #flutter pub run flutter_launcher_icons
   android: ic_launcher
   ios: true

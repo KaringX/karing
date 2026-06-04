@@ -743,7 +743,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                             maxLines: 3,
                             style: TextStyle(
                               fontSize: ThemeConfig.kFontSizeListSubItem,
-                              fontFamily: Platform.isWindows ? 'Emoji' : null,
+                              fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
                             ),
                           ),
                         ),
@@ -1726,7 +1726,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             name: "tag",
             text: sbOptions.tag,
             textStyle: TextStyle(
-              fontFamily: Platform.isWindows ? 'Emoji' : null,
+              fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
             ),
             textWidthPercent: 0.6,
             hint: tcontext.meta.required,
@@ -1750,7 +1750,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             name: "detour",
             text: sbOptions.dialer?.detour ?? "",
             textStyle: TextStyle(
-              fontFamily: Platform.isWindows ? 'Emoji' : null,
+              fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
             ),
             textWidthPercent: 0.6,
             onChanged: (String value) {

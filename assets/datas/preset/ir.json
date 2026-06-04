@@ -116,6 +116,22 @@
         },
         {
             "rule_set_build_in": [
+                "geosite:whatsapp",
+                "acl:Whatsapp"
+            ],
+            "package": [
+                "com.whatsapp"
+            ],
+            "processName": [
+                "WhatsApp.exe",
+                "WhatsApp"
+            ],
+            "outbound": "currentSelected",
+            "name": "📲 WhatsApp",
+            "switch": false
+        },
+        {
+            "rule_set_build_in": [
                 "geoip:telegram",
                 "geosite:telegram"
             ],
