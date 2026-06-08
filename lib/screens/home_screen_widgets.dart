@@ -320,7 +320,7 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
                           style: theme.textTheme.bodyMedium?.toLight
                               .adjustSize(1)
                               .copyWith(
-                                fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
+                                fontFamily: Platform.isWindows ? 'Emoji' : null,
                               ),
                         ),
                       ],
@@ -1038,6 +1038,7 @@ class TunCard extends FutureSwitchCard {
                state == FlutterVpnServiceState.disconnected) {
              SettingManager.getConfig().tun.enable = value;
              SettingManager.setDirty(true);
+             SettingManager.save();
              onValueChanged?.call(value);
            }
          },
@@ -1759,7 +1760,7 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                                   fontWeight:
                                       ThemeConfig.kFontWeightListSubItem,
                                   fontSize: ThemeConfig.kFontSizeListSubItem,
-                                  fontFamily: Platform.isWindows || Platform.isLinux
+                                  fontFamily: Platform.isWindows
                                       ? 'Emoji'
                                       : null,
                                 ),

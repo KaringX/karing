@@ -16,20 +16,19 @@ dependencies:
 
   cupertino_icons: 1.0.9
   collection: 1.19.1
-  #icons_plus: 5.0.0
   flutter_emoji: 2.5.1
   emoji_regex: 0.0.5
   dash_flags: 0.1.1
-  sentry_flutter: 9.15.0
+  sentry_flutter: 9.21.0
   device_info_plus: 11.2.2
   network_info_plus: 7.0.0
   connectivity_plus: 7.1.1
   package_info_plus: 9.0.0
-  build_info: 1.1.0
-  build_info_android: 1.1.0
+  build_info: 2.0.0
+  build_info_android: 2.0.0
   #platform_device_id: 1.0.1
   class_to_string: 1.2.0
-  ffi: 2.1.5
+  ffi: 2.2.0
   url_launcher: 6.3.2
   #flutter_inappwebview: 6.2.0-beta.2
   flutter_inappwebview:
@@ -40,11 +39,10 @@ dependencies:
       path: flutter_inappwebview
   web_socket_channel: 3.0.3 #flutter_test
   dio: 5.9.2
-  sqlite_async: 0.13.1
-  sqlite3: 2.9.4
-  sqlite3_flutter_libs: 0.5.40
+  sqlite_async: 0.14.2
+  sqlite3: 3.3.2
   path_provider: 2.1.5
-  flutter_secure_storage: 10.0.0
+  flutter_secure_storage: 10.3.1
   protocol_handler: 0.1.6 #0.2.0 cause windows jam when exit
   fl_chart: 1.2.0
   data_table_2: 2.7.2
@@ -54,7 +52,7 @@ dependencies:
   #dart_json_mapper_mobx: 2.0.5
   #json_path: 0.7.4
   json_annotation: 4.12.0
-  re_editor: 0.8.0
+  re_editor: 0.9.0
   re_highlight: 0.0.3
   #mobx: 2.1.3
   #flutter_mobx: 2.0.6+5
@@ -67,19 +65,19 @@ dependencies:
   #combine: 0.5.7-0.1.pre
   #isolate_manager: 4.1.5+1
   #combine: 0.5.7
+  #fpdart: 1.1.0
   launch_at_startup: 0.2.2 #0.2.2 - 0.3.1 StartupApproved cause reg exceptions
   provider: 6.1.5+1
-  #fpdart: 1.1.0
   zxing2: 0.2.4
-  qr_code_scanner_plus: 2.0.14
+  qr_code_scanner_plus: 2.1.1
   screen_capturer: 0.2.3
   defer_pointer: 0.0.2
   contextmenu: 3.0.0
   image: 4.8.0
   fast_cached_network_image: 1.3.3+5
   uuid: 4.5.3 #flutter_test 
-  slang: 4.14.0
-  slang_flutter: 4.14.0
+  slang: 4.15.0
+  slang_flutter: 4.15.0
   watcher: 1.2.1
   string_validator: 1.2.0
   punycode_converter: 0.2.1
@@ -106,7 +104,7 @@ dependencies:
   win32_registry: 1.1.5 #flutter_test
   csv: 8.0.0
   #home_widget: 0.4.1
-  share_plus: 12.0.1
+  share_plus: 12.0.2
   open_file: 3.5.11
   app_installer: 1.3.1
   #flutter_background_service: 5.0.5
@@ -127,7 +125,7 @@ dependencies:
   flutter_local_notifications: 21.0.0
   quick_actions: 1.1.0
   convex_bottom_bar: 3.2.0
-  animations: 2.1.1
+  animations: 2.2.0
   android_package_manager: #0.7.1
     #path: ../android_package_manager
     git:

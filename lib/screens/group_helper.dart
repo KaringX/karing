@@ -1704,7 +1704,7 @@ class GroupHelper {
               ),
               text: frontProxy,
               textStyle: TextStyle(
-                fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
+                fontFamily: Platform.isWindows ? 'Emoji' : null,
                 color: invalidOutbounds.isNotEmpty ? Colors.red : null,
               ),
               onPush: () async {

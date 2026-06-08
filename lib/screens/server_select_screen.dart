@@ -1300,7 +1300,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                             maxLines: 3,
                             style: TextStyle(
                               fontSize: ThemeConfig.kFontSizeListSubItem,
-                              fontFamily: Platform.isWindows || Platform.isLinux ? 'Emoji' : null,
+                              fontFamily: Platform.isWindows ? 'Emoji' : null,
                               color: singleSelectCurrentInvalid
                                   ? Colors.red
                                   : null,

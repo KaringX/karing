@@ -3,7 +3,7 @@ PODS:
     - FlutterMacOS
   - app_settings (5.1.1):
     - FlutterMacOS
-  - build_info_macos (0.0.1):
+  - build_info_macos (2.0.0):
     - FlutterMacOS
   - connectivity_plus (0.0.1):
     - FlutterMacOS
@@ -46,41 +46,16 @@ PODS:
     - FlutterMacOS
   - screen_retriever_macos (0.0.1):
     - FlutterMacOS
-  - Sentry (8.58.0):
-    - Sentry/Core (= 8.58.0)
-  - Sentry/Core (8.58.0)
-  - Sentry/HybridSDK (8.58.0)
-  - sentry_flutter (9.15.0):
+  - Sentry (8.58.3):
+    - Sentry/Core (= 8.58.3)
+  - Sentry/Core (8.58.3)
+  - Sentry/HybridSDK (8.58.3)
+  - sentry_flutter (9.21.0):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.58.0)
+    - Sentry/HybridSDK (= 8.58.3)
   - share_plus (0.0.1):
     - FlutterMacOS
-  - sqlite3 (3.50.4):
-    - sqlite3/common (= 3.50.4)
-  - sqlite3/common (3.50.4)
-  - sqlite3/dbstatvtab (3.50.4):
-    - sqlite3/common
-  - sqlite3/fts5 (3.50.4):
-    - sqlite3/common
-  - sqlite3/math (3.50.4):
-    - sqlite3/common
-  - sqlite3/perf-threadsafe (3.50.4):
-    - sqlite3/common
-  - sqlite3/rtree (3.50.4):
-    - sqlite3/common
-  - sqlite3/session (3.50.4):
-    - sqlite3/common
-  - sqlite3_flutter_libs (0.0.1):
-    - Flutter
-    - FlutterMacOS
-    - sqlite3 (~> 3.50.4)
-    - sqlite3/dbstatvtab
-    - sqlite3/fts5
-    - sqlite3/math
-    - sqlite3/perf-threadsafe
-    - sqlite3/rtree
-    - sqlite3/session
   - tray_manager (0.0.1):
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
@@ -112,10 +87,9 @@ DEPENDENCIES:
   - protocol_handler (from `Flutter/ephemeral/.symlinks/plugins/protocol_handler/macos`)
   - screen_capturer_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_capturer_macos/macos`)
   - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
-  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.58.0`)
+  - Sentry (from `https://github.com/getsentry/sentry-cocoa.git`, tag `8.58.3`)
   - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
   - share_plus (from `Flutter/ephemeral/.symlinks/plugins/share_plus/macos`)
-  - sqlite3_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/sqlite3_flutter_libs/darwin`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - vpn_service (from `Flutter/ephemeral/.symlinks/plugins/vpn_service/macos`)
@@ -125,7 +99,6 @@ SPEC REPOS:
   trunk:
     - HotKey
     - OrderedSet
-    - sqlite3
 
 EXTERNAL SOURCES:
   app_installer:
@@ -172,13 +145,11 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.58.0
+    :tag: 8.58.3
   sentry_flutter:
     :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
   share_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/share_plus/macos
-  sqlite3_flutter_libs:
-    :path: Flutter/ephemeral/.symlinks/plugins/sqlite3_flutter_libs/darwin
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
@@ -191,12 +162,12 @@ EXTERNAL SOURCES:
 CHECKOUT OPTIONS:
   Sentry:
     :git: https://github.com/getsentry/sentry-cocoa.git
-    :tag: 8.58.0
+    :tag: 8.58.3
 
 SPEC CHECKSUMS:
   app_installer: 9a51509d3e3526fad6fb3d615c5e78621a1b08a1
   app_settings: cd21e176b56f8172043640ade81322a98896bff4
-  build_info_macos: 0b218c37ced98f95422ff924d1d509f62b5d10ac
+  build_info_macos: cb49497bc705785ace631309f445840dffd01bcb
   connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
@@ -217,16 +188,14 @@ SPEC CHECKSUMS:
   protocol_handler: f4d1317b2b828d6370e140077be5155feb3f06c7
   screen_capturer_macos: 229306903c56767a7c7d3a48167ba303e95c6d29
   screen_retriever_macos: 452e51764a9e1cdb74b3c541238795849f21557f
-  Sentry: d587a8fe91ca13503ecd69a1905f3e8a0fcf61be
-  sentry_flutter: 8939e491bc1511868118c96cae47d945e6f69798
+  Sentry: 108fdbb76299c4189af12246bf0308c09c278922
+  sentry_flutter: 32e67cb4756ce3de42bbd56581fa935922ff328f
   share_plus: 510bf0af1a42cd602274b4629920c9649c52f4cc
-  sqlite3: 73513155ec6979715d3904ef53a8d68892d4032b
-  sqlite3_flutter_libs: 83f8e9f5b6554077f1d93119fe20ebaa5f3a9ef1
   tray_manager: a104b5c81b578d83f3c3d0f40a997c8b10810166
   url_launcher_macos: f87a979182d112f911de6820aefddaf56ee9fbfd
   vpn_service: 3626ec035ad20ecabaf5c8edf10b684c422a6614
   window_manager: b729e31d38fb04905235df9ea896128991cad99e
 
-PODFILE CHECKSUM: 6e1ca32d0c13c80194a4bc553203b84c29f8f23b
+PODFILE CHECKSUM: 6b8f28cb95e41562bda1e864fa9120baec723d38
 
 COCOAPODS: 1.16.2
