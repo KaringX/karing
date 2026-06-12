@@ -1392,69 +1392,15 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ),
     );
 
-    bool showTestFlight =
-        AppleUtils.getTestFlightUrl().isNotEmpty && (appStore == false);
-    bool showAppStore = AppleUtils.getAppStoreUrl().isNotEmpty;
-    if (remoteConfig.download.isNotEmpty || showTestFlight || showAppStore) {
+    if (remoteConfig.download.isNotEmpty) {
       groupOptions.add(
         GroupItem(
           options: [
-            if (showTestFlight) ...[
-              GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.appleTestFlight,
-                  onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_appleTestFlight',
-                      repeatable: true,
-                    );*/
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        settings: QrcodeScreen.routSettings(),
-                        builder: (context) => QrcodeScreen(
-                          content: AppleUtils.getTestFlightUrl(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-            if (showAppStore) ...[
-              GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                  name: tcontext.SettingsScreen.appleAppStore,
-                  onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_appleAppstore',
-                      repeatable: true,
-                    );*/
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        settings: QrcodeScreen.routSettings(),
-                        builder: (context) =>
-                            QrcodeScreen(content: AppleUtils.getAppStoreUrl()),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
             if (remoteConfig.download.isNotEmpty) ...[
               GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
                   name: tcontext.meta.download,
                   onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_download',
-                      repeatable: true,
-                    );*/
-
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -1491,11 +1437,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.follow,
                 onPush: () async {
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_follow',
-                    repeatable: false,
-                  );*/
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1513,11 +1454,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.contactUs,
                 onPush: () async {
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_contactUs',
-                    repeatable: false,
-                  );*/
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1537,29 +1473,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               pushOptions: GroupItemPushOptions(
                 name: tcontext.SettingsScreen.supportUs,
                 onPush: () async {
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_supportUs',
-                    repeatable: false,
-                  );*/
                   onTapSupportUS();
                 },
               ),
             ),
           ],
 
-          /*if (!RemoteConfigManager.rejectAnalyticsSubmit()) ...[
-        GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: tcontext.meta.feedback,
-                onPush: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: FeedbackScreen.routSettings(),
-                          builder: (context) => const FeedbackScreen()));
-                }))
-      ],*/
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
               name: tcontext.meta.about,

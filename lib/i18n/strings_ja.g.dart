@@ -37,28 +37,28 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsJa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsJa(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsAboutScreenJa AboutScreen = _TranslationsAboutScreenJa._(_root);
-	@override late final _TranslationsBackupAndSyncWebdavScreenJa BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenJa._(_root);
-	@override late final _TranslationsDiversionGroupCustomEditScreenJa DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenJa._(_root);
-	@override late final _TranslationsDiversionRuleDetectScreenJa DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenJa._(_root);
-	@override late final _TranslationsDiversionRulesScreenJa DiversionRulesScreen = _TranslationsDiversionRulesScreenJa._(_root);
-	@override late final _TranslationsDnsSettingsScreenJa DnsSettingsScreen = _TranslationsDnsSettingsScreenJa._(_root);
-	@override late final _TranslationsFileContentViewerScreenJa FileContentViewerScreen = _TranslationsFileContentViewerScreenJa._(_root);
-	@override late final _TranslationsHomeScreenJa HomeScreen = _TranslationsHomeScreenJa._(_root);
-	@override late final _TranslationsLaunchFailedScreenJa LaunchFailedScreen = _TranslationsLaunchFailedScreenJa._(_root);
-	@override late final _TranslationsMyProfilesMergeScreenJa MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenJa._(_root);
-	@override late final _TranslationsNetCheckScreenJa NetCheckScreen = _TranslationsNetCheckScreenJa._(_root);
-	@override late final _TranslationsNetConnectionsFilterScreenJa NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenJa._(_root);
-	@override late final _TranslationsNetConnectionsScreenJa NetConnectionsScreen = _TranslationsNetConnectionsScreenJa._(_root);
-	@override late final _TranslationsPerAppAndroidScreenJa PerAppAndroidScreen = _TranslationsPerAppAndroidScreenJa._(_root);
-	@override late final _TranslationsRegionSettingsScreenJa RegionSettingsScreen = _TranslationsRegionSettingsScreenJa._(_root);
-	@override late final _TranslationsServerSelectScreenJa ServerSelectScreen = _TranslationsServerSelectScreenJa._(_root);
-	@override late final _TranslationsSettingsScreenJa SettingsScreen = _TranslationsSettingsScreenJa._(_root);
-	@override late final _TranslationsUserAgreementScreenJa UserAgreementScreen = _TranslationsUserAgreementScreenJa._(_root);
-	@override late final _TranslationsVersionUpdateScreenJa VersionUpdateScreen = _TranslationsVersionUpdateScreenJa._(_root);
-	@override late final _TranslationsCommonWidgetJa CommonWidget = _TranslationsCommonWidgetJa._(_root);
-	@override late final _TranslationsMainJa main = _TranslationsMainJa._(_root);
-	@override late final _TranslationsMetaJa meta = _TranslationsMetaJa._(_root);
+	@override late final _Translations$AboutScreen$ja AboutScreen = _Translations$AboutScreen$ja._(_root);
+	@override late final _Translations$BackupAndSyncWebdavScreen$ja BackupAndSyncWebdavScreen = _Translations$BackupAndSyncWebdavScreen$ja._(_root);
+	@override late final _Translations$DiversionGroupCustomEditScreen$ja DiversionGroupCustomEditScreen = _Translations$DiversionGroupCustomEditScreen$ja._(_root);
+	@override late final _Translations$DiversionRuleDetectScreen$ja DiversionRuleDetectScreen = _Translations$DiversionRuleDetectScreen$ja._(_root);
+	@override late final _Translations$DiversionRulesScreen$ja DiversionRulesScreen = _Translations$DiversionRulesScreen$ja._(_root);
+	@override late final _Translations$DnsSettingsScreen$ja DnsSettingsScreen = _Translations$DnsSettingsScreen$ja._(_root);
+	@override late final _Translations$FileContentViewerScreen$ja FileContentViewerScreen = _Translations$FileContentViewerScreen$ja._(_root);
+	@override late final _Translations$HomeScreen$ja HomeScreen = _Translations$HomeScreen$ja._(_root);
+	@override late final _Translations$LaunchFailedScreen$ja LaunchFailedScreen = _Translations$LaunchFailedScreen$ja._(_root);
+	@override late final _Translations$MyProfilesMergeScreen$ja MyProfilesMergeScreen = _Translations$MyProfilesMergeScreen$ja._(_root);
+	@override late final _Translations$NetCheckScreen$ja NetCheckScreen = _Translations$NetCheckScreen$ja._(_root);
+	@override late final _Translations$NetConnectionsFilterScreen$ja NetConnectionsFilterScreen = _Translations$NetConnectionsFilterScreen$ja._(_root);
+	@override late final _Translations$NetConnectionsScreen$ja NetConnectionsScreen = _Translations$NetConnectionsScreen$ja._(_root);
+	@override late final _Translations$PerAppAndroidScreen$ja PerAppAndroidScreen = _Translations$PerAppAndroidScreen$ja._(_root);
+	@override late final _Translations$RegionSettingsScreen$ja RegionSettingsScreen = _Translations$RegionSettingsScreen$ja._(_root);
+	@override late final _Translations$ServerSelectScreen$ja ServerSelectScreen = _Translations$ServerSelectScreen$ja._(_root);
+	@override late final _Translations$SettingsScreen$ja SettingsScreen = _Translations$SettingsScreen$ja._(_root);
+	@override late final _Translations$UserAgreementScreen$ja UserAgreementScreen = _Translations$UserAgreementScreen$ja._(_root);
+	@override late final _Translations$VersionUpdateScreen$ja VersionUpdateScreen = _Translations$VersionUpdateScreen$ja._(_root);
+	@override late final _Translations$CommonWidget$ja CommonWidget = _Translations$CommonWidget$ja._(_root);
+	@override late final _Translations$main$ja main = _Translations$main$ja._(_root);
+	@override late final _Translations$meta$ja meta = _Translations$meta$ja._(_root);
 	@override String get diversionRulesKeep => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する';
 	@override String get diversionCustomGroupPreset => 'プリセット [${_root.meta.diversionCustomGroup}]';
 	@override String get diversionCustomGroupPresetTips => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます';
@@ -66,14 +66,14 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override String get rulesetEnableTips => 'ヒント: オプションをオンにした後、[${_root.meta.diversionRules}] に移動して関連するルールを設定してください。設定しないと有効になりません';
 	@override String get ispUserAgentTips => '[${_root.meta.isp}] は、[HTTP] リクエストの [UserAgent] に基づいて、さまざまなサブスクリプションタイプのデータを送信します';
 	@override String get ispDiversionTips => '[${_root.meta.isp}] はトラフィック分流ルールを提供します。[V2Ray] タイプのサブスクリプションはトラフィック分流ルールをサポートしていません';
-	@override late final _TranslationsIspJa isp = _TranslationsIspJa._(_root);
-	@override late final _TranslationsPermissionJa permission = _TranslationsPermissionJa._(_root);
-	@override late final _TranslationsTlsJa tls = _TranslationsTlsJa._(_root);
-	@override late final _TranslationsOutboundRuleModeJa outboundRuleMode = _TranslationsOutboundRuleModeJa._(_root);
-	@override late final _TranslationsDnsProxyResolveModeJa dnsProxyResolveMode = _TranslationsDnsProxyResolveModeJa._(_root);
-	@override late final _TranslationsProxyStrategyJa proxyStrategy = _TranslationsProxyStrategyJa._(_root);
-	@override late final _TranslationsReloadReasonJa reloadReason = _TranslationsReloadReasonJa._(_root);
-	@override late final _TranslationsThemeJa theme = _TranslationsThemeJa._(_root);
+	@override late final _Translations$isp$ja isp = _Translations$isp$ja._(_root);
+	@override late final _Translations$permission$ja permission = _Translations$permission$ja._(_root);
+	@override late final _Translations$tls$ja tls = _Translations$tls$ja._(_root);
+	@override late final _Translations$outboundRuleMode$ja outboundRuleMode = _Translations$outboundRuleMode$ja._(_root);
+	@override late final _Translations$dnsProxyResolveMode$ja dnsProxyResolveMode = _Translations$dnsProxyResolveMode$ja._(_root);
+	@override late final _Translations$proxyStrategy$ja proxyStrategy = _Translations$proxyStrategy$ja._(_root);
+	@override late final _Translations$reloadReason$ja reloadReason = _Translations$reloadReason$ja._(_root);
+	@override late final _Translations$theme$ja theme = _Translations$theme$ja._(_root);
 	@override String get downloadProxyStrategy => 'ダウンロードチャネル';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: プロキシサーバー経由で DNS サーバーに接続し、ドメイン名を解決します\n[${_root.dnsProxyResolveMode.direct}]: DNS サーバーに直接接続し、ドメイン名を解決します\n[${_root.dnsProxyResolveMode.fakeip}]: プロキシサーバーがあなたに代わってドメイン名を解決します。VPN 接続を切断すると、アプリの再起動が必要になる場合があります。[TUN] の着信トラフィックにのみ有効です';
 	@override String get routeFinal => 'final';
@@ -130,8 +130,8 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: AboutScreen
-class _TranslationsAboutScreenJa implements TranslationsAboutScreenEn {
-	_TranslationsAboutScreenJa._(this._root);
+class _Translations$AboutScreen$ja implements Translations$AboutScreen$en {
+	_Translations$AboutScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -154,8 +154,8 @@ class _TranslationsAboutScreenJa implements TranslationsAboutScreenEn {
 }
 
 // Path: BackupAndSyncWebdavScreen
-class _TranslationsBackupAndSyncWebdavScreenJa implements TranslationsBackupAndSyncWebdavScreenEn {
-	_TranslationsBackupAndSyncWebdavScreenJa._(this._root);
+class _Translations$BackupAndSyncWebdavScreen$ja implements Translations$BackupAndSyncWebdavScreen$en {
+	_Translations$BackupAndSyncWebdavScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -167,8 +167,8 @@ class _TranslationsBackupAndSyncWebdavScreenJa implements TranslationsBackupAndS
 }
 
 // Path: DiversionGroupCustomEditScreen
-class _TranslationsDiversionGroupCustomEditScreenJa implements TranslationsDiversionGroupCustomEditScreenEn {
-	_TranslationsDiversionGroupCustomEditScreenJa._(this._root);
+class _Translations$DiversionGroupCustomEditScreen$ja implements Translations$DiversionGroupCustomEditScreen$en {
+	_Translations$DiversionGroupCustomEditScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -183,8 +183,8 @@ class _TranslationsDiversionGroupCustomEditScreenJa implements TranslationsDiver
 }
 
 // Path: DiversionRuleDetectScreen
-class _TranslationsDiversionRuleDetectScreenJa implements TranslationsDiversionRuleDetectScreenEn {
-	_TranslationsDiversionRuleDetectScreenJa._(this._root);
+class _Translations$DiversionRuleDetectScreen$ja implements Translations$DiversionRuleDetectScreen$en {
+	_Translations$DiversionRuleDetectScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -195,8 +195,8 @@ class _TranslationsDiversionRuleDetectScreenJa implements TranslationsDiversionR
 }
 
 // Path: DiversionRulesScreen
-class _TranslationsDiversionRulesScreenJa implements TranslationsDiversionRulesScreenEn {
-	_TranslationsDiversionRulesScreenJa._(this._root);
+class _Translations$DiversionRulesScreen$ja implements Translations$DiversionRulesScreen$en {
+	_Translations$DiversionRulesScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -205,8 +205,8 @@ class _TranslationsDiversionRulesScreenJa implements TranslationsDiversionRulesS
 }
 
 // Path: DnsSettingsScreen
-class _TranslationsDnsSettingsScreenJa implements TranslationsDnsSettingsScreenEn {
-	_TranslationsDnsSettingsScreenJa._(this._root);
+class _Translations$DnsSettingsScreen$ja implements Translations$DnsSettingsScreen$en {
+	_Translations$DnsSettingsScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -218,8 +218,8 @@ class _TranslationsDnsSettingsScreenJa implements TranslationsDnsSettingsScreenE
 }
 
 // Path: FileContentViewerScreen
-class _TranslationsFileContentViewerScreenJa implements TranslationsFileContentViewerScreenEn {
-	_TranslationsFileContentViewerScreenJa._(this._root);
+class _Translations$FileContentViewerScreen$ja implements Translations$FileContentViewerScreen$en {
+	_Translations$FileContentViewerScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -230,8 +230,8 @@ class _TranslationsFileContentViewerScreenJa implements TranslationsFileContentV
 }
 
 // Path: HomeScreen
-class _TranslationsHomeScreenJa implements TranslationsHomeScreenEn {
-	_TranslationsHomeScreenJa._(this._root);
+class _Translations$HomeScreen$ja implements Translations$HomeScreen$en {
+	_Translations$HomeScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -247,8 +247,8 @@ class _TranslationsHomeScreenJa implements TranslationsHomeScreenEn {
 }
 
 // Path: LaunchFailedScreen
-class _TranslationsLaunchFailedScreenJa implements TranslationsLaunchFailedScreenEn {
-	_TranslationsLaunchFailedScreenJa._(this._root);
+class _Translations$LaunchFailedScreen$ja implements Translations$LaunchFailedScreen$en {
+	_Translations$LaunchFailedScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -261,8 +261,8 @@ class _TranslationsLaunchFailedScreenJa implements TranslationsLaunchFailedScree
 }
 
 // Path: MyProfilesMergeScreen
-class _TranslationsMyProfilesMergeScreenJa implements TranslationsMyProfilesMergeScreenEn {
-	_TranslationsMyProfilesMergeScreenJa._(this._root);
+class _Translations$MyProfilesMergeScreen$ja implements Translations$MyProfilesMergeScreen$en {
+	_Translations$MyProfilesMergeScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -274,8 +274,8 @@ class _TranslationsMyProfilesMergeScreenJa implements TranslationsMyProfilesMerg
 }
 
 // Path: NetCheckScreen
-class _TranslationsNetCheckScreenJa implements TranslationsNetCheckScreenEn {
-	_TranslationsNetCheckScreenJa._(this._root);
+class _Translations$NetCheckScreen$ja implements Translations$NetCheckScreen$en {
+	_Translations$NetCheckScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -305,8 +305,8 @@ class _TranslationsNetCheckScreenJa implements TranslationsNetCheckScreenEn {
 }
 
 // Path: NetConnectionsFilterScreen
-class _TranslationsNetConnectionsFilterScreenJa implements TranslationsNetConnectionsFilterScreenEn {
-	_TranslationsNetConnectionsFilterScreenJa._(this._root);
+class _Translations$NetConnectionsFilterScreen$ja implements Translations$NetConnectionsFilterScreen$en {
+	_Translations$NetConnectionsFilterScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -318,8 +318,8 @@ class _TranslationsNetConnectionsFilterScreenJa implements TranslationsNetConnec
 }
 
 // Path: NetConnectionsScreen
-class _TranslationsNetConnectionsScreenJa implements TranslationsNetConnectionsScreenEn {
-	_TranslationsNetConnectionsScreenJa._(this._root);
+class _Translations$NetConnectionsScreen$ja implements Translations$NetConnectionsScreen$en {
+	_Translations$NetConnectionsScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -329,8 +329,8 @@ class _TranslationsNetConnectionsScreenJa implements TranslationsNetConnectionsS
 }
 
 // Path: PerAppAndroidScreen
-class _TranslationsPerAppAndroidScreenJa implements TranslationsPerAppAndroidScreenEn {
-	_TranslationsPerAppAndroidScreenJa._(this._root);
+class _Translations$PerAppAndroidScreen$ja implements Translations$PerAppAndroidScreen$en {
+	_Translations$PerAppAndroidScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -341,8 +341,8 @@ class _TranslationsPerAppAndroidScreenJa implements TranslationsPerAppAndroidScr
 }
 
 // Path: RegionSettingsScreen
-class _TranslationsRegionSettingsScreenJa implements TranslationsRegionSettingsScreenEn {
-	_TranslationsRegionSettingsScreenJa._(this._root);
+class _Translations$RegionSettingsScreen$ja implements Translations$RegionSettingsScreen$en {
+	_Translations$RegionSettingsScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -352,8 +352,8 @@ class _TranslationsRegionSettingsScreenJa implements TranslationsRegionSettingsS
 }
 
 // Path: ServerSelectScreen
-class _TranslationsServerSelectScreenJa implements TranslationsServerSelectScreenEn {
-	_TranslationsServerSelectScreenJa._(this._root);
+class _Translations$ServerSelectScreen$ja implements Translations$ServerSelectScreen$en {
+	_Translations$ServerSelectScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -369,8 +369,8 @@ class _TranslationsServerSelectScreenJa implements TranslationsServerSelectScree
 }
 
 // Path: SettingsScreen
-class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
-	_TranslationsSettingsScreenJa._(this._root);
+class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en {
+	_Translations$SettingsScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -475,6 +475,9 @@ class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
 	@override String get tunAutoRedirect => '自動リダイレクト';
 	@override String get tunStrictRoute => '厳格なルート';
 	@override String get tunStrictRouteTips => '共有をオンにした後、他のデバイスからこのデバイスにアクセスできない場合は、このスイッチをオフにしてみてください';
+	@override String get tunRouteExclude => 'ルートを除外';
+	@override String get tunRouteExcludeTips => '除外したアドレス範囲のトラフィックは今後TUNに入らなくなります';
+	@override String get tunRouteExcludeMulticast => 'マルチキャスト';
 	@override String get loopbackAddress => 'ループバックアドレス';
 	@override String get enableCluster => 'Socks/Http プロキシクラスターを有効にする';
 	@override String get clusterAllowOtherHostsConnect => '他からのクラスターへの接続を許可する';
@@ -519,8 +522,8 @@ class _TranslationsSettingsScreenJa implements TranslationsSettingsScreenEn {
 }
 
 // Path: UserAgreementScreen
-class _TranslationsUserAgreementScreenJa implements TranslationsUserAgreementScreenEn {
-	_TranslationsUserAgreementScreenJa._(this._root);
+class _Translations$UserAgreementScreen$ja implements Translations$UserAgreementScreen$en {
+	_Translations$UserAgreementScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -530,8 +533,8 @@ class _TranslationsUserAgreementScreenJa implements TranslationsUserAgreementScr
 }
 
 // Path: VersionUpdateScreen
-class _TranslationsVersionUpdateScreenJa implements TranslationsVersionUpdateScreenEn {
-	_TranslationsVersionUpdateScreenJa._(this._root);
+class _Translations$VersionUpdateScreen$ja implements Translations$VersionUpdateScreen$en {
+	_Translations$VersionUpdateScreen$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -542,8 +545,8 @@ class _TranslationsVersionUpdateScreenJa implements TranslationsVersionUpdateScr
 }
 
 // Path: CommonWidget
-class _TranslationsCommonWidgetJa implements TranslationsCommonWidgetEn {
-	_TranslationsCommonWidgetJa._(this._root);
+class _Translations$CommonWidget$ja implements Translations$CommonWidget$en {
+	_Translations$CommonWidget$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -553,18 +556,18 @@ class _TranslationsCommonWidgetJa implements TranslationsCommonWidgetEn {
 }
 
 // Path: main
-class _TranslationsMainJa implements TranslationsMainEn {
-	_TranslationsMainJa._(this._root);
+class _Translations$main$ja implements Translations$main$en {
+	_Translations$main$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsMainTrayJa tray = _TranslationsMainTrayJa._(_root);
+	@override late final _Translations$main$tray$ja tray = _Translations$main$tray$ja._(_root);
 }
 
 // Path: meta
-class _TranslationsMetaJa implements TranslationsMetaEn {
-	_TranslationsMetaJa._(this._root);
+class _Translations$meta$ja implements Translations$meta$en {
+	_Translations$meta$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -821,8 +824,8 @@ class _TranslationsMetaJa implements TranslationsMetaEn {
 }
 
 // Path: isp
-class _TranslationsIspJa implements TranslationsIspEn {
-	_TranslationsIspJa._(this._root);
+class _Translations$isp$ja implements Translations$isp$en {
+	_Translations$isp$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -836,8 +839,8 @@ class _TranslationsIspJa implements TranslationsIspEn {
 }
 
 // Path: permission
-class _TranslationsPermissionJa implements TranslationsPermissionEn {
-	_TranslationsPermissionJa._(this._root);
+class _Translations$permission$ja implements Translations$permission$en {
+	_Translations$permission$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -850,8 +853,8 @@ class _TranslationsPermissionJa implements TranslationsPermissionEn {
 }
 
 // Path: tls
-class _TranslationsTlsJa implements TranslationsTlsEn {
-	_TranslationsTlsJa._(this._root);
+class _Translations$tls$ja implements Translations$tls$en {
+	_Translations$tls$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -867,8 +870,8 @@ class _TranslationsTlsJa implements TranslationsTlsEn {
 }
 
 // Path: outboundRuleMode
-class _TranslationsOutboundRuleModeJa implements TranslationsOutboundRuleModeEn {
-	_TranslationsOutboundRuleModeJa._(this._root);
+class _Translations$outboundRuleMode$ja implements Translations$outboundRuleMode$en {
+	_Translations$outboundRuleMode$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -880,8 +883,8 @@ class _TranslationsOutboundRuleModeJa implements TranslationsOutboundRuleModeEn 
 }
 
 // Path: dnsProxyResolveMode
-class _TranslationsDnsProxyResolveModeJa implements TranslationsDnsProxyResolveModeEn {
-	_TranslationsDnsProxyResolveModeJa._(this._root);
+class _Translations$dnsProxyResolveMode$ja implements Translations$dnsProxyResolveMode$en {
+	_Translations$dnsProxyResolveMode$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -892,8 +895,8 @@ class _TranslationsDnsProxyResolveModeJa implements TranslationsDnsProxyResolveM
 }
 
 // Path: proxyStrategy
-class _TranslationsProxyStrategyJa implements TranslationsProxyStrategyEn {
-	_TranslationsProxyStrategyJa._(this._root);
+class _Translations$proxyStrategy$ja implements Translations$proxyStrategy$en {
+	_Translations$proxyStrategy$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -905,8 +908,8 @@ class _TranslationsProxyStrategyJa implements TranslationsProxyStrategyEn {
 }
 
 // Path: reloadReason
-class _TranslationsReloadReasonJa implements TranslationsReloadReasonEn {
-	_TranslationsReloadReasonJa._(this._root);
+class _Translations$reloadReason$ja implements Translations$reloadReason$en {
+	_Translations$reloadReason$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -916,8 +919,8 @@ class _TranslationsReloadReasonJa implements TranslationsReloadReasonEn {
 }
 
 // Path: theme
-class _TranslationsThemeJa implements TranslationsThemeEn {
-	_TranslationsThemeJa._(this._root);
+class _Translations$theme$ja implements Translations$theme$en {
+	_Translations$theme$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -928,8 +931,8 @@ class _TranslationsThemeJa implements TranslationsThemeEn {
 }
 
 // Path: main.tray
-class _TranslationsMainTrayJa implements TranslationsMainTrayEn {
-	_TranslationsMainTrayJa._(this._root);
+class _Translations$main$tray$ja implements Translations$main$tray$en {
+	_Translations$main$tray$ja._(this._root);
 
 	final TranslationsJa _root; // ignore: unused_field
 
@@ -1141,6 +1144,9 @@ extension on TranslationsJa {
 			'SettingsScreen.tunAutoRedirect' => '自動リダイレクト',
 			'SettingsScreen.tunStrictRoute' => '厳格なルート',
 			'SettingsScreen.tunStrictRouteTips' => '共有をオンにした後、他のデバイスからこのデバイスにアクセスできない場合は、このスイッチをオフにしてみてください',
+			'SettingsScreen.tunRouteExclude' => 'ルートを除外',
+			'SettingsScreen.tunRouteExcludeTips' => '除外したアドレス範囲のトラフィックは今後TUNに入らなくなります',
+			'SettingsScreen.tunRouteExcludeMulticast' => 'マルチキャスト',
 			'SettingsScreen.loopbackAddress' => 'ループバックアドレス',
 			'SettingsScreen.enableCluster' => 'Socks/Http プロキシクラスターを有効にする',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => '他からのクラスターへの接続を許可する',
@@ -1455,11 +1461,11 @@ extension on TranslationsJa {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] が無効または期限切れです',
 			'permission.camera' => 'カメラ',
 			'permission.screen' => '画面収録',
+			_ => null,
+		} ?? switch (path) {
 			'permission.appQuery' => 'アプリリストを取得',
 			'permission.request' => ({required Object p}) => '[${p}] 権限をオンにする',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',
-			_ => null,
-		} ?? switch (path) {
 			'tls.insecure' => '証明書の検証をスキップする',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',

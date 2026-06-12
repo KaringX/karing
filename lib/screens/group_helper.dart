@@ -333,13 +333,37 @@ class GroupHelper {
         if (!settingConfig.novice) ...[
           GroupItemOptions(
             textFormFieldOptions: GroupItemTextFieldOptions(
-              name: "IP",
-              text: settingConfig.tun.i4Address,
-              textWidthPercent: 0.5,
+              name: "IPv4",
+              tips: "/24-/30",
+              hint: "10.20.0.1/30",
+              text: settingConfig.tun.ipv4Address.contains("/")
+                  ? settingConfig.tun.ipv4Address
+                  : settingConfig.tun.ipv4Address + "/30",
+              textWidthPercent: 0.7,
               enabled: tunMode,
               onChanged: (String value) {
-                if (NetworkUtils.isIpv4(value)) {
-                  settingConfig.tun.i4Address = value;
+                if (NetworkUtils.isIpv4(value) ||
+                    NetworkUtils.isIpv4WithMask(value)) {
+                  settingConfig.tun.ipv4Address = value;
+                  SettingManager.setDirty(true);
+                }
+              },
+            ),
+          ),
+          GroupItemOptions(
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "IPv6",
+              tips: "/64-/126",
+              hint: "fdfe:dcba:9876::1/126",
+              text: settingConfig.tun.ipv6Address.contains("/")
+                  ? settingConfig.tun.ipv6Address
+                  : settingConfig.tun.ipv6Address + "/126",
+              textWidthPercent: 0.7,
+              enabled: tunMode,
+              onChanged: (String value) {
+                if (NetworkUtils.isIpv6(value) ||
+                    NetworkUtils.isIpv6WithMask(value)) {
+                  settingConfig.tun.ipv6Address = value;
                   SettingManager.setDirty(true);
                 }
               },
@@ -470,7 +494,19 @@ class GroupHelper {
                     },
             ),
           ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: tcontext.SettingsScreen.tunRouteExclude,
+              tips: tcontext.SettingsScreen.tunRouteExcludeTips,
+              onPush: !tunMode
+                  ? null
+                  : () async {
+                      showTunRouteExclude(context);
+                    },
+            ),
+          ),
         ],
+
         if (!settingConfig.novice && (Platform.isIOS || Platform.isMacOS)) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
@@ -680,6 +716,68 @@ class GroupHelper {
       MaterialPageRoute(
         settings: GroupScreen.routSettings("TUN"),
         builder: (context) => GroupScreen(title: "TUN", getOptions: getOptions),
+      ),
+    );
+  }
+
+  static Future<void> showTunRouteExclude(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      var settingConfig = SettingManager.getConfig();
+
+      List<GroupItemOptions> options = [
+        if (Platform.isIOS) ...[
+          GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.hideVpn,
+              tips:
+                  "[0.0.0.0/31, ::/127]\n" +
+                  tcontext.SettingsScreen.hideVpnTips,
+              switchValue: settingConfig.ui.hideVpn,
+              onSwitch: (bool value) async {
+                settingConfig.ui.hideVpn = value;
+                SettingManager.setDirty(true);
+                setstate?.call();
+              },
+            ),
+          ),
+        ],
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.tunRouteExcludeMulticast,
+            tips: "[224.0.0.0/4, FF00::/8]",
+            switchValue:
+                settingConfig.tun.routeExcludeAddress.contains("224.0.0.0/4") &&
+                settingConfig.tun.routeExcludeAddress.contains("FF00::/8"),
+            onSwitch: (bool value) async {
+              if (value) {
+                settingConfig.tun.routeExcludeAddress.add("224.0.0.0/4");
+                settingConfig.tun.routeExcludeAddress.add("FF00::/8");
+              } else {
+                settingConfig.tun.routeExcludeAddress.remove("224.0.0.0/4");
+                settingConfig.tun.routeExcludeAddress.remove("FF00::/8");
+              }
+              SettingManager.setDirty(true);
+              setstate?.call();
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("TunRouteExclude"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.tunRouteExclude,
+          getOptions: getOptions,
+        ),
       ),
     );
   }

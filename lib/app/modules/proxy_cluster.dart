@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches, unused_catch_stack
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,6 +10,7 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/log.dart';
+
 import 'package:vpn_service/vpn_service.dart';
 
 class ProxyClusterNode {
@@ -31,6 +33,7 @@ class ProxyCluster {
   static List<ProxyClusterNode> _proxyNodes = [];
   static final List<String> _routerGet = [];
   static final List<Function> _requestCallback = [];
+  static final Map<String, int> _tagPorts = {};
 
   static Future<String?> start() async {
     if (_server != null) {
@@ -119,14 +122,17 @@ class ProxyCluster {
             outbound.type == kOutboundTypeBlock) {
           continue;
         }
-        var listenPort = await NetworkUtils.getAvaliablePortNotCloseSocket(
-          ports,
-          sockets,
-        );
+        int listenPort = _tagPorts[outbound.tag] ?? 0;
         if (listenPort == 0) {
-          continue;
+          listenPort = await NetworkUtils.getAvaliablePortNotCloseSocket(
+            ports,
+            sockets,
+          );
+          if (listenPort == 0) {
+            continue;
+          }
         }
-
+        _tagPorts[outbound.tag] = listenPort;
         final node = ProxyClusterNode()
           ..name = outbound.tag
           ..type = outbound.type
@@ -152,14 +158,19 @@ class ProxyCluster {
     } catch (err) {
       Log.w("ProxyCluster.inboundsAndRulesFrom exception ${err.toString()}");
     }
-    if (Platform.isWindows && proxy.autoAddToFirewall) {
-      List<int> ports = [];
-      for (var sock in sockets) {
-        ports.add(sock.port);
-      }
-      if (ports.isNotEmpty) {
-        FlutterVpnService.firewallAddPorts(ports, PathUtils.serviceExeName());
-      }
+
+    List<int> firewallPorts = [];
+    for (var sock in sockets) {
+      firewallPorts.add(sock.port);
+    }
+    if (firewallPorts.isNotEmpty &&
+        Platform.isWindows &&
+        proxy.autoAddToFirewall &&
+        SettingManager.getConfig().proxy.getClusterAllowAllInbounds()) {
+      FlutterVpnService.firewallAddPorts(
+        firewallPorts,
+        PathUtils.serviceExeName(),
+      );
     }
 
     for (var sock in sockets) {

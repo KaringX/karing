@@ -37,28 +37,28 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	TranslationsHi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHi(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsAboutScreenHi AboutScreen = _TranslationsAboutScreenHi._(_root);
-	@override late final _TranslationsBackupAndSyncWebdavScreenHi BackupAndSyncWebdavScreen = _TranslationsBackupAndSyncWebdavScreenHi._(_root);
-	@override late final _TranslationsDiversionGroupCustomEditScreenHi DiversionGroupCustomEditScreen = _TranslationsDiversionGroupCustomEditScreenHi._(_root);
-	@override late final _TranslationsDiversionRuleDetectScreenHi DiversionRuleDetectScreen = _TranslationsDiversionRuleDetectScreenHi._(_root);
-	@override late final _TranslationsDiversionRulesScreenHi DiversionRulesScreen = _TranslationsDiversionRulesScreenHi._(_root);
-	@override late final _TranslationsDnsSettingsScreenHi DnsSettingsScreen = _TranslationsDnsSettingsScreenHi._(_root);
-	@override late final _TranslationsFileContentViewerScreenHi FileContentViewerScreen = _TranslationsFileContentViewerScreenHi._(_root);
-	@override late final _TranslationsHomeScreenHi HomeScreen = _TranslationsHomeScreenHi._(_root);
-	@override late final _TranslationsLaunchFailedScreenHi LaunchFailedScreen = _TranslationsLaunchFailedScreenHi._(_root);
-	@override late final _TranslationsMyProfilesMergeScreenHi MyProfilesMergeScreen = _TranslationsMyProfilesMergeScreenHi._(_root);
-	@override late final _TranslationsNetCheckScreenHi NetCheckScreen = _TranslationsNetCheckScreenHi._(_root);
-	@override late final _TranslationsNetConnectionsFilterScreenHi NetConnectionsFilterScreen = _TranslationsNetConnectionsFilterScreenHi._(_root);
-	@override late final _TranslationsNetConnectionsScreenHi NetConnectionsScreen = _TranslationsNetConnectionsScreenHi._(_root);
-	@override late final _TranslationsPerAppAndroidScreenHi PerAppAndroidScreen = _TranslationsPerAppAndroidScreenHi._(_root);
-	@override late final _TranslationsRegionSettingsScreenHi RegionSettingsScreen = _TranslationsRegionSettingsScreenHi._(_root);
-	@override late final _TranslationsServerSelectScreenHi ServerSelectScreen = _TranslationsServerSelectScreenHi._(_root);
-	@override late final _TranslationsSettingsScreenHi SettingsScreen = _TranslationsSettingsScreenHi._(_root);
-	@override late final _TranslationsUserAgreementScreenHi UserAgreementScreen = _TranslationsUserAgreementScreenHi._(_root);
-	@override late final _TranslationsVersionUpdateScreenHi VersionUpdateScreen = _TranslationsVersionUpdateScreenHi._(_root);
-	@override late final _TranslationsCommonWidgetHi CommonWidget = _TranslationsCommonWidgetHi._(_root);
-	@override late final _TranslationsMainHi main = _TranslationsMainHi._(_root);
-	@override late final _TranslationsMetaHi meta = _TranslationsMetaHi._(_root);
+	@override late final _Translations$AboutScreen$hi AboutScreen = _Translations$AboutScreen$hi._(_root);
+	@override late final _Translations$BackupAndSyncWebdavScreen$hi BackupAndSyncWebdavScreen = _Translations$BackupAndSyncWebdavScreen$hi._(_root);
+	@override late final _Translations$DiversionGroupCustomEditScreen$hi DiversionGroupCustomEditScreen = _Translations$DiversionGroupCustomEditScreen$hi._(_root);
+	@override late final _Translations$DiversionRuleDetectScreen$hi DiversionRuleDetectScreen = _Translations$DiversionRuleDetectScreen$hi._(_root);
+	@override late final _Translations$DiversionRulesScreen$hi DiversionRulesScreen = _Translations$DiversionRulesScreen$hi._(_root);
+	@override late final _Translations$DnsSettingsScreen$hi DnsSettingsScreen = _Translations$DnsSettingsScreen$hi._(_root);
+	@override late final _Translations$FileContentViewerScreen$hi FileContentViewerScreen = _Translations$FileContentViewerScreen$hi._(_root);
+	@override late final _Translations$HomeScreen$hi HomeScreen = _Translations$HomeScreen$hi._(_root);
+	@override late final _Translations$LaunchFailedScreen$hi LaunchFailedScreen = _Translations$LaunchFailedScreen$hi._(_root);
+	@override late final _Translations$MyProfilesMergeScreen$hi MyProfilesMergeScreen = _Translations$MyProfilesMergeScreen$hi._(_root);
+	@override late final _Translations$NetCheckScreen$hi NetCheckScreen = _Translations$NetCheckScreen$hi._(_root);
+	@override late final _Translations$NetConnectionsFilterScreen$hi NetConnectionsFilterScreen = _Translations$NetConnectionsFilterScreen$hi._(_root);
+	@override late final _Translations$NetConnectionsScreen$hi NetConnectionsScreen = _Translations$NetConnectionsScreen$hi._(_root);
+	@override late final _Translations$PerAppAndroidScreen$hi PerAppAndroidScreen = _Translations$PerAppAndroidScreen$hi._(_root);
+	@override late final _Translations$RegionSettingsScreen$hi RegionSettingsScreen = _Translations$RegionSettingsScreen$hi._(_root);
+	@override late final _Translations$ServerSelectScreen$hi ServerSelectScreen = _Translations$ServerSelectScreen$hi._(_root);
+	@override late final _Translations$SettingsScreen$hi SettingsScreen = _Translations$SettingsScreen$hi._(_root);
+	@override late final _Translations$UserAgreementScreen$hi UserAgreementScreen = _Translations$UserAgreementScreen$hi._(_root);
+	@override late final _Translations$VersionUpdateScreen$hi VersionUpdateScreen = _Translations$VersionUpdateScreen$hi._(_root);
+	@override late final _Translations$CommonWidget$hi CommonWidget = _Translations$CommonWidget$hi._(_root);
+	@override late final _Translations$main$hi main = _Translations$main$hi._(_root);
+	@override late final _Translations$meta$hi meta = _Translations$meta$hi._(_root);
 	@override String get diversionRulesKeep => '[${_root.meta.isp}] के [${_root.meta.diversionRules}] को बनाए रखें';
 	@override String get diversionCustomGroupPreset => 'प्रीसेट [${_root.meta.diversionCustomGroup}]';
 	@override String get diversionCustomGroupPresetTips => 'नोट: सक्षम किए गए आइटम [${_root.meta.diversionCustomGroup}] और [${_root.meta.diversionRules}] में जोड़े/ओवरराइट किए जाएंगे';
@@ -66,14 +66,14 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 	@override String get rulesetEnableTips => 'टिप: विकल्पों को चालू करने के बाद, कृपया प्रासंगिक नियम सेट करने के लिए [${_root.meta.diversionRules}] पर जाएं, अन्यथा वे प्रभावी नहीं होंगे';
 	@override String get ispUserAgentTips => '[${_root.meta.isp}] [HTTP] अनुरोध में [UserAgent] के आधार पर विभिन्न सदस्यता प्रकारों का डेटा भेजेगा';
 	@override String get ispDiversionTips => '[${_root.meta.isp}] ट्रैफ़िक विचलन नियम प्रदान करता है; [V2Ray] प्रकार की सदस्यता ट्रैफ़िक विचलन नियमों का समर्थन नहीं करती है';
-	@override late final _TranslationsIspHi isp = _TranslationsIspHi._(_root);
-	@override late final _TranslationsPermissionHi permission = _TranslationsPermissionHi._(_root);
-	@override late final _TranslationsTlsHi tls = _TranslationsTlsHi._(_root);
-	@override late final _TranslationsOutboundRuleModeHi outboundRuleMode = _TranslationsOutboundRuleModeHi._(_root);
-	@override late final _TranslationsDnsProxyResolveModeHi dnsProxyResolveMode = _TranslationsDnsProxyResolveModeHi._(_root);
-	@override late final _TranslationsProxyStrategyHi proxyStrategy = _TranslationsProxyStrategyHi._(_root);
-	@override late final _TranslationsReloadReasonHi reloadReason = _TranslationsReloadReasonHi._(_root);
-	@override late final _TranslationsThemeHi theme = _TranslationsThemeHi._(_root);
+	@override late final _Translations$isp$hi isp = _Translations$isp$hi._(_root);
+	@override late final _Translations$permission$hi permission = _Translations$permission$hi._(_root);
+	@override late final _Translations$tls$hi tls = _Translations$tls$hi._(_root);
+	@override late final _Translations$outboundRuleMode$hi outboundRuleMode = _Translations$outboundRuleMode$hi._(_root);
+	@override late final _Translations$dnsProxyResolveMode$hi dnsProxyResolveMode = _Translations$dnsProxyResolveMode$hi._(_root);
+	@override late final _Translations$proxyStrategy$hi proxyStrategy = _Translations$proxyStrategy$hi._(_root);
+	@override late final _Translations$reloadReason$hi reloadReason = _Translations$reloadReason$hi._(_root);
+	@override late final _Translations$theme$hi theme = _Translations$theme$hi._(_root);
 	@override String get downloadProxyStrategy => 'डाउनलोड चैनल';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: डोमेन नाम को हल करने के लिए प्रॉक्सी सर्वर के माध्यम से DNS सर्वर से जुड़ें\n[${_root.dnsProxyResolveMode.direct}]: डोमेन नाम को हल करने के लिए सीधे DNS सर्वर से जुड़ें\n[${_root.dnsProxyResolveMode.fakeip}]: प्रॉक्सी सर्वर आपकी ओर से डोमेन नाम हल करता है; यदि आप VPN कनेक्शन डिस्कनेक्ट करते हैं, तो आपके एप्लिकेशन को पुनरारंभ करने की आवश्यकता हो सकती है; केवल [TUN] इनबाउंड ट्रैफ़िक के लिए प्रभावी';
 	@override String get routeFinal => 'final';
@@ -130,8 +130,8 @@ class TranslationsHi with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: AboutScreen
-class _TranslationsAboutScreenHi implements TranslationsAboutScreenEn {
-	_TranslationsAboutScreenHi._(this._root);
+class _Translations$AboutScreen$hi implements Translations$AboutScreen$en {
+	_Translations$AboutScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -154,8 +154,8 @@ class _TranslationsAboutScreenHi implements TranslationsAboutScreenEn {
 }
 
 // Path: BackupAndSyncWebdavScreen
-class _TranslationsBackupAndSyncWebdavScreenHi implements TranslationsBackupAndSyncWebdavScreenEn {
-	_TranslationsBackupAndSyncWebdavScreenHi._(this._root);
+class _Translations$BackupAndSyncWebdavScreen$hi implements Translations$BackupAndSyncWebdavScreen$en {
+	_Translations$BackupAndSyncWebdavScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -167,8 +167,8 @@ class _TranslationsBackupAndSyncWebdavScreenHi implements TranslationsBackupAndS
 }
 
 // Path: DiversionGroupCustomEditScreen
-class _TranslationsDiversionGroupCustomEditScreenHi implements TranslationsDiversionGroupCustomEditScreenEn {
-	_TranslationsDiversionGroupCustomEditScreenHi._(this._root);
+class _Translations$DiversionGroupCustomEditScreen$hi implements Translations$DiversionGroupCustomEditScreen$en {
+	_Translations$DiversionGroupCustomEditScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -183,8 +183,8 @@ class _TranslationsDiversionGroupCustomEditScreenHi implements TranslationsDiver
 }
 
 // Path: DiversionRuleDetectScreen
-class _TranslationsDiversionRuleDetectScreenHi implements TranslationsDiversionRuleDetectScreenEn {
-	_TranslationsDiversionRuleDetectScreenHi._(this._root);
+class _Translations$DiversionRuleDetectScreen$hi implements Translations$DiversionRuleDetectScreen$en {
+	_Translations$DiversionRuleDetectScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -195,8 +195,8 @@ class _TranslationsDiversionRuleDetectScreenHi implements TranslationsDiversionR
 }
 
 // Path: DiversionRulesScreen
-class _TranslationsDiversionRulesScreenHi implements TranslationsDiversionRulesScreenEn {
-	_TranslationsDiversionRulesScreenHi._(this._root);
+class _Translations$DiversionRulesScreen$hi implements Translations$DiversionRulesScreen$en {
+	_Translations$DiversionRulesScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -205,8 +205,8 @@ class _TranslationsDiversionRulesScreenHi implements TranslationsDiversionRulesS
 }
 
 // Path: DnsSettingsScreen
-class _TranslationsDnsSettingsScreenHi implements TranslationsDnsSettingsScreenEn {
-	_TranslationsDnsSettingsScreenHi._(this._root);
+class _Translations$DnsSettingsScreen$hi implements Translations$DnsSettingsScreen$en {
+	_Translations$DnsSettingsScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -218,8 +218,8 @@ class _TranslationsDnsSettingsScreenHi implements TranslationsDnsSettingsScreenE
 }
 
 // Path: FileContentViewerScreen
-class _TranslationsFileContentViewerScreenHi implements TranslationsFileContentViewerScreenEn {
-	_TranslationsFileContentViewerScreenHi._(this._root);
+class _Translations$FileContentViewerScreen$hi implements Translations$FileContentViewerScreen$en {
+	_Translations$FileContentViewerScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -230,8 +230,8 @@ class _TranslationsFileContentViewerScreenHi implements TranslationsFileContentV
 }
 
 // Path: HomeScreen
-class _TranslationsHomeScreenHi implements TranslationsHomeScreenEn {
-	_TranslationsHomeScreenHi._(this._root);
+class _Translations$HomeScreen$hi implements Translations$HomeScreen$en {
+	_Translations$HomeScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -247,8 +247,8 @@ class _TranslationsHomeScreenHi implements TranslationsHomeScreenEn {
 }
 
 // Path: LaunchFailedScreen
-class _TranslationsLaunchFailedScreenHi implements TranslationsLaunchFailedScreenEn {
-	_TranslationsLaunchFailedScreenHi._(this._root);
+class _Translations$LaunchFailedScreen$hi implements Translations$LaunchFailedScreen$en {
+	_Translations$LaunchFailedScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -261,8 +261,8 @@ class _TranslationsLaunchFailedScreenHi implements TranslationsLaunchFailedScree
 }
 
 // Path: MyProfilesMergeScreen
-class _TranslationsMyProfilesMergeScreenHi implements TranslationsMyProfilesMergeScreenEn {
-	_TranslationsMyProfilesMergeScreenHi._(this._root);
+class _Translations$MyProfilesMergeScreen$hi implements Translations$MyProfilesMergeScreen$en {
+	_Translations$MyProfilesMergeScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -274,8 +274,8 @@ class _TranslationsMyProfilesMergeScreenHi implements TranslationsMyProfilesMerg
 }
 
 // Path: NetCheckScreen
-class _TranslationsNetCheckScreenHi implements TranslationsNetCheckScreenEn {
-	_TranslationsNetCheckScreenHi._(this._root);
+class _Translations$NetCheckScreen$hi implements Translations$NetCheckScreen$en {
+	_Translations$NetCheckScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -305,8 +305,8 @@ class _TranslationsNetCheckScreenHi implements TranslationsNetCheckScreenEn {
 }
 
 // Path: NetConnectionsFilterScreen
-class _TranslationsNetConnectionsFilterScreenHi implements TranslationsNetConnectionsFilterScreenEn {
-	_TranslationsNetConnectionsFilterScreenHi._(this._root);
+class _Translations$NetConnectionsFilterScreen$hi implements Translations$NetConnectionsFilterScreen$en {
+	_Translations$NetConnectionsFilterScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -318,8 +318,8 @@ class _TranslationsNetConnectionsFilterScreenHi implements TranslationsNetConnec
 }
 
 // Path: NetConnectionsScreen
-class _TranslationsNetConnectionsScreenHi implements TranslationsNetConnectionsScreenEn {
-	_TranslationsNetConnectionsScreenHi._(this._root);
+class _Translations$NetConnectionsScreen$hi implements Translations$NetConnectionsScreen$en {
+	_Translations$NetConnectionsScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -329,8 +329,8 @@ class _TranslationsNetConnectionsScreenHi implements TranslationsNetConnectionsS
 }
 
 // Path: PerAppAndroidScreen
-class _TranslationsPerAppAndroidScreenHi implements TranslationsPerAppAndroidScreenEn {
-	_TranslationsPerAppAndroidScreenHi._(this._root);
+class _Translations$PerAppAndroidScreen$hi implements Translations$PerAppAndroidScreen$en {
+	_Translations$PerAppAndroidScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -341,8 +341,8 @@ class _TranslationsPerAppAndroidScreenHi implements TranslationsPerAppAndroidScr
 }
 
 // Path: RegionSettingsScreen
-class _TranslationsRegionSettingsScreenHi implements TranslationsRegionSettingsScreenEn {
-	_TranslationsRegionSettingsScreenHi._(this._root);
+class _Translations$RegionSettingsScreen$hi implements Translations$RegionSettingsScreen$en {
+	_Translations$RegionSettingsScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -352,8 +352,8 @@ class _TranslationsRegionSettingsScreenHi implements TranslationsRegionSettingsS
 }
 
 // Path: ServerSelectScreen
-class _TranslationsServerSelectScreenHi implements TranslationsServerSelectScreenEn {
-	_TranslationsServerSelectScreenHi._(this._root);
+class _Translations$ServerSelectScreen$hi implements Translations$ServerSelectScreen$en {
+	_Translations$ServerSelectScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -369,8 +369,8 @@ class _TranslationsServerSelectScreenHi implements TranslationsServerSelectScree
 }
 
 // Path: SettingsScreen
-class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
-	_TranslationsSettingsScreenHi._(this._root);
+class _Translations$SettingsScreen$hi implements Translations$SettingsScreen$en {
+	_Translations$SettingsScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -475,6 +475,9 @@ class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
 	@override String get tunAutoRedirect => 'Auto Redirect';
 	@override String get tunStrictRoute => 'Strict Route';
 	@override String get tunStrictRouteTips => 'यदि शेयर चालू करने के बाद अन्य लोग इस डिवाइस तक नहीं पहुँच पा रहे हैं, तो कृपया इस स्विच को बंद करने का प्रयास करें';
+	@override String get tunRouteExclude => 'रूट अपवर्जित करें';
+	@override String get tunRouteExcludeTips => 'अपवर्जित पतों की श्रेणियों का ट्रैफ़िक अब TUN में प्रवेश नहीं करेगा';
+	@override String get tunRouteExcludeMulticast => 'मल्टीकास्ट';
 	@override String get loopbackAddress => 'लूपबैक पता';
 	@override String get enableCluster => 'Socks/Http प्रॉक्सी क्लस्टर सक्षम करें';
 	@override String get clusterAllowOtherHostsConnect => 'दूसरों को क्लस्टर से जुड़ने की अनुमति दें';
@@ -519,8 +522,8 @@ class _TranslationsSettingsScreenHi implements TranslationsSettingsScreenEn {
 }
 
 // Path: UserAgreementScreen
-class _TranslationsUserAgreementScreenHi implements TranslationsUserAgreementScreenEn {
-	_TranslationsUserAgreementScreenHi._(this._root);
+class _Translations$UserAgreementScreen$hi implements Translations$UserAgreementScreen$en {
+	_Translations$UserAgreementScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -530,8 +533,8 @@ class _TranslationsUserAgreementScreenHi implements TranslationsUserAgreementScr
 }
 
 // Path: VersionUpdateScreen
-class _TranslationsVersionUpdateScreenHi implements TranslationsVersionUpdateScreenEn {
-	_TranslationsVersionUpdateScreenHi._(this._root);
+class _Translations$VersionUpdateScreen$hi implements Translations$VersionUpdateScreen$en {
+	_Translations$VersionUpdateScreen$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -542,8 +545,8 @@ class _TranslationsVersionUpdateScreenHi implements TranslationsVersionUpdateScr
 }
 
 // Path: CommonWidget
-class _TranslationsCommonWidgetHi implements TranslationsCommonWidgetEn {
-	_TranslationsCommonWidgetHi._(this._root);
+class _Translations$CommonWidget$hi implements Translations$CommonWidget$en {
+	_Translations$CommonWidget$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -553,18 +556,18 @@ class _TranslationsCommonWidgetHi implements TranslationsCommonWidgetEn {
 }
 
 // Path: main
-class _TranslationsMainHi implements TranslationsMainEn {
-	_TranslationsMainHi._(this._root);
+class _Translations$main$hi implements Translations$main$en {
+	_Translations$main$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsMainTrayHi tray = _TranslationsMainTrayHi._(_root);
+	@override late final _Translations$main$tray$hi tray = _Translations$main$tray$hi._(_root);
 }
 
 // Path: meta
-class _TranslationsMetaHi implements TranslationsMetaEn {
-	_TranslationsMetaHi._(this._root);
+class _Translations$meta$hi implements Translations$meta$en {
+	_Translations$meta$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -821,8 +824,8 @@ class _TranslationsMetaHi implements TranslationsMetaEn {
 }
 
 // Path: isp
-class _TranslationsIspHi implements TranslationsIspEn {
-	_TranslationsIspHi._(this._root);
+class _Translations$isp$hi implements Translations$isp$en {
+	_Translations$isp$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -836,8 +839,8 @@ class _TranslationsIspHi implements TranslationsIspEn {
 }
 
 // Path: permission
-class _TranslationsPermissionHi implements TranslationsPermissionEn {
-	_TranslationsPermissionHi._(this._root);
+class _Translations$permission$hi implements Translations$permission$en {
+	_Translations$permission$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -850,8 +853,8 @@ class _TranslationsPermissionHi implements TranslationsPermissionEn {
 }
 
 // Path: tls
-class _TranslationsTlsHi implements TranslationsTlsEn {
-	_TranslationsTlsHi._(this._root);
+class _Translations$tls$hi implements Translations$tls$en {
+	_Translations$tls$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -867,8 +870,8 @@ class _TranslationsTlsHi implements TranslationsTlsEn {
 }
 
 // Path: outboundRuleMode
-class _TranslationsOutboundRuleModeHi implements TranslationsOutboundRuleModeEn {
-	_TranslationsOutboundRuleModeHi._(this._root);
+class _Translations$outboundRuleMode$hi implements Translations$outboundRuleMode$en {
+	_Translations$outboundRuleMode$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -880,8 +883,8 @@ class _TranslationsOutboundRuleModeHi implements TranslationsOutboundRuleModeEn 
 }
 
 // Path: dnsProxyResolveMode
-class _TranslationsDnsProxyResolveModeHi implements TranslationsDnsProxyResolveModeEn {
-	_TranslationsDnsProxyResolveModeHi._(this._root);
+class _Translations$dnsProxyResolveMode$hi implements Translations$dnsProxyResolveMode$en {
+	_Translations$dnsProxyResolveMode$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -892,8 +895,8 @@ class _TranslationsDnsProxyResolveModeHi implements TranslationsDnsProxyResolveM
 }
 
 // Path: proxyStrategy
-class _TranslationsProxyStrategyHi implements TranslationsProxyStrategyEn {
-	_TranslationsProxyStrategyHi._(this._root);
+class _Translations$proxyStrategy$hi implements Translations$proxyStrategy$en {
+	_Translations$proxyStrategy$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -905,8 +908,8 @@ class _TranslationsProxyStrategyHi implements TranslationsProxyStrategyEn {
 }
 
 // Path: reloadReason
-class _TranslationsReloadReasonHi implements TranslationsReloadReasonEn {
-	_TranslationsReloadReasonHi._(this._root);
+class _Translations$reloadReason$hi implements Translations$reloadReason$en {
+	_Translations$reloadReason$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -916,8 +919,8 @@ class _TranslationsReloadReasonHi implements TranslationsReloadReasonEn {
 }
 
 // Path: theme
-class _TranslationsThemeHi implements TranslationsThemeEn {
-	_TranslationsThemeHi._(this._root);
+class _Translations$theme$hi implements Translations$theme$en {
+	_Translations$theme$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -928,8 +931,8 @@ class _TranslationsThemeHi implements TranslationsThemeEn {
 }
 
 // Path: main.tray
-class _TranslationsMainTrayHi implements TranslationsMainTrayEn {
-	_TranslationsMainTrayHi._(this._root);
+class _Translations$main$tray$hi implements Translations$main$tray$en {
+	_Translations$main$tray$hi._(this._root);
 
 	final TranslationsHi _root; // ignore: unused_field
 
@@ -1141,6 +1144,9 @@ extension on TranslationsHi {
 			'SettingsScreen.tunAutoRedirect' => 'Auto Redirect',
 			'SettingsScreen.tunStrictRoute' => 'Strict Route',
 			'SettingsScreen.tunStrictRouteTips' => 'यदि शेयर चालू करने के बाद अन्य लोग इस डिवाइस तक नहीं पहुँच पा रहे हैं, तो कृपया इस स्विच को बंद करने का प्रयास करें',
+			'SettingsScreen.tunRouteExclude' => 'रूट अपवर्जित करें',
+			'SettingsScreen.tunRouteExcludeTips' => 'अपवर्जित पतों की श्रेणियों का ट्रैफ़िक अब TUN में प्रवेश नहीं करेगा',
+			'SettingsScreen.tunRouteExcludeMulticast' => 'मल्टीकास्ट',
 			'SettingsScreen.loopbackAddress' => 'लूपबैक पता',
 			'SettingsScreen.enableCluster' => 'Socks/Http प्रॉक्सी क्लस्टर सक्षम करें',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'दूसरों को क्लस्टर से जुड़ने की अनुमति दें',
@@ -1455,11 +1461,11 @@ extension on TranslationsHi {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] अमान्य या समाप्त हो गया',
 			'permission.camera' => 'कैमरा',
 			'permission.screen' => 'स्क्रीन रिकॉर्डिंग',
+			_ => null,
+		} ?? switch (path) {
 			'permission.appQuery' => 'ऐप सूची प्राप्त करें',
 			'permission.request' => ({required Object p}) => '[${p}] अनुमति चालू करें',
 			'permission.requestNeed' => ({required Object p}) => 'कृपया [${p}] अनुमति चालू करें',
-			_ => null,
-		} ?? switch (path) {
 			'tls.insecure' => 'प्रमाणपत्र सत्यापन छोड़ें',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS फ्रैगमेंट सक्षम करें',

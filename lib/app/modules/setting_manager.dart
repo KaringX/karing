@@ -438,7 +438,8 @@ class SettingConfigItemTUN {
   bool enable = getTun();
   String stack = getStack();
   Duration udpTimeout = const Duration(minutes: 5);
-  String i4Address = SingboxInboundTunOptions.i4Address;
+  String ipv4Address = SingboxInboundTunOptions.ipv4Address;
+  String ipv6Address = SingboxInboundTunOptions.ipv6Address;
   int mtu = 4064;
   bool autoRoute = true;
   bool autoRedirect = false;
@@ -457,13 +458,15 @@ class SettingConfigItemTUN {
   List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
   String loopbackAddress = "";
+  List<String> routeExcludeAddress = [];
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
       'enable': enable,
       'stack': stack,
       'udp_timeout': udpTimeout.inSeconds,
-      'i4_address': i4Address,
+      'ipv4_address': ipv4Address,
+      'ipv6_address': ipv6Address,
       'mtu': mtu,
       'auto_route': autoRoute,
       'auto_redirect': autoRedirect,
@@ -481,6 +484,7 @@ class SettingConfigItemTUN {
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
       'hijack_dns': hijackDns,
       'loopback_address': loopbackAddress,
+      'route_exclude_address': routeExcludeAddress,
     };
     return ret;
   }
@@ -504,9 +508,16 @@ class SettingConfigItemTUN {
         udpTimeout = const Duration(seconds: 15);
       }
     }
-    i4Address = map["i4_address"] ?? SingboxInboundTunOptions.i4Address;
-    if (!NetworkUtils.isIpv4(i4Address)) {
-      i4Address = SingboxInboundTunOptions.i4Address;
+    ipv4Address =
+        map["ipv4_address"] ??
+        map["i4_address"] ??
+        SingboxInboundTunOptions.ipv4Address;
+    if (!NetworkUtils.isIpv4WithMask(ipv4Address)) {
+      ipv4Address = SingboxInboundTunOptions.ipv4Address;
+    }
+    ipv6Address = map["ipv6_address"] ?? SingboxInboundTunOptions.ipv6Address;
+    if (!NetworkUtils.isIpv6WithMask(ipv6Address)) {
+      ipv6Address = SingboxInboundTunOptions.ipv6Address;
     }
     mtu = map["mtu"] ?? 4064;
     if (mtu == 0) {
@@ -537,6 +548,11 @@ class SettingConfigItemTUN {
         !NetworkUtils.isIpv6(loopbackAddress)) {
       loopbackAddress = "";
     }
+    routeExcludeAddress = ConvertUtils.getListStringFromDynamic(
+      map["route_exclude_address"],
+      true,
+      [],
+    )!;
   }
 
   static SettingConfigItemTUN fromJsonStatic(Map<String, dynamic>? map) {
