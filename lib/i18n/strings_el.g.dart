@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Αυτό το αρχείο θα αντικαταστήσει την υπάρχουσα τοπική διαμόρφωση. Θέλετε να συνεχίσετε;';
 	@override String get mergePerapp => 'Συγχώνευση τοπικών λιστών [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'Κοινή χρήση δικτύου';
+	@override String get chainProxy => 'Αλυσιδωτός διακομιστής μεσολάβησης';
 	@override String get frontProxy => 'Front/Chain Proxy';
 	@override String frontProxyTips({required Object p}) => 'Δεδομένα->Διακομιστής Front/Chain Proxy [Πολλαπλοί διακομιστές Proxy: Από πάνω προς τα κάτω]->Διακομιστής Proxy [${p}]->Διακομιστής προορισμού';
+	@override String postProxyTips({required Object p}) => 'Δεδομένα->Διακομιστής μεσολάβησης[${p}]->Αλυσιδωτός διακομιστής μεσολάβησης[Πολλοί διακομιστές μεσολάβησης: από πάνω προς τα κάτω]->Διακομιστής προορισμού';
 	@override String get allowOtherHostsConnect => 'Να επιτρέπεται σε άλλους να συνδέονται';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Λόγω περιορισμών του συστήματος, μετά την ενεργοποίηση αυτού, οι εφαρμογές σε αυτήν τη συσκευή που χρησιμοποιούν http για πρόσβαση στο δίκτυο ενδέχεται να μην μπορούν να συνδεθούν σωστά στο δίκτυο.';
@@ -595,6 +597,7 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get view => 'Προβολή';
 	@override String get more => 'Περισσότερα';
 	@override String get tips => 'Πληροφορίες';
+	@override String get selectAll => 'Επιλογή όλων';
 	@override String get copy => 'Αντιγραφή';
 	@override String get paste => 'Πάστα';
 	@override String get cut => 'Τομή';
@@ -1134,8 +1137,10 @@ extension on TranslationsEl {
 			'SettingsScreen.rewriteConfirm' => 'Αυτό το αρχείο θα αντικαταστήσει την υπάρχουσα τοπική διαμόρφωση. Θέλετε να συνεχίσετε;',
 			'SettingsScreen.mergePerapp' => 'Συγχώνευση τοπικών λιστών [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'Κοινή χρήση δικτύου',
+			'SettingsScreen.chainProxy' => 'Αλυσιδωτός διακομιστής μεσολάβησης',
 			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Δεδομένα->Διακομιστής Front/Chain Proxy [Πολλαπλοί διακομιστές Proxy: Από πάνω προς τα κάτω]->Διακομιστής Proxy [${p}]->Διακομιστής προορισμού',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Δεδομένα->Διακομιστής μεσολάβησης[${p}]->Αλυσιδωτός διακομιστής μεσολάβησης[Πολλοί διακομιστές μεσολάβησης: από πάνω προς τα κάτω]->Διακομιστής προορισμού',
 			'SettingsScreen.allowOtherHostsConnect' => 'Να επιτρέπεται σε άλλους να συνδέονται',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Λόγω περιορισμών του συστήματος, μετά την ενεργοποίηση αυτού, οι εφαρμογές σε αυτήν τη συσκευή που χρησιμοποιούν http για πρόσβαση στο δίκτυο ενδέχεται να μην μπορούν να συνδεθούν σωστά στο δίκτυο.',
@@ -1220,6 +1225,7 @@ extension on TranslationsEl {
 			'meta.view' => 'Προβολή',
 			'meta.more' => 'Περισσότερα',
 			'meta.tips' => 'Πληροφορίες',
+			'meta.selectAll' => 'Επιλογή όλων',
 			'meta.copy' => 'Αντιγραφή',
 			'meta.paste' => 'Πάστα',
 			'meta.cut' => 'Τομή',
@@ -1458,11 +1464,11 @@ extension on TranslationsEl {
 			'isp.faq' => ({required Object p}) => 'Συχνές ερωτήσεις[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'Ακολουθήστε[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Μη έγκυρο ή ληγμένο',
 			'permission.camera' => 'Κάμερα',
 			'permission.screen' => 'Εγγραφή οθόνης',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Λήψη λίστας εφαρμογών',
 			'permission.request' => ({required Object p}) => 'Ενεργοποίηση άδειας [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Παρακαλούμε ενεργοποιήστε την άδεια [${p}]',

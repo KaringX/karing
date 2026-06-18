@@ -1413,6 +1413,9 @@ class GroupHelper {
                   null,
                   null,
                 );
+                if (err == null) {
+                  ServerManager.setDirty(true);
+                }
                 if (!context.mounted) {
                   return;
                 }
@@ -1736,6 +1739,121 @@ class GroupHelper {
     );
   }
 
+  static Future<void> showDeversionChainProxy(BuildContext context) async {
+    final tcontext = Translations.of(context);
+    var settingConfig = SettingManager.getConfig();
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      Set<String> allOutboundsTags = {};
+      VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null);
+      Set<String> invalidOutbounds = {};
+      String chainProxy = "";
+      if (settingConfig.chainProxy.isNotEmpty) {
+        for (var f in settingConfig.chainProxy) {
+          if (!allOutboundsTags.contains(f)) {
+            invalidOutbounds.add(f);
+          }
+        }
+        chainProxy = settingConfig.chainProxy.length == 1
+            ? settingConfig.chainProxy[0]
+            : "${settingConfig.chainProxy[0]}...";
+      }
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.SettingsScreen.frontProxy,
+            tips: settingConfig.front
+                ? tcontext.SettingsScreen.frontProxyTips(
+                    p: tcontext.outboundRuleMode.currentSelected,
+                  )
+                : tcontext.SettingsScreen.postProxyTips(
+                    p: tcontext.outboundRuleMode.currentSelected,
+                  ),
+            switchValue: settingConfig.front,
+            onSwitch: (bool value) async {
+              settingConfig.front = value;
+              SettingManager.setDirty(true);
+            },
+          ),
+        ),
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.server,
+            text: chainProxy,
+            textWidthPercent: 0.7,
+            textStyle: TextStyle(
+              fontFamily: Platform.isWindows ? 'Emoji' : null,
+              color: invalidOutbounds.isNotEmpty ? Colors.red : null,
+            ),
+            onPush: () async {
+              String oldData = settingConfig.chainProxy.join(",");
+              List<String> chain = settingConfig.chainProxy.toList();
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: ListAddScreen.routSettings("chainProxy"),
+                  builder: (context) => ListAddScreen(
+                    title: tcontext.meta.server,
+                    data: chain,
+                    invalidData: invalidOutbounds,
+                    onTapAdd: () async {
+                      ProxyConfig? result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          settings: ServerSelectScreen.routSettings(),
+                          builder: (context) => ServerSelectScreen(
+                            singleSelect:
+                                ServerSelectScreenSingleSelectedOption(
+                                  selectedServer: ProxyConfig(),
+                                  showNone: false,
+                                  showAutoSelect: false,
+                                  showUrltestGroup: false,
+                                  showFav: false,
+                                  showRecommend: false,
+                                  showRecent: false,
+                                  showTranffic: false,
+                                  showUpdate: false,
+                                ),
+                            multiSelect: null,
+                          ),
+                        ),
+                      );
+                      if (result == null || result.groupid.isEmpty) {
+                        return null;
+                      }
+
+                      return result.tag;
+                    },
+                  ),
+                ),
+              );
+              String newData = chain.join(",");
+              if (oldData != newData) {
+                settingConfig.chainProxy = chain;
+                SettingManager.setDirty(true);
+              }
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routSettings("DeversionChainProxy"),
+        builder: (context) => GroupScreen(
+          title: tcontext.SettingsScreen.chainProxy,
+          getOptions: getOptions,
+        ),
+      ),
+    );
+  }
+
   static Future<void> showDeversion(BuildContext context) async {
     final tcontext = Translations.of(context);
     var settingConfig = SettingManager.getConfig();
@@ -1778,84 +1896,20 @@ class GroupHelper {
           ),
         ),
       ];
-      Set<String> allOutboundsTags = {};
-      VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null);
-      Set<String> invalidOutbounds = {};
-      String frontProxy = "";
-      if (settingConfig.frontProxy.isNotEmpty) {
-        for (var f in settingConfig.frontProxy) {
-          if (!allOutboundsTags.contains(f)) {
-            invalidOutbounds.add(f);
-          }
-        }
-        frontProxy = settingConfig.frontProxy.length == 1
-            ? settingConfig.frontProxy[0]
-            : "${settingConfig.frontProxy[0]}...";
-      }
+
       List<GroupItemOptions> options2 = [
         if (!settingConfig.novice) ...[
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
-              name: tcontext.SettingsScreen.frontProxy,
-              tips: tcontext.SettingsScreen.frontProxyTips(
-                p: tcontext.outboundRuleMode.currentSelected,
-              ),
-              text: frontProxy,
-              textStyle: TextStyle(
-                fontFamily: Platform.isWindows ? 'Emoji' : null,
-                color: invalidOutbounds.isNotEmpty ? Colors.red : null,
-              ),
+              name: tcontext.SettingsScreen.chainProxy,
               onPush: () async {
-                String oldData = settingConfig.frontProxy.join(",");
-                List<String> chain = settingConfig.frontProxy.toList();
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    settings: ListAddScreen.routSettings("frontProxy"),
-                    builder: (context) => ListAddScreen(
-                      title: tcontext.meta.server,
-                      data: chain,
-                      invalidData: invalidOutbounds,
-                      onTapAdd: () async {
-                        ProxyConfig? result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            settings: ServerSelectScreen.routSettings(),
-                            builder: (context) => ServerSelectScreen(
-                              singleSelect:
-                                  ServerSelectScreenSingleSelectedOption(
-                                    selectedServer: ProxyConfig(),
-                                    showNone: false,
-                                    showAutoSelect: false,
-                                    showUrltestGroup: false,
-                                    showFav: false,
-                                    showRecommend: false,
-                                    showRecent: false,
-                                    showTranffic: false,
-                                    showUpdate: false,
-                                  ),
-                              multiSelect: null,
-                            ),
-                          ),
-                        );
-                        if (result == null || result.groupid.isEmpty) {
-                          return null;
-                        }
-
-                        return result.tag;
-                      },
-                    ),
-                  ),
-                );
-                String newData = chain.join(",");
-                if (oldData != newData) {
-                  settingConfig.frontProxy = chain;
-                  SettingManager.setDirty(true);
-                }
+                await showDeversionChainProxy(context);
               },
             ),
           ),
         ],
+      ];
+      List<GroupItemOptions> options30 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.urlTestCustomGroup,
@@ -1906,6 +1960,7 @@ class GroupHelper {
         GroupItem(options: options),
         GroupItem(options: options1),
         GroupItem(options: options2),
+        GroupItem(options: options30),
         GroupItem(options: options3),
       ];
     }

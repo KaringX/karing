@@ -1,6 +1,5 @@
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
-import 'package:karing/screens/widgets/sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:re_editor/re_editor.dart';
@@ -32,14 +31,14 @@ class FileViewScreen extends StatefulWidget {
 
 class _FileViewScreenState extends State<FileViewScreen> {
   late CodeLineEditingController _controller;
-  late final SelectionToolbarController _toolbarController;
+  //late final SelectionToolbarController _toolbarController;
   final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _controller = CodeLineEditingController.fromText(widget.content);
-    _toolbarController = ContextMenuControllerImpl(widget.onSave == null);
+    //_toolbarController = ContextMenuControllerImpl(widget.onSave == null);
     _focusNode.onKeyEvent = ((_, event) {
       final keys = HardwareKeyboard.instance.logicalKeysPressed;
       final key = event.logicalKey;
@@ -66,7 +65,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
 
   @override
   void dispose() {
-    _toolbarController.hide(context);
+    // _toolbarController.hide(context);
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -106,25 +105,6 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       ),
                     ),
                   ),
-                  if (widget.content.isNotEmpty) ...[
-                    InkWell(
-                      onTap: () {
-                        try {
-                          Clipboard.setData(
-                            ClipboardData(text: widget.content),
-                          );
-                        } catch (e) {}
-                      },
-                      child: Tooltip(
-                        message: tcontext.meta.copy,
-                        child: const SizedBox(
-                          width: 50,
-                          height: 30,
-                          child: Icon(Icons.copy, size: 26),
-                        ),
-                      ),
-                    ),
-                  ],
                   if (widget.onSave != null) ...[
                     InkWell(
                       onTap: () async {
@@ -143,6 +123,67 @@ class _FileViewScreenState extends State<FileViewScreen> {
                   if (widget.content.isEmpty && widget.onSave == null) ...[
                     const SizedBox(width: 50),
                   ],
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      _controller.selectAll();
+                    },
+                    child: Tooltip(
+                      message: tcontext.meta.selectAll,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.select_all, size: 26),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: () {
+                      _controller.copy();
+                    },
+                    child: Tooltip(
+                      message: tcontext.meta.copy,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.copy, size: 26),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: () {
+                      _controller.paste();
+                    },
+                    child: Tooltip(
+                      message: tcontext.meta.paste,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.paste, size: 26),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: () {
+                      _controller.cut();
+                    },
+                    child: Tooltip(
+                      message: tcontext.meta.cut,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: Icon(Icons.cut, size: 26),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -186,7 +227,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
                     shortcutsActivatorsBuilder:
                         DefaultCodeShortcutsActivatorsBuilder(),
                     controller: _controller,
-                    toolbarController: _toolbarController,
+                    // toolbarController: _toolbarController,
                     style: CodeEditorStyle(
                       fontSize: 14,
                       codeTheme: CodeHighlightTheme(
@@ -207,7 +248,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
     );
   }
 }
-
+/*
 class ContextMenuControllerImpl implements SelectionToolbarController {
   bool readOnly = false;
   ContextMenuControllerImpl(this.readOnly);
@@ -226,6 +267,13 @@ class ContextMenuControllerImpl implements SelectionToolbarController {
   }) {
     final tcontext = Translations.of(context);
     var widgets = [
+      ListTile(
+        title: Text(tcontext.meta.selectAll),
+        onTap: () async {
+          controller.selectAll();
+          Navigator.of(context).pop();
+        },
+      ),
       ListTile(
         title: Text(tcontext.meta.copy),
         onTap: () async {
@@ -271,4 +319,4 @@ class ContextMenuControllerImpl implements SelectionToolbarController {
       ),
     );
   }
-}
+}*/

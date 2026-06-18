@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?';
 	@override String get mergePerapp => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'Общий доступ к сети';
+	@override String get chainProxy => 'Цепочный прокси';
 	@override String get frontProxy => 'Фронтальный/цепной прокси';
 	@override String frontProxyTips({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
+	@override String postProxyTips({required Object p}) => 'Данные->Прокси-сервер[${p}]->Цепочный прокси-сервер[Несколько прокси-серверов: сверху вниз]->Целевой сервер';
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
@@ -595,6 +597,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get view => 'Просмотр';
 	@override String get more => 'Больше';
 	@override String get tips => 'Инфо';
+	@override String get selectAll => 'Выбрать все';
 	@override String get copy => 'Скопировать';
 	@override String get paste => 'Вставить';
 	@override String get cut => 'Вырезать';
@@ -1134,8 +1137,10 @@ extension on TranslationsRu {
 			'SettingsScreen.rewriteConfirm' => 'Этот файл перезапишет существующую локальную конфигурацию. Продолжить?',
 			'SettingsScreen.mergePerapp' => 'Объединить локальные списки [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'Общий доступ к сети',
+			'SettingsScreen.chainProxy' => 'Цепочный прокси',
 			'SettingsScreen.frontProxy' => 'Фронтальный/цепной прокси',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Данные->Прокси-сервер[${p}]->Цепочный прокси-сервер[Несколько прокси-серверов: сверху вниз]->Целевой сервер',
 			'SettingsScreen.allowOtherHostsConnect' => 'Разрешить подключение по локальной сети',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.',
@@ -1220,6 +1225,7 @@ extension on TranslationsRu {
 			'meta.view' => 'Просмотр',
 			'meta.more' => 'Больше',
 			'meta.tips' => 'Инфо',
+			'meta.selectAll' => 'Выбрать все',
 			'meta.copy' => 'Скопировать',
 			'meta.paste' => 'Вставить',
 			'meta.cut' => 'Вырезать',
@@ -1458,11 +1464,11 @@ extension on TranslationsRu {
 			'isp.faq' => ({required Object p}) => 'Часто задаваемые вопросы[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Служба поддержки клиентов[${p}]',
 			'isp.follow' => ({required Object p}) => 'Следуйте[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]Недействительно, или срок действия истек',
 			'permission.camera' => 'Камера',
 			'permission.screen' => 'Запись экрана',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Получить список приложений',
 			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',

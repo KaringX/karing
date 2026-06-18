@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟';
 	@override String get mergePerapp => 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'اشتراک‌گذاری شبکه';
+	@override String get chainProxy => 'پروکسی زنجیره‌ای';
 	@override String get frontProxy => 'پروکسی جلو/زنجیره';
 	@override String frontProxyTips({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف';
+	@override String postProxyTips({required Object p}) => 'داده->سرور پروکسی[${p}]->سرور پروکسی زنجیره‌ای[چند سرور پروکسی: از بالا به پایین]->سرور مقصد';
 	@override String get allowOtherHostsConnect => 'اجازه اتصال دیگران';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.';
@@ -595,6 +597,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get view => 'بررسی';
 	@override String get more => 'بیشتر';
 	@override String get tips => 'اطلاعات';
+	@override String get selectAll => 'انتخاب همه';
 	@override String get copy => 'کپی';
 	@override String get paste => 'چسباندن';
 	@override String get cut => 'برش';
@@ -1134,8 +1137,10 @@ extension on TranslationsFa {
 			'SettingsScreen.rewriteConfirm' => 'این فایل کانفیگ‌های محلی موجود را بازنویسی می‌کند. آیا می‌خواهید ادامه بدین؟',
 			'SettingsScreen.mergePerapp' => 'ادغام لیست‌های محلی [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'اشتراک‌گذاری شبکه',
+			'SettingsScreen.chainProxy' => 'پروکسی زنجیره‌ای',
 			'SettingsScreen.frontProxy' => 'پروکسی جلو/زنجیره',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'داده-> سرور پروکسی جلویی/زنجیری [پراکسی سرورهای چندگانه: از بالا به پایین]-> سرور پروکسی [${p}]-> سرور هدف',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'داده->سرور پروکسی[${p}]->سرور پروکسی زنجیره‌ای[چند سرور پروکسی: از بالا به پایین]->سرور مقصد',
 			'SettingsScreen.allowOtherHostsConnect' => 'اجازه اتصال دیگران',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'به دلیل محدودیت‌های سیستم، پس از فعال شدن این گزینه، برنامه‌هایی که در این دستگاه از http برای دسترسی به شبکه استفاده می‌کنند، ممکن است نتوانند به درستی به شبکه متصل شوند.',
@@ -1220,6 +1225,7 @@ extension on TranslationsFa {
 			'meta.view' => 'بررسی',
 			'meta.more' => 'بیشتر',
 			'meta.tips' => 'اطلاعات',
+			'meta.selectAll' => 'انتخاب همه',
 			'meta.copy' => 'کپی',
 			'meta.paste' => 'چسباندن',
 			'meta.cut' => 'برش',
@@ -1458,11 +1464,11 @@ extension on TranslationsFa {
 			'isp.faq' => ({required Object p}) => 'سوالات متداول[${p}]',
 			'isp.customerService' => ({required Object p}) => 'خدمات مشتری[${p}]',
 			'isp.follow' => ({required Object p}) => 'دنبال کردن[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]نامعتبر یا منقضی شده است',
 			'permission.camera' => 'دوربین',
 			'permission.screen' => 'ضبط صفحه',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Get Application List',
 			'permission.request' => ({required Object p}) => 'مجوزهای [${p}] را فعال کنید',
 			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',

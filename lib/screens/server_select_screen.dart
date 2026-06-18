@@ -1621,6 +1621,14 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                   child: Icon(Icons.done_outlined, size: 26),
                                 ),
                               )
+                            : ServerManager.hasTestOutboundServer()
+                            ? const SizedBox(
+                                height: 26,
+                                width: 26,
+                                child: RepaintBoundary(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
                             : Tooltip(
                                 message: tcontext.meta.latencyTest,
                                 child: InkWell(

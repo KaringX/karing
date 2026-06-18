@@ -465,8 +465,10 @@ class Translations$SettingsScreen$zh_CN implements Translations$SettingsScreen$e
 	@override String get rewriteConfirm => '该文件将覆盖本地已有配置,是否继续?';
 	@override String get mergePerapp => '合并本地[${_root.PerAppAndroidScreen.title}]列表';
 	@override String get networkShare => '网络共享';
-	@override String get frontProxy => '前置/链式代理';
-	@override String frontProxyTips({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
+	@override String get chainProxy => '链式代理';
+	@override String get frontProxy => '前置代理';
+	@override String frontProxyTips({required Object p}) => '数据->链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器';
+	@override String postProxyTips({required Object p}) => '数据->代理服务器[${p}]->链式代理服务器[多个代理服务器:由上到下]->目标服务器';
 	@override String get allowOtherHostsConnect => '允许其他主机接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'SOCKS代理端口:${sp}, HTTP(S)代理端口:${hp}';
 	@override String get allowOtherHostsConnectWarn => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络';
@@ -595,6 +597,7 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get view => '查看';
 	@override String get more => '更多';
 	@override String get tips => '提示';
+	@override String get selectAll => '全选';
 	@override String get copy => '拷贝';
 	@override String get paste => '粘贴';
 	@override String get cut => '剪切';
@@ -1134,8 +1137,10 @@ extension on TranslationsZhCn {
 			'SettingsScreen.rewriteConfirm' => '该文件将覆盖本地已有配置,是否继续?',
 			'SettingsScreen.mergePerapp' => '合并本地[${_root.PerAppAndroidScreen.title}]列表',
 			'SettingsScreen.networkShare' => '网络共享',
-			'SettingsScreen.frontProxy' => '前置/链式代理',
-			'SettingsScreen.frontProxyTips' => ({required Object p}) => '数据->前置/链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器',
+			'SettingsScreen.chainProxy' => '链式代理',
+			'SettingsScreen.frontProxy' => '前置代理',
+			'SettingsScreen.frontProxyTips' => ({required Object p}) => '数据->链式代理服务器[多个代理服务器:由上到下]->代理服务器[${p}]->目标服务器',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => '数据->代理服务器[${p}]->链式代理服务器[多个代理服务器:由上到下]->目标服务器',
 			'SettingsScreen.allowOtherHostsConnect' => '允许其他主机接入',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'SOCKS代理端口:${sp}, HTTP(S)代理端口:${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由于系统限制,开启后,本设备上使用http访问网络的应用可能无法正常连接网络',
@@ -1220,6 +1225,7 @@ extension on TranslationsZhCn {
 			'meta.view' => '查看',
 			'meta.more' => '更多',
 			'meta.tips' => '提示',
+			'meta.selectAll' => '全选',
 			'meta.copy' => '拷贝',
 			'meta.paste' => '粘贴',
 			'meta.cut' => '剪切',
@@ -1458,11 +1464,11 @@ extension on TranslationsZhCn {
 			'isp.faq' => ({required Object p}) => '常见问题[${p}]',
 			'isp.customerService' => ({required Object p}) => '客服[${p}]',
 			'isp.follow' => ({required Object p}) => '关注[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]无效或已过期',
 			'permission.camera' => '摄像头',
 			'permission.screen' => '屏幕录制',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => '获取应用列表',
 			'permission.request' => ({required Object p}) => '开启[${p}]权限',
 			'permission.requestNeed' => ({required Object p}) => '请开启[${p}]权限',

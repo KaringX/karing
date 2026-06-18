@@ -230,7 +230,9 @@ class _AddProfileByLinkOrContentScreenState
       ispUser: widget.ispUser,
       decryptPassword: _decryptPassword,
     );
-
+    if (error == null) {
+      ServerManager.setDirty(true);
+    }
     if (!mounted) {
       return;
     }

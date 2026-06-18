@@ -940,19 +940,27 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Tooltip(
-                          message: tcontext.meta.latencyTest,
-                          child: InkWell(
-                            onTap: () async {
-                              onTapTestOutboundLatencyAll();
-                            },
-                            child: const SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Icon(Icons.bolt_outlined, size: 30),
-                            ),
-                          ),
-                        ),
+                        ServerManager.hasTestOutboundServer()
+                            ? const SizedBox(
+                                height: 26,
+                                width: 26,
+                                child: RepaintBoundary(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              )
+                            : Tooltip(
+                                message: tcontext.meta.latencyTest,
+                                child: InkWell(
+                                  onTap: () async {
+                                    onTapTestOutboundLatencyAll();
+                                  },
+                                  child: const SizedBox(
+                                    width: 50,
+                                    height: 30,
+                                    child: Icon(Icons.bolt_outlined, size: 30),
+                                  ),
+                                ),
+                              ),
                         Tooltip(
                           message: tcontext.meta.more,
                           child: InkWell(
@@ -1609,7 +1617,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       allOutBounds,
       null,
       {},
-      [],
       SingboxExportType.karing,
     );
 

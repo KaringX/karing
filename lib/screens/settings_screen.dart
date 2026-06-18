@@ -19,7 +19,6 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/accessibility_utils.dart';
-import 'package:karing/app/utils/apple_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';

@@ -48,7 +48,6 @@ import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/vpn_action_handler.dart';
-import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/accessibility_screen.dart';
 import 'package:karing/screens/antdesign.dart';
@@ -213,14 +212,13 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   final _scrollController = ScrollController();
   bool _agreementApproved = false;
 
-  Websocket? _websocket;
-
   late HomeWidgetOptions _widgetOptions;
 
   bool _working = false;
   FlutterVpnServiceState _state = FlutterVpnServiceState.disconnected;
 
   Timer? _timerStateChecker;
+  Timer? _timerConnectToCore;
   Timer? _timerCurrentUrltest;
   CurrentServerForUrltest _currentServerForUrltest = CurrentServerForUrltest();
 
@@ -557,15 +555,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       var file = File(errorPath);
       if (await file.exists()) {
         content = await file.readAsString();
+        content = content.trim();
       }
     } catch (e) {}
 
-    if (content != null && content.trim().isNotEmpty) {
+    if (content != null && content.isNotEmpty) {
       bool isPanic = content.contains("panic:");
       if (!isPanic) {
         await FileUtils.deletePath(errorPath);
       }
-      if (!content.contains("Config expired, Please start from app")) {
+      if (!content.contains("Config expired, Please start from app") &&
+          !content.contains("FromSockAddr failed on netmask")) {
         if (showAlert) {
           await DialogUtils.showAlertDialog(
             context,
@@ -688,6 +688,62 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _timerCurrentUrltest = null;
   }
 
+  Future<void> _updateConnections() async {
+    String connections = await FlutterVpnService.clashiApiConnections(false);
+    Connections con = Connections();
+    try {
+      var obj = jsonDecode(connections);
+      con.fromJson(obj, false);
+    } catch (err) {}
+    if (con.startTime != null) {
+      final startDurationNotify = DateTime.now()
+          .difference(con.startTime!)
+          .toString()
+          .split(".")[0];
+
+      _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
+    }
+    _widgetOptions.trafficTotalInfo!.notifier.value =
+        "↑ " + ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
+
+    _widgetOptions.trafficTotalInfo!.notifier2.value =
+        "↓ " + ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
+
+    _widgetOptions.trafficProxyInfo!.notifier.value =
+        "↑ " +
+        ProxyConfUtils.convertTrafficToStringDouble(
+          con.uploadTotal - con.uploadTotalDirect,
+        );
+
+    _widgetOptions.trafficProxyInfo!.notifier2.value =
+        "↓ " +
+        ProxyConfUtils.convertTrafficToStringDouble(
+          con.downloadTotal - con.downloadTotalDirect,
+        );
+
+    _widgetOptions.trafficSpeedInfo!.notifier.value =
+        "↑ " +
+        ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
+        "/s";
+
+    _widgetOptions.trafficSpeedInfo!.notifier2.value =
+        "↓ " +
+        ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
+        "/s";
+
+    if (SettingManager.getConfig().dev.devMode) {
+      _widgetOptions.memoryInfo!.notifier.value =
+          "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
+      _widgetOptions.connectionsInfo!.notifier.value =
+          "${con.connectionsInCount}/${con.connectionsOutCount}";
+    } else {
+      _widgetOptions.memoryInfo!.notifier.value =
+          ProxyConfUtils.convertTrafficToStringDouble(con.memory);
+      _widgetOptions.connectionsInfo!.notifier.value = con.connectionsInCount
+          .toString();
+    }
+  }
+
   Future<void> _connectToService() async {
     bool started = await VPNService.getStarted();
     if (!started) {
@@ -696,81 +752,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (AppLifecycleStateNofity.isPaused()) {
       return;
     }
+    await _updateConnections();
+    const Duration duration = Duration(seconds: 1);
+    _timerConnectToCore ??= Timer.periodic(duration, (timer) async {
+      if (AppLifecycleStateNofity.isPaused()) {
+        return;
+      }
+      await _updateConnections();
+      _updateNetStateLocalNotifications();
+    });
 
-    _websocket ??= Websocket(
-      url: await getConnectionsUrl(true),
-      userAgent: await HttpUtils.getUserAgent(),
-      onMessage: (String message) {
-        if (AppLifecycleStateNofity.isPaused()) {
-          Future.delayed(const Duration(seconds: 0), () async {
-            _disconnectToService();
-          });
-          return;
-        }
-        var obj = jsonDecode(message);
-        Connections con = Connections();
-        con.fromJson(obj, false);
-        if (con.startTime != null) {
-          final startDurationNotify = DateTime.now()
-              .difference(con.startTime!)
-              .toString()
-              .split(".")[0];
-
-          _widgetOptions.runtimeInfo!.notifier.value = startDurationNotify;
-        }
-        _widgetOptions.trafficTotalInfo!.notifier.value =
-            "↑ " + ProxyConfUtils.convertTrafficToStringDouble(con.uploadTotal);
-
-        _widgetOptions.trafficTotalInfo!.notifier2.value =
-            "↓ " +
-            ProxyConfUtils.convertTrafficToStringDouble(con.downloadTotal);
-
-        _widgetOptions.trafficProxyInfo!.notifier.value =
-            "↑ " +
-            ProxyConfUtils.convertTrafficToStringDouble(
-              con.uploadTotal - con.uploadTotalDirect,
-            );
-
-        _widgetOptions.trafficProxyInfo!.notifier2.value =
-            "↓ " +
-            ProxyConfUtils.convertTrafficToStringDouble(
-              con.downloadTotal - con.downloadTotalDirect,
-            );
-
-        _widgetOptions.trafficSpeedInfo!.notifier.value =
-            "↑ " +
-            ProxyConfUtils.convertTrafficToStringDouble(con.uploadSpeed) +
-            "/s";
-
-        _widgetOptions.trafficSpeedInfo!.notifier2.value =
-            "↓ " +
-            ProxyConfUtils.convertTrafficToStringDouble(con.downloadSpeed) +
-            "/s";
-
-        if (SettingManager.getConfig().dev.devMode) {
-          _widgetOptions.memoryInfo!.notifier.value =
-              "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
-          _widgetOptions.connectionsInfo!.notifier.value =
-              "${con.connectionsInCount}/${con.connectionsOutCount}";
-        } else {
-          _widgetOptions.memoryInfo!.notifier.value =
-              ProxyConfUtils.convertTrafficToStringDouble(con.memory);
-          _widgetOptions.connectionsInfo!.notifier.value = con
-              .connectionsInCount
-              .toString();
-        }
-
-        _updateNetStateLocalNotifications();
-      },
-      onDone: () {
-        _disconnectToService();
-      },
-      onError: (err) {
-        Log.w("connectToService err:$err");
-        _disconnectToService();
-      },
-    );
-    await _websocket!.connect();
     _updateWanIP();
     _updateDirectWanIP();
   }
@@ -778,9 +769,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   Future<void> _disconnectToService() async {
     _removeNetStateLocalNotifications();
     //Log.w("_disconnectToService");
-
-    await _websocket?.disconnect();
-
+    _timerConnectToCore?.cancel();
+    _timerConnectToCore = null;
     resetWidgetNotifier();
   }
 
@@ -978,11 +968,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Biz.onEventRequestStartVPN = _onRequestStartVPN;
 
     VPNService.onEventStateChanged.add(_onStateChanged);
-    ServerManager.onEventAddConfig(hashCode, _onAddConfig);
-    ServerManager.onEventUpdateConfig(hashCode, _onUpdateConfig);
-    ServerManager.onEventLatencyUpdateConfig(hashCode, _onLatencyUpdateConfig);
-    ServerManager.onEventRemoveConfig(hashCode, _onRemoveConfig);
-    ServerManager.onEventEnableConfig(hashCode, _onEnableConfig);
+    ServerManager.onEventAddConfig(hashCode, _onEventAddConfig);
+    ServerManager.onEventUpdateConfig(hashCode, _onEventUpdateConfig);
+    ServerManager.onEventLatencyUpdate(hashCode, _onEventLatencyUpdate);
+    ServerManager.onEventRemoveConfig(hashCode, _onEventRemoveConfig);
+    ServerManager.onEventEnableConfig(hashCode, _onEventEnableConfig);
     ServerManager.onEventRemoteTrafficReload(
       hashCode,
       (String groupid) {
@@ -992,8 +982,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         setState(() {});
       },
     );
-    ServerManager.onReloadFromZipConfigs(hashCode, _onReloadFromZipConfigs);
-    ServerManager.onEventTestLatency(hashCode, _onTestLatency);
+    ServerManager.onEventReloadFromZip(hashCode, _onEventReloadFromZip);
+    ServerManager.onEventTestLatency(hashCode, _onEventTestLatency);
     AppLifecycleStateNofity.onStateResumed(hashCode, _onStateResumed);
     AppLifecycleStateNofity.onStatePaused(hashCode, _onStatePaused);
 
@@ -1041,6 +1031,19 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     } else if (Platform.isAndroid) {
       String? command = await MainChannel.call("getCommand", {});
       if (command == "connect") {
+        ReturnResultError? err = await start("launch");
+        if (err == null) {
+          MoveToBackgroundUtils.moveToBackground(
+            duration: const Duration(milliseconds: 300),
+          );
+        }
+      } else if (command == "disconnect") {
+        await stop();
+        MoveToBackgroundUtils.moveToBackground(
+          duration: const Duration(milliseconds: 300),
+        );
+      } else if (command == "reconnect") {
+        await stop();
         ReturnResultError? err = await start("launch");
         if (err == null) {
           MoveToBackgroundUtils.moveToBackground(
@@ -1153,7 +1156,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
   }
 
-  Future<void> _onAddConfig(ServerConfigGroupItem item) async {
+  Future<void> _onEventAddConfig(ServerConfigGroupItem item) async {
     if (_currentServer.groupid.isEmpty) {
       _currentServer = ServerManager.getUrltest();
       VPNService.setCurrent(_currentServer);
@@ -1165,10 +1168,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (settingConfig.autoBackup.addProfile) {
       _autoBackup();
     }
-    await setServerAndReload("onEventAddConfig");
   }
 
-  Future<void> _onUpdateConfig(List<ServerConfigGroupItem> groups) async {
+  Future<void> _onEventUpdateConfig(List<ServerConfigGroupItem> groups) async {
     bool reload = false;
     for (var group in groups) {
       if (group.enable && group.reloadAfterProfileUpdate) {
@@ -1190,7 +1192,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     );
   }
 
-  Future<void> _onLatencyUpdateConfig(Set<ServerConfigGroupItem> groups) async {
+  Future<void> _onEventLatencyUpdate(Set<ServerConfigGroupItem> groups) async {
     bool reload = false;
     for (var group in groups) {
       if (group.enable && group.testLatencyAutoRemove) {
@@ -1204,7 +1206,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     await setServerAndReload(
-      "onEventLatencyUpdateConfig",
+      "onEventLatencyUpdate",
       reason: t.meta.appNotifyWithReason(
         p: t.meta.reconnect,
         p1: t.reloadReason.latencyTest,
@@ -1212,7 +1214,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     );
   }
 
-  Future<void> _onRemoveConfig(
+  Future<void> _onEventRemoveConfig(
     String groupid,
     bool enable,
     bool hasDeviersionGroup,
@@ -1244,7 +1246,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     await setServerAndReload("onEventRemoveConfig");*/
   }
 
-  Future<void> _onEnableConfig(String groupid, bool enable) async {
+  Future<void> _onEventEnableConfig(String groupid, bool enable) async {
     /*bool noConfig = ServerManager.getConfig().getServersCount(false) == 0;
     if (noConfig) {
       _currentServer = ProxyConfig();
@@ -1267,7 +1269,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     await setServerAndReload("onEventEnableConfig");*/
   }
 
-  Future<void> _onReloadFromZipConfigs() async {
+  Future<void> _onEventReloadFromZip() async {
     ProxyConfig? config = ServerManager.getMostRecent();
     if (config != null) {
       _currentServer = config;
@@ -1292,7 +1294,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     setState(() {});
   }
 
-  Future<void> _onTestLatency(
+  Future<void> _onEventTestLatency(
     String groupid,
     String tag,
     bool start,

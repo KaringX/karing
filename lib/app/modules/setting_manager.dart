@@ -1557,7 +1557,8 @@ class SettingConfig {
   bool autoConnectAtBoot = false; //android
   IPStrategy ipStrategy = IPStrategy.ipv4Only;
   bool proxyAll = false;
-  List<String> frontProxy = [];
+  List<String> chainProxy = [];
+  bool front = true;
   bool privateDirect = true;
   bool quitWhenSwitchSystemUser = false;
   bool alwayOn = false;
@@ -1603,7 +1604,8 @@ class SettingConfig {
     'auto_connect_at_boot': autoConnectAtBoot,
     'ip_strategy': ipStrategy.name,
     'proxy_all': proxyAll,
-    'front_proxy': frontProxy,
+    'chain_proxy': chainProxy,
+    'front': front,
     'private_direct': privateDirect,
     'quit_when_switch_systemUser': quitWhenSwitchSystemUser,
     'alway_on': alwayOn,
@@ -1692,18 +1694,19 @@ class SettingConfig {
     }
 
     proxyAll = map["proxy_all"] ?? false;
-    var frontProxy_ = map["front_proxy"];
-    if (frontProxy_ is String) {
-      if (frontProxy_.isNotEmpty) {
-        frontProxy.add(frontProxy_);
+    var chainProxy_ = map["chain_proxy"] ?? map["front_proxy"];
+    if (chainProxy_ is String) {
+      if (chainProxy_.isNotEmpty) {
+        chainProxy.add(chainProxy_);
       }
     } else {
-      frontProxy = ConvertUtils.getListStringFromDynamic(
-        frontProxy_,
+      chainProxy = ConvertUtils.getListStringFromDynamic(
+        chainProxy_,
         true,
         [],
       )!;
     }
+    front = map["front"] ?? true;
 
     privateDirect = map["private_direct"] ?? true;
     quitWhenSwitchSystemUser = map["quit_when_switch_systemUser"] ?? false;

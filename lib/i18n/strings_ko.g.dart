@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => '이 파일은 기존 로컬 구성을 덮어씁니다. 계속하시겠습니까?';
 	@override String get mergePerapp => '로컬 [${_root.PerAppAndroidScreen.title}] 목록 병합';
 	@override String get networkShare => '네트워크 공유';
+	@override String get chainProxy => '체인 프록시';
 	@override String get frontProxy => 'Front/Chain 프록시';
 	@override String frontProxyTips({required Object p}) => '데이터 -> Front/Chain 프록시 서버 [여러 서버: 위에서 아래로] -> 프록시 서버 [${p}] -> 대상 서버';
+	@override String postProxyTips({required Object p}) => '데이터->프록시 서버[${p}]->체인 프록시 서버[여러 프록시 서버: 위에서 아래로]->대상 서버';
 	@override String get allowOtherHostsConnect => '다른 기기의 연결 허용';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => '시스템 제한으로 인해 이 기능을 활성화하면 http를 사용하여 네트워크에 액세스하는 이 기기의 앱이 네트워크에 제대로 연결되지 않을 수 있습니다.';
@@ -595,6 +597,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get view => '보기';
 	@override String get more => '더 보기';
 	@override String get tips => '정보';
+	@override String get selectAll => '모두 선택';
 	@override String get copy => '복사';
 	@override String get paste => '반죽';
 	@override String get cut => '자르다';
@@ -1134,8 +1137,10 @@ extension on TranslationsKo {
 			'SettingsScreen.rewriteConfirm' => '이 파일은 기존 로컬 구성을 덮어씁니다. 계속하시겠습니까?',
 			'SettingsScreen.mergePerapp' => '로컬 [${_root.PerAppAndroidScreen.title}] 목록 병합',
 			'SettingsScreen.networkShare' => '네트워크 공유',
+			'SettingsScreen.chainProxy' => '체인 프록시',
 			'SettingsScreen.frontProxy' => 'Front/Chain 프록시',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => '데이터 -> Front/Chain 프록시 서버 [여러 서버: 위에서 아래로] -> 프록시 서버 [${p}] -> 대상 서버',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => '데이터->프록시 서버[${p}]->체인 프록시 서버[여러 프록시 서버: 위에서 아래로]->대상 서버',
 			'SettingsScreen.allowOtherHostsConnect' => '다른 기기의 연결 허용',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '시스템 제한으로 인해 이 기능을 활성화하면 http를 사용하여 네트워크에 액세스하는 이 기기의 앱이 네트워크에 제대로 연결되지 않을 수 있습니다.',
@@ -1220,6 +1225,7 @@ extension on TranslationsKo {
 			'meta.view' => '보기',
 			'meta.more' => '더 보기',
 			'meta.tips' => '정보',
+			'meta.selectAll' => '모두 선택',
 			'meta.copy' => '복사',
 			'meta.paste' => '반죽',
 			'meta.cut' => '자르다',
@@ -1458,11 +1464,11 @@ extension on TranslationsKo {
 			'isp.faq' => ({required Object p}) => '자주 묻는 질문 [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
 			'isp.follow' => ({required Object p}) => '팔로우 [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]가 유효하지 않거나 만료되었습니다',
 			'permission.camera' => '카메라',
 			'permission.screen' => '화면 녹화',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => '앱 목록 가져오기',
 			'permission.request' => ({required Object p}) => '[${p}] 권한 켜기',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 권한을 켜주십시오',

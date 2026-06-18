@@ -2100,14 +2100,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.3"
-  webdav_client_plus:
+  webdav_plus:
     dependency: "direct main"
     description:
-      name: webdav_client_plus
-      sha256: "0f992fe05a46674a800d9fd8fdc5c54952ff739da155c558776a62ca0c2bed3a"
+      name: webdav_plus
+      sha256: "9ba5382b6498eac8927864ccc11c9e45a92fa2e3e5f3f3fc0f6d38cb433ab188"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2"
+    version: "1.2.2"
   win32:
     dependency: "direct main"
     description:

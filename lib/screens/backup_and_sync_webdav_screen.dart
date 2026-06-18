@@ -22,7 +22,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
-import 'package:webdav_client_plus/webdav_client_plus.dart';
+import 'package:webdav_plus/webdav_plus.dart';
 
 class BackupAndSyncWebdavScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -308,6 +308,13 @@ class _BackupAndSyncWebdavScreenState
         return;
       }
       if (result.error == null) {
+        break;
+      }
+      if (result.error!.message.startsWith(WebdavUtils.getNotContinue())) {
+        result.error!.message = result.error!.message.replaceFirst(
+          WebdavUtils.getNotContinue(),
+          "",
+        );
         break;
       }
     }

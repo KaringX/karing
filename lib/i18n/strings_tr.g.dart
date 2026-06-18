@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Bu dosya mevcut yerel yapılandırmanın üzerine yazılacaktır. Devam etmek istiyor musunuz?';
 	@override String get mergePerapp => 'Yerel [${_root.PerAppAndroidScreen.title}] listelerini birleştir';
 	@override String get networkShare => 'Ağ Paylaşımı';
+	@override String get chainProxy => 'Zincir Proxy';
 	@override String get frontProxy => 'Ön/Zincir Proxy';
 	@override String frontProxyTips({required Object p}) => 'Veri -> Ön/Zincir Proxy Sunucusu [Birden Çok Proxy Sunucusu: Yukarıdan Aşağıya] -> Proxy Sunucusu [${p}] -> Hedef Sunucu';
+	@override String postProxyTips({required Object p}) => 'Veri->Proxy Sunucusu[${p}]->Zincir Proxy Sunucusu[Bircok Proxy Sunucusu: Yukaridan Asagiya]->Hedef Sunucu';
 	@override String get allowOtherHostsConnect => 'Diğerlerinin Bağlanmasına İzin Ver';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Sistem kısıtlamaları nedeniyle, bu etkinleştirildikten sonra bu cihazdaki ağa erişmek için http kullanan uygulamalar ağa düzgün şekilde bağlanamayabilir.';
@@ -595,6 +597,7 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get view => 'Görüntüle';
 	@override String get more => 'Daha Fazla';
 	@override String get tips => 'Bilgi';
+	@override String get selectAll => 'Tümünü seç';
 	@override String get copy => 'Kopyala';
 	@override String get paste => 'Yapıştır';
 	@override String get cut => 'Kesmek';
@@ -1134,8 +1137,10 @@ extension on TranslationsTr {
 			'SettingsScreen.rewriteConfirm' => 'Bu dosya mevcut yerel yapılandırmanın üzerine yazılacaktır. Devam etmek istiyor musunuz?',
 			'SettingsScreen.mergePerapp' => 'Yerel [${_root.PerAppAndroidScreen.title}] listelerini birleştir',
 			'SettingsScreen.networkShare' => 'Ağ Paylaşımı',
+			'SettingsScreen.chainProxy' => 'Zincir Proxy',
 			'SettingsScreen.frontProxy' => 'Ön/Zincir Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Veri -> Ön/Zincir Proxy Sunucusu [Birden Çok Proxy Sunucusu: Yukarıdan Aşağıya] -> Proxy Sunucusu [${p}] -> Hedef Sunucu',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Veri->Proxy Sunucusu[${p}]->Zincir Proxy Sunucusu[Bircok Proxy Sunucusu: Yukaridan Asagiya]->Hedef Sunucu',
 			'SettingsScreen.allowOtherHostsConnect' => 'Diğerlerinin Bağlanmasına İzin Ver',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Sistem kısıtlamaları nedeniyle, bu etkinleştirildikten sonra bu cihazdaki ağa erişmek için http kullanan uygulamalar ağa düzgün şekilde bağlanamayabilir.',
@@ -1220,6 +1225,7 @@ extension on TranslationsTr {
 			'meta.view' => 'Görüntüle',
 			'meta.more' => 'Daha Fazla',
 			'meta.tips' => 'Bilgi',
+			'meta.selectAll' => 'Tümünü seç',
 			'meta.copy' => 'Kopyala',
 			'meta.paste' => 'Yapıştır',
 			'meta.cut' => 'Kesmek',
@@ -1458,11 +1464,11 @@ extension on TranslationsTr {
 			'isp.faq' => ({required Object p}) => 'SSS [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
 			'isp.follow' => ({required Object p}) => 'Takip Et [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Geçersiz veya süresi dolmuş',
 			'permission.camera' => 'Kamera',
 			'permission.screen' => 'Ekran Kaydı',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Uygulama Listesini Al',
 			'permission.request' => ({required Object p}) => '[${p}] iznini aç',
 			'permission.requestNeed' => ({required Object p}) => 'Lütfen [${p}] iznini açın',

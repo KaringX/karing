@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$da implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Denne fil vil overskrive den eksisterende lokale konfiguration. Vil du fortsætte?';
 	@override String get mergePerapp => 'Sammenflet lokale [${_root.PerAppAndroidScreen.title}]-lister';
 	@override String get networkShare => 'Netværksdeling';
+	@override String get chainProxy => 'Kædeproxy';
 	@override String get frontProxy => 'Front/Chain Proxy';
 	@override String frontProxyTips({required Object p}) => 'Data->Front/Chain Proxy-server [Flere proxy-servere: Fra top til bund]->Proxy-server [${p}]->Målserver';
+	@override String postProxyTips({required Object p}) => 'Data->Proxyserver[${p}]->Kædeproxyserver[Flere proxyservere: fra top til bund]->Målserver';
 	@override String get allowOtherHostsConnect => 'Tillad andre at oprette forbindelse';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'På grund af systembegrænsninger kan det hændte, at programmer på denne enhed, der bruger http til netværksadgang, muligvis ikke kan oprette forbindelse til netværket korrekt, efter at dette er aktiveret.';
@@ -595,6 +597,7 @@ class _Translations$meta$da implements Translations$meta$en {
 	@override String get view => 'Vis';
 	@override String get more => 'Mere';
 	@override String get tips => 'Info';
+	@override String get selectAll => 'Vælg alle';
 	@override String get copy => 'Kopier';
 	@override String get paste => 'Indsæt';
 	@override String get cut => 'Skære';
@@ -1134,8 +1137,10 @@ extension on TranslationsDa {
 			'SettingsScreen.rewriteConfirm' => 'Denne fil vil overskrive den eksisterende lokale konfiguration. Vil du fortsætte?',
 			'SettingsScreen.mergePerapp' => 'Sammenflet lokale [${_root.PerAppAndroidScreen.title}]-lister',
 			'SettingsScreen.networkShare' => 'Netværksdeling',
+			'SettingsScreen.chainProxy' => 'Kædeproxy',
 			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Data->Front/Chain Proxy-server [Flere proxy-servere: Fra top til bund]->Proxy-server [${p}]->Målserver',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Data->Proxyserver[${p}]->Kædeproxyserver[Flere proxyservere: fra top til bund]->Målserver',
 			'SettingsScreen.allowOtherHostsConnect' => 'Tillad andre at oprette forbindelse',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'På grund af systembegrænsninger kan det hændte, at programmer på denne enhed, der bruger http til netværksadgang, muligvis ikke kan oprette forbindelse til netværket korrekt, efter at dette er aktiveret.',
@@ -1220,6 +1225,7 @@ extension on TranslationsDa {
 			'meta.view' => 'Vis',
 			'meta.more' => 'Mere',
 			'meta.tips' => 'Info',
+			'meta.selectAll' => 'Vælg alle',
 			'meta.copy' => 'Kopier',
 			'meta.paste' => 'Indsæt',
 			'meta.cut' => 'Skære',
@@ -1458,11 +1464,11 @@ extension on TranslationsDa {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'Følg[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Ugyldig eller udløbet',
 			'permission.camera' => 'Kamera',
 			'permission.screen' => 'Skærmoptagelse',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Hent app-liste',
 			'permission.request' => ({required Object p}) => 'Slå tilladelse [${p}] til',
 			'permission.requestNeed' => ({required Object p}) => 'Slå venligst tilladelse [${p}] til',

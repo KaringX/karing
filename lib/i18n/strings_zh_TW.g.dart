@@ -465,8 +465,10 @@ class Translations$SettingsScreen$zh_TW implements Translations$SettingsScreen$e
 	@override String get rewriteConfirm => '該檔案將覆蓋本地已有配置, 是否繼續?';
 	@override String get mergePerapp => '合併本地 [${_root.PerAppAndroidScreen.title}] 列表';
 	@override String get networkShare => '網路共享';
+	@override String get chainProxy => '鏈式代理';
 	@override String get frontProxy => '前置/鏈式代理';
 	@override String frontProxyTips({required Object p}) => '數據 -> 前置/鏈式代理伺服器 [多個代理伺服器: 由上到下] -> 代理伺服器 [${p}] -> 目標伺服器';
+	@override String postProxyTips({required Object p}) => '數據->代理伺服器[${p}]->鏈式代理伺服器[多個代理伺服器:由上到下]->目標伺服器';
 	@override String get allowOtherHostsConnect => '允許其他主機接入';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}';
 	@override String get allowOtherHostsConnectWarn => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路';
@@ -595,6 +597,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get view => '查看';
 	@override String get more => '更多';
 	@override String get tips => '提示';
+	@override String get selectAll => '全選';
 	@override String get copy => '複製';
 	@override String get paste => '貼上';
 	@override String get cut => '剪切';
@@ -1134,8 +1137,10 @@ extension on TranslationsZhTw {
 			'SettingsScreen.rewriteConfirm' => '該檔案將覆蓋本地已有配置, 是否繼續?',
 			'SettingsScreen.mergePerapp' => '合併本地 [${_root.PerAppAndroidScreen.title}] 列表',
 			'SettingsScreen.networkShare' => '網路共享',
+			'SettingsScreen.chainProxy' => '鏈式代理',
 			'SettingsScreen.frontProxy' => '前置/鏈式代理',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => '數據 -> 前置/鏈式代理伺服器 [多個代理伺服器: 由上到下] -> 代理伺服器 [${p}] -> 目標伺服器',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => '數據->代理伺服器[${p}]->鏈式代理伺服器[多個代理伺服器:由上到下]->目標伺服器',
 			'SettingsScreen.allowOtherHostsConnect' => '允許其他主機接入',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'SOCKS代理連接埠:${sp}, HTTP(S)代理連接埠:${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => '由於系統限制, 開啟後, 本設備上使用 http 存取網路的應用程式可能無法正常連線網路',
@@ -1220,6 +1225,7 @@ extension on TranslationsZhTw {
 			'meta.view' => '查看',
 			'meta.more' => '更多',
 			'meta.tips' => '提示',
+			'meta.selectAll' => '全選',
 			'meta.copy' => '複製',
 			'meta.paste' => '貼上',
 			'meta.cut' => '剪切',
@@ -1458,11 +1464,11 @@ extension on TranslationsZhTw {
 			'isp.faq' => ({required Object p}) => '常見問題 [${p}]',
 			'isp.customerService' => ({required Object p}) => '客服 [${p}]',
 			'isp.follow' => ({required Object p}) => '關注 [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] 無效或已過期',
 			'permission.camera' => '攝像頭',
 			'permission.screen' => '螢幕錄製',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => '獲取應用程式列表',
 			'permission.request' => ({required Object p}) => '開啟 [${p}] 權限',
 			'permission.requestNeed' => ({required Object p}) => '請開啟 [${p}] 權限',

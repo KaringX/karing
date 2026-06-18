@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'ไฟล์นี้จะเขียนทับการกำหนดค่าในเครื่องที่มีอยู่ คุณต้องการดำเนินการต่อหรือไม่?';
 	@override String get mergePerapp => 'รวม [${_root.PerAppAndroidScreen.title}] รายการท้องถิ่น';
 	@override String get networkShare => 'การแบ่งปันเครือข่าย';
+	@override String get chainProxy => 'พร็อกซีแบบลูกโซ่';
 	@override String get frontProxy => 'Front/Chain Proxy';
 	@override String frontProxyTips({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
+	@override String postProxyTips({required Object p}) => 'ข้อมูล->พร็อกซีเซิร์ฟเวอร์[${p}]->พร็อกซีแบบลูกโซ่[พร็อกซีหลายเซิร์ฟเวอร์: จากบนลงล่าง]->เซิร์ฟเวอร์ปลายทาง';
 	@override String get allowOtherHostsConnect => 'อนุญาตให้ผู้อื่นเชื่อมต่อ';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'เนื่องจากข้อจำกัดของระบบ หลังจากเปิดใช้งานนี้ แอปพลิเคชันบนอุปกรณ์นี้ที่ใช้ http เพื่อเข้าถึงเครือข่ายอาจไม่สามารถเชื่อมต่อกับเครือข่ายได้อย่างถูกต้อง';
@@ -595,6 +597,7 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get view => 'มุมมอง';
 	@override String get more => 'เพิ่มเติม';
 	@override String get tips => 'ข้อมูล';
+	@override String get selectAll => 'เลือกทั้งหมด';
 	@override String get copy => 'คัดลอก';
 	@override String get paste => 'วาง';
 	@override String get cut => 'ตัด';
@@ -1134,8 +1137,10 @@ extension on TranslationsTh {
 			'SettingsScreen.rewriteConfirm' => 'ไฟล์นี้จะเขียนทับการกำหนดค่าในเครื่องที่มีอยู่ คุณต้องการดำเนินการต่อหรือไม่?',
 			'SettingsScreen.mergePerapp' => 'รวม [${_root.PerAppAndroidScreen.title}] รายการท้องถิ่น',
 			'SettingsScreen.networkShare' => 'การแบ่งปันเครือข่าย',
+			'SettingsScreen.chainProxy' => 'พร็อกซีแบบลูกโซ่',
 			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'ข้อมูล->พร็อกซีเซิร์ฟเวอร์[${p}]->พร็อกซีแบบลูกโซ่[พร็อกซีหลายเซิร์ฟเวอร์: จากบนลงล่าง]->เซิร์ฟเวอร์ปลายทาง',
 			'SettingsScreen.allowOtherHostsConnect' => 'อนุญาตให้ผู้อื่นเชื่อมต่อ',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'เนื่องจากข้อจำกัดของระบบ หลังจากเปิดใช้งานนี้ แอปพลิเคชันบนอุปกรณ์นี้ที่ใช้ http เพื่อเข้าถึงเครือข่ายอาจไม่สามารถเชื่อมต่อกับเครือข่ายได้อย่างถูกต้อง',
@@ -1220,6 +1225,7 @@ extension on TranslationsTh {
 			'meta.view' => 'มุมมอง',
 			'meta.more' => 'เพิ่มเติม',
 			'meta.tips' => 'ข้อมูล',
+			'meta.selectAll' => 'เลือกทั้งหมด',
 			'meta.copy' => 'คัดลอก',
 			'meta.paste' => 'วาง',
 			'meta.cut' => 'ตัด',
@@ -1458,11 +1464,11 @@ extension on TranslationsTh {
 			'isp.faq' => ({required Object p}) => 'คำถามที่พบบ่อย[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'ติดตาม[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] ไม่ถูกต้องหรือหมดอายุ',
 			'permission.camera' => 'กล้อง',
 			'permission.screen' => 'การบันทึกหน้าจอ',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'รับรายการแอปพลิเคชัน',
 			'permission.request' => ({required Object p}) => 'เปิดใช้งาน [${p}] สิทธิ์',
 			'permission.requestNeed' => ({required Object p}) => 'โปรดเปิดใช้งาน [${p}] สิทธิ์',

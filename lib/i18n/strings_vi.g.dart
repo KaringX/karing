@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Tệp này sẽ ghi đè cấu hình cục bộ hiện có. Bạn có muốn tiếp tục không?';
 	@override String get mergePerapp => 'Hợp nhất danh sách [${_root.PerAppAndroidScreen.title}] cục bộ';
 	@override String get networkShare => 'Chia sẻ mạng';
+	@override String get chainProxy => 'Proxy chuỗi';
 	@override String get frontProxy => 'Proxy Front/Chain';
 	@override String frontProxyTips({required Object p}) => 'Dữ liệu -> Máy chủ Proxy Front/Chain [Nhiều máy chủ: Từ trên xuống dưới] -> Máy chủ Proxy [${p}] -> Máy chủ đích';
+	@override String postProxyTips({required Object p}) => 'Du lieu->May chu proxy[${p}]->May chu proxy chuoi[Nhieu may chu proxy: tu tren xuong duoi]->May chu dich';
 	@override String get allowOtherHostsConnect => 'Cho phép thiết bị khác kết nối';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Do giới hạn của hệ thống, sau khi bật tính năng này, các ứng dụng trên thiết bị này sử dụng http để truy cập mạng có thể không kết nối được mạng bình thường.';
@@ -595,6 +597,7 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get view => 'Xem';
 	@override String get more => 'Thêm';
 	@override String get tips => 'Thông tin';
+	@override String get selectAll => 'Chọn tất cả';
 	@override String get copy => 'Sao chép';
 	@override String get paste => 'Dán';
 	@override String get cut => 'Cắt';
@@ -1134,8 +1137,10 @@ extension on TranslationsVi {
 			'SettingsScreen.rewriteConfirm' => 'Tệp này sẽ ghi đè cấu hình cục bộ hiện có. Bạn có muốn tiếp tục không?',
 			'SettingsScreen.mergePerapp' => 'Hợp nhất danh sách [${_root.PerAppAndroidScreen.title}] cục bộ',
 			'SettingsScreen.networkShare' => 'Chia sẻ mạng',
+			'SettingsScreen.chainProxy' => 'Proxy chuỗi',
 			'SettingsScreen.frontProxy' => 'Proxy Front/Chain',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Dữ liệu -> Máy chủ Proxy Front/Chain [Nhiều máy chủ: Từ trên xuống dưới] -> Máy chủ Proxy [${p}] -> Máy chủ đích',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Du lieu->May chu proxy[${p}]->May chu proxy chuoi[Nhieu may chu proxy: tu tren xuong duoi]->May chu dich',
 			'SettingsScreen.allowOtherHostsConnect' => 'Cho phép thiết bị khác kết nối',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Do giới hạn của hệ thống, sau khi bật tính năng này, các ứng dụng trên thiết bị này sử dụng http để truy cập mạng có thể không kết nối được mạng bình thường.',
@@ -1220,6 +1225,7 @@ extension on TranslationsVi {
 			'meta.view' => 'Xem',
 			'meta.more' => 'Thêm',
 			'meta.tips' => 'Thông tin',
+			'meta.selectAll' => 'Chọn tất cả',
 			'meta.copy' => 'Sao chép',
 			'meta.paste' => 'Dán',
 			'meta.cut' => 'Cắt',
@@ -1458,11 +1464,11 @@ extension on TranslationsVi {
 			'isp.faq' => ({required Object p}) => 'Câu hỏi thường gặp [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
 			'isp.follow' => ({required Object p}) => 'Theo dõi [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] không hợp lệ hoặc hết hạn',
 			'permission.camera' => 'Máy ảnh',
 			'permission.screen' => 'Ghi màn hình',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Lấy danh sách ứng dụng',
 			'permission.request' => ({required Object p}) => 'Bật quyền [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Vui lòng bật quyền [${p}]',

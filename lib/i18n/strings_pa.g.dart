@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$pa implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'यह फ़ाइल मौजूदा स्थानीय कॉन्फ़िगरेशन को ओवरराइट कर देगी। क्या आप जारी रखना चाहते हैं?';
 	@override String get mergePerapp => 'स्थानीय [${_root.PerAppAndroidScreen.title}] सूचियों को मर्ज करें';
 	@override String get networkShare => 'नेटवर्क शेयर';
+	@override String get chainProxy => 'ਚੇਨ ਪ੍ਰਾਕਸੀ';
 	@override String get frontProxy => 'Front/Chain प्रॉक्सी';
 	@override String frontProxyTips({required Object p}) => 'डेटा->Front/Chain प्रॉक्सी सर्वर [एकाधिक प्रॉक्सी सर्वर: ऊपर से नीचे]->प्रॉक्सी सर्वर [${p}]->लक्ष्य सर्वर';
+	@override String postProxyTips({required Object p}) => 'ਡਾਟਾ->ਪ੍ਰਾਕਸੀ ਸਰਵਰ[${p}]->ਚੇਨ ਪ੍ਰਾਕਸੀ ਸਰਵਰ[ਕਈ ਪ੍ਰਾਕਸੀ ਸਰਵਰ: ਉੱਪਰ ਤੋਂ ਹੇਠਾਂ]->ਟਾਰਗੇਟ ਸਰਵਰ';
 	@override String get allowOtherHostsConnect => 'दूसरों को कनेक्ट करने की अनुमति दें';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'सिस्टम सीमाओं के कारण, इसे सक्षम करने के बाद, इस डिवाइस पर वे एप्लिकेशन जो नेटवर्क एक्सेस के लिए http का उपयोग करते हैं, नेटवर्क से ठीक से कनेक्ट नहीं हो पाएंगे।';
@@ -595,6 +597,7 @@ class _Translations$meta$pa implements Translations$meta$en {
 	@override String get view => 'देखें';
 	@override String get more => 'अधिक';
 	@override String get tips => 'जानकारी';
+	@override String get selectAll => 'ਸਭ ਚੁਣੋ';
 	@override String get copy => 'कॉपी करें';
 	@override String get paste => 'पेस्ट करें';
 	@override String get cut => 'काटना';
@@ -1134,8 +1137,10 @@ extension on TranslationsPa {
 			'SettingsScreen.rewriteConfirm' => 'यह फ़ाइल मौजूदा स्थानीय कॉन्फ़िगरेशन को ओवरराइट कर देगी। क्या आप जारी रखना चाहते हैं?',
 			'SettingsScreen.mergePerapp' => 'स्थानीय [${_root.PerAppAndroidScreen.title}] सूचियों को मर्ज करें',
 			'SettingsScreen.networkShare' => 'नेटवर्क शेयर',
+			'SettingsScreen.chainProxy' => 'ਚੇਨ ਪ੍ਰਾਕਸੀ',
 			'SettingsScreen.frontProxy' => 'Front/Chain प्रॉक्सी',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'डेटा->Front/Chain प्रॉक्सी सर्वर [एकाधिक प्रॉक्सी सर्वर: ऊपर से नीचे]->प्रॉक्सी सर्वर [${p}]->लक्ष्य सर्वर',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'ਡਾਟਾ->ਪ੍ਰਾਕਸੀ ਸਰਵਰ[${p}]->ਚੇਨ ਪ੍ਰਾਕਸੀ ਸਰਵਰ[ਕਈ ਪ੍ਰਾਕਸੀ ਸਰਵਰ: ਉੱਪਰ ਤੋਂ ਹੇਠਾਂ]->ਟਾਰਗੇਟ ਸਰਵਰ',
 			'SettingsScreen.allowOtherHostsConnect' => 'दूसरों को कनेक्ट करने की अनुमति दें',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'सिस्टम सीमाओं के कारण, इसे सक्षम करने के बाद, इस डिवाइस पर वे एप्लिकेशन जो नेटवर्क एक्सेस के लिए http का उपयोग करते हैं, नेटवर्क से ठीक से कनेक्ट नहीं हो पाएंगे।',
@@ -1220,6 +1225,7 @@ extension on TranslationsPa {
 			'meta.view' => 'देखें',
 			'meta.more' => 'अधिक',
 			'meta.tips' => 'जानकारी',
+			'meta.selectAll' => 'ਸਭ ਚੁਣੋ',
 			'meta.copy' => 'कॉपी करें',
 			'meta.paste' => 'पेस्ट करें',
 			'meta.cut' => 'काटना',
@@ -1458,11 +1464,11 @@ extension on TranslationsPa {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'फॉलो करें[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] अमान्य या समाप्त हो गया',
 			'permission.camera' => 'कैमरा',
 			'permission.screen' => 'स्क्रीन रिकॉर्डिंग',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'ऐप सूची प्राप्त करें',
 			'permission.request' => ({required Object p}) => '[${p}] अनुमति चालू करें',
 			'permission.requestNeed' => ({required Object p}) => 'कृपया [${p}] अनुमति चालू करें',

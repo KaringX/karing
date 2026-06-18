@@ -87,7 +87,7 @@ class ServerConfig {
     }
   }
 
-  bool removeGroup(String groupid) {
+  bool removeGroup(String groupid, Set<String> removeTags) {
     if (groupid.isEmpty) {
       return false;
     }
@@ -96,6 +96,7 @@ class ServerConfig {
     }
     for (var item in items) {
       if (item.groupid == groupid) {
+        removeTags.addAll(item.servers.map((e) => e.tag));
         items.remove(item);
         return true;
       }
@@ -401,30 +402,34 @@ class ServerManager {
   static final ProxyConfig _direct = ProxyConfig();
   static final ProxyConfig _block = ProxyConfig();
   static final ProxyConfig _none = ProxyConfig();
-  static final Map<int, void Function(ServerConfigGroupItem)> _onAddConfigs =
-      {};
+  static final Map<int, void Function(ServerConfigGroupItem)>
+  _onEventAddConfigs = {};
   static final Map<int, Future<void> Function(List<ServerConfigGroupItem>)>
-  _onUpdateConfigs = {};
+  _onEventUpdateConfigs = {};
   static final Map<int, void Function(Set<ServerConfigGroupItem>)>
-  _onLatencyUpdateConfigs = {};
+  _onEventLatencyUpdate = {};
 
-  static final Map<int, void Function(String, bool, bool)> _onRemoveConfigs =
+  static final Map<int, void Function(String, bool, bool)>
+  _onEventRemoveConfigs = {};
+  static final Map<int, Future<void> Function(String, bool)>
+  _onEventEnableConfigs = {};
+  static final Map<int, void Function(String)>
+  _onEventRemoteTrafficReloadStart = {};
+  static final Map<int, void Function(String)> _onEventRemoteTrafficReloadEnd =
       {};
-  static final Map<int, Future<void> Function(String, bool)> _onEnableConfigs =
-      {};
-  static final Map<int, void Function(String)> _onRemoteTrafficReloadStart = {};
-  static final Map<int, void Function(String)> _onRemoteTrafficReloadEnd = {};
-  static final Map<int, Future<void> Function()> _onReloadFromZipConfigs = {};
+  static final Map<int, Future<void> Function()> _onEventReloadFromZip = {};
 
   static final Map<int, void Function(String, String, bool, bool)>
-  _onTestOutboundLatency = {};
+  _onEventTestOutboundLatency = {};
 
-  static final Map<int, void Function()> _onLatencyHistoryUpdated = {};
+  static final Map<int, void Function()> _onEventLatencyHistoryUpdated = {};
 
   static final Set<String> _remoteReloading = {};
   static final Set<String> _remoteTrafficReloading = {};
 
-  static final Map<String, TestOutboundPair> _testOutboundServerLatencying = {};
+  static final List<ServerConfigGroupItem> _updatedConfigs = [];
+  static final Set<ServerConfigGroupItem> _latencyUpdatedConfigs = {};
+  static final Map<String, TestOutboundPair> _testingOutboundServerLatency = {};
   static final ServerConfig _serverConfig = ServerConfig();
   static final DiversionGroupConfig _diversionGroupConfig =
       DiversionGroupConfig();
@@ -477,35 +482,35 @@ class ServerManager {
     int hashcode,
     void Function(ServerConfigGroupItem) callback,
   ) {
-    _onAddConfigs[hashcode] = callback;
+    _onEventAddConfigs[hashcode] = callback;
   }
 
   static void onEventUpdateConfig(
     int hashcode,
     Future<void> Function(List<ServerConfigGroupItem>) callback,
   ) {
-    _onUpdateConfigs[hashcode] = callback;
+    _onEventUpdateConfigs[hashcode] = callback;
   }
 
-  static void onEventLatencyUpdateConfig(
+  static void onEventLatencyUpdate(
     int hashcode,
     void Function(Set<ServerConfigGroupItem>) callback,
   ) {
-    _onLatencyUpdateConfigs[hashcode] = callback;
+    _onEventLatencyUpdate[hashcode] = callback;
   }
 
   static void onEventRemoveConfig(
     int hashcode,
     void Function(String, bool, bool) callback,
   ) {
-    _onRemoveConfigs[hashcode] = callback;
+    _onEventRemoveConfigs[hashcode] = callback;
   }
 
   static void onEventEnableConfig(
     int hashcode,
     Future<void> Function(String, bool) callback,
   ) {
-    _onEnableConfigs[hashcode] = callback;
+    _onEventEnableConfigs[hashcode] = callback;
   }
 
   static void onEventRemoteTrafficReload(
@@ -513,39 +518,39 @@ class ServerManager {
     void Function(String) start,
     void Function(String) end,
   ) {
-    _onRemoteTrafficReloadStart[hashcode] = start;
-    _onRemoteTrafficReloadEnd[hashcode] = end;
+    _onEventRemoteTrafficReloadStart[hashcode] = start;
+    _onEventRemoteTrafficReloadEnd[hashcode] = end;
   }
 
-  static void onReloadFromZipConfigs(
+  static void onEventReloadFromZip(
     int hashcode,
     Future<void> Function() callback,
   ) {
-    _onReloadFromZipConfigs[hashcode] = callback;
+    _onEventReloadFromZip[hashcode] = callback;
   }
 
   static void onEventTestLatency(
     int hashcode,
     void Function(String, String, bool, bool) callback,
   ) {
-    _onTestOutboundLatency[hashcode] = callback;
+    _onEventTestOutboundLatency[hashcode] = callback;
   }
 
   static void onLatencyHistoryUpdated(int hashcode, void Function() callback) {
-    _onLatencyHistoryUpdated[hashcode] = callback;
+    _onEventLatencyHistoryUpdated[hashcode] = callback;
   }
 
   static void removeListener(int hashcode) {
-    _onAddConfigs.remove(hashcode);
-    _onUpdateConfigs.remove(hashcode);
-    _onRemoveConfigs.remove(hashcode);
-    _onEnableConfigs.remove(hashcode);
-    _onRemoteTrafficReloadStart.remove(hashcode);
-    _onRemoteTrafficReloadEnd.remove(hashcode);
-    _onReloadFromZipConfigs.remove(hashcode);
-    _onLatencyUpdateConfigs.remove(hashcode);
-    _onTestOutboundLatency.remove(hashcode);
-    _onLatencyHistoryUpdated.remove(hashcode);
+    _onEventAddConfigs.remove(hashcode);
+    _onEventUpdateConfigs.remove(hashcode);
+    _onEventRemoveConfigs.remove(hashcode);
+    _onEventEnableConfigs.remove(hashcode);
+    _onEventRemoteTrafficReloadStart.remove(hashcode);
+    _onEventRemoteTrafficReloadEnd.remove(hashcode);
+    _onEventReloadFromZip.remove(hashcode);
+    _onEventLatencyUpdate.remove(hashcode);
+    _onEventTestOutboundLatency.remove(hashcode);
+    _onEventLatencyHistoryUpdated.remove(hashcode);
   }
 
   static Future<void> updateSubscription() async {
@@ -554,9 +559,8 @@ class ServerManager {
     }
     _updatingSubscription = true;
     Set<String> testOutboundLatencyGroups = {};
-
     DateTime now = DateTime.now();
-    List<ServerConfigGroupItem> items = [];
+
     try {
       var config = _serverConfig.clone(true);
       for (var item in config.items) {
@@ -565,6 +569,10 @@ class ServerManager {
           if (updateTime == null ||
               now.difference(updateTime).inSeconds >=
                   item.updateDuration!.inSeconds) {
+            if (isReloading(item.groupid)) {
+              continue;
+            }
+            _remoteReloading.add(item.groupid);
             ReturnResultError? err = await addRemoteConfig(
               item.groupid,
               item.remark,
@@ -587,13 +595,16 @@ class ServerManager {
               ispId: item.isp?.id,
               ispUser: item.isp?.user,
             );
-
+            _remoteReloading.remove(item.groupid);
             if (err != null) {
               Log.w(
                 "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}",
               );
             } else {
-              items.add(item);
+              _updatedConfigs.removeWhere(
+                (element) => element.groupid == item.groupid,
+              );
+              _updatedConfigs.add(item);
               if (item.reloadAfterProfileUpdate &&
                   item.testLatencyAfterProfileUpdate) {
                 testOutboundLatencyGroups.add(item.groupid);
@@ -606,11 +617,15 @@ class ServerManager {
       Log.w("ServerManager.updateSubscription exception ${err.toString()}");
     }
 
-    if (items.isNotEmpty) {
-      var list = _onUpdateConfigs.values.toList();
+    if (_updatedConfigs.isNotEmpty &&
+        _remoteReloading.isEmpty &&
+        _remoteTrafficReloading.isEmpty &&
+        _testingOutboundServerLatency.isEmpty) {
+      var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(items);
+        await callback(_updatedConfigs);
       }
+      _updatedConfigs.clear();
     }
     _updatingSubscription = false;
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -1066,7 +1081,14 @@ class ServerManager {
       }
     }
     bool enable = _serverConfig.isEnable(groupid);
-    if (_serverConfig.removeGroup(groupid)) {
+    Set<String> removeGroupIds = {};
+    if (_serverConfig.removeGroup(groupid, removeGroupIds)) {
+      _updatedConfigs.removeWhere((element) => element.groupid == groupid);
+      _remoteReloading.removeWhere((element) => element == groupid);
+      _remoteTrafficReloading.removeWhere((element) => element == groupid);
+      _testingOutboundServerLatency.removeWhere(
+        (key, value) => removeGroupIds.contains(key),
+      );
       for (var i = 0; i < _use.fav.length; ++i) {
         if (_use.fav[i].groupid == groupid) {
           _use.fav.removeAt(i);
@@ -1091,12 +1113,13 @@ class ServerManager {
         _use.recent = [];
         _use.diversionGroup = [];
       }
+
       if (save) {
         await saveServerConfig();
         await saveUse();
       }
       Future.delayed(const Duration(milliseconds: 10), () {
-        final list = _onRemoveConfigs.values.toList();
+        final list = _onEventRemoveConfigs.values.toList();
         for (var callback in list) {
           callback(groupid, enable, hasDiversionGroup);
         }
@@ -1271,23 +1294,13 @@ class ServerManager {
     if (item.testLatency.isNotEmpty) {
       return ReturnResultError("already testing");
     }
-    /*Set<String> detours = {};
-    for (var server in item.servers) {
-      String? detour = server.raw["detour"];
-      if (detour != null && detour.isNotEmpty) {
-        detours.add(detour);
-      }
-    }*/
     for (var server in item.servers) {
       if (item.testLatency.contains(server.tag)) {
         continue;
       }
-      //if (detours.contains(server.tag)) {
-      //  continue;
-      //}
       item.testLatency.add(server.tag);
     }
-    _onTestOutboundLatency.forEach((key, valueCallback) {
+    _onEventTestOutboundLatency.forEach((key, valueCallback) {
       valueCallback("", "", true, false);
     });
     Future.delayed(const Duration(milliseconds: 50), () {
@@ -1332,7 +1345,7 @@ class ServerManager {
 
       item.testLatencyIndepends.add(server.tag);
     }
-    _onTestOutboundLatency.forEach((key, valueCallback) {
+    _onEventTestOutboundLatency.forEach((key, valueCallback) {
       valueCallback("", "", true, false);
     });
     Future.delayed(const Duration(milliseconds: 50), () {
@@ -1345,7 +1358,7 @@ class ServerManager {
   static Future<void> schedulerTestLatency() async {
     bool started = await VPNService.getStarted();
     if (!started) {
-      _testOutboundServerLatencying.clear();
+      _testingOutboundServerLatency.clear();
       for (var item in _serverConfig.items) {
         item.testLatency.clear();
         item.testLatencyIndepends.clear();
@@ -1354,7 +1367,7 @@ class ServerManager {
       return;
     }
     int maxTestLatency = SettingManager.getConfig().latencyCheckConcurrency;
-    if (_testOutboundServerLatencying.length < maxTestLatency) {
+    if (_testingOutboundServerLatency.length < maxTestLatency) {
       for (var item in _serverConfig.items) {
         if (!item.enable) {
           item.testLatency.clear();
@@ -1372,10 +1385,10 @@ class ServerManager {
           TestOutboundPair pair = TestOutboundPair();
           pair.groupid = item.groupid;
           pair.running = false;
-          _testOutboundServerLatencying[item.testLatency[i]] = pair;
+          _testingOutboundServerLatency[item.testLatency[i]] = pair;
           item.testLatency.removeAt(i);
           --i;
-          if (_testOutboundServerLatencying.length >= maxTestLatency) {
+          if (_testingOutboundServerLatency.length >= maxTestLatency) {
             break;
           }
         }
@@ -1388,46 +1401,50 @@ class ServerManager {
           TestOutboundPair pair = TestOutboundPair();
           pair.groupid = item.groupid;
           pair.running = false;
-          _testOutboundServerLatencying[item.testLatencyIndepends[i]] = pair;
+          _testingOutboundServerLatency[item.testLatencyIndepends[i]] = pair;
           item.testLatencyIndepends.removeAt(i);
           --i;
-          if (_testOutboundServerLatencying.length >= maxTestLatency) {
+          if (_testingOutboundServerLatency.length >= maxTestLatency) {
             break;
           }
         }
 
-        if (_testOutboundServerLatencying.length >= maxTestLatency) {
+        if (_testingOutboundServerLatency.length >= maxTestLatency) {
           break;
         }
       }
     }
-    if (_testOutboundServerLatencying.isEmpty) {
-      Set<ServerConfigGroupItem> groups = {};
-
+    if (_testingOutboundServerLatency.isEmpty) {
       for (var item in _serverConfig.items) {
         if (item.testLatencyAutoRemove) {
           bool change = item.removeLatencyError();
           if (change) {
-            groups.add(item);
+            _latencyUpdatedConfigs.removeWhere(
+              (element) => element.groupid == item.groupid,
+            );
+            _latencyUpdatedConfigs.add(item);
           }
         }
       }
-      if (groups.isNotEmpty) {
+      if (_latencyUpdatedConfigs.isNotEmpty &&
+          _remoteReloading.isEmpty &&
+          _remoteTrafficReloading.isEmpty) {
         Future.delayed(const Duration(milliseconds: 10), () {
-          var list = _onLatencyUpdateConfigs.values.toList();
+          var list = _onEventLatencyUpdate.values.toList();
           for (var callback in list) {
-            callback(groups);
+            callback(_latencyUpdatedConfigs);
           }
+          _latencyUpdatedConfigs.clear();
         });
       }
 
-      _onTestOutboundLatency.forEach((key, valueCallback) {
+      _onEventTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback("", "", false, true);
       });
       saveServerConfig();
     }
     var testOutboundServerLatencying = {};
-    testOutboundServerLatencying.addAll(_testOutboundServerLatencying);
+    testOutboundServerLatencying.addAll(_testingOutboundServerLatency);
 
     testOutboundServerLatencying.forEach((tag, value) {
       if (value.running) {
@@ -1439,11 +1456,11 @@ class ServerManager {
   }
 
   static bool hasTestOutboundServer() {
-    return _testOutboundServerLatencying.isNotEmpty;
+    return _testingOutboundServerLatency.isNotEmpty;
   }
 
   static bool isTestOutboundServerLatencying(String groupid, String tag) {
-    final pair = _testOutboundServerLatencying[tag];
+    final pair = _testingOutboundServerLatency[tag];
     if (pair == null) {
       return false;
     }
@@ -1452,38 +1469,12 @@ class ServerManager {
 
   static int getTestOutboundServerLatencyTestingCount(String groupid) {
     int count = 0;
-    for (var value in _testOutboundServerLatencying.values) {
+    for (var value in _testingOutboundServerLatency.values) {
       if (value.groupid == groupid) {
         count++;
       }
     }
     return count;
-  }
-
-  static void _checkAndUpdateGroupAfterTestComplete(String groupid) {
-    ServerConfigGroupItem? item = getByGroupId(groupid);
-    if (item == null) {
-      return;
-    }
-
-    // Check if this group has any servers still being tested
-    int testingCount = getTestOutboundServerLatencyTestingCount(groupid);
-
-    // If no servers are being tested for this group and it has auto-remove enabled
-    if (testingCount == 0 && item.testLatencyAutoRemove) {
-      bool change = item.removeLatencyError();
-      if (change) {
-        Set<ServerConfigGroupItem> groups = {};
-        groups.add(item);
-        Future.delayed(const Duration(milliseconds: 10), () {
-          var list = _onLatencyUpdateConfigs.values.toList();
-          for (var callback in list) {
-            callback(groups);
-          }
-        });
-        saveServerConfig();
-      }
-    }
   }
 
   static Future<ReturnResultError?> _testOutboundLatencyForServer(
@@ -1492,8 +1483,8 @@ class ServerManager {
   ) async {
     ServerConfigGroupItem? item = getByGroupId(groupid);
     if (item == null) {
-      _testOutboundServerLatencying.remove(tag);
-      _onTestOutboundLatency.forEach((key, valueCallback) {
+      _testingOutboundServerLatency.remove(tag);
+      _onEventTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
       schedulerTestLatency();
@@ -1501,8 +1492,8 @@ class ServerManager {
     }
     ProxyConfig? config = item.getByTag(tag);
     if (config == null) {
-      _testOutboundServerLatencying.remove(tag);
-      _onTestOutboundLatency.forEach((key, valueCallback) {
+      _testingOutboundServerLatency.remove(tag);
+      _onEventTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
       schedulerTestLatency();
@@ -1511,8 +1502,8 @@ class ServerManager {
 
     String disableKey = ServerUse.getDisableKey(config);
     if (_use.disable.contains(disableKey)) {
-      _testOutboundServerLatencying.remove(tag);
-      _onTestOutboundLatency.forEach((key, valueCallback) {
+      _testingOutboundServerLatency.remove(tag);
+      _onEventTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
       schedulerTestLatency();
@@ -1547,11 +1538,11 @@ class ServerManager {
 
     if (result.error != null) {
       updateByDelayResult({"err": result.error!.message}, config);
-      _testOutboundServerLatencying.remove(tag);
-      _onTestOutboundLatency.forEach((key, valueCallback) {
+      _testingOutboundServerLatency.remove(tag);
+      _onEventTestOutboundLatency.forEach((key, valueCallback) {
         valueCallback(groupid, tag, false, false);
       });
-      _checkAndUpdateGroupAfterTestComplete(groupid);
+
       schedulerTestLatency();
       Log.w(
         "_testOutboundLatencyForServer error $groupid $tag ${config.server} ${result.error!.message}",
@@ -1565,11 +1556,11 @@ class ServerManager {
         "_testOutboundLatencyForServer exception $groupid $tag ${config.server} ${err.toString()} ",
       );
     }
-    _testOutboundServerLatencying.remove(tag);
-    _onTestOutboundLatency.forEach((key, valueCallback) {
+    _testingOutboundServerLatency.remove(tag);
+    _onEventTestOutboundLatency.forEach((key, valueCallback) {
       valueCallback(groupid, tag, false, false);
     });
-    _checkAndUpdateGroupAfterTestComplete(groupid);
+
     schedulerTestLatency();
     return null;
   }
@@ -1829,7 +1820,7 @@ class ServerManager {
 
     Future.delayed(const Duration(milliseconds: 10), () {
       if (groupid.isEmpty) {
-        var list = _onAddConfigs.values.toList();
+        var list = _onEventAddConfigs.values.toList();
         for (var callback in list) {
           callback(item);
         }
@@ -2217,7 +2208,7 @@ class ServerManager {
       item.testLatency.clear();
       item.testLatencyIndepends.clear();
     }
-    var list = _onEnableConfigs.values.toList();
+    var list = _onEventEnableConfigs.values.toList();
     for (var callback in list) {
       await callback(groupId, enable);
     }
@@ -2280,7 +2271,7 @@ class ServerManager {
     if (item.testLatency.isNotEmpty || item.testLatencyIndepends.isNotEmpty) {
       return true;
     }
-    for (var value in _testOutboundServerLatencying.values) {
+    for (var value in _testingOutboundServerLatency.values) {
       if (value.groupid == groupid) {
         return true;
       }
@@ -2297,7 +2288,6 @@ class ServerManager {
       return ReturnResultError(t.meta.urlInvalid);
     }
 
-    List<ServerConfigGroupItem> items = [];
     _remoteReloading.add(groupid);
     ReturnResultError? err = await addRemoteConfig(
       groupid,
@@ -2332,22 +2322,25 @@ class ServerManager {
           setDirty(true);
         }
       }
-
-      items.add(item);
+      _updatedConfigs.removeWhere((element) => element.groupid == item.groupid);
+      _updatedConfigs.add(item);
     }
 
-    if (items.isNotEmpty) {
-      var list = _onUpdateConfigs.values.toList();
+    if (_updatedConfigs.isNotEmpty &&
+        _remoteReloading.isEmpty &&
+        _remoteTrafficReloading.isEmpty &&
+        _testingOutboundServerLatency.isEmpty) {
+      var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(items);
+        await callback(_updatedConfigs);
       }
+      _updatedConfigs.clear();
     }
 
     return err;
   }
 
   static Future<void> reloadAll() async {
-    List<ServerConfigGroupItem> items = [];
     for (var item in _serverConfig.items) {
       if (!item.isRemote()) {
         continue;
@@ -2402,14 +2395,21 @@ class ServerManager {
           }
         }
 
-        items.add(item);
+        _updatedConfigs.removeWhere(
+          (element) => element.groupid == item.groupid,
+        );
+        _updatedConfigs.add(item);
       }
     }
-    if (items.isNotEmpty) {
-      var list = _onUpdateConfigs.values.toList();
+    if (_updatedConfigs.isNotEmpty &&
+        _remoteReloading.isEmpty &&
+        _remoteTrafficReloading.isEmpty &&
+        _testingOutboundServerLatency.isEmpty) {
+      var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(items);
+        await callback(_updatedConfigs);
       }
+      _updatedConfigs.clear();
     }
   }
 
@@ -2422,7 +2422,7 @@ class ServerManager {
     }
     _remoteTrafficReloading.add(groupid);
     Future.delayed(const Duration(milliseconds: 10), () {
-      var list = _onRemoteTrafficReloadStart.values.toList();
+      var list = _onEventRemoteTrafficReloadStart.values.toList();
       for (var callback in list) {
         callback(groupid);
       }
@@ -2439,10 +2439,10 @@ class ServerManager {
         break;
       }
     }
+    _remoteTrafficReloading.remove(groupid);
     if (result.error != null) {
-      _remoteTrafficReloading.remove(groupid);
       Future.delayed(const Duration(milliseconds: 10), () {
-        var list = _onRemoteTrafficReloadEnd.values.toList();
+        var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
           callback(groupid);
         }
@@ -2450,9 +2450,8 @@ class ServerManager {
       return ReturnResult(error: result.error);
     }
     if (result.data!.item1 != 200) {
-      _remoteTrafficReloading.remove(groupid);
       Future.delayed(const Duration(milliseconds: 10), () {
-        var list = _onRemoteTrafficReloadEnd.values.toList();
+        var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
           callback(groupid);
         }
@@ -2466,9 +2465,8 @@ class ServerManager {
     );
 
     if (traffic == null) {
-      _remoteTrafficReloading.remove(groupid);
       Future.delayed(const Duration(milliseconds: 10), () {
-        var list = _onRemoteTrafficReloadEnd.values.toList();
+        var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
           callback(groupid);
         }
@@ -2477,10 +2475,10 @@ class ServerManager {
         error: ReturnResultError(t.meta.profileAddParseFailed),
       );
     }
-    _remoteTrafficReloading.remove(groupid);
+
     item.traffic = traffic;
     Future.delayed(const Duration(milliseconds: 10), () {
-      var list = _onRemoteTrafficReloadEnd.values.toList();
+      var list = _onEventRemoteTrafficReloadEnd.values.toList();
       for (var callback in list) {
         callback(groupid);
       }
@@ -2517,7 +2515,7 @@ class ServerManager {
           }
         }
 
-        _onLatencyHistoryUpdated.forEach((key, valueCallback) {
+        _onEventLatencyHistoryUpdated.forEach((key, valueCallback) {
           valueCallback();
         });
       }
@@ -2846,7 +2844,7 @@ class ServerManager {
       SettingManager.save();
     }
 
-    var list = _onReloadFromZipConfigs.values.toList();
+    var list = _onEventReloadFromZip.values.toList();
     for (var callback in list) {
       await callback();
     }

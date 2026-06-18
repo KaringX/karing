@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'このファイルは既存のローカル構成を上書きします。続行しますか？';
 	@override String get mergePerapp => 'ローカルの [${_root.PerAppAndroidScreen.title}] リストを結合する';
 	@override String get networkShare => 'ネットワーク共有';
+	@override String get chainProxy => 'チェーンプロキシ';
 	@override String get frontProxy => 'Front/Chain プロキシ';
 	@override String frontProxyTips({required Object p}) => 'データ -> Front/Chain プロキシサーバー [複数のサーバー: 上から下へ] -> プロキシサーバー [${p}] -> ターゲットサーバー';
+	@override String postProxyTips({required Object p}) => 'データ->プロキシサーバー[${p}]->チェーンプロキシサーバー[複数のプロキシサーバー: 上から下]->対象サーバー';
 	@override String get allowOtherHostsConnect => '他からの接続を許可する';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'システムの制限により、これを有効にすると、http を使用してネットワークにアクセスするこのデバイス上のアプリが正常にネットワークに接続できなくなる可能性があります。';
@@ -595,6 +597,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get view => '表示';
 	@override String get more => 'もっと見る';
 	@override String get tips => '情報';
+	@override String get selectAll => 'すべて選択';
 	@override String get copy => 'コピー';
 	@override String get paste => '貼り付け';
 	@override String get cut => '切り取り';
@@ -1134,8 +1137,10 @@ extension on TranslationsJa {
 			'SettingsScreen.rewriteConfirm' => 'このファイルは既存のローカル構成を上書きします。続行しますか？',
 			'SettingsScreen.mergePerapp' => 'ローカルの [${_root.PerAppAndroidScreen.title}] リストを結合する',
 			'SettingsScreen.networkShare' => 'ネットワーク共有',
+			'SettingsScreen.chainProxy' => 'チェーンプロキシ',
 			'SettingsScreen.frontProxy' => 'Front/Chain プロキシ',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'データ -> Front/Chain プロキシサーバー [複数のサーバー: 上から下へ] -> プロキシサーバー [${p}] -> ターゲットサーバー',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'データ->プロキシサーバー[${p}]->チェーンプロキシサーバー[複数のプロキシサーバー: 上から下]->対象サーバー',
 			'SettingsScreen.allowOtherHostsConnect' => '他からの接続を許可する',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'システムの制限により、これを有効にすると、http を使用してネットワークにアクセスするこのデバイス上のアプリが正常にネットワークに接続できなくなる可能性があります。',
@@ -1220,6 +1225,7 @@ extension on TranslationsJa {
 			'meta.view' => '表示',
 			'meta.more' => 'もっと見る',
 			'meta.tips' => '情報',
+			'meta.selectAll' => 'すべて選択',
 			'meta.copy' => 'コピー',
 			'meta.paste' => '貼り付け',
 			'meta.cut' => '切り取り',
@@ -1458,11 +1464,11 @@ extension on TranslationsJa {
 			'isp.faq' => ({required Object p}) => 'よくある質問 [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
 			'isp.follow' => ({required Object p}) => 'フォロー [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] が無効または期限切れです',
 			'permission.camera' => 'カメラ',
 			'permission.screen' => '画面収録',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'アプリリストを取得',
 			'permission.request' => ({required Object p}) => '[${p}] 権限をオンにする',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',

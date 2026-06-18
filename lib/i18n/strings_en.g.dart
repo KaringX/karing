@@ -903,11 +903,17 @@ class Translations$SettingsScreen$en {
 	/// en: 'Network Sharing'
 	String get networkShare => 'Network Sharing';
 
+	/// en: 'Chain Proxy'
+	String get chainProxy => 'Chain Proxy';
+
 	/// en: 'Front/Chain Proxy'
 	String get frontProxy => 'Front/Chain Proxy';
 
 	/// en: 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [$p]->Target Server'
 	String frontProxyTips({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server';
+
+	/// en: 'Data->Proxy Server[$p]->Chain Proxy Server [Multiple Proxy Servers: Top to Bottom]->Target Server'
+	String postProxyTips({required Object p}) => 'Data->Proxy Server[${p}]->Chain Proxy Server [Multiple Proxy Servers: Top to Bottom]->Target Server';
 
 	/// en: 'Allow Others to Connect'
 	String get allowOtherHostsConnect => 'Allow Others to Connect';
@@ -1200,6 +1206,9 @@ class Translations$meta$en {
 
 	/// en: 'Info'
 	String get tips => 'Info';
+
+	/// en: 'Select All'
+	String get selectAll => 'Select All';
 
 	/// en: 'Copy'
 	String get copy => 'Copy';
@@ -2265,8 +2274,10 @@ extension on Translations {
 			'SettingsScreen.rewriteConfirm' => 'This file will overwrite the existing local configuration. Do you want to continue?',
 			'SettingsScreen.mergePerapp' => 'Merge local [${_root.PerAppAndroidScreen.title}] lists',
 			'SettingsScreen.networkShare' => 'Network Sharing',
+			'SettingsScreen.chainProxy' => 'Chain Proxy',
 			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Data->Front/Chaine Proxy Server [Multiple Proxy Servers: Top to Bottom]->Proxy Server [${p}]->Target Server',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Data->Proxy Server[${p}]->Chain Proxy Server [Multiple Proxy Servers: Top to Bottom]->Target Server',
 			'SettingsScreen.allowOtherHostsConnect' => 'Allow Others to Connect',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Due to system limitations, after this is enabled, applications on this device that use http to access the network may not be able to connect to the network properly.',
@@ -2351,6 +2362,7 @@ extension on Translations {
 			'meta.view' => 'View',
 			'meta.more' => 'More',
 			'meta.tips' => 'Info',
+			'meta.selectAll' => 'Select All',
 			'meta.copy' => 'Copy',
 			'meta.paste' => 'Paste',
 			'meta.cut' => 'Cut',
@@ -2589,11 +2601,11 @@ extension on Translations {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'Follow[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Invalid or expired',
 			'permission.camera' => 'Camera',
 			'permission.screen' => 'Screen Recording',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Get Application List',
 			'permission.request' => ({required Object p}) => 'Turn on [${p}] permission',
 			'permission.requestNeed' => ({required Object p}) => 'Please Turn on [${p}] permission',

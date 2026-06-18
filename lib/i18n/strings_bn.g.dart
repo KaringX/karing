@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$bn implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'এই ফাইলটি বর্তমান স্থানীয় কনফিগারেশনকে ওভাররাইট করবে। আপনি কি চালিয়ে যেতে চান?';
 	@override String get mergePerapp => 'স্থানীয় [${_root.PerAppAndroidScreen.title}] তালিকাগুলি মার্জ করুন';
 	@override String get networkShare => 'নেটওয়ার্ক শেয়ার';
+	@override String get chainProxy => 'চেইন প্রক্সি';
 	@override String get frontProxy => 'Front/Chain প্রক্সি';
 	@override String frontProxyTips({required Object p}) => 'ডেটা->Front/Chain প্রক্সি সার্ভার [একাধিক প্রক্সি সার্ভার: উপর থেকে নিচে]->প্রক্সি সার্ভার [${p}]->টার্গেট সার্ভার';
+	@override String postProxyTips({required Object p}) => 'ডেটা->প্রক্সি সার্ভার[${p}]->চেইন প্রক্সি সার্ভার[একাধিক প্রক্সি সার্ভার: উপরে থেকে নিচে]->লক্ষ্য সার্ভার';
 	@override String get allowOtherHostsConnect => 'অন্যদের সংযোগ করার অনুমতি দিন';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'সিস্টেম সীমাবদ্ধতার কারণে, এটি সক্ষম করার পরে, এই ডিভাইসের যেসব অ্যাপ্লিকেশন নেটওয়ার্ক অ্যাক্সেসের জন্য http ব্যবহার করে, সেগুলি নেটওয়ার্কের সাথে সঠিকভাবে সংযোগ করতে পারবে না।';
@@ -595,6 +597,7 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get view => 'দেখুন';
 	@override String get more => 'আরও';
 	@override String get tips => 'তথ্য';
+	@override String get selectAll => 'সব নির্বাচন করুন';
 	@override String get copy => 'কপি করুন';
 	@override String get paste => 'আটকান';
 	@override String get cut => 'কাটা';
@@ -1134,8 +1137,10 @@ extension on TranslationsBn {
 			'SettingsScreen.rewriteConfirm' => 'এই ফাইলটি বর্তমান স্থানীয় কনফিগারেশনকে ওভাররাইট করবে। আপনি কি চালিয়ে যেতে চান?',
 			'SettingsScreen.mergePerapp' => 'স্থানীয় [${_root.PerAppAndroidScreen.title}] তালিকাগুলি মার্জ করুন',
 			'SettingsScreen.networkShare' => 'নেটওয়ার্ক শেয়ার',
+			'SettingsScreen.chainProxy' => 'চেইন প্রক্সি',
 			'SettingsScreen.frontProxy' => 'Front/Chain প্রক্সি',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'ডেটা->Front/Chain প্রক্সি সার্ভার [একাধিক প্রক্সি সার্ভার: উপর থেকে নিচে]->প্রক্সি সার্ভার [${p}]->টার্গেট সার্ভার',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'ডেটা->প্রক্সি সার্ভার[${p}]->চেইন প্রক্সি সার্ভার[একাধিক প্রক্সি সার্ভার: উপরে থেকে নিচে]->লক্ষ্য সার্ভার',
 			'SettingsScreen.allowOtherHostsConnect' => 'অন্যদের সংযোগ করার অনুমতি দিন',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'সিস্টেম সীমাবদ্ধতার কারণে, এটি সক্ষম করার পরে, এই ডিভাইসের যেসব অ্যাপ্লিকেশন নেটওয়ার্ক অ্যাক্সেসের জন্য http ব্যবহার করে, সেগুলি নেটওয়ার্কের সাথে সঠিকভাবে সংযোগ করতে পারবে না।',
@@ -1220,6 +1225,7 @@ extension on TranslationsBn {
 			'meta.view' => 'দেখুন',
 			'meta.more' => 'আরও',
 			'meta.tips' => 'তথ্য',
+			'meta.selectAll' => 'সব নির্বাচন করুন',
 			'meta.copy' => 'কপি করুন',
 			'meta.paste' => 'আটকান',
 			'meta.cut' => 'কাটা',
@@ -1458,11 +1464,11 @@ extension on TranslationsBn {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'অনুসরণ করুন[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] অকার্যকর বা মেয়াদ শেষ',
 			'permission.camera' => 'ক্যামেরা',
 			'permission.screen' => 'স্ক্রিন রেকর্ডিং',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'অ্যাপ তালিকা পান',
 			'permission.request' => ({required Object p}) => '[${p}] অনুমতি চালু করুন',
 			'permission.requestNeed' => ({required Object p}) => 'অনুগ্রহ করে [${p}] অনুমতি চালু করুন',

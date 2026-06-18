@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$uk implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Цей файл перезапише існуючу локальну конфігурацію. Продовжити?';
 	@override String get mergePerapp => 'Об\'єднати локальні списки [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'Спільний доступ до мережі';
+	@override String get chainProxy => 'Ланцюговий проксі';
 	@override String get frontProxy => 'Проксі Front/Chain';
 	@override String frontProxyTips({required Object p}) => 'Дані->Проксі-сервер Front/Chain [Кілька проксі-серверів: Зверху вниз]->Проксі-сервер [${p}]->Цільовий сервер';
+	@override String postProxyTips({required Object p}) => 'Дані->Проксі-сервер[${p}]->Ланцюговий проксі-сервер[Кілька проксі-серверів: зверху вниз]->Цільовий сервер';
 	@override String get allowOtherHostsConnect => 'Дозволити іншим підключатися';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Через системні обмеження після ввімкнення цієї функції програми на цьому пристрої, які використовують http для доступу до мережі, можуть не мати змоги належним чином підключитися до мережі.';
@@ -595,6 +597,7 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get view => 'Перегляд';
 	@override String get more => 'Більше';
 	@override String get tips => 'Інфо';
+	@override String get selectAll => 'Вибрати все';
 	@override String get copy => 'Копіювати';
 	@override String get paste => 'Вставити';
 	@override String get cut => 'Вирізати';
@@ -1134,8 +1137,10 @@ extension on TranslationsUk {
 			'SettingsScreen.rewriteConfirm' => 'Цей файл перезапише існуючу локальну конфігурацію. Продовжити?',
 			'SettingsScreen.mergePerapp' => 'Об\'єднати локальні списки [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'Спільний доступ до мережі',
+			'SettingsScreen.chainProxy' => 'Ланцюговий проксі',
 			'SettingsScreen.frontProxy' => 'Проксі Front/Chain',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Дані->Проксі-сервер Front/Chain [Кілька проксі-серверів: Зверху вниз]->Проксі-сервер [${p}]->Цільовий сервер',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Дані->Проксі-сервер[${p}]->Ланцюговий проксі-сервер[Кілька проксі-серверів: зверху вниз]->Цільовий сервер',
 			'SettingsScreen.allowOtherHostsConnect' => 'Дозволити іншим підключатися',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Через системні обмеження після ввімкнення цієї функції програми на цьому пристрої, які використовують http для доступу до мережі, можуть не мати змоги належним чином підключитися до мережі.',
@@ -1220,6 +1225,7 @@ extension on TranslationsUk {
 			'meta.view' => 'Перегляд',
 			'meta.more' => 'Більше',
 			'meta.tips' => 'Інфо',
+			'meta.selectAll' => 'Вибрати все',
 			'meta.copy' => 'Копіювати',
 			'meta.paste' => 'Вставити',
 			'meta.cut' => 'Вирізати',
@@ -1458,11 +1464,11 @@ extension on TranslationsUk {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'Слідкувати[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Некоректний або термін дії закінчився',
 			'permission.camera' => 'Камера',
 			'permission.screen' => 'Запис екрана',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Отримати список програм',
 			'permission.request' => ({required Object p}) => 'Увімкнути дозвіл [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Будь ласка, увімкніть дозвіл [${p}]',

@@ -87,7 +87,9 @@ class _AddProfileByImportFromFileScreenState
       _keepDiversionRules,
       _testLatencyAutoRemove,
     );
-
+    if (error == null) {
+      ServerManager.setDirty(true);
+    }
     if (!mounted) {
       return;
     }

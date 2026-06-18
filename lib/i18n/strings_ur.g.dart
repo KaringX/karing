@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$ur implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'یہ فائل موجودہ مقامی کنفیگریشن کو اوور رائٹ کر دے گی۔ کیا آپ جاری رکھنا چاہتے ہیں؟';
 	@override String get mergePerapp => 'مقامی [${_root.PerAppAndroidScreen.title}] فہرستوں کو ضم کریں';
 	@override String get networkShare => 'نیٹ ورک شیئر';
+	@override String get chainProxy => 'چین پراکسی';
 	@override String get frontProxy => 'Front/Chain پراکسی';
 	@override String frontProxyTips({required Object p}) => 'ڈیٹا->Front/Chain پراکسی سرور [متعدد پراکسی سرورز: اوپر سے نیچے]->پراکسی سرور [${p}]->ٹارگٹ سرور';
+	@override String postProxyTips({required Object p}) => 'ڈیٹا->پراکسی سرور[${p}]->چین پراکسی سرور[متعدد پراکسی سرورز: اوپر سے نیچے]->ہدف سرور';
 	@override String get allowOtherHostsConnect => 'دوسروں کو منسلک ہونے کی اجازت دیں';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'سسٹم کی حدود کی وجہ سے، اسے فعال کرنے کے بعد، اس ڈیوائس پر وہ ایپلی کیشنز جو نیٹ ورک تک رسائی کے لیے http استعمال کرتی ہیں، نیٹ ورک سے ٹھیک سے منسلک نہیں ہو سکیں گی۔';
@@ -595,6 +597,7 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get view => 'دیکھیں';
 	@override String get more => 'مزید';
 	@override String get tips => 'معلومات';
+	@override String get selectAll => 'سب منتخب کریں';
 	@override String get copy => 'کاپی کریں';
 	@override String get paste => 'چسپاں کریں۔';
 	@override String get cut => 'کاٹنا';
@@ -1134,8 +1137,10 @@ extension on TranslationsUr {
 			'SettingsScreen.rewriteConfirm' => 'یہ فائل موجودہ مقامی کنفیگریشن کو اوور رائٹ کر دے گی۔ کیا آپ جاری رکھنا چاہتے ہیں؟',
 			'SettingsScreen.mergePerapp' => 'مقامی [${_root.PerAppAndroidScreen.title}] فہرستوں کو ضم کریں',
 			'SettingsScreen.networkShare' => 'نیٹ ورک شیئر',
+			'SettingsScreen.chainProxy' => 'چین پراکسی',
 			'SettingsScreen.frontProxy' => 'Front/Chain پراکسی',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'ڈیٹا->Front/Chain پراکسی سرور [متعدد پراکسی سرورز: اوپر سے نیچے]->پراکسی سرور [${p}]->ٹارگٹ سرور',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'ڈیٹا->پراکسی سرور[${p}]->چین پراکسی سرور[متعدد پراکسی سرورز: اوپر سے نیچے]->ہدف سرور',
 			'SettingsScreen.allowOtherHostsConnect' => 'دوسروں کو منسلک ہونے کی اجازت دیں',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'سسٹم کی حدود کی وجہ سے، اسے فعال کرنے کے بعد، اس ڈیوائس پر وہ ایپلی کیشنز جو نیٹ ورک تک رسائی کے لیے http استعمال کرتی ہیں، نیٹ ورک سے ٹھیک سے منسلک نہیں ہو سکیں گی۔',
@@ -1220,6 +1225,7 @@ extension on TranslationsUr {
 			'meta.view' => 'دیکھیں',
 			'meta.more' => 'مزید',
 			'meta.tips' => 'معلومات',
+			'meta.selectAll' => 'سب منتخب کریں',
 			'meta.copy' => 'کاپی کریں',
 			'meta.paste' => 'چسپاں کریں۔',
 			'meta.cut' => 'کاٹنا',
@@ -1458,11 +1464,11 @@ extension on TranslationsUr {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'فالو کریں[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] غلط یا ختم ہو گیا',
 			'permission.camera' => 'کیمرہ',
 			'permission.screen' => 'اسکرین ریکارڈنگ',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'ایپ لسٹ حاصل کریں',
 			'permission.request' => ({required Object p}) => '[${p}] اجازت آن کریں',
 			'permission.requestNeed' => ({required Object p}) => 'براہ کرم [${p}] اجازت آن کریں',

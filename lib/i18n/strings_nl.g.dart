@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Dit bestand zal de bestaande lokale configuratie overschrijven. Wilt u doorgaan?';
 	@override String get mergePerapp => 'Lokale [${_root.PerAppAndroidScreen.title}] lijsten samenvoegen';
 	@override String get networkShare => 'Netwerk delen';
+	@override String get chainProxy => 'Ketenproxy';
 	@override String get frontProxy => 'Front/Chain Proxy';
 	@override String frontProxyTips({required Object p}) => 'Gegevens->Front/Chain Proxy-server [Meerdere proxy-servers: boven naar beneden]->Proxy-server [${p}]->Doelserver';
+	@override String postProxyTips({required Object p}) => 'Gegevens->Proxyserver[${p}]->Ketenproxyserver[Meerdere proxyservers: van boven naar beneden]->Doelserver';
 	@override String get allowOtherHostsConnect => 'Anderen toestaan verbinding te maken';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Vanwege systeembeperkingen kunnen toepassingen op dit apparaat die http gebruiken voor netwerktoegang, na inschakeling mogelijk niet correct verbinding maken met het netwerk.';
@@ -595,6 +597,7 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get view => 'Bekijken';
 	@override String get more => 'Meer';
 	@override String get tips => 'Info';
+	@override String get selectAll => 'Alles selecteren';
 	@override String get copy => 'Kopiëren';
 	@override String get paste => 'Plakken';
 	@override String get cut => 'Snee';
@@ -1134,8 +1137,10 @@ extension on TranslationsNl {
 			'SettingsScreen.rewriteConfirm' => 'Dit bestand zal de bestaande lokale configuratie overschrijven. Wilt u doorgaan?',
 			'SettingsScreen.mergePerapp' => 'Lokale [${_root.PerAppAndroidScreen.title}] lijsten samenvoegen',
 			'SettingsScreen.networkShare' => 'Netwerk delen',
+			'SettingsScreen.chainProxy' => 'Ketenproxy',
 			'SettingsScreen.frontProxy' => 'Front/Chain Proxy',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Gegevens->Front/Chain Proxy-server [Meerdere proxy-servers: boven naar beneden]->Proxy-server [${p}]->Doelserver',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Gegevens->Proxyserver[${p}]->Ketenproxyserver[Meerdere proxyservers: van boven naar beneden]->Doelserver',
 			'SettingsScreen.allowOtherHostsConnect' => 'Anderen toestaan verbinding te maken',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Vanwege systeembeperkingen kunnen toepassingen op dit apparaat die http gebruiken voor netwerktoegang, na inschakeling mogelijk niet correct verbinding maken met het netwerk.',
@@ -1220,6 +1225,7 @@ extension on TranslationsNl {
 			'meta.view' => 'Bekijken',
 			'meta.more' => 'Meer',
 			'meta.tips' => 'Info',
+			'meta.selectAll' => 'Alles selecteren',
 			'meta.copy' => 'Kopiëren',
 			'meta.paste' => 'Plakken',
 			'meta.cut' => 'Snee',
@@ -1458,11 +1464,11 @@ extension on TranslationsNl {
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
 			'isp.follow' => ({required Object p}) => 'Volgen[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Ongeldig of verlopen',
 			'permission.camera' => 'Camera',
 			'permission.screen' => 'Schermopname',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'App-lijst ophalen',
 			'permission.request' => ({required Object p}) => 'Schakel machtiging [${p}] in',
 			'permission.requestNeed' => ({required Object p}) => 'Schakel machtiging [${p}] in a.u.b.',

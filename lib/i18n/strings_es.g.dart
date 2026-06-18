@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$es implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'Este archivo sobrescribirá la configuración local existente. ¿Desea continuar?';
 	@override String get mergePerapp => 'Fusionar listas locales de [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'Compartir red';
+	@override String get chainProxy => 'Proxy en cadena';
 	@override String get frontProxy => 'Proxy Front/Chain';
 	@override String frontProxyTips({required Object p}) => 'Datos -> Servidor Proxy Front/Chain [Múltiples servidores: de arriba a abajo] -> Servidor Proxy [${p}] -> Servidor de destino';
+	@override String postProxyTips({required Object p}) => 'Datos->Servidor proxy[${p}]->Servidor proxy en cadena[Varios servidores proxy: de arriba hacia abajo]->Servidor de destino';
 	@override String get allowOtherHostsConnect => 'Permitir que otros se conecten';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}';
 	@override String get allowOtherHostsConnectWarn => 'Debido a limitaciones del sistema, una vez activado, las aplicaciones de este dispositivo que usan http para acceder a la red podrían no conectarse correctamente.';
@@ -595,6 +597,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get view => 'Ver';
 	@override String get more => 'Más';
 	@override String get tips => 'Información';
+	@override String get selectAll => 'Seleccionar todo';
 	@override String get copy => 'Copiar';
 	@override String get paste => 'Pasta';
 	@override String get cut => 'Cortar';
@@ -1134,8 +1137,10 @@ extension on TranslationsEs {
 			'SettingsScreen.rewriteConfirm' => 'Este archivo sobrescribirá la configuración local existente. ¿Desea continuar?',
 			'SettingsScreen.mergePerapp' => 'Fusionar listas locales de [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'Compartir red',
+			'SettingsScreen.chainProxy' => 'Proxy en cadena',
 			'SettingsScreen.frontProxy' => 'Proxy Front/Chain',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Datos -> Servidor Proxy Front/Chain [Múltiples servidores: de arriba a abajo] -> Servidor Proxy [${p}] -> Servidor de destino',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Datos->Servidor proxy[${p}]->Servidor proxy en cadena[Varios servidores proxy: de arriba hacia abajo]->Servidor de destino',
 			'SettingsScreen.allowOtherHostsConnect' => 'Permitir que otros se conecten',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks: ${sp}, http(s): ${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'Debido a limitaciones del sistema, una vez activado, las aplicaciones de este dispositivo que usan http para acceder a la red podrían no conectarse correctamente.',
@@ -1220,6 +1225,7 @@ extension on TranslationsEs {
 			'meta.view' => 'Ver',
 			'meta.more' => 'Más',
 			'meta.tips' => 'Información',
+			'meta.selectAll' => 'Seleccionar todo',
 			'meta.copy' => 'Copiar',
 			'meta.paste' => 'Pasta',
 			'meta.cut' => 'Cortar',
@@ -1458,11 +1464,11 @@ extension on TranslationsEs {
 			'isp.faq' => ({required Object p}) => 'Preguntas frecuentes [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
 			'isp.follow' => ({required Object p}) => 'Seguir [${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] inválido o caducado',
 			'permission.camera' => 'Cámara',
 			'permission.screen' => 'Grabación de pantalla',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'Obtener lista de aplicaciones',
 			'permission.request' => ({required Object p}) => 'Activar permiso [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Active el permiso [${p}]',

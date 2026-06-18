@@ -465,8 +465,10 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get rewriteConfirm => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟';
 	@override String get mergePerapp => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]';
 	@override String get networkShare => 'مشاركة الشبكة';
+	@override String get chainProxy => 'وكيل متسلسل';
 	@override String get frontProxy => 'الوكيل الأمامي/السلسلة';
 	@override String frontProxyTips({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف';
+	@override String postProxyTips({required Object p}) => 'البيانات->خادم الوكيل[${p}]->خادم وكيل متسلسل[عدة خوادم وكيل: من الأعلى إلى الأسفل]->الخادم الهدف';
 	@override String get allowOtherHostsConnect => 'اسمح للآخرين بالاتصال';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
 	@override String get allowOtherHostsConnectWarn => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.';
@@ -595,6 +597,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get view => 'يفحص';
 	@override String get more => 'أكثر';
 	@override String get tips => 'معلومات';
+	@override String get selectAll => 'تحديد الكل';
 	@override String get copy => 'ينسخ';
 	@override String get paste => 'لصق';
 	@override String get cut => 'يقطع';
@@ -1134,8 +1137,10 @@ extension on TranslationsAr {
 			'SettingsScreen.rewriteConfirm' => 'سيقوم هذا الملف بكتابة التكوين المحلي الحالي.هل تريد الاستمرار؟',
 			'SettingsScreen.mergePerapp' => 'دمج القوائم المحلية [${_root.PerAppAndroidScreen.title}]',
 			'SettingsScreen.networkShare' => 'مشاركة الشبكة',
+			'SettingsScreen.chainProxy' => 'وكيل متسلسل',
 			'SettingsScreen.frontProxy' => 'الوكيل الأمامي/السلسلة',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'البيانات->الخادم الوكيل الأمامي/السلسلة [خوادم بروكسي متعددة: من الأعلى إلى الأسفل]->الخادم الوكيل [${p}]->الخادم الهدف',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'البيانات->خادم الوكيل[${p}]->خادم وكيل متسلسل[عدة خوادم وكيل: من الأعلى إلى الأسفل]->الخادم الهدف',
 			'SettingsScreen.allowOtherHostsConnect' => 'اسمح للآخرين بالاتصال',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
 			'SettingsScreen.allowOtherHostsConnectWarn' => 'بسبب قيود النظام، بعد تمكين ذلك، قد لا تتمكن التطبيقات الموجودة على هذا الجهاز والتي تستخدم http للوصول إلى الشبكة من الاتصال بالشبكة بشكل صحيح.',
@@ -1220,6 +1225,7 @@ extension on TranslationsAr {
 			'meta.view' => 'يفحص',
 			'meta.more' => 'أكثر',
 			'meta.tips' => 'معلومات',
+			'meta.selectAll' => 'تحديد الكل',
 			'meta.copy' => 'ينسخ',
 			'meta.paste' => 'لصق',
 			'meta.cut' => 'يقطع',
@@ -1458,11 +1464,11 @@ extension on TranslationsAr {
 			'isp.faq' => ({required Object p}) => 'الأسئلة الشائعة[${p}]',
 			'isp.customerService' => ({required Object p}) => 'خدمة العملاء[${p}]',
 			'isp.follow' => ({required Object p}) => 'متابعة[${p}]',
+			_ => null,
+		} ?? switch (path) {
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية',
 			'permission.camera' => 'الكاميرا',
 			'permission.screen' => 'تسجيل الشاشة',
-			_ => null,
-		} ?? switch (path) {
 			'permission.appQuery' => 'الحصول على قائمة التطبيقات',
 			'permission.request' => ({required Object p}) => 'تمكين أذونات [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
