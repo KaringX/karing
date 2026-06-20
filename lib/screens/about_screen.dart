@@ -15,8 +15,7 @@ import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
-import 'package:karing/app/utils/proxy_conf_utils.dart';
-import 'package:karing/app/utils/singbox_json_utils.dart';
+import 'package:karing/app/utils/local_singbox_config_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -557,24 +556,14 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         }
         var file = File(filePath);
         String content = await file.readAsString();
-        ServerConfigGroupItem proxyItem = ServerConfigGroupItem();
-        List<ServerDiversionGroupRuleSetItem> rulesetItems = [];
-        TransExceptionAndUnsupport eu = TransExceptionAndUnsupport();
-
-        var cresult = SingboxJsonUtils.tryConvert(
-          content,
-          proxyItem,
-          rulesetItems,
-          null,
-          eu,
-        );
-        if (cresult.error != null) {
+        var err = LocalSingboxConfigUtils.validate(content);
+        if (err != null) {
           if (!mounted) {
             return;
           }
           DialogUtils.showAlertDialog(
             context,
-            cresult.error!.message.toString(),
+            err.message,
             showCopy: true,
             showFAQ: true,
             withVersion: true,

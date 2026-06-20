@@ -16,6 +16,7 @@ import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
+import 'package:karing/app/utils/local_singbox_config_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/singbox_outbound.dart';
@@ -1147,6 +1148,8 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
 
   void onTapMore() {
     final tcontext = Translations.of(context);
+    final localConfigEnabled =
+        SettingManager.getConfig().originSBProfile.isNotEmpty;
     List<Widget> widgets = [
       ListTile(
         title: Text(tcontext.meta.setting),
@@ -1188,9 +1191,79 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           onTapMerge();
         },
       ),
+      ListTile(
+        title: Text(
+          localConfigEnabled
+              ? "Edit local sing-box config"
+              : "Local sing-box config",
+        ),
+        leading: Icon(Icons.data_object_outlined),
+        onTap: () async {
+          Navigator.pop(context);
+          await onTapLocalSingboxConfig();
+        },
+      ),
+      if (localConfigEnabled) ...[
+        ListTile(
+          title: Text("Clear local sing-box config"),
+          leading: Icon(Icons.clear_outlined),
+          onTap: () async {
+            Navigator.pop(context);
+            await onTapClearLocalSingboxConfig();
+          },
+        ),
+      ],
     ];
 
     showSheetWidgets(context: context, widgets: widgets);
+  }
+
+  Future<void> onTapLocalSingboxConfig() async {
+    final content = await LocalSingboxConfigUtils.loadContent();
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: FileViewScreen.routSettings(),
+        builder: (context) => FileViewScreen(
+          title: "Local sing-box config",
+          content: content,
+          onSave: (context, content) async {
+            final err = await LocalSingboxConfigUtils.saveContent(content);
+            if (err != null) {
+              DialogUtils.showAlertDialog(
+                context,
+                err.message,
+                showCopy: true,
+                showFAQ: true,
+                withVersion: true,
+              );
+              return;
+            }
+            SettingManager.save();
+            if (!context.mounted) {
+              return;
+            }
+            Navigator.pop(context);
+            _buildData();
+            setState(() {});
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> onTapClearLocalSingboxConfig() async {
+    bool? ok = await DialogUtils.showConfirmDialog(
+      context,
+      "Clear local sing-box config?",
+    );
+    if (ok != true) {
+      return;
+    }
+    await LocalSingboxConfigUtils.clear();
+    SettingManager.save();
+    _buildData();
+    setState(() {});
   }
 
   void onTapTestOutboundLatencyAll() async {
