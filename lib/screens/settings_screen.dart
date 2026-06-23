@@ -200,8 +200,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   Future<List<GroupItem>> getGroupOptions() async {
     final tcontext = Translations.of(context);
 
-    //bool testFlight = await InstallReferrerUtils.isTestFlight();
-    bool appStore = await InstallReferrerUtils.isAppStore();
     AutoUpdateCheckVersion versionCheck = AutoUpdateManager.getVersionCheck();
     String? installer = await AutoUpdateManager.checkReplace();
     var serverConfig = ServerManager.getConfig();

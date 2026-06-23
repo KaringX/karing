@@ -1596,9 +1596,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     config.dns = dns.data!;
     config.inbounds = SingboxConfigBuilder.inbounds(
       false,
-      false,
       SingboxExportType.karing,
-      null,
     );
     for (var inbound in config.inbounds) {
       if (inbound is SingboxInboundTunOptions) {
@@ -1609,7 +1607,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       }
     }
     config.outbounds = SingboxConfigBuilder.outbounds(
-      false,
       "",
       selectOutboundTags,
       {},
@@ -1631,7 +1628,6 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       sitecodesHashCode,
       ipcodesHashCode,
       aclcodesHashCode,
-      false,
       tunMode,
       allOutBounds,
       {},

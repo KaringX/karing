@@ -1133,7 +1133,7 @@ class GroupHelper {
       result.data!,
       from,
       title: tcontext.SettingsScreen.htmlBoard,
-      inappWebViewOpenExternal: false,
+      inappWebViewOpenExternal: true,
     );
     if (PlatformUtils.isMobile()) {
       await Zashboard.stop();
