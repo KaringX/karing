@@ -356,7 +356,12 @@ class _BackupAndSyncIcloudScreenState
       );
       return;
     }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
+    await GroupHelper.backupRestoreFromZip(
+      context,
+      "",
+      filePath,
+      confirm: false,
+    );
     await FileUtils.deletePath(filePath);
   }
 

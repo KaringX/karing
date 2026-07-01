@@ -94,7 +94,7 @@ class _BackupAndSyncLanSyncScreenState
       var ports = [
         proxy.mixedRulePort,
         proxy.mixedDirectPort,
-        proxy.mixedForwordPort,
+        proxy.mixedForwardPort,
         proxy.controlPort,
         proxy.clusterPort,
       ];
@@ -296,7 +296,7 @@ class _BackupAndSyncLanSyncScreenState
   }
 
   Future<void> restoreFromZip(String zipPath) async {
-    await GroupHelper.backupRestoreFromZip(context, zipPath, confirm: true);
+    await GroupHelper.backupRestoreFromZip(context, "", zipPath, confirm: true);
     await FileUtils.deletePath(zipPath);
   }
 

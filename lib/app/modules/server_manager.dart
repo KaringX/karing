@@ -177,6 +177,22 @@ class ServerConfig {
     }
     return null;
   }
+
+  ProxyConfig? getByGroupIdAndTag(String groupid, String tag) {
+    for (var item in items) {
+      if (!item.enable) {
+        continue;
+      }
+      if (item.groupid != groupid) {
+        continue;
+      }
+      ProxyConfig? config = item.getByTag(tag);
+      if (config != null) {
+        return config;
+      }
+    }
+    return null;
+  }
 }
 
 class DiversionGroupConfig {
@@ -2807,12 +2823,13 @@ class ServerManager {
   }
 
   static Future<ReturnResultError?> reloadFromZip(
+    String url,
     String zipPath, {
     Set<String> whiteList = const {},
     bool? tun,
     bool mergePerapp = false,
   }) async {
-    var result = await BackupAndSyncUtils.validZip(zipPath);
+    var result = await BackupAndSyncUtils.validZip(url, zipPath);
     if (result != null) {
       return result;
     }

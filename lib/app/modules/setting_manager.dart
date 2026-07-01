@@ -1000,7 +1000,7 @@ class SettingConfigItemTLS {
   static String kFragmentSize = "100-200"; //[1,256]
   static String kFragmentSleep = "10-20"; //[0,1000],0:disable
   static String kPaddingSize = "1-1500";
-  bool enableInsecure = false;
+  bool enableInsecure = true;
   bool enableFragment = false;
   String fragmentSize = SettingConfigItemTLS.kFragmentSize;
   String fragmentSleep = SettingConfigItemTLS.kFragmentSleep;
@@ -1028,7 +1028,7 @@ class SettingConfigItemTLS {
       return;
     }
 
-    enableInsecure = map["enable_insecure"] ?? false;
+    enableInsecure = map["enable_insecure"] ?? true;
     enableFragment = map["enable_fragment"] ?? false;
     fragmentSize = map["fragment_size"] ?? SettingConfigItemTLS.kFragmentSize;
     fragmentSleep =
@@ -1096,11 +1096,11 @@ class SettingConfigItemProxy {
 
   static int controlPortDefault = 3057;
   static int kMixedDirectPortDefault = 3065;
-  static int kMixedForwordPortDefault = 3066;
+  static int kMixedForwardPortDefault = 3066;
   static int kMixedPortDefault = 3067;
 
   static int mixedDirectNetSharePortDefault = 4065;
-  static int kMixedForwordNetSharePortDefault = 4066;
+  static int kMixedForwardNetSharePortDefault = 4066;
   static int kMixedNetSharePortDefault = 4067;
   static int clusterPortDefault = 3050;
 
@@ -1109,9 +1109,9 @@ class SettingConfigItemProxy {
   String clusterHost = hostLocal;
   int mixedRulePort = kMixedPortDefault;
   int mixedDirectPort = kMixedDirectPortDefault;
-  int mixedForwordPort = kMixedForwordPortDefault;
+  int mixedForwardPort = kMixedForwardPortDefault;
   int mixedRuleNetSharePort = kMixedNetSharePortDefault;
-  int mixedForwordNetSharePort = kMixedForwordNetSharePortDefault;
+  int mixedForwardNetSharePort = kMixedForwardNetSharePortDefault;
   int controlPort = controlPortDefault;
   int clusterPort = clusterPortDefault;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
@@ -1145,9 +1145,9 @@ class SettingConfigItemProxy {
     'cluster_host': clusterHost,
     'mixed_port': mixedRulePort,
     'mixed_direct_port': mixedDirectPort,
-    'mixed_forword_port': mixedForwordPort,
+    'mixed_forword_port': mixedForwardPort,
     'mixed_net_share_port': mixedRuleNetSharePort,
-    'mixed_forword_net_share_port': mixedForwordNetSharePort,
+    'mixed_forword_net_share_port': mixedForwardNetSharePort,
     'control_port': controlPort,
     'cluster_port': clusterPort,
     'auto_set_system_proxy': autoSetSystemProxy,
@@ -1169,9 +1169,9 @@ class SettingConfigItemProxy {
     clusterHost = map["cluster_host"] ?? hostLocal;
     mixedRulePort = map["mixed_port"] ?? 0;
     mixedDirectPort = map["mixed_direct_port"] ?? 0;
-    mixedForwordPort = map["mixed_forword_port"] ?? 0;
+    mixedForwardPort = map["mixed_forword_port"] ?? 0;
     mixedRuleNetSharePort = map["mixed_net_share_port"] ?? 0;
-    mixedForwordNetSharePort = map["mixed_forword_net_share_port"] ?? 0;
+    mixedForwardNetSharePort = map["mixed_forword_net_share_port"] ?? 0;
     controlPort = map["control_port"] ?? 0;
     clusterPort = map["cluster_port"] ?? 0;
 
@@ -1181,15 +1181,15 @@ class SettingConfigItemProxy {
     if (mixedDirectPort == 0) {
       mixedDirectPort = kMixedDirectPortDefault;
     }
-    if (mixedForwordPort == 0) {
-      mixedForwordPort = kMixedForwordPortDefault;
+    if (mixedForwardPort == 0) {
+      mixedForwardPort = kMixedForwardPortDefault;
     }
     if (mixedRuleNetSharePort == 0) {
       mixedRuleNetSharePort = kMixedNetSharePortDefault;
     }
-    if (mixedForwordNetSharePort == 0 ||
-        mixedForwordNetSharePort == mixedForwordPort) {
-      mixedForwordNetSharePort = kMixedForwordNetSharePortDefault;
+    if (mixedForwardNetSharePort == 0 ||
+        mixedForwardNetSharePort == mixedForwardPort) {
+      mixedForwardNetSharePort = kMixedForwardNetSharePortDefault;
     }
     if (controlPort == 0) {
       controlPort = controlPortDefault;
@@ -1494,6 +1494,7 @@ enum IPStrategy {
 }
 
 class SettingConfig {
+  static const Duration kMaxDays = Duration(days: 30);
   static int htmlBoardPortDefault = 3072;
   static const String kCoreVersion = "1.13.0";
   static const List<String> kSpeedTestList = [
@@ -1512,20 +1513,21 @@ class SettingConfig {
   ];
 
   static const List<String> kUserAgentList = [
-    "mihomo/1.19.23",
-    "ClashMeta",
+    "mihomo/1.19.27",
     "clash-verge",
     "FLClash",
+    "ClashMeta",
     "v2ray",
-    "sing-box $kCoreVersion",
     "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "HiddifyNext",
+    "sing-box $kCoreVersion",
   ];
   static const Map<String, String> kUserAgentListOldUpgrade = {
     "sing-box": "sing-box $kCoreVersion",
     "mihomo/1.19.9": "mihomo/1.19.23",
     "mihomo/1.19.12": "mihomo/1.19.23",
     "mihomo/1.19.16": "mihomo/1.19.23",
+    "mihomo/1.19.23": "mihomo/1.19.23",
     "NekoBox/Android/1.3.1 (Prefer ClashMeta Format)":
         "NekoBox/Android/1.4.1 (Prefer ClashMeta Format)",
     "NekoBox/Android/1.3.4 (Prefer ClashMeta Format)":

@@ -59,6 +59,8 @@ class CommonWidget {
               bool? ok = await DialogUtils.showConfirmDialog(
                 context,
                 "$latency\n\n${tcontext.meta.retry}",
+                showCopy: true,
+                withVersion: true,
               );
               if (ok == true) {
                 onTapLatencyReload();

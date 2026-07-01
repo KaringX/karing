@@ -11,12 +11,12 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
   }
 
   final String title;
-  final List<String> data;
+  List<String> data;
   final Set<String> invalidData;
   final String dialogTitle;
   final String dialogTextHit;
   final Future<String?> Function()? onTapAdd;
-  const ListAddScreen({
+  ListAddScreen({
     super.key,
     required this.title,
     required this.data,

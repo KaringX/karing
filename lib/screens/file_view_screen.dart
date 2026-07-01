@@ -120,9 +120,7 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       ),
                     ),
                   ],
-                  if (widget.content.isEmpty && widget.onSave == null) ...[
-                    const SizedBox(width: 50),
-                  ],
+                  if (widget.onSave == null) ...[const SizedBox(width: 50)],
                 ],
               ),
               const SizedBox(height: 10),
@@ -156,34 +154,36 @@ class _FileViewScreenState extends State<FileViewScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  InkWell(
-                    onTap: () {
-                      _controller.paste();
-                    },
-                    child: Tooltip(
-                      message: tcontext.meta.paste,
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(Icons.paste, size: 26),
+                  if (widget.onSave != null) ...[
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        _controller.paste();
+                      },
+                      child: Tooltip(
+                        message: tcontext.meta.paste,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.paste, size: 26),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  InkWell(
-                    onTap: () {
-                      _controller.cut();
-                    },
-                    child: Tooltip(
-                      message: tcontext.meta.cut,
-                      child: const SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: Icon(Icons.cut, size: 26),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: () {
+                        _controller.cut();
+                      },
+                      child: Tooltip(
+                        message: tcontext.meta.cut,
+                        child: const SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: Icon(Icons.cut, size: 26),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ],
               ),
               const SizedBox(height: 10),

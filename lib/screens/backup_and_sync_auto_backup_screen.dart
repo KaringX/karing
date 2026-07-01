@@ -246,7 +246,12 @@ class _BackupAndSyncAutoBackupScreenState
     if (!mounted) {
       return;
     }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: false);
+    await GroupHelper.backupRestoreFromZip(
+      context,
+      "",
+      filePath,
+      confirm: false,
+    );
   }
 
   Future<void> onTapDelete(String filename) async {

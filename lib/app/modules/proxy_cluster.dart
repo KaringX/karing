@@ -106,9 +106,9 @@ class ProxyCluster {
     var ports = [
       proxy.mixedRulePort,
       proxy.mixedDirectPort,
-      proxy.mixedForwordPort,
+      proxy.mixedForwardPort,
       proxy.mixedRuleNetSharePort,
-      proxy.mixedForwordNetSharePort,
+      proxy.mixedForwardNetSharePort,
       proxy.controlPort,
       proxy.clusterPort,
     ];

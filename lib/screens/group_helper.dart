@@ -53,6 +53,7 @@ import 'package:karing/screens/net_interfaces_screen.dart';
 import 'package:karing/screens/perapp_android_screen.dart';
 import 'package:karing/screens/perapp_macos_screen.dart';
 import 'package:karing/screens/qrcode_scan_screen.dart';
+import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/region_settings_screen.dart';
 import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/statistics_records_screen.dart';
@@ -62,6 +63,7 @@ import 'package:karing/screens/webview_helper.dart';
 import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ImportConfirmResult {
   Set<String>? whiletList;
@@ -229,7 +231,36 @@ class GroupHelper {
           ),
         ),
       ],
+      if (remoteConfig.download.isNotEmpty) ...[
+        GroupItemOptions(
+          pushOptions: GroupItemPushOptions(
+            name: tcontext.meta.download,
+            onPush: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  settings: QrcodeScreen.routSettings(),
+                  builder: (context) => QrcodeScreen(
+                    content: remoteConfig.download,
+                    callback: () async {
+                      String url =
+                          await UrlLauncherUtils.reorganizationUrlWithAnchor(
+                            remoteConfig.download,
+                          );
+                      await UrlLauncherUtils.loadUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     ]);
+
     return options;
   }
 
@@ -245,17 +276,7 @@ class GroupHelper {
       BuildContext context,
       SetStateCallback? setstate,
     ) async {
-      GroupItem options = GroupItem(
-        options: [
-          GroupItemOptions(
-            switchOptions: GroupItemSwitchOptions(
-              name: HttpUtils.getUserAgentAppend(),
-              switchValue: append,
-              onSwitch: (bool value) async {
-                append = value;
-              },
-            ),
-          ),
+      GroupItem options = GroupItem(options: [
         ],
       );
       for (var ua in userAgents) {
@@ -277,6 +298,17 @@ class GroupHelper {
           ),
         );
       }
+      options.options.add(
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: HttpUtils.getUserAgentAppend(),
+            switchValue: append,
+            onSwitch: (bool value) async {
+              append = value;
+            },
+          ),
+        ),
+      );
 
       return [options];
     }
@@ -883,8 +915,8 @@ class GroupHelper {
                 tcontext.SettingsScreen.portSettingProxyAll +
                 ":" +
                 tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                  hp: settingConfig.proxy.mixedForwordNetSharePort,
-                  sp: settingConfig.proxy.mixedForwordNetSharePort,
+                  hp: settingConfig.proxy.mixedForwardNetSharePort,
+                  sp: settingConfig.proxy.mixedForwardNetSharePort,
                 ),
             switchValue: settingConfig.proxy.getAllowAllInbounds(),
             onSwitch: (bool value) async {
@@ -2816,13 +2848,14 @@ class GroupHelper {
       );
       return ReturnResultError(result.error!.message);
     }
-    await backupRestoreFromZip(context, filePath, confirm: false);
+    await backupRestoreFromZip(context, url, filePath, confirm: false);
     await FileUtils.deletePath(filePath);
     return null;
   }
 
   static Future<void> backupRestoreFromZip(
     BuildContext context,
+    String url,
     String zipPath, {
     bool confirm = false,
   }) async {
@@ -2850,6 +2883,7 @@ class GroupHelper {
     }
 
     var error = await ServerManager.reloadFromZip(
+      url,
       zipPath,
       whiteList: importResult.whiletList!,
       tun: importResult.tun,
@@ -2995,7 +3029,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      await backupRestoreFromZip(context, zipPath, confirm: true);
+      await backupRestoreFromZip(context, "", zipPath, confirm: true);
     } else if (uri.host == AppSchemeActions.syncUploadAction()) {
       if (!send) {
         DialogUtils.showAlertDialog(
@@ -3304,6 +3338,7 @@ class GroupHelper {
         }
         await GroupHelper.backupRestoreFromZip(
           context,
+          "",
           filePath,
           confirm: true,
         );

@@ -22,7 +22,6 @@ import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/cloudflare_warp_api.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
-import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -778,8 +777,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   tcontext.SettingsScreen.portSettingProxyAll +
                   ":" +
                   tcontext.SettingsScreen.allowOtherHostsConnectTips(
-                    hp: settingConfig.proxy.mixedForwordPort,
-                    sp: settingConfig.proxy.mixedForwordPort,
+                    hp: settingConfig.proxy.mixedForwardPort,
+                    sp: settingConfig.proxy.mixedForwardPort,
                   ) +
                   "\n" +
                   tcontext.SettingsScreen.portSettingDirectAll +
@@ -1389,43 +1388,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ),
     );
 
-    if (remoteConfig.download.isNotEmpty) {
-      groupOptions.add(
-        GroupItem(
-          options: [
-            if (remoteConfig.download.isNotEmpty) ...[
-              GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
-                  name: tcontext.meta.download,
-                  onPush: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        settings: QrcodeScreen.routSettings(),
-                        builder: (context) => QrcodeScreen(
-                          content: remoteConfig.download,
-                          callback: () async {
-                            String url =
-                                await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                                  remoteConfig.download,
-                                );
-                            await UrlLauncherUtils.loadUrl(
-                              url,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ],
-        ),
-      );
-    }
-
     groupOptions.add(
       GroupItem(
         options: [
@@ -1793,9 +1755,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   //settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   settingConfig.htmlBoardPort,
@@ -1830,9 +1792,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   //settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                 ];
@@ -1853,12 +1815,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.portSettingProxyAll,
-            text: settingConfig.proxy.mixedForwordPort.toString(),
+            text: settingConfig.proxy.mixedForwardPort.toString(),
             onPush: () async {
               int? p = await DialogUtils.showIntInputDialog(
                 context,
                 tcontext.SettingsScreen.modifyPort,
-                settingConfig.proxy.mixedForwordPort,
+                settingConfig.proxy.mixedForwardPort,
                 minPort,
                 maxPort,
               );
@@ -1866,9 +1828,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  //settingConfig.proxy.mixedForwordPort,
+                  //settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   settingConfig.htmlBoardPort,
@@ -1880,7 +1842,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   );
                   return;
                 }
-                settingConfig.proxy.mixedForwordPort = p;
+                settingConfig.proxy.mixedForwardPort = p;
                 SettingManager.setDirty(true);
                 setState(() {});
               }
@@ -1906,9 +1868,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   //settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   settingConfig.htmlBoardPort,
@@ -1932,12 +1894,12 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.portSettingProxyAll,
-            text: settingConfig.proxy.mixedForwordNetSharePort.toString(),
+            text: settingConfig.proxy.mixedForwardNetSharePort.toString(),
             onPush: () async {
               int? p = await DialogUtils.showIntInputDialog(
                 context,
                 tcontext.SettingsScreen.modifyPort,
-                settingConfig.proxy.mixedForwordNetSharePort,
+                settingConfig.proxy.mixedForwardNetSharePort,
                 minPort,
                 maxPort,
               );
@@ -1945,9 +1907,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  //settingConfig.proxy.mixedForwordNetSharePort,
+                  //settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   settingConfig.htmlBoardPort,
@@ -1962,7 +1924,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   );
                   return;
                 }
-                settingConfig.proxy.mixedForwordNetSharePort = p;
+                settingConfig.proxy.mixedForwardNetSharePort = p;
                 SettingManager.setDirty(true);
               }
             },
@@ -1986,9 +1948,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   //settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   settingConfig.htmlBoardPort,
@@ -2024,9 +1986,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   List<int> ports = [
                     settingConfig.proxy.mixedRulePort,
                     settingConfig.proxy.mixedDirectPort,
-                    settingConfig.proxy.mixedForwordPort,
+                    settingConfig.proxy.mixedForwardPort,
                     settingConfig.proxy.mixedRuleNetSharePort,
-                    settingConfig.proxy.mixedForwordNetSharePort,
+                    settingConfig.proxy.mixedForwardNetSharePort,
                     settingConfig.proxy.controlPort,
                     //settingConfig.proxy.clusterPort,
                     settingConfig.htmlBoardPort,
@@ -2062,9 +2024,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 List<int> ports = [
                   settingConfig.proxy.mixedRulePort,
                   settingConfig.proxy.mixedDirectPort,
-                  settingConfig.proxy.mixedForwordPort,
+                  settingConfig.proxy.mixedForwardPort,
                   settingConfig.proxy.mixedRuleNetSharePort,
-                  settingConfig.proxy.mixedForwordNetSharePort,
+                  settingConfig.proxy.mixedForwardNetSharePort,
                   settingConfig.proxy.controlPort,
                   settingConfig.proxy.clusterPort,
                   // settingConfig.htmlBoardPort,

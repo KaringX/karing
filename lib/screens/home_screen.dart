@@ -284,11 +284,40 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         await checkAndReload("tun");
         setState(() {});
       }, _focusNodeTun),
-      systemProxy: HomeWidgetSwitchOptions(
-        (value) {},
-        () {},
-        _focusNodeSystemProxy,
-      ),
+      systemProxy: HomeWidgetSwitchOptions((value) {}, () {
+        if (Platform.isMacOS || Platform.isLinux) {
+          final rulePort = SettingManager.getConfig().proxy.mixedRulePort;
+          final forwardPort = SettingManager.getConfig().proxy.mixedForwardPort;
+          final rule =
+              "export https_proxy=http://127.0.0.1:$rulePort http_proxy=http://127.0.0.1:$rulePort all_proxy=socks5://127.0.0.1:$rulePort";
+          final forward =
+              "export https_proxy=http://127.0.0.1:$forwardPort http_proxy=http://127.0.0.1:$forwardPort all_proxy=socks5://127.0.0.1:$forwardPort";
+          List<Widget> widgets = [
+            ListTile(
+              title: Text("${t.meta.copy} $rule"),
+              onTap: () async {
+                Navigator.pop(context);
+
+                try {
+                  await Clipboard.setData(ClipboardData(text: rule));
+                } catch (e) {}
+              },
+            ),
+            ListTile(
+              title: Text("${t.meta.copy} $forward"),
+              onTap: () async {
+                Navigator.pop(context);
+
+                try {
+                  await Clipboard.setData(ClipboardData(text: forward));
+                } catch (e) {}
+              },
+            ),
+          ];
+
+          showSheetWidgets(context: context, widgets: widgets);
+        }
+      }, _focusNodeSystemProxy),
       myProfiles: HomeWidgetCard0Options(
         onTapMyProfiles,
         null,
@@ -796,7 +825,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
 
     final iplocal = await NetworkUtils.getOutletIp(
-      setting.proxy.mixedForwordPort,
+      setting.proxy.mixedForwardPort,
     );
 
     _widgetOptions.outletIpByCurrentSelectedInfo!.notifier.value =
@@ -945,9 +974,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (config != null) {
         _currentServer = config;
         if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
-          ProxyConfig? server = ServerManager.getConfig().getByTag(
-            _currentServer.tag,
-          );
+          ProxyConfig? server;
+          if (_currentServer.tag.isNotEmpty) {
+            if (_currentServer.groupid.isNotEmpty) {
+              server = ServerManager.getConfig().getByGroupIdAndTag(
+                _currentServer.groupid,
+                _currentServer.tag,
+              );
+            }
+            server ??= ServerManager.getConfig().getByTag(_currentServer.tag);
+          }
           if (server != null) {
             _currentServer = server;
           }
@@ -1008,16 +1044,20 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     bool noConfig = ServerManager.getConfig().getServersCount(true) == 0;
     if (noConfig) {
-      bool hasBackup = await _hasAutoBackup();
-      if (hasBackup) {
-        var tcontext = Translations.of(context);
-        await DialogUtils.showAlertDialog(
-          context,
-          tcontext.meta.noProfileGotAutoBackup,
-          showCopy: false,
-          showFAQ: true,
-          withVersion: true,
-        );
+      bool started = await VPNService.getStarted();
+
+      if (!started) {
+        bool hasBackup = await _hasAutoBackup();
+        if (hasBackup) {
+          var tcontext = Translations.of(context);
+          await DialogUtils.showAlertDialog(
+            context,
+            tcontext.meta.noProfileGotAutoBackup,
+            showCopy: false,
+            showFAQ: true,
+            withVersion: true,
+          );
+        }
       }
     }
     if (PlatformUtils.isPC()) {
@@ -1274,9 +1314,17 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (config != null) {
       _currentServer = config;
       if (_currentServer.groupid != ServerManager.getUrltestGroupId()) {
-        ProxyConfig? server = ServerManager.getConfig().getByTag(
-          _currentServer.tag,
-        );
+        ProxyConfig? server;
+        if (_currentServer.tag.isNotEmpty) {
+          if (_currentServer.groupid.isNotEmpty) {
+            server = ServerManager.getConfig().getByGroupIdAndTag(
+              _currentServer.groupid,
+              _currentServer.tag,
+            );
+          }
+          server ??= ServerManager.getConfig().getByTag(_currentServer.tag);
+        }
+
         if (server != null) {
           _currentServer = server;
         }

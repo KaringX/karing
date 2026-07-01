@@ -37,7 +37,7 @@ class DialogUtils {
     }
     if (withVersion) {
       text =
-          "${AppUtils.getBuildinVersion()} ${Platform.operatingSystem}\n$text";
+          "${AppUtils.getBuildinVersion()} ${Platform.operatingSystem}\n\n$text";
     }
 
     const int kMaxLength = 1024;
@@ -128,10 +128,16 @@ class DialogUtils {
 
   static Future<bool?> showConfirmDialog(
     BuildContext context,
-    String text,
-  ) async {
+    String text, {
+    bool showCopy = false,
+    bool withVersion = false,
+  }) async {
     if (!context.mounted) {
       return null;
+    }
+    if (withVersion) {
+      text =
+          "${AppUtils.getBuildinVersion()} ${Platform.operatingSystem}\n\n$text";
     }
     AccessibilityUtils.announce(context, text);
     final tcontext = Translations.of(context);
@@ -177,6 +183,20 @@ class DialogUtils {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
+            if (showCopy) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: ElevatedButton(
+                  child: Text(tcontext.meta.copy),
+                  onPressed: () async {
+                    try {
+                      await Clipboard.setData(ClipboardData(text: text));
+                    } catch (e) {}
+                  },
+                ),
+              ),
+            ],
           ],
         );
       },

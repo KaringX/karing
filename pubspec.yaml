@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.20+2308
+version: 1.2.21+2405
 environment:
   sdk: ">=3.9.0 <4.0.0"
   flutter: ">=3.35.0"
@@ -113,7 +113,6 @@ dependencies:
   #timezone_to_country: 2.2.0
   #local_auth: 2.2.0
   win32: 5.11.0
-  webdav_plus: 1.2.2
   mime: 2.0.0
   http: 1.6.0
   http_parser: 4.1.2
@@ -123,9 +122,16 @@ dependencies:
   #flutter_speed_dial: 7.0.0
   flutter_inapp_notifications: 1.0.0 
   flutter_local_notifications: 21.0.0
-  quick_actions: 1.1.0
   convex_bottom_bar: 3.2.0
   animations: 2.2.0
+  quick_actions: 1.1.0
+  #webdav_plus: 1.2.2
+  #webdav_client_plus: 1.0.2
+  webdav_client_plus:
+    #path: ../webdav_client/
+    git:
+      url: https://github.com/KaringX/webdav_client.git
+      ref: fbbedb06a0898970797ea1445f787eb63d7f0276
   android_package_manager: #0.7.1
     #path: ../android_package_manager
     git:

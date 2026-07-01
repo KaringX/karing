@@ -11,7 +11,7 @@ import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
-import 'package:karing/app/utils/webdav_utils.dart';
+import 'package:karing/app/utils/webdav_client_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_helper.dart';
@@ -22,7 +22,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
-import 'package:webdav_plus/webdav_plus.dart';
+import 'package:webdav_client_plus/webdav_client_plus.dart';
 
 class BackupAndSyncWebdavScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings() {
@@ -298,7 +298,7 @@ class _BackupAndSyncWebdavScreenState
     List<int?> ports = await VPNService.getPortsByPrefer(false);
     late ReturnResult<WebdavClient> result;
     for (var port in ports) {
-      result = await WebdavUtils.connect(
+      result = await WebdavClientUtils.connect(
         port,
         settingConfig.webdav.url,
         settingConfig.webdav.user,
@@ -310,11 +310,7 @@ class _BackupAndSyncWebdavScreenState
       if (result.error == null) {
         break;
       }
-      if (result.error!.message.startsWith(WebdavUtils.getNotContinue())) {
-        result.error!.message = result.error!.message.replaceFirst(
-          WebdavUtils.getNotContinue(),
-          "",
-        );
+      if (WebdavClientUtils.isInnerError(result.error!.message)) {
         break;
       }
     }
@@ -349,7 +345,7 @@ class _BackupAndSyncWebdavScreenState
     }
     _loading = true;
     setState(() {});
-    var result = await WebdavUtils.list(_webdavClient!);
+    var result = await WebdavClientUtils.list(_webdavClient!);
     if (!mounted) {
       return;
     }
@@ -406,7 +402,7 @@ class _BackupAndSyncWebdavScreenState
         );
         return;
       }
-      error = await WebdavUtils.upload(
+      error = await WebdavClientUtils.upload(
         _webdavClient!,
         relativePath: path.basename(filePath),
         localPath: filePath,
@@ -570,7 +566,7 @@ class _BackupAndSyncWebdavScreenState
 
     String dir = await PathUtils.cacheDir();
     String filePath = path.join(dir, BackupAndSyncUtils.getZipFileName());
-    var error = await WebdavUtils.download(
+    var error = await WebdavClientUtils.download(
       _webdavClient!,
       relativePath: filename,
       localPath: filePath,
@@ -588,7 +584,12 @@ class _BackupAndSyncWebdavScreenState
       );
       return;
     }
-    await GroupHelper.backupRestoreFromZip(context, filePath, confirm: true);
+    await GroupHelper.backupRestoreFromZip(
+      context,
+      "",
+      filePath,
+      confirm: true,
+    );
     await FileUtils.deletePath(filePath);
   }
 
@@ -596,7 +597,7 @@ class _BackupAndSyncWebdavScreenState
     if (_webdavClient == null) {
       return;
     }
-    var error = await WebdavUtils.delete(_webdavClient!, filename);
+    var error = await WebdavClientUtils.delete(_webdavClient!, filename);
     if (!mounted) {
       return;
     }
