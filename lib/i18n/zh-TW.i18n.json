@@ -480,7 +480,7 @@
         "novice": "新手模式",
         "willCompleteAfterRebootInstall": "請重啟設備, 以便完成系統擴充安裝",
         "willCompleteAfterRebootUninstall": "請重啟設備, 以便完成系統擴充解除安裝",
-        "requestNeedsUserApproval": "1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能-網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線",
+        "requestNeedsUserApproval": "1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能]-[網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線\n3. [系統設定]-[一般]-[登入項目與擴充功能]-[擴充功能] 啟用 [karingServiceSE]\n完成後重新連線",
         "FullDiskAccessPermissionRequired": "請在 [系統設定]-[隱私權與安全性]-[全磁碟存取權限] 裡開啟 [karingServiceSE] 權限後, 重新連線",
         "tvMode": "TV 模式",
         "recommended": "推薦",

@@ -760,7 +760,7 @@ class _Translations$meta$fr implements Translations$meta$en {
 	@override String get novice => 'Mode novice';
 	@override String get willCompleteAfterRebootInstall => 'Veuillez redémarrer votre appareil pour terminer l\'installation de l\'extension système';
 	@override String get willCompleteAfterRebootUninstall => 'Veuillez redémarrer votre appareil pour terminer la désinstallation de l\'extension système';
-	@override String get requestNeedsUserApproval => '1. Veuillez [Autoriser] Karing à installer des extensions système dans [Paramètres système]-[Confidentialité et sécurité]\n2. [Paramètres système]-[Général]-[Éléments de connexion et extensions-Extension réseau] activez [karingServiceSE]\nreconnectez-vous après avoir terminé';
+	@override String get requestNeedsUserApproval => '1. Veuillez [Autoriser] Karing à installer des extensions système dans [Paramètres système]-[Confidentialité et sécurité]\n2. [Paramètres système]-[Général]-[Éléments de connexion et extensions]-[Extension réseau] activez [karingServiceSE]\nreconnectez-vous après avoir terminé\n3. [Paramètres système]-[Général]-[Éléments de connexion et extensions]-[Extensions] activez [karingServiceSE]\nreconnectez-vous après avoir terminé';
 	@override String get FullDiskAccessPermissionRequired => 'Veuillez activer l\'autorisation [karingServiceSE] dans [Paramètres système]-[Confidentialité et sécurité]-[Accès complet au disque] et vous reconnecter';
 	@override String get tvMode => 'Mode TV';
 	@override String get recommended => 'Recommandé';
@@ -1388,7 +1388,7 @@ extension on TranslationsFr {
 			'meta.novice' => 'Mode novice',
 			'meta.willCompleteAfterRebootInstall' => 'Veuillez redémarrer votre appareil pour terminer l\'installation de l\'extension système',
 			'meta.willCompleteAfterRebootUninstall' => 'Veuillez redémarrer votre appareil pour terminer la désinstallation de l\'extension système',
-			'meta.requestNeedsUserApproval' => '1. Veuillez [Autoriser] Karing à installer des extensions système dans [Paramètres système]-[Confidentialité et sécurité]\n2. [Paramètres système]-[Général]-[Éléments de connexion et extensions-Extension réseau] activez [karingServiceSE]\nreconnectez-vous après avoir terminé',
+			'meta.requestNeedsUserApproval' => '1. Veuillez [Autoriser] Karing à installer des extensions système dans [Paramètres système]-[Confidentialité et sécurité]\n2. [Paramètres système]-[Général]-[Éléments de connexion et extensions]-[Extension réseau] activez [karingServiceSE]\nreconnectez-vous après avoir terminé\n3. [Paramètres système]-[Général]-[Éléments de connexion et extensions]-[Extensions] activez [karingServiceSE]\nreconnectez-vous après avoir terminé',
 			'meta.FullDiskAccessPermissionRequired' => 'Veuillez activer l\'autorisation [karingServiceSE] dans [Paramètres système]-[Confidentialité et sécurité]-[Accès complet au disque] et vous reconnecter',
 			'meta.tvMode' => 'Mode TV',
 			'meta.recommended' => 'Recommandé',

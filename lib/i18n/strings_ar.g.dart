@@ -760,7 +760,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get novice => 'وضع المبتدئ';
 	@override String get willCompleteAfterRebootInstall => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام';
 	@override String get willCompleteAfterRebootUninstall => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام';
-	@override String get requestNeedsUserApproval => '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]';
+	@override String get requestNeedsUserApproval => '١. [إعدادات النظام]-[الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام\n٢. [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات]-[ملحقات الشبكة] تمكين [karingServiceSE]\nأعد الاتصال بعد الانتهاء\n٣. [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات]-[الملحقات] تمكين [karingServiceSE]\nأعد الاتصال بعد الانتهاء';
 	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.';
 	@override String get tvMode => 'وضع التلفزيون';
 	@override String get recommended => 'يوصي';
@@ -1388,7 +1388,7 @@ extension on TranslationsAr {
 			'meta.novice' => 'وضع المبتدئ',
 			'meta.willCompleteAfterRebootInstall' => 'يرجى إعادة تشغيل جهازك لإكمال تثبيت توسيع النظام',
 			'meta.willCompleteAfterRebootUninstall' => 'يرجى إعادة تشغيل جهازك لإكمال إلغاء تثبيت ملحق النظام',
-			'meta.requestNeedsUserApproval' => '١. [إعدادات النظام] - [الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام. ٢. [إعدادات النظام] - [عام] - [تسجيل الدخول والملحقات - ملحقات الشبكة] - [karingServiceSE] - [أعد الاتصال بعد الانتهاء]',
+			'meta.requestNeedsUserApproval' => '١. [إعدادات النظام]-[الخصوصية والأمان] - [السماح] لـ Karing بتثبيت ملحقات النظام\n٢. [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات]-[ملحقات الشبكة] تمكين [karingServiceSE]\nأعد الاتصال بعد الانتهاء\n٣. [إعدادات النظام]-[عام]-[عناصر تسجيل الدخول والملحقات]-[الملحقات] تمكين [karingServiceSE]\nأعد الاتصال بعد الانتهاء',
 			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز [karingServiceSE] را در [تنظیمات سیستم]-[حریم خصوصی و امنیت]-[مجوز دسترسی کامل به دیسک] فعال کنید و دوباره متصل شوید.',
 			'meta.tvMode' => 'وضع التلفزيون',
 			'meta.recommended' => 'يوصي',

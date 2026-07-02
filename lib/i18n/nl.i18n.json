@@ -480,7 +480,7 @@
         "novice": "Beginnersmodus",
         "willCompleteAfterRebootInstall": "Start uw apparaat opnieuw op om de installatie van de systeemextensie te voltooien",
         "willCompleteAfterRebootUninstall": "Start uw apparaat opnieuw op om de verwijdering van de systeemextensie te voltooien",
-        "requestNeedsUserApproval": "1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems Extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing",
+        "requestNeedsUserApproval": "1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing\n3. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Extensies] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing",
         "FullDiskAccessPermissionRequired": "Schakel de machtiging [karingServiceSE] in bij [Systeeminstellingen]-[Privacy en beveiliging]-[Volledige schijf toegang] en verbind opnieuw",
         "tvMode": "TV-modus",
         "recommended": "Aanbevolen",

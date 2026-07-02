@@ -480,7 +480,7 @@
         "novice": "Nybörjarläge",
         "willCompleteAfterRebootInstall": "Starta om din enhet för att slutföra installationen av systemtillägget",
         "willCompleteAfterRebootUninstall": "Starta om din enhet för att slutföra avinstallationen av systemtillägget",
-        "requestNeedsUserApproval": "1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt Tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande",
+        "requestNeedsUserApproval": "1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande\n3. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Tillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande",
         "FullDiskAccessPermissionRequired": "Aktivera behörigheten [karingServiceSE] i [Systeminställningar]-[Integritet och säkerhet]-[Full diskåtkomst] och återanslut",
         "tvMode": "TV-läge",
         "recommended": "Rekommenderat",

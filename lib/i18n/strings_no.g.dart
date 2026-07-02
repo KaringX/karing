@@ -760,7 +760,7 @@ class _Translations$meta$no implements Translations$meta$en {
 	@override String get novice => 'Nybegynnermodus';
 	@override String get willCompleteAfterRebootInstall => 'Vennligst start enheten på nytt for å fullføre installasjonen av systemutvidelsen';
 	@override String get willCompleteAfterRebootUninstall => 'Vennligst start enheten på nytt for å fullføre avinstallasjonen av systemutvidelsen';
-	@override String get requestNeedsUserApproval => '1. Vennligst [Tillat] Karing å installere systemutvidelser i [Systeminnstillinger]-[Personvern og sikkerhet]\n2. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter Utvidelser]-[Nettverksutvidelse] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring';
+	@override String get requestNeedsUserApproval => '1. Vennligst [Tillat] Karing å installere systemutvidelser i [Systeminnstillinger]-[Personvern og sikkerhet]\n2. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter og utvidelser]-[Nettverksutvidelse] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring\n3. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter og utvidelser]-[Utvidelser] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring';
 	@override String get FullDiskAccessPermissionRequired => 'Vennligst aktiver tillatelsen [karingServiceSE] i [Systeminnstillinger]-[Personvern og sikkerhet]-[Full disktilgang] og koble til på nytt';
 	@override String get tvMode => 'TV-modus';
 	@override String get recommended => 'Anbefalt';
@@ -1388,7 +1388,7 @@ extension on TranslationsNo {
 			'meta.novice' => 'Nybegynnermodus',
 			'meta.willCompleteAfterRebootInstall' => 'Vennligst start enheten på nytt for å fullføre installasjonen av systemutvidelsen',
 			'meta.willCompleteAfterRebootUninstall' => 'Vennligst start enheten på nytt for å fullføre avinstallasjonen av systemutvidelsen',
-			'meta.requestNeedsUserApproval' => '1. Vennligst [Tillat] Karing å installere systemutvidelser i [Systeminnstillinger]-[Personvern og sikkerhet]\n2. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter Utvidelser]-[Nettverksutvidelse] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring',
+			'meta.requestNeedsUserApproval' => '1. Vennligst [Tillat] Karing å installere systemutvidelser i [Systeminnstillinger]-[Personvern og sikkerhet]\n2. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter og utvidelser]-[Nettverksutvidelse] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring\n3. I [Systeminnstillinger]-[Generelt]-[Innloggingsobjekter og utvidelser]-[Utvidelser] aktiver [karingServiceSE]\nkoble til på nytt etter fullføring',
 			'meta.FullDiskAccessPermissionRequired' => 'Vennligst aktiver tillatelsen [karingServiceSE] i [Systeminnstillinger]-[Personvern og sikkerhet]-[Full disktilgang] og koble til på nytt',
 			'meta.tvMode' => 'TV-modus',
 			'meta.recommended' => 'Anbefalt',

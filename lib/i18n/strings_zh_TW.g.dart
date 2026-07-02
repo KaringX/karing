@@ -760,7 +760,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get novice => '新手模式';
 	@override String get willCompleteAfterRebootInstall => '請重啟設備, 以便完成系統擴充安裝';
 	@override String get willCompleteAfterRebootUninstall => '請重啟設備, 以便完成系統擴充解除安裝';
-	@override String get requestNeedsUserApproval => '1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能-網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線';
+	@override String get requestNeedsUserApproval => '1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能]-[網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線\n3. [系統設定]-[一般]-[登入項目與擴充功能]-[擴充功能] 啟用 [karingServiceSE]\n完成後重新連線';
 	@override String get FullDiskAccessPermissionRequired => '請在 [系統設定]-[隱私權與安全性]-[全磁碟存取權限] 裡開啟 [karingServiceSE] 權限後, 重新連線';
 	@override String get tvMode => 'TV 模式';
 	@override String get recommended => '推薦';
@@ -1388,7 +1388,7 @@ extension on TranslationsZhTw {
 			'meta.novice' => '新手模式',
 			'meta.willCompleteAfterRebootInstall' => '請重啟設備, 以便完成系統擴充安裝',
 			'meta.willCompleteAfterRebootUninstall' => '請重啟設備, 以便完成系統擴充解除安裝',
-			'meta.requestNeedsUserApproval' => '1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能-網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線',
+			'meta.requestNeedsUserApproval' => '1. [系統設定]-[隱私權與安全性] 裡 [允許] Karing 安裝系統擴充\n2. [系統設定]-[一般]-[登入項目與擴充功能]-[網路擴充功能] 啟用 [karingServiceSE]\n完成後重新連線\n3. [系統設定]-[一般]-[登入項目與擴充功能]-[擴充功能] 啟用 [karingServiceSE]\n完成後重新連線',
 			'meta.FullDiskAccessPermissionRequired' => '請在 [系統設定]-[隱私權與安全性]-[全磁碟存取權限] 裡開啟 [karingServiceSE] 權限後, 重新連線',
 			'meta.tvMode' => 'TV 模式',
 			'meta.recommended' => '推薦',

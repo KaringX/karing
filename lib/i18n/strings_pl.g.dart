@@ -760,7 +760,7 @@ class _Translations$meta$pl implements Translations$meta$en {
 	@override String get novice => 'Tryb nowicjusza';
 	@override String get willCompleteAfterRebootInstall => 'Uruchom ponownie urządzenie, aby zakończyć instalację rozszerzenia systemowego';
 	@override String get willCompleteAfterRebootUninstall => 'Uruchom ponownie urządzenie, aby zakończyć odinstalowywanie rozszerzenia systemowego';
-	@override String get requestNeedsUserApproval => '1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania Rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu';
+	@override String get requestNeedsUserApproval => '1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu\n3. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenia] włącz [karingServiceSE]\npołącz ponownie po zakończeniu';
 	@override String get FullDiskAccessPermissionRequired => 'Włącz uprawnienie [karingServiceSE] w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]-[Pełny dostęp do dysku] i połącz ponownie';
 	@override String get tvMode => 'Tryb TV';
 	@override String get recommended => 'Polecane';
@@ -1388,7 +1388,7 @@ extension on TranslationsPl {
 			'meta.novice' => 'Tryb nowicjusza',
 			'meta.willCompleteAfterRebootInstall' => 'Uruchom ponownie urządzenie, aby zakończyć instalację rozszerzenia systemowego',
 			'meta.willCompleteAfterRebootUninstall' => 'Uruchom ponownie urządzenie, aby zakończyć odinstalowywanie rozszerzenia systemowego',
-			'meta.requestNeedsUserApproval' => '1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania Rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu',
+			'meta.requestNeedsUserApproval' => '1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu\n3. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenia] włącz [karingServiceSE]\npołącz ponownie po zakończeniu',
 			'meta.FullDiskAccessPermissionRequired' => 'Włącz uprawnienie [karingServiceSE] w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]-[Pełny dostęp do dysku] i połącz ponownie',
 			'meta.tvMode' => 'Tryb TV',
 			'meta.recommended' => 'Polecane',

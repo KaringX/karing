@@ -760,7 +760,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get novice => 'حالت مبتدی';
 	@override String get willCompleteAfterRebootInstall => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.';
 	@override String get willCompleteAfterRebootUninstall => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود';
-	@override String get requestNeedsUserApproval => '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]';
+	@override String get requestNeedsUserApproval => '۱. [تنظیمات سیستم]-[حریم خصوصی و امنیت] - [مجاز کردن] Karing برای نصب افزونه‌های سیستم\n۲. [تنظیمات سیستم]-[عمومی]-[آیتم‌های ورود و افزونه‌ها]-[افزونه‌های شبکه] فعال‌سازی [karingServiceSE]\nپس از اتمام، دوباره متصل شوید\n۳. [تنظیمات سیستم]-[عمومی]-[آیتم‌های ورود و افزونه‌ها]-[افزونه‌ها] فعال‌سازی [karingServiceSE]\nپس از اتمام، دوباره متصل شوید';
 	@override String get FullDiskAccessPermissionRequired => 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.';
 	@override String get tvMode => 'حالت تلویزیون';
 	@override String get recommended => 'پیشنهادی';
@@ -1388,7 +1388,7 @@ extension on TranslationsFa {
 			'meta.novice' => 'حالت مبتدی',
 			'meta.willCompleteAfterRebootInstall' => 'لطفاً دستگاه خود را مجدداً راه اندازی کنید تا نصب افزونه سیستم تکمیل شود.',
 			'meta.willCompleteAfterRebootUninstall' => 'لطفاً دستگاه خود را مجدداً راه‌اندازی کنید تا حذف نصب افزونه سیستم تکمیل شود',
-			'meta.requestNeedsUserApproval' => '۱. [تنظیمات سیستم] - [حریم خصوصی و امنیت] - [مجاز کردن] برای نصب افزونه‌های سیستم. ۲. [تنظیمات سیستم] - [عمومی] - [ورود و افزونه‌ها - افزونه‌های شبکه] - [karingServiceSE] - [پس از اتمام، دوباره متصل شوید]',
+			'meta.requestNeedsUserApproval' => '۱. [تنظیمات سیستم]-[حریم خصوصی و امنیت] - [مجاز کردن] Karing برای نصب افزونه‌های سیستم\n۲. [تنظیمات سیستم]-[عمومی]-[آیتم‌های ورود و افزونه‌ها]-[افزونه‌های شبکه] فعال‌سازی [karingServiceSE]\nپس از اتمام، دوباره متصل شوید\n۳. [تنظیمات سیستم]-[عمومی]-[آیتم‌های ورود و افزونه‌ها]-[افزونه‌ها] فعال‌سازی [karingServiceSE]\nپس از اتمام، دوباره متصل شوید',
 			'meta.FullDiskAccessPermissionRequired' => 'لطفاً مجوز [karingServiceSE] را در [System Settings] - [Privacy and Security] - [Full Disk Access] فعال کنید و دوباره متصل شوید.',
 			'meta.tvMode' => 'حالت تلویزیون',
 			'meta.recommended' => 'پیشنهادی',

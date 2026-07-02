@@ -480,7 +480,7 @@
         "novice": "Anfängermodus",
         "willCompleteAfterRebootInstall": "Bitte starten Sie Ihr Gerät neu, um die Installation der Systemerweiterung abzuschließen",
         "willCompleteAfterRebootUninstall": "Bitte starten Sie Ihr Gerät neu, um die Deinstallation der Systemerweiterung abzuschließen",
-        "requestNeedsUserApproval": "1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte-Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden",
+        "requestNeedsUserApproval": "1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden\n3. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Erweiterungen] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden",
         "FullDiskAccessPermissionRequired": "Bitte aktivieren Sie die Berechtigung [karingServiceSE] in [Systemeinstellungen]-[Datenschutz und Sicherheit]-[Festplattenvollzugriff] und verbinden Sie sich erneut",
         "tvMode": "TV-Modus",
         "recommended": "Empfohlen",

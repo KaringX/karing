@@ -480,7 +480,7 @@
         "novice": "Begyndertilstand",
         "willCompleteAfterRebootInstall": "Genstart venligst din enhed for at gennemføre installationen af systemudvidelsen",
         "willCompleteAfterRebootUninstall": "Genstart venligst din enhed for at gennemføre afinstallationen af systemudvidelsen",
-        "requestNeedsUserApproval": "1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonemner Udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse",
+        "requestNeedsUserApproval": "1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse\n3. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Udvidelser] aktiver [karingServiceSE]\ngenforbind efter fuldførelse",
         "FullDiskAccessPermissionRequired": "Aktiver venligst tilladelsen [karingServiceSE] i [Systemindstillinger]-[Privatliv og sikkerhed]-[Fuld diskadgang] og genforbind",
         "tvMode": "TV-tilstand",
         "recommended": "Anbefalet",

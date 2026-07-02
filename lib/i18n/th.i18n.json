@@ -480,7 +480,7 @@
         "novice": "โหมดมือใหม่",
         "willCompleteAfterRebootInstall": "โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การติดตั้งส่วนขยายระบบสำเร็จ",
         "willCompleteAfterRebootUninstall": "โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การถอนการติดตั้งส่วนขยายของระบบสำเร็จ",
-        "requestNeedsUserApproval": "1. โปรดคลิก [อนุญาต] Karing ให้ติดตั้งส่วนขยายระบบใน [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น",
+        "requestNeedsUserApproval": "1. กรุณา[อนุญาต] Karing ติดตั้งส่วนขยายระบบใน[การตั้งค่าระบบ]-[ความเป็นส่วนตัวและความปลอดภัย]\n2. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยายเครือข่าย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น\n3. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยาย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น",
         "FullDiskAccessPermissionRequired": "โปรดเปิดใช้งานสิทธิ์ [karingServiceSE] ใน [System Settings]-[Privacy and Security]-[Full Disk Access Permission] และเชื่อมต่อใหม่",
         "tvMode": "โหมด TV",
         "recommended": "แนะนำ",

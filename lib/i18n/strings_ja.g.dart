@@ -760,7 +760,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get novice => '初心者モード';
 	@override String get willCompleteAfterRebootInstall => 'システム拡張機能のインストールを完了するには、デバイスを再起動してください';
 	@override String get willCompleteAfterRebootUninstall => 'システム拡張機能のアンインストールを完了するには、デバイスを再起動してください';
-	@override String get requestNeedsUserApproval => '1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能 - ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください';
+	@override String get requestNeedsUserApproval => '1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能] - [ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください\n3. [システム設定] - [一般] - [ログイン項目と拡張機能] - [拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください';
 	@override String get FullDiskAccessPermissionRequired => '[システム設定] - [プライバシーとセキュリティ] - [フルディスクアクセス] で [karingServiceSE] 権限を有効にして、再接続してください';
 	@override String get tvMode => 'TV モード';
 	@override String get recommended => 'おすすめ';
@@ -1388,7 +1388,7 @@ extension on TranslationsJa {
 			'meta.novice' => '初心者モード',
 			'meta.willCompleteAfterRebootInstall' => 'システム拡張機能のインストールを完了するには、デバイスを再起動してください',
 			'meta.willCompleteAfterRebootUninstall' => 'システム拡張機能のアンインストールを完了するには、デバイスを再起動してください',
-			'meta.requestNeedsUserApproval' => '1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能 - ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください',
+			'meta.requestNeedsUserApproval' => '1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能] - [ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください\n3. [システム設定] - [一般] - [ログイン項目と拡張機能] - [拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください',
 			'meta.FullDiskAccessPermissionRequired' => '[システム設定] - [プライバシーとセキュリティ] - [フルディスクアクセス] で [karingServiceSE] 権限を有効にして、再接続してください',
 			'meta.tvMode' => 'TV モード',
 			'meta.recommended' => 'おすすめ',

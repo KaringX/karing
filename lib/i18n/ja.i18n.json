@@ -480,7 +480,7 @@
         "novice": "初心者モード",
         "willCompleteAfterRebootInstall": "システム拡張機能のインストールを完了するには、デバイスを再起動してください",
         "willCompleteAfterRebootUninstall": "システム拡張機能のアンインストールを完了するには、デバイスを再起動してください",
-        "requestNeedsUserApproval": "1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能 - ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください",
+        "requestNeedsUserApproval": "1. [システム設定] - [プライバシーとセキュリティ] で、Karing によるシステム拡張機能のインストールを [許可] してください\n2. [システム設定] - [一般] - [ログイン項目と拡張機能] - [ネットワーク拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください\n3. [システム設定] - [一般] - [ログイン項目と拡張機能] - [拡張機能] で [karingServiceSE] をオンにします\n完了後に再接続してください",
         "FullDiskAccessPermissionRequired": "[システム設定] - [プライバシーとセキュリティ] - [フルディスクアクセス] で [karingServiceSE] 権限を有効にして、再接続してください",
         "tvMode": "TV モード",
         "recommended": "おすすめ",

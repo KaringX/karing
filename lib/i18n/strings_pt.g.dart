@@ -760,7 +760,7 @@ class _Translations$meta$pt implements Translations$meta$en {
 	@override String get novice => 'Modo Iniciante';
 	@override String get willCompleteAfterRebootInstall => 'Por favor reinicie o seu dispositivo para concluir a instalação da extensão do sistema';
 	@override String get willCompleteAfterRebootUninstall => 'Por favor reinicie o seu dispositivo para concluir a desinstalação da extensão do sistema';
-	@override String get requestNeedsUserApproval => '1. Por favor [Permitir] que o Karing instale extensões do sistema em [Definições do Sistema]-[Privacidade e Segurança]\n2. [Definições do Sistema]-[Geral]-[Itens de Início Extensões]-[Extensão de Rede] ativar [karingServiceSE]\nreligar após a conclusão';
+	@override String get requestNeedsUserApproval => '1. Por favor [Permitir] que o Karing instale extensões do sistema em [Definições do Sistema]-[Privacidade e Segurança]\n2. [Definições do Sistema]-[Geral]-[Itens de Início e Extensões]-[Extensão de Rede] ativar [karingServiceSE]\nreligar após a conclusão\n3. [Definições do Sistema]-[Geral]-[Itens de Início e Extensões]-[Extensões] ativar [karingServiceSE]\nreligar após a conclusão';
 	@override String get FullDiskAccessPermissionRequired => 'Por favor ative a permissão [karingServiceSE] em [Definições do Sistema]-[Privacidade e Segurança]-[Permissão de Acesso Total ao Disco] e religue';
 	@override String get tvMode => 'Modo TV';
 	@override String get recommended => 'Recomendado';
@@ -1388,7 +1388,7 @@ extension on TranslationsPt {
 			'meta.novice' => 'Modo Iniciante',
 			'meta.willCompleteAfterRebootInstall' => 'Por favor reinicie o seu dispositivo para concluir a instalação da extensão do sistema',
 			'meta.willCompleteAfterRebootUninstall' => 'Por favor reinicie o seu dispositivo para concluir a desinstalação da extensão do sistema',
-			'meta.requestNeedsUserApproval' => '1. Por favor [Permitir] que o Karing instale extensões do sistema em [Definições do Sistema]-[Privacidade e Segurança]\n2. [Definições do Sistema]-[Geral]-[Itens de Início Extensões]-[Extensão de Rede] ativar [karingServiceSE]\nreligar após a conclusão',
+			'meta.requestNeedsUserApproval' => '1. Por favor [Permitir] que o Karing instale extensões do sistema em [Definições do Sistema]-[Privacidade e Segurança]\n2. [Definições do Sistema]-[Geral]-[Itens de Início e Extensões]-[Extensão de Rede] ativar [karingServiceSE]\nreligar após a conclusão\n3. [Definições do Sistema]-[Geral]-[Itens de Início e Extensões]-[Extensões] ativar [karingServiceSE]\nreligar após a conclusão',
 			'meta.FullDiskAccessPermissionRequired' => 'Por favor ative a permissão [karingServiceSE] em [Definições do Sistema]-[Privacidade e Segurança]-[Permissão de Acesso Total ao Disco] e religue',
 			'meta.tvMode' => 'Modo TV',
 			'meta.recommended' => 'Recomendado',

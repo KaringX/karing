@@ -296,8 +296,13 @@ class _BackupAndSyncWebdavScreenState
     _fileList.clear();
     setState(() {});
     List<int?> ports = await VPNService.getPortsByPrefer(false);
+    if (!ports.contains(null)) {
+      ports.insert(0, null);
+    }
     late ReturnResult<WebdavClient> result;
+    int? currentPort;
     for (var port in ports) {
+      currentPort = port;
       result = await WebdavClientUtils.connect(
         port,
         settingConfig.webdav.url,
@@ -310,9 +315,9 @@ class _BackupAndSyncWebdavScreenState
       if (result.error == null) {
         break;
       }
-      if (WebdavClientUtils.isInnerError(result.error!.message)) {
+      /*if (WebdavClientUtils.isInnerError(result.error!.message)) {
         break;
-      }
+      }*/
     }
     if (!mounted) {
       return;
@@ -323,8 +328,7 @@ class _BackupAndSyncWebdavScreenState
       final tcontext = Translations.of(context);
       DialogUtils.showAlertDialog(
         context,
-        tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed +
-            result.error!.message,
+        "${tcontext.BackupAndSyncWebdavScreen.webdavLoginFailed} ${result.error!.message} port:$currentPort",
         showCopy: true,
         showFAQ: true,
         withVersion: true,

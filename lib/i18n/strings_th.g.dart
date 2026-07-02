@@ -760,7 +760,7 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get novice => 'โหมดมือใหม่';
 	@override String get willCompleteAfterRebootInstall => 'โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การติดตั้งส่วนขยายระบบสำเร็จ';
 	@override String get willCompleteAfterRebootUninstall => 'โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การถอนการติดตั้งส่วนขยายของระบบสำเร็จ';
-	@override String get requestNeedsUserApproval => '1. โปรดคลิก [อนุญาต] Karing ให้ติดตั้งส่วนขยายระบบใน [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น';
+	@override String get requestNeedsUserApproval => '1. กรุณา[อนุญาต] Karing ติดตั้งส่วนขยายระบบใน[การตั้งค่าระบบ]-[ความเป็นส่วนตัวและความปลอดภัย]\n2. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยายเครือข่าย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น\n3. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยาย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น';
 	@override String get FullDiskAccessPermissionRequired => 'โปรดเปิดใช้งานสิทธิ์ [karingServiceSE] ใน [System Settings]-[Privacy and Security]-[Full Disk Access Permission] และเชื่อมต่อใหม่';
 	@override String get tvMode => 'โหมด TV';
 	@override String get recommended => 'แนะนำ';
@@ -1388,7 +1388,7 @@ extension on TranslationsTh {
 			'meta.novice' => 'โหมดมือใหม่',
 			'meta.willCompleteAfterRebootInstall' => 'โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การติดตั้งส่วนขยายระบบสำเร็จ',
 			'meta.willCompleteAfterRebootUninstall' => 'โปรดรีสตาร์ทอุปกรณ์ของคุณเพื่อให้การถอนการติดตั้งส่วนขยายของระบบสำเร็จ',
-			'meta.requestNeedsUserApproval' => '1. โปรดคลิก [อนุญาต] Karing ให้ติดตั้งส่วนขยายระบบใน [System Settings]-[Privacy and Security]\n2. [System Settings]-[General]-[Login Items & Extensions]-[Network Extension] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น',
+			'meta.requestNeedsUserApproval' => '1. กรุณา[อนุญาต] Karing ติดตั้งส่วนขยายระบบใน[การตั้งค่าระบบ]-[ความเป็นส่วนตัวและความปลอดภัย]\n2. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยายเครือข่าย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น\n3. [การตั้งค่าระบบ]-[ทั่วไป]-[รายการเข้าสู่ระบบและส่วนขยาย]-[ส่วนขยาย] เปิดใช้งาน [karingServiceSE]\nเชื่อมต่อใหม่หลังจากเสร็จสิ้น',
 			'meta.FullDiskAccessPermissionRequired' => 'โปรดเปิดใช้งานสิทธิ์ [karingServiceSE] ใน [System Settings]-[Privacy and Security]-[Full Disk Access Permission] และเชื่อมต่อใหม่',
 			'meta.tvMode' => 'โหมด TV',
 			'meta.recommended' => 'แนะนำ',

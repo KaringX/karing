@@ -480,7 +480,7 @@
         "novice": "Acemi Modu",
         "willCompleteAfterRebootInstall": "Sistem genişletme kurulumunu tamamlamak için lütfen cihazınızı yeniden başlatın",
         "willCompleteAfterRebootUninstall": "Sistem genişletme kaldırma işlemini tamamlamak için lütfen cihazınızı yeniden başlatın",
-        "requestNeedsUserApproval": "1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Giriş Öğeleri Uzantıları]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamladıktan sonra yeniden bağlanın",
+        "requestNeedsUserApproval": "1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın\n3. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Uzantılar] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın",
         "FullDiskAccessPermissionRequired": "Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik]-[Tam Disk Erişimi İzni] bölümünden [karingServiceSE] iznini etkinleştirin ve yeniden bağlanın",
         "tvMode": "TV Modu",
         "recommended": "Önerilen",

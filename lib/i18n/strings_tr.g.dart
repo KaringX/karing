@@ -760,7 +760,7 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get novice => 'Acemi Modu';
 	@override String get willCompleteAfterRebootInstall => 'Sistem genişletme kurulumunu tamamlamak için lütfen cihazınızı yeniden başlatın';
 	@override String get willCompleteAfterRebootUninstall => 'Sistem genişletme kaldırma işlemini tamamlamak için lütfen cihazınızı yeniden başlatın';
-	@override String get requestNeedsUserApproval => '1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing\'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Giriş Öğeleri Uzantıları]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamladıktan sonra yeniden bağlanın';
+	@override String get requestNeedsUserApproval => '1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing\'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın\n3. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Uzantılar] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın';
 	@override String get FullDiskAccessPermissionRequired => 'Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik]-[Tam Disk Erişimi İzni] bölümünden [karingServiceSE] iznini etkinleştirin ve yeniden bağlanın';
 	@override String get tvMode => 'TV Modu';
 	@override String get recommended => 'Önerilen';
@@ -1388,7 +1388,7 @@ extension on TranslationsTr {
 			'meta.novice' => 'Acemi Modu',
 			'meta.willCompleteAfterRebootInstall' => 'Sistem genişletme kurulumunu tamamlamak için lütfen cihazınızı yeniden başlatın',
 			'meta.willCompleteAfterRebootUninstall' => 'Sistem genişletme kaldırma işlemini tamamlamak için lütfen cihazınızı yeniden başlatın',
-			'meta.requestNeedsUserApproval' => '1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing\'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Giriş Öğeleri Uzantıları]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamladıktan sonra yeniden bağlanın',
+			'meta.requestNeedsUserApproval' => '1. Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik] bölümünden Karing\'in sistem uzantılarını yüklemesine [İzin Verin]\n2. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Ağ Uzantısı] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın\n3. [Sistem Ayarları]-[Genel]-[Oturum Açma Öğeleri ve Uzantılar]-[Uzantılar] bölümünden [karingServiceSE] etkinleştirin\ntamamlandıktan sonra yeniden bağlanın',
 			'meta.FullDiskAccessPermissionRequired' => 'Lütfen [Sistem Ayarları]-[Gizlilik ve Güvenlik]-[Tam Disk Erişimi İzni] bölümünden [karingServiceSE] iznini etkinleştirin ve yeniden bağlanın',
 			'meta.tvMode' => 'TV Modu',
 			'meta.recommended' => 'Önerilen',

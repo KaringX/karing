@@ -480,7 +480,7 @@
         "novice": "Tryb nowicjusza",
         "willCompleteAfterRebootInstall": "Uruchom ponownie urządzenie, aby zakończyć instalację rozszerzenia systemowego",
         "willCompleteAfterRebootUninstall": "Uruchom ponownie urządzenie, aby zakończyć odinstalowywanie rozszerzenia systemowego",
-        "requestNeedsUserApproval": "1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania Rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu",
+        "requestNeedsUserApproval": "1. Zezwól aplikacji Karing na instalowanie rozszerzeń systemowych w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]\n2. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenie sieciowe] włącz [karingServiceSE]\npołącz ponownie po zakończeniu\n3. W [Ustawienia systemowe]-[Ogólne]-[Elementy logowania i rozszerzenia]-[Rozszerzenia] włącz [karingServiceSE]\npołącz ponownie po zakończeniu",
         "FullDiskAccessPermissionRequired": "Włącz uprawnienie [karingServiceSE] w [Ustawienia systemowe]-[Prywatność i bezpieczeństwo]-[Pełny dostęp do dysku] i połącz ponownie",
         "tvMode": "Tryb TV",
         "recommended": "Polecane",

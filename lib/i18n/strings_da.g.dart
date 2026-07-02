@@ -760,7 +760,7 @@ class _Translations$meta$da implements Translations$meta$en {
 	@override String get novice => 'Begyndertilstand';
 	@override String get willCompleteAfterRebootInstall => 'Genstart venligst din enhed for at gennemføre installationen af systemudvidelsen';
 	@override String get willCompleteAfterRebootUninstall => 'Genstart venligst din enhed for at gennemføre afinstallationen af systemudvidelsen';
-	@override String get requestNeedsUserApproval => '1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonemner Udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse';
+	@override String get requestNeedsUserApproval => '1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse\n3. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Udvidelser] aktiver [karingServiceSE]\ngenforbind efter fuldførelse';
 	@override String get FullDiskAccessPermissionRequired => 'Aktiver venligst tilladelsen [karingServiceSE] i [Systemindstillinger]-[Privatliv og sikkerhed]-[Fuld diskadgang] og genforbind';
 	@override String get tvMode => 'TV-tilstand';
 	@override String get recommended => 'Anbefalet';
@@ -1388,7 +1388,7 @@ extension on TranslationsDa {
 			'meta.novice' => 'Begyndertilstand',
 			'meta.willCompleteAfterRebootInstall' => 'Genstart venligst din enhed for at gennemføre installationen af systemudvidelsen',
 			'meta.willCompleteAfterRebootUninstall' => 'Genstart venligst din enhed for at gennemføre afinstallationen af systemudvidelsen',
-			'meta.requestNeedsUserApproval' => '1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonemner Udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse',
+			'meta.requestNeedsUserApproval' => '1. [Tillad] Karing at installere systemudvidelser i [Systemindstillinger]-[Privatliv og sikkerhed]\n2. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Netværksudvidelse] aktiver [karingServiceSE]\ngenforbind efter fuldførelse\n3. I [Systemindstillinger]-[Generelt]-[Logonelementer og udvidelser]-[Udvidelser] aktiver [karingServiceSE]\ngenforbind efter fuldførelse',
 			'meta.FullDiskAccessPermissionRequired' => 'Aktiver venligst tilladelsen [karingServiceSE] i [Systemindstillinger]-[Privatliv og sikkerhed]-[Fuld diskadgang] og genforbind',
 			'meta.tvMode' => 'TV-tilstand',
 			'meta.recommended' => 'Anbefalet',

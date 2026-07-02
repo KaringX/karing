@@ -760,7 +760,7 @@ class _Translations$meta$sv implements Translations$meta$en {
 	@override String get novice => 'Nybörjarläge';
 	@override String get willCompleteAfterRebootInstall => 'Starta om din enhet för att slutföra installationen av systemtillägget';
 	@override String get willCompleteAfterRebootUninstall => 'Starta om din enhet för att slutföra avinstallationen av systemtillägget';
-	@override String get requestNeedsUserApproval => '1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt Tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande';
+	@override String get requestNeedsUserApproval => '1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande\n3. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Tillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande';
 	@override String get FullDiskAccessPermissionRequired => 'Aktivera behörigheten [karingServiceSE] i [Systeminställningar]-[Integritet och säkerhet]-[Full diskåtkomst] och återanslut';
 	@override String get tvMode => 'TV-läge';
 	@override String get recommended => 'Rekommenderat';
@@ -1388,7 +1388,7 @@ extension on TranslationsSv {
 			'meta.novice' => 'Nybörjarläge',
 			'meta.willCompleteAfterRebootInstall' => 'Starta om din enhet för att slutföra installationen av systemtillägget',
 			'meta.willCompleteAfterRebootUninstall' => 'Starta om din enhet för att slutföra avinstallationen av systemtillägget',
-			'meta.requestNeedsUserApproval' => '1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt Tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande',
+			'meta.requestNeedsUserApproval' => '1. [Tillåt] Karing att installera systemtillägg i [Systeminställningar]-[Integritet och säkerhet]\n2. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Nätverkstillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande\n3. I [Systeminställningar]-[Allmänt]-[Inloggningsobjekt och tillägg]-[Tillägg] aktivera [karingServiceSE]\nåteranslut efter slutförande',
 			'meta.FullDiskAccessPermissionRequired' => 'Aktivera behörigheten [karingServiceSE] i [Systeminställningar]-[Integritet och säkerhet]-[Full diskåtkomst] och återanslut',
 			'meta.tvMode' => 'TV-läge',
 			'meta.recommended' => 'Rekommenderat',

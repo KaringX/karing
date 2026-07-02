@@ -480,7 +480,7 @@
         "novice": "Modalità Novizio",
         "willCompleteAfterRebootInstall": "Riavvia il dispositivo per completare l'installazione dell'estensione di sistema",
         "willCompleteAfterRebootUninstall": "Riavvia il dispositivo per completare la disinstallazione dell'estensione di sistema",
-        "requestNeedsUserApproval": "1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine",
+        "requestNeedsUserApproval": "1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine\n3. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensioni] abilita [karingServiceSE]\nriconnetti al termine",
         "FullDiskAccessPermissionRequired": "Abilita il permesso [karingServiceSE] in [Impostazioni di Sistema]-[Privacy e Sicurezza]-[Accesso Completo al Disco] e riconnetti",
         "tvMode": "Modalità TV",
         "recommended": "Consigliato",

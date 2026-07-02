@@ -760,7 +760,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get novice => 'Modo principiante';
 	@override String get willCompleteAfterRebootInstall => 'Reinicie su dispositivo para completar la instalación de la extensión del sistema';
 	@override String get willCompleteAfterRebootUninstall => 'Reinicie su dispositivo para completar la desinstalación de la extensión del sistema';
-	@override String get requestNeedsUserApproval => '1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones-Extensión de red] active [karingServiceSE]\nreconnecte después de completar';
+	@override String get requestNeedsUserApproval => '1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensión de red] active [karingServiceSE]\nreconecte después de completar\n3. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensiones] active [karingServiceSE]\nreconecte después de completar';
 	@override String get FullDiskAccessPermissionRequired => 'Habilite el permiso [karingServiceSE] en [Ajustes del sistema]-[Privacidad y seguridad]-[Acceso total al disco] y vuelva a conectarse';
 	@override String get tvMode => 'Modo TV';
 	@override String get recommended => 'Recomendado';
@@ -1388,7 +1388,7 @@ extension on TranslationsEs {
 			'meta.novice' => 'Modo principiante',
 			'meta.willCompleteAfterRebootInstall' => 'Reinicie su dispositivo para completar la instalación de la extensión del sistema',
 			'meta.willCompleteAfterRebootUninstall' => 'Reinicie su dispositivo para completar la desinstalación de la extensión del sistema',
-			'meta.requestNeedsUserApproval' => '1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones-Extensión de red] active [karingServiceSE]\nreconnecte después de completar',
+			'meta.requestNeedsUserApproval' => '1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensión de red] active [karingServiceSE]\nreconecte después de completar\n3. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensiones] active [karingServiceSE]\nreconecte después de completar',
 			'meta.FullDiskAccessPermissionRequired' => 'Habilite el permiso [karingServiceSE] en [Ajustes del sistema]-[Privacidad y seguridad]-[Acceso total al disco] y vuelva a conectarse',
 			'meta.tvMode' => 'Modo TV',
 			'meta.recommended' => 'Recomendado',

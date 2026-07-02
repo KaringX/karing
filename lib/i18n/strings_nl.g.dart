@@ -760,7 +760,7 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get novice => 'Beginnersmodus';
 	@override String get willCompleteAfterRebootInstall => 'Start uw apparaat opnieuw op om de installatie van de systeemextensie te voltooien';
 	@override String get willCompleteAfterRebootUninstall => 'Start uw apparaat opnieuw op om de verwijdering van de systeemextensie te voltooien';
-	@override String get requestNeedsUserApproval => '1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems Extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing';
+	@override String get requestNeedsUserApproval => '1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing\n3. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Extensies] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing';
 	@override String get FullDiskAccessPermissionRequired => 'Schakel de machtiging [karingServiceSE] in bij [Systeeminstellingen]-[Privacy en beveiliging]-[Volledige schijf toegang] en verbind opnieuw';
 	@override String get tvMode => 'TV-modus';
 	@override String get recommended => 'Aanbevolen';
@@ -1388,7 +1388,7 @@ extension on TranslationsNl {
 			'meta.novice' => 'Beginnersmodus',
 			'meta.willCompleteAfterRebootInstall' => 'Start uw apparaat opnieuw op om de installatie van de systeemextensie te voltooien',
 			'meta.willCompleteAfterRebootUninstall' => 'Start uw apparaat opnieuw op om de verwijdering van de systeemextensie te voltooien',
-			'meta.requestNeedsUserApproval' => '1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems Extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing',
+			'meta.requestNeedsUserApproval' => '1. [Sta toe] dat Karing systeemextensies installeert in [Systeeminstellingen]-[Privacy en beveiliging]\n2. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Netwerkextensie] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing\n3. [Systeeminstellingen]-[Algemeen]-[Inlogitems en extensies]-[Extensies] schakel [karingServiceSE] in\nopnieuw verbinden na voltooiing',
 			'meta.FullDiskAccessPermissionRequired' => 'Schakel de machtiging [karingServiceSE] in bij [Systeeminstellingen]-[Privacy en beveiliging]-[Volledige schijf toegang] en verbind opnieuw',
 			'meta.tvMode' => 'TV-modus',
 			'meta.recommended' => 'Aanbevolen',

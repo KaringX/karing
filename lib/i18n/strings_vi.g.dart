@@ -760,7 +760,7 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get novice => 'Chế độ người mới';
 	@override String get willCompleteAfterRebootInstall => 'Vui lòng khởi động lại thiết bị của bạn để hoàn tất cài đặt tiện ích hệ thống';
 	@override String get willCompleteAfterRebootUninstall => 'Vui lòng khởi động lại thiết bị của bạn để hoàn tất việc gỡ bỏ tiện ích hệ thống';
-	@override String get requestNeedsUserApproval => '1. Vui lòng [Cho phép] Karing cài đặt tiện ích hệ thống trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]\n2. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng-Tiện ích mạng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành';
+	@override String get requestNeedsUserApproval => '1. Vui lòng [Cho phép] Karing cài đặt tiện ích hệ thống trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]\n2. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng]-[Tiện ích mạng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành\n3. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng]-[Tiện ích mở rộng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành';
 	@override String get FullDiskAccessPermissionRequired => 'Vui lòng bật quyền [karingServiceSE] trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]-[Quyền truy cập toàn bộ ổ đĩa] và kết nối lại';
 	@override String get tvMode => 'Chế độ TV';
 	@override String get recommended => 'Đề xuất';
@@ -1388,7 +1388,7 @@ extension on TranslationsVi {
 			'meta.novice' => 'Chế độ người mới',
 			'meta.willCompleteAfterRebootInstall' => 'Vui lòng khởi động lại thiết bị của bạn để hoàn tất cài đặt tiện ích hệ thống',
 			'meta.willCompleteAfterRebootUninstall' => 'Vui lòng khởi động lại thiết bị của bạn để hoàn tất việc gỡ bỏ tiện ích hệ thống',
-			'meta.requestNeedsUserApproval' => '1. Vui lòng [Cho phép] Karing cài đặt tiện ích hệ thống trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]\n2. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng-Tiện ích mạng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành',
+			'meta.requestNeedsUserApproval' => '1. Vui lòng [Cho phép] Karing cài đặt tiện ích hệ thống trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]\n2. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng]-[Tiện ích mạng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành\n3. [Cài đặt hệ thống]-[Cài đặt chung]-[Mục đăng nhập và Tiện ích mở rộng]-[Tiện ích mở rộng] bật [karingServiceSE]\nkết nối lại sau khi hoàn thành',
 			'meta.FullDiskAccessPermissionRequired' => 'Vui lòng bật quyền [karingServiceSE] trong [Cài đặt hệ thống]-[Quyền riêng tư và Bảo mật]-[Quyền truy cập toàn bộ ổ đĩa] và kết nối lại',
 			'meta.tvMode' => 'Chế độ TV',
 			'meta.recommended' => 'Đề xuất',

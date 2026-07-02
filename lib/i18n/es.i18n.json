@@ -480,7 +480,7 @@
         "novice": "Modo principiante",
         "willCompleteAfterRebootInstall": "Reinicie su dispositivo para completar la instalación de la extensión del sistema",
         "willCompleteAfterRebootUninstall": "Reinicie su dispositivo para completar la desinstalación de la extensión del sistema",
-        "requestNeedsUserApproval": "1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones-Extensión de red] active [karingServiceSE]\nreconnecte después de completar",
+        "requestNeedsUserApproval": "1. [Permita] que Karing instale extensiones del sistema en [Ajustes del sistema]-[Privacidad y seguridad]\n2. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensión de red] active [karingServiceSE]\nreconecte después de completar\n3. [Ajustes del sistema]-[General]-[Elementos de inicio y extensiones]-[Extensiones] active [karingServiceSE]\nreconecte después de completar",
         "FullDiskAccessPermissionRequired": "Habilite el permiso [karingServiceSE] en [Ajustes del sistema]-[Privacidad y seguridad]-[Acceso total al disco] y vuelva a conectarse",
         "tvMode": "Modo TV",
         "recommended": "Recomendado",

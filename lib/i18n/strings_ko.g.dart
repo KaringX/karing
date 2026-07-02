@@ -760,7 +760,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get novice => '초보자 모드';
 	@override String get willCompleteAfterRebootInstall => '시스템 확장 프로그램 설치를 완료하려면 장치를 재시작하십시오';
 	@override String get willCompleteAfterRebootUninstall => '시스템 확장 프로그램 삭제를 완료하려면 장치를 재시작하십시오';
-	@override String get requestNeedsUserApproval => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Karing이 시스템 확장 프로그램을 설치하도록 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램-네트워크 확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오';
+	@override String get requestNeedsUserApproval => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Karing이 시스템 확장 프로그램을 설치하도록 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[네트워크 확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오\n3. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오';
 	@override String get FullDiskAccessPermissionRequired => '[시스템 설정]-[개인정보 보호 및 보안]-[전체 디스크 액세스 권한]에서 [karingServiceSE] 권한을 활성화하고 다시 연결하십시오';
 	@override String get tvMode => 'TV 모드';
 	@override String get recommended => '추천';
@@ -1388,7 +1388,7 @@ extension on TranslationsKo {
 			'meta.novice' => '초보자 모드',
 			'meta.willCompleteAfterRebootInstall' => '시스템 확장 프로그램 설치를 완료하려면 장치를 재시작하십시오',
 			'meta.willCompleteAfterRebootUninstall' => '시스템 확장 프로그램 삭제를 완료하려면 장치를 재시작하십시오',
-			'meta.requestNeedsUserApproval' => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Karing이 시스템 확장 프로그램을 설치하도록 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램-네트워크 확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오',
+			'meta.requestNeedsUserApproval' => '1. [시스템 설정]-[개인정보 보호 및 보안]에서 Karing이 시스템 확장 프로그램을 설치하도록 [허용]하십시오\n2. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[네트워크 확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오\n3. [시스템 설정]-[일반]-[로그인 항목 및 확장 프로그램]-[확장 프로그램]에서 [karingServiceSE]를 켭니다\n완료 후 다시 연결하십시오',
 			'meta.FullDiskAccessPermissionRequired' => '[시스템 설정]-[개인정보 보호 및 보안]-[전체 디스크 액세스 권한]에서 [karingServiceSE] 권한을 활성화하고 다시 연결하십시오',
 			'meta.tvMode' => 'TV 모드',
 			'meta.recommended' => '추천',

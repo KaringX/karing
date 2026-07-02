@@ -760,7 +760,7 @@ class _Translations$meta$it implements Translations$meta$en {
 	@override String get novice => 'Modalità Novizio';
 	@override String get willCompleteAfterRebootInstall => 'Riavvia il dispositivo per completare l\'installazione dell\'estensione di sistema';
 	@override String get willCompleteAfterRebootUninstall => 'Riavvia il dispositivo per completare la disinstallazione dell\'estensione di sistema';
-	@override String get requestNeedsUserApproval => '1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine';
+	@override String get requestNeedsUserApproval => '1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine\n3. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensioni] abilita [karingServiceSE]\nriconnetti al termine';
 	@override String get FullDiskAccessPermissionRequired => 'Abilita il permesso [karingServiceSE] in [Impostazioni di Sistema]-[Privacy e Sicurezza]-[Accesso Completo al Disco] e riconnetti';
 	@override String get tvMode => 'Modalità TV';
 	@override String get recommended => 'Consigliato';
@@ -1388,7 +1388,7 @@ extension on TranslationsIt {
 			'meta.novice' => 'Modalità Novizio',
 			'meta.willCompleteAfterRebootInstall' => 'Riavvia il dispositivo per completare l\'installazione dell\'estensione di sistema',
 			'meta.willCompleteAfterRebootUninstall' => 'Riavvia il dispositivo per completare la disinstallazione dell\'estensione di sistema',
-			'meta.requestNeedsUserApproval' => '1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine',
+			'meta.requestNeedsUserApproval' => '1. Consenti a Karing di installare estensioni di sistema in [Impostazioni di Sistema]-[Privacy e Sicurezza]\n2. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensione di Rete] abilita [karingServiceSE]\nriconnetti al termine\n3. In [Impostazioni di Sistema]-[Generali]-[Elementi Login ed Estensioni]-[Estensioni] abilita [karingServiceSE]\nriconnetti al termine',
 			'meta.FullDiskAccessPermissionRequired' => 'Abilita il permesso [karingServiceSE] in [Impostazioni di Sistema]-[Privacy e Sicurezza]-[Accesso Completo al Disco] e riconnetti',
 			'meta.tvMode' => 'Modalità TV',
 			'meta.recommended' => 'Consigliato',

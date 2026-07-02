@@ -760,7 +760,7 @@ class _Translations$meta$de implements Translations$meta$en {
 	@override String get novice => 'Anfängermodus';
 	@override String get willCompleteAfterRebootInstall => 'Bitte starten Sie Ihr Gerät neu, um die Installation der Systemerweiterung abzuschließen';
 	@override String get willCompleteAfterRebootUninstall => 'Bitte starten Sie Ihr Gerät neu, um die Deinstallation der Systemerweiterung abzuschließen';
-	@override String get requestNeedsUserApproval => '1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte-Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden';
+	@override String get requestNeedsUserApproval => '1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden\n3. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Erweiterungen] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden';
 	@override String get FullDiskAccessPermissionRequired => 'Bitte aktivieren Sie die Berechtigung [karingServiceSE] in [Systemeinstellungen]-[Datenschutz und Sicherheit]-[Festplattenvollzugriff] und verbinden Sie sich erneut';
 	@override String get tvMode => 'TV-Modus';
 	@override String get recommended => 'Empfohlen';
@@ -1388,7 +1388,7 @@ extension on TranslationsDe {
 			'meta.novice' => 'Anfängermodus',
 			'meta.willCompleteAfterRebootInstall' => 'Bitte starten Sie Ihr Gerät neu, um die Installation der Systemerweiterung abzuschließen',
 			'meta.willCompleteAfterRebootUninstall' => 'Bitte starten Sie Ihr Gerät neu, um die Deinstallation der Systemerweiterung abzuschließen',
-			'meta.requestNeedsUserApproval' => '1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte-Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden',
+			'meta.requestNeedsUserApproval' => '1. Bitte [erlauben] Sie Karing, Systemerweiterungen in [Systemeinstellungen]-[Datenschutz und Sicherheit] zu installieren\n2. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Netzwerkerweiterung] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden\n3. [Systemeinstellungen]-[Allgemein]-[Anmeldeobjekte und Erweiterungen]-[Erweiterungen] aktivieren Sie [karingServiceSE]\nnach Abschluss erneut verbinden',
 			'meta.FullDiskAccessPermissionRequired' => 'Bitte aktivieren Sie die Berechtigung [karingServiceSE] in [Systemeinstellungen]-[Datenschutz und Sicherheit]-[Festplattenvollzugriff] und verbinden Sie sich erneut',
 			'meta.tvMode' => 'TV-Modus',
 			'meta.recommended' => 'Empfohlen',

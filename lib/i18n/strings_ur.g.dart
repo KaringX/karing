@@ -760,7 +760,7 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get novice => 'نوآموز موڈ';
 	@override String get willCompleteAfterRebootInstall => 'سسٹم ایکسٹینشن کی انسٹالیشن مکمل کرنے کے لیے براہ کرم اپنے ڈیوائس کو دوبارہ شروع کریں';
 	@override String get willCompleteAfterRebootUninstall => 'سسٹم ایکسٹینشن کی ان انسٹالیشن مکمل کرنے کے لیے براہ کرم اپنے ڈیوائس کو دوبارہ شروع کریں';
-	@override String get requestNeedsUserApproval => '1. براہ کرم Karing کو [سسٹم کی ترتیبات]-[رازداری اور سیکیورٹی] میں سسٹم ایکسٹینشن انسٹال کرنے کی [اجازت دیں]\n2. [سسٹم کی ترتیبات]-[عام]-[لاگ ان آئٹمز ایکسٹینشنز]-[نیٹ ورک ایکسٹینشن] [karingServiceSE] فعال کریں\nمکمل ہونے کے بعد دوبارہ منسلک کریں';
+	@override String get requestNeedsUserApproval => '1. براہ کرم Karing کو [سسٹم سیٹنگز]-[پرائیویسی اور سیکیورٹی] میں سسٹم ایکسٹینشنز انسٹال کرنے کی [اجازت دیں]\n2. [سسٹم سیٹنگز]-[عام]-[لاگ ان آئٹمز اور ایکسٹینشنز]-[نیٹ ورک ایکسٹینشن] [karingServiceSE] کو فعال کریں\nمکمل ہونے کے بعد دوبارہ کنیکٹ کریں\n3. [سسٹم سیٹنگز]-[عام]-[لاگ ان آئٹمز اور ایکسٹینشنز]-[ایکسٹینشنز] [karingServiceSE] کو فعال کریں\nمکمل ہونے کے بعد دوبارہ کنیکٹ کریں';
 	@override String get FullDiskAccessPermissionRequired => 'براہ کرم [سسٹم کی ترتیبات]-[رازداری اور سیکیورٹی]-[مکمل ڈسک رسائی کی اجازت] میں [karingServiceSE] کی اجازت فعال کریں اور دوبارہ منسلک کریں';
 	@override String get tvMode => 'TV موڈ';
 	@override String get recommended => 'تجویز کردہ';
@@ -1388,7 +1388,7 @@ extension on TranslationsUr {
 			'meta.novice' => 'نوآموز موڈ',
 			'meta.willCompleteAfterRebootInstall' => 'سسٹم ایکسٹینشن کی انسٹالیشن مکمل کرنے کے لیے براہ کرم اپنے ڈیوائس کو دوبارہ شروع کریں',
 			'meta.willCompleteAfterRebootUninstall' => 'سسٹم ایکسٹینشن کی ان انسٹالیشن مکمل کرنے کے لیے براہ کرم اپنے ڈیوائس کو دوبارہ شروع کریں',
-			'meta.requestNeedsUserApproval' => '1. براہ کرم Karing کو [سسٹم کی ترتیبات]-[رازداری اور سیکیورٹی] میں سسٹم ایکسٹینشن انسٹال کرنے کی [اجازت دیں]\n2. [سسٹم کی ترتیبات]-[عام]-[لاگ ان آئٹمز ایکسٹینشنز]-[نیٹ ورک ایکسٹینشن] [karingServiceSE] فعال کریں\nمکمل ہونے کے بعد دوبارہ منسلک کریں',
+			'meta.requestNeedsUserApproval' => '1. براہ کرم Karing کو [سسٹم سیٹنگز]-[پرائیویسی اور سیکیورٹی] میں سسٹم ایکسٹینشنز انسٹال کرنے کی [اجازت دیں]\n2. [سسٹم سیٹنگز]-[عام]-[لاگ ان آئٹمز اور ایکسٹینشنز]-[نیٹ ورک ایکسٹینشن] [karingServiceSE] کو فعال کریں\nمکمل ہونے کے بعد دوبارہ کنیکٹ کریں\n3. [سسٹم سیٹنگز]-[عام]-[لاگ ان آئٹمز اور ایکسٹینشنز]-[ایکسٹینشنز] [karingServiceSE] کو فعال کریں\nمکمل ہونے کے بعد دوبارہ کنیکٹ کریں',
 			'meta.FullDiskAccessPermissionRequired' => 'براہ کرم [سسٹم کی ترتیبات]-[رازداری اور سیکیورٹی]-[مکمل ڈسک رسائی کی اجازت] میں [karingServiceSE] کی اجازت فعال کریں اور دوبارہ منسلک کریں',
 			'meta.tvMode' => 'TV موڈ',
 			'meta.recommended' => 'تجویز کردہ',
