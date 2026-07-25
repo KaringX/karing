@@ -50,6 +50,7 @@ import 'package:flutter_single_instance/flutter_single_instance.dart';
 List<String> processArgs = [];
 StartFailedReason? startFailedReason;
 String? startFailedReasonDesc;
+bool windowBoundsDirty = false;
 
 // Restores the window to its last saved position/size
 Future<bool> _loadWindowBounds() async {
@@ -94,13 +95,32 @@ Future<bool> _loadWindowBounds() async {
 }
 
 Future<void> _saveWindowBounds() async {
-  final windowConfig = SettingManager.getConfig().window;
+  if (!windowBoundsDirty) {
+    return;
+  }
+  windowBoundsDirty = false;
+  await SettingManager.save();
+}
+
+Future<void> _updateWindowBounds() async {
+  if (!PlatformUtils.isPC()) {
+    return;
+  }
   final bounds = await windowManager.getBounds();
+  if (bounds.width < SettingConfigItemWindow.kMinWindowSize.width - 1 ||
+      bounds.height < SettingConfigItemWindow.kMinWindowSize.height - 1) {
+    return;
+  }
+  if (bounds.left <= -SettingConfigItemWindow.kMinWindowSize.width - 1 ||
+      bounds.top <= -SettingConfigItemWindow.kMinWindowSize.height - 1) {
+    return;
+  }
+  final windowConfig = SettingManager.getConfig().window;
   windowConfig.x = bounds.left;
   windowConfig.y = bounds.top;
   windowConfig.width = bounds.width;
   windowConfig.height = bounds.height;
-  await SettingManager.save();
+  windowBoundsDirty = true;
 }
 
 void main(List<String> args) async {
@@ -477,16 +497,36 @@ class MyAppState extends State<MyApp>
   @override
   void onWindowClose() async {
     Log.d("onWindowClose");
+    await _saveWindowBounds();
     await windowManager.hide();
     _windowVisibleForMac = false;
     AppLifecycleStateNofity.statePaused("close");
   }
 
   @override
-  void onWindowMinimize() {
+  void onWindowResize() => _updateWindowBounds();
+
+  @override
+  void onWindowResized() => _updateWindowBounds();
+
+  @override
+  void onWindowMove() => _updateWindowBounds();
+
+  @override
+  void onWindowMoved() => _updateWindowBounds();
+
+  @override
+  void onWindowMaximize() => _updateWindowBounds();
+
+  @override
+  void onWindowUnmaximize() => _updateWindowBounds();
+
+  @override
+  void onWindowMinimize() async {
     _windowVisibleForMac = false;
     Log.d("onWindowMinimize");
     AppLifecycleStateNofity.statePaused("minimize");
+    await _saveWindowBounds();
   }
 
   @override

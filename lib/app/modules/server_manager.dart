@@ -43,7 +43,7 @@ class ServerConfig {
     items = [];
   }
 
-  ServerConfig clone(bool includeDisable) {
+  ServerConfig clone(bool includeDisable, bool includeServers) {
     ServerConfig config = ServerConfig();
     for (var i in items) {
       if (!includeDisable) {
@@ -52,7 +52,7 @@ class ServerConfig {
         }
       }
 
-      config.items.add(i.clone());
+      config.items.add(i.clone(includeServers: includeServers));
     }
     return config;
   }
@@ -578,7 +578,7 @@ class ServerManager {
     DateTime now = DateTime.now();
 
     try {
-      var config = _serverConfig.clone(true);
+      var config = _serverConfig.clone(true, false);
       for (var item in config.items) {
         if (item.isRemote() && item.updateDuration != null) {
           DateTime? updateTime = DateTime.tryParse(item.updateTime);

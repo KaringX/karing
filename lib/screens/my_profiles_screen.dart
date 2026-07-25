@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
@@ -406,10 +407,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         ServerManager.getTestOutboundServerLatencyTestingCount(item.groupid) +
         item.testLatency.length;
     final tcontext = Translations.of(context);
+    var settings = SettingManager.getConfig();
+    String updateTime = "";
+    DateTime? date = DateTime.tryParse(item.updateTime);
+    if (date != null) {
+      updateTime =
+          "${DateFormat.yMd(settings.languageTag).format(date)} ${DateFormat.Hm(settings.languageTag).format(date)}";
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const SizedBox(width: 10),
+        const SizedBox(width: 5),
         if (item.isRemote()) ...[
           Row(
             children: [
@@ -445,7 +453,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       const Icon(Icons.access_time_outlined, size: 26),
                       const SizedBox(width: 5),
                       Text(
-                        DateTimeUtils.dateTimeToDate(item.updateTime),
+                        updateTime,
                         style: const TextStyle(
                           fontSize: ThemeConfig.kFontSizeListSubItem,
                         ),
@@ -464,7 +472,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
           Row(
@@ -485,7 +493,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.qr_code_scanner_outlined, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],
@@ -501,7 +509,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.add_outlined, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],
@@ -519,7 +527,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.share_outlined, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],
@@ -535,7 +543,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.edit_outlined, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],
@@ -564,7 +572,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 5),
                 ],
               )
             : Row(
@@ -600,7 +608,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                           : const SizedBox.shrink(),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 5),
                 ],
               ),
         if (item.isRemote() && item.site.isNotEmpty) ...[
@@ -621,7 +629,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.link_outlined, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],
@@ -660,7 +668,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                   child: const Icon(Icons.delete_outline, size: 26),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
             ],
           ),
         ],

@@ -1859,10 +1859,10 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "09c573f98ff6c5e98d527f351f037eb8ea9ff684a6e9e84b2e91357144016254"
+      sha256: a84bf3a83b3ce1c89fce28b9f97659e3826df14a73a256952465aac2c5efdf5a
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "9.24.0"
+    version: "9.25.0"
   sentry_dart_plugin:
     dependency: "direct dev"
     description:
@@ -1875,10 +1875,10 @@ packages:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "4a04b7e1901b8128df783b6d36d48706b07b0cd055e621517c998de87f5dafb9"
+      sha256: c85575266d91f57364e9b4cb522835156ec3c5581c78339dc7fae491cd0c6f76
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "9.24.0"
+    version: "9.25.0"
   serial_csv:
     dependency: transitive
     description:
@@ -2271,8 +2271,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: fbbedb06a0898970797ea1445f787eb63d7f0276
-      resolved-ref: fbbedb06a0898970797ea1445f787eb63d7f0276
+      ref: "4b268e64212475085f15f1bc3e620d54d4a89ae4"
+      resolved-ref: "4b268e64212475085f15f1bc3e620d54d4a89ae4"
       url: "https://github.com/KaringX/webdav_client.git"
     source: git
     version: "1.0.2"

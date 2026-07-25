@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.23+2600
+version: 1.2.23+2602
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.35.0"
@@ -21,7 +21,7 @@ dependencies:
   emoji_regex: 0.0.5
   dash_flags: 0.1.1
   country: 7.0.0
-  sentry_flutter: 9.24.0
+  sentry_flutter: 9.25.0
   device_info_plus: 11.2.2
   network_info_plus: 7.0.0
   connectivity_plus: 7.3.0
@@ -136,7 +136,7 @@ dependencies:
     #path: ../webdav_client/
     git:
       url: https://github.com/KaringX/webdav_client.git
-      ref: fbbedb06a0898970797ea1445f787eb63d7f0276
+      ref: 4b268e64212475085f15f1bc3e620d54d4a89ae4
   android_package_manager: #0.7.1
     #path: ../android_package_manager
     git:
@@ -194,9 +194,6 @@ flutter:
     - family: Emoji # from hiddify
       fonts:
         - asset: assets/fonts/Emoji.ttf
-    - family: AntDesign # from icons_plus
-      fonts:
-        - asset: assets/fonts/AntDesign.ttf
 
 ffigen:
   llvm-path:
