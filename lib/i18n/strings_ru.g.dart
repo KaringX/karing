@@ -635,7 +635,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get destination => 'Цель';
 	@override String get outletIpByCurrentSelected => 'Выходной IP';
 	@override String get outletIpByDirect => 'Выходной IP:${_root.outboundRuleMode.direct}';
-	@override String get connect => 'Соединить';
+	@override String get connect => 'Соединения';
 	@override String get disconnect => 'Отключить';
 	@override String get reconnect => 'Повторное подключение';
 	@override String get connected => 'Подключено';
@@ -1264,7 +1264,7 @@ extension on TranslationsRu {
 			'meta.destination' => 'Цель',
 			'meta.outletIpByCurrentSelected' => 'Выходной IP',
 			'meta.outletIpByDirect' => 'Выходной IP:${_root.outboundRuleMode.direct}',
-			'meta.connect' => 'Соединить',
+			'meta.connect' => 'Соединения',
 			'meta.disconnect' => 'Отключить',
 			'meta.reconnect' => 'Повторное подключение',
 			'meta.connected' => 'Подключено',
