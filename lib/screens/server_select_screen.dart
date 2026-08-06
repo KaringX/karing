@@ -1394,7 +1394,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                 context,
                                 themes,
                                 ThemeConfig.kListItemHeight,
-                                isTesting | isWaitTesting,
+                                isTesting || isWaitTesting,
                                 isTesting,
                                 server.latency,
                                 onTapLatencyReload: () async {

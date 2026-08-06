@@ -283,6 +283,16 @@
         "update": "재시작하여 업데이트",
         "cancel": "나중에"
     },
+    "loginScreen": {
+        "provider": "VPN 서비스 제공자",
+        "providerName": "@:{loginScreen.provider} 코드/별칭/URL",
+        "providerNameRequired": "@:{loginScreen.provider} 코드/별칭/URL을 입력하세요",
+        "unsupportedProvider": "지원되지 않는 @:{loginScreen.provider}",
+        "unsupportedProviderType": "지원되지 않는 @:{loginScreen.provider} 유형",
+        "unActivedProvider": "제공자 연결 기능이 활성화되지 않았습니다",
+        "providerLoginSupportRequired": "코드/별칭은 @:{loginScreen.provider}에 문의하세요\n@:{loginScreen.provider} 연동은 다음을 참고하세요: $p",
+        "providerDisclaimer": "면책 조항: @:{loginScreen.provider}는 제3자 서비스이며 본 앱과 무관합니다"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "[항상 VPN 연결]이 켜져 있는 경우 끄고 다시 연결해 보십시오",
         "resetPort": "포트를 사용 가능한 다른 포트로 변경하거나 포트를 사용 중인 애플리케이션을 종료하십시오."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "고정 IP",
         "staticIPTips": "[TUN HijackDNS] 또는 [@:{SettingsScreen.inboundDomainResolve}]를 활성화해야 합니다.",
-        "isp": "VPN 제공업체",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "도메인 접미사",
         "domain": "도메인",
         "domainKeyword": "도메인 키워드",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

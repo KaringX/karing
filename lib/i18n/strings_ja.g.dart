@@ -56,6 +56,7 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$ja SettingsScreen = _Translations$SettingsScreen$ja._(_root);
 	@override late final _Translations$UserAgreementScreen$ja UserAgreementScreen = _Translations$UserAgreementScreen$ja._(_root);
 	@override late final _Translations$VersionUpdateScreen$ja VersionUpdateScreen = _Translations$VersionUpdateScreen$ja._(_root);
+	@override late final _Translations$loginScreen$ja loginScreen = _Translations$loginScreen$ja._(_root);
 	@override late final _Translations$CommonWidget$ja CommonWidget = _Translations$CommonWidget$ja._(_root);
 	@override late final _Translations$main$ja main = _Translations$main$ja._(_root);
 	@override late final _Translations$meta$ja meta = _Translations$meta$ja._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$ja implements Translations$VersionUpdate
 	@override String get cancel => '今はしない';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$ja implements Translations$loginScreen$en {
+	_Translations$loginScreen$ja._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPNサービス提供者';
+	@override String get providerName => '${_root.loginScreen.provider} code/alias/URL';
+	@override String get providerNameRequired => '${_root.loginScreen.provider} code/alias/URL を入力してください';
+	@override String get unsupportedProvider => '未対応の${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => '未対応の${_root.loginScreen.provider}タイプ';
+	@override String get unActivedProvider => 'プロバイダ連携機能は有効化されていません';
+	@override String providerLoginSupportRequired({required Object p}) => 'code/alias は${_root.loginScreen.provider}にお問い合わせください\n${_root.loginScreen.provider}連携は次を参照: ${p}';
+	@override String get providerDisclaimer => '免責事項: ${_root.loginScreen.provider}はサードパーティサービスであり、本アプリとは無関係です';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$ja implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$ja._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => '静的 IP';
 	@override String get staticIPTips => '[TUN HijackDNS] または [${_root.SettingsScreen.inboundDomainResolve}] を有効にする必要があります。';
-	@override String get isp => 'VPN プロバイダー';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'ドメインサフィックス';
 	@override String get domain => 'ドメイン';
 	@override String get domainKeyword => 'ドメインキーワード';
@@ -1200,6 +1218,14 @@ extension on TranslationsJa {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => '新バージョン [${p}] の準備ができました',
 			'VersionUpdateScreen.update' => '再起動して更新',
 			'VersionUpdateScreen.cancel' => '今はしない',
+			'loginScreen.provider' => 'VPNサービス提供者',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} code/alias/URL',
+			'loginScreen.providerNameRequired' => '${_root.loginScreen.provider} code/alias/URL を入力してください',
+			'loginScreen.unsupportedProvider' => '未対応の${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => '未対応の${_root.loginScreen.provider}タイプ',
+			'loginScreen.unActivedProvider' => 'プロバイダ連携機能は有効化されていません',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'code/alias は${_root.loginScreen.provider}にお問い合わせください\n${_root.loginScreen.provider}連携は次を参照: ${p}',
+			'loginScreen.providerDisclaimer' => '免責事項: ${_root.loginScreen.provider}はサードパーティサービスであり、本アプリとは無関係です',
 			'CommonWidget.diableAlwayOnVPN' => '[常に VPN を接続] がオンの場合は、オフにしてから再接続を試してください',
 			'CommonWidget.resetPort' => 'ポートを利用可能な別のポートに変更するか、ポートを使用しているアプリケーションを終了してください。',
 			'main.tray.menuOpen' => '開く',
@@ -1318,7 +1344,7 @@ extension on TranslationsJa {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => '静的 IP',
 			'meta.staticIPTips' => '[TUN HijackDNS] または [${_root.SettingsScreen.inboundDomainResolve}] を有効にする必要があります。',
-			'meta.isp' => 'VPN プロバイダー',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'ドメインサフィックス',
 			'meta.domain' => 'ドメイン',
 			'meta.domainKeyword' => 'ドメインキーワード',
@@ -1458,6 +1484,8 @@ extension on TranslationsJa {
 			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			'diversionCustomGroupPreset' => 'プリセット [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => '注意: 追加後、手動で順序を調整する必要がある場合があります。そうしないと、新しく追加された分流が有効にならない場合があります',
 			'rulesetEnableTips' => 'ヒント: オプションをオンにした後、[${_root.meta.diversionRules}] に移動して関連するルールを設定してください。設定しないと有効になりません',
 			'ispUserAgentTips' => '[${_root.meta.isp}] は、[HTTP] リクエストの [UserAgent] に基づいて、さまざまなサブスクリプションタイプのデータを送信します',
@@ -1466,8 +1494,6 @@ extension on TranslationsJa {
 			'isp.unbind' => ({required Object p}) => 'バインド解除 [${p}]',
 			'isp.faq' => ({required Object p}) => 'よくある質問 [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'フォロー [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] が無効または期限切れです',
 			'permission.camera' => 'カメラ',

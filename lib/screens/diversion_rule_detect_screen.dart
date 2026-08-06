@@ -368,13 +368,13 @@ class _DiversionRuleDetectScreenState
     String ip = "";
     var setting = SettingManager.getConfig();
     if (!setting.novice && setting.dns.enableInboundDomainResolve) {
-      ReturnResult<String> resultDns = await ClashApi.dnsQueryWithDefaultRouter(
+      final resultDns = await ClashApi.dnsQueryWithDefaultRouter(
         SettingManager.getConfig().proxy.controlPort,
         _encoded.value,
         setting.ipStrategy.name,
       );
       if (resultDns.error == null) {
-        var config = jsonDecode(resultDns.data!);
+        var config = jsonDecode(resultDns.data!.item2);
         if (config != null) {
           List addr = config["addr"] ?? [];
           //var dns = config["tag"];
@@ -385,7 +385,7 @@ class _DiversionRuleDetectScreenState
       }
     }
 
-    ReturnResult<String> outboundResult = await ClashApi.outboundQuery(
+    final outboundResult = await ClashApi.outboundQuery(
       setting.proxy.controlPort,
       _encoded.value,
       ip,
@@ -393,7 +393,7 @@ class _DiversionRuleDetectScreenState
 
     if (outboundResult.error == null) {
       try {
-        Map<String, dynamic> data = jsonDecode(outboundResult.data!);
+        Map<String, dynamic> data = jsonDecode(outboundResult.data!.item2);
         String err = data["err"] ?? "";
         if (err.isEmpty) {
           String rule = data["rule"] ?? "";

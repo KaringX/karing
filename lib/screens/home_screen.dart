@@ -17,6 +17,8 @@ import 'package:hotkey_manager/hotkey_manager.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
+import 'package:karing/app/modules/board_provider_notice_manager.dart';
 import 'package:karing/app/modules/notice_manager.dart';
 import 'package:karing/app/modules/proxy_cluster.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
@@ -859,7 +861,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       }
     }
     setting.dns.clientSubnetLatestUpdate = now.toString();
-    ReturnResult<String> result = await HttpUtils.httpGetRequest(
+    final result = await HttpUtils.httpGetRequest(
       "https://checkip.amazonaws.com/",
       setting.proxy.mixedDirectPort,
       null,
@@ -871,7 +873,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (result.error != null) {
       return;
     }
-    String ip = result.data!.trim();
+    String ip = result.data!.item2.trim();
     if (NetworkUtils.isIpv4(ip) || NetworkUtils.isIpv6(ip)) {
       if (setting.dns.clientSubnet != ip) {
         setting.dns.clientSubnet = ip;
@@ -965,6 +967,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
   Future<void> _onInitAllFinish() async {
     NoticeManager.onEventCheck.add(() {
+      setState(() {});
+    });
+    BoardProviderNoticeManager.onEventCheck.add(() {
       setState(() {});
     });
     AutoUpdateManager.onEventCheck.add(() {
@@ -2006,9 +2011,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   void onTapNotice(NoticeItem noticeItem) async {
     InAppNotifications.dismiss();
     if (noticeItem.url.isNotEmpty) {
-      String url = noticeItem.ispId.isNotEmpty
-          ? noticeItem.url
-          : await UrlLauncherUtils.reorganizationUrlWithAnchor(noticeItem.url);
+      String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
+        noticeItem.url,
+      );
       if (!context.mounted) {
         return;
       }
@@ -2033,6 +2038,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     }
     noticeItem.readed = true;
     NoticeManager.save();
+    BoardProviderNoticeManager.save();
 
     setState(() {});
     Future.delayed(const Duration(seconds: 0), () async {
@@ -2429,12 +2435,23 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     Size windowSize = MediaQuery.of(context).size;
     var settingConfig = SettingManager.getConfig();
     AutoUpdateCheckVersion checkVersion = AutoUpdateManager.getVersionCheck();
-    List<Notice> notices = NoticeManager.getNotices();
+    final notices = NoticeManager.getNotices();
+    final providerNotices = BoardProviderNoticeManager.getNotices();
     NoticeItem? noticeItem;
+    BoardProviderNoticeItem? providerNoticeItem;
     for (var notice in notices) {
       noticeItem = notice.getFirstUnread();
       if (noticeItem != null) {
         break;
+      }
+    }
+    for (var notice in providerNotices) {
+      var provider = BoardProviderManager.getBindedProvider();
+      if (provider != null) {
+        providerNoticeItem = notice.getFirstUnread(provider.id);
+        if (providerNoticeItem != null) {
+          break;
+        }
       }
     }
 
@@ -2527,7 +2544,8 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
                                       ),
                                     ),
                                     if (checkVersion.newVersion ||
-                                        noticeItem != null) ...[
+                                        noticeItem != null ||
+                                        providerNoticeItem != null) ...[
                                       Positioned(
                                         left: 10,
                                         top: 0,

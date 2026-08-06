@@ -57,7 +57,7 @@ class CommonDialog {
       errMessage += "\n\n${tcontext.CommonWidget.resetPort}";
     } else if (errMessage.contains("wintun: Failed to setup adapter")) {
       if (Platform.isWindows) {
-        WindowsTunFixUtils.getDriverList();
+        WindowsTunFixUtils.removeDriver();
       }
     } else if (errMessage.contains("github.com/sagernet/bbolt") &&
         (errMessage.contains("invalid page type") ||

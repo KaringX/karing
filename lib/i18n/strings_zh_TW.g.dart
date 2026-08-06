@@ -56,6 +56,7 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	@override late final Translations$SettingsScreen$zh_TW SettingsScreen = Translations$SettingsScreen$zh_TW.internal(_root);
 	@override late final Translations$UserAgreementScreen$zh_TW UserAgreementScreen = Translations$UserAgreementScreen$zh_TW.internal(_root);
 	@override late final Translations$VersionUpdateScreen$zh_TW VersionUpdateScreen = Translations$VersionUpdateScreen$zh_TW.internal(_root);
+	@override late final Translations$loginScreen$zh_TW loginScreen = Translations$loginScreen$zh_TW.internal(_root);
 	@override late final Translations$CommonWidget$zh_TW CommonWidget = Translations$CommonWidget$zh_TW.internal(_root);
 	@override late final Translations$main$zh_TW main = Translations$main$zh_TW.internal(_root);
 	@override late final Translations$meta$zh_TW meta = Translations$meta$zh_TW.internal(_root);
@@ -547,6 +548,23 @@ class Translations$VersionUpdateScreen$zh_TW implements Translations$VersionUpda
 	@override String get cancel => '暫不更新';
 }
 
+// Path: loginScreen
+class Translations$loginScreen$zh_TW implements Translations$loginScreen$en {
+	Translations$loginScreen$zh_TW.internal(this._root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN服務商';
+	@override String get providerName => '${_root.loginScreen.provider}代碼/別名/URL';
+	@override String get providerNameRequired => '請輸入${_root.loginScreen.provider}代碼/別名/URL';
+	@override String get unsupportedProvider => '不支援的${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => '不支援的${_root.loginScreen.provider}類型';
+	@override String get unActivedProvider => '綁定功能未啟用';
+	@override String providerLoginSupportRequired({required Object p}) => '代碼/別名請向${_root.loginScreen.provider}索取\n${_root.loginScreen.provider}接入請參考:${p}';
+	@override String get providerDisclaimer => '免責聲明:${_root.loginScreen.provider}為第三方服務,與本App無關';
+}
+
 // Path: CommonWidget
 class Translations$CommonWidget$zh_TW implements Translations$CommonWidget$en {
 	Translations$CommonWidget$zh_TW.internal(this._root);
@@ -689,7 +707,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => '靜態 IP';
 	@override String get staticIPTips => '需要開啟 [TUN HijackDNS] 或 [${_root.SettingsScreen.inboundDomainResolve}]';
-	@override String get isp => '機場';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => '網域後綴';
 	@override String get domain => '網域';
 	@override String get domainKeyword => '網域關鍵詞';
@@ -1200,6 +1218,14 @@ extension on TranslationsZhTw {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => '新版本 [${p}] 已就緒',
 			'VersionUpdateScreen.update' => '重啟更新',
 			'VersionUpdateScreen.cancel' => '暫不更新',
+			'loginScreen.provider' => 'VPN服務商',
+			'loginScreen.providerName' => '${_root.loginScreen.provider}代碼/別名/URL',
+			'loginScreen.providerNameRequired' => '請輸入${_root.loginScreen.provider}代碼/別名/URL',
+			'loginScreen.unsupportedProvider' => '不支援的${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => '不支援的${_root.loginScreen.provider}類型',
+			'loginScreen.unActivedProvider' => '綁定功能未啟用',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => '代碼/別名請向${_root.loginScreen.provider}索取\n${_root.loginScreen.provider}接入請參考:${p}',
+			'loginScreen.providerDisclaimer' => '免責聲明:${_root.loginScreen.provider}為第三方服務,與本App無關',
 			'CommonWidget.diableAlwayOnVPN' => '如果開啟了 [始終開啟 VPN], 請關閉 [始終開啟 VPN] 後重試連線',
 			'CommonWidget.resetPort' => '請將連接埠改為其他可用連接埠或者關閉佔用該連接埠的應用程式',
 			'main.tray.menuOpen' => '開啟',
@@ -1318,7 +1344,7 @@ extension on TranslationsZhTw {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => '靜態 IP',
 			'meta.staticIPTips' => '需要開啟 [TUN HijackDNS] 或 [${_root.SettingsScreen.inboundDomainResolve}]',
-			'meta.isp' => '機場',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => '網域後綴',
 			'meta.domain' => '網域',
 			'meta.domainKeyword' => '網域關鍵詞',
@@ -1458,6 +1484,8 @@ extension on TranslationsZhTw {
 			'diversionRulesKeep' => '保留 [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '預置 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 啟用的項會新增/覆蓋到 [${_root.meta.diversionCustomGroup}] 和 [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => '注意: 新增完畢後可能需要手動調整排序, 否則新新增的分流可能不會生效',
 			'rulesetEnableTips' => '提示: 開啟選項後, 請到 [${_root.meta.diversionRules}] 設定相關規則, 否則不會生效',
 			'ispUserAgentTips' => '[${_root.meta.isp}] 會根據 [HTTP] 請求裡的 [UserAgent] 下發不同訂閱類型的數據',
@@ -1466,8 +1494,6 @@ extension on TranslationsZhTw {
 			'isp.unbind' => ({required Object p}) => '解除綁定 [${p}]',
 			'isp.faq' => ({required Object p}) => '常見問題 [${p}]',
 			'isp.customerService' => ({required Object p}) => '客服 [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => '關注 [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] 無效或已過期',
 			'permission.camera' => '攝像頭',

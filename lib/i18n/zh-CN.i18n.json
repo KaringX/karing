@@ -283,6 +283,16 @@
         "update": "重启更新",
         "cancel": "暂不更新"
     },
+    "loginScreen": {
+        "provider": "VPN服务商(机场)",
+        "providerName": "@:{loginScreen.provider}编码/别名/URL",
+        "providerNameRequired": "请输入@:{loginScreen.provider}编码/别名/URL",
+        "unsupportedProvider": "不支持的@:{loginScreen.provider}",
+        "unsupportedProviderType": "不支持的@:{loginScreen.provider}类型",
+        "unActivedProvider": "绑定功能未激活",
+        "providerLoginSupportRequired": "编码/别名请找@:{loginScreen.provider}索要\n@:{loginScreen.provider}接入请参考:$p",
+        "providerDisclaimer": "免责声明:@:{loginScreen.provider}为三方服务,与本App无关"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "如果开启了[始终开启VPN], 请关闭[始终开启VPN]后重试连接",
         "resetPort": "请将端口改为其他可用端口或者关闭占用该端口的应用"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "静态IP",
         "staticIPTips": "需要开启[TUN HijackDNS]或[@:{SettingsScreen.inboundDomainResolve}]",
-        "isp": "机场",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "域名后缀",
         "domain": "域名",
         "domainKeyword": "域名关键词",

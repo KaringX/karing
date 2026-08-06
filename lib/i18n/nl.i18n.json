@@ -283,6 +283,16 @@
         "update": "Herstarten om bij te werken",
         "cancel": "Niet nu"
     },
+    "loginScreen": {
+        "provider": "VPN-provider",
+        "providerName": "@:{loginScreen.provider}-code/alias/URL",
+        "providerNameRequired": "Voer @:{loginScreen.provider}-code/alias/URL in",
+        "unsupportedProvider": "Niet-ondersteunde @:{loginScreen.provider}",
+        "unsupportedProviderType": "Niet-ondersteund @:{loginScreen.provider}-type",
+        "unActivedProvider": "Providerkoppeling is niet geactiveerd",
+        "providerLoginSupportRequired": "Neem voor code/alias contact op met je @:{loginScreen.provider}\nVoor @:{loginScreen.provider}-integratie, zie: $p",
+        "providerDisclaimer": "Disclaimer: @:{loginScreen.provider} is een service van derden en staat los van deze app"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Als [Altijd aan VPN] is ingeschakeld, schakel dit dan uit en probeer opnieuw verbinding te maken",
         "resetPort": "Wijzig de poort naar een andere beschikbare poort of sluit de app die de poort bezet."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "Statisch IP",
         "staticIPTips": "U moet [TUN HijackDNS] of [@:{SettingsScreen.inboundDomainResolve}] inschakelen.",
-        "isp": "VPN-provider",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Domein-suffix",
         "domain": "Domein",
         "domainKeyword": "Domein trefwoord",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

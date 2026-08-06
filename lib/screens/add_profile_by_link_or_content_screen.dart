@@ -605,7 +605,6 @@ class _AddProfileByLinkOrContentScreenState
       GroupItemOptions(
         stringPickerOptions: GroupItemStringPickerOptions(
           name: tcontext.downloadProxyStrategy,
-          tips: tcontext.SettingsScreen.ipStrategyTips,
           selected: _downloadMode.name,
           tupleStrings: tupleStrings,
           onPicker: _loading

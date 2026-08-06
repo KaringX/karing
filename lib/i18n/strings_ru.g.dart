@@ -56,6 +56,7 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$ru SettingsScreen = _Translations$SettingsScreen$ru._(_root);
 	@override late final _Translations$UserAgreementScreen$ru UserAgreementScreen = _Translations$UserAgreementScreen$ru._(_root);
 	@override late final _Translations$VersionUpdateScreen$ru VersionUpdateScreen = _Translations$VersionUpdateScreen$ru._(_root);
+	@override late final _Translations$loginScreen$ru loginScreen = _Translations$loginScreen$ru._(_root);
 	@override late final _Translations$CommonWidget$ru CommonWidget = _Translations$CommonWidget$ru._(_root);
 	@override late final _Translations$main$ru main = _Translations$main$ru._(_root);
 	@override late final _Translations$meta$ru meta = _Translations$meta$ru._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$ru implements Translations$VersionUpdate
 	@override String get cancel => 'Отменить';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$ru implements Translations$loginScreen$en {
+	_Translations$loginScreen$ru._(this._root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN-провайдер';
+	@override String get providerName => 'Kod/psevdonim/URL ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Vvedite kod/psevdonim/URL ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => 'Nepodderzhivaemyi ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Nepodderzhivaemyi tip ${_root.loginScreen.provider}';
+	@override String get unActivedProvider => 'Привязка провайдера не активирована';
+	@override String providerLoginSupportRequired({required Object p}) => 'Za kodom/psevdonimom obratites k svoemu ${_root.loginScreen.provider}\nPo podklyucheniyu ${_root.loginScreen.provider} sm.: ${p}';
+	@override String get providerDisclaimer => 'Otvetstvennost: ${_root.loginScreen.provider} yavlyaetsya storonnim servisom i ne svyazan s etim prilozheniem';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$ru implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$ru._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Статический IP';
 	@override String get staticIPTips => 'Вам необходимо включить [TUN HijackDNS] или [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'VPN-провайдер';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Суффикс доменного имени';
 	@override String get domain => 'Имя домена';
 	@override String get domainKeyword => 'Ключевые слова в имени домена';
@@ -1200,6 +1218,14 @@ extension on TranslationsRu {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
 			'VersionUpdateScreen.update' => 'Перезапустить',
 			'VersionUpdateScreen.cancel' => 'Отменить',
+			'loginScreen.provider' => 'VPN-провайдер',
+			'loginScreen.providerName' => 'Kod/psevdonim/URL ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Vvedite kod/psevdonim/URL ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => 'Nepodderzhivaemyi ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Nepodderzhivaemyi tip ${_root.loginScreen.provider}',
+			'loginScreen.unActivedProvider' => 'Привязка провайдера не активирована',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Za kodom/psevdonimom obratites k svoemu ${_root.loginScreen.provider}\nPo podklyucheniyu ${_root.loginScreen.provider} sm.: ${p}',
+			'loginScreen.providerDisclaimer' => 'Otvetstvennost: ${_root.loginScreen.provider} yavlyaetsya storonnim servisom i ne svyazan s etim prilozheniem',
 			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз',
 			'CommonWidget.resetPort' => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.',
 			'main.tray.menuOpen' => 'Открыть',
@@ -1318,7 +1344,7 @@ extension on TranslationsRu {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Статический IP',
 			'meta.staticIPTips' => 'Вам необходимо включить [TUN HijackDNS] или [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'VPN-провайдер',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Суффикс доменного имени',
 			'meta.domain' => 'Имя домена',
 			'meta.domainKeyword' => 'Ключевые слова в имени домена',
@@ -1458,6 +1484,8 @@ extension on TranslationsRu {
 			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Шаблоны для личных правил',
 			'diversionCustomGroupPresetTips' => 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.',
 			'rulesetEnableTips' => 'Совет: После включения опции перейдите в [${_root.meta.diversionRules}] и установите их, иначе опция не будет действовать',
 			'ispUserAgentTips' => '[${_root.meta.isp}] будет доставлять различные типы данных о подписке на основе [UserAgent] в запросе [HTTP].',
@@ -1466,8 +1494,6 @@ extension on TranslationsRu {
 			'isp.unbind' => ({required Object p}) => 'Отвязать[${p}]',
 			'isp.faq' => ({required Object p}) => 'Часто задаваемые вопросы[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Служба поддержки клиентов[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Следуйте[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]Недействительно, или срок действия истек',
 			'permission.camera' => 'Камера',

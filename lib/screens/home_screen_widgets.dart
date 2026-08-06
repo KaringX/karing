@@ -1658,6 +1658,40 @@ class ServerSelectCard extends StatefulWidget {
 }
 
 class _ServerSelectCardState extends State<ServerSelectCard> {
+  String _testingTag = "";
+  @override
+  void initState() {
+    ServerManager.onEventTestLatency(hashCode, (
+      String groupid,
+      String tag,
+      bool start,
+      bool finish,
+    ) {
+      if (!mounted) {
+        return;
+      }
+
+      if (_testingTag == tag) {
+        ServerConfigGroupItem? item = ServerManager.getByGroupId(groupid);
+        bool isTesting = false;
+        bool isWaitTesting = false;
+        if (item != null && item.enable) {
+          isTesting = ServerManager.isTestOutboundServerLatencying(
+            groupid,
+            tag,
+          );
+          isWaitTesting = item.testLatency.contains(tag);
+        }
+        if (!isTesting && !isWaitTesting) {
+          _testingTag = "";
+        }
+
+        setState(() {});
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -1717,6 +1751,9 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
       tag = "";
       groupid = "";
     }
+    if (_testingTag.isNotEmpty && _testingTag != tag) {
+      _testingTag = "";
+    }
 
     Size windowSize = MediaQuery.of(context).size;
     int alpha = SettingManager.getConfig().uiScreen.getWidgetAlpha();
@@ -1725,6 +1762,14 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
     if (delay.isNotEmpty) {
       width -= CommonWidget.kLatencyWidget + 5;
     }
+    ServerConfigGroupItem? item = ServerManager.getByGroupId(groupid);
+    bool isTesting = false;
+    bool isWaitTesting = false;
+    if (item != null && item.enable) {
+      isTesting = ServerManager.isTestOutboundServerLatencying(groupid, tag);
+      isWaitTesting = item.testLatency.contains(tag);
+    }
+
     return Material(
       color: theme.colorScheme.surfaceContainerLow.withAlpha(alpha),
       child: Tooltip(
@@ -1772,8 +1817,10 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                                 context,
                                 themes,
                                 null,
-                                false,
-                                false,
+                                isTesting ||
+                                    isWaitTesting ||
+                                    _testingTag.isNotEmpty,
+                                isWaitTesting,
                                 delay,
                                 onTapLatencyReload:
                                     tag.isEmpty || groupid.isEmpty
@@ -1787,7 +1834,8 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                                         if (!ok) {
                                           return;
                                         }
-
+                                        _testingTag = tag;
+                                        setState(() {});
                                         ServerManager.testOutboundLatencyForServer(
                                           tag,
                                           groupid,
@@ -1795,8 +1843,9 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                                           if (!mounted) {
                                             return;
                                           }
-                                          setState(() {});
                                           if (err != null) {
+                                            _testingTag = "";
+                                            setState(() {});
                                             DialogUtils.showAlertDialog(
                                               context,
                                               err.message,

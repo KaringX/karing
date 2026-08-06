@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
+import 'package:karing/app/modules/board_provider_notice_manager.dart';
 import 'package:karing/app/modules/notice_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -41,9 +42,11 @@ class Biz {
 
     AppLifecycleStateNofity.init();
     NoticeManager.init();
+    BoardProviderNoticeManager.init();
   }
 
   static Future<void> uninit() async {
+    BoardProviderNoticeManager.uninit();
     await NoticeManager.uninit();
     await AutoUpdateManager.uninit();
     AppLifecycleStateNofity.uninit();

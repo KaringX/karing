@@ -283,6 +283,16 @@
         "update": "Mulai ulang untuk memperbarui",
         "cancel": "Jangan perbarui sekarang"
     },
+    "loginScreen": {
+        "provider": "penyedia VPN",
+        "providerName": "Kode/alias/URL @:{loginScreen.provider}",
+        "providerNameRequired": "Masukkan kode/alias/URL @:{loginScreen.provider}",
+        "unsupportedProvider": "@:{loginScreen.provider} tidak didukung",
+        "unsupportedProviderType": "Tipe @:{loginScreen.provider} tidak didukung",
+        "unActivedProvider": "Fitur pengikatan penyedia belum diaktifkan",
+        "providerLoginSupportRequired": "Untuk kode/alias, hubungi @:{loginScreen.provider} Anda\nUntuk integrasi @:{loginScreen.provider}, lihat: $p",
+        "providerDisclaimer": "Penafian: @:{loginScreen.provider} adalah layanan pihak ketiga dan tidak terkait dengan aplikasi ini"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Jika [VPN selalu aktif] telah diaktifkan, matikan [VPN selalu aktif] lalu coba sambungkan lagi",
         "resetPort": "Silakan ubah port ke port lain yang tersedia atau tutup aplikasi yang menggunakan port tersebut"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "IP statis",
         "staticIPTips": "Perlu mengaktifkan [TUN HijackDNS] atau [@:{SettingsScreen.inboundDomainResolve}]",
-        "isp": "Penyedia",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Akhiran domain",
         "domain": "Domain",
         "domainKeyword": "Kata kunci domain",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

@@ -123,7 +123,7 @@ class _UrlTestGroupCustomScreenState
   Widget createWidget(String current) {
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 4;
-    const double rightWidth = 80;
+    const double rightWidth = 120;
     double leftWidth = windowSize.width - rightWidth - padding * 2 - 4;
     return Column(
       children: [
@@ -159,6 +159,17 @@ class _UrlTestGroupCustomScreenState
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        InkWell(
+                          onTap: () async {
+                            onTapModify(current);
+                          },
+                          child: const SizedBox(
+                            width: 26,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(Icons.edit_outlined, size: 26),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
                         InkWell(
                           onTap: () async {
                             onTapDel(current);
@@ -311,7 +322,53 @@ class _UrlTestGroupCustomScreenState
     }
   }
 
-  void onTapDel(String current) async {
+  void onTapModify(String current) async {
+    final tcontext = Translations.of(context);
+    String? text = await DialogUtils.showTextInputDialog(
+      context,
+      tcontext.meta.remark,
+      current,
+      null,
+      null,
+      null,
+      (text) {
+        text = text.trim();
+        if (text.isEmpty) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkCannotEmpty);
+          return false;
+        }
+
+        if (text.length > kRemarkMaxLength) {
+          DialogUtils.showAlertDialog(context, tcontext.meta.remarkTooLong);
+          return false;
+        }
+        ServerConfigGroupItem item = ServerManager.getCustomGroup();
+        for (var i in item.urltests) {
+          if (i.remark == text) {
+            DialogUtils.showAlertDialog(context, tcontext.meta.remarkExist);
+            return false;
+          }
+        }
+
+        return true;
+      },
+    );
+    if (current != text && text != null) {
+      ServerConfigGroupItem item = ServerManager.getCustomGroup();
+      for (var i in item.urltests) {
+        if (i.remark == current) {
+          i.remark = text;
+          ServerManager.setDirty(true);
+          ServerManager.saveServerConfig();
+          _buildData();
+          setState(() {});
+          break;
+        }
+      }
+    }
+  }
+
+  void onTapDel(String current) {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
 
     for (int i = 0; i < item.urltests.length; ++i) {

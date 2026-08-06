@@ -56,6 +56,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$id SettingsScreen = _Translations$SettingsScreen$id._(_root);
 	@override late final _Translations$UserAgreementScreen$id UserAgreementScreen = _Translations$UserAgreementScreen$id._(_root);
 	@override late final _Translations$VersionUpdateScreen$id VersionUpdateScreen = _Translations$VersionUpdateScreen$id._(_root);
+	@override late final _Translations$loginScreen$id loginScreen = _Translations$loginScreen$id._(_root);
 	@override late final _Translations$CommonWidget$id CommonWidget = _Translations$CommonWidget$id._(_root);
 	@override late final _Translations$main$id main = _Translations$main$id._(_root);
 	@override late final _Translations$meta$id meta = _Translations$meta$id._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$id implements Translations$VersionUpdate
 	@override String get cancel => 'Jangan perbarui sekarang';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$id implements Translations$loginScreen$en {
+	_Translations$loginScreen$id._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'penyedia VPN';
+	@override String get providerName => 'Kode/alias/URL ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Masukkan kode/alias/URL ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} tidak didukung';
+	@override String get unsupportedProviderType => 'Tipe ${_root.loginScreen.provider} tidak didukung';
+	@override String get unActivedProvider => 'Fitur pengikatan penyedia belum diaktifkan';
+	@override String providerLoginSupportRequired({required Object p}) => 'Untuk kode/alias, hubungi ${_root.loginScreen.provider} Anda\nUntuk integrasi ${_root.loginScreen.provider}, lihat: ${p}';
+	@override String get providerDisclaimer => 'Penafian: ${_root.loginScreen.provider} adalah layanan pihak ketiga dan tidak terkait dengan aplikasi ini';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$id implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$id._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$id implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP statis';
 	@override String get staticIPTips => 'Perlu mengaktifkan [TUN HijackDNS] atau [${_root.SettingsScreen.inboundDomainResolve}]';
-	@override String get isp => 'Penyedia';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Akhiran domain';
 	@override String get domain => 'Domain';
 	@override String get domainKeyword => 'Kata kunci domain';
@@ -1200,6 +1218,14 @@ extension on TranslationsId {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Versi baru [${p}] siap',
 			'VersionUpdateScreen.update' => 'Mulai ulang untuk memperbarui',
 			'VersionUpdateScreen.cancel' => 'Jangan perbarui sekarang',
+			'loginScreen.provider' => 'penyedia VPN',
+			'loginScreen.providerName' => 'Kode/alias/URL ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Masukkan kode/alias/URL ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} tidak didukung',
+			'loginScreen.unsupportedProviderType' => 'Tipe ${_root.loginScreen.provider} tidak didukung',
+			'loginScreen.unActivedProvider' => 'Fitur pengikatan penyedia belum diaktifkan',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Untuk kode/alias, hubungi ${_root.loginScreen.provider} Anda\nUntuk integrasi ${_root.loginScreen.provider}, lihat: ${p}',
+			'loginScreen.providerDisclaimer' => 'Penafian: ${_root.loginScreen.provider} adalah layanan pihak ketiga dan tidak terkait dengan aplikasi ini',
 			'CommonWidget.diableAlwayOnVPN' => 'Jika [VPN selalu aktif] telah diaktifkan, matikan [VPN selalu aktif] lalu coba sambungkan lagi',
 			'CommonWidget.resetPort' => 'Silakan ubah port ke port lain yang tersedia atau tutup aplikasi yang menggunakan port tersebut',
 			'main.tray.menuOpen' => 'Buka',
@@ -1318,7 +1344,7 @@ extension on TranslationsId {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP statis',
 			'meta.staticIPTips' => 'Perlu mengaktifkan [TUN HijackDNS] atau [${_root.SettingsScreen.inboundDomainResolve}]',
-			'meta.isp' => 'Penyedia',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Akhiran domain',
 			'meta.domain' => 'Domain',
 			'meta.domainKeyword' => 'Kata kunci domain',
@@ -1458,6 +1484,8 @@ extension on TranslationsId {
 			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Perhatian: item yang diaktifkan akan ditambahkan/menimpa [${_root.meta.diversionCustomGroup}] dan [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Perhatian: setelah ditambahkan, Anda mungkin perlu menyesuaikan urutan secara manual, jika tidak routing baru mungkin tidak berlaku',
 			'rulesetEnableTips' => 'Tip: setelah mengaktifkan opsi, silakan buka [${_root.meta.diversionRules}] untuk mengatur aturan terkait, jika tidak maka tidak akan berlaku',
 			'ispUserAgentTips' => '[${_root.meta.isp}] akan mengirimkan data jenis langganan yang berbeda berdasarkan [UserAgent] dalam permintaan [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsId {
 			'isp.unbind' => ({required Object p}) => 'Lepaskan ikatan [${p}]',
 			'isp.faq' => ({required Object p}) => 'Pertanyaan umum [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Layanan pelanggan [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Ikuti [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] tidak valid atau telah kedaluwarsa',
 			'permission.camera' => 'Kamera',

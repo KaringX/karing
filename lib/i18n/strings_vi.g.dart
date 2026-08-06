@@ -56,6 +56,7 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$vi SettingsScreen = _Translations$SettingsScreen$vi._(_root);
 	@override late final _Translations$UserAgreementScreen$vi UserAgreementScreen = _Translations$UserAgreementScreen$vi._(_root);
 	@override late final _Translations$VersionUpdateScreen$vi VersionUpdateScreen = _Translations$VersionUpdateScreen$vi._(_root);
+	@override late final _Translations$loginScreen$vi loginScreen = _Translations$loginScreen$vi._(_root);
 	@override late final _Translations$CommonWidget$vi CommonWidget = _Translations$CommonWidget$vi._(_root);
 	@override late final _Translations$main$vi main = _Translations$main$vi._(_root);
 	@override late final _Translations$meta$vi meta = _Translations$meta$vi._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$vi implements Translations$VersionUpdate
 	@override String get cancel => 'Để sau';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$vi implements Translations$loginScreen$en {
+	_Translations$loginScreen$vi._(this._root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'nha cung cap VPN';
+	@override String get providerName => 'Ma/bi danh/URL cua ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Vui long nhap ma/bi danh/URL cua ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} khong duoc ho tro';
+	@override String get unsupportedProviderType => 'Loai ${_root.loginScreen.provider} khong duoc ho tro';
+	@override String get unActivedProvider => 'Tính năng ràng buộc nhà cung cấp chưa được kích hoạt';
+	@override String providerLoginSupportRequired({required Object p}) => 'De lay ma/bi danh, hay lien he ${_root.loginScreen.provider} cua ban\nDe tich hop ${_root.loginScreen.provider}, xem: ${p}';
+	@override String get providerDisclaimer => 'Tuyen bo: ${_root.loginScreen.provider} la dich vu ben thu ba va khong lien quan den ung dung nay';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$vi implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$vi._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP tĩnh';
 	@override String get staticIPTips => 'Bạn cần bật [TUN HijackDNS] hoặc [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Nhà cung cấp VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Hậu tố tên miền';
 	@override String get domain => 'Tên miền';
 	@override String get domainKeyword => 'Từ khóa tên miền';
@@ -1200,6 +1218,14 @@ extension on TranslationsVi {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Phiên bản mới [${p}] đã sẵn sàng',
 			'VersionUpdateScreen.update' => 'Khởi động lại để cập nhật',
 			'VersionUpdateScreen.cancel' => 'Để sau',
+			'loginScreen.provider' => 'nha cung cap VPN',
+			'loginScreen.providerName' => 'Ma/bi danh/URL cua ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Vui long nhap ma/bi danh/URL cua ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} khong duoc ho tro',
+			'loginScreen.unsupportedProviderType' => 'Loai ${_root.loginScreen.provider} khong duoc ho tro',
+			'loginScreen.unActivedProvider' => 'Tính năng ràng buộc nhà cung cấp chưa được kích hoạt',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'De lay ma/bi danh, hay lien he ${_root.loginScreen.provider} cua ban\nDe tich hop ${_root.loginScreen.provider}, xem: ${p}',
+			'loginScreen.providerDisclaimer' => 'Tuyen bo: ${_root.loginScreen.provider} la dich vu ben thu ba va khong lien quan den ung dung nay',
 			'CommonWidget.diableAlwayOnVPN' => 'Nếu [VPN luôn bật] đang bật, vui lòng tắt nó và thử kết nối lại',
 			'CommonWidget.resetPort' => 'Vui lòng đổi cổng sang cổng khác khả dụng hoặc đóng ứng dụng đang chiếm cổng.',
 			'main.tray.menuOpen' => 'Mở',
@@ -1318,7 +1344,7 @@ extension on TranslationsVi {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP tĩnh',
 			'meta.staticIPTips' => 'Bạn cần bật [TUN HijackDNS] hoặc [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Nhà cung cấp VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Hậu tố tên miền',
 			'meta.domain' => 'Tên miền',
 			'meta.domainKeyword' => 'Từ khóa tên miền',
@@ -1458,6 +1484,8 @@ extension on TranslationsVi {
 			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Cài đặt sẵn [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Lưu ý: Các mục được bật sẽ được thêm/ghi đè vào [${_root.meta.diversionCustomGroup}] và [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Lưu ý: Sau khi thêm, bạn có thể cần điều chỉnh thứ tự thủ công, nếu không phân luồng mới thêm có thể không có hiệu lực',
 			'rulesetEnableTips' => 'Mẹo: Sau khi bật các tùy chọn, vui lòng đi tới [${_root.meta.diversionRules}] để thiết lập các quy tắc liên quan, nếu không chúng sẽ không có hiệu lực',
 			'ispUserAgentTips' => '[${_root.meta.isp}] sẽ gửi dữ liệu của các loại gói đăng ký khác nhau dựa trên [UserAgent] trong yêu cầu [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsVi {
 			'isp.unbind' => ({required Object p}) => 'Hủy liên kết [${p}]',
 			'isp.faq' => ({required Object p}) => 'Câu hỏi thường gặp [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Theo dõi [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] không hợp lệ hoặc hết hạn',
 			'permission.camera' => 'Máy ảnh',

@@ -373,7 +373,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         realTag = ServerManager.getUrltestTagForCustom(tag);
       }
     }
-    ReturnResult<String> result = await ClashApi.getDelay(
+    final result = await ClashApi.getDelay(
       settingConfig.proxy.controlPort,
       realTag,
       settingConfig.urlTestTimeout,
@@ -388,7 +388,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
 
     String strategy = settingConfig.ipStrategy.name;
     if (NetworkUtils.isDomain(domain, false)) {
-      ReturnResult<String> resultDns = await ClashApi.dnsQueryWithDefaultRouter(
+      final resultDns = await ClashApi.dnsQueryWithDefaultRouter(
         settingConfig.proxy.controlPort,
         domain,
         strategy,
@@ -398,7 +398,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       }
       if (resultDns.error == null) {
         Map<String, dynamic> data = decodeDataFromDnsQueryWithDefaultRouter(
-          resultDns.data!,
+          resultDns.data!.item2,
         );
         String tag = data["tag"] ?? "";
         int? latency = data["latency"];
@@ -563,7 +563,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     _netCheckItemDomainDNSQuery!.name = tcontext.meta.dns;
 
     String strategy = settingConfig.ipStrategy.name;
-    ReturnResult<String> result = await ClashApi.dnsQueryWithDefaultRouter(
+    final result = await ClashApi.dnsQueryWithDefaultRouter(
       settingConfig.proxy.controlPort,
       _domainAndPort.item1,
       strategy,
@@ -580,7 +580,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       final tcontext = Translations.of(context);
 
       Map<String, dynamic> data = decodeDataFromDnsQueryWithDefaultRouter(
-        result.data!,
+        result.data!.item2,
       );
       String tag = data["tag"] ?? "";
       int? latency = data["latency"];
@@ -626,7 +626,9 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         return false;
       }
     } else {
-      _netCheckItemDomainDNSQuery?.values.add(result);
+      _netCheckItemDomainDNSQuery?.values.add(
+        ReturnResult(data: result.data!.item2),
+      );
     }
 
     return result.error == null;
@@ -693,14 +695,13 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       String ip = "";
       var setting = SettingManager.getConfig();
       if (!setting.novice && setting.dns.enableInboundDomainResolve) {
-        ReturnResult<String> resultDns =
-            await ClashApi.dnsQueryWithDefaultRouter(
-              SettingManager.getConfig().proxy.controlPort,
-              domain,
-              setting.ipStrategy.name,
-            );
+        final resultDns = await ClashApi.dnsQueryWithDefaultRouter(
+          SettingManager.getConfig().proxy.controlPort,
+          domain,
+          setting.ipStrategy.name,
+        );
         if (resultDns.error == null) {
-          var config = jsonDecode(resultDns.data!);
+          var config = jsonDecode(resultDns.data!.item2);
           List addr = config["addr"] ?? [];
           //var dns = config["tag"];
           if (addr.isNotEmpty) {
@@ -709,7 +710,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         }
       }
 
-      ReturnResult<String> outboundResult = await ClashApi.outboundQuery(
+      final outboundResult = await ClashApi.outboundQuery(
         settingConfig.proxy.controlPort,
         domain,
         ip,
@@ -721,7 +722,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       String rulechain = "";
 
       if (outboundResult.error == null) {
-        Map<String, dynamic> data = jsonDecode(outboundResult.data!);
+        Map<String, dynamic> data = jsonDecode(outboundResult.data!.item2);
         rule = data["rule"] ?? "";
         if (data["chain"] != null) {
           List<String> chain = [];
@@ -732,7 +733,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
         }
       }
 
-      late ReturnResult<String> result;
+      late ReturnResult<Tuple2<int, String>> result;
       if (_domainAndPort.item2 == null) {
         result = await HttpUtils.httpGetRequest(
           "https://${_domainAndPort.item1}",

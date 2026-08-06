@@ -283,6 +283,16 @@
         "update": "Start på nytt for å oppdatere",
         "cancel": "Ikke nå"
     },
+    "loginScreen": {
+        "provider": "VPN-leverandor",
+        "providerName": "@:{loginScreen.provider}-kode/alias/URL",
+        "providerNameRequired": "Skriv inn @:{loginScreen.provider}-kode/alias/URL",
+        "unsupportedProvider": "Ikke-stottet @:{loginScreen.provider}",
+        "unsupportedProviderType": "Ikke-stottet @:{loginScreen.provider}-type",
+        "unActivedProvider": "Leverandorkobling er ikke aktivert",
+        "providerLoginSupportRequired": "For kode/alias, kontakt din @:{loginScreen.provider}\nFor @:{loginScreen.provider}-integrasjon, se: $p",
+        "providerDisclaimer": "Ansvarsfraskrivelse: @:{loginScreen.provider} er en tredjepartstjeneste og er ikke knyttet til denne appen"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Hvis [Alltid på VPN] er på, vennligst slå det av og prøv å koble til på nytt",
         "resetPort": "Vennligst endre porten til en annen tilgjengelig port eller lukk programmet som opptar porten."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "Statisk IP",
         "staticIPTips": "Du må aktivere [TUN HijackDNS] eller [@:{SettingsScreen.inboundDomainResolve}].",
-        "isp": "VPN-leverandør",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Domenesuffiks",
         "domain": "Domene",
         "domainKeyword": "Domenenøkkelord",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

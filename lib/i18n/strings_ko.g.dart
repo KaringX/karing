@@ -56,6 +56,7 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$ko SettingsScreen = _Translations$SettingsScreen$ko._(_root);
 	@override late final _Translations$UserAgreementScreen$ko UserAgreementScreen = _Translations$UserAgreementScreen$ko._(_root);
 	@override late final _Translations$VersionUpdateScreen$ko VersionUpdateScreen = _Translations$VersionUpdateScreen$ko._(_root);
+	@override late final _Translations$loginScreen$ko loginScreen = _Translations$loginScreen$ko._(_root);
 	@override late final _Translations$CommonWidget$ko CommonWidget = _Translations$CommonWidget$ko._(_root);
 	@override late final _Translations$main$ko main = _Translations$main$ko._(_root);
 	@override late final _Translations$meta$ko meta = _Translations$meta$ko._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$ko implements Translations$VersionUpdate
 	@override String get cancel => '나중에';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$ko implements Translations$loginScreen$en {
+	_Translations$loginScreen$ko._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN 서비스 제공자';
+	@override String get providerName => '${_root.loginScreen.provider} 코드/별칭/URL';
+	@override String get providerNameRequired => '${_root.loginScreen.provider} 코드/별칭/URL을 입력하세요';
+	@override String get unsupportedProvider => '지원되지 않는 ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => '지원되지 않는 ${_root.loginScreen.provider} 유형';
+	@override String get unActivedProvider => '제공자 연결 기능이 활성화되지 않았습니다';
+	@override String providerLoginSupportRequired({required Object p}) => '코드/별칭은 ${_root.loginScreen.provider}에 문의하세요\n${_root.loginScreen.provider} 연동은 다음을 참고하세요: ${p}';
+	@override String get providerDisclaimer => '면책 조항: ${_root.loginScreen.provider}는 제3자 서비스이며 본 앱과 무관합니다';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$ko implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$ko._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => '고정 IP';
 	@override String get staticIPTips => '[TUN HijackDNS] 또는 [${_root.SettingsScreen.inboundDomainResolve}]를 활성화해야 합니다.';
-	@override String get isp => 'VPN 제공업체';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => '도메인 접미사';
 	@override String get domain => '도메인';
 	@override String get domainKeyword => '도메인 키워드';
@@ -1200,6 +1218,14 @@ extension on TranslationsKo {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => '새 버전 [${p}]이 준비되었습니다',
 			'VersionUpdateScreen.update' => '재시작하여 업데이트',
 			'VersionUpdateScreen.cancel' => '나중에',
+			'loginScreen.provider' => 'VPN 서비스 제공자',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} 코드/별칭/URL',
+			'loginScreen.providerNameRequired' => '${_root.loginScreen.provider} 코드/별칭/URL을 입력하세요',
+			'loginScreen.unsupportedProvider' => '지원되지 않는 ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => '지원되지 않는 ${_root.loginScreen.provider} 유형',
+			'loginScreen.unActivedProvider' => '제공자 연결 기능이 활성화되지 않았습니다',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => '코드/별칭은 ${_root.loginScreen.provider}에 문의하세요\n${_root.loginScreen.provider} 연동은 다음을 참고하세요: ${p}',
+			'loginScreen.providerDisclaimer' => '면책 조항: ${_root.loginScreen.provider}는 제3자 서비스이며 본 앱과 무관합니다',
 			'CommonWidget.diableAlwayOnVPN' => '[항상 VPN 연결]이 켜져 있는 경우 끄고 다시 연결해 보십시오',
 			'CommonWidget.resetPort' => '포트를 사용 가능한 다른 포트로 변경하거나 포트를 사용 중인 애플리케이션을 종료하십시오.',
 			'main.tray.menuOpen' => '열기',
@@ -1318,7 +1344,7 @@ extension on TranslationsKo {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => '고정 IP',
 			'meta.staticIPTips' => '[TUN HijackDNS] 또는 [${_root.SettingsScreen.inboundDomainResolve}]를 활성화해야 합니다.',
-			'meta.isp' => 'VPN 제공업체',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => '도메인 접미사',
 			'meta.domain' => '도메인',
 			'meta.domainKeyword' => '도메인 키워드',
@@ -1458,6 +1484,8 @@ extension on TranslationsKo {
 			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			'diversionCustomGroupPreset' => '사전 설정 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '참고: 활성화된 항목은 [${_root.meta.diversionCustomGroup}] 및 [${_root.meta.diversionRules}]에 추가/덮어쓰기됩니다',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => '참고: 추가 후 순서를 수동으로 조정해야 할 수 있습니다. 그렇지 않으면 새로 추가된 분류가 적용되지 않을 수 있습니다',
 			'rulesetEnableTips' => '팁: 옵션을 켠 후 [${_root.meta.diversionRules}]로 이동하여 관련 규칙을 설정하십시오. 그렇지 않으면 적용되지 않습니다',
 			'ispUserAgentTips' => '[${_root.meta.isp}]는 [HTTP] 요청의 [UserAgent]에 따라 다양한 구독 유형의 데이터를 전송합니다',
@@ -1466,8 +1494,6 @@ extension on TranslationsKo {
 			'isp.unbind' => ({required Object p}) => '바인딩 해제 [${p}]',
 			'isp.faq' => ({required Object p}) => '자주 묻는 질문 [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => '팔로우 [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]가 유효하지 않거나 만료되었습니다',
 			'permission.camera' => '카메라',

@@ -56,6 +56,7 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$es SettingsScreen = _Translations$SettingsScreen$es._(_root);
 	@override late final _Translations$UserAgreementScreen$es UserAgreementScreen = _Translations$UserAgreementScreen$es._(_root);
 	@override late final _Translations$VersionUpdateScreen$es VersionUpdateScreen = _Translations$VersionUpdateScreen$es._(_root);
+	@override late final _Translations$loginScreen$es loginScreen = _Translations$loginScreen$es._(_root);
 	@override late final _Translations$CommonWidget$es CommonWidget = _Translations$CommonWidget$es._(_root);
 	@override late final _Translations$main$es main = _Translations$main$es._(_root);
 	@override late final _Translations$meta$es meta = _Translations$meta$es._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$es implements Translations$VersionUpdate
 	@override String get cancel => 'Ahora no';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$es implements Translations$loginScreen$en {
+	_Translations$loginScreen$es._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'proveedor de VPN';
+	@override String get providerName => 'Codigo/alias/URL de ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Introduce el codigo/alias/URL de ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} no compatible';
+	@override String get unsupportedProviderType => 'Tipo de ${_root.loginScreen.provider} no compatible';
+	@override String get unActivedProvider => 'La vinculación del proveedor no está activada';
+	@override String providerLoginSupportRequired({required Object p}) => 'Para codigo/alias, contacta con tu ${_root.loginScreen.provider}\nPara integrar ${_root.loginScreen.provider}, consulta: ${p}';
+	@override String get providerDisclaimer => 'Aviso: ${_root.loginScreen.provider} es un servicio de terceros y no esta relacionado con esta app';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$es implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$es._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP estática';
 	@override String get staticIPTips => 'Debe habilitar [TUN HijackDNS] o [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Proveedor VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Sufijo de dominio';
 	@override String get domain => 'Dominio';
 	@override String get domainKeyword => 'Palabra clave de dominio';
@@ -1200,6 +1218,14 @@ extension on TranslationsEs {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'La nueva versión [${p}] está lista',
 			'VersionUpdateScreen.update' => 'Reiniciar para actualizar',
 			'VersionUpdateScreen.cancel' => 'Ahora no',
+			'loginScreen.provider' => 'proveedor de VPN',
+			'loginScreen.providerName' => 'Codigo/alias/URL de ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Introduce el codigo/alias/URL de ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} no compatible',
+			'loginScreen.unsupportedProviderType' => 'Tipo de ${_root.loginScreen.provider} no compatible',
+			'loginScreen.unActivedProvider' => 'La vinculación del proveedor no está activada',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Para codigo/alias, contacta con tu ${_root.loginScreen.provider}\nPara integrar ${_root.loginScreen.provider}, consulta: ${p}',
+			'loginScreen.providerDisclaimer' => 'Aviso: ${_root.loginScreen.provider} es un servicio de terceros y no esta relacionado con esta app',
 			'CommonWidget.diableAlwayOnVPN' => 'Si [VPN siempre activa] está activada, desactívela e intente conectar de nuevo',
 			'CommonWidget.resetPort' => 'Cambie el puerto a otro disponible o cierre la aplicación que ocupa el puerto.',
 			'main.tray.menuOpen' => 'Abrir',
@@ -1318,7 +1344,7 @@ extension on TranslationsEs {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP estática',
 			'meta.staticIPTips' => 'Debe habilitar [TUN HijackDNS] o [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Proveedor VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Sufijo de dominio',
 			'meta.domain' => 'Dominio',
 			'meta.domainKeyword' => 'Palabra clave de dominio',
@@ -1458,6 +1484,8 @@ extension on TranslationsEs {
 			'diversionRulesKeep' => 'Mantener ${_root.meta.diversionRules} de [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Preajuste [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Nota: Los elementos habilitados se agregarán/sobrescribirán en [${_root.meta.diversionCustomGroup}] y [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Nota: Después de agregar, es posible que deba ajustar manualmente el orden; de lo contrario, el nuevo desvío podría no ser efectivo',
 			'rulesetEnableTips' => 'Consejo: Después de activar las opciones, vaya a [${_root.meta.diversionRules}] para establecer las reglas correspondientes; de lo contrario, no tendrán efecto.',
 			'ispUserAgentTips' => '[${_root.meta.isp}] enviará datos de diferentes tipos de suscripción basados en el [UserAgent] en la solicitud [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsEs {
 			'isp.unbind' => ({required Object p}) => 'Desvincular [${p}]',
 			'isp.faq' => ({required Object p}) => 'Preguntas frecuentes [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Seguir [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] inválido o caducado',
 			'permission.camera' => 'Cámara',

@@ -183,14 +183,23 @@ class InAppWebViewScreen extends StatefulWidget {
   final bool showGoBackGoForward;
   final bool showOpenExternal;
   final bool setJSWindowObject;
+  final bool refreshWhenLoaded;
   final String injectJs;
   final bool appendKaringToUseragent;
+  final String jsObjectName;
   final String appendMoreKaringToUseragent;
   final Map<String, Function> javaScriptHandlers;
   final dynamic javaScriptHandlerArgument;
+  final bool clearAllCookies;
   final Map<String, String>? headers;
   final Map<String, String>? cookies;
   final Map<String, String>? localStorage;
+  final bool Function(
+    String url,
+    Map<String, String> headers,
+    List<Cookie> cookies,
+  )?
+  onLoadStop;
 
   InAppWebViewScreen({
     super.key,
@@ -200,14 +209,18 @@ class InAppWebViewScreen extends StatefulWidget {
     this.showGoBackGoForward = false,
     this.showOpenExternal = false,
     this.setJSWindowObject = false,
+    this.refreshWhenLoaded = false,
     this.injectJs = "",
     this.appendKaringToUseragent = false,
     this.appendMoreKaringToUseragent = "",
+    this.jsObjectName = "karing",
     this.javaScriptHandlers = const {},
     this.javaScriptHandlerArgument,
+    this.clearAllCookies = false,
     this.headers,
     this.cookies,
     this.localStorage,
+    this.onLoadStop,
   }) {
     if (_inited != null && _notSupportSubmited) {
       _notSupportSubmited = false;
@@ -225,10 +238,13 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
   InAppWebViewController? _webViewController;
   late InAppWebViewSettings _settings;
   PullToRefreshController? _pullToRefreshController;
+  URLRequest? initialUrlRequest;
 
   // late ContextMenu _contextMenu;
   String _url = "";
+  Map<String, String> _headers = {};
   double _progress = 0;
+  bool _refreshedWhenLoaded = false;
   final List<UserScript> _scripts = [];
 
   @override
@@ -237,6 +253,10 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
     if (!InAppWebViewScreen.isInited()) {
       return;
     }
+    initialUrlRequest = URLRequest(
+      url: WebUri(widget.url),
+      headers: widget.headers,
+    );
     String useragent = InAppWebViewScreen._defaultUserAgentWithKaring;
     if (widget.appendMoreKaringToUseragent.isNotEmpty) {
       useragent =
@@ -251,6 +271,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
       userAgent: widget.appendKaringToUseragent
           ? useragent
           : InAppWebViewScreen._defaultUserAgent,
+      useShouldOverrideUrlLoading: true,
     );
     /* _contextMenu = ContextMenu(
         menuItems: [
@@ -306,7 +327,7 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
       _scripts.add(
         UserScript(
           source:
-              "window.addEventListener('DOMContentLoaded', function(event) {window.karing = window.flutter_inappwebview;});",
+              "window.addEventListener('DOMContentLoaded', function(event) {window.${widget.jsObjectName} = window.flutter_inappwebview;});",
           injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
         ),
       );
@@ -338,16 +359,14 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
     }
 
     if (widget.cookies != null && widget.cookies!.isNotEmpty) {
-      String cookiesStr = widget.cookies!.entries
-          .map((e) => "${e.key}=${e.value}")
-          .join("; ");
-      String source = '''document.cookie = "$cookiesStr; path=/;";\n''';
-      _scripts.add(
-        UserScript(
-          source: source,
-          injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
-        ),
-      );
+      widget.cookies!.forEach((key, value) {
+        _scripts.add(
+          UserScript(
+            source: '''document.cookie = "$value"''',
+            injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+          ),
+        );
+      });
     }
 
     if (widget.localStorage != null && widget.localStorage!.isNotEmpty) {
@@ -360,6 +379,19 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
           ),
         );
       }
+    }
+  }
+
+  Future<void> _clearAllCookies() async {
+    if (_webViewController == null || !widget.clearAllCookies) {
+      return;
+    }
+    try {
+      await CookieManager.instance(
+        webViewEnvironment: InAppWebViewScreen._webViewEnvironment,
+      ).deleteAllCookies(); //only deleteAllCookies works, other api does not work at all
+    } catch (err) {
+      Log.w("Error clearing cookies via CookieManager: $err");
     }
   }
 
@@ -509,6 +541,8 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                                     (controller) async {
                                                       _webViewController =
                                                           controller;
+
+                                                      await _clearAllCookies();
                                                       setJavaScriptHandler();
                                                     },
                                                 onLoadStart:
@@ -591,30 +625,69 @@ class _InAppWebViewScreenState extends State<InAppWebViewScreen> {
                                                               .CANCEL;
                                                         }
                                                       }
+                                                      if (widget.onLoadStop !=
+                                                          null) {
+                                                        final req =
+                                                            navigationAction
+                                                                .request;
+                                                        final oriUrl =
+                                                            Uri.tryParse(
+                                                              widget.url,
+                                                            );
+                                                        if (oriUrl != null &&
+                                                            req.url != null &&
+                                                            req.url!.host ==
+                                                                oriUrl.host) {
+                                                          _headers =
+                                                              req.headers ?? {};
+                                                        }
+                                                      }
 
                                                       return NavigationActionPolicy
                                                           .ALLOW;
                                                     },
-
-                                                onLoadStop:
-                                                    (controller, url) async {
-                                                      _pullToRefreshController
-                                                          ?.endRefreshing();
-                                                      _url = url.toString();
-                                                      /*if (url != null) {
-                                                    final cookies =
-                                                        await CookieManager.instance(
-                                                          webViewEnvironment:
-                                                              InAppWebViewScreen
-                                                                  ._webViewEnvironment,
-                                                        ).getCookies(
-                                                          url: url,
-                                                          webViewController:
-                                                              controller,
-                                                        );
-                                                    print(cookies);
-                                                  }*/
-                                                    },
+                                                onLoadStop: (controller, url) async {
+                                                  _pullToRefreshController
+                                                      ?.endRefreshing();
+                                                  _url = url.toString();
+                                                  if (widget
+                                                      .refreshWhenLoaded) {
+                                                    if (!_refreshedWhenLoaded) {
+                                                      _refreshedWhenLoaded =
+                                                          true;
+                                                      _webViewController
+                                                          ?.reload();
+                                                    }
+                                                  }
+                                                  if (widget.onLoadStop !=
+                                                      null) {
+                                                    final oriUrl = Uri.tryParse(
+                                                      widget.url,
+                                                    );
+                                                    if (oriUrl != null &&
+                                                        url != null &&
+                                                        url.host ==
+                                                            oriUrl.host) {
+                                                      final cookies =
+                                                          await CookieManager.instance(
+                                                            webViewEnvironment:
+                                                                InAppWebViewScreen
+                                                                    ._webViewEnvironment,
+                                                          ).getCookies(
+                                                            url: url,
+                                                            webViewController:
+                                                                _webViewController,
+                                                          );
+                                                      if (widget.onLoadStop!(
+                                                        _url,
+                                                        _headers,
+                                                        cookies,
+                                                      )) {
+                                                        Navigator.pop(context);
+                                                      }
+                                                    }
+                                                  }
+                                                },
                                                 onReceivedError:
                                                     (
                                                       controller,

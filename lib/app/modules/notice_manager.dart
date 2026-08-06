@@ -5,20 +5,19 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/setting_manager.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/log.dart';
+import 'package:karing/app/utils/notice_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:vpn_service/state.dart';
 
 class NoticeItem {
-  String ispId = "";
   bool readed = true;
   String updateTime = "";
   String expireTime = "";
@@ -27,7 +26,6 @@ class NoticeItem {
   String url = "";
 
   Map<String, dynamic> toJson() => {
-    "isp_id": ispId,
     "readed": readed,
     'update_time': updateTime,
     'expire_time': expireTime,
@@ -39,7 +37,6 @@ class NoticeItem {
     if (map == null) {
       return;
     }
-    ispId = map["isp_id"] ?? "";
     readed = map["readed"] ?? true;
     updateTime = map["update_time"] ?? "";
     expireTime = map["expire_time"] ?? "";
@@ -121,10 +118,10 @@ class Notice {
 
 class NoticeLoadAndCheck {
   bool _checking = false;
-  Duration _checkDuration = const Duration(hours: 3);
+  final Duration _checkDuration = const Duration(hours: 3);
   Duration _duration = const Duration(hours: 3);
   Notice _notice = Notice();
-  String ispId = "";
+
   String name = "";
   String url = "";
   String filePath = "";
@@ -204,36 +201,27 @@ class NoticeLoadAndCheck {
     _checking = true;
 
     try {
-      ReturnResult<KaringNoticeItem> gnotice = await KaringUtils.getNotice(
+      ReturnResult<RawNoticeItem> gnotice = await KaringUtils.getNotice(
         url,
         SettingManager.getConfig().updateWhenConnected,
       );
+      _checking = false;
       if (gnotice.error != null) {
-        _checking = false;
         _duration = const Duration(minutes: 10);
         save();
         return;
       }
       _duration = _checkDuration;
-      if (gnotice.data!.content.isEmpty && gnotice.data!.url.isEmpty) {
-        _checking = false;
-        save();
-        return;
-      }
       NoticeItem? item = _notice.getByUpdateTime(gnotice.data!.updateTime);
       if (item != null) {
-        _checking = false;
         save();
         return;
       }
-      if (url.isEmpty) {
-        return;
-      }
+
       NoticeItem newItem = NoticeItem();
       newItem.readed = false;
       newItem.updateTime = gnotice.data!.updateTime;
       newItem.expireTime = gnotice.data!.expireTime;
-      newItem.ispId = ispId;
       newItem.title = name.isEmpty
           ? gnotice.data!.title
           : "[$name]${gnotice.data!.title}";
@@ -246,10 +234,10 @@ class NoticeLoadAndCheck {
         checkUpdate?.call();
       });
     } catch (err, _) {
+      _checking = false;
       Log.w("NoticeManager._check exception ${err.toString()}");
     }
 
-    _checking = false;
     Future.delayed(_duration, () async {
       await check();
     });
@@ -260,7 +248,6 @@ class NoticeManager {
   static final List<void Function()> onEventCheck = [];
 
   static final NoticeLoadAndCheck _selfNotice = NoticeLoadAndCheck();
-  static final NoticeLoadAndCheck _ispNotice = NoticeLoadAndCheck();
 
   static Future<void> init() async {
     var remoteConfig = RemoteConfigManager.getConfig();
@@ -270,7 +257,6 @@ class NoticeManager {
     _selfNotice.checkUpdate = _onCheckUpdate;
     await _selfNotice.load();
 
-    await resetISP();
     VPNService.onEventStateChanged.add((
       FlutterVpnServiceState state,
       Map<String, String> params,
@@ -278,49 +264,22 @@ class NoticeManager {
       if (state == FlutterVpnServiceState.connected) {
         Future.delayed(const Duration(seconds: 3), () async {
           _selfNotice.check();
-          _ispNotice.check();
         });
       }
     });
     AppLifecycleStateNofity.onStateResumed(null, () {
       Future.delayed(const Duration(seconds: 3), () async {
         _selfNotice.check();
-        _ispNotice.check();
       });
     });
     Future.delayed(const Duration(seconds: 3), () async {
       _selfNotice.check();
-      _ispNotice.check();
     });
   }
 
   static Future<void> uninit() async {}
-  static Future<void> resetISP() async {
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    if (remoteISPConfig.id.isNotEmpty) {
-      _ispNotice.url = remoteISPConfig.notice;
-      _ispNotice.filePath = await PathUtils.ispNoticeFilePath();
-      _ispNotice.checkUpdate = _onCheckUpdate;
-      _ispNotice.ispId = remoteISPConfig.id;
-      _ispNotice.name = remoteISPConfig.name;
-      _ispNotice._checkDuration = remoteISPConfig.noticeUpdateInterval;
-      await _ispNotice.load();
-    } else {
-      _ispNotice.url = "";
-      _ispNotice.filePath = "";
-      _ispNotice.checkUpdate = null;
-      _ispNotice.ispId = "";
-      _ispNotice.name = "";
-      _ispNotice.clear();
-      await _ispNotice.save();
-    }
-  }
 
   static List<Notice> getNotices() {
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    if (remoteISPConfig.id.isNotEmpty) {
-      return [_selfNotice.notice, _ispNotice.notice];
-    }
     return [_selfNotice.notice];
   }
 
@@ -334,10 +293,5 @@ class NoticeManager {
 
   static Future<void> save() async {
     await _selfNotice.save();
-
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
-    if (remoteISPConfig.id.isNotEmpty) {
-      await _ispNotice.save();
-    }
   }
 }

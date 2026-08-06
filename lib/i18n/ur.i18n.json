@@ -283,6 +283,16 @@
         "update": "اپ ڈیٹ کرنے کے لیے دوبارہ شروع کریں",
         "cancel": "ابھی نہیں"
     },
+    "loginScreen": {
+        "provider": "VPN سروس فراہم کنندہ",
+        "providerName": "@:{loginScreen.provider} کوڈ/عرف/URL",
+        "providerNameRequired": "براہ کرم @:{loginScreen.provider} کوڈ/عرف/URL درج کریں",
+        "unsupportedProvider": "غیر معاون @:{loginScreen.provider}",
+        "unsupportedProviderType": "غیر معاون @:{loginScreen.provider} قسم",
+        "unActivedProvider": "فراہم کنندہ بائنڈنگ فیچر فعال نہیں ہے",
+        "providerLoginSupportRequired": "کوڈ/عرف کے لیے اپنے @:{loginScreen.provider} سے رابطہ کریں\n@:{loginScreen.provider} انضمام کے لیے دیکھیں: $p",
+        "providerDisclaimer": "دستبرداری: @:{loginScreen.provider} فریق ثالث کی سروس ہے اور اس ایپ سے متعلق نہیں ہے"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "اگر [ہمیشہ آن VPN] آن ہے تو براہ کرم [ہمیشہ آن VPN] آف کریں اور دوبارہ منسلک ہونے کی کوشش کریں",
         "resetPort": "براہ کرم پورٹ کو کسی دوسرے دستیاب پورٹ میں تبدیل کریں یا اس ایپلی کیشن کو بند کریں جو پورٹ استعمال کر رہی ہے۔"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "جامد IP",
         "staticIPTips": "آپ کو [TUN HijackDNS] یا [@:{SettingsScreen.inboundDomainResolve}] فعال کرنے کی ضرورت ہے۔",
-        "isp": "VPN فراہم کنندہ",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "ڈومین لاحقہ",
         "domain": "ڈومین",
         "domainKeyword": "ڈومین کلیدی لفظ",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

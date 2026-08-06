@@ -56,6 +56,7 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$fa SettingsScreen = _Translations$SettingsScreen$fa._(_root);
 	@override late final _Translations$UserAgreementScreen$fa UserAgreementScreen = _Translations$UserAgreementScreen$fa._(_root);
 	@override late final _Translations$VersionUpdateScreen$fa VersionUpdateScreen = _Translations$VersionUpdateScreen$fa._(_root);
+	@override late final _Translations$loginScreen$fa loginScreen = _Translations$loginScreen$fa._(_root);
 	@override late final _Translations$CommonWidget$fa CommonWidget = _Translations$CommonWidget$fa._(_root);
 	@override late final _Translations$main$fa main = _Translations$main$fa._(_root);
 	@override late final _Translations$meta$fa meta = _Translations$meta$fa._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$fa implements Translations$VersionUpdate
 	@override String get cancel => 'الان‌ نه';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$fa implements Translations$loginScreen$en {
+	_Translations$loginScreen$fa._(this._root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'ارائه‌دهنده VPN';
+	@override String get providerName => 'کد/نام مستعار/URL برای ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'لطفا کد/نام مستعار/URL مربوط به ${_root.loginScreen.provider} را وارد کنید';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} پشتيباني نمي شود';
+	@override String get unsupportedProviderType => 'نوع ${_root.loginScreen.provider} پشتيباني نمي شود';
+	@override String get unActivedProvider => 'قابلیت اتصال ارائه‌دهنده فعال نشده است';
+	@override String providerLoginSupportRequired({required Object p}) => 'براي دريافت کد/نام مستعار با ${_root.loginScreen.provider} تماس بگيريد\nبراي يکپارچه سازي ${_root.loginScreen.provider} به اينجا مراجعه کنيد: ${p}';
+	@override String get providerDisclaimer => 'سلب مسئوليت: ${_root.loginScreen.provider} يک سرويس شخص ثالث است و با اين برنامه مرتبط نيست';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$fa implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$fa._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP استاتیک';
 	@override String get staticIPTips => 'شما باید [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] را فعال کنید.';
-	@override String get isp => 'ارائه دهندگان VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'پسوند دامنه';
 	@override String get domain => 'دامنه';
 	@override String get domainKeyword => 'کلید‌واژه دامنه';
@@ -1200,6 +1218,14 @@ extension on TranslationsFa {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'نسخه جدید [${p}] آماده است',
 			'VersionUpdateScreen.update' => 'راه‌اندازی مجدد برای به‌روزرسانی',
 			'VersionUpdateScreen.cancel' => 'الان‌ نه',
+			'loginScreen.provider' => 'ارائه‌دهنده VPN',
+			'loginScreen.providerName' => 'کد/نام مستعار/URL برای ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'لطفا کد/نام مستعار/URL مربوط به ${_root.loginScreen.provider} را وارد کنید',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} پشتيباني نمي شود',
+			'loginScreen.unsupportedProviderType' => 'نوع ${_root.loginScreen.provider} پشتيباني نمي شود',
+			'loginScreen.unActivedProvider' => 'قابلیت اتصال ارائه‌دهنده فعال نشده است',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'براي دريافت کد/نام مستعار با ${_root.loginScreen.provider} تماس بگيريد\nبراي يکپارچه سازي ${_root.loginScreen.provider} به اينجا مراجعه کنيد: ${p}',
+			'loginScreen.providerDisclaimer' => 'سلب مسئوليت: ${_root.loginScreen.provider} يک سرويس شخص ثالث است و با اين برنامه مرتبط نيست',
 			'CommonWidget.diableAlwayOnVPN' => 'اگر [وی‌پی‌ان همیشه روشن] روشن است لطفا [وی‌پی‌ان همیشه روشن] را خاموش کنید و مجدد برای اتصال تلاش کنید',
 			'CommonWidget.resetPort' => 'لطفاً پورت را به پورت موجود دیگری تغییر دهید یا برنامه ای را که پورت را اشغال می کند ببندید.',
 			'main.tray.menuOpen' => 'بازکردن',
@@ -1318,7 +1344,7 @@ extension on TranslationsFa {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP استاتیک',
 			'meta.staticIPTips' => 'شما باید [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] را فعال کنید.',
-			'meta.isp' => 'ارائه دهندگان VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'پسوند دامنه',
 			'meta.domain' => 'دامنه',
 			'meta.domainKeyword' => 'کلید‌واژه دامنه',
@@ -1458,6 +1484,8 @@ extension on TranslationsFa {
 			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',
 			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.',
 			'rulesetEnableTips' => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد',
 			'ispUserAgentTips' => '[${_root.meta.isp}] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.',
@@ -1466,8 +1494,6 @@ extension on TranslationsFa {
 			'isp.unbind' => ({required Object p}) => 'لغو پیوند[${p}]',
 			'isp.faq' => ({required Object p}) => 'سوالات متداول[${p}]',
 			'isp.customerService' => ({required Object p}) => 'خدمات مشتری[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'دنبال کردن[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]نامعتبر یا منقضی شده است',
 			'permission.camera' => 'دوربین',

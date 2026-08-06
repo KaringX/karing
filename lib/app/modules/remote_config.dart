@@ -82,7 +82,6 @@ class RemoteConfig {
   static const String kDefaultAutoUpdate =
       "https://dot.$kDefaultHost/autoupdate.json";
   static const String kDefaultOutpost = "https://outpost.$kDefaultHost/put";
-  static const String kDefaultHarry = "https://harry.$kDefaultHost/spell/";
   static const String kDefaultGetTranffic = "https://2.x31415926.top/";
   static const String kDefaultGetTranfficFrom = "";
   static const String kDefaultTutorial = "https://$kDefaultHost/quickstart/";
@@ -106,8 +105,6 @@ class RemoteConfig {
       "https://github.com/KaringX/karing-ruleset/raw/sing/geo/geoip";
   static const String kDefaultAcl =
       "https://github.com/KaringX/karing-ruleset/raw/sing/ACL4SSR";
-  static const String kIspPanelJs =
-      "https://harry.karing.app/assets/bind.js?v=";
 
   String latestCheck = "";
   List<String> forwards = [];
@@ -124,10 +121,6 @@ class RemoteConfig {
   String config = kDefaultConfig;
   String autoUpdate = kDefaultAutoUpdate;
   String outpost = kDefaultOutpost;
-  String harry = kDefaultHarry;
-  String ispPrepare(String id) {
-    return "https://potter.$kDefaultHost/isp/$id/base.json";
-  }
 
   String sentry = kDefaultSentry;
   String getTranffic = kDefaultGetTranffic;
@@ -162,9 +155,6 @@ class RemoteConfig {
       "channel": channels,
     };
 
-    if (harry != kDefaultHarry) {
-      ret["harry"] = harry;
-    }
     if (sentry != kDefaultSentry) {
       ret["sentry"] = sentry;
     }
@@ -241,9 +231,6 @@ class RemoteConfig {
     sentryMinVersion = map["sentry_min_version"] ?? "";
     analyticsMinVersion = map["analytics_min_version"] ?? "";
 
-    ispBindNeedConnect = map["isp_bind_need_connect"] ?? true;
-    ispPanelJs = map["isp_panel_js"] ?? kIspPanelJs;
-
     faqAnchor = ConvertUtils.getListStringFromDynamic(
       map["faq_anchor"],
       true,
@@ -270,7 +257,7 @@ class RemoteConfig {
     if (sp.length != 2 || sp[0] != "karing") {
       host = kDefaultHost;
     }*/
-    harry = map["harry"] ?? kDefaultHarry;
+
     sentry = map["sentry"] ?? kDefaultSentry;
     getTranffic = map["get_tranffic"] ?? kDefaultGetTranffic;
     getTranfficFrom = map["get_tranffic_from"] ?? kDefaultGetTranfficFrom;
@@ -347,16 +334,5 @@ class RemoteConfig {
       }
     }
     return null;
-  }
-
-  String getPanelJs() {
-    if (ispPanelJs.isNotEmpty) {
-      if (ispPanelJs.endsWith("?v=") || ispPanelJs.endsWith("&v=")) {
-        return "$ispPanelJs${DateTime.now().millisecondsSinceEpoch.toString()}";
-      }
-      return ispPanelJs;
-    }
-
-    return "";
   }
 }

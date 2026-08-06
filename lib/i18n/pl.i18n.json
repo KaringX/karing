@@ -283,6 +283,16 @@
         "update": "Uruchom ponownie, aby zaktualizować",
         "cancel": "Nie teraz"
     },
+    "loginScreen": {
+        "provider": "dostawca VPN",
+        "providerName": "Kod/alias/URL @:{loginScreen.provider}",
+        "providerNameRequired": "Wprowadz kod/alias/URL @:{loginScreen.provider}",
+        "unsupportedProvider": "Nieobslugiwany @:{loginScreen.provider}",
+        "unsupportedProviderType": "Nieobslugiwany typ @:{loginScreen.provider}",
+        "unActivedProvider": "Wiązanie dostawcy nie jest aktywne",
+        "providerLoginSupportRequired": "Aby uzyskac kod/alias, skontaktuj sie z @:{loginScreen.provider}\nIntegracja @:{loginScreen.provider}: $p",
+        "providerDisclaimer": "Zastrzezenie: @:{loginScreen.provider} to usluga strony trzeciej i nie jest zwiazana z ta aplikacja"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Jeśli [Zawsze włączony VPN] jest włączony, wyłącz go i spróbuj połączyć się ponownie",
         "resetPort": "Zmień port na inny dostępny lub zamknij aplikację zajmującą port."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "Statyczne IP",
         "staticIPTips": "Musisz włączyć [TUN HijackDNS] lub [@:{SettingsScreen.inboundDomainResolve}].",
-        "isp": "Dostawca VPN",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Sufiks domeny",
         "domain": "Domena",
         "domainKeyword": "Słowo kluczowe domeny",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

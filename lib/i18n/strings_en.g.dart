@@ -59,11 +59,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$SettingsScreen$en SettingsScreen = Translations$SettingsScreen$en._(_root);
 	late final Translations$UserAgreementScreen$en UserAgreementScreen = Translations$UserAgreementScreen$en._(_root);
 	late final Translations$VersionUpdateScreen$en VersionUpdateScreen = Translations$VersionUpdateScreen$en._(_root);
+	late final Translations$loginScreen$en loginScreen = Translations$loginScreen$en._(_root);
 	late final Translations$CommonWidget$en CommonWidget = Translations$CommonWidget$en._(_root);
 	late final Translations$main$en main = Translations$main$en._(_root);
 	late final Translations$meta$en meta = Translations$meta$en._(_root);
 
-	/// en: 'Keep [VPN Provider] Diversion Rules'
+	/// en: 'Keep [VPN provider] Diversion Rules'
 	String get diversionRulesKeep => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}';
 
 	/// en: 'Preset [Custom Diversion Group]'
@@ -78,10 +79,10 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Tip: After turning on the options, please go to[Diversion Rules]to set the relevant rules, otherwise they will not take effect'
 	String get rulesetEnableTips => 'Tip: After turning on the options, please go to[${_root.meta.diversionRules}]to set the relevant rules, otherwise they will not take effect';
 
-	/// en: '[VPN Provider] will send data of different subscription types based on [UserAgent] in [HTTP] request'
+	/// en: '[VPN provider] will send data of different subscription types based on [UserAgent] in [HTTP] request'
 	String get ispUserAgentTips => '[${_root.meta.isp}] will send data of different subscription types based on [UserAgent] in [HTTP] request';
 
-	/// en: '[VPN Provider] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules'
+	/// en: '[VPN provider] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules'
 	String get ispDiversionTips => '[${_root.meta.isp}] provides traffic diversion rules; [V2Ray] type subscriptions do not support traffic diversion rules';
 
 	late final Translations$isp$en isp = Translations$isp$en._(_root);
@@ -661,7 +662,7 @@ class Translations$SettingsScreen$en {
 	/// en: 'Hide Unused Diversion Rules'
 	String get hideUnusedDiversionGroup => 'Hide Unused Diversion Rules';
 
-	/// en: 'Disable [VPN Provider] Diversion Rules'
+	/// en: 'Disable [VPN provider] Diversion Rules'
 	String get disableISPDiversionGroup => 'Disable [${_root.meta.isp}] ${_root.meta.diversionRules}';
 
 	/// en: 'Rule Based'
@@ -1106,6 +1107,39 @@ class Translations$VersionUpdateScreen$en {
 	String get cancel => 'Not Now';
 }
 
+// Path: loginScreen
+class Translations$loginScreen$en {
+	Translations$loginScreen$en._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'VPN provider'
+	String get provider => 'VPN provider';
+
+	/// en: 'VPN provider code/alias/URL'
+	String get providerName => '${_root.loginScreen.provider} code/alias/URL';
+
+	/// en: 'Please enter VPN provider code/alias/URL'
+	String get providerNameRequired => 'Please enter ${_root.loginScreen.provider} code/alias/URL';
+
+	/// en: 'Unsupported VPN provider'
+	String get unsupportedProvider => 'Unsupported ${_root.loginScreen.provider}';
+
+	/// en: 'Unsupported VPN provider type'
+	String get unsupportedProviderType => 'Unsupported ${_root.loginScreen.provider} type';
+
+	/// en: 'Provider binding is not activated'
+	String get unActivedProvider => 'Provider binding is not activated';
+
+	/// en: 'For code/alias, contact your VPN provider For VPN provider integration, refer to: $p'
+	String providerLoginSupportRequired({required Object p}) => 'For code/alias, contact your ${_root.loginScreen.provider}\nFor ${_root.loginScreen.provider} integration, refer to: ${p}';
+
+	/// en: 'Disclaimer: VPN provider is a third-party service and is not affiliated with this app'
+	String get providerDisclaimer => 'Disclaimer: ${_root.loginScreen.provider} is a third-party service and is not affiliated with this app';
+}
+
 // Path: CommonWidget
 class Translations$CommonWidget$en {
 	Translations$CommonWidget$en._(this._root);
@@ -1481,8 +1515,8 @@ class Translations$meta$en {
 	/// en: 'You need to enable [TUN HijackDNS] or [Resolve Inbound Domain names].'
 	String get staticIPTips => 'You need to enable [TUN HijackDNS] or [${_root.SettingsScreen.inboundDomainResolve}].';
 
-	/// en: 'VPN Provider'
-	String get isp => 'VPN Provider';
+	/// en: 'VPN provider'
+	String get isp => _root.loginScreen.provider;
 
 	/// en: 'Domain Suffix'
 	String get domainSuffix => 'Domain Suffix';
@@ -1901,7 +1935,7 @@ class Translations$isp$en {
 
 	// Translations
 
-	/// en: 'Bind To [VPN Provider] '
+	/// en: 'Bind To [VPN provider] '
 	String get bind => 'Bind To [${_root.meta.isp}] ';
 
 	/// en: 'Unbind[$p]'
@@ -1916,7 +1950,7 @@ class Translations$isp$en {
 	/// en: 'Follow[$p]'
 	String follow({required Object p}) => 'Follow[${p}]';
 
-	/// en: '[VPN Provider] Invalid or expired'
+	/// en: '[VPN provider] Invalid or expired'
 	String get invalidOrExpired => '[${_root.meta.isp}] Invalid or expired';
 }
 
@@ -2339,6 +2373,14 @@ extension on Translations {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'The new version[${p}] is ready',
 			'VersionUpdateScreen.update' => 'Restart To Update',
 			'VersionUpdateScreen.cancel' => 'Not Now',
+			'loginScreen.provider' => 'VPN provider',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} code/alias/URL',
+			'loginScreen.providerNameRequired' => 'Please enter ${_root.loginScreen.provider} code/alias/URL',
+			'loginScreen.unsupportedProvider' => 'Unsupported ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Unsupported ${_root.loginScreen.provider} type',
+			'loginScreen.unActivedProvider' => 'Provider binding is not activated',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'For code/alias, contact your ${_root.loginScreen.provider}\nFor ${_root.loginScreen.provider} integration, refer to: ${p}',
+			'loginScreen.providerDisclaimer' => 'Disclaimer: ${_root.loginScreen.provider} is a third-party service and is not affiliated with this app',
 			'CommonWidget.diableAlwayOnVPN' => 'If [Always on VPN] is turned on, please turn off [Always on VPN] and try connecting again',
 			'CommonWidget.resetPort' => 'Please change the port to another available port or close the application occupying the port.',
 			'main.tray.menuOpen' => 'Open',
@@ -2457,7 +2499,7 @@ extension on Translations {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Static IP',
 			'meta.staticIPTips' => 'You need to enable [TUN HijackDNS] or [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'VPN Provider',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Domain Suffix',
 			'meta.domain' => 'Domain',
 			'meta.domainKeyword' => 'Domain Keyword',
@@ -2597,6 +2639,8 @@ extension on Translations {
 			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect',
 			'rulesetEnableTips' => 'Tip: After turning on the options, please go to[${_root.meta.diversionRules}]to set the relevant rules, otherwise they will not take effect',
 			'ispUserAgentTips' => '[${_root.meta.isp}] will send data of different subscription types based on [UserAgent] in [HTTP] request',
@@ -2605,8 +2649,6 @@ extension on Translations {
 			'isp.unbind' => ({required Object p}) => 'Unbind[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Follow[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Invalid or expired',
 			'permission.camera' => 'Camera',

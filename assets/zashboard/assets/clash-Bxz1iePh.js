@@ -1,0 +1,1 @@
+import{aX as o,aY as u,aV as c,aW as i}from"./index-uJX-4cHl.js";const n=async()=>{const{data:r}=await o(),{data:e}=await u();c.value=r.rules.map(t=>{const a=t.proxy,s=a.startsWith("route(")?a.substring(6,a.length-1):a;return{...t,proxy:s}}),i.value=Object.values(e.providers)};export{n as fetchRules};

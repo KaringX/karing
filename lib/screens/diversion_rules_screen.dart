@@ -236,6 +236,18 @@ class DiversionRulesScreenState
           bool invalid = false;
           if (selected.item2.isNotEmpty) {
             text = selected.item2;
+            if (group.groupid == ServerManager.getCustomGroupId() &&
+                selected.item1.groupid == ServerManager.getUrltestGroupId()) {
+              bool exists = false;
+              ServerConfigGroupItem item = ServerManager.getCustomGroup();
+              for (var i in item.urltests) {
+                if (i.remark == selected.item2) {
+                  exists = true;
+                  break;
+                }
+              }
+              invalid = !exists;
+            }
           } else {
             text = selected.item1.tag;
             if (!_allOutboundsTags.contains(selected.item1.tag)) {
@@ -288,7 +300,7 @@ class DiversionRulesScreenState
       );
       groupOptions.add(GroupItem(options: options));
     }
-    var use = ServerManager.getUse();
+    final use = ServerManager.getUse();
     //geosite
     if (settingConfig.ruleSets.enableGeoSite) {
       List<GroupItemOptions> options = [];

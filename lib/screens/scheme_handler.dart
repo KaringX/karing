@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:karing/app/modules/notice_manager.dart';
-import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_scheme_actions.dart';
-import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -162,25 +158,20 @@ class SchemeHandler {
     if (url == null || url.isEmpty) {
       return ReturnResultError("url empty");
     }
-    RemoteISPConfig? ispConfig;
-    var remoteConfig = RemoteConfigManager.getConfig();
+    BoardProviderConfig? provider;
     if (ispId != null && ispId.isNotEmpty) {
-      var remoteISPConfig = RemoteISPConfigManager.getConfig();
-      if (remoteISPConfig.id.isEmpty) {
-        ReturnResult<RemoteISPConfig> isp =
-            await KaringUtils.getRemoteISPConfig(ispId);
+      provider = BoardProviderManager.getBindedProvider();
+      if (provider == null) {
+        final isp = await BoardProviderManager.getProvider(ispId);
         if (isp.error == null) {
           if (isp.data!.id.isNotEmpty) {
-            ispConfig = isp.data!;
+            provider = isp.data!;
           }
         }
       }
     }
-    if (ispConfig != null) {
-      if (!remoteConfig.ispBindNeedConnect) {
-        RemoteISPConfigManager.reset(ispConfig);
-        NoticeManager.resetISP();
-      }
+    if (provider != null) {
+      outboundDns = provider.outboundDns;
     }
     if (!context.mounted) {
       return null;
@@ -190,17 +181,14 @@ class SchemeHandler {
       url,
       name,
       ispUser,
-      ispConfig,
+      provider,
       false,
       xhwid,
       outboundDns,
     );
     if (result == null) {
-      if (ispConfig != null) {
-        if (remoteConfig.ispBindNeedConnect) {
-          RemoteISPConfigManager.reset(ispConfig);
-          NoticeManager.resetISP();
-        }
+      if (provider != null) {
+        BoardProviderManager.setBindedProvider(provider.id);
       }
     }
 
@@ -234,7 +222,7 @@ class SchemeHandler {
     String urlOrContent,
     String? name,
     String? ispUser,
-    RemoteISPConfig? ispConfig,
+    BoardProviderConfig? ispConfig,
     bool autoAdd,
     bool? xhwid,
     List<String> outboundDns,

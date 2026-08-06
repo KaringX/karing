@@ -56,6 +56,7 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$nl SettingsScreen = _Translations$SettingsScreen$nl._(_root);
 	@override late final _Translations$UserAgreementScreen$nl UserAgreementScreen = _Translations$UserAgreementScreen$nl._(_root);
 	@override late final _Translations$VersionUpdateScreen$nl VersionUpdateScreen = _Translations$VersionUpdateScreen$nl._(_root);
+	@override late final _Translations$loginScreen$nl loginScreen = _Translations$loginScreen$nl._(_root);
 	@override late final _Translations$CommonWidget$nl CommonWidget = _Translations$CommonWidget$nl._(_root);
 	@override late final _Translations$main$nl main = _Translations$main$nl._(_root);
 	@override late final _Translations$meta$nl meta = _Translations$meta$nl._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$nl implements Translations$VersionUpdate
 	@override String get cancel => 'Niet nu';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$nl implements Translations$loginScreen$en {
+	_Translations$loginScreen$nl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN-provider';
+	@override String get providerName => '${_root.loginScreen.provider}-code/alias/URL';
+	@override String get providerNameRequired => 'Voer ${_root.loginScreen.provider}-code/alias/URL in';
+	@override String get unsupportedProvider => 'Niet-ondersteunde ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Niet-ondersteund ${_root.loginScreen.provider}-type';
+	@override String get unActivedProvider => 'Providerkoppeling is niet geactiveerd';
+	@override String providerLoginSupportRequired({required Object p}) => 'Neem voor code/alias contact op met je ${_root.loginScreen.provider}\nVoor ${_root.loginScreen.provider}-integratie, zie: ${p}';
+	@override String get providerDisclaimer => 'Disclaimer: ${_root.loginScreen.provider} is een service van derden en staat los van deze app';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$nl implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$nl._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Statisch IP';
 	@override String get staticIPTips => 'U moet [TUN HijackDNS] of [${_root.SettingsScreen.inboundDomainResolve}] inschakelen.';
-	@override String get isp => 'VPN-provider';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Domein-suffix';
 	@override String get domain => 'Domein';
 	@override String get domainKeyword => 'Domein trefwoord';
@@ -1200,6 +1218,14 @@ extension on TranslationsNl {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'De nieuwe versie [${p}] is gereed',
 			'VersionUpdateScreen.update' => 'Herstarten om bij te werken',
 			'VersionUpdateScreen.cancel' => 'Niet nu',
+			'loginScreen.provider' => 'VPN-provider',
+			'loginScreen.providerName' => '${_root.loginScreen.provider}-code/alias/URL',
+			'loginScreen.providerNameRequired' => 'Voer ${_root.loginScreen.provider}-code/alias/URL in',
+			'loginScreen.unsupportedProvider' => 'Niet-ondersteunde ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Niet-ondersteund ${_root.loginScreen.provider}-type',
+			'loginScreen.unActivedProvider' => 'Providerkoppeling is niet geactiveerd',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Neem voor code/alias contact op met je ${_root.loginScreen.provider}\nVoor ${_root.loginScreen.provider}-integratie, zie: ${p}',
+			'loginScreen.providerDisclaimer' => 'Disclaimer: ${_root.loginScreen.provider} is een service van derden en staat los van deze app',
 			'CommonWidget.diableAlwayOnVPN' => 'Als [Altijd aan VPN] is ingeschakeld, schakel dit dan uit en probeer opnieuw verbinding te maken',
 			'CommonWidget.resetPort' => 'Wijzig de poort naar een andere beschikbare poort of sluit de app die de poort bezet.',
 			'main.tray.menuOpen' => 'Openen',
@@ -1318,7 +1344,7 @@ extension on TranslationsNl {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Statisch IP',
 			'meta.staticIPTips' => 'U moet [TUN HijackDNS] of [${_root.SettingsScreen.inboundDomainResolve}] inschakelen.',
-			'meta.isp' => 'VPN-provider',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Domein-suffix',
 			'meta.domain' => 'Domein',
 			'meta.domainKeyword' => 'Domein trefwoord',
@@ -1458,6 +1484,8 @@ extension on TranslationsNl {
 			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			'diversionCustomGroupPreset' => 'Voorinstelling [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Opmerking: Ingeschakelde items worden toegevoegd aan/overschreven in [${_root.meta.diversionCustomGroup}] en [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Opmerking: Na het toevoegen moet u mogelijk handmatig de volgorde aanpassen, anders werkt de nieuw toegevoegde omleiding mogelijk niet',
 			'rulesetEnableTips' => 'Tip: Ga na het inschakelen van de opties naar [${_root.meta.diversionRules}] om de relevante regels in te stellen, anders treden ze niet in werking',
 			'ispUserAgentTips' => '[${_root.meta.isp}] zal gegevens van verschillende abonnementstypen verzenden op basis van de [UserAgent] in het [HTTP]-verzoek',
@@ -1466,8 +1494,6 @@ extension on TranslationsNl {
 			'isp.unbind' => ({required Object p}) => 'Ontkoppelen[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Volgen[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Ongeldig of verlopen',
 			'permission.camera' => 'Camera',

@@ -56,6 +56,7 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$fr SettingsScreen = _Translations$SettingsScreen$fr._(_root);
 	@override late final _Translations$UserAgreementScreen$fr UserAgreementScreen = _Translations$UserAgreementScreen$fr._(_root);
 	@override late final _Translations$VersionUpdateScreen$fr VersionUpdateScreen = _Translations$VersionUpdateScreen$fr._(_root);
+	@override late final _Translations$loginScreen$fr loginScreen = _Translations$loginScreen$fr._(_root);
 	@override late final _Translations$CommonWidget$fr CommonWidget = _Translations$CommonWidget$fr._(_root);
 	@override late final _Translations$main$fr main = _Translations$main$fr._(_root);
 	@override late final _Translations$meta$fr meta = _Translations$meta$fr._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$fr implements Translations$VersionUpdate
 	@override String get cancel => 'Pas maintenant';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$fr implements Translations$loginScreen$en {
+	_Translations$loginScreen$fr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'fournisseur VPN';
+	@override String get providerName => 'Code/Alias/URL du ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Veuillez saisir le code/alias/URL du ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} non pris en charge';
+	@override String get unsupportedProviderType => 'Type de ${_root.loginScreen.provider} non pris en charge';
+	@override String get unActivedProvider => 'La liaison du fournisseur n\'est pas activée';
+	@override String providerLoginSupportRequired({required Object p}) => 'Pour le code/alias, contactez votre ${_root.loginScreen.provider}\nPour l\'integration ${_root.loginScreen.provider}, consultez : ${p}';
+	@override String get providerDisclaimer => 'Avertissement : ${_root.loginScreen.provider} est un service tiers, sans lien avec cette application';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$fr implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$fr._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$fr implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP statique';
 	@override String get staticIPTips => 'Vous devez activer [TUN HijackDNS] ou [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Fournisseur VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Suffixe de domaine';
 	@override String get domain => 'Domaine';
 	@override String get domainKeyword => 'Mot-clé de domaine';
@@ -1200,6 +1218,14 @@ extension on TranslationsFr {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'La nouvelle version [${p}] est prête',
 			'VersionUpdateScreen.update' => 'Redémarrer pour mettre à jour',
 			'VersionUpdateScreen.cancel' => 'Pas maintenant',
+			'loginScreen.provider' => 'fournisseur VPN',
+			'loginScreen.providerName' => 'Code/Alias/URL du ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Veuillez saisir le code/alias/URL du ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} non pris en charge',
+			'loginScreen.unsupportedProviderType' => 'Type de ${_root.loginScreen.provider} non pris en charge',
+			'loginScreen.unActivedProvider' => 'La liaison du fournisseur n\'est pas activée',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Pour le code/alias, contactez votre ${_root.loginScreen.provider}\nPour l\'integration ${_root.loginScreen.provider}, consultez : ${p}',
+			'loginScreen.providerDisclaimer' => 'Avertissement : ${_root.loginScreen.provider} est un service tiers, sans lien avec cette application',
 			'CommonWidget.diableAlwayOnVPN' => 'Si [VPN toujours activé] est activé, veuillez le désactiver et essayer de vous reconnecter',
 			'CommonWidget.resetPort' => 'Veuillez changer le port pour un autre port disponible ou fermer l\'application occupant le port.',
 			'main.tray.menuOpen' => 'Ouvrir',
@@ -1318,7 +1344,7 @@ extension on TranslationsFr {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP statique',
 			'meta.staticIPTips' => 'Vous devez activer [TUN HijackDNS] ou [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Fournisseur VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Suffixe de domaine',
 			'meta.domain' => 'Domaine',
 			'meta.domainKeyword' => 'Mot-clé de domaine',
@@ -1458,6 +1484,8 @@ extension on TranslationsFr {
 			'diversionRulesKeep' => 'Conserver [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Préréglage [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note : Les éléments activés seront ajoutés/écrasés dans [${_root.meta.diversionCustomGroup}] et [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Note : Après l\'ajout, vous devrez peut-être ajuster manuellement l\'ordre, sinon la nouvelle diversion pourrait ne pas être effective',
 			'rulesetEnableTips' => 'Conseil : Après avoir activé les options, veuillez aller dans [${_root.meta.diversionRules}] pour définir les règles pertinentes, sinon elles ne seront pas effectives',
 			'ispUserAgentTips' => '[${_root.meta.isp}] enverra des données de différents types d\'abonnement en fonction de l\' [UserAgent] dans la requête [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsFr {
 			'isp.unbind' => ({required Object p}) => 'Délier [${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Suivre [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Invalide ou expiré',
 			'permission.camera' => 'Appareil photo',

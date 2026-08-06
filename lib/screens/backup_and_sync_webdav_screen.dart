@@ -11,6 +11,7 @@ import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
+import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/webdav_client_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -22,6 +23,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
+import 'package:tuple/tuple.dart';
 import 'package:webdav_client_plus/webdav_client_plus.dart';
 
 class BackupAndSyncWebdavScreen extends LasyRenderingStatefulWidget {
@@ -43,6 +45,7 @@ class _BackupAndSyncWebdavScreenState
   bool _loading = true;
   bool _uploading = false;
 
+  ProxyStrategy _connectMode = ProxyStrategy.preferDirect;
   WebdavClient? _webdavClient;
   List<String> _fileList = [];
   final TextEditingController _urlController = TextEditingController();
@@ -62,6 +65,7 @@ class _BackupAndSyncWebdavScreenState
     _passwordController.value = _passwordController.value.copyWith(
       text: settingConfig.webdav.password,
     );
+    _connectMode = SettingManager.getConfig().webdav.connectMode;
   }
 
   @override
@@ -295,10 +299,27 @@ class _BackupAndSyncWebdavScreenState
     _webdavClient = null;
     _fileList.clear();
     setState(() {});
-    List<int?> ports = await VPNService.getPortsByPrefer(false);
-    if (!ports.contains(null)) {
-      ports.insert(0, null);
+    List<int?> ports = [null];
+    final connectMode = settingConfig.webdav.connectMode;
+    var started = await VPNService.getStarted();
+    if (started) {
+      if (connectMode == ProxyStrategy.onlyDirect) {
+        ports = [settingConfig.proxy.mixedDirectPort];
+      } else if (connectMode == ProxyStrategy.onlyProxy) {
+        ports = [settingConfig.proxy.mixedForwardPort];
+      } else if (connectMode == ProxyStrategy.preferDirect) {
+        ports = [
+          settingConfig.proxy.mixedDirectPort,
+          settingConfig.proxy.mixedForwardPort,
+        ];
+      } else if (connectMode == ProxyStrategy.preferProxy) {
+        ports = [
+          settingConfig.proxy.mixedForwardPort,
+          settingConfig.proxy.mixedDirectPort,
+        ];
+      }
     }
+
     late ReturnResult<WebdavClient> result;
     int? currentPort;
     for (var port in ports) {
@@ -488,7 +509,52 @@ class _BackupAndSyncWebdavScreenState
         ),
       ];
 
+      List<Tuple2<String, String>> tupleStrings = [
+        Tuple2(
+          ProxyStrategy.preferProxy.name,
+          tcontext.proxyStrategy.perferProxy,
+        ),
+        Tuple2(
+          ProxyStrategy.preferDirect.name,
+          tcontext.proxyStrategy.perferDirect,
+        ),
+        Tuple2(ProxyStrategy.onlyProxy.name, tcontext.proxyStrategy.onlyProxy),
+        Tuple2(
+          ProxyStrategy.onlyDirect.name,
+          tcontext.proxyStrategy.onlyDirect,
+        ),
+      ];
+
       List<GroupItemOptions> options1 = [
+        GroupItemOptions(
+          stringPickerOptions: GroupItemStringPickerOptions(
+            name: tcontext.downloadProxyStrategy,
+            selected: _connectMode.name,
+            tupleStrings: tupleStrings,
+            onPicker: _loading
+                ? null
+                : (String? selected) async {
+                    if (selected == null || selected == _connectMode.name) {
+                      return;
+                    }
+                    if (selected == ProxyStrategy.preferProxy.name) {
+                      _connectMode = ProxyStrategy.preferProxy;
+                    } else if (selected == ProxyStrategy.preferDirect.name) {
+                      _connectMode = ProxyStrategy.preferDirect;
+                    } else if (selected == ProxyStrategy.onlyProxy.name) {
+                      _connectMode = ProxyStrategy.onlyProxy;
+                    } else if (selected == ProxyStrategy.onlyDirect.name) {
+                      _connectMode = ProxyStrategy.onlyDirect;
+                    } else {
+                      _connectMode = ProxyStrategy.preferProxy;
+                    }
+
+                    setState(() {});
+                  },
+          ),
+        ),
+      ];
+      List<GroupItemOptions> options2 = [
         GroupItemOptions(
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.reset,
@@ -496,6 +562,8 @@ class _BackupAndSyncWebdavScreenState
               SettingManager.getConfig().webdav.url = "";
               SettingManager.getConfig().webdav.user = "";
               SettingManager.getConfig().webdav.password = "";
+              SettingManager.getConfig().webdav.connectMode =
+                  ProxyStrategy.preferDirect;
               SettingManager.save();
               Navigator.pop(context, true);
             },
@@ -503,7 +571,11 @@ class _BackupAndSyncWebdavScreenState
         ),
       ];
 
-      return [GroupItem(options: options), GroupItem(options: options1)];
+      return [
+        GroupItem(options: options),
+        GroupItem(options: options1),
+        GroupItem(options: options2),
+      ];
     }
 
     bool? done = await Navigator.push(
@@ -539,6 +611,7 @@ class _BackupAndSyncWebdavScreenState
             SettingManager.getConfig().webdav.password = _passwordController
                 .text
                 .trim();
+            SettingManager.getConfig().webdav.connectMode = _connectMode;
             SettingManager.save();
 
             return true;

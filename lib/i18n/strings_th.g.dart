@@ -56,6 +56,7 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$th SettingsScreen = _Translations$SettingsScreen$th._(_root);
 	@override late final _Translations$UserAgreementScreen$th UserAgreementScreen = _Translations$UserAgreementScreen$th._(_root);
 	@override late final _Translations$VersionUpdateScreen$th VersionUpdateScreen = _Translations$VersionUpdateScreen$th._(_root);
+	@override late final _Translations$loginScreen$th loginScreen = _Translations$loginScreen$th._(_root);
 	@override late final _Translations$CommonWidget$th CommonWidget = _Translations$CommonWidget$th._(_root);
 	@override late final _Translations$main$th main = _Translations$main$th._(_root);
 	@override late final _Translations$meta$th meta = _Translations$meta$th._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$th implements Translations$VersionUpdate
 	@override String get cancel => 'ไม่ใช่ตอนนี้';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$th implements Translations$loginScreen$en {
+	_Translations$loginScreen$th._(this._root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'ผู้ให้บริการ VPN';
+	@override String get providerName => 'รหัส/นามแฝง/URL ของ ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'โปรดกรอกรหัส/นามแฝง/URL ของ ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => 'ไม่รองรับ ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'ไม่รองรับประเภท ${_root.loginScreen.provider}';
+	@override String get unActivedProvider => 'ยังไม่ได้เปิดใช้งานการเชื่อมโยงผู้ให้บริการ';
+	@override String providerLoginSupportRequired({required Object p}) => 'สำหรับรหัส/นามแฝง โปรดติดต่อ ${_root.loginScreen.provider} ของคุณ\nสำหรับการเชื่อมต่อ ${_root.loginScreen.provider} โปรดดู: ${p}';
+	@override String get providerDisclaimer => 'ข้อจำกัดความรับผิดชอบ: ${_root.loginScreen.provider} เป็นบริการของบุคคลที่สาม และไม่เกี่ยวข้องกับแอปนี้';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$th implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$th._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP แบบคงที่';
 	@override String get staticIPTips => 'คุณต้องเปิดใช้งาน [TUN HijackDNS] หรือ [${_root.SettingsScreen.inboundDomainResolve}]';
-	@override String get isp => 'ผู้ให้บริการ VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'คำต่อท้ายโดเมน';
 	@override String get domain => 'โดเมน';
 	@override String get domainKeyword => 'คำหลักของโดเมน';
@@ -1200,6 +1218,14 @@ extension on TranslationsTh {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'เวอร์ชันใหม่ [${p}] พร้อมแล้ว',
 			'VersionUpdateScreen.update' => 'รีสตาร์ทเพื่ออัปเดต',
 			'VersionUpdateScreen.cancel' => 'ไม่ใช่ตอนนี้',
+			'loginScreen.provider' => 'ผู้ให้บริการ VPN',
+			'loginScreen.providerName' => 'รหัส/นามแฝง/URL ของ ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'โปรดกรอกรหัส/นามแฝง/URL ของ ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => 'ไม่รองรับ ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'ไม่รองรับประเภท ${_root.loginScreen.provider}',
+			'loginScreen.unActivedProvider' => 'ยังไม่ได้เปิดใช้งานการเชื่อมโยงผู้ให้บริการ',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'สำหรับรหัส/นามแฝง โปรดติดต่อ ${_root.loginScreen.provider} ของคุณ\nสำหรับการเชื่อมต่อ ${_root.loginScreen.provider} โปรดดู: ${p}',
+			'loginScreen.providerDisclaimer' => 'ข้อจำกัดความรับผิดชอบ: ${_root.loginScreen.provider} เป็นบริการของบุคคลที่สาม และไม่เกี่ยวข้องกับแอปนี้',
 			'CommonWidget.diableAlwayOnVPN' => 'หากเปิดใช้งาน [การเชื่อมต่อที่เปิดอยู่เสมอ] โปรดปิดใช้งาน [การเชื่อมต่อที่เปิดอยู่เสมอ] และลองเชื่อมต่ออีกครั้ง',
 			'CommonWidget.resetPort' => 'โปรดเปลี่ยนพอร์ตเป็นพอร์ตอื่นที่พร้อมใช้งาน หรือปิดแอปพลิเคชันที่ใช้พอร์ต',
 			'main.tray.menuOpen' => 'เปิด',
@@ -1318,7 +1344,7 @@ extension on TranslationsTh {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP แบบคงที่',
 			'meta.staticIPTips' => 'คุณต้องเปิดใช้งาน [TUN HijackDNS] หรือ [${_root.SettingsScreen.inboundDomainResolve}]',
-			'meta.isp' => 'ผู้ให้บริการ VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'คำต่อท้ายโดเมน',
 			'meta.domain' => 'โดเมน',
 			'meta.domainKeyword' => 'คำหลักของโดเมน',
@@ -1458,6 +1484,8 @@ extension on TranslationsTh {
 			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'ตั้งค่า [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'หมายเหตุ: รายการที่เปิดใช้งานจะถูกเพิ่ม/เขียนทับไปยัง [${_root.meta.diversionCustomGroup}] และ [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'หมายเหตุ: หลังจากเพิ่ม คุณอาจต้องปรับเปลี่ยนการจัดลำดับด้วยตนเอง มิฉะนั้นการเปลี่ยนเส้นทางที่เพิ่มใหม่อาจไม่ทำให้เกิดผล',
 			'rulesetEnableTips' => 'เคล็ดลับ: หลังจากเปิดใช้งานตัวเลือก โปรดไปที่ [${_root.meta.diversionRules}] เพื่อตั้งค่ากฎที่เกี่ยวข้อง มิฉะนั้นจะไม่มีผล',
 			'ispUserAgentTips' => '[${_root.meta.isp}] จะส่งข้อมูลของประเภทการสมัครสมาชิกที่แตกต่างกันตามที่ [UserAgent] ใน [HTTP] ขอ',
@@ -1466,8 +1494,6 @@ extension on TranslationsTh {
 			'isp.unbind' => ({required Object p}) => 'ยกเลิกการผูก[${p}]',
 			'isp.faq' => ({required Object p}) => 'คำถามที่พบบ่อย[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'ติดตาม[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] ไม่ถูกต้องหรือหมดอายุ',
 			'permission.camera' => 'กล้อง',

@@ -6,7 +6,8 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
+
 //import 'package:class_to_string/class_to_string.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -1275,7 +1276,7 @@ class ServerManager {
     req.domain = testDomain ?? settingConfig.dns.testDomain;
     req.strategy = settingConfig.ipStrategy.name;
 
-    ReturnResult<String> data = await ClashApi.dnsQuery(
+    final data = await ClashApi.dnsQuery(
       SettingManager.getConfig().proxy.controlPort,
       req,
     );
@@ -1287,7 +1288,7 @@ class ServerManager {
       return ReturnResult(error: ReturnResultError(data.error!.message));
     }
     try {
-      var config = jsonDecode(data.data!);
+      var config = jsonDecode(data.data!.item2);
       DNSQueryResponse response = DNSQueryResponse();
       response.fromJson(config);
       if (response.err == null) {
@@ -1296,7 +1297,7 @@ class ServerManager {
         return ReturnResult(error: ReturnResultError(response.err!));
       }
     } catch (err, stacktrace) {
-      return ReturnResult(error: ReturnResultError(data.data!));
+      return ReturnResult(error: ReturnResultError(data.data!.item2));
     }
   }
 
@@ -2187,6 +2188,16 @@ class ServerManager {
     return index;
   }
 
+  static ServerConfigGroupItem? getByProviderId(String providerId) {
+    for (var item in _serverConfig.items) {
+      SubscriptionISP? isp = item.getISP();
+      if (isp != null && isp.id == providerId) {
+        return item;
+      }
+    }
+    return null;
+  }
+
   static ServerConfigGroupItem? getByGroupId(String groupId) {
     if (getCurrentSelectedGroupId() == groupId) {
       return getByCurrentGroup();
@@ -2454,12 +2465,21 @@ class ServerManager {
         callback(groupid);
       }
     });
+    String userAgent = item.userAgentAppend
+        ? await HttpUtils.getUserAgent(
+            compatible: HttpUtils.getUserAgentsByUaString(
+              item.userAgentCompatibles,
+            ),
+          )
+        : item.userAgentCompatibles.join(";");
     late ReturnResult<Tuple2<int, HttpHeaders>> result;
     List<int?> ports = await VPNService.getPortsBySetting(item.proxyStrategy);
     for (var port in ports) {
       result = await HttpUtils.httpHeadRequest(
         Uri.parse(item.urlOrPath),
         port,
+        userAgent,
+        item.xhwid,
         const Duration(seconds: 5),
       );
       if (result.error == null) {
@@ -2523,11 +2543,12 @@ class ServerManager {
       return;
     }
     _updateLatencyByHistory = true;
-    ReturnResult<String> result = await ClashApi.getGroupDelayHistory(
+    final result = await ClashApi.getGroupDelayHistory(
       SettingManager.getConfig().proxy.controlPort,
     );
     if (result.data != null) {
-      var decodedResponse = jsonDecode(result.data!) as Map<String, dynamic>;
+      var decodedResponse =
+          jsonDecode(result.data!.item2) as Map<String, dynamic>;
       var history = decodedResponse["history"] as Map<String, dynamic>;
       if (history.isNotEmpty) {
         for (var item in _serverConfig.items) {
@@ -2856,7 +2877,7 @@ class ServerManager {
     await loadDiversionGroupConfig();
     await loadUse();
     await SettingManager.init(fromBackupRestore: true);
-    await RemoteISPConfigManager.init();
+    await BoardProviderManager.init();
 
     if (tun != null || mergePerapp) {
       if (tun != null) {

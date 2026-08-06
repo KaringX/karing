@@ -56,6 +56,7 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$ur SettingsScreen = _Translations$SettingsScreen$ur._(_root);
 	@override late final _Translations$UserAgreementScreen$ur UserAgreementScreen = _Translations$UserAgreementScreen$ur._(_root);
 	@override late final _Translations$VersionUpdateScreen$ur VersionUpdateScreen = _Translations$VersionUpdateScreen$ur._(_root);
+	@override late final _Translations$loginScreen$ur loginScreen = _Translations$loginScreen$ur._(_root);
 	@override late final _Translations$CommonWidget$ur CommonWidget = _Translations$CommonWidget$ur._(_root);
 	@override late final _Translations$main$ur main = _Translations$main$ur._(_root);
 	@override late final _Translations$meta$ur meta = _Translations$meta$ur._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$ur implements Translations$VersionUpdate
 	@override String get cancel => 'ابھی نہیں';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$ur implements Translations$loginScreen$en {
+	_Translations$loginScreen$ur._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN سروس فراہم کنندہ';
+	@override String get providerName => '${_root.loginScreen.provider} کوڈ/عرف/URL';
+	@override String get providerNameRequired => 'براہ کرم ${_root.loginScreen.provider} کوڈ/عرف/URL درج کریں';
+	@override String get unsupportedProvider => 'غیر معاون ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'غیر معاون ${_root.loginScreen.provider} قسم';
+	@override String get unActivedProvider => 'فراہم کنندہ بائنڈنگ فیچر فعال نہیں ہے';
+	@override String providerLoginSupportRequired({required Object p}) => 'کوڈ/عرف کے لیے اپنے ${_root.loginScreen.provider} سے رابطہ کریں\n${_root.loginScreen.provider} انضمام کے لیے دیکھیں: ${p}';
+	@override String get providerDisclaimer => 'دستبرداری: ${_root.loginScreen.provider} فریق ثالث کی سروس ہے اور اس ایپ سے متعلق نہیں ہے';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$ur implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$ur._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'جامد IP';
 	@override String get staticIPTips => 'آپ کو [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] فعال کرنے کی ضرورت ہے۔';
-	@override String get isp => 'VPN فراہم کنندہ';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'ڈومین لاحقہ';
 	@override String get domain => 'ڈومین';
 	@override String get domainKeyword => 'ڈومین کلیدی لفظ';
@@ -1200,6 +1218,14 @@ extension on TranslationsUr {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'نیا ورژن [${p}] تیار ہے',
 			'VersionUpdateScreen.update' => 'اپ ڈیٹ کرنے کے لیے دوبارہ شروع کریں',
 			'VersionUpdateScreen.cancel' => 'ابھی نہیں',
+			'loginScreen.provider' => 'VPN سروس فراہم کنندہ',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} کوڈ/عرف/URL',
+			'loginScreen.providerNameRequired' => 'براہ کرم ${_root.loginScreen.provider} کوڈ/عرف/URL درج کریں',
+			'loginScreen.unsupportedProvider' => 'غیر معاون ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'غیر معاون ${_root.loginScreen.provider} قسم',
+			'loginScreen.unActivedProvider' => 'فراہم کنندہ بائنڈنگ فیچر فعال نہیں ہے',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'کوڈ/عرف کے لیے اپنے ${_root.loginScreen.provider} سے رابطہ کریں\n${_root.loginScreen.provider} انضمام کے لیے دیکھیں: ${p}',
+			'loginScreen.providerDisclaimer' => 'دستبرداری: ${_root.loginScreen.provider} فریق ثالث کی سروس ہے اور اس ایپ سے متعلق نہیں ہے',
 			'CommonWidget.diableAlwayOnVPN' => 'اگر [ہمیشہ آن VPN] آن ہے تو براہ کرم [ہمیشہ آن VPN] آف کریں اور دوبارہ منسلک ہونے کی کوشش کریں',
 			'CommonWidget.resetPort' => 'براہ کرم پورٹ کو کسی دوسرے دستیاب پورٹ میں تبدیل کریں یا اس ایپلی کیشن کو بند کریں جو پورٹ استعمال کر رہی ہے۔',
 			'main.tray.menuOpen' => 'کھولیں',
@@ -1318,7 +1344,7 @@ extension on TranslationsUr {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'جامد IP',
 			'meta.staticIPTips' => 'آپ کو [TUN HijackDNS] یا [${_root.SettingsScreen.inboundDomainResolve}] فعال کرنے کی ضرورت ہے۔',
-			'meta.isp' => 'VPN فراہم کنندہ',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'ڈومین لاحقہ',
 			'meta.domain' => 'ڈومین',
 			'meta.domainKeyword' => 'ڈومین کلیدی لفظ',
@@ -1458,6 +1484,8 @@ extension on TranslationsUr {
 			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			'diversionCustomGroupPreset' => 'پری سیٹ [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'نوٹ: فعال کردہ آئٹمز [${_root.meta.diversionCustomGroup}] اور [${_root.meta.diversionRules}] میں شامل/اوور رائٹ کر دیے جائیں گے',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'نوٹ: شامل کرنے کے بعد، آپ کو ترتیب کو دستی طور پر ایڈجسٹ کرنے کی ضرورت پڑ سکتی ہے، ورنہ نیا شامل کردہ ڈائیورژن موثر نہیں ہو سکتا ہے',
 			'rulesetEnableTips' => 'ٹپ: اختیارات آن کرنے کے بعد، براہ کرم متعلقہ رولز ترتیب دینے کے لیے [${_root.meta.diversionRules}] پر جائیں، ورنہ وہ موثر نہیں ہوں گے',
 			'ispUserAgentTips' => '[${_root.meta.isp}] [HTTP] درخواست میں [UserAgent] کی بنیاد پر مختلف سبسکرپشن اقسام کا ڈیٹا بھیجے گا',
@@ -1466,8 +1494,6 @@ extension on TranslationsUr {
 			'isp.unbind' => ({required Object p}) => 'علیحدہ کریں[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'فالو کریں[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] غلط یا ختم ہو گیا',
 			'permission.camera' => 'کیمرہ',

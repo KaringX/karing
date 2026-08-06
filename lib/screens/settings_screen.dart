@@ -7,14 +7,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
+import 'package:karing/app/modules/board_provider_notice_manager.dart';
 import 'package:karing/app/modules/notice_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -38,6 +37,7 @@ import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/language_settings_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
+import 'package:karing/screens/login_step_provider_screen.dart';
 import 'package:karing/screens/my_profiles_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
@@ -51,7 +51,6 @@ import 'package:karing/screens/useragent_settings_screen.dart';
 import 'package:karing/screens/uwp_loopback_exemption_windows_screen.dart';
 import 'package:karing/screens/version_update_screen.dart';
 import 'package:karing/screens/webview_helper.dart';
-import 'package:karing/screens/webview_isp_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
@@ -78,6 +77,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
     super.initState();
 
     NoticeManager.onEventCheck.add(onNotice);
+    BoardProviderNoticeManager.onEventCheck.add(onNotice);
     AutoUpdateManager.onEventCheck.add(onUpdate);
   }
 
@@ -100,6 +100,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
   @override
   void dispose() {
     NoticeManager.onEventCheck.remove(onNotice);
+    BoardProviderNoticeManager.onEventCheck.remove(onNotice);
     AutoUpdateManager.onEventCheck.remove(onUpdate);
     super.dispose();
     SettingManager.save();
@@ -201,21 +202,51 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
 
     AutoUpdateCheckVersion versionCheck = AutoUpdateManager.getVersionCheck();
     String? installer = await AutoUpdateManager.checkReplace();
-    var serverConfig = ServerManager.getConfig();
     var settingConfig = SettingManager.getConfig();
     var remoteConfig = RemoteConfigManager.getConfig();
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
+    ServerConfigGroupItem? item;
+    String expireTime = "";
+    bool expiring = false;
+    String ispUser = "";
+    var provider = BoardProviderManager.getBindedProvider();
+    if (provider != null) {
+      item = ServerManager.getByProviderId(provider.id);
+      if (item == null) {
+        provider = null;
+      }
+    }
+    if (item != null) {
+      final isp = item.getISP();
+      ispUser = isp!.user;
+      if (item.traffic != null) {
+        Tuple2<bool, String> exp = item.traffic!.getExpireTime(
+          settingConfig.languageTag,
+        );
+        expiring = exp.item1;
+        expireTime = exp.item2;
+      }
+    }
 
     List<Notice> notices = NoticeManager.getNotices();
+    final providerNotices = BoardProviderNoticeManager.getNotices();
     NoticeItem? noticeItem;
+    BoardProviderNoticeItem? providerNoticeItem;
     for (var notice in notices) {
       noticeItem = notice.getFirstUnread();
       if (noticeItem != null) {
         break;
       }
     }
+    for (var notice in providerNotices) {
+      var provider = BoardProviderManager.getBindedProvider();
+      if (provider != null) {
+        providerNoticeItem = notice.getFirstUnread(provider.id);
+        if (providerNoticeItem != null) {
+          break;
+        }
+      }
+    }
     List<GroupItem> groupOptions = [];
-
     groupOptions.add(
       GroupItem(
         options: [
@@ -234,52 +265,22 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       ),
     );
 
-    if (remoteISPConfig.id.isNotEmpty) {
-      String expireTime = "";
-      bool expiring = false;
-      String ispUser = "";
-
-      for (var item in serverConfig.items) {
-        SubscriptionISP? isp = item.getISP();
-        if (isp == null || isp.id != remoteISPConfig.id) {
-          continue;
-        }
-        ispUser = isp.user;
-
-        if (item.traffic != null) {
-          Tuple2<bool, String> exp = item.traffic!.getExpireTime(
-            settingConfig.languageTag,
-          );
-          expiring = exp.item1;
-          expireTime = exp.item2;
-        }
-        break;
-      }
+    if (provider != null) {
       groupOptions.add(
         GroupItem(
           name: tcontext.meta.isp,
           options: [
             GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-                name: remoteISPConfig.name,
+                name: provider.name,
                 text: expireTime,
                 textColor: expiring ? Colors.red : null,
                 onPush: () async {
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_isp',
-                    parameters: {
-                      "name": remoteISPConfig.name,
-                      "id": remoteISPConfig.id,
-                    },
-                    repeatable: true,
-                  );*/
-
                   await WebviewHelper.loadUrl(
                     context,
-                    remoteISPConfig.home,
+                    provider!.homeUrl,
                     "SSS_isp",
-                    title: remoteISPConfig.name,
+                    title: provider.name,
                   );
                 },
               ),
@@ -302,78 +303,46 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 ),
               ),
             ],
-            if (remoteISPConfig.faq.isNotEmpty) ...[
+            if (provider.faqUrl.isNotEmpty) ...[
               GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
-                  name: tcontext.isp.faq(p: remoteISPConfig.name),
+                  name: tcontext.isp.faq(p: provider.name),
                   onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp_faq',
-                      parameters: {
-                        "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id,
-                      },
-                      repeatable: true,
-                    );*/
-
                     await WebviewHelper.loadUrl(
                       context,
-                      remoteISPConfig.faq,
+                      provider!.faqUrl,
                       "SSS_isp_faq",
-                      title: tcontext.isp.faq(p: remoteISPConfig.name),
+                      title: tcontext.isp.faq(p: provider.name),
                     );
                   },
                 ),
               ),
             ],
-            if (remoteISPConfig.customerService.isNotEmpty) ...[
+            if (provider.clientServiceUrl.isNotEmpty) ...[
               GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
-                  name: tcontext.isp.customerService(p: remoteISPConfig.name),
+                  name: tcontext.isp.customerService(p: provider.name),
                   onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp_customerService',
-                      parameters: {
-                        "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id,
-                      },
-                      repeatable: true,
-                    );*/
-
                     await WebviewHelper.loadUrl(
                       context,
-                      remoteISPConfig.customerService,
+                      provider!.clientServiceUrl,
                       "SSS_isp_customerService",
-                      title: tcontext.isp.customerService(
-                        p: remoteISPConfig.name,
-                      ),
+                      title: tcontext.isp.customerService(p: provider.name),
                     );
                   },
                 ),
               ),
             ],
-            if (remoteISPConfig.follow.isNotEmpty) ...[
+            if (provider.subscriptionChannelUrl.isNotEmpty) ...[
               GroupItemOptions(
                 pushOptions: GroupItemPushOptions(
-                  name: tcontext.isp.follow(p: remoteISPConfig.name),
+                  name: tcontext.isp.follow(p: provider.name),
                   onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_isp_follow',
-                      parameters: {
-                        "name": remoteISPConfig.name,
-                        "id": remoteISPConfig.id,
-                      },
-                      repeatable: true,
-                    );*/
-
                     await WebviewHelper.loadUrl(
                       context,
-                      remoteISPConfig.follow,
+                      provider!.subscriptionChannelUrl,
                       "SSS_isp_follow",
-                      title: tcontext.isp.follow(p: remoteISPConfig.name),
+                      title: tcontext.isp.follow(p: provider.name),
                     );
                   },
                 ),
@@ -381,19 +350,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             ],
             GroupItemOptions(
               pushOptions: GroupItemPushOptions(
-                name: tcontext.isp.unbind(p: remoteISPConfig.name),
+                name: tcontext.isp.unbind(p: provider.name),
                 onPush: () async {
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_isp_unbind',
-                    parameters: {
-                      "name": remoteISPConfig.name,
-                      "id": remoteISPConfig.id,
-                    },
-                    repeatable: false,
-                  );*/
-                  RemoteISPConfigManager.reset(RemoteISPConfig());
-                  NoticeManager.resetISP();
+                  BoardProviderManager.clear();
                   setState(() {});
                 },
               ),
@@ -402,65 +361,30 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ),
       );
     } else {
-      groupOptions.add(
-        GroupItem(
-          name: tcontext.meta.isp,
-          options: [
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.isp.bind,
-                onPush: () async {
-                  String url =
-                      await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                        RemoteConfigManager.getConfig().harry,
-                      );
-                  if (!context.mounted) {
-                    return;
-                  }
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_isp_bind',
-                    parameters: {
-                      "name": remoteISPConfig.name,
-                      "id": remoteISPConfig.id,
-                    },
-                    repeatable: false,
-                  );*/
-                  await InAppWebViewScreen.makeSureEnvironmentCreated();
-                  if (!context.mounted) {
-                    return;
-                  }
-                  bool debug =
-                      PlatformUtils.isPC() &&
-                      SettingManager.getConfig().dev.devMode;
-                  await InAppWebViewScreen.setWebViewEnvironmentDebug(debug);
-                  if (!context.mounted) {
-                    return;
-                  }
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      settings: InAppWebViewScreen.routSettings("SSS_isp_bind"),
-                      builder: (context) => InAppWebViewScreen(
-                        title: tcontext.isp.bind,
-                        url: url,
-                        enableDebug: debug,
-                        showGoBackGoForward: false,
-                        setJSWindowObject: true,
-                        injectJs: remoteConfig.getPanelJs(),
-                        javaScriptHandlers:
-                            WebviewISPHelper.getJavaScriptHandlers(),
-                        javaScriptHandlerArgument: RemoteISPConfig(),
+      if (!Platform.isLinux) {
+        groupOptions.add(
+          GroupItem(
+            name: tcontext.meta.isp,
+            options: [
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.isp.bind,
+                  onPush: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: LoginStepProviderScreen.routSettings(),
+                        builder: (context) => const LoginStepProviderScreen(),
                       ),
-                    ),
-                  );
-                  setState(() {});
-                },
+                    );
+                    setState(() {});
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-      );
+            ],
+          ),
+        );
+      }
     }
 
     groupOptions.add(
@@ -473,7 +397,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           GroupItemOptions(
             pushOptions: GroupItemPushOptions(
               name: tcontext.meta.notice,
-              reddot: noticeItem != null,
+              reddot: noticeItem != null || providerNoticeItem != null,
               onPush: () async {
                 await onTapNotice();
               },
@@ -536,11 +460,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 pushOptions: GroupItemPushOptions(
                   name: tcontext.SettingsScreen.dnsLeakDetection,
                   onPush: () async {
-                    /*AnalyticsUtils.logEvent(
-                      analyticsEventType: analyticsEventTypeUA,
-                      name: 'SSS_dnsLeakDetection',
-                      repeatable: true,
-                    );*/
                     await WebviewHelper.loadUrl(
                       context,
                       remoteConfig.dnsLeakDetection,
@@ -1467,7 +1386,9 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       SetStateCallback? setstate,
     ) async {
       List<GroupItemOptions> options = [];
-      List<Notice> notices = NoticeManager.getNotices();
+      final notices = NoticeManager.getNotices();
+      final providerNotices = BoardProviderNoticeManager.getNotices();
+
       for (var notice in notices) {
         for (var item in notice.items) {
           options.add(
@@ -1481,13 +1402,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   item.readed = true;
                   NoticeManager.save();
                   setState(() {});
-
-                  /*AnalyticsUtils.logEvent(
-                    analyticsEventType: analyticsEventTypeUA,
-                    name: 'SSS_notice',
-                    parameters: {"title": item.title, "isp_id": item.ispId},
-                    repeatable: true,
-                  );*/
 
                   if (item.url.isNotEmpty) {
                     await WebviewHelper.loadUrl(
@@ -1516,6 +1430,53 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           );
         }
       }
+      var provider = BoardProviderManager.getBindedProvider();
+      if (provider != null) {
+        for (var notice in providerNotices) {
+          for (var item in notice.items) {
+            if (item.providerId != provider.id) {
+              continue;
+            }
+            options.add(
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: "${provider.name}-${item.title}",
+                  reddot: !item.readed,
+                  text: item.updateTime,
+                  textWidthPercent: 0.65,
+                  onPush: () async {
+                    item.readed = true;
+                    BoardProviderNoticeManager.save();
+                    setState(() {});
+
+                    if (item.url.isNotEmpty) {
+                      await WebviewHelper.loadUrl(
+                        context,
+                        item.url,
+                        "SSS_isp_notice",
+                        title: item.title,
+                        useInappWebViewForPC: true,
+                      );
+                    } else {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          settings: RichtextViewScreen.routSettings(),
+                          builder: (context) => RichtextViewScreen(
+                            title: item.title,
+                            file: "",
+                            content: item.content,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            );
+          }
+        }
+      }
 
       return [GroupItem(options: options)];
     }
@@ -1537,12 +1498,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       setState(() {});
       return;
     }
-    /*AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeUA,
-      name: 'SSS_hasNewVersion',
-      parameters: {"version": versionCheck.version},
-      repeatable: false,
-    );*/
+
     //item-beta://testflight.apple.com/join/RLU59OsJ or https://testflight.apple.com/join/RLU59OsJ
     var remoteConfig = RemoteConfigManager.getConfig();
     String url = remoteConfig.download.isEmpty
@@ -3229,11 +3185,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.donate,
             onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                  analyticsEventType: analyticsEventTypeUA,
-                  name: "donate",
-                  repeatable: false,
-                );*/
               String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
                 remoteConfig.donateUrl,
               );

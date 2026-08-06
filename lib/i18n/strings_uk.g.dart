@@ -56,6 +56,7 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$uk SettingsScreen = _Translations$SettingsScreen$uk._(_root);
 	@override late final _Translations$UserAgreementScreen$uk UserAgreementScreen = _Translations$UserAgreementScreen$uk._(_root);
 	@override late final _Translations$VersionUpdateScreen$uk VersionUpdateScreen = _Translations$VersionUpdateScreen$uk._(_root);
+	@override late final _Translations$loginScreen$uk loginScreen = _Translations$loginScreen$uk._(_root);
 	@override late final _Translations$CommonWidget$uk CommonWidget = _Translations$CommonWidget$uk._(_root);
 	@override late final _Translations$main$uk main = _Translations$main$uk._(_root);
 	@override late final _Translations$meta$uk meta = _Translations$meta$uk._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$uk implements Translations$VersionUpdate
 	@override String get cancel => 'Не зараз';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$uk implements Translations$loginScreen$en {
+	_Translations$loginScreen$uk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN-провайдер';
+	@override String get providerName => 'Kod/alias/URL ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Vvedit kod/alias/URL ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => 'Nepidtrymuvanyi ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Nepidtrymuvanyi typ ${_root.loginScreen.provider}';
+	@override String get unActivedProvider => 'Прив\'язка провайдера не активована';
+	@override String providerLoginSupportRequired({required Object p}) => 'Za kodom/alias zvernit\'sia do svoho ${_root.loginScreen.provider}\nShchodo intehratsii ${_root.loginScreen.provider} dyv.: ${p}';
+	@override String get providerDisclaimer => 'Zasterezhennia: ${_root.loginScreen.provider} ye storonnoiu sluzhboiu i ne poviazanyi z tsym zastosunkom';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$uk implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$uk._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Статичний IP';
 	@override String get staticIPTips => 'Вам потрібно увімкнути [TUN HijackDNS] або [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Постачальник VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Суфікс домену';
 	@override String get domain => 'Домен';
 	@override String get domainKeyword => 'Ключове слово домену';
@@ -1200,6 +1218,14 @@ extension on TranslationsUk {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Нова версія [${p}] готова',
 			'VersionUpdateScreen.update' => 'Перезапустити для оновлення',
 			'VersionUpdateScreen.cancel' => 'Не зараз',
+			'loginScreen.provider' => 'VPN-провайдер',
+			'loginScreen.providerName' => 'Kod/alias/URL ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Vvedit kod/alias/URL ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => 'Nepidtrymuvanyi ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Nepidtrymuvanyi typ ${_root.loginScreen.provider}',
+			'loginScreen.unActivedProvider' => 'Прив\'язка провайдера не активована',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Za kodom/alias zvernit\'sia do svoho ${_root.loginScreen.provider}\nShchodo intehratsii ${_root.loginScreen.provider} dyv.: ${p}',
+			'loginScreen.providerDisclaimer' => 'Zasterezhennia: ${_root.loginScreen.provider} ye storonnoiu sluzhboiu i ne poviazanyi z tsym zastosunkom',
 			'CommonWidget.diableAlwayOnVPN' => 'Якщо [Завжди увімкнений VPN] увімкнено, вимкніть його та спробуйте підключитися знову',
 			'CommonWidget.resetPort' => 'Будь ласка, змініть порт на інший доступний порт або закрийте програму, що займає порт.',
 			'main.tray.menuOpen' => 'Відкрити',
@@ -1318,7 +1344,7 @@ extension on TranslationsUk {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Статичний IP',
 			'meta.staticIPTips' => 'Вам потрібно увімкнути [TUN HijackDNS] або [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Постачальник VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Суфікс домену',
 			'meta.domain' => 'Домен',
 			'meta.domainKeyword' => 'Ключове слово домену',
@@ -1458,6 +1484,8 @@ extension on TranslationsUk {
 			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Попередньо встановлена [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Примітка: Увімкнені елементи будуть додані/перезаписані в [${_root.meta.diversionCustomGroup}] та [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Примітка: Після додавання вам може знадобитися вручну відрегулювати порядок, інакше нещодавно додане відхилення може не набрати чинності',
 			'rulesetEnableTips' => 'Порада: Після ввімкнення параметрів перейдіть до [${_root.meta.diversionRules}], щоб встановити відповідні правила, інакше вони не наберуть чинності',
 			'ispUserAgentTips' => '[${_root.meta.isp}] надсилатиме дані різних типів підписки на основі [UserAgent] у запиті [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsUk {
 			'isp.unbind' => ({required Object p}) => 'Відв\'язати[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Слідкувати[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Некоректний або термін дії закінчився',
 			'permission.camera' => 'Камера',

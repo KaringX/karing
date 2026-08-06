@@ -36,12 +36,6 @@ class _VersionUpdateScreenState
   @override
   void initState() {
     super.initState();
-    /*AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'USS',
-      parameters: {"platform": Platform.operatingSystem},
-      repeatable: false,
-    );*/
   }
 
   @override

@@ -56,6 +56,7 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$el SettingsScreen = _Translations$SettingsScreen$el._(_root);
 	@override late final _Translations$UserAgreementScreen$el UserAgreementScreen = _Translations$UserAgreementScreen$el._(_root);
 	@override late final _Translations$VersionUpdateScreen$el VersionUpdateScreen = _Translations$VersionUpdateScreen$el._(_root);
+	@override late final _Translations$loginScreen$el loginScreen = _Translations$loginScreen$el._(_root);
 	@override late final _Translations$CommonWidget$el CommonWidget = _Translations$CommonWidget$el._(_root);
 	@override late final _Translations$main$el main = _Translations$main$el._(_root);
 	@override late final _Translations$meta$el meta = _Translations$meta$el._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$el implements Translations$VersionUpdate
 	@override String get cancel => 'Όχι τώρα';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$el implements Translations$loginScreen$en {
+	_Translations$loginScreen$el._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'Πάροχος VPN';
+	@override String get providerName => 'Κωδικος/ψευδωνυμο/URL του ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Εισαγαγετε κωδικο/ψευδωνυμο/URL του ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => 'Μη υποστηριζομενος ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Μη υποστηριζομενος τυπος ${_root.loginScreen.provider}';
+	@override String get unActivedProvider => 'Η σύνδεση παρόχου δεν είναι ενεργοποιημένη';
+	@override String providerLoginSupportRequired({required Object p}) => 'Για κωδικο/ψευδωνυμο επικοινωνηστε με τον ${_root.loginScreen.provider}\nΓια ενσωματωση ${_root.loginScreen.provider}, δειτε: ${p}';
+	@override String get providerDisclaimer => 'Αποποιηση: ο ${_root.loginScreen.provider} ειναι υπηρεσια τριτου μερους και δεν σχετιζεται με αυτη την εφαρμογη';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$el implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$el._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Στατική IP';
 	@override String get staticIPTips => 'Πρέπει να ενεργοποιήσετε το [TUN HijackDNS] ή το [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Πάροχος VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Επίθεμα τομέα';
 	@override String get domain => 'Τομέας';
 	@override String get domainKeyword => 'Λέξη-κλειδί τομέα';
@@ -1200,6 +1218,14 @@ extension on TranslationsEl {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Η νέα έκδοση [${p}] είναι έτοιμη',
 			'VersionUpdateScreen.update' => 'Επανεκκίνηση για ενημέρωση',
 			'VersionUpdateScreen.cancel' => 'Όχι τώρα',
+			'loginScreen.provider' => 'Πάροχος VPN',
+			'loginScreen.providerName' => 'Κωδικος/ψευδωνυμο/URL του ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Εισαγαγετε κωδικο/ψευδωνυμο/URL του ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => 'Μη υποστηριζομενος ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Μη υποστηριζομενος τυπος ${_root.loginScreen.provider}',
+			'loginScreen.unActivedProvider' => 'Η σύνδεση παρόχου δεν είναι ενεργοποιημένη',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Για κωδικο/ψευδωνυμο επικοινωνηστε με τον ${_root.loginScreen.provider}\nΓια ενσωματωση ${_root.loginScreen.provider}, δειτε: ${p}',
+			'loginScreen.providerDisclaimer' => 'Αποποιηση: ο ${_root.loginScreen.provider} ειναι υπηρεσια τριτου μερους και δεν σχετιζεται με αυτη την εφαρμογη',
 			'CommonWidget.diableAlwayOnVPN' => 'Εάν η επιλογή [Πάντα ενεργό VPN] είναι ενεργοποιημένη, απενεργοποιήστε την και προσπαθήστε να συνδεθείτε ξανά',
 			'CommonWidget.resetPort' => 'Παρακαλούμε αλλάξτε τη θύρα σε μια άλλη διαθέσιμη θύρα ή κλείστε την εφαρμογή που καταλαμβάνει τη θύρα.',
 			'main.tray.menuOpen' => 'Άνοιγμα',
@@ -1318,7 +1344,7 @@ extension on TranslationsEl {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Στατική IP',
 			'meta.staticIPTips' => 'Πρέπει να ενεργοποιήσετε το [TUN HijackDNS] ή το [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Πάροχος VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Επίθεμα τομέα',
 			'meta.domain' => 'Τομέας',
 			'meta.domainKeyword' => 'Λέξη-κλειδί τομέα',
@@ -1458,6 +1484,8 @@ extension on TranslationsEl {
 			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Προκαθορισμένη [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Σημείωση: Τα ενεργοποιημένα στοιχεία θα προστεθούν/αντικαταστήσουν στο [${_root.meta.diversionCustomGroup}] και στο [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Σημείωση: Μετά την προσθήκη, ίσως χρειαστεί να προσαρμόσετε χειροκίνητα τη σειρά, διαφορετικά η πρόσφατα προστιθέμενη εκτροπή ενδέχεται να μην τεθεί σε ισχύ',
 			'rulesetEnableTips' => 'Συμβουλή: Μετά την ενεργοποίηση των επιλογών, παρακαλούμε μεταβείτε στο [${_root.meta.diversionRules}] για να ορίσετε τους σχετικούς κανόνες, διαφορετικά δεν θα τεθούν σε ισχύ',
 			'ispUserAgentTips' => 'Το [${_root.meta.isp}] θα στείλει δεδομένα διαφορετικών τύπων συνδρομής με βάση το [UserAgent] στο αίτημα [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsEl {
 			'isp.unbind' => ({required Object p}) => 'Αποσύνδεση[${p}]',
 			'isp.faq' => ({required Object p}) => 'Συχνές ερωτήσεις[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Ακολουθήστε[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Μη έγκυρο ή ληγμένο',
 			'permission.camera' => 'Κάμερα',

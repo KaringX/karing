@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:karing/app/utils/convert_utils.dart';
 
 class RemoteIspConfigError {
@@ -88,20 +85,5 @@ class RemoteISPConfig {
     RemoteISPConfig config = RemoteISPConfig();
     config.fromJson(map);
     return config;
-  }
-
-  static Future<RemoteISPConfig> getLocalConfig() async {
-    RemoteISPConfig rconfig = RemoteISPConfig();
-    try {
-      String content = await rootBundle.loadString(
-        "assets/datas/isp.json",
-        cache: false,
-      );
-      if (content.isNotEmpty) {
-        var config = jsonDecode(content);
-        rconfig.fromJson(config);
-      }
-    } catch (err, stacktrace) {}
-    return rconfig;
   }
 }

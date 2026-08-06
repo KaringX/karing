@@ -130,7 +130,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     bool started = await VPNService.getStarted();
     int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
     final url = "http://${widget.host}:${widget.cport}/";
-    ReturnResult<String>? result = await HttpUtils.httpGetRequest(
+    final result = await HttpUtils.httpGetRequest(
       url,
       proxyPort,
       null,
@@ -404,7 +404,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
 
     String url =
         "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
-    ReturnResult<String> result = await HttpUtils.httpGetRequest(
+    final result = await HttpUtils.httpGetRequest(
       url,
       proxyPort,
       null,
@@ -436,7 +436,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
         builder: (context) => RichtextViewScreen(
           title: fileName,
           file: fileName,
-          content: result.data!,
+          content: result.data!.item2,
           showAction: true,
         ),
       ),
@@ -483,7 +483,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
       };
       String url =
           "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVSyncUploadAction()}?uuid=${widget.uuid}&type=json"; //type=url
-      ReturnResult<String> result = await HttpUtils.httpPostRequest(
+      final result = await HttpUtils.httpPostRequest(
         url,
         proxyPort,
         headers,
@@ -506,8 +506,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
           withVersion: true,
         );
       } else {
-        if (result.data!.isNotEmpty) {
-          DialogUtils.showAlertDialog(context, result.data!);
+        if (result.data!.item2.isNotEmpty) {
+          DialogUtils.showAlertDialog(context, result.data!.item2);
         } else {
           DialogUtils.showAlertDialog(context, tcontext.appleTVSyncDone);
         }
@@ -545,7 +545,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     try {
       String url =
           "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVDeleteCoreConfigAction()}?uuid=${widget.uuid}";
-      ReturnResult<String> result = await HttpUtils.httpGetRequest(
+      final result = await HttpUtils.httpGetRequest(
         url,
         proxyPort,
         null,
@@ -566,8 +566,8 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
           withVersion: true,
         );
       } else {
-        if (result.data!.isNotEmpty) {
-          DialogUtils.showAlertDialog(context, result.data!);
+        if (result.data!.item2.isNotEmpty) {
+          DialogUtils.showAlertDialog(context, result.data!.item2);
         } else {
           DialogUtils.showAlertDialog(
             context,

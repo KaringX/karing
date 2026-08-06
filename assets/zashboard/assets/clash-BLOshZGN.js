@@ -1,1 +1,0 @@
-import{aR as o,aS as u,aP as c,aQ as i}from"./index-CdXhMIt9.js";const n=async()=>{const{data:r}=await o(),{data:e}=await u();c.value=r.rules.map(t=>{const a=t.proxy,s=a.startsWith("route(")?a.substring(6,a.length-1):a;return{...t,proxy:s}}),i.value=Object.values(e.providers)};export{n as fetchRules};

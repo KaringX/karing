@@ -283,6 +283,16 @@
         "update": "Перезапустить",
         "cancel": "Отменить"
     },
+    "loginScreen": {
+        "provider": "VPN-провайдер",
+        "providerName": "Kod/psevdonim/URL @:{loginScreen.provider}",
+        "providerNameRequired": "Vvedite kod/psevdonim/URL @:{loginScreen.provider}",
+        "unsupportedProvider": "Nepodderzhivaemyi @:{loginScreen.provider}",
+        "unsupportedProviderType": "Nepodderzhivaemyi tip @:{loginScreen.provider}",
+        "unActivedProvider": "Привязка провайдера не активирована",
+        "providerLoginSupportRequired": "Za kodom/psevdonimom obratites k svoemu @:{loginScreen.provider}\nPo podklyucheniyu @:{loginScreen.provider} sm.: $p",
+        "providerDisclaimer": "Otvetstvennost: @:{loginScreen.provider} yavlyaetsya storonnim servisom i ne svyazan s etim prilozheniem"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз",
         "resetPort": "Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "Статический IP",
         "staticIPTips": "Вам необходимо включить [TUN HijackDNS] или [@:{SettingsScreen.inboundDomainResolve}].",
-        "isp": "VPN-провайдер",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Суффикс доменного имени",
         "domain": "Имя домена",
         "domainKeyword": "Ключевые слова в имени домена",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

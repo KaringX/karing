@@ -5,6 +5,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:karing/app/local_services/vpn_service.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/http_overrides_utils.dart';
 import 'package:karing/app/utils/move_to_background_utils.dart';
@@ -19,7 +20,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/private/sentry_utils_private.dart';
@@ -137,7 +137,7 @@ void main(List<String> args) async {
   await VPNService.initABI();
   await RemoteConfigManager.init();
   await SettingManager.init();
-  await RemoteISPConfigManager.init();
+  await BoardProviderManager.init();
   if (!SettingManager.getConfig().disableAppImproveData) {
     await SentryUtilsPrivate.init();
   }
@@ -245,6 +245,7 @@ Future<void> run(List<String> args) async {
     }
 
     await AutoUpdateManager.init();
+
     bool disableOrientation = await DeviceUtils.disableOrientation();
     if (!disableOrientation) {
       if (SettingManager.getConfig().ui.autoOrientation) {

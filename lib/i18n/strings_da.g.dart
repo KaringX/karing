@@ -56,6 +56,7 @@ class TranslationsDa with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$da SettingsScreen = _Translations$SettingsScreen$da._(_root);
 	@override late final _Translations$UserAgreementScreen$da UserAgreementScreen = _Translations$UserAgreementScreen$da._(_root);
 	@override late final _Translations$VersionUpdateScreen$da VersionUpdateScreen = _Translations$VersionUpdateScreen$da._(_root);
+	@override late final _Translations$loginScreen$da loginScreen = _Translations$loginScreen$da._(_root);
 	@override late final _Translations$CommonWidget$da CommonWidget = _Translations$CommonWidget$da._(_root);
 	@override late final _Translations$main$da main = _Translations$main$da._(_root);
 	@override late final _Translations$meta$da meta = _Translations$meta$da._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$da implements Translations$VersionUpdate
 	@override String get cancel => 'Ikke nu';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$da implements Translations$loginScreen$en {
+	_Translations$loginScreen$da._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN-udbyder';
+	@override String get providerName => '${_root.loginScreen.provider}-kode/alias/URL';
+	@override String get providerNameRequired => 'Indtast ${_root.loginScreen.provider}-kode/alias/URL';
+	@override String get unsupportedProvider => 'Ikke-understottet ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Ikke-understottet ${_root.loginScreen.provider}-type';
+	@override String get unActivedProvider => 'Udbyderbinding er ikke aktiveret';
+	@override String providerLoginSupportRequired({required Object p}) => 'Kontakt din ${_root.loginScreen.provider} for kode/alias\nFor integration af ${_root.loginScreen.provider}, se: ${p}';
+	@override String get providerDisclaimer => 'Ansvarsfraskrivelse: ${_root.loginScreen.provider} er en tredjepartstjeneste og er ikke relateret til denne app';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$da implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$da._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$da implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Statisk IP';
 	@override String get staticIPTips => 'Du skal aktivere [TUN HijackDNS] eller [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'VPN-udbyder';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Domænesuffiks';
 	@override String get domain => 'Domæne';
 	@override String get domainKeyword => 'Domænenøgleord';
@@ -1200,6 +1218,14 @@ extension on TranslationsDa {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Den nye version [${p}] er klar',
 			'VersionUpdateScreen.update' => 'Genstart for at opdatere',
 			'VersionUpdateScreen.cancel' => 'Ikke nu',
+			'loginScreen.provider' => 'VPN-udbyder',
+			'loginScreen.providerName' => '${_root.loginScreen.provider}-kode/alias/URL',
+			'loginScreen.providerNameRequired' => 'Indtast ${_root.loginScreen.provider}-kode/alias/URL',
+			'loginScreen.unsupportedProvider' => 'Ikke-understottet ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Ikke-understottet ${_root.loginScreen.provider}-type',
+			'loginScreen.unActivedProvider' => 'Udbyderbinding er ikke aktiveret',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Kontakt din ${_root.loginScreen.provider} for kode/alias\nFor integration af ${_root.loginScreen.provider}, se: ${p}',
+			'loginScreen.providerDisclaimer' => 'Ansvarsfraskrivelse: ${_root.loginScreen.provider} er en tredjepartstjeneste og er ikke relateret til denne app',
 			'CommonWidget.diableAlwayOnVPN' => 'Hvis [Altid tændt VPN] er slået til, skal du slå det fra og prøve at oprette forbindelse igen',
 			'CommonWidget.resetPort' => 'Skift venligst porten til en anden tilgængelig port eller luk det program, der optager porten.',
 			'main.tray.menuOpen' => 'Åbn',
@@ -1318,7 +1344,7 @@ extension on TranslationsDa {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Statisk IP',
 			'meta.staticIPTips' => 'Du skal aktivere [TUN HijackDNS] eller [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'VPN-udbyder',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Domænesuffiks',
 			'meta.domain' => 'Domæne',
 			'meta.domainKeyword' => 'Domænenøgleord',
@@ -1458,6 +1484,8 @@ extension on TranslationsDa {
 			'diversionRulesKeep' => 'Behold [${_root.meta.diversionRules}] fra [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Forudindstillet [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Bemærk: Aktiverede elementer vil blive tilføjet til/overskrive [${_root.meta.diversionCustomGroup}] og [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Bemærk: Efter tilføjelse skal du muligvis justere rækkefølgen manuelt, ellers træder den nyligt tilføjede omledning muligvis ikke i kraft',
 			'rulesetEnableTips' => 'Tip: Gå til [${_root.meta.diversionRules}] efter at have aktiveret indstillingerne for at indstille de relevante regler, ellers træder de ikke i kraft',
 			'ispUserAgentTips' => '[${_root.meta.isp}] sender data for forskellige abonnementstyper baseret på [UserAgent] i [HTTP]-anmodningen',
@@ -1466,8 +1494,6 @@ extension on TranslationsDa {
 			'isp.unbind' => ({required Object p}) => 'Fjern binding[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Følg[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Ugyldig eller udløbet',
 			'permission.camera' => 'Kamera',

@@ -283,6 +283,16 @@
         "update": "अपडेट करने के लिए पुनरारंभ करें",
         "cancel": "अभी नहीं"
     },
+    "loginScreen": {
+        "provider": "VPN ਸੇਵਾ ਪ੍ਰਦਾਤਾ",
+        "providerName": "@:{loginScreen.provider} ਕੋਡ/ਉਪਨਾਮ/URL",
+        "providerNameRequired": "ਕਿਰਪਾ ਕਰਕੇ @:{loginScreen.provider} ਕੋਡ/ਉਪਨਾਮ/URL ਦਰਜ ਕਰੋ",
+        "unsupportedProvider": "ਅਸਮਰਥਿਤ @:{loginScreen.provider}",
+        "unsupportedProviderType": "ਅਸਮਰਥਿਤ @:{loginScreen.provider} ਕਿਸਮ",
+        "unActivedProvider": "ਪ੍ਰਦਾਤਾ ਬਾਈਂਡਿੰਗ ਫੀਚਰ ਸਰਗਰਮ ਨਹੀਂ ਹੈ",
+        "providerLoginSupportRequired": "ਕੋਡ/ਉਪਨਾਮ ਲਈ ਆਪਣੇ @:{loginScreen.provider} ਨਾਲ ਸੰਪਰਕ ਕਰੋ\n@:{loginScreen.provider} ਇੰਟੀਗ੍ਰੇਸ਼ਨ ਲਈ ਵੇਖੋ: $p",
+        "providerDisclaimer": "ਅਸਵੀਕਰਨ: @:{loginScreen.provider} ਤੀਜੇ ਪੱਖ ਦੀ ਸੇਵਾ ਹੈ ਅਤੇ ਇਸ ਐਪ ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀਂ ਹੈ"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "यदि [हमेशा चालू VPN] चालू है, तो कृपया [हमेशा चालू VPN] बंद करें और फिर से कनेक्ट करने का प्रयास करें",
         "resetPort": "कृपया पोर्ट को किसी अन्य उपलब्ध पोर्ट में बदलें या उस एप्लिकेशन को बंद करें जो पोर्ट पर कब्जा कर रहा है।"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "स्थिर IP",
         "staticIPTips": "आपको [TUN HijackDNS] या [@:{SettingsScreen.inboundDomainResolve}] सक्षम करने की आवश्यकता है।",
-        "isp": "VPN प्रदाता",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "डोमेन प्रत्यय",
         "domain": "डोमेन",
         "domainKeyword": "डोमेन कीवर्ड",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

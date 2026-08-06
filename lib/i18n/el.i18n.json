@@ -283,6 +283,16 @@
         "update": "Επανεκκίνηση για ενημέρωση",
         "cancel": "Όχι τώρα"
     },
+    "loginScreen": {
+        "provider": "Πάροχος VPN",
+        "providerName": "Κωδικος/ψευδωνυμο/URL του @:{loginScreen.provider}",
+        "providerNameRequired": "Εισαγαγετε κωδικο/ψευδωνυμο/URL του @:{loginScreen.provider}",
+        "unsupportedProvider": "Μη υποστηριζομενος @:{loginScreen.provider}",
+        "unsupportedProviderType": "Μη υποστηριζομενος τυπος @:{loginScreen.provider}",
+        "unActivedProvider": "Η σύνδεση παρόχου δεν είναι ενεργοποιημένη",
+        "providerLoginSupportRequired": "Για κωδικο/ψευδωνυμο επικοινωνηστε με τον @:{loginScreen.provider}\nΓια ενσωματωση @:{loginScreen.provider}, δειτε: $p",
+        "providerDisclaimer": "Αποποιηση: ο @:{loginScreen.provider} ειναι υπηρεσια τριτου μερους και δεν σχετιζεται με αυτη την εφαρμογη"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "Εάν η επιλογή [Πάντα ενεργό VPN] είναι ενεργοποιημένη, απενεργοποιήστε την και προσπαθήστε να συνδεθείτε ξανά",
         "resetPort": "Παρακαλούμε αλλάξτε τη θύρα σε μια άλλη διαθέσιμη θύρα ή κλείστε την εφαρμογή που καταλαμβάνει τη θύρα."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "Στατική IP",
         "staticIPTips": "Πρέπει να ενεργοποιήσετε το [TUN HijackDNS] ή το [@:{SettingsScreen.inboundDomainResolve}].",
-        "isp": "Πάροχος VPN",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "Επίθεμα τομέα",
         "domain": "Τομέας",
         "domainKeyword": "Λέξη-κλειδί τομέα",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
@@ -19,7 +20,12 @@ class MyProfilesEditScreen extends LasyRenderingStatefulWidget {
   }
 
   final String groupid;
-  const MyProfilesEditScreen({super.key, required this.groupid});
+  final BoardProviderConfig? provider;
+  const MyProfilesEditScreen({
+    super.key,
+    required this.groupid,
+    required this.provider,
+  });
 
   @override
   State<MyProfilesEditScreen> createState() => _MyProfilesEditScreenState();
@@ -128,7 +134,10 @@ class _MyProfilesEditScreenState
                     child: Column(
                       children: [
                         const SizedBox(height: 10),
-                        if (item != null && item.isRemote()) ...[
+                        if (item != null &&
+                            item.isRemote() &&
+                            (widget.provider?.hideSubscriptionLink !=
+                                true)) ...[
                           TextFieldEx(
                             textInputAction: TextInputAction.next,
                             maxLines: 5,
@@ -371,7 +380,6 @@ class _MyProfilesEditScreenState
         GroupItemOptions(
           stringPickerOptions: GroupItemStringPickerOptions(
             name: tcontext.downloadProxyStrategy,
-            tips: tcontext.SettingsScreen.ipStrategyTips,
             selected: _proxyStrategy.name,
             tupleStrings: tupleStrings,
             onPicker: (String? selected) async {

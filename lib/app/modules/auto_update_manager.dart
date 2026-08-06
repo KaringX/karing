@@ -244,11 +244,15 @@ class AutoUpdateManager {
     if (_downloading) {
       return;
     }
+    List<int?> ports = [];
     if (SettingManager.getConfig().updateWhenConnected) {
       final started = await VPNService.getStarted();
       if (!started) {
         return;
       }
+      ports = [SettingManager.getConfig().proxy.mixedForwardPort];
+    } else {
+      ports = await VPNService.getPortsByPrefer(true);
     }
     String version = AppUtils.getBuildinVersion();
     if (VersionCompareUtils.compareVersion(version, _versionCheck.version) <
@@ -277,7 +281,20 @@ class AutoUpdateManager {
         return;
       }
       _downloading = true;
-      final result = await DownloadUtils.download(uri, downloadPath);
+      late ReturnResult<HttpHeaders> result;
+      for (var port in ports) {
+        result = await DownloadUtils.downloadWithPort(
+          uri,
+          downloadPath,
+          null,
+          false,
+          port,
+        );
+        if (result.error == null) {
+          break;
+        }
+      }
+
       if (result.error != null) {
         if (result.error!.message.contains("404")) {
           _versionCheck.newVersion = false;

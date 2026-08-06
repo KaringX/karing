@@ -56,6 +56,7 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$bn SettingsScreen = _Translations$SettingsScreen$bn._(_root);
 	@override late final _Translations$UserAgreementScreen$bn UserAgreementScreen = _Translations$UserAgreementScreen$bn._(_root);
 	@override late final _Translations$VersionUpdateScreen$bn VersionUpdateScreen = _Translations$VersionUpdateScreen$bn._(_root);
+	@override late final _Translations$loginScreen$bn loginScreen = _Translations$loginScreen$bn._(_root);
 	@override late final _Translations$CommonWidget$bn CommonWidget = _Translations$CommonWidget$bn._(_root);
 	@override late final _Translations$main$bn main = _Translations$main$bn._(_root);
 	@override late final _Translations$meta$bn meta = _Translations$meta$bn._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$bn implements Translations$VersionUpdate
 	@override String get cancel => 'এখন নয়';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$bn implements Translations$loginScreen$en {
+	_Translations$loginScreen$bn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN সেবা প্রদানকারী';
+	@override String get providerName => '${_root.loginScreen.provider} কোড/উপনাম/URL';
+	@override String get providerNameRequired => 'অনুগ্রহ করে ${_root.loginScreen.provider} কোড/উপনাম/URL লিখুন';
+	@override String get unsupportedProvider => 'অসমর্থিত ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'অসমর্থিত ${_root.loginScreen.provider} ধরন';
+	@override String get unActivedProvider => 'প্রোভাইডার বাইন্ডিং ফিচার সক্রিয় নয়';
+	@override String providerLoginSupportRequired({required Object p}) => 'কোড/উপনামের জন্য আপনার ${_root.loginScreen.provider}-এর সাথে যোগাযোগ করুন\n${_root.loginScreen.provider} ইন্টিগ্রেশনের জন্য দেখুন: ${p}';
+	@override String get providerDisclaimer => 'দাবি পরিত্যাগ: ${_root.loginScreen.provider} একটি তৃতীয়-পক্ষের সেবা এবং এই অ্যাপের সাথে সম্পর্কিত নয়';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$bn implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$bn._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'স্ট্যাটিক IP';
 	@override String get staticIPTips => 'আপনাকে [TUN HijackDNS] বা [${_root.SettingsScreen.inboundDomainResolve}] সক্ষম করতে হবে।';
-	@override String get isp => 'VPN সরবরাহকারী';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'ডোমেইন সাফিক্স';
 	@override String get domain => 'ডোমেইন';
 	@override String get domainKeyword => 'ডোমেইন কিওয়ার্ড';
@@ -1200,6 +1218,14 @@ extension on TranslationsBn {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'নতুন সংস্করণ [${p}] প্রস্তুত',
 			'VersionUpdateScreen.update' => 'আপডেট করতে পুনরায় চালু করুন',
 			'VersionUpdateScreen.cancel' => 'এখন নয়',
+			'loginScreen.provider' => 'VPN সেবা প্রদানকারী',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} কোড/উপনাম/URL',
+			'loginScreen.providerNameRequired' => 'অনুগ্রহ করে ${_root.loginScreen.provider} কোড/উপনাম/URL লিখুন',
+			'loginScreen.unsupportedProvider' => 'অসমর্থিত ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'অসমর্থিত ${_root.loginScreen.provider} ধরন',
+			'loginScreen.unActivedProvider' => 'প্রোভাইডার বাইন্ডিং ফিচার সক্রিয় নয়',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'কোড/উপনামের জন্য আপনার ${_root.loginScreen.provider}-এর সাথে যোগাযোগ করুন\n${_root.loginScreen.provider} ইন্টিগ্রেশনের জন্য দেখুন: ${p}',
+			'loginScreen.providerDisclaimer' => 'দাবি পরিত্যাগ: ${_root.loginScreen.provider} একটি তৃতীয়-পক্ষের সেবা এবং এই অ্যাপের সাথে সম্পর্কিত নয়',
 			'CommonWidget.diableAlwayOnVPN' => 'যদি [সবসময় চালু VPN] চালু থাকে, তবে অনুগ্রহ করে [সবসময় চালু VPN] বন্ধ করুন এবং আবার সংযোগ করার চেষ্টা করুন',
 			'CommonWidget.resetPort' => 'অনুগ্রহ করে পোর্টটি অন্য কোনো উপলব্ধ পোর্টে পরিবর্তন করুন বা যে অ্যাপ্লিকেশনটি পোর্টটি দখল করে আছে সেটি বন্ধ করুন।',
 			'main.tray.menuOpen' => 'খুলুন',
@@ -1318,7 +1344,7 @@ extension on TranslationsBn {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'স্ট্যাটিক IP',
 			'meta.staticIPTips' => 'আপনাকে [TUN HijackDNS] বা [${_root.SettingsScreen.inboundDomainResolve}] সক্ষম করতে হবে।',
-			'meta.isp' => 'VPN সরবরাহকারী',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'ডোমেইন সাফিক্স',
 			'meta.domain' => 'ডোমেইন',
 			'meta.domainKeyword' => 'ডোমেইন কিওয়ার্ড',
@@ -1458,6 +1484,8 @@ extension on TranslationsBn {
 			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			'diversionCustomGroupPreset' => 'প্রিসেট [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'দ্রষ্টব্য: সক্ষম করা আইটেমগুলি [${_root.meta.diversionCustomGroup}] এবং [${_root.meta.diversionRules}]-এ যুক্ত/ওভাররাইট করা হবে',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'দ্রষ্টব্য: যুক্ত করার পরে, আপনাকে ম্যানুয়ালি ক্রম সামঞ্জস্য করতে হতে পারে, অন্যথায় নতুন যুক্ত করা ডাইভারশন কার্যকর নাও হতে পারে',
 			'rulesetEnableTips' => 'টিপ: অপশনগুলি চালু করার পরে, প্রাসঙ্গিক রুল সেট করতে অনুগ্রহ করে [${_root.meta.diversionRules}]-এ যান, অন্যথায় সেগুলি কার্যকর হবে না',
 			'ispUserAgentTips' => '[${_root.meta.isp}] [HTTP] রিকোয়েস্টে থাকা [UserAgent]-এর ভিত্তিতে বিভিন্ন সাবস্ক্রিপশন টাইপের ডেটা পাঠাবে',
@@ -1466,8 +1494,6 @@ extension on TranslationsBn {
 			'isp.unbind' => ({required Object p}) => 'আনলিঙ্ক করুন[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'অনুসরণ করুন[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] অকার্যকর বা মেয়াদ শেষ',
 			'permission.camera' => 'ক্যামেরা',

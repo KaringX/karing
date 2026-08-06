@@ -283,6 +283,16 @@
         "update": "再起動して更新",
         "cancel": "今はしない"
     },
+    "loginScreen": {
+        "provider": "VPNサービス提供者",
+        "providerName": "@:{loginScreen.provider} code/alias/URL",
+        "providerNameRequired": "@:{loginScreen.provider} code/alias/URL を入力してください",
+        "unsupportedProvider": "未対応の@:{loginScreen.provider}",
+        "unsupportedProviderType": "未対応の@:{loginScreen.provider}タイプ",
+        "unActivedProvider": "プロバイダ連携機能は有効化されていません",
+        "providerLoginSupportRequired": "code/alias は@:{loginScreen.provider}にお問い合わせください\n@:{loginScreen.provider}連携は次を参照: $p",
+        "providerDisclaimer": "免責事項: @:{loginScreen.provider}はサードパーティサービスであり、本アプリとは無関係です"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "[常に VPN を接続] がオンの場合は、オフにしてから再接続を試してください",
         "resetPort": "ポートを利用可能な別のポートに変更するか、ポートを使用しているアプリケーションを終了してください。"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "静的 IP",
         "staticIPTips": "[TUN HijackDNS] または [@:{SettingsScreen.inboundDomainResolve}] を有効にする必要があります。",
-        "isp": "VPN プロバイダー",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "ドメインサフィックス",
         "domain": "ドメイン",
         "domainKeyword": "ドメインキーワード",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

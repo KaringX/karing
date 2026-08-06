@@ -16,6 +16,7 @@ import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
+import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/singbox_outbound.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -406,9 +407,15 @@ class SettingConfigItemWebDev {
   String url = "";
   String user = "";
   String password = "";
+  ProxyStrategy connectMode = ProxyStrategy.preferDirect;
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> ret = {'url': url, 'user': user, 'password': password};
+    Map<String, dynamic> ret = {
+      'url': url,
+      'user': user,
+      'password': password,
+      'connect_mode': connectMode.name,
+    };
     return ret;
   }
 
@@ -419,6 +426,10 @@ class SettingConfigItemWebDev {
     url = map["url"] ?? "";
     user = map["user"] ?? "";
     password = map["password"] ?? "";
+    connectMode = ProxyStrategy.values.firstWhere(
+      (e) => e.name == map["connect_mode"],
+      orElse: () => ProxyStrategy.preferDirect,
+    );
   }
 
   static SettingConfigItemWebDev fromJsonStatic(Map<String, dynamic>? map) {

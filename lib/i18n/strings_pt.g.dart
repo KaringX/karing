@@ -56,6 +56,7 @@ class TranslationsPt with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$pt SettingsScreen = _Translations$SettingsScreen$pt._(_root);
 	@override late final _Translations$UserAgreementScreen$pt UserAgreementScreen = _Translations$UserAgreementScreen$pt._(_root);
 	@override late final _Translations$VersionUpdateScreen$pt VersionUpdateScreen = _Translations$VersionUpdateScreen$pt._(_root);
+	@override late final _Translations$loginScreen$pt loginScreen = _Translations$loginScreen$pt._(_root);
 	@override late final _Translations$CommonWidget$pt CommonWidget = _Translations$CommonWidget$pt._(_root);
 	@override late final _Translations$main$pt main = _Translations$main$pt._(_root);
 	@override late final _Translations$meta$pt meta = _Translations$meta$pt._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$pt implements Translations$VersionUpdate
 	@override String get cancel => 'Agora Não';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$pt implements Translations$loginScreen$en {
+	_Translations$loginScreen$pt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'provedor de VPN';
+	@override String get providerName => 'Codigo/alias/URL do ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Insira o codigo/alias/URL do ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} nao suportado';
+	@override String get unsupportedProviderType => 'Tipo de ${_root.loginScreen.provider} nao suportado';
+	@override String get unActivedProvider => 'A vinculação do provedor não está ativada';
+	@override String providerLoginSupportRequired({required Object p}) => 'Para codigo/alias, contate seu ${_root.loginScreen.provider}\nPara integracao de ${_root.loginScreen.provider}, consulte: ${p}';
+	@override String get providerDisclaimer => 'Aviso legal: ${_root.loginScreen.provider} e um servico de terceiros e nao tem relacao com este app';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$pt implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$pt._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$pt implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'IP Estático';
 	@override String get staticIPTips => 'Precisa de ativar [TUN HijackDNS] ou [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'Fornecedor de VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Sufixo de Domínio';
 	@override String get domain => 'Domínio';
 	@override String get domainKeyword => 'Palavra-chave de Domínio';
@@ -1200,6 +1218,14 @@ extension on TranslationsPt {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'A nova versão [${p}] está pronta',
 			'VersionUpdateScreen.update' => 'Reiniciar para Atualizar',
 			'VersionUpdateScreen.cancel' => 'Agora Não',
+			'loginScreen.provider' => 'provedor de VPN',
+			'loginScreen.providerName' => 'Codigo/alias/URL do ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Insira o codigo/alias/URL do ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} nao suportado',
+			'loginScreen.unsupportedProviderType' => 'Tipo de ${_root.loginScreen.provider} nao suportado',
+			'loginScreen.unActivedProvider' => 'A vinculação do provedor não está ativada',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Para codigo/alias, contate seu ${_root.loginScreen.provider}\nPara integracao de ${_root.loginScreen.provider}, consulte: ${p}',
+			'loginScreen.providerDisclaimer' => 'Aviso legal: ${_root.loginScreen.provider} e um servico de terceiros e nao tem relacao com este app',
 			'CommonWidget.diableAlwayOnVPN' => 'Se a [VPN sempre ligada] estiver ativada, por favor desligue a [VPN sempre ligada] e tente ligar-se novamente',
 			'CommonWidget.resetPort' => 'Por favor mude a porta para outra porta disponível ou feche a aplicação que está a ocupar a porta.',
 			'main.tray.menuOpen' => 'Abrir',
@@ -1318,7 +1344,7 @@ extension on TranslationsPt {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'IP Estático',
 			'meta.staticIPTips' => 'Precisa de ativar [TUN HijackDNS] ou [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'Fornecedor de VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Sufixo de Domínio',
 			'meta.domain' => 'Domínio',
 			'meta.domainKeyword' => 'Palavra-chave de Domínio',
@@ -1458,6 +1484,8 @@ extension on TranslationsPt {
 			'diversionRulesKeep' => 'Manter [${_root.meta.diversionRules}] de [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => '[${_root.meta.diversionCustomGroup}] Predefinido',
 			'diversionCustomGroupPresetTips' => 'Nota: Os itens ativados serão adicionados/substituídos a [${_root.meta.diversionCustomGroup}] e [${_root.meta.diversionRules}]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Nota: Após adicionar, pode precisar de ajustar manualmente a ordem, caso contrário o desvio recém-adicionado pode não ter efeito',
 			'rulesetEnableTips' => 'Dica: Após ativar as opções, por favor vá a [${_root.meta.diversionRules}] para definir as regras relevantes, caso contrário não terão efeito',
 			'ispUserAgentTips' => '[${_root.meta.isp}] enviará dados de diferentes tipos de subscrição baseados no [UserAgent] no pedido [HTTP]',
@@ -1466,8 +1494,6 @@ extension on TranslationsPt {
 			'isp.unbind' => ({required Object p}) => 'Desvincular[${p}]',
 			'isp.faq' => ({required Object p}) => 'FAQ[${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Seguir[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Inválido ou expirado',
 			'permission.camera' => 'Câmara',

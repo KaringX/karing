@@ -8,9 +8,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/remote_config.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/remote_isp_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/modules/zashboard.dart';
@@ -46,7 +45,6 @@ import 'package:karing/screens/group_item_creator.dart';
 import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/group_screen.dart';
 import 'package:karing/screens/home_tvos_screen.dart';
-import 'package:karing/screens/inapp_webview_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/map_string_and_list_add_screen.dart';
 import 'package:karing/screens/net_interfaces_screen.dart';
@@ -80,14 +78,20 @@ class GroupHelper {
   ) {
     final tcontext = Translations.of(context);
     var remoteConfig = RemoteConfigManager.getConfig();
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
+    var provider = BoardProviderManager.getBindedProvider();
     String getTranffic = remoteConfig.getTranffic;
-
     bool isp = false;
-    if (remoteISPConfig.id.isNotEmpty) {
-      if (remoteISPConfig.getTranffic.isNotEmpty) {
+    if (provider != null) {
+      final item = ServerManager.getByProviderId(provider.id);
+      if (item != null) {
         isp = true;
-        getTranffic = remoteISPConfig.getTranffic;
+        if (provider.planUrl.isNotEmpty) {
+          getTranffic = provider.planUrl;
+        } else {
+          if (provider.hideRecommendMenu) {
+            getTranffic = "";
+          }
+        }
       }
     }
 
@@ -98,17 +102,6 @@ class GroupHelper {
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.getTranffic,
             onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                analyticsEventType: analyticsEventTypeUA,
-                name: 'SSS_getTranffic',
-                parameters: {
-                  "from": from,
-                  "isp_id": remoteISPConfig.id.isNotEmpty
-                      ? remoteISPConfig.id
-                      : "",
-                },
-                repeatable: true,
-              );*/
               String url = getTranffic;
               if (!isp) {
                 url = await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
@@ -133,12 +126,6 @@ class GroupHelper {
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.tutorial,
             onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                analyticsEventType: analyticsEventTypeUA,
-                name: 'SSS_tutorial',
-                parameters: {"from": from},
-                repeatable: true,
-              );*/
               String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
                 remoteConfig.tutorial,
               );
@@ -160,12 +147,6 @@ class GroupHelper {
           pushOptions: GroupItemPushOptions(
             name: tcontext.meta.faq,
             onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                analyticsEventType: analyticsEventTypeUA,
-                name: 'SSS_faq',
-                parameters: {"from": from},
-                repeatable: true,
-              );*/
               String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
                 remoteConfig.faq,
               );
@@ -187,13 +168,6 @@ class GroupHelper {
           pushOptions: GroupItemPushOptions(
             name: tcontext.SettingsScreen.commonlyUsedRulesets,
             onPush: () async {
-              /*AnalyticsUtils.logEvent(
-                analyticsEventType: analyticsEventTypeUA,
-                name: 'SSS_commonlyUsedRulesets',
-                parameters: {"from": from},
-                repeatable: true,
-              );*/
-
               String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
                 remoteConfig.rulesets,
               );
@@ -1243,9 +1217,6 @@ class GroupHelper {
     BuildContext context,
     bool popGetProfile,
   ) async {
-    var settingConfig = SettingManager.getConfig();
-    var remoteConfig = RemoteConfigManager.getConfig();
-    var remoteISPConfig = RemoteISPConfigManager.getConfig();
     Map<String, int> tagSets = {};
     for (var item in ServerManager.getConfig().items) {
       tagSets[item.remark] = 0;
@@ -1487,34 +1458,6 @@ class GroupHelper {
           options: GroupHelper.getOutlinkOptions(context, "showAddProfile"),
         ),
       ];
-
-      RemoteConfigGetProfile? profile = remoteConfig.getProfileByRegionCode(
-        settingConfig.regionCode,
-      );
-      if (profile != null) {
-        if (remoteISPConfig.id.isEmpty ||
-            (remoteISPConfig.id.isNotEmpty && remoteISPConfig.getProfile)) {
-          items.add(
-            GroupItem(
-              options: [
-                GroupItemOptions(
-                  pushOptions: GroupItemPushOptions(
-                    name: tcontext.meta.getProfile,
-                    onPush: () async {
-                      onTapGetProfile(
-                        context,
-                        tcontext.meta.getProfile,
-                        profile.url,
-                        remoteISPConfig.id,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
-      }
 
       items.addAll([GroupItem(options: options), backup]);
       return items;
@@ -2323,49 +2266,6 @@ class GroupHelper {
     }
   }
 
-  static Future<void> onTapGetProfile(
-    BuildContext context,
-    String title,
-    String url,
-    String ispId,
-  ) async {
-    Uri? uri = Uri.tryParse(url);
-    if (uri == null) {
-      return;
-    }
-    /*AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeUA,
-      name: 'get_profile',
-      parameters: {"title": title, "url": url, "isp_id": ispId},
-      repeatable: true,
-    );*/
-
-    var remoteConfig = RemoteConfigManager.getConfig();
-    if (RemoteConfig.isSelfHost(url, remoteConfig.host)) {
-      url = await UrlLauncherUtils.reorganizationUrlWithAnchor(url);
-    }
-
-    if (!context.mounted) {
-      return;
-    }
-    await InAppWebViewScreen.makeSureEnvironmentCreated();
-    if (!context.mounted) {
-      return;
-    }
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        settings: InAppWebViewScreen.routSettings("get_profile"),
-        builder: (context) => InAppWebViewScreen(
-          title: title,
-          url: url,
-          showGoBackGoForward: true,
-          setJSWindowObject: true,
-        ),
-      ),
-    );
-  }
-
   static Future<void> showBackupAndSync(BuildContext context) async {
     final tcontext = Translations.of(context);
     Future<List<GroupItem>> getOptions(
@@ -2938,7 +2838,7 @@ class GroupHelper {
     List<String> hosts = ips.split(",");
     int targetPort = int.parse(port);
     String? targetHost;
-    ReturnResult<String>? result;
+    ReturnResult<Tuple2<int, String>>? result;
 
     for (String host in hosts) {
       if (host.isNotEmpty) {
@@ -3199,7 +3099,7 @@ class GroupHelper {
     List<String> hosts = ips.split(",");
     int targetPort = int.parse(port);
     String? targetHost;
-    ReturnResult<String>? result;
+    ReturnResult<Tuple2<int, String>>? result;
 
     for (String host in hosts) {
       if (host.isNotEmpty) {

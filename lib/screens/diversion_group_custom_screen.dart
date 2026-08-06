@@ -174,7 +174,7 @@ class _DiversionGroupCustomScreenState
   Widget createWidget(String current) {
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 4;
-    const double rightWidth = 80;
+    const double rightWidth = 120;
     double leftWidth = windowSize.width - rightWidth - padding * 2 - 4;
     return Column(
       key: Key(current),
@@ -185,9 +185,7 @@ class _DiversionGroupCustomScreenState
             onTap: () {
               onTapItem(current);
             },
-            onDoubleTap: () {
-              onTapModifyName(current);
-            },
+
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: padding),
               width: double.infinity,
@@ -214,6 +212,17 @@ class _DiversionGroupCustomScreenState
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        InkWell(
+                          onTap: () async {
+                            onTapModifyName(current);
+                          },
+                          child: const SizedBox(
+                            width: 26,
+                            height: ThemeConfig.kListItemHeight2,
+                            child: Icon(Icons.edit_outlined, size: 26),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
                         InkWell(
                           onTap: () async {
                             onTapDel(current);

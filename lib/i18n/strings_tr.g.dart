@@ -56,6 +56,7 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$tr SettingsScreen = _Translations$SettingsScreen$tr._(_root);
 	@override late final _Translations$UserAgreementScreen$tr UserAgreementScreen = _Translations$UserAgreementScreen$tr._(_root);
 	@override late final _Translations$VersionUpdateScreen$tr VersionUpdateScreen = _Translations$VersionUpdateScreen$tr._(_root);
+	@override late final _Translations$loginScreen$tr loginScreen = _Translations$loginScreen$tr._(_root);
 	@override late final _Translations$CommonWidget$tr CommonWidget = _Translations$CommonWidget$tr._(_root);
 	@override late final _Translations$main$tr main = _Translations$main$tr._(_root);
 	@override late final _Translations$meta$tr meta = _Translations$meta$tr._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$tr implements Translations$VersionUpdate
 	@override String get cancel => 'Şimdi Değil';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$tr implements Translations$loginScreen$en {
+	_Translations$loginScreen$tr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'VPN sağlayıcısı';
+	@override String get providerName => '${_root.loginScreen.provider} kod/takma ad/URL';
+	@override String get providerNameRequired => 'Lutfen ${_root.loginScreen.provider} kod/takma ad/URL girin';
+	@override String get unsupportedProvider => 'Desteklenmeyen ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Desteklenmeyen ${_root.loginScreen.provider} turu';
+	@override String get unActivedProvider => 'Sağlayıcı bağlama özelliği etkin değil';
+	@override String providerLoginSupportRequired({required Object p}) => 'Kod/takma ad icin ${_root.loginScreen.provider} ile iletisime gecin\n${_root.loginScreen.provider} entegrasyonu icin bkz: ${p}';
+	@override String get providerDisclaimer => 'Yasal uyari: ${_root.loginScreen.provider} ucuncu taraf bir hizmettir ve bu uygulama ile ilgili degildir';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$tr implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$tr._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'Statik IP';
 	@override String get staticIPTips => '[TUN HijackDNS] veya [${_root.SettingsScreen.inboundDomainResolve}] etkinleştirmeniz gerekir.';
-	@override String get isp => 'VPN Sağlayıcı';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'Alan Adı Son eki';
 	@override String get domain => 'Alan Adı';
 	@override String get domainKeyword => 'Alan Adı Anahtar Kelimesi';
@@ -1200,6 +1218,14 @@ extension on TranslationsTr {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Yeni sürüm [${p}] hazır',
 			'VersionUpdateScreen.update' => 'Güncellemek İçin Yeniden Başlat',
 			'VersionUpdateScreen.cancel' => 'Şimdi Değil',
+			'loginScreen.provider' => 'VPN sağlayıcısı',
+			'loginScreen.providerName' => '${_root.loginScreen.provider} kod/takma ad/URL',
+			'loginScreen.providerNameRequired' => 'Lutfen ${_root.loginScreen.provider} kod/takma ad/URL girin',
+			'loginScreen.unsupportedProvider' => 'Desteklenmeyen ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Desteklenmeyen ${_root.loginScreen.provider} turu',
+			'loginScreen.unActivedProvider' => 'Sağlayıcı bağlama özelliği etkin değil',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Kod/takma ad icin ${_root.loginScreen.provider} ile iletisime gecin\n${_root.loginScreen.provider} entegrasyonu icin bkz: ${p}',
+			'loginScreen.providerDisclaimer' => 'Yasal uyari: ${_root.loginScreen.provider} ucuncu taraf bir hizmettir ve bu uygulama ile ilgili degildir',
 			'CommonWidget.diableAlwayOnVPN' => '[Her Zaman Açık VPN] açıksa lütfen kapatın ve tekrar bağlanmayı deneyin',
 			'CommonWidget.resetPort' => 'Lütfen bağlantı noktasını kullanılabilir başka bir bağlantı noktasına değiştirin veya bağlantı noktasını işgal eden uygulamayı kapatın.',
 			'main.tray.menuOpen' => 'Aç',
@@ -1318,7 +1344,7 @@ extension on TranslationsTr {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'Statik IP',
 			'meta.staticIPTips' => '[TUN HijackDNS] veya [${_root.SettingsScreen.inboundDomainResolve}] etkinleştirmeniz gerekir.',
-			'meta.isp' => 'VPN Sağlayıcı',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'Alan Adı Son eki',
 			'meta.domain' => 'Alan Adı',
 			'meta.domainKeyword' => 'Alan Adı Anahtar Kelimesi',
@@ -1458,6 +1484,8 @@ extension on TranslationsTr {
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			'diversionCustomGroupPreset' => 'Ön ayar [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Not: Etkinleştirilen öğeler [${_root.meta.diversionCustomGroup}] ve [${_root.meta.diversionRules}] bölümlerine eklenecek/üzerine yazılacaktır',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'Not: Ekledikten sonra sırayı manuel olarak ayarlamanız gerekebilir, aksi takdirde yeni eklenen yönlendirme etkili olmayabilir',
 			'rulesetEnableTips' => 'İpucu: Seçenekleri açtıktan sonra ilgili kuralları ayarlamak için lütfen [${_root.meta.diversionRules}] bölümüne gidin, aksi takdirde etkili olmayacaktır',
 			'ispUserAgentTips' => '[${_root.meta.isp}], [HTTP] isteğindeki [UserAgent] değerine göre farklı abonelik türlerinde veriler gönderecektir',
@@ -1466,8 +1494,6 @@ extension on TranslationsTr {
 			'isp.unbind' => ({required Object p}) => 'Bağlantıyı Kes [${p}]',
 			'isp.faq' => ({required Object p}) => 'SSS [${p}]',
 			'isp.customerService' => ({required Object p}) => 'Telegram [${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'Takip Et [${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}] Geçersiz veya süresi dolmuş',
 			'permission.camera' => 'Kamera',

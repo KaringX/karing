@@ -283,6 +283,16 @@
         "update": "รีสตาร์ทเพื่ออัปเดต",
         "cancel": "ไม่ใช่ตอนนี้"
     },
+    "loginScreen": {
+        "provider": "ผู้ให้บริการ VPN",
+        "providerName": "รหัส/นามแฝง/URL ของ @:{loginScreen.provider}",
+        "providerNameRequired": "โปรดกรอกรหัส/นามแฝง/URL ของ @:{loginScreen.provider}",
+        "unsupportedProvider": "ไม่รองรับ @:{loginScreen.provider}",
+        "unsupportedProviderType": "ไม่รองรับประเภท @:{loginScreen.provider}",
+        "unActivedProvider": "ยังไม่ได้เปิดใช้งานการเชื่อมโยงผู้ให้บริการ",
+        "providerLoginSupportRequired": "สำหรับรหัส/นามแฝง โปรดติดต่อ @:{loginScreen.provider} ของคุณ\nสำหรับการเชื่อมต่อ @:{loginScreen.provider} โปรดดู: $p",
+        "providerDisclaimer": "ข้อจำกัดความรับผิดชอบ: @:{loginScreen.provider} เป็นบริการของบุคคลที่สาม และไม่เกี่ยวข้องกับแอปนี้"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "หากเปิดใช้งาน [การเชื่อมต่อที่เปิดอยู่เสมอ] โปรดปิดใช้งาน [การเชื่อมต่อที่เปิดอยู่เสมอ] และลองเชื่อมต่ออีกครั้ง",
         "resetPort": "โปรดเปลี่ยนพอร์ตเป็นพอร์ตอื่นที่พร้อมใช้งาน หรือปิดแอปพลิเคชันที่ใช้พอร์ต"
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "IP แบบคงที่",
         "staticIPTips": "คุณต้องเปิดใช้งาน [TUN HijackDNS] หรือ [@:{SettingsScreen.inboundDomainResolve}]",
-        "isp": "ผู้ให้บริการ VPN",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "คำต่อท้ายโดเมน",
         "domain": "โดเมน",
         "domainKeyword": "คำหลักของโดเมน",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

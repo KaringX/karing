@@ -283,6 +283,16 @@
         "update": "أعد التشغيل للتحديث",
         "cancel": "ليس الآن"
     },
+    "loginScreen": {
+        "provider": "مزود خدمة VPN",
+        "providerName": "رمز/اسم مستعار/URL لـ @:{loginScreen.provider}",
+        "providerNameRequired": "يرجى إدخال رمز/اسم مستعار/URL لـ @:{loginScreen.provider}",
+        "unsupportedProvider": "@:{loginScreen.provider} غير مدعوم",
+        "unsupportedProviderType": "نوع @:{loginScreen.provider} غير مدعوم",
+        "unActivedProvider": "ميزة ربط المزود غير مفعلة",
+        "providerLoginSupportRequired": "للحصول على الرمز/الاسم المستعار، تواصل مع @:{loginScreen.provider}\nلدمج @:{loginScreen.provider} راجع: $p",
+        "providerDisclaimer": "إخلاء مسؤولية: @:{loginScreen.provider} خدمة طرف ثالث ولا علاقة لها بهذا التطبيق"
+    },
     "CommonWidget": {
         "diableAlwayOnVPN": "إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.",
         "resetPort": "الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ."
@@ -408,7 +418,7 @@
         "userAgent": "UserAgent",
         "staticIP": "رقم تعريف حاسوب ثابت",
         "staticIPTips": "يجب عليك تمكين [TUN HijackDNS] أو [@:{SettingsScreen.inboundDomainResolve}].",
-        "isp": "مزودي VPN",
+        "isp": "@:{loginScreen.provider}",
         "domainSuffix": "لاحقة اسم المجال",
         "domain": "اسم النطاق",
         "domainKeyword": "الكلمات الرئيسية لاسم المجال",
@@ -659,4 +669,3 @@
         "pa": "ਪੰਜਾਬੀ"
     }
 }
-

@@ -8,11 +8,11 @@ import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:karing/app/modules/biz.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/accessibility_utils.dart';
-import 'package:karing/app/utils/date_time_utils.dart';
 import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
@@ -207,14 +207,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       };
       _listViewParts.add(item);
     }
+
     for (var group in ServerManager.getConfig().items) {
       if (group.groupid == ServerManager.getCustomGroupId()) {
         continue;
       }
+      final provider = group.getBindProvider();
+
       ListViewMultiPartsItem item = ListViewMultiPartsItem();
       item.data = group;
       item.creator = (data, index, bindNO) {
-        return createGroupProfile(group);
+        return createGroupProfile(provider, group);
       };
       _listViewParts.add(item);
 
@@ -282,14 +285,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         item.bindNO = count++;
         item.data = servers[i];
         item.creator = (data, index, bindNO) {
-          return createServer(data, bindNO!);
+          return createServer(provider, data, bindNO!);
         };
         _listViewParts.add(item);
       }
     }
   }
 
-  Row createGroupTitle(ServerConfigGroupItem item) {
+  Row createGroupTitle(
+    BoardProviderConfig? provider,
+    ServerConfigGroupItem item,
+  ) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     const double leftWidth = 5;
@@ -324,8 +330,15 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       : Icons.keyboard_arrow_down_outlined,
                   size: 26,
                 ),
+                if (provider != null) ...[Icon(Icons.business, size: 16)],
                 SizedBox(
-                  width: centerWidth - 2 * 2 - 15 - 26 - 2,
+                  width:
+                      centerWidth -
+                      2 * 2 -
+                      15 -
+                      26 -
+                      2 -
+                      (provider != null ? 16 : 0),
                   child: Tooltip(
                     message: "${item.remark}[${item.servers.length}]",
                     child: Text(
@@ -402,7 +415,10 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     );
   }
 
-  Row createGroupFunction(ServerConfigGroupItem item) {
+  Row createGroupFunction(
+    BoardProviderConfig? provider,
+    ServerConfigGroupItem item,
+  ) {
     int count =
         ServerManager.getTestOutboundServerLatencyTestingCount(item.groupid) +
         item.testLatency.length;
@@ -475,27 +491,29 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
               const SizedBox(width: 5),
             ],
           ),
-          Row(
-            children: [
-              Tooltip(
-                message: tcontext.meta.qrcode,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        settings: QrcodeScreen.routSettings(),
-                        builder: (context) =>
-                            QrcodeScreen(content: item.urlOrPath),
-                      ),
-                    );
-                  },
-                  child: const Icon(Icons.qr_code_scanner_outlined, size: 26),
+          if (provider?.hideSubscriptionLink != true) ...[
+            Row(
+              children: [
+                Tooltip(
+                  message: tcontext.meta.qrcode,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          settings: QrcodeScreen.routSettings(),
+                          builder: (context) =>
+                              QrcodeScreen(content: item.urlOrPath),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.qr_code_scanner_outlined, size: 26),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 5),
-            ],
-          ),
+                const SizedBox(width: 5),
+              ],
+            ),
+          ],
         ],
         if (!item.isRemote()) ...[
           Row(
@@ -513,7 +531,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             ],
           ),
         ],
-        if (!Platform.isWindows ||
+        if ((provider?.hideNodeDetails != true) && !Platform.isWindows ||
             (Platform.isWindows &&
                 VersionHelper.instance.isWindows10RS5OrGreater)) ...[
           Row(
@@ -538,7 +556,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 message: tcontext.meta.edit,
                 child: InkWell(
                   onTap: () async {
-                    onTapEdit(item);
+                    onTapEdit(provider, item);
                   },
                   child: const Icon(Icons.edit_outlined, size: 26),
                 ),
@@ -676,17 +694,21 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     );
   }
 
-  Column createGroupProfile(ServerConfigGroupItem item) {
+  Column createGroupProfile(
+    BoardProviderConfig? provider,
+    ServerConfigGroupItem item,
+  ) {
     final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
+
     return Column(
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(width: 5),
-            createGroupTitle(item),
-            createGroupFunction(item),
+            createGroupTitle(provider, item),
+            createGroupFunction(provider, item),
             const SizedBox(height: 5),
             CommonWidget.createGroupTraffic(
               context,
@@ -741,7 +763,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     );
   }
 
-  Widget createServer(ProxyConfig server, int index) {
+  Widget createServer(
+    BoardProviderConfig? provider,
+    ProxyConfig server,
+    int index,
+  ) {
     final themes = Provider.of<Themes>(context, listen: false);
     String disableKey = ServerUse.getDisableKey(server);
     bool disabled = ServerManager.getUse().disable.contains(disableKey);
@@ -766,12 +792,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
       child: ContextMenuArea(
-        builder: (context) =>
-            getLongPressServerWidgets(server, isTesting, isWaitTesting, true),
+        builder: (context) => getLongPressServerWidgets(
+          provider,
+          server,
+          isTesting,
+          isWaitTesting,
+          true,
+        ),
         child: InkWell(
           onTapDown: (details) {},
           onLongPress: () async {
-            onLongPressServer(server, isTesting, isWaitTesting);
+            onLongPressServer(provider, server, isTesting, isWaitTesting);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: padding),
@@ -904,7 +935,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                 context,
                                 themes,
                                 ThemeConfig.kListItemHeight,
-                                isTesting | isWaitTesting,
+                                isTesting || isWaitTesting,
                                 isTesting,
                                 server.latency,
                                 onTapLatencyReload: () async {
@@ -1099,6 +1130,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   List<Widget> getLongPressServerWidgets(
+    BoardProviderConfig? provider,
     ProxyConfig server,
     bool isTesting,
     bool isWaitTesting,
@@ -1135,50 +1167,52 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
           setState(() {});
         },
       ),
-      ListTile(
-        title: Text(
-          insertBlackspace ? "  ${tcontext.meta.share}" : tcontext.meta.share,
-        ),
-        onTap: () async {
-          Navigator.pop(context);
-          const JsonEncoder encoder = JsonEncoder.withIndent('');
-          String configContent = encoder.convert(
-            SingboxConfigBuilder.buildOutbound(server),
-          );
-          Codec<String, String> stringToBase64 = utf8.fuse(base64);
-          String b64 = stringToBase64.encode("[$configContent]");
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              settings: QrcodeScreen.routSettings(),
-              builder: (context) => QrcodeScreen(
-                content:
-                    "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}",
+      if (provider?.hideNodeDetails != true) ...[
+        ListTile(
+          title: Text(
+            insertBlackspace ? "  ${tcontext.meta.share}" : tcontext.meta.share,
+          ),
+          onTap: () async {
+            Navigator.pop(context);
+            const JsonEncoder encoder = JsonEncoder.withIndent('');
+            String configContent = encoder.convert(
+              SingboxConfigBuilder.buildOutbound(server),
+            );
+            Codec<String, String> stringToBase64 = utf8.fuse(base64);
+            String b64 = stringToBase64.encode("[$configContent]");
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                settings: QrcodeScreen.routSettings(),
+                builder: (context) => QrcodeScreen(
+                  content:
+                      "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}",
+                ),
               ),
-            ),
-          );
-        },
-      ),
-      ListTile(
-        title: Text(
-          insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view,
+            );
+          },
         ),
-        onTap: () async {
-          Navigator.pop(context);
-          const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-          String content = server.raw != null
-              ? encoder.convert(server.raw)
-              : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              settings: FileViewScreen.routSettings(),
-              builder: (context) =>
-                  FileViewScreen(title: server.tag, content: content),
-            ),
-          );
-        },
-      ),
+        ListTile(
+          title: Text(
+            insertBlackspace ? "  ${tcontext.meta.view}" : tcontext.meta.view,
+          ),
+          onTap: () async {
+            Navigator.pop(context);
+            const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+            String content = server.raw != null
+                ? encoder.convert(server.raw)
+                : encoder.convert(SingboxConfigBuilder.buildOutbound(server));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                settings: FileViewScreen.routSettings(),
+                builder: (context) =>
+                    FileViewScreen(title: server.tag, content: content),
+              ),
+            );
+          },
+        ),
+      ],
       if (!isTesting &&
           !isWaitTesting &&
           item.testLatency.isEmpty &&
@@ -1210,15 +1244,17 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         ),
       ],
       if (!SettingManager.getConfig().novice) ...[
-        ListTile(
-          title: Text(
-            insertBlackspace ? "  ${tcontext.meta.edit}" : tcontext.meta.edit,
+        if (provider?.hideNodeDetails != true) ...[
+          ListTile(
+            title: Text(
+              insertBlackspace ? "  ${tcontext.meta.edit}" : tcontext.meta.edit,
+            ),
+            onTap: () async {
+              Navigator.pop(context);
+              onTapEditServer(item, server);
+            },
           ),
-          onTap: () async {
-            Navigator.pop(context);
-            onTapEditServer(item, server);
-          },
-        ),
+        ],
       ],
     ];
 
@@ -1226,11 +1262,13 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
   }
 
   void onLongPressServer(
+    BoardProviderConfig? provider,
     ProxyConfig server,
     bool isTesting,
     bool isWaitTesting,
   ) async {
     var widgets = getLongPressServerWidgets(
+      provider,
       server,
       isTesting,
       isWaitTesting,
@@ -1779,12 +1817,16 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     }
   }
 
-  void onTapEdit(ServerConfigGroupItem item) async {
+  void onTapEdit(
+    BoardProviderConfig? provider,
+    ServerConfigGroupItem item,
+  ) async {
     bool? changed = await Navigator.push(
       context,
       MaterialPageRoute(
         settings: MyProfilesEditScreen.routSettings(),
-        builder: (context) => MyProfilesEditScreen(groupid: item.groupid),
+        builder: (context) =>
+            MyProfilesEditScreen(groupid: item.groupid, provider: provider),
       ),
     );
     if (changed == true) {

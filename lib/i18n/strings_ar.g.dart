@@ -56,6 +56,7 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$SettingsScreen$ar SettingsScreen = _Translations$SettingsScreen$ar._(_root);
 	@override late final _Translations$UserAgreementScreen$ar UserAgreementScreen = _Translations$UserAgreementScreen$ar._(_root);
 	@override late final _Translations$VersionUpdateScreen$ar VersionUpdateScreen = _Translations$VersionUpdateScreen$ar._(_root);
+	@override late final _Translations$loginScreen$ar loginScreen = _Translations$loginScreen$ar._(_root);
 	@override late final _Translations$CommonWidget$ar CommonWidget = _Translations$CommonWidget$ar._(_root);
 	@override late final _Translations$main$ar main = _Translations$main$ar._(_root);
 	@override late final _Translations$meta$ar meta = _Translations$meta$ar._(_root);
@@ -547,6 +548,23 @@ class _Translations$VersionUpdateScreen$ar implements Translations$VersionUpdate
 	@override String get cancel => 'ليس الآن';
 }
 
+// Path: loginScreen
+class _Translations$loginScreen$ar implements Translations$loginScreen$en {
+	_Translations$loginScreen$ar._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get provider => 'مزود خدمة VPN';
+	@override String get providerName => 'رمز/اسم مستعار/URL لـ ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'يرجى إدخال رمز/اسم مستعار/URL لـ ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => '${_root.loginScreen.provider} غير مدعوم';
+	@override String get unsupportedProviderType => 'نوع ${_root.loginScreen.provider} غير مدعوم';
+	@override String get unActivedProvider => 'ميزة ربط المزود غير مفعلة';
+	@override String providerLoginSupportRequired({required Object p}) => 'للحصول على الرمز/الاسم المستعار، تواصل مع ${_root.loginScreen.provider}\nلدمج ${_root.loginScreen.provider} راجع: ${p}';
+	@override String get providerDisclaimer => 'إخلاء مسؤولية: ${_root.loginScreen.provider} خدمة طرف ثالث ولا علاقة لها بهذا التطبيق';
+}
+
 // Path: CommonWidget
 class _Translations$CommonWidget$ar implements Translations$CommonWidget$en {
 	_Translations$CommonWidget$ar._(this._root);
@@ -689,7 +707,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get userAgent => 'UserAgent';
 	@override String get staticIP => 'رقم تعريف حاسوب ثابت';
 	@override String get staticIPTips => 'يجب عليك تمكين [TUN HijackDNS] أو [${_root.SettingsScreen.inboundDomainResolve}].';
-	@override String get isp => 'مزودي VPN';
+	@override String get isp => _root.loginScreen.provider;
 	@override String get domainSuffix => 'لاحقة اسم المجال';
 	@override String get domain => 'اسم النطاق';
 	@override String get domainKeyword => 'الكلمات الرئيسية لاسم المجال';
@@ -1200,6 +1218,14 @@ extension on TranslationsAr {
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'الإصدار الجديد [${p}] جاهز',
 			'VersionUpdateScreen.update' => 'أعد التشغيل للتحديث',
 			'VersionUpdateScreen.cancel' => 'ليس الآن',
+			'loginScreen.provider' => 'مزود خدمة VPN',
+			'loginScreen.providerName' => 'رمز/اسم مستعار/URL لـ ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'يرجى إدخال رمز/اسم مستعار/URL لـ ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => '${_root.loginScreen.provider} غير مدعوم',
+			'loginScreen.unsupportedProviderType' => 'نوع ${_root.loginScreen.provider} غير مدعوم',
+			'loginScreen.unActivedProvider' => 'ميزة ربط المزود غير مفعلة',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'للحصول على الرمز/الاسم المستعار، تواصل مع ${_root.loginScreen.provider}\nلدمج ${_root.loginScreen.provider} راجع: ${p}',
+			'loginScreen.providerDisclaimer' => 'إخلاء مسؤولية: ${_root.loginScreen.provider} خدمة طرف ثالث ولا علاقة لها بهذا التطبيق',
 			'CommonWidget.diableAlwayOnVPN' => 'إذا تم تشغيل [Always on VPN]، فيرجى إيقاف تشغيل [Always on VPN] ومحاولة الاتصال مرة أخرى.',
 			'CommonWidget.resetPort' => 'الرجاء تغيير المنفذ إلى منفذ آخر متاح أو إغلاق التطبيق الذي يشغل المنفذ.',
 			'main.tray.menuOpen' => 'يفتح',
@@ -1318,7 +1344,7 @@ extension on TranslationsAr {
 			'meta.userAgent' => 'UserAgent',
 			'meta.staticIP' => 'رقم تعريف حاسوب ثابت',
 			'meta.staticIPTips' => 'يجب عليك تمكين [TUN HijackDNS] أو [${_root.SettingsScreen.inboundDomainResolve}].',
-			'meta.isp' => 'مزودي VPN',
+			'meta.isp' => _root.loginScreen.provider,
 			'meta.domainSuffix' => 'لاحقة اسم المجال',
 			'meta.domain' => 'اسم النطاق',
 			'meta.domainKeyword' => 'الكلمات الرئيسية لاسم المجال',
@@ -1458,6 +1484,8 @@ extension on TranslationsAr {
 			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',
 			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',
+			_ => null,
+		} ?? switch (path) {
 			'diversionCustomGroupAddTips' => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.',
 			'rulesetEnableTips' => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ',
 			'ispUserAgentTips' => 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].',
@@ -1466,8 +1494,6 @@ extension on TranslationsAr {
 			'isp.unbind' => ({required Object p}) => 'فك الارتباط[${p}]',
 			'isp.faq' => ({required Object p}) => 'الأسئلة الشائعة[${p}]',
 			'isp.customerService' => ({required Object p}) => 'خدمة العملاء[${p}]',
-			_ => null,
-		} ?? switch (path) {
 			'isp.follow' => ({required Object p}) => 'متابعة[${p}]',
 			'isp.invalidOrExpired' => '[${_root.meta.isp}]غير صالح أو منتهية الصلاحية',
 			'permission.camera' => 'الكاميرا',
