@@ -575,7 +575,6 @@ class _AddProfileByLinkOrContentScreenState
           textWidthPercent: 0.6,
           onChanged: (String value) {
             _decryptPassword = value;
-            setState(() {});
           },
         ),
       ),
