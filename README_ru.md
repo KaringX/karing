@@ -118,4 +118,4 @@
 
 ## История звёзд (Star History)
 
-[![График истории звёзд](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+[![График истории звёзд](https://star-history.dera.page/svg?repos=KaringX/karing&type=Date)](https://star-history.dera.page/#KaringX/karing&Date)

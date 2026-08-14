@@ -118,4 +118,4 @@ Una GUI para <a href="https://github.com/SagerNet/sing-box">sing-box</a> basada 
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=KaringX/karing&type=Date)](https://star-history.dera.page/#KaringX/karing&Date)
