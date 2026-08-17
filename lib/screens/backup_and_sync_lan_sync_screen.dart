@@ -170,21 +170,43 @@ class _BackupAndSyncLanSyncScreenState
         _onRouting("/${AppSchemeActions.syncUploadAction()}", "POST", (
           HttpRequest httpRequest,
         ) async {
-          String dir = await PathUtils.cacheDir();
-          var contentType = MediaType.parse(
-            httpRequest.headers.value('content-type')!,
-          );
-          var boundary = contentType.parameters['boundary']!;
-          var transformer = MimeMultipartTransformer(boundary);
-          var parts = await transformer.bind(httpRequest).toList();
+          if (httpRequest.contentLength > 100 * 1024 * 1024) {
+            httpRequest.response.statusCode = HttpStatus.ok;
+            httpRequest.response.write('{"error":"file too large(>100MB)"}');
+            httpRequest.response.close();
+            return;
+          }
+          late MediaType contentType;
+          try {
+            contentType = MediaType.parse(
+              httpRequest.headers.value('content-type')!,
+            );
+          } catch (e) {
+            httpRequest.response.statusCode = HttpStatus.ok;
+            httpRequest.response.write('{"error":"invalid content-type"}');
+            httpRequest.response.close();
+            return;
+          }
+          final boundary = contentType.parameters['boundary'];
+          if (boundary == null) {
+            httpRequest.response.statusCode = HttpStatus.ok;
+            httpRequest.response.write('{"error":"missing boundary"}');
+            httpRequest.response.close();
+            return;
+          }
+          final transformer = MimeMultipartTransformer(boundary);
+          final parts = await transformer.bind(httpRequest).toList();
           String err = "";
           String zipPath = "";
           if (parts.length == 1) {
-            var part = parts[0];
-            var contentDisp = part.headers['content-disposition']!;
+            final part = parts[0];
+            final contentDisp = part.headers['content-disposition']!;
+
             var filename = _extractFilename(contentDisp);
             if (filename != null) {
-              var filepath = path.join(dir, filename);
+              filename = path.basename(filename);
+              String dir = await PathUtils.cacheDir();
+              final filepath = path.join(dir, filename);
               try {
                 await _saveFile(part, filepath);
                 zipPath = filepath;
@@ -252,6 +274,11 @@ class _BackupAndSyncLanSyncScreenState
     response.close();
   }
 
+  void _sendServerInnerError(HttpResponse response) {
+    response.statusCode = HttpStatus.internalServerError;
+    response.close();
+  }
+
   Future<void> stop() async {
     _router = {};
     if (_server != null) {
@@ -263,12 +290,12 @@ class _BackupAndSyncLanSyncScreenState
   void _onRouting(
     String routing,
     String method,
-    Function(HttpRequest httpRequest) callback,
+    Future<void> Function(HttpRequest httpRequest) callback,
   ) {
     _router[routing] = Tuple2(method, callback);
   }
 
-  void _routing({String? path, HttpRequest? httpRequest}) {
+  Future<void> _routing({String? path, HttpRequest? httpRequest}) async {
     if (httpRequest == null) {
       return;
     }
@@ -278,8 +305,9 @@ class _BackupAndSyncLanSyncScreenState
       return;
     }
     try {
-      result.item2.call(httpRequest);
+      await result.item2.call(httpRequest);
     } catch (err) {
+      _sendServerInnerError(httpRequest.response);
       Future.delayed(const Duration(microseconds: 10), () async {
         if (!mounted) {
           return;

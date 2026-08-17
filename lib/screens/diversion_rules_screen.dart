@@ -237,6 +237,7 @@ class DiversionRulesScreenState
           if (selected.item2.isNotEmpty) {
             text = selected.item2;
             if (group.groupid == ServerManager.getCustomGroupId() &&
+                selected.item1.tag != ServerManager.getUrltest().tag &&
                 selected.item1.groupid == ServerManager.getUrltestGroupId()) {
               bool exists = false;
               ServerConfigGroupItem item = ServerManager.getCustomGroup();
