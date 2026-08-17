@@ -118,4 +118,4 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
 
 ## Історія зірок
 
-[![Графік історії зірок](https://api.star-history.com/svg?repos=KaringX/karing&type=Date)](https://star-history.com/#KaringX/karing&Date)
+[![Графік історії зірок](https://star-history.dera.page/svg?repos=KaringX/karing&type=Date)](https://star-history.dera.page/#KaringX/karing&Date)
