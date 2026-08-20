@@ -201,6 +201,7 @@
         "myLink": "快捷链接",
         "autoConnectAfterLaunch": "启动后自动连接",
         "autoConnectAtBoot": "系统启动后自动连接",
+        "automationWhitelist": "自动化白名单",
         "autoConnectAtBootTips": "需要系统支持,部分系统可能还需要开启[自启动]",
         "hideAfterLaunch": "启动后隐藏窗口",
         "autoSetSystemProxy": "连接后自动设置系统代理",

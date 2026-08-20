@@ -201,6 +201,7 @@
         "myLink": "ارتباط اختصار",
         "autoConnectAfterLaunch": "اتصال السيارات بعد الإطلاق",
         "autoConnectAtBoot": "الاتصال التلقائي بعد بدء تشغيل النظام",
+        "automationWhitelist": "القائمة البيضاء للأتمتة",
         "autoConnectAtBootTips": "يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].",
         "hideAfterLaunch": "إخفاء النافذة بعد بدء التشغيل",
         "autoSetSystemProxy": "وكيل نظام تعيين تلقائي عند الاتصال",

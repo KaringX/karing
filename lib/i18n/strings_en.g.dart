@@ -857,6 +857,9 @@ class Translations$SettingsScreen$en {
 	/// en: 'Auto Connection after System Startup'
 	String get autoConnectAtBoot => 'Auto Connection after System Startup';
 
+	/// en: 'Automation Whitelist'
+	String get automationWhitelist => 'Automation Whitelist';
+
 	/// en: 'System support is required; some systems may also require [auto-start] to be enabled.'
 	String get autoConnectAtBootTips => 'System support is required; some systems may also require [auto-start] to be enabled.';
 
@@ -2296,6 +2299,7 @@ extension on Translations {
 			'SettingsScreen.myLink' => 'Shortcut Link',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Auto Connection after Launch',
 			'SettingsScreen.autoConnectAtBoot' => 'Auto Connection after System Startup',
+			'SettingsScreen.automationWhitelist' => 'Automation Whitelist',
 			'SettingsScreen.autoConnectAtBootTips' => 'System support is required; some systems may also require [auto-start] to be enabled.',
 			'SettingsScreen.hideAfterLaunch' => 'Hide window after startup',
 			'SettingsScreen.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
@@ -2638,9 +2642,9 @@ extension on Translations {
 			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
 			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect',
 			'rulesetEnableTips' => 'Tip: After turning on the options, please go to[${_root.meta.diversionRules}]to set the relevant rules, otherwise they will not take effect',
 			'ispUserAgentTips' => '[${_root.meta.isp}] will send data of different subscription types based on [UserAgent] in [HTTP] request',

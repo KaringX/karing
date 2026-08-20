@@ -771,7 +771,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
 
     if (SettingManager.getConfig().dev.devMode) {
       _widgetOptions.memoryInfo!.notifier.value =
-          "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${con.goroutines}/${con.threadCount}";
+          "${ProxyConfUtils.convertTrafficToStringDouble(con.memory)}/${ProxyConfUtils.convertTrafficToStringDouble(con.memoryTotal)}/${con.goroutines}";
       _widgetOptions.connectionsInfo!.notifier.value =
           "${con.connectionsInCount}/${con.connectionsOutCount}";
     } else {

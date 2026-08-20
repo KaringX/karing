@@ -201,6 +201,7 @@
         "myLink": "شارٹ کٹ لنک",
         "autoConnectAfterLaunch": "لانچ کے بعد خودکار کنکشن",
         "autoConnectAtBoot": "سسٹم بوٹ کے بعد خودکار کنکشن",
+        "automationWhitelist": "آٹومیشن وائٹ لسٹ",
         "autoConnectAtBootTips": "سسٹم سپورٹ ضروری ہے؛ کچھ سسٹمز کو [آٹو اسٹارٹ] فعال کرنے کی بھی ضرورت پڑ سکتی ہے۔",
         "hideAfterLaunch": "لانچ کے بعد ونڈو چھپائیں",
         "autoSetSystemProxy": "منسلک ہونے پر خود بخود سسٹم پراکسی ترتیب دیں",

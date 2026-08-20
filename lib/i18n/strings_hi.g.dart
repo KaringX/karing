@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$hi implements Translations$SettingsScreen$en 
 	@override String get myLink => 'शॉर्टकट लिंक';
 	@override String get autoConnectAfterLaunch => 'लॉन्च के बाद स्वचालित कनेक्शन';
 	@override String get autoConnectAtBoot => 'सिस्टम बूट के बाद स्वचालित कनेक्शन';
+	@override String get automationWhitelist => 'ऑटोमेशन श्वेतसूची';
 	@override String get autoConnectAtBootTips => 'सिस्टम समर्थन आवश्यक है; कुछ प्रणालियों को [ऑटो-स्टार्ट] सक्षम करने की भी आवश्यकता हो सकती है।';
 	@override String get hideAfterLaunch => 'लॉन्च के बाद विंडो छिपाएं';
 	@override String get autoSetSystemProxy => 'कनेक्ट होने पर सिस्टम प्रॉक्सी स्वचालित रूप से सेट करें';
@@ -1141,6 +1142,7 @@ extension on TranslationsHi {
 			'SettingsScreen.myLink' => 'शॉर्टकट लिंक',
 			'SettingsScreen.autoConnectAfterLaunch' => 'लॉन्च के बाद स्वचालित कनेक्शन',
 			'SettingsScreen.autoConnectAtBoot' => 'सिस्टम बूट के बाद स्वचालित कनेक्शन',
+			'SettingsScreen.automationWhitelist' => 'ऑटोमेशन श्वेतसूची',
 			'SettingsScreen.autoConnectAtBootTips' => 'सिस्टम समर्थन आवश्यक है; कुछ प्रणालियों को [ऑटो-स्टार्ट] सक्षम करने की भी आवश्यकता हो सकती है।',
 			'SettingsScreen.hideAfterLaunch' => 'लॉन्च के बाद विंडो छिपाएं',
 			'SettingsScreen.autoSetSystemProxy' => 'कनेक्ट होने पर सिस्टम प्रॉक्सी स्वचालित रूप से सेट करें',
@@ -1483,9 +1485,9 @@ extension on TranslationsHi {
 			'meta.profileAddWrapSuccess' => 'प्रोफ़ाइल सफलतापूर्वक उत्पन्न हुई, कृपया देखने के लिए [${_root.meta.myProfiles}] पर जाएं',
 			'diversionRulesKeep' => '[${_root.meta.isp}] के [${_root.meta.diversionRules}] को बनाए रखें',
 			'diversionCustomGroupPreset' => 'प्रीसेट [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'नोट: सक्षम किए गए आइटम [${_root.meta.diversionCustomGroup}] और [${_root.meta.diversionRules}] में जोड़े/ओवरराइट किए जाएंगे',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'नोट: सक्षम किए गए आइटम [${_root.meta.diversionCustomGroup}] और [${_root.meta.diversionRules}] में जोड़े/ओवरराइट किए जाएंगे',
 			'diversionCustomGroupAddTips' => 'नोट: जोड़ने के बाद, आपको क्रम को मैन्युअल रूप से समायोजित करने की आवश्यकता हो सकती है, अन्यथा नया जोड़ा गया विचलन प्रभावी नहीं हो सकता है',
 			'rulesetEnableTips' => 'टिप: विकल्पों को चालू करने के बाद, कृपया प्रासंगिक नियम सेट करने के लिए [${_root.meta.diversionRules}] पर जाएं, अन्यथा वे प्रभावी नहीं होंगे',
 			'ispUserAgentTips' => '[${_root.meta.isp}] [HTTP] अनुरोध में [UserAgent] के आधार पर विभिन्न सदस्यता प्रकारों का डेटा भेजेगा',

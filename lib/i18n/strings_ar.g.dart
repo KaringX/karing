@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get myLink => 'ارتباط اختصار';
 	@override String get autoConnectAfterLaunch => 'اتصال السيارات بعد الإطلاق';
 	@override String get autoConnectAtBoot => 'الاتصال التلقائي بعد بدء تشغيل النظام';
+	@override String get automationWhitelist => 'القائمة البيضاء للأتمتة';
 	@override String get autoConnectAtBootTips => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
@@ -1141,6 +1142,7 @@ extension on TranslationsAr {
 			'SettingsScreen.myLink' => 'ارتباط اختصار',
 			'SettingsScreen.autoConnectAfterLaunch' => 'اتصال السيارات بعد الإطلاق',
 			'SettingsScreen.autoConnectAtBoot' => 'الاتصال التلقائي بعد بدء تشغيل النظام',
+			'SettingsScreen.automationWhitelist' => 'القائمة البيضاء للأتمتة',
 			'SettingsScreen.autoConnectAtBootTips' => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].',
 			'SettingsScreen.hideAfterLaunch' => 'إخفاء النافذة بعد بدء التشغيل',
 			'SettingsScreen.autoSetSystemProxy' => 'وكيل نظام تعيين تلقائي عند الاتصال',
@@ -1483,9 +1485,9 @@ extension on TranslationsAr {
 			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
 			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',
-			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',
 			'diversionCustomGroupAddTips' => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.',
 			'rulesetEnableTips' => 'نصيحة: بعد تشغيل الخيارات ، يرجى الانتقال إلى [قواعد التحويل] لتعيين القواعد ذات الصلة ، وإلا فلن تدخل ساري المفعول ',
 			'ispUserAgentTips' => 'سيقدم [${_root.meta.isp} أنواعًا مختلفة من بيانات الاشتراك بناءً على [UserAgent] في طلب [HTTP].',

@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$id implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Tautan cepat';
 	@override String get autoConnectAfterLaunch => 'Hubungkan otomatis setelah mulai';
 	@override String get autoConnectAtBoot => 'Hubungkan otomatis saat sistem menyala';
+	@override String get automationWhitelist => 'Daftar putih otomatisasi';
 	@override String get autoConnectAtBootTips => 'Memerlukan dukungan sistem, dan pada beberapa sistem mungkin juga perlu mengaktifkan [Startup otomatis]';
 	@override String get hideAfterLaunch => 'Sembunyikan jendela setelah mulai';
 	@override String get autoSetSystemProxy => 'Atur proxy sistem secara otomatis setelah terhubung';
@@ -1141,6 +1142,7 @@ extension on TranslationsId {
 			'SettingsScreen.myLink' => 'Tautan cepat',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Hubungkan otomatis setelah mulai',
 			'SettingsScreen.autoConnectAtBoot' => 'Hubungkan otomatis saat sistem menyala',
+			'SettingsScreen.automationWhitelist' => 'Daftar putih otomatisasi',
 			'SettingsScreen.autoConnectAtBootTips' => 'Memerlukan dukungan sistem, dan pada beberapa sistem mungkin juga perlu mengaktifkan [Startup otomatis]',
 			'SettingsScreen.hideAfterLaunch' => 'Sembunyikan jendela setelah mulai',
 			'SettingsScreen.autoSetSystemProxy' => 'Atur proxy sistem secara otomatis setelah terhubung',
@@ -1483,9 +1485,9 @@ extension on TranslationsId {
 			'meta.profileAddWrapSuccess' => 'Konfigurasi berhasil dibuat, silakan lihat di [${_root.meta.myProfiles}]',
 			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Perhatian: item yang diaktifkan akan ditambahkan/menimpa [${_root.meta.diversionCustomGroup}] dan [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Perhatian: item yang diaktifkan akan ditambahkan/menimpa [${_root.meta.diversionCustomGroup}] dan [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Perhatian: setelah ditambahkan, Anda mungkin perlu menyesuaikan urutan secara manual, jika tidak routing baru mungkin tidak berlaku',
 			'rulesetEnableTips' => 'Tip: setelah mengaktifkan opsi, silakan buka [${_root.meta.diversionRules}] untuk mengatur aturan terkait, jika tidak maka tidak akan berlaku',
 			'ispUserAgentTips' => '[${_root.meta.isp}] akan mengirimkan data jenis langganan yang berbeda berdasarkan [UserAgent] dalam permintaan [HTTP]',

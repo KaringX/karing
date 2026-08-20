@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$de implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Shortcut-Link';
 	@override String get autoConnectAfterLaunch => 'Automatische Verbindung nach dem Start';
 	@override String get autoConnectAtBoot => 'Automatische Verbindung nach dem Systemstart';
+	@override String get automationWhitelist => 'Automatisierungs-Whitelist';
 	@override String get autoConnectAtBootTips => 'Systemunterstützung ist erforderlich; einige Systeme erfordern möglicherweise auch die Aktivierung von [Autostart].';
 	@override String get hideAfterLaunch => 'Fenster nach dem Start ausblenden';
 	@override String get autoSetSystemProxy => 'System-Proxy automatisch einstellen, wenn verbunden';
@@ -1141,6 +1142,7 @@ extension on TranslationsDe {
 			'SettingsScreen.myLink' => 'Shortcut-Link',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Automatische Verbindung nach dem Start',
 			'SettingsScreen.autoConnectAtBoot' => 'Automatische Verbindung nach dem Systemstart',
+			'SettingsScreen.automationWhitelist' => 'Automatisierungs-Whitelist',
 			'SettingsScreen.autoConnectAtBootTips' => 'Systemunterstützung ist erforderlich; einige Systeme erfordern möglicherweise auch die Aktivierung von [Autostart].',
 			'SettingsScreen.hideAfterLaunch' => 'Fenster nach dem Start ausblenden',
 			'SettingsScreen.autoSetSystemProxy' => 'System-Proxy automatisch einstellen, wenn verbunden',
@@ -1483,9 +1485,9 @@ extension on TranslationsDe {
 			'meta.profileAddWrapSuccess' => 'Profil erfolgreich generiert, bitte gehen Sie zu [${_root.meta.myProfiles}], um es anzusehen',
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} beibehalten',
 			'diversionCustomGroupPreset' => 'Voreingestellte [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Hinweis: Aktivierte Elemente werden zu [${_root.meta.diversionCustomGroup}] und [${_root.meta.diversionRules}] hinzugefügt/überschrieben',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Hinweis: Aktivierte Elemente werden zu [${_root.meta.diversionCustomGroup}] und [${_root.meta.diversionRules}] hinzugefügt/überschrieben',
 			'diversionCustomGroupAddTips' => 'Hinweis: Nach dem Hinzufügen müssen Sie die Reihenfolge möglicherweise manuell anpassen, da die neu hinzugefügte Umleitung sonst möglicherweise nicht wirksam wird',
 			'rulesetEnableTips' => 'Tipp: Nach dem Einschalten der Optionen gehen Sie bitte zu [${_root.meta.diversionRules}], um die entsprechenden Regeln festzulegen, andernfalls werden sie nicht wirksam',
 			'ispUserAgentTips' => '[${_root.meta.isp}] sendet Daten verschiedener Abonnementtypen basierend auf dem [UserAgent] in der [HTTP]-Anfrage',

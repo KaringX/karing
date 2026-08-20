@@ -1163,6 +1163,7 @@ class SettingConfigItemProxy {
   String host = hostLocal;
   bool enableCluster = false;
   String clusterHost = hostLocal;
+  String clusterSecret = "";
   int mixedRulePort = kMixedPortDefault;
   int mixedDirectPort = kMixedDirectPortDefault;
   int mixedForwardPort = kMixedForwardPortDefault;
@@ -1199,6 +1200,7 @@ class SettingConfigItemProxy {
     'host': host,
     'enable_cluster': enableCluster,
     'cluster_host': clusterHost,
+    'cluster_secret': clusterSecret,
     'mixed_port': mixedRulePort,
     'mixed_direct_port': mixedDirectPort,
     'mixed_forword_port': mixedForwardPort,
@@ -1223,6 +1225,7 @@ class SettingConfigItemProxy {
     host = map["host"] ?? hostLocal;
     enableCluster = map["enable_cluster"] ?? false;
     clusterHost = map["cluster_host"] ?? hostLocal;
+    clusterSecret = map["cluster_secret"] ?? "";
     mixedRulePort = map["mixed_port"] ?? 0;
     mixedDirectPort = map["mixed_direct_port"] ?? 0;
     mixedForwardPort = map["mixed_forword_port"] ?? 0;
@@ -1616,6 +1619,7 @@ class SettingConfig {
 
   bool autoConnectAfterLaunch = true;
   bool autoConnectAtBoot = false; //android
+  List<String> allowedSenderPackages = []; //android
   IPStrategy ipStrategy = IPStrategy.ipv4Only;
   bool proxyAll = false;
   List<String> chainProxy = [];
@@ -1664,6 +1668,7 @@ class SettingConfig {
     'statistics': statistics,
     'auto_connect_after_launch': autoConnectAfterLaunch,
     'auto_connect_at_boot': autoConnectAtBoot,
+    'allowed_sender_packages': allowedSenderPackages,
     'ip_strategy': ipStrategy.name,
     'proxy_all': proxyAll,
     'chain_proxy': chainProxy,
@@ -1736,6 +1741,11 @@ class SettingConfig {
 
     autoConnectAfterLaunch = map["auto_connect_after_launch"] ?? true;
     autoConnectAtBoot = map["auto_connect_at_boot"] ?? true;
+    allowedSenderPackages = ConvertUtils.getListStringFromDynamic(
+      map["allowed_sender_packages"],
+      true,
+      [],
+    )!;
 
     var name = map["ip_strategy"];
     if (name != null) {

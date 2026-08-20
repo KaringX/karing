@@ -451,6 +451,7 @@ class Translations$SettingsScreen$zh_CN implements Translations$SettingsScreen$e
 	@override String get myLink => '快捷链接';
 	@override String get autoConnectAfterLaunch => '启动后自动连接';
 	@override String get autoConnectAtBoot => '系统启动后自动连接';
+	@override String get automationWhitelist => '自动化白名单';
 	@override String get autoConnectAtBootTips => '需要系统支持,部分系统可能还需要开启[自启动]';
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
@@ -1141,6 +1142,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.myLink' => '快捷链接',
 			'SettingsScreen.autoConnectAfterLaunch' => '启动后自动连接',
 			'SettingsScreen.autoConnectAtBoot' => '系统启动后自动连接',
+			'SettingsScreen.automationWhitelist' => '自动化白名单',
 			'SettingsScreen.autoConnectAtBootTips' => '需要系统支持,部分系统可能还需要开启[自启动]',
 			'SettingsScreen.hideAfterLaunch' => '启动后隐藏窗口',
 			'SettingsScreen.autoSetSystemProxy' => '连接后自动设置系统代理',
@@ -1483,9 +1485,9 @@ extension on TranslationsZhCn {
 			'meta.profileAddWrapSuccess' => '配置生成成功,请到[${_root.meta.myProfiles}]查看',
 			'diversionRulesKeep' => '保留[${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '预置[${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => '注意:启用的项会添加/覆盖到[${_root.meta.diversionCustomGroup}]和[${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => '注意:启用的项会添加/覆盖到[${_root.meta.diversionCustomGroup}]和[${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => '注意:添加完毕后可能需要手动调整排序,否则新添加的分流可能不会生效',
 			'rulesetEnableTips' => '提示:开启选项后,请到[${_root.meta.diversionRules}]设置相关规则,否则不会生效',
 			'ispUserAgentTips' => '[${_root.meta.isp}]会根据[HTTP]请求里的[UserAgent]下发不同订阅类型的数据',

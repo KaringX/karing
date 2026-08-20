@@ -201,6 +201,7 @@
         "myLink": "Snarveiskobling",
         "autoConnectAfterLaunch": "Automatisk tilkobling etter start",
         "autoConnectAtBoot": "Automatisk tilkobling etter systemstart",
+        "automationWhitelist": "Hviteliste for automatisering",
         "autoConnectAtBootTips": "Systemstøtte er nødvendig; noen systemer kan også kreve at [autostart] er aktivert.",
         "hideAfterLaunch": "Skjul vindu etter start",
         "autoSetSystemProxy": "Sett systemproxy automatisk når tilkoblet",

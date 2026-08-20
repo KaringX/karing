@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$bn implements Translations$SettingsScreen$en 
 	@override String get myLink => 'শর্টকাট লিঙ্ক';
 	@override String get autoConnectAfterLaunch => 'লঞ্চের পরে স্বয়ংক্রিয় সংযোগ';
 	@override String get autoConnectAtBoot => 'সিস্টেম বুটের পরে স্বয়ংক্রিয় সংযোগ';
+	@override String get automationWhitelist => 'অটোমেশন সাদা তালিকা';
 	@override String get autoConnectAtBootTips => 'সিস্টেম সাপোর্ট প্রয়োজন; কিছু সিস্টেমে [অটো-স্টার্ট] সক্ষম করার প্রয়োজন হতে পারে।';
 	@override String get hideAfterLaunch => 'লঞ্চের পরে উইন্ডো লুকান';
 	@override String get autoSetSystemProxy => 'সংযুক্ত হলে স্বয়ংক্রিয়ভাবে সিস্টেম প্রক্সি সেট করুন';
@@ -1141,6 +1142,7 @@ extension on TranslationsBn {
 			'SettingsScreen.myLink' => 'শর্টকাট লিঙ্ক',
 			'SettingsScreen.autoConnectAfterLaunch' => 'লঞ্চের পরে স্বয়ংক্রিয় সংযোগ',
 			'SettingsScreen.autoConnectAtBoot' => 'সিস্টেম বুটের পরে স্বয়ংক্রিয় সংযোগ',
+			'SettingsScreen.automationWhitelist' => 'অটোমেশন সাদা তালিকা',
 			'SettingsScreen.autoConnectAtBootTips' => 'সিস্টেম সাপোর্ট প্রয়োজন; কিছু সিস্টেমে [অটো-স্টার্ট] সক্ষম করার প্রয়োজন হতে পারে।',
 			'SettingsScreen.hideAfterLaunch' => 'লঞ্চের পরে উইন্ডো লুকান',
 			'SettingsScreen.autoSetSystemProxy' => 'সংযুক্ত হলে স্বয়ংক্রিয়ভাবে সিস্টেম প্রক্সি সেট করুন',
@@ -1483,9 +1485,9 @@ extension on TranslationsBn {
 			'meta.profileAddWrapSuccess' => 'প্রোফাইল সফলভাবে তৈরি হয়েছে, অনুগ্রহ করে দেখার জন্য [${_root.meta.myProfiles}]-এ যান',
 			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			'diversionCustomGroupPreset' => 'প্রিসেট [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'দ্রষ্টব্য: সক্ষম করা আইটেমগুলি [${_root.meta.diversionCustomGroup}] এবং [${_root.meta.diversionRules}]-এ যুক্ত/ওভাররাইট করা হবে',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'দ্রষ্টব্য: সক্ষম করা আইটেমগুলি [${_root.meta.diversionCustomGroup}] এবং [${_root.meta.diversionRules}]-এ যুক্ত/ওভাররাইট করা হবে',
 			'diversionCustomGroupAddTips' => 'দ্রষ্টব্য: যুক্ত করার পরে, আপনাকে ম্যানুয়ালি ক্রম সামঞ্জস্য করতে হতে পারে, অন্যথায় নতুন যুক্ত করা ডাইভারশন কার্যকর নাও হতে পারে',
 			'rulesetEnableTips' => 'টিপ: অপশনগুলি চালু করার পরে, প্রাসঙ্গিক রুল সেট করতে অনুগ্রহ করে [${_root.meta.diversionRules}]-এ যান, অন্যথায় সেগুলি কার্যকর হবে না',
 			'ispUserAgentTips' => '[${_root.meta.isp}] [HTTP] রিকোয়েস্টে থাকা [UserAgent]-এর ভিত্তিতে বিভিন্ন সাবস্ক্রিপশন টাইপের ডেটা পাঠাবে',

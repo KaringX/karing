@@ -201,6 +201,7 @@
         "myLink": "Shortcut-Link",
         "autoConnectAfterLaunch": "Automatische Verbindung nach dem Start",
         "autoConnectAtBoot": "Automatische Verbindung nach dem Systemstart",
+        "automationWhitelist": "Automatisierungs-Whitelist",
         "autoConnectAtBootTips": "Systemunterstützung ist erforderlich; einige Systeme erfordern möglicherweise auch die Aktivierung von [Autostart].",
         "hideAfterLaunch": "Fenster nach dem Start ausblenden",
         "autoSetSystemProxy": "System-Proxy automatisch einstellen, wenn verbunden",

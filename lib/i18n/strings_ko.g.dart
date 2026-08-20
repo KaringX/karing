@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get myLink => '바로가기 링크';
 	@override String get autoConnectAfterLaunch => '실행 후 자동 연결';
 	@override String get autoConnectAtBoot => '시스템 시작 시 자동 연결';
+	@override String get automationWhitelist => '자동화 허용 목록';
 	@override String get autoConnectAtBootTips => '시스템 지원이 필요합니다. 일부 시스템에서는 [자동 실행] 활성화도 필요할 수 있습니다.';
 	@override String get hideAfterLaunch => '시작 후 창 숨기기';
 	@override String get autoSetSystemProxy => '연결 시 시스템 프록시 자동 설정';
@@ -1141,6 +1142,7 @@ extension on TranslationsKo {
 			'SettingsScreen.myLink' => '바로가기 링크',
 			'SettingsScreen.autoConnectAfterLaunch' => '실행 후 자동 연결',
 			'SettingsScreen.autoConnectAtBoot' => '시스템 시작 시 자동 연결',
+			'SettingsScreen.automationWhitelist' => '자동화 허용 목록',
 			'SettingsScreen.autoConnectAtBootTips' => '시스템 지원이 필요합니다. 일부 시스템에서는 [자동 실행] 활성화도 필요할 수 있습니다.',
 			'SettingsScreen.hideAfterLaunch' => '시작 후 창 숨기기',
 			'SettingsScreen.autoSetSystemProxy' => '연결 시 시스템 프록시 자동 설정',
@@ -1483,9 +1485,9 @@ extension on TranslationsKo {
 			'meta.profileAddWrapSuccess' => '구성이 성공적으로 생성되었습니다. [${_root.meta.myProfiles}]로 이동하여 확인하십시오',
 			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			'diversionCustomGroupPreset' => '사전 설정 [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => '참고: 활성화된 항목은 [${_root.meta.diversionCustomGroup}] 및 [${_root.meta.diversionRules}]에 추가/덮어쓰기됩니다',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => '참고: 활성화된 항목은 [${_root.meta.diversionCustomGroup}] 및 [${_root.meta.diversionRules}]에 추가/덮어쓰기됩니다',
 			'diversionCustomGroupAddTips' => '참고: 추가 후 순서를 수동으로 조정해야 할 수 있습니다. 그렇지 않으면 새로 추가된 분류가 적용되지 않을 수 있습니다',
 			'rulesetEnableTips' => '팁: 옵션을 켠 후 [${_root.meta.diversionRules}]로 이동하여 관련 규칙을 설정하십시오. 그렇지 않으면 적용되지 않습니다',
 			'ispUserAgentTips' => '[${_root.meta.isp}]는 [HTTP] 요청의 [UserAgent]에 따라 다양한 구독 유형의 데이터를 전송합니다',

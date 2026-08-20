@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$ur implements Translations$SettingsScreen$en 
 	@override String get myLink => 'شارٹ کٹ لنک';
 	@override String get autoConnectAfterLaunch => 'لانچ کے بعد خودکار کنکشن';
 	@override String get autoConnectAtBoot => 'سسٹم بوٹ کے بعد خودکار کنکشن';
+	@override String get automationWhitelist => 'آٹومیشن وائٹ لسٹ';
 	@override String get autoConnectAtBootTips => 'سسٹم سپورٹ ضروری ہے؛ کچھ سسٹمز کو [آٹو اسٹارٹ] فعال کرنے کی بھی ضرورت پڑ سکتی ہے۔';
 	@override String get hideAfterLaunch => 'لانچ کے بعد ونڈو چھپائیں';
 	@override String get autoSetSystemProxy => 'منسلک ہونے پر خود بخود سسٹم پراکسی ترتیب دیں';
@@ -1141,6 +1142,7 @@ extension on TranslationsUr {
 			'SettingsScreen.myLink' => 'شارٹ کٹ لنک',
 			'SettingsScreen.autoConnectAfterLaunch' => 'لانچ کے بعد خودکار کنکشن',
 			'SettingsScreen.autoConnectAtBoot' => 'سسٹم بوٹ کے بعد خودکار کنکشن',
+			'SettingsScreen.automationWhitelist' => 'آٹومیشن وائٹ لسٹ',
 			'SettingsScreen.autoConnectAtBootTips' => 'سسٹم سپورٹ ضروری ہے؛ کچھ سسٹمز کو [آٹو اسٹارٹ] فعال کرنے کی بھی ضرورت پڑ سکتی ہے۔',
 			'SettingsScreen.hideAfterLaunch' => 'لانچ کے بعد ونڈو چھپائیں',
 			'SettingsScreen.autoSetSystemProxy' => 'منسلک ہونے پر خود بخود سسٹم پراکسی ترتیب دیں',
@@ -1483,9 +1485,9 @@ extension on TranslationsUr {
 			'meta.profileAddWrapSuccess' => 'پروفائل کامیابی سے تیار ہو گیا، براہ کرم دیکھنے کے لیے [${_root.meta.myProfiles}] پر جائیں',
 			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			'diversionCustomGroupPreset' => 'پری سیٹ [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'نوٹ: فعال کردہ آئٹمز [${_root.meta.diversionCustomGroup}] اور [${_root.meta.diversionRules}] میں شامل/اوور رائٹ کر دیے جائیں گے',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'نوٹ: فعال کردہ آئٹمز [${_root.meta.diversionCustomGroup}] اور [${_root.meta.diversionRules}] میں شامل/اوور رائٹ کر دیے جائیں گے',
 			'diversionCustomGroupAddTips' => 'نوٹ: شامل کرنے کے بعد، آپ کو ترتیب کو دستی طور پر ایڈجسٹ کرنے کی ضرورت پڑ سکتی ہے، ورنہ نیا شامل کردہ ڈائیورژن موثر نہیں ہو سکتا ہے',
 			'rulesetEnableTips' => 'ٹپ: اختیارات آن کرنے کے بعد، براہ کرم متعلقہ رولز ترتیب دینے کے لیے [${_root.meta.diversionRules}] پر جائیں، ورنہ وہ موثر نہیں ہوں گے',
 			'ispUserAgentTips' => '[${_root.meta.isp}] [HTTP] درخواست میں [UserAgent] کی بنیاد پر مختلف سبسکرپشن اقسام کا ڈیٹا بھیجے گا',

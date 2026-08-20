@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get myLink => 'ショートカットリンク';
 	@override String get autoConnectAfterLaunch => '起動後に自動接続する';
 	@override String get autoConnectAtBoot => 'システム起動時に自動接続する';
+	@override String get automationWhitelist => '自動化の許可リスト';
 	@override String get autoConnectAtBootTips => 'システムのサポートが必要です。一部のシステムでは [自動起動] の有効化も必要になる場合があります。';
 	@override String get hideAfterLaunch => '起動後にウィンドウを非表示にする';
 	@override String get autoSetSystemProxy => '接続時にシステムプロキシを自動的に設定する';
@@ -1141,6 +1142,7 @@ extension on TranslationsJa {
 			'SettingsScreen.myLink' => 'ショートカットリンク',
 			'SettingsScreen.autoConnectAfterLaunch' => '起動後に自動接続する',
 			'SettingsScreen.autoConnectAtBoot' => 'システム起動時に自動接続する',
+			'SettingsScreen.automationWhitelist' => '自動化の許可リスト',
 			'SettingsScreen.autoConnectAtBootTips' => 'システムのサポートが必要です。一部のシステムでは [自動起動] の有効化も必要になる場合があります。',
 			'SettingsScreen.hideAfterLaunch' => '起動後にウィンドウを非表示にする',
 			'SettingsScreen.autoSetSystemProxy' => '接続時にシステムプロキシを自動的に設定する',
@@ -1483,9 +1485,9 @@ extension on TranslationsJa {
 			'meta.profileAddWrapSuccess' => '構成が正常に生成されました。[${_root.meta.myProfiles}] に移動して確認してください',
 			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			'diversionCustomGroupPreset' => 'プリセット [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます',
 			'diversionCustomGroupAddTips' => '注意: 追加後、手動で順序を調整する必要がある場合があります。そうしないと、新しく追加された分流が有効にならない場合があります',
 			'rulesetEnableTips' => 'ヒント: オプションをオンにした後、[${_root.meta.diversionRules}] に移動して関連するルールを設定してください。設定しないと有効になりません',
 			'ispUserAgentTips' => '[${_root.meta.isp}] は、[HTTP] リクエストの [UserAgent] に基づいて、さまざまなサブスクリプションタイプのデータを送信します',

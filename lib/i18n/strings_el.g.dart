@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Σύνδεσμος συντόμευσης';
 	@override String get autoConnectAfterLaunch => 'Αυτόματη σύνδεση μετά την εκκίνηση';
 	@override String get autoConnectAtBoot => 'Αυτόματη σύνδεση κατά την εκκίνηση του συστήματος';
+	@override String get automationWhitelist => 'Λίστα επιτρεπόμενων αυτοματισμών';
 	@override String get autoConnectAtBootTips => 'Απαιτείται υποστήριξη συστήματος. Ορισμένα συστήματα ενδέχεται επίσης να απαιτούν την ενεργοποίηση της [αυτόματης εκκίνησης].';
 	@override String get hideAfterLaunch => 'Απόκρυψη παραθύρου μετά την εκκίνηση';
 	@override String get autoSetSystemProxy => 'Αυτόματη ρύθμιση proxy συστήματος κατά τη σύνδεση';
@@ -1141,6 +1142,7 @@ extension on TranslationsEl {
 			'SettingsScreen.myLink' => 'Σύνδεσμος συντόμευσης',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Αυτόματη σύνδεση μετά την εκκίνηση',
 			'SettingsScreen.autoConnectAtBoot' => 'Αυτόματη σύνδεση κατά την εκκίνηση του συστήματος',
+			'SettingsScreen.automationWhitelist' => 'Λίστα επιτρεπόμενων αυτοματισμών',
 			'SettingsScreen.autoConnectAtBootTips' => 'Απαιτείται υποστήριξη συστήματος. Ορισμένα συστήματα ενδέχεται επίσης να απαιτούν την ενεργοποίηση της [αυτόματης εκκίνησης].',
 			'SettingsScreen.hideAfterLaunch' => 'Απόκρυψη παραθύρου μετά την εκκίνηση',
 			'SettingsScreen.autoSetSystemProxy' => 'Αυτόματη ρύθμιση proxy συστήματος κατά τη σύνδεση',
@@ -1483,9 +1485,9 @@ extension on TranslationsEl {
 			'meta.profileAddWrapSuccess' => 'Το προφίλ δημιουργήθηκε επιτυχώς, παρακαλούμε μεταβείτε στο [${_root.meta.myProfiles}] για προβολή',
 			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Προκαθορισμένη [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Σημείωση: Τα ενεργοποιημένα στοιχεία θα προστεθούν/αντικαταστήσουν στο [${_root.meta.diversionCustomGroup}] και στο [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Σημείωση: Τα ενεργοποιημένα στοιχεία θα προστεθούν/αντικαταστήσουν στο [${_root.meta.diversionCustomGroup}] και στο [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Σημείωση: Μετά την προσθήκη, ίσως χρειαστεί να προσαρμόσετε χειροκίνητα τη σειρά, διαφορετικά η πρόσφατα προστιθέμενη εκτροπή ενδέχεται να μην τεθεί σε ισχύ',
 			'rulesetEnableTips' => 'Συμβουλή: Μετά την ενεργοποίηση των επιλογών, παρακαλούμε μεταβείτε στο [${_root.meta.diversionRules}] για να ορίσετε τους σχετικούς κανόνες, διαφορετικά δεν θα τεθούν σε ισχύ',
 			'ispUserAgentTips' => 'Το [${_root.meta.isp}] θα στείλει δεδομένα διαφορετικών τύπων συνδρομής με βάση το [UserAgent] στο αίτημα [HTTP]',

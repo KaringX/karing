@@ -1050,6 +1050,15 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       );
     }
     bool disableOrientation = await DeviceUtils.disableOrientation();
+    bool supportAllowedSenderPackages = false;
+    if (Platform.isAndroid) {
+      String version = await FlutterVpnService.getSystemVersion();
+      int? v = int.tryParse(version);
+      const int upsideDownCake = 34;
+      if (v != null && v >= upsideDownCake) {
+        supportAllowedSenderPackages = true;
+      }
+    }
 
     groupOptions.add(
       GroupItem(
@@ -1223,6 +1232,35 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 },
               ),
             ),
+            if (supportAllowedSenderPackages) ...[
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.automationWhitelist,
+                  tips:
+                      "osVersion >= 14\ncom.nebula.karing.action.CONNECT\ncom.nebula.karing.action.DISCONNECT\ncom.nebula.karing.action.RECONNECT",
+                  onPush: () async {
+                    final oldData = settingConfig.allowedSenderPackages.toSet();
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        settings: ListAddScreen.routSettings(
+                          "allowedSenderPackages",
+                        ),
+                        builder: (context) => ListAddScreen(
+                          title: tcontext.SettingsScreen.automationWhitelist,
+                          data: settingConfig.allowedSenderPackages,
+                        ),
+                      ),
+                    );
+                    final newData = settingConfig.allowedSenderPackages.toSet();
+                    if (oldData.difference(newData).isNotEmpty ||
+                        newData.difference(oldData).isNotEmpty) {
+                      SettingManager.setDirty(true);
+                    }
+                  },
+                ),
+              ),
+            ],
           ],
           if (Platform.isIOS) ...[
             GroupItemOptions(

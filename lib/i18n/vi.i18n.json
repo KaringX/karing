@@ -201,6 +201,7 @@
         "myLink": "Liên kết nhanh",
         "autoConnectAfterLaunch": "Tự động kết nối sau khi khởi chạy",
         "autoConnectAtBoot": "Tự động kết nối sau khi khởi động hệ thống",
+        "automationWhitelist": "Danh sách cho phép tự động hóa",
         "autoConnectAtBootTips": "Yêu cầu hệ thống hỗ trợ; một số hệ thống cũng có thể yêu cầu bật [tự khởi chạy].",
         "hideAfterLaunch": "Ẩn cửa sổ sau khi khởi động",
         "autoSetSystemProxy": "Tự động thiết lập proxy hệ thống khi kết nối",

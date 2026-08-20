@@ -201,6 +201,7 @@
         "myLink": "Kısayol Bağlantısı",
         "autoConnectAfterLaunch": "Başlattıktan sonra Otomatik Bağlan",
         "autoConnectAtBoot": "Sistem Başladıktan sonra Otomatik Bağlan",
+        "automationWhitelist": "Otomasyon Beyaz Listesi",
         "autoConnectAtBootTips": "Sistem desteği gereklidir; bazı sistemler [otomatik başlatma] özelliğinin etkinleştirilmesini de gerektirebilir.",
         "hideAfterLaunch": "Başlattıktan sonra pencereyi gizle",
         "autoSetSystemProxy": "Bağlandığında Otomatik Sistem Proxy Ayarla",

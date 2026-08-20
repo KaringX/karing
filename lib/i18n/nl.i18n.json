@@ -201,6 +201,7 @@
         "myLink": "Snelkoppeling",
         "autoConnectAfterLaunch": "Automatische verbinding na opstarten",
         "autoConnectAtBoot": "Automatische verbinding na systeemstart",
+        "automationWhitelist": "Automatiserings-witte lijst",
         "autoConnectAtBootTips": "Systeemondersteuning is vereist; sommige systemen kunnen ook vereisen dat [automatisch starten] is ingeschakeld.",
         "hideAfterLaunch": "Venster verbergen na opstarten",
         "autoSetSystemProxy": "Systeemproxy automatisch instellen bij verbinding",

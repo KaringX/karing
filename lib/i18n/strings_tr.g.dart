@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Kısayol Bağlantısı';
 	@override String get autoConnectAfterLaunch => 'Başlattıktan sonra Otomatik Bağlan';
 	@override String get autoConnectAtBoot => 'Sistem Başladıktan sonra Otomatik Bağlan';
+	@override String get automationWhitelist => 'Otomasyon Beyaz Listesi';
 	@override String get autoConnectAtBootTips => 'Sistem desteği gereklidir; bazı sistemler [otomatik başlatma] özelliğinin etkinleştirilmesini de gerektirebilir.';
 	@override String get hideAfterLaunch => 'Başlattıktan sonra pencereyi gizle';
 	@override String get autoSetSystemProxy => 'Bağlandığında Otomatik Sistem Proxy Ayarla';
@@ -1141,6 +1142,7 @@ extension on TranslationsTr {
 			'SettingsScreen.myLink' => 'Kısayol Bağlantısı',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Başlattıktan sonra Otomatik Bağlan',
 			'SettingsScreen.autoConnectAtBoot' => 'Sistem Başladıktan sonra Otomatik Bağlan',
+			'SettingsScreen.automationWhitelist' => 'Otomasyon Beyaz Listesi',
 			'SettingsScreen.autoConnectAtBootTips' => 'Sistem desteği gereklidir; bazı sistemler [otomatik başlatma] özelliğinin etkinleştirilmesini de gerektirebilir.',
 			'SettingsScreen.hideAfterLaunch' => 'Başlattıktan sonra pencereyi gizle',
 			'SettingsScreen.autoSetSystemProxy' => 'Bağlandığında Otomatik Sistem Proxy Ayarla',
@@ -1483,9 +1485,9 @@ extension on TranslationsTr {
 			'meta.profileAddWrapSuccess' => 'Profil başarıyla oluşturuldu, görüntülemek için lütfen [${_root.meta.myProfiles}] bölümüne gidin',
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			'diversionCustomGroupPreset' => 'Ön ayar [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Not: Etkinleştirilen öğeler [${_root.meta.diversionCustomGroup}] ve [${_root.meta.diversionRules}] bölümlerine eklenecek/üzerine yazılacaktır',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Not: Etkinleştirilen öğeler [${_root.meta.diversionCustomGroup}] ve [${_root.meta.diversionRules}] bölümlerine eklenecek/üzerine yazılacaktır',
 			'diversionCustomGroupAddTips' => 'Not: Ekledikten sonra sırayı manuel olarak ayarlamanız gerekebilir, aksi takdirde yeni eklenen yönlendirme etkili olmayabilir',
 			'rulesetEnableTips' => 'İpucu: Seçenekleri açtıktan sonra ilgili kuralları ayarlamak için lütfen [${_root.meta.diversionRules}] bölümüne gidin, aksi takdirde etkili olmayacaktır',
 			'ispUserAgentTips' => '[${_root.meta.isp}], [HTTP] isteğindeki [UserAgent] değerine göre farklı abonelik türlerinde veriler gönderecektir',

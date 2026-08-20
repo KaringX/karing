@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Snelkoppeling';
 	@override String get autoConnectAfterLaunch => 'Automatische verbinding na opstarten';
 	@override String get autoConnectAtBoot => 'Automatische verbinding na systeemstart';
+	@override String get automationWhitelist => 'Automatiserings-witte lijst';
 	@override String get autoConnectAtBootTips => 'Systeemondersteuning is vereist; sommige systemen kunnen ook vereisen dat [automatisch starten] is ingeschakeld.';
 	@override String get hideAfterLaunch => 'Venster verbergen na opstarten';
 	@override String get autoSetSystemProxy => 'Systeemproxy automatisch instellen bij verbinding';
@@ -1141,6 +1142,7 @@ extension on TranslationsNl {
 			'SettingsScreen.myLink' => 'Snelkoppeling',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Automatische verbinding na opstarten',
 			'SettingsScreen.autoConnectAtBoot' => 'Automatische verbinding na systeemstart',
+			'SettingsScreen.automationWhitelist' => 'Automatiserings-witte lijst',
 			'SettingsScreen.autoConnectAtBootTips' => 'Systeemondersteuning is vereist; sommige systemen kunnen ook vereisen dat [automatisch starten] is ingeschakeld.',
 			'SettingsScreen.hideAfterLaunch' => 'Venster verbergen na opstarten',
 			'SettingsScreen.autoSetSystemProxy' => 'Systeemproxy automatisch instellen bij verbinding',
@@ -1483,9 +1485,9 @@ extension on TranslationsNl {
 			'meta.profileAddWrapSuccess' => 'Profiel succesvol gegenereerd, ga naar [${_root.meta.myProfiles}] om het te bekijken',
 			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			'diversionCustomGroupPreset' => 'Voorinstelling [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Opmerking: Ingeschakelde items worden toegevoegd aan/overschreven in [${_root.meta.diversionCustomGroup}] en [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Opmerking: Ingeschakelde items worden toegevoegd aan/overschreven in [${_root.meta.diversionCustomGroup}] en [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Opmerking: Na het toevoegen moet u mogelijk handmatig de volgorde aanpassen, anders werkt de nieuw toegevoegde omleiding mogelijk niet',
 			'rulesetEnableTips' => 'Tip: Ga na het inschakelen van de opties naar [${_root.meta.diversionRules}] om de relevante regels in te stellen, anders treden ze niet in werking',
 			'ispUserAgentTips' => '[${_root.meta.isp}] zal gegevens van verschillende abonnementstypen verzenden op basis van de [UserAgent] in het [HTTP]-verzoek',

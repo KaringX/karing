@@ -201,6 +201,7 @@
         "myLink": "바로가기 링크",
         "autoConnectAfterLaunch": "실행 후 자동 연결",
         "autoConnectAtBoot": "시스템 시작 시 자동 연결",
+        "automationWhitelist": "자동화 허용 목록",
         "autoConnectAtBootTips": "시스템 지원이 필요합니다. 일부 시스템에서는 [자동 실행] 활성화도 필요할 수 있습니다.",
         "hideAfterLaunch": "시작 후 창 숨기기",
         "autoSetSystemProxy": "연결 시 시스템 프록시 자동 설정",

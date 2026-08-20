@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Liên kết nhanh';
 	@override String get autoConnectAfterLaunch => 'Tự động kết nối sau khi khởi chạy';
 	@override String get autoConnectAtBoot => 'Tự động kết nối sau khi khởi động hệ thống';
+	@override String get automationWhitelist => 'Danh sách cho phép tự động hóa';
 	@override String get autoConnectAtBootTips => 'Yêu cầu hệ thống hỗ trợ; một số hệ thống cũng có thể yêu cầu bật [tự khởi chạy].';
 	@override String get hideAfterLaunch => 'Ẩn cửa sổ sau khi khởi động';
 	@override String get autoSetSystemProxy => 'Tự động thiết lập proxy hệ thống khi kết nối';
@@ -1141,6 +1142,7 @@ extension on TranslationsVi {
 			'SettingsScreen.myLink' => 'Liên kết nhanh',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Tự động kết nối sau khi khởi chạy',
 			'SettingsScreen.autoConnectAtBoot' => 'Tự động kết nối sau khi khởi động hệ thống',
+			'SettingsScreen.automationWhitelist' => 'Danh sách cho phép tự động hóa',
 			'SettingsScreen.autoConnectAtBootTips' => 'Yêu cầu hệ thống hỗ trợ; một số hệ thống cũng có thể yêu cầu bật [tự khởi chạy].',
 			'SettingsScreen.hideAfterLaunch' => 'Ẩn cửa sổ sau khi khởi động',
 			'SettingsScreen.autoSetSystemProxy' => 'Tự động thiết lập proxy hệ thống khi kết nối',
@@ -1483,9 +1485,9 @@ extension on TranslationsVi {
 			'meta.profileAddWrapSuccess' => 'Tạo cấu hình thành công, vui lòng đi tới [${_root.meta.myProfiles}] để xem',
 			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Cài đặt sẵn [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Lưu ý: Các mục được bật sẽ được thêm/ghi đè vào [${_root.meta.diversionCustomGroup}] và [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Lưu ý: Các mục được bật sẽ được thêm/ghi đè vào [${_root.meta.diversionCustomGroup}] và [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Lưu ý: Sau khi thêm, bạn có thể cần điều chỉnh thứ tự thủ công, nếu không phân luồng mới thêm có thể không có hiệu lực',
 			'rulesetEnableTips' => 'Mẹo: Sau khi bật các tùy chọn, vui lòng đi tới [${_root.meta.diversionRules}] để thiết lập các quy tắc liên quan, nếu không chúng sẽ không có hiệu lực',
 			'ispUserAgentTips' => '[${_root.meta.isp}] sẽ gửi dữ liệu của các loại gói đăng ký khác nhau dựa trên [UserAgent] trong yêu cầu [HTTP]',

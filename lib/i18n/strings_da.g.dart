@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$da implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Genvejslink';
 	@override String get autoConnectAfterLaunch => 'Automatisk forbindelse efter start';
 	@override String get autoConnectAtBoot => 'Automatisk forbindelse efter systemstart';
+	@override String get automationWhitelist => 'Hvidliste til automatisering';
 	@override String get autoConnectAtBootTips => 'Systemunderstøttelse er nødvendig; nogle systemer kan også kræve, at [autostart] er aktiveret.';
 	@override String get hideAfterLaunch => 'Skjul vinduet efter start';
 	@override String get autoSetSystemProxy => 'Indstil systemproxy automatisk, når der er forbindelse';
@@ -1141,6 +1142,7 @@ extension on TranslationsDa {
 			'SettingsScreen.myLink' => 'Genvejslink',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Automatisk forbindelse efter start',
 			'SettingsScreen.autoConnectAtBoot' => 'Automatisk forbindelse efter systemstart',
+			'SettingsScreen.automationWhitelist' => 'Hvidliste til automatisering',
 			'SettingsScreen.autoConnectAtBootTips' => 'Systemunderstøttelse er nødvendig; nogle systemer kan også kræve, at [autostart] er aktiveret.',
 			'SettingsScreen.hideAfterLaunch' => 'Skjul vinduet efter start',
 			'SettingsScreen.autoSetSystemProxy' => 'Indstil systemproxy automatisk, når der er forbindelse',
@@ -1483,9 +1485,9 @@ extension on TranslationsDa {
 			'meta.profileAddWrapSuccess' => 'Profilen er genereret korrekt, gå til [${_root.meta.myProfiles}] for at se den',
 			'diversionRulesKeep' => 'Behold [${_root.meta.diversionRules}] fra [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Forudindstillet [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Bemærk: Aktiverede elementer vil blive tilføjet til/overskrive [${_root.meta.diversionCustomGroup}] og [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Bemærk: Aktiverede elementer vil blive tilføjet til/overskrive [${_root.meta.diversionCustomGroup}] og [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Bemærk: Efter tilføjelse skal du muligvis justere rækkefølgen manuelt, ellers træder den nyligt tilføjede omledning muligvis ikke i kraft',
 			'rulesetEnableTips' => 'Tip: Gå til [${_root.meta.diversionRules}] efter at have aktiveret indstillingerne for at indstille de relevante regler, ellers træder de ikke i kraft',
 			'ispUserAgentTips' => '[${_root.meta.isp}] sender data for forskellige abonnementstyper baseret på [UserAgent] i [HTTP]-anmodningen',

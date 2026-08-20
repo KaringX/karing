@@ -1545,7 +1545,7 @@ class ServerManager {
         settings.proxy.controlPort,
         tag,
         settings.urlTestTimeout,
-        url: settings.urlTest,
+        targetUrl: settings.urlTest,
       );
       if (result.error == null) {
         if (settings.latencyCheckResoveIP) {

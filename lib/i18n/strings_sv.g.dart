@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$sv implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Genvägslänk';
 	@override String get autoConnectAfterLaunch => 'Automatisk anslutning efter start';
 	@override String get autoConnectAtBoot => 'Automatisk anslutning efter systemstart';
+	@override String get automationWhitelist => 'Vitlista för automatisering';
 	@override String get autoConnectAtBootTips => 'Systemstöd krävs; vissa system kan också kräva att [autostart] är aktiverat.';
 	@override String get hideAfterLaunch => 'Dölj fönstret efter start';
 	@override String get autoSetSystemProxy => 'Ställ in systemproxy automatiskt vid anslutning';
@@ -1141,6 +1142,7 @@ extension on TranslationsSv {
 			'SettingsScreen.myLink' => 'Genvägslänk',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Automatisk anslutning efter start',
 			'SettingsScreen.autoConnectAtBoot' => 'Automatisk anslutning efter systemstart',
+			'SettingsScreen.automationWhitelist' => 'Vitlista för automatisering',
 			'SettingsScreen.autoConnectAtBootTips' => 'Systemstöd krävs; vissa system kan också kräva att [autostart] är aktiverat.',
 			'SettingsScreen.hideAfterLaunch' => 'Dölj fönstret efter start',
 			'SettingsScreen.autoSetSystemProxy' => 'Ställ in systemproxy automatiskt vid anslutning',
@@ -1483,9 +1485,9 @@ extension on TranslationsSv {
 			'meta.profileAddWrapSuccess' => 'Profilen har skapats framgångsrikt, gå till [${_root.meta.myProfiles}] för att se den',
 			'diversionRulesKeep' => 'Behåll [${_root.meta.diversionRules}] från [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Förinställd [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Obs: Aktiverade objekt kommer att läggas till i/skriva över [${_root.meta.diversionCustomGroup}] och [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Obs: Aktiverade objekt kommer att läggas till i/skriva över [${_root.meta.diversionCustomGroup}] och [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Obs: Efter att du lagt till kan du behöva justera ordningen manuellt, annars kan den nyligen tillagda omledningen eventuellt inte träda i kraft',
 			'rulesetEnableTips' => 'Tips: Efter att du aktiverat alternativen, gå till [${_root.meta.diversionRules}] för att ställa in relevanta regler, annars kommer de inte att träda i kraft',
 			'ispUserAgentTips' => '[${_root.meta.isp}] kommer att skicka data för olika prenumerationstyper baserat på [UserAgent] i [HTTP]-begäran',

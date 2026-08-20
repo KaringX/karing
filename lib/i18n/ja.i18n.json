@@ -201,6 +201,7 @@
         "myLink": "ショートカットリンク",
         "autoConnectAfterLaunch": "起動後に自動接続する",
         "autoConnectAtBoot": "システム起動時に自動接続する",
+        "automationWhitelist": "自動化の許可リスト",
         "autoConnectAtBootTips": "システムのサポートが必要です。一部のシステムでは [自動起動] の有効化も必要になる場合があります。",
         "hideAfterLaunch": "起動後にウィンドウを非表示にする",
         "autoSetSystemProxy": "接続時にシステムプロキシを自動的に設定する",

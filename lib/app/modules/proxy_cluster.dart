@@ -39,7 +39,8 @@ class ProxyCluster {
     if (_server != null) {
       return null;
     }
-    var proxy = SettingManager.getConfig().proxy;
+    var settingConfig = SettingManager.getConfig();
+    var proxy = settingConfig.proxy;
     try {
       _server = await HttpServer.bind(proxy.clusterHost, proxy.clusterPort);
     } catch (err, stacktrace) {
@@ -61,6 +62,14 @@ class ProxyCluster {
     });
 
     get("/get_proxies", (HttpRequest httpRequest) async {
+      if (proxy.clusterSecret.isNotEmpty) {
+        final secret = httpRequest.uri.queryParameters["secret"];
+        if (secret != proxy.clusterSecret) {
+          return httpRequest.response
+            ..statusCode = HttpStatus.unauthorized
+            ..close();
+        }
+      }
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');
       String configContent = encoder.convert(_proxyNodes);
       return httpRequest.response

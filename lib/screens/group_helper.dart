@@ -840,7 +840,7 @@ class GroupHelper {
     ) async {
       var settingConfig = SettingManager.getConfig();
 
-      String ipInterface = "";
+      String ipInterface = "127.0.0.1";
       if (settingConfig.proxy.getAllowAllInbounds() ||
           settingConfig.proxy.getClusterAllowAllInbounds()) {
         List<NetInterfacesInfo> interfaces = await NetworkUtils.getInterfaces();
@@ -924,12 +924,19 @@ class GroupHelper {
         ],
       ];
 
+      var tips = tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
+        ip: ipInterface,
+        port: settingConfig.proxy.clusterPort,
+      );
+      if (settingConfig.proxy.clusterSecret.isNotEmpty) {
+        tips +=
+            "/secret=${Uri.encodeComponent(settingConfig.proxy.clusterSecret)}";
+      }
       List<GroupItemOptions> options2 = [
         if (PlatformUtils.isPC()) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.SettingsScreen.enableCluster,
-              tips: tcontext.SettingsScreen.portSettingDirectAll,
               switchValue: settingConfig.proxy.enableCluster,
               onSwitch: (bool value) async {
                 settingConfig.proxy.enableCluster = value;
@@ -940,14 +947,23 @@ class GroupHelper {
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.SettingsScreen.clusterAllowOtherHostsConnect,
-              tips: tcontext.SettingsScreen.clusterAllowOtherHostsConnectTips(
-                ip: ipInterface,
-                port: settingConfig.proxy.clusterPort,
-              ),
+              tips: tips,
               switchValue: settingConfig.proxy.getClusterAllowAllInbounds(),
               onSwitch: (bool value) async {
                 settingConfig.proxy.setClusterAllowAllInbounds(value);
                 SettingManager.setDirty(true);
+              },
+            ),
+          ),
+          GroupItemOptions(
+            textFormFieldOptions: GroupItemTextFieldOptions(
+              name: "Secret",
+              text: settingConfig.proxy.clusterSecret,
+              textWidthPercent: 0.6,
+              onChanged: (String value) {
+                settingConfig.proxy.clusterSecret = value;
+                SettingManager.setDirty(true);
+                setstate?.call();
               },
             ),
           ),

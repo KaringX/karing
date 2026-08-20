@@ -377,7 +377,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       settingConfig.proxy.controlPort,
       realTag,
       settingConfig.urlTestTimeout,
-      url: SettingManager.getConfig().urlTest,
+      targetUrl: SettingManager.getConfig().urlTest,
     );
     if (!mounted) {
       return false;

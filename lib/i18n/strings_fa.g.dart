@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get myLink => 'لینک میان‌بر';
 	@override String get autoConnectAfterLaunch => 'اتصال خودکار پس‌از راه‌اندازی';
 	@override String get autoConnectAtBoot => 'اتصال خودکار پس از روشن شدن سیستم';
+	@override String get automationWhitelist => 'فهرست سفید خودکارسازی';
 	@override String get autoConnectAtBootTips => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
@@ -1141,6 +1142,7 @@ extension on TranslationsFa {
 			'SettingsScreen.myLink' => 'لینک میان‌بر',
 			'SettingsScreen.autoConnectAfterLaunch' => 'اتصال خودکار پس‌از راه‌اندازی',
 			'SettingsScreen.autoConnectAtBoot' => 'اتصال خودکار پس از روشن شدن سیستم',
+			'SettingsScreen.automationWhitelist' => 'فهرست سفید خودکارسازی',
 			'SettingsScreen.autoConnectAtBootTips' => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.',
 			'SettingsScreen.hideAfterLaunch' => 'پنهان کردن پنجره پس از راه اندازی',
 			'SettingsScreen.autoSetSystemProxy' => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال',
@@ -1483,9 +1485,9 @@ extension on TranslationsFa {
 			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
 			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',
-			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',
 			'diversionCustomGroupAddTips' => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.',
 			'rulesetEnableTips' => 'راهنمایی: پس‌از ذخیره کردن لطفا به [قوانین انحراف] رفته و قوانین مربوط زا تنظیم کنید؛ درغیراین صورت اعمال نخواهند شد',
 			'ispUserAgentTips' => '[${_root.meta.isp}] انواع مختلف داده های اشتراک را بر اساس [UserAgent] در درخواست [HTTP] ارائه خواهد کرد.',

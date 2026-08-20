@@ -401,9 +401,13 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     var setting = SettingManager.getConfig();
     bool started = await VPNService.getStarted();
     int? proxyPort = started ? setting.proxy.mixedDirectPort : null;
-
-    String url =
-        "http://${widget.host}:${widget.port}/${AppSchemeActions.appleTVGetFileContentAction()}?uuid=${widget.uuid}&filename=$fileName";
+    final url = Uri(
+      scheme: 'http',
+      host: widget.host,
+      port: widget.port,
+      path: AppSchemeActions.appleTVGetFileContentAction(),
+      queryParameters: {'uuid': widget.uuid, 'filename': fileName},
+    ).toString();
     final result = await HttpUtils.httpGetRequest(
       url,
       proxyPort,

@@ -201,6 +201,7 @@
         "myLink": "Genvägslänk",
         "autoConnectAfterLaunch": "Automatisk anslutning efter start",
         "autoConnectAtBoot": "Automatisk anslutning efter systemstart",
+        "automationWhitelist": "Vitlista för automatisering",
         "autoConnectAtBootTips": "Systemstöd krävs; vissa system kan också kräva att [autostart] är aktiverat.",
         "hideAfterLaunch": "Dölj fönstret efter start",
         "autoSetSystemProxy": "Ställ in systemproxy automatiskt vid anslutning",

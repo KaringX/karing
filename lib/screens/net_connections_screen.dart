@@ -52,6 +52,7 @@ class Connections {
   num goroutines = 0;
   num threadCount = 0;
   num memory = 0;
+  num memoryTotal = 0;
 
   void fromJson(Map<String, dynamic>? map, bool withConnectsions) {
     if (map == null) {
@@ -65,6 +66,7 @@ class Connections {
     downloadSpeed = map["downloadSpeed"] ?? 0;
     uploadSpeed = map["uploadSpeed"] ?? 0;
     memory = map["memory"] ?? 0;
+    memoryTotal = map["memoryTotal"] ?? 0;
     connectionsOutCount = map["connectionsOutCount"] ?? 0;
     connectionsInCount = map["connectionsInCount"] ?? 0;
     goroutines = map["goroutines"] ?? 0;

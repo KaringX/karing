@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get myLink => 'ลิงก์ลัด';
 	@override String get autoConnectAfterLaunch => 'เชื่อมต่ออัตโนมัติหลังเปิดตัว';
 	@override String get autoConnectAtBoot => 'เชื่อมต่ออัตโนมัติหลังเริ่มต้นระบบ';
+	@override String get automationWhitelist => 'รายการที่อนุญาตสำหรับระบบอัตโนมัติ';
 	@override String get autoConnectAtBootTips => 'ต้องการการสนับสนุนระบบ ระบบบางระบบอาจต้องการ [เริ่มต้นอัตโนมัติ] ที่จะเปิดใช้งาน';
 	@override String get hideAfterLaunch => 'ซ่อนหน้าต่างหลังเริ่มต้น';
 	@override String get autoSetSystemProxy => 'ตั้งค่าพร็อกซีของระบบโดยอัตโนมัติเมื่อเชื่อมต่อ';
@@ -1141,6 +1142,7 @@ extension on TranslationsTh {
 			'SettingsScreen.myLink' => 'ลิงก์ลัด',
 			'SettingsScreen.autoConnectAfterLaunch' => 'เชื่อมต่ออัตโนมัติหลังเปิดตัว',
 			'SettingsScreen.autoConnectAtBoot' => 'เชื่อมต่ออัตโนมัติหลังเริ่มต้นระบบ',
+			'SettingsScreen.automationWhitelist' => 'รายการที่อนุญาตสำหรับระบบอัตโนมัติ',
 			'SettingsScreen.autoConnectAtBootTips' => 'ต้องการการสนับสนุนระบบ ระบบบางระบบอาจต้องการ [เริ่มต้นอัตโนมัติ] ที่จะเปิดใช้งาน',
 			'SettingsScreen.hideAfterLaunch' => 'ซ่อนหน้าต่างหลังเริ่มต้น',
 			'SettingsScreen.autoSetSystemProxy' => 'ตั้งค่าพร็อกซีของระบบโดยอัตโนมัติเมื่อเชื่อมต่อ',
@@ -1483,9 +1485,9 @@ extension on TranslationsTh {
 			'meta.profileAddWrapSuccess' => 'โปรไฟล์สร้างสำเร็จ โปรดไปที่ [${_root.meta.myProfiles}] เพื่อดู',
 			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'ตั้งค่า [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'หมายเหตุ: รายการที่เปิดใช้งานจะถูกเพิ่ม/เขียนทับไปยัง [${_root.meta.diversionCustomGroup}] และ [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'หมายเหตุ: รายการที่เปิดใช้งานจะถูกเพิ่ม/เขียนทับไปยัง [${_root.meta.diversionCustomGroup}] และ [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'หมายเหตุ: หลังจากเพิ่ม คุณอาจต้องปรับเปลี่ยนการจัดลำดับด้วยตนเอง มิฉะนั้นการเปลี่ยนเส้นทางที่เพิ่มใหม่อาจไม่ทำให้เกิดผล',
 			'rulesetEnableTips' => 'เคล็ดลับ: หลังจากเปิดใช้งานตัวเลือก โปรดไปที่ [${_root.meta.diversionRules}] เพื่อตั้งค่ากฎที่เกี่ยวข้อง มิฉะนั้นจะไม่มีผล',
 			'ispUserAgentTips' => '[${_root.meta.isp}] จะส่งข้อมูลของประเภทการสมัครสมาชิกที่แตกต่างกันตามที่ [UserAgent] ใน [HTTP] ขอ',

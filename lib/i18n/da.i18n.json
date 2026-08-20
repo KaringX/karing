@@ -201,6 +201,7 @@
         "myLink": "Genvejslink",
         "autoConnectAfterLaunch": "Automatisk forbindelse efter start",
         "autoConnectAtBoot": "Automatisk forbindelse efter systemstart",
+        "automationWhitelist": "Hvidliste til automatisering",
         "autoConnectAtBootTips": "Systemunderstøttelse er nødvendig; nogle systemer kan også kræve, at [autostart] er aktiveret.",
         "hideAfterLaunch": "Skjul vinduet efter start",
         "autoSetSystemProxy": "Indstil systemproxy automatisk, når der er forbindelse",

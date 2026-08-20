@@ -201,6 +201,7 @@
         "myLink": "Link de Atalho",
         "autoConnectAfterLaunch": "Ligação Automática após o Lançamento",
         "autoConnectAtBoot": "Ligação Automática após o Início do Sistema",
+        "automationWhitelist": "Lista branca de automação",
         "autoConnectAtBootTips": "O suporte do sistema é necessário; alguns sistemas também podem exigir que o [arranque automático] esteja ativado.",
         "hideAfterLaunch": "Ocultar janela após o arranque",
         "autoSetSystemProxy": "Configurar Proxy do Sistema Automaticamente quando Ligado",

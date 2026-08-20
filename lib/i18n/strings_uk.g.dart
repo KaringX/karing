@@ -451,6 +451,7 @@ class _Translations$SettingsScreen$uk implements Translations$SettingsScreen$en 
 	@override String get myLink => 'Посилання швидкого доступу';
 	@override String get autoConnectAfterLaunch => 'Автопідключення після запуску';
 	@override String get autoConnectAtBoot => 'Автопідключення після запуску системи';
+	@override String get automationWhitelist => 'Білий список автоматизації';
 	@override String get autoConnectAtBootTips => 'Потрібна системна підтримка; деякі системи також можуть вимагати увімкнення [автозапуску].';
 	@override String get hideAfterLaunch => 'Приховати вікно після запуску';
 	@override String get autoSetSystemProxy => 'Автоматично встановлювати системний проксі при підключенні';
@@ -1141,6 +1142,7 @@ extension on TranslationsUk {
 			'SettingsScreen.myLink' => 'Посилання швидкого доступу',
 			'SettingsScreen.autoConnectAfterLaunch' => 'Автопідключення після запуску',
 			'SettingsScreen.autoConnectAtBoot' => 'Автопідключення після запуску системи',
+			'SettingsScreen.automationWhitelist' => 'Білий список автоматизації',
 			'SettingsScreen.autoConnectAtBootTips' => 'Потрібна системна підтримка; деякі системи також можуть вимагати увімкнення [автозапуску].',
 			'SettingsScreen.hideAfterLaunch' => 'Приховати вікно після запуску',
 			'SettingsScreen.autoSetSystemProxy' => 'Автоматично встановлювати системний проксі при підключенні',
@@ -1483,9 +1485,9 @@ extension on TranslationsUk {
 			'meta.profileAddWrapSuccess' => 'Профіль успішно згенеровано, перейдіть до [${_root.meta.myProfiles}] для перегляду',
 			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Попередньо встановлена [${_root.meta.diversionCustomGroup}]',
-			'diversionCustomGroupPresetTips' => 'Примітка: Увімкнені елементи будуть додані/перезаписані в [${_root.meta.diversionCustomGroup}] та [${_root.meta.diversionRules}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionCustomGroupPresetTips' => 'Примітка: Увімкнені елементи будуть додані/перезаписані в [${_root.meta.diversionCustomGroup}] та [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Примітка: Після додавання вам може знадобитися вручну відрегулювати порядок, інакше нещодавно додане відхилення може не набрати чинності',
 			'rulesetEnableTips' => 'Порада: Після ввімкнення параметрів перейдіть до [${_root.meta.diversionRules}], щоб встановити відповідні правила, інакше вони не наберуть чинності',
 			'ispUserAgentTips' => '[${_root.meta.isp}] надсилатиме дані різних типів підписки на основі [UserAgent] у запиті [HTTP]',

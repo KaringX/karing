@@ -7,7 +7,7 @@ import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:mime/mime.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as path;
 
 class Zashboard {
   static HttpServer? _server;
@@ -31,13 +31,23 @@ class Zashboard {
       _server!.listen((req) async {
         try {
           if (req.method == "GET") {
-            String path = req.requestedUri.path.replaceFirst('/', '');
-            if (path.isEmpty) {
-              path = 'index.html';
+            String resPath = path
+                .normalize(req.requestedUri.path)
+                .replaceFirst(RegExp(r'^[/\\]+'), '')
+                .replaceAll("\\", "/");
+            if (resPath.isEmpty) {
+              resPath = 'index.html';
             }
-            final name = basename(path);
-            final mime = lookupMimeType(name) ?? 'text/plain';
-            final data = await rootBundle.load("assets/zashboard/$path");
+            if (resPath.startsWith('.') ||
+                resPath.contains('${path.separator}..')) {
+              req.response
+                ..statusCode = HttpStatus.forbidden
+                ..close();
+              return;
+            }
+
+            final mime = lookupMimeType(resPath) ?? 'text/plain';
+            final data = await rootBundle.load("assets/zashboard/$resPath");
 
             req.response.headers.add('Content-Type', '$mime; charset=utf-8');
             req.response.add(data.buffer.asUint8List());

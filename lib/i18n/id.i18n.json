@@ -201,6 +201,7 @@
         "myLink": "Tautan cepat",
         "autoConnectAfterLaunch": "Hubungkan otomatis setelah mulai",
         "autoConnectAtBoot": "Hubungkan otomatis saat sistem menyala",
+        "automationWhitelist": "Daftar putih otomatisasi",
         "autoConnectAtBootTips": "Memerlukan dukungan sistem, dan pada beberapa sistem mungkin juga perlu mengaktifkan [Startup otomatis]",
         "hideAfterLaunch": "Sembunyikan jendela setelah mulai",
         "autoSetSystemProxy": "Atur proxy sistem secara otomatis setelah terhubung",
