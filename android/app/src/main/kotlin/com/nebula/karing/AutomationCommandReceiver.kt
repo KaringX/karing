@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import org.json.JSONObject
 
 class AutomationCommandReceiver : BroadcastReceiver() {
     companion object {
@@ -11,8 +14,41 @@ class AutomationCommandReceiver : BroadcastReceiver() {
         const val ACTION_DISCONNECT = "com.nebula.karing.action.DISCONNECT"
         const val ACTION_RECONNECT = "com.nebula.karing.action.RECONNECT"
     }
+    private fun serviceFile(context: Context): File {
+        return File(context.filesDir, io.nebula.vpn_service.VpnServiceImpl.service_file_name)
+    }
 
     override fun onReceive(context: Context, intent: Intent?) {
+        val senderPackage =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                    getSentFromPackage()
+                } else {
+                    null
+                }
+        if (senderPackage != null) {
+            var allowedSenderPackagesSet: MutableSet<String> = ConcurrentHashMap.newKeySet()
+            try {
+                val content = serviceFile(context).readText()
+                if (content.isNotBlank()) {
+                    val jsonObj = JSONObject(content)
+                    val allowedSenderPackages = jsonObj.optJSONArray("allowed_sender_packages")
+                    if (allowedSenderPackages != null) {
+                        for (i in 0 until allowedSenderPackages.length()) {
+                            val item = allowedSenderPackages.optString(i)
+                            if (item.isNotBlank()) {
+                                allowedSenderPackagesSet.add(item)
+                            }
+                        }
+                    }
+                }
+            } catch (e: Exception) {}
+            if (allowedSenderPackagesSet.isNotEmpty() &&
+                            !allowedSenderPackagesSet.contains(senderPackage)
+            ) {
+                return
+            }
+        }
+
         val action = intent?.action ?: return
         when (action) {
             ACTION_CONNECT -> connect(context)

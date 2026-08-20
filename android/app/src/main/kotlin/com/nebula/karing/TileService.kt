@@ -111,7 +111,7 @@ class TileService : TileService() {
     }
 
     private fun isValid(): Boolean {
-        return profileFile().exists() && serviceFile().exists()
+        return serviceFile().exists()
     }
 
     private fun update() {
@@ -144,9 +144,8 @@ class TileService : TileService() {
         return File(context.getFilesDir(), io.nebula.vpn_service.VpnServiceImpl.service_file_name)
     }
 
-    private fun profileFile(): File {
-        val context = this as Context
-        return File(context.getFilesDir(), io.nebula.vpn_service.VpnServiceImpl.profile_file_name)
+    private fun serviceFilePath(): String {
+        return serviceFile().absolutePath
     }
 
     private fun writeLog(message: String) {
