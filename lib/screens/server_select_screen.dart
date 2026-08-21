@@ -28,6 +28,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
+import 'package:karing/screens/widgets/text.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
@@ -1291,13 +1292,12 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                         ),
                         SizedBox(
                           width: tagWidth,
-                          child: Text(
+                          child: EmojiText(
                             tag,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             style: TextStyle(
                               fontSize: ThemeConfig.kFontSizeListSubItem,
-                              fontFamily: Platform.isWindows ? 'Emoji' : null,
                               color: singleSelectCurrentInvalid
                                   ? Colors.red
                                   : null,

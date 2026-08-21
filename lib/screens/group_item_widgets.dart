@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-import 'dart:io';
-
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/utils/accessibility_utils.dart';
@@ -10,6 +8,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/group_item_options.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/sheet.dart';
+import 'package:karing/screens/widgets/text.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 
 class GroupItemText extends StatelessWidget {
@@ -54,7 +53,7 @@ class GroupItemText extends StatelessWidget {
             flex: ((options.textWidthPercent) * 10).toInt(),
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
-              child: Text(
+              child: EmojiText(
                 options.text ?? "",
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -590,13 +589,12 @@ class GroupItemStringPicker extends StatelessWidget {
         }
         widgets.add(
           ListTile(
-            title: Text(
+            title: EmojiText(
               key.item2,
               style: TextStyle(
                 color: options.selected == key.item1
                     ? ThemeDefine.kColorBlue
                     : null,
-                fontFamily: Platform.isWindows ? 'Emoji' : null,
               ),
             ),
             onTap: () async {
@@ -611,11 +609,10 @@ class GroupItemStringPicker extends StatelessWidget {
       for (var key in options.strings!) {
         widgets.add(
           ListTile(
-            title: Text(
+            title: EmojiText(
               key ?? "",
               style: TextStyle(
                 color: options.selected == key ? ThemeDefine.kColorBlue : null,
-                fontFamily: Platform.isWindows ? 'Emoji' : null,
               ),
             ),
             onTap: () async {
@@ -662,7 +659,7 @@ class GroupItemStringPicker extends StatelessWidget {
             flex: ((1 - options.textWidthPercent) * 10).toInt(),
             child: Align(
               alignment: AlignmentDirectional.centerStart,
-              child: Text(
+              child: EmojiText(
                 options.name,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -673,13 +670,10 @@ class GroupItemStringPicker extends StatelessWidget {
             flex: (options.textWidthPercent * 10).toInt(),
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
-              child: Text(
+              child: EmojiText(
                 selectedText,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontFamily: Platform.isWindows ? 'Emoji' : null,
-                ),
               ),
             ),
           ),

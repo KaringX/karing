@@ -32,6 +32,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
+import 'package:karing/screens/widgets/text.dart';
 
 enum ConnectionsSortType { none, downloadSpeed, uploadSpeed, download, upload }
 
@@ -1002,7 +1003,7 @@ class _NetConnectionsScreenState
                           children: [
                             SizedBox(
                               width: centerWidth,
-                              child: Text(
+                              child: EmojiText(
                                 current.showChain,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(fontSize: 12),
@@ -1099,7 +1100,7 @@ class _NetConnectionsScreenState
                         ),
                       ),
                       const SizedBox(width: 5),
-                      Text(
+                      EmojiText(
                         current.outbound,
                         style: const TextStyle(fontSize: 12),
                       ),

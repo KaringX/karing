@@ -6,6 +6,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text.dart';
 
 class ListAddScreen extends LasyRenderingStatefulWidget {
   static RouteSettings routSettings(String viewTag) {
@@ -143,7 +144,7 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
                         children: [
                           SizedBox(
                             width: centerWidth,
-                            child: Text(
+                            child: EmojiText(
                               current,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

@@ -18,7 +18,6 @@ dependencies:
   ant_icons_plus: 2.0.1
   collection: 1.19.1
   flutter_emoji: 2.5.1
-  emoji_regex: 0.0.5
   dash_flags: 0.1.1
   country: 7.0.0
   sentry_flutter: 9.25.0

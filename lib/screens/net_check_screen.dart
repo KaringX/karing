@@ -21,6 +21,7 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/listview_multi_parts_builder.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
@@ -1030,7 +1031,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
                 const SizedBox(width: 5),
                 SizedBox(
                   width: textWidth,
-                  child: Text(
+                  child: EmojiText(
                     result.error == null ? result.data! : result.error!.message,
                     style: TextStyle(
                       fontSize: ThemeConfig.kFontSizeListSubItem,

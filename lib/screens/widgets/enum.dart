@@ -38,7 +38,7 @@ extension KeyboardModifierExt on KeyboardModifier {
 }
 
 enum FontFamily {
-  twEmoji("Twemoji"),
+  emoji("Emoji"),
   jetBrainsMono("JetBrainsMono"),
   icon("Icons");
 
