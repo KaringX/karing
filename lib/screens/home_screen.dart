@@ -648,7 +648,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (AppLifecycleStateNofity.isPaused()) {
       return;
     }
-    bool started = await VPNService.getStarted();
+    // Use the state tracked by _onStateChanged instead of querying the
+    // platform plugin: on macOS every VPNService.getStarted() call goes
+    // through loadAllFromPreferences and creates NETunnelProviderSession
+    // objects, adding per-second XPC round-trips to nesessionmanager.
+    bool started = _state == FlutterVpnServiceState.connected;
     if (!started) {
       String now = _currentServerForUrltest.now;
       int delay = _currentServerForUrltest.history.delay;
@@ -666,7 +670,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _timerCurrentUrltest ??= Timer.periodic(const Duration(seconds: 1), (
       timer,
     ) async {
-      bool started = await VPNService.getStarted();
+      bool started = _state == FlutterVpnServiceState.connected;
       if (!started) {
         if (_currentServerForUrltest.now.isNotEmpty ||
             _currentServerForUrltest.history.delay != 0) {
