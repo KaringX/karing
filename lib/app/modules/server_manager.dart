@@ -16,7 +16,7 @@ import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
 import 'package:karing/app/utils/clash_api.dart';
 import 'package:karing/app/utils/convert_utils.dart';
-import 'package:karing/app/utils/error_reporter_utils.dart';
+
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/log.dart';
@@ -451,9 +451,10 @@ class ServerManager {
   static final DiversionGroupConfig _diversionGroupConfig =
       DiversionGroupConfig();
   static final ServerUse _use = ServerUse();
-  static bool _savingServerConfig = false;
-  static bool _savingDiversionGroupConfig = false;
-  static bool _savingUse = false;
+
+  static final FileSaver _fileSaverUse = FileSaver();
+  static final FileSaver _fileSaverServerConfig = FileSaver();
+  static final FileSaver _fileSaverDiversionGroupConfig = FileSaver();
   static bool _updatingSubscription = false;
   static bool _updateLatencyByHistory = false;
   static bool _dirty = false;
@@ -461,6 +462,11 @@ class ServerManager {
   static Timer? _timerChecker;
 
   static Future<void> init() async {
+    _fileSaverUse.setSavePath(await PathUtils.subscribeUseFilePath());
+    _fileSaverServerConfig.setSavePath(await PathUtils.subscribeFilePath());
+    _fileSaverDiversionGroupConfig.setSavePath(
+      await PathUtils.diversionGroupFilePath(),
+    );
     await loadServerConfig();
     await loadDiversionGroupConfig();
     await loadUse();
@@ -578,19 +584,20 @@ class ServerManager {
     Set<String> testOutboundLatencyGroups = {};
     DateTime now = DateTime.now();
 
-    try {
-      var config = _serverConfig.clone(true, false);
-      for (var item in config.items) {
-        if (item.isRemote() && item.updateDuration != null) {
-          DateTime? updateTime = DateTime.tryParse(item.updateTime);
-          if (updateTime == null ||
-              now.difference(updateTime).inSeconds >=
-                  item.updateDuration!.inSeconds) {
-            if (isReloading(item.groupid)) {
-              continue;
-            }
-            _remoteReloading.add(item.groupid);
-            ReturnResultError? err = await addRemoteConfig(
+    var config = _serverConfig.clone(true, false);
+    for (var item in config.items) {
+      if (item.isRemote() && item.updateDuration != null) {
+        DateTime? updateTime = DateTime.tryParse(item.updateTime);
+        if (updateTime == null ||
+            now.difference(updateTime).inSeconds >=
+                item.updateDuration!.inSeconds) {
+          if (isReloading(item.groupid)) {
+            continue;
+          }
+          _remoteReloading.add(item.groupid);
+          ReturnResultError? err;
+          try {
+            err = await addRemoteConfig(
               item.groupid,
               item.remark,
               item.urlOrPath,
@@ -612,26 +619,29 @@ class ServerManager {
               ispId: item.isp?.id,
               ispUser: item.isp?.user,
             );
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.updateSubscription exception ${err.toString()}",
+            );
+          } finally {
             _remoteReloading.remove(item.groupid);
-            if (err != null) {
-              Log.w(
-                "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}",
-              );
-            } else {
-              _updatedConfigs.removeWhere(
-                (element) => element.groupid == item.groupid,
-              );
-              _updatedConfigs.add(item);
-              if (item.reloadAfterProfileUpdate &&
-                  item.testLatencyAfterProfileUpdate) {
-                testOutboundLatencyGroups.add(item.groupid);
-              }
+          }
+          if (err != null) {
+            Log.w(
+              "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}",
+            );
+          } else {
+            _updatedConfigs.removeWhere(
+              (element) => element.groupid == item.groupid,
+            );
+            _updatedConfigs.add(item);
+            if (item.reloadAfterProfileUpdate &&
+                item.testLatencyAfterProfileUpdate) {
+              testOutboundLatencyGroups.add(item.groupid);
             }
           }
         }
       }
-    } catch (err, _) {
-      Log.w("ServerManager.updateSubscription exception ${err.toString()}");
     }
 
     if (_updatedConfigs.isNotEmpty &&
@@ -640,7 +650,13 @@ class ServerManager {
         _testingOutboundServerLatency.isEmpty) {
       var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(_updatedConfigs);
+        try {
+          await callback(_updatedConfigs);
+        } catch (err, _) {
+          Log.w(
+            "ServerManager.updateSubscription onEventUpdateConfigs exception ${err.toString()}",
+          );
+        }
       }
       _updatedConfigs.clear();
     }
@@ -954,25 +970,7 @@ class ServerManager {
   }
 
   static Future<void> saveServerConfig() async {
-    if (_savingServerConfig) {
-      return;
-    }
-    _savingServerConfig = true;
-    String filePath = await PathUtils.subscribeFilePath();
-    //String content = jsonEncode(_serverConfig.toJson());
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_serverConfig.toJson());
-
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
-
-    _savingServerConfig = false;
+    await _fileSaverServerConfig.saveAsJson(_serverConfig);
   }
 
   static Future<void> loadDiversionGroupConfig() async {
@@ -1038,25 +1036,7 @@ class ServerManager {
   }
 
   static Future<void> saveDiversionGroupConfig() async {
-    if (_savingDiversionGroupConfig) {
-      return;
-    }
-    _savingDiversionGroupConfig = true;
-    String filePath = await PathUtils.diversionGroupFilePath();
-    //String content = jsonEncode(_diversionGroupConfig.toJson());
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_diversionGroupConfig.toJson());
-
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
-
-    _savingDiversionGroupConfig = false;
+    await _fileSaverDiversionGroupConfig.saveAsJson(_diversionGroupConfig);
   }
 
   static Future<void> reorderGroup(List<String> groupid) async {
@@ -1149,7 +1129,13 @@ class ServerManager {
       Future.delayed(const Duration(milliseconds: 10), () {
         final list = _onEventRemoveConfigs.values.toList();
         for (var callback in list) {
-          callback(groupid, enable, hasDiversionGroup);
+          try {
+            callback(groupid, enable, hasDiversionGroup);
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.removeGroup onEventRemoveConfigs exception ${err.toString()}",
+            );
+          }
         }
       });
 
@@ -1460,7 +1446,13 @@ class ServerManager {
         Future.delayed(const Duration(milliseconds: 10), () {
           var list = _onEventLatencyUpdate.values.toList();
           for (var callback in list) {
-            callback(_latencyUpdatedConfigs);
+            try {
+              callback(_latencyUpdatedConfigs);
+            } catch (err, _) {
+              Log.w(
+                "ServerManager.schedulerTestLatency onEventLatencyUpdate exception ${err.toString()}",
+              );
+            }
           }
           _latencyUpdatedConfigs.clear();
         });
@@ -1850,7 +1842,13 @@ class ServerManager {
       if (groupid.isEmpty) {
         var list = _onEventAddConfigs.values.toList();
         for (var callback in list) {
-          callback(item);
+          try {
+            callback(item);
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.loadFrom onEventAddConfigs exception ${err.toString()}",
+            );
+          }
         }
       }
     });
@@ -2112,25 +2110,7 @@ class ServerManager {
   }
 
   static Future<void> saveUse() async {
-    if (_savingUse) {
-      return;
-    }
-
-    _savingUse = true;
-    String filePath = await PathUtils.subscribeUseFilePath();
-    //String content = jsonEncode(_use.toJson());
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_use.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
-
-    _savingUse = false;
+    await _fileSaverUse.saveAsJson(_use);
   }
 
   static void addRecent(ProxyConfig config) {
@@ -2248,7 +2228,13 @@ class ServerManager {
     }
     var list = _onEventEnableConfigs.values.toList();
     for (var callback in list) {
-      await callback(groupId, enable);
+      try {
+        await callback(groupId, enable);
+      } catch (err, _) {
+        Log.w(
+          "ServerManager.enableGroup onEventEnableConfigs exception ${err.toString()}",
+        );
+      }
     }
 
     return true;
@@ -2370,7 +2356,13 @@ class ServerManager {
         _testingOutboundServerLatency.isEmpty) {
       var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(_updatedConfigs);
+        try {
+          await callback(_updatedConfigs);
+        } catch (err, _) {
+          Log.w(
+            "ServerManager.reload onEventUpdateConfigs exception ${err.toString()}",
+          );
+        }
       }
       _updatedConfigs.clear();
     }
@@ -2445,7 +2437,13 @@ class ServerManager {
         _testingOutboundServerLatency.isEmpty) {
       var list = _onEventUpdateConfigs.values.toList();
       for (var callback in list) {
-        await callback(_updatedConfigs);
+        try {
+          await callback(_updatedConfigs);
+        } catch (err, _) {
+          Log.w(
+            "ServerManager.reloadAll onEventUpdateConfigs exception ${err.toString()}",
+          );
+        }
       }
       _updatedConfigs.clear();
     }
@@ -2462,7 +2460,13 @@ class ServerManager {
     Future.delayed(const Duration(milliseconds: 10), () {
       var list = _onEventRemoteTrafficReloadStart.values.toList();
       for (var callback in list) {
-        callback(groupid);
+        try {
+          callback(groupid);
+        } catch (err, _) {
+          Log.w(
+            "ServerManager.reloadTraffic onEventRemoteTrafficReloadStart exception ${err.toString()}",
+          );
+        }
       }
     });
     String userAgent = item.userAgentAppend
@@ -2491,7 +2495,13 @@ class ServerManager {
       Future.delayed(const Duration(milliseconds: 10), () {
         var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
-          callback(groupid);
+          try {
+            callback(groupid);
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.reloadTraffic onEventRemoteTrafficReloadEnd exception ${err.toString()}",
+            );
+          }
         }
       });
       return ReturnResult(error: result.error);
@@ -2500,7 +2510,13 @@ class ServerManager {
       Future.delayed(const Duration(milliseconds: 10), () {
         var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
-          callback(groupid);
+          try {
+            callback(groupid);
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.reloadTraffic onEventRemoteTrafficReloadEnd exception ${err.toString()}",
+            );
+          }
         }
       });
       return ReturnResult(
@@ -2515,7 +2531,13 @@ class ServerManager {
       Future.delayed(const Duration(milliseconds: 10), () {
         var list = _onEventRemoteTrafficReloadEnd.values.toList();
         for (var callback in list) {
-          callback(groupid);
+          try {
+            callback(groupid);
+          } catch (err, _) {
+            Log.w(
+              "ServerManager.reloadTraffic onEventRemoteTrafficReloadEnd exception ${err.toString()}",
+            );
+          }
         }
       });
       return ReturnResult(
@@ -2527,7 +2549,13 @@ class ServerManager {
     Future.delayed(const Duration(milliseconds: 10), () {
       var list = _onEventRemoteTrafficReloadEnd.values.toList();
       for (var callback in list) {
-        callback(groupid);
+        try {
+          callback(groupid);
+        } catch (err, _) {
+          Log.w(
+            "ServerManager.reloadTraffic onEventRemoteTrafficReloadEnd exception ${err.toString()}",
+          );
+        }
       }
     });
     saveServerConfig();
@@ -2894,7 +2922,13 @@ class ServerManager {
 
     var list = _onEventReloadFromZip.values.toList();
     for (var callback in list) {
-      await callback();
+      try {
+        await callback();
+      } catch (err, _) {
+        Log.w(
+          "ServerManager.reloadFromZip onEventReloadFromZip exception ${err.toString()}",
+        );
+      }
     }
     SettingManager.setDirty(true);
     setDirty(true);

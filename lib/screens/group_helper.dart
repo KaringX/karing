@@ -1811,10 +1811,10 @@ class GroupHelper {
                         ),
                       );
                       if (result == null || result.groupid.isEmpty) {
-                        return null;
+                        return [];
                       }
 
-                      return result.tag;
+                      return [result.tag];
                     },
                   ),
                 ),
@@ -3095,6 +3095,13 @@ class GroupHelper {
       DialogUtils.showAlertDialog(context, err);
       return ReturnResultError(err);
     }
+    int? targetPort = int.tryParse(port);
+    if (targetPort == null || targetPort <= 0 || targetPort > 65535) {
+      String err =
+          "${tcontext.meta.urlInvalid}: params [port] is not a valid number";
+      DialogUtils.showAlertDialog(context, err);
+      return ReturnResultError(err);
+    }
     if (cport.isEmpty) {
       String err = "${tcontext.meta.urlInvalid}: params [cport] is empty";
       DialogUtils.showAlertDialog(context, err);
@@ -3111,9 +3118,8 @@ class GroupHelper {
     var setting = SettingManager.getConfig();
     bool run = await VPNService.getStarted();
     int? proxyPort = run ? setting.proxy.mixedDirectPort : null;
-
     List<String> hosts = ips.split(",");
-    int targetPort = int.parse(port);
+
     String? targetHost;
     ReturnResult<Tuple2<int, String>>? result;
 

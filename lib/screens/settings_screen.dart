@@ -39,6 +39,7 @@ import 'package:karing/screens/language_settings_screen.dart';
 import 'package:karing/screens/list_add_screen.dart';
 import 'package:karing/screens/login_step_provider_screen.dart';
 import 'package:karing/screens/my_profiles_screen.dart';
+import 'package:karing/screens/packageid_multi_select_android_screen.dart';
 import 'package:karing/screens/qrcode_screen.dart';
 import 'package:karing/screens/richtext_viewer.screen.dart';
 import 'package:karing/screens/speedtest_settings_screen.dart';
@@ -1249,6 +1250,25 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                         builder: (context) => ListAddScreen(
                           title: tcontext.SettingsScreen.automationWhitelist,
                           data: settingConfig.allowedSenderPackages,
+                          onTapAdd: () async {
+                            List<String> selectedData = settingConfig
+                                .allowedSenderPackages
+                                .toList();
+
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                settings:
+                                    PackageIdMultiSelectAndroidScreen.routSettings(),
+                                builder: (context) =>
+                                    PackageIdMultiSelectAndroidScreen(
+                                      installedApps: [],
+                                      selectedData: selectedData,
+                                    ),
+                              ),
+                            );
+                            return result ?? [];
+                          },
                         ),
                       ),
                     );

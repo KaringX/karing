@@ -6,6 +6,7 @@ import 'package:karing/app/private/app_url_utils_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/did.dart';
+import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
@@ -227,7 +228,7 @@ class BoardProviderManager {
   static List<BoardProviderConfig> _providers = [];
   static final Map<String, BoardProviderType> _providerTypeCache = {};
   static final Set<String> _notifyProviderIntegrationCache = {};
-  static bool _saving = false;
+  static final FileSaver _fileSaver = FileSaver();
 
   static String get unknownProviderId => "000";
   static String get unknownProviderIdPrefix => "${unknownProviderId}_";
@@ -551,19 +552,12 @@ class BoardProviderManager {
   }
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.providersConfigFilePath());
     await _load();
   }
 
   static Future<void> _save() async {
-    if (_saving) {
-      return;
-    }
-    _saving = true;
-    final file = File(await PathUtils.providersConfigFilePath());
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_providers);
-    await file.writeAsString(content);
-    _saving = false;
+    _fileSaver.saveAsJson(_providers);
   }
 
   static Future<void> _load() async {

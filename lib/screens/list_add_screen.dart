@@ -17,7 +17,7 @@ class ListAddScreen extends LasyRenderingStatefulWidget {
   final Set<String> invalidData;
   final String dialogTitle;
   final String dialogTextHit;
-  final Future<String?> Function()? onTapAdd;
+  final Future<List<String>> Function()? onTapAdd;
   ListAddScreen({
     super.key,
     required this.title,
@@ -182,12 +182,12 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
   }
 
   void onTapAdd() async {
-    String? text;
+    List<String> text;
     if (widget.onTapAdd != null) {
       text = await widget.onTapAdd!();
     } else {
       final tcontext = Translations.of(context);
-      text = await DialogUtils.showTextInputDialog(
+      final result = await DialogUtils.showTextInputDialog(
         context,
         widget.dialogTitle.isNotEmpty ? widget.dialogTitle : tcontext.meta.add,
         "",
@@ -203,15 +203,17 @@ class _ListAddScreenState extends LasyRenderingState<ListAddScreen> {
           return true;
         },
       );
+      text = result != null ? [result] : [];
     }
 
-    if (text == null) {
+    if (text.isEmpty) {
       return;
     }
-    if (widget.data.contains(text)) {
-      return;
+    for (var t in text) {
+      if (!widget.data.contains(t)) {
+        widget.data.add(t);
+      }
     }
-    widget.data.add(text);
     setState(() {});
   }
 

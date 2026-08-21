@@ -1896,10 +1896,11 @@ class SettingConfig {
 }
 
 class SettingManager {
-  static bool _savingConfig = false;
   static bool _dirty = false;
   static final SettingConfig _config = SettingConfig();
+  static final FileSaver _fileSaver = FileSaver();
   static Future<void> init({bool fromBackupRestore = false}) async {
+    _fileSaver.setSavePath(await PathUtils.settingFilePath());
     await load();
     if (fromBackupRestore) {
       if (!Platform.isWindows) {
@@ -1994,23 +1995,7 @@ class SettingManager {
   }
 
   static Future<void> save() async {
-    if (_savingConfig) {
-      return;
-    }
-    _savingConfig = true;
-    String filePath = await PathUtils.settingFilePath();
-    //String content = jsonEncode(_config.toJson());
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_config.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err, stacktrace) {
-      Log.w("SettingManager.save exception  $filePath ${err.toString()}");
-    }
-    _savingConfig = false;
+    await _fileSaver.saveAsJson(_config);
   }
 
   static SettingConfig getConfig() {

@@ -9,7 +9,6 @@ import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
-import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/karing_utils.dart';
 import 'package:karing/app/utils/log.dart';
@@ -118,6 +117,7 @@ class Notice {
 
 class NoticeLoadAndCheck {
   bool _checking = false;
+  final FileSaver _fileSaver = FileSaver();
   final Duration _checkDuration = const Duration(hours: 3);
   Duration _duration = const Duration(hours: 3);
   Notice _notice = Notice();
@@ -125,6 +125,7 @@ class NoticeLoadAndCheck {
   String name = "";
   String url = "";
   String filePath = "";
+
   Function()? checkUpdate;
   Notice get notice => _notice;
 
@@ -162,16 +163,8 @@ class NoticeLoadAndCheck {
     if (filePath.isEmpty) {
       return;
     }
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_notice.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err, stacktrace) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
+    _fileSaver.setSavePath(filePath);
+    await _fileSaver.saveAsJson(_notice);
   }
 
   Future<void> check() async {

@@ -12,7 +12,6 @@ import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/auto_update_utils.dart';
 import 'package:karing/app/utils/crypto_utils.dart';
 import 'package:karing/app/utils/download_utils.dart';
-import 'package:karing/app/utils/error_reporter_utils.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/log.dart';
@@ -96,6 +95,7 @@ class AutoUpdateManager {
   static final List<void Function()> onEventCheck = [];
   static Timer? _timerChecker;
   static bool _checking = false;
+  static final FileSaver _fileSaver = FileSaver();
   static bool _downloading = false;
   static Duration _duration = const Duration(hours: 3);
   static DateTime? _lastCheck;
@@ -113,6 +113,7 @@ class AutoUpdateManager {
   }
 
   static Future<void> init() async {
+    _fileSaver.setSavePath(await PathUtils.autoUpdateFilePath());
     await load();
     String version = AppUtils.getBuildinVersion();
 
@@ -190,17 +191,7 @@ class AutoUpdateManager {
   }
 
   static Future<void> save() async {
-    String filePath = await PathUtils.autoUpdateFilePath();
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    String content = encoder.convert(_versionCheck.toJson());
-    try {
-      await File(filePath).writeAsString(content, flush: true);
-      if (!await FileUtils.validJsonFile(filePath)) {
-        await File(filePath).writeAsString(content, flush: true);
-      }
-    } catch (err, stacktrace) {
-      ErrorReporterUtils.tryReportNoSpace(err.toString());
-    }
+    await _fileSaver.saveAsJson(_versionCheck);
   }
 
   static Future<String?> checkReplace() async {
