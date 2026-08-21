@@ -1,7 +1,7 @@
 import 'enum.dart';
 import 'color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:emoji_regex/emoji_regex.dart';
 
 class TooltipText extends StatelessWidget {
   final Text text;
@@ -43,9 +43,18 @@ class EmojiText extends StatelessWidget {
     this.style,
   });
 
-  List<TextSpan> _buildTextSpans(String emojis) {
+  List<TextSpan> _buildTextSpans(
+    TextStyle effectiveStyle,
+    bool useBundledFlagFont,
+  ) {
+    if (!useBundledFlagFont) {
+      return [TextSpan(text: text, style: effectiveStyle)];
+    }
     final List<TextSpan> spans = [];
-    final matches = emojiRegex().allMatches(text);
+    final matches = RegExp(
+      r'[\u{1F1E6}-\u{1F1FF}]{2}',
+      unicode: true,
+    ).allMatches(text);
 
     int lastMatchEnd = 0;
     for (final match in matches) {
@@ -53,20 +62,22 @@ class EmojiText extends StatelessWidget {
         spans.add(
           TextSpan(
             text: text.substring(lastMatchEnd, match.start),
-            style: style,
+            style: effectiveStyle,
           ),
         );
       }
       spans.add(
         TextSpan(
           text: match.group(0),
-          style: style?.copyWith(fontFamily: FontFamily.twEmoji.value),
+          style: effectiveStyle.copyWith(fontFamily: FontFamily.emoji.value),
         ),
       );
       lastMatchEnd = match.end;
     }
     if (lastMatchEnd < text.length) {
-      spans.add(TextSpan(text: text.substring(lastMatchEnd), style: style));
+      spans.add(
+        TextSpan(text: text.substring(lastMatchEnd), style: effectiveStyle),
+      );
     }
 
     return spans;
@@ -74,11 +85,19 @@ class EmojiText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveStyle = DefaultTextStyle.of(context).style.merge(style);
+    final platform = Theme.of(context).platform;
+    final useBundledFlagFont =
+        !kIsWeb &&
+        (platform == TargetPlatform.linux ||
+            platform == TargetPlatform.windows);
     return RichText(
       textScaler: MediaQuery.of(context).textScaler,
       maxLines: maxLines,
       overflow: overflow ?? TextOverflow.clip,
-      text: TextSpan(children: _buildTextSpans(text)),
+      text: TextSpan(
+        children: _buildTextSpans(effectiveStyle, useBundledFlagFont),
+      ),
     );
   }
 }

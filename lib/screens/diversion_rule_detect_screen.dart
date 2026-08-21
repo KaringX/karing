@@ -14,6 +14,7 @@ import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/text.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
@@ -452,7 +453,7 @@ class _DiversionRuleDetectScreenState
   Widget _buildWithValue(BuildContext context, String value, Widget? child) {
     return SizedBox(
       width: 200,
-      child: Text(
+      child: EmojiText(
         value,
         style: TextStyle(fontSize: ThemeConfig.kFontSizeListSubItem),
       ),
@@ -466,7 +467,7 @@ class _DiversionRuleDetectScreenState
   ) {
     return SizedBox(
       width: 200,
-      child: Text(
+      child: EmojiText(
         value,
         style: TextStyle(
           fontSize: ThemeConfig.kFontSizeListSubItem,

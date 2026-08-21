@@ -42,6 +42,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/sheet.dart';
+import 'package:karing/screens/widgets/text.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
@@ -341,7 +342,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       (provider != null ? 16 : 0),
                   child: Tooltip(
                     message: "${item.remark}[${item.servers.length}]",
-                    child: Text(
+                    child: EmojiText(
                       "${item.remark}[${item.servers.length}]",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -828,13 +829,12 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                           width: server.attach.isEmpty
                               ? centerWidth
                               : centerWidth - 30,
-                          child: Text(
+                          child: EmojiText(
                             server.tag,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             style: TextStyle(
                               fontSize: ThemeConfig.kFontSizeListSubItem,
-                              fontFamily: Platform.isWindows ? 'Emoji' : null,
                             ),
                           ),
                         ),

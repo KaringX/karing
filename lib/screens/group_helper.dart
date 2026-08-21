@@ -1758,7 +1758,6 @@ class GroupHelper {
             text: chainProxy,
             textWidthPercent: 0.7,
             textStyle: TextStyle(
-              fontFamily: Platform.isWindows ? 'Emoji' : null,
               color: invalidOutbounds.isNotEmpty ? Colors.red : null,
             ),
             onPush: () async {

@@ -313,15 +313,13 @@ abstract class TextCard1State<T extends TextCard1> extends State<T> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
+                        EmojiText(
                           value,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyMedium?.toLight
-                              .adjustSize(1)
-                              .copyWith(
-                                fontFamily: Platform.isWindows ? 'Emoji' : null,
-                              ),
+                          style: theme.textTheme.bodyMedium?.toLight.adjustSize(
+                            1,
+                          ),
                         ),
                       ],
                     );
@@ -1799,15 +1797,12 @@ class _ServerSelectCardState extends State<ServerSelectCard> {
                               alignment: Alignment.center,
                               width: width,
                               height: 60,
-                              child: Text(
+                              child: EmojiText(
                                 text,
                                 style: TextStyle(
                                   fontWeight:
                                       ThemeConfig.kFontWeightListSubItem,
                                   fontSize: ThemeConfig.kFontSizeListSubItem,
-                                  fontFamily: Platform.isWindows
-                                      ? 'Emoji'
-                                      : null,
                                 ),
                               ),
                             ),
