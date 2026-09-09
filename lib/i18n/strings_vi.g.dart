@@ -16,20 +16,21 @@ class TranslationsVi with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsVi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.vi,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <vi>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsVi _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Loại trừ tuyến';
 	@override String get tunRouteExcludeTips => 'Lưu lượng trong các dải địa chỉ bị loại trừ sẽ không còn đi vào TUN nữa';
 	@override String get tunRouteExcludeMulticast => 'Đa hướng';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Địa chỉ Loopback';
 	@override String get enableCluster => 'Bật cụm Proxy Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Cho phép thiết bị khác kết nối với cụm';
@@ -1175,6 +1177,7 @@ extension on TranslationsVi {
 			'SettingsScreen.tunRouteExclude' => 'Loại trừ tuyến',
 			'SettingsScreen.tunRouteExcludeTips' => 'Lưu lượng trong các dải địa chỉ bị loại trừ sẽ không còn đi vào TUN nữa',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Đa hướng',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Địa chỉ Loopback',
 			'SettingsScreen.enableCluster' => 'Bật cụm Proxy Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Cho phép thiết bị khác kết nối với cụm',
@@ -1485,9 +1488,9 @@ extension on TranslationsVi {
 			'meta.profileAddParseFailed' => 'Phân tích cấu hình thất bại',
 			'meta.profileAddNoServerAvaliable' => 'Không có máy chủ khả dụng, hãy đảm bảo liên kết hoặc tệp cấu hình hợp lệ; nếu cấu hình của bạn từ GitHub, vui lòng lấy liên kết từ nút [Raw] trên trang',
 			'meta.profileAddWrapSuccess' => 'Tạo cấu hình thành công, vui lòng đi tới [${_root.meta.myProfiles}] để xem',
-			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Cài đặt sẵn [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Lưu ý: Các mục được bật sẽ được thêm/ghi đè vào [${_root.meta.diversionCustomGroup}] và [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Lưu ý: Sau khi thêm, bạn có thể cần điều chỉnh thứ tự thủ công, nếu không phân luồng mới thêm có thể không có hiệu lực',

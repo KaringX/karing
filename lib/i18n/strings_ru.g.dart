@@ -16,20 +16,21 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ru,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ru>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsRu _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Исключить маршрут';
 	@override String get tunRouteExcludeTips => 'Трафик в исключённых диапазонах адресов больше не будет попадать в TUN';
 	@override String get tunRouteExcludeMulticast => 'Многоадресная передача';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Петлевой адрес';
 	@override String get enableCluster => 'Включить кластер прокси Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Разрешить подключение по локальной сети к кластеру';
@@ -1175,6 +1177,7 @@ extension on TranslationsRu {
 			'SettingsScreen.tunRouteExclude' => 'Исключить маршрут',
 			'SettingsScreen.tunRouteExcludeTips' => 'Трафик в исключённых диапазонах адресов больше не будет попадать в TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Многоадресная передача',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Петлевой адрес',
 			'SettingsScreen.enableCluster' => 'Включить кластер прокси Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Разрешить подключение по локальной сети к кластеру',
@@ -1485,9 +1488,9 @@ extension on TranslationsRu {
 			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
 			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.',
 			'meta.profileAddWrapSuccess' => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]',
-			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Шаблоны для личных правил',
 			'diversionCustomGroupPresetTips' => 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].',
 			'diversionCustomGroupAddTips' => 'Примечание. Возможно, вам придется вручную настроить порядок правил после их добавления, иначе добавленное перенаправление может работать не так, как ожидалось.',

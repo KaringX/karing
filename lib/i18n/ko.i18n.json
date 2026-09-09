@@ -233,6 +233,7 @@
         "tunRouteExclude": "경로 제외",
         "tunRouteExcludeTips": "제외한 주소 범위의 트래픽은 더 이상 TUN으로 들어가지 않습니다",
         "tunRouteExcludeMulticast": "멀티캐스트",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "루프백 주소",
         "enableCluster": "Socks/Http 프록시 클러스터 활성화",
         "clusterAllowOtherHostsConnect": "다른 기기의 클러스터 연결 허용",

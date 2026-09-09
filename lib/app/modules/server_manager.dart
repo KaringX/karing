@@ -586,6 +586,9 @@ class ServerManager {
 
     var config = _serverConfig.clone(true, false);
     for (var item in config.items) {
+      if (!item.enable) {
+        continue;
+      }
       if (item.isRemote() && item.updateDuration != null) {
         DateTime? updateTime = DateTime.tryParse(item.updateTime);
         if (updateTime == null ||

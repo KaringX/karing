@@ -233,6 +233,7 @@
         "tunRouteExclude": "ยกเว้นเส้นทาง",
         "tunRouteExcludeTips": "ทราฟฟิกในช่วงที่อยู่ที่ยกเว้นจะไม่เข้าสู่ TUN อีกต่อไป",
         "tunRouteExcludeMulticast": "มัลติคาสต์",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "ที่อยู่ Loopback",
         "enableCluster": "เปิดใช้งานคลัสเตอร์ Socks/Http Proxy",
         "clusterAllowOtherHostsConnect": "อนุญาตให้ผู้อื่นเชื่อมต่อกับคลัสเตอร์",

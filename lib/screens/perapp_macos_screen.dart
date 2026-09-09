@@ -19,7 +19,7 @@ import 'package:karing/screens/widgets/text_field.dart';
 import 'package:vpn_service/vpn_service.dart';
 
 class PerAppMacosScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "PerAppMacosScreen");
   }
 

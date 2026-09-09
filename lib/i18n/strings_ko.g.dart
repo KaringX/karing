@@ -16,20 +16,21 @@ class TranslationsKo with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ko,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ko>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsKo _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => '경로 제외';
 	@override String get tunRouteExcludeTips => '제외한 주소 범위의 트래픽은 더 이상 TUN으로 들어가지 않습니다';
 	@override String get tunRouteExcludeMulticast => '멀티캐스트';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => '루프백 주소';
 	@override String get enableCluster => 'Socks/Http 프록시 클러스터 활성화';
 	@override String get clusterAllowOtherHostsConnect => '다른 기기의 클러스터 연결 허용';
@@ -1175,6 +1177,7 @@ extension on TranslationsKo {
 			'SettingsScreen.tunRouteExclude' => '경로 제외',
 			'SettingsScreen.tunRouteExcludeTips' => '제외한 주소 범위의 트래픽은 더 이상 TUN으로 들어가지 않습니다',
 			'SettingsScreen.tunRouteExcludeMulticast' => '멀티캐스트',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => '루프백 주소',
 			'SettingsScreen.enableCluster' => 'Socks/Http 프록시 클러스터 활성화',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => '다른 기기의 클러스터 연결 허용',
@@ -1485,9 +1488,9 @@ extension on TranslationsKo {
 			'meta.profileAddParseFailed' => '프로필 분석 실패',
 			'meta.profileAddNoServerAvaliable' => '사용 가능한 서버가 없습니다. 구성 링크 또는 파일이 유효한지 확인하십시오. 구성이 GitHub인 경우 페이지의 [Raw] 버튼에서 링크를 가져오십시오',
 			'meta.profileAddWrapSuccess' => '구성이 성공적으로 생성되었습니다. [${_root.meta.myProfiles}]로 이동하여 확인하십시오',
-			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			'diversionCustomGroupPreset' => '사전 설정 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '참고: 활성화된 항목은 [${_root.meta.diversionCustomGroup}] 및 [${_root.meta.diversionRules}]에 추가/덮어쓰기됩니다',
 			'diversionCustomGroupAddTips' => '참고: 추가 후 순서를 수동으로 조정해야 할 수 있습니다. 그렇지 않으면 새로 추가된 분류가 적용되지 않을 수 있습니다',

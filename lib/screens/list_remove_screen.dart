@@ -5,7 +5,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class ListRemoveScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings(String viewTag) {
+  static RouteSettings routeSettings(String viewTag) {
     return RouteSettings(name: "ListRemoveScreen:$viewTag");
   }
 

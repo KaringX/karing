@@ -246,7 +246,7 @@ class SchemeHandler {
     bool? ok = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: AddProfileByLinkOrContentScreen.routSettings(),
+        settings: AddProfileByLinkOrContentScreen.routeSettings(),
         builder: (context) => AddProfileByLinkOrContentScreen(
           urlOrContent: urlOrContent,
           name: name,

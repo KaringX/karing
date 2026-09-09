@@ -12,7 +12,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 
 class RegionSettingsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "RegionSettingsScreen");
   }
 
@@ -307,7 +307,7 @@ class _RegionSetingsScreenState
     return Material(
       color:
           SettingManager.getConfig().regionCode.toUpperCase() == current.alpha2
-          ? ThemeDefine.kColorBlue
+          ? ThemeDefine.kColorBlueWithAlpha
           : null,
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(

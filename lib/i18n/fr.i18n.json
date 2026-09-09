@@ -233,6 +233,7 @@
         "tunRouteExclude": "Exclure la route",
         "tunRouteExcludeTips": "Le trafic des plages d'adresses exclues n'entrera plus dans TUN",
         "tunRouteExcludeMulticast": "Multidiffusion",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Adresse de bouclage",
         "enableCluster": "Activer le cluster de proxy Socks/Http",
         "clusterAllowOtherHostsConnect": "Autoriser les autres à se connecter au cluster",

@@ -233,6 +233,7 @@
         "tunRouteExclude": "排除路由",
         "tunRouteExcludeTips": "排除位址範圍的流量將不再進入 TUN",
         "tunRouteExcludeMulticast": "組播",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "環回位址",
         "enableCluster": "開啟 Socks/Http 代理集群",
         "clusterAllowOtherHostsConnect": "允許其他主機接入代理集群",

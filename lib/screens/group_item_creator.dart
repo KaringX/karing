@@ -76,6 +76,8 @@ class GroupItemCreator {
         widget = GroupItemTextField(options: option.textFormFieldOptions!);
       } else if (option.switchOptions != null) {
         widget = GroupItemSwitch(options: option.switchOptions!);
+      } else if (option.removeOptions != null) {
+        widget = GroupItemRemove(options: option.removeOptions!);
       } else if (option.pushOptions != null) {
         widget = GroupItemPush(options: option.pushOptions!);
       } else if (option.timerIntervalPickerOptions != null) {

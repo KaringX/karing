@@ -233,6 +233,7 @@
         "tunRouteExclude": "Wyklucz trasę",
         "tunRouteExcludeTips": "Ruch w wykluczonych zakresach adresów nie będzie już trafiał do TUN",
         "tunRouteExcludeMulticast": "Multicast",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Adres zwrotny",
         "enableCluster": "Włącz klaster proxy Socks/Http",
         "clusterAllowOtherHostsConnect": "Zezwalaj innym na łączenie się z klastrem",

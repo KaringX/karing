@@ -16,20 +16,21 @@ class TranslationsTh with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.th,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <th>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsTh _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'ยกเว้นเส้นทาง';
 	@override String get tunRouteExcludeTips => 'ทราฟฟิกในช่วงที่อยู่ที่ยกเว้นจะไม่เข้าสู่ TUN อีกต่อไป';
 	@override String get tunRouteExcludeMulticast => 'มัลติคาสต์';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'ที่อยู่ Loopback';
 	@override String get enableCluster => 'เปิดใช้งานคลัสเตอร์ Socks/Http Proxy';
 	@override String get clusterAllowOtherHostsConnect => 'อนุญาตให้ผู้อื่นเชื่อมต่อกับคลัสเตอร์';
@@ -1175,6 +1177,7 @@ extension on TranslationsTh {
 			'SettingsScreen.tunRouteExclude' => 'ยกเว้นเส้นทาง',
 			'SettingsScreen.tunRouteExcludeTips' => 'ทราฟฟิกในช่วงที่อยู่ที่ยกเว้นจะไม่เข้าสู่ TUN อีกต่อไป',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'มัลติคาสต์',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'ที่อยู่ Loopback',
 			'SettingsScreen.enableCluster' => 'เปิดใช้งานคลัสเตอร์ Socks/Http Proxy',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'อนุญาตให้ผู้อื่นเชื่อมต่อกับคลัสเตอร์',
@@ -1485,9 +1488,9 @@ extension on TranslationsTh {
 			'meta.profileAddParseFailed' => 'การแยกวิเคราะห์โปรไฟล์ล้มเหลว',
 			'meta.profileAddNoServerAvaliable' => 'ไม่มีเซิร์ฟเวอร์ที่พร้อมใช้งาน ตรวจสอบให้แน่ใจว่าลิงก์โปรไฟล์หรือไฟล์โปรไฟล์ถูกต้อง หากโปรไฟล์ของคุณมาจาก GitHub โปรดรับลิงก์จากปุ่ม [Raw] ในหน้า',
 			'meta.profileAddWrapSuccess' => 'โปรไฟล์สร้างสำเร็จ โปรดไปที่ [${_root.meta.myProfiles}] เพื่อดู',
-			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'ตั้งค่า [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'หมายเหตุ: รายการที่เปิดใช้งานจะถูกเพิ่ม/เขียนทับไปยัง [${_root.meta.diversionCustomGroup}] และ [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'หมายเหตุ: หลังจากเพิ่ม คุณอาจต้องปรับเปลี่ยนการจัดลำดับด้วยตนเอง มิฉะนั้นการเปลี่ยนเส้นทางที่เพิ่มใหม่อาจไม่ทำให้เกิดผล',

@@ -16,20 +16,21 @@ class TranslationsTr with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.tr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <tr>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsTr _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Yolu hariç tut';
 	@override String get tunRouteExcludeTips => 'Hariç tutulan adres aralıklarındaki trafik artık TUN\'a girmeyecek';
 	@override String get tunRouteExcludeMulticast => 'Çok noktaya yayın';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Geri Döngü Adresi';
 	@override String get enableCluster => 'Socks/Http Proxy Kümesini Etkinleştir';
 	@override String get clusterAllowOtherHostsConnect => 'Başkalarının Kümeye Bağlanmasına İzin Ver';
@@ -1175,6 +1177,7 @@ extension on TranslationsTr {
 			'SettingsScreen.tunRouteExclude' => 'Yolu hariç tut',
 			'SettingsScreen.tunRouteExcludeTips' => 'Hariç tutulan adres aralıklarındaki trafik artık TUN\'a girmeyecek',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Çok noktaya yayın',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Geri Döngü Adresi',
 			'SettingsScreen.enableCluster' => 'Socks/Http Proxy Kümesini Etkinleştir',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Başkalarının Kümeye Bağlanmasına İzin Ver',
@@ -1485,9 +1488,9 @@ extension on TranslationsTr {
 			'meta.profileAddParseFailed' => 'Profil Ayrıştırma başarısız oldu',
 			'meta.profileAddNoServerAvaliable' => 'Kullanılabilir sunucu yok, Profil Bağlantısının veya Profil Dosyasının geçerli olduğundan emin olun; Profiliniz GitHub\'dan geliyorsa lütfen bağlantıyı sayfadaki [Raw] düğmesinden alın',
 			'meta.profileAddWrapSuccess' => 'Profil başarıyla oluşturuldu, görüntülemek için lütfen [${_root.meta.myProfiles}] bölümüne gidin',
-			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			'diversionCustomGroupPreset' => 'Ön ayar [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Not: Etkinleştirilen öğeler [${_root.meta.diversionCustomGroup}] ve [${_root.meta.diversionRules}] bölümlerine eklenecek/üzerine yazılacaktır',
 			'diversionCustomGroupAddTips' => 'Not: Ekledikten sonra sırayı manuel olarak ayarlamanız gerekebilir, aksi takdirde yeni eklenen yönlendirme etkili olmayabilir',

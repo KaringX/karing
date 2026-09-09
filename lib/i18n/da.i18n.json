@@ -233,6 +233,7 @@
         "tunRouteExclude": "Ruteudelukkelse",
         "tunRouteExcludeTips": "Trafik i de udelukkede adresseområder vil ikke længere gå ind i TUN",
         "tunRouteExcludeMulticast": "Multicast",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Loopback-adresse",
         "enableCluster": "Aktiver Socks/Http Proxy Cluster",
         "clusterAllowOtherHostsConnect": "Tillad andre at oprette forbindelse til klusteret",

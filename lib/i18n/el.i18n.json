@@ -233,6 +233,7 @@
         "tunRouteExclude": "Εξαίρεση διαδρομής",
         "tunRouteExcludeTips": "Η κίνηση στα εξαιρούμενα εύρη διευθύνσεων δεν θα εισέρχεται πλέον στο TUN",
         "tunRouteExcludeMulticast": "Πολλαπλή μετάδοση",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Διεύθυνση Loopback",
         "enableCluster": "Ενεργοποίηση Socks/Http Proxy Cluster",
         "clusterAllowOtherHostsConnect": "Να επιτρέπεται σε άλλους να συνδέονται στο cluster",

@@ -12,13 +12,6 @@
       "y": 200,
       "type": "file",
       "path": "../../dist/macos/Karing.app"
-    },
-    {
-      "x": 320,
-      "y": 360,
-      "type": "file",
-      "path": "start.command",
-      "name": "Launch.command"
     }
   ]
 }

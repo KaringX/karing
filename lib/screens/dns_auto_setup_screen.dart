@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class DnsAutoSetupScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "DnsAutoSetupScreen");
   }
 

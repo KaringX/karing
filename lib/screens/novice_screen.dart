@@ -10,7 +10,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class NoviceScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "NoviceScreen");
   }
 

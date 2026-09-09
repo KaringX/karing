@@ -509,6 +509,8 @@ class SettingConfigItemTUN {
   List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
   String loopbackAddress = "";
+  bool routeExcludeAddressTun = Platform.isWindows;
+  bool routeExcludeAddressMulticast = false;
   List<String> routeExcludeAddress = [];
 
   Map<String, dynamic> toJson() {
@@ -535,6 +537,7 @@ class SettingConfigItemTUN {
       'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
       'hijack_dns': hijackDns,
       'loopback_address': loopbackAddress,
+      'route_exclude_address_tun': routeExcludeAddressTun,
       'route_exclude_address': routeExcludeAddress,
     };
     return ret;
@@ -599,11 +602,50 @@ class SettingConfigItemTUN {
         !NetworkUtils.isIpv6(loopbackAddress)) {
       loopbackAddress = "";
     }
+    routeExcludeAddressTun =
+        map["route_exclude_address_tun"] ?? Platform.isWindows;
     routeExcludeAddress = ConvertUtils.getListStringFromDynamic(
       map["route_exclude_address"],
       true,
       [],
     )!;
+  }
+
+  List<String> getAddress(IPStrategy ipStrategy) {
+    int ipv4Mask = 30;
+    int ipv6Mask = 126;
+    if (ipv4Address.isNotEmpty) {
+      if (NetworkUtils.isIpv4(ipv4Address)) {
+        SingboxInboundTunOptions.ipv4Address = ipv4Address;
+      } else if (NetworkUtils.isIpv4WithMask(ipv4Address)) {
+        SingboxInboundTunOptions.ipv4Address = ipv4Address.split("/")[0];
+        ipv4Mask = int.tryParse(ipv4Address.split("/").last) ?? 30;
+        if (ipv4Mask > 30) {
+          ipv4Mask = 30;
+        }
+        if (ipv4Mask < 24) {
+          ipv4Mask = 24;
+        }
+      }
+    }
+
+    List<String> result = ["${SingboxInboundTunOptions.ipv4Address}/$ipv4Mask"];
+    if (ipStrategy.index >= IPStrategy.preferIPv4.index) {
+      if (NetworkUtils.isIpv6(ipv6Address)) {
+        SingboxInboundTunOptions.ipv6Address = ipv6Address;
+      } else if (NetworkUtils.isIpv6WithMask(ipv6Address)) {
+        SingboxInboundTunOptions.ipv6Address = ipv6Address.split("/")[0];
+        ipv6Mask = int.tryParse(ipv6Address.split("/").last) ?? 126;
+        if (ipv6Mask > 126) {
+          ipv6Mask = 126;
+        }
+        if (ipv6Mask < 64) {
+          ipv6Mask = 64;
+        }
+      }
+      result.add("${SingboxInboundTunOptions.ipv6Address}/$ipv6Mask");
+    }
+    return result;
   }
 
   static SettingConfigItemTUN fromJsonStatic(Map<String, dynamic>? map) {

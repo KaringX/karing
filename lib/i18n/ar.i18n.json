@@ -233,6 +233,7 @@
         "tunRouteExclude": "استبعاد المسار",
         "tunRouteExcludeTips": "لن تدخل حركة المرور ضمن نطاقات العناوين المستبعدة إلى TUN بعد الآن",
         "tunRouteExcludeMulticast": "متعدد الإرسال",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "عنوان الاسترجاع",
         "enableCluster": "تمكين مجموعة الوكيل الجوارب/HTTP",
         "clusterAllowOtherHostsConnect": "السماح للآخرين بالاتصال بـ CLUSTER",

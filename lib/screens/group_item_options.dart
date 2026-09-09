@@ -95,6 +95,21 @@ class GroupItemSwitchOptions {
   Future<void> Function(bool)? onSwitch;
 }
 
+class GroupItemRemoveOptions {
+  GroupItemRemoveOptions({
+    required this.name,
+    this.tips,
+    this.reddot,
+    this.onRemove,
+  });
+
+  final String name;
+  final String? tips;
+  final bool? reddot;
+
+  Future<void> Function()? onRemove;
+}
+
 class GroupItemPushOptions {
   GroupItemPushOptions({
     required this.name,
@@ -204,6 +219,7 @@ class GroupItemOptions {
     this.textOptions,
     this.textFormFieldOptions,
     this.switchOptions,
+    this.removeOptions,
     this.pushOptions,
     this.timerIntervalPickerOptions,
     this.dateTimePeriodPickerOptions,
@@ -213,6 +229,7 @@ class GroupItemOptions {
   final GroupItemTextOptions? textOptions;
   final GroupItemTextFieldOptions? textFormFieldOptions;
   final GroupItemSwitchOptions? switchOptions;
+  final GroupItemRemoveOptions? removeOptions;
   final GroupItemPushOptions? pushOptions;
   final GroupItemTimerIntervalPickerOptions? timerIntervalPickerOptions;
   final GroupItemDateTimePeriodPickerOptions? dateTimePeriodPickerOptions;

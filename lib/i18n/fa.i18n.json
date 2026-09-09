@@ -233,6 +233,7 @@
         "tunRouteExclude": "استثنای مسیر",
         "tunRouteExcludeTips": "ترافیک محدوده‌های آدرس مستثنا دیگر وارد TUN نخواهد شد",
         "tunRouteExcludeMulticast": "چندپخشی",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "آدرس لوپ‌بک",
         "enableCluster": "فعال‌سازی پروکسی Socks/Http خوشه‌ای",
         "clusterAllowOtherHostsConnect": "اجازه اتصال دیگران به خوشه",

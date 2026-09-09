@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn_service/vpn_service.dart';
 
 class InAppWebViewScreen extends StatefulWidget {
-  static RouteSettings routSettings(String viewTag) {
+  static RouteSettings routeSettings(String viewTag) {
     return RouteSettings(name: "InAppWebViewScreen:$viewTag");
   }
 

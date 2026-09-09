@@ -10,7 +10,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class UWPLoopbackExemptionWindowsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "UWPLoopbackExemptionWindowsScreen");
   }
 

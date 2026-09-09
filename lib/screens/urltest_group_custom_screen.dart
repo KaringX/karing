@@ -11,7 +11,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:tuple/tuple.dart';
 
 class UrlTestGroupCustomScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "UrlTestGroupCustomScreen");
   }
 
@@ -272,7 +272,7 @@ class _UrlTestGroupCustomScreenState
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ServerSelectScreen.routSettings(),
+        settings: ServerSelectScreen.routeSettings(),
         builder: (context) => ServerSelectScreen(
           singleSelect: null,
           multiSelect: ServerSelectScreenMultiSelectedOption(

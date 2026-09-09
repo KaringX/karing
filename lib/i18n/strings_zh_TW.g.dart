@@ -16,20 +16,21 @@ class TranslationsZhTw with BaseTranslations<AppLocale, Translations> implements
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZhTw({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.zhTw,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <zh-TW>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsZhTw _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class Translations$SettingsScreen$zh_TW implements Translations$SettingsScreen$e
 	@override String get tunRouteExclude => '排除路由';
 	@override String get tunRouteExcludeTips => '排除位址範圍的流量將不再進入 TUN';
 	@override String get tunRouteExcludeMulticast => '組播';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => '環回位址';
 	@override String get enableCluster => '開啟 Socks/Http 代理集群';
 	@override String get clusterAllowOtherHostsConnect => '允許其他主機接入代理集群';
@@ -1175,6 +1177,7 @@ extension on TranslationsZhTw {
 			'SettingsScreen.tunRouteExclude' => '排除路由',
 			'SettingsScreen.tunRouteExcludeTips' => '排除位址範圍的流量將不再進入 TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => '組播',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => '環回位址',
 			'SettingsScreen.enableCluster' => '開啟 Socks/Http 代理集群',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => '允許其他主機接入代理集群',
@@ -1485,9 +1488,9 @@ extension on TranslationsZhTw {
 			'meta.profileAddParseFailed' => '解析配置失敗',
 			'meta.profileAddNoServerAvaliable' => '無可用伺服器, 請確保配置連結或設定檔有效; 如果你的配置來源於 GitHub, 請從頁面上的 [Raw] 按鈕獲取連結位址',
 			'meta.profileAddWrapSuccess' => '配置生成成功, 請到 [${_root.meta.myProfiles}] 查看',
-			'diversionRulesKeep' => '保留 [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '保留 [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '預置 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 啟用的項會新增/覆蓋到 [${_root.meta.diversionCustomGroup}] 和 [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => '注意: 新增完畢後可能需要手動調整排序, 否則新新增的分流可能不會生效',

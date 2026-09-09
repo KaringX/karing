@@ -20,7 +20,7 @@ import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 
 class PerAppAndroidScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "PerAppAndroidScreen");
   }
 
@@ -38,6 +38,7 @@ class _PerAppAndroidScreenState
   final List<PackageInfoEx> _applicationInfoList = [];
   final _searchController = TextEditingController();
   List<PackageInfoEx> _searchedData = [];
+  final Map<String, Future<Image?>> _packageIconFutures = {};
   bool _needPermission = false;
 
   @override
@@ -75,6 +76,7 @@ class _PerAppAndroidScreenState
   }
 
   Future<void> getInstalledPackages() async {
+    _packageIconFutures.clear();
     _applicationInfoList.clear();
     _searchedData.clear();
     var perapp = SettingManager.getConfig().perapp;
@@ -146,13 +148,16 @@ class _PerAppAndroidScreenState
     setState(() {});
   }
 
-  Future<Image?> getInstalledPackageIcon(String packageName) async {
+  Future<Image?> getInstalledPackageIcon(String packageName) {
     if (SettingManager.getConfig().perapp.hideAppIcon) {
-      return null;
+      return Future.value(null);
     }
-    return PackageManagerAndroid.getInstalledPackageIcon(
-      _applicationInfoList,
+    return _packageIconFutures.putIfAbsent(
       packageName,
+      () => PackageManagerAndroid.getInstalledPackageIcon(
+        _applicationInfoList,
+        packageName,
+      ),
     );
   }
 
@@ -461,6 +466,7 @@ class _PerAppAndroidScreenState
           switchValue: SettingManager.getConfig().perapp.hideAppIcon,
           onSwitch: (bool value) async {
             SettingManager.getConfig().perapp.hideAppIcon = value;
+            _packageIconFutures.clear();
             setState(() {});
           },
         ),

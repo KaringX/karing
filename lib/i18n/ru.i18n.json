@@ -233,6 +233,7 @@
         "tunRouteExclude": "Исключить маршрут",
         "tunRouteExcludeTips": "Трафик в исключённых диапазонах адресов больше не будет попадать в TUN",
         "tunRouteExcludeMulticast": "Многоадресная передача",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Петлевой адрес",
         "enableCluster": "Включить кластер прокси Socks/Http",
         "clusterAllowOtherHostsConnect": "Разрешить подключение по локальной сети к кластеру",

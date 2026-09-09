@@ -11,7 +11,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class QrcodeScanScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "QrcodeScanScreen");
   }
 

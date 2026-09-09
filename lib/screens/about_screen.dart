@@ -31,7 +31,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:path/path.dart' as path;
 
 class AboutScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "AboutScreen");
   }
 
@@ -326,7 +326,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: FileContentViewerScreen.routSettings(),
+                  settings: FileContentViewerScreen.routeSettings(),
                   builder: (context) => const FileContentViewerScreen(),
                 ),
               );
@@ -455,7 +455,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: HashStringScreen.routSettings(),
+                    settings: HashStringScreen.routeSettings(),
                     builder: (context) => const HashStringScreen(),
                   ),
                 );
@@ -478,7 +478,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("devOptions"),
+        settings: GroupScreen.routeSettings("devOptions"),
         builder: (context) => GroupScreen(
           title: tcontext.AboutScreen.devOptions,
           getOptions: getOptions,
@@ -522,7 +522,7 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("versionChannel"),
+        settings: GroupScreen.routeSettings("versionChannel"),
         builder: (context) => GroupScreen(
           title: tcontext.AboutScreen.versionChannel,
           getOptions: getOptions,

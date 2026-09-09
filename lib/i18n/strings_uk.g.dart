@@ -16,20 +16,21 @@ class TranslationsUk with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsUk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.uk,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <uk>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsUk _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$uk implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Виключити маршрут';
 	@override String get tunRouteExcludeTips => 'Трафік у виключених діапазонах адрес більше не потраплятиме до TUN';
 	@override String get tunRouteExcludeMulticast => 'Багатоадресна передача';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Локальна петля (Loopback)';
 	@override String get enableCluster => 'Увімкнути кластер проксі Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Дозволити іншим підключатися до кластера';
@@ -1175,6 +1177,7 @@ extension on TranslationsUk {
 			'SettingsScreen.tunRouteExclude' => 'Виключити маршрут',
 			'SettingsScreen.tunRouteExcludeTips' => 'Трафік у виключених діапазонах адрес більше не потраплятиме до TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Багатоадресна передача',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Локальна петля (Loopback)',
 			'SettingsScreen.enableCluster' => 'Увімкнути кластер проксі Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Дозволити іншим підключатися до кластера',
@@ -1485,9 +1488,9 @@ extension on TranslationsUk {
 			'meta.profileAddParseFailed' => 'Не вдалося проаналізувати профіль',
 			'meta.profileAddNoServerAvaliable' => 'Немає доступних серверів, переконайтеся, що посилання на профіль або файл профілю коректні; якщо ваш профіль з GitHub, отримайте посилання за допомогою кнопки [Raw] на сторінці',
 			'meta.profileAddWrapSuccess' => 'Профіль успішно згенеровано, перейдіть до [${_root.meta.myProfiles}] для перегляду',
-			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Попередньо встановлена [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Примітка: Увімкнені елементи будуть додані/перезаписані в [${_root.meta.diversionCustomGroup}] та [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Примітка: Після додавання вам може знадобитися вручну відрегулювати порядок, інакше нещодавно додане відхилення може не набрати чинності',

@@ -233,6 +233,7 @@
         "tunRouteExclude": "Route Exclusion",
         "tunRouteExcludeTips": "Traffic in the excluded address ranges will no longer enter TUN",
         "tunRouteExcludeMulticast": "Multicast",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Loopback Address",
         "enableCluster": "Enable Socks/Http Proxy Cluster",
         "clusterAllowOtherHostsConnect": "Allow Others to Connect to Cluster",
