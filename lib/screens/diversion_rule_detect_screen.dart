@@ -18,7 +18,7 @@ import 'package:karing/screens/widgets/text_field.dart';
 import 'package:tuple/tuple.dart';
 
 class DiversionRuleDetectScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "DiversionRuleDetectScreen");
   }
 

@@ -12,7 +12,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class GroupScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings(String viewTag) {
+  static RouteSettings routeSettings(String viewTag) {
     return RouteSettings(name: "GroupScreen:$viewTag");
   }
 
@@ -23,7 +23,8 @@ class GroupScreen extends LasyRenderingStatefulWidget {
   )
   getOptions;
   final bool hasReturn;
-  final Future<bool> Function(BuildContext context)? onDone;
+  final Future<bool> Function(BuildContext context, SetStateCallback? setstate)?
+  onDone;
   final String? tipsIfNoOnDone;
   final IconData? onDoneIcon;
   final Future<void> Function(BuildContext context)? onFirstLayout;
@@ -112,7 +113,9 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
                     widget.onDone != null
                         ? InkWell(
                             onTap: () async {
-                              if (await widget.onDone!(context)) {
+                              if (await widget.onDone!(context, () {
+                                setState(() {});
+                              })) {
                                 Navigator.pop(context, true);
                               }
                             },

@@ -79,11 +79,14 @@ class BoardProviderNotice {
       }
       DateTime? et = DateTime.tryParse(item.expireTime);
       DateTime? ut = DateTime.tryParse(item.updateTime);
-      if (et != null && now.isAfter(et)) {
-        continue;
-      }
-      if (ut != null && now.difference(ut).inDays > 30) {
-        continue;
+      if (et != null) {
+        if (now.isAfter(et)) {
+          continue;
+        }
+      } else {
+        if (ut != null && now.difference(ut).inDays > 30) {
+          continue;
+        }
       }
 
       items.add(item);
@@ -256,6 +259,19 @@ class BoardProviderNoticeLoadAndCheck {
         return;
       }
       _duration = _checkDuration;
+      DateTime? et = DateTime.tryParse(gnotice.expireTime);
+      DateTime? ut = DateTime.tryParse(gnotice.updateTime);
+      if (et != null) {
+        if (now.isAfter(et)) {
+          save();
+          return;
+        }
+      } else {
+        if (ut != null && now.difference(ut).inDays > 30) {
+          save();
+          return;
+        }
+      }
       BoardProviderNoticeItem? item = _notice.getByUpdateTime(
         providerId,
         gnotice.updateTime,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ThemeDefine {
   static const kColorBlue = Colors.blue;
+  static final kColorBlueWithAlpha = Colors.blue[400];
   static const kColorGrey = Colors.grey;
   static const kColorGreenBright = Color.fromARGB(255, 8, 199, 15);
 

@@ -7,7 +7,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class UrlTestSettingsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "UrlTestSettingsScreen");
   }
 
@@ -125,7 +125,9 @@ class _UrlTestSettingsScreenState
     double centerWidth = windowSize.width - rightWidth - 20;
     var settingConfig = SettingManager.getConfig();
     return Material(
-      color: settingConfig.urlTest == current ? ThemeDefine.kColorBlue : null,
+      color: settingConfig.urlTest == current
+          ? ThemeDefine.kColorBlueWithAlpha
+          : null,
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(
         onTap: () {

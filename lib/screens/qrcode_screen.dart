@@ -18,7 +18,7 @@ import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 
 class QrcodeScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "QrcodeScreen");
   }
 

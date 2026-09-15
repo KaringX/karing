@@ -233,6 +233,7 @@
         "tunRouteExclude": "Kecualikan rute",
         "tunRouteExcludeTips": "Trafik dari segmen alamat yang dikecualikan tidak akan lagi masuk ke TUN",
         "tunRouteExcludeMulticast": "Multicast",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Alamat loopback",
         "enableCluster": "Aktifkan klaster proxy Socks/Http",
         "clusterAllowOtherHostsConnect": "Izinkan host lain terhubung ke klaster proxy",

@@ -16,20 +16,21 @@ class TranslationsUr with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsUr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ur,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ur>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsUr _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$ur implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'روٹ خارج کریں';
 	@override String get tunRouteExcludeTips => 'خارج کردہ پتہ جاتی حدود کا ٹریفک اب TUN میں داخل نہیں ہوگا';
 	@override String get tunRouteExcludeMulticast => 'ملٹی کاسٹ';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'لوپ بیک پتہ';
 	@override String get enableCluster => 'Socks/Http پراکسی کلسٹر فعال کریں';
 	@override String get clusterAllowOtherHostsConnect => 'دوسروں کو کلسٹر سے جڑنے کی اجازت دیں';
@@ -1175,6 +1177,7 @@ extension on TranslationsUr {
 			'SettingsScreen.tunRouteExclude' => 'روٹ خارج کریں',
 			'SettingsScreen.tunRouteExcludeTips' => 'خارج کردہ پتہ جاتی حدود کا ٹریفک اب TUN میں داخل نہیں ہوگا',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'ملٹی کاسٹ',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'لوپ بیک پتہ',
 			'SettingsScreen.enableCluster' => 'Socks/Http پراکسی کلسٹر فعال کریں',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'دوسروں کو کلسٹر سے جڑنے کی اجازت دیں',
@@ -1485,9 +1488,9 @@ extension on TranslationsUr {
 			'meta.profileAddParseFailed' => 'پروفائل کا تجزیہ کرنے میں ناکامی',
 			'meta.profileAddNoServerAvaliable' => 'کوئی سرور دستیاب نہیں ہے، یقینی بنائیں کہ پروفائل لنک یا پروفائل فائل درست ہے؛ اگر آپ کا پروفائل GitHub سے ہے تو براہ کرم صفحہ پر [Raw] بٹن کے ذریعے لنک حاصل کریں',
 			'meta.profileAddWrapSuccess' => 'پروفائل کامیابی سے تیار ہو گیا، براہ کرم دیکھنے کے لیے [${_root.meta.myProfiles}] پر جائیں',
-			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			'diversionCustomGroupPreset' => 'پری سیٹ [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'نوٹ: فعال کردہ آئٹمز [${_root.meta.diversionCustomGroup}] اور [${_root.meta.diversionRules}] میں شامل/اوور رائٹ کر دیے جائیں گے',
 			'diversionCustomGroupAddTips' => 'نوٹ: شامل کرنے کے بعد، آپ کو ترتیب کو دستی طور پر ایڈجسٹ کرنے کی ضرورت پڑ سکتی ہے، ورنہ نیا شامل کردہ ڈائیورژن موثر نہیں ہو سکتا ہے',

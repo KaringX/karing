@@ -14,7 +14,7 @@ import 'package:path/path.dart' as path;
 import 'package:share_plus/share_plus.dart';
 
 class RichtextViewScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "RichtextViewScreen");
   }
 

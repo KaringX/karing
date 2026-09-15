@@ -16,20 +16,21 @@ class TranslationsFa with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.fa,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <fa>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsFa _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'استثنای مسیر';
 	@override String get tunRouteExcludeTips => 'ترافیک محدوده‌های آدرس مستثنا دیگر وارد TUN نخواهد شد';
 	@override String get tunRouteExcludeMulticast => 'چندپخشی';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'آدرس لوپ‌بک';
 	@override String get enableCluster => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای';
 	@override String get clusterAllowOtherHostsConnect => 'اجازه اتصال دیگران به خوشه';
@@ -1175,6 +1177,7 @@ extension on TranslationsFa {
 			'SettingsScreen.tunRouteExclude' => 'استثنای مسیر',
 			'SettingsScreen.tunRouteExcludeTips' => 'ترافیک محدوده‌های آدرس مستثنا دیگر وارد TUN نخواهد شد',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'چندپخشی',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'آدرس لوپ‌بک',
 			'SettingsScreen.enableCluster' => 'فعال‌سازی پروکسی Socks/Http خوشه‌ای',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'اجازه اتصال دیگران به خوشه',
@@ -1485,9 +1488,9 @@ extension on TranslationsFa {
 			'meta.profileAddParseFailed' => 'تجزیه پروفایل انجام نشد',
 			'meta.profileAddNoServerAvaliable' => 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید',
 			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
-			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',
 			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',
 			'diversionCustomGroupAddTips' => 'توجه: ممکن است لازم باشد پس از افزودن مرتب‌سازی به‌صورت دستی آن را تنظیم کنید، در غیر این صورت انحراف تازه اضافه‌شده ممکن است اعمال نشود.',

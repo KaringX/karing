@@ -12,7 +12,7 @@ import 'package:karing/screens/webview_helper.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class UserAgreementScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "UserAgreementScreen");
   }
 

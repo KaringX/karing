@@ -8,7 +8,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:tuple/tuple.dart';
 
 class MapStringAndListAddScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "MapStringAndListAddScreen");
   }
 
@@ -135,7 +135,7 @@ class _MapStringAndListAddScreenState
           await Navigator.push(
             context,
             MaterialPageRoute(
-              settings: ListAddScreen.routSettings(current.item1),
+              settings: ListAddScreen.routeSettings(current.item1),
               builder: (context) => ListAddScreen(
                 title: current.item1,
                 data: current.item2,

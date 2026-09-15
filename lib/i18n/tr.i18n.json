@@ -233,6 +233,7 @@
         "tunRouteExclude": "Yolu hariç tut",
         "tunRouteExcludeTips": "Hariç tutulan adres aralıklarındaki trafik artık TUN'a girmeyecek",
         "tunRouteExcludeMulticast": "Çok noktaya yayın",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Geri Döngü Adresi",
         "enableCluster": "Socks/Http Proxy Kümesini Etkinleştir",
         "clusterAllowOtherHostsConnect": "Başkalarının Kümeye Bağlanmasına İzin Ver",

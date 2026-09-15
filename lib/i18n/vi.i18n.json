@@ -233,6 +233,7 @@
         "tunRouteExclude": "Loại trừ tuyến",
         "tunRouteExcludeTips": "Lưu lượng trong các dải địa chỉ bị loại trừ sẽ không còn đi vào TUN nữa",
         "tunRouteExcludeMulticast": "Đa hướng",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Địa chỉ Loopback",
         "enableCluster": "Bật cụm Proxy Socks/Http",
         "clusterAllowOtherHostsConnect": "Cho phép thiết bị khác kết nối với cụm",

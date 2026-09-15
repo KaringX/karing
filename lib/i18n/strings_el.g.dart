@@ -16,20 +16,21 @@ class TranslationsEl with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.el,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <el>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsEl _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Εξαίρεση διαδρομής';
 	@override String get tunRouteExcludeTips => 'Η κίνηση στα εξαιρούμενα εύρη διευθύνσεων δεν θα εισέρχεται πλέον στο TUN';
 	@override String get tunRouteExcludeMulticast => 'Πολλαπλή μετάδοση';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Διεύθυνση Loopback';
 	@override String get enableCluster => 'Ενεργοποίηση Socks/Http Proxy Cluster';
 	@override String get clusterAllowOtherHostsConnect => 'Να επιτρέπεται σε άλλους να συνδέονται στο cluster';
@@ -1175,6 +1177,7 @@ extension on TranslationsEl {
 			'SettingsScreen.tunRouteExclude' => 'Εξαίρεση διαδρομής',
 			'SettingsScreen.tunRouteExcludeTips' => 'Η κίνηση στα εξαιρούμενα εύρη διευθύνσεων δεν θα εισέρχεται πλέον στο TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Πολλαπλή μετάδοση',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Διεύθυνση Loopback',
 			'SettingsScreen.enableCluster' => 'Ενεργοποίηση Socks/Http Proxy Cluster',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Να επιτρέπεται σε άλλους να συνδέονται στο cluster',
@@ -1485,9 +1488,9 @@ extension on TranslationsEl {
 			'meta.profileAddParseFailed' => 'Αποτυχία ανάλυσης προφίλ',
 			'meta.profileAddNoServerAvaliable' => 'Δεν υπάρχει διαθέσιμος διακομιστής, βεβαιωθείτε ότι ο Σύνδεσμος Προφίλ ή το Αρχείο Προφίλ είναι έγκυρο. Εάν το προφίλ σας προέρχεται από το GitHub, λάβετε το σύνδεσμο μέσω του κουμπιού [Raw] στη σελίδα',
 			'meta.profileAddWrapSuccess' => 'Το προφίλ δημιουργήθηκε επιτυχώς, παρακαλούμε μεταβείτε στο [${_root.meta.myProfiles}] για προβολή',
-			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Προκαθορισμένη [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Σημείωση: Τα ενεργοποιημένα στοιχεία θα προστεθούν/αντικαταστήσουν στο [${_root.meta.diversionCustomGroup}] και στο [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Σημείωση: Μετά την προσθήκη, ίσως χρειαστεί να προσαρμόσετε χειροκίνητα τη σειρά, διαφορετικά η πρόσφατα προστιθέμενη εκτροπή ενδέχεται να μην τεθεί σε ισχύ',

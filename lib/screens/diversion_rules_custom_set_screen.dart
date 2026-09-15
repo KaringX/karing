@@ -11,7 +11,7 @@ import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class DiversionRulesCustomSetScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "DiversionRulesCustomSetScreen");
   }
 

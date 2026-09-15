@@ -16,7 +16,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:karing/screens/widgets/text_field.dart';
 
 class PackageIdMultiSelectAndroidScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "PackageIdMultiSelectAndroidScreen");
   }
 
@@ -40,6 +40,7 @@ class _PackageIdMultiSelectAndroidScreenState
   bool _loading = true;
   final _searchController = TextEditingController();
   List<PackageInfoEx> _searchedData = [];
+  final Map<String, Future<Image?>> _packageIconFutures = {};
   bool _needPermission = false;
 
   @override
@@ -83,6 +84,7 @@ class _PackageIdMultiSelectAndroidScreenState
   }
 
   Future<void> getInstalledPackages() async {
+    _packageIconFutures.clear();
     widget.installedApps.clear();
     _searchedData.clear();
     _loading = true;
@@ -152,13 +154,16 @@ class _PackageIdMultiSelectAndroidScreenState
     setState(() {});
   }
 
-  Future<Image?> getInstalledPackageIcon(String packageName) async {
+  Future<Image?> getInstalledPackageIcon(String packageName) {
     if (SettingManager.getConfig().perapp.hideAppIcon) {
-      return null;
+      return Future.value(null);
     }
-    return PackageManagerAndroid.getInstalledPackageIcon(
-      widget.installedApps,
+    return _packageIconFutures.putIfAbsent(
       packageName,
+      () => PackageManagerAndroid.getInstalledPackageIcon(
+        widget.installedApps,
+        packageName,
+      ),
     );
   }
 
@@ -424,6 +429,7 @@ class _PackageIdMultiSelectAndroidScreenState
           switchValue: SettingManager.getConfig().perapp.hideAppIcon,
           onSwitch: (bool value) async {
             SettingManager.getConfig().perapp.hideAppIcon = value;
+            _packageIconFutures.clear();
             setState(() {});
           },
         ),

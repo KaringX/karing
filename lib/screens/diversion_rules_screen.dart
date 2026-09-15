@@ -19,7 +19,7 @@ import 'package:karing/screens/widgets/sheet.dart';
 import 'package:tuple/tuple.dart';
 
 class DiversionRulesScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "DiversionRulesScreen");
   }
 
@@ -477,7 +477,7 @@ class DiversionRulesScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: DiversionGroupCustomScreen.routSettings(),
+        settings: DiversionGroupCustomScreen.routeSettings(),
         builder: (context) => const DiversionGroupCustomScreen(),
       ),
     );
@@ -491,7 +491,7 @@ class DiversionRulesScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: FileViewScreen.routSettings(),
+        settings: FileViewScreen.routeSettings(),
         builder: (context) =>
             FileViewScreen(title: group.name, content: content),
       ),
@@ -536,7 +536,7 @@ class DiversionRulesScreenState
             await Navigator.push(
               context,
               MaterialPageRoute(
-                settings: DnsSettingsScreen.routSettings(),
+                settings: DnsSettingsScreen.routeSettings(),
                 builder: (context) => DnsSettingsScreen(
                   title: getDiversionShortName(group.name),
                   servers: dnsServer,
@@ -599,7 +599,7 @@ class DiversionRulesScreenState
     ProxyConfig? result = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ServerSelectScreen.routSettings(),
+        settings: ServerSelectScreen.routeSettings(),
         builder: (context) => ServerSelectScreen(
           title: getDiversionShortName(group.name),
           singleSelect: ServerSelectScreenSingleSelectedOption(

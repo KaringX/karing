@@ -35,7 +35,7 @@ class NetCheckItemWarpper {
 }
 
 class NetCheckScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "NetCheckScreen");
   }
 

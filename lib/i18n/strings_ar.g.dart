@@ -16,20 +16,21 @@ class TranslationsAr with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ar,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ar>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsAr _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'استبعاد المسار';
 	@override String get tunRouteExcludeTips => 'لن تدخل حركة المرور ضمن نطاقات العناوين المستبعدة إلى TUN بعد الآن';
 	@override String get tunRouteExcludeMulticast => 'متعدد الإرسال';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'عنوان الاسترجاع';
 	@override String get enableCluster => 'تمكين مجموعة الوكيل الجوارب/HTTP';
 	@override String get clusterAllowOtherHostsConnect => 'السماح للآخرين بالاتصال بـ CLUSTER';
@@ -1175,6 +1177,7 @@ extension on TranslationsAr {
 			'SettingsScreen.tunRouteExclude' => 'استبعاد المسار',
 			'SettingsScreen.tunRouteExcludeTips' => 'لن تدخل حركة المرور ضمن نطاقات العناوين المستبعدة إلى TUN بعد الآن',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'متعدد الإرسال',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'عنوان الاسترجاع',
 			'SettingsScreen.enableCluster' => 'تمكين مجموعة الوكيل الجوارب/HTTP',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'السماح للآخرين بالاتصال بـ CLUSTER',
@@ -1485,9 +1488,9 @@ extension on TranslationsAr {
 			'meta.profileAddParseFailed' => 'فشل تحليل الملف الشخصي',
 			'meta.profileAddNoServerAvaliable' => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة',
 			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
-			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',
 			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',
 			'diversionCustomGroupAddTips' => 'ملاحظة: قد تحتاج إلى ضبط الفرز يدويًا بعد إضافته، وإلا فإن التحويل المضاف حديثًا قد لا يسري مفعوله.',

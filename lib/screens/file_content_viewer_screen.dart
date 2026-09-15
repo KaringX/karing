@@ -19,7 +19,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 
 class FileContentViewerScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "FileContentViewerScreen");
   }
 

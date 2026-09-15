@@ -10,7 +10,7 @@ import 'package:re_highlight/styles/atom-one-light.dart';
 typedef EditingValueChangeBuilder = Widget Function(CodeLineEditingValue value);
 
 class FileViewScreen extends StatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "/");
   }
 

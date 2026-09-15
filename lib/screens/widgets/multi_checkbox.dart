@@ -95,7 +95,7 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
         final selected = await Navigator.push(
           context,
           MaterialPageRoute(
-            settings: MultiSelectScreen.routSettings(),
+            settings: MultiSelectScreen.routeSettings(),
             builder: (context) => MultiSelectScreen(
               title: '',
               getData: () async {

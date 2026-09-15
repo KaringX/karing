@@ -24,7 +24,7 @@ import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 
 class BackupAndSyncLanSyncScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "BackupAndSyncLanSyncScreen");
   }
 
@@ -140,7 +140,7 @@ class _BackupAndSyncLanSyncScreenState
           : AppSchemeActions.syncDownloadAction());
 
       String url =
-          "karing://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$listenPort";
+          "${AppSchemeActions.scheme()}://$action/?ips=${Uri.encodeComponent(ips.join(","))}&port=$listenPort";
       if (widget.syncUpload != true) {
         url += "&filename=${Uri.encodeComponent(path.basename(_zipPath!))}";
       }

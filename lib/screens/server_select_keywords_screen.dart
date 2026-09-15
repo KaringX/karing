@@ -9,7 +9,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class ServerSelectKeywordsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "ServerSelectKeywordsScreen");
   }
 

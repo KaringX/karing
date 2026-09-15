@@ -16,20 +16,21 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsId({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.id,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <id>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsId _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$id implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Kecualikan rute';
 	@override String get tunRouteExcludeTips => 'Trafik dari segmen alamat yang dikecualikan tidak akan lagi masuk ke TUN';
 	@override String get tunRouteExcludeMulticast => 'Multicast';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Alamat loopback';
 	@override String get enableCluster => 'Aktifkan klaster proxy Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Izinkan host lain terhubung ke klaster proxy';
@@ -1175,6 +1177,7 @@ extension on TranslationsId {
 			'SettingsScreen.tunRouteExclude' => 'Kecualikan rute',
 			'SettingsScreen.tunRouteExcludeTips' => 'Trafik dari segmen alamat yang dikecualikan tidak akan lagi masuk ke TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Multicast',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Alamat loopback',
 			'SettingsScreen.enableCluster' => 'Aktifkan klaster proxy Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Izinkan host lain terhubung ke klaster proxy',
@@ -1485,9 +1488,9 @@ extension on TranslationsId {
 			'meta.profileAddParseFailed' => 'Gagal mengurai konfigurasi',
 			'meta.profileAddNoServerAvaliable' => 'Tidak ada server yang tersedia, pastikan tautan atau file konfigurasi valid; jika konfigurasi Anda berasal dari GitHub, gunakan alamat tautan dari tombol [Raw] di halaman',
 			'meta.profileAddWrapSuccess' => 'Konfigurasi berhasil dibuat, silakan lihat di [${_root.meta.myProfiles}]',
-			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Perhatian: item yang diaktifkan akan ditambahkan/menimpa [${_root.meta.diversionCustomGroup}] dan [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Perhatian: setelah ditambahkan, Anda mungkin perlu menyesuaikan urutan secara manual, jika tidak routing baru mungkin tidak berlaku',

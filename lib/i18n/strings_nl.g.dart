@@ -16,20 +16,21 @@ class TranslationsNl with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsNl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.nl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <nl>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsNl _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Route uitsluiten';
 	@override String get tunRouteExcludeTips => 'Verkeer in de uitgesloten adresbereiken komt niet langer in TUN terecht';
 	@override String get tunRouteExcludeMulticast => 'Multicast';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Loopback-adres';
 	@override String get enableCluster => 'Socks/Http Proxy Cluster inschakelen';
 	@override String get clusterAllowOtherHostsConnect => 'Anderen toestaan verbinding te maken met cluster';
@@ -1175,6 +1177,7 @@ extension on TranslationsNl {
 			'SettingsScreen.tunRouteExclude' => 'Route uitsluiten',
 			'SettingsScreen.tunRouteExcludeTips' => 'Verkeer in de uitgesloten adresbereiken komt niet langer in TUN terecht',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Multicast',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Loopback-adres',
 			'SettingsScreen.enableCluster' => 'Socks/Http Proxy Cluster inschakelen',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Anderen toestaan verbinding te maken met cluster',
@@ -1485,9 +1488,9 @@ extension on TranslationsNl {
 			'meta.profileAddParseFailed' => 'Analyseren van profiel mislukt',
 			'meta.profileAddNoServerAvaliable' => 'Geen server beschikbaar, zorg ervoor dat de profiellink of het profielbestand geldig is; als uw profiel van GitHub komt, haal dan de link op via de [Raw]-knop op de pagina',
 			'meta.profileAddWrapSuccess' => 'Profiel succesvol gegenereerd, ga naar [${_root.meta.myProfiles}] om het te bekijken',
-			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			'diversionCustomGroupPreset' => 'Voorinstelling [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Opmerking: Ingeschakelde items worden toegevoegd aan/overschreven in [${_root.meta.diversionCustomGroup}] en [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Opmerking: Na het toevoegen moet u mogelijk handmatig de volgorde aanpassen, anders werkt de nieuw toegevoegde omleiding mogelijk niet',

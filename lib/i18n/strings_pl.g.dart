@@ -16,20 +16,21 @@ class TranslationsPl with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsPl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.pl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <pl>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsPl _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$pl implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Wyklucz trasę';
 	@override String get tunRouteExcludeTips => 'Ruch w wykluczonych zakresach adresów nie będzie już trafiał do TUN';
 	@override String get tunRouteExcludeMulticast => 'Multicast';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Adres zwrotny';
 	@override String get enableCluster => 'Włącz klaster proxy Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Zezwalaj innym na łączenie się z klastrem';
@@ -1175,6 +1177,7 @@ extension on TranslationsPl {
 			'SettingsScreen.tunRouteExclude' => 'Wyklucz trasę',
 			'SettingsScreen.tunRouteExcludeTips' => 'Ruch w wykluczonych zakresach adresów nie będzie już trafiał do TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Multicast',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Adres zwrotny',
 			'SettingsScreen.enableCluster' => 'Włącz klaster proxy Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Zezwalaj innym na łączenie się z klastrem',
@@ -1485,9 +1488,9 @@ extension on TranslationsPl {
 			'meta.profileAddParseFailed' => 'Parsowanie profilu nie powiodło się',
 			'meta.profileAddNoServerAvaliable' => 'Brak dostępnych serwerów. Upewnij się, że link do profilu lub plik profilu jest prawidłowy; jeśli profil pochodzi z GitHub, pobierz link za pomocą przycisku [Raw] na stronie',
 			'meta.profileAddWrapSuccess' => 'Profil został pomyślnie wygenerowany, przejdź do [${_root.meta.myProfiles}], aby go wyświetlić',
-			'diversionRulesKeep' => 'Zachowaj [${_root.meta.diversionRules}] dla [${_root.meta.isp}]',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Zachowaj [${_root.meta.diversionRules}] dla [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Predefiniowane [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Uwaga: Włączone elementy zostaną dodane/nadpisane w [${_root.meta.diversionCustomGroup}] i [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Uwaga: Po dodaniu może być konieczne ręczne dostosowanie kolejności, w przeciwnym razie nowo dodane przekierowanie może nie zadziałać',

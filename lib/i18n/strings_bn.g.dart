@@ -16,20 +16,21 @@ class TranslationsBn with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsBn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.bn,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <bn>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsBn _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$bn implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'রুট বাদ দিন';
 	@override String get tunRouteExcludeTips => 'বর্জিত ঠিকানা পরিসরের ট্রাফিক আর TUN-এ প্রবেশ করবে না';
 	@override String get tunRouteExcludeMulticast => 'মাল্টিকাস্ট';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'লুপব্যাক ঠিকানা';
 	@override String get enableCluster => 'Socks/Http প্রক্সি ক্লাস্টার সক্ষম করুন';
 	@override String get clusterAllowOtherHostsConnect => 'অন্যদের ক্লাস্টারে যুক্ত হওয়ার অনুমতি দিন';
@@ -1175,6 +1177,7 @@ extension on TranslationsBn {
 			'SettingsScreen.tunRouteExclude' => 'রুট বাদ দিন',
 			'SettingsScreen.tunRouteExcludeTips' => 'বর্জিত ঠিকানা পরিসরের ট্রাফিক আর TUN-এ প্রবেশ করবে না',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'মাল্টিকাস্ট',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'লুপব্যাক ঠিকানা',
 			'SettingsScreen.enableCluster' => 'Socks/Http প্রক্সি ক্লাস্টার সক্ষম করুন',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'অন্যদের ক্লাস্টারে যুক্ত হওয়ার অনুমতি দিন',
@@ -1485,9 +1488,9 @@ extension on TranslationsBn {
 			'meta.profileAddParseFailed' => 'প্রোফাইল পার্স করতে ব্যর্থ',
 			'meta.profileAddNoServerAvaliable' => 'কোনো সার্ভার উপলব্ধ নেই, নিশ্চিত করুন যে প্রোফাইল লিঙ্ক বা প্রোফাইল ফাইলটি বৈধ; যদি আপনার প্রোফাইল GitHub থেকে হয়, তবে অনুগ্রহ করে পৃষ্ঠার [Raw] বাটনের মাধ্যমে লিঙ্কটি পান',
 			'meta.profileAddWrapSuccess' => 'প্রোফাইল সফলভাবে তৈরি হয়েছে, অনুগ্রহ করে দেখার জন্য [${_root.meta.myProfiles}]-এ যান',
-			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			'diversionCustomGroupPreset' => 'প্রিসেট [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'দ্রষ্টব্য: সক্ষম করা আইটেমগুলি [${_root.meta.diversionCustomGroup}] এবং [${_root.meta.diversionRules}]-এ যুক্ত/ওভাররাইট করা হবে',
 			'diversionCustomGroupAddTips' => 'দ্রষ্টব্য: যুক্ত করার পরে, আপনাকে ম্যানুয়ালি ক্রম সামঞ্জস্য করতে হতে পারে, অন্যথায় নতুন যুক্ত করা ডাইভারশন কার্যকর নাও হতে পারে',

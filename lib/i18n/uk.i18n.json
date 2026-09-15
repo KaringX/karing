@@ -233,6 +233,7 @@
         "tunRouteExclude": "Виключити маршрут",
         "tunRouteExcludeTips": "Трафік у виключених діапазонах адрес більше не потраплятиме до TUN",
         "tunRouteExcludeMulticast": "Багатоадресна передача",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "Локальна петля (Loopback)",
         "enableCluster": "Увімкнути кластер проксі Socks/Http",
         "clusterAllowOtherHostsConnect": "Дозволити іншим підключатися до кластера",

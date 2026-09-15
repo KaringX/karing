@@ -297,7 +297,8 @@ Future<void> _ensureSingleInstanceOrExit() async {
   // Use a stable lock file key. On Linux, process names can vary by launch
   // path (e.g. xdg-open/AppImage), which breaks single-instance detection.
   FlutterSingleInstance.processName = AppUtils.getId();
-  FlutterSingleInstance.onFocus = (metadata) {
+  FlutterSingleInstance.onFocus = (metadata) async {
+    await windowManager.show();
     var args = metadata["args"] as List<dynamic>?;
     if (args != null && args.isNotEmpty) {
       String schemeArg = args.firstWhere((element) {

@@ -7,7 +7,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class SpeedTestSettingsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "SpeedTestSettingsScreen");
   }
 
@@ -126,7 +126,9 @@ class _SpeedTestSettingsScreenState
     double centerWidth = windowSize.width - rightWidth - 20;
     var settingConfig = SettingManager.getConfig();
     return Material(
-      color: settingConfig.speedTest == current ? ThemeDefine.kColorBlue : null,
+      color: settingConfig.speedTest == current
+          ? ThemeDefine.kColorBlueWithAlpha
+          : null,
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(
         onTap: () {

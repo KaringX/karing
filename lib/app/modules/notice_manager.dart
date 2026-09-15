@@ -71,11 +71,14 @@ class Notice {
       NoticeItem item = NoticeItem.fromJsonStatic(i);
       DateTime? et = DateTime.tryParse(item.expireTime);
       DateTime? ut = DateTime.tryParse(item.updateTime);
-      if (et != null && now.isAfter(et)) {
-        continue;
-      }
-      if (ut != null && now.difference(ut).inDays > 30) {
-        continue;
+      if (et != null) {
+        if (now.isAfter(et)) {
+          continue;
+        }
+      } else {
+        if (ut != null && now.difference(ut).inDays > 30) {
+          continue;
+        }
       }
 
       items.add(item);
@@ -205,6 +208,19 @@ class NoticeLoadAndCheck {
         return;
       }
       _duration = _checkDuration;
+      DateTime? et = DateTime.tryParse(gnotice.data!.expireTime);
+      DateTime? ut = DateTime.tryParse(gnotice.data!.updateTime);
+      if (et != null) {
+        if (now.isAfter(et)) {
+          save();
+          return;
+        }
+      } else {
+        if (ut != null && now.difference(ut).inDays > 30) {
+          save();
+          return;
+        }
+      }
       NoticeItem? item = _notice.getByUpdateTime(gnotice.data!.updateTime);
       if (item != null) {
         save();

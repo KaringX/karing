@@ -20,20 +20,21 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+	dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -952,6 +953,9 @@ class Translations$SettingsScreen$en {
 
 	/// en: 'Multicast'
 	String get tunRouteExcludeMulticast => 'Multicast';
+
+	/// en: 'TUN'
+	String get tunRouteExcludeTUN => 'TUN';
 
 	/// en: 'Loopback Address'
 	String get loopbackAddress => 'Loopback Address';
@@ -2334,6 +2338,7 @@ extension on Translations {
 			'SettingsScreen.tunRouteExclude' => 'Route Exclusion',
 			'SettingsScreen.tunRouteExcludeTips' => 'Traffic in the excluded address ranges will no longer enter TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Multicast',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Loopback Address',
 			'SettingsScreen.enableCluster' => 'Enable Socks/Http Proxy Cluster',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Allow Others to Connect to Cluster',
@@ -2644,9 +2649,9 @@ extension on Translations {
 			'meta.profileAddParseFailed' => 'Parsing Profile failed',
 			'meta.profileAddNoServerAvaliable' => 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page',
 			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
-			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Note: After adding, you may need to manually adjust the order, otherwise the newly added diversion may not take effect',

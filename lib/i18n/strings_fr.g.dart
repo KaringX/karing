@@ -16,20 +16,21 @@ class TranslationsFr with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsFr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.fr,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <fr>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsFr _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$fr implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'Exclure la route';
 	@override String get tunRouteExcludeTips => 'Le trafic des plages d\'adresses exclues n\'entrera plus dans TUN';
 	@override String get tunRouteExcludeMulticast => 'Multidiffusion';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'Adresse de bouclage';
 	@override String get enableCluster => 'Activer le cluster de proxy Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Autoriser les autres à se connecter au cluster';
@@ -1175,6 +1177,7 @@ extension on TranslationsFr {
 			'SettingsScreen.tunRouteExclude' => 'Exclure la route',
 			'SettingsScreen.tunRouteExcludeTips' => 'Le trafic des plages d\'adresses exclues n\'entrera plus dans TUN',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'Multidiffusion',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'Adresse de bouclage',
 			'SettingsScreen.enableCluster' => 'Activer le cluster de proxy Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Autoriser les autres à se connecter au cluster',
@@ -1485,9 +1488,9 @@ extension on TranslationsFr {
 			'meta.profileAddParseFailed' => 'Échec de l\'analyse du profil',
 			'meta.profileAddNoServerAvaliable' => 'Aucun serveur disponible, assurez-vous que le lien du profil ou le fichier du profil est valide ; si votre profil provient de GitHub, veuillez obtenir le lien à partir du bouton [Raw] de la page',
 			'meta.profileAddWrapSuccess' => 'Profil généré avec succès, veuillez aller dans [${_root.meta.myProfiles}] pour voir',
-			'diversionRulesKeep' => 'Conserver [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => 'Conserver [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Préréglage [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note : Les éléments activés seront ajoutés/écrasés dans [${_root.meta.diversionCustomGroup}] et [${_root.meta.diversionRules}]',
 			'diversionCustomGroupAddTips' => 'Note : Après l\'ajout, vous devrez peut-être ajuster manuellement l\'ordre, sinon la nouvelle diversion pourrait ne pas être effective',

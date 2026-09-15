@@ -310,7 +310,7 @@ class NetConnectionStateOut {
 }
 
 class NetConnectionsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "NetConnectionsScreen");
   }
 
@@ -1269,7 +1269,7 @@ class _NetConnectionsScreenState
     NetConnectionFilter? newFilter = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: NetConnectionsFilterScreen.routSettings(),
+        settings: NetConnectionsFilterScreen.routeSettings(),
         builder: (context) =>
             NetConnectionsFilterScreen(options: options, filter: _filter),
       ),
@@ -1356,7 +1356,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1382,7 +1382,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1408,7 +1408,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1434,7 +1434,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1462,7 +1462,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1487,7 +1487,7 @@ class _NetConnectionsScreenState
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    settings: DiversionGroupCustomScreen.routSettings(),
+                    settings: DiversionGroupCustomScreen.routeSettings(),
                     builder: (context) =>
                         DiversionGroupCustomScreen(options: options),
                   ),
@@ -1504,7 +1504,7 @@ class _NetConnectionsScreenState
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("selectType"),
+        settings: GroupScreen.routeSettings("selectType"),
         builder: (context) => GroupScreen(
           title: tcontext.NetConnectionsScreen.selectType,
           getOptions: getOptions,

@@ -32,7 +32,7 @@ import 'package:karing/screens/widgets/super_grid.dart';
 import 'package:path/path.dart' as path;
 
 class HomeTVOSScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "HomeTVOSScreen");
   }
 
@@ -249,7 +249,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: NetConnectionsScreen.routSettings(),
+        settings: NetConnectionsScreen.routeSettings(),
         builder: (context) => NetConnectionsScreen(
           connectionsUrl: connectionsUrl,
           checkStarted: false,
@@ -436,7 +436,7 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RichtextViewScreen.routSettings(),
+        settings: RichtextViewScreen.routeSettings(),
         builder: (context) => RichtextViewScreen(
           title: fileName,
           file: fileName,

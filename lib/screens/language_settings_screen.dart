@@ -7,7 +7,7 @@ import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
 
 class LanguageSettingsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "LanguageSettingsScreen");
   }
 
@@ -229,7 +229,7 @@ class _LanguageSettingsScreenState
   Widget createWidget(dynamic current) {
     return Material(
       color: LocaleSettings.currentLocale == current
-          ? ThemeDefine.kColorBlue
+          ? ThemeDefine.kColorBlueWithAlpha
           : null,
       borderRadius: ThemeDefine.kBorderRadius,
       child: InkWell(

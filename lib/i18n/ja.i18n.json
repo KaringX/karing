@@ -233,6 +233,7 @@
         "tunRouteExclude": "ルートを除外",
         "tunRouteExcludeTips": "除外したアドレス範囲のトラフィックは今後TUNに入らなくなります",
         "tunRouteExcludeMulticast": "マルチキャスト",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "ループバックアドレス",
         "enableCluster": "Socks/Http プロキシクラスターを有効にする",
         "clusterAllowOtherHostsConnect": "他からのクラスターへの接続を許可する",

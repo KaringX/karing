@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:karing/app/modules/biz.dart';
@@ -49,7 +48,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:tuple/tuple.dart';
 
 class MyProfilesScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "MyProfilesScreen");
   }
 
@@ -174,7 +173,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     String? searchText = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: ServerSelectKeywordsScreen.routSettings(),
+        settings: ServerSelectKeywordsScreen.routeSettings(),
         builder: (context) => const ServerSelectKeywordsScreen(),
       ),
     );
@@ -501,7 +500,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          settings: QrcodeScreen.routSettings(),
+                          settings: QrcodeScreen.routeSettings(),
                           builder: (context) =>
                               QrcodeScreen(content: item.urlOrPath),
                         ),
@@ -662,7 +661,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: ListRemoveScreen.routSettings(
+                        settings: ListRemoveScreen.routeSettings(
                           "profiles.proxyFilterRemove",
                         ),
                         builder: (context) => ListRemoveScreen(
@@ -791,74 +790,66 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         windowSize.width - leftWidth - rightWidth - padding * 2;
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
-      child: ContextMenuArea(
-        builder: (context) => getLongPressServerWidgets(
-          provider,
-          server,
-          isTesting,
-          isWaitTesting,
-          true,
-        ),
-        child: InkWell(
-          onTapDown: (details) {},
-          onLongPress: () async {
-            onLongPressServer(provider, server, isTesting, isWaitTesting);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: padding),
-            width: double.infinity,
-            height: ThemeConfig.kListItemHeight,
-            color: disabled ? Colors.grey : null,
-            child: Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: leftWidth,
-                          child: Text(
-                            index.toString(),
-                            style: const TextStyle(fontSize: 12),
+      child: InkWell(
+        onTapDown: (details) {},
+        onLongPress: () async {
+          onLongPressServer(provider, server, isTesting, isWaitTesting);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: padding),
+          width: double.infinity,
+          height: ThemeConfig.kListItemHeight,
+          color: disabled ? Colors.grey : null,
+          child: Row(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: leftWidth,
+                        child: Text(
+                          index.toString(),
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                      SizedBox(
+                        width: server.attach.isEmpty
+                            ? centerWidth
+                            : centerWidth - 30,
+                        child: Text(
+                          server.tag,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                            fontSize: ThemeConfig.kFontSizeListSubItem,
+                            fontFamily: Platform.isWindows ? 'Emoji' : null,
                           ),
                         ),
-                        SizedBox(
-                          width: server.attach.isEmpty
-                              ? centerWidth
-                              : centerWidth - 30,
-                          child: Text(
-                            server.tag,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                            style: TextStyle(
-                              fontSize: ThemeConfig.kFontSizeListSubItem,
-                              fontFamily: Platform.isWindows ? 'Emoji' : null,
-                            ),
-                          ),
-                        ),
-                        server.attach.isEmpty
-                            ? const SizedBox.shrink()
-                            : SizedBox(
-                                width: 30,
-                                child: Text(
-                                  server.attach,
-                                  style: const TextStyle(fontSize: 10),
-                                ),
+                      ),
+                      server.attach.isEmpty
+                          ? const SizedBox.shrink()
+                          : SizedBox(
+                              width: 30,
+                              child: Text(
+                                server.attach,
+                                style: const TextStyle(fontSize: 10),
                               ),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          width: rightWidth,
-                          child: Row(
-                            children: [
-                              const SizedBox(width: 5),
-                              /*InkWell(
+                            ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        width: rightWidth,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 5),
+                            /*InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                     settings: QrcodeScreen.routSettings(),
+                                     settings: QrcodeScreen.routeSettings(),
                                     builder: (context) =>
                                         QrcodeScreen(content: "todo")));
                           },
@@ -876,101 +867,100 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                         const SizedBox(
                           width: 10,
                         ),*/
-                              SizedBox(
-                                height: ThemeConfig.kListItemHeight,
-                                child: InkWell(
-                                  onTap: () {
-                                    ServerManager.toggleFav(server);
-                                    if (SettingManager.getConfig()
-                                        .autoSelect
-                                        .prioritizeMyFav) {
-                                      ServerManager.setDirty(true);
-                                    }
-                                    setState(() {});
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: const BoxDecoration(
+                            SizedBox(
+                              height: ThemeConfig.kListItemHeight,
+                              child: InkWell(
+                                onTap: () {
+                                  ServerManager.toggleFav(server);
+                                  if (SettingManager.getConfig()
+                                      .autoSelect
+                                      .prioritizeMyFav) {
+                                    ServerManager.setDirty(true);
+                                  }
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.orange,
+                                      ),
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.orange,
+                                          color: Colors.white.withValues(
+                                            alpha: 0.8,
+                                          ),
                                         ),
-                                        child: Container(
-                                          width: 20,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white.withValues(
-                                              alpha: 0.8,
-                                            ),
-                                          ),
-                                          child: Icon(
-                                            Icons.star_outlined,
-                                            size: 20,
-                                            color:
-                                                ServerManager.getUse().fav
-                                                    .contains(server)
-                                                ? Colors.orange
-                                                : Colors.white,
-                                          ),
+                                        child: Icon(
+                                          Icons.star_outlined,
+                                          size: 20,
+                                          color:
+                                              ServerManager.getUse().fav
+                                                  .contains(server)
+                                              ? Colors.orange
+                                              : Colors.white,
                                         ),
                                       ),
-                                      const SizedBox(width: 2),
-                                      SizedBox(
-                                        width: 45,
-                                        child: Text(
-                                          server.getShowType(),
-                                          style: const TextStyle(
-                                            fontSize: ThemeConfig
-                                                .kFontSizeListSubItem,
-                                          ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    SizedBox(
+                                      width: 45,
+                                      child: Text(
+                                        server.getShowType(),
+                                        style: const TextStyle(
+                                          fontSize:
+                                              ThemeConfig.kFontSizeListSubItem,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(width: 2),
-                              CommonWidget.createLatencyWidget(
-                                context,
-                                themes,
-                                ThemeConfig.kListItemHeight,
-                                isTesting || isWaitTesting,
-                                isTesting,
-                                server.latency,
-                                onTapLatencyReload: () async {
-                                  if (!await startVPN()) {
-                                    return;
-                                  }
-                                  ServerManager.testOutboundLatencyForServer(
-                                    server.tag,
-                                    server.groupid,
-                                  ).then((err) {
-                                    if (err != null) {
-                                      if (mounted) {
-                                        setState(() {});
+                            ),
+                            const SizedBox(width: 2),
+                            CommonWidget.createLatencyWidget(
+                              context,
+                              themes,
+                              ThemeConfig.kListItemHeight,
+                              isTesting || isWaitTesting,
+                              isTesting,
+                              server.latency,
+                              onTapLatencyReload: () async {
+                                if (!await startVPN()) {
+                                  return;
+                                }
+                                ServerManager.testOutboundLatencyForServer(
+                                  server.tag,
+                                  server.groupid,
+                                ).then((err) {
+                                  if (err != null) {
+                                    if (mounted) {
+                                      setState(() {});
 
-                                        DialogUtils.showAlertDialog(
-                                          context,
-                                          err.message,
-                                          showCopy: true,
-                                          showFAQ: true,
-                                          withVersion: true,
-                                        );
-                                      }
+                                      DialogUtils.showAlertDialog(
+                                        context,
+                                        err.message,
+                                        showCopy: true,
+                                        showFAQ: true,
+                                        withVersion: true,
+                                      );
                                     }
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
+                                  }
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -1183,7 +1173,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                settings: QrcodeScreen.routSettings(),
+                settings: QrcodeScreen.routeSettings(),
                 builder: (context) => QrcodeScreen(
                   content:
                       "ulink://install/?content=${Uri.encodeComponent(b64)}&format=json#${Uri.encodeComponent(server.tag)}",
@@ -1205,7 +1195,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                settings: FileViewScreen.routSettings(),
+                settings: FileViewScreen.routeSettings(),
                 builder: (context) =>
                     FileViewScreen(title: server.tag, content: content),
               ),
@@ -1373,7 +1363,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("MyProfilesScreen.setting"),
+        settings: GroupScreen.routeSettings("MyProfilesScreen.setting"),
         builder: (context) =>
             GroupScreen(title: tcontext.meta.setting, getOptions: getOptions),
       ),
@@ -1392,7 +1382,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: MyProfilesReorderScreen.routSettings(),
+        settings: MyProfilesReorderScreen.routeSettings(),
         builder: (context) => MyProfilesReorderScreen(
           onReorder: (List<String> groupids) {
             ServerManager.reorderGroup(groupids);
@@ -1414,7 +1404,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: MyProfilesMergeScreen.routSettings(),
+        settings: MyProfilesMergeScreen.routeSettings(),
         builder: (context) => const MyProfilesMergeScreen(),
       ),
     );
@@ -1551,11 +1541,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("add-edit:${sbOptions.type}"),
+        settings: GroupScreen.routeSettings("add-edit:${sbOptions.type}"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.edit,
           getOptions: getOptions,
-          onDone: (BuildContext context) async {
+          onDone: (BuildContext context, SetStateCallback? setstate) async {
             if (!mounted) {
               return false;
             }
@@ -1825,7 +1815,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     bool? changed = await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: MyProfilesEditScreen.routSettings(),
+        settings: MyProfilesEditScreen.routeSettings(),
         builder: (context) =>
             MyProfilesEditScreen(groupid: item.groupid, provider: provider),
       ),
@@ -1939,11 +1929,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        settings: GroupScreen.routSettings("edit:${sbOptions.type}"),
+        settings: GroupScreen.routeSettings("edit:${sbOptions.type}"),
         builder: (context) => GroupScreen(
           title: tcontext.meta.edit,
           getOptions: getOptions,
-          onDone: (BuildContext context) async {
+          onDone: (BuildContext context, SetStateCallback? setstate) async {
             if (!mounted) {
               return false;
             }

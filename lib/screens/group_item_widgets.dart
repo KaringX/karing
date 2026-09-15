@@ -207,6 +207,68 @@ class GroupItemSwitch extends StatelessWidget {
   }
 }
 
+class GroupItemRemove extends StatelessWidget {
+  const GroupItemRemove({super.key, required this.options});
+
+  final GroupItemRemoveOptions options;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if ((options.tips != null) && options.tips!.isNotEmpty) ...[
+          InkWell(
+            onTap: () {
+              DialogUtils.showAlertDialog(context, options.tips!);
+            },
+            child: Tooltip(
+              message: options.tips,
+              child: const Icon(Icons.info_outlined, size: 26),
+            ),
+          ),
+          const SizedBox(width: 5),
+        ],
+        if (options.reddot == true) ...[
+          Container(
+            width: 8,
+            height: 8,
+            decoration: const BoxDecoration(
+              color: Colors.red,
+              shape: BoxShape.circle,
+            ),
+          ),
+        ],
+        Expanded(
+          child: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              options.name,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 60,
+          child: IconButton(
+            icon: const Icon(
+              Icons.remove_circle_outlined,
+              size: 26,
+              color: Colors.red,
+            ),
+            onPressed: options.onRemove == null
+                ? null
+                : () async {
+                    await options.onRemove!();
+                  },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class GroupItemPush extends StatelessWidget {
   const GroupItemPush({super.key, required this.options});
 
@@ -594,7 +656,7 @@ class GroupItemStringPicker extends StatelessWidget {
               key.item2,
               style: TextStyle(
                 color: options.selected == key.item1
-                    ? ThemeDefine.kColorBlue
+                    ? ThemeDefine.kColorBlueWithAlpha
                     : null,
                 fontFamily: Platform.isWindows ? 'Emoji' : null,
               ),
@@ -614,7 +676,9 @@ class GroupItemStringPicker extends StatelessWidget {
             title: Text(
               key ?? "",
               style: TextStyle(
-                color: options.selected == key ? ThemeDefine.kColorBlue : null,
+                color: options.selected == key
+                    ? ThemeDefine.kColorBlueWithAlpha
+                    : null,
                 fontFamily: Platform.isWindows ? 'Emoji' : null,
               ),
             ),

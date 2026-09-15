@@ -9,7 +9,7 @@ import 'package:karing/screens/widgets/framework.dart';
 import 'package:tuple/tuple.dart';
 
 class MapStringAndStringAddScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "MapStringAndStringAddScreen");
   }
 

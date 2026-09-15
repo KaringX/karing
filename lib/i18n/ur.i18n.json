@@ -233,6 +233,7 @@
         "tunRouteExclude": "روٹ خارج کریں",
         "tunRouteExcludeTips": "خارج کردہ پتہ جاتی حدود کا ٹریفک اب TUN میں داخل نہیں ہوگا",
         "tunRouteExcludeMulticast": "ملٹی کاسٹ",
+        "tunRouteExcludeTUN": "TUN",
         "loopbackAddress": "لوپ بیک پتہ",
         "enableCluster": "Socks/Http پراکسی کلسٹر فعال کریں",
         "clusterAllowOtherHostsConnect": "دوسروں کو کلسٹر سے جڑنے کی اجازت دیں",

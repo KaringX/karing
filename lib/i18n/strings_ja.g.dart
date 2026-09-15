@@ -16,20 +16,21 @@ class TranslationsJa with BaseTranslations<AppLocale, Translations> implements T
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsJa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
+		  _meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.ja,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
 		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
+		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
 	/// Metadata for the translations of <ja>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+	final TranslationMetadata<AppLocale, Translations> _meta;
+	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key);
 
 	late final TranslationsJa _root = this; // ignore: unused_field
 
@@ -483,6 +484,7 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get tunRouteExclude => 'ルートを除外';
 	@override String get tunRouteExcludeTips => '除外したアドレス範囲のトラフィックは今後TUNに入らなくなります';
 	@override String get tunRouteExcludeMulticast => 'マルチキャスト';
+	@override String get tunRouteExcludeTUN => 'TUN';
 	@override String get loopbackAddress => 'ループバックアドレス';
 	@override String get enableCluster => 'Socks/Http プロキシクラスターを有効にする';
 	@override String get clusterAllowOtherHostsConnect => '他からのクラスターへの接続を許可する';
@@ -1175,6 +1177,7 @@ extension on TranslationsJa {
 			'SettingsScreen.tunRouteExclude' => 'ルートを除外',
 			'SettingsScreen.tunRouteExcludeTips' => '除外したアドレス範囲のトラフィックは今後TUNに入らなくなります',
 			'SettingsScreen.tunRouteExcludeMulticast' => 'マルチキャスト',
+			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
 			'SettingsScreen.loopbackAddress' => 'ループバックアドレス',
 			'SettingsScreen.enableCluster' => 'Socks/Http プロキシクラスターを有効にする',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => '他からのクラスターへの接続を許可する',
@@ -1485,9 +1488,9 @@ extension on TranslationsJa {
 			'meta.profileAddParseFailed' => 'プロファイルの解析に失敗しました',
 			'meta.profileAddNoServerAvaliable' => '利用可能なサーバーがありません。設定リンクまたは設定ファイルが有効であることを確認してください。設定が GitHub の場合は、ページ上の [Raw] ボタンからリンクを取得してください',
 			'meta.profileAddWrapSuccess' => '構成が正常に生成されました。[${_root.meta.myProfiles}] に移動して確認してください',
-			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			_ => null,
 		} ?? switch (path) {
+			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			'diversionCustomGroupPreset' => 'プリセット [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます',
 			'diversionCustomGroupAddTips' => '注意: 追加後、手動で順序を調整する必要がある場合があります。そうしないと、新しく追加された分流が有効にならない場合があります',

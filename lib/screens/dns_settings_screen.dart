@@ -25,7 +25,7 @@ import 'package:karing/app/utils/uri_utils.dart';
 import 'package:provider/provider.dart';
 
 class DnsSettingsScreen extends LasyRenderingStatefulWidget {
-  static RouteSettings routSettings() {
+  static RouteSettings routeSettings() {
     return const RouteSettings(name: "DnsSettingsScreen");
   }
 
