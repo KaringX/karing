@@ -4,7 +4,7 @@ contents:
   - x: 192
     y: 200
     type: file
-    path: Karing.app #"../../../build/macos/Build/Products/Release/Karing.app"
+    path: Karing.app
   - x: 448
     y: 200
     type: link

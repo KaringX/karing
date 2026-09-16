@@ -79,27 +79,27 @@ class TranslationsRu with BaseTranslations<AppLocale, Translations> implements T
 	@override String get downloadProxyStrategy => 'Канал загрузки';
 	@override String get dnsProxyResolveModeTips => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]';
 	@override String get routeFinal => 'Final';
-	@override String get protocolSniff => 'Определение протокола';
-	@override String sendOrReceiveNotMatch({required Object p}) => 'Пожалуйста, используйте [${p}]';
-	@override String get turnOffPrivateDirect => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]';
+	@override String get protocolSniff => 'Перехват и анализ протокола (Sniffing)';
+	@override String sendOrReceiveNotMatch({required Object p}) => 'Используйте [${p}]';
+	@override String get turnOffPrivateDirect => 'Сначала включите [Прямое подключение к частной сети]';
 	@override String targetConnectFailed({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.';
 	@override String get appleTVSync => 'Синхронизация текущей базовой конфигурации с Apple TV - Karing';
-	@override String get appleTVSyncDone => 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.';
-	@override String get appleTVRemoveCoreConfig => 'Удаление Apple TV — базовая конфигурация Karing';
+	@override String get appleTVSyncDone => 'Синхронизация завершена, перейдите в Apple TV - Karing и запустите подключение.';
+	@override String get appleTVRemoveCoreConfig => 'Удаление конфигурации Karing из Apple TV';
 	@override String get appleTVRemoveCoreConfigDone => 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;';
 	@override String get appleTVUrlInvalid => 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.';
 	@override String appleTV404({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.';
 	@override String appleCoreVersionNotMatch({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз';
-	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?';
+	@override String get remoteProfileEditConfirm => 'После обновления конфигурации изменения узла будут сброшены. Продолжить?';
 	@override String get continueConnectConfirm => 'Продолжить подключение?';
 	@override String get mustBeValidHttpsURL => 'https URL должен быть действительным';
-	@override String fileNotExistReinstall({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите';
+	@override String fileNotExistReinstall({required Object p}) => 'Отсутствует файл [${p}], переустановите приложение';
 	@override String get noNetworkConnect => 'Нет подключения к Интернету';
 	@override String get sudoPassword => 'Пароль sudo (требуется для режима TUN)';
 	@override String get turnOffNetworkBeforeInstall => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].';
-	@override String get latencyTestResolveIP => 'При ручном определении анализируется исходящий IP-адрес';
-	@override String get latencyTestConcurrency => 'Параллелизм';
-	@override String get edgeRuntimeNotInstalled => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.';
+	@override String get latencyTestResolveIP => 'При ручной проверке определять исходящий IP';
+	@override String get latencyTestConcurrency => 'Параллелизм (потоки)';
+	@override String get edgeRuntimeNotInstalled => 'На устройстве не установлен Edge WebView2, страница не может быть отображена. Скачайте и установите Edge WebView2 runtime (x64), перезапустите приложение и попробуйте снова.';
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh-CN': '简体中文',
@@ -139,18 +139,18 @@ class _Translations$AboutScreen$ru implements Translations$AboutScreen$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get installRefer => 'Ссылка на установку';
+	@override String get installRefer => 'Источник установки';
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
-	@override String get updateWhenConnected => 'Проверьте наличие обновлений после подключения.';
+	@override String get updateWhenConnected => 'Проверять наличие обновлений после подключения.';
 	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
-	@override String get disableAppImproveData => 'Использовать данные для улучшения';
-	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
+	@override String get disableAppImproveData => 'Использовать данные для улучшения приложения';
+	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшать стабильность и удобство приложения. Мы не собираем личные данные. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
 	@override String get devOptions => 'Параметры разработчика';
 	@override String get enableDebugLog => 'Включить debug-лог';
-	@override String get viewFilsContent => 'Посмотреть файлы';
+	@override String get viewFilsContent => 'Посмотр файлов';
 	@override String get enablePprof => 'Включить pprof';
-	@override String get pprofPanel => 'pprof панель';
+	@override String get pprofPanel => 'Панель pprof';
 	@override String get allowRemoteAccessPprof => 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}';
 	@override String get allowRemoteAccessHtmlBoard => 'Разрешить удаленный доступ к ${_root.SettingsScreen.htmlBoard}';
 	@override String get useOriginalSBProfile => 'Использовать исходную конфигурацию Sing-box';
@@ -192,7 +192,7 @@ class _Translations$DiversionRuleDetectScreen$ru implements Translations$Diversi
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Тест правил перенаправления';
+	@override String get title => 'Тест правил маршрутизации';
 	@override String get rule => 'Правило:';
 	@override String get outbound => 'Прокси-сервер:';
 }
@@ -214,10 +214,10 @@ class _Translations$DnsSettingsScreen$ru implements Translations$DnsSettingsScre
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get ispCanNotEmpty => 'ISP не может быть пустым';
+	@override String get ispCanNotEmpty => 'Имя провайдера не может быть пустым';
 	@override String get urlCanNotEmpty => 'URL не может быть пустой';
 	@override String error({required Object p}) => 'Неподдерживаемый тип:${p}';
-	@override String get dnsDesc => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.';
+	@override String get dnsDesc => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: показывает задержку запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: показывает задержку запроса при прямом соединении.';
 }
 
 // Path: FileContentViewerScreen
@@ -229,7 +229,7 @@ class _Translations$FileContentViewerScreen$ru implements Translations$FileConte
 	// Translations
 	@override String get title => 'Просмотр содержимого файла';
 	@override String get clearFileContent => 'Вы уверены, что хотите очистить содержимое файла?';
-	@override String get clearFileContentTips => 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.';
+	@override String get clearFileContentTips => 'Вы точно хотите очистить файл профиля? Это может привести к потере данных или сбоям в работе приложения, делайте это осмотрительно.';
 }
 
 // Path: HomeScreen
@@ -239,13 +239,13 @@ class _Translations$HomeScreen$ru implements Translations$HomeScreen$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String invalidServer({required Object p}) => '[${p}] больше недействителен, пожалуйста, выберите сервер снова';
-	@override String disabledServer({required Object p}) => '[${p}] отключен, пожалуйста, выберите сервер снова';
-	@override String get expiredServer => 'Нет доступного сервера: возможно, профиль устарел или отключен';
+	@override String invalidServer({required Object p}) => '[${p}] больше недоступен. Выберите другой сервер.';
+	@override String disabledServer({required Object p}) => '[${p}] отключен. Выберите другой сервер.';
+	@override String get expiredServer => 'Нет доступного сервера: возможно, профиль устарел или отключен.';
 	@override String systemProxyTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-	@override String get myLinkEmpty => 'Пожалуйста, настройте [Быструю ссылку] перед использованием';
-	@override String tooMuchServers({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти';
-	@override String tooMuchServers2({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.';
+	@override String get myLinkEmpty => 'Сначала настройте [Быструю ссылку]';
+	@override String tooMuchServers({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}]. Подключение может не работать из-за ограничений системной памяти';
+	@override String tooMuchServers2({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}]. Это может замедлить работу или привести к обрывам соединения.';
 }
 
 // Path: LaunchFailedScreen
@@ -256,10 +256,10 @@ class _Translations$LaunchFailedScreen$ru implements Translations$LaunchFailedSc
 
 	// Translations
 	@override String get invalidProcess => 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку';
-	@override String get invalidProfile => 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение';
+	@override String get invalidProfile => 'Не удалось запустить приложение [Нет доступа к профилю], переустановите приложение';
 	@override String get invalidVersion => 'Не удалось запустить приложение [Неверная версия], переустановите приложение';
-	@override String get systemVersionLow => 'Не удалось запустить приложение [Слишком низкая версия системы]';
-	@override String get invalidInstallPath => 'Путь установки недействителен, переустановите его по допустимому пути';
+	@override String get systemVersionLow => 'Не удалось запустить приложение [Версия системы слишком старая]';
+	@override String get invalidInstallPath => 'Неверный путь установки, переустановите приложение в правильную директорию';
 }
 
 // Path: MyProfilesMergeScreen
@@ -271,8 +271,8 @@ class _Translations$MyProfilesMergeScreen$ru implements Translations$MyProfilesM
 	// Translations
 	@override String get profilesMerge => 'Объединение профилей';
 	@override String get profilesMergeTarget => 'Целевой профиль';
-	@override String get profilesMergeSource => 'Профиль - источник';
-	@override String get profilesMergeTips => 'Совет: Настройки перенаправления для профиля - источника будут удалены.';
+	@override String get profilesMergeSource => 'Профили - источники';
+	@override String get profilesMergeTips => 'Совет: Настройки маршрутизации для профилей - источников будут удалены.';
 }
 
 // Path: NetCheckScreen
@@ -301,7 +301,7 @@ class _Translations$NetCheckScreen$ru implements Translations$NetCheckScreen$en 
 	@override String dnsOk({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS Разобрано успешно\nDNS правило:[${p2}]\nЗадержка:[${p3} ms]\nадрес:[${p4}]';
 	@override String dnsFailed({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS Не удалось выполнить синтаксический анализ\n правило:[${p2}]\nошибка:[${p3}]';
 	@override String get host => 'HTTP соединение';
-	@override String hostConnection({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравила перенаправления:[${p2}]\nПрокси-сервер:[${p3}]';
+	@override String hostConnection({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравило маршрутизации:[${p2}]\nПрокси-сервер:[${p3}]';
 	@override String get hostConnectionOk => 'Соединение установлено успешно';
 	@override String hostConnectionFailed({required Object p}) => 'Соединение не удалось:[${p}]';
 }
@@ -327,8 +327,8 @@ class _Translations$NetConnectionsScreen$ru implements Translations$NetConnectio
 
 	// Translations
 	@override String get copyAsCSV => 'Скопировано в CSV формате';
-	@override String get selectType => 'Выберите тип перенаправления';
-	@override String get loopbackWarning => 'Возможно, возникло сетевое зацикливание. Проверьте настройки сетевого адаптера';
+	@override String get selectType => 'Выберите тип маршрутизации';
+	@override String get loopbackWarning => 'Возможно, возникла сетевая петля. Проверьте настройки сетевого адаптера.';
 }
 
 // Path: PerAppAndroidScreen
@@ -340,7 +340,7 @@ class _Translations$PerAppAndroidScreen$ru implements Translations$PerAppAndroid
 	// Translations
 	@override String get title => 'Проксируемые приложения';
 	@override String get whiteListMode => 'Режим белого списка';
-	@override String get whiteListModeTip => 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.';
+	@override String get whiteListModeTip => 'Если включено: проксируются только отмеченные приложения. Если выключено: проксируется всё, кроме отмеченных приложений.';
 }
 
 // Path: RegionSettingsScreen
@@ -351,7 +351,7 @@ class _Translations$RegionSettingsScreen$ru implements Translations$RegionSettin
 
 	// Translations
 	@override String get title => 'Страна или регион';
-	@override String get Regions => 'Совет: Пожалуйста, правильно укажите текущую страну или регион. В противном случае это может вызвать проблемы с перенаправлением в сети';
+	@override String get Regions => 'Совет: Правильно укажите текущую страну или регион. Иначе это может вызвать проблемы с маршрутизацией.';
 }
 
 // Path: ServerSelectScreen
@@ -378,16 +378,16 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get getTranffic => 'Получить трафик';
-	@override String get tutorial => 'Руководство';
+	@override String get getTranffic => 'Купить трафик';
+	@override String get tutorial => 'Инструкция';
 	@override String get commonlyUsedRulesets => 'Коллекция наборов правил';
 	@override String get htmlBoard => 'Веб-панель';
 	@override String get dnsLeakDetection => 'Тест утечки DNS';
-	@override String get proxyLeakDetection => 'Проверка заметности наличия прокси';
+	@override String get proxyLeakDetection => 'Тест утечки прокси';
 	@override String get speedTest => 'Тест скорости';
 	@override String get rulesetDirectDownlad => 'Правила прямой загрузки';
-	@override String get hideUnusedDiversionGroup => 'Скрыть неактивные правила перенаправления трафика';
-	@override String get disableISPDiversionGroup => 'Отключить правила перенаправления [${_root.meta.isp}]';
+	@override String get hideUnusedDiversionGroup => 'Скрывать неиспользуемые правила маршрутизации';
+	@override String get disableISPDiversionGroup => 'Отключить правила маршрутизации [${_root.meta.isp}]';
 	@override String get portSettingRule => 'Действуют все правила';
 	@override String get portSettingDirectAll => 'Всё подключено напрямую';
 	@override String get portSettingProxyAll => 'Всё идёт через прокси';
@@ -395,21 +395,21 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get portSettingCluster => 'Кластерный сервис';
 	@override String get modifyPort => 'Изменить порт';
 	@override String get modifyPortOccupied => 'Порт занят, используйте другой порт';
-	@override String get ipStrategyTips => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен';
-	@override String get tunAppendHttpProxy => 'Подключите HTTP-прокси к VPN';
-	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.';
+	@override String get ipStrategyTips => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6,  иначе часть трафика будет недоступна.';
+	@override String get tunAppendHttpProxy => 'Добавить HTTP-прокси в VPN.';
+	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить виртуальный адаптер и подключаться к HTTP-прокси напрямую.';
 	@override String get tunAllowBypassHttpProxyDomain => 'Домены, которым разрешено обходить HTTP-прокси';
-	@override String get dnsEnableRule => 'Включить правила для DNS';
+	@override String get dnsEnableRule => 'Включить правила маршрутизации DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Способ разрешения в DNS';
 	@override String get dnsEnableClientSubnet => '[${_root.meta.trafficDirect}] Включить ECS';
-	@override String get dnsTestDomain => 'Тестовое доменное имя';
-	@override String get dnsTestDomainInvalid => 'Неверное доменное имя';
+	@override String get dnsTestDomain => 'Тестовый домен';
+	@override String get dnsTestDomainInvalid => 'Неверный домен';
 	@override String get dnsTypeOutbound => 'Прокси-сервер';
 	@override String get dnsTypeDirect => _root.meta.trafficDirect;
 	@override String get dnsTypeProxy => _root.meta.trafficProxy;
 	@override String get dnsTypeResolver => 'DNS-сервер';
-	@override String get dnsEnableRuleTips => 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.';
-	@override String get dnsEnableFakeIpTips => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];';
+	@override String get dnsEnableRuleTips => 'Если включено, домен будет разрешаться через DNS-сервер, указанный в правилаах маршрутизации DNS.';
+	@override String get dnsEnableFakeIpTips => 'После включения FakeIP и отключения от VPN может потребоваться перезапуск приложений. Работает только при включенном [Режиме TUN].';
 	@override String get dnsTypeOutboundTips => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS';
 	@override String get dnsTypeDirectTips => 'Разрешение доменного имени для [${_root.meta.trafficDirect}]';
 	@override String get dnsTypeProxyTips => 'Разрешение доменных имен для трафика через Proxy';
@@ -420,7 +420,7 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get dnsEnableStaticIPForResolverTips => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения';
 	@override String get inboundDomainResolve => 'Разрешение входящих доменных имен';
 	@override String get privateDirect => 'Прямое подключение к частной сети';
-	@override String inboundDomainResolveTips({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]';
+	@override String inboundDomainResolveTips({required Object p}) => 'Домены без настроенных правил маршрутизации нужно сначала разрешить в IP, чтобы сработали правила маршрутизации на основе IP. Эта функция влияет на входящие запросы к порту прокси [${p}]';
 	@override String get useRomoteRes => 'Использовать удаленные ресурсы';
 	@override String get autoAppendRegion => 'Автоматически добавлять основные правила';
 	@override String get autoSelect => 'Автовыбор';
@@ -429,32 +429,32 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get autoSelectSelectedHealthCheckInterval => 'Текущий интервал проверки работоспособности сервера';
 	@override String get autoSelectServerReTestIfNetworkUpdate => 'Перетестировать после смены сети';
 	@override String get autoSelectServerIntervalTips => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии';
-	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, группа повторно тестируется с задержкой.';
+	@override String get autoSelectSelectedHealthCheckIntervalTips => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, в группе заново запускается тест задержки.';
 	@override String get autoSelectServerFavFirst => 'Предпочитать [Мои избранные]';
 	@override String get autoSelectServerUpdateCurrentServerAfterManualUrltest => 'Обновить текущий сервер после измерения задержки вручную';
 	@override String get autoSelectServerFavFirstTips => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]';
-	@override String get autoSelectServerFilter => 'Отфильтровать сервера';
+	@override String get autoSelectServerFilter => 'Отфильтровать недоступные сервера';
 	@override String autoSelectServerFilterTips({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверов';
 	@override String get autoSelectServerLimitedNum => 'Максимальное количество серверов';
 	@override String get autoSelectServerLimitedNumTips => 'Если серверов больше этого числа, лишние будут отброшены.';
-	@override String get numInvalid => 'Неправильный номер';
-	@override String get hideInvalidServer => 'Скрыть нерабочие серверы';
+	@override String get numInvalid => 'Некорректное число';
+	@override String get hideInvalidServer => 'Скрыть недоступные серверы';
 	@override String get sortServer => 'Сортировка серверов';
-	@override String get sortServerTips => 'Сортировать по задержке от низкой к высокой';
+	@override String get sortServerTips => 'Сортировать по задержке от меньшей к большей';
 	@override String get selectServerHideRecommand => 'Скрыть [Рекомендуемые]';
 	@override String get selectServerHideRecent => 'Скрыть [Недавно использованные]';
 	@override String get selectServerHideFav => 'Скрыть [Мои избранные]';
 	@override String get homeScreen => 'Оформление главного экрана';
 	@override String get theme => 'Тема';
 	@override String get widgetsAlpha => 'Прозрачность виджетов';
-	@override String get widgetsEmpty => 'Виджет недоступен';
+	@override String get widgetsEmpty => 'Нет доступных виджетов';
 	@override String get backgroundImage => 'Фоновое изображение';
 	@override String get myLink => 'Быстрая ссылка';
-	@override String get autoConnectAfterLaunch => 'Автоматическое подключение после запуска';
-	@override String get autoConnectAtBoot => 'Автоматическое подключение после запуска системы';
+	@override String get autoConnectAfterLaunch => 'Автоподключение при запуске';
+	@override String get autoConnectAtBoot => 'Автоматическое подключение при запуске системы';
 	@override String get automationWhitelist => 'Белый список автоматизации';
-	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].';
-	@override String get hideAfterLaunch => 'Скрыть окно после запуска';
+	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы могут потребовать включения [автозапуска].';
+	@override String get hideAfterLaunch => 'Сворачивать окно при запуске';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
 	@override String get bypassSystemProxy => 'Домены, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
@@ -472,20 +472,20 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get chainProxy => 'Цепочный прокси';
 	@override String get frontProxy => 'Фронтальный/цепной прокси';
 	@override String frontProxyTips({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер';
-	@override String postProxyTips({required Object p}) => 'Данные->Прокси-сервер[${p}]->Цепочный прокси-сервер[Несколько прокси-серверов: сверху вниз]->Целевой сервер';
+	@override String postProxyTips({required Object p}) => 'Данные-> Прокси-сервер[${p}]-> Цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Целевой сервер';
 	@override String get allowOtherHostsConnect => 'Разрешить подключение по локальной сети';
 	@override String allowOtherHostsConnectTips({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}';
-	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.';
-	@override String get tunAutoRoute => 'Автоматический маршрут';
+	@override String get allowOtherHostsConnectWarn => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие HTTP, могут потерять доступ в сеть.';
+	@override String get tunAutoRoute => 'Автоматическая маршрутизация';
 	@override String get tunDefaultRoute => 'Маршрут по умолчанию';
 	@override String get tunAutoRedirect => 'Автоматическое перенаправление';
-	@override String get tunStrictRoute => 'Строгий маршрут';
+	@override String get tunStrictRoute => 'Строгая маршрутизация';
 	@override String get tunStrictRouteTips => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.';
-	@override String get tunRouteExclude => 'Исключить маршрут';
+	@override String get tunRouteExclude => 'Исключения маршрутизации';
 	@override String get tunRouteExcludeTips => 'Трафик в исключённых диапазонах адресов больше не будет попадать в TUN';
-	@override String get tunRouteExcludeMulticast => 'Многоадресная передача';
+	@override String get tunRouteExcludeMulticast => 'Многоадресная передача (Multicast)';
 	@override String get tunRouteExcludeTUN => 'TUN';
-	@override String get loopbackAddress => 'Петлевой адрес';
+	@override String get loopbackAddress => 'Петлевой адрес (loopback)';
 	@override String get enableCluster => 'Включить кластер прокси Socks/Http';
 	@override String get clusterAllowOtherHostsConnect => 'Разрешить подключение по локальной сети к кластеру';
 	@override String clusterAllowOtherHostsConnectTips({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies';
@@ -495,22 +495,22 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get tunModeTips => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
 	@override String get tunModeRunAsAdmin => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
 	@override String get tunStack => 'Stack';
-	@override String get tunHijackTips => 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
-	@override String get launchAtStartup => 'Запуск при включении';
-	@override String get quitWhenSwitchSystemUser => 'Выйти из приложения при переключении пользователя';
+	@override String get tunHijackTips => 'Если отключить, DNS-запросы из TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
+	@override String get launchAtStartup => 'Автозапуск при старте системы';
+	@override String get quitWhenSwitchSystemUser => 'Закрывать приложение при смене пользователя системы';
 	@override String get handleScheme => 'Схемы системного вызова';
 	@override String get portableMode => 'Портативный режим';
-	@override String get portableModeDisableTips => 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]';
-	@override String get accessibility => 'Доступность';
+	@override String get portableModeDisableTips => 'Чтобы выйти из портативного режима, закройте [karing] и вручную удалите папку [profiles] в директории с [karing.exe]';
+	@override String get accessibility => 'Специальные возможности';
 	@override String get handleKaringScheme => 'Вызов karing://[параметры]';
 	@override String get handleClashScheme => 'Вызов clash://[параметры]';
 	@override String get handleSingboxScheme => 'Вызов sing-box://[параметры]';
 	@override String get alwayOnVPN => 'VPN всегда включен';
-	@override String get disconnectAfterSleep => 'Отключение после спящего режима системы';
+	@override String get disconnectAfterSleep => 'Отключать при переходе системы в спящий режим';
 	@override String get removeSystemVPNConfig => 'Удалить профиль VPN';
-	@override String get timeConnectOrDisconnect => 'Запланированное подключение/отключение';
-	@override String get timeConnectOrDisconnectTips => 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено';
-	@override String timeConnectAndDisconnectInterval({required Object p}) => 'Интервал подключения/отключения не может быть меньше ${p} минут.';
+	@override String get timeConnectOrDisconnect => 'Подключение/отключение по расписанию';
+	@override String get timeConnectOrDisconnectTips => 'Работает только при активном VPN. После включения [Автоматический спящий режим] отключится';
+	@override String timeConnectAndDisconnectInterval({required Object p}) => 'Интервал между подключением и отключением не может быть меньше ${p} минут.';
 	@override String get disableFontScaler => 'Отключить масштабирование шрифта';
 	@override String get autoOrientation => 'Следовать за поворотом экрана';
 	@override String get restartTakesEffect => 'Требуется перезапуск';
@@ -523,8 +523,8 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String hasNewVersion({required Object p}) => 'Обновить до версии ${p}';
 	@override String get follow => 'Подписаться на нас';
 	@override String get contactUs => 'Связаться с нами';
-	@override String get supportUs => 'Поддержите нас';
-	@override String get rateInApp => 'Оценить нас';
+	@override String get supportUs => 'Поддержать проект';
+	@override String get rateInApp => 'Оценить приложение';
 	@override String get rateInAppStore => 'Оценить нас в App Store';
 }
 
@@ -547,7 +547,7 @@ class _Translations$VersionUpdateScreen$ru implements Translations$VersionUpdate
 
 	// Translations
 	@override String versionReady({required Object p}) => 'Новая версия [${p}] доступна';
-	@override String get update => 'Перезапустить';
+	@override String get update => 'Перезапустить и обновить';
 	@override String get cancel => 'Отменить';
 }
 
@@ -559,13 +559,13 @@ class _Translations$loginScreen$ru implements Translations$loginScreen$en {
 
 	// Translations
 	@override String get provider => 'VPN-провайдер';
-	@override String get providerName => 'Kod/psevdonim/URL ${_root.loginScreen.provider}';
-	@override String get providerNameRequired => 'Vvedite kod/psevdonim/URL ${_root.loginScreen.provider}';
-	@override String get unsupportedProvider => 'Nepodderzhivaemyi ${_root.loginScreen.provider}';
-	@override String get unsupportedProviderType => 'Nepodderzhivaemyi tip ${_root.loginScreen.provider}';
+	@override String get providerName => 'Код, логин или URL ${_root.loginScreen.provider}';
+	@override String get providerNameRequired => 'Введите код, логин или URL ${_root.loginScreen.provider}';
+	@override String get unsupportedProvider => 'Неподдерживаемый ${_root.loginScreen.provider}';
+	@override String get unsupportedProviderType => 'Неподдерживаемый тип ${_root.loginScreen.provider}';
 	@override String get unActivedProvider => 'Привязка провайдера не активирована';
-	@override String providerLoginSupportRequired({required Object p}) => 'Za kodom/psevdonimom obratites k svoemu ${_root.loginScreen.provider}\nPo podklyucheniyu ${_root.loginScreen.provider} sm.: ${p}';
-	@override String get providerDisclaimer => 'Otvetstvennost: ${_root.loginScreen.provider} yavlyaetsya storonnim servisom i ne svyazan s etim prilozheniem';
+	@override String providerLoginSupportRequired({required Object p}) => 'Для получения кода или логина обратитесь к вашему ${_root.loginScreen.provider}\nПодробнее об интеграции с ${_root.loginScreen.provider}: ${p}';
+	@override String get providerDisclaimer => 'Отказ от ответственности: ${_root.loginScreen.provider} является сторонним сервисом и не связан с этим приложением';
 }
 
 // Path: CommonWidget
@@ -575,8 +575,8 @@ class _Translations$CommonWidget$ru implements Translations$CommonWidget$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get diableAlwayOnVPN => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз';
-	@override String get resetPort => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.';
+	@override String get diableAlwayOnVPN => 'Если параметр [Постоянный VPN] включен, отключите его и попробуйте подключиться еще раз';
+	@override String get resetPort => 'Измените порт на другой свободный порт или закройте приложение, занимающее порт.';
 }
 
 // Path: main
@@ -596,11 +596,11 @@ class _Translations$meta$ru implements Translations$meta$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get enable => 'Разрешить';
-	@override String get disable => 'Запретить';
+	@override String get enable => 'Включить';
+	@override String get disable => 'Отключить';
 	@override String get bydefault => 'По умолчанию';
 	@override String get filter => 'Фильтр';
-	@override String get filterMethod => 'Метод фильтра';
+	@override String get filterMethod => 'Метод фильтрации';
 	@override String get include => 'Включать';
 	@override String get exclude => 'Исключать';
 	@override String get all => 'Все';
@@ -631,7 +631,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get feedbackContentHit => 'Не более 500 символов';
 	@override String get feedbackContentCannotEmpty => 'Содержание не может быть пустым';
 	@override String get faq => 'Часто задаваемые вопросы (FAQ)';
-	@override String get htmlTools => 'HTML Toolset';
+	@override String get htmlTools => 'Набор HTML-утилит';
 	@override String get download => 'Скачать';
 	@override String get upload => 'Загрузить';
 	@override String get downloadSpeed => 'Скорость загрузки';
@@ -651,7 +651,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get dateTimePeriod => 'Период времени';
 	@override String get protocol => 'Протокол';
 	@override String get search => 'Поиск';
-	@override String get custom => 'Самостоятельная настройка';
+	@override String get custom => 'Свой вариант';
 	@override String get inbound => 'Вход';
 	@override String get outbound => 'Выход';
 	@override String get destination => 'Цель';
@@ -715,7 +715,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get domainSuffix => 'Суффикс доменного имени';
 	@override String get domain => 'Имя домена';
 	@override String get domainKeyword => 'Ключевые слова в имени домена';
-	@override String get domainRegex => 'Регулярные выражения для имен доменов';
+	@override String get domainRegex => 'Регулярные выражения для имен доменов (RegEx)';
 	@override String get ip => 'IP';
 	@override String get port => 'Порт';
 	@override String get portRange => 'Диапазон портов';
@@ -728,10 +728,10 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get statistics => 'статистика';
 	@override String get statisticsAndAnalysis => 'Статистика и анализ';
 	@override String get statisticsDataDesensitize => 'Анонимизация данных';
-	@override String get statisticsDataDesensitizeTips => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.';
-	@override String get records => 'Записывать';
-	@override String get requestRecords => 'Запросить записи';
-	@override String get netInterfaces => 'Сетевой интерфейс';
+	@override String get statisticsDataDesensitizeTips => 'Имена процессов, ID пакетов, целевые домены и IP будут заменены на * при сохранении';
+	@override String get records => 'Записи';
+	@override String get requestRecords => 'История запросов';
+	@override String get netInterfaces => 'Сетевые интерфейсы';
 	@override String get netSpeed => 'Скорость';
 	@override String get memoryTrendChart => 'Диаграмма тренда памяти';
 	@override String get goroutinesTrendChart => 'График трендов GoRoutines';
@@ -792,15 +792,15 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get logicOperation => 'Логическая опреация';
 	@override String get share => 'Поделиться';
 	@override String get candidateWord => 'Ключевые слова';
-	@override String get keywordOrRegx => 'Ключевые слова/регулярные выражения';
+	@override String get keywordOrRegx => 'Ключевые слова/регулярные выражения (RegExp)';
 	@override String get importFromClipboard => 'Импорт из буфера обмена';
 	@override String get exportToClipboard => 'Экспорт в буфер обмена';
 	@override String get server => 'Сервер';
 	@override String get ads => 'Реклама';
 	@override String get adsRemove => 'Удалить рекламу';
 	@override String get donate => 'Пожертвовать';
-	@override String get diversion => 'Правила';
-	@override String get diversionRules => 'Правила перенаправления';
+	@override String get diversion => 'Маршрутизация';
+	@override String get diversionRules => 'Правила маршрутизации';
 	@override String get diversionCustomGroup => 'Личные правила';
 	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
 	@override String get setting => 'Настройки';
@@ -812,7 +812,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get deviceNoSpace => 'Недостаточно места на диске';
 	@override String get hideSystemApp => 'Скрыть системные приложения';
 	@override String get hideAppIcon => 'Скрыть значок приложения';
-	@override String get hideDockIcon => 'Скрыть значок дока';
+	@override String get hideDockIcon => 'Скрыть значок из Dock';
 	@override String get remark => 'Примечание';
 	@override String get remarkExist => 'Примечание уже существует, используйте другое имя';
 	@override String get remarkCannotEmpty => 'Примечание не может быть пустым';
@@ -830,24 +830,24 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get addProfile => 'Добавить профиль';
 	@override String get myProfiles => 'Профили';
 	@override String get profileEdit => 'Редактирование профилей';
-	@override String get profileEditUrlExist => 'URL-адрес уже существует, используйте другой URL-адрес';
+	@override String get profileEditUrlExist => 'Этот URL уже добавлен, укажите другой';
 	@override String get profileEditReloadAfterProfileUpdate => 'Перезагрузить после обновления профиля';
 	@override String get profileEditTestLatencyAfterProfileUpdate => 'Начать тестирование задержек после обновления профиля';
 	@override String get profileEditTestLatencyAfterProfileUpdateTips => 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]';
 	@override String get profileEditTestLatencyAutoRemove => 'Автоматически удалять серверы, не прошедшие тесты на задержку';
-	@override String get profileEditTestLatencyAutoRemoveTips => 'Попробуйте до 3 раз';
+	@override String get profileEditTestLatencyAutoRemoveTips => 'До 3 попыток';
 	@override String get profileImport => 'Импорт файла конфигурации';
 	@override String get profileAddUrlOrContent => 'Добавление подписки';
 	@override String get profileExists => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно';
 	@override String get profileUrlOrContent => 'Ссылка на подписку/содержание';
-	@override String get profileUrlOrContentHit => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).';
+	@override String get profileUrlOrContentHit => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(пакетом), Stash, Karing, Sing-box, Shadowsocks, Sub, ссылки на конфигурацию).';
 	@override String get profileUrlOrContentCannotEmpty => 'Ссылка на подписку не может быть пустой';
 	@override String profileAddFailedFormatException({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}';
-	@override String profileAddFailedThenDownloadAndImport({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.';
-	@override String profileAddFailedHandshakeException({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.';
+	@override String profileAddFailedThenDownloadAndImport({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.';
+	@override String profileAddFailedHandshakeException({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.';
 	@override String get profileAddParseFailed => 'Получение подписки не удалось';
-	@override String get profileAddNoServerAvaliable => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.';
-	@override String get profileAddWrapSuccess => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]';
+	@override String get profileAddNoServerAvaliable => 'Нет доступных серверов. Убедитесь что подписка или файл конфигурации корректен. Если ваша конфигурация взята из GitHub, копируйте ссылку по кнопке [Raw].';
+	@override String get profileAddWrapSuccess => 'Профиль успешно создан, проверьте в разделе [${_root.meta.myProfiles}]';
 }
 
 // Path: isp
@@ -888,12 +888,12 @@ class _Translations$tls$ru implements Translations$tls$en {
 	// Translations
 	@override String get insecure => 'Пропустить проверку сертификата';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
-	@override String get fragmentEnable => 'Включить фрагментацию TLS';
+	@override String get fragmentEnable => 'Включить TLS Fragment';
 	@override String get fragmentSize => 'Размер фрагмента TLS';
-	@override String get fragmentSleep => 'Длина фрагмента паузы TLS';
-	@override String get mixedCaseSNIEnable => 'Включить гибридный SNI TLS';
-	@override String get paddingEnable => 'Включить заполнение TLS';
-	@override String get paddingSize => 'Размер заполнения TLS';
+	@override String get fragmentSleep => 'Задержка фрагментации TLS';
+	@override String get mixedCaseSNIEnable => 'Включить TLS Mixed SNI';
+	@override String get paddingEnable => 'Включить TLS Padding';
+	@override String get paddingSize => 'Размер TLS Padding';
 }
 
 // Path: outboundRuleMode
@@ -952,8 +952,8 @@ class _Translations$theme$ru implements Translations$theme$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get light => 'Светлый цвет';
-	@override String get dark => 'Черный цвет';
+	@override String get light => 'Светлая';
+	@override String get dark => 'Тёмная';
 	@override String get auto => 'Автоматически';
 }
 
@@ -976,18 +976,18 @@ class _Translations$main$tray$ru implements Translations$main$tray$en {
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'AboutScreen.installRefer' => 'Ссылка на установку',
+			'AboutScreen.installRefer' => 'Источник установки',
 			'AboutScreen.installTime' => 'Время установки',
 			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
-			'AboutScreen.updateWhenConnected' => 'Проверьте наличие обновлений после подключения.',
+			'AboutScreen.updateWhenConnected' => 'Проверять наличие обновлений после подключения.',
 			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
-			'AboutScreen.disableAppImproveData' => 'Использовать данные для улучшения',
-			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшить стабильность и удобство использования продукта; мы не собираем никаких персональных данных. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',
+			'AboutScreen.disableAppImproveData' => 'Использовать данные для улучшения приложения',
+			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшать стабильность и удобство приложения. Мы не собираем личные данные. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',
 			'AboutScreen.devOptions' => 'Параметры разработчика',
 			'AboutScreen.enableDebugLog' => 'Включить debug-лог',
-			'AboutScreen.viewFilsContent' => 'Посмотреть файлы',
+			'AboutScreen.viewFilsContent' => 'Посмотр файлов',
 			'AboutScreen.enablePprof' => 'Включить pprof',
-			'AboutScreen.pprofPanel' => 'pprof панель',
+			'AboutScreen.pprofPanel' => 'Панель pprof',
 			'AboutScreen.allowRemoteAccessPprof' => 'Разрешить удаленный доступ к ${_root.AboutScreen.pprofPanel}',
 			'AboutScreen.allowRemoteAccessHtmlBoard' => 'Разрешить удаленный доступ к ${_root.SettingsScreen.htmlBoard}',
 			'AboutScreen.useOriginalSBProfile' => 'Использовать исходную конфигурацию Sing-box',
@@ -1002,33 +1002,33 @@ extension on TranslationsRu {
 			'DiversionGroupCustomEditScreen.invalidRuleSetBuildIn' => ({required Object p}) => 'Неверный [RuleSet(build-in)]:${p}, формат: geosite:xxx или geoip:xxx или acl:xxx, а xxx должно быть допустимым именем правила.',
 			'DiversionGroupCustomEditScreen.invalidPackageId' => ({required Object p}) => 'Неверный [${_root.meta.appPackage}]:${p}',
 			'DiversionGroupCustomEditScreen.setDiversionRule' => 'Совет: после сохранения перейдите в раздел [${_root.meta.diversionRules}] и настройте их, иначе изменения не будут действовать.',
-			'DiversionRuleDetectScreen.title' => 'Тест правил перенаправления',
+			'DiversionRuleDetectScreen.title' => 'Тест правил маршрутизации',
 			'DiversionRuleDetectScreen.rule' => 'Правило:',
 			'DiversionRuleDetectScreen.outbound' => 'Прокси-сервер:',
 			'DiversionRulesScreen.diversionRulesMatchTips' => 'Совет: Правила применяются по очереди сверху вниз. Если ни одно соответствие не обнаружено, то действует правило [Final]',
-			'DnsSettingsScreen.ispCanNotEmpty' => 'ISP не может быть пустым',
+			'DnsSettingsScreen.ispCanNotEmpty' => 'Имя провайдера не может быть пустым',
 			'DnsSettingsScreen.urlCanNotEmpty' => 'URL не может быть пустой',
 			'DnsSettingsScreen.error' => ({required Object p}) => 'Неподдерживаемый тип:${p}',
-			'DnsSettingsScreen.dnsDesc' => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: данные — это задержка запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: данные - это задержка запроса при прямом соединении.',
+			'DnsSettingsScreen.dnsDesc' => 'Первый столбец данных — это задержка запроса при прямом соединении;\nВторой столбец, если включено [[действующий поток] Разрешать DNS через прокси-сервер]: показывает задержку запроса, пересылаемого через текущий прокси-сервер; Если выключено [[действующий поток] Разрешать DNS через прокси-сервер]: показывает задержку запроса при прямом соединении.',
 			'FileContentViewerScreen.title' => 'Просмотр содержимого файла',
 			'FileContentViewerScreen.clearFileContent' => 'Вы уверены, что хотите очистить содержимое файла?',
-			'FileContentViewerScreen.clearFileContentTips' => 'Вы уверены, что  хотите очистить содержимое файла профиля? Очистка файла профиля может привести к потере данных или некорректной работе приложения. Действуйте осторожно.',
-			'HomeScreen.invalidServer' => ({required Object p}) => '[${p}] больше недействителен, пожалуйста, выберите сервер снова',
-			'HomeScreen.disabledServer' => ({required Object p}) => '[${p}] отключен, пожалуйста, выберите сервер снова',
-			'HomeScreen.expiredServer' => 'Нет доступного сервера: возможно, профиль устарел или отключен',
+			'FileContentViewerScreen.clearFileContentTips' => 'Вы точно хотите очистить файл профиля? Это может привести к потере данных или сбоям в работе приложения, делайте это осмотрительно.',
+			'HomeScreen.invalidServer' => ({required Object p}) => '[${p}] больше недоступен. Выберите другой сервер.',
+			'HomeScreen.disabledServer' => ({required Object p}) => '[${p}] отключен. Выберите другой сервер.',
+			'HomeScreen.expiredServer' => 'Нет доступного сервера: возможно, профиль устарел или отключен.',
 			'HomeScreen.systemProxyTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
-			'HomeScreen.myLinkEmpty' => 'Пожалуйста, настройте [Быструю ссылку] перед использованием',
-			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}], и соединение может оказаться невозможным из-за ограничений системной памяти',
-			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}] могут привести к медленному или недоступному соединению.',
+			'HomeScreen.myLinkEmpty' => 'Сначала настройте [Быструю ссылку]',
+			'HomeScreen.tooMuchServers' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}]. Подключение может не работать из-за ограничений системной памяти',
+			'HomeScreen.tooMuchServers2' => ({required Object p, required Object p1}) => 'Слишком много прокси-серверов [${p}>${p1}]. Это может замедлить работу или привести к обрывам соединения.',
 			'LaunchFailedScreen.invalidProcess' => 'Не удалось запустить приложение [Неверное имя процесса], переустановите приложение в отдельную папку',
-			'LaunchFailedScreen.invalidProfile' => 'Не удалось запустить приложение [Не удалось получить доступ к профилю], переустановите приложение',
+			'LaunchFailedScreen.invalidProfile' => 'Не удалось запустить приложение [Нет доступа к профилю], переустановите приложение',
 			'LaunchFailedScreen.invalidVersion' => 'Не удалось запустить приложение [Неверная версия], переустановите приложение',
-			'LaunchFailedScreen.systemVersionLow' => 'Не удалось запустить приложение [Слишком низкая версия системы]',
-			'LaunchFailedScreen.invalidInstallPath' => 'Путь установки недействителен, переустановите его по допустимому пути',
+			'LaunchFailedScreen.systemVersionLow' => 'Не удалось запустить приложение [Версия системы слишком старая]',
+			'LaunchFailedScreen.invalidInstallPath' => 'Неверный путь установки, переустановите приложение в правильную директорию',
 			'MyProfilesMergeScreen.profilesMerge' => 'Объединение профилей',
 			'MyProfilesMergeScreen.profilesMergeTarget' => 'Целевой профиль',
-			'MyProfilesMergeScreen.profilesMergeSource' => 'Профиль - источник',
-			'MyProfilesMergeScreen.profilesMergeTips' => 'Совет: Настройки перенаправления для профиля - источника будут удалены.',
+			'MyProfilesMergeScreen.profilesMergeSource' => 'Профили - источники',
+			'MyProfilesMergeScreen.profilesMergeTips' => 'Совет: Настройки маршрутизации для профилей - источников будут удалены.',
 			'NetCheckScreen.title' => 'Диагностика сети',
 			'NetCheckScreen.warn' => 'Примечание. Из-за влияния сетевой среды и правил перенаправления результаты теста не полностью эквивалентны реальным результатам.',
 			'NetCheckScreen.invalidDomain' => 'Неверное имя домена',
@@ -1048,7 +1048,7 @@ extension on TranslationsRu {
 			'NetCheckScreen.dnsOk' => ({required Object p1, required Object p2, required Object p3, required Object p4}) => '[${p1}]DNS Разобрано успешно\nDNS правило:[${p2}]\nЗадержка:[${p3} ms]\nадрес:[${p4}]',
 			'NetCheckScreen.dnsFailed' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]DNS Не удалось выполнить синтаксический анализ\n правило:[${p2}]\nошибка:[${p3}]',
 			'NetCheckScreen.host' => 'HTTP соединение',
-			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравила перенаправления:[${p2}]\nПрокси-сервер:[${p3}]',
+			'NetCheckScreen.hostConnection' => ({required Object p1, required Object p2, required Object p3}) => '[${p1}]\nПравило маршрутизации:[${p2}]\nПрокси-сервер:[${p3}]',
 			'NetCheckScreen.hostConnectionOk' => 'Соединение установлено успешно',
 			'NetCheckScreen.hostConnectionFailed' => ({required Object p}) => 'Соединение не удалось:[${p}]',
 			'NetConnectionsFilterScreen.hostIp' => 'Domain/IP',
@@ -1056,13 +1056,13 @@ extension on TranslationsRu {
 			'NetConnectionsFilterScreen.rule' => 'Правило',
 			'NetConnectionsFilterScreen.chain' => 'Исходящий',
 			'NetConnectionsScreen.copyAsCSV' => 'Скопировано в CSV формате',
-			'NetConnectionsScreen.selectType' => 'Выберите тип перенаправления',
-			'NetConnectionsScreen.loopbackWarning' => 'Возможно, возникло сетевое зацикливание. Проверьте настройки сетевого адаптера',
+			'NetConnectionsScreen.selectType' => 'Выберите тип маршрутизации',
+			'NetConnectionsScreen.loopbackWarning' => 'Возможно, возникла сетевая петля. Проверьте настройки сетевого адаптера.',
 			'PerAppAndroidScreen.title' => 'Проксируемые приложения',
 			'PerAppAndroidScreen.whiteListMode' => 'Режим белого списка',
-			'PerAppAndroidScreen.whiteListModeTip' => 'Если включено: перенаправляются через прокси-сервер только те приложения, которые были отмечены. Если выключено: перенаправляются через прокси-сервер только те приложения, которые не были отмечены.',
+			'PerAppAndroidScreen.whiteListModeTip' => 'Если включено: проксируются только отмеченные приложения. Если выключено: проксируется всё, кроме отмеченных приложений.',
 			'RegionSettingsScreen.title' => 'Страна или регион',
-			'RegionSettingsScreen.Regions' => 'Совет: Пожалуйста, правильно укажите текущую страну или регион. В противном случае это может вызвать проблемы с перенаправлением в сети',
+			'RegionSettingsScreen.Regions' => 'Совет: Правильно укажите текущую страну или регион. Иначе это может вызвать проблемы с маршрутизацией.',
 			'ServerSelectScreen.title' => 'Выбор сервера',
 			'ServerSelectScreen.autoSelectServer' => 'Автовыбор сервера с наименьшей задержкой',
 			'ServerSelectScreen.recentUse' => 'Недавно использованные',
@@ -1071,16 +1071,16 @@ extension on TranslationsRu {
 			'ServerSelectScreen.selectRequireEnableIPv6' => 'Выбранный сервер имеет адрес IPv6 и требует [Включить IPv6]',
 			'ServerSelectScreen.selectDisabled' => 'Сервер отключен',
 			'ServerSelectScreen.error404' => 'При  измерении задержки произошла ошибка. Проверьте, существует ли профиль с таким содержимым.',
-			'SettingsScreen.getTranffic' => 'Получить трафик',
-			'SettingsScreen.tutorial' => 'Руководство',
+			'SettingsScreen.getTranffic' => 'Купить трафик',
+			'SettingsScreen.tutorial' => 'Инструкция',
 			'SettingsScreen.commonlyUsedRulesets' => 'Коллекция наборов правил',
 			'SettingsScreen.htmlBoard' => 'Веб-панель',
 			'SettingsScreen.dnsLeakDetection' => 'Тест утечки DNS',
-			'SettingsScreen.proxyLeakDetection' => 'Проверка заметности наличия прокси',
+			'SettingsScreen.proxyLeakDetection' => 'Тест утечки прокси',
 			'SettingsScreen.speedTest' => 'Тест скорости',
 			'SettingsScreen.rulesetDirectDownlad' => 'Правила прямой загрузки',
-			'SettingsScreen.hideUnusedDiversionGroup' => 'Скрыть неактивные правила перенаправления трафика',
-			'SettingsScreen.disableISPDiversionGroup' => 'Отключить правила перенаправления [${_root.meta.isp}]',
+			'SettingsScreen.hideUnusedDiversionGroup' => 'Скрывать неиспользуемые правила маршрутизации',
+			'SettingsScreen.disableISPDiversionGroup' => 'Отключить правила маршрутизации [${_root.meta.isp}]',
 			'SettingsScreen.portSettingRule' => 'Действуют все правила',
 			'SettingsScreen.portSettingDirectAll' => 'Всё подключено напрямую',
 			'SettingsScreen.portSettingProxyAll' => 'Всё идёт через прокси',
@@ -1088,21 +1088,21 @@ extension on TranslationsRu {
 			'SettingsScreen.portSettingCluster' => 'Кластерный сервис',
 			'SettingsScreen.modifyPort' => 'Изменить порт',
 			'SettingsScreen.modifyPortOccupied' => 'Порт занят, используйте другой порт',
-			'SettingsScreen.ipStrategyTips' => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6, в противном случае нормальный доступ к части трафика будет невозможен',
-			'SettingsScreen.tunAppendHttpProxy' => 'Подключите HTTP-прокси к VPN',
-			'SettingsScreen.tunAppendHttpProxyTips' => 'Некоторые приложения будут обходить устройство виртуальной сетевой карты и напрямую подключаться к HTTP-прокси.',
+			'SettingsScreen.ipStrategyTips' => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6,  иначе часть трафика будет недоступна.',
+			'SettingsScreen.tunAppendHttpProxy' => 'Добавить HTTP-прокси в VPN.',
+			'SettingsScreen.tunAppendHttpProxyTips' => 'Некоторые приложения будут обходить виртуальный адаптер и подключаться к HTTP-прокси напрямую.',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
-			'SettingsScreen.dnsEnableRule' => 'Включить правила для DNS',
+			'SettingsScreen.dnsEnableRule' => 'Включить правила маршрутизации DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Способ разрешения в DNS',
 			'SettingsScreen.dnsEnableClientSubnet' => '[${_root.meta.trafficDirect}] Включить ECS',
-			'SettingsScreen.dnsTestDomain' => 'Тестовое доменное имя',
-			'SettingsScreen.dnsTestDomainInvalid' => 'Неверное доменное имя',
+			'SettingsScreen.dnsTestDomain' => 'Тестовый домен',
+			'SettingsScreen.dnsTestDomainInvalid' => 'Неверный домен',
 			'SettingsScreen.dnsTypeOutbound' => 'Прокси-сервер',
 			'SettingsScreen.dnsTypeDirect' => _root.meta.trafficDirect,
 			'SettingsScreen.dnsTypeProxy' => _root.meta.trafficProxy,
 			'SettingsScreen.dnsTypeResolver' => 'DNS-сервер',
-			'SettingsScreen.dnsEnableRuleTips' => 'Если включено, доменное имя выберет соответствующий DNS-сервер для разрешения в соответствии с правилами перенаправления DNS.',
-			'SettingsScreen.dnsEnableFakeIpTips' => 'После включения FakeIP, если VPN-соединение отключено, возможно, потребуется перезапустить приложение. Эту функцию необходимо включить в [Режиме TUN];',
+			'SettingsScreen.dnsEnableRuleTips' => 'Если включено, домен будет разрешаться через DNS-сервер, указанный в правилаах маршрутизации DNS.',
+			'SettingsScreen.dnsEnableFakeIpTips' => 'После включения FakeIP и отключения от VPN может потребоваться перезапуск приложений. Работает только при включенном [Режиме TUN].',
 			'SettingsScreen.dnsTypeOutboundTips' => 'Для разрешения доменных имен прокси-сервера рекомендуется использовать безопасный DNS',
 			'SettingsScreen.dnsTypeDirectTips' => 'Разрешение доменного имени для [${_root.meta.trafficDirect}]',
 			'SettingsScreen.dnsTypeProxyTips' => 'Разрешение доменных имен для трафика через Proxy',
@@ -1113,7 +1113,7 @@ extension on TranslationsRu {
 			'SettingsScreen.dnsEnableStaticIPForResolverTips' => 'Эффективно предотвратить загрязнение самого DNS-сервера во время разрешения',
 			'SettingsScreen.inboundDomainResolve' => 'Разрешение входящих доменных имен',
 			'SettingsScreen.privateDirect' => 'Прямое подключение к частной сети',
-			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Некоторые доменные имена без настроенных правил переадресации необходимо разрешить, прежде чем они смогут соответствовать правилам переадресации на основе IP; эта функция влияет на входящие запросы к порту прокси [${p}]',
+			'SettingsScreen.inboundDomainResolveTips' => ({required Object p}) => 'Домены без настроенных правил маршрутизации нужно сначала разрешить в IP, чтобы сработали правила маршрутизации на основе IP. Эта функция влияет на входящие запросы к порту прокси [${p}]',
 			'SettingsScreen.useRomoteRes' => 'Использовать удаленные ресурсы',
 			'SettingsScreen.autoAppendRegion' => 'Автоматически добавлять основные правила',
 			'SettingsScreen.autoSelect' => 'Автовыбор',
@@ -1122,32 +1122,32 @@ extension on TranslationsRu {
 			'SettingsScreen.autoSelectSelectedHealthCheckInterval' => 'Текущий интервал проверки работоспособности сервера',
 			'SettingsScreen.autoSelectServerReTestIfNetworkUpdate' => 'Перетестировать после смены сети',
 			'SettingsScreen.autoSelectServerIntervalTips' => 'Чем короче временной интервал, тем чаще обновляются данные о задержке сервера. Но это потребует больше ресурсов и энергии',
-			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, группа повторно тестируется с задержкой.',
+			'SettingsScreen.autoSelectSelectedHealthCheckIntervalTips' => 'Если тест не удался, узел переключается; если при переключении не найдено ни одного доступного узла, в группе заново запускается тест задержки.',
 			'SettingsScreen.autoSelectServerFavFirst' => 'Предпочитать [Мои избранные]',
 			'SettingsScreen.autoSelectServerUpdateCurrentServerAfterManualUrltest' => 'Обновить текущий сервер после измерения задержки вручную',
 			'SettingsScreen.autoSelectServerFavFirstTips' => 'Если список [Мои избранные] не пуст, то будут использоваться серверы из [Мои избранные]',
-			'SettingsScreen.autoSelectServerFilter' => 'Отфильтровать сервера',
+			'SettingsScreen.autoSelectServerFilter' => 'Отфильтровать недоступные сервера',
 			'SettingsScreen.autoSelectServerFilterTips' => ({required Object p}) => 'Сервера с превышением задержки будут отфильтрованы; если после фильтрации ни один сервер не будет доступен, вместо него будут использоваться первые [${p}] серверов',
 			'SettingsScreen.autoSelectServerLimitedNum' => 'Максимальное количество серверов',
 			'SettingsScreen.autoSelectServerLimitedNumTips' => 'Если серверов больше этого числа, лишние будут отброшены.',
-			'SettingsScreen.numInvalid' => 'Неправильный номер',
-			'SettingsScreen.hideInvalidServer' => 'Скрыть нерабочие серверы',
+			'SettingsScreen.numInvalid' => 'Некорректное число',
+			'SettingsScreen.hideInvalidServer' => 'Скрыть недоступные серверы',
 			'SettingsScreen.sortServer' => 'Сортировка серверов',
-			'SettingsScreen.sortServerTips' => 'Сортировать по задержке от низкой к высокой',
+			'SettingsScreen.sortServerTips' => 'Сортировать по задержке от меньшей к большей',
 			'SettingsScreen.selectServerHideRecommand' => 'Скрыть [Рекомендуемые]',
 			'SettingsScreen.selectServerHideRecent' => 'Скрыть [Недавно использованные]',
 			'SettingsScreen.selectServerHideFav' => 'Скрыть [Мои избранные]',
 			'SettingsScreen.homeScreen' => 'Оформление главного экрана',
 			'SettingsScreen.theme' => 'Тема',
 			'SettingsScreen.widgetsAlpha' => 'Прозрачность виджетов',
-			'SettingsScreen.widgetsEmpty' => 'Виджет недоступен',
+			'SettingsScreen.widgetsEmpty' => 'Нет доступных виджетов',
 			'SettingsScreen.backgroundImage' => 'Фоновое изображение',
 			'SettingsScreen.myLink' => 'Быстрая ссылка',
-			'SettingsScreen.autoConnectAfterLaunch' => 'Автоматическое подключение после запуска',
-			'SettingsScreen.autoConnectAtBoot' => 'Автоматическое подключение после запуска системы',
+			'SettingsScreen.autoConnectAfterLaunch' => 'Автоподключение при запуске',
+			'SettingsScreen.autoConnectAtBoot' => 'Автоматическое подключение при запуске системы',
 			'SettingsScreen.automationWhitelist' => 'Белый список автоматизации',
-			'SettingsScreen.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы также могут потребовать включения [автозапуска].',
-			'SettingsScreen.hideAfterLaunch' => 'Скрыть окно после запуска',
+			'SettingsScreen.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы могут потребовать включения [автозапуска].',
+			'SettingsScreen.hideAfterLaunch' => 'Сворачивать окно при запуске',
 			'SettingsScreen.autoSetSystemProxy' => 'Установить системный прокси после подключения',
 			'SettingsScreen.bypassSystemProxy' => 'Домены, которым разрешено обходить системный прокси-сервер',
 			'SettingsScreen.disconnectWhenQuit' => 'Отключаться при выходе из приложения',
@@ -1165,20 +1165,20 @@ extension on TranslationsRu {
 			'SettingsScreen.chainProxy' => 'Цепочный прокси',
 			'SettingsScreen.frontProxy' => 'Фронтальный/цепной прокси',
 			'SettingsScreen.frontProxyTips' => ({required Object p}) => 'Данные-> Фронтальный/цепной прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Прокси-сервер [${p}]-> Целевой сервер',
-			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Данные->Прокси-сервер[${p}]->Цепочный прокси-сервер[Несколько прокси-серверов: сверху вниз]->Целевой сервер',
+			'SettingsScreen.postProxyTips' => ({required Object p}) => 'Данные-> Прокси-сервер[${p}]-> Цепочный прокси-сервер [Несколько прокси-серверов: сверху вниз]-> Целевой сервер',
 			'SettingsScreen.allowOtherHostsConnect' => 'Разрешить подключение по локальной сети',
 			'SettingsScreen.allowOtherHostsConnectTips' => ({required Object sp, required Object hp}) => 'socks:${sp},http(s):${hp}',
-			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие http для доступа к сети, могут не иметь возможности правильно подключиться к сети.',
-			'SettingsScreen.tunAutoRoute' => 'Автоматический маршрут',
+			'SettingsScreen.allowOtherHostsConnectWarn' => 'Из-за системных ограничений после включения этой функции приложения на этом устройстве, использующие HTTP, могут потерять доступ в сеть.',
+			'SettingsScreen.tunAutoRoute' => 'Автоматическая маршрутизация',
 			'SettingsScreen.tunDefaultRoute' => 'Маршрут по умолчанию',
 			'SettingsScreen.tunAutoRedirect' => 'Автоматическое перенаправление',
-			'SettingsScreen.tunStrictRoute' => 'Строгий маршрут',
+			'SettingsScreen.tunStrictRoute' => 'Строгая маршрутизация',
 			'SettingsScreen.tunStrictRouteTips' => 'Если после включения общего доступа другие люди не смогут получить доступ к этому устройству, попробуйте отключить этот переключатель.',
-			'SettingsScreen.tunRouteExclude' => 'Исключить маршрут',
+			'SettingsScreen.tunRouteExclude' => 'Исключения маршрутизации',
 			'SettingsScreen.tunRouteExcludeTips' => 'Трафик в исключённых диапазонах адресов больше не будет попадать в TUN',
-			'SettingsScreen.tunRouteExcludeMulticast' => 'Многоадресная передача',
+			'SettingsScreen.tunRouteExcludeMulticast' => 'Многоадресная передача (Multicast)',
 			'SettingsScreen.tunRouteExcludeTUN' => 'TUN',
-			'SettingsScreen.loopbackAddress' => 'Петлевой адрес',
+			'SettingsScreen.loopbackAddress' => 'Петлевой адрес (loopback)',
 			'SettingsScreen.enableCluster' => 'Включить кластер прокси Socks/Http',
 			'SettingsScreen.clusterAllowOtherHostsConnect' => 'Разрешить подключение по локальной сети к кластеру',
 			'SettingsScreen.clusterAllowOtherHostsConnectTips' => ({required Object ip, required Object port}) => 'http://${ip}:${port}/get_proxies',
@@ -1188,22 +1188,22 @@ extension on TranslationsRu {
 			'SettingsScreen.tunModeTips' => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]',
 			'SettingsScreen.tunModeRunAsAdmin' => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора',
 			'SettingsScreen.tunStack' => 'Stack',
-			'SettingsScreen.tunHijackTips' => 'После закрытия DNS-запросы от TUN будут пересылаться напрямую на соответствующий DNS-сервер.',
-			'SettingsScreen.launchAtStartup' => 'Запуск при включении',
-			'SettingsScreen.quitWhenSwitchSystemUser' => 'Выйти из приложения при переключении пользователя',
+			'SettingsScreen.tunHijackTips' => 'Если отключить, DNS-запросы из TUN будут пересылаться напрямую на соответствующий DNS-сервер.',
+			'SettingsScreen.launchAtStartup' => 'Автозапуск при старте системы',
+			'SettingsScreen.quitWhenSwitchSystemUser' => 'Закрывать приложение при смене пользователя системы',
 			'SettingsScreen.handleScheme' => 'Схемы системного вызова',
 			'SettingsScreen.portableMode' => 'Портативный режим',
-			'SettingsScreen.portableModeDisableTips' => 'Если вам нужно выйти из портативного режима, выйдите из [karing] и вручную удалите папку [profiles] в том же каталоге, что и [karing.exe]',
-			'SettingsScreen.accessibility' => 'Доступность',
+			'SettingsScreen.portableModeDisableTips' => 'Чтобы выйти из портативного режима, закройте [karing] и вручную удалите папку [profiles] в директории с [karing.exe]',
+			'SettingsScreen.accessibility' => 'Специальные возможности',
 			'SettingsScreen.handleKaringScheme' => 'Вызов karing://[параметры]',
 			'SettingsScreen.handleClashScheme' => 'Вызов clash://[параметры]',
 			'SettingsScreen.handleSingboxScheme' => 'Вызов sing-box://[параметры]',
 			'SettingsScreen.alwayOnVPN' => 'VPN всегда включен',
-			'SettingsScreen.disconnectAfterSleep' => 'Отключение после спящего режима системы',
+			'SettingsScreen.disconnectAfterSleep' => 'Отключать при переходе системы в спящий режим',
 			'SettingsScreen.removeSystemVPNConfig' => 'Удалить профиль VPN',
-			'SettingsScreen.timeConnectOrDisconnect' => 'Запланированное подключение/отключение',
-			'SettingsScreen.timeConnectOrDisconnectTips' => 'Чтобы это заработало, необходимо подключить VPN; после его подключения [автоматическое засыпание] будет отключено',
-			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'Интервал подключения/отключения не может быть меньше ${p} минут.',
+			'SettingsScreen.timeConnectOrDisconnect' => 'Подключение/отключение по расписанию',
+			'SettingsScreen.timeConnectOrDisconnectTips' => 'Работает только при активном VPN. После включения [Автоматический спящий режим] отключится',
+			'SettingsScreen.timeConnectAndDisconnectInterval' => ({required Object p}) => 'Интервал между подключением и отключением не может быть меньше ${p} минут.',
 			'SettingsScreen.disableFontScaler' => 'Отключить масштабирование шрифта',
 			'SettingsScreen.autoOrientation' => 'Следовать за поворотом экрана',
 			'SettingsScreen.restartTakesEffect' => 'Требуется перезапуск',
@@ -1216,31 +1216,31 @@ extension on TranslationsRu {
 			'SettingsScreen.hasNewVersion' => ({required Object p}) => 'Обновить до версии ${p}',
 			'SettingsScreen.follow' => 'Подписаться на нас',
 			'SettingsScreen.contactUs' => 'Связаться с нами',
-			'SettingsScreen.supportUs' => 'Поддержите нас',
-			'SettingsScreen.rateInApp' => 'Оценить нас',
+			'SettingsScreen.supportUs' => 'Поддержать проект',
+			'SettingsScreen.rateInApp' => 'Оценить приложение',
 			'SettingsScreen.rateInAppStore' => 'Оценить нас в App Store',
 			'UserAgreementScreen.privacyFirst' => 'Ваша конфиденциальность превыше всего',
 			'UserAgreementScreen.agreeAndContinue' => 'Принять и продолжить',
 			'VersionUpdateScreen.versionReady' => ({required Object p}) => 'Новая версия [${p}] доступна',
-			'VersionUpdateScreen.update' => 'Перезапустить',
+			'VersionUpdateScreen.update' => 'Перезапустить и обновить',
 			'VersionUpdateScreen.cancel' => 'Отменить',
 			'loginScreen.provider' => 'VPN-провайдер',
-			'loginScreen.providerName' => 'Kod/psevdonim/URL ${_root.loginScreen.provider}',
-			'loginScreen.providerNameRequired' => 'Vvedite kod/psevdonim/URL ${_root.loginScreen.provider}',
-			'loginScreen.unsupportedProvider' => 'Nepodderzhivaemyi ${_root.loginScreen.provider}',
-			'loginScreen.unsupportedProviderType' => 'Nepodderzhivaemyi tip ${_root.loginScreen.provider}',
+			'loginScreen.providerName' => 'Код, логин или URL ${_root.loginScreen.provider}',
+			'loginScreen.providerNameRequired' => 'Введите код, логин или URL ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProvider' => 'Неподдерживаемый ${_root.loginScreen.provider}',
+			'loginScreen.unsupportedProviderType' => 'Неподдерживаемый тип ${_root.loginScreen.provider}',
 			'loginScreen.unActivedProvider' => 'Привязка провайдера не активирована',
-			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Za kodom/psevdonimom obratites k svoemu ${_root.loginScreen.provider}\nPo podklyucheniyu ${_root.loginScreen.provider} sm.: ${p}',
-			'loginScreen.providerDisclaimer' => 'Otvetstvennost: ${_root.loginScreen.provider} yavlyaetsya storonnim servisom i ne svyazan s etim prilozheniem',
-			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [VPN всегда включен] включен, отключите его и попробуйте подключиться еще раз',
-			'CommonWidget.resetPort' => 'Пожалуйста, измените порт на другой доступный порт или закройте приложение, занимающее порт.',
+			'loginScreen.providerLoginSupportRequired' => ({required Object p}) => 'Для получения кода или логина обратитесь к вашему ${_root.loginScreen.provider}\nПодробнее об интеграции с ${_root.loginScreen.provider}: ${p}',
+			'loginScreen.providerDisclaimer' => 'Отказ от ответственности: ${_root.loginScreen.provider} является сторонним сервисом и не связан с этим приложением',
+			'CommonWidget.diableAlwayOnVPN' => 'Если параметр [Постоянный VPN] включен, отключите его и попробуйте подключиться еще раз',
+			'CommonWidget.resetPort' => 'Измените порт на другой свободный порт или закройте приложение, занимающее порт.',
 			'main.tray.menuOpen' => 'Открыть',
 			'main.tray.menuExit' => 'Выйти',
-			'meta.enable' => 'Разрешить',
-			'meta.disable' => 'Запретить',
+			'meta.enable' => 'Включить',
+			'meta.disable' => 'Отключить',
 			'meta.bydefault' => 'По умолчанию',
 			'meta.filter' => 'Фильтр',
-			'meta.filterMethod' => 'Метод фильтра',
+			'meta.filterMethod' => 'Метод фильтрации',
 			'meta.include' => 'Включать',
 			'meta.exclude' => 'Исключать',
 			'meta.all' => 'Все',
@@ -1271,7 +1271,7 @@ extension on TranslationsRu {
 			'meta.feedbackContentHit' => 'Не более 500 символов',
 			'meta.feedbackContentCannotEmpty' => 'Содержание не может быть пустым',
 			'meta.faq' => 'Часто задаваемые вопросы (FAQ)',
-			'meta.htmlTools' => 'HTML Toolset',
+			'meta.htmlTools' => 'Набор HTML-утилит',
 			'meta.download' => 'Скачать',
 			'meta.upload' => 'Загрузить',
 			'meta.downloadSpeed' => 'Скорость загрузки',
@@ -1291,7 +1291,7 @@ extension on TranslationsRu {
 			'meta.dateTimePeriod' => 'Период времени',
 			'meta.protocol' => 'Протокол',
 			'meta.search' => 'Поиск',
-			'meta.custom' => 'Самостоятельная настройка',
+			'meta.custom' => 'Свой вариант',
 			'meta.inbound' => 'Вход',
 			'meta.outbound' => 'Выход',
 			'meta.destination' => 'Цель',
@@ -1355,7 +1355,7 @@ extension on TranslationsRu {
 			'meta.domainSuffix' => 'Суффикс доменного имени',
 			'meta.domain' => 'Имя домена',
 			'meta.domainKeyword' => 'Ключевые слова в имени домена',
-			'meta.domainRegex' => 'Регулярные выражения для имен доменов',
+			'meta.domainRegex' => 'Регулярные выражения для имен доменов (RegEx)',
 			'meta.ip' => 'IP',
 			'meta.port' => 'Порт',
 			'meta.portRange' => 'Диапазон портов',
@@ -1368,10 +1368,10 @@ extension on TranslationsRu {
 			'meta.statistics' => 'статистика',
 			'meta.statisticsAndAnalysis' => 'Статистика и анализ',
 			'meta.statisticsDataDesensitize' => 'Анонимизация данных',
-			'meta.statisticsDataDesensitizeTips' => 'Идентификатор процесса/пакета/имя целевого домена/целевой IP-адрес и т. д. будут заменены на * и сохранены после десенсибилизации.',
-			'meta.records' => 'Записывать',
-			'meta.requestRecords' => 'Запросить записи',
-			'meta.netInterfaces' => 'Сетевой интерфейс',
+			'meta.statisticsDataDesensitizeTips' => 'Имена процессов, ID пакетов, целевые домены и IP будут заменены на * при сохранении',
+			'meta.records' => 'Записи',
+			'meta.requestRecords' => 'История запросов',
+			'meta.netInterfaces' => 'Сетевые интерфейсы',
 			'meta.netSpeed' => 'Скорость',
 			'meta.memoryTrendChart' => 'Диаграмма тренда памяти',
 			'meta.goroutinesTrendChart' => 'График трендов GoRoutines',
@@ -1432,15 +1432,15 @@ extension on TranslationsRu {
 			'meta.logicOperation' => 'Логическая опреация',
 			'meta.share' => 'Поделиться',
 			'meta.candidateWord' => 'Ключевые слова',
-			'meta.keywordOrRegx' => 'Ключевые слова/регулярные выражения',
+			'meta.keywordOrRegx' => 'Ключевые слова/регулярные выражения (RegExp)',
 			'meta.importFromClipboard' => 'Импорт из буфера обмена',
 			'meta.exportToClipboard' => 'Экспорт в буфер обмена',
 			'meta.server' => 'Сервер',
 			'meta.ads' => 'Реклама',
 			'meta.adsRemove' => 'Удалить рекламу',
 			'meta.donate' => 'Пожертвовать',
-			'meta.diversion' => 'Правила',
-			'meta.diversionRules' => 'Правила перенаправления',
+			'meta.diversion' => 'Маршрутизация',
+			'meta.diversionRules' => 'Правила маршрутизации',
 			'meta.diversionCustomGroup' => 'Личные правила',
 			'meta.urlTestCustomGroup' => 'Пользовательский автоматический выбор',
 			'meta.setting' => 'Настройки',
@@ -1452,7 +1452,7 @@ extension on TranslationsRu {
 			'meta.deviceNoSpace' => 'Недостаточно места на диске',
 			'meta.hideSystemApp' => 'Скрыть системные приложения',
 			'meta.hideAppIcon' => 'Скрыть значок приложения',
-			'meta.hideDockIcon' => 'Скрыть значок дока',
+			'meta.hideDockIcon' => 'Скрыть значок из Dock',
 			'meta.remark' => 'Примечание',
 			'meta.remarkExist' => 'Примечание уже существует, используйте другое имя',
 			'meta.remarkCannotEmpty' => 'Примечание не может быть пустым',
@@ -1470,24 +1470,24 @@ extension on TranslationsRu {
 			'meta.addProfile' => 'Добавить профиль',
 			'meta.myProfiles' => 'Профили',
 			'meta.profileEdit' => 'Редактирование профилей',
-			'meta.profileEditUrlExist' => 'URL-адрес уже существует, используйте другой URL-адрес',
+			'meta.profileEditUrlExist' => 'Этот URL уже добавлен, укажите другой',
 			'meta.profileEditReloadAfterProfileUpdate' => 'Перезагрузить после обновления профиля',
 			'meta.profileEditTestLatencyAfterProfileUpdate' => 'Начать тестирование задержек после обновления профиля',
 			'meta.profileEditTestLatencyAfterProfileUpdateTips' => 'VPN необходимо подключить, и включить [Перезагрузить после обновления профиля]',
 			'meta.profileEditTestLatencyAutoRemove' => 'Автоматически удалять серверы, не прошедшие тесты на задержку',
-			'meta.profileEditTestLatencyAutoRemoveTips' => 'Попробуйте до 3 раз',
+			'meta.profileEditTestLatencyAutoRemoveTips' => 'До 3 попыток',
 			'meta.profileImport' => 'Импорт файла конфигурации',
 			'meta.profileAddUrlOrContent' => 'Добавление подписки',
 			'meta.profileExists' => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно',
 			'meta.profileUrlOrContent' => 'Ссылка на подписку/содержание',
-			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(c пакетом поддержки), Stash, Karing, Sing-box, Shadowsocks, Sub; Ссылка на конфигурацию).',
+			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(пакетом), Stash, Karing, Sing-box, Shadowsocks, Sub, ссылки на конфигурацию).',
 			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, или используйте собственный браузер устройства, чтобы открыть ссылку на конфигурацию и импортировать файл конфигурации, загруженный браузером, в это приложение.',
-			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, откройте агент или измените текущий узел агента и повторите попытку.',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.',
+			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.',
 			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
-			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов, убедитесь что подписка или файл профиля корректен. Если ваша конфигурация взята из GitHub, получите адрес ссылки, нажав кнопку [Raw] на странице.',
-			'meta.profileAddWrapSuccess' => 'Конфигурация сгенерирована успешно. Для просмотра перейдите в [${_root.meta.myProfiles}]',
+			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов. Убедитесь что подписка или файл конфигурации корректен. Если ваша конфигурация взята из GitHub, копируйте ссылку по кнопке [Raw].',
+			'meta.profileAddWrapSuccess' => 'Профиль успешно создан, проверьте в разделе [${_root.meta.myProfiles}]',
 			_ => null,
 		} ?? switch (path) {
 			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
@@ -1510,12 +1510,12 @@ extension on TranslationsRu {
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
 			'tls.insecure' => 'Пропустить проверку сертификата',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
-			'tls.fragmentEnable' => 'Включить фрагментацию TLS',
+			'tls.fragmentEnable' => 'Включить TLS Fragment',
 			'tls.fragmentSize' => 'Размер фрагмента TLS',
-			'tls.fragmentSleep' => 'Длина фрагмента паузы TLS',
-			'tls.mixedCaseSNIEnable' => 'Включить гибридный SNI TLS',
-			'tls.paddingEnable' => 'Включить заполнение TLS',
-			'tls.paddingSize' => 'Размер заполнения TLS',
+			'tls.fragmentSleep' => 'Задержка фрагментации TLS',
+			'tls.mixedCaseSNIEnable' => 'Включить TLS Mixed SNI',
+			'tls.paddingEnable' => 'Включить TLS Padding',
+			'tls.paddingSize' => 'Размер TLS Padding',
 			'outboundRuleMode.currentSelected' => 'Текущий сервер',
 			'outboundRuleMode.urltest' => 'Автовыбор',
 			'outboundRuleMode.direct' => 'Напрямую',
@@ -1529,33 +1529,33 @@ extension on TranslationsRu {
 			'proxyStrategy.onlyDirect' => '${_root.meta.only} ${_root.outboundRuleMode.direct}',
 			'reloadReason.latencyTest' => '${_root.meta.latencyTest}-${_root.meta.profileEditTestLatencyAutoRemove}',
 			'reloadReason.profileUpdate' => 'Обновления конфигурации',
-			'theme.light' => 'Светлый цвет',
-			'theme.dark' => 'Черный цвет',
+			'theme.light' => 'Светлая',
+			'theme.dark' => 'Тёмная',
 			'theme.auto' => 'Автоматически',
 			'downloadProxyStrategy' => 'Канал загрузки',
 			'dnsProxyResolveModeTips' => '[${_root.dnsProxyResolveMode.proxy}]: подключиться к DNS-серверу через прокси-сервер для разрешения доменного имени\n[${_root.dnsProxyResolveMode.direct}]: подключиться напрямую к DNS-серверу для разрешения доменного имени\n[ ${_root.dnsProxyResolveMode.fakeip}]: через прокси-сервер Сервер разрешает доменное имя от вашего имени; если вы отключитесь от VPN, может потребоваться перезапуск вашего приложения; применяется только к входящему трафику из [TUN]',
 			'routeFinal' => 'Final',
-			'protocolSniff' => 'Определение протокола',
-			'sendOrReceiveNotMatch' => ({required Object p}) => 'Пожалуйста, используйте [${p}]',
-			'turnOffPrivateDirect' => 'Пожалуйста, сначала включите [Прямое подключение к частной сети]',
+			'protocolSniff' => 'Перехват и анализ протокола (Sniffing)',
+			'sendOrReceiveNotMatch' => ({required Object p}) => 'Используйте [${p}]',
+			'turnOffPrivateDirect' => 'Сначала включите [Прямое подключение к частной сети]',
 			'targetConnectFailed' => ({required Object p}) => 'Не удалось подключиться к [${p}]. Убедитесь, что устройство находится в той же локальной сети.',
 			'appleTVSync' => 'Синхронизация текущей базовой конфигурации с Apple TV - Karing',
-			'appleTVSyncDone' => 'Синхронизация завершена, перейдите в Apple TV — Karing, чтобы открыть/перезапустить соединение.',
-			'appleTVRemoveCoreConfig' => 'Удаление Apple TV — базовая конфигурация Karing',
+			'appleTVSyncDone' => 'Синхронизация завершена, перейдите в Apple TV - Karing и запустите подключение.',
+			'appleTVRemoveCoreConfig' => 'Удаление конфигурации Karing из Apple TV',
 			'appleTVRemoveCoreConfigDone' => 'Apple TV — основной профиль Karing удален; VPN-сервис отключен;',
 			'appleTVUrlInvalid' => 'Неверный URL-адрес. Откройте Apple TV — Karing, отсканируйте QR-код, отображаемый Karing.',
 			'appleTV404' => ({required Object p}) => 'AppleTV:Karing[${p}] не имеет этой функции, обновите его и повторите попытку.',
 			'appleCoreVersionNotMatch' => ({required Object p}) => 'Основная версия ядра не совпадает, пожалуйста, обновите [${p}] и попробуйте еще раз',
-			'remoteProfileEditConfirm' => 'После обновления конфигурации изменения узла будут восстановлены. Продолжить?',
+			'remoteProfileEditConfirm' => 'После обновления конфигурации изменения узла будут сброшены. Продолжить?',
 			'continueConnectConfirm' => 'Продолжить подключение?',
 			'mustBeValidHttpsURL' => 'https URL должен быть действительным',
-			'fileNotExistReinstall' => ({required Object p}) => 'Файл отсутствует [${p}], пожалуйста, переустановите',
+			'fileNotExistReinstall' => ({required Object p}) => 'Отсутствует файл [${p}], переустановите приложение',
 			'noNetworkConnect' => 'Нет подключения к Интернету',
 			'sudoPassword' => 'Пароль sudo (требуется для режима TUN)',
 			'turnOffNetworkBeforeInstall' => 'Перед установкой обновления рекомендуется переключиться в [Режим полета].',
-			'latencyTestResolveIP' => 'При ручном определении анализируется исходящий IP-адрес',
-			'latencyTestConcurrency' => 'Параллелизм',
-			'edgeRuntimeNotInstalled' => 'Среда выполнения Edge WebView2 не установлена ​​на текущем устройстве, и страница не может быть отображена. Загрузите и установите среду выполнения Edge WebView2 (x64), перезапустите приложение и повторите попытку.',
+			'latencyTestResolveIP' => 'При ручной проверке определять исходящий IP',
+			'latencyTestConcurrency' => 'Параллелизм (потоки)',
+			'edgeRuntimeNotInstalled' => 'На устройстве не установлен Edge WebView2, страница не может быть отображена. Скачайте и установите Edge WebView2 runtime (x64), перезапустите приложение и попробуйте снова.',
 			'locales.en' => 'English',
 			'locales.zh-CN' => '简体中文',
 			'locales.zh-TW' => '繁體中文',
