@@ -793,6 +793,7 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get share => 'แบ่งปัน';
 	@override String get candidateWord => 'คำผู้สมัคร';
 	@override String get keywordOrRegx => 'คำหลัก/ปกติ';
+	@override String get matchAttribute => 'แอตทริบิวต์การจับคู่';
 	@override String get importFromClipboard => 'นำเข้าจากคลิปบอร์ด';
 	@override String get exportToClipboard => 'ส่งออกไปยังคลิปบอร์ด';
 	@override String get server => 'เซิร์ฟเวอร์';
@@ -1433,6 +1434,7 @@ extension on TranslationsTh {
 			'meta.share' => 'แบ่งปัน',
 			'meta.candidateWord' => 'คำผู้สมัคร',
 			'meta.keywordOrRegx' => 'คำหลัก/ปกติ',
+			'meta.matchAttribute' => 'แอตทริบิวต์การจับคู่',
 			'meta.importFromClipboard' => 'นำเข้าจากคลิปบอร์ด',
 			'meta.exportToClipboard' => 'ส่งออกไปยังคลิปบอร์ด',
 			'meta.server' => 'เซิร์ฟเวอร์',
@@ -1487,9 +1489,9 @@ extension on TranslationsTh {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดเปิดพร็อกซีหรือแก้ไขโหนดพร็อกซีปัจจุบันและลองใหม่',
 			'meta.profileAddParseFailed' => 'การแยกวิเคราะห์โปรไฟล์ล้มเหลว',
 			'meta.profileAddNoServerAvaliable' => 'ไม่มีเซิร์ฟเวอร์ที่พร้อมใช้งาน ตรวจสอบให้แน่ใจว่าลิงก์โปรไฟล์หรือไฟล์โปรไฟล์ถูกต้อง หากโปรไฟล์ของคุณมาจาก GitHub โปรดรับลิงก์จากปุ่ม [Raw] ในหน้า',
-			'meta.profileAddWrapSuccess' => 'โปรไฟล์สร้างสำเร็จ โปรดไปที่ [${_root.meta.myProfiles}] เพื่อดู',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'โปรไฟล์สร้างสำเร็จ โปรดไปที่ [${_root.meta.myProfiles}] เพื่อดู',
 			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'ตั้งค่า [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'หมายเหตุ: รายการที่เปิดใช้งานจะถูกเพิ่ม/เขียนทับไปยัง [${_root.meta.diversionCustomGroup}] และ [${_root.meta.diversionRules}]',

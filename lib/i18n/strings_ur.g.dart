@@ -793,6 +793,7 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get share => 'شیئر کریں';
 	@override String get candidateWord => 'امیدوار الفاظ';
 	@override String get keywordOrRegx => 'کلیدی الفاظ/باقاعدہ';
+	@override String get matchAttribute => 'مماثلت کی خصوصیت';
 	@override String get importFromClipboard => 'کلپ بورڈ سے درآمد کریں';
 	@override String get exportToClipboard => 'کلپ بورڈ پر برآمد کریں';
 	@override String get server => 'سرور';
@@ -1433,6 +1434,7 @@ extension on TranslationsUr {
 			'meta.share' => 'شیئر کریں',
 			'meta.candidateWord' => 'امیدوار الفاظ',
 			'meta.keywordOrRegx' => 'کلیدی الفاظ/باقاعدہ',
+			'meta.matchAttribute' => 'مماثلت کی خصوصیت',
 			'meta.importFromClipboard' => 'کلپ بورڈ سے درآمد کریں',
 			'meta.exportToClipboard' => 'کلپ بورڈ پر برآمد کریں',
 			'meta.server' => 'سرور',
@@ -1487,9 +1489,9 @@ extension on TranslationsUr {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم پراکسی آن کریں یا موجودہ پراکسی نوڈ کو تبدیل کریں اور دوبارہ کوشش کریں',
 			'meta.profileAddParseFailed' => 'پروفائل کا تجزیہ کرنے میں ناکامی',
 			'meta.profileAddNoServerAvaliable' => 'کوئی سرور دستیاب نہیں ہے، یقینی بنائیں کہ پروفائل لنک یا پروفائل فائل درست ہے؛ اگر آپ کا پروفائل GitHub سے ہے تو براہ کرم صفحہ پر [Raw] بٹن کے ذریعے لنک حاصل کریں',
-			'meta.profileAddWrapSuccess' => 'پروفائل کامیابی سے تیار ہو گیا، براہ کرم دیکھنے کے لیے [${_root.meta.myProfiles}] پر جائیں',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'پروفائل کامیابی سے تیار ہو گیا، براہ کرم دیکھنے کے لیے [${_root.meta.myProfiles}] پر جائیں',
 			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			'diversionCustomGroupPreset' => 'پری سیٹ [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'نوٹ: فعال کردہ آئٹمز [${_root.meta.diversionCustomGroup}] اور [${_root.meta.diversionRules}] میں شامل/اوور رائٹ کر دیے جائیں گے',

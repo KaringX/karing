@@ -793,6 +793,7 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get share => 'Поділитися';
 	@override String get candidateWord => 'Слова-кандидати';
 	@override String get keywordOrRegx => 'Ключові слова/Регулярні';
+	@override String get matchAttribute => 'Атрибут збігу';
 	@override String get importFromClipboard => 'Імпорт з буфера обміну';
 	@override String get exportToClipboard => 'Експорт у буфер обміну';
 	@override String get server => 'Сервер';
@@ -1433,6 +1434,7 @@ extension on TranslationsUk {
 			'meta.share' => 'Поділитися',
 			'meta.candidateWord' => 'Слова-кандидати',
 			'meta.keywordOrRegx' => 'Ключові слова/Регулярні',
+			'meta.matchAttribute' => 'Атрибут збігу',
 			'meta.importFromClipboard' => 'Імпорт з буфера обміну',
 			'meta.exportToClipboard' => 'Експорт у буфер обміну',
 			'meta.server' => 'Сервер',
@@ -1487,9 +1489,9 @@ extension on TranslationsUk {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, увімкніть проксі або змініть поточний проксі-вузол і спробуйте знову',
 			'meta.profileAddParseFailed' => 'Не вдалося проаналізувати профіль',
 			'meta.profileAddNoServerAvaliable' => 'Немає доступних серверів, переконайтеся, що посилання на профіль або файл профілю коректні; якщо ваш профіль з GitHub, отримайте посилання за допомогою кнопки [Raw] на сторінці',
-			'meta.profileAddWrapSuccess' => 'Профіль успішно згенеровано, перейдіть до [${_root.meta.myProfiles}] для перегляду',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Профіль успішно згенеровано, перейдіть до [${_root.meta.myProfiles}] для перегляду',
 			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Попередньо встановлена [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Примітка: Увімкнені елементи будуть додані/перезаписані в [${_root.meta.diversionCustomGroup}] та [${_root.meta.diversionRules}]',

@@ -793,6 +793,7 @@ class _Translations$meta$id implements Translations$meta$en {
 	@override String get share => 'Bagikan';
 	@override String get candidateWord => 'Kata kandidat';
 	@override String get keywordOrRegx => 'Kata kunci/regex';
+	@override String get matchAttribute => 'Atribut pencocokan';
 	@override String get importFromClipboard => 'Impor dari papan klip';
 	@override String get exportToClipboard => 'Ekspor ke papan klip';
 	@override String get server => 'Server';
@@ -1433,6 +1434,7 @@ extension on TranslationsId {
 			'meta.share' => 'Bagikan',
 			'meta.candidateWord' => 'Kata kandidat',
 			'meta.keywordOrRegx' => 'Kata kunci/regex',
+			'meta.matchAttribute' => 'Atribut pencocokan',
 			'meta.importFromClipboard' => 'Impor dari papan klip',
 			'meta.exportToClipboard' => 'Ekspor ke papan klip',
 			'meta.server' => 'Server',
@@ -1487,9 +1489,9 @@ extension on TranslationsId {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Penambahan gagal:${p}, silakan aktifkan proxy atau ganti node proxy saat ini lalu coba lagi',
 			'meta.profileAddParseFailed' => 'Gagal mengurai konfigurasi',
 			'meta.profileAddNoServerAvaliable' => 'Tidak ada server yang tersedia, pastikan tautan atau file konfigurasi valid; jika konfigurasi Anda berasal dari GitHub, gunakan alamat tautan dari tombol [Raw] di halaman',
-			'meta.profileAddWrapSuccess' => 'Konfigurasi berhasil dibuat, silakan lihat di [${_root.meta.myProfiles}]',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Konfigurasi berhasil dibuat, silakan lihat di [${_root.meta.myProfiles}]',
 			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Perhatian: item yang diaktifkan akan ditambahkan/menimpa [${_root.meta.diversionCustomGroup}] dan [${_root.meta.diversionRules}]',

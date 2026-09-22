@@ -140,7 +140,6 @@
       }
     ],
     "strategy": "ipv4_only",
-    "independent_cache": true,
     "cache_capacity": 1024
   },
   "inbounds": [

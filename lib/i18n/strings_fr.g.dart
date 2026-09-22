@@ -793,6 +793,7 @@ class _Translations$meta$fr implements Translations$meta$en {
 	@override String get share => 'Partager';
 	@override String get candidateWord => 'Mots candidats';
 	@override String get keywordOrRegx => 'Mots-clés/Regex';
+	@override String get matchAttribute => 'Attribut de correspondance';
 	@override String get importFromClipboard => 'Importer depuis le presse-papiers';
 	@override String get exportToClipboard => 'Exporter vers le presse-papiers';
 	@override String get server => 'Serveur';
@@ -1433,6 +1434,7 @@ extension on TranslationsFr {
 			'meta.share' => 'Partager',
 			'meta.candidateWord' => 'Mots candidats',
 			'meta.keywordOrRegx' => 'Mots-clés/Regex',
+			'meta.matchAttribute' => 'Attribut de correspondance',
 			'meta.importFromClipboard' => 'Importer depuis le presse-papiers',
 			'meta.exportToClipboard' => 'Exporter vers le presse-papiers',
 			'meta.server' => 'Serveur',
@@ -1487,9 +1489,9 @@ extension on TranslationsFr {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Échec de l\'ajout : ${p}, veuillez activer le proxy ou modifier le nœud proxy actuel et réessayez',
 			'meta.profileAddParseFailed' => 'Échec de l\'analyse du profil',
 			'meta.profileAddNoServerAvaliable' => 'Aucun serveur disponible, assurez-vous que le lien du profil ou le fichier du profil est valide ; si votre profil provient de GitHub, veuillez obtenir le lien à partir du bouton [Raw] de la page',
-			'meta.profileAddWrapSuccess' => 'Profil généré avec succès, veuillez aller dans [${_root.meta.myProfiles}] pour voir',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profil généré avec succès, veuillez aller dans [${_root.meta.myProfiles}] pour voir',
 			'diversionRulesKeep' => 'Conserver [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Préréglage [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note : Les éléments activés seront ajoutés/écrasés dans [${_root.meta.diversionCustomGroup}] et [${_root.meta.diversionRules}]',

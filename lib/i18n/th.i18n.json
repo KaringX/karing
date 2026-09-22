@@ -503,6 +503,7 @@
         "share": "แบ่งปัน",
         "candidateWord": "คำผู้สมัคร",
         "keywordOrRegx": "คำหลัก/ปกติ",
+        "matchAttribute": "แอตทริบิวต์การจับคู่",
         "importFromClipboard": "นำเข้าจากคลิปบอร์ด",
         "exportToClipboard": "ส่งออกไปยังคลิปบอร์ด",
         "server": "เซิร์ฟเวอร์",

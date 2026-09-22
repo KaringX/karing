@@ -503,6 +503,7 @@
         "share": "Поділитися",
         "candidateWord": "Слова-кандидати",
         "keywordOrRegx": "Ключові слова/Регулярні",
+        "matchAttribute": "Атрибут збігу",
         "importFromClipboard": "Імпорт з буфера обміну",
         "exportToClipboard": "Експорт у буфер обміну",
         "server": "Сервер",

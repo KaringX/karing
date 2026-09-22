@@ -503,6 +503,7 @@
         "share": "Paylaş",
         "candidateWord": "Aday Kelimeler",
         "keywordOrRegx": "Anahtar Kelimeler/Regex",
+        "matchAttribute": "Eşleşme özniteliği",
         "importFromClipboard": "Panodan İçe Aktar",
         "exportToClipboard": "Panoya Dışa Aktar",
         "server": "Sunucu",

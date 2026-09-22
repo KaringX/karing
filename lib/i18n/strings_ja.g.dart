@@ -793,6 +793,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get share => '共有';
 	@override String get candidateWord => '候補単語';
 	@override String get keywordOrRegx => 'キーワード/正規表現';
+	@override String get matchAttribute => '一致属性';
 	@override String get importFromClipboard => 'クリップボードからインポート';
 	@override String get exportToClipboard => 'クリップボードにエクスポート';
 	@override String get server => 'サーバー';
@@ -1433,6 +1434,7 @@ extension on TranslationsJa {
 			'meta.share' => '共有',
 			'meta.candidateWord' => '候補単語',
 			'meta.keywordOrRegx' => 'キーワード/正規表現',
+			'meta.matchAttribute' => '一致属性',
 			'meta.importFromClipboard' => 'クリップボードからインポート',
 			'meta.exportToClipboard' => 'クリップボードにエクスポート',
 			'meta.server' => 'サーバー',
@@ -1487,9 +1489,9 @@ extension on TranslationsJa {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '追加に失敗しました: ${p}。プロキシをオンにするか、現在のプロキシノードを変更して再試行してください',
 			'meta.profileAddParseFailed' => 'プロファイルの解析に失敗しました',
 			'meta.profileAddNoServerAvaliable' => '利用可能なサーバーがありません。設定リンクまたは設定ファイルが有効であることを確認してください。設定が GitHub の場合は、ページ上の [Raw] ボタンからリンクを取得してください',
-			'meta.profileAddWrapSuccess' => '構成が正常に生成されました。[${_root.meta.myProfiles}] に移動して確認してください',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => '構成が正常に生成されました。[${_root.meta.myProfiles}] に移動して確認してください',
 			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			'diversionCustomGroupPreset' => 'プリセット [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 有効にされた項目は [${_root.meta.diversionCustomGroup}] および [${_root.meta.diversionRules}] に追加/上書きされます',

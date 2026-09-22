@@ -2780,7 +2780,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     if (settingConfig.uiScreen.backgroundImageType ==
             SettingConfigItemUIScreen.backgroundTypeRemote &&
         settingConfig.uiScreen.backgroundImageUrl.isNotEmpty &&
-        settingConfig.uiScreen.fastCachedImageConfigInited) {
+        SettingConfigItemUIScreen.fastCachedImageConfigInited) {
       final backgroundImageUrl = settingConfig.uiScreen.backgroundImageUrl;
       if (_invalidBackgroundImageUrl == backgroundImageUrl) {
         return null;

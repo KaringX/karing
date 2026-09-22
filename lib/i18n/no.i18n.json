@@ -503,6 +503,7 @@
         "share": "Del",
         "candidateWord": "Kandidatord",
         "keywordOrRegx": "Nøkkelord/Regex",
+        "matchAttribute": "Samsvarsattributt",
         "importFromClipboard": "Importer fra utklippstavlen",
         "exportToClipboard": "Eksporter til utklippstavlen",
         "server": "Server",

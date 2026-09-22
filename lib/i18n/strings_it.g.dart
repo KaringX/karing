@@ -793,6 +793,7 @@ class _Translations$meta$it implements Translations$meta$en {
 	@override String get share => 'Condividi';
 	@override String get candidateWord => 'Parole Candidate';
 	@override String get keywordOrRegx => 'Parole Chiave/Regolari';
+	@override String get matchAttribute => 'Attributo di corrispondenza';
 	@override String get importFromClipboard => 'Importa dagli Appunti';
 	@override String get exportToClipboard => 'Esporta negli Appunti';
 	@override String get server => 'Server';
@@ -1433,6 +1434,7 @@ extension on TranslationsIt {
 			'meta.share' => 'Condividi',
 			'meta.candidateWord' => 'Parole Candidate',
 			'meta.keywordOrRegx' => 'Parole Chiave/Regolari',
+			'meta.matchAttribute' => 'Attributo di corrispondenza',
 			'meta.importFromClipboard' => 'Importa dagli Appunti',
 			'meta.exportToClipboard' => 'Esporta negli Appunti',
 			'meta.server' => 'Server',
@@ -1487,9 +1489,9 @@ extension on TranslationsIt {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Aggiunta fallita: ${p}, attiva il proxy o modifica l\'attuale nodo proxy e riprova',
 			'meta.profileAddParseFailed' => 'Analisi del Profilo fallita',
 			'meta.profileAddNoServerAvaliable' => 'Nessun server disponibile, assicurati che il Link o il File del Profilo sia valido; se il tuo Profilo proviene da GitHub, ottieni il link dal pulsante [Raw] sulla pagina',
-			'meta.profileAddWrapSuccess' => 'Profilo generato con successo, vai su [${_root.meta.myProfiles}] per visualizzarlo',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profilo generato con successo, vai su [${_root.meta.myProfiles}] per visualizzarlo',
 			'diversionRulesKeep' => 'Mantieni [${_root.meta.diversionRules}] di [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Predefinito [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Nota: gli elementi abilitati verranno aggiunti/sovrascritti a [${_root.meta.diversionCustomGroup}] e [${_root.meta.diversionRules}]',

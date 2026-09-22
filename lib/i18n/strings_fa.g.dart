@@ -793,6 +793,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get share => 'اشتراک گذاری';
 	@override String get candidateWord => 'کلمات نامزد';
 	@override String get keywordOrRegx => 'کلمات کلیدی / معمولی';
+	@override String get matchAttribute => 'ویژگی تطبیق';
 	@override String get importFromClipboard => 'افزودن از کلیپ‌برد';
 	@override String get exportToClipboard => 'صادرات به کلیپ بورد';
 	@override String get server => 'سرور';
@@ -1433,6 +1434,7 @@ extension on TranslationsFa {
 			'meta.share' => 'اشتراک گذاری',
 			'meta.candidateWord' => 'کلمات نامزد',
 			'meta.keywordOrRegx' => 'کلمات کلیدی / معمولی',
+			'meta.matchAttribute' => 'ویژگی تطبیق',
 			'meta.importFromClipboard' => 'افزودن از کلیپ‌برد',
 			'meta.exportToClipboard' => 'صادرات به کلیپ بورد',
 			'meta.server' => 'سرور',
@@ -1487,9 +1489,9 @@ extension on TranslationsFa {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید',
 			'meta.profileAddParseFailed' => 'تجزیه پروفایل انجام نشد',
 			'meta.profileAddNoServerAvaliable' => 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید',
-			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
 			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',
 			'diversionCustomGroupPresetTips' => 'توجه: موارد فعال به [گروه انحراف سفارشی] و [قوانین انحراف] اضافه/پوشش داده خواهند شد',

@@ -793,6 +793,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get share => 'يشارك';
 	@override String get candidateWord => 'كلمات المرشح';
 	@override String get keywordOrRegx => 'الكلمات الرئيسية/العادية';
+	@override String get matchAttribute => 'سمة المطابقة';
 	@override String get importFromClipboard => 'استيراد من الحافظة';
 	@override String get exportToClipboard => 'تصدير إلى الحافظة';
 	@override String get server => 'الخادم';
@@ -1433,6 +1434,7 @@ extension on TranslationsAr {
 			'meta.share' => 'يشارك',
 			'meta.candidateWord' => 'كلمات المرشح',
 			'meta.keywordOrRegx' => 'الكلمات الرئيسية/العادية',
+			'meta.matchAttribute' => 'سمة المطابقة',
 			'meta.importFromClipboard' => 'استيراد من الحافظة',
 			'meta.exportToClipboard' => 'تصدير إلى الحافظة',
 			'meta.server' => 'الخادم',
@@ -1487,9 +1489,9 @@ extension on TranslationsAr {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى',
 			'meta.profileAddParseFailed' => 'فشل تحليل الملف الشخصي',
 			'meta.profileAddNoServerAvaliable' => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة',
-			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
 			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',
 			'diversionCustomGroupPresetTips' => 'ملاحظة: ستتم إضافة/تغطية العناصر الممكّنة إلى [مجموعة التحويل المخصصة] و[قواعد التحويل]',

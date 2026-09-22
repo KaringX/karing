@@ -503,6 +503,7 @@
         "share": "Dela",
         "candidateWord": "Kandidatord",
         "keywordOrRegx": "Nyckelord/Regex",
+        "matchAttribute": "Matchningsattribut",
         "importFromClipboard": "Importera från urklipp",
         "exportToClipboard": "Exportera till urklipp",
         "server": "Server",

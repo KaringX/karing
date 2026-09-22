@@ -503,6 +503,7 @@
         "share": "Condividi",
         "candidateWord": "Parole Candidate",
         "keywordOrRegx": "Parole Chiave/Regolari",
+        "matchAttribute": "Attributo di corrispondenza",
         "importFromClipboard": "Importa dagli Appunti",
         "exportToClipboard": "Esporta negli Appunti",
         "server": "Server",

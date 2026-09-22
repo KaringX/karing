@@ -793,6 +793,7 @@ class _Translations$meta$pt implements Translations$meta$en {
 	@override String get share => 'Partilhar';
 	@override String get candidateWord => 'Palavras Candidatas';
 	@override String get keywordOrRegx => 'Palavras-chave/Regular';
+	@override String get matchAttribute => 'Atributo de correspondência';
 	@override String get importFromClipboard => 'Importar da Área de Transferência';
 	@override String get exportToClipboard => 'Exportar para a Área de Transferência';
 	@override String get server => 'Servidor';
@@ -1433,6 +1434,7 @@ extension on TranslationsPt {
 			'meta.share' => 'Partilhar',
 			'meta.candidateWord' => 'Palavras Candidatas',
 			'meta.keywordOrRegx' => 'Palavras-chave/Regular',
+			'meta.matchAttribute' => 'Atributo de correspondência',
 			'meta.importFromClipboard' => 'Importar da Área de Transferência',
 			'meta.exportToClipboard' => 'Exportar para a Área de Transferência',
 			'meta.server' => 'Servidor',
@@ -1487,9 +1489,9 @@ extension on TranslationsPt {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Falha ao adicionar: ${p}, por favor ligue o proxy ou modifique o nó proxy atual e tente novamente',
 			'meta.profileAddParseFailed' => 'Falha ao analisar o Perfil',
 			'meta.profileAddNoServerAvaliable' => 'Nenhum servidor disponível, certifique-se de que o Link do Perfil ou o Ficheiro do Perfil é válido; se o seu Perfil vier do GitHub, por favor obtenha o link do botão [Raw] na página',
-			'meta.profileAddWrapSuccess' => 'Perfil gerado com sucesso, por favor vá a [${_root.meta.myProfiles}] para ver',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Perfil gerado com sucesso, por favor vá a [${_root.meta.myProfiles}] para ver',
 			'diversionRulesKeep' => 'Manter [${_root.meta.diversionRules}] de [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => '[${_root.meta.diversionCustomGroup}] Predefinido',
 			'diversionCustomGroupPresetTips' => 'Nota: Os itens ativados serão adicionados/substituídos a [${_root.meta.diversionCustomGroup}] e [${_root.meta.diversionRules}]',

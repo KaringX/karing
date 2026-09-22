@@ -503,6 +503,7 @@
         "share": "공유",
         "candidateWord": "후보 단어",
         "keywordOrRegx": "키워드/정규식",
+        "matchAttribute": "일치 속성",
         "importFromClipboard": "클립보드에서 가져오기",
         "exportToClipboard": "클립보드로 내보내기",
         "server": "서버",

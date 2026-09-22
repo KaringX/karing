@@ -53,14 +53,17 @@ class AutoUpdateCheckVersion {
   }
 
   String getExtension() {
-    String ext = "";
+    String ext = path.extension(url);
+    if (ext.isNotEmpty && ext.length <= ".AppImage".length) {
+      return ext;
+    }
     final channelName = InstallReferrerUtils.getBuildChannelName();
     if (Platform.isAndroid) {
       ext = ".apk";
     } else if (Platform.isWindows) {
       ext = ".exe";
     } else if (Platform.isMacOS) {
-      ext = ".dmg";
+      ext = ".pkg";
     } else if (Platform.isLinux) {
       if (channelName.toLowerCase().contains("deb")) {
         ext = ".deb";

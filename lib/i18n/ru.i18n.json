@@ -170,7 +170,7 @@
         "inboundDomainResolve": "Разрешение входящих доменных имен",
         "privateDirect": "Прямое подключение к частной сети",
         "inboundDomainResolveTips": "Домены без настроенных правил маршрутизации нужно сначала разрешить в IP, чтобы сработали правила маршрутизации на основе IP. Эта функция влияет на входящие запросы к порту прокси [$p]",
-        "useRomoteRes": "Использовать удаленные ресурсы", 
+        "useRomoteRes": "Использовать удаленные ресурсы",
         "autoAppendRegion": "Автоматически добавлять основные правила",
         "autoSelect": "Автовыбор",
         "autoSelectServerIgnorePerProxyServer": "Игнорировать [фронт/цепные] прокси-серверы",
@@ -286,7 +286,7 @@
         "cancel": "Отменить"
     },
     "loginScreen": {
-       "provider": "VPN-провайдер",
+        "provider": "VPN-провайдер",
         "providerName": "Код, логин или URL @:{loginScreen.provider}",
         "providerNameRequired": "Введите код, логин или URL @:{loginScreen.provider}",
         "unsupportedProvider": "Неподдерживаемый @:{loginScreen.provider}",
@@ -503,6 +503,7 @@
         "share": "Поделиться",
         "candidateWord": "Ключевые слова",
         "keywordOrRegx": "Ключевые слова/регулярные выражения (RegExp)",
+        "matchAttribute": "Атрибут совпадения",
         "importFromClipboard": "Импорт из буфера обмена",
         "exportToClipboard": "Экспорт в буфер обмена",
         "server": "Сервер",

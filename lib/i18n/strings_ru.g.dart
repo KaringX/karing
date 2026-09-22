@@ -793,6 +793,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get share => 'Поделиться';
 	@override String get candidateWord => 'Ключевые слова';
 	@override String get keywordOrRegx => 'Ключевые слова/регулярные выражения (RegExp)';
+	@override String get matchAttribute => 'Атрибут совпадения';
 	@override String get importFromClipboard => 'Импорт из буфера обмена';
 	@override String get exportToClipboard => 'Экспорт в буфер обмена';
 	@override String get server => 'Сервер';
@@ -1433,6 +1434,7 @@ extension on TranslationsRu {
 			'meta.share' => 'Поделиться',
 			'meta.candidateWord' => 'Ключевые слова',
 			'meta.keywordOrRegx' => 'Ключевые слова/регулярные выражения (RegExp)',
+			'meta.matchAttribute' => 'Атрибут совпадения',
 			'meta.importFromClipboard' => 'Импорт из буфера обмена',
 			'meta.exportToClipboard' => 'Экспорт в буфер обмена',
 			'meta.server' => 'Сервер',
@@ -1487,9 +1489,9 @@ extension on TranslationsRu {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.',
 			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
 			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов. Убедитесь что подписка или файл конфигурации корректен. Если ваша конфигурация взята из GitHub, копируйте ссылку по кнопке [Raw].',
-			'meta.profileAddWrapSuccess' => 'Профиль успешно создан, проверьте в разделе [${_root.meta.myProfiles}]',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Профиль успешно создан, проверьте в разделе [${_root.meta.myProfiles}]',
 			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Шаблоны для личных правил',
 			'diversionCustomGroupPresetTips' => 'На основе выбранных шаблонов будут созданы/перезаписаны правила в[${_root.meta.diversionCustomGroup}] и в [${_root.meta.diversionRules}].',

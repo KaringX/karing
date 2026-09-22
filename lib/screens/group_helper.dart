@@ -734,7 +734,7 @@ class GroupHelper {
       var settingConfig = SettingManager.getConfig();
       final tunAddress = settingConfig.tun.getAddress(settingConfig.ipStrategy);
       List<GroupItemOptions> options = [
-        if (Platform.isWindows) ...[
+        if (Platform.isWindows || Platform.isAndroid) ...[
           GroupItemOptions(
             switchOptions: GroupItemSwitchOptions(
               name: tcontext.SettingsScreen.tunRouteExcludeTUN,
@@ -1228,6 +1228,7 @@ class GroupHelper {
     ProxyFilter pf = ProxyFilter();
     pf.method = filter.method;
     pf.keywordOrRegx = filter.keywordOrRegx;
+    pf.matchAttribute = filter.matchAttribute;
     Future<List<GroupItem>> getOptions(
       BuildContext context,
       SetStateCallback? setstate,
@@ -1262,10 +1263,20 @@ class GroupHelper {
                 text: pf.method != ProxyFilterMethod.all
                     ? pf.keywordOrRegx
                     : "",
+                tips: "tag,type",
                 textWidthPercent: 0.6,
                 enabled: pf.method != ProxyFilterMethod.all,
                 onChanged: (String value) {
                   pf.keywordOrRegx = value.trim();
+                },
+              ),
+            ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.meta.matchAttribute,
+                switchValue: pf.matchAttribute,
+                onSwitch: (bool value) async {
+                  pf.matchAttribute = value;
                 },
               ),
             ),

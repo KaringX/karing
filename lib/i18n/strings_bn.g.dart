@@ -793,6 +793,7 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get share => 'শেয়ার করুন';
 	@override String get candidateWord => 'প্রার্থী শব্দ';
 	@override String get keywordOrRegx => 'কিওয়ার্ড/নিয়মিত';
+	@override String get matchAttribute => 'মিলের বৈশিষ্ট্য';
 	@override String get importFromClipboard => 'ক্লিপবোর্ড থেকে আমদানি করুন';
 	@override String get exportToClipboard => 'ক্লিপবোর্ডে রপ্তানি করুন';
 	@override String get server => 'সার্ভার';
@@ -1433,6 +1434,7 @@ extension on TranslationsBn {
 			'meta.share' => 'শেয়ার করুন',
 			'meta.candidateWord' => 'প্রার্থী শব্দ',
 			'meta.keywordOrRegx' => 'কিওয়ার্ড/নিয়মিত',
+			'meta.matchAttribute' => 'মিলের বৈশিষ্ট্য',
 			'meta.importFromClipboard' => 'ক্লিপবোর্ড থেকে আমদানি করুন',
 			'meta.exportToClipboard' => 'ক্লিপবোর্ডে রপ্তানি করুন',
 			'meta.server' => 'সার্ভার',
@@ -1487,9 +1489,9 @@ extension on TranslationsBn {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে প্রক্সি চালু করুন বা বর্তমান প্রক্সি নোড পরিবর্তন করুন এবং আবার চেষ্টা করুন',
 			'meta.profileAddParseFailed' => 'প্রোফাইল পার্স করতে ব্যর্থ',
 			'meta.profileAddNoServerAvaliable' => 'কোনো সার্ভার উপলব্ধ নেই, নিশ্চিত করুন যে প্রোফাইল লিঙ্ক বা প্রোফাইল ফাইলটি বৈধ; যদি আপনার প্রোফাইল GitHub থেকে হয়, তবে অনুগ্রহ করে পৃষ্ঠার [Raw] বাটনের মাধ্যমে লিঙ্কটি পান',
-			'meta.profileAddWrapSuccess' => 'প্রোফাইল সফলভাবে তৈরি হয়েছে, অনুগ্রহ করে দেখার জন্য [${_root.meta.myProfiles}]-এ যান',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'প্রোফাইল সফলভাবে তৈরি হয়েছে, অনুগ্রহ করে দেখার জন্য [${_root.meta.myProfiles}]-এ যান',
 			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			'diversionCustomGroupPreset' => 'প্রিসেট [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'দ্রষ্টব্য: সক্ষম করা আইটেমগুলি [${_root.meta.diversionCustomGroup}] এবং [${_root.meta.diversionRules}]-এ যুক্ত/ওভাররাইট করা হবে',

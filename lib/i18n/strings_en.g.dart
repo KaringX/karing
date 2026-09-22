@@ -1771,6 +1771,9 @@ class Translations$meta$en {
 	/// en: 'Keywords/Regular'
 	String get keywordOrRegx => 'Keywords/Regular';
 
+	/// en: 'Match attribute'
+	String get matchAttribute => 'Match attribute';
+
 	/// en: 'Import From Clipboard'
 	String get importFromClipboard => 'Import From Clipboard';
 
@@ -2594,6 +2597,7 @@ extension on Translations {
 			'meta.share' => 'Share',
 			'meta.candidateWord' => 'Candidate Words',
 			'meta.keywordOrRegx' => 'Keywords/Regular',
+			'meta.matchAttribute' => 'Match attribute',
 			'meta.importFromClipboard' => 'Import From Clipboard',
 			'meta.exportToClipboard' => 'Export to Clipboard',
 			'meta.server' => 'Server',
@@ -2648,9 +2652,9 @@ extension on Translations {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again',
 			'meta.profileAddParseFailed' => 'Parsing Profile failed',
 			'meta.profileAddNoServerAvaliable' => 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page',
-			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
 			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Note: Enabled items will be added/overwritten to [${_root.meta.diversionCustomGroup}] and [${_root.meta.diversionRules}]',

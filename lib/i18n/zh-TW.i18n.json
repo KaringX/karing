@@ -503,6 +503,7 @@
         "share": "分享",
         "candidateWord": "候選詞",
         "keywordOrRegx": "關鍵詞/正則",
+        "matchAttribute": "匹配屬性",
         "importFromClipboard": "從剪貼簿匯入",
         "exportToClipboard": "匯出到剪貼簿",
         "server": "伺服器",

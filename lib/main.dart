@@ -140,7 +140,7 @@ void main(List<String> args) async {
   await SettingManager.init();
   await BoardProviderManager.init();
   if (!SettingManager.getConfig().disableAppImproveData) {
-    await SentryUtilsPrivate.init();
+    await SentryUtilsPrivate.init(SettingConfig.kMaxDays.inDays);
   }
   if (PlatformUtils.isPC()) {
     await _ensureSingleInstanceOrExit();
@@ -171,7 +171,8 @@ Future<void> run(List<String> args) async {
         break;
       }
       String version = await AppUtils.getPackgetVersion();
-      if (buildVersion != version) {
+      final buildVersionParts = buildVersion.split(".");
+      if (buildVersion != version || buildVersionParts.length != 4) {
         startFailedReason = StartFailedReason.invalidVersion;
         break;
       }
@@ -276,9 +277,9 @@ Future<void> run(List<String> args) async {
   }
   try {
     await FastCachedImageConfig.init(subDir: AppUtils.getName());
-    SettingManager.getConfig().uiScreen.fastCachedImageConfigInited = true;
+    SettingConfigItemUIScreen.fastCachedImageConfigInited = true;
   } catch (err, stacktrace) {
-    SettingManager.getConfig().uiScreen.fastCachedImageConfigInited = false;
+    SettingConfigItemUIScreen.fastCachedImageConfigInited = false;
     Log.w("FastCachedImageConfig.init() exception: ${err.toString()}");
   }
   if (Platform.isAndroid) {

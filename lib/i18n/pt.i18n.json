@@ -503,6 +503,7 @@
         "share": "Partilhar",
         "candidateWord": "Palavras Candidatas",
         "keywordOrRegx": "Palavras-chave/Regular",
+        "matchAttribute": "Atributo de correspondência",
         "importFromClipboard": "Importar da Área de Transferência",
         "exportToClipboard": "Exportar para a Área de Transferência",
         "server": "Servidor",

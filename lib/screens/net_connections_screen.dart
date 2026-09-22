@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/http_utils.dart';
+import 'package:karing/app/utils/icon_utils.dart';
 import 'package:karing/app/utils/package_manager_android.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -333,7 +335,8 @@ class _NetConnectionsScreenState
   final List<NetConnectionStateOut> _connectionOutList = [];
 
   Websocket? _websocket;
-  final Map<String, PackageInfoEx> _applicationInfoList = {};
+  final List<PackageInfoEx> _applicationInfoList = [];
+  final Map<String, Future<Image?>> _packageIconFutures = {};
   bool _pause = false;
   ConnectionsSortType _sortType = ConnectionsSortType.none;
   bool _showConnectionIn = true;
@@ -356,11 +359,35 @@ class _NetConnectionsScreenState
 
   Future<void> getInstalledPackages() async {
     if (Platform.isAndroid) {
-      final packages = await PackageManagerAndroid.getInstalledPackages();
-      for (var info in packages) {
-        _applicationInfoList[info.info.packageName!] = info;
+      _packageIconFutures.clear();
+      _applicationInfoList.clear();
+      _applicationInfoList.addAll(
+        await PackageManagerAndroid.getInstalledPackages(),
+      );
+      setState(() {});
+    }
+  }
+
+  Future<Image?> getInstalledPackageIcon(
+    NetConnectionStateIn connection,
+  ) async {
+    if (Platform.isAndroid) {
+      return _packageIconFutures.putIfAbsent(
+        connection.package,
+        () => PackageManagerAndroid.getInstalledPackageIcon(
+          _applicationInfoList,
+          connection.package,
+        ),
+      );
+    } else if (Platform.isWindows) {
+      if (connection.process.isNotEmpty) {
+        return _packageIconFutures.putIfAbsent(
+          connection.process,
+          () => IconUtils.getProcessIcon(connection.process),
+        );
       }
     }
+    return Future.value(null);
   }
 
   String getConnectionInStateKey(ConnectionIn connection) {
@@ -507,7 +534,9 @@ class _NetConnectionsScreenState
       if (_applicationInfoList.isNotEmpty) {
         _states.forEach((key, value) {
           if (value.process.isEmpty && value.package.isNotEmpty) {
-            PackageInfoEx? info = _applicationInfoList[value.package];
+            PackageInfoEx? info = _applicationInfoList.firstWhereOrNull(
+              (element) => element.info.packageName == value.package,
+            );
             if (info != null) {
               value.process = info.name;
             }
@@ -809,7 +838,7 @@ class _NetConnectionsScreenState
         padding * 2 * 2 -
         arrow_forward_ios_rounded;
     double height = 100;
-    Image? processIcon;
+
     String processName = current.showProcess;
     if (processName.isNotEmpty) {
       String appName = current.getMacosAppName();
@@ -817,13 +846,6 @@ class _NetConnectionsScreenState
         processName = "$appName[$processName]";
       }
       height += 18;
-      if (Platform.isAndroid) {
-        if (current.package.isNotEmpty) {
-          processIcon = _applicationInfoList[current.package]?.icon;
-        }
-      } else if (Platform.isWindows) {
-      } else if (Platform.isMacOS) {
-      } else if (Platform.isLinux) {}
     }
     if (current.package.isNotEmpty) {
       height += 18;
@@ -911,13 +933,29 @@ class _NetConnectionsScreenState
                         if (processName.isNotEmpty) ...[
                           Row(
                             children: [
-                              if (processIcon != null) ...[
-                                SizedBox(
-                                  width: 12,
-                                  height: 12,
-                                  child: processIcon,
-                                ),
-                              ],
+                              FutureBuilder(
+                                future: getInstalledPackageIcon(current),
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      AsyncSnapshot<Image?> snapshot,
+                                    ) {
+                                      if (!snapshot.hasData ||
+                                          snapshot.data == null) {
+                                        return const SizedBox.shrink();
+                                      }
+                                      return Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 12,
+                                            height: 12,
+                                            child: snapshot.data,
+                                          ),
+                                          SizedBox(width: 5),
+                                        ],
+                                      );
+                                    },
+                              ),
                               Text(
                                 processName,
                                 overflow: TextOverflow.ellipsis,

@@ -503,6 +503,7 @@
         "share": "Bagikan",
         "candidateWord": "Kata kandidat",
         "keywordOrRegx": "Kata kunci/regex",
+        "matchAttribute": "Atribut pencocokan",
         "importFromClipboard": "Impor dari papan klip",
         "exportToClipboard": "Ekspor ke papan klip",
         "server": "Server",

@@ -89,7 +89,7 @@ public struct DashboardView: View {
         VpnServiceHandler.shared.uiLocalizedDescription = DashboardView.config.name
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.httpAdditionalHeaders = ["User-Agent": "Karing/\(DashboardView.version) platform/tvos sing-box 1.13.0"]
+        sessionConfig.httpAdditionalHeaders = ["User-Agent": "Karing/\(DashboardView.version) platform/tvos sing-box 1.14.0"]
         
         session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: .main)
     }
@@ -420,7 +420,7 @@ public struct DashboardView: View {
 
     private func getUrl()->String {
         let ips = DashboardView.getLocalIPAddress()
-        let coreVersion = "1.13.0"
+        let coreVersion = "1.14.0"
         return "karing://tvos?ips=\(ips.joined(separator: ","))&port=\(httpPort)&uuid=\(DashboardView.uuid)&cport=\(DashboardView.config.control_port)&secret=\(DashboardView.config.secret)&version=\(DashboardView.version)&coreversion=\(coreVersion)"
     }
 

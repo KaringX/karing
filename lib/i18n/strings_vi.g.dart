@@ -793,6 +793,7 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get share => 'Chia sẻ';
 	@override String get candidateWord => 'Từ ứng cử';
 	@override String get keywordOrRegx => 'Từ khóa/Regex';
+	@override String get matchAttribute => 'Thuộc tính khớp';
 	@override String get importFromClipboard => 'Nhập từ Clipboard';
 	@override String get exportToClipboard => 'Xuất sang Clipboard';
 	@override String get server => 'Máy chủ';
@@ -1433,6 +1434,7 @@ extension on TranslationsVi {
 			'meta.share' => 'Chia sẻ',
 			'meta.candidateWord' => 'Từ ứng cử',
 			'meta.keywordOrRegx' => 'Từ khóa/Regex',
+			'meta.matchAttribute' => 'Thuộc tính khớp',
 			'meta.importFromClipboard' => 'Nhập từ Clipboard',
 			'meta.exportToClipboard' => 'Xuất sang Clipboard',
 			'meta.server' => 'Máy chủ',
@@ -1487,9 +1489,9 @@ extension on TranslationsVi {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng bật proxy hoặc sửa đổi nút proxy hiện tại và thử lại',
 			'meta.profileAddParseFailed' => 'Phân tích cấu hình thất bại',
 			'meta.profileAddNoServerAvaliable' => 'Không có máy chủ khả dụng, hãy đảm bảo liên kết hoặc tệp cấu hình hợp lệ; nếu cấu hình của bạn từ GitHub, vui lòng lấy liên kết từ nút [Raw] trên trang',
-			'meta.profileAddWrapSuccess' => 'Tạo cấu hình thành công, vui lòng đi tới [${_root.meta.myProfiles}] để xem',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Tạo cấu hình thành công, vui lòng đi tới [${_root.meta.myProfiles}] để xem',
 			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Cài đặt sẵn [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Lưu ý: Các mục được bật sẽ được thêm/ghi đè vào [${_root.meta.diversionCustomGroup}] và [${_root.meta.diversionRules}]',

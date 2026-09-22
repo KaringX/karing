@@ -503,6 +503,7 @@
         "share": "يشارك",
         "candidateWord": "كلمات المرشح",
         "keywordOrRegx": "الكلمات الرئيسية/العادية",
+        "matchAttribute": "سمة المطابقة",
         "importFromClipboard": "استيراد من الحافظة",
         "exportToClipboard": "تصدير إلى الحافظة",
         "server": "الخادم",

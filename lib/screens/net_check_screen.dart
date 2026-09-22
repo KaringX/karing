@@ -627,7 +627,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
       }
     } else {
       _netCheckItemDomainDNSQuery?.values.add(
-        ReturnResult(data: result.data!.item2),
+        ReturnResult(error: result.error),
       );
     }
 

@@ -503,6 +503,7 @@
         "share": "Chia sẻ",
         "candidateWord": "Từ ứng cử",
         "keywordOrRegx": "Từ khóa/Regex",
+        "matchAttribute": "Thuộc tính khớp",
         "importFromClipboard": "Nhập từ Clipboard",
         "exportToClipboard": "Xuất sang Clipboard",
         "server": "Máy chủ",

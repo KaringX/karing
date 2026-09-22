@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.25+2802
+version: 1.2.26+2901
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.44.0"
@@ -140,7 +140,7 @@ dev_dependencies:
 
   flutter_lints: 6.0.0
   ffigen: 21.0.0
-  #json_serializable: 6.11.4 #dart run build_runner build
+  #json_serializable: 6.11.4 #dart run build_runner clean   dart run build_runner build
 
 dependency_overrides:
   path_provider_foundation: 2.3.2

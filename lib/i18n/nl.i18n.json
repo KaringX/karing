@@ -503,6 +503,7 @@
         "share": "Delen",
         "candidateWord": "Kandidaat-woorden",
         "keywordOrRegx": "Trefwoorden/Regex",
+        "matchAttribute": "Matchattribuut",
         "importFromClipboard": "Importeren van klembord",
         "exportToClipboard": "Exporteren naar klembord",
         "server": "Server",

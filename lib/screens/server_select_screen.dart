@@ -764,6 +764,10 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                           } else {
                             widget.multiSelect!.searchKeywords.remove(keyword);
                           }
+                          _searchText = widget.multiSelect!.searchKeywords.join(
+                            "|",
+                          );
+                          _buildData();
                           setState(() {});
                         },
                       ),
@@ -1194,7 +1198,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
-      child: InkWell(
+      child: GestureDetector(
         onTap: widget.singleSelect == null
             ? null
             : () async {
@@ -1228,6 +1232,9 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                 Navigator.pop(context, server);
               },
         onTapDown: (details) {},
+        onSecondaryTapUp: (TapUpDetails details) {
+          onLongPressServer(server, isTesting, isWaitTesting);
+        },
         onLongPress:
             (widget.singleSelect == null || server.type == kOutboundTypeUrltest)
             ? null

@@ -790,8 +790,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         windowSize.width - leftWidth - rightWidth - padding * 2;
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
-      child: InkWell(
+      child: GestureDetector(
         onTapDown: (details) {},
+        onSecondaryTapUp: (TapUpDetails details) {
+          onLongPressServer(provider, server, isTesting, isWaitTesting);
+        },
         onLongPress: () async {
           onLongPressServer(provider, server, isTesting, isWaitTesting);
         },
@@ -1502,6 +1505,24 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       case "naive":
         sbOptions.naive = SingboxOutboundNaiveOptions();
         break;
+      case "snell":
+        sbOptions.snell = SingboxOutboundSnellOptions();
+        break;
+      case "sudoku":
+        sbOptions.sudoku = SingboxOutboundSudokuOptions();
+        break;
+      case "trusttunnel":
+        sbOptions.trusttunnel = SingboxOutboundTrustTunnelOptions();
+        break;
+      case "masque":
+        sbOptions.masque = SingboxOutboundMasqueOptions();
+        break;
+      /* todo
+  tailscale 
+  cloudflared 
+  openconnect 
+  openvpn-client 
+  */
       default:
         return;
     }
@@ -1642,6 +1663,32 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                 sbOptions.server = sbOptions.naive!.server ?? "";
                 sbOptions.server_port = sbOptions.naive!.server_port ?? 0;
                 break;
+              case "snell":
+                ret = sbOptions.snell!.getRequired();
+                sbOptions.server = sbOptions.snell!.server ?? "";
+                sbOptions.server_port = sbOptions.snell!.server_port ?? 0;
+                break;
+              case "sudoku":
+                ret = sbOptions.sudoku!.getRequired();
+                sbOptions.server = sbOptions.sudoku!.server ?? "";
+                sbOptions.server_port = sbOptions.sudoku!.server_port ?? 0;
+                break;
+              case "trusttunnel":
+                ret = sbOptions.trusttunnel!.getRequired();
+                sbOptions.server = sbOptions.trusttunnel!.server ?? "";
+                sbOptions.server_port = sbOptions.trusttunnel!.server_port ?? 0;
+                break;
+              case "masque":
+                ret = sbOptions.masque!.getRequired();
+                sbOptions.server = sbOptions.masque!.server ?? "";
+                sbOptions.server_port = sbOptions.masque!.server_port ?? 0;
+                break;
+              /* todo
+  tailscale 
+  cloudflared 
+  openconnect 
+  openvpn-client 
+  */
             }
             if (ret != null) {
               DialogUtils.showAlertDialog(

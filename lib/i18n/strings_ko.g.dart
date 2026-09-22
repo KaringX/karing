@@ -793,6 +793,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get share => '공유';
 	@override String get candidateWord => '후보 단어';
 	@override String get keywordOrRegx => '키워드/정규식';
+	@override String get matchAttribute => '일치 속성';
 	@override String get importFromClipboard => '클립보드에서 가져오기';
 	@override String get exportToClipboard => '클립보드로 내보내기';
 	@override String get server => '서버';
@@ -1433,6 +1434,7 @@ extension on TranslationsKo {
 			'meta.share' => '공유',
 			'meta.candidateWord' => '후보 단어',
 			'meta.keywordOrRegx' => '키워드/정규식',
+			'meta.matchAttribute' => '일치 속성',
 			'meta.importFromClipboard' => '클립보드에서 가져오기',
 			'meta.exportToClipboard' => '클립보드로 내보내기',
 			'meta.server' => '서버',
@@ -1487,9 +1489,9 @@ extension on TranslationsKo {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '추가 실패: ${p}. 프록시를 켜거나 현재 프록시 노드를 수정하고 다시 시도하십시오',
 			'meta.profileAddParseFailed' => '프로필 분석 실패',
 			'meta.profileAddNoServerAvaliable' => '사용 가능한 서버가 없습니다. 구성 링크 또는 파일이 유효한지 확인하십시오. 구성이 GitHub인 경우 페이지의 [Raw] 버튼에서 링크를 가져오십시오',
-			'meta.profileAddWrapSuccess' => '구성이 성공적으로 생성되었습니다. [${_root.meta.myProfiles}]로 이동하여 확인하십시오',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => '구성이 성공적으로 생성되었습니다. [${_root.meta.myProfiles}]로 이동하여 확인하십시오',
 			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			'diversionCustomGroupPreset' => '사전 설정 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '참고: 활성화된 항목은 [${_root.meta.diversionCustomGroup}] 및 [${_root.meta.diversionRules}]에 추가/덮어쓰기됩니다',

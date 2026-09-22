@@ -503,6 +503,7 @@
         "share": "Κοινοποίηση",
         "candidateWord": "Υποψήφιες λέξεις",
         "keywordOrRegx": "Λέξεις-κλειδιά/Κανονική έκφραση",
+        "matchAttribute": "Ιδιότητα αντιστοίχισης",
         "importFromClipboard": "Εισαγωγή από το πρόχειρο",
         "exportToClipboard": "Εξαγωγή στο πρόχειρο",
         "server": "Διακομιστής",

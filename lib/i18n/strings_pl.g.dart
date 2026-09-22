@@ -793,6 +793,7 @@ class _Translations$meta$pl implements Translations$meta$en {
 	@override String get share => 'Udostępnij';
 	@override String get candidateWord => 'Słowa kandydackie';
 	@override String get keywordOrRegx => 'Słowa kluczowe/Reguła';
+	@override String get matchAttribute => 'Atrybut dopasowania';
 	@override String get importFromClipboard => 'Importuj ze schowka';
 	@override String get exportToClipboard => 'Eksportuj do schowka';
 	@override String get server => 'Serwer';
@@ -1433,6 +1434,7 @@ extension on TranslationsPl {
 			'meta.share' => 'Udostępnij',
 			'meta.candidateWord' => 'Słowa kandydackie',
 			'meta.keywordOrRegx' => 'Słowa kluczowe/Reguła',
+			'meta.matchAttribute' => 'Atrybut dopasowania',
 			'meta.importFromClipboard' => 'Importuj ze schowka',
 			'meta.exportToClipboard' => 'Eksportuj do schowka',
 			'meta.server' => 'Serwer',
@@ -1487,9 +1489,9 @@ extension on TranslationsPl {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, włącz proxy lub zmień bieżący węzeł proxy i spróbuj ponownie',
 			'meta.profileAddParseFailed' => 'Parsowanie profilu nie powiodło się',
 			'meta.profileAddNoServerAvaliable' => 'Brak dostępnych serwerów. Upewnij się, że link do profilu lub plik profilu jest prawidłowy; jeśli profil pochodzi z GitHub, pobierz link za pomocą przycisku [Raw] na stronie',
-			'meta.profileAddWrapSuccess' => 'Profil został pomyślnie wygenerowany, przejdź do [${_root.meta.myProfiles}], aby go wyświetlić',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profil został pomyślnie wygenerowany, przejdź do [${_root.meta.myProfiles}], aby go wyświetlić',
 			'diversionRulesKeep' => 'Zachowaj [${_root.meta.diversionRules}] dla [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Predefiniowane [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Uwaga: Włączone elementy zostaną dodane/nadpisane w [${_root.meta.diversionCustomGroup}] i [${_root.meta.diversionRules}]',

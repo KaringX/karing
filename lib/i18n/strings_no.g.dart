@@ -793,6 +793,7 @@ class _Translations$meta$no implements Translations$meta$en {
 	@override String get share => 'Del';
 	@override String get candidateWord => 'Kandidatord';
 	@override String get keywordOrRegx => 'Nøkkelord/Regex';
+	@override String get matchAttribute => 'Samsvarsattributt';
 	@override String get importFromClipboard => 'Importer fra utklippstavlen';
 	@override String get exportToClipboard => 'Eksporter til utklippstavlen';
 	@override String get server => 'Server';
@@ -1433,6 +1434,7 @@ extension on TranslationsNo {
 			'meta.share' => 'Del',
 			'meta.candidateWord' => 'Kandidatord',
 			'meta.keywordOrRegx' => 'Nøkkelord/Regex',
+			'meta.matchAttribute' => 'Samsvarsattributt',
 			'meta.importFromClipboard' => 'Importer fra utklippstavlen',
 			'meta.exportToClipboard' => 'Eksporter til utklippstavlen',
 			'meta.server' => 'Server',
@@ -1487,9 +1489,9 @@ extension on TranslationsNo {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Mislyktes i å legge til: ${p}, vennligst slå på proxy eller endre gjeldende proxynode og prøv på nytt',
 			'meta.profileAddParseFailed' => 'Mislyktes i å analysere profil',
 			'meta.profileAddNoServerAvaliable' => 'Ingen server tilgjengelig, sørg for at profilkoblingen eller profilfilen er gyldig; hvis profilen din kommer fra GitHub, vennligst hent koblingen via [Raw]-knappen på siden',
-			'meta.profileAddWrapSuccess' => 'Profil generert vellykket, vennligst gå til [${_root.meta.myProfiles}] for å se',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profil generert vellykket, vennligst gå til [${_root.meta.myProfiles}] for å se',
 			'diversionRulesKeep' => 'Behold [${_root.meta.diversionRules}] fra [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Forhåndsinnstilt [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Merk: Aktiverte elementer vil bli lagt til i/overskrive [${_root.meta.diversionCustomGroup}] og [${_root.meta.diversionRules}]',

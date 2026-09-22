@@ -793,6 +793,7 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get share => 'Paylaş';
 	@override String get candidateWord => 'Aday Kelimeler';
 	@override String get keywordOrRegx => 'Anahtar Kelimeler/Regex';
+	@override String get matchAttribute => 'Eşleşme özniteliği';
 	@override String get importFromClipboard => 'Panodan İçe Aktar';
 	@override String get exportToClipboard => 'Panoya Dışa Aktar';
 	@override String get server => 'Sunucu';
@@ -1433,6 +1434,7 @@ extension on TranslationsTr {
 			'meta.share' => 'Paylaş',
 			'meta.candidateWord' => 'Aday Kelimeler',
 			'meta.keywordOrRegx' => 'Anahtar Kelimeler/Regex',
+			'meta.matchAttribute' => 'Eşleşme özniteliği',
 			'meta.importFromClipboard' => 'Panodan İçe Aktar',
 			'meta.exportToClipboard' => 'Panoya Dışa Aktar',
 			'meta.server' => 'Sunucu',
@@ -1487,9 +1489,9 @@ extension on TranslationsTr {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen proxy\'yi açın veya mevcut proxy düğümünü değiştirin ve tekrar deneyin',
 			'meta.profileAddParseFailed' => 'Profil Ayrıştırma başarısız oldu',
 			'meta.profileAddNoServerAvaliable' => 'Kullanılabilir sunucu yok, Profil Bağlantısının veya Profil Dosyasının geçerli olduğundan emin olun; Profiliniz GitHub\'dan geliyorsa lütfen bağlantıyı sayfadaki [Raw] düğmesinden alın',
-			'meta.profileAddWrapSuccess' => 'Profil başarıyla oluşturuldu, görüntülemek için lütfen [${_root.meta.myProfiles}] bölümüne gidin',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profil başarıyla oluşturuldu, görüntülemek için lütfen [${_root.meta.myProfiles}] bölümüne gidin',
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			'diversionCustomGroupPreset' => 'Ön ayar [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Not: Etkinleştirilen öğeler [${_root.meta.diversionCustomGroup}] ve [${_root.meta.diversionRules}] bölümlerine eklenecek/üzerine yazılacaktır',

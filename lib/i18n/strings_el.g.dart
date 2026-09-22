@@ -793,6 +793,7 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get share => 'Κοινοποίηση';
 	@override String get candidateWord => 'Υποψήφιες λέξεις';
 	@override String get keywordOrRegx => 'Λέξεις-κλειδιά/Κανονική έκφραση';
+	@override String get matchAttribute => 'Ιδιότητα αντιστοίχισης';
 	@override String get importFromClipboard => 'Εισαγωγή από το πρόχειρο';
 	@override String get exportToClipboard => 'Εξαγωγή στο πρόχειρο';
 	@override String get server => 'Διακομιστής';
@@ -1433,6 +1434,7 @@ extension on TranslationsEl {
 			'meta.share' => 'Κοινοποίηση',
 			'meta.candidateWord' => 'Υποψήφιες λέξεις',
 			'meta.keywordOrRegx' => 'Λέξεις-κλειδιά/Κανονική έκφραση',
+			'meta.matchAttribute' => 'Ιδιότητα αντιστοίχισης',
 			'meta.importFromClipboard' => 'Εισαγωγή από το πρόχειρο',
 			'meta.exportToClipboard' => 'Εξαγωγή στο πρόχειρο',
 			'meta.server' => 'Διακομιστής',
@@ -1487,9 +1489,9 @@ extension on TranslationsEl {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε ενεργοποιήστε το proxy ή τροποποιήστε τον τρέχοντα κόμβο proxy και δοκιμάστε ξανά',
 			'meta.profileAddParseFailed' => 'Αποτυχία ανάλυσης προφίλ',
 			'meta.profileAddNoServerAvaliable' => 'Δεν υπάρχει διαθέσιμος διακομιστής, βεβαιωθείτε ότι ο Σύνδεσμος Προφίλ ή το Αρχείο Προφίλ είναι έγκυρο. Εάν το προφίλ σας προέρχεται από το GitHub, λάβετε το σύνδεσμο μέσω του κουμπιού [Raw] στη σελίδα',
-			'meta.profileAddWrapSuccess' => 'Το προφίλ δημιουργήθηκε επιτυχώς, παρακαλούμε μεταβείτε στο [${_root.meta.myProfiles}] για προβολή',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Το προφίλ δημιουργήθηκε επιτυχώς, παρακαλούμε μεταβείτε στο [${_root.meta.myProfiles}] για προβολή',
 			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Προκαθορισμένη [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Σημείωση: Τα ενεργοποιημένα στοιχεία θα προστεθούν/αντικαταστήσουν στο [${_root.meta.diversionCustomGroup}] και στο [${_root.meta.diversionRules}]',

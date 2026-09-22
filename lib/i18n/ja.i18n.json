@@ -503,6 +503,7 @@
         "share": "共有",
         "candidateWord": "候補単語",
         "keywordOrRegx": "キーワード/正規表現",
+        "matchAttribute": "一致属性",
         "importFromClipboard": "クリップボードからインポート",
         "exportToClipboard": "クリップボードにエクスポート",
         "server": "サーバー",

@@ -793,6 +793,7 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get share => 'Delen';
 	@override String get candidateWord => 'Kandidaat-woorden';
 	@override String get keywordOrRegx => 'Trefwoorden/Regex';
+	@override String get matchAttribute => 'Matchattribuut';
 	@override String get importFromClipboard => 'Importeren van klembord';
 	@override String get exportToClipboard => 'Exporteren naar klembord';
 	@override String get server => 'Server';
@@ -1433,6 +1434,7 @@ extension on TranslationsNl {
 			'meta.share' => 'Delen',
 			'meta.candidateWord' => 'Kandidaat-woorden',
 			'meta.keywordOrRegx' => 'Trefwoorden/Regex',
+			'meta.matchAttribute' => 'Matchattribuut',
 			'meta.importFromClipboard' => 'Importeren van klembord',
 			'meta.exportToClipboard' => 'Exporteren naar klembord',
 			'meta.server' => 'Server',
@@ -1487,9 +1489,9 @@ extension on TranslationsNl {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Toevoegen mislukt: ${p}, schakel de proxy in of wijzig de huidige proxynode en probeer het opnieuw',
 			'meta.profileAddParseFailed' => 'Analyseren van profiel mislukt',
 			'meta.profileAddNoServerAvaliable' => 'Geen server beschikbaar, zorg ervoor dat de profiellink of het profielbestand geldig is; als uw profiel van GitHub komt, haal dan de link op via de [Raw]-knop op de pagina',
-			'meta.profileAddWrapSuccess' => 'Profiel succesvol gegenereerd, ga naar [${_root.meta.myProfiles}] om het te bekijken',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profiel succesvol gegenereerd, ga naar [${_root.meta.myProfiles}] om het te bekijken',
 			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			'diversionCustomGroupPreset' => 'Voorinstelling [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Opmerking: Ingeschakelde items worden toegevoegd aan/overschreven in [${_root.meta.diversionCustomGroup}] en [${_root.meta.diversionRules}]',

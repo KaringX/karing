@@ -793,6 +793,7 @@ class _Translations$meta$de implements Translations$meta$en {
 	@override String get share => 'Teilen';
 	@override String get candidateWord => 'Kandidatenwörter';
 	@override String get keywordOrRegx => 'Schlüsselwörter/Regulär';
+	@override String get matchAttribute => 'Übereinstimmungsattribut';
 	@override String get importFromClipboard => 'Aus Zwischenablage importieren';
 	@override String get exportToClipboard => 'In Zwischenablage exportieren';
 	@override String get server => 'Server';
@@ -1433,6 +1434,7 @@ extension on TranslationsDe {
 			'meta.share' => 'Teilen',
 			'meta.candidateWord' => 'Kandidatenwörter',
 			'meta.keywordOrRegx' => 'Schlüsselwörter/Regulär',
+			'meta.matchAttribute' => 'Übereinstimmungsattribut',
 			'meta.importFromClipboard' => 'Aus Zwischenablage importieren',
 			'meta.exportToClipboard' => 'In Zwischenablage exportieren',
 			'meta.server' => 'Server',
@@ -1487,9 +1489,9 @@ extension on TranslationsDe {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte schalten Sie den Proxy ein oder ändern Sie den aktuellen Proxy-Knoten und versuchen Sie es erneut',
 			'meta.profileAddParseFailed' => 'Parsen des Profils fehlgeschlagen',
 			'meta.profileAddNoServerAvaliable' => 'Kein Server verfügbar, stellen Sie sicher, dass der Profil-Link oder die Profil-Datei gültig ist; wenn Ihr Profil von GitHub stammt, rufen Sie den Link bitte über die Schaltfläche [Raw] auf der Seite ab',
-			'meta.profileAddWrapSuccess' => 'Profil erfolgreich generiert, bitte gehen Sie zu [${_root.meta.myProfiles}], um es anzusehen',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Profil erfolgreich generiert, bitte gehen Sie zu [${_root.meta.myProfiles}], um es anzusehen',
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} beibehalten',
 			'diversionCustomGroupPreset' => 'Voreingestellte [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Hinweis: Aktivierte Elemente werden zu [${_root.meta.diversionCustomGroup}] und [${_root.meta.diversionRules}] hinzugefügt/überschrieben',

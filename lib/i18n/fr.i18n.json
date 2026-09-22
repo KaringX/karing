@@ -503,6 +503,7 @@
         "share": "Partager",
         "candidateWord": "Mots candidats",
         "keywordOrRegx": "Mots-clés/Regex",
+        "matchAttribute": "Attribut de correspondance",
         "importFromClipboard": "Importer depuis le presse-papiers",
         "exportToClipboard": "Exporter vers le presse-papiers",
         "server": "Serveur",

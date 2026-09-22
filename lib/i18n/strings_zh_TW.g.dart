@@ -793,6 +793,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get share => '分享';
 	@override String get candidateWord => '候選詞';
 	@override String get keywordOrRegx => '關鍵詞/正則';
+	@override String get matchAttribute => '匹配屬性';
 	@override String get importFromClipboard => '從剪貼簿匯入';
 	@override String get exportToClipboard => '匯出到剪貼簿';
 	@override String get server => '伺服器';
@@ -1433,6 +1434,7 @@ extension on TranslationsZhTw {
 			'meta.share' => '分享',
 			'meta.candidateWord' => '候選詞',
 			'meta.keywordOrRegx' => '關鍵詞/正則',
+			'meta.matchAttribute' => '匹配屬性',
 			'meta.importFromClipboard' => '從剪貼簿匯入',
 			'meta.exportToClipboard' => '匯出到剪貼簿',
 			'meta.server' => '伺服器',
@@ -1487,9 +1489,9 @@ extension on TranslationsZhTw {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '新增失敗: ${p}, 請開啟代理或者修改當前代理節點後重試',
 			'meta.profileAddParseFailed' => '解析配置失敗',
 			'meta.profileAddNoServerAvaliable' => '無可用伺服器, 請確保配置連結或設定檔有效; 如果你的配置來源於 GitHub, 請從頁面上的 [Raw] 按鈕獲取連結位址',
-			'meta.profileAddWrapSuccess' => '配置生成成功, 請到 [${_root.meta.myProfiles}] 查看',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => '配置生成成功, 請到 [${_root.meta.myProfiles}] 查看',
 			'diversionRulesKeep' => '保留 [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '預置 [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意: 啟用的項會新增/覆蓋到 [${_root.meta.diversionCustomGroup}] 和 [${_root.meta.diversionRules}]',

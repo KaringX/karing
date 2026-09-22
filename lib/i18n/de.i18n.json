@@ -503,6 +503,7 @@
         "share": "Teilen",
         "candidateWord": "Kandidatenwörter",
         "keywordOrRegx": "Schlüsselwörter/Regulär",
+        "matchAttribute": "Übereinstimmungsattribut",
         "importFromClipboard": "Aus Zwischenablage importieren",
         "exportToClipboard": "In Zwischenablage exportieren",
         "server": "Server",

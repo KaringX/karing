@@ -793,6 +793,7 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get share => '分享';
 	@override String get candidateWord => '候选词';
 	@override String get keywordOrRegx => '关键词/正则';
+	@override String get matchAttribute => '匹配属性';
 	@override String get importFromClipboard => '从剪贴板导入';
 	@override String get exportToClipboard => '导出到剪贴板';
 	@override String get server => '服务器';
@@ -1433,6 +1434,7 @@ extension on TranslationsZhCn {
 			'meta.share' => '分享',
 			'meta.candidateWord' => '候选词',
 			'meta.keywordOrRegx' => '关键词/正则',
+			'meta.matchAttribute' => '匹配属性',
 			'meta.importFromClipboard' => '从剪贴板导入',
 			'meta.exportToClipboard' => '导出到剪贴板',
 			'meta.server' => '服务器',
@@ -1487,9 +1489,9 @@ extension on TranslationsZhCn {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '添加失败:${p}, 请打开代理或者修改当前代理节点后重试',
 			'meta.profileAddParseFailed' => '解析配置失败',
 			'meta.profileAddNoServerAvaliable' => '无可用服务器,请确保配置链接或配置文件有效;如果你的配置来源于GitHub,请从页面上的[Raw]按钮获取链接地址',
-			'meta.profileAddWrapSuccess' => '配置生成成功,请到[${_root.meta.myProfiles}]查看',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => '配置生成成功,请到[${_root.meta.myProfiles}]查看',
 			'diversionRulesKeep' => '保留[${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '预置[${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => '注意:启用的项会添加/覆盖到[${_root.meta.diversionCustomGroup}]和[${_root.meta.diversionRules}]',

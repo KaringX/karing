@@ -793,6 +793,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get share => 'Compartir';
 	@override String get candidateWord => 'Palabras candidatas';
 	@override String get keywordOrRegx => 'Palabras clave/Regex';
+	@override String get matchAttribute => 'Atributo de coincidencia';
 	@override String get importFromClipboard => 'Importar desde portapapeles';
 	@override String get exportToClipboard => 'Exportar a portapapeles';
 	@override String get server => 'Servidor';
@@ -1433,6 +1434,7 @@ extension on TranslationsEs {
 			'meta.share' => 'Compartir',
 			'meta.candidateWord' => 'Palabras candidatas',
 			'meta.keywordOrRegx' => 'Palabras clave/Regex',
+			'meta.matchAttribute' => 'Atributo de coincidencia',
 			'meta.importFromClipboard' => 'Importar desde portapapeles',
 			'meta.exportToClipboard' => 'Exportar a portapapeles',
 			'meta.server' => 'Servidor',
@@ -1487,9 +1489,9 @@ extension on TranslationsEs {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Error al agregar: ${p}, active el proxy o modifique el nodo proxy actual e intente de nuevo',
 			'meta.profileAddParseFailed' => 'Error al analizar el perfil',
 			'meta.profileAddNoServerAvaliable' => 'No hay servidores disponibles, asegúrese de que el enlace o archivo de perfil sea válido; si su perfil proviene de GitHub, obtenga el enlace del botón [Raw] en la página',
-			'meta.profileAddWrapSuccess' => 'Perfil generado con éxito, vaya a [${_root.meta.myProfiles}] para ver',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddWrapSuccess' => 'Perfil generado con éxito, vaya a [${_root.meta.myProfiles}] para ver',
 			'diversionRulesKeep' => 'Mantener ${_root.meta.diversionRules} de [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Preajuste [${_root.meta.diversionCustomGroup}]',
 			'diversionCustomGroupPresetTips' => 'Nota: Los elementos habilitados se agregarán/sobrescribirán en [${_root.meta.diversionCustomGroup}] y [${_root.meta.diversionRules}]',

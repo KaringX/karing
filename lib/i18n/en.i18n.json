@@ -503,6 +503,7 @@
         "share": "Share",
         "candidateWord": "Candidate Words",
         "keywordOrRegx": "Keywords/Regular",
+        "matchAttribute": "Match attribute",
         "importFromClipboard": "Import From Clipboard",
         "exportToClipboard": "Export to Clipboard",
         "server": "Server",
