@@ -170,7 +170,7 @@ class _DnsAutoSetupScreenState extends LasyRenderingState<DnsAutoSetupScreen> {
       DnsSettingsScreen.getDirect(),
       DnsSettingsScreen.getCurrent(),
       kOutboundTagDirect,
-      VPNService.getCurrent().tag,
+      ServerManager.getCurrentOutboundTag(),
       (
         Map<String, String> contectDirectLatency,
         Map<String, String> contectCurrentLatency,

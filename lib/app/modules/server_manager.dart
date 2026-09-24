@@ -2752,6 +2752,21 @@ class ServerManager {
     return tag;
   }
 
+  //The tag of VPNService.getCurrent() is the tag kept by the interface. For a
+  //custom urltest group it is the remark of the group, while the core config
+  //uses kOutboundTagUrltest as prefix. Convert it before passing to the core,
+  //such as detour and getDelay. See NetCheckScreen._checkOutbound.
+  static String getCurrentOutboundTag() {
+    ProxyConfig current = VPNService.getCurrent();
+    String tag = current.tag;
+    if (current.groupid == getUrltestGroupId()) {
+      if (tag != kOutboundTagUrltest) {
+        return getUrltestTagForCustom(tag);
+      }
+    }
+    return tag;
+  }
+
   static void setDirty(bool dirty) {
     _dirty = dirty;
   }
