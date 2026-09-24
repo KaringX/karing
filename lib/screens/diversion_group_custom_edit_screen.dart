@@ -457,13 +457,7 @@ class _DiversionGroupCustomEditScreenState
                   if (!mounted) {
                     return null;
                   }
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.toString(),
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
+                  DialogUtils.showExceptionDialog(context, err, stacktrace);
                 }
                 return null;
               },
@@ -506,13 +500,7 @@ class _DiversionGroupCustomEditScreenState
                   if (!mounted) {
                     return null;
                   }
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.toString(),
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
+                  DialogUtils.showExceptionDialog(context, err, stacktrace);
                 }
                 return null;
               },
@@ -564,13 +552,7 @@ class _DiversionGroupCustomEditScreenState
                   if (!mounted) {
                     return null;
                   }
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.toString(),
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
+                  DialogUtils.showExceptionDialog(context, err, stacktrace);
                 }
                 return null;
               },
@@ -593,13 +575,7 @@ class _DiversionGroupCustomEditScreenState
                   if (!mounted) {
                     return null;
                   }
-                  DialogUtils.showAlertDialog(
-                    context,
-                    err.toString(),
-                    showCopy: true,
-                    showFAQ: true,
-                    withVersion: true,
-                  );
+                  DialogUtils.showExceptionDialog(context, err, stacktrace);
                 }
                 return null;
               },

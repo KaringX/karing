@@ -135,6 +135,9 @@ class ProxyCluster {
             outbound.type == kOutboundTypeBlock) {
           continue;
         }
+        if (_tagPorts.containsKey(outbound.tag)) {
+          continue;
+        }
         int listenPort = _tagPorts[outbound.tag] ?? 0;
         if (listenPort == 0) {
           listenPort = await NetworkUtils.getAvaliablePortNotCloseSocket(

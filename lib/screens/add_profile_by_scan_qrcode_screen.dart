@@ -163,13 +163,11 @@ class _AddProfileByScanQrcodeScanScreenState
                     onPressed: () async {
                       try {
                         await controller!.toggleFlash();
-                      } catch (err) {
-                        DialogUtils.showAlertDialog(
+                      } catch (err, stacktrace) {
+                        DialogUtils.showExceptionDialog(
                           context,
-                          err.toString(),
-                          showCopy: true,
-                          showFAQ: true,
-                          withVersion: true,
+                          err,
+                          stacktrace,
                         );
                       }
 
@@ -467,17 +465,11 @@ class _AddProfileByScanQrcodeScanScreenState
           setState(() {});
         }
       }
-    } catch (err, _) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -524,17 +516,11 @@ class _AddProfileByScanQrcodeScanScreenState
           }
         }
       }
-    } catch (err, _) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -561,7 +547,7 @@ class _AddProfileByScanQrcodeScanScreenState
         mode: CaptureMode.region,
         copyToClipboard: true,
       );
-    } catch (err, _) {}
+    } catch (err, stacktrace) {}
 
     if ((capturedData != null) && (capturedData.imageBytes != null)) {
       _image = Image.memory(capturedData.imageBytes!);
@@ -581,14 +567,8 @@ class _AddProfileByScanQrcodeScanScreenState
             setState(() {});
           }
         }
-      } catch (err, _) {
-        DialogUtils.showAlertDialog(
-          context,
-          err.toString(),
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true,
-        );
+      } catch (err, stacktrace) {
+        DialogUtils.showExceptionDialog(context, err, stacktrace);
       }
     }
   }

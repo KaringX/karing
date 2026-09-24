@@ -217,13 +217,7 @@ class _VersionUpdateScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       setState(() {});
     }
     _installing = false;

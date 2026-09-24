@@ -1179,13 +1179,7 @@ class GroupHelper {
       if (!context.mounted) {
         return dbPath;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
     return dbPath;
   }
@@ -1338,17 +1332,11 @@ class GroupHelper {
               ClipboardData? data;
               try {
                 data = await Clipboard.getData("text/plain");
-              } catch (err) {
+              } catch (err, stacktrace) {
                 if (!context.mounted) {
                   return;
                 }
-                DialogUtils.showAlertDialog(
-                  context,
-                  err.toString(),
-                  showCopy: true,
-                  showFAQ: true,
-                  withVersion: true,
-                );
+                DialogUtils.showExceptionDialog(context, err, stacktrace);
                 return;
               }
               if (!context.mounted) {
@@ -3337,13 +3325,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -3421,17 +3403,11 @@ class GroupHelper {
             await SharePlus.instance.share(
               ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
-          } catch (err) {
+          } catch (err, stacktrace) {
             if (!context.mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(
-              context,
-              err.toString(),
-              showCopy: true,
-              showFAQ: true,
-              withVersion: true,
-            );
+            DialogUtils.showExceptionDialog(context, err, stacktrace);
           }
         }
       }
@@ -3439,13 +3415,7 @@ class GroupHelper {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 

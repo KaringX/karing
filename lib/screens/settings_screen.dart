@@ -187,13 +187,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!mounted) {
         return [];
       }
-      DialogUtils.showAlertDialog(
-        context,
-        "${err.toString()}\n${stacktrace.toString()}",
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return [];
     }
   }
@@ -1398,18 +1392,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           QrcodeScreen(content: remoteConfig.telegram),
                     ),
                   );
-                },
-              ),
-            ),
-          ],
-          if (!Platform.isIOS &&
-              //!Platform.isMacOS &&
-              remoteConfig.donateUrl.isNotEmpty) ...[
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.supportUs,
-                onPush: () async {
-                  onTapSupportUS();
                 },
               ),
             ),
@@ -2903,17 +2885,11 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
           SettingManager.getConfig().uiScreen.backgroundImageLocal = filePath;
           setState(() {});
         }
-      } catch (err, _) {
+      } catch (err, stacktrace) {
         if (!mounted) {
           return;
         }
-        DialogUtils.showAlertDialog(
-          context,
-          err.toString(),
-          showCopy: true,
-          showFAQ: true,
-          withVersion: true,
-        );
+        DialogUtils.showExceptionDialog(context, err, stacktrace);
       }
       return;
     }
@@ -2937,13 +2913,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -3217,59 +3187,10 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return;
     }
     await VPNService.uninit();
     await ServicesBinding.instance.exitApplication(AppExitType.required);
-  }
-
-  Future<void> onTapSupportUS() async {
-    final tcontext = Translations.of(context);
-
-    Future<List<GroupItem>> getOptions(
-      BuildContext context,
-      SetStateCallback? setstate,
-    ) async {
-      var remoteConfig = RemoteConfigManager.getConfig();
-      List<GroupItemOptions> options = [
-        GroupItemOptions(
-          pushOptions: GroupItemPushOptions(
-            name: tcontext.meta.donate,
-            onPush: () async {
-              String url = await UrlLauncherUtils.reorganizationUrlWithAnchor(
-                remoteConfig.donateUrl,
-              );
-              await WebviewHelper.loadUrl(
-                context,
-                url,
-                "donate",
-                title: tcontext.meta.donate,
-              );
-            },
-          ),
-        ),
-      ];
-
-      return [GroupItem(options: options)];
-    }
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        settings: GroupScreen.routeSettings("supportUs"),
-        builder: (context) => GroupScreen(
-          title: tcontext.SettingsScreen.supportUs,
-          getOptions: getOptions,
-        ),
-      ),
-    );
-    setState(() {});
   }
 }

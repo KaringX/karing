@@ -1026,7 +1026,10 @@ class TunCard extends FutureSwitchCard {
                    password,
                  );
                  if (result != null) {
-                   await DialogUtils.showAlertDialog(context, result.message);
+                   await DialogUtils.showAlertDialog(
+                     context,
+                     "authorizeService: ${result.message}",
+                   );
                    return;
                  }
                }

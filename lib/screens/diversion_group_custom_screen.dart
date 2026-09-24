@@ -358,13 +358,7 @@ class _DiversionGroupCustomScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
     if (!mounted) {
       return;
@@ -411,17 +405,11 @@ class _DiversionGroupCustomScreenState
             await SharePlus.instance.share(
               ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
-          } catch (err) {
+          } catch (err, stacktrace) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(
-              context,
-              err.toString(),
-              showCopy: true,
-              showFAQ: true,
-              withVersion: true,
-            );
+            DialogUtils.showExceptionDialog(context, err, stacktrace);
           }
         }
       }
@@ -429,13 +417,7 @@ class _DiversionGroupCustomScreenState
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 

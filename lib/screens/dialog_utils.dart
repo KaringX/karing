@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karing/app/utils/accessibility_utils.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/log.dart';
+import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/widgets/dropdown.dart';
@@ -20,6 +22,29 @@ class DialogUtilsResult<T> {
 
 class DialogUtils {
   static Future<void> Function(BuildContext context, String text)? faqCallback;
+  static Future<void> showExceptionDialog(
+    BuildContext context,
+    Object exception,
+    StackTrace stackTrace, {
+    String text = "",
+  }) async {
+    SentryUtils.captureException(
+      'showExceptionDialog',
+      [text],
+      exception,
+      stackTrace,
+    );
+    String stack = stackTrace.toString().split("\n").take(5).join("\n");
+    String alertText = "exception:$text\n${exception.toString()}\n\n$stack}";
+    Log.w(alertText);
+    return await showAlertDialog(
+      context,
+      alertText,
+      showCopy: true,
+      showFAQ: true,
+      withVersion: true,
+    );
+  }
 
   static Future<void> showAlertDialog(
     BuildContext context,
@@ -30,6 +55,10 @@ class DialogUtils {
   }) async {
     if (!context.mounted) {
       return;
+    }
+    if (text.contains("Null check operator")) {
+      StackTrace currentStack = StackTrace.current;
+      text = "$text\n\n$currentStack";
     }
     double width = 60;
     if (showCopy) {

@@ -138,7 +138,6 @@ class RemoteConfig {
   String geosite = kDefaultGeoSite;
   String geoip = kDefaultGeoIp;
   String acl = kDefaultAcl;
-  String donateUrl = "";
   String htmlTools = kDefaultHtmlTools;
 
   Map<String, dynamic> toJson() {
@@ -203,9 +202,7 @@ class RemoteConfig {
     if (acl != kDefaultAcl) {
       ret["acl_rulesets"] = acl;
     }
-    if (donateUrl.isNotEmpty) {
-      ret["donate_url"] = donateUrl;
-    }
+
     if (htmlTools != kDefaultHtmlTools) {
       ret["htmltools"] = htmlTools;
     }
@@ -275,7 +272,7 @@ class RemoteConfig {
     geosite = map["geosite_rulesets"] ?? kDefaultGeoSite;
     geoip = map["geoip_rulesets"] ?? kDefaultGeoIp;
     acl = map["acl_rulesets"] ?? kDefaultAcl;
-    donateUrl = map["donate_url"] ?? "";
+
     htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
     if (geosite.isEmpty) {
       geosite = kDefaultGeoSite;
@@ -285,9 +282,6 @@ class RemoteConfig {
     }
     if (acl.isEmpty) {
       acl = kDefaultAcl;
-    }
-    if (!isSelfHost(donateUrl, host)) {
-      donateUrl = "";
     }
   }
 

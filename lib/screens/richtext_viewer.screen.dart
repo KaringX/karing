@@ -170,17 +170,11 @@ class _RichtextViewScreenState extends LasyRenderingState<RichtextViewScreen> {
             await SharePlus.instance.share(
               ShareParams(files: [XFile(savePath)], sharePositionOrigin: rect),
             );
-          } catch (err) {
+          } catch (err, stacktrace) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(
-              context,
-              err.toString(),
-              showCopy: true,
-              showFAQ: true,
-              withVersion: true,
-            );
+            DialogUtils.showExceptionDialog(context, err, stacktrace);
           }
         },
       ),

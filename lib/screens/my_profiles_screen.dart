@@ -1841,17 +1841,11 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       await SharePlus.instance.share(
         ShareParams(files: [XFile(savePath)], sharePositionOrigin: rect),
       );
-    } catch (err) {
+    } catch (err, stacktrace) {
       if (!context.mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -1888,13 +1882,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
     try {
       sbOptions.fromJson(server.raw);
     } catch (err, stacktrace) {
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       //Log.w(
       //    "onTapEditServer exception ${err.toString()}\n\n${stacktrace.toString()}");
       return;

@@ -218,16 +218,14 @@ class _QrcodeScreenState extends LasyRenderingState<QrcodeScreen> {
                                         sharePositionOrigin: rect,
                                       ),
                                     );
-                                  } catch (err) {
+                                  } catch (err, stacktrace) {
                                     if (!context.mounted) {
                                       return;
                                     }
-                                    DialogUtils.showAlertDialog(
+                                    DialogUtils.showExceptionDialog(
                                       context,
-                                      err.toString(),
-                                      showCopy: true,
-                                      showFAQ: true,
-                                      withVersion: true,
+                                      err,
+                                      stacktrace,
                                     );
                                   }
                                 },

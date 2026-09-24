@@ -47,6 +47,7 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/stacktrace_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/app/utils/url_launcher_utils.dart';
 import 'package:karing/app/utils/vpn_action_handler.dart';
@@ -1489,8 +1490,10 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         savePath,
       );
     } catch (err, stacktrace) {
-      resultError = ReturnResultError(err.toString());
-      Log.w("setServer exception: $err, $stacktrace");
+      resultError = ReturnResultError(
+        "${err.toString()}\n\n${StackTraceUtils.trim(stacktrace)}",
+      );
+      Log.w("setServer exception: $err\n\n${StackTraceUtils.trim(stacktrace)}");
     }
 
     if (resultError != null) {
@@ -1550,7 +1553,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (err != null) {
         AccessibilityUtils.announce(context, err.message);
         if (!disableShowAlertDialog) {
-          CommonDialog.handleStartError(context, err.message);
+          CommonDialog.handleStartError(context, err);
         }
         return err;
       }
@@ -1893,13 +1896,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -1944,17 +1941,11 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             await SharePlus.instance.share(
               ShareParams(files: [XFile(filePath)], sharePositionOrigin: rect),
             );
-          } catch (err) {
+          } catch (err, stacktrace) {
             if (!mounted) {
               return;
             }
-            DialogUtils.showAlertDialog(
-              context,
-              err.toString(),
-              showCopy: true,
-              showFAQ: true,
-              withVersion: true,
-            );
+            DialogUtils.showExceptionDialog(context, err, stacktrace);
           }
         }
       }
@@ -1962,13 +1953,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -2265,7 +2250,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       setState(() {});
 
       if (!disableShowAlertDialog) {
-        CommonDialog.handleStartError(context, result.item1!.message);
+        CommonDialog.handleStartError(context, result.item1!);
       }
       return result.item1;
     }
@@ -2297,7 +2282,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         err.message = t.meta.FullDiskAccessPermissionRequired;
       }
       if (!disableShowAlertDialog) {
-        CommonDialog.handleStartError(context, err.message);
+        CommonDialog.handleStartError(context, err);
       }
       AccessibilityUtils.announce(context, err.message);
       return err;

@@ -109,13 +109,11 @@ class _QrcodeScanScreenState extends LasyRenderingState<QrcodeScanScreen> {
                         onPressed: () async {
                           try {
                             await controller?.toggleFlash();
-                          } catch (err) {
-                            DialogUtils.showAlertDialog(
+                          } catch (err, stacktrace) {
+                            DialogUtils.showExceptionDialog(
                               context,
-                              err.toString(),
-                              showCopy: true,
-                              showFAQ: true,
-                              withVersion: true,
+                              err,
+                              stacktrace,
                             );
                           }
 

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/file_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -16,10 +17,17 @@ import 'package:karing/screens/dialog_utils.dart';
 import 'package:karing/screens/webview_helper.dart';
 
 class CommonDialog {
-  static void handleStartError(BuildContext context, String errMessage) async {
+  static void handleStartError(
+    BuildContext context,
+    ReturnResultError err,
+  ) async {
     final tcontext = Translations.of(context);
     List<String> disableTags = [];
-
+    if (err.stacktrace != null) {
+      DialogUtils.showExceptionDialog(context, err.message, err.stacktrace!);
+      return;
+    }
+    String errMessage = err.message;
     if (errMessage.contains("install: failed")) {
       if (Platform.isAndroid) {
         errMessage += "\n\n${tcontext.CommonWidget.diableAlwayOnVPN}";

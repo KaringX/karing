@@ -121,18 +121,12 @@ class SchemeHandler {
           xhwid = false;
         }
       }
-    } catch (err) {
+    } catch (err, stacktrace) {
       if (!context.mounted) {
         return null;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
-      return ReturnResultError(err.toString());
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
+      return ReturnResultError(err.toString(), stacktrace: stacktrace);
     }
     name ??= uri.fragment;
     if (name.isNotEmpty) {

@@ -92,7 +92,7 @@ class Biz {
     }
     Navigator.pop(context);
     if (err != null) {
-      CommonDialog.handleStartError(context, err.message);
+      CommonDialog.handleStartError(context, err);
       return false;
     }
 

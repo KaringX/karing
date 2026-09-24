@@ -465,17 +465,11 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
         SettingManager.getConfig().perapp.list.add(app);
       }
       setState(() {});
-    } catch (err) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 
@@ -489,17 +483,11 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
       if (!mounted) {
         return;
       }
-    } catch (err) {
+    } catch (err, stacktrace) {
       if (!mounted) {
         return;
       }
-      DialogUtils.showAlertDialog(
-        context,
-        err.toString(),
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
     }
   }
 }

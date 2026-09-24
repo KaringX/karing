@@ -193,13 +193,7 @@ class GroupScreenState extends LasyRenderingState<GroupScreen>
       if (!mounted) {
         return [];
       }
-      DialogUtils.showAlertDialog(
-        context,
-        "${err.toString()}\n${stacktrace.toString()}",
-        showCopy: true,
-        showFAQ: true,
-        withVersion: true,
-      );
+      DialogUtils.showExceptionDialog(context, err, stacktrace);
       return [];
     }
   }
