@@ -9,6 +9,7 @@ import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/http_overrides_utils.dart';
+import 'package:karing/app/utils/linux_startup.dart';
 import 'package:karing/app/utils/move_to_background_utils.dart';
 import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/screens/home_screen.dart';
@@ -138,6 +139,7 @@ void main(List<String> args) async {
   await VPNService.initABI();
   await RemoteConfigManager.init();
   await SettingManager.init();
+  await LinuxStartup.init();
   await BoardProviderManager.init();
   if (!SettingManager.getConfig().disableAppImproveData) {
     await SentryUtilsPrivate.init();
@@ -575,9 +577,18 @@ class MyAppState extends State<MyApp>
       if (Platform.isMacOS && ui.hideDockIcon) {
         FlutterVpnService.hideDockIcon(true);
       }
-      if (forceShow || (Platform.isWindows && !ui.hideAfterLaunch)) {
+      // Linux autostart is deliberately headless. Keep the existing Windows
+      // hide-after-launch preference unchanged.
+      final showAfterStartup =
+          !ui.hideAfterLaunch && !(Platform.isLinux && _launchAtStartup);
+      if (forceShow ||
+          ((Platform.isWindows || Platform.isLinux) && showAfterStartup)) {
         await windowManager.show();
         onWindowRestore();
+      } else if (Platform.isLinux) {
+        // The GTK runner maps regular launches before Dart is ready. Honor
+        // the Linux hide-after-launch preference once the window is ready.
+        await windowManager.hide();
       }
     });
   }

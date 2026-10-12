@@ -12,6 +12,16 @@ struct _MyApplication {
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
 //#define ICON_PATH "./karing.png"
 
+static gboolean my_application_is_startup_launch(MyApplication* self) {
+  for (gchar** argument = self->dart_entrypoint_arguments;
+       argument != nullptr && *argument != nullptr; argument++) {
+    if (g_strcmp0(*argument, "--launch_startup") == 0) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 static gboolean desktop_uses_gtk_header_bar() {
   const gchar* desktops = g_getenv("XDG_CURRENT_DESKTOP");
   if (desktops == nullptr || *desktops == '\0') {
@@ -56,7 +66,12 @@ static void my_application_activate(GApplication* application) {
   }
 
   gtk_window_set_default_size(window, 400, 740);
-  gtk_widget_show(GTK_WIDGET(window));
+  // Keep autostart launches headless until the user opens the tray menu. The
+  // Flutter view is still initialized below, so the app can start its service
+  // and tray icon without flashing a window during login.
+  if (!my_application_is_startup_launch(self)) {
+    gtk_widget_show(GTK_WIDGET(window));
+  }
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(
