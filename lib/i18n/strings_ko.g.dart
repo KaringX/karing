@@ -142,7 +142,7 @@ class _Translations$AboutScreen$ko implements Translations$AboutScreen$en {
 	@override String get installRefer => '설치 리퍼러';
 	@override String get installTime => '설치 시간';
 	@override String get versionChannel => '자동 업데이트 채널';
-	@override String get updateWhenConnected => '연결 후 업데이트를 확인하세요';
+	@override String get checkByProxy => '오직 현재 프록시 노드를 통해서만 업데이트를 확인하세요';
 	@override String get autoDownloadPkg => '업데이트 패키지 자동 다운로드';
 	@override String get disableAppImproveData => '앱 개선 데이터';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}]를 활성화하면 제품의 안정성과 사용성을 개선하는 데 도움이 됩니다. 당사는 개인 정보를 수집하지 않습니다. 비활성화하면 앱에서 어떠한 데이터도 수집하지 않습니다.';
@@ -980,7 +980,7 @@ extension on TranslationsKo {
 			'AboutScreen.installRefer' => '설치 리퍼러',
 			'AboutScreen.installTime' => '설치 시간',
 			'AboutScreen.versionChannel' => '자동 업데이트 채널',
-			'AboutScreen.updateWhenConnected' => '연결 후 업데이트를 확인하세요',
+			'AboutScreen.checkByProxy' => '오직 현재 프록시 노드를 통해서만 업데이트를 확인하세요',
 			'AboutScreen.autoDownloadPkg' => '업데이트 패키지 자동 다운로드',
 			'AboutScreen.disableAppImproveData' => '앱 개선 데이터',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}]를 활성화하면 제품의 안정성과 사용성을 개선하는 데 도움이 됩니다. 당사는 개인 정보를 수집하지 않습니다. 비활성화하면 앱에서 어떠한 데이터도 수집하지 않습니다.',

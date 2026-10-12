@@ -3,7 +3,7 @@
         "installRefer": "Referensi instalasi",
         "installTime": "Waktu instalasi",
         "versionChannel": "Kanal pembaruan otomatis",
-        "updateWhenConnected": "Periksa pembaruan setelah terhubung",
+        "checkByProxy": "Hanya periksa pembaruan melalui node proxy saat ini",
         "autoDownloadPkg": "Unduh paket pembaruan secara otomatis",
         "disableAppImproveData": "Data peningkatan aplikasi",
         "disableUAReportTip": "Mengaktifkan [@:{AboutScreen.disableAppImproveData}] membantu kami meningkatkan stabilitas dan kegunaan produk. Kami tidak akan mengumpulkan data privasi pribadi apa pun; setelah dinonaktifkan, aplikasi tidak akan lagi mengumpulkan data apa pun",

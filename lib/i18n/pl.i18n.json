@@ -3,7 +3,7 @@
         "installRefer": "Źródło instalacji",
         "installTime": "Czas instalacji",
         "versionChannel": "Kanał automatycznych aktualizacji",
-        "updateWhenConnected": "Sprawdź dostępność aktualizacji po połączeniu",
+        "checkByProxy": "Sprawdzaj aktualizacje tylko za pośrednictwem bieżącego węzła proxy",
         "autoDownloadPkg": "Automatycznie pobieraj pakiety aktualizacji",
         "disableAppImproveData": "Dane o ulepszaniu aplikacji",
         "disableUAReportTip": "Włączenie [@:{AboutScreen.disableAppImproveData}] pomaga nam poprawić stabilność i użyteczność produktu; nie zbieramy żadnych osobistych danych dotyczących prywatności. Wyłączenie tej opcji uniemożliwi aplikacji zbieranie jakichkolwiek danych.",

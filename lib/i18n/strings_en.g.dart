@@ -216,8 +216,8 @@ class Translations$AboutScreen$en {
 	/// en: 'Auto Update Channel'
 	String get versionChannel => 'Auto Update Channel';
 
-	/// en: 'Check for updates after connected'
-	String get updateWhenConnected => 'Check for updates after connected';
+	/// en: 'Only check for updates via the current proxy node'
+	String get checkByProxy => 'Only check for updates via the current proxy node';
 
 	/// en: 'Auto Download Update Packages'
 	String get autoDownloadPkg => 'Auto Download Update Packages';
@@ -2143,7 +2143,7 @@ extension on Translations {
 			'AboutScreen.installRefer' => 'Install Refer',
 			'AboutScreen.installTime' => 'Install Time',
 			'AboutScreen.versionChannel' => 'Auto Update Channel',
-			'AboutScreen.updateWhenConnected' => 'Check for updates after connected',
+			'AboutScreen.checkByProxy' => 'Only check for updates via the current proxy node',
 			'AboutScreen.autoDownloadPkg' => 'Auto Download Update Packages',
 			'AboutScreen.disableAppImproveData' => 'Application Improvement Data',
 			'AboutScreen.disableUAReportTip' => 'Enabling [${_root.AboutScreen.disableAppImproveData}] helps us improve product stability and usability; we do not collect any personal privacy data. Disabling it will prevent the app from collecting any data.',

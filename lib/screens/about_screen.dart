@@ -207,10 +207,10 @@ class AboutScreenState extends LasyRenderingState<AboutScreen> {
         ],
         GroupItemOptions(
           switchOptions: GroupItemSwitchOptions(
-            name: tcontext.AboutScreen.updateWhenConnected,
-            switchValue: SettingManager.getConfig().updateWhenConnected,
+            name: tcontext.AboutScreen.checkByProxy,
+            switchValue: SettingManager.getConfig().checkByProxy,
             onSwitch: (bool value) async {
-              SettingManager.getConfig().updateWhenConnected = value;
+              SettingManager.getConfig().checkByProxy = value;
               SettingManager.save();
               setState(() {});
             },

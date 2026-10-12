@@ -142,7 +142,7 @@ class _Translations$AboutScreen$ar implements Translations$AboutScreen$en {
 	@override String get installRefer => 'تثبيت الرجوع';
 	@override String get installTime => 'وقت التثبيت';
 	@override String get versionChannel => 'تحديث القنوات تلقائيا';
-	@override String get updateWhenConnected => 'تحقق من وجود تحديثات بعد الاتصال';
+	@override String get checkByProxy => 'تحقق من التحديثات فقط عبر عقدة الوكيل الحالية';
 	@override String get autoDownloadPkg => 'تنزيل حزم التحديث تلقائيًا';
 	@override String get disableAppImproveData => 'تطبيق بيانات التحسين';
 	@override String get disableUAReportTip => 'تفعيل [${_root.AboutScreen.disableAppImproveData}] يساعدنا على تحسين استقرار المنتج وسهولة استخدامه؛ ولا نقوم بجمع أي بيانات شخصية. تعطيله سيمنع التطبيق من جمع أي بيانات.';
@@ -980,7 +980,7 @@ extension on TranslationsAr {
 			'AboutScreen.installRefer' => 'تثبيت الرجوع',
 			'AboutScreen.installTime' => 'وقت التثبيت',
 			'AboutScreen.versionChannel' => 'تحديث القنوات تلقائيا',
-			'AboutScreen.updateWhenConnected' => 'تحقق من وجود تحديثات بعد الاتصال',
+			'AboutScreen.checkByProxy' => 'تحقق من التحديثات فقط عبر عقدة الوكيل الحالية',
 			'AboutScreen.autoDownloadPkg' => 'تنزيل حزم التحديث تلقائيًا',
 			'AboutScreen.disableAppImproveData' => 'تطبيق بيانات التحسين',
 			'AboutScreen.disableUAReportTip' => 'تفعيل [${_root.AboutScreen.disableAppImproveData}] يساعدنا على تحسين استقرار المنتج وسهولة استخدامه؛ ولا نقوم بجمع أي بيانات شخصية. تعطيله سيمنع التطبيق من جمع أي بيانات.',

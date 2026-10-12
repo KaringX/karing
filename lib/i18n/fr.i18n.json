@@ -3,7 +3,7 @@
         "installRefer": "Référent d'installation",
         "installTime": "Heure d'installation",
         "versionChannel": "Canal de mise à jour automatique",
-        "updateWhenConnected": "Vérifiez les mises à jour après la connexion",
+        "checkByProxy": "Vérifiez les mises à jour uniquement via le nœud proxy actuel",
         "autoDownloadPkg": "Téléchargement automatique des packages de mise à jour",
         "disableAppImproveData": "Données d'amélioration de l'application",
         "disableUAReportTip": "L'activation de [@:{AboutScreen.disableAppImproveData}] nous aide à améliorer la stabilité et l'ergonomie du produit ; nous ne collectons aucune donnée privée. La désactivation empêchera l'application de collecter toute donnée.",

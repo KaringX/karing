@@ -3,7 +3,7 @@
         "installRefer": "Kurulum Referansı",
         "installTime": "Kurulum Zamanı",
         "versionChannel": "Otomatik Güncelleme Kanalı",
-        "updateWhenConnected": "Bağlantı kurulduktan sonra güncellemeleri kontrol edin",
+        "checkByProxy": "Güncellemeleri yalnızca mevcut proxy düğümü üzerinden kontrol edin",
         "autoDownloadPkg": "Güncelleme Paketlerini Otomatik İndir",
         "disableAppImproveData": "Uygulama İyileştirme Verileri",
         "disableUAReportTip": "[@:{AboutScreen.disableAppImproveData}] özelliğinin etkinleştirilmesi, ürün kararlılığını ve kullanılabilirliğini iyileştirmemize yardımcı olur; herhangi bir kişisel gizlilik verisi toplamıyoruz. Devre dışı bırakılması, uygulamanın herhangi bir veri toplamasını engeller.",

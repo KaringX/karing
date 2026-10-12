@@ -1718,7 +1718,7 @@ class SettingConfig {
   bool latencyCheckResoveIP = false;
 
   String autoUpdateChannel = "stable"; //stable, beta
-  bool updateWhenConnected = false;
+  bool checkByProxy = false;
   bool autoDownloadUpdatePkg = true;
   String originSBProfile = "";
   int htmlBoardPort = htmlBoardPortDefault;
@@ -1765,7 +1765,7 @@ class SettingConfig {
     'latency_check_concurrency': latencyCheckConcurrency,
     'latency_check_resolve_ip': latencyCheckResoveIP,
     'auto_update_channel': autoUpdateChannel,
-    'update_when_connected': updateWhenConnected,
+    'check_by_proxy': checkByProxy,
     'auto_download_udpate_pkg': autoDownloadUpdatePkg,
     'origin_sb_profile': originSBProfile,
     'html_board_port': htmlBoardPort,
@@ -1926,7 +1926,8 @@ class SettingConfig {
     if (autoUpdateChannel.isEmpty) {
       autoUpdateChannel = Random().nextInt(10) < 5 ? "beta" : "stable";
     }
-    updateWhenConnected = map["update_when_connected"] ?? false;
+    checkByProxy =
+        map["check_by_proxy"] ?? map["update_when_connected"] ?? false;
     autoDownloadUpdatePkg = map["auto_download_udpate_pkg"] ?? true;
     originSBProfile = map["origin_sb_profile"] ?? "";
     htmlBoardPort = map["html_board_port"] ?? htmlBoardPortDefault;

@@ -142,7 +142,7 @@ class _Translations$AboutScreen$th implements Translations$AboutScreen$en {
 	@override String get installRefer => 'ลิงก์การติดตั้ง';
 	@override String get installTime => 'เวลาติดตั้ง';
 	@override String get versionChannel => 'ช่องอัปเดตอัตโนมัติ';
-	@override String get updateWhenConnected => 'ตรวจสอบอัปเดตหลังเชื่อมต่อ';
+	@override String get checkByProxy => 'ตรวจสอบอัปเดตผ่านโหนดพร็อกซีปัจจุบันเท่านั้น';
 	@override String get autoDownloadPkg => 'ดาวน์โหลดแพ็คเก็จอัปเดตอัตโนมัติ';
 	@override String get disableAppImproveData => 'ข้อมูลการปรับปรุงแอปพลิเคชัน';
 	@override String get disableUAReportTip => 'การเปิดใช้ [${_root.AboutScreen.disableAppImproveData}] ช่วยให้เราปรับปรุงความเสถียรและการใช้งานของผลิตภัณฑ์ เราไม่เก็บข้อมูลส่วนตัว การปิดใช้งานจะป้องกันแอปจากการเก็บข้อมูลใดๆ';
@@ -980,7 +980,7 @@ extension on TranslationsTh {
 			'AboutScreen.installRefer' => 'ลิงก์การติดตั้ง',
 			'AboutScreen.installTime' => 'เวลาติดตั้ง',
 			'AboutScreen.versionChannel' => 'ช่องอัปเดตอัตโนมัติ',
-			'AboutScreen.updateWhenConnected' => 'ตรวจสอบอัปเดตหลังเชื่อมต่อ',
+			'AboutScreen.checkByProxy' => 'ตรวจสอบอัปเดตผ่านโหนดพร็อกซีปัจจุบันเท่านั้น',
 			'AboutScreen.autoDownloadPkg' => 'ดาวน์โหลดแพ็คเก็จอัปเดตอัตโนมัติ',
 			'AboutScreen.disableAppImproveData' => 'ข้อมูลการปรับปรุงแอปพลิเคชัน',
 			'AboutScreen.disableUAReportTip' => 'การเปิดใช้ [${_root.AboutScreen.disableAppImproveData}] ช่วยให้เราปรับปรุงความเสถียรและการใช้งานของผลิตภัณฑ์ เราไม่เก็บข้อมูลส่วนตัว การปิดใช้งานจะป้องกันแอปจากการเก็บข้อมูลใดๆ',

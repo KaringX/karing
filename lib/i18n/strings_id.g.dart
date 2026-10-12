@@ -142,7 +142,7 @@ class _Translations$AboutScreen$id implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Referensi instalasi';
 	@override String get installTime => 'Waktu instalasi';
 	@override String get versionChannel => 'Kanal pembaruan otomatis';
-	@override String get updateWhenConnected => 'Periksa pembaruan setelah terhubung';
+	@override String get checkByProxy => 'Hanya periksa pembaruan melalui node proxy saat ini';
 	@override String get autoDownloadPkg => 'Unduh paket pembaruan secara otomatis';
 	@override String get disableAppImproveData => 'Data peningkatan aplikasi';
 	@override String get disableUAReportTip => 'Mengaktifkan [${_root.AboutScreen.disableAppImproveData}] membantu kami meningkatkan stabilitas dan kegunaan produk. Kami tidak akan mengumpulkan data privasi pribadi apa pun; setelah dinonaktifkan, aplikasi tidak akan lagi mengumpulkan data apa pun';
@@ -980,7 +980,7 @@ extension on TranslationsId {
 			'AboutScreen.installRefer' => 'Referensi instalasi',
 			'AboutScreen.installTime' => 'Waktu instalasi',
 			'AboutScreen.versionChannel' => 'Kanal pembaruan otomatis',
-			'AboutScreen.updateWhenConnected' => 'Periksa pembaruan setelah terhubung',
+			'AboutScreen.checkByProxy' => 'Hanya periksa pembaruan melalui node proxy saat ini',
 			'AboutScreen.autoDownloadPkg' => 'Unduh paket pembaruan secara otomatis',
 			'AboutScreen.disableAppImproveData' => 'Data peningkatan aplikasi',
 			'AboutScreen.disableUAReportTip' => 'Mengaktifkan [${_root.AboutScreen.disableAppImproveData}] membantu kami meningkatkan stabilitas dan kegunaan produk. Kami tidak akan mengumpulkan data privasi pribadi apa pun; setelah dinonaktifkan, aplikasi tidak akan lagi mengumpulkan data apa pun',

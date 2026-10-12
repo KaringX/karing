@@ -221,7 +221,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
       _contectDirectLatency,
       _contectCurrentLatency,
       kOutboundTagDirect,
-      VPNService.getCurrent().tag,
+      VPNService.getCurrentRealTag(),
     );
 
     setState(() {});
@@ -405,7 +405,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       _contectDirectLatency,
                       _contectCurrentLatency,
                       kOutboundTagDirect,
-                      VPNService.getCurrent().tag,
+                      VPNService.getCurrentRealTag(),
                     );
 
                     setState(() {});
@@ -424,7 +424,7 @@ class _DnsSettingsScreenState extends LasyRenderingState<DnsSettingsScreen> {
                       _contectDirectLatency,
                       _contectCurrentLatency,
                       kOutboundTagDirect,
-                      VPNService.getCurrent().tag,
+                      VPNService.getCurrentRealTag(),
                     );
 
                     setState(() {});

@@ -114,9 +114,12 @@ class RemoteConfigManager {
     if (_checking) {
       return;
     }
-    if (SettingManager.getConfig().updateWhenConnected) {
+    if (SettingManager.getConfig().checkByProxy) {
       final started = await VPNService.getStarted();
       if (!started) {
+        return;
+      }
+      if (VPNService.currentIsDirect()) {
         return;
       }
     }
@@ -134,7 +137,7 @@ class RemoteConfigManager {
     try {
       ReturnResult<RemoteConfig> gConfig =
           await AutoupdateUtils.getRemoteConfig(
-            SettingManager.getConfig().updateWhenConnected,
+            SettingManager.getConfig().checkByProxy,
           );
       if (gConfig.error != null) {
         _checking = false;

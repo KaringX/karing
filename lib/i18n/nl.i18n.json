@@ -3,7 +3,7 @@
         "installRefer": "Installatiebron",
         "installTime": "Installatietijd",
         "versionChannel": "Auto Update-kanaal",
-        "updateWhenConnected": "Controleer na het verbinden op updates.",
+        "checkByProxy": "Controleer alleen op updates via het huidige proxyknooppunt.",
         "autoDownloadPkg": "Updatepakketten automatisch downloaden",
         "disableAppImproveData": "App-verbeteringsgegevens",
         "disableUAReportTip": "Het inschakelen van [@:{AboutScreen.disableAppImproveData}] helpt ons de stabiliteit en bruikbaarheid van het product te verbeteren; we verzamelen geen persoonlijke privacygegevens. Uitschakelen voorkomt dat de app gegevens verzamelt.",

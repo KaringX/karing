@@ -142,7 +142,7 @@ class _Translations$AboutScreen$tr implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Kurulum Referansı';
 	@override String get installTime => 'Kurulum Zamanı';
 	@override String get versionChannel => 'Otomatik Güncelleme Kanalı';
-	@override String get updateWhenConnected => 'Bağlantı kurulduktan sonra güncellemeleri kontrol edin';
+	@override String get checkByProxy => 'Güncellemeleri yalnızca mevcut proxy düğümü üzerinden kontrol edin';
 	@override String get autoDownloadPkg => 'Güncelleme Paketlerini Otomatik İndir';
 	@override String get disableAppImproveData => 'Uygulama İyileştirme Verileri';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}] özelliğinin etkinleştirilmesi, ürün kararlılığını ve kullanılabilirliğini iyileştirmemize yardımcı olur; herhangi bir kişisel gizlilik verisi toplamıyoruz. Devre dışı bırakılması, uygulamanın herhangi bir veri toplamasını engeller.';
@@ -980,7 +980,7 @@ extension on TranslationsTr {
 			'AboutScreen.installRefer' => 'Kurulum Referansı',
 			'AboutScreen.installTime' => 'Kurulum Zamanı',
 			'AboutScreen.versionChannel' => 'Otomatik Güncelleme Kanalı',
-			'AboutScreen.updateWhenConnected' => 'Bağlantı kurulduktan sonra güncellemeleri kontrol edin',
+			'AboutScreen.checkByProxy' => 'Güncellemeleri yalnızca mevcut proxy düğümü üzerinden kontrol edin',
 			'AboutScreen.autoDownloadPkg' => 'Güncelleme Paketlerini Otomatik İndir',
 			'AboutScreen.disableAppImproveData' => 'Uygulama İyileştirme Verileri',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}] özelliğinin etkinleştirilmesi, ürün kararlılığını ve kullanılabilirliğini iyileştirmemize yardımcı olur; herhangi bir kişisel gizlilik verisi toplamıyoruz. Devre dışı bırakılması, uygulamanın herhangi bir veri toplamasını engeller.',

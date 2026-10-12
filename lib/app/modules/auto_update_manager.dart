@@ -17,7 +17,6 @@ import 'package:karing/app/utils/install_referrer_utils.dart';
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
-import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/version_compare_utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:vpn_service/state.dart';
@@ -240,7 +239,7 @@ class AutoUpdateManager {
       return;
     }
     List<int?> ports = [];
-    if (SettingManager.getConfig().updateWhenConnected) {
+    if (SettingManager.getConfig().checkByProxy) {
       final started = await VPNService.getStarted();
       if (!started) {
         return;
@@ -361,17 +360,12 @@ class AutoUpdateManager {
     if (_checking) {
       return;
     }
-    if (SettingManager.getConfig().updateWhenConnected) {
+    if (SettingManager.getConfig().checkByProxy) {
       final started = await VPNService.getStarted();
       if (!started) {
         return;
       }
-      final current = VPNService.getCurrent();
-      final currentServerForUrltest = VPNService.getCurrentServerForUrltest();
-      if (current.tag.isEmpty ||
-          current.tag == kOutboundTagDirect ||
-          currentServerForUrltest.now.isEmpty ||
-          currentServerForUrltest.now == kOutboundTagDirect) {
+      if (VPNService.currentIsDirect()) {
         return;
       }
     }
@@ -397,7 +391,7 @@ class AutoUpdateManager {
       ReturnResult<List<AutoupdateItem>> items =
           await AutoupdateUtils.getAutoupdate(
             body,
-            SettingManager.getConfig().updateWhenConnected,
+            SettingManager.getConfig().checkByProxy,
           );
       _lastCheck = DateTime.now();
       if (items.error != null) {

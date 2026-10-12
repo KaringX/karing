@@ -142,7 +142,7 @@ class _Translations$AboutScreen$vi implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Mã giới thiệu cài đặt';
 	@override String get installTime => 'Thời gian cài đặt';
 	@override String get versionChannel => 'Kênh cập nhật tự động';
-	@override String get updateWhenConnected => 'Kiểm tra cập nhật sau khi kết nối';
+	@override String get checkByProxy => 'Chỉ kiểm tra cập nhật qua nút proxy hiện tại';
 	@override String get autoDownloadPkg => 'Tự động tải gói cập nhật';
 	@override String get disableAppImproveData => 'Dữ liệu cải thiện ứng dụng';
 	@override String get disableUAReportTip => 'Bật [${_root.AboutScreen.disableAppImproveData}] giúp chúng tôi cải thiện độ ổn định và khả năng sử dụng của sản phẩm; chúng tôi không thu thập bất kỳ dữ liệu riêng tư nào. Tắt tính năng này sẽ ngăn ứng dụng thu thập bất kỳ dữ liệu nào.';
@@ -980,7 +980,7 @@ extension on TranslationsVi {
 			'AboutScreen.installRefer' => 'Mã giới thiệu cài đặt',
 			'AboutScreen.installTime' => 'Thời gian cài đặt',
 			'AboutScreen.versionChannel' => 'Kênh cập nhật tự động',
-			'AboutScreen.updateWhenConnected' => 'Kiểm tra cập nhật sau khi kết nối',
+			'AboutScreen.checkByProxy' => 'Chỉ kiểm tra cập nhật qua nút proxy hiện tại',
 			'AboutScreen.autoDownloadPkg' => 'Tự động tải gói cập nhật',
 			'AboutScreen.disableAppImproveData' => 'Dữ liệu cải thiện ứng dụng',
 			'AboutScreen.disableUAReportTip' => 'Bật [${_root.AboutScreen.disableAppImproveData}] giúp chúng tôi cải thiện độ ổn định và khả năng sử dụng của sản phẩm; chúng tôi không thu thập bất kỳ dữ liệu riêng tư nào. Tắt tính năng này sẽ ngăn ứng dụng thu thập bất kỳ dữ liệu nào.',

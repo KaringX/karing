@@ -177,9 +177,12 @@ class NoticeLoadAndCheck {
     if (_checking) {
       return;
     }
-    if (SettingManager.getConfig().updateWhenConnected) {
+    if (SettingManager.getConfig().checkByProxy) {
       final started = await VPNService.getStarted();
       if (!started) {
+        return;
+      }
+      if (VPNService.currentIsDirect()) {
         return;
       }
     }
@@ -199,7 +202,7 @@ class NoticeLoadAndCheck {
     try {
       ReturnResult<RawNoticeItem> gnotice = await KaringUtils.getNotice(
         url,
-        SettingManager.getConfig().updateWhenConnected,
+        SettingManager.getConfig().checkByProxy,
       );
       _checking = false;
       if (gnotice.error != null) {

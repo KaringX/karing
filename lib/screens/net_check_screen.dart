@@ -366,23 +366,16 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     _netCheckItemOutbound ??= NetCheckItem();
     _netCheckItemOutbound!.name = tcontext.NetCheckScreen.outbound;
     ProxyConfig current = VPNService.getCurrent();
-    String tag = current.tag;
-    String realTag = tag;
-    if (current.groupid == ServerManager.getUrltestGroupId()) {
-      if (tag != kOutboundTagUrltest) {
-        realTag = ServerManager.getUrltestTagForCustom(tag);
-      }
-    }
     final result = await ClashApi.getDelay(
       settingConfig.proxy.controlPort,
-      realTag,
+      VPNService.getCurrentRealTag(),
       settingConfig.urlTestTimeout,
       targetUrl: SettingManager.getConfig().urlTest,
     );
     if (!mounted) {
       return false;
     }
-    String name = getTagName(tag);
+    String name = getTagName(current.tag);
     bool hasError = false;
     String domain = current.server;
 
@@ -476,7 +469,6 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
     String regionCode = settingConfig.regionCode.toLowerCase();
     bool tunMode = await VPNService.getTunMode();
 
-    ProxyConfig current = VPNService.getCurrent();
     bool hasError = false;
     for (var dnsType in dnsTypes) {
       List<String> dnsAddress = [];
@@ -511,12 +503,7 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
             SettingConfigItemDNSProxyResolveMode.direct) {
           detour = kOutboundTagDirect;
         } else {
-          detour = current.tag;
-          if (current.groupid == ServerManager.getUrltestGroupId()) {
-            if (detour != kOutboundTagUrltest) {
-              detour = ServerManager.getUrltestTagForCustom(detour);
-            }
-          }
+          detour = VPNService.getCurrentRealTag();
         }
       } else if (dnsType == DNSType.dnsTypeResolver) {
         dnsAddress = settingConfig.dns.getResolverDns(regionCode, tunMode);

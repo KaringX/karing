@@ -142,7 +142,7 @@ class _Translations$AboutScreen$ur implements Translations$AboutScreen$en {
 	@override String get installRefer => 'انسٹالیشن کا ذریعہ';
 	@override String get installTime => 'انسٹالیشن کا وقت';
 	@override String get versionChannel => 'آٹو اپ ڈیٹ چینل';
-	@override String get updateWhenConnected => 'منسلک ہونے کے بعد اپ ڈیٹس کی جانچ کریں۔';
+	@override String get checkByProxy => 'صرف موجودہ پراکسی نوڈ کے ذریعے اپ ڈیٹس کی جانچ کریں۔';
 	@override String get autoDownloadPkg => 'اپ ڈیٹ پیکجز خود بخود ڈاؤن لوڈ کریں';
 	@override String get disableAppImproveData => 'ایپ میں بہتری کا ڈیٹا';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}] کو فعال کرنا ہمیں مصنوعات کی استحکام اور استعمال کو بہتر بنانے میں مدد کرتا ہے؛ ہم کوئی ذاتی رازداری کا ڈیٹا جمع نہیں کرتے ہیں۔ غیر فعال کرنے سے ایپ کو کسی بھی ڈیٹا کو جمع کرنے سے روک دیا جائے گا۔';
@@ -980,7 +980,7 @@ extension on TranslationsUr {
 			'AboutScreen.installRefer' => 'انسٹالیشن کا ذریعہ',
 			'AboutScreen.installTime' => 'انسٹالیشن کا وقت',
 			'AboutScreen.versionChannel' => 'آٹو اپ ڈیٹ چینل',
-			'AboutScreen.updateWhenConnected' => 'منسلک ہونے کے بعد اپ ڈیٹس کی جانچ کریں۔',
+			'AboutScreen.checkByProxy' => 'صرف موجودہ پراکسی نوڈ کے ذریعے اپ ڈیٹس کی جانچ کریں۔',
 			'AboutScreen.autoDownloadPkg' => 'اپ ڈیٹ پیکجز خود بخود ڈاؤن لوڈ کریں',
 			'AboutScreen.disableAppImproveData' => 'ایپ میں بہتری کا ڈیٹا',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}] کو فعال کرنا ہمیں مصنوعات کی استحکام اور استعمال کو بہتر بنانے میں مدد کرتا ہے؛ ہم کوئی ذاتی رازداری کا ڈیٹا جمع نہیں کرتے ہیں۔ غیر فعال کرنے سے ایپ کو کسی بھی ڈیٹا کو جمع کرنے سے روک دیا جائے گا۔',

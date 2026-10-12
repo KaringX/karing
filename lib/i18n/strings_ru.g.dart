@@ -142,7 +142,7 @@ class _Translations$AboutScreen$ru implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Источник установки';
 	@override String get installTime => 'Время установки';
 	@override String get versionChannel => 'Канал автоматического обновления';
-	@override String get updateWhenConnected => 'Проверять наличие обновлений после подключения.';
+	@override String get checkByProxy => 'Проверять наличие обновлений только через текущий прокси-узел.';
 	@override String get autoDownloadPkg => 'Автоматически загружать пакеты обновлений';
 	@override String get disableAppImproveData => 'Использовать данные для улучшения приложения';
 	@override String get disableUAReportTip => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшать стабильность и удобство приложения. Мы не собираем личные данные. Отключение этого параметра предотвратит сбор каких-либо данных приложением.';
@@ -980,7 +980,7 @@ extension on TranslationsRu {
 			'AboutScreen.installRefer' => 'Источник установки',
 			'AboutScreen.installTime' => 'Время установки',
 			'AboutScreen.versionChannel' => 'Канал автоматического обновления',
-			'AboutScreen.updateWhenConnected' => 'Проверять наличие обновлений после подключения.',
+			'AboutScreen.checkByProxy' => 'Проверять наличие обновлений только через текущий прокси-узел.',
 			'AboutScreen.autoDownloadPkg' => 'Автоматически загружать пакеты обновлений',
 			'AboutScreen.disableAppImproveData' => 'Использовать данные для улучшения приложения',
 			'AboutScreen.disableUAReportTip' => 'Включение параметра [${_root.AboutScreen.disableAppImproveData}] помогает нам улучшать стабильность и удобство приложения. Мы не собираем личные данные. Отключение этого параметра предотвратит сбор каких-либо данных приложением.',

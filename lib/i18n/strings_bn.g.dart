@@ -142,7 +142,7 @@ class _Translations$AboutScreen$bn implements Translations$AboutScreen$en {
 	@override String get installRefer => 'ইনস্টলেশন সূত্র';
 	@override String get installTime => 'ইনস্টলেশন সময়';
 	@override String get versionChannel => 'অটো আপডেট চ্যানেল';
-	@override String get updateWhenConnected => 'সংযোগ করার পরে আপডেটগুলি পরীক্ষা করুন';
+	@override String get checkByProxy => 'শুধুমাত্র বর্তমান প্রক্সি নোডের মাধ্যমে আপডেট পরীক্ষা করুন';
 	@override String get autoDownloadPkg => 'আপডেট প্যাকেজ স্বয়ংক্রিয়ভাবে ডাউনলোড করুন';
 	@override String get disableAppImproveData => 'অ্যাপ উন্নত করার ডেটা';
 	@override String get disableUAReportTip => '[${_root.AboutScreen.disableAppImproveData}] সক্ষম করলে পণ্যের স্থিতিশীলতা এবং ব্যবহারযোগ্যতা উন্নত করতে আমাদের সাহায্য হয়; আমরা কোনো ব্যক্তিগত গোপনীয়তা ডেটা সংগ্রহ করি না। এটি নিষ্ক্রিয় করলে অ্যাপটি কোনো ডেটা সংগ্রহ করতে পারবে না।';
@@ -980,7 +980,7 @@ extension on TranslationsBn {
 			'AboutScreen.installRefer' => 'ইনস্টলেশন সূত্র',
 			'AboutScreen.installTime' => 'ইনস্টলেশন সময়',
 			'AboutScreen.versionChannel' => 'অটো আপডেট চ্যানেল',
-			'AboutScreen.updateWhenConnected' => 'সংযোগ করার পরে আপডেটগুলি পরীক্ষা করুন',
+			'AboutScreen.checkByProxy' => 'শুধুমাত্র বর্তমান প্রক্সি নোডের মাধ্যমে আপডেট পরীক্ষা করুন',
 			'AboutScreen.autoDownloadPkg' => 'আপডেট প্যাকেজ স্বয়ংক্রিয়ভাবে ডাউনলোড করুন',
 			'AboutScreen.disableAppImproveData' => 'অ্যাপ উন্নত করার ডেটা',
 			'AboutScreen.disableUAReportTip' => '[${_root.AboutScreen.disableAppImproveData}] সক্ষম করলে পণ্যের স্থিতিশীলতা এবং ব্যবহারযোগ্যতা উন্নত করতে আমাদের সাহায্য হয়; আমরা কোনো ব্যক্তিগত গোপনীয়তা ডেটা সংগ্রহ করি না। এটি নিষ্ক্রিয় করলে অ্যাপটি কোনো ডেটা সংগ্রহ করতে পারবে না।',

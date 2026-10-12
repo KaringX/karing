@@ -142,7 +142,7 @@ class _Translations$AboutScreen$nl implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Installatiebron';
 	@override String get installTime => 'Installatietijd';
 	@override String get versionChannel => 'Auto Update-kanaal';
-	@override String get updateWhenConnected => 'Controleer na het verbinden op updates.';
+	@override String get checkByProxy => 'Controleer alleen op updates via het huidige proxyknooppunt.';
 	@override String get autoDownloadPkg => 'Updatepakketten automatisch downloaden';
 	@override String get disableAppImproveData => 'App-verbeteringsgegevens';
 	@override String get disableUAReportTip => 'Het inschakelen van [${_root.AboutScreen.disableAppImproveData}] helpt ons de stabiliteit en bruikbaarheid van het product te verbeteren; we verzamelen geen persoonlijke privacygegevens. Uitschakelen voorkomt dat de app gegevens verzamelt.';
@@ -980,7 +980,7 @@ extension on TranslationsNl {
 			'AboutScreen.installRefer' => 'Installatiebron',
 			'AboutScreen.installTime' => 'Installatietijd',
 			'AboutScreen.versionChannel' => 'Auto Update-kanaal',
-			'AboutScreen.updateWhenConnected' => 'Controleer na het verbinden op updates.',
+			'AboutScreen.checkByProxy' => 'Controleer alleen op updates via het huidige proxyknooppunt.',
 			'AboutScreen.autoDownloadPkg' => 'Updatepakketten automatisch downloaden',
 			'AboutScreen.disableAppImproveData' => 'App-verbeteringsgegevens',
 			'AboutScreen.disableUAReportTip' => 'Het inschakelen van [${_root.AboutScreen.disableAppImproveData}] helpt ons de stabiliteit en bruikbaarheid van het product te verbeteren; we verzamelen geen persoonlijke privacygegevens. Uitschakelen voorkomt dat de app gegevens verzamelt.',

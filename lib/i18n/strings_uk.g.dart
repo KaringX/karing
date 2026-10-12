@@ -142,7 +142,7 @@ class _Translations$AboutScreen$uk implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Джерело встановлення';
 	@override String get installTime => 'Час встановлення';
 	@override String get versionChannel => 'Канал автоматичного оновлення';
-	@override String get updateWhenConnected => 'Перевірте наявність оновлень після підключення';
+	@override String get checkByProxy => 'Перевіряти наявність оновлень лише через поточний проксі-вузол';
 	@override String get autoDownloadPkg => 'Автоматично завантажувати пакети оновлень';
 	@override String get disableAppImproveData => 'Дані про покращення програми';
 	@override String get disableUAReportTip => 'Увімкнення [${_root.AboutScreen.disableAppImproveData}] допомагає нам покращити стабільність та зручність використання продукту; ми не збираємо жодних особистих конфіденційних даних. Вимкнення запобіжить збору будь-яких даних програмою.';
@@ -980,7 +980,7 @@ extension on TranslationsUk {
 			'AboutScreen.installRefer' => 'Джерело встановлення',
 			'AboutScreen.installTime' => 'Час встановлення',
 			'AboutScreen.versionChannel' => 'Канал автоматичного оновлення',
-			'AboutScreen.updateWhenConnected' => 'Перевірте наявність оновлень після підключення',
+			'AboutScreen.checkByProxy' => 'Перевіряти наявність оновлень лише через поточний проксі-вузол',
 			'AboutScreen.autoDownloadPkg' => 'Автоматично завантажувати пакети оновлень',
 			'AboutScreen.disableAppImproveData' => 'Дані про покращення програми',
 			'AboutScreen.disableUAReportTip' => 'Увімкнення [${_root.AboutScreen.disableAppImproveData}] допомагає нам покращити стабільність та зручність використання продукту; ми не збираємо жодних особистих конфіденційних даних. Вимкнення запобіжить збору будь-яких даних програмою.',

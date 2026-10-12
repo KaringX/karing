@@ -142,7 +142,7 @@ class Translations$AboutScreen$zh_CN implements Translations$AboutScreen$en {
 	@override String get installRefer => '安装参考';
 	@override String get installTime => '安装时间';
 	@override String get versionChannel => '自动更新通道';
-	@override String get updateWhenConnected => '连接后再检查更新';
+	@override String get checkByProxy => '仅经由当前代理节点检查更新';
 	@override String get autoDownloadPkg => '自动下载更新包';
 	@override String get disableAppImproveData => '应用改进数据';
 	@override String get disableUAReportTip => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据';
@@ -980,7 +980,7 @@ extension on TranslationsZhCn {
 			'AboutScreen.installRefer' => '安装参考',
 			'AboutScreen.installTime' => '安装时间',
 			'AboutScreen.versionChannel' => '自动更新通道',
-			'AboutScreen.updateWhenConnected' => '连接后再检查更新',
+			'AboutScreen.checkByProxy' => '仅经由当前代理节点检查更新',
 			'AboutScreen.autoDownloadPkg' => '自动下载更新包',
 			'AboutScreen.disableAppImproveData' => '应用改进数据',
 			'AboutScreen.disableUAReportTip' => '开启[${_root.AboutScreen.disableAppImproveData}]有助于我们改进产品稳定性与可用性,我们不会收集任何个人隐私数据;禁用后,应用将不会再收集任何数据',

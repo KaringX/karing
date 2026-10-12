@@ -142,7 +142,7 @@ class _Translations$AboutScreen$fa implements Translations$AboutScreen$en {
 	@override String get installRefer => 'مرجع نصب';
 	@override String get installTime => 'زمان نصب';
 	@override String get versionChannel => 'کانال به‌روزرسانی خودکار';
-	@override String get updateWhenConnected => 'پس از اتصال، به‌روزرسانی‌ها را بررسی کنید';
+	@override String get checkByProxy => 'فقط از طریق گره پراکسی فعلی به‌روزرسانی‌ها را بررسی کنید';
 	@override String get autoDownloadPkg => 'دانلود خودکار بسته‌های به‌روزرسانی';
 	@override String get disableAppImproveData => 'داده های بهبود را اعمال کنید';
 	@override String get disableUAReportTip => 'فعال کردن [${_root.AboutScreen.disableAppImproveData}] به ما کمک می‌کند تا پایداری و قابلیت استفاده از محصول را بهبود بخشیم؛ ما هیچ گونه اطلاعات شخصی مربوط به حریم خصوصی را جمع‌آوری نمی‌کنیم. غیرفعال کردن آن مانع از جمع‌آوری هرگونه داده توسط برنامه می‌شود.';
@@ -980,7 +980,7 @@ extension on TranslationsFa {
 			'AboutScreen.installRefer' => 'مرجع نصب',
 			'AboutScreen.installTime' => 'زمان نصب',
 			'AboutScreen.versionChannel' => 'کانال به‌روزرسانی خودکار',
-			'AboutScreen.updateWhenConnected' => 'پس از اتصال، به‌روزرسانی‌ها را بررسی کنید',
+			'AboutScreen.checkByProxy' => 'فقط از طریق گره پراکسی فعلی به‌روزرسانی‌ها را بررسی کنید',
 			'AboutScreen.autoDownloadPkg' => 'دانلود خودکار بسته‌های به‌روزرسانی',
 			'AboutScreen.disableAppImproveData' => 'داده های بهبود را اعمال کنید',
 			'AboutScreen.disableUAReportTip' => 'فعال کردن [${_root.AboutScreen.disableAppImproveData}] به ما کمک می‌کند تا پایداری و قابلیت استفاده از محصول را بهبود بخشیم؛ ما هیچ گونه اطلاعات شخصی مربوط به حریم خصوصی را جمع‌آوری نمی‌کنیم. غیرفعال کردن آن مانع از جمع‌آوری هرگونه داده توسط برنامه می‌شود.',

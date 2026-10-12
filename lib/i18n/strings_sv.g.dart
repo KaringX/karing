@@ -142,7 +142,7 @@ class _Translations$AboutScreen$sv implements Translations$AboutScreen$en {
 	@override String get installRefer => 'Installationskälla';
 	@override String get installTime => 'Installationstid';
 	@override String get versionChannel => 'Automatisk uppdateringskanal';
-	@override String get updateWhenConnected => 'Sök efter uppdateringar efter anslutning';
+	@override String get checkByProxy => 'Sök bara efter uppdateringar via den aktuella proxynoden';
 	@override String get autoDownloadPkg => 'Ladda ner uppdateringspaket automatiskt';
 	@override String get disableAppImproveData => 'Appförbättringsdata';
 	@override String get disableUAReportTip => 'Genom att aktivera [${_root.AboutScreen.disableAppImproveData}] hjälper du oss att förbättra produktens stabilitet och användbarhet; vi samlar inte in några personliga integritetsdata. Om du inaktiverar detta förhindras appen från att samla in data.';
@@ -980,7 +980,7 @@ extension on TranslationsSv {
 			'AboutScreen.installRefer' => 'Installationskälla',
 			'AboutScreen.installTime' => 'Installationstid',
 			'AboutScreen.versionChannel' => 'Automatisk uppdateringskanal',
-			'AboutScreen.updateWhenConnected' => 'Sök efter uppdateringar efter anslutning',
+			'AboutScreen.checkByProxy' => 'Sök bara efter uppdateringar via den aktuella proxynoden',
 			'AboutScreen.autoDownloadPkg' => 'Ladda ner uppdateringspaket automatiskt',
 			'AboutScreen.disableAppImproveData' => 'Appförbättringsdata',
 			'AboutScreen.disableUAReportTip' => 'Genom att aktivera [${_root.AboutScreen.disableAppImproveData}] hjälper du oss att förbättra produktens stabilitet och användbarhet; vi samlar inte in några personliga integritetsdata. Om du inaktiverar detta förhindras appen från att samla in data.',
