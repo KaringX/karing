@@ -803,7 +803,10 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get diversion => 'การเปลี่ยนเส้นทาง';
 	@override String get diversionRules => 'กฎการเปลี่ยนเส้นทาง';
 	@override String get diversionCustomGroup => 'กลุ่มปลี่ยนเส้นทางแบบกำหนดเอง';
+	@override String get circularDependency => 'การพึ่งพาแบบวนซ้ำ';
 	@override String get urlTestCustomGroup => 'เลือกอัตโนมัติแบบกำหนดเอง';
+	@override String get urlTestCustomGroupPreProxyWarn => 'หมายเหตุ: หากตั้งค่า \'[${_root.SettingsScreen.frontProxy}]\' สำหรับ \'[${_root.meta.urlTestCustomGroup}]\' ฟังก์ชัน \'[${_root.SettingsScreen.chainProxy}]\' แบบเดิมจะใช้งานไม่ได้ และจะถูกยกเลิกในเวอร์ชันถัดไป';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'ฟังก์ชัน \'[${_root.SettingsScreen.chainProxy}]\' แบบเดิมจะถูกยกเลิกในเวอร์ชันถัดไป โปรดใช้ \'[${_root.SettingsScreen.frontProxy}]\' สำหรับ \'[${_root.meta.urlTestCustomGroup}]\' แทน';
 	@override String get setting => 'การตั้งค่า';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsTh {
 			'meta.diversion' => 'การเปลี่ยนเส้นทาง',
 			'meta.diversionRules' => 'กฎการเปลี่ยนเส้นทาง',
 			'meta.diversionCustomGroup' => 'กลุ่มปลี่ยนเส้นทางแบบกำหนดเอง',
+			'meta.circularDependency' => 'การพึ่งพาแบบวนซ้ำ',
 			'meta.urlTestCustomGroup' => 'เลือกอัตโนมัติแบบกำหนดเอง',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'หมายเหตุ: หากตั้งค่า \'[${_root.SettingsScreen.frontProxy}]\' สำหรับ \'[${_root.meta.urlTestCustomGroup}]\' ฟังก์ชัน \'[${_root.SettingsScreen.chainProxy}]\' แบบเดิมจะใช้งานไม่ได้ และจะถูกยกเลิกในเวอร์ชันถัดไป',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'ฟังก์ชัน \'[${_root.SettingsScreen.chainProxy}]\' แบบเดิมจะถูกยกเลิกในเวอร์ชันถัดไป โปรดใช้ \'[${_root.SettingsScreen.frontProxy}]\' สำหรับ \'[${_root.meta.urlTestCustomGroup}]\' แทน',
 			'meta.setting' => 'การตั้งค่า',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsTh {
 			'meta.profileUrlOrContentCannotEmpty' => 'ลิงก์โปรไฟล์ไม่สามารถว่างเปล่า',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'รูปแบบไม่ถูกต้อง โปรดแก้ไขและเพิ่มอีกครั้ง:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดลองแก้ไข [UserAgent] และลองใหม่ หรือใช้เบราว์เซอร์ในตัวของอุปกรณ์เพื่อเปิดลิงก์การกำหนดค่า และนำเข้าไฟล์การกำหนดค่าที่ดาวน์โหลดโดยเบราว์เซอร์เข้าสู่แอปพลิเคชันนี้',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดเปิดพร็อกซีหรือแก้ไขโหนดพร็อกซีปัจจุบันและลองใหม่',
 			'meta.profileAddParseFailed' => 'การแยกวิเคราะห์โปรไฟล์ล้มเหลว',
 			'meta.profileAddNoServerAvaliable' => 'ไม่มีเซิร์ฟเวอร์ที่พร้อมใช้งาน ตรวจสอบให้แน่ใจว่าลิงก์โปรไฟล์หรือไฟล์โปรไฟล์ถูกต้อง หากโปรไฟล์ของคุณมาจาก GitHub โปรดรับลิงก์จากปุ่ม [Raw] ในหน้า',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'โปรไฟล์สร้างสำเร็จ โปรดไปที่ [${_root.meta.myProfiles}] เพื่อดู',
 			'diversionRulesKeep' => 'เก็บ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'ตั้งค่า [${_root.meta.diversionCustomGroup}]',

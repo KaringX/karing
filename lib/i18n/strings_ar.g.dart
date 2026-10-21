@@ -803,7 +803,10 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get diversion => 'تحويل';
 	@override String get diversionRules => 'قواعد التحويل';
 	@override String get diversionCustomGroup => 'مجموعة تحويل مخصصة';
+	@override String get circularDependency => 'اعتماد دائري';
 	@override String get urlTestCustomGroup => 'التحديد التلقائي المخصص';
+	@override String get urlTestCustomGroupPreProxyWarn => 'ملاحظة: إذا قمت بتعيين \'[${_root.SettingsScreen.frontProxy}]\' لـ \'[${_root.meta.urlTestCustomGroup}]\'، فستصبح وظيفة \'[${_root.SettingsScreen.chainProxy}]\' الأصلية غير متاحة، وسيتم إهمالها في إصدار لاحق';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'سيتم إهمال وظيفة \'[${_root.SettingsScreen.chainProxy}]\' الأصلية في إصدار لاحق. يُرجى استخدام \'[${_root.SettingsScreen.frontProxy}]\' ضمن \'[${_root.meta.urlTestCustomGroup}]\' بدلاً منها';
 	@override String get setting => 'إعدادات';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsAr {
 			'meta.diversion' => 'تحويل',
 			'meta.diversionRules' => 'قواعد التحويل',
 			'meta.diversionCustomGroup' => 'مجموعة تحويل مخصصة',
+			'meta.circularDependency' => 'اعتماد دائري',
 			'meta.urlTestCustomGroup' => 'التحديد التلقائي المخصص',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'ملاحظة: إذا قمت بتعيين \'[${_root.SettingsScreen.frontProxy}]\' لـ \'[${_root.meta.urlTestCustomGroup}]\'، فستصبح وظيفة \'[${_root.SettingsScreen.chainProxy}]\' الأصلية غير متاحة، وسيتم إهمالها في إصدار لاحق',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'سيتم إهمال وظيفة \'[${_root.SettingsScreen.chainProxy}]\' الأصلية في إصدار لاحق. يُرجى استخدام \'[${_root.SettingsScreen.frontProxy}]\' ضمن \'[${_root.meta.urlTestCustomGroup}]\' بدلاً منها',
 			'meta.setting' => 'إعدادات',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsAr {
 			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى',
 			'meta.profileAddParseFailed' => 'فشل تحليل الملف الشخصي',
 			'meta.profileAddNoServerAvaliable' => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'تم إنشاء التكوين بنجاح، يرجى الانتقال إلى [${_root.meta.myProfiles}] للعرض',
 			'diversionRulesKeep' => 'احتفظ بـ [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'الإعداد المسبق [مجموعة تحويل مخصصة]',

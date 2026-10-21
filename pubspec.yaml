@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.26+2908
+version: 1.2.26+2909
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.44.0"
@@ -55,7 +55,7 @@ dependencies:
   #mobx_triple: 1.1.3+1
   #local_notifier: 0.1.5
   #flutter_modular
-  #permission_handler: 12.0.1
+  permission_handler: 12.0.3
   #flutter_easy_permission: 1.1.2
   #processors: 1.0.2
   #combine: 0.5.7-0.1.pre

@@ -1,0 +1,14 @@
+display_name: Karing
+package_name: karing
+maintainer:
+  name: KaringX
+
+icon: assets/images/app_icon_256.png
+
+keywords:
+  - Karing
+
+generic_name: Karing
+
+categories:
+  - Network

@@ -251,7 +251,7 @@ class _AddProfileByLinkOrContentScreenState
     _loading = true;
     setState(() {});
 
-    error = await ServerManager.addRemoteConfig(
+    final result = await ServerManager.addRemoteConfig(
       "",
       remark,
       url,
@@ -273,11 +273,12 @@ class _AddProfileByLinkOrContentScreenState
       ispId: widget.ispId,
       ispUser: widget.ispUser,
       decryptPassword: _decryptPassword,
+      outboundDns: outboundDns,
     );
-    if (error == null) {
-      if (_overrideProxyDns && outboundDns.isNotEmpty) {
+    if (result.error == null) {
+      if (_overrideProxyDns && result.data!.outboundDns.isNotEmpty) {
         final uri = Uri.tryParse(url);
-        for (var dns in outboundDns) {
+        for (var dns in result.data!.outboundDns) {
           if (!SettingConfigItemDNS.containsDNSURL(dns)) {
             final exists = SettingManager.getConfig().dns.list.any((element) {
               if (element is Map<String, dynamic>) {
@@ -296,7 +297,7 @@ class _AddProfileByLinkOrContentScreenState
             }
           }
         }
-        SettingManager.getConfig().dns.setOutboundDns(outboundDns);
+        SettingManager.getConfig().dns.setOutboundDns(result.data!.outboundDns);
         SettingManager.setDirty(true);
       }
       ServerManager.setDirty(true);
@@ -554,20 +555,17 @@ class _AddProfileByLinkOrContentScreenState
           },
         ),
       ),
-      if (outboundDns.isNotEmpty) ...[
-        GroupItemOptions(
-          switchOptions: GroupItemSwitchOptions(
-            name: tcontext.meta.overwriteOutboundDns,
-            tips: outboundDns.join("\n"),
-            switchValue: _overrideProxyDns,
-            onSwitch: (bool value) async {
-              _overrideProxyDns = value;
-              setState(() {});
-            },
-          ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.overwriteOutboundDns,
+          tips: outboundDns.join("\n"),
+          switchValue: _overrideProxyDns,
+          onSwitch: (bool value) async {
+            _overrideProxyDns = value;
+            setState(() {});
+          },
         ),
-      ],
-
+      ),
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.meta.decryptPassword,

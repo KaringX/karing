@@ -571,7 +571,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
             allOutboundsTags,
             uniTag: false,
             includeEmpty: true,
-          );
+          ).map((item) => item.item1).toList();
         }
 
         ListViewMultiPartsItem item = ListViewMultiPartsItem();

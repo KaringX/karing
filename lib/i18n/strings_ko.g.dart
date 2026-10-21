@@ -803,7 +803,10 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get diversion => '라우팅';
 	@override String get diversionRules => '라우팅 규칙';
 	@override String get diversionCustomGroup => '사용자 정의 분류 그룹';
+	@override String get circularDependency => '순환 의존성';
 	@override String get urlTestCustomGroup => '사용자 정의 자동 선택';
+	@override String get urlTestCustomGroupPreProxyWarn => '참고: \'[${_root.meta.urlTestCustomGroup}]\'에 \'[${_root.SettingsScreen.frontProxy}]\'를 설정하면 기존 \'[${_root.SettingsScreen.chainProxy}]\' 기능을 사용할 수 없게 되며, 향후 버전에서 폐지될 예정입니다';
+	@override String get urlTestCustomGroupChainProxyDeprecated => '기존 \'[${_root.SettingsScreen.chainProxy}]\' 기능은 향후 버전에서 폐지될 예정입니다. 대신 \'[${_root.meta.urlTestCustomGroup}]\'의 \'[${_root.SettingsScreen.frontProxy}]\'를 사용해 주세요';
 	@override String get setting => '설정';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsKo {
 			'meta.diversion' => '라우팅',
 			'meta.diversionRules' => '라우팅 규칙',
 			'meta.diversionCustomGroup' => '사용자 정의 분류 그룹',
+			'meta.circularDependency' => '순환 의존성',
 			'meta.urlTestCustomGroup' => '사용자 정의 자동 선택',
+			'meta.urlTestCustomGroupPreProxyWarn' => '참고: \'[${_root.meta.urlTestCustomGroup}]\'에 \'[${_root.SettingsScreen.frontProxy}]\'를 설정하면 기존 \'[${_root.SettingsScreen.chainProxy}]\' 기능을 사용할 수 없게 되며, 향후 버전에서 폐지될 예정입니다',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => '기존 \'[${_root.SettingsScreen.chainProxy}]\' 기능은 향후 버전에서 폐지될 예정입니다. 대신 \'[${_root.meta.urlTestCustomGroup}]\'의 \'[${_root.SettingsScreen.frontProxy}]\'를 사용해 주세요',
 			'meta.setting' => '설정',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsKo {
 			'meta.profileUrlOrContentCannotEmpty' => '프로필 링크는 비워둘 수 없습니다',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '형식이 잘못되었습니다. 수정 후 다시 추가하십시오: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '추가 실패: ${p}. [UserAgent]를 수정하고 다시 시도하거나, 장치 내장 브라우저를 사용하여 구성 링크를 열고 브라우저에서 다운로드한 구성 파일을 이 앱으로 가져오십시오',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '추가 실패: ${p}. 프록시를 켜거나 현재 프록시 노드를 수정하고 다시 시도하십시오',
 			'meta.profileAddParseFailed' => '프로필 분석 실패',
 			'meta.profileAddNoServerAvaliable' => '사용 가능한 서버가 없습니다. 구성 링크 또는 파일이 유효한지 확인하십시오. 구성이 GitHub인 경우 페이지의 [Raw] 버튼에서 링크를 가져오십시오',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => '구성이 성공적으로 생성되었습니다. [${_root.meta.myProfiles}]로 이동하여 확인하십시오',
 			'diversionRulesKeep' => '[${_root.meta.isp}]의 ${_root.meta.diversionRules} 유지',
 			'diversionCustomGroupPreset' => '사전 설정 [${_root.meta.diversionCustomGroup}]',

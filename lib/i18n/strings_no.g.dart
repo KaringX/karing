@@ -803,7 +803,10 @@ class _Translations$meta$no implements Translations$meta$en {
 	@override String get diversion => 'Omledning';
 	@override String get diversionRules => 'Omledningsregler';
 	@override String get diversionCustomGroup => 'Tilpasset omledningsgruppe';
+	@override String get circularDependency => 'Sirkulær avhengighet';
 	@override String get urlTestCustomGroup => 'Tilpasset automatisk valg';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Merk: Hvis du angir \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\', blir den opprinnelige \'[${_root.SettingsScreen.chainProxy}]\'-funksjonen utilgjengelig og avviklet i en fremtidig versjon';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Den opprinnelige funksjonen \'[${_root.SettingsScreen.chainProxy}]\' avvikles i en fremtidig versjon. Bruk \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\' i stedet';
 	@override String get setting => 'Innstillinger';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsNo {
 			'meta.diversion' => 'Omledning',
 			'meta.diversionRules' => 'Omledningsregler',
 			'meta.diversionCustomGroup' => 'Tilpasset omledningsgruppe',
+			'meta.circularDependency' => 'Sirkulær avhengighet',
 			'meta.urlTestCustomGroup' => 'Tilpasset automatisk valg',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Merk: Hvis du angir \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\', blir den opprinnelige \'[${_root.SettingsScreen.chainProxy}]\'-funksjonen utilgjengelig og avviklet i en fremtidig versjon',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Den opprinnelige funksjonen \'[${_root.SettingsScreen.chainProxy}]\' avvikles i en fremtidig versjon. Bruk \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\' i stedet',
 			'meta.setting' => 'Innstillinger',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsNo {
 			'meta.profileUrlOrContentCannotEmpty' => 'Profilkobling kan ikke være tomt',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet er feil, vennligst rett det og legg til på nytt:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Mislyktes i å legge til: ${p}, vennligst prøv å endre [UserAgent] og prøv på nytt, eller bruk enhetens innebygde nettleser for å åpne konfigurasjonskoblingen og importere konfigurasjonsfilen lastet ned av nettleseren til denne appen',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Mislyktes i å legge til: ${p}, vennligst slå på proxy eller endre gjeldende proxynode og prøv på nytt',
 			'meta.profileAddParseFailed' => 'Mislyktes i å analysere profil',
 			'meta.profileAddNoServerAvaliable' => 'Ingen server tilgjengelig, sørg for at profilkoblingen eller profilfilen er gyldig; hvis profilen din kommer fra GitHub, vennligst hent koblingen via [Raw]-knappen på siden',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Profil generert vellykket, vennligst gå til [${_root.meta.myProfiles}] for å se',
 			'diversionRulesKeep' => 'Behold [${_root.meta.diversionRules}] fra [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Forhåndsinnstilt [${_root.meta.diversionCustomGroup}]',

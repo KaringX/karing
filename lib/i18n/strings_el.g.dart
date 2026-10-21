@@ -803,7 +803,10 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get diversion => 'Εκτροπή';
 	@override String get diversionRules => 'Κανόνες εκτροπής';
 	@override String get diversionCustomGroup => 'Προσαρμοσμένη ομάδα εκτροπής';
+	@override String get circularDependency => 'Κυκλική εξάρτηση';
 	@override String get urlTestCustomGroup => 'Προσαρμοσμένη αυτόματη επιλογή';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Σημείωση: Αν ορίσετε το \'[${_root.SettingsScreen.frontProxy}]\' για το \'[${_root.meta.urlTestCustomGroup}]\', η αρχική λειτουργία \'[${_root.SettingsScreen.chainProxy}]\' θα πάψει να είναι διαθέσιμη και θα καταργηθεί σε μελλοντική έκδοση';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Η αρχική λειτουργία \'[${_root.SettingsScreen.chainProxy}]\' θα καταργηθεί σε μελλοντική έκδοση. Χρησιμοποιήστε αντ\' αυτής το \'[${_root.SettingsScreen.frontProxy}]\' του \'[${_root.meta.urlTestCustomGroup}]\'';
 	@override String get setting => 'Ρυθμίσεις';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsEl {
 			'meta.diversion' => 'Εκτροπή',
 			'meta.diversionRules' => 'Κανόνες εκτροπής',
 			'meta.diversionCustomGroup' => 'Προσαρμοσμένη ομάδα εκτροπής',
+			'meta.circularDependency' => 'Κυκλική εξάρτηση',
 			'meta.urlTestCustomGroup' => 'Προσαρμοσμένη αυτόματη επιλογή',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Σημείωση: Αν ορίσετε το \'[${_root.SettingsScreen.frontProxy}]\' για το \'[${_root.meta.urlTestCustomGroup}]\', η αρχική λειτουργία \'[${_root.SettingsScreen.chainProxy}]\' θα πάψει να είναι διαθέσιμη και θα καταργηθεί σε μελλοντική έκδοση',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Η αρχική λειτουργία \'[${_root.SettingsScreen.chainProxy}]\' θα καταργηθεί σε μελλοντική έκδοση. Χρησιμοποιήστε αντ\' αυτής το \'[${_root.SettingsScreen.frontProxy}]\' του \'[${_root.meta.urlTestCustomGroup}]\'',
 			'meta.setting' => 'Ρυθμίσεις',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsEl {
 			'meta.profileUrlOrContentCannotEmpty' => 'Ο σύνδεσμος προφίλ δεν μπορεί να είναι κενός',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Η μορφή είναι εσφαλμένη, παρακαλούμε διορθώστε την και προσθέστε ξανά:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε δοκιμάστε να τροποποιήσετε το [UserAgent] και δοκιμάστε ξανά, ή χρησιμοποιήστε το ενσωματωμένο πρόγραμμα περιήγησης της συσκευής για να ανοίξετε το σύνδεσμο διαμόρφωσης και να εισαγάγετε το αρχείο διαμόρφωσης που κατέβηκε από το πρόγραμμα περιήγησης σε αυτήν την εφαρμογή',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε ενεργοποιήστε το proxy ή τροποποιήστε τον τρέχοντα κόμβο proxy και δοκιμάστε ξανά',
 			'meta.profileAddParseFailed' => 'Αποτυχία ανάλυσης προφίλ',
 			'meta.profileAddNoServerAvaliable' => 'Δεν υπάρχει διαθέσιμος διακομιστής, βεβαιωθείτε ότι ο Σύνδεσμος Προφίλ ή το Αρχείο Προφίλ είναι έγκυρο. Εάν το προφίλ σας προέρχεται από το GitHub, λάβετε το σύνδεσμο μέσω του κουμπιού [Raw] στη σελίδα',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Το προφίλ δημιουργήθηκε επιτυχώς, παρακαλούμε μεταβείτε στο [${_root.meta.myProfiles}] για προβολή',
 			'diversionRulesKeep' => 'Διατήρηση [${_root.meta.diversionRules}] του [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Προκαθορισμένη [${_root.meta.diversionCustomGroup}]',

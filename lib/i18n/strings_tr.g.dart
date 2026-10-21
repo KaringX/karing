@@ -803,7 +803,10 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get diversion => 'Yönlendirme';
 	@override String get diversionRules => 'Yönlendirme Kuralları';
 	@override String get diversionCustomGroup => 'Özel Yönlendirme Grubu';
+	@override String get circularDependency => 'Döngüsel bağımlılık';
 	@override String get urlTestCustomGroup => 'Özel Otomatik Seçim';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Not: \'[${_root.meta.urlTestCustomGroup}]\' için \'[${_root.SettingsScreen.frontProxy}]\' ayarlarsanız, önceki \'[${_root.SettingsScreen.chainProxy}]\' işlevi kullanılamaz hâle gelecek ve gelecekteki bir sürümde kaldırılacaktır';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Önceki \'[${_root.SettingsScreen.chainProxy}]\' işlevi gelecekteki bir sürümde kaldırılacaktır. Lütfen bunun yerine \'[${_root.meta.urlTestCustomGroup}]\' için \'[${_root.SettingsScreen.frontProxy}]\' kullanın';
 	@override String get setting => 'Ayarlar';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsTr {
 			'meta.diversion' => 'Yönlendirme',
 			'meta.diversionRules' => 'Yönlendirme Kuralları',
 			'meta.diversionCustomGroup' => 'Özel Yönlendirme Grubu',
+			'meta.circularDependency' => 'Döngüsel bağımlılık',
 			'meta.urlTestCustomGroup' => 'Özel Otomatik Seçim',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Not: \'[${_root.meta.urlTestCustomGroup}]\' için \'[${_root.SettingsScreen.frontProxy}]\' ayarlarsanız, önceki \'[${_root.SettingsScreen.chainProxy}]\' işlevi kullanılamaz hâle gelecek ve gelecekteki bir sürümde kaldırılacaktır',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Önceki \'[${_root.SettingsScreen.chainProxy}]\' işlevi gelecekteki bir sürümde kaldırılacaktır. Lütfen bunun yerine \'[${_root.meta.urlTestCustomGroup}]\' için \'[${_root.SettingsScreen.frontProxy}]\' kullanın',
 			'meta.setting' => 'Ayarlar',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsTr {
 			'meta.profileUrlOrContentCannotEmpty' => 'Profil Bağlantısı boş olamaz',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format yanlış, lütfen düzeltin ve tekrar ekleyin: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen [UserAgent]\'ı değiştirmeyi deneyin ve tekrar deneyin veya yapılandırma bağlantısını açmak ve tarayıcı tarafından indirilen yapılandırma dosyasını bu uygulamaya aktarmak için cihazın yerleşik tarayıcısını kullanın',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen proxy\'yi açın veya mevcut proxy düğümünü değiştirin ve tekrar deneyin',
 			'meta.profileAddParseFailed' => 'Profil Ayrıştırma başarısız oldu',
 			'meta.profileAddNoServerAvaliable' => 'Kullanılabilir sunucu yok, Profil Bağlantısının veya Profil Dosyasının geçerli olduğundan emin olun; Profiliniz GitHub\'dan geliyorsa lütfen bağlantıyı sayfadaki [Raw] düğmesinden alın',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Profil başarıyla oluşturuldu, görüntülemek için lütfen [${_root.meta.myProfiles}] bölümüne gidin',
 			'diversionRulesKeep' => '[${_root.meta.isp}] ${_root.meta.diversionRules} Koru',
 			'diversionCustomGroupPreset' => 'Ön ayar [${_root.meta.diversionCustomGroup}]',

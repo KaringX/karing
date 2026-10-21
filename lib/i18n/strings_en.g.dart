@@ -1801,8 +1801,17 @@ class Translations$meta$en {
 	/// en: 'Custom Diversion Group'
 	String get diversionCustomGroup => 'Custom Diversion Group';
 
+	/// en: 'Circular dependency'
+	String get circularDependency => 'Circular dependency';
+
 	/// en: 'Custom Auto Select'
 	String get urlTestCustomGroup => 'Custom Auto Select';
+
+	/// en: 'Note: If you set '[Front/Chain Proxy]' for '[Custom Auto Select]', the original '[Chain Proxy]' feature will become unavailable and will be deprecated in a future version'
+	String get urlTestCustomGroupPreProxyWarn => 'Note: If you set \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\', the original \'[${_root.SettingsScreen.chainProxy}]\' feature will become unavailable and will be deprecated in a future version';
+
+	/// en: 'The original '[Chain Proxy]' feature will be deprecated in a future version. Please use '[Front/Chain Proxy]' for '[Custom Auto Select]' instead'
+	String get urlTestCustomGroupChainProxyDeprecated => 'The original \'[${_root.SettingsScreen.chainProxy}]\' feature will be deprecated in a future version. Please use \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\' instead';
 
 	/// en: 'Settings'
 	String get setting => 'Settings';
@@ -2607,7 +2616,10 @@ extension on Translations {
 			'meta.diversion' => 'Diversion',
 			'meta.diversionRules' => 'Diversion Rules',
 			'meta.diversionCustomGroup' => 'Custom Diversion Group',
+			'meta.circularDependency' => 'Circular dependency',
 			'meta.urlTestCustomGroup' => 'Custom Auto Select',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Note: If you set \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\', the original \'[${_root.SettingsScreen.chainProxy}]\' feature will become unavailable and will be deprecated in a future version',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'The original \'[${_root.SettingsScreen.chainProxy}]\' feature will be deprecated in a future version. Please use \'[${_root.SettingsScreen.frontProxy}]\' for \'[${_root.meta.urlTestCustomGroup}]\' instead',
 			'meta.setting' => 'Settings',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -2649,11 +2661,11 @@ extension on Translations {
 			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again',
 			'meta.profileAddParseFailed' => 'Parsing Profile failed',
 			'meta.profileAddNoServerAvaliable' => 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Profile generated successfully, please go to [${_root.meta.myProfiles}] to view',
 			'diversionRulesKeep' => 'Keep [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',

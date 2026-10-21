@@ -803,7 +803,10 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get diversion => '分流';
 	@override String get diversionRules => '分流規則';
 	@override String get diversionCustomGroup => '自訂分流組';
+	@override String get circularDependency => '循環依賴';
 	@override String get urlTestCustomGroup => '自訂自動選擇';
+	@override String get urlTestCustomGroupPreProxyWarn => '注意：如果你為「[${_root.meta.urlTestCustomGroup}]」設定了「[${_root.SettingsScreen.frontProxy}]」，原有的「[${_root.SettingsScreen.chainProxy}]」功能將會失效，並將在後續版本中棄用';
+	@override String get urlTestCustomGroupChainProxyDeprecated => '原有的「[${_root.SettingsScreen.chainProxy}]」功能將在後續版本中棄用，請改用「[${_root.meta.urlTestCustomGroup}]」的「[${_root.SettingsScreen.frontProxy}]」替代';
 	@override String get setting => '設定';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsZhTw {
 			'meta.diversion' => '分流',
 			'meta.diversionRules' => '分流規則',
 			'meta.diversionCustomGroup' => '自訂分流組',
+			'meta.circularDependency' => '循環依賴',
 			'meta.urlTestCustomGroup' => '自訂自動選擇',
+			'meta.urlTestCustomGroupPreProxyWarn' => '注意：如果你為「[${_root.meta.urlTestCustomGroup}]」設定了「[${_root.SettingsScreen.frontProxy}]」，原有的「[${_root.SettingsScreen.chainProxy}]」功能將會失效，並將在後續版本中棄用',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => '原有的「[${_root.SettingsScreen.chainProxy}]」功能將在後續版本中棄用，請改用「[${_root.meta.urlTestCustomGroup}]」的「[${_root.SettingsScreen.frontProxy}]」替代',
 			'meta.setting' => '設定',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsZhTw {
 			'meta.profileUrlOrContentCannotEmpty' => '配置連結不能為空',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '格式錯誤, 請訂正後重新新增: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '新增失敗: ${p}, 請嘗試修改 [UserAgent] 後重試, 或者用設備自帶的瀏覽器開啟配置連結, 並將瀏覽器下載的設定檔匯入到本應用程式',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '新增失敗: ${p}, 請開啟代理或者修改當前代理節點後重試',
 			'meta.profileAddParseFailed' => '解析配置失敗',
 			'meta.profileAddNoServerAvaliable' => '無可用伺服器, 請確保配置連結或設定檔有效; 如果你的配置來源於 GitHub, 請從頁面上的 [Raw] 按鈕獲取連結位址',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => '配置生成成功, 請到 [${_root.meta.myProfiles}] 查看',
 			'diversionRulesKeep' => '保留 [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => '預置 [${_root.meta.diversionCustomGroup}]',

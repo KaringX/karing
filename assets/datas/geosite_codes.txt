@@ -208,6 +208,7 @@ bing@cn
 bitauto
 bitflyer
 bitly
+bitrix
 bitsquare
 bitwarden
 bjyouth
@@ -282,6 +283,9 @@ category-ads-all
 category-ads-all@!cn
 category-ads-all@ads
 category-ads-all@cn
+category-ads-and-telemetry
+category-ads-and-telemetry@ads
+category-ads-and-telemetry@telemetry
 category-ads-ir
 category-ads
 category-ads@!cn
@@ -290,9 +294,11 @@ category-ads@cn
 category-ai-!cn
 category-ai-!cn@!cn
 category-ai-!cn@ads
+category-ai-!cn@telemetry
 category-ai-chat-!cn
 category-ai-chat-!cn@!cn
 category-ai-chat-!cn@ads
+category-ai-chat-!cn@telemetry
 category-ai-cn
 category-ai-ru
 category-android-app-download
@@ -324,6 +330,7 @@ category-companies
 category-companies@!cn
 category-companies@ads
 category-companies@cn
+category-companies@telemetry
 category-consent-management
 category-container
 category-cryptocurrency
@@ -334,6 +341,7 @@ category-dev-cn@ads
 category-dev
 category-dev@ads
 category-dev@cn
+category-dev@telemetry
 category-documents-cn
 category-doh
 category-ecommerce-ru
@@ -342,6 +350,7 @@ category-ecommerce
 category-ecommerce@ads
 category-ecommerce@cn
 category-education-cn
+category-education-cn@ads
 category-education-ir
 category-education-ru
 category-electronic-cn
@@ -360,6 +369,7 @@ category-entertainment@cn
 category-finance
 category-finance@ads
 category-finance@cn
+category-flight-simulator
 category-food-cn
 category-food-cn@ads
 category-food-cn@cn
@@ -454,6 +464,8 @@ category-tech-ir
 category-tech-media-ru
 category-tech-media
 category-tech-media@cn
+category-telemetry
+category-telemetry@telemetry
 category-tm
 category-travel-ir
 category-travel-ru
@@ -755,6 +767,7 @@ fox
 fqnovel
 fqnovel@ads
 framer
+freebuff
 freecodecamp
 freenode
 ft
@@ -777,6 +790,7 @@ gemfury
 genotek-ru
 geolocation-!cn
 geolocation-!cn@ads
+geolocation-!cn@telemetry
 geolocation-cn
 geolocation-cn@ads
 geolocation-cn@cn
@@ -795,9 +809,11 @@ gitbook
 gitee
 github-copilot
 github-copilot@ads
+github-copilot@telemetry
 github
 github1s
 github@ads
+github@telemetry
 gitlab
 gitv
 globalsign
@@ -1166,6 +1182,7 @@ microsoft-pki@cn
 microsoft
 microsoft@ads
 microsoft@cn
+microsoft@telemetry
 midea
 mihoyo-cn
 mihoyo-cn@ads
@@ -1209,6 +1226,7 @@ movefree@cn
 moxing
 mozilla
 mozilla@ads
+mozilla@telemetry
 msi
 msn
 msn@ads
@@ -1254,6 +1272,7 @@ newsmax
 nexitally
 nexo
 nexon
+nexusmods
 nga
 nginx
 ngrok
@@ -1496,6 +1515,8 @@ sankei
 sb
 sber
 sber@ads
+sberbank
+sberbank@ads
 scala
 scaleflex
 scenesource
@@ -1547,6 +1568,7 @@ slack
 slideshare
 sling
 smartone
+smena
 smtiaojiaoshi
 smzdm
 snap
@@ -1777,6 +1799,7 @@ vancl
 vanish
 vanish@cn
 vaptcha
+vatsim
 veet
 veet@cn
 vercel
@@ -1905,6 +1928,7 @@ yahoo@ads
 yahoo@cn
 yandex
 yandex@ads
+yandex@cn
 ycombinator
 ymtc
 ynet

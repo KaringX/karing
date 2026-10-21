@@ -1794,7 +1794,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         break;
       }
     }
-    config.outbounds = SingboxConfigBuilder.outbounds(
+    final result = SingboxConfigBuilder.outbounds(
       "",
       selectOutboundTags,
       {},
@@ -1802,8 +1802,20 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       allOutBounds,
       null,
       {},
+      [],
       SingboxExportType.karing,
     );
+    if (result.error != null) {
+      DialogUtils.showAlertDialog(
+        context,
+        result.error!.message,
+        showCopy: true,
+        showFAQ: true,
+        withVersion: true,
+      );
+      return;
+    }
+    config.outbounds = result.data!;
     config.endpoints = SingboxConfigBuilder.endpoints(config.outbounds);
 
     var sitecodesHashCode = await RulesetCodesUtils.siteCodesHashCode();

@@ -803,7 +803,10 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get diversion => 'Маршрутизация';
 	@override String get diversionRules => 'Правила маршрутизации';
 	@override String get diversionCustomGroup => 'Личные правила';
+	@override String get circularDependency => 'Циклическая зависимость';
 	@override String get urlTestCustomGroup => 'Пользовательский автоматический выбор';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Внимание: если для \'[${_root.meta.urlTestCustomGroup}]\' задать \'[${_root.SettingsScreen.frontProxy}]\', исходная функция \'[${_root.SettingsScreen.chainProxy}]\' станет недоступна и будет удалена в одной из будущих версий';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Исходная функция \'[${_root.SettingsScreen.chainProxy}]\' будет удалена в одной из будущих версий. Используйте вместо неё \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\'';
 	@override String get setting => 'Настройки';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsRu {
 			'meta.diversion' => 'Маршрутизация',
 			'meta.diversionRules' => 'Правила маршрутизации',
 			'meta.diversionCustomGroup' => 'Личные правила',
+			'meta.circularDependency' => 'Циклическая зависимость',
 			'meta.urlTestCustomGroup' => 'Пользовательский автоматический выбор',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Внимание: если для \'[${_root.meta.urlTestCustomGroup}]\' задать \'[${_root.SettingsScreen.frontProxy}]\', исходная функция \'[${_root.SettingsScreen.chainProxy}]\' станет недоступна и будет удалена в одной из будущих версий',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Исходная функция \'[${_root.SettingsScreen.chainProxy}]\' будет удалена в одной из будущих версий. Используйте вместо неё \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\'',
 			'meta.setting' => 'Настройки',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsRu {
 			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.',
 			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
 			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов. Убедитесь что подписка или файл конфигурации корректен. Если ваша конфигурация взята из GitHub, копируйте ссылку по кнопке [Raw].',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Профиль успешно создан, проверьте в разделе [${_root.meta.myProfiles}]',
 			'diversionRulesKeep' => 'Сохраните [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Шаблоны для личных правил',

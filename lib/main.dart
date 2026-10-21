@@ -4,49 +4,50 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:karing/app/local_services/vpn_service.dart';
-import 'package:karing/app/modules/board_provider_manager.dart';
-import 'package:karing/app/modules/server_manager.dart';
-import 'package:karing/app/utils/device_utils.dart';
-import 'package:karing/app/utils/http_overrides_utils.dart';
-import 'package:karing/app/utils/move_to_background_utils.dart';
-import 'package:karing/app/utils/vpn_action_handler.dart';
-import 'package:karing/screens/home_screen.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
-import 'package:karing/app/modules/biz.dart';
-import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/setting_manager.dart';
+import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
+import 'package:karing/app/modules/biz.dart';
+import 'package:karing/app/modules/board_provider_manager.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
+import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/sentry_utils_private.dart';
 import 'package:karing/app/utils/app_args.dart';
+import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
+import 'package:karing/app/utils/device_utils.dart';
+import 'package:karing/app/utils/http_overrides_utils.dart';
 //import 'package:karing/app/utils/geoip_subnet_utils.dart';
 //import 'package:karing/app/utils/file_utils.dart';
 
 import 'package:karing/app/utils/log.dart';
+import 'package:karing/app/utils/move_to_background_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
+import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
+import 'package:karing/screens/home_screen.dart';
 import 'package:karing/screens/launch_failed_screen.dart';
 import 'package:karing/screens/theme_data_dark.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/routes.dart';
+//import 'package:karing/tray.dart';
 import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_retriever/screen_retriever.dart';
-import 'package:tray_manager/legacy.dart';
 import 'package:vpn_service/vpn_service.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:tray_manager/legacy.dart';
 
 List<String> processArgs = [];
 StartFailedReason? startFailedReason;
@@ -346,6 +347,7 @@ class MyAppState extends State<MyApp>
   static const kMenuExit = "exit_app";
   bool _launchAtStartup = false;
   bool _windowVisibleForMac = false;
+  //Tray? _tray;
   bool _trayGrey = true;
   final Themes _themes = Themes();
   @override
@@ -355,6 +357,20 @@ class MyAppState extends State<MyApp>
     if (PlatformUtils.isPC()) {
       windowManager.addListener(this);
       windowManager.setPreventClose(true);
+      /*_tray = Tray();
+      _tray!.init(
+        onOpen: () async {
+          if (await windowManager.isMinimized()) {
+            await windowManager.restore();
+          } else {
+            await windowManager.show();
+            onWindowRestore();
+          }
+        },
+        onExit: () async {
+          await _quit();
+        },
+      );*/
       trayManager.addListener(this);
       _setTray(true, false, true);
     }
@@ -382,6 +398,8 @@ class MyAppState extends State<MyApp>
     WidgetsBinding.instance.removeObserver(this);
     if (PlatformUtils.isPC()) {
       windowManager.removeListener(this);
+      // _tray?.dispose();
+      //_tray = null;
       trayManager.removeListener(this);
       trayManager.destroy();
     }
@@ -576,9 +594,11 @@ class MyAppState extends State<MyApp>
       if (Platform.isMacOS && ui.hideDockIcon) {
         FlutterVpnService.hideDockIcon(true);
       }
-      if (forceShow || (Platform.isWindows && !ui.hideAfterLaunch)) {
+      if (forceShow || !ui.hideAfterLaunch) {
         await windowManager.show();
         onWindowRestore();
+      } else {
+        await windowManager.hide();
       }
     });
   }
@@ -590,6 +610,7 @@ class MyAppState extends State<MyApp>
 
     Biz.onEventVPNStateChanged = ((bool connected) {
       if (PlatformUtils.isPC()) {
+        // _tray?.setIconDisconneted(!connected);
         if (_trayGrey == !connected) {
           return;
         }

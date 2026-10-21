@@ -803,7 +803,10 @@ class _Translations$meta$id implements Translations$meta$en {
 	@override String get diversion => 'Routing';
 	@override String get diversionRules => 'Aturan routing';
 	@override String get diversionCustomGroup => 'Grup routing kustom';
+	@override String get circularDependency => 'Dependensi melingkar';
 	@override String get urlTestCustomGroup => 'Pilih otomatis kustom';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Catatan: Jika Anda mengatur \'[${_root.SettingsScreen.frontProxy}]\' untuk \'[${_root.meta.urlTestCustomGroup}]\', fitur \'[${_root.SettingsScreen.chainProxy}]\' yang lama tidak akan tersedia dan akan dihentikan pada versi mendatang';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Fitur \'[${_root.SettingsScreen.chainProxy}]\' yang lama akan dihentikan pada versi mendatang. Silakan gunakan \'[${_root.SettingsScreen.frontProxy}]\' untuk \'[${_root.meta.urlTestCustomGroup}]\' sebagai gantinya';
 	@override String get setting => 'Pengaturan';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsId {
 			'meta.diversion' => 'Routing',
 			'meta.diversionRules' => 'Aturan routing',
 			'meta.diversionCustomGroup' => 'Grup routing kustom',
+			'meta.circularDependency' => 'Dependensi melingkar',
 			'meta.urlTestCustomGroup' => 'Pilih otomatis kustom',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Catatan: Jika Anda mengatur \'[${_root.SettingsScreen.frontProxy}]\' untuk \'[${_root.meta.urlTestCustomGroup}]\', fitur \'[${_root.SettingsScreen.chainProxy}]\' yang lama tidak akan tersedia dan akan dihentikan pada versi mendatang',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Fitur \'[${_root.SettingsScreen.chainProxy}]\' yang lama akan dihentikan pada versi mendatang. Silakan gunakan \'[${_root.SettingsScreen.frontProxy}]\' untuk \'[${_root.meta.urlTestCustomGroup}]\' sebagai gantinya',
 			'meta.setting' => 'Pengaturan',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsId {
 			'meta.profileUrlOrContentCannotEmpty' => 'Tautan konfigurasi tidak boleh kosong',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format salah, silakan koreksi lalu tambahkan lagi:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Penambahan gagal:${p}, coba ubah [UserAgent] lalu ulangi, atau buka tautan konfigurasi dengan browser bawaan perangkat, lalu impor file konfigurasi yang diunduh browser ke aplikasi ini',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Penambahan gagal:${p}, silakan aktifkan proxy atau ganti node proxy saat ini lalu coba lagi',
 			'meta.profileAddParseFailed' => 'Gagal mengurai konfigurasi',
 			'meta.profileAddNoServerAvaliable' => 'Tidak ada server yang tersedia, pastikan tautan atau file konfigurasi valid; jika konfigurasi Anda berasal dari GitHub, gunakan alamat tautan dari tombol [Raw] di halaman',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Konfigurasi berhasil dibuat, silakan lihat di [${_root.meta.myProfiles}]',
 			'diversionRulesKeep' => 'Pertahankan [${_root.meta.isp}]${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Preset [${_root.meta.diversionCustomGroup}]',

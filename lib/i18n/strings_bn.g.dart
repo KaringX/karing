@@ -803,7 +803,10 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get diversion => 'ডাইভারশন';
 	@override String get diversionRules => 'ডাইভারশন রুল';
 	@override String get diversionCustomGroup => 'কাস্টম ডাইভারশন গ্রুপ';
+	@override String get circularDependency => 'চক্রাকার নির্ভরতা';
 	@override String get urlTestCustomGroup => 'কাস্টম অটো সিলেকশন';
+	@override String get urlTestCustomGroupPreProxyWarn => 'দ্রষ্টব্য: আপনি যদি \'[${_root.meta.urlTestCustomGroup}]\'-এর জন্য \'[${_root.SettingsScreen.frontProxy}]\' সেট করেন, তাহলে মূল \'[${_root.SettingsScreen.chainProxy}]\' ফাংশনটি অকার্যকর হয়ে যাবে এবং ভবিষ্যতের কোনো সংস্করণে এটি অবলুপ্ত করা হবে';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'মূল \'[${_root.SettingsScreen.chainProxy}]\' ফাংশনটি ভবিষ্যতের কোনো সংস্করণে অবলুপ্ত করা হবে। অনুগ্রহ করে এর পরিবর্তে \'[${_root.meta.urlTestCustomGroup}]\'-এর \'[${_root.SettingsScreen.frontProxy}]\' ব্যবহার করুন';
 	@override String get setting => 'সেটিংস';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsBn {
 			'meta.diversion' => 'ডাইভারশন',
 			'meta.diversionRules' => 'ডাইভারশন রুল',
 			'meta.diversionCustomGroup' => 'কাস্টম ডাইভারশন গ্রুপ',
+			'meta.circularDependency' => 'চক্রাকার নির্ভরতা',
 			'meta.urlTestCustomGroup' => 'কাস্টম অটো সিলেকশন',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'দ্রষ্টব্য: আপনি যদি \'[${_root.meta.urlTestCustomGroup}]\'-এর জন্য \'[${_root.SettingsScreen.frontProxy}]\' সেট করেন, তাহলে মূল \'[${_root.SettingsScreen.chainProxy}]\' ফাংশনটি অকার্যকর হয়ে যাবে এবং ভবিষ্যতের কোনো সংস্করণে এটি অবলুপ্ত করা হবে',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'মূল \'[${_root.SettingsScreen.chainProxy}]\' ফাংশনটি ভবিষ্যতের কোনো সংস্করণে অবলুপ্ত করা হবে। অনুগ্রহ করে এর পরিবর্তে \'[${_root.meta.urlTestCustomGroup}]\'-এর \'[${_root.SettingsScreen.frontProxy}]\' ব্যবহার করুন',
 			'meta.setting' => 'সেটিংস',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsBn {
 			'meta.profileUrlOrContentCannotEmpty' => 'প্রোফাইল লিঙ্ক খালি রাখা যাবে না',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'ফরম্যাট ভুল, অনুগ্রহ করে এটি ঠিক করুন এবং আবার যুক্ত করুন:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে [UserAgent] পরিবর্তন করার চেষ্টা করুন এবং আবার চেষ্টা করুন, অথবা কনফিগারেশন লিঙ্কটি খোলার জন্য ডিভাইসের বিল্ট-ইন ব্রাউজার ব্যবহার করুন এবং ব্রাউজার দ্বারা ডাউনলোড করা কনফিগারেশন ফাইলটি এই অ্যাপ্লিকেশনে আমদানি করুন',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে প্রক্সি চালু করুন বা বর্তমান প্রক্সি নোড পরিবর্তন করুন এবং আবার চেষ্টা করুন',
 			'meta.profileAddParseFailed' => 'প্রোফাইল পার্স করতে ব্যর্থ',
 			'meta.profileAddNoServerAvaliable' => 'কোনো সার্ভার উপলব্ধ নেই, নিশ্চিত করুন যে প্রোফাইল লিঙ্ক বা প্রোফাইল ফাইলটি বৈধ; যদি আপনার প্রোফাইল GitHub থেকে হয়, তবে অনুগ্রহ করে পৃষ্ঠার [Raw] বাটনের মাধ্যমে লিঙ্কটি পান',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'প্রোফাইল সফলভাবে তৈরি হয়েছে, অনুগ্রহ করে দেখার জন্য [${_root.meta.myProfiles}]-এ যান',
 			'diversionRulesKeep' => '[${_root.meta.isp}] এর [${_root.meta.diversionRules}] বজায় রাখুন',
 			'diversionCustomGroupPreset' => 'প্রিসেট [${_root.meta.diversionCustomGroup}]',

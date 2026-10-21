@@ -803,7 +803,10 @@ class _Translations$meta$sv implements Translations$meta$en {
 	@override String get diversion => 'Omledning';
 	@override String get diversionRules => 'Omledningsregler';
 	@override String get diversionCustomGroup => 'Anpassad omledningsgrupp';
+	@override String get circularDependency => 'Cirkulärt beroende';
 	@override String get urlTestCustomGroup => 'Anpassat automatiskt val';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Obs! Om du anger \'[${_root.SettingsScreen.frontProxy}]\' för \'[${_root.meta.urlTestCustomGroup}]\' blir den ursprungliga funktionen \'[${_root.SettingsScreen.chainProxy}]\' otillgänglig och fasas ut i en framtida version';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Den ursprungliga funktionen \'[${_root.SettingsScreen.chainProxy}]\' fasas ut i en framtida version. Använd i stället \'[${_root.SettingsScreen.frontProxy}]\' för \'[${_root.meta.urlTestCustomGroup}]\'';
 	@override String get setting => 'Inställningar';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsSv {
 			'meta.diversion' => 'Omledning',
 			'meta.diversionRules' => 'Omledningsregler',
 			'meta.diversionCustomGroup' => 'Anpassad omledningsgrupp',
+			'meta.circularDependency' => 'Cirkulärt beroende',
 			'meta.urlTestCustomGroup' => 'Anpassat automatiskt val',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Obs! Om du anger \'[${_root.SettingsScreen.frontProxy}]\' för \'[${_root.meta.urlTestCustomGroup}]\' blir den ursprungliga funktionen \'[${_root.SettingsScreen.chainProxy}]\' otillgänglig och fasas ut i en framtida version',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Den ursprungliga funktionen \'[${_root.SettingsScreen.chainProxy}]\' fasas ut i en framtida version. Använd i stället \'[${_root.SettingsScreen.frontProxy}]\' för \'[${_root.meta.urlTestCustomGroup}]\'',
 			'meta.setting' => 'Inställningar',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsSv {
 			'meta.profileUrlOrContentCannotEmpty' => 'Profillänk får inte vara tomt',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet är felaktigt, korrigera det och försök lägga till igen:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, försök att ändra [UserAgent] och försök igen, eller använd enhetens inbyggda webbläsare för att öppna konfigurationslänken och importera konfigurationsfilen som laddats ner av webbläsaren till den här appen',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, slå på proxyn eller ändra den aktuella proxynoden och försök igen',
 			'meta.profileAddParseFailed' => 'Misslyckades med att analysera profil',
 			'meta.profileAddNoServerAvaliable' => 'Ingen server tillgänglig, se till att profillänken eller profilfilen är giltig; om din profil kommer från GitHub, hämta länken via [Raw]-knappen på sidan',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Profilen har skapats framgångsrikt, gå till [${_root.meta.myProfiles}] för att se den',
 			'diversionRulesKeep' => 'Behåll [${_root.meta.diversionRules}] från [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Förinställd [${_root.meta.diversionCustomGroup}]',

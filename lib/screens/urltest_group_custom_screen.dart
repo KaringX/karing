@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -8,6 +9,7 @@ import 'package:karing/screens/server_select_screen.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
 import 'package:karing/screens/widgets/framework.dart';
+import 'package:karing/screens/widgets/sheet.dart';
 import 'package:tuple/tuple.dart';
 
 class UrlTestGroupCustomScreen extends LasyRenderingStatefulWidget {
@@ -24,7 +26,7 @@ class UrlTestGroupCustomScreen extends LasyRenderingStatefulWidget {
 
 class _UrlTestGroupCustomScreenState
     extends LasyRenderingState<UrlTestGroupCustomScreen> {
-  final List<String> _groupData = [];
+  final List<Tuple2<String, String>> _groupData = [];
 
   @override
   void initState() {
@@ -36,9 +38,9 @@ class _UrlTestGroupCustomScreenState
     _groupData.clear();
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
     for (var urltest in item.urltests) {
-      _groupData.add(urltest.remark);
+      _groupData.add(Tuple2(urltest.remark, urltest.preProxy));
     }
-    _groupData.sort((a, b) => a.compareTo(b));
+    _groupData.sort((a, b) => a.item1.compareTo(b.item1));
   }
 
   @override
@@ -96,6 +98,17 @@ class _UrlTestGroupCustomScreenState
                 ),
               ),
               const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Text(
+                  tcontext.meta.urlTestCustomGroupPreProxyWarn,
+                  style: TextStyle(
+                    fontSize: ThemeConfig.kFontSizeGroupItem,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+
               Expanded(child: _loadListView()),
             ],
           ),
@@ -111,7 +124,7 @@ class _UrlTestGroupCustomScreenState
         itemCount: _groupData.length,
         itemBuilder: (BuildContext context, int index) {
           var current = _groupData[index];
-          return createWidget(current);
+          return createWidget(current.item1, current.item2);
         },
         separatorBuilder: (BuildContext context, int index) {
           return const Divider(height: 1, thickness: 0.3);
@@ -120,10 +133,11 @@ class _UrlTestGroupCustomScreenState
     );
   }
 
-  Widget createWidget(String current) {
+  Widget createWidget(String current, String preProxy) {
+    final tcontext = Translations.of(context);
     Size windowSize = MediaQuery.of(context).size;
     const double padding = 4;
-    const double rightWidth = 120;
+    const double rightWidth = 160;
     double leftWidth = windowSize.width - rightWidth - padding * 2 - 4;
     return Column(
       children: [
@@ -144,7 +158,9 @@ class _UrlTestGroupCustomScreenState
                   ConstrainedBox(
                     constraints: BoxConstraints(maxWidth: leftWidth),
                     child: Text(
-                      current,
+                      SettingManager.getConfig().novice || preProxy.isEmpty
+                          ? current
+                          : "$current >-> $preProxy",
                       style: TextStyle(
                         fontSize: ThemeConfig.kFontSizeGroupItem,
                       ),
@@ -159,14 +175,36 @@ class _UrlTestGroupCustomScreenState
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        if (!SettingManager.getConfig().novice) ...[
+                          InkWell(
+                            onTap: () async {
+                              onTapModifyPreGroup(current, preProxy);
+                            },
+                            child: Tooltip(
+                              message: tcontext.SettingsScreen.frontProxy,
+                              child: const SizedBox(
+                                width: 26,
+                                height: ThemeConfig.kListItemHeight2,
+                                child: Icon(
+                                  Icons.fiber_smart_record_outlined,
+                                  size: 26,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                        ],
                         InkWell(
                           onTap: () async {
-                            onTapModify(current);
+                            onTapModifyRemark(current);
                           },
-                          child: const SizedBox(
-                            width: 26,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: Icon(Icons.edit_outlined, size: 26),
+                          child: Tooltip(
+                            message: tcontext.meta.remark,
+                            child: const SizedBox(
+                              width: 26,
+                              height: ThemeConfig.kListItemHeight2,
+                              child: Icon(Icons.edit_outlined, size: 26),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -174,13 +212,16 @@ class _UrlTestGroupCustomScreenState
                           onTap: () async {
                             onTapDel(current);
                           },
-                          child: const SizedBox(
-                            width: 26,
-                            height: ThemeConfig.kListItemHeight2,
-                            child: Icon(
-                              Icons.remove_circle_outlined,
-                              size: 26,
-                              color: Colors.red,
+                          child: Tooltip(
+                            message: tcontext.meta.remove,
+                            child: const SizedBox(
+                              width: 26,
+                              height: ThemeConfig.kListItemHeight2,
+                              child: Icon(
+                                Icons.remove_circle_outlined,
+                                size: 26,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                         ),
@@ -322,7 +363,83 @@ class _UrlTestGroupCustomScreenState
     }
   }
 
-  void onTapModify(String current) async {
+  void onTapModifyPreGroup(String current, String preProxy) async {
+    var widgets = [];
+    List<Tuple2<String, String>> groupData = [Tuple2("", "")];
+
+    Set<String> dependsOnCurrent = {};
+    for (var groupItem in _groupData) {
+      if (groupItem.item2 == current) {
+        dependsOnCurrent.add(groupItem.item1);
+      }
+    }
+    for (var groupItem in _groupData) {
+      if (dependsOnCurrent.contains(groupItem.item2)) {
+        dependsOnCurrent.add(groupItem.item1);
+      }
+    }
+    for (var groupItem in _groupData) {
+      if (groupItem.item1 == current) {
+        continue;
+      }
+      if (dependsOnCurrent.contains(groupItem.item1)) {
+        continue;
+      }
+      groupData.add(groupItem);
+    }
+    for (var groupItem in groupData) {
+      if (groupItem.item1 == current) {
+        continue;
+      }
+
+      widgets.add(
+        ListTile(
+          title: Text(groupItem.item1),
+          selected: groupItem.item1 == preProxy,
+          onTap: () async {
+            Navigator.of(context).pop();
+            ServerConfigGroupItem item = ServerManager.getCustomGroup();
+            for (var i in item.urltests) {
+              if (i.remark == current) {
+                if (i.remark == groupItem.item1) {
+                  i.preProxy = "";
+                } else {
+                  i.preProxy = groupItem.item1;
+                }
+                ServerManager.setDirty(true);
+                ServerManager.saveServerConfig();
+                _buildData();
+                setState(() {});
+                break;
+              }
+            }
+          },
+        ),
+      );
+    }
+    showSheet(
+      context: context,
+      body: SizedBox(
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          child: Scrollbar(
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return widgets[index];
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(height: 1, thickness: 0.3);
+              },
+              itemCount: widgets.length,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void onTapModifyRemark(String current) async {
     final tcontext = Translations.of(context);
     String? text = await DialogUtils.showTextInputDialog(
       context,
@@ -356,6 +473,11 @@ class _UrlTestGroupCustomScreenState
     if (current != text && text != null) {
       ServerConfigGroupItem item = ServerManager.getCustomGroup();
       for (var i in item.urltests) {
+        if (i.preProxy == current) {
+          i.preProxy = text;
+        }
+      }
+      for (var i in item.urltests) {
         if (i.remark == current) {
           i.remark = text;
           ServerManager.setDirty(true);
@@ -370,6 +492,11 @@ class _UrlTestGroupCustomScreenState
 
   void onTapDel(String current) {
     ServerConfigGroupItem item = ServerManager.getCustomGroup();
+    for (var i in item.urltests) {
+      if (i.preProxy == current) {
+        i.preProxy = "";
+      }
+    }
 
     for (int i = 0; i < item.urltests.length; ++i) {
       if (item.urltests[i].remark == current) {

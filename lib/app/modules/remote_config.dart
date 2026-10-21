@@ -94,6 +94,7 @@ class RemoteConfig {
   static const String kDefaultTelegram = "https://t.me/KaringApp";
   static const String kDefaultFollow = "https://github.com/KaringX/karing";
   static const String kDefaultHtmlTools = "https://tools.karing.app/";
+  static const String kDefaultConnect = "https://clashmi.app/go";
   static const String kDefaultPrivacyPolicy =
       "https://dot.$kDefaultHost/privacy_policy.txt";
   static const String kDefaultDnsLeakDetection = "https://browserleaks.com/dns";
@@ -139,6 +140,7 @@ class RemoteConfig {
   String geoip = kDefaultGeoIp;
   String acl = kDefaultAcl;
   String htmlTools = kDefaultHtmlTools;
+  String connect = kDefaultConnect;
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -202,9 +204,11 @@ class RemoteConfig {
     if (acl != kDefaultAcl) {
       ret["acl_rulesets"] = acl;
     }
-
     if (htmlTools != kDefaultHtmlTools) {
       ret["htmltools"] = htmlTools;
+    }
+    if (connect != kDefaultConnect) {
+      ret["connect"] = connect;
     }
     return ret;
   }
@@ -272,7 +276,6 @@ class RemoteConfig {
     geosite = map["geosite_rulesets"] ?? kDefaultGeoSite;
     geoip = map["geoip_rulesets"] ?? kDefaultGeoIp;
     acl = map["acl_rulesets"] ?? kDefaultAcl;
-
     htmlTools = map["htmltools"] ?? kDefaultHtmlTools;
     if (geosite.isEmpty) {
       geosite = kDefaultGeoSite;
@@ -282,6 +285,10 @@ class RemoteConfig {
     }
     if (acl.isEmpty) {
       acl = kDefaultAcl;
+    }
+    connect = map["connect"] ?? kDefaultConnect;
+    if (connect.isEmpty) {
+      connect = kDefaultConnect;
     }
   }
 

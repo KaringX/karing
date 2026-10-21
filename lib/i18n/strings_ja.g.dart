@@ -803,7 +803,10 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get diversion => 'ルーティング';
 	@override String get diversionRules => 'ルーティングルール';
 	@override String get diversionCustomGroup => 'カスタム分流グループ';
+	@override String get circularDependency => '循環依存';
 	@override String get urlTestCustomGroup => 'カスタム自動選択';
+	@override String get urlTestCustomGroupPreProxyWarn => '注意: \'[${_root.meta.urlTestCustomGroup}]\' に \'[${_root.SettingsScreen.frontProxy}]\' を設定すると、従来の \'[${_root.SettingsScreen.chainProxy}]\' 機能は利用できなくなり、今後のバージョンで廃止される予定です';
+	@override String get urlTestCustomGroupChainProxyDeprecated => '従来の \'[${_root.SettingsScreen.chainProxy}]\' 機能は今後のバージョンで廃止される予定です。代わりに \'[${_root.meta.urlTestCustomGroup}]\' の \'[${_root.SettingsScreen.frontProxy}]\' を使用してください';
 	@override String get setting => '設定';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsJa {
 			'meta.diversion' => 'ルーティング',
 			'meta.diversionRules' => 'ルーティングルール',
 			'meta.diversionCustomGroup' => 'カスタム分流グループ',
+			'meta.circularDependency' => '循環依存',
 			'meta.urlTestCustomGroup' => 'カスタム自動選択',
+			'meta.urlTestCustomGroupPreProxyWarn' => '注意: \'[${_root.meta.urlTestCustomGroup}]\' に \'[${_root.SettingsScreen.frontProxy}]\' を設定すると、従来の \'[${_root.SettingsScreen.chainProxy}]\' 機能は利用できなくなり、今後のバージョンで廃止される予定です',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => '従来の \'[${_root.SettingsScreen.chainProxy}]\' 機能は今後のバージョンで廃止される予定です。代わりに \'[${_root.meta.urlTestCustomGroup}]\' の \'[${_root.SettingsScreen.frontProxy}]\' を使用してください',
 			'meta.setting' => '設定',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsJa {
 			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '形式が正しくありません。修正して再度追加してください: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '追加に失敗しました: ${p}。[UserAgent] を変更して再試行するか、デバイス内蔵のブラウザを使用して設定リンクを開き、ブラウザでダウンロードした設定ファイルをこのアプリにインポートしてください',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '追加に失敗しました: ${p}。プロキシをオンにするか、現在のプロキシノードを変更して再試行してください',
 			'meta.profileAddParseFailed' => 'プロファイルの解析に失敗しました',
 			'meta.profileAddNoServerAvaliable' => '利用可能なサーバーがありません。設定リンクまたは設定ファイルが有効であることを確認してください。設定が GitHub の場合は、ページ上の [Raw] ボタンからリンクを取得してください',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => '構成が正常に生成されました。[${_root.meta.myProfiles}] に移動して確認してください',
 			'diversionRulesKeep' => '[${_root.meta.isp}] の ${_root.meta.diversionRules} を保持する',
 			'diversionCustomGroupPreset' => 'プリセット [${_root.meta.diversionCustomGroup}]',

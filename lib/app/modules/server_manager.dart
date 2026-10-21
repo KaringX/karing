@@ -598,9 +598,9 @@ class ServerManager {
             continue;
           }
           _remoteReloading.add(item.groupid);
-          ReturnResultError? err;
+          ReturnResult<ServerConfigGroupItem>? result;
           try {
-            err = await addRemoteConfig(
+            result = await addRemoteConfig(
               item.groupid,
               item.remark,
               item.urlOrPath,
@@ -629,9 +629,9 @@ class ServerManager {
           } finally {
             _remoteReloading.remove(item.groupid);
           }
-          if (err != null) {
+          if (result?.error != null) {
             Log.w(
-              "ServerManager.updateSubscription err ${item.urlOrPath} ${err.message}",
+              "ServerManager.updateSubscription err ${item.urlOrPath} ${result!.error!.message}",
             );
           } else {
             _updatedConfigs.removeWhere(
@@ -1679,6 +1679,7 @@ class ServerManager {
     String? ispId,
     String? ispUser,
     String decryptPassword = "",
+    List<String> outboundDns = const [],
   }) async {
     ServerConfigGroupItem item = ServerConfigGroupItem();
     ServerDiversionGroupItem diversionGroupItem = ServerDiversionGroupItem();
@@ -1705,6 +1706,7 @@ class ServerManager {
       item.isp!.id = ispId;
     }
     item.decryptPassword = decryptPassword;
+    item.outboundDns = outboundDns.toList();
     if (duration != null) {
       item.updateDuration = duration;
     }
@@ -1917,7 +1919,7 @@ class ServerManager {
     return result.error;
   }
 
-  static Future<ReturnResultError?> addRemoteConfig(
+  static Future<ReturnResult<ServerConfigGroupItem>> addRemoteConfig(
     String groupid,
     String remark,
     String url,
@@ -1939,6 +1941,7 @@ class ServerManager {
     String? ispId,
     String? ispUser,
     String decryptPassword = "",
+    List<String> outboundDns = const [],
   }) async {
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
       type,
@@ -1963,9 +1966,10 @@ class ServerManager {
       ispId: ispId,
       ispUser: ispUser,
       decryptPassword: decryptPassword,
+      outboundDns: outboundDns,
     );
 
-    return result.error;
+    return result;
   }
 
   static Future<void> loadUse() async {
@@ -2316,7 +2320,7 @@ class ServerManager {
     }
 
     _remoteReloading.add(groupid);
-    ReturnResultError? err = await addRemoteConfig(
+    final result = await addRemoteConfig(
       groupid,
       item.remark,
       item.urlOrPath,
@@ -2338,10 +2342,13 @@ class ServerManager {
       ispId: item.isp?.id,
       ispUser: item.isp?.user,
       decryptPassword: item.decryptPassword,
+      outboundDns: item.outboundDns,
     );
     _remoteReloading.remove(groupid);
-    if (err != null) {
-      Log.w("ServerManager.reload err ${item.urlOrPath} ${err.message}");
+    if (result.error != null) {
+      Log.w(
+        "ServerManager.reload err ${item.urlOrPath} ${result.error!.message}",
+      );
     } else {
       if (item.enable) {
         setUpdateDirty(true);
@@ -2370,7 +2377,7 @@ class ServerManager {
       _updatedConfigs.clear();
     }
 
-    return err;
+    return result.error;
   }
 
   static Future<void> reloadAll() async {
@@ -2395,7 +2402,7 @@ class ServerManager {
         continue;
       }
 
-      ReturnResultError? err = await addRemoteConfig(
+      final result = await addRemoteConfig(
         groupid,
         item.remark,
         item.urlOrPath,
@@ -2418,8 +2425,10 @@ class ServerManager {
         ispUser: item.isp?.user,
       );
       _remoteReloading.remove(groupid);
-      if (err != null) {
-        Log.w("ServerManager.reloadAll err ${item.urlOrPath} ${err.message}");
+      if (result.error != null) {
+        Log.w(
+          "ServerManager.reloadAll err ${item.urlOrPath} ${result.error!.message}",
+        );
       } else {
         if (item.enable) {
           setUpdateDirty(true);

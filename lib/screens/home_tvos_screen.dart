@@ -17,6 +17,7 @@ import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
+import 'package:karing/app/utils/stacktrace_utils.dart';
 import 'package:karing/app/utils/websocket.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -455,22 +456,31 @@ class _HomeTVOSScreenState extends LasyRenderingState<HomeTVOSScreen>
     options.disabledServerError = tcontext.HomeScreen.disabledServer;
     options.invalidServerError = tcontext.HomeScreen.invalidServer;
     options.expiredServerError = tcontext.HomeScreen.expiredServer;
-    ReturnResultError? err = await VPNService.setServer(
-      VPNService.getCurrent(),
-      options,
-      SingboxExportType.tvos,
-      widget.host,
-      widget.secret,
-      savePath,
-    );
-
-    if (err != null) {
+    ReturnResultError? resultError;
+    try {
+      resultError = await VPNService.setServer(
+        VPNService.getCurrent(),
+        options,
+        SingboxExportType.tvos,
+        widget.host,
+        widget.secret,
+        savePath,
+      );
+    } catch (err, stacktrace) {
+      resultError = ReturnResultError(
+        "${err.toString()}\n\n${StackTraceUtils.trim(stacktrace)}",
+      );
+      Log.w(
+        "setServer exception: ${err.toString()}\n\n${StackTraceUtils.trim(stacktrace)}",
+      );
+    }
+    if (resultError != null) {
       if (!mounted) {
         return;
       }
       DialogUtils.showAlertDialog(
         context,
-        err.message,
+        resultError.message,
         showCopy: true,
         showFAQ: true,
         withVersion: true,

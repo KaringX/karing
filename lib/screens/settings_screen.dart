@@ -816,24 +816,20 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ),
       );
     }
-
-    //
     if (PlatformUtils.isPC()) {
       groupOptions.add(
         GroupItem(
           options: [
-            if (Platform.isWindows) ...[
-              GroupItemOptions(
-                switchOptions: GroupItemSwitchOptions(
-                  name: tcontext.SettingsScreen.hideAfterLaunch,
-                  switchValue: settingConfig.ui.hideAfterLaunch,
-                  onSwitch: (bool value) async {
-                    settingConfig.ui.hideAfterLaunch = value;
-                    setState(() {});
-                  },
-                ),
+            GroupItemOptions(
+              switchOptions: GroupItemSwitchOptions(
+                name: tcontext.SettingsScreen.hideAfterLaunch,
+                switchValue: settingConfig.ui.hideAfterLaunch,
+                onSwitch: (bool value) async {
+                  settingConfig.ui.hideAfterLaunch = value;
+                  setState(() {});
+                },
               ),
-            ],
+            ),
             GroupItemOptions(
               switchOptions: GroupItemSwitchOptions(
                 name: tcontext.SettingsScreen.autoConnectAfterLaunch,
@@ -901,7 +897,7 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
         ),
       );
     }
-    if (Platform.isWindows) {
+    if (Platform.isWindows || Platform.isLinux) {
       groupOptions.add(
         GroupItem(
           options: [
@@ -926,38 +922,40 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                 },
               ),
             ),
-            GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.quitWhenSwitchSystemUser,
-                switchValue: settingConfig.quitWhenSwitchSystemUser,
-                onSwitch: (bool value) async {
-                  settingConfig.quitWhenSwitchSystemUser = value;
-                  setState(() {});
-                },
+            if (Platform.isWindows) ...[
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.quitWhenSwitchSystemUser,
+                  switchValue: settingConfig.quitWhenSwitchSystemUser,
+                  onSwitch: (bool value) async {
+                    settingConfig.quitWhenSwitchSystemUser = value;
+                    setState(() {});
+                  },
+                ),
               ),
-            ),
-            GroupItemOptions(
-              pushOptions: GroupItemPushOptions(
-                name: tcontext.SettingsScreen.handleScheme,
-                onPush: () async {
-                  await onTapHandleScheme();
-                },
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.handleScheme,
+                  onPush: () async {
+                    await onTapHandleScheme();
+                  },
+                ),
               ),
-            ),
-            GroupItemOptions(
-              switchOptions: GroupItemSwitchOptions(
-                name: tcontext.SettingsScreen.portableMode,
-                tips: tcontext.SettingsScreen.portableModeDisableTips,
-                switchValue: PathUtils.portableMode(),
-                onSwitch: PathUtils.portableMode()
-                    ? null
-                    : (bool value) async {
-                        if (value) {
-                          onTapPortableModeOn();
-                        }
-                      },
+              GroupItemOptions(
+                switchOptions: GroupItemSwitchOptions(
+                  name: tcontext.SettingsScreen.portableMode,
+                  tips: tcontext.SettingsScreen.portableModeDisableTips,
+                  switchValue: PathUtils.portableMode(),
+                  onSwitch: PathUtils.portableMode()
+                      ? null
+                      : (bool value) async {
+                          if (value) {
+                            onTapPortableModeOn();
+                          }
+                        },
+                ),
               ),
-            ),
+            ],
           ],
         ),
       );

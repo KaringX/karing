@@ -803,7 +803,10 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get diversion => 'انحراف';
 	@override String get diversionRules => 'قوانین انحراف';
 	@override String get diversionCustomGroup => 'گروه انحراف سفارشی';
+	@override String get circularDependency => 'وابستگی چرخه‌ای';
 	@override String get urlTestCustomGroup => 'انتخاب خودکار سفارشی';
+	@override String get urlTestCustomGroupPreProxyWarn => 'توجه: اگر \'[${_root.SettingsScreen.frontProxy}]\' را برای \'[${_root.meta.urlTestCustomGroup}]\' تنظیم کنید، قابلیت اصلی \'[${_root.SettingsScreen.chainProxy}]\' غیرفعال می‌شود و در نسخه‌ای از آینده منسوخ خواهد شد';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'قابلیت اصلی \'[${_root.SettingsScreen.chainProxy}]\' در نسخه‌ای از آینده منسوخ خواهد شد. لطفاً به‌جای آن از \'[${_root.SettingsScreen.frontProxy}]\' برای \'[${_root.meta.urlTestCustomGroup}]\' استفاده کنید';
 	@override String get setting => 'تنظیمات';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsFa {
 			'meta.diversion' => 'انحراف',
 			'meta.diversionRules' => 'قوانین انحراف',
 			'meta.diversionCustomGroup' => 'گروه انحراف سفارشی',
+			'meta.circularDependency' => 'وابستگی چرخه‌ای',
 			'meta.urlTestCustomGroup' => 'انتخاب خودکار سفارشی',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'توجه: اگر \'[${_root.SettingsScreen.frontProxy}]\' را برای \'[${_root.meta.urlTestCustomGroup}]\' تنظیم کنید، قابلیت اصلی \'[${_root.SettingsScreen.chainProxy}]\' غیرفعال می‌شود و در نسخه‌ای از آینده منسوخ خواهد شد',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'قابلیت اصلی \'[${_root.SettingsScreen.chainProxy}]\' در نسخه‌ای از آینده منسوخ خواهد شد. لطفاً به‌جای آن از \'[${_root.SettingsScreen.frontProxy}]\' برای \'[${_root.meta.urlTestCustomGroup}]\' استفاده کنید',
 			'meta.setting' => 'تنظیمات',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsFa {
 			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید',
 			'meta.profileAddParseFailed' => 'تجزیه پروفایل انجام نشد',
 			'meta.profileAddNoServerAvaliable' => 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'پیکربندی با موفقیت ایجاد شد، لطفاً برای مشاهده به [${_root.meta.myProfiles}] بروید',
 			'diversionRulesKeep' => '[${_root.meta.isp}]${_root.meta.diversionRules} را نگه دارید',
 			'diversionCustomGroupPreset' => 'از پیش تنظیم شده [گروه انحراف سفارشی]',

@@ -1472,7 +1472,7 @@ class GroupHelper {
                     "warp://auto?ifp=8-15&ifps=40-100&ifpd=20-250#Warp_$i",
                   );
                 }
-                var err = await ServerManager.addRemoteConfig(
+                var result = await ServerManager.addRemoteConfig(
                   "",
                   tagGen.gen("WARP"),
                   urls.join("\n"),
@@ -1491,17 +1491,17 @@ class GroupHelper {
                   null,
                   null,
                 );
-                if (err == null) {
+                if (result.error == null) {
                   ServerManager.setDirty(true);
                 }
                 if (!context.mounted) {
                   return;
                 }
                 Navigator.pop(context);
-                if (err != null) {
+                if (result.error != null) {
                   DialogUtils.showAlertDialog(
                     context,
-                    err.message,
+                    result.error!.message,
                     showCopy: true,
                     showFAQ: true,
                     withVersion: true,

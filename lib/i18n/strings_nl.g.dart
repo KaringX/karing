@@ -803,7 +803,10 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get diversion => 'Omleiding';
 	@override String get diversionRules => 'Omleidingsregels';
 	@override String get diversionCustomGroup => 'Aangepaste omleidingsgroep';
+	@override String get circularDependency => 'Circulaire afhankelijkheid';
 	@override String get urlTestCustomGroup => 'Aangepaste automatische selectie';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Let op: als u \'[${_root.SettingsScreen.frontProxy}]\' instelt voor \'[${_root.meta.urlTestCustomGroup}]\', is de oorspronkelijke functie \'[${_root.SettingsScreen.chainProxy}]\' niet meer beschikbaar en wordt deze in een toekomstige versie verwijderd';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'De oorspronkelijke functie \'[${_root.SettingsScreen.chainProxy}]\' wordt in een toekomstige versie uitgefaseerd. Gebruik in plaats daarvan \'[${_root.SettingsScreen.frontProxy}]\' voor \'[${_root.meta.urlTestCustomGroup}]\'';
 	@override String get setting => 'Instellingen';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsNl {
 			'meta.diversion' => 'Omleiding',
 			'meta.diversionRules' => 'Omleidingsregels',
 			'meta.diversionCustomGroup' => 'Aangepaste omleidingsgroep',
+			'meta.circularDependency' => 'Circulaire afhankelijkheid',
 			'meta.urlTestCustomGroup' => 'Aangepaste automatische selectie',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Let op: als u \'[${_root.SettingsScreen.frontProxy}]\' instelt voor \'[${_root.meta.urlTestCustomGroup}]\', is de oorspronkelijke functie \'[${_root.SettingsScreen.chainProxy}]\' niet meer beschikbaar en wordt deze in een toekomstige versie verwijderd',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'De oorspronkelijke functie \'[${_root.SettingsScreen.chainProxy}]\' wordt in een toekomstige versie uitgefaseerd. Gebruik in plaats daarvan \'[${_root.SettingsScreen.frontProxy}]\' voor \'[${_root.meta.urlTestCustomGroup}]\'',
 			'meta.setting' => 'Instellingen',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsNl {
 			'meta.profileUrlOrContentCannotEmpty' => 'Profiellink mag niet leeg zijn',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Het formaat is onjuist, corrigeer het en voeg het opnieuw toe:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Toevoegen mislukt: ${p}, probeer de [UserAgent] te wijzigen en probeer het opnieuw, of gebruik de ingebouwde browser van het apparaat om de configuratielink te openen en importeer het door de browser gedownloade configuratiebestand in deze app',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Toevoegen mislukt: ${p}, schakel de proxy in of wijzig de huidige proxynode en probeer het opnieuw',
 			'meta.profileAddParseFailed' => 'Analyseren van profiel mislukt',
 			'meta.profileAddNoServerAvaliable' => 'Geen server beschikbaar, zorg ervoor dat de profiellink of het profielbestand geldig is; als uw profiel van GitHub komt, haal dan de link op via de [Raw]-knop op de pagina',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Profiel succesvol gegenereerd, ga naar [${_root.meta.myProfiles}] om het te bekijken',
 			'diversionRulesKeep' => '[${_root.meta.diversionRules}] van [${_root.meta.isp}] behouden',
 			'diversionCustomGroupPreset' => 'Voorinstelling [${_root.meta.diversionCustomGroup}]',

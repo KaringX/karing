@@ -803,7 +803,10 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get diversion => 'Định tuyến';
 	@override String get diversionRules => 'Quy tắc định tuyến';
 	@override String get diversionCustomGroup => 'Nhóm phân luồng tùy chỉnh';
+	@override String get circularDependency => 'Phụ thuộc vòng';
 	@override String get urlTestCustomGroup => 'Tự động chọn tùy chỉnh';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Lưu ý: Nếu bạn đặt \'[${_root.SettingsScreen.frontProxy}]\' cho \'[${_root.meta.urlTestCustomGroup}]\', tính năng \'[${_root.SettingsScreen.chainProxy}]\' ban đầu sẽ không còn khả dụng và sẽ bị loại bỏ trong phiên bản tương lai';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Tính năng \'[${_root.SettingsScreen.chainProxy}]\' ban đầu sẽ bị loại bỏ trong phiên bản tương lai. Vui lòng dùng \'[${_root.SettingsScreen.frontProxy}]\' cho \'[${_root.meta.urlTestCustomGroup}]\' thay thế';
 	@override String get setting => 'Cài đặt';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsVi {
 			'meta.diversion' => 'Định tuyến',
 			'meta.diversionRules' => 'Quy tắc định tuyến',
 			'meta.diversionCustomGroup' => 'Nhóm phân luồng tùy chỉnh',
+			'meta.circularDependency' => 'Phụ thuộc vòng',
 			'meta.urlTestCustomGroup' => 'Tự động chọn tùy chỉnh',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Lưu ý: Nếu bạn đặt \'[${_root.SettingsScreen.frontProxy}]\' cho \'[${_root.meta.urlTestCustomGroup}]\', tính năng \'[${_root.SettingsScreen.chainProxy}]\' ban đầu sẽ không còn khả dụng và sẽ bị loại bỏ trong phiên bản tương lai',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Tính năng \'[${_root.SettingsScreen.chainProxy}]\' ban đầu sẽ bị loại bỏ trong phiên bản tương lai. Vui lòng dùng \'[${_root.SettingsScreen.frontProxy}]\' cho \'[${_root.meta.urlTestCustomGroup}]\' thay thế',
 			'meta.setting' => 'Cài đặt',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsVi {
 			'meta.profileUrlOrContentCannotEmpty' => 'Liên kết cấu hình không được để trống',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Định dạng sai, vui lòng sửa lại và thêm lại: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng thử sửa đổi [UserAgent] và thử lại, hoặc sử dụng trình duyệt tích hợp của thiết bị để mở liên kết cấu hình và nhập tệp cấu hình đã tải xuống vào ứng dụng này',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng bật proxy hoặc sửa đổi nút proxy hiện tại và thử lại',
 			'meta.profileAddParseFailed' => 'Phân tích cấu hình thất bại',
 			'meta.profileAddNoServerAvaliable' => 'Không có máy chủ khả dụng, hãy đảm bảo liên kết hoặc tệp cấu hình hợp lệ; nếu cấu hình của bạn từ GitHub, vui lòng lấy liên kết từ nút [Raw] trên trang',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Tạo cấu hình thành công, vui lòng đi tới [${_root.meta.myProfiles}] để xem',
 			'diversionRulesKeep' => 'Giữ [${_root.meta.isp}] ${_root.meta.diversionRules}',
 			'diversionCustomGroupPreset' => 'Cài đặt sẵn [${_root.meta.diversionCustomGroup}]',

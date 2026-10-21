@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_secure_storage_windows
   hotkey_manager_windows
   open_dir_windows
+  permission_handler_windows
   protocol_handler
   screen_capturer_windows
   screen_retriever_windows

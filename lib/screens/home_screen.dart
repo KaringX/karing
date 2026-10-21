@@ -84,6 +84,7 @@ import 'package:karing/screens/widgets/rotation.dart';
 import 'package:karing/screens/widgets/sheet.dart';
 import 'package:karing/screens/widgets/super_grid.dart';
 import 'package:path/path.dart' as path;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -582,6 +583,16 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         "HSS_guide_done",
         title: tcontext.SettingsScreen.tutorial,
       );
+    }
+    if (Platform.isAndroid) {
+      String version = await FlutterVpnService.getSystemVersion();
+      int? v = int.tryParse(version);
+      if (v != null && v >= 33) {
+        final status = await Permission.notification.status;
+        if (status != PermissionStatus.granted) {
+          await Permission.notification.request();
+        }
+      }
     }
   }
 
@@ -1502,7 +1513,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       resultError = ReturnResultError(
         "${err.toString()}\n\n${StackTraceUtils.trim(stacktrace)}",
       );
-      Log.w("setServer exception: $err\n\n${StackTraceUtils.trim(stacktrace)}");
+      Log.w(
+        "setServer exception: ${err.toString()}\n\n${StackTraceUtils.trim(stacktrace)}",
+      );
     }
 
     if (resultError != null) {
@@ -1536,6 +1549,18 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     bool disableShowAlertDialog = false,
     String reason = "",
   }) async {
+    if (!SettingManager.getConfig().novice) {
+      if (SettingManager.getConfig().chainProxy.isNotEmpty) {
+        final tcontext = Translations.of(context);
+        await DialogUtils.showAlertDialog(
+          context,
+          tcontext.meta.urlTestCustomGroupChainProxyDeprecated,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+      }
+    }
     if (_state != FlutterVpnServiceState.connected) {
       return null;
     }
@@ -2151,6 +2176,18 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     String from, {
     bool disableShowAlertDialog = false,
   }) async {
+    if (!SettingManager.getConfig().novice) {
+      if (SettingManager.getConfig().chainProxy.isNotEmpty) {
+        final tcontext = Translations.of(context);
+        await DialogUtils.showAlertDialog(
+          context,
+          tcontext.meta.urlTestCustomGroupChainProxyDeprecated,
+          showCopy: true,
+          showFAQ: true,
+          withVersion: true,
+        );
+      }
+    }
     _currentServerForUrltest.clear();
     VPNService.setCurrentServerForUrltest(_currentServerForUrltest);
     await ProxyCluster.stop();

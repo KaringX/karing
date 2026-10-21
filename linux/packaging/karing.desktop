@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Karing
+GenericName=Karing
+Comment=Karing client
+Exec=karing %u
+TryExec=karing
+Terminal=false
+Categories=Network;
+StartupNotify=true
+Icon=com.nebula.karing
+MimeType=x-scheme-handler/karing;

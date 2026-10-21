@@ -803,7 +803,10 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get diversion => 'ڈائیورژن';
 	@override String get diversionRules => 'ڈائیورژن رولز';
 	@override String get diversionCustomGroup => 'کسٹم ڈائیورژن گروپ';
+	@override String get circularDependency => 'چکری انحصار';
 	@override String get urlTestCustomGroup => 'کسٹم آٹو سلیکشن';
+	@override String get urlTestCustomGroupPreProxyWarn => 'نوٹ: اگر آپ \'[${_root.meta.urlTestCustomGroup}]\' کے لیے \'[${_root.SettingsScreen.frontProxy}]\' سیٹ کرتے ہیں، تو اصل \'[${_root.SettingsScreen.chainProxy}]\' فیچر دستیاب نہیں رہے گا اور آئندہ ورژن میں ختم کر دیا جائے گا';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'اصل \'[${_root.SettingsScreen.chainProxy}]\' فیچر آئندہ ورژن میں ختم کر دیا جائے گا۔ براہِ کرم اس کے بجائے \'[${_root.meta.urlTestCustomGroup}]\' کے لیے \'[${_root.SettingsScreen.frontProxy}]\' استعمال کریں';
 	@override String get setting => 'ترتیبات';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsUr {
 			'meta.diversion' => 'ڈائیورژن',
 			'meta.diversionRules' => 'ڈائیورژن رولز',
 			'meta.diversionCustomGroup' => 'کسٹم ڈائیورژن گروپ',
+			'meta.circularDependency' => 'چکری انحصار',
 			'meta.urlTestCustomGroup' => 'کسٹم آٹو سلیکشن',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'نوٹ: اگر آپ \'[${_root.meta.urlTestCustomGroup}]\' کے لیے \'[${_root.SettingsScreen.frontProxy}]\' سیٹ کرتے ہیں، تو اصل \'[${_root.SettingsScreen.chainProxy}]\' فیچر دستیاب نہیں رہے گا اور آئندہ ورژن میں ختم کر دیا جائے گا',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'اصل \'[${_root.SettingsScreen.chainProxy}]\' فیچر آئندہ ورژن میں ختم کر دیا جائے گا۔ براہِ کرم اس کے بجائے \'[${_root.meta.urlTestCustomGroup}]\' کے لیے \'[${_root.SettingsScreen.frontProxy}]\' استعمال کریں',
 			'meta.setting' => 'ترتیبات',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsUr {
 			'meta.profileUrlOrContentCannotEmpty' => 'پروفائل لنک خالی نہیں ہو سکتا',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فارمیٹ غلط ہے، براہ کرم اسے درست کریں اور دوبارہ شامل کریں:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم [UserAgent] کو تبدیل کرنے کی کوشش کریں اور دوبارہ کوشش کریں، یا کنفیگریشن لنک کھولنے کے لیے ڈیوائس کا بلٹ ان براؤزر استعمال کریں اور براؤزر کے ذریعے ڈاؤن لوڈ کی گئی کنفیگریشن فائل کو اس ایپلی کیشن میں درآمد کریں',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم پراکسی آن کریں یا موجودہ پراکسی نوڈ کو تبدیل کریں اور دوبارہ کوشش کریں',
 			'meta.profileAddParseFailed' => 'پروفائل کا تجزیہ کرنے میں ناکامی',
 			'meta.profileAddNoServerAvaliable' => 'کوئی سرور دستیاب نہیں ہے، یقینی بنائیں کہ پروفائل لنک یا پروفائل فائل درست ہے؛ اگر آپ کا پروفائل GitHub سے ہے تو براہ کرم صفحہ پر [Raw] بٹن کے ذریعے لنک حاصل کریں',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'پروفائل کامیابی سے تیار ہو گیا، براہ کرم دیکھنے کے لیے [${_root.meta.myProfiles}] پر جائیں',
 			'diversionRulesKeep' => '[${_root.meta.isp}] کے [${_root.meta.diversionRules}] کو برقرار رکھیں',
 			'diversionCustomGroupPreset' => 'پری سیٹ [${_root.meta.diversionCustomGroup}]',

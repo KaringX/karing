@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/board_provider_manager.dart';
+import 'package:karing/app/modules/remote_config_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
@@ -123,14 +125,14 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
                       children: [
                         TextSpan(
                           text: tcontext.loginScreen
-                              .providerLoginSupportRequired(p: ''),
+                              .providerLoginSupportRequired(p: '\n'),
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        /*TextSpan(
+                        TextSpan(
                           text: RemoteConfigManager.getConfig().connect,
                           style: TextStyle(
                             color: Colors.red,
@@ -144,7 +146,7 @@ class _LoginStepProviderScreenState extends State<LoginStepProviderScreen> {
                                 RemoteConfigManager.getConfig().connect,
                               );
                             },
-                        ),*/
+                        ),
                         TextSpan(
                           text:
                               "\n\n${tcontext.loginScreen.providerDisclaimer}",

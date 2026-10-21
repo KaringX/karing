@@ -803,7 +803,10 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get diversion => 'Відхилення';
 	@override String get diversionRules => 'Правила відхилення';
 	@override String get diversionCustomGroup => 'Спеціальна група відхилення';
+	@override String get circularDependency => 'Циклічна залежність';
 	@override String get urlTestCustomGroup => 'Спеціальний автовибір';
+	@override String get urlTestCustomGroupPreProxyWarn => 'Увага: якщо встановити \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\', початкова функція \'[${_root.SettingsScreen.chainProxy}]\' стане недоступною та буде вилучена в майбутній версії';
+	@override String get urlTestCustomGroupChainProxyDeprecated => 'Початкову функцію \'[${_root.SettingsScreen.chainProxy}]\' буде вилучено в майбутній версії. Натомість використовуйте \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\'';
 	@override String get setting => 'Налаштування';
 	@override String get iCloud => 'iCloud';
 	@override String get appleTV => 'Apple TV';
@@ -1444,7 +1447,10 @@ extension on TranslationsUk {
 			'meta.diversion' => 'Відхилення',
 			'meta.diversionRules' => 'Правила відхилення',
 			'meta.diversionCustomGroup' => 'Спеціальна група відхилення',
+			'meta.circularDependency' => 'Циклічна залежність',
 			'meta.urlTestCustomGroup' => 'Спеціальний автовибір',
+			'meta.urlTestCustomGroupPreProxyWarn' => 'Увага: якщо встановити \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\', початкова функція \'[${_root.SettingsScreen.chainProxy}]\' стане недоступною та буде вилучена в майбутній версії',
+			'meta.urlTestCustomGroupChainProxyDeprecated' => 'Початкову функцію \'[${_root.SettingsScreen.chainProxy}]\' буде вилучено в майбутній версії. Натомість використовуйте \'[${_root.SettingsScreen.frontProxy}]\' для \'[${_root.meta.urlTestCustomGroup}]\'',
 			'meta.setting' => 'Налаштування',
 			'meta.iCloud' => 'iCloud',
 			'meta.appleTV' => 'Apple TV',
@@ -1486,11 +1492,11 @@ extension on TranslationsUk {
 			'meta.profileUrlOrContentCannotEmpty' => 'Посилання на профіль не може бути порожнім',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильний формат, будь ласка, виправте його та додайте знову:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, спробуйте змінити [UserAgent] і спробуйте знову, або скористайтеся вбудованим браузером пристрою, щоб відкрити посилання на конфігурацію та імпортувати файл конфігурації, завантажений браузером, у цю програму',
+			_ => null,
+		} ?? switch (path) {
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, увімкніть проксі або змініть поточний проксі-вузол і спробуйте знову',
 			'meta.profileAddParseFailed' => 'Не вдалося проаналізувати профіль',
 			'meta.profileAddNoServerAvaliable' => 'Немає доступних серверів, переконайтеся, що посилання на профіль або файл профілю коректні; якщо ваш профіль з GitHub, отримайте посилання за допомогою кнопки [Raw] на сторінці',
-			_ => null,
-		} ?? switch (path) {
 			'meta.profileAddWrapSuccess' => 'Профіль успішно згенеровано, перейдіть до [${_root.meta.myProfiles}] для перегляду',
 			'diversionRulesKeep' => 'Зберегти [${_root.meta.diversionRules}] від [${_root.meta.isp}]',
 			'diversionCustomGroupPreset' => 'Попередньо встановлена [${_root.meta.diversionCustomGroup}]',
