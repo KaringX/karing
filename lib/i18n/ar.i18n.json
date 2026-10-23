@@ -401,7 +401,7 @@
         "account": "حساب",
         "password": "كلمة المرور",
         "decryptPassword": "فك تشفير كلمة المرور",
-        "overwriteOutboundDns": "DNS: استبدال [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "فضّل استخدام DNS المضمّن في الإعدادات لتحليل أسماء نطاقات العقد",
         "required": "مطلوب",
         "type": "يكتب",
         "path": "طريق",

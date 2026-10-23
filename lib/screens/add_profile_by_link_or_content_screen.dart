@@ -63,7 +63,7 @@ class _AddProfileByLinkOrContentScreenState
   bool _append = true;
   List<String> _compatible = [];
   bool _xhwid = false;
-  bool _overrideProxyDns = false;
+  bool _preferOutboundDNS = false;
   List<String> outboundDns = [];
   String _website = "";
   String _decryptPassword = "";
@@ -102,7 +102,9 @@ class _AddProfileByLinkOrContentScreenState
       }
       outboundDns.add(dns);
     }
-    _overrideProxyDns = outboundDns.isNotEmpty;
+    if (outboundDns.isNotEmpty) {
+      _preferOutboundDNS = true;
+    }
 
     super.initState();
   }
@@ -139,9 +141,11 @@ class _AddProfileByLinkOrContentScreenState
         final dns = uri.queryParameters["outbound-dns"];
         if (dns != null && dns.isNotEmpty) {
           outboundDns = dns.split(",");
-          _overrideProxyDns = outboundDns.isNotEmpty;
         }
       }
+    }
+    if (outboundDns.isNotEmpty) {
+      _preferOutboundDNS = true;
     }
   }
 
@@ -274,34 +278,8 @@ class _AddProfileByLinkOrContentScreenState
       ispUser: widget.ispUser,
       decryptPassword: _decryptPassword,
       outboundDns: outboundDns,
+      preferOutboundDns: _preferOutboundDNS,
     );
-    if (result.error == null) {
-      if (_overrideProxyDns && result.data!.outboundDns.isNotEmpty) {
-        final uri = Uri.tryParse(url);
-        for (var dns in result.data!.outboundDns) {
-          if (!SettingConfigItemDNS.containsDNSURL(dns)) {
-            final exists = SettingManager.getConfig().dns.list.any((element) {
-              if (element is Map<String, dynamic>) {
-                final dnsUrl = element[SettingConfigItemDNS.kDNSUrl];
-                if (dnsUrl == dns) {
-                  return true;
-                }
-              }
-              return false;
-            });
-            if (!exists) {
-              SettingManager.getConfig().dns.list.add({
-                SettingConfigItemDNS.kDNSIsp: uri?.host ?? "",
-                SettingConfigItemDNS.kDNSUrl: dns,
-              });
-            }
-          }
-        }
-        SettingManager.getConfig().dns.setOutboundDns(result.data!.outboundDns);
-        SettingManager.setDirty(true);
-      }
-      ServerManager.setDirty(true);
-    }
     if (!mounted) {
       return;
     }
@@ -555,17 +533,7 @@ class _AddProfileByLinkOrContentScreenState
           },
         ),
       ),
-      GroupItemOptions(
-        switchOptions: GroupItemSwitchOptions(
-          name: tcontext.meta.overwriteOutboundDns,
-          tips: outboundDns.join("\n"),
-          switchValue: _overrideProxyDns,
-          onSwitch: (bool value) async {
-            _overrideProxyDns = value;
-            setState(() {});
-          },
-        ),
-      ),
+
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
           name: tcontext.meta.decryptPassword,
@@ -679,6 +647,17 @@ class _AddProfileByLinkOrContentScreenState
                   _testLatencyAutoRemove = value;
                   setState(() {});
                 },
+        ),
+      ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.preferOutboundDNS,
+          tips: outboundDns.join("\n"),
+          switchValue: _preferOutboundDNS,
+          onSwitch: (bool value) async {
+            _preferOutboundDNS = value;
+            setState(() {});
+          },
         ),
       ),
     ];

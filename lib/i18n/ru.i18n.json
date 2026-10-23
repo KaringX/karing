@@ -401,7 +401,7 @@
         "account": "Аккаунт",
         "password": "Пароль",
         "decryptPassword": "Пароль расшифровки",
-        "overwriteOutboundDns": "DNS: Переопределить [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Предпочитать DNS из конфигурации для разрешения доменных имён узлов",
         "required": "Необходимо",
         "type": "тип",
         "path": "путь",

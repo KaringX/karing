@@ -691,7 +691,7 @@ class _Translations$meta$hi implements Translations$meta$en {
 	@override String get account => 'खाता';
 	@override String get password => 'पासवर्ड';
 	@override String get decryptPassword => 'डिक्रोरप्ट पासवर्ड';
-	@override String get overwriteOutboundDns => 'DNS: ओवरराइड करें [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'नोड डोमेन नामों को हल करने के लिए कॉन्फ़िगरेशन में शामिल DNS को प्राथमिकता दें';
 	@override String get required => 'आवश्यक';
 	@override String get type => 'प्रकार';
 	@override String get path => 'पथ';
@@ -1335,7 +1335,7 @@ extension on TranslationsHi {
 			'meta.account' => 'खाता',
 			'meta.password' => 'पासवर्ड',
 			'meta.decryptPassword' => 'डिक्रोरप्ट पासवर्ड',
-			'meta.overwriteOutboundDns' => 'DNS: ओवरराइड करें [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'नोड डोमेन नामों को हल करने के लिए कॉन्फ़िगरेशन में शामिल DNS को प्राथमिकता दें',
 			'meta.required' => 'आवश्यक',
 			'meta.type' => 'प्रकार',
 			'meta.path' => 'पथ',

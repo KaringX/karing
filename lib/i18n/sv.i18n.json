@@ -401,7 +401,7 @@
         "account": "Konto",
         "password": "Lösenord",
         "decryptPassword": "Dekrypterringslösenord",
-        "overwriteOutboundDns": "DNS: Åsidosätt [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Föredra DNS från konfigurationen för att slå upp nodernas domännamn",
         "required": "Krävs",
         "type": "Typ",
         "path": "Sökväg",

@@ -1680,6 +1680,7 @@ class ServerManager {
     String? ispUser,
     String decryptPassword = "",
     List<String> outboundDns = const [],
+    bool preferOutboundDns = false,
   }) async {
     ServerConfigGroupItem item = ServerConfigGroupItem();
     ServerDiversionGroupItem diversionGroupItem = ServerDiversionGroupItem();
@@ -1710,6 +1711,7 @@ class ServerManager {
     if (duration != null) {
       item.updateDuration = duration;
     }
+    item.preferOutboundDns = preferOutboundDns;
 
     diversionGroupItem.groupid = item.groupid;
     ReturnResultError? error = await AutoConfUtils.tryConvert(
@@ -1884,6 +1886,7 @@ class ServerManager {
     String filePath,
     SubscriptionLinkType type,
     ProxyFilter filter,
+    bool preferOutboundDns,
     bool keepDiversionRules,
     bool testLatencyAutoRemove,
   ) async {
@@ -1914,6 +1917,7 @@ class ServerManager {
       ProxyStrategy.preferProxy,
       null,
       null,
+      preferOutboundDns: preferOutboundDns,
     );
 
     return result.error;
@@ -1942,6 +1946,7 @@ class ServerManager {
     String? ispUser,
     String decryptPassword = "",
     List<String> outboundDns = const [],
+    bool preferOutboundDns = false,
   }) async {
     ReturnResult<ServerConfigGroupItem> result = await loadFrom(
       type,
@@ -1967,6 +1972,7 @@ class ServerManager {
       ispUser: ispUser,
       decryptPassword: decryptPassword,
       outboundDns: outboundDns,
+      preferOutboundDns: preferOutboundDns,
     );
 
     return result;
@@ -2343,6 +2349,7 @@ class ServerManager {
       ispUser: item.isp?.user,
       decryptPassword: item.decryptPassword,
       outboundDns: item.outboundDns,
+      preferOutboundDns: item.preferOutboundDns,
     );
     _remoteReloading.remove(groupid);
     if (result.error != null) {

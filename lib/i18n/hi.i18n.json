@@ -401,7 +401,7 @@
         "account": "खाता",
         "password": "पासवर्ड",
         "decryptPassword": "डिक्रोरप्ट पासवर्ड",
-        "overwriteOutboundDns": "DNS: ओवरराइड करें [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "नोड डोमेन नामों को हल करने के लिए कॉन्फ़िगरेशन में शामिल DNS को प्राथमिकता दें",
         "required": "आवश्यक",
         "type": "प्रकार",
         "path": "पथ",

@@ -691,7 +691,7 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get account => 'บัญชี';
 	@override String get password => 'รหัสผ่าน';
 	@override String get decryptPassword => 'รหัสผ่านถอดรหัส';
-	@override String get overwriteOutboundDns => 'DNS: เขียนทับ [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'เลือกใช้ DNS ที่ระบุในค่ากำหนดเพื่อค้นหาชื่อโดเมนของโหนด';
 	@override String get required => 'จำเป็น';
 	@override String get type => 'ประเภท';
 	@override String get path => 'เส้นทาง';
@@ -1335,7 +1335,7 @@ extension on TranslationsTh {
 			'meta.account' => 'บัญชี',
 			'meta.password' => 'รหัสผ่าน',
 			'meta.decryptPassword' => 'รหัสผ่านถอดรหัส',
-			'meta.overwriteOutboundDns' => 'DNS: เขียนทับ [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'เลือกใช้ DNS ที่ระบุในค่ากำหนดเพื่อค้นหาชื่อโดเมนของโหนด',
 			'meta.required' => 'จำเป็น',
 			'meta.type' => 'ประเภท',
 			'meta.path' => 'เส้นทาง',

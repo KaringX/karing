@@ -401,7 +401,7 @@
         "account": "Tài khoản",
         "password": "Mật khẩu",
         "decryptPassword": "Mật khẩu giải mã",
-        "overwriteOutboundDns": "DNS: Ghi đè [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Ưu tiên DNS có trong cấu hình để phân giải tên miền của các nút",
         "required": "Bắt buộc",
         "type": "Loại",
         "path": "Đường dẫn",

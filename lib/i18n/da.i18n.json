@@ -401,7 +401,7 @@
         "account": "Konto",
         "password": "Adgangskode",
         "decryptPassword": "Dekryptering adgangskode",
-        "overwriteOutboundDns": "DNS: Tilsidesæt [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Foretræk DNS fra konfigurationen til opslag af nodernes domænenavne",
         "required": "Påkrævet",
         "type": "Type",
         "path": "Sti",

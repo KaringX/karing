@@ -47,6 +47,7 @@ class _MyProfilesEditScreenState
   bool _reloadAfterProfileUpdate = false;
   bool _testLatencyAfterProfileUpdate = false;
   bool _testLatencyAutoRemove = false;
+  bool _preferOutboundDns = false;
 
   @override
   void initState() {
@@ -71,6 +72,7 @@ class _MyProfilesEditScreenState
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
       _testLatencyAutoRemove = item.testLatencyAutoRemove;
       _decryptPassword = item.decryptPassword;
+      _preferOutboundDns = item.preferOutboundDns;
     }
   }
 
@@ -216,7 +218,8 @@ class _MyProfilesEditScreenState
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
         item.testLatencyAutoRemove == _testLatencyAutoRemove &&
-        item.decryptPassword == _decryptPassword) {
+        item.decryptPassword == _decryptPassword &&
+        item.preferOutboundDns == _preferOutboundDns) {
       Navigator.pop(context);
       return;
     }
@@ -244,6 +247,7 @@ class _MyProfilesEditScreenState
     item.testLatencyAfterProfileUpdate = _testLatencyAfterProfileUpdate;
     item.testLatencyAutoRemove = _testLatencyAutoRemove;
     item.decryptPassword = _decryptPassword;
+    item.preferOutboundDns = _preferOutboundDns;
     ServerManager.modifyRemark(item.groupid, remarkText);
     ServerManager.modifyUrl(item.groupid, urlText);
 
@@ -365,6 +369,7 @@ class _MyProfilesEditScreenState
           },
         ),
       ),
+
       GroupItemOptions(
         switchOptions: GroupItemSwitchOptions(
           name: tcontext.diversionRulesKeep,
@@ -455,6 +460,20 @@ class _MyProfilesEditScreenState
           switchValue: _testLatencyAutoRemove,
           onSwitch: (bool value) async {
             _testLatencyAutoRemove = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.preferOutboundDNS,
+          tips: item.outboundDns.join("\n"),
+          switchValue: _preferOutboundDns,
+          onSwitch: (bool value) async {
+            _preferOutboundDns = value;
+            if (item.outboundDns.isNotEmpty) {
+              ServerManager.setDirty(true);
+            }
             setState(() {});
           },
         ),

@@ -691,7 +691,7 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get account => 'アカウント';
 	@override String get password => 'パスワード';
 	@override String get decryptPassword => '複号化パスワード';
-	@override String get overwriteOutboundDns => 'DNS:上書き[${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'ノードのドメイン名の解決に、設定に含まれるDNSを優先して使用する';
 	@override String get required => '必須';
 	@override String get type => 'タイプ';
 	@override String get path => 'パス';
@@ -1335,7 +1335,7 @@ extension on TranslationsJa {
 			'meta.account' => 'アカウント',
 			'meta.password' => 'パスワード',
 			'meta.decryptPassword' => '複号化パスワード',
-			'meta.overwriteOutboundDns' => 'DNS:上書き[${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'ノードのドメイン名の解決に、設定に含まれるDNSを優先して使用する',
 			'meta.required' => '必須',
 			'meta.type' => 'タイプ',
 			'meta.path' => 'パス',

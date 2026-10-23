@@ -691,7 +691,7 @@ class _Translations$meta$no implements Translations$meta$en {
 	@override String get account => 'Konto';
 	@override String get password => 'Passord';
 	@override String get decryptPassword => 'Dekryptering passord';
-	@override String get overwriteOutboundDns => 'DNS: Overstyr [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Foretrekk DNS fra konfigurasjonen for oppslag av nodenes domenenavn';
 	@override String get required => 'Påkrevd';
 	@override String get type => 'Type';
 	@override String get path => 'Bane';
@@ -1335,7 +1335,7 @@ extension on TranslationsNo {
 			'meta.account' => 'Konto',
 			'meta.password' => 'Passord',
 			'meta.decryptPassword' => 'Dekryptering passord',
-			'meta.overwriteOutboundDns' => 'DNS: Overstyr [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Foretrekk DNS fra konfigurasjonen for oppslag av nodenes domenenavn',
 			'meta.required' => 'Påkrevd',
 			'meta.type' => 'Type',
 			'meta.path' => 'Bane',

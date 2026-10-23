@@ -691,7 +691,7 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get account => 'Обліковий запис';
 	@override String get password => 'Пароль';
 	@override String get decryptPassword => 'Пароль розшифровки';
-	@override String get overwriteOutboundDns => 'DNS: Перезаписати [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Надавати перевагу DNS із конфігурації для визначення доменних імен вузлів';
 	@override String get required => 'Обов\'язково';
 	@override String get type => 'Тип';
 	@override String get path => 'Шлях';
@@ -1335,7 +1335,7 @@ extension on TranslationsUk {
 			'meta.account' => 'Обліковий запис',
 			'meta.password' => 'Пароль',
 			'meta.decryptPassword' => 'Пароль розшифровки',
-			'meta.overwriteOutboundDns' => 'DNS: Перезаписати [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Надавати перевагу DNS із конфігурації для визначення доменних імен вузлів',
 			'meta.required' => 'Обов\'язково',
 			'meta.type' => 'Тип',
 			'meta.path' => 'Шлях',

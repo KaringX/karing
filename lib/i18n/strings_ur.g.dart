@@ -691,7 +691,7 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get account => 'اکاؤنٹ';
 	@override String get password => 'پاس ورڈ';
 	@override String get decryptPassword => 'ڈی کرپٹ پاس ورڈ';
-	@override String get overwriteOutboundDns => 'DNS: اووررائڈ کریں [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'نوڈ کے ڈومین نام حل کرنے کے لیے کنفیگریشن میں موجود DNS کو ترجیح دیں';
 	@override String get required => 'ضروری';
 	@override String get type => 'قسم';
 	@override String get path => 'راستہ';
@@ -1335,7 +1335,7 @@ extension on TranslationsUr {
 			'meta.account' => 'اکاؤنٹ',
 			'meta.password' => 'پاس ورڈ',
 			'meta.decryptPassword' => 'ڈی کرپٹ پاس ورڈ',
-			'meta.overwriteOutboundDns' => 'DNS: اووررائڈ کریں [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'نوڈ کے ڈومین نام حل کرنے کے لیے کنفیگریشن میں موجود DNS کو ترجیح دیں',
 			'meta.required' => 'ضروری',
 			'meta.type' => 'قسم',
 			'meta.path' => 'راستہ',

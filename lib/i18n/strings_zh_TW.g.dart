@@ -691,7 +691,7 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get account => '帳號';
 	@override String get password => '密碼';
 	@override String get decryptPassword => '解密密碼';
-	@override String get overwriteOutboundDns => 'DNS:覆蓋[${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => '優先使用設定自帶的 DNS 解析節點域名';
 	@override String get required => '必填';
 	@override String get type => '類型';
 	@override String get path => '路徑';
@@ -1335,7 +1335,7 @@ extension on TranslationsZhTw {
 			'meta.account' => '帳號',
 			'meta.password' => '密碼',
 			'meta.decryptPassword' => '解密密碼',
-			'meta.overwriteOutboundDns' => 'DNS:覆蓋[${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => '優先使用設定自帶的 DNS 解析節點域名',
 			'meta.required' => '必填',
 			'meta.type' => '類型',
 			'meta.path' => '路徑',

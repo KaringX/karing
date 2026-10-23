@@ -691,7 +691,7 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get account => 'Tài khoản';
 	@override String get password => 'Mật khẩu';
 	@override String get decryptPassword => 'Mật khẩu giải mã';
-	@override String get overwriteOutboundDns => 'DNS: Ghi đè [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Ưu tiên DNS có trong cấu hình để phân giải tên miền của các nút';
 	@override String get required => 'Bắt buộc';
 	@override String get type => 'Loại';
 	@override String get path => 'Đường dẫn';
@@ -1335,7 +1335,7 @@ extension on TranslationsVi {
 			'meta.account' => 'Tài khoản',
 			'meta.password' => 'Mật khẩu',
 			'meta.decryptPassword' => 'Mật khẩu giải mã',
-			'meta.overwriteOutboundDns' => 'DNS: Ghi đè [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Ưu tiên DNS có trong cấu hình để phân giải tên miền của các nút',
 			'meta.required' => 'Bắt buộc',
 			'meta.type' => 'Loại',
 			'meta.path' => 'Đường dẫn',

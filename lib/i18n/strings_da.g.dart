@@ -691,7 +691,7 @@ class _Translations$meta$da implements Translations$meta$en {
 	@override String get account => 'Konto';
 	@override String get password => 'Adgangskode';
 	@override String get decryptPassword => 'Dekryptering adgangskode';
-	@override String get overwriteOutboundDns => 'DNS: Tilsidesæt [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Foretræk DNS fra konfigurationen til opslag af nodernes domænenavne';
 	@override String get required => 'Påkrævet';
 	@override String get type => 'Type';
 	@override String get path => 'Sti';
@@ -1335,7 +1335,7 @@ extension on TranslationsDa {
 			'meta.account' => 'Konto',
 			'meta.password' => 'Adgangskode',
 			'meta.decryptPassword' => 'Dekryptering adgangskode',
-			'meta.overwriteOutboundDns' => 'DNS: Tilsidesæt [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Foretræk DNS fra konfigurationen til opslag af nodernes domænenavne',
 			'meta.required' => 'Påkrævet',
 			'meta.type' => 'Type',
 			'meta.path' => 'Sti',

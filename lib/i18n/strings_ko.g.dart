@@ -691,7 +691,7 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get account => '계정';
 	@override String get password => '비밀번호';
 	@override String get decryptPassword => '복호화 비밀번호';
-	@override String get overwriteOutboundDns => 'DNS: 덮어쓰기[${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => '노드 도메인 이름을 확인할 때 구성에 포함된 DNS 우선 사용';
 	@override String get required => '필수';
 	@override String get type => '유형';
 	@override String get path => '경로';
@@ -1335,7 +1335,7 @@ extension on TranslationsKo {
 			'meta.account' => '계정',
 			'meta.password' => '비밀번호',
 			'meta.decryptPassword' => '복호화 비밀번호',
-			'meta.overwriteOutboundDns' => 'DNS: 덮어쓰기[${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => '노드 도메인 이름을 확인할 때 구성에 포함된 DNS 우선 사용',
 			'meta.required' => '필수',
 			'meta.type' => '유형',
 			'meta.path' => '경로',

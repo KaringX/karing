@@ -563,6 +563,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
             allOutboundsTags,
             allOutbounds,
             null,
+            null,
           );
           for (var proxy in allOutbounds.item1) {
             _allOutboundTagMap[proxy.tag] = proxy;
@@ -1380,10 +1381,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
                                           : 45,
                                       child: Text(
                                         server.getShowType(),
-                                        style: const TextStyle(
-                                          fontSize:
-                                              ThemeConfig.kFontSizeListSubItem,
-                                        ),
+                                        style: const TextStyle(fontSize: 12),
                                       ),
                                     ),
                                   ],

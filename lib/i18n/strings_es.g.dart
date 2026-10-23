@@ -691,7 +691,7 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get account => 'Cuenta';
 	@override String get password => 'Contraseña';
 	@override String get decryptPassword => 'Contraseña de descifrado';
-	@override String get overwriteOutboundDns => 'DNS: Sobrescribir [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Preferir el DNS incluido en la configuración para resolver los dominios de los nodos';
 	@override String get required => 'Requerido';
 	@override String get type => 'Tipo';
 	@override String get path => 'Ruta';
@@ -1335,7 +1335,7 @@ extension on TranslationsEs {
 			'meta.account' => 'Cuenta',
 			'meta.password' => 'Contraseña',
 			'meta.decryptPassword' => 'Contraseña de descifrado',
-			'meta.overwriteOutboundDns' => 'DNS: Sobrescribir [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Preferir el DNS incluido en la configuración para resolver los dominios de los nodos',
 			'meta.required' => 'Requerido',
 			'meta.type' => 'Tipo',
 			'meta.path' => 'Ruta',

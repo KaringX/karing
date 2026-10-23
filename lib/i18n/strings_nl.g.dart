@@ -691,7 +691,7 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get account => 'Account';
 	@override String get password => 'Wachtwoord';
 	@override String get decryptPassword => 'Ontcijferingswachtwoord';
-	@override String get overwriteOutboundDns => 'DNS: Overschrijven [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Geef de voorkeur aan de DNS uit de configuratie voor het opzoeken van domeinnamen van nodes';
 	@override String get required => 'Vereist';
 	@override String get type => 'Type';
 	@override String get path => 'Pad';
@@ -1335,7 +1335,7 @@ extension on TranslationsNl {
 			'meta.account' => 'Account',
 			'meta.password' => 'Wachtwoord',
 			'meta.decryptPassword' => 'Ontcijferingswachtwoord',
-			'meta.overwriteOutboundDns' => 'DNS: Overschrijven [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Geef de voorkeur aan de DNS uit de configuratie voor het opzoeken van domeinnamen van nodes',
 			'meta.required' => 'Vereist',
 			'meta.type' => 'Type',
 			'meta.path' => 'Pad',

@@ -401,7 +401,7 @@
         "account": "Konto",
         "password": "Passwort",
         "decryptPassword": "Entschlüsselungspasswort",
-        "overwriteOutboundDns": "DNS: Überschreiben [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Zum Auflösen der Knotendomains bevorzugt den in der Konfiguration enthaltenen DNS verwenden",
         "required": "Erforderlich",
         "type": "Typ",
         "path": "Pfad",

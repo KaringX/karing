@@ -995,7 +995,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       CommonDialog.loadFAQByError(context, text, true);
     };
 
-    checkError("_onInitAllFinish", showAlert: false);
+    //checkError("_onInitAllFinish", showAlert: false);
 
     if (_currentServer.tag.isEmpty) {
       ProxyConfig? config = ServerManager.getMostRecent();
@@ -1196,7 +1196,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
       _disconnectToService();
       Biz.vpnStateChanged(false);
       _updateVpnStateLocalNotifications("stop");
-      checkError("onStateChanged");
+      //checkError("onStateChanged");
     } else if (state == FlutterVpnServiceState.connecting) {
     } else if (state == FlutterVpnServiceState.connected) {
       if (!AppLifecycleStateNofity.isPaused()) {

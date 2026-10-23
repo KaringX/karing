@@ -401,7 +401,7 @@
         "account": "Обліковий запис",
         "password": "Пароль",
         "decryptPassword": "Пароль розшифровки",
-        "overwriteOutboundDns": "DNS: Перезаписати [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Надавати перевагу DNS із конфігурації для визначення доменних імен вузлів",
         "required": "Обов'язково",
         "type": "Тип",
         "path": "Шлях",

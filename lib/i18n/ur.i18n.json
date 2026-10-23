@@ -401,7 +401,7 @@
         "account": "اکاؤنٹ",
         "password": "پاس ورڈ",
         "decryptPassword": "ڈی کرپٹ پاس ورڈ",
-        "overwriteOutboundDns": "DNS: اووررائڈ کریں [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "نوڈ کے ڈومین نام حل کرنے کے لیے کنفیگریشن میں موجود DNS کو ترجیح دیں",
         "required": "ضروری",
         "type": "قسم",
         "path": "راستہ",

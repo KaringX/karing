@@ -401,7 +401,7 @@
         "account": "Conta",
         "password": "Palavra-passe",
         "decryptPassword": "Palavra-passe de descriptografia",
-        "overwriteOutboundDns": "DNS: Sobrescrever [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Preferir o DNS incluído na configuração para resolver os domínios dos nós",
         "required": "Obrigatório",
         "type": "Tipo",
         "path": "Caminho",

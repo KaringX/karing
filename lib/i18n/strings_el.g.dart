@@ -691,7 +691,7 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get account => 'Λογαριασμός';
 	@override String get password => 'Κωδικός πρόσβασης';
 	@override String get decryptPassword => 'Κωδικός Αποκρυπτογράφησης';
-	@override String get overwriteOutboundDns => 'DNS: Επικάλυψη [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Προτίμηση χρήσης του DNS που περιλαμβάνεται στη ρύθμιση για την επίλυση των ονομάτων τομέα των κόμβων';
 	@override String get required => 'Απαιτείται';
 	@override String get type => 'Τύπος';
 	@override String get path => 'Διαδρομή';
@@ -1335,7 +1335,7 @@ extension on TranslationsEl {
 			'meta.account' => 'Λογαριασμός',
 			'meta.password' => 'Κωδικός πρόσβασης',
 			'meta.decryptPassword' => 'Κωδικός Αποκρυπτογράφησης',
-			'meta.overwriteOutboundDns' => 'DNS: Επικάλυψη [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Προτίμηση χρήσης του DNS που περιλαμβάνεται στη ρύθμιση για την επίλυση των ονομάτων τομέα των κόμβων',
 			'meta.required' => 'Απαιτείται',
 			'meta.type' => 'Τύπος',
 			'meta.path' => 'Διαδρομή',

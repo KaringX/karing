@@ -401,7 +401,7 @@
         "account": "অ্যাকাউন্ট",
         "password": "পাসওয়ার্ড",
         "decryptPassword": "ডিক্রিপ্ট পাসওয়ার্ড",
-        "overwriteOutboundDns": "DNS: ওভাররাইড [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "নোডের ডোমেইন নাম সমাধান করতে কনফিগারেশনে থাকা DNS ব্যবহার করতে অগ্রাধিকার দিন",
         "required": "প্রয়োজন",
         "type": "ধরন",
         "path": "পাথ",

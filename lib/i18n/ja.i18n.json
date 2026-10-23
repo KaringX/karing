@@ -401,7 +401,7 @@
         "account": "アカウント",
         "password": "パスワード",
         "decryptPassword": "複号化パスワード",
-        "overwriteOutboundDns": "DNS:上書き[@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "ノードのドメイン名の解決に、設定に含まれるDNSを優先して使用する",
         "required": "必須",
         "type": "タイプ",
         "path": "パス",

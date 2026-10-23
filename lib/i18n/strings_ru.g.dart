@@ -691,7 +691,7 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
 	@override String get decryptPassword => 'Пароль расшифровки';
-	@override String get overwriteOutboundDns => 'DNS: Переопределить [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Предпочитать DNS из конфигурации для разрешения доменных имён узлов';
 	@override String get required => 'Необходимо';
 	@override String get type => 'тип';
 	@override String get path => 'путь';
@@ -1335,7 +1335,7 @@ extension on TranslationsRu {
 			'meta.account' => 'Аккаунт',
 			'meta.password' => 'Пароль',
 			'meta.decryptPassword' => 'Пароль расшифровки',
-			'meta.overwriteOutboundDns' => 'DNS: Переопределить [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Предпочитать DNS из конфигурации для разрешения доменных имён узлов',
 			'meta.required' => 'Необходимо',
 			'meta.type' => 'тип',
 			'meta.path' => 'путь',

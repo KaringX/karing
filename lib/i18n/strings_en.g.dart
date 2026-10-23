@@ -1465,8 +1465,8 @@ class Translations$meta$en {
 	/// en: 'Decrypt Password'
 	String get decryptPassword => 'Decrypt Password';
 
-	/// en: 'DNS: Override [Proxy Server]'
-	String get overwriteOutboundDns => 'DNS: Override [${_root.SettingsScreen.dnsTypeOutbound}]';
+	/// en: 'Prefer the DNS configured in the profile to resolve node domain names'
+	String get preferOutboundDNS => 'Prefer the DNS configured in the profile to resolve node domain names';
 
 	/// en: 'Required'
 	String get required => 'Required';
@@ -2504,7 +2504,7 @@ extension on Translations {
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
 			'meta.decryptPassword' => 'Decrypt Password',
-			'meta.overwriteOutboundDns' => 'DNS: Override [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Prefer the DNS configured in the profile to resolve node domain names',
 			'meta.required' => 'Required',
 			'meta.type' => 'Type',
 			'meta.path' => 'Path',

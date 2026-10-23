@@ -401,7 +401,7 @@
         "account": "Λογαριασμός",
         "password": "Κωδικός πρόσβασης",
         "decryptPassword": "Κωδικός Αποκρυπτογράφησης",
-        "overwriteOutboundDns": "DNS: Επικάλυψη [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Προτίμηση χρήσης του DNS που περιλαμβάνεται στη ρύθμιση για την επίλυση των ονομάτων τομέα των κόμβων",
         "required": "Απαιτείται",
         "type": "Τύπος",
         "path": "Διαδρομή",

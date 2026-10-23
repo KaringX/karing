@@ -914,10 +914,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
                                       width: 45,
                                       child: Text(
                                         server.getShowType(),
-                                        style: const TextStyle(
-                                          fontSize:
-                                              ThemeConfig.kFontSizeListSubItem,
-                                        ),
+                                        style: const TextStyle(fontSize: 12),
                                       ),
                                     ),
                                   ],
@@ -1770,6 +1767,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       tunMode,
       SingboxExportType.karing,
       null,
+      null,
     );
     if (dns.error != null) {
       DialogUtils.showAlertDialog(
@@ -1837,6 +1835,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
       diversionGroups,
       config.inbounds,
       config.dns,
+      null,
       null,
       null,
       item.groupid,

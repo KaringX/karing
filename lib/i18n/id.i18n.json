@@ -401,7 +401,7 @@
         "account": "Akun",
         "password": "Kata sandi",
         "decryptPassword": "Kata sandi dekripsi",
-        "overwriteOutboundDns": "DNS: Timpa [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Utamakan DNS bawaan konfigurasi untuk menerjemahkan nama domain node",
         "required": "Wajib",
         "type": "Tipe",
         "path": "Jalur",

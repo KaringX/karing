@@ -691,7 +691,7 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
 	@override String get decryptPassword => 'دکريپت رمز‌عبور';
-	@override String get overwriteOutboundDns => 'DNS: بازنویسی [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'برای حل نام دامنه گره‌ها، استفاده از DNS موجود در پیکربندی را ترجیح دهید';
 	@override String get required => 'الزامی';
 	@override String get type => 'نوع';
 	@override String get path => 'مسیر';
@@ -1335,7 +1335,7 @@ extension on TranslationsFa {
 			'meta.account' => 'نام‌کاربری',
 			'meta.password' => 'رمز‌عبور',
 			'meta.decryptPassword' => 'دکريپت رمز‌عبور',
-			'meta.overwriteOutboundDns' => 'DNS: بازنویسی [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'برای حل نام دامنه گره‌ها، استفاده از DNS موجود در پیکربندی را ترجیح دهید',
 			'meta.required' => 'الزامی',
 			'meta.type' => 'نوع',
 			'meta.path' => 'مسیر',

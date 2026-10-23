@@ -42,6 +42,7 @@ class _AddProfileByImportFromFileScreenState
 
   final _textControllerRemark = TextEditingController();
   bool _loading = false;
+  bool preferOutboundDns = false;
   bool _keepDiversionRules = false;
   bool _testLatencyAutoRemove = false;
   ProxyFilter _proxyFilter = ProxyFilter();
@@ -84,6 +85,7 @@ class _AddProfileByImportFromFileScreenState
       _filePath,
       widget.type,
       _proxyFilter,
+      preferOutboundDns,
       _keepDiversionRules,
       _testLatencyAutoRemove,
     );
@@ -319,6 +321,16 @@ class _AddProfileByImportFromFileScreenState
           switchValue: _testLatencyAutoRemove,
           onSwitch: (bool value) async {
             _testLatencyAutoRemove = value;
+            setState(() {});
+          },
+        ),
+      ),
+      GroupItemOptions(
+        switchOptions: GroupItemSwitchOptions(
+          name: tcontext.meta.preferOutboundDNS,
+          switchValue: preferOutboundDns,
+          onSwitch: (bool value) async {
+            preferOutboundDns = value;
             setState(() {});
           },
         ),

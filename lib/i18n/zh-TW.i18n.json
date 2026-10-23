@@ -401,7 +401,7 @@
         "account": "帳號",
         "password": "密碼",
         "decryptPassword": "解密密碼",
-        "overwriteOutboundDns": "DNS:覆蓋[@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "優先使用設定自帶的 DNS 解析節點域名",
         "required": "必填",
         "type": "類型",
         "path": "路徑",

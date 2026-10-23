@@ -691,7 +691,7 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get account => 'অ্যাকাউন্ট';
 	@override String get password => 'পাসওয়ার্ড';
 	@override String get decryptPassword => 'ডিক্রিপ্ট পাসওয়ার্ড';
-	@override String get overwriteOutboundDns => 'DNS: ওভাররাইড [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'নোডের ডোমেইন নাম সমাধান করতে কনফিগারেশনে থাকা DNS ব্যবহার করতে অগ্রাধিকার দিন';
 	@override String get required => 'প্রয়োজন';
 	@override String get type => 'ধরন';
 	@override String get path => 'পাথ';
@@ -1335,7 +1335,7 @@ extension on TranslationsBn {
 			'meta.account' => 'অ্যাকাউন্ট',
 			'meta.password' => 'পাসওয়ার্ড',
 			'meta.decryptPassword' => 'ডিক্রিপ্ট পাসওয়ার্ড',
-			'meta.overwriteOutboundDns' => 'DNS: ওভাররাইড [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'নোডের ডোমেইন নাম সমাধান করতে কনফিগারেশনে থাকা DNS ব্যবহার করতে অগ্রাধিকার দিন',
 			'meta.required' => 'প্রয়োজন',
 			'meta.type' => 'ধরন',
 			'meta.path' => 'পাথ',

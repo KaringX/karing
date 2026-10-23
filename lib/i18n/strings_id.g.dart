@@ -691,7 +691,7 @@ class _Translations$meta$id implements Translations$meta$en {
 	@override String get account => 'Akun';
 	@override String get password => 'Kata sandi';
 	@override String get decryptPassword => 'Kata sandi dekripsi';
-	@override String get overwriteOutboundDns => 'DNS: Timpa [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Utamakan DNS bawaan konfigurasi untuk menerjemahkan nama domain node';
 	@override String get required => 'Wajib';
 	@override String get type => 'Tipe';
 	@override String get path => 'Jalur';
@@ -1335,7 +1335,7 @@ extension on TranslationsId {
 			'meta.account' => 'Akun',
 			'meta.password' => 'Kata sandi',
 			'meta.decryptPassword' => 'Kata sandi dekripsi',
-			'meta.overwriteOutboundDns' => 'DNS: Timpa [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Utamakan DNS bawaan konfigurasi untuk menerjemahkan nama domain node',
 			'meta.required' => 'Wajib',
 			'meta.type' => 'Tipe',
 			'meta.path' => 'Jalur',

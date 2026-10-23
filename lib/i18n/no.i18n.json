@@ -401,7 +401,7 @@
         "account": "Konto",
         "password": "Passord",
         "decryptPassword": "Dekryptering passord",
-        "overwriteOutboundDns": "DNS: Overstyr [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Foretrekk DNS fra konfigurasjonen for oppslag av nodenes domenenavn",
         "required": "Påkrevd",
         "type": "Type",
         "path": "Bane",

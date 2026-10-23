@@ -691,7 +691,7 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
 	@override String get decryptPassword => 'فك تشفير كلمة المرور';
-	@override String get overwriteOutboundDns => 'DNS: استبدال [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'فضّل استخدام DNS المضمّن في الإعدادات لتحليل أسماء نطاقات العقد';
 	@override String get required => 'مطلوب';
 	@override String get type => 'يكتب';
 	@override String get path => 'طريق';
@@ -1335,7 +1335,7 @@ extension on TranslationsAr {
 			'meta.account' => 'حساب',
 			'meta.password' => 'كلمة المرور',
 			'meta.decryptPassword' => 'فك تشفير كلمة المرور',
-			'meta.overwriteOutboundDns' => 'DNS: استبدال [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'فضّل استخدام DNS المضمّن في الإعدادات لتحليل أسماء نطاقات العقد',
 			'meta.required' => 'مطلوب',
 			'meta.type' => 'يكتب',
 			'meta.path' => 'طريق',

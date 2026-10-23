@@ -1797,7 +1797,7 @@ class GroupHelper {
       SetStateCallback? setstate,
     ) async {
       Set<String> allOutboundsTags = {};
-      VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null);
+      VPNService.getOutboundsWithoutUrltest(allOutboundsTags, null, null, null);
       Set<String> invalidOutbounds = {};
       String chainProxy = "";
       if (settingConfig.chainProxy.isNotEmpty) {

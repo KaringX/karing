@@ -401,7 +401,7 @@
         "account": "계정",
         "password": "비밀번호",
         "decryptPassword": "복호화 비밀번호",
-        "overwriteOutboundDns": "DNS: 덮어쓰기[@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "노드 도메인 이름을 확인할 때 구성에 포함된 DNS 우선 사용",
         "required": "필수",
         "type": "유형",
         "path": "경로",

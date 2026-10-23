@@ -401,7 +401,7 @@
         "account": "Account",
         "password": "Wachtwoord",
         "decryptPassword": "Ontcijferingswachtwoord",
-        "overwriteOutboundDns": "DNS: Overschrijven [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Geef de voorkeur aan de DNS uit de configuratie voor het opzoeken van domeinnamen van nodes",
         "required": "Vereist",
         "type": "Type",
         "path": "Pad",

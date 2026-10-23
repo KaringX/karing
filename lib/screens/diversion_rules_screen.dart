@@ -42,7 +42,7 @@ class DiversionRulesScreenState
         ServerManager.getDiversionCustomGroup();
 
     itemDiversion.remark = t.meta.custom;
-    VPNService.getOutboundsWithoutUrltest(_allOutboundsTags, null, null);
+    VPNService.getOutboundsWithoutUrltest(_allOutboundsTags, null, null, null);
   }
 
   @override

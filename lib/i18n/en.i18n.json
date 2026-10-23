@@ -401,7 +401,7 @@
         "account": "Account",
         "password": "Password",
         "decryptPassword": "Decrypt Password",
-        "overwriteOutboundDns": "DNS: Override [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Prefer the DNS configured in the profile to resolve node domain names",
         "required": "Required",
         "type": "Type",
         "path": "Path",

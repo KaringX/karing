@@ -691,7 +691,7 @@ class _Translations$meta$sv implements Translations$meta$en {
 	@override String get account => 'Konto';
 	@override String get password => 'Lösenord';
 	@override String get decryptPassword => 'Dekrypterringslösenord';
-	@override String get overwriteOutboundDns => 'DNS: Åsidosätt [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Föredra DNS från konfigurationen för att slå upp nodernas domännamn';
 	@override String get required => 'Krävs';
 	@override String get type => 'Typ';
 	@override String get path => 'Sökväg';
@@ -1335,7 +1335,7 @@ extension on TranslationsSv {
 			'meta.account' => 'Konto',
 			'meta.password' => 'Lösenord',
 			'meta.decryptPassword' => 'Dekrypterringslösenord',
-			'meta.overwriteOutboundDns' => 'DNS: Åsidosätt [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Föredra DNS från konfigurationen för att slå upp nodernas domännamn',
 			'meta.required' => 'Krävs',
 			'meta.type' => 'Typ',
 			'meta.path' => 'Sökväg',

@@ -401,7 +401,7 @@
         "account": "Compte",
         "password": "Mot de passe",
         "decryptPassword": "Mot de passe de déchiffrement",
-        "overwriteOutboundDns": "DNS : Remplacer [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Privilégier le DNS inclus dans la configuration pour résoudre les noms de domaine des nœuds",
         "required": "Requis",
         "type": "Type",
         "path": "Chemin",

@@ -691,7 +691,7 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get account => 'Hesap';
 	@override String get password => 'Şifre';
 	@override String get decryptPassword => 'Şifre Çözme Şifresi';
-	@override String get overwriteOutboundDns => 'DNS: Geçersiz kıl [${_root.SettingsScreen.dnsTypeOutbound}]';
+	@override String get preferOutboundDNS => 'Düğüm etki alanı adlarını çözümlemek için yapılandırmadaki DNS\'i tercih et';
 	@override String get required => 'Gerekli';
 	@override String get type => 'Tür';
 	@override String get path => 'Yol';
@@ -1335,7 +1335,7 @@ extension on TranslationsTr {
 			'meta.account' => 'Hesap',
 			'meta.password' => 'Şifre',
 			'meta.decryptPassword' => 'Şifre Çözme Şifresi',
-			'meta.overwriteOutboundDns' => 'DNS: Geçersiz kıl [${_root.SettingsScreen.dnsTypeOutbound}]',
+			'meta.preferOutboundDNS' => 'Düğüm etki alanı adlarını çözümlemek için yapılandırmadaki DNS\'i tercih et',
 			'meta.required' => 'Gerekli',
 			'meta.type' => 'Tür',
 			'meta.path' => 'Yol',

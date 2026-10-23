@@ -401,7 +401,7 @@
         "account": "نام‌کاربری",
         "password": "رمز‌عبور",
         "decryptPassword": "دکريپت رمز‌عبور",
-        "overwriteOutboundDns": "DNS: بازنویسی [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "برای حل نام دامنه گره‌ها، استفاده از DNS موجود در پیکربندی را ترجیح دهید",
         "required": "الزامی",
         "type": "نوع",
         "path": "مسیر",

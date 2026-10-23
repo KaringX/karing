@@ -401,7 +401,7 @@
         "account": "บัญชี",
         "password": "รหัสผ่าน",
         "decryptPassword": "รหัสผ่านถอดรหัส",
-        "overwriteOutboundDns": "DNS: เขียนทับ [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "เลือกใช้ DNS ที่ระบุในค่ากำหนดเพื่อค้นหาชื่อโดเมนของโหนด",
         "required": "จำเป็น",
         "type": "ประเภท",
         "path": "เส้นทาง",

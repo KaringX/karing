@@ -401,7 +401,7 @@
         "account": "Hesap",
         "password": "Şifre",
         "decryptPassword": "Şifre Çözme Şifresi",
-        "overwriteOutboundDns": "DNS: Geçersiz kıl [@:{SettingsScreen.dnsTypeOutbound}]",
+        "preferOutboundDNS": "Düğüm etki alanı adlarını çözümlemek için yapılandırmadaki DNS'i tercih et",
         "required": "Gerekli",
         "type": "Tür",
         "path": "Yol",
