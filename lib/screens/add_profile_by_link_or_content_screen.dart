@@ -285,7 +285,8 @@ class _AddProfileByLinkOrContentScreenState
     }
     _loading = false;
     setState(() {});
-    if (error == null) {
+    if (result.error == null) {
+      ServerManager.setDirty(true);
       await DialogUtils.showAlertDialog(context, tcontext.meta.addSuccess);
       if (!mounted) {
         return;
@@ -296,21 +297,24 @@ class _AddProfileByLinkOrContentScreenState
     if (!mounted) {
       return;
     }
-    String err = error.message;
-    if (error.message.contains("download profile failed:")) {
-      if (error.message.contains("401") || error.message.contains("403")) {
+    String err = result.error!.message;
+    if (result.error!.message.contains("download profile failed:")) {
+      if (result.error!.message.contains("401") ||
+          result.error!.message.contains("403")) {
         err = tcontext.meta.profileAddFailedThenDownloadAndImport(
-          p: error.message,
+          p: result.error!.message,
         );
-      } else if (error.message.contains("HandshakeException:")) {
+      } else if (result.error!.message.contains("HandshakeException:")) {
         err = tcontext.meta.profileAddFailedHandshakeException(
-          p: error.message,
+          p: result.error!.message,
         );
       }
     } else {
-      if (error.message.contains("FormatException:")) {
-        err = tcontext.meta.profileAddFailedFormatException(p: error.message);
-      } /*else if (error.message.contains("Unexpected character")) {}*/ //clash
+      if (result.error!.message.contains("FormatException:")) {
+        err = tcontext.meta.profileAddFailedFormatException(
+          p: result.error!.message,
+        );
+      } /*else if (result.error!.message.contains("Unexpected character")) {}*/ //clash
     }
 
     DialogUtils.showAlertDialog(
