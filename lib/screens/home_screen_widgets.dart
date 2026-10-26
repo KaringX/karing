@@ -2244,7 +2244,9 @@ class HomeWidgets {
       return t.meta.systemProxy;
     }
     if (SystemProxyBypassCard.id() == id) {
-      return t.SettingsScreen.bypassSystemProxy;
+      return PlatformUtils.isPC()
+          ? t.SettingsScreen.bypassSystemProxy
+          : t.SettingsScreen.tunAllowBypassHttpProxy;
     }
     if (MyProfilesCard.id() == id) {
       return t.meta.myProfiles;
