@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Πριν την ενεργοποίηση, επιβεβαιώστε ότι το δίκτυό σας υποστηρίζει IPv6, διαφορετικά μέρος της κίνησης δεν θα είναι προσβάσιμο κανονικά.';
 	@override String get tunAppendHttpProxy => 'Προσθήκη HTTP Proxy στο VPN';
 	@override String get tunAppendHttpProxyTips => 'Ορισμένες εφαρμογές θα παρακάμψουν την εικονική συσκευή NIC και θα συνδεθούν απευθείας στο HTTP proxy';
+	@override String get tunAllowBypassHttpProxy => 'Να επιτρέπεται η παράκαμψη του HTTP proxy';
 	@override String get tunAllowBypassHttpProxyDomain => 'Τομείς που επιτρέπεται να παρακάμπτουν το HTTP proxy';
 	@override String get dnsEnableRule => 'Ενεργοποίηση κανόνων εκτροπής DNS';
 	@override String get dnsEnableProxyResolveMode => 'Κανάλι ανάλυσης [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Απαιτείται υποστήριξη συστήματος. Ορισμένα συστήματα ενδέχεται επίσης να απαιτούν την ενεργοποίηση της [αυτόματης εκκίνησης].';
 	@override String get hideAfterLaunch => 'Απόκρυψη παραθύρου μετά την εκκίνηση';
 	@override String get autoSetSystemProxy => 'Αυτόματη ρύθμιση proxy συστήματος κατά τη σύνδεση';
-	@override String get bypassSystemProxy => 'Ονόματα τομέα που επιτρέπεται να παρακάμπτουν το proxy συστήματος';
+	@override String get bypassSystemProxy => 'Να επιτρέπεται η παράκαμψη του proxy συστήματος';
+	@override String get bypassSystemProxyDomain => 'Ονόματα τομέα που επιτρέπεται να παρακάμπτουν το proxy συστήματος';
 	@override String get disconnectWhenQuit => 'Αποσύνδεση κατά την έξοδο από την εφαρμογή';
 	@override String get autoAddToFirewall => 'Αυτόματη προσθήκη κανόνων τείχους προστασίας';
 	@override String get excludeFromRecent => 'Απόκρυψη από τις [Πρόσφατες εργασίες]';
@@ -1095,6 +1097,7 @@ extension on TranslationsEl {
 			'SettingsScreen.ipStrategyTips' => 'Πριν την ενεργοποίηση, επιβεβαιώστε ότι το δίκτυό σας υποστηρίζει IPv6, διαφορετικά μέρος της κίνησης δεν θα είναι προσβάσιμο κανονικά.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Προσθήκη HTTP Proxy στο VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Ορισμένες εφαρμογές θα παρακάμψουν την εικονική συσκευή NIC και θα συνδεθούν απευθείας στο HTTP proxy',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Να επιτρέπεται η παράκαμψη του HTTP proxy',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Τομείς που επιτρέπεται να παρακάμπτουν το HTTP proxy',
 			'SettingsScreen.dnsEnableRule' => 'Ενεργοποίηση κανόνων εκτροπής DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Κανάλι ανάλυσης [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsEl {
 			'SettingsScreen.autoConnectAtBootTips' => 'Απαιτείται υποστήριξη συστήματος. Ορισμένα συστήματα ενδέχεται επίσης να απαιτούν την ενεργοποίηση της [αυτόματης εκκίνησης].',
 			'SettingsScreen.hideAfterLaunch' => 'Απόκρυψη παραθύρου μετά την εκκίνηση',
 			'SettingsScreen.autoSetSystemProxy' => 'Αυτόματη ρύθμιση proxy συστήματος κατά τη σύνδεση',
-			'SettingsScreen.bypassSystemProxy' => 'Ονόματα τομέα που επιτρέπεται να παρακάμπτουν το proxy συστήματος',
+			'SettingsScreen.bypassSystemProxy' => 'Να επιτρέπεται η παράκαμψη του proxy συστήματος',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Ονόματα τομέα που επιτρέπεται να παρακάμπτουν το proxy συστήματος',
 			'SettingsScreen.disconnectWhenQuit' => 'Αποσύνδεση κατά την έξοδο από την εφαρμογή',
 			'SettingsScreen.autoAddToFirewall' => 'Αυτόματη προσθήκη κανόνων τείχους προστασίας',
 			'SettingsScreen.excludeFromRecent' => 'Απόκρυψη από τις [Πρόσφατες εργασίες]',
@@ -1490,10 +1494,10 @@ extension on TranslationsEl {
 			'meta.profileUrlOrContent' => 'Σύνδεσμος/Περιεχόμενο προφίλ',
 			'meta.profileUrlOrContentHit' => 'Σύνδεσμος/Περιεχόμενο προφίλ [Απαιτείται] (Υποστηρίζει συνδέσμους προφίλ Clash, V2ray (υποστήριξη παρτίδας), Stash, Karing, Sing-box, Shadowsocks, Sub)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Ο σύνδεσμος προφίλ δεν μπορεί να είναι κενός',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Η μορφή είναι εσφαλμένη, παρακαλούμε διορθώστε την και προσθέστε ξανά:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε δοκιμάστε να τροποποιήσετε το [UserAgent] και δοκιμάστε ξανά, ή χρησιμοποιήστε το ενσωματωμένο πρόγραμμα περιήγησης της συσκευής για να ανοίξετε το σύνδεσμο διαμόρφωσης και να εισαγάγετε το αρχείο διαμόρφωσης που κατέβηκε από το πρόγραμμα περιήγησης σε αυτήν την εφαρμογή',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Η μορφή είναι εσφαλμένη, παρακαλούμε διορθώστε την και προσθέστε ξανά:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε δοκιμάστε να τροποποιήσετε το [UserAgent] και δοκιμάστε ξανά, ή χρησιμοποιήστε το ενσωματωμένο πρόγραμμα περιήγησης της συσκευής για να ανοίξετε το σύνδεσμο διαμόρφωσης και να εισαγάγετε το αρχείο διαμόρφωσης που κατέβηκε από το πρόγραμμα περιήγησης σε αυτήν την εφαρμογή',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε ενεργοποιήστε το proxy ή τροποποιήστε τον τρέχοντα κόμβο proxy και δοκιμάστε ξανά',
 			'meta.profileAddParseFailed' => 'Αποτυχία ανάλυσης προφίλ',
 			'meta.profileAddNoServerAvaliable' => 'Δεν υπάρχει διαθέσιμος διακομιστής, βεβαιωθείτε ότι ο Σύνδεσμος Προφίλ ή το Αρχείο Προφίλ είναι έγκυρο. Εάν το προφίλ σας προέρχεται από το GitHub, λάβετε το σύνδεσμο μέσω του κουμπιού [Raw] στη σελίδα',

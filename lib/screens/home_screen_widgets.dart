@@ -497,7 +497,9 @@ class HomeWidgetOptions {
   HomeWidgetOutboundModeOptions? outboundMode;
 
   HomeWidgetSwitchOptions? tun;
+  HomeWidgetSwitchOptions? tunRouteExclusion;
   HomeWidgetSwitchOptions? systemProxy;
+  HomeWidgetSwitchOptions? systemProxyBypass;
 
   HomeWidgetCard0Options? myProfiles;
   HomeWidgetCard0Options? addProfile;
@@ -527,7 +529,9 @@ class HomeWidgetOptions {
     this.profileSubTraffic,
     this.outboundMode,
     this.tun,
+    this.tunRouteExclusion,
     this.systemProxy,
+    this.systemProxyBypass,
     this.myProfiles,
     this.addProfile,
     this.perapp,
@@ -555,7 +559,9 @@ class HomeWidgetOptions {
     focusToKeys[profileSubTraffic?.focusNode] = profileSubTraffic?.key;
     focusToKeys[outboundMode?.focusNode] = outboundMode?.key;
     focusToKeys[tun?.focusNode] = tun?.key;
+    focusToKeys[tunRouteExclusion?.focusNode] = tunRouteExclusion?.key;
     focusToKeys[systemProxy?.focusNode] = systemProxy?.key;
+    focusToKeys[systemProxyBypass?.focusNode] = systemProxyBypass?.key;
     focusToKeys[myProfiles?.focusNode] = myProfiles?.key;
     focusToKeys[addProfile?.focusNode] = addProfile?.key;
     focusToKeys[perapp?.focusNode] = perapp?.key;
@@ -1081,6 +1087,69 @@ class _TunSwitchCardState extends FutureSwitchCardState<TunCard> {
   }
 }
 
+class TunRouteExclusionCard extends FutureSwitchCard {
+  TunRouteExclusionCard({
+    super.key,
+    this.onAfterPressed,
+    this.onValueChanged,
+    super.focusNode,
+  }) : super(
+         icon: Icons.stacked_line_chart,
+         title: "TUN-${t.SettingsScreen.tunRouteExclude}",
+         text: t.meta.enable,
+         getEnable: getEnabled,
+         onChanged: (context, value) async {
+           SettingManager.getConfig().tun.routeExclude = value;
+           final state = await VPNService.getState();
+           if (state == FlutterVpnServiceState.invalid ||
+               state == FlutterVpnServiceState.connected ||
+               state == FlutterVpnServiceState.disconnected) {
+             bool enable = await VPNService.getTunMode();
+             if (enable) {
+               SettingManager.setDirty(true);
+             }
+             onValueChanged?.call(value);
+           }
+           SettingManager.save();
+         },
+       );
+  final Function()? onAfterPressed;
+  final Function(bool value)? onValueChanged;
+
+  @override
+  State<TunRouteExclusionCard> createState() =>
+      _TunSwitchRouteExclusionCardState();
+
+  static Future<bool> getEnabled() async {
+    return SettingManager.getConfig().tun.routeExclude;
+  }
+
+  static bool supportedCurrentPlatfrom() {
+    return true;
+  }
+
+  static String id() {
+    return "tun-route-exclusion";
+  }
+
+  static int crossAxisCellCount() {
+    return 4;
+  }
+}
+
+class _TunSwitchRouteExclusionCardState
+    extends FutureSwitchCardState<TunRouteExclusionCard> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
 class SystemProxyCard extends FutureSwitchCard {
   SystemProxyCard({
     super.key,
@@ -1177,6 +1246,74 @@ class _SystemProxySwitchCardState
   void destroyChecker() {
     _timerChecker?.cancel();
     _timerChecker = null;
+  }
+}
+
+class SystemProxyBypassCard extends FutureSwitchCard {
+  SystemProxyBypassCard({
+    super.key,
+    this.onAfterPressed,
+    this.onValueChanged,
+    super.focusNode,
+  }) : super(
+         icon: Icons.shuffle,
+         title: PlatformUtils.isPC()
+             ? t.SettingsScreen.bypassSystemProxy
+             : t.SettingsScreen.tunAllowBypassHttpProxy,
+
+         text: t.meta.enable,
+         getEnable: getEnabled,
+         onPressed: (context) {
+           onAfterPressed?.call();
+         },
+         onChanged: (context, value) async {
+           SettingManager.getConfig().proxy.bypassSystemProxy = value;
+           if (PlatformUtils.isPC()) {
+             if (await VPNService.getSystemProxyEnable()) {
+               await VPNService.setSystemProxy(true);
+             }
+           } else if (PlatformUtils.isMobile()) {
+             if (SettingManager.getConfig().tun.appendHttpProxy) {
+               SettingManager.setDirty(true);
+             }
+           }
+           onValueChanged?.call(value);
+           SettingManager.save();
+         },
+       );
+  final Function()? onAfterPressed;
+  final Function(bool value)? onValueChanged;
+  @override
+  State<SystemProxyBypassCard> createState() =>
+      _SystemProxyBypassSwitchCardState();
+
+  static bool supportedCurrentPlatfrom() {
+    return true;
+  }
+
+  static String id() {
+    return "system_proxy_bypass";
+  }
+
+  static int crossAxisCellCount() {
+    return 4;
+  }
+
+  static Future<bool> getEnabled() async {
+    return SettingManager.getConfig().proxy.bypassSystemProxy;
+  }
+}
+
+class _SystemProxyBypassSwitchCardState
+    extends FutureSwitchCardState<SystemProxyBypassCard> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
 
@@ -1920,8 +2057,14 @@ class HomeWidgets {
     if (TunCard.supportedCurrentPlatfrom()) {
       ids.add(TunCard.id());
     }
+    if (TunRouteExclusionCard.supportedCurrentPlatfrom()) {
+      ids.add(TunRouteExclusionCard.id());
+    }
     if (SystemProxyCard.supportedCurrentPlatfrom()) {
       ids.add(SystemProxyCard.id());
+    }
+    if (SystemProxyBypassCard.supportedCurrentPlatfrom()) {
+      ids.add(SystemProxyBypassCard.id());
     }
     if (MyProfilesCard.supportedCurrentPlatfrom()) {
       ids.add(MyProfilesCard.id());
@@ -2004,7 +2147,13 @@ class HomeWidgets {
     if (TunCard.id() == id) {
       return Icons.stacked_line_chart;
     }
+    if (TunRouteExclusionCard.id() == id) {
+      return Icons.stacked_line_chart;
+    }
     if (SystemProxyCard.id() == id) {
+      return Icons.shuffle;
+    }
+    if (SystemProxyBypassCard.id() == id) {
       return Icons.shuffle;
     }
     if (MyProfilesCard.id() == id) {
@@ -2088,8 +2237,14 @@ class HomeWidgets {
     if (TunCard.id() == id) {
       return "TUN";
     }
+    if (TunRouteExclusionCard.id() == id) {
+      return "TUN-${t.SettingsScreen.tunRouteExclude}";
+    }
     if (SystemProxyCard.id() == id) {
       return t.meta.systemProxy;
+    }
+    if (SystemProxyBypassCard.id() == id) {
+      return t.SettingsScreen.bypassSystemProxy;
     }
     if (MyProfilesCard.id() == id) {
       return t.meta.myProfiles;
@@ -2397,6 +2552,20 @@ class HomeWidgets {
         ),
       );
     }
+    if (TunRouteExclusionCard.id() == id &&
+        options.tunRouteExclusion != null &&
+        TunRouteExclusionCard.supportedCurrentPlatfrom()) {
+      return GridItem(
+        crossAxisCellCount: TunRouteExclusionCard.crossAxisCellCount(),
+        id: id,
+        child: TunRouteExclusionCard(
+          key: options.tunRouteExclusion!.key,
+          onAfterPressed: options.tunRouteExclusion!.onAfterPressed,
+          onValueChanged: options.tunRouteExclusion!.onChanged,
+          focusNode: options.tunRouteExclusion!.focusNode,
+        ),
+      );
+    }
     if (SystemProxyCard.id() == id &&
         options.systemProxy != null &&
         SystemProxyCard.supportedCurrentPlatfrom()) {
@@ -2408,6 +2577,20 @@ class HomeWidgets {
           onAfterPressed: options.systemProxy!.onAfterPressed,
           onValueChanged: options.systemProxy!.onChanged,
           focusNode: options.systemProxy!.focusNode,
+        ),
+      );
+    }
+    if (SystemProxyBypassCard.id() == id &&
+        options.systemProxyBypass != null &&
+        SystemProxyBypassCard.supportedCurrentPlatfrom()) {
+      return GridItem(
+        crossAxisCellCount: SystemProxyBypassCard.crossAxisCellCount(),
+        id: id,
+        child: SystemProxyBypassCard(
+          key: options.systemProxyBypass!.key,
+          onAfterPressed: options.systemProxyBypass!.onAfterPressed,
+          onValueChanged: options.systemProxyBypass!.onChanged,
+          focusNode: options.systemProxyBypass!.focusNode,
         ),
       );
     }

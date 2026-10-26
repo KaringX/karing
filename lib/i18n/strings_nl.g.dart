@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Bevestig voordat u dit inschakelt dat uw netwerk IPv6 ondersteunt, anders kan een deel van het verkeer niet normaal worden bezocht.';
 	@override String get tunAppendHttpProxy => 'HTTP-proxy toevoegen aan VPN';
 	@override String get tunAppendHttpProxyTips => 'Sommige apps zullen het virtuele NIC-apparaat omzeilen en rechtstreeks verbinding maken met de HTTP-proxy';
+	@override String get tunAllowBypassHttpProxy => 'HTTP-proxy omzeilen toestaan';
 	@override String get tunAllowBypassHttpProxyDomain => 'Domeinen die de HTTP-proxy mogen omzeilen';
 	@override String get dnsEnableRule => 'DNS-omleidingsregels inschakelen';
 	@override String get dnsEnableProxyResolveMode => 'Oplossingskanaal voor [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Systeemondersteuning is vereist; sommige systemen kunnen ook vereisen dat [automatisch starten] is ingeschakeld.';
 	@override String get hideAfterLaunch => 'Venster verbergen na opstarten';
 	@override String get autoSetSystemProxy => 'Systeemproxy automatisch instellen bij verbinding';
-	@override String get bypassSystemProxy => 'Domeinnamen die de systeemproxy mogen omzeilen';
+	@override String get bypassSystemProxy => 'Systeemproxy omzeilen toestaan';
+	@override String get bypassSystemProxyDomain => 'Domeinnamen die de systeemproxy mogen omzeilen';
 	@override String get disconnectWhenQuit => 'Verbinding verbreken bij afsluiten app';
 	@override String get autoAddToFirewall => 'Firewallregels automatisch toevoegen';
 	@override String get excludeFromRecent => 'Verbergen voor [Recente taken]';
@@ -1095,6 +1097,7 @@ extension on TranslationsNl {
 			'SettingsScreen.ipStrategyTips' => 'Bevestig voordat u dit inschakelt dat uw netwerk IPv6 ondersteunt, anders kan een deel van het verkeer niet normaal worden bezocht.',
 			'SettingsScreen.tunAppendHttpProxy' => 'HTTP-proxy toevoegen aan VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Sommige apps zullen het virtuele NIC-apparaat omzeilen en rechtstreeks verbinding maken met de HTTP-proxy',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP-proxy omzeilen toestaan',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domeinen die de HTTP-proxy mogen omzeilen',
 			'SettingsScreen.dnsEnableRule' => 'DNS-omleidingsregels inschakelen',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Oplossingskanaal voor [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsNl {
 			'SettingsScreen.autoConnectAtBootTips' => 'Systeemondersteuning is vereist; sommige systemen kunnen ook vereisen dat [automatisch starten] is ingeschakeld.',
 			'SettingsScreen.hideAfterLaunch' => 'Venster verbergen na opstarten',
 			'SettingsScreen.autoSetSystemProxy' => 'Systeemproxy automatisch instellen bij verbinding',
-			'SettingsScreen.bypassSystemProxy' => 'Domeinnamen die de systeemproxy mogen omzeilen',
+			'SettingsScreen.bypassSystemProxy' => 'Systeemproxy omzeilen toestaan',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Domeinnamen die de systeemproxy mogen omzeilen',
 			'SettingsScreen.disconnectWhenQuit' => 'Verbinding verbreken bij afsluiten app',
 			'SettingsScreen.autoAddToFirewall' => 'Firewallregels automatisch toevoegen',
 			'SettingsScreen.excludeFromRecent' => 'Verbergen voor [Recente taken]',
@@ -1490,10 +1494,10 @@ extension on TranslationsNl {
 			'meta.profileUrlOrContent' => 'Profiellink/Inhoud',
 			'meta.profileUrlOrContentHit' => 'Profiellink/Inhoud [Vereist] (Ondersteunt Clash, V2ray (batch ondersteund), Stash, Karing, Sing-box, Shadowsocks, Sub profiellinks)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profiellink mag niet leeg zijn',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Het formaat is onjuist, corrigeer het en voeg het opnieuw toe:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Toevoegen mislukt: ${p}, probeer de [UserAgent] te wijzigen en probeer het opnieuw, of gebruik de ingebouwde browser van het apparaat om de configuratielink te openen en importeer het door de browser gedownloade configuratiebestand in deze app',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Het formaat is onjuist, corrigeer het en voeg het opnieuw toe:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Toevoegen mislukt: ${p}, probeer de [UserAgent] te wijzigen en probeer het opnieuw, of gebruik de ingebouwde browser van het apparaat om de configuratielink te openen en importeer het door de browser gedownloade configuratiebestand in deze app',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Toevoegen mislukt: ${p}, schakel de proxy in of wijzig de huidige proxynode en probeer het opnieuw',
 			'meta.profileAddParseFailed' => 'Analyseren van profiel mislukt',
 			'meta.profileAddNoServerAvaliable' => 'Geen server beschikbaar, zorg ervoor dat de profiellink of het profielbestand geldig is; als uw profiel van GitHub komt, haal dan de link op via de [Raw]-knop op de pagina',

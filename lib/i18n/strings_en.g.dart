@@ -696,6 +696,9 @@ class Translations$SettingsScreen$en {
 	/// en: 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy'
 	String get tunAppendHttpProxyTips => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy';
 
+	/// en: 'Allow bypassing HTTP proxy'
+	String get tunAllowBypassHttpProxy => 'Allow bypassing HTTP proxy';
+
 	/// en: 'Domains allowed to bypass HTTP proxy'
 	String get tunAllowBypassHttpProxyDomain => 'Domains allowed to bypass HTTP proxy';
 
@@ -870,8 +873,11 @@ class Translations$SettingsScreen$en {
 	/// en: 'Auto Set System Proxy when Connected'
 	String get autoSetSystemProxy => 'Auto Set System Proxy when Connected';
 
+	/// en: 'Allow bypassing system proxy'
+	String get bypassSystemProxy => 'Allow bypassing system proxy';
+
 	/// en: 'Domain names that are allowed to bypass the system proxy'
-	String get bypassSystemProxy => 'Domain names that are allowed to bypass the system proxy';
+	String get bypassSystemProxyDomain => 'Domain names that are allowed to bypass the system proxy';
 
 	/// en: 'Disconnect when App Exits'
 	String get disconnectWhenQuit => 'Disconnect when App Exits';
@@ -2264,6 +2270,7 @@ extension on Translations {
 			'SettingsScreen.ipStrategyTips' => 'Before enabling, please confirm that your network supports IPv6, otherwise some traffic cannot be accessed normally.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Append HTTP Proxy to VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Some apps will bypass virtual NIC Device and directly connect to HTTP proxy',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Allow bypassing HTTP proxy',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domains allowed to bypass HTTP proxy',
 			'SettingsScreen.dnsEnableRule' => 'Enable DNS Diversion rules',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Resolve Channel',
@@ -2322,7 +2329,8 @@ extension on Translations {
 			'SettingsScreen.autoConnectAtBootTips' => 'System support is required; some systems may also require [auto-start] to be enabled.',
 			'SettingsScreen.hideAfterLaunch' => 'Hide window after startup',
 			'SettingsScreen.autoSetSystemProxy' => 'Auto Set System Proxy when Connected',
-			'SettingsScreen.bypassSystemProxy' => 'Domain names that are allowed to bypass the system proxy',
+			'SettingsScreen.bypassSystemProxy' => 'Allow bypassing system proxy',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Domain names that are allowed to bypass the system proxy',
 			'SettingsScreen.disconnectWhenQuit' => 'Disconnect when App Exits',
 			'SettingsScreen.autoAddToFirewall' => 'Auto Add Firewall Rules',
 			'SettingsScreen.excludeFromRecent' => 'Hide from [Recent Tasks]',
@@ -2659,10 +2667,10 @@ extension on Translations {
 			'meta.profileUrlOrContent' => 'Profile Link/Content',
 			'meta.profileUrlOrContentHit' => 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again',
 			'meta.profileAddParseFailed' => 'Parsing Profile failed',
 			'meta.profileAddNoServerAvaliable' => 'No server avaliable, Make sure the Profile Link or Profile File is valid;  if your Profile comes from GitHub, please obtain the link from the [Raw] button on the page',

@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$sv implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Innan du aktiverar, bekräfta att ditt nätverk stöder IPv6, annars kommer en del av trafiken inte att vara åtkomlig som vanligt.';
 	@override String get tunAppendHttpProxy => 'Lägg till HTTP-proxy till VPN';
 	@override String get tunAppendHttpProxyTips => 'Vissa appar kommer att kringgå den virtuella NIC-enheten och ansluta direkt till HTTP-proxyn';
+	@override String get tunAllowBypassHttpProxy => 'Tillåt kringgående av HTTP-proxy';
 	@override String get tunAllowBypassHttpProxyDomain => 'Domäner som tillåts kringgå HTTP-proxyn';
 	@override String get dnsEnableRule => 'Aktivera DNS-omledningsregler';
 	@override String get dnsEnableProxyResolveMode => 'Upplösningskanal för [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$sv implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Systemstöd krävs; vissa system kan också kräva att [autostart] är aktiverat.';
 	@override String get hideAfterLaunch => 'Dölj fönstret efter start';
 	@override String get autoSetSystemProxy => 'Ställ in systemproxy automatiskt vid anslutning';
-	@override String get bypassSystemProxy => 'Domännamn som tillåts kringgå systemproxyn';
+	@override String get bypassSystemProxy => 'Tillåt kringgående av systemproxyn';
+	@override String get bypassSystemProxyDomain => 'Domännamn som tillåts kringgå systemproxyn';
 	@override String get disconnectWhenQuit => 'Koppla bort när appen avslutas';
 	@override String get autoAddToFirewall => 'Lägg till brandväggsregler automatiskt';
 	@override String get excludeFromRecent => 'Dölj från [Senaste uppgifter]';
@@ -1095,6 +1097,7 @@ extension on TranslationsSv {
 			'SettingsScreen.ipStrategyTips' => 'Innan du aktiverar, bekräfta att ditt nätverk stöder IPv6, annars kommer en del av trafiken inte att vara åtkomlig som vanligt.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Lägg till HTTP-proxy till VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Vissa appar kommer att kringgå den virtuella NIC-enheten och ansluta direkt till HTTP-proxyn',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Tillåt kringgående av HTTP-proxy',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domäner som tillåts kringgå HTTP-proxyn',
 			'SettingsScreen.dnsEnableRule' => 'Aktivera DNS-omledningsregler',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Upplösningskanal för [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsSv {
 			'SettingsScreen.autoConnectAtBootTips' => 'Systemstöd krävs; vissa system kan också kräva att [autostart] är aktiverat.',
 			'SettingsScreen.hideAfterLaunch' => 'Dölj fönstret efter start',
 			'SettingsScreen.autoSetSystemProxy' => 'Ställ in systemproxy automatiskt vid anslutning',
-			'SettingsScreen.bypassSystemProxy' => 'Domännamn som tillåts kringgå systemproxyn',
+			'SettingsScreen.bypassSystemProxy' => 'Tillåt kringgående av systemproxyn',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Domännamn som tillåts kringgå systemproxyn',
 			'SettingsScreen.disconnectWhenQuit' => 'Koppla bort när appen avslutas',
 			'SettingsScreen.autoAddToFirewall' => 'Lägg till brandväggsregler automatiskt',
 			'SettingsScreen.excludeFromRecent' => 'Dölj från [Senaste uppgifter]',
@@ -1490,10 +1494,10 @@ extension on TranslationsSv {
 			'meta.profileUrlOrContent' => 'Profillänk/Innehåll',
 			'meta.profileUrlOrContentHit' => 'Profillänk/Innehåll [Krävs] (Stöder Clash, V2ray (batch-stöd), Stash, Karing, Sing-box, Shadowsocks, Sub-profillänkar)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profillänk får inte vara tomt',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet är felaktigt, korrigera det och försök lägga till igen:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, försök att ändra [UserAgent] och försök igen, eller använd enhetens inbyggda webbläsare för att öppna konfigurationslänken och importera konfigurationsfilen som laddats ner av webbläsaren till den här appen',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet är felaktigt, korrigera det och försök lägga till igen:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, försök att ändra [UserAgent] och försök igen, eller använd enhetens inbyggda webbläsare för att öppna konfigurationslänken och importera konfigurationsfilen som laddats ner av webbläsaren till den här appen',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, slå på proxyn eller ändra den aktuella proxynoden och försök igen',
 			'meta.profileAddParseFailed' => 'Misslyckades med att analysera profil',
 			'meta.profileAddNoServerAvaliable' => 'Ingen server tillgänglig, se till att profillänken eller profilfilen är giltig; om din profil kommer från GitHub, hämta länken via [Raw]-knappen på sidan',

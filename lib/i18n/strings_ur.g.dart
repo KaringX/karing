@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$ur implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'فعال کرنے سے پہلے، براہ کرم تصدیق کریں کہ آپ کا نیٹ ورک IPv6 کو سپورٹ کرتا ہے، ورنہ کچھ ٹریفک عام طور پر قابل رسائی نہیں ہوگی۔';
 	@override String get tunAppendHttpProxy => 'VPN میں HTTP پراکسی شامل کریں';
 	@override String get tunAppendHttpProxyTips => 'کچھ ایپس ورچوئل NIC ڈیوائس کو نظر انداز کر دیں گی اور براہ راست HTTP پراکسی سے منسلک ہوں گی';
+	@override String get tunAllowBypassHttpProxy => 'HTTP پراکسی کو نظر انداز کرنے کی اجازت دیں';
 	@override String get tunAllowBypassHttpProxyDomain => 'وہ ڈومینز جنہیں HTTP پراکسی کو نظر انداز کرنے کی اجازت ہے';
 	@override String get dnsEnableRule => 'DNS ڈائیورژن رولز فعال کریں';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] ریزولیوشن چینل';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$ur implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'سسٹم سپورٹ ضروری ہے؛ کچھ سسٹمز کو [آٹو اسٹارٹ] فعال کرنے کی بھی ضرورت پڑ سکتی ہے۔';
 	@override String get hideAfterLaunch => 'لانچ کے بعد ونڈو چھپائیں';
 	@override String get autoSetSystemProxy => 'منسلک ہونے پر خود بخود سسٹم پراکسی ترتیب دیں';
-	@override String get bypassSystemProxy => 'وہ ڈومین نام جنہیں سسٹم پراکسی کو نظر انداز کرنے کی اجازت ہے';
+	@override String get bypassSystemProxy => 'سسٹم پراکسی کو نظر انداز کرنے کی اجازت دیں';
+	@override String get bypassSystemProxyDomain => 'وہ ڈومین نام جنہیں سسٹم پراکسی کو نظر انداز کرنے کی اجازت ہے';
 	@override String get disconnectWhenQuit => 'ایپ چھوڑنے پر منقطع کریں';
 	@override String get autoAddToFirewall => 'خود بخود فائر وال رولز شامل کریں';
 	@override String get excludeFromRecent => '[حالیہ کاموں] سے چھپائیں';
@@ -1095,6 +1097,7 @@ extension on TranslationsUr {
 			'SettingsScreen.ipStrategyTips' => 'فعال کرنے سے پہلے، براہ کرم تصدیق کریں کہ آپ کا نیٹ ورک IPv6 کو سپورٹ کرتا ہے، ورنہ کچھ ٹریفک عام طور پر قابل رسائی نہیں ہوگی۔',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN میں HTTP پراکسی شامل کریں',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'کچھ ایپس ورچوئل NIC ڈیوائس کو نظر انداز کر دیں گی اور براہ راست HTTP پراکسی سے منسلک ہوں گی',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP پراکسی کو نظر انداز کرنے کی اجازت دیں',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'وہ ڈومینز جنہیں HTTP پراکسی کو نظر انداز کرنے کی اجازت ہے',
 			'SettingsScreen.dnsEnableRule' => 'DNS ڈائیورژن رولز فعال کریں',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] ریزولیوشن چینل',
@@ -1153,7 +1156,8 @@ extension on TranslationsUr {
 			'SettingsScreen.autoConnectAtBootTips' => 'سسٹم سپورٹ ضروری ہے؛ کچھ سسٹمز کو [آٹو اسٹارٹ] فعال کرنے کی بھی ضرورت پڑ سکتی ہے۔',
 			'SettingsScreen.hideAfterLaunch' => 'لانچ کے بعد ونڈو چھپائیں',
 			'SettingsScreen.autoSetSystemProxy' => 'منسلک ہونے پر خود بخود سسٹم پراکسی ترتیب دیں',
-			'SettingsScreen.bypassSystemProxy' => 'وہ ڈومین نام جنہیں سسٹم پراکسی کو نظر انداز کرنے کی اجازت ہے',
+			'SettingsScreen.bypassSystemProxy' => 'سسٹم پراکسی کو نظر انداز کرنے کی اجازت دیں',
+			'SettingsScreen.bypassSystemProxyDomain' => 'وہ ڈومین نام جنہیں سسٹم پراکسی کو نظر انداز کرنے کی اجازت ہے',
 			'SettingsScreen.disconnectWhenQuit' => 'ایپ چھوڑنے پر منقطع کریں',
 			'SettingsScreen.autoAddToFirewall' => 'خود بخود فائر وال رولز شامل کریں',
 			'SettingsScreen.excludeFromRecent' => '[حالیہ کاموں] سے چھپائیں',
@@ -1490,10 +1494,10 @@ extension on TranslationsUr {
 			'meta.profileUrlOrContent' => 'پروفائل لنک/مواد',
 			'meta.profileUrlOrContentHit' => 'پروفائل لنک/مواد [ضروری] (Clash, V2ray (بیچ سپورٹڈ), Stash, Karing, Sing-box, Shadowsocks, Sub پروفائل لنکس کو سپورٹ کرتا ہے)',
 			'meta.profileUrlOrContentCannotEmpty' => 'پروفائل لنک خالی نہیں ہو سکتا',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فارمیٹ غلط ہے، براہ کرم اسے درست کریں اور دوبارہ شامل کریں:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم [UserAgent] کو تبدیل کرنے کی کوشش کریں اور دوبارہ کوشش کریں، یا کنفیگریشن لنک کھولنے کے لیے ڈیوائس کا بلٹ ان براؤزر استعمال کریں اور براؤزر کے ذریعے ڈاؤن لوڈ کی گئی کنفیگریشن فائل کو اس ایپلی کیشن میں درآمد کریں',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فارمیٹ غلط ہے، براہ کرم اسے درست کریں اور دوبارہ شامل کریں:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم [UserAgent] کو تبدیل کرنے کی کوشش کریں اور دوبارہ کوشش کریں، یا کنفیگریشن لنک کھولنے کے لیے ڈیوائس کا بلٹ ان براؤزر استعمال کریں اور براؤزر کے ذریعے ڈاؤن لوڈ کی گئی کنفیگریشن فائل کو اس ایپلی کیشن میں درآمد کریں',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم پراکسی آن کریں یا موجودہ پراکسی نوڈ کو تبدیل کریں اور دوبارہ کوشش کریں',
 			'meta.profileAddParseFailed' => 'پروفائل کا تجزیہ کرنے میں ناکامی',
 			'meta.profileAddNoServerAvaliable' => 'کوئی سرور دستیاب نہیں ہے، یقینی بنائیں کہ پروفائل لنک یا پروفائل فائل درست ہے؛ اگر آپ کا پروفائل GitHub سے ہے تو براہ کرم صفحہ پر [Raw] بٹن کے ذریعے لنک حاصل کریں',

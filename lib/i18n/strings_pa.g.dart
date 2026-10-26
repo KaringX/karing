@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$pa implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'सक्षम करने से पहले, कृपया पुष्टि करें कि आपका नेटवर्क IPv6 का समर्थन करता है, अन्यथा कुछ ट्रैफ़िक सामान्य रूप से सुलभ नहीं होगा।';
 	@override String get tunAppendHttpProxy => 'VPN में HTTP प्रॉक्सी जोड़ें';
 	@override String get tunAppendHttpProxyTips => 'कुछ ऐप वर्चुअल NIC डिवाइस को बायपास करेंगे और सीधे HTTP प्रॉक्सी से कनेक्ट होंगे';
+	@override String get tunAllowBypassHttpProxy => 'HTTP ਪ੍ਰੌਕਸੀ ਨੂੰ ਬਾਈਪਾਸ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ';
 	@override String get tunAllowBypassHttpProxyDomain => 'डोमेन जिन्हें HTTP प्रॉक्सी को बायपास करने की अनुमति है';
 	@override String get dnsEnableRule => 'DNS विचलन नियम सक्षम करें';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] समाधान चैनल';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$pa implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'ਸਿਸਟਮ ਸਮਰਥਨ ਲੋੜੀਂਦਾ ਹੈ; ਕੁਝ ਸਿਸਟਮਾਂ ਨੂੰ [ਆਟੋ-ਸਟਾਰਟ] ਸਮਰੱਥ ਕਰਨ ਦੀ ਵੀ ਲੋੜ ਹੋ ਸਕਦੀ ਹੈ।';
 	@override String get hideAfterLaunch => 'लॉन्च के बाद विंडो छिपाएं';
 	@override String get autoSetSystemProxy => 'कनेक्ट होने पर सिस्टम प्रॉक्सी स्वचालित रूप से सेट करें';
-	@override String get bypassSystemProxy => 'डोमेन नाम जिन्हें सिस्टम प्रॉक्सी को बायपास करने की अनुमति है';
+	@override String get bypassSystemProxy => 'ਸਿਸਟਮ ਪ੍ਰੌਕਸੀ ਨੂੰ ਬਾਈਪਾਸ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ';
+	@override String get bypassSystemProxyDomain => 'डोमेन नाम जिन्हें सिस्टम प्रॉक्सी को बायपास करने की अनुमति है';
 	@override String get disconnectWhenQuit => 'ऐप छोड़ने पर डिस्कनेक्ट करें';
 	@override String get autoAddToFirewall => 'स्वचालित रूप से फ़ायरवॉल नियम जोड़ें';
 	@override String get excludeFromRecent => '[हाल के कार्य] से छिपाएं';
@@ -1095,6 +1097,7 @@ extension on TranslationsPa {
 			'SettingsScreen.ipStrategyTips' => 'सक्षम करने से पहले, कृपया पुष्टि करें कि आपका नेटवर्क IPv6 का समर्थन करता है, अन्यथा कुछ ट्रैफ़िक सामान्य रूप से सुलभ नहीं होगा।',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN में HTTP प्रॉक्सी जोड़ें',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'कुछ ऐप वर्चुअल NIC डिवाइस को बायपास करेंगे और सीधे HTTP प्रॉक्सी से कनेक्ट होंगे',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP ਪ੍ਰੌਕਸੀ ਨੂੰ ਬਾਈਪਾਸ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'डोमेन जिन्हें HTTP प्रॉक्सी को बायपास करने की अनुमति है',
 			'SettingsScreen.dnsEnableRule' => 'DNS विचलन नियम सक्षम करें',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] समाधान चैनल',
@@ -1153,7 +1156,8 @@ extension on TranslationsPa {
 			'SettingsScreen.autoConnectAtBootTips' => 'ਸਿਸਟਮ ਸਮਰਥਨ ਲੋੜੀਂਦਾ ਹੈ; ਕੁਝ ਸਿਸਟਮਾਂ ਨੂੰ [ਆਟੋ-ਸਟਾਰਟ] ਸਮਰੱਥ ਕਰਨ ਦੀ ਵੀ ਲੋੜ ਹੋ ਸਕਦੀ ਹੈ।',
 			'SettingsScreen.hideAfterLaunch' => 'लॉन्च के बाद विंडो छिपाएं',
 			'SettingsScreen.autoSetSystemProxy' => 'कनेक्ट होने पर सिस्टम प्रॉक्सी स्वचालित रूप से सेट करें',
-			'SettingsScreen.bypassSystemProxy' => 'डोमेन नाम जिन्हें सिस्टम प्रॉक्सी को बायपास करने की अनुमति है',
+			'SettingsScreen.bypassSystemProxy' => 'ਸਿਸਟਮ ਪ੍ਰੌਕਸੀ ਨੂੰ ਬਾਈਪਾਸ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ',
+			'SettingsScreen.bypassSystemProxyDomain' => 'डोमेन नाम जिन्हें सिस्टम प्रॉक्सी को बायपास करने की अनुमति है',
 			'SettingsScreen.disconnectWhenQuit' => 'ऐप छोड़ने पर डिस्कनेक्ट करें',
 			'SettingsScreen.autoAddToFirewall' => 'स्वचालित रूप से फ़ायरवॉल नियम जोड़ें',
 			'SettingsScreen.excludeFromRecent' => '[हाल के कार्य] से छिपाएं',
@@ -1490,10 +1494,10 @@ extension on TranslationsPa {
 			'meta.profileUrlOrContent' => 'प्रोफ़ाइल लिंक/सामग्री',
 			'meta.profileUrlOrContentHit' => 'प्रोफ़ाइल लिंक/सामग्री [आवश्यक] (Clash, V2ray (बैच समर्थित), Stash, Karing, Sing-box, Shadowsocks, Sub प्रोफ़ाइल लिंक का समर्थन करता है)',
 			'meta.profileUrlOrContentCannotEmpty' => 'प्रोफ़ाइल लिंक खाली नहीं हो सकता',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'प्रारूप गलत है, कृपया इसे ठीक करें और फिर से जोड़ें:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'जोड़ने में विफल: ${p}, कृपया [UserAgent] को संशोधित करने का प्रयास करें और फिर से प्रयास करें, या कॉन्फ़िगरेशन लिंक खोलने के लिए डिवाइस के अंतर्निहित ब्राउज़र का उपयोग करें और ब्राउज़र द्वारा डाउनलोड की गई कॉन्फ़िगरेशन फ़ाइल को इस एप्लिकेशन में आयात करें',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'प्रारूप गलत है, कृपया इसे ठीक करें और फिर से जोड़ें:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'जोड़ने में विफल: ${p}, कृपया [UserAgent] को संशोधित करने का प्रयास करें और फिर से प्रयास करें, या कॉन्फ़िगरेशन लिंक खोलने के लिए डिवाइस के अंतर्निहित ब्राउज़र का उपयोग करें और ब्राउज़र द्वारा डाउनलोड की गई कॉन्फ़िगरेशन फ़ाइल को इस एप्लिकेशन में आयात करें',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'जोड़ने में विफल: ${p}, कृपया प्रॉक्सी चालू करें या वर्तमान प्रॉक्सी नोड को संशोधित करें और फिर से प्रयास करें',
 			'meta.profileAddParseFailed' => 'प्रोफ़ाइल को पार्स करने में विफल',
 			'meta.profileAddNoServerAvaliable' => 'कोई सर्वर उपलब्ध नहीं है, सुनिश्चित करें कि प्रोफ़ाइल लिंक या प्रोफ़ाइल फ़ाइल मान्य है; यदि आपकी प्रोफ़ाइल GitHub से है, तो कृपया पृष्ठ पर [Raw] बटन के माध्यम से लिंक प्राप्त करें',

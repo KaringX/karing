@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$de implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Vor der Aktivierung bestätigen Sie bitte, dass Ihr Netzwerk IPv6 unterstützt, da sonst ein Teil des Verkehrs nicht normal zugänglich ist.';
 	@override String get tunAppendHttpProxy => 'HTTP-Proxy an VPN anhängen';
 	@override String get tunAppendHttpProxyTips => 'Einige Apps umgehen das virtuelle NIC-Gerät und verbinden sich direkt mit dem HTTP-Proxy';
+	@override String get tunAllowBypassHttpProxy => 'Umgehung des HTTP-Proxys erlauben';
 	@override String get tunAllowBypassHttpProxyDomain => 'Domains, die den HTTP-Proxy umgehen dürfen';
 	@override String get dnsEnableRule => 'DNS-Umleitungsregeln aktivieren';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Auflösungskanal';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$de implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Systemunterstützung ist erforderlich; einige Systeme erfordern möglicherweise auch die Aktivierung von [Autostart].';
 	@override String get hideAfterLaunch => 'Fenster nach dem Start ausblenden';
 	@override String get autoSetSystemProxy => 'System-Proxy automatisch einstellen, wenn verbunden';
-	@override String get bypassSystemProxy => 'Domainnamen, die den System-Proxy umgehen dürfen';
+	@override String get bypassSystemProxy => 'Umgehung des System-Proxys erlauben';
+	@override String get bypassSystemProxyDomain => 'Domainnamen, die den System-Proxy umgehen dürfen';
 	@override String get disconnectWhenQuit => 'Trennen, wenn die App beendet wird';
 	@override String get autoAddToFirewall => 'Firewall-Regeln automatisch hinzufügen';
 	@override String get excludeFromRecent => 'In [Letzte Aufgaben] ausblenden';
@@ -1095,6 +1097,7 @@ extension on TranslationsDe {
 			'SettingsScreen.ipStrategyTips' => 'Vor der Aktivierung bestätigen Sie bitte, dass Ihr Netzwerk IPv6 unterstützt, da sonst ein Teil des Verkehrs nicht normal zugänglich ist.',
 			'SettingsScreen.tunAppendHttpProxy' => 'HTTP-Proxy an VPN anhängen',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Einige Apps umgehen das virtuelle NIC-Gerät und verbinden sich direkt mit dem HTTP-Proxy',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Umgehung des HTTP-Proxys erlauben',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domains, die den HTTP-Proxy umgehen dürfen',
 			'SettingsScreen.dnsEnableRule' => 'DNS-Umleitungsregeln aktivieren',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Auflösungskanal',
@@ -1153,7 +1156,8 @@ extension on TranslationsDe {
 			'SettingsScreen.autoConnectAtBootTips' => 'Systemunterstützung ist erforderlich; einige Systeme erfordern möglicherweise auch die Aktivierung von [Autostart].',
 			'SettingsScreen.hideAfterLaunch' => 'Fenster nach dem Start ausblenden',
 			'SettingsScreen.autoSetSystemProxy' => 'System-Proxy automatisch einstellen, wenn verbunden',
-			'SettingsScreen.bypassSystemProxy' => 'Domainnamen, die den System-Proxy umgehen dürfen',
+			'SettingsScreen.bypassSystemProxy' => 'Umgehung des System-Proxys erlauben',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Domainnamen, die den System-Proxy umgehen dürfen',
 			'SettingsScreen.disconnectWhenQuit' => 'Trennen, wenn die App beendet wird',
 			'SettingsScreen.autoAddToFirewall' => 'Firewall-Regeln automatisch hinzufügen',
 			'SettingsScreen.excludeFromRecent' => 'In [Letzte Aufgaben] ausblenden',
@@ -1490,10 +1494,10 @@ extension on TranslationsDe {
 			'meta.profileUrlOrContent' => 'Profil-Link/Inhalt',
 			'meta.profileUrlOrContentHit' => 'Profil-Link/Inhalt [Erforderlich] (Unterstützt Clash, V2ray (Batch-Unterstützung), Stash, Karing, Sing-box, Shadowsocks, Sub-Profil-Links)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profil-Link darf nicht leer sein',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Das Format ist falsch, bitte korrigieren Sie es und fügen Sie es erneut hinzu:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte versuchen Sie, den [UserAgent] zu ändern und es erneut zu versuchen, oder verwenden Sie den integrierten Browser des Geräts, um den Konfigurationslink zu öffnen und die vom Browser heruntergeladene Konfigurationsdatei in diese Anwendung zu importieren',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Das Format ist falsch, bitte korrigieren Sie es und fügen Sie es erneut hinzu:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte versuchen Sie, den [UserAgent] zu ändern und es erneut zu versuchen, oder verwenden Sie den integrierten Browser des Geräts, um den Konfigurationslink zu öffnen und die vom Browser heruntergeladene Konfigurationsdatei in diese Anwendung zu importieren',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte schalten Sie den Proxy ein oder ändern Sie den aktuellen Proxy-Knoten und versuchen Sie es erneut',
 			'meta.profileAddParseFailed' => 'Parsen des Profils fehlgeschlagen',
 			'meta.profileAddNoServerAvaliable' => 'Kein Server verfügbar, stellen Sie sicher, dass der Profil-Link oder die Profil-Datei gültig ist; wenn Ihr Profil von GitHub stammt, rufen Sie den Link bitte über die Schaltfläche [Raw] auf der Seite ab',

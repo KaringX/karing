@@ -677,18 +677,30 @@ class GroupHelper {
             ),
           ),
           GroupItemOptions(
+            switchOptions: GroupItemSwitchOptions(
+              name: tcontext.SettingsScreen.tunAllowBypassHttpProxy,
+              switchValue: settingConfig.proxy.bypassSystemProxy,
+              onSwitch: !tunMode
+                  ? null
+                  : (bool value) async {
+                      settingConfig.proxy.bypassSystemProxy = value;
+                      SettingManager.setDirty(true);
+                    },
+            ),
+          ),
+          GroupItemOptions(
             pushOptions: GroupItemPushOptions(
               name: tcontext.SettingsScreen.tunAllowBypassHttpProxyDomain,
               onPush: !tunMode
                   ? null
                   : () async {
                       String oldData = settingConfig
-                          .tun
-                          .allowBypassHttpProxyDomains
+                          .proxy
+                          .systemProxyBypassDomain
                           .join(",");
                       List<String> chain = settingConfig
-                          .tun
-                          .allowBypassHttpProxyDomains
+                          .proxy
+                          .systemProxyBypassDomain
                           .toList();
                       await Navigator.push(
                         context,
@@ -706,7 +718,7 @@ class GroupHelper {
                       );
                       String newData = chain.join(",");
                       if (oldData != newData) {
-                        settingConfig.tun.allowBypassHttpProxyDomains = chain;
+                        settingConfig.proxy.systemProxyBypassDomain = chain;
                         SettingManager.setDirty(true);
                       }
                     },
@@ -735,6 +747,20 @@ class GroupHelper {
     ) async {
       var settingConfig = SettingManager.getConfig();
       final tunAddress = settingConfig.tun.getAddress(settingConfig.ipStrategy);
+      List<GroupItemOptions> options0 = [
+        GroupItemOptions(
+          switchOptions: GroupItemSwitchOptions(
+            name: tcontext.meta.enable,
+            tips: tunAddress.join("\n"),
+            switchValue: settingConfig.tun.routeExclude,
+            onSwitch: (bool value) async {
+              settingConfig.tun.routeExclude = value;
+              SettingManager.setDirty(true);
+              setstate?.call();
+            },
+          ),
+        ),
+      ];
       List<GroupItemOptions> options = [
         if (Platform.isWindows || Platform.isAndroid) ...[
           GroupItemOptions(
@@ -742,11 +768,13 @@ class GroupHelper {
               name: tcontext.SettingsScreen.tunRouteExcludeTUN,
               tips: tunAddress.join("\n"),
               switchValue: settingConfig.tun.routeExcludeAddressTun,
-              onSwitch: (bool value) async {
-                settingConfig.tun.routeExcludeAddressTun = value;
-                SettingManager.setDirty(true);
-                setstate?.call();
-              },
+              onSwitch: settingConfig.tun.routeExclude != true
+                  ? null
+                  : (bool value) async {
+                      settingConfig.tun.routeExcludeAddressTun = value;
+                      SettingManager.setDirty(true);
+                      setstate?.call();
+                    },
             ),
           ),
         ],
@@ -755,11 +783,13 @@ class GroupHelper {
             name: tcontext.SettingsScreen.tunRouteExcludeMulticast,
             tips: "224.0.0.0/4\nFF00::/8",
             switchValue: settingConfig.tun.routeExcludeAddressMulticast,
-            onSwitch: (bool value) async {
-              settingConfig.tun.routeExcludeAddressMulticast = value;
-              SettingManager.setDirty(true);
-              setstate?.call();
-            },
+            onSwitch: settingConfig.tun.routeExclude != true
+                ? null
+                : (bool value) async {
+                    settingConfig.tun.routeExcludeAddressMulticast = value;
+                    SettingManager.setDirty(true);
+                    setstate?.call();
+                  },
           ),
         ),
         if (Platform.isIOS) ...[
@@ -768,11 +798,13 @@ class GroupHelper {
               name: tcontext.SettingsScreen.hideVpn,
               tips: "0.0.0.0/31\n::/127" + tcontext.SettingsScreen.hideVpnTips,
               switchValue: settingConfig.ui.hideVpn,
-              onSwitch: (bool value) async {
-                settingConfig.ui.hideVpn = value;
-                SettingManager.setDirty(true);
-                setstate?.call();
-              },
+              onSwitch: settingConfig.tun.routeExclude != true
+                  ? null
+                  : (bool value) async {
+                      settingConfig.ui.hideVpn = value;
+                      SettingManager.setDirty(true);
+                      setstate?.call();
+                    },
             ),
           ),
         ],
@@ -793,7 +825,11 @@ class GroupHelper {
         );
       }
 
-      return [GroupItem(options: options), GroupItem(options: options1)];
+      return [
+        GroupItem(options: options0),
+        GroupItem(options: options),
+        GroupItem(options: options1),
+      ];
     }
 
     await Navigator.push(

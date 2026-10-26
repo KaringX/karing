@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => '활성화하기 전에 네트워크가 IPv6를 지원하는지 확인하십시오. 그렇지 않으면 일부 트래픽에 정상적으로 액세스할 수 없습니다.';
 	@override String get tunAppendHttpProxy => 'VPN에 HTTP 프록시 추가';
 	@override String get tunAppendHttpProxyTips => '일부 앱은 가상 NIC 장치를 우회하여 HTTP 프록시에 직접 연결합니다';
+	@override String get tunAllowBypassHttpProxy => 'HTTP 프록시 우회 허용';
 	@override String get tunAllowBypassHttpProxyDomain => 'HTTP 프록시 우회가 허용된 도메인';
 	@override String get dnsEnableRule => 'DNS 분류 규칙 활성화';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] 확인 채널';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => '시스템 지원이 필요합니다. 일부 시스템에서는 [자동 실행] 활성화도 필요할 수 있습니다.';
 	@override String get hideAfterLaunch => '시작 후 창 숨기기';
 	@override String get autoSetSystemProxy => '연결 시 시스템 프록시 자동 설정';
-	@override String get bypassSystemProxy => '시스템 프록시 우회가 허용된 도메인';
+	@override String get bypassSystemProxy => '시스템 프록시 우회 허용';
+	@override String get bypassSystemProxyDomain => '시스템 프록시 우회가 허용된 도메인';
 	@override String get disconnectWhenQuit => '앱 종료 시 연결 끊기';
 	@override String get autoAddToFirewall => '방화벽 규칙 자동 추가';
 	@override String get excludeFromRecent => '[최근 작업]에서 숨기기';
@@ -1095,6 +1097,7 @@ extension on TranslationsKo {
 			'SettingsScreen.ipStrategyTips' => '활성화하기 전에 네트워크가 IPv6를 지원하는지 확인하십시오. 그렇지 않으면 일부 트래픽에 정상적으로 액세스할 수 없습니다.',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN에 HTTP 프록시 추가',
 			'SettingsScreen.tunAppendHttpProxyTips' => '일부 앱은 가상 NIC 장치를 우회하여 HTTP 프록시에 직접 연결합니다',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP 프록시 우회 허용',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'HTTP 프록시 우회가 허용된 도메인',
 			'SettingsScreen.dnsEnableRule' => 'DNS 분류 규칙 활성화',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] 확인 채널',
@@ -1153,7 +1156,8 @@ extension on TranslationsKo {
 			'SettingsScreen.autoConnectAtBootTips' => '시스템 지원이 필요합니다. 일부 시스템에서는 [자동 실행] 활성화도 필요할 수 있습니다.',
 			'SettingsScreen.hideAfterLaunch' => '시작 후 창 숨기기',
 			'SettingsScreen.autoSetSystemProxy' => '연결 시 시스템 프록시 자동 설정',
-			'SettingsScreen.bypassSystemProxy' => '시스템 프록시 우회가 허용된 도메인',
+			'SettingsScreen.bypassSystemProxy' => '시스템 프록시 우회 허용',
+			'SettingsScreen.bypassSystemProxyDomain' => '시스템 프록시 우회가 허용된 도메인',
 			'SettingsScreen.disconnectWhenQuit' => '앱 종료 시 연결 끊기',
 			'SettingsScreen.autoAddToFirewall' => '방화벽 규칙 자동 추가',
 			'SettingsScreen.excludeFromRecent' => '[최근 작업]에서 숨기기',
@@ -1490,10 +1494,10 @@ extension on TranslationsKo {
 			'meta.profileUrlOrContent' => '프로필 링크/내용',
 			'meta.profileUrlOrContentHit' => '프로필 링크/내용 [필수] (Clash, V2ray(일괄 지원), Stash, Karing, Sing-box, Shadowsocks, Sub 프로필 링크 지원)',
 			'meta.profileUrlOrContentCannotEmpty' => '프로필 링크는 비워둘 수 없습니다',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => '형식이 잘못되었습니다. 수정 후 다시 추가하십시오: ${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '추가 실패: ${p}. [UserAgent]를 수정하고 다시 시도하거나, 장치 내장 브라우저를 사용하여 구성 링크를 열고 브라우저에서 다운로드한 구성 파일을 이 앱으로 가져오십시오',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => '형식이 잘못되었습니다. 수정 후 다시 추가하십시오: ${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '추가 실패: ${p}. [UserAgent]를 수정하고 다시 시도하거나, 장치 내장 브라우저를 사용하여 구성 링크를 열고 브라우저에서 다운로드한 구성 파일을 이 앱으로 가져오십시오',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '추가 실패: ${p}. 프록시를 켜거나 현재 프록시 노드를 수정하고 다시 시도하십시오',
 			'meta.profileAddParseFailed' => '프로필 분석 실패',
 			'meta.profileAddNoServerAvaliable' => '사용 가능한 서버가 없습니다. 구성 링크 또는 파일이 유효한지 확인하십시오. 구성이 GitHub인 경우 페이지의 [Raw] 버튼에서 링크를 가져오십시오',

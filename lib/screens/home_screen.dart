@@ -167,8 +167,14 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
   final FocusNode _focusNodeTun = FocusNode(
     debugLabel: "scroll.${TunCard.id()}",
   );
+  final FocusNode _focusNodeTunRouteExclusion = FocusNode(
+    debugLabel: "scroll.${TunRouteExclusionCard.id()}",
+  );
   final FocusNode _focusNodeSystemProxy = FocusNode(
     debugLabel: "scroll.${SystemProxyCard.id()}",
+  );
+  final FocusNode _focusNodeSystemProxyBypass = FocusNode(
+    debugLabel: "scroll.${SystemProxyBypassCard.id()}",
   );
   final FocusNode _focusNodeMyProfiles = FocusNode(
     debugLabel: "scroll.${MyProfilesCard.id()}",
@@ -295,40 +301,21 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
         await checkAndReload("tun");
         setState(() {});
       }, _focusNodeTun),
-      systemProxy: HomeWidgetSwitchOptions((value) {}, () {
-        if (Platform.isMacOS || Platform.isLinux) {
-          final rulePort = SettingManager.getConfig().proxy.mixedRulePort;
-          final forwardPort = SettingManager.getConfig().proxy.mixedForwardPort;
-          final rule =
-              "export https_proxy=http://127.0.0.1:$rulePort http_proxy=http://127.0.0.1:$rulePort all_proxy=socks5://127.0.0.1:$rulePort";
-          final forward =
-              "export https_proxy=http://127.0.0.1:$forwardPort http_proxy=http://127.0.0.1:$forwardPort all_proxy=socks5://127.0.0.1:$forwardPort";
-          List<Widget> widgets = [
-            ListTile(
-              title: Text("${t.meta.copy} $rule"),
-              onTap: () async {
-                Navigator.pop(context);
-
-                try {
-                  await Clipboard.setData(ClipboardData(text: rule));
-                } catch (e) {}
-              },
-            ),
-            ListTile(
-              title: Text("${t.meta.copy} $forward"),
-              onTap: () async {
-                Navigator.pop(context);
-
-                try {
-                  await Clipboard.setData(ClipboardData(text: forward));
-                } catch (e) {}
-              },
-            ),
-          ];
-
-          showSheetWidgets(context: context, widgets: widgets);
-        }
-      }, _focusNodeSystemProxy),
+      tunRouteExclusion: HomeWidgetSwitchOptions(
+        onTunRouteExclusionChanged,
+        () {},
+        _focusNodeTunRouteExclusion,
+      ),
+      systemProxy: HomeWidgetSwitchOptions(
+        (value) {},
+        onSystemProxyPressed,
+        _focusNodeSystemProxy,
+      ),
+      systemProxyBypass: HomeWidgetSwitchOptions(
+        (value) {},
+        () {},
+        _focusNodeSystemProxyBypass,
+      ),
       myProfiles: HomeWidgetCard0Options(
         onTapMyProfiles,
         null,
@@ -2380,6 +2367,45 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     await setServerAndReload("tun");
   }
 
+  void onTunRouteExclusionChanged(bool value) async {
+    await checkAndReload("tun_route_exclusion");
+  }
+
+  void onSystemProxyPressed() async {
+    if (Platform.isMacOS || Platform.isLinux) {
+      final rulePort = SettingManager.getConfig().proxy.mixedRulePort;
+      final forwardPort = SettingManager.getConfig().proxy.mixedForwardPort;
+      final rule =
+          "export https_proxy=http://127.0.0.1:$rulePort http_proxy=http://127.0.0.1:$rulePort all_proxy=socks5://127.0.0.1:$rulePort";
+      final forward =
+          "export https_proxy=http://127.0.0.1:$forwardPort http_proxy=http://127.0.0.1:$forwardPort all_proxy=socks5://127.0.0.1:$forwardPort";
+      List<Widget> widgets = [
+        ListTile(
+          title: Text("${t.meta.copy} $rule"),
+          onTap: () async {
+            Navigator.pop(context);
+
+            try {
+              await Clipboard.setData(ClipboardData(text: rule));
+            } catch (e) {}
+          },
+        ),
+        ListTile(
+          title: Text("${t.meta.copy} $forward"),
+          onTap: () async {
+            Navigator.pop(context);
+
+            try {
+              await Clipboard.setData(ClipboardData(text: forward));
+            } catch (e) {}
+          },
+        ),
+      ];
+
+      showSheetWidgets(context: context, widgets: widgets);
+    }
+  }
+
   void onConnectionsInfoPressed() async {
     String connectionsUrl = await getConnectionsUrl(false);
     await Navigator.push(
@@ -2430,7 +2456,9 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
     _focusNodeProfileSubTraffic.dispose();
     _focusNodeOutboundMode.dispose();
     _focusNodeTun.dispose();
+    _focusNodeTunRouteExclusion.dispose();
     _focusNodeSystemProxy.dispose();
+    _focusNodeSystemProxyBypass.dispose();
     _focusNodeMyProfiles.dispose();
     _focusNodeAddProfile.dispose();
     _focusNodePerApp.dispose();

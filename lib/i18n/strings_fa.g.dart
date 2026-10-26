@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند';
 	@override String get tunAppendHttpProxy => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان';
 	@override String get tunAppendHttpProxyTips => 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند';
+	@override String get tunAllowBypassHttpProxy => 'اجازه عبور از پروکسی HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند';
 	@override String get dnsEnableRule => 'فعال‌سازی قوانین انحراف دی‌ان‌اس';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] کانال رزولوشن';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.';
 	@override String get hideAfterLaunch => 'پنهان کردن پنجره پس از راه اندازی';
 	@override String get autoSetSystemProxy => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال';
-	@override String get bypassSystemProxy => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
+	@override String get bypassSystemProxy => 'اجازه عبور از پراکسی سیستم';
+	@override String get bypassSystemProxyDomain => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند';
 	@override String get disconnectWhenQuit => 'قطع اتصال هنگام خروج از نرم‌افزار';
 	@override String get autoAddToFirewall => 'اضافه کردن خودکار قوانین فایروال';
 	@override String get excludeFromRecent => 'پنهان شدن از وظایف اخیر';
@@ -1095,6 +1097,7 @@ extension on TranslationsFa {
 			'SettingsScreen.ipStrategyTips' => 'قبل‌از فعال‌سازی لطفا مطمعن شوید شبکه شما از IPv6 پشتیبانی می‌کند، وگرنه برخی ترافیک‌ها نمی‌توانند به‌صورت نرمال دردسترس باشند',
 			'SettingsScreen.tunAppendHttpProxy' => 'پیوست دادن پروکسی HTTP به وی‌پی‌ان',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'برخی نرم‌افزار‌ها از کارت شبکه مجازی رد میشوند و مستقیم به پروکسی HTTP متصل می‌شوند',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'اجازه عبور از پروکسی HTTP',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'دامنه ها مجاز به دور زدن پروکسی HTTP هستند',
 			'SettingsScreen.dnsEnableRule' => 'فعال‌سازی قوانین انحراف دی‌ان‌اس',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] کانال رزولوشن',
@@ -1153,7 +1156,8 @@ extension on TranslationsFa {
 			'SettingsScreen.autoConnectAtBootTips' => 'پشتیبانی سیستم مورد نیاز است؛ برخی سیستم‌ها ممکن است نیاز به فعال بودن [شروع خودکار] نیز داشته باشند.',
 			'SettingsScreen.hideAfterLaunch' => 'پنهان کردن پنجره پس از راه اندازی',
 			'SettingsScreen.autoSetSystemProxy' => 'تنظیم خودکار حالت پروکسی سیستم پس‌از اتصال',
-			'SettingsScreen.bypassSystemProxy' => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند',
+			'SettingsScreen.bypassSystemProxy' => 'اجازه عبور از پراکسی سیستم',
+			'SettingsScreen.bypassSystemProxyDomain' => 'نام های دامنه ای که مجاز به دور زدن پراکسی سیستم هستند',
 			'SettingsScreen.disconnectWhenQuit' => 'قطع اتصال هنگام خروج از نرم‌افزار',
 			'SettingsScreen.autoAddToFirewall' => 'اضافه کردن خودکار قوانین فایروال',
 			'SettingsScreen.excludeFromRecent' => 'پنهان شدن از وظایف اخیر',
@@ -1490,10 +1494,10 @@ extension on TranslationsFa {
 			'meta.profileUrlOrContent' => 'لینک/محتوای پروفایل',
 			'meta.profileUrlOrContentHit' => 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)',
 			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید',
 			'meta.profileAddParseFailed' => 'تجزیه پروفایل انجام نشد',
 			'meta.profileAddNoServerAvaliable' => 'هیچ سروری در دسترس نیست، لطفاً مطمئن شوید که پیوند پیکربندی یا فایل پیکربندی معتبر است، اگر پیکربندی شما از GitHub آمده است، لطفاً آدرس پیوند را از دکمه [Raw] در صفحه دریافت کنید',

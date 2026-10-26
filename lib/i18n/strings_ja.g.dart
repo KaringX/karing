@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => '有効にする前に、ネットワークが IPv6 をサポートしていることを確認してください。サポートされていない場合、一部のトラフィックに正常にアクセスできなくなります。';
 	@override String get tunAppendHttpProxy => 'VPN に HTTP プロキシを追加する';
 	@override String get tunAppendHttpProxyTips => '一部のアプリは仮想 NIC デバイスをバイパスして HTTP プロキシに直接接続します';
+	@override String get tunAllowBypassHttpProxy => 'HTTP プロキシのバイパスを許可';
 	@override String get tunAllowBypassHttpProxyDomain => 'HTTP プロキシのバイパスを許可するドメイン';
 	@override String get dnsEnableRule => 'DNS 分流ルールを有効にする';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] 解決チャネル';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'システムのサポートが必要です。一部のシステムでは [自動起動] の有効化も必要になる場合があります。';
 	@override String get hideAfterLaunch => '起動後にウィンドウを非表示にする';
 	@override String get autoSetSystemProxy => '接続時にシステムプロキシを自動的に設定する';
-	@override String get bypassSystemProxy => 'システムプロキシのバイパスを許可するドメイン';
+	@override String get bypassSystemProxy => 'システムプロキシのバイパスを許可';
+	@override String get bypassSystemProxyDomain => 'システムプロキシのバイパスを許可するドメイン';
 	@override String get disconnectWhenQuit => 'アプリ終了時に切断する';
 	@override String get autoAddToFirewall => 'ファイアウォールルールを自動的に追加する';
 	@override String get excludeFromRecent => '[最近のタスク] から非表示にする';
@@ -1095,6 +1097,7 @@ extension on TranslationsJa {
 			'SettingsScreen.ipStrategyTips' => '有効にする前に、ネットワークが IPv6 をサポートしていることを確認してください。サポートされていない場合、一部のトラフィックに正常にアクセスできなくなります。',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN に HTTP プロキシを追加する',
 			'SettingsScreen.tunAppendHttpProxyTips' => '一部のアプリは仮想 NIC デバイスをバイパスして HTTP プロキシに直接接続します',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP プロキシのバイパスを許可',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'HTTP プロキシのバイパスを許可するドメイン',
 			'SettingsScreen.dnsEnableRule' => 'DNS 分流ルールを有効にする',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] 解決チャネル',
@@ -1153,7 +1156,8 @@ extension on TranslationsJa {
 			'SettingsScreen.autoConnectAtBootTips' => 'システムのサポートが必要です。一部のシステムでは [自動起動] の有効化も必要になる場合があります。',
 			'SettingsScreen.hideAfterLaunch' => '起動後にウィンドウを非表示にする',
 			'SettingsScreen.autoSetSystemProxy' => '接続時にシステムプロキシを自動的に設定する',
-			'SettingsScreen.bypassSystemProxy' => 'システムプロキシのバイパスを許可するドメイン',
+			'SettingsScreen.bypassSystemProxy' => 'システムプロキシのバイパスを許可',
+			'SettingsScreen.bypassSystemProxyDomain' => 'システムプロキシのバイパスを許可するドメイン',
 			'SettingsScreen.disconnectWhenQuit' => 'アプリ終了時に切断する',
 			'SettingsScreen.autoAddToFirewall' => 'ファイアウォールルールを自動的に追加する',
 			'SettingsScreen.excludeFromRecent' => '[最近のタスク] から非表示にする',
@@ -1490,10 +1494,10 @@ extension on TranslationsJa {
 			'meta.profileUrlOrContent' => 'プロファイルリンク/内容',
 			'meta.profileUrlOrContentHit' => 'プロファイルリンク/内容 [必須] (Clash、V2ray (一括対応)、Stash、Karing、Sing-box、Shadowsocks、サブプロファイルリンクに対応)',
 			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => '形式が正しくありません。修正して再度追加してください: ${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '追加に失敗しました: ${p}。[UserAgent] を変更して再試行するか、デバイス内蔵のブラウザを使用して設定リンクを開き、ブラウザでダウンロードした設定ファイルをこのアプリにインポートしてください',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => '形式が正しくありません。修正して再度追加してください: ${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '追加に失敗しました: ${p}。[UserAgent] を変更して再試行するか、デバイス内蔵のブラウザを使用して設定リンクを開き、ブラウザでダウンロードした設定ファイルをこのアプリにインポートしてください',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '追加に失敗しました: ${p}。プロキシをオンにするか、現在のプロキシノードを変更して再試行してください',
 			'meta.profileAddParseFailed' => 'プロファイルの解析に失敗しました',
 			'meta.profileAddNoServerAvaliable' => '利用可能なサーバーがありません。設定リンクまたは設定ファイルが有効であることを確認してください。設定が GitHub の場合は、ページ上の [Raw] ボタンからリンクを取得してください',

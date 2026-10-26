@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Trước khi bật, vui lòng xác nhận mạng của bạn hỗ trợ IPv6, nếu không một số lưu lượng không thể truy cập bình thường.';
 	@override String get tunAppendHttpProxy => 'Thêm Proxy HTTP vào VPN';
 	@override String get tunAppendHttpProxyTips => 'Một số ứng dụng sẽ bỏ qua thiết bị NIC ảo và kết nối trực tiếp với proxy HTTP';
+	@override String get tunAllowBypassHttpProxy => 'Cho phép bỏ qua proxy HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'Các tên miền được phép bỏ qua proxy HTTP';
 	@override String get dnsEnableRule => 'Bật quy tắc phân luồng DNS';
 	@override String get dnsEnableProxyResolveMode => 'Kênh giải quyết [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Yêu cầu hệ thống hỗ trợ; một số hệ thống cũng có thể yêu cầu bật [tự khởi chạy].';
 	@override String get hideAfterLaunch => 'Ẩn cửa sổ sau khi khởi động';
 	@override String get autoSetSystemProxy => 'Tự động thiết lập proxy hệ thống khi kết nối';
-	@override String get bypassSystemProxy => 'Các tên miền được phép bỏ qua proxy hệ thống';
+	@override String get bypassSystemProxy => 'Cho phép bỏ qua proxy hệ thống';
+	@override String get bypassSystemProxyDomain => 'Các tên miền được phép bỏ qua proxy hệ thống';
 	@override String get disconnectWhenQuit => 'Ngắt kết nối khi thoát ứng dụng';
 	@override String get autoAddToFirewall => 'Tự động thêm quy tắc tường lửa';
 	@override String get excludeFromRecent => 'Ẩn khỏi [Nhiệm vụ gần đây]';
@@ -1095,6 +1097,7 @@ extension on TranslationsVi {
 			'SettingsScreen.ipStrategyTips' => 'Trước khi bật, vui lòng xác nhận mạng của bạn hỗ trợ IPv6, nếu không một số lưu lượng không thể truy cập bình thường.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Thêm Proxy HTTP vào VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Một số ứng dụng sẽ bỏ qua thiết bị NIC ảo và kết nối trực tiếp với proxy HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Cho phép bỏ qua proxy HTTP',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Các tên miền được phép bỏ qua proxy HTTP',
 			'SettingsScreen.dnsEnableRule' => 'Bật quy tắc phân luồng DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Kênh giải quyết [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsVi {
 			'SettingsScreen.autoConnectAtBootTips' => 'Yêu cầu hệ thống hỗ trợ; một số hệ thống cũng có thể yêu cầu bật [tự khởi chạy].',
 			'SettingsScreen.hideAfterLaunch' => 'Ẩn cửa sổ sau khi khởi động',
 			'SettingsScreen.autoSetSystemProxy' => 'Tự động thiết lập proxy hệ thống khi kết nối',
-			'SettingsScreen.bypassSystemProxy' => 'Các tên miền được phép bỏ qua proxy hệ thống',
+			'SettingsScreen.bypassSystemProxy' => 'Cho phép bỏ qua proxy hệ thống',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Các tên miền được phép bỏ qua proxy hệ thống',
 			'SettingsScreen.disconnectWhenQuit' => 'Ngắt kết nối khi thoát ứng dụng',
 			'SettingsScreen.autoAddToFirewall' => 'Tự động thêm quy tắc tường lửa',
 			'SettingsScreen.excludeFromRecent' => 'Ẩn khỏi [Nhiệm vụ gần đây]',
@@ -1490,10 +1494,10 @@ extension on TranslationsVi {
 			'meta.profileUrlOrContent' => 'Liên kết/Nội dung cấu hình',
 			'meta.profileUrlOrContentHit' => 'Liên kết/Nội dung cấu hình [Bắt buộc] (Hỗ trợ Clash, V2ray (hỗ trợ hàng loạt), Stash, Karing, Sing-box, Shadowsocks, liên kết Sub)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Liên kết cấu hình không được để trống',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Định dạng sai, vui lòng sửa lại và thêm lại: ${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng thử sửa đổi [UserAgent] và thử lại, hoặc sử dụng trình duyệt tích hợp của thiết bị để mở liên kết cấu hình và nhập tệp cấu hình đã tải xuống vào ứng dụng này',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Định dạng sai, vui lòng sửa lại và thêm lại: ${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng thử sửa đổi [UserAgent] và thử lại, hoặc sử dụng trình duyệt tích hợp của thiết bị để mở liên kết cấu hình và nhập tệp cấu hình đã tải xuống vào ứng dụng này',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng bật proxy hoặc sửa đổi nút proxy hiện tại và thử lại',
 			'meta.profileAddParseFailed' => 'Phân tích cấu hình thất bại',
 			'meta.profileAddNoServerAvaliable' => 'Không có máy chủ khả dụng, hãy đảm bảo liên kết hoặc tệp cấu hình hợp lệ; nếu cấu hình của bạn từ GitHub, vui lòng lấy liên kết từ nút [Raw] trên trang',

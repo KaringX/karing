@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$pl implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Przed włączeniem upewnij się, że Twoja sieć obsługuje IPv6, w przeciwnym razie dostęp do części ruchu może być utrudniony.';
 	@override String get tunAppendHttpProxy => 'Dołącz proxy HTTP do VPN';
 	@override String get tunAppendHttpProxyTips => 'Niektóre aplikacje będą omijać wirtualne urządzenie sieciowe i łączyć się bezpośrednio z proxy HTTP';
+	@override String get tunAllowBypassHttpProxy => 'Zezwalaj na omijanie proxy HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'Domeny uprawnione do omijania proxy HTTP';
 	@override String get dnsEnableRule => 'Włącz reguły przekierowania DNS';
 	@override String get dnsEnableProxyResolveMode => 'Kanał rozwiązywania dla [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$pl implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Wymagana jest obsługa systemu; niektóre systemy mogą również wymagać włączenia [autostartu].';
 	@override String get hideAfterLaunch => 'Ukryj okno po uruchomieniu';
 	@override String get autoSetSystemProxy => 'Automatycznie ustaw proxy systemowe po połączeniu';
-	@override String get bypassSystemProxy => 'Nazwy domen uprawnione do omijania proxy systemowego';
+	@override String get bypassSystemProxy => 'Zezwalaj na omijanie proxy systemowego';
+	@override String get bypassSystemProxyDomain => 'Nazwy domen uprawnione do omijania proxy systemowego';
 	@override String get disconnectWhenQuit => 'Rozłącz przy wyjściu z aplikacji';
 	@override String get autoAddToFirewall => 'Automatycznie dodawaj reguły zapory';
 	@override String get excludeFromRecent => 'Ukryj z [Ostatnich zadań]';
@@ -1095,6 +1097,7 @@ extension on TranslationsPl {
 			'SettingsScreen.ipStrategyTips' => 'Przed włączeniem upewnij się, że Twoja sieć obsługuje IPv6, w przeciwnym razie dostęp do części ruchu może być utrudniony.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Dołącz proxy HTTP do VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Niektóre aplikacje będą omijać wirtualne urządzenie sieciowe i łączyć się bezpośrednio z proxy HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Zezwalaj na omijanie proxy HTTP',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Domeny uprawnione do omijania proxy HTTP',
 			'SettingsScreen.dnsEnableRule' => 'Włącz reguły przekierowania DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Kanał rozwiązywania dla [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsPl {
 			'SettingsScreen.autoConnectAtBootTips' => 'Wymagana jest obsługa systemu; niektóre systemy mogą również wymagać włączenia [autostartu].',
 			'SettingsScreen.hideAfterLaunch' => 'Ukryj okno po uruchomieniu',
 			'SettingsScreen.autoSetSystemProxy' => 'Automatycznie ustaw proxy systemowe po połączeniu',
-			'SettingsScreen.bypassSystemProxy' => 'Nazwy domen uprawnione do omijania proxy systemowego',
+			'SettingsScreen.bypassSystemProxy' => 'Zezwalaj na omijanie proxy systemowego',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Nazwy domen uprawnione do omijania proxy systemowego',
 			'SettingsScreen.disconnectWhenQuit' => 'Rozłącz przy wyjściu z aplikacji',
 			'SettingsScreen.autoAddToFirewall' => 'Automatycznie dodawaj reguły zapory',
 			'SettingsScreen.excludeFromRecent' => 'Ukryj z [Ostatnich zadań]',
@@ -1490,10 +1494,10 @@ extension on TranslationsPl {
 			'meta.profileUrlOrContent' => 'Link/Zawartość profilu',
 			'meta.profileUrlOrContentHit' => 'Link/Zawartość profilu [Wymagane] (Obsługuje linki do profili Clash, V2ray (obsługiwane seryjnie), Stash, Karing, Sing-box, Shadowsocks, Sub)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Link do profilu nie może być pusty',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format jest błędny, popraw go i spróbuj dodać ponownie:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, spróbuj zmienić [UserAgent] i spróbuj ponownie, lub użyj wbudowanej przeglądarki urządzenia, aby otworzyć link konfiguracyjny i zaimportuj plik konfiguracyjny pobrany przez przeglądarkę do tej aplikacji',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format jest błędny, popraw go i spróbuj dodać ponownie:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, spróbuj zmienić [UserAgent] i spróbuj ponownie, lub użyj wbudowanej przeglądarki urządzenia, aby otworzyć link konfiguracyjny i zaimportuj plik konfiguracyjny pobrany przez przeglądarkę do tej aplikacji',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, włącz proxy lub zmień bieżący węzeł proxy i spróbuj ponownie',
 			'meta.profileAddParseFailed' => 'Parsowanie profilu nie powiodło się',
 			'meta.profileAddNoServerAvaliable' => 'Brak dostępnych serwerów. Upewnij się, że link do profilu lub plik profilu jest prawidłowy; jeśli profil pochodzi z GitHub, pobierz link za pomocą przycisku [Raw] na stronie',

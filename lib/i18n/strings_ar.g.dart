@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.';
 	@override String get tunAppendHttpProxy => 'إلحاق وكيل HTTP إلى VPN';
 	@override String get tunAppendHttpProxyTips => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP';
+	@override String get tunAllowBypassHttpProxy => 'السماح بتجاوز وكيل HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'المجالات المسموح لها بتجاوز وكيل HTTP';
 	@override String get dnsEnableRule => 'تمكين قواعد تحويل DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] قناة الدقة';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].';
 	@override String get hideAfterLaunch => 'إخفاء النافذة بعد بدء التشغيل';
 	@override String get autoSetSystemProxy => 'وكيل نظام تعيين تلقائي عند الاتصال';
-	@override String get bypassSystemProxy => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
+	@override String get bypassSystemProxy => 'السماح بتجاوز وكيل النظام';
+	@override String get bypassSystemProxyDomain => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام';
 	@override String get disconnectWhenQuit => 'افصل عندما يخرج التطبيق';
 	@override String get autoAddToFirewall => 'إضافة قواعد جدار الحماية تلقائيًا';
 	@override String get excludeFromRecent => 'إخفاء من المهام الأخيرة';
@@ -1095,6 +1097,7 @@ extension on TranslationsAr {
 			'SettingsScreen.ipStrategyTips' => 'قبل التمكين ، يرجى تأكيد أن شبكتك تدعم IPv6 ، وإلا لا يمكن الوصول إلى بعض حركة المرور بشكل طبيعي.',
 			'SettingsScreen.tunAppendHttpProxy' => 'إلحاق وكيل HTTP إلى VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'ستجاوز بعض التطبيقات جهاز NIC الظاهري والاتصال مباشرة بوكيل HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'السماح بتجاوز وكيل HTTP',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'المجالات المسموح لها بتجاوز وكيل HTTP',
 			'SettingsScreen.dnsEnableRule' => 'تمكين قواعد تحويل DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] قناة الدقة',
@@ -1153,7 +1156,8 @@ extension on TranslationsAr {
 			'SettingsScreen.autoConnectAtBootTips' => 'يجب دعم النظام؛ وقد تتطلب بعض الأنظمة أيضًا تمكين [البدء التلقائي].',
 			'SettingsScreen.hideAfterLaunch' => 'إخفاء النافذة بعد بدء التشغيل',
 			'SettingsScreen.autoSetSystemProxy' => 'وكيل نظام تعيين تلقائي عند الاتصال',
-			'SettingsScreen.bypassSystemProxy' => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام',
+			'SettingsScreen.bypassSystemProxy' => 'السماح بتجاوز وكيل النظام',
+			'SettingsScreen.bypassSystemProxyDomain' => 'أسماء النطاقات المسموح لها بتجاوز وكيل النظام',
 			'SettingsScreen.disconnectWhenQuit' => 'افصل عندما يخرج التطبيق',
 			'SettingsScreen.autoAddToFirewall' => 'إضافة قواعد جدار الحماية تلقائيًا',
 			'SettingsScreen.excludeFromRecent' => 'إخفاء من المهام الأخيرة',
@@ -1490,10 +1494,10 @@ extension on TranslationsAr {
 			'meta.profileUrlOrContent' => 'رابط/محتوى الملف الشخصي',
 			'meta.profileUrlOrContentHit' => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)',
 			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى',
 			'meta.profileAddParseFailed' => 'فشل تحليل الملف الشخصي',
 			'meta.profileAddNoServerAvaliable' => 'لا يوجد خادم متاح، يرجى التأكد من صلاحية رابط التكوين أو ملف التكوين؛ وإذا كان التكوين الخاص بك يأتي من GitHub، فيرجى الحصول على عنوان الرابط من الزر [Raw] الموجود في الصفحة',

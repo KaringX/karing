@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Etkinleştirmeden önce lütfen ağınızın IPv6\'yı desteklediğini onaylayın, aksi takdirde bazı trafiklere normal şekilde erişilemez.';
 	@override String get tunAppendHttpProxy => 'VPN\'e HTTP Proxy Ekle';
 	@override String get tunAppendHttpProxyTips => 'Bazı uygulamalar sanal NIC aygıtını atlayacak ve doğrudan HTTP proxy\'sine bağlanacaktır';
+	@override String get tunAllowBypassHttpProxy => 'HTTP proxy\'sini atlamaya izin ver';
 	@override String get tunAllowBypassHttpProxyDomain => 'HTTP proxy\'sini atlamasına izin verilen alan adları';
 	@override String get dnsEnableRule => 'DNS Yönlendirme kurallarını etkinleştir';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Çözümleme Kanalı';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Sistem desteği gereklidir; bazı sistemler [otomatik başlatma] özelliğinin etkinleştirilmesini de gerektirebilir.';
 	@override String get hideAfterLaunch => 'Başlattıktan sonra pencereyi gizle';
 	@override String get autoSetSystemProxy => 'Bağlandığında Otomatik Sistem Proxy Ayarla';
-	@override String get bypassSystemProxy => 'Sistem proxy\'sini atlamasına izin verilen alan adları';
+	@override String get bypassSystemProxy => 'Sistem proxy\'sini atlamaya izin ver';
+	@override String get bypassSystemProxyDomain => 'Sistem proxy\'sini atlamasına izin verilen alan adları';
 	@override String get disconnectWhenQuit => 'Uygulamadan Çıkıldığında Bağlantıyı Kes';
 	@override String get autoAddToFirewall => 'Güvenlik Duvarı Kurallarını Otomatik Ekle';
 	@override String get excludeFromRecent => '[Son Görevler] listesinden gizle';
@@ -1095,6 +1097,7 @@ extension on TranslationsTr {
 			'SettingsScreen.ipStrategyTips' => 'Etkinleştirmeden önce lütfen ağınızın IPv6\'yı desteklediğini onaylayın, aksi takdirde bazı trafiklere normal şekilde erişilemez.',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN\'e HTTP Proxy Ekle',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Bazı uygulamalar sanal NIC aygıtını atlayacak ve doğrudan HTTP proxy\'sine bağlanacaktır',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP proxy\'sini atlamaya izin ver',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'HTTP proxy\'sini atlamasına izin verilen alan adları',
 			'SettingsScreen.dnsEnableRule' => 'DNS Yönlendirme kurallarını etkinleştir',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Çözümleme Kanalı',
@@ -1153,7 +1156,8 @@ extension on TranslationsTr {
 			'SettingsScreen.autoConnectAtBootTips' => 'Sistem desteği gereklidir; bazı sistemler [otomatik başlatma] özelliğinin etkinleştirilmesini de gerektirebilir.',
 			'SettingsScreen.hideAfterLaunch' => 'Başlattıktan sonra pencereyi gizle',
 			'SettingsScreen.autoSetSystemProxy' => 'Bağlandığında Otomatik Sistem Proxy Ayarla',
-			'SettingsScreen.bypassSystemProxy' => 'Sistem proxy\'sini atlamasına izin verilen alan adları',
+			'SettingsScreen.bypassSystemProxy' => 'Sistem proxy\'sini atlamaya izin ver',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Sistem proxy\'sini atlamasına izin verilen alan adları',
 			'SettingsScreen.disconnectWhenQuit' => 'Uygulamadan Çıkıldığında Bağlantıyı Kes',
 			'SettingsScreen.autoAddToFirewall' => 'Güvenlik Duvarı Kurallarını Otomatik Ekle',
 			'SettingsScreen.excludeFromRecent' => '[Son Görevler] listesinden gizle',
@@ -1490,10 +1494,10 @@ extension on TranslationsTr {
 			'meta.profileUrlOrContent' => 'Profil Bağlantısı/İçeriği',
 			'meta.profileUrlOrContentHit' => 'Profil Bağlantısı/İçeriği [Gerekli] (Clash, V2ray (toplu destekli), Stash, Karing, Sing-box, Shadowsocks, Sub Profil bağlantılarını destekler)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Profil Bağlantısı boş olamaz',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format yanlış, lütfen düzeltin ve tekrar ekleyin: ${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen [UserAgent]\'ı değiştirmeyi deneyin ve tekrar deneyin veya yapılandırma bağlantısını açmak ve tarayıcı tarafından indirilen yapılandırma dosyasını bu uygulamaya aktarmak için cihazın yerleşik tarayıcısını kullanın',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format yanlış, lütfen düzeltin ve tekrar ekleyin: ${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen [UserAgent]\'ı değiştirmeyi deneyin ve tekrar deneyin veya yapılandırma bağlantısını açmak ve tarayıcı tarafından indirilen yapılandırma dosyasını bu uygulamaya aktarmak için cihazın yerleşik tarayıcısını kullanın',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen proxy\'yi açın veya mevcut proxy düğümünü değiştirin ve tekrar deneyin',
 			'meta.profileAddParseFailed' => 'Profil Ayrıştırma başarısız oldu',
 			'meta.profileAddNoServerAvaliable' => 'Kullanılabilir sunucu yok, Profil Bağlantısının veya Profil Dosyasının geçerli olduğundan emin olun; Profiliniz GitHub\'dan geliyorsa lütfen bağlantıyı sayfadaki [Raw] düğmesinden alın',

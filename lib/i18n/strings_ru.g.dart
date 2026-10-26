@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6,  иначе часть трафика будет недоступна.';
 	@override String get tunAppendHttpProxy => 'Добавить HTTP-прокси в VPN.';
 	@override String get tunAppendHttpProxyTips => 'Некоторые приложения будут обходить виртуальный адаптер и подключаться к HTTP-прокси напрямую.';
+	@override String get tunAllowBypassHttpProxy => 'Разрешить обход HTTP-прокси';
 	@override String get tunAllowBypassHttpProxyDomain => 'Домены, которым разрешено обходить HTTP-прокси';
 	@override String get dnsEnableRule => 'Включить правила маршрутизации DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] Способ разрешения в DNS';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Требуется поддержка системы; некоторые системы могут потребовать включения [автозапуска].';
 	@override String get hideAfterLaunch => 'Сворачивать окно при запуске';
 	@override String get autoSetSystemProxy => 'Установить системный прокси после подключения';
-	@override String get bypassSystemProxy => 'Домены, которым разрешено обходить системный прокси-сервер';
+	@override String get bypassSystemProxy => 'Разрешить обход системного прокси-сервера';
+	@override String get bypassSystemProxyDomain => 'Домены, которым разрешено обходить системный прокси-сервер';
 	@override String get disconnectWhenQuit => 'Отключаться при выходе из приложения';
 	@override String get autoAddToFirewall => 'Автоматическое добавление правил брандмауэра';
 	@override String get excludeFromRecent => 'Скрыть из недавних задач';
@@ -1095,6 +1097,7 @@ extension on TranslationsRu {
 			'SettingsScreen.ipStrategyTips' => 'Перед включением убедитесь, что ваша сеть поддерживает IPv6,  иначе часть трафика будет недоступна.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Добавить HTTP-прокси в VPN.',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Некоторые приложения будут обходить виртуальный адаптер и подключаться к HTTP-прокси напрямую.',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Разрешить обход HTTP-прокси',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Домены, которым разрешено обходить HTTP-прокси',
 			'SettingsScreen.dnsEnableRule' => 'Включить правила маршрутизации DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] Способ разрешения в DNS',
@@ -1153,7 +1156,8 @@ extension on TranslationsRu {
 			'SettingsScreen.autoConnectAtBootTips' => 'Требуется поддержка системы; некоторые системы могут потребовать включения [автозапуска].',
 			'SettingsScreen.hideAfterLaunch' => 'Сворачивать окно при запуске',
 			'SettingsScreen.autoSetSystemProxy' => 'Установить системный прокси после подключения',
-			'SettingsScreen.bypassSystemProxy' => 'Домены, которым разрешено обходить системный прокси-сервер',
+			'SettingsScreen.bypassSystemProxy' => 'Разрешить обход системного прокси-сервера',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Домены, которым разрешено обходить системный прокси-сервер',
 			'SettingsScreen.disconnectWhenQuit' => 'Отключаться при выходе из приложения',
 			'SettingsScreen.autoAddToFirewall' => 'Автоматическое добавление правил брандмауэра',
 			'SettingsScreen.excludeFromRecent' => 'Скрыть из недавних задач',
@@ -1490,10 +1494,10 @@ extension on TranslationsRu {
 			'meta.profileUrlOrContent' => 'Ссылка на подписку/содержание',
 			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(пакетом), Stash, Karing, Sing-box, Shadowsocks, Sub, ссылки на конфигурацию).',
 			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.',
 			'meta.profileAddParseFailed' => 'Получение подписки не удалось',
 			'meta.profileAddNoServerAvaliable' => 'Нет доступных серверов. Убедитесь что подписка или файл конфигурации корректен. Если ваша конфигурация взята из GitHub, копируйте ссылку по кнопке [Raw].',

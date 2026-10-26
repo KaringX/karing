@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$bn implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'সক্ষম করার আগে, অনুগ্রহ করে নিশ্চিত করুন যে আপনার নেটওয়ার্ক IPv6 সমর্থন করে, অন্যথায় কিছু ট্র্যাফিক স্বাভাবিকভাবে অ্যাক্সেস করা যাবে না।';
 	@override String get tunAppendHttpProxy => 'VPN-এ HTTP প্রক্সি যুক্ত করুন';
 	@override String get tunAppendHttpProxyTips => 'কিছু অ্যাপ ভার্চুয়াল NIC ডিভাইস এড়িয়ে সরাসরি HTTP প্রক্সির সাথে সংযুক্ত হবে';
+	@override String get tunAllowBypassHttpProxy => 'HTTP প্রক্সি বাইপাস করার অনুমতি দিন';
 	@override String get tunAllowBypassHttpProxyDomain => 'যেসব ডোমেইনকে HTTP প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে';
 	@override String get dnsEnableRule => 'DNS ডাইভারশন রুল সক্ষম করুন';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] রেজোলিউশন চ্যানেল';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$bn implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'সিস্টেম সাপোর্ট প্রয়োজন; কিছু সিস্টেমে [অটো-স্টার্ট] সক্ষম করার প্রয়োজন হতে পারে।';
 	@override String get hideAfterLaunch => 'লঞ্চের পরে উইন্ডো লুকান';
 	@override String get autoSetSystemProxy => 'সংযুক্ত হলে স্বয়ংক্রিয়ভাবে সিস্টেম প্রক্সি সেট করুন';
-	@override String get bypassSystemProxy => 'যেসব ডোমেইনকে সিস্টেম প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে';
+	@override String get bypassSystemProxy => 'সিস্টেম প্রক্সি বাইপাস করার অনুমতি দিন';
+	@override String get bypassSystemProxyDomain => 'যেসব ডোমেইনকে সিস্টেম প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে';
 	@override String get disconnectWhenQuit => 'অ্যাপ থেকে বের হওয়ার সময় সংযোগ বিচ্ছিন্ন করুন';
 	@override String get autoAddToFirewall => 'স্বয়ংক্রিয়ভাবে ফায়ারওয়াল রুল যুক্ত করুন';
 	@override String get excludeFromRecent => '[সাম্প্রতিক কাজ] থেকে লুকান';
@@ -1095,6 +1097,7 @@ extension on TranslationsBn {
 			'SettingsScreen.ipStrategyTips' => 'সক্ষম করার আগে, অনুগ্রহ করে নিশ্চিত করুন যে আপনার নেটওয়ার্ক IPv6 সমর্থন করে, অন্যথায় কিছু ট্র্যাফিক স্বাভাবিকভাবে অ্যাক্সেস করা যাবে না।',
 			'SettingsScreen.tunAppendHttpProxy' => 'VPN-এ HTTP প্রক্সি যুক্ত করুন',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'কিছু অ্যাপ ভার্চুয়াল NIC ডিভাইস এড়িয়ে সরাসরি HTTP প্রক্সির সাথে সংযুক্ত হবে',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'HTTP প্রক্সি বাইপাস করার অনুমতি দিন',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'যেসব ডোমেইনকে HTTP প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে',
 			'SettingsScreen.dnsEnableRule' => 'DNS ডাইভারশন রুল সক্ষম করুন',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] রেজোলিউশন চ্যানেল',
@@ -1153,7 +1156,8 @@ extension on TranslationsBn {
 			'SettingsScreen.autoConnectAtBootTips' => 'সিস্টেম সাপোর্ট প্রয়োজন; কিছু সিস্টেমে [অটো-স্টার্ট] সক্ষম করার প্রয়োজন হতে পারে।',
 			'SettingsScreen.hideAfterLaunch' => 'লঞ্চের পরে উইন্ডো লুকান',
 			'SettingsScreen.autoSetSystemProxy' => 'সংযুক্ত হলে স্বয়ংক্রিয়ভাবে সিস্টেম প্রক্সি সেট করুন',
-			'SettingsScreen.bypassSystemProxy' => 'যেসব ডোমেইনকে সিস্টেম প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে',
+			'SettingsScreen.bypassSystemProxy' => 'সিস্টেম প্রক্সি বাইপাস করার অনুমতি দিন',
+			'SettingsScreen.bypassSystemProxyDomain' => 'যেসব ডোমেইনকে সিস্টেম প্রক্সি এড়িয়ে যাওয়ার অনুমতি দেওয়া হয়েছে',
 			'SettingsScreen.disconnectWhenQuit' => 'অ্যাপ থেকে বের হওয়ার সময় সংযোগ বিচ্ছিন্ন করুন',
 			'SettingsScreen.autoAddToFirewall' => 'স্বয়ংক্রিয়ভাবে ফায়ারওয়াল রুল যুক্ত করুন',
 			'SettingsScreen.excludeFromRecent' => '[সাম্প্রতিক কাজ] থেকে লুকান',
@@ -1490,10 +1494,10 @@ extension on TranslationsBn {
 			'meta.profileUrlOrContent' => 'প্রোফাইল লিঙ্ক/বিষয়বস্তু',
 			'meta.profileUrlOrContentHit' => 'প্রোফাইল লিঙ্ক/বিষয়বস্তু [প্রয়োজন] (Clash, V2ray (ব্যাচ সমর্থিত), Stash, Karing, Sing-box, Shadowsocks, Sub প্রোফাইল লিঙ্ক সমর্থন করে)',
 			'meta.profileUrlOrContentCannotEmpty' => 'প্রোফাইল লিঙ্ক খালি রাখা যাবে না',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'ফরম্যাট ভুল, অনুগ্রহ করে এটি ঠিক করুন এবং আবার যুক্ত করুন:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে [UserAgent] পরিবর্তন করার চেষ্টা করুন এবং আবার চেষ্টা করুন, অথবা কনফিগারেশন লিঙ্কটি খোলার জন্য ডিভাইসের বিল্ট-ইন ব্রাউজার ব্যবহার করুন এবং ব্রাউজার দ্বারা ডাউনলোড করা কনফিগারেশন ফাইলটি এই অ্যাপ্লিকেশনে আমদানি করুন',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'ফরম্যাট ভুল, অনুগ্রহ করে এটি ঠিক করুন এবং আবার যুক্ত করুন:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে [UserAgent] পরিবর্তন করার চেষ্টা করুন এবং আবার চেষ্টা করুন, অথবা কনফিগারেশন লিঙ্কটি খোলার জন্য ডিভাইসের বিল্ট-ইন ব্রাউজার ব্যবহার করুন এবং ব্রাউজার দ্বারা ডাউনলোড করা কনফিগারেশন ফাইলটি এই অ্যাপ্লিকেশনে আমদানি করুন',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে প্রক্সি চালু করুন বা বর্তমান প্রক্সি নোড পরিবর্তন করুন এবং আবার চেষ্টা করুন',
 			'meta.profileAddParseFailed' => 'প্রোফাইল পার্স করতে ব্যর্থ',
 			'meta.profileAddNoServerAvaliable' => 'কোনো সার্ভার উপলব্ধ নেই, নিশ্চিত করুন যে প্রোফাইল লিঙ্ক বা প্রোফাইল ফাইলটি বৈধ; যদি আপনার প্রোফাইল GitHub থেকে হয়, তবে অনুগ্রহ করে পৃষ্ঠার [Raw] বাটনের মাধ্যমে লিঙ্কটি পান',

@@ -852,8 +852,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             ),
             if (PlatformUtils.isPC()) ...[
               GroupItemOptions(
-                pushOptions: GroupItemPushOptions(
+                switchOptions: GroupItemSwitchOptions(
                   name: tcontext.SettingsScreen.bypassSystemProxy,
+                  switchValue: settingConfig.proxy.bypassSystemProxy,
+                  onSwitch: (bool value) async {
+                    settingConfig.proxy.bypassSystemProxy = value;
+                    setState(() {});
+                  },
+                ),
+              ),
+              GroupItemOptions(
+                pushOptions: GroupItemPushOptions(
+                  name: tcontext.SettingsScreen.bypassSystemProxyDomain,
                   onPush: () async {
                     await Navigator.push(
                       context,
@@ -862,7 +872,8 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                           "systemProxyBypassDomain",
                         ),
                         builder: (context) => ListAddScreen(
-                          title: tcontext.SettingsScreen.bypassSystemProxy,
+                          title:
+                              tcontext.SettingsScreen.bypassSystemProxyDomain,
                           data: settingConfig.proxy.systemProxyBypassDomain,
                         ),
                       ),

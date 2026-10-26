@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$id implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Sebelum mengaktifkan, pastikan jaringan Anda sudah mendukung IPv6, jika tidak beberapa trafik mungkin tidak bisa diakses dengan benar';
 	@override String get tunAppendHttpProxy => 'Tambahkan proxy HTTP ke VPN';
 	@override String get tunAppendHttpProxyTips => 'Beberapa aplikasi akan melewati perangkat kartu jaringan virtual dan langsung terhubung ke proxy HTTP';
+	@override String get tunAllowBypassHttpProxy => 'Izinkan melewati proxy HTTP';
 	@override String get tunAllowBypassHttpProxyDomain => 'Izinkan domain untuk melewati proxy HTTP';
 	@override String get dnsEnableRule => 'Aktifkan aturan routing DNS';
 	@override String get dnsEnableProxyResolveMode => 'Kanal resolusi [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$id implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Memerlukan dukungan sistem, dan pada beberapa sistem mungkin juga perlu mengaktifkan [Startup otomatis]';
 	@override String get hideAfterLaunch => 'Sembunyikan jendela setelah mulai';
 	@override String get autoSetSystemProxy => 'Atur proxy sistem secara otomatis setelah terhubung';
-	@override String get bypassSystemProxy => 'Izinkan domain untuk melewati proxy sistem';
+	@override String get bypassSystemProxy => 'Izinkan melewati proxy sistem';
+	@override String get bypassSystemProxyDomain => 'Izinkan domain untuk melewati proxy sistem';
 	@override String get disconnectWhenQuit => 'Putuskan koneksi saat keluar aplikasi';
 	@override String get autoAddToFirewall => 'Tambahkan aturan firewall secara otomatis';
 	@override String get excludeFromRecent => 'Sembunyikan dari [Tugas terbaru]';
@@ -1095,6 +1097,7 @@ extension on TranslationsId {
 			'SettingsScreen.ipStrategyTips' => 'Sebelum mengaktifkan, pastikan jaringan Anda sudah mendukung IPv6, jika tidak beberapa trafik mungkin tidak bisa diakses dengan benar',
 			'SettingsScreen.tunAppendHttpProxy' => 'Tambahkan proxy HTTP ke VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Beberapa aplikasi akan melewati perangkat kartu jaringan virtual dan langsung terhubung ke proxy HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Izinkan melewati proxy HTTP',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Izinkan domain untuk melewati proxy HTTP',
 			'SettingsScreen.dnsEnableRule' => 'Aktifkan aturan routing DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Kanal resolusi [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsId {
 			'SettingsScreen.autoConnectAtBootTips' => 'Memerlukan dukungan sistem, dan pada beberapa sistem mungkin juga perlu mengaktifkan [Startup otomatis]',
 			'SettingsScreen.hideAfterLaunch' => 'Sembunyikan jendela setelah mulai',
 			'SettingsScreen.autoSetSystemProxy' => 'Atur proxy sistem secara otomatis setelah terhubung',
-			'SettingsScreen.bypassSystemProxy' => 'Izinkan domain untuk melewati proxy sistem',
+			'SettingsScreen.bypassSystemProxy' => 'Izinkan melewati proxy sistem',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Izinkan domain untuk melewati proxy sistem',
 			'SettingsScreen.disconnectWhenQuit' => 'Putuskan koneksi saat keluar aplikasi',
 			'SettingsScreen.autoAddToFirewall' => 'Tambahkan aturan firewall secara otomatis',
 			'SettingsScreen.excludeFromRecent' => 'Sembunyikan dari [Tugas terbaru]',
@@ -1490,10 +1494,10 @@ extension on TranslationsId {
 			'meta.profileUrlOrContent' => 'Tautan/isi konfigurasi',
 			'meta.profileUrlOrContentHit' => 'Tautan/isi konfigurasi [wajib] (mendukung Clash,V2ray(mendukung batch),Stash,Karing,Sing-box,Shadowsocks,Sub,Github configuration link)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Tautan konfigurasi tidak boleh kosong',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format salah, silakan koreksi lalu tambahkan lagi:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Penambahan gagal:${p}, coba ubah [UserAgent] lalu ulangi, atau buka tautan konfigurasi dengan browser bawaan perangkat, lalu impor file konfigurasi yang diunduh browser ke aplikasi ini',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format salah, silakan koreksi lalu tambahkan lagi:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Penambahan gagal:${p}, coba ubah [UserAgent] lalu ulangi, atau buka tautan konfigurasi dengan browser bawaan perangkat, lalu impor file konfigurasi yang diunduh browser ke aplikasi ini',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Penambahan gagal:${p}, silakan aktifkan proxy atau ganti node proxy saat ini lalu coba lagi',
 			'meta.profileAddParseFailed' => 'Gagal mengurai konfigurasi',
 			'meta.profileAddNoServerAvaliable' => 'Tidak ada server yang tersedia, pastikan tautan atau file konfigurasi valid; jika konfigurasi Anda berasal dari GitHub, gunakan alamat tautan dari tombol [Raw] di halaman',

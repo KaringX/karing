@@ -515,9 +515,11 @@ class SettingConfigItemTUN {
   bool allowBypass = false; //android
   bool appendHttpProxy =
       getAppendHttp(); //android, ios: some apps skip tun route
-  List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
+  //bool allowBypassHttpProxy = true;
+  //List<String> allowBypassHttpProxyDomains = ProxyBypassDoaminsDefault.toList();
   bool hijackDns = true;
   String loopbackAddress = "";
+  bool routeExclude = true;
   bool routeExcludeAddressTun = Platform.isWindows;
   bool routeExcludeAddressMulticast = false;
   List<String> routeExcludeAddress = [];
@@ -545,9 +547,11 @@ class SettingConfigItemTUN {
       'override_android_vpn': overrideAndroidVPN,
       'allow_bypass': allowBypass,
       'append_http_proxy': appendHttpProxy,
-      'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
+      //'allow_bypass_httpproxy': allowBypassHttpProxy,
+      //'allow_bypass_httpproxy_domains': allowBypassHttpProxyDomains,
       'hijack_dns': hijackDns,
       'loopback_address': loopbackAddress,
+      'route_exclude': routeExclude,
       'route_exclude_address_tun': routeExcludeAddressTun,
       'route_exclude_address_multicast': routeExcludeAddressMulticast,
       'route_exclude_address': routeExcludeAddress,
@@ -605,17 +609,19 @@ class SettingConfigItemTUN {
     allowBypass = map["allow_bypass"] ?? false;
     overrideAndroidVPN = map["override_android_vpn"] ?? false;
     appendHttpProxy = map["append_http_proxy"] ?? getAppendHttp();
-    allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
-      map["allow_bypass_httpproxy_domains"],
-      true,
-      ProxyBypassDoaminsDefault.toList(),
-    )!;
+    //allowBypassHttpProxy = map["allow_bypass_httpproxy"] ?? true;
+    //allowBypassHttpProxyDomains = ConvertUtils.getListStringFromDynamic(
+    //  map["allow_bypass_httpproxy_domains"],
+    //  true,
+    //  ProxyBypassDoaminsDefault.toList(),
+    //)!;
     hijackDns = map["hijack_dns"] ?? true;
     loopbackAddress = map["loopback_address"] ?? "";
     if (!NetworkUtils.isIpv4(loopbackAddress) &&
         !NetworkUtils.isIpv6(loopbackAddress)) {
       loopbackAddress = "";
     }
+    routeExclude = map["route_exclude"] ?? true;
     routeExcludeAddressTun =
         map["route_exclude_address_tun"] ?? Platform.isWindows;
     routeExcludeAddressMulticast =
@@ -1242,6 +1248,7 @@ class SettingConfigItemProxy {
   int controlPort = controlPortDefault;
   int clusterPort = clusterPortDefault;
   bool autoSetSystemProxy = getAutoSetSystemProxyDefault();
+  bool bypassSystemProxy = true;
   List<String> systemProxyBypassDomain = ProxyBypassDoaminsDefault.toList();
   bool disconnectWhenQuit = getDisconnectWhenQuitDefault();
   bool autoAddToFirewall = true;
@@ -1287,6 +1294,7 @@ class SettingConfigItemProxy {
     'control_port': controlPort,
     'cluster_port': clusterPort,
     'auto_set_system_proxy': autoSetSystemProxy,
+    'bypass_system_proxy': bypassSystemProxy,
     'system_proxy_bypass_domain': systemProxyBypassDomain,
     'disconnect_when_quit': disconnectWhenQuit,
     'auto_add_to_firewall': autoAddToFirewall,
@@ -1336,6 +1344,7 @@ class SettingConfigItemProxy {
     }
     autoSetSystemProxy =
         map["auto_set_system_proxy"] ?? getAutoSetSystemProxyDefault();
+    bypassSystemProxy = map["bypass_system_proxy"] ?? true;
     systemProxyBypassDomain = ConvertUtils.getListStringFromDynamic(
       map["system_proxy_bypass_domain"],
       true,

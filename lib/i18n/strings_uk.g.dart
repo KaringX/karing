@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$uk implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'Перед увімкненням переконайтеся, що ваша мережа підтримує IPv6, інакше деякий трафік не буде доступний у звичайному режимі.';
 	@override String get tunAppendHttpProxy => 'Додати HTTP-проксі до VPN';
 	@override String get tunAppendHttpProxyTips => 'Деякі програми обходять віртуальний пристрій NIC і підключаються безпосередньо до HTTP-проксі';
+	@override String get tunAllowBypassHttpProxy => 'Дозволити обхід HTTP-проксі';
 	@override String get tunAllowBypassHttpProxyDomain => 'Домени, яким дозволено обходити HTTP-проксі';
 	@override String get dnsEnableRule => 'Увімкнути правила відхилення DNS';
 	@override String get dnsEnableProxyResolveMode => 'Канал вирішення [${_root.meta.trafficProxy}]';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$uk implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'Потрібна системна підтримка; деякі системи також можуть вимагати увімкнення [автозапуску].';
 	@override String get hideAfterLaunch => 'Приховати вікно після запуску';
 	@override String get autoSetSystemProxy => 'Автоматично встановлювати системний проксі при підключенні';
-	@override String get bypassSystemProxy => 'Доменні імена, яким дозволено обходити системний проксі';
+	@override String get bypassSystemProxy => 'Дозволити обхід системного проксі';
+	@override String get bypassSystemProxyDomain => 'Доменні імена, яким дозволено обходити системний проксі';
 	@override String get disconnectWhenQuit => 'Відключитися при виході з програми';
 	@override String get autoAddToFirewall => 'Автоматично додавати правила брандмауера';
 	@override String get excludeFromRecent => 'Приховати з [Недавніх завдань]';
@@ -1095,6 +1097,7 @@ extension on TranslationsUk {
 			'SettingsScreen.ipStrategyTips' => 'Перед увімкненням переконайтеся, що ваша мережа підтримує IPv6, інакше деякий трафік не буде доступний у звичайному режимі.',
 			'SettingsScreen.tunAppendHttpProxy' => 'Додати HTTP-проксі до VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'Деякі програми обходять віртуальний пристрій NIC і підключаються безпосередньо до HTTP-проксі',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'Дозволити обхід HTTP-проксі',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'Домени, яким дозволено обходити HTTP-проксі',
 			'SettingsScreen.dnsEnableRule' => 'Увімкнути правила відхилення DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => 'Канал вирішення [${_root.meta.trafficProxy}]',
@@ -1153,7 +1156,8 @@ extension on TranslationsUk {
 			'SettingsScreen.autoConnectAtBootTips' => 'Потрібна системна підтримка; деякі системи також можуть вимагати увімкнення [автозапуску].',
 			'SettingsScreen.hideAfterLaunch' => 'Приховати вікно після запуску',
 			'SettingsScreen.autoSetSystemProxy' => 'Автоматично встановлювати системний проксі при підключенні',
-			'SettingsScreen.bypassSystemProxy' => 'Доменні імена, яким дозволено обходити системний проксі',
+			'SettingsScreen.bypassSystemProxy' => 'Дозволити обхід системного проксі',
+			'SettingsScreen.bypassSystemProxyDomain' => 'Доменні імена, яким дозволено обходити системний проксі',
 			'SettingsScreen.disconnectWhenQuit' => 'Відключитися при виході з програми',
 			'SettingsScreen.autoAddToFirewall' => 'Автоматично додавати правила брандмауера',
 			'SettingsScreen.excludeFromRecent' => 'Приховати з [Недавніх завдань]',
@@ -1490,10 +1494,10 @@ extension on TranslationsUk {
 			'meta.profileUrlOrContent' => 'Посилання/вміст профілю',
 			'meta.profileUrlOrContentHit' => 'Посилання/вміст профілю [Обов\'язково] (Підтримує посилання на профілі Clash, V2ray (підтримується пакетно), Stash, Karing, Sing-box, Shadowsocks, Sub)',
 			'meta.profileUrlOrContentCannotEmpty' => 'Посилання на профіль не може бути порожнім',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильний формат, будь ласка, виправте його та додайте знову:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, спробуйте змінити [UserAgent] і спробуйте знову, або скористайтеся вбудованим браузером пристрою, щоб відкрити посилання на конфігурацію та імпортувати файл конфігурації, завантажений браузером, у цю програму',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильний формат, будь ласка, виправте його та додайте знову:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, спробуйте змінити [UserAgent] і спробуйте знову, або скористайтеся вбудованим браузером пристрою, щоб відкрити посилання на конфігурацію та імпортувати файл конфігурації, завантажений браузером, у цю програму',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, увімкніть проксі або змініть поточний проксі-вузол і спробуйте знову',
 			'meta.profileAddParseFailed' => 'Не вдалося проаналізувати профіль',
 			'meta.profileAddNoServerAvaliable' => 'Немає доступних серверів, переконайтеся, що посилання на профіль або файл профілю коректні; якщо ваш профіль з GitHub, отримайте посилання за допомогою кнопки [Raw] на сторінці',

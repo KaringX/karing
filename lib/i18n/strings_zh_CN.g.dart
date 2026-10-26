@@ -398,6 +398,7 @@ class Translations$SettingsScreen$zh_CN implements Translations$SettingsScreen$e
 	@override String get ipStrategyTips => '启用前,请先确认你的网络已支持IPv6,否则某些流量无法正常访问';
 	@override String get tunAppendHttpProxy => '附加HTTP代理到VPN';
 	@override String get tunAppendHttpProxyTips => '一些App会绕过虚拟网卡设备直连HTTP代理';
+	@override String get tunAllowBypassHttpProxy => '允许绕过HTTP代理';
 	@override String get tunAllowBypassHttpProxyDomain => '允许绕过HTTP代理的域名';
 	@override String get dnsEnableRule => '启用DNS分流规则';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}]解析通道';
@@ -456,7 +457,8 @@ class Translations$SettingsScreen$zh_CN implements Translations$SettingsScreen$e
 	@override String get autoConnectAtBootTips => '需要系统支持,部分系统可能还需要开启[自启动]';
 	@override String get hideAfterLaunch => '启动后隐藏窗口';
 	@override String get autoSetSystemProxy => '连接后自动设置系统代理';
-	@override String get bypassSystemProxy => '允许绕过系统代理的域名';
+	@override String get bypassSystemProxy => '允许绕过系统代理';
+	@override String get bypassSystemProxyDomain => '允许绕过系统代理的域名';
 	@override String get disconnectWhenQuit => '退出应用时关闭连接';
 	@override String get autoAddToFirewall => '自动添加防火墙规则';
 	@override String get excludeFromRecent => '从[最近任务]中隐藏';
@@ -1095,6 +1097,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.ipStrategyTips' => '启用前,请先确认你的网络已支持IPv6,否则某些流量无法正常访问',
 			'SettingsScreen.tunAppendHttpProxy' => '附加HTTP代理到VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => '一些App会绕过虚拟网卡设备直连HTTP代理',
+			'SettingsScreen.tunAllowBypassHttpProxy' => '允许绕过HTTP代理',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => '允许绕过HTTP代理的域名',
 			'SettingsScreen.dnsEnableRule' => '启用DNS分流规则',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}]解析通道',
@@ -1153,7 +1156,8 @@ extension on TranslationsZhCn {
 			'SettingsScreen.autoConnectAtBootTips' => '需要系统支持,部分系统可能还需要开启[自启动]',
 			'SettingsScreen.hideAfterLaunch' => '启动后隐藏窗口',
 			'SettingsScreen.autoSetSystemProxy' => '连接后自动设置系统代理',
-			'SettingsScreen.bypassSystemProxy' => '允许绕过系统代理的域名',
+			'SettingsScreen.bypassSystemProxy' => '允许绕过系统代理',
+			'SettingsScreen.bypassSystemProxyDomain' => '允许绕过系统代理的域名',
 			'SettingsScreen.disconnectWhenQuit' => '退出应用时关闭连接',
 			'SettingsScreen.autoAddToFirewall' => '自动添加防火墙规则',
 			'SettingsScreen.excludeFromRecent' => '从[最近任务]中隐藏',
@@ -1490,10 +1494,10 @@ extension on TranslationsZhCn {
 			'meta.profileUrlOrContent' => '配置链接/内容',
 			'meta.profileUrlOrContentHit' => '配置链接/内容[必填] (支持Clash,V2ray(支持批量),Stash,Karing,Sing-box,Shadowsocks,Sub,Github配置链接)',
 			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => '格式错误,请订正后重新添加:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '添加失败:${p}, 请尝试修改[UserAgent]后重试,或者用设备自带的浏览器打开配置链接,并将浏览器下载的配置文件导入到本应用',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => '格式错误,请订正后重新添加:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '添加失败:${p}, 请尝试修改[UserAgent]后重试,或者用设备自带的浏览器打开配置链接,并将浏览器下载的配置文件导入到本应用',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '添加失败:${p}, 请打开代理或者修改当前代理节点后重试',
 			'meta.profileAddParseFailed' => '解析配置失败',
 			'meta.profileAddNoServerAvaliable' => '无可用服务器,请确保配置链接或配置文件有效;如果你的配置来源于GitHub,请从页面上的[Raw]按钮获取链接地址',

@@ -398,6 +398,7 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get ipStrategyTips => 'ก่อนที่จะเปิดใช้งาน โปรดยืนยันว่าเครือข่ายของคุณรองรับ IPv6 มิฉะนั้นการเข้าถึงบางส่วนของปริมาณการใช้ข้อมูลอาจไม่ได้';
 	@override String get tunAppendHttpProxy => 'เพิ่มพร็อกซี HTTP ไปยัง VPN';
 	@override String get tunAppendHttpProxyTips => 'แอปบางตัวจะข้ามอุปกรณ์ NIC เสมือนและเชื่อมต่อโดยตรงกับพร็อกซี HTTP';
+	@override String get tunAllowBypassHttpProxy => 'อนุญาตให้ข้าม HTTP proxy';
 	@override String get tunAllowBypassHttpProxyDomain => 'โดเมนที่อนุญาตให้ข้าม HTTP proxy';
 	@override String get dnsEnableRule => 'เปิดใช้งานกฎการเปลี่ยนเส้นทาง DNS';
 	@override String get dnsEnableProxyResolveMode => '[${_root.meta.trafficProxy}] ช่องสัญญาณแก้ไข';
@@ -456,7 +457,8 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get autoConnectAtBootTips => 'ต้องการการสนับสนุนระบบ ระบบบางระบบอาจต้องการ [เริ่มต้นอัตโนมัติ] ที่จะเปิดใช้งาน';
 	@override String get hideAfterLaunch => 'ซ่อนหน้าต่างหลังเริ่มต้น';
 	@override String get autoSetSystemProxy => 'ตั้งค่าพร็อกซีของระบบโดยอัตโนมัติเมื่อเชื่อมต่อ';
-	@override String get bypassSystemProxy => 'ชื่อโดเมนที่อนุญาตให้ข้ามพร็อกซีของระบบ';
+	@override String get bypassSystemProxy => 'อนุญาตให้ข้ามพร็อกซีของระบบ';
+	@override String get bypassSystemProxyDomain => 'ชื่อโดเมนที่อนุญาตให้ข้ามพร็อกซีของระบบ';
 	@override String get disconnectWhenQuit => 'ตัดการเชื่อมต่อเมื่อออกจากแอป';
 	@override String get autoAddToFirewall => 'เพิ่มกฎไฟร์วอลล์โดยอัตโนมัติ';
 	@override String get excludeFromRecent => 'ซ่อนจาก [งานล่าสุด]';
@@ -1095,6 +1097,7 @@ extension on TranslationsTh {
 			'SettingsScreen.ipStrategyTips' => 'ก่อนที่จะเปิดใช้งาน โปรดยืนยันว่าเครือข่ายของคุณรองรับ IPv6 มิฉะนั้นการเข้าถึงบางส่วนของปริมาณการใช้ข้อมูลอาจไม่ได้',
 			'SettingsScreen.tunAppendHttpProxy' => 'เพิ่มพร็อกซี HTTP ไปยัง VPN',
 			'SettingsScreen.tunAppendHttpProxyTips' => 'แอปบางตัวจะข้ามอุปกรณ์ NIC เสมือนและเชื่อมต่อโดยตรงกับพร็อกซี HTTP',
+			'SettingsScreen.tunAllowBypassHttpProxy' => 'อนุญาตให้ข้าม HTTP proxy',
 			'SettingsScreen.tunAllowBypassHttpProxyDomain' => 'โดเมนที่อนุญาตให้ข้าม HTTP proxy',
 			'SettingsScreen.dnsEnableRule' => 'เปิดใช้งานกฎการเปลี่ยนเส้นทาง DNS',
 			'SettingsScreen.dnsEnableProxyResolveMode' => '[${_root.meta.trafficProxy}] ช่องสัญญาณแก้ไข',
@@ -1153,7 +1156,8 @@ extension on TranslationsTh {
 			'SettingsScreen.autoConnectAtBootTips' => 'ต้องการการสนับสนุนระบบ ระบบบางระบบอาจต้องการ [เริ่มต้นอัตโนมัติ] ที่จะเปิดใช้งาน',
 			'SettingsScreen.hideAfterLaunch' => 'ซ่อนหน้าต่างหลังเริ่มต้น',
 			'SettingsScreen.autoSetSystemProxy' => 'ตั้งค่าพร็อกซีของระบบโดยอัตโนมัติเมื่อเชื่อมต่อ',
-			'SettingsScreen.bypassSystemProxy' => 'ชื่อโดเมนที่อนุญาตให้ข้ามพร็อกซีของระบบ',
+			'SettingsScreen.bypassSystemProxy' => 'อนุญาตให้ข้ามพร็อกซีของระบบ',
+			'SettingsScreen.bypassSystemProxyDomain' => 'ชื่อโดเมนที่อนุญาตให้ข้ามพร็อกซีของระบบ',
 			'SettingsScreen.disconnectWhenQuit' => 'ตัดการเชื่อมต่อเมื่อออกจากแอป',
 			'SettingsScreen.autoAddToFirewall' => 'เพิ่มกฎไฟร์วอลล์โดยอัตโนมัติ',
 			'SettingsScreen.excludeFromRecent' => 'ซ่อนจาก [งานล่าสุด]',
@@ -1490,10 +1494,10 @@ extension on TranslationsTh {
 			'meta.profileUrlOrContent' => 'ลิงก์/เนื้อหาโปรไฟล์',
 			'meta.profileUrlOrContentHit' => 'ลิงก์/เนื้อหาโปรไฟล์ [จำเป็น] (รองรับ Clash,V2ray(สนับสนุนแบบชุด),Stash,Karing,Sing-box,Shadowsocks,ลิงก์โปรไฟล์ย่อย)',
 			'meta.profileUrlOrContentCannotEmpty' => 'ลิงก์โปรไฟล์ไม่สามารถว่างเปล่า',
-			'meta.profileAddFailedFormatException' => ({required Object p}) => 'รูปแบบไม่ถูกต้อง โปรดแก้ไขและเพิ่มอีกครั้ง:${p}',
-			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดลองแก้ไข [UserAgent] และลองใหม่ หรือใช้เบราว์เซอร์ในตัวของอุปกรณ์เพื่อเปิดลิงก์การกำหนดค่า และนำเข้าไฟล์การกำหนดค่าที่ดาวน์โหลดโดยเบราว์เซอร์เข้าสู่แอปพลิเคชันนี้',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileAddFailedFormatException' => ({required Object p}) => 'รูปแบบไม่ถูกต้อง โปรดแก้ไขและเพิ่มอีกครั้ง:${p}',
+			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดลองแก้ไข [UserAgent] และลองใหม่ หรือใช้เบราว์เซอร์ในตัวของอุปกรณ์เพื่อเปิดลิงก์การกำหนดค่า และนำเข้าไฟล์การกำหนดค่าที่ดาวน์โหลดโดยเบราว์เซอร์เข้าสู่แอปพลิเคชันนี้',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดเปิดพร็อกซีหรือแก้ไขโหนดพร็อกซีปัจจุบันและลองใหม่',
 			'meta.profileAddParseFailed' => 'การแยกวิเคราะห์โปรไฟล์ล้มเหลว',
 			'meta.profileAddNoServerAvaliable' => 'ไม่มีเซิร์ฟเวอร์ที่พร้อมใช้งาน ตรวจสอบให้แน่ใจว่าลิงก์โปรไฟล์หรือไฟล์โปรไฟล์ถูกต้อง หากโปรไฟล์ของคุณมาจาก GitHub โปรดรับลิงก์จากปุ่ม [Raw] ในหน้า',
