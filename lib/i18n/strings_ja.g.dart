@@ -893,6 +893,7 @@ class _Translations$tls$ja implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '証明書の検証をスキップする';
+	@override String get ignoreBadCertificate => '証明書エラーを無視する';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS フラグメントを有効にする';
 	@override String get fragmentSize => 'TLS フラグメントサイズ';
@@ -1521,6 +1522,7 @@ extension on TranslationsJa {
 			'permission.request' => ({required Object p}) => '[${p}] 権限をオンにする',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 権限をオンにしてください',
 			'tls.insecure' => '証明書の検証をスキップする',
+			'tls.ignoreBadCertificate' => '証明書エラーを無視する',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS フラグメントを有効にする',
 			'tls.fragmentSize' => 'TLS フラグメントサイズ',

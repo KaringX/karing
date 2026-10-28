@@ -893,6 +893,7 @@ class _Translations$tls$sv implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Hoppa över certifikatverifiering';
+	@override String get ignoreBadCertificate => 'Ignorera certifikatfel';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Aktivera TLS-fragment';
 	@override String get fragmentSize => 'TLS-fragmentstorlek';
@@ -1521,6 +1522,7 @@ extension on TranslationsSv {
 			'permission.request' => ({required Object p}) => 'Slå på behörighet [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Slå på behörighet [${p}] tack',
 			'tls.insecure' => 'Hoppa över certifikatverifiering',
+			'tls.ignoreBadCertificate' => 'Ignorera certifikatfel',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Aktivera TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstorlek',

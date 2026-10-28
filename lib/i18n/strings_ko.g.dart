@@ -893,6 +893,7 @@ class _Translations$tls$ko implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '인증서 확인 건너뛰기';
+	@override String get ignoreBadCertificate => '인증서 오류 무시';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS 조각화 활성화';
 	@override String get fragmentSize => 'TLS 조각 크기';
@@ -1521,6 +1522,7 @@ extension on TranslationsKo {
 			'permission.request' => ({required Object p}) => '[${p}] 권한 켜기',
 			'permission.requestNeed' => ({required Object p}) => '[${p}] 권한을 켜주십시오',
 			'tls.insecure' => '인증서 확인 건너뛰기',
+			'tls.ignoreBadCertificate' => '인증서 오류 무시',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS 조각화 활성화',
 			'tls.fragmentSize' => 'TLS 조각 크기',

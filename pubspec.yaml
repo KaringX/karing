@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.26+2912
+version: 1.2.26+2916
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.44.0"
@@ -87,7 +87,7 @@ dependencies:
   file_picker: 11.0.3 #12.2.0
   image_picker: 1.2.4
   board_datetime_picker: 2.8.8
-  tray_manager: 0.8.0
+  tray_manager: 0.5.3
   hotkey_manager: 0.2.3
   #accessibility_tools: 2.2.2
   logger: 2.8.0

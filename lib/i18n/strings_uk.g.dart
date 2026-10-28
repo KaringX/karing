@@ -893,6 +893,7 @@ class _Translations$tls$uk implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Пропустити перевірку сертифіката';
+	@override String get ignoreBadCertificate => 'Ігнорувати помилки сертифіката';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Увімкнути фрагментацію TLS';
 	@override String get fragmentSize => 'Розмір фрагмента TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsUk {
 			'permission.request' => ({required Object p}) => 'Увімкнути дозвіл [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Будь ласка, увімкніть дозвіл [${p}]',
 			'tls.insecure' => 'Пропустити перевірку сертифіката',
+			'tls.ignoreBadCertificate' => 'Ігнорувати помилки сертифіката',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Увімкнути фрагментацію TLS',
 			'tls.fragmentSize' => 'Розмір фрагмента TLS',

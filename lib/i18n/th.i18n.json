@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "ข้ามการตรวจสอบใบรับรอง",
+        "ignoreBadCertificate": "ละเว้นข้อผิดพลาดของใบรับรอง",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "เปิดใช้งาน TLS Fragment",
         "fragmentSize": "ขนาด TLS Fragment",

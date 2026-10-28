@@ -893,6 +893,7 @@ class _Translations$tls$pa implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'प्रमाणपत्र सत्यापन छोड़ें';
+	@override String get ignoreBadCertificate => 'ਸਰਟੀਫਿਕੇਟ ਦੀਆਂ ਗਲਤੀਆਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰੋ';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS फ्रैगमेंट सक्षम करें';
 	@override String get fragmentSize => 'TLS फ्रैगमेंट आकार';
@@ -1521,6 +1522,7 @@ extension on TranslationsPa {
 			'permission.request' => ({required Object p}) => '[${p}] अनुमति चालू करें',
 			'permission.requestNeed' => ({required Object p}) => 'कृपया [${p}] अनुमति चालू करें',
 			'tls.insecure' => 'प्रमाणपत्र सत्यापन छोड़ें',
+			'tls.ignoreBadCertificate' => 'ਸਰਟੀਫਿਕੇਟ ਦੀਆਂ ਗਲਤੀਆਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰੋ',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS फ्रैगमेंट सक्षम करें',
 			'tls.fragmentSize' => 'TLS फ्रैगमेंट आकार',

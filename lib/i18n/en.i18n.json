@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Skip Certificate Verification",
+        "ignoreBadCertificate": "Ignore Certificate Errors",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Enable TLS Fragment",
         "fragmentSize": "TLS Fragment Size",

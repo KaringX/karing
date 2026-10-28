@@ -893,6 +893,7 @@ class _Translations$tls$fa implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'رد شدن از تأیید گواهی';
+	@override String get ignoreBadCertificate => 'نادیده گرفتن خطاهای گواهی';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'بخش بندی TLS را فعال کنید';
 	@override String get fragmentSize => 'اندازه بخش TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsFa {
 			'permission.request' => ({required Object p}) => 'مجوزهای [${p}] را فعال کنید',
 			'permission.requestNeed' => ({required Object p}) => 'لطفاً مجوز [${p}] را فعال کنید',
 			'tls.insecure' => 'رد شدن از تأیید گواهی',
+			'tls.ignoreBadCertificate' => 'نادیده گرفتن خطاهای گواهی',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'بخش بندی TLS را فعال کنید',
 			'tls.fragmentSize' => 'اندازه بخش TLS',

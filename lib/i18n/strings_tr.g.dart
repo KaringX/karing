@@ -893,6 +893,7 @@ class _Translations$tls$tr implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Sertifika Doğrulamasını Atla';
+	@override String get ignoreBadCertificate => 'Sertifika Hatalarını Yok Say';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS Parçalamayı Etkinleştir';
 	@override String get fragmentSize => 'TLS Parça Boyutu';
@@ -1521,6 +1522,7 @@ extension on TranslationsTr {
 			'permission.request' => ({required Object p}) => '[${p}] iznini aç',
 			'permission.requestNeed' => ({required Object p}) => 'Lütfen [${p}] iznini açın',
 			'tls.insecure' => 'Sertifika Doğrulamasını Atla',
+			'tls.ignoreBadCertificate' => 'Sertifika Hatalarını Yok Say',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS Parçalamayı Etkinleştir',
 			'tls.fragmentSize' => 'TLS Parça Boyutu',

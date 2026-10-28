@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Bỏ qua xác minh chứng chỉ",
+        "ignoreBadCertificate": "Bỏ qua lỗi chứng chỉ",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Bật phân đoạn TLS",
         "fragmentSize": "Kích thước phân đoạn TLS",

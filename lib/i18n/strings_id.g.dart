@@ -893,6 +893,7 @@ class _Translations$tls$id implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Lewati verifikasi sertifikat';
+	@override String get ignoreBadCertificate => 'Abaikan kesalahan sertifikat';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Aktifkan fragmentasi TLS';
 	@override String get fragmentSize => 'Ukuran fragmentasi TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsId {
 			'permission.request' => ({required Object p}) => 'Aktifkan izin [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Silakan aktifkan izin [${p}]',
 			'tls.insecure' => 'Lewati verifikasi sertifikat',
+			'tls.ignoreBadCertificate' => 'Abaikan kesalahan sertifikat',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Aktifkan fragmentasi TLS',
 			'tls.fragmentSize' => 'Ukuran fragmentasi TLS',

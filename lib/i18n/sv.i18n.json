@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Hoppa över certifikatverifiering",
+        "ignoreBadCertificate": "Ignorera certifikatfel",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Aktivera TLS-fragment",
         "fragmentSize": "TLS-fragmentstorlek",

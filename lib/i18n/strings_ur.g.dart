@@ -893,6 +893,7 @@ class _Translations$tls$ur implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'سرٹیفکیٹ کی تصدیق نظر انداز کریں';
+	@override String get ignoreBadCertificate => 'سرٹیفکیٹ کی خرابیوں کو نظر انداز کریں';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS فریگمنٹ فعال کریں';
 	@override String get fragmentSize => 'TLS فریگمنٹ سائز';
@@ -1521,6 +1522,7 @@ extension on TranslationsUr {
 			'permission.request' => ({required Object p}) => '[${p}] اجازت آن کریں',
 			'permission.requestNeed' => ({required Object p}) => 'براہ کرم [${p}] اجازت آن کریں',
 			'tls.insecure' => 'سرٹیفکیٹ کی تصدیق نظر انداز کریں',
+			'tls.ignoreBadCertificate' => 'سرٹیفکیٹ کی خرابیوں کو نظر انداز کریں',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS فریگمنٹ فعال کریں',
 			'tls.fragmentSize' => 'TLS فریگمنٹ سائز',

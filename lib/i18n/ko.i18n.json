@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "인증서 확인 건너뛰기",
+        "ignoreBadCertificate": "인증서 오류 무시",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS 조각화 활성화",
         "fragmentSize": "TLS 조각 크기",

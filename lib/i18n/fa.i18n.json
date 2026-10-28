@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "رد شدن از تأیید گواهی",
+        "ignoreBadCertificate": "نادیده گرفتن خطاهای گواهی",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "بخش بندی TLS را فعال کنید",
         "fragmentSize": "اندازه بخش TLS",

@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Sertifika Doğrulamasını Atla",
+        "ignoreBadCertificate": "Sertifika Hatalarını Yok Say",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS Parçalamayı Etkinleştir",
         "fragmentSize": "TLS Parça Boyutu",

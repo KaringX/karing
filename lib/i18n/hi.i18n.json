@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "प्रमाणपत्र सत्यापन छोड़ें",
+        "ignoreBadCertificate": "प्रमाणपत्र त्रुटियों को अनदेखा करें",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS फ्रैगमेंट सक्षम करें",
         "fragmentSize": "TLS फ्रैगमेंट आकार",

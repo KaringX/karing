@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Παράλειψη επαλήθευσης πιστοποιητικού",
+        "ignoreBadCertificate": "Αγνόηση σφαλμάτων πιστοποιητικού",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Ενεργοποίηση TLS Fragment",
         "fragmentSize": "Μέγεθος TLS Fragment",

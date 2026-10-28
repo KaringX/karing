@@ -893,6 +893,7 @@ class _Translations$tls$da implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Spring certifikatverificering over';
+	@override String get ignoreBadCertificate => 'Ignorer certifikatfejl';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Aktiver TLS-fragment';
 	@override String get fragmentSize => 'TLS-fragmentstørrelse';
@@ -1521,6 +1522,7 @@ extension on TranslationsDa {
 			'permission.request' => ({required Object p}) => 'Slå tilladelse [${p}] til',
 			'permission.requestNeed' => ({required Object p}) => 'Slå venligst tilladelse [${p}] til',
 			'tls.insecure' => 'Spring certifikatverificering over',
+			'tls.ignoreBadCertificate' => 'Ignorer certifikatfejl',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Aktiver TLS-fragment',
 			'tls.fragmentSize' => 'TLS-fragmentstørrelse',

@@ -893,6 +893,7 @@ class _Translations$tls$ru implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Пропустить проверку сертификата';
+	@override String get ignoreBadCertificate => 'Игнорировать ошибки сертификата';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Включить TLS Fragment';
 	@override String get fragmentSize => 'Размер фрагмента TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsRu {
 			'permission.request' => ({required Object p}) => 'Включить разрешения [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Пожалуйста, включите разрешение [${p}]',
 			'tls.insecure' => 'Пропустить проверку сертификата',
+			'tls.ignoreBadCertificate' => 'Игнорировать ошибки сертификата',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Включить TLS Fragment',
 			'tls.fragmentSize' => 'Размер фрагмента TLS',

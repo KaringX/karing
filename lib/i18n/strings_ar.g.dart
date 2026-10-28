@@ -893,6 +893,7 @@ class _Translations$tls$ar implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'تخطي التحقق من الشهادة';
+	@override String get ignoreBadCertificate => 'تجاهل أخطاء الشهادة';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'تمكين تجزئة TLS';
 	@override String get fragmentSize => 'حجم شريحة TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsAr {
 			'permission.request' => ({required Object p}) => 'تمكين أذونات [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'الرجاء تفعيل إذن [${p}]',
 			'tls.insecure' => 'تخطي التحقق من الشهادة',
+			'tls.ignoreBadCertificate' => 'تجاهل أخطاء الشهادة',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'تمكين تجزئة TLS',
 			'tls.fragmentSize' => 'حجم شريحة TLS',

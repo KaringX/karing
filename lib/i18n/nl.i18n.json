@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Certificaatverificatie overslaan",
+        "ignoreBadCertificate": "Certificaatfouten negeren",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS Fragment inschakelen",
         "fragmentSize": "TLS Fragment grootte",

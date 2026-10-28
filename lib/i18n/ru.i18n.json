@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Пропустить проверку сертификата",
+        "ignoreBadCertificate": "Игнорировать ошибки сертификата",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Включить TLS Fragment",
         "fragmentSize": "Размер фрагмента TLS",

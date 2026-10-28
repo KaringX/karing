@@ -893,6 +893,7 @@ class Translations$tls$zh_TW implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => '跳過證書驗證';
+	@override String get ignoreBadCertificate => '忽略證書錯誤';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => '啟用 TLS 分段';
 	@override String get fragmentSize => 'TLS 分段大小';
@@ -1521,6 +1522,7 @@ extension on TranslationsZhTw {
 			'permission.request' => ({required Object p}) => '開啟 [${p}] 權限',
 			'permission.requestNeed' => ({required Object p}) => '請開啟 [${p}] 權限',
 			'tls.insecure' => '跳過證書驗證',
+			'tls.ignoreBadCertificate' => '忽略證書錯誤',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => '啟用 TLS 分段',
 			'tls.fragmentSize' => 'TLS 分段大小',

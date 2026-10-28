@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "সার্টিফিকেট যাচাইকরণ এড়িয়ে যান",
+        "ignoreBadCertificate": "সার্টিফিকেটের ত্রুটি উপেক্ষা করুন",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS ফ্র্যাগমেন্ট সক্ষম করুন",
         "fragmentSize": "TLS ফ্র্যাগমেন্ট সাইজ",

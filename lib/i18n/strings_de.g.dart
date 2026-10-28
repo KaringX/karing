@@ -893,6 +893,7 @@ class _Translations$tls$de implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Zertifikatsprüfung überspringen';
+	@override String get ignoreBadCertificate => 'Zertifikatsfehler ignorieren';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'TLS-Fragment aktivieren';
 	@override String get fragmentSize => 'TLS-Fragmentgröße';
@@ -1521,6 +1522,7 @@ extension on TranslationsDe {
 			'permission.request' => ({required Object p}) => 'Berechtigung [${p}] einschalten',
 			'permission.requestNeed' => ({required Object p}) => 'Bitte schalten Sie die Berechtigung [${p}] ein',
 			'tls.insecure' => 'Zertifikatsprüfung überspringen',
+			'tls.ignoreBadCertificate' => 'Zertifikatsfehler ignorieren',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'TLS-Fragment aktivieren',
 			'tls.fragmentSize' => 'TLS-Fragmentgröße',

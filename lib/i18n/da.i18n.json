@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Spring certifikatverificering over",
+        "ignoreBadCertificate": "Ignorer certifikatfejl",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Aktiver TLS-fragment",
         "fragmentSize": "TLS-fragmentstørrelse",

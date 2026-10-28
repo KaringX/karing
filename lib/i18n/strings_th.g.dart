@@ -893,6 +893,7 @@ class _Translations$tls$th implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'ข้ามการตรวจสอบใบรับรอง';
+	@override String get ignoreBadCertificate => 'ละเว้นข้อผิดพลาดของใบรับรอง';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'เปิดใช้งาน TLS Fragment';
 	@override String get fragmentSize => 'ขนาด TLS Fragment';
@@ -1521,6 +1522,7 @@ extension on TranslationsTh {
 			'permission.request' => ({required Object p}) => 'เปิดใช้งาน [${p}] สิทธิ์',
 			'permission.requestNeed' => ({required Object p}) => 'โปรดเปิดใช้งาน [${p}] สิทธิ์',
 			'tls.insecure' => 'ข้ามการตรวจสอบใบรับรอง',
+			'tls.ignoreBadCertificate' => 'ละเว้นข้อผิดพลาดของใบรับรอง',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'เปิดใช้งาน TLS Fragment',
 			'tls.fragmentSize' => 'ขนาด TLS Fragment',

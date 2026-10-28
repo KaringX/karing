@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "証明書の検証をスキップする",
+        "ignoreBadCertificate": "証明書エラーを無視する",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS フラグメントを有効にする",
         "fragmentSize": "TLS フラグメントサイズ",

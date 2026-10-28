@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "سرٹیفکیٹ کی تصدیق نظر انداز کریں",
+        "ignoreBadCertificate": "سرٹیفکیٹ کی خرابیوں کو نظر انداز کریں",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "TLS فریگمنٹ فعال کریں",
         "fragmentSize": "TLS فریگمنٹ سائز",

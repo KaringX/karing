@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "跳過證書驗證",
+        "ignoreBadCertificate": "忽略證書錯誤",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "啟用 TLS 分段",
         "fragmentSize": "TLS 分段大小",

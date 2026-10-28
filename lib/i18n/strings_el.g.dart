@@ -893,6 +893,7 @@ class _Translations$tls$el implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Παράλειψη επαλήθευσης πιστοποιητικού';
+	@override String get ignoreBadCertificate => 'Αγνόηση σφαλμάτων πιστοποιητικού';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Ενεργοποίηση TLS Fragment';
 	@override String get fragmentSize => 'Μέγεθος TLS Fragment';
@@ -1521,6 +1522,7 @@ extension on TranslationsEl {
 			'permission.request' => ({required Object p}) => 'Ενεργοποίηση άδειας [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Παρακαλούμε ενεργοποιήστε την άδεια [${p}]',
 			'tls.insecure' => 'Παράλειψη επαλήθευσης πιστοποιητικού',
+			'tls.ignoreBadCertificate' => 'Αγνόηση σφαλμάτων πιστοποιητικού',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Ενεργοποίηση TLS Fragment',
 			'tls.fragmentSize' => 'Μέγεθος TLS Fragment',

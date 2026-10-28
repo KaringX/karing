@@ -47,7 +47,7 @@ import 'package:provider/provider.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:vpn_service/vpn_service.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:tray_manager/legacy.dart';
+import 'package:tray_manager/tray_manager.dart';
 
 List<String> processArgs = [];
 StartFailedReason? startFailedReason;
@@ -171,11 +171,13 @@ Future<void> run(List<String> args) async {
         startFailedReason = StartFailedReason.invalidProfile;
         break;
       }
-      String version = await AppUtils.getPackgetVersion();
-      final buildVersionParts = buildVersion.split(".");
-      if (buildVersion != version || buildVersionParts.length != 4) {
-        startFailedReason = StartFailedReason.invalidVersion;
-        break;
+      if (!Platform.isIOS) {
+        String version = await AppUtils.getPackgetVersion();
+        final buildVersionParts = buildVersion.split(".");
+        if (buildVersion != version || buildVersionParts.length != 4) {
+          startFailedReason = StartFailedReason.invalidVersion;
+          break;
+        }
       }
       if (PlatformUtils.isPC()) {
         if (path.basename(exePath).toLowerCase() !=

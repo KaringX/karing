@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "Lewati verifikasi sertifikat",
+        "ignoreBadCertificate": "Abaikan kesalahan sertifikat",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "Aktifkan fragmentasi TLS",
         "fragmentSize": "Ukuran fragmentasi TLS",

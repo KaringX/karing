@@ -589,6 +589,7 @@
     },
     "tls": {
         "insecure": "تخطي التحقق من الشهادة",
+        "ignoreBadCertificate": "تجاهل أخطاء الشهادة",
         "affectProtocolTips": "vless, vmess, trojan",
         "fragmentEnable": "تمكين تجزئة TLS",
         "fragmentSize": "حجم شريحة TLS",

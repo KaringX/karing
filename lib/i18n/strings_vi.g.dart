@@ -893,6 +893,7 @@ class _Translations$tls$vi implements Translations$tls$en {
 
 	// Translations
 	@override String get insecure => 'Bỏ qua xác minh chứng chỉ';
+	@override String get ignoreBadCertificate => 'Bỏ qua lỗi chứng chỉ';
 	@override String get affectProtocolTips => 'vless, vmess, trojan';
 	@override String get fragmentEnable => 'Bật phân đoạn TLS';
 	@override String get fragmentSize => 'Kích thước phân đoạn TLS';
@@ -1521,6 +1522,7 @@ extension on TranslationsVi {
 			'permission.request' => ({required Object p}) => 'Bật quyền [${p}]',
 			'permission.requestNeed' => ({required Object p}) => 'Vui lòng bật quyền [${p}]',
 			'tls.insecure' => 'Bỏ qua xác minh chứng chỉ',
+			'tls.ignoreBadCertificate' => 'Bỏ qua lỗi chứng chỉ',
 			'tls.affectProtocolTips' => 'vless, vmess, trojan',
 			'tls.fragmentEnable' => 'Bật phân đoạn TLS',
 			'tls.fragmentSize' => 'Kích thước phân đoạn TLS',
