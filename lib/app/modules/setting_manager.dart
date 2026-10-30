@@ -2060,6 +2060,7 @@ class SettingManager {
     if (!exists) {
       _config.ui.autoOrientation = await SettingConfigItemUI.maybeTv();
       _config.ui.tvMode = _config.ui.autoOrientation;
+      TextFieldEx.popupEdit = _config.ui.tvMode;
       return;
     }
     String content = "";

@@ -301,42 +301,9 @@ class DiversionRulesScreenState
       );
       groupOptions.add(GroupItem(options: options));
     }
-    final use = ServerManager.getUse();
     //geosite
     if (settingConfig.ruleSets.enableGeoSite) {
       List<GroupItemOptions> options = [];
-
-      for (var item in use.geoSite) {
-        DiversionRulesGroup group = DiversionRulesGroup();
-        group.name = item;
-        group.groupid = ServerManager.getGeoSiteGroupId();
-        var selected = getSelected(group);
-        if (selected.item2.isEmpty) {
-          continue;
-        }
-        options.add(
-          GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-              name: item,
-              text: selected.item2.isNotEmpty
-                  ? selected.item2
-                  : selected.item1.tag,
-              textWidthPercent: 0.4,
-              onPush: () async {
-                onTapItem(
-                  group,
-                  selected.item1,
-                  selected.item3,
-                  deleteIfSelectNone: true,
-                );
-              },
-              onLongPress: () async {
-                onTapItemName(group);
-              },
-            ),
-          ),
-        );
-      }
       if (regionCode.isNotEmpty &&
           settingConfig.ruleSets.autoAppendRegionGeoSite) {
         if (SettingConfigItemRuleSets.hasGeoSiteData(regionCode)) {
@@ -358,38 +325,6 @@ class DiversionRulesScreenState
     //geoip
     if (settingConfig.ruleSets.enableGeoIp) {
       List<GroupItemOptions> options = [];
-
-      for (var item in use.geoIp) {
-        DiversionRulesGroup group = DiversionRulesGroup();
-        group.name = item;
-        group.groupid = ServerManager.getGeoIpGroupId();
-        var selected = getSelected(group);
-        if (selected.item2.isEmpty) {
-          continue;
-        }
-        options.add(
-          GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-              name: item,
-              text: selected.item2.isNotEmpty
-                  ? selected.item2
-                  : selected.item1.tag,
-              textWidthPercent: 0.4,
-              onPush: () async {
-                onTapItem(
-                  group,
-                  selected.item1,
-                  selected.item3,
-                  deleteIfSelectNone: true,
-                );
-              },
-              onLongPress: () async {
-                onTapItemName(group);
-              },
-            ),
-          ),
-        );
-      }
       if (regionCode.isNotEmpty &&
           settingConfig.ruleSets.autoAppendRegionGeoIp) {
         options.add(
@@ -404,44 +339,6 @@ class DiversionRulesScreenState
       }
       groupOptions.add(
         GroupItem(name: tcontext.meta.rulesetGeoIp, options: options),
-      );
-    }
-    //acl
-    if (settingConfig.ruleSets.enableAcl) {
-      List<GroupItemOptions> options = [];
-      for (var item in use.acl) {
-        DiversionRulesGroup group = DiversionRulesGroup();
-        group.name = item;
-        group.groupid = ServerManager.getAclGroupId();
-        var selected = getSelected(group);
-        if (selected.item2.isEmpty) {
-          continue;
-        }
-        options.add(
-          GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-              name: item,
-              text: selected.item2.isNotEmpty
-                  ? selected.item2
-                  : selected.item1.tag,
-              textWidthPercent: 0.4,
-              onPush: () async {
-                onTapItem(
-                  group,
-                  selected.item1,
-                  selected.item3,
-                  deleteIfSelectNone: true,
-                );
-              },
-              onLongPress: () async {
-                onTapItemName(group);
-              },
-            ),
-          ),
-        );
-      }
-      groupOptions.add(
-        GroupItem(name: tcontext.meta.rulesetAcl, options: options),
       );
     }
     //final

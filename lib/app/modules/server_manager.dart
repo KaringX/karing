@@ -313,9 +313,6 @@ class ServerUse {
   String selectDefault = "";
   List<ProxyConfig> recent = [];
   List<ProxyConfig> fav = [];
-  List<String> geoSite = [];
-  List<String> geoIp = [];
-  List<String> acl = [];
   List<String> rulesetDirectDownload = [];
   List<DiversionGroupSetting> diversionGroup = [];
   List<String> serverSelectSearchSelect = [];
@@ -326,9 +323,6 @@ class ServerUse {
     selectDefault = "";
     recent = [];
     fav = [];
-    geoSite = [];
-    geoIp = [];
-    acl = [];
     rulesetDirectDownload = [];
     diversionGroup = [];
     serverSelectSearchSelect = [];
@@ -340,9 +334,6 @@ class ServerUse {
     'select_default': selectDefault,
     'recent': recent,
     'fav': fav,
-    'geosite': geoSite,
-    'geoip': geoIp,
-    'acl': acl,
     'ruleset_direct_download': rulesetDirectDownload,
     'diversion_group': diversionGroup,
     'server_select_search_select': serverSelectSearchSelect,
@@ -373,9 +364,6 @@ class ServerUse {
       config.fromJson(i);
       fav.add(config);
     }
-    geoSite = ConvertUtils.getListStringFromDynamic(map["geosite"], true, [])!;
-    geoIp = ConvertUtils.getListStringFromDynamic(map["geoip"], true, [])!;
-    acl = ConvertUtils.getListStringFromDynamic(map["acl"], true, [])!;
     rulesetDirectDownload = ConvertUtils.getListStringFromDynamic(
       map["ruleset_direct_download"],
       true,
@@ -735,12 +723,6 @@ class ServerManager {
       }
       if (group.diversionGroupId == ServerManager.getFinalGroupId()) {
         finalGroups.add(group);
-      } else if (group.diversionGroupId == ServerManager.getGeoSiteGroupId()) {
-        geositeGroups.add(group);
-      } else if (group.diversionGroupId == ServerManager.getGeoIpGroupId()) {
-        geoipGroups.add(group);
-      } else if (group.diversionGroupId == ServerManager.getAclGroupId()) {
-        aclGroups.add(group);
       } else if (group.diversionGroupId == ServerManager.getCustomGroupId()) {
         customGroups.add(group);
       } else {
@@ -794,30 +776,7 @@ class ServerManager {
     List<DiversionGroupSetting> geositeGroups2 = [];
     List<DiversionGroupSetting> geositeGroups3 = [];
     List<DiversionGroupSetting> geositeGroups4 = [];
-    for (var name in _use.geoSite) {
-      for (var group in geositeGroups) {
-        if (group.diversionName == name) {
-          geositeGroups2.add(group);
-          break;
-        }
-      }
-    }
-    for (var name in _use.geoIp) {
-      for (var group in geoipGroups) {
-        if (group.diversionName == name) {
-          geositeGroups3.add(group);
-          break;
-        }
-      }
-    }
-    for (var name in _use.acl) {
-      for (var group in aclGroups) {
-        if (group.diversionName == name) {
-          geositeGroups4.add(group);
-          break;
-        }
-      }
-    }
+
     List<DiversionGroupSetting> groups = [];
 
     groups.addAll(customGroups);
@@ -852,10 +811,7 @@ class ServerManager {
     var diversionGroup = diversionGroupResult.data!;
     for (var use in diversionGroup) {
       if (use.diversionGroupId != getFinalGroupId() &&
-          use.diversionGroupId != getUrltestGroupId() &&
-          use.diversionGroupId != getGeoSiteGroupId() &&
-          use.diversionGroupId != getGeoIpGroupId() &&
-          use.diversionGroupId != getAclGroupId()) {
+          use.diversionGroupId != getUrltestGroupId()) {
         ServerConfigGroupItem? srg = getByGroupId(use.diversionGroupId);
         if (srg == null || !srg.enable) {
           continue;
@@ -876,27 +832,6 @@ class ServerManager {
 
       DiversionRulesGroup? rg;
       if (use.diversionGroupId == getFinalGroupId()) {
-        rg = DiversionRulesGroup();
-        rg.groupid = use.diversionGroupId;
-        rg.name = use.diversionName;
-      } else if (use.diversionGroupId == getGeoSiteGroupId()) {
-        if (!getUse().geoSite.contains(use.diversionName)) {
-          continue;
-        }
-        rg = DiversionRulesGroup();
-        rg.groupid = use.diversionGroupId;
-        rg.name = use.diversionName;
-      } else if (use.diversionGroupId == getGeoIpGroupId()) {
-        if (!getUse().geoIp.contains(use.diversionName)) {
-          continue;
-        }
-        rg = DiversionRulesGroup();
-        rg.groupid = use.diversionGroupId;
-        rg.name = use.diversionName;
-      } else if (use.diversionGroupId == getAclGroupId()) {
-        if (!getUse().acl.contains(use.diversionName)) {
-          continue;
-        }
         rg = DiversionRulesGroup();
         rg.groupid = use.diversionGroupId;
         rg.name = use.diversionName;
@@ -2003,22 +1938,6 @@ class ServerManager {
           item.tag = getUrltest().tag;
         }
       }
-      if (geositeCodes.isNotEmpty) {
-        for (int i = 0; i < _use.geoSite.length; ++i) {
-          if (!geositeCodes.contains(_use.geoSite[i])) {
-            _use.geoSite.removeAt(i);
-            --i;
-          }
-        }
-      }
-      if (geoipCodes.isNotEmpty) {
-        for (int i = 0; i < _use.geoIp.length; ++i) {
-          if (!geositeCodes.contains(_use.geoIp[i])) {
-            _use.geoIp.removeAt(i);
-            --i;
-          }
-        }
-      }
 
       List<DiversionGroupSetting> diversionGroup = [];
       Set<String> exists = {};
@@ -2034,18 +1953,6 @@ class ServerManager {
         exists.add(key);
         if (item.diversionGroupId == ServerManager.getFinalGroupId()) {
           hasFinal = true;
-        } else if (item.diversionGroupId == ServerManager.getGeoSiteGroupId()) {
-          if (!_use.geoSite.contains(item.diversionName)) {
-            continue;
-          }
-        } else if (item.diversionGroupId == ServerManager.getGeoIpGroupId()) {
-          if (!_use.geoIp.contains(item.diversionName)) {
-            continue;
-          }
-        } else if (item.diversionGroupId == ServerManager.getAclGroupId()) {
-          if (!_use.acl.contains(item.diversionName)) {
-            continue;
-          }
         } else if (item.diversionGroupId == ServerManager.getCustomGroupId()) {
           bool find = false;
           for (var group in customDiversion.groups) {
@@ -2076,10 +1983,7 @@ class ServerManager {
           }
         }
 
-        if (item.diversionGroupId != getFinalGroupId() &&
-            item.diversionGroupId != getGeoSiteGroupId() &&
-            item.diversionGroupId != getGeoIpGroupId() &&
-            item.diversionGroupId != getAclGroupId()) {
+        if (item.diversionGroupId != getFinalGroupId()) {
           ServerDiversionGroupItem rt = _diversionGroupConfig.items.firstWhere(
             (e) => e.groupid == item.diversionGroupId,
             orElse: () => ServerDiversionGroupItem(),
@@ -2257,15 +2161,7 @@ class ServerManager {
     if (getFinalGroupId() == groupId) {
       return getFinalGroup();
     }
-    if (getGeoSiteGroupId() == groupId) {
-      return getGeoSiteGroup();
-    }
-    if (getGeoIpGroupId() == groupId) {
-      return getGeoIpGroup();
-    }
-    if (getAclGroupId() == groupId) {
-      return getAclGroup();
-    }
+
     for (var i in ServerManager.getDiversionGroupConfig().items) {
       if (i.groupid == groupId) {
         return i;
@@ -2629,24 +2525,6 @@ class ServerManager {
     return item;
   }
 
-  static ServerDiversionGroupItem getGeoSiteGroup() {
-    ServerDiversionGroupItem item = ServerDiversionGroupItem();
-    item.groupid = getGeoSiteGroupId();
-    return item;
-  }
-
-  static ServerDiversionGroupItem getGeoIpGroup() {
-    ServerDiversionGroupItem item = ServerDiversionGroupItem();
-    item.groupid = getGeoIpGroupId();
-    return item;
-  }
-
-  static ServerDiversionGroupItem getAclGroup() {
-    ServerDiversionGroupItem item = ServerDiversionGroupItem();
-    item.groupid = getAclGroupId();
-    return item;
-  }
-
   static ServerConfigGroupItem getByCurrentGroup() {
     _byCurrentGroup.groupid = getCurrentSelectedGroupId();
     _byCurrentGroup.remark = t.outboundRuleMode.currentSelected;
@@ -2713,18 +2591,6 @@ class ServerManager {
 
   static String getFinalGroupId() {
     return "final";
-  }
-
-  static String getGeoSiteGroupId() {
-    return "geosite";
-  }
-
-  static String getGeoIpGroupId() {
-    return "geoip";
-  }
-
-  static String getAclGroupId() {
-    return "acl";
   }
 
   static String getCurrentSelectedGroupId() {
