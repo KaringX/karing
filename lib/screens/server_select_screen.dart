@@ -1199,7 +1199,7 @@ class _ServerSelectScreenState extends LasyRenderingState<ServerSelectScreen> {
 
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
-      child: GestureDetector(
+      child: InkWell(
         onTap: widget.singleSelect == null
             ? null
             : () async {

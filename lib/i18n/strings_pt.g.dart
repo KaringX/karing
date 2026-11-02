@@ -692,7 +692,8 @@ class _Translations$meta$pt implements Translations$meta$en {
 	@override String get user => 'Utilizador';
 	@override String get account => 'Conta';
 	@override String get password => 'Palavra-passe';
-	@override String get decryptPassword => 'Palavra-passe de descriptografia';
+	@override String get decryptPasswordAES => 'Palavra-passe de desencriptação AES';
+	@override String get decryptPasswordAGE => 'Palavra-passe de desencriptação AGE';
 	@override String get preferOutboundDNS => 'Preferir o DNS incluído na configuração para resolver os domínios dos nós';
 	@override String get required => 'Obrigatório';
 	@override String get type => 'Tipo';
@@ -1339,7 +1340,8 @@ extension on TranslationsPt {
 			'meta.user' => 'Utilizador',
 			'meta.account' => 'Conta',
 			'meta.password' => 'Palavra-passe',
-			'meta.decryptPassword' => 'Palavra-passe de descriptografia',
+			'meta.decryptPasswordAES' => 'Palavra-passe de desencriptação AES',
+			'meta.decryptPasswordAGE' => 'Palavra-passe de desencriptação AGE',
 			'meta.preferOutboundDNS' => 'Preferir o DNS incluído na configuração para resolver os domínios dos nós',
 			'meta.required' => 'Obrigatório',
 			'meta.type' => 'Tipo',
@@ -1494,9 +1496,9 @@ extension on TranslationsPt {
 			'meta.profileExists' => 'O Perfil já existe, por favor não o adicione repetidamente',
 			'meta.profileUrlOrContent' => 'Link/Conteúdo do Perfil',
 			'meta.profileUrlOrContentHit' => 'Link/Conteúdo do Perfil [Obrigatório] (Suporta links de Perfil Clash, V2ray(suportado em lote), Stash, Karing, Sing-box, Shadowsocks, Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'O link do Perfil não pode estar vazio',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'O link do Perfil não pode estar vazio',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'O formato está errado, por favor corrija-o e adicione-o novamente:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Falha ao adicionar: ${p}, por favor tente modificar o [UserAgent] e tente novamente, ou use o navegador integrado do dispositivo para abrir o link de configuração e importar o ficheiro de configuração descarregado pelo navegador para esta aplicação',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Falha ao adicionar: ${p}, por favor ligue o proxy ou modifique o nó proxy atual e tente novamente',

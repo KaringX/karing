@@ -2,24 +2,18 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_inapp_notifications/flutter_inapp_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/auto_update_manager.dart';
 import 'package:karing/app/modules/biz.dart';
 import 'package:karing/app/modules/board_provider_manager.dart';
 import 'package:karing/app/modules/remote_config_manager.dart';
-import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/private/sentry_utils_private.dart';
-import 'package:karing/app/utils/app_args.dart';
-import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
 import 'package:karing/app/utils/device_utils.dart';
 import 'package:karing/app/utils/http_overrides_utils.dart';
@@ -27,103 +21,21 @@ import 'package:karing/app/utils/http_overrides_utils.dart';
 //import 'package:karing/app/utils/file_utils.dart';
 
 import 'package:karing/app/utils/log.dart';
-import 'package:karing/app/utils/move_to_background_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
-import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/app/utils/windows_version_helper.dart';
 import 'package:karing/i18n/strings.g.dart';
-import 'package:karing/screens/home_screen.dart';
+import 'package:karing/my_app.dart';
 import 'package:karing/screens/launch_failed_screen.dart';
-import 'package:karing/screens/theme_data_dark.dart';
-import 'package:karing/screens/themes.dart';
-import 'package:karing/screens/widgets/routes.dart';
-//import 'package:karing/tray.dart';
+import 'package:karing/windows_bounds.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 import 'package:vpn_service/vpn_service.dart';
-import 'package:window_manager/window_manager.dart';
-import 'package:tray_manager/tray_manager.dart';
 
-List<String> processArgs = [];
 StartFailedReason? startFailedReason;
 String? startFailedReasonDesc;
-bool windowBoundsDirty = false;
-
-// Restores the window to its last saved position/size
-Future<bool> _loadWindowBounds() async {
-  final windowConfig = SettingManager.getConfig().window;
-  if (windowConfig.width <= 0 || windowConfig.height <= 0) {
-    return false;
-  }
-  if (windowConfig.x < 0) {
-    windowConfig.x = 0;
-  }
-  if (windowConfig.y < 0) {
-    windowConfig.y = 0;
-  }
-  if (windowConfig.width < SettingConfigItemWindow.kMinWindowSize.width) {
-    windowConfig.width = SettingConfigItemWindow.kMinWindowSize.width;
-  }
-  if (windowConfig.height < SettingConfigItemWindow.kMinWindowSize.height) {
-    windowConfig.height = SettingConfigItemWindow.kMinWindowSize.height;
-  }
-  final bounds = Rect.fromLTWH(
-    windowConfig.x,
-    windowConfig.y,
-    windowConfig.width,
-    windowConfig.height,
-  );
-  try {
-    final displays = await screenRetriever.getAllDisplays();
-    final fitsAnyDisplay = displays.any((display) {
-      final visiblePosition = display.visiblePosition ?? Offset.zero;
-      final visibleSize = display.visibleSize ?? display.size;
-      return (visiblePosition & visibleSize).overlaps(bounds);
-    });
-    if (!fitsAnyDisplay) {
-      return false;
-    }
-  } catch (err) {
-    return false;
-  }
-
-  await windowManager.setBounds(bounds);
-  return true;
-}
-
-Future<void> _saveWindowBounds() async {
-  if (!windowBoundsDirty) {
-    return;
-  }
-  windowBoundsDirty = false;
-  await SettingManager.save();
-}
-
-Future<void> _updateWindowBounds() async {
-  if (!PlatformUtils.isPC()) {
-    return;
-  }
-  final bounds = await windowManager.getBounds();
-  if (bounds.width < SettingConfigItemWindow.kMinWindowSize.width - 1 ||
-      bounds.height < SettingConfigItemWindow.kMinWindowSize.height - 1) {
-    return;
-  }
-  if (bounds.left <= -SettingConfigItemWindow.kMinWindowSize.width - 1 ||
-      bounds.top <= -SettingConfigItemWindow.kMinWindowSize.height - 1) {
-    return;
-  }
-  final windowConfig = SettingManager.getConfig().window;
-  windowConfig.x = bounds.left;
-  windowConfig.y = bounds.top;
-  windowConfig.width = bounds.width;
-  windowConfig.height = bounds.height;
-  windowBoundsDirty = true;
-}
 
 void main(List<String> args) async {
   /* String dir = "E:\\dev\\KaringX\\karing-ruleset\\geo\\geoip";
@@ -132,7 +44,7 @@ void main(List<String> args) async {
   var subnets = await GeoipSubnetUtils.genClientSubnet(files);
   await GeoipSubnetUtils.saveSubnets(subnets, target);
   return;*/
-  processArgs = args;
+
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverridesUtils.install();
   await LocaleSettings.useDeviceLocale();
@@ -144,7 +56,7 @@ void main(List<String> args) async {
     await SentryUtilsPrivate.init(SettingConfig.kMaxDays.inDays);
   }
   if (PlatformUtils.isPC()) {
-    await _ensureSingleInstanceOrExit();
+    await ensureSingleInstanceOrExit(args);
   }
 
   //SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
@@ -244,7 +156,7 @@ Future<void> run(List<String> args) async {
         );
       }
 
-      if (!await _loadWindowBounds()) {
+      if (!await WindowBounds.loadWindowBounds()) {
         await windowManager.center();
       }
     }
@@ -293,10 +205,18 @@ Future<void> run(List<String> args) async {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
-  runApp(TranslationProvider(child: const MyApp()));
+  runApp(
+    TranslationProvider(
+      child: MyApp(
+        args: args,
+        startFailedReason: startFailedReason,
+        startFailedReasonDesc: startFailedReasonDesc,
+      ),
+    ),
+  );
 }
 
-Future<void> _ensureSingleInstanceOrExit() async {
+Future<void> ensureSingleInstanceOrExit(List<String> args) async {
   FlutterSingleInstance.debugMode = false;
   // Use a stable lock file key. On Linux, process names can vary by launch
   // path (e.g. xdg-open/AppImage), which breaks single-instance detection.
@@ -325,428 +245,12 @@ Future<void> _ensureSingleInstanceOrExit() async {
 
   if (!isFirst) {
     try {
-      await singleInstance.focus({"args": processArgs});
+      await singleInstance.focus({"args": args});
     } catch (err) {
       Log.w("single instance focus exception: ${err.toString()}");
     }
 
     // Never continue launching a second process.
     exit(0);
-  }
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-  @override
-  State<MyApp> createState() => MyAppState();
-}
-
-class MyAppState extends State<MyApp>
-    with WidgetsBindingObserver, WindowListener, TrayListener {
-  static const kMenuConnect = "connect";
-  static const kMenuDisconnect = "disconnect";
-  static const kMenuOpen = "show_window";
-  static const kMenuExit = "exit_app";
-  bool _launchAtStartup = false;
-  bool _windowVisibleForMac = false;
-  //Tray? _tray;
-  bool _trayGrey = true;
-  final Themes _themes = Themes();
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    if (PlatformUtils.isPC()) {
-      windowManager.addListener(this);
-      windowManager.setPreventClose(true);
-      /*_tray = Tray();
-      _tray!.init(
-        onOpen: () async {
-          if (await windowManager.isMinimized()) {
-            await windowManager.restore();
-          } else {
-            await windowManager.show();
-            onWindowRestore();
-          }
-        },
-        onExit: () async {
-          await _quit();
-        },
-      );*/
-      trayManager.addListener(this);
-      _setTray(true, false, true);
-    }
-    AppLifecycleStateNofity.init();
-    //LocaleSettings.getLocaleStream().listen((event) {});
-    String launchStartupArg = processArgs.firstWhere(
-      (element) => element == AppArgs.launchStartup,
-      orElse: () => '',
-    );
-    _launchAtStartup = launchStartupArg.isNotEmpty;
-    /*AnalyticsUtils.logEvent(
-      analyticsEventType: analyticsEventTypeApp,
-      name: 'launch',
-      parameters: {"value": _launchAtStartup},
-      forceSubmit: true,
-    );*/
-
-    AppLifecycleStateNofity.stateLaunch(_launchAtStartup);
-    _init();
-  }
-
-  @override
-  void dispose() {
-    AppLifecycleStateNofity.uninit();
-    WidgetsBinding.instance.removeObserver(this);
-    if (PlatformUtils.isPC()) {
-      windowManager.removeListener(this);
-      // _tray?.dispose();
-      //_tray = null;
-      trayManager.removeListener(this);
-      trayManager.destroy();
-    }
-
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    switch (state) {
-      case AppLifecycleState.resumed:
-        AppLifecycleStateNofity.stateResumed("resumed");
-        break;
-      case AppLifecycleState.inactive:
-        AppLifecycleStateNofity.stateInactive("inactive");
-        break;
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.paused:
-        AppLifecycleStateNofity.statePaused("paused");
-        break;
-      case AppLifecycleState.hidden:
-        AppLifecycleStateNofity.stateInactive("hidden");
-        break;
-    }
-  }
-
-  @override
-  Future<AppExitResponse> didRequestAppExit() async {
-    await _quit();
-    return AppExitResponse.cancel;
-  }
-
-  @override
-  void didHaveMemoryPressure() {
-    Log.w("memoryPressure");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String schemeArg = processArgs.firstWhere((element) {
-      return element.trim().startsWith(
-            SystemSchemeUtils.getKaringSchemeWith(),
-          ) ||
-          element.trim().startsWith(SystemSchemeUtils.getClashSchemeWith()) ||
-          element.trim().startsWith(SystemSchemeUtils.getSingboxSchemeWith());
-    }, orElse: () => '');
-
-    List<NavigatorObserver> observers = [];
-
-    observers.add(AppRouteObserver.instance);
-    if (!SettingManager.getConfig().disableAppImproveData) {
-      observers.add(SentryUtils.getOvserver());
-    }
-
-    return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => _themes)],
-      child: Consumer<Themes>(
-        builder: (context, appTheme, _) {
-          _themes.setTheme(SettingManager.getConfig().ui.theme, false);
-          return Shortcuts(
-            shortcuts: const {
-              SingleActivator(LogicalKeyboardKey.select):
-                  ActivateIntent(), // for android tv OK/Select button
-            },
-            child: MaterialApp(
-              //showSemanticsDebugger: false,
-              debugShowCheckedModeBanner: false,
-              locale: TranslationProvider.of(context).flutterLocale,
-              supportedLocales: AppLocaleUtils.supportedLocales,
-              localizationsDelegates: const [
-                ...GlobalMaterialLocalizations.delegates,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              navigatorObservers: observers,
-              /*shortcuts: {
-                  ...WidgetsApp.defaultShortcuts,
-                  const SingleActivator(LogicalKeyboardKey.select):
-                      const ActivateIntent(),
-                },*/
-              home: PopScope(
-                canPop: false,
-                onPopInvokedWithResult: (didPop, result) {
-                  if (Platform.isAndroid || Platform.isIOS) {
-                    MoveToBackgroundUtils.moveToBackground();
-                  }
-                },
-                child: startFailedReason != null
-                    ? LaunchFailedScreen(
-                        startFailedReason: startFailedReason!,
-                        startFailedReasonDesc: startFailedReasonDesc,
-                      )
-                    : HomeScreen(launchUrl: schemeArg.trim()),
-              ),
-              builder: InAppNotifications.init(
-                builder: SettingManager.getConfig().ui.disableFontScaler
-                    ? (context, widget) {
-                        return MediaQuery(
-                          data: MediaQuery.of(
-                            context,
-                          ).copyWith(textScaler: TextScaler.noScaling),
-                          child: widget!,
-                        );
-                      }
-                    : null,
-              ),
-              themeMode: appTheme.themeMode(),
-              theme: appTheme.themeData(context),
-              darkTheme: ThemeDataDark.theme(context),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  @override
-  void onWindowClose() async {
-    Log.d("onWindowClose");
-    await _saveWindowBounds();
-    await windowManager.hide();
-    _windowVisibleForMac = false;
-    AppLifecycleStateNofity.statePaused("close");
-  }
-
-  @override
-  void onWindowResize() => _updateWindowBounds();
-
-  @override
-  void onWindowResized() => _updateWindowBounds();
-
-  @override
-  void onWindowMove() => _updateWindowBounds();
-
-  @override
-  void onWindowMoved() => _updateWindowBounds();
-
-  @override
-  void onWindowMaximize() => _updateWindowBounds();
-
-  @override
-  void onWindowUnmaximize() => _updateWindowBounds();
-
-  @override
-  void onWindowMinimize() async {
-    _windowVisibleForMac = false;
-    Log.d("onWindowMinimize");
-    AppLifecycleStateNofity.statePaused("minimize");
-    await _saveWindowBounds();
-  }
-
-  @override
-  void onWindowRestore() {
-    _windowVisibleForMac = true;
-    Log.d("onWindowRestore");
-    AppLifecycleStateNofity.stateResumed("restore");
-  }
-
-  @override
-  void onWindowFocus() {
-    if (Platform.isMacOS) {
-      if (!_windowVisibleForMac) {
-        Log.d("onWindowFocus");
-        _windowVisibleForMac = true;
-        AppLifecycleStateNofity.stateResumed("restore");
-      }
-    }
-  }
-
-  @override
-  void onWindowDeviceShutdown() {
-    Log.d("main.dart onWindowDeviceShutdown");
-    _quit();
-  }
-
-  @override
-  void onWindowUserSessionDisconnect() {
-    Log.d("main.dart onWindowUserSessionDisconnect");
-    if (SettingManager.getConfig().quitWhenSwitchSystemUser) {
-      _quit();
-    }
-  }
-
-  void firstShowWindow(bool forceShow) {
-    if (!PlatformUtils.isPC()) {
-      return;
-    }
-    windowManager.waitUntilReadyToShow(null, () async {
-      final ui = SettingManager.getConfig().ui;
-      if (Platform.isMacOS && ui.hideDockIcon) {
-        FlutterVpnService.hideDockIcon(true);
-      }
-      if (forceShow || !ui.hideAfterLaunch) {
-        await windowManager.show();
-        onWindowRestore();
-      } else {
-        await windowManager.hide();
-      }
-    });
-  }
-
-  Future<void> _init() async {
-    Biz.onEventExit = (() {
-      _quit();
-    });
-
-    Biz.onEventVPNStateChanged = ((bool connected) {
-      if (PlatformUtils.isPC()) {
-        // _tray?.setIconDisconneted(!connected);
-        if (_trayGrey == !connected) {
-          return;
-        }
-        _setTray(!connected, false, false);
-      }
-    });
-    if (startFailedReason == null) {
-      Biz.onEventInitHomeFinish.add(() {
-        firstShowWindow(false);
-      });
-
-      await Biz.init(_launchAtStartup);
-    } else {
-      firstShowWindow(true);
-    }
-    ServerManager.onEventReloadFromZip(hashCode, () async {
-      if (!mounted) {
-        return;
-      }
-      _themes.setTheme(SettingManager.getConfig().ui.theme, false);
-      setState(() {});
-    });
-  }
-
-  Future<void> _uninit() async {
-    if (PlatformUtils.isPC()) {
-      await _saveWindowBounds();
-      await windowManager.hide();
-    }
-    if (startFailedReason == null) {
-      await Biz.uninit();
-    }
-    if (PlatformUtils.isPC()) {
-      await trayManager.destroy();
-    }
-  }
-
-  Future<void> _quit() async {
-    await _uninit();
-    Future.delayed(const Duration(seconds: 0), () async {
-      await Log.uninit();
-      await ServicesBinding.instance.exitApplication(AppExitType.required);
-    });
-  }
-
-  void _setTray(bool grey, bool destroy, bool quitIfFailed) {
-    Future.delayed(const Duration(milliseconds: 300), () async {
-      if (destroy || Platform.isLinux) {
-        await trayManager.destroy();
-      }
-
-      try {
-        if (Platform.isWindows) {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
-            isTemplate: false,
-          );
-        } else {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
-            isTemplate: false,
-          );
-        }
-        _trayGrey = grey;
-      } catch (err, stacktrace) {
-        Log.w("setIcon exception: ${err.toString()}, quit");
-        if (quitIfFailed) {
-          Future.delayed(const Duration(milliseconds: 1000), () async {
-            _quit();
-          });
-        }
-      }
-      if (!Platform.isLinux) {
-        await trayManager.setToolTip(AppUtils.getName());
-      } else {
-        await _setTrayMenu(grey);
-      }
-    });
-  }
-
-  Future<void> _setTrayMenu(bool grey) async {
-    if (!PlatformUtils.isPC()) {
-      return;
-    }
-
-    List<MenuItem> items = [
-      if (grey) ...[
-        MenuItem(key: kMenuConnect, label: "   ${t.meta.connect}   "),
-      ],
-      if (!grey) ...[
-        MenuItem(key: kMenuDisconnect, label: "   ${t.meta.disconnect}   "),
-      ],
-      MenuItem.separator(),
-
-      MenuItem(key: kMenuOpen, label: "   ${t.main.tray.menuOpen}   "),
-      MenuItem(key: kMenuExit, label: "   ${t.main.tray.menuExit}   "),
-    ];
-
-    await trayManager.setContextMenu(Menu(items: items));
-    if (!Platform.isLinux) {
-      await trayManager.popUpContextMenu(bringAppToFront: true);
-    }
-  }
-
-  @override
-  void onTrayIconMouseDown() async {
-    if (await windowManager.isMinimized()) {
-      await windowManager.restore();
-    } else {
-      await windowManager.show();
-      onWindowRestore();
-    }
-  }
-
-  @override
-  void onTrayIconRightMouseDown() async {
-    await _setTrayMenu(_trayGrey);
-  }
-
-  @override
-  void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == kMenuConnect) {
-      VpnActionHandler.vpnConnect?.call("menu", false);
-    } else if (menuItem.key == kMenuDisconnect) {
-      VpnActionHandler.vpnDisconnect?.call("menu", false);
-    } else if (menuItem.key == kMenuExit) {
-      await _quit();
-    } else if (menuItem.key == kMenuOpen) {
-      if (await windowManager.isMinimized()) {
-        await windowManager.restore();
-      } else {
-        await windowManager.show();
-        onWindowRestore();
-      }
-    }
   }
 }

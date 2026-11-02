@@ -692,7 +692,8 @@ class _Translations$meta$de implements Translations$meta$en {
 	@override String get user => 'Benutzer';
 	@override String get account => 'Konto';
 	@override String get password => 'Passwort';
-	@override String get decryptPassword => 'Entschlüsselungspasswort';
+	@override String get decryptPasswordAES => 'AES-Entschlüsselungspasswort';
+	@override String get decryptPasswordAGE => 'AGE-Entschlüsselungspasswort';
 	@override String get preferOutboundDNS => 'Zum Auflösen der Knotendomains bevorzugt den in der Konfiguration enthaltenen DNS verwenden';
 	@override String get required => 'Erforderlich';
 	@override String get type => 'Typ';
@@ -1339,7 +1340,8 @@ extension on TranslationsDe {
 			'meta.user' => 'Benutzer',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Passwort',
-			'meta.decryptPassword' => 'Entschlüsselungspasswort',
+			'meta.decryptPasswordAES' => 'AES-Entschlüsselungspasswort',
+			'meta.decryptPasswordAGE' => 'AGE-Entschlüsselungspasswort',
 			'meta.preferOutboundDNS' => 'Zum Auflösen der Knotendomains bevorzugt den in der Konfiguration enthaltenen DNS verwenden',
 			'meta.required' => 'Erforderlich',
 			'meta.type' => 'Typ',
@@ -1494,9 +1496,9 @@ extension on TranslationsDe {
 			'meta.profileExists' => 'Das Profil existiert bereits, bitte fügen Sie es nicht wiederholt hinzu',
 			'meta.profileUrlOrContent' => 'Profil-Link/Inhalt',
 			'meta.profileUrlOrContentHit' => 'Profil-Link/Inhalt [Erforderlich] (Unterstützt Clash, V2ray (Batch-Unterstützung), Stash, Karing, Sing-box, Shadowsocks, Sub-Profil-Links)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profil-Link darf nicht leer sein',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profil-Link darf nicht leer sein',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Das Format ist falsch, bitte korrigieren Sie es und fügen Sie es erneut hinzu:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte versuchen Sie, den [UserAgent] zu ändern und es erneut zu versuchen, oder verwenden Sie den integrierten Browser des Geräts, um den Konfigurationslink zu öffnen und die vom Browser heruntergeladene Konfigurationsdatei in diese Anwendung zu importieren',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Hinzufügen fehlgeschlagen: ${p}, bitte schalten Sie den Proxy ein oder ändern Sie den aktuellen Proxy-Knoten und versuchen Sie es erneut',

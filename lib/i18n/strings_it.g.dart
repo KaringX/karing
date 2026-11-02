@@ -692,7 +692,8 @@ class _Translations$meta$it implements Translations$meta$en {
 	@override String get user => 'Utente';
 	@override String get account => 'Account';
 	@override String get password => 'Password';
-	@override String get decryptPassword => 'Password di decrittazione';
+	@override String get decryptPasswordAES => 'Password per la decrittazione AES';
+	@override String get decryptPasswordAGE => 'Password per la decrittazione AGE';
 	@override String get preferOutboundDNS => 'Preferisci il DNS incluso nella configurazione per risolvere i nomi di dominio dei nodi';
 	@override String get required => 'Richiesto';
 	@override String get type => 'Tipo';
@@ -1339,7 +1340,8 @@ extension on TranslationsIt {
 			'meta.user' => 'Utente',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
-			'meta.decryptPassword' => 'Password di decrittazione',
+			'meta.decryptPasswordAES' => 'Password per la decrittazione AES',
+			'meta.decryptPasswordAGE' => 'Password per la decrittazione AGE',
 			'meta.preferOutboundDNS' => 'Preferisci il DNS incluso nella configurazione per risolvere i nomi di dominio dei nodi',
 			'meta.required' => 'Richiesto',
 			'meta.type' => 'Tipo',
@@ -1494,9 +1496,9 @@ extension on TranslationsIt {
 			'meta.profileExists' => 'Il Profilo esiste già, non aggiungerlo ripetutamente',
 			'meta.profileUrlOrContent' => 'Link/Contenuto Profilo',
 			'meta.profileUrlOrContentHit' => 'Link/Contenuto Profilo [Richiesto] (Supporta link Profilo Clash, V2ray (supportato in batch), Stash, Karing, Sing-box, Shadowsocks, Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Il link del Profilo non può essere vuoto',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Il link del Profilo non può essere vuoto',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Il formato è errato, correggilo e aggiungilo di nuovo:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Aggiunta fallita: ${p}, prova a modificare lo [UserAgent] e riprova, oppure usa il browser integrato del dispositivo per aprire il link di configurazione e importare il file di configurazione scaricato dal browser in questa applicazione',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Aggiunta fallita: ${p}, attiva il proxy o modifica l\'attuale nodo proxy e riprova',

@@ -692,7 +692,8 @@ class _Translations$meta$fr implements Translations$meta$en {
 	@override String get user => 'Utilisateur';
 	@override String get account => 'Compte';
 	@override String get password => 'Mot de passe';
-	@override String get decryptPassword => 'Mot de passe de déchiffrement';
+	@override String get decryptPasswordAES => 'Mot de passe de déchiffrement AES';
+	@override String get decryptPasswordAGE => 'Mot de passe de déchiffrement AGE';
 	@override String get preferOutboundDNS => 'Privilégier le DNS inclus dans la configuration pour résoudre les noms de domaine des nœuds';
 	@override String get required => 'Requis';
 	@override String get type => 'Type';
@@ -1339,7 +1340,8 @@ extension on TranslationsFr {
 			'meta.user' => 'Utilisateur',
 			'meta.account' => 'Compte',
 			'meta.password' => 'Mot de passe',
-			'meta.decryptPassword' => 'Mot de passe de déchiffrement',
+			'meta.decryptPasswordAES' => 'Mot de passe de déchiffrement AES',
+			'meta.decryptPasswordAGE' => 'Mot de passe de déchiffrement AGE',
 			'meta.preferOutboundDNS' => 'Privilégier le DNS inclus dans la configuration pour résoudre les noms de domaine des nœuds',
 			'meta.required' => 'Requis',
 			'meta.type' => 'Type',
@@ -1494,9 +1496,9 @@ extension on TranslationsFr {
 			'meta.profileExists' => 'Le profil existe déjà, veuillez ne pas l\'ajouter à plusieurs reprises',
 			'meta.profileUrlOrContent' => 'Lien/Contenu du profil',
 			'meta.profileUrlOrContentHit' => 'Lien/Contenu du profil [Requis] (Supporte Clash, V2ray (supporté par lot), Stash, Karing, Sing-box, Shadowsocks, Liens de sous-profil)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Le lien du profil ne peut pas être vide',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Le lien du profil ne peut pas être vide',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Le format est incorrect, veuillez le corriger et l\'ajouter à nouveau : ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Échec de l\'ajout : ${p}, veuillez essayer de modifier l\' [UserAgent] et réessayez, ou utilisez le navigateur intégré de l\'appareil pour ouvrir le lien de configuration et importer le fichier de configuration téléchargé par le navigateur dans cette application',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Échec de l\'ajout : ${p}, veuillez activer le proxy ou modifier le nœud proxy actuel et réessayez',

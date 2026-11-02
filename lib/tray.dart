@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 
 import 'package:karing/app/utils/app_utils.dart';
@@ -7,7 +8,6 @@ import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-/*
 class TrayConnected {
   Future<void> Function()? onOpen;
   Future<void> Function()? onExit;

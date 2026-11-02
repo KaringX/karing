@@ -692,7 +692,8 @@ class _Translations$meta$fa implements Translations$meta$en {
 	@override String get user => 'کاربر';
 	@override String get account => 'نام‌کاربری';
 	@override String get password => 'رمز‌عبور';
-	@override String get decryptPassword => 'دکريپت رمز‌عبور';
+	@override String get decryptPasswordAES => 'گذرواژهٔ رمزگشایی AES';
+	@override String get decryptPasswordAGE => 'گذرواژهٔ رمزگشایی AGE';
 	@override String get preferOutboundDNS => 'برای حل نام دامنه گره‌ها، استفاده از DNS موجود در پیکربندی را ترجیح دهید';
 	@override String get required => 'الزامی';
 	@override String get type => 'نوع';
@@ -1339,7 +1340,8 @@ extension on TranslationsFa {
 			'meta.user' => 'کاربر',
 			'meta.account' => 'نام‌کاربری',
 			'meta.password' => 'رمز‌عبور',
-			'meta.decryptPassword' => 'دکريپت رمز‌عبور',
+			'meta.decryptPasswordAES' => 'گذرواژهٔ رمزگشایی AES',
+			'meta.decryptPasswordAGE' => 'گذرواژهٔ رمزگشایی AGE',
 			'meta.preferOutboundDNS' => 'برای حل نام دامنه گره‌ها، استفاده از DNS موجود در پیکربندی را ترجیح دهید',
 			'meta.required' => 'الزامی',
 			'meta.type' => 'نوع',
@@ -1494,9 +1496,9 @@ extension on TranslationsFa {
 			'meta.profileExists' => 'پروفایل از‌قبل وجود دارد، لطفا آن را به‌طور مکرر اضافه نکنید',
 			'meta.profileUrlOrContent' => 'لینک/محتوای پروفایل',
 			'meta.profileUrlOrContentHit' => 'لینک/محتوای پروفایل [الزامی] (پشتیبانی از کلش، V2ray(پشتیبانی به‌صورت دسته‌ای)، لینک‌های پروفایل فرعی)، استش، کارینگ، سینگ‌باکس، شدوساکس، لینک‌های پروفایل فرعی)',
-			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'لینک پروفایل نمی‌تواند خالی باشد',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فرمت اشتباه است، لطفا آن را اصلاح کرده و مجدد اضافه کنید:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'افزودن نشد: ${p}، لطفاً [UserAgent] را تغییر دهید و دوباره امتحان کنید، یا از مرورگر خود دستگاه برای باز کردن پیوند پیکربندی و وارد کردن فایل پیکربندی دانلود شده توسط مرورگر به این برنامه استفاده کنید.',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'اضافه کردن: ${p} ناموفق بود، لطفاً عامل را باز کنید یا گره عامل فعلی را تغییر دهید و دوباره امتحان کنید',

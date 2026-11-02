@@ -692,7 +692,8 @@ class _Translations$meta$uk implements Translations$meta$en {
 	@override String get user => 'Користувач';
 	@override String get account => 'Обліковий запис';
 	@override String get password => 'Пароль';
-	@override String get decryptPassword => 'Пароль розшифровки';
+	@override String get decryptPasswordAES => 'Пароль для розшифрування AES';
+	@override String get decryptPasswordAGE => 'Пароль для розшифрування AGE';
 	@override String get preferOutboundDNS => 'Надавати перевагу DNS із конфігурації для визначення доменних імен вузлів';
 	@override String get required => 'Обов\'язково';
 	@override String get type => 'Тип';
@@ -1339,7 +1340,8 @@ extension on TranslationsUk {
 			'meta.user' => 'Користувач',
 			'meta.account' => 'Обліковий запис',
 			'meta.password' => 'Пароль',
-			'meta.decryptPassword' => 'Пароль розшифровки',
+			'meta.decryptPasswordAES' => 'Пароль для розшифрування AES',
+			'meta.decryptPasswordAGE' => 'Пароль для розшифрування AGE',
 			'meta.preferOutboundDNS' => 'Надавати перевагу DNS із конфігурації для визначення доменних імен вузлів',
 			'meta.required' => 'Обов\'язково',
 			'meta.type' => 'Тип',
@@ -1494,9 +1496,9 @@ extension on TranslationsUk {
 			'meta.profileExists' => 'Профіль вже існує, будь ласка, не додавайте його повторно',
 			'meta.profileUrlOrContent' => 'Посилання/вміст профілю',
 			'meta.profileUrlOrContentHit' => 'Посилання/вміст профілю [Обов\'язково] (Підтримує посилання на профілі Clash, V2ray (підтримується пакетно), Stash, Karing, Sing-box, Shadowsocks, Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Посилання на профіль не може бути порожнім',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Посилання на профіль не може бути порожнім',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильний формат, будь ласка, виправте його та додайте знову:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, спробуйте змінити [UserAgent] і спробуйте знову, або скористайтеся вбудованим браузером пристрою, щоб відкрити посилання на конфігурацію та імпортувати файл конфігурації, завантажений браузером, у цю програму',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не вдалося додати: ${p}, будь ласка, увімкніть проксі або змініть поточний проксі-вузол і спробуйте знову',

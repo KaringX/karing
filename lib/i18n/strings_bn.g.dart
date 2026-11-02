@@ -692,7 +692,8 @@ class _Translations$meta$bn implements Translations$meta$en {
 	@override String get user => 'ব্যবহারকারী';
 	@override String get account => 'অ্যাকাউন্ট';
 	@override String get password => 'পাসওয়ার্ড';
-	@override String get decryptPassword => 'ডিক্রিপ্ট পাসওয়ার্ড';
+	@override String get decryptPasswordAES => 'AES ডিক্রিপশন পাসওয়ার্ড';
+	@override String get decryptPasswordAGE => 'AGE ডিক্রিপশন পাসওয়ার্ড';
 	@override String get preferOutboundDNS => 'নোডের ডোমেইন নাম সমাধান করতে কনফিগারেশনে থাকা DNS ব্যবহার করতে অগ্রাধিকার দিন';
 	@override String get required => 'প্রয়োজন';
 	@override String get type => 'ধরন';
@@ -1339,7 +1340,8 @@ extension on TranslationsBn {
 			'meta.user' => 'ব্যবহারকারী',
 			'meta.account' => 'অ্যাকাউন্ট',
 			'meta.password' => 'পাসওয়ার্ড',
-			'meta.decryptPassword' => 'ডিক্রিপ্ট পাসওয়ার্ড',
+			'meta.decryptPasswordAES' => 'AES ডিক্রিপশন পাসওয়ার্ড',
+			'meta.decryptPasswordAGE' => 'AGE ডিক্রিপশন পাসওয়ার্ড',
 			'meta.preferOutboundDNS' => 'নোডের ডোমেইন নাম সমাধান করতে কনফিগারেশনে থাকা DNS ব্যবহার করতে অগ্রাধিকার দিন',
 			'meta.required' => 'প্রয়োজন',
 			'meta.type' => 'ধরন',
@@ -1494,9 +1496,9 @@ extension on TranslationsBn {
 			'meta.profileExists' => 'প্রোফাইলটি ইতিমধ্যে বিদ্যমান, অনুগ্রহ করে এটি বারবার যুক্ত করবেন না',
 			'meta.profileUrlOrContent' => 'প্রোফাইল লিঙ্ক/বিষয়বস্তু',
 			'meta.profileUrlOrContentHit' => 'প্রোফাইল লিঙ্ক/বিষয়বস্তু [প্রয়োজন] (Clash, V2ray (ব্যাচ সমর্থিত), Stash, Karing, Sing-box, Shadowsocks, Sub প্রোফাইল লিঙ্ক সমর্থন করে)',
-			'meta.profileUrlOrContentCannotEmpty' => 'প্রোফাইল লিঙ্ক খালি রাখা যাবে না',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'প্রোফাইল লিঙ্ক খালি রাখা যাবে না',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'ফরম্যাট ভুল, অনুগ্রহ করে এটি ঠিক করুন এবং আবার যুক্ত করুন:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে [UserAgent] পরিবর্তন করার চেষ্টা করুন এবং আবার চেষ্টা করুন, অথবা কনফিগারেশন লিঙ্কটি খোলার জন্য ডিভাইসের বিল্ট-ইন ব্রাউজার ব্যবহার করুন এবং ব্রাউজার দ্বারা ডাউনলোড করা কনফিগারেশন ফাইলটি এই অ্যাপ্লিকেশনে আমদানি করুন',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'যুক্ত করতে ব্যর্থ: ${p}, অনুগ্রহ করে প্রক্সি চালু করুন বা বর্তমান প্রক্সি নোড পরিবর্তন করুন এবং আবার চেষ্টা করুন',

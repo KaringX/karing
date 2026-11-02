@@ -1468,8 +1468,11 @@ class Translations$meta$en {
 	/// en: 'Password'
 	String get password => 'Password';
 
-	/// en: 'Decrypt Password'
-	String get decryptPassword => 'Decrypt Password';
+	/// en: 'AES Decryption Password'
+	String get decryptPasswordAES => 'AES Decryption Password';
+
+	/// en: 'AGE Decryption Password'
+	String get decryptPasswordAGE => 'AGE Decryption Password';
 
 	/// en: 'Prefer the DNS configured in the profile to resolve node domain names'
 	String get preferOutboundDNS => 'Prefer the DNS configured in the profile to resolve node domain names';
@@ -2514,7 +2517,8 @@ extension on Translations {
 			'meta.user' => 'User',
 			'meta.account' => 'Account',
 			'meta.password' => 'Password',
-			'meta.decryptPassword' => 'Decrypt Password',
+			'meta.decryptPasswordAES' => 'AES Decryption Password',
+			'meta.decryptPasswordAGE' => 'AGE Decryption Password',
 			'meta.preferOutboundDNS' => 'Prefer the DNS configured in the profile to resolve node domain names',
 			'meta.required' => 'Required',
 			'meta.type' => 'Type',
@@ -2669,9 +2673,9 @@ extension on Translations {
 			'meta.profileExists' => 'The Profile already exists, please do not add it repeatedly',
 			'meta.profileUrlOrContent' => 'Profile Link/Content',
 			'meta.profileUrlOrContentHit' => 'Profile Link/Content [Required] (Support Clash,V2ray(batch supported),Stash,Karing,Sing-box,Shadowsocks,Sub Profile links)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profile Link can not be empty',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'The format is wrong, please correct it and add it again:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Add failed: ${p}, please try to modify the [UserAgent] and try again, or use the device\'s built-in browser to open the configuration link and import the configuration file downloaded by the browser into this application',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Add failed: ${p}, please tun on the proxy or modify the current proxy node and try again',

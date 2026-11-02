@@ -692,7 +692,8 @@ class _Translations$meta$nl implements Translations$meta$en {
 	@override String get user => 'Gebruiker';
 	@override String get account => 'Account';
 	@override String get password => 'Wachtwoord';
-	@override String get decryptPassword => 'Ontcijferingswachtwoord';
+	@override String get decryptPasswordAES => 'AES-ontsleutelingswachtwoord';
+	@override String get decryptPasswordAGE => 'AGE-ontsleutelingswachtwoord';
 	@override String get preferOutboundDNS => 'Geef de voorkeur aan de DNS uit de configuratie voor het opzoeken van domeinnamen van nodes';
 	@override String get required => 'Vereist';
 	@override String get type => 'Type';
@@ -1339,7 +1340,8 @@ extension on TranslationsNl {
 			'meta.user' => 'Gebruiker',
 			'meta.account' => 'Account',
 			'meta.password' => 'Wachtwoord',
-			'meta.decryptPassword' => 'Ontcijferingswachtwoord',
+			'meta.decryptPasswordAES' => 'AES-ontsleutelingswachtwoord',
+			'meta.decryptPasswordAGE' => 'AGE-ontsleutelingswachtwoord',
 			'meta.preferOutboundDNS' => 'Geef de voorkeur aan de DNS uit de configuratie voor het opzoeken van domeinnamen van nodes',
 			'meta.required' => 'Vereist',
 			'meta.type' => 'Type',
@@ -1494,9 +1496,9 @@ extension on TranslationsNl {
 			'meta.profileExists' => 'Het profiel bestaat al, voeg het niet herhaaldelijk toe',
 			'meta.profileUrlOrContent' => 'Profiellink/Inhoud',
 			'meta.profileUrlOrContentHit' => 'Profiellink/Inhoud [Vereist] (Ondersteunt Clash, V2ray (batch ondersteund), Stash, Karing, Sing-box, Shadowsocks, Sub profiellinks)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profiellink mag niet leeg zijn',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profiellink mag niet leeg zijn',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Het formaat is onjuist, corrigeer het en voeg het opnieuw toe:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Toevoegen mislukt: ${p}, probeer de [UserAgent] te wijzigen en probeer het opnieuw, of gebruik de ingebouwde browser van het apparaat om de configuratielink te openen en importeer het door de browser gedownloade configuratiebestand in deze app',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Toevoegen mislukt: ${p}, schakel de proxy in of wijzig de huidige proxynode en probeer het opnieuw',

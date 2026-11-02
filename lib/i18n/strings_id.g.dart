@@ -692,7 +692,8 @@ class _Translations$meta$id implements Translations$meta$en {
 	@override String get user => 'Pengguna';
 	@override String get account => 'Akun';
 	@override String get password => 'Kata sandi';
-	@override String get decryptPassword => 'Kata sandi dekripsi';
+	@override String get decryptPasswordAES => 'Kata sandi untuk dekripsi AES';
+	@override String get decryptPasswordAGE => 'Kata sandi untuk dekripsi AGE';
 	@override String get preferOutboundDNS => 'Utamakan DNS bawaan konfigurasi untuk menerjemahkan nama domain node';
 	@override String get required => 'Wajib';
 	@override String get type => 'Tipe';
@@ -1339,7 +1340,8 @@ extension on TranslationsId {
 			'meta.user' => 'Pengguna',
 			'meta.account' => 'Akun',
 			'meta.password' => 'Kata sandi',
-			'meta.decryptPassword' => 'Kata sandi dekripsi',
+			'meta.decryptPasswordAES' => 'Kata sandi untuk dekripsi AES',
+			'meta.decryptPasswordAGE' => 'Kata sandi untuk dekripsi AGE',
 			'meta.preferOutboundDNS' => 'Utamakan DNS bawaan konfigurasi untuk menerjemahkan nama domain node',
 			'meta.required' => 'Wajib',
 			'meta.type' => 'Tipe',
@@ -1494,9 +1496,9 @@ extension on TranslationsId {
 			'meta.profileExists' => 'Konfigurasi sudah ada, jangan tambahkan dua kali',
 			'meta.profileUrlOrContent' => 'Tautan/isi konfigurasi',
 			'meta.profileUrlOrContentHit' => 'Tautan/isi konfigurasi [wajib] (mendukung Clash,V2ray(mendukung batch),Stash,Karing,Sing-box,Shadowsocks,Sub,Github configuration link)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Tautan konfigurasi tidak boleh kosong',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Tautan konfigurasi tidak boleh kosong',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format salah, silakan koreksi lalu tambahkan lagi:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Penambahan gagal:${p}, coba ubah [UserAgent] lalu ulangi, atau buka tautan konfigurasi dengan browser bawaan perangkat, lalu impor file konfigurasi yang diunduh browser ke aplikasi ini',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Penambahan gagal:${p}, silakan aktifkan proxy atau ganti node proxy saat ini lalu coba lagi',

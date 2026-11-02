@@ -692,7 +692,8 @@ class _Translations$meta$ar implements Translations$meta$en {
 	@override String get user => 'مستخدم';
 	@override String get account => 'حساب';
 	@override String get password => 'كلمة المرور';
-	@override String get decryptPassword => 'فك تشفير كلمة المرور';
+	@override String get decryptPasswordAES => 'كلمة مرور فك تشفير AES';
+	@override String get decryptPasswordAGE => 'كلمة مرور فك تشفير AGE';
 	@override String get preferOutboundDNS => 'فضّل استخدام DNS المضمّن في الإعدادات لتحليل أسماء نطاقات العقد';
 	@override String get required => 'مطلوب';
 	@override String get type => 'يكتب';
@@ -1339,7 +1340,8 @@ extension on TranslationsAr {
 			'meta.user' => 'مستخدم',
 			'meta.account' => 'حساب',
 			'meta.password' => 'كلمة المرور',
-			'meta.decryptPassword' => 'فك تشفير كلمة المرور',
+			'meta.decryptPasswordAES' => 'كلمة مرور فك تشفير AES',
+			'meta.decryptPasswordAGE' => 'كلمة مرور فك تشفير AGE',
 			'meta.preferOutboundDNS' => 'فضّل استخدام DNS المضمّن في الإعدادات لتحليل أسماء نطاقات العقد',
 			'meta.required' => 'مطلوب',
 			'meta.type' => 'يكتب',
@@ -1494,9 +1496,9 @@ extension on TranslationsAr {
 			'meta.profileExists' => 'الملف الشخصي موجود بالفعل ، من فضلك لا تضيفه مرارًا وتكرارًا',
 			'meta.profileUrlOrContent' => 'رابط/محتوى الملف الشخصي',
 			'meta.profileUrlOrContentHit' => 'ارتباط ملف التعريف/المحتوى [مطلوب] (دعم الدعم ، V2Ray (مدعوم الدفعة) ، خبأ ، karing ، sing-box ، shadowsocks ، روابط الملف الشخصي الفرعي)',
-			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'لا يمكن أن يكون رابط الملف الشخصي فارغًا',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'التنسيق خاطئ ، يرجى تصحيحه وإضافته مرة أخرى:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى محاولة تعديل [UserAgent] والمحاولة مرة أخرى، أو استخدم المتصفح الخاص بالجهاز لفتح رابط التكوين واستيراد ملف التكوين الذي تم تنزيله بواسطة المتصفح إلى هذا التطبيق',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'فشلت إضافة: ${p}، يرجى فتح الوكيل أو تعديل عقدة الوكيل الحالية والمحاولة مرة أخرى',

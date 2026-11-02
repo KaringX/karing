@@ -692,7 +692,8 @@ class _Translations$meta$es implements Translations$meta$en {
 	@override String get user => 'Usuario';
 	@override String get account => 'Cuenta';
 	@override String get password => 'Contraseña';
-	@override String get decryptPassword => 'Contraseña de descifrado';
+	@override String get decryptPasswordAES => 'Contraseña de descifrado AES';
+	@override String get decryptPasswordAGE => 'Contraseña de descifrado AGE';
 	@override String get preferOutboundDNS => 'Preferir el DNS incluido en la configuración para resolver los dominios de los nodos';
 	@override String get required => 'Requerido';
 	@override String get type => 'Tipo';
@@ -1339,7 +1340,8 @@ extension on TranslationsEs {
 			'meta.user' => 'Usuario',
 			'meta.account' => 'Cuenta',
 			'meta.password' => 'Contraseña',
-			'meta.decryptPassword' => 'Contraseña de descifrado',
+			'meta.decryptPasswordAES' => 'Contraseña de descifrado AES',
+			'meta.decryptPasswordAGE' => 'Contraseña de descifrado AGE',
 			'meta.preferOutboundDNS' => 'Preferir el DNS incluido en la configuración para resolver los dominios de los nodos',
 			'meta.required' => 'Requerido',
 			'meta.type' => 'Tipo',
@@ -1494,9 +1496,9 @@ extension on TranslationsEs {
 			'meta.profileExists' => 'El perfil ya existe, no lo agregue repetidamente',
 			'meta.profileUrlOrContent' => 'Enlace/Contenido del perfil',
 			'meta.profileUrlOrContentHit' => 'Enlace/Contenido del perfil [Requerido] (Soporta Clash, V2ray (soporte por lotes), Stash, Karing, Sing-box, Shadowsocks, enlaces de subperfil)',
-			'meta.profileUrlOrContentCannotEmpty' => 'El enlace del perfil no puede estar vacío',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'El enlace del perfil no puede estar vacío',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'El formato es incorrecto, corríjalo y agréguelo de nuevo: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Error al agregar: ${p}, intente modificar el [UserAgent] e intente de nuevo, o use el navegador integrado del dispositivo para abrir el enlace de configuración e importar el archivo de configuración descargado por el navegador en esta aplicación',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Error al agregar: ${p}, active el proxy o modifique el nodo proxy actual e intente de nuevo',

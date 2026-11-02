@@ -692,7 +692,8 @@ class _Translations$meta$vi implements Translations$meta$en {
 	@override String get user => 'Người dùng';
 	@override String get account => 'Tài khoản';
 	@override String get password => 'Mật khẩu';
-	@override String get decryptPassword => 'Mật khẩu giải mã';
+	@override String get decryptPasswordAES => 'Mật khẩu giải mã AES';
+	@override String get decryptPasswordAGE => 'Mật khẩu giải mã AGE';
 	@override String get preferOutboundDNS => 'Ưu tiên DNS có trong cấu hình để phân giải tên miền của các nút';
 	@override String get required => 'Bắt buộc';
 	@override String get type => 'Loại';
@@ -1339,7 +1340,8 @@ extension on TranslationsVi {
 			'meta.user' => 'Người dùng',
 			'meta.account' => 'Tài khoản',
 			'meta.password' => 'Mật khẩu',
-			'meta.decryptPassword' => 'Mật khẩu giải mã',
+			'meta.decryptPasswordAES' => 'Mật khẩu giải mã AES',
+			'meta.decryptPasswordAGE' => 'Mật khẩu giải mã AGE',
 			'meta.preferOutboundDNS' => 'Ưu tiên DNS có trong cấu hình để phân giải tên miền của các nút',
 			'meta.required' => 'Bắt buộc',
 			'meta.type' => 'Loại',
@@ -1494,9 +1496,9 @@ extension on TranslationsVi {
 			'meta.profileExists' => 'Cấu hình đã tồn tại, vui lòng không thêm lặp lại',
 			'meta.profileUrlOrContent' => 'Liên kết/Nội dung cấu hình',
 			'meta.profileUrlOrContentHit' => 'Liên kết/Nội dung cấu hình [Bắt buộc] (Hỗ trợ Clash, V2ray (hỗ trợ hàng loạt), Stash, Karing, Sing-box, Shadowsocks, liên kết Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Liên kết cấu hình không được để trống',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Liên kết cấu hình không được để trống',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Định dạng sai, vui lòng sửa lại và thêm lại: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng thử sửa đổi [UserAgent] và thử lại, hoặc sử dụng trình duyệt tích hợp của thiết bị để mở liên kết cấu hình và nhập tệp cấu hình đã tải xuống vào ứng dụng này',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Thêm thất bại: ${p}, vui lòng bật proxy hoặc sửa đổi nút proxy hiện tại và thử lại',

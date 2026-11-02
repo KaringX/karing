@@ -692,7 +692,8 @@ class _Translations$meta$hi implements Translations$meta$en {
 	@override String get user => 'उपयोगकर्ता';
 	@override String get account => 'खाता';
 	@override String get password => 'पासवर्ड';
-	@override String get decryptPassword => 'डिक्रोरप्ट पासवर्ड';
+	@override String get decryptPasswordAES => 'AES डिक्रिप्शन पासवर्ड';
+	@override String get decryptPasswordAGE => 'AGE डिक्रिप्शन पासवर्ड';
 	@override String get preferOutboundDNS => 'नोड डोमेन नामों को हल करने के लिए कॉन्फ़िगरेशन में शामिल DNS को प्राथमिकता दें';
 	@override String get required => 'आवश्यक';
 	@override String get type => 'प्रकार';
@@ -1339,7 +1340,8 @@ extension on TranslationsHi {
 			'meta.user' => 'उपयोगकर्ता',
 			'meta.account' => 'खाता',
 			'meta.password' => 'पासवर्ड',
-			'meta.decryptPassword' => 'डिक्रोरप्ट पासवर्ड',
+			'meta.decryptPasswordAES' => 'AES डिक्रिप्शन पासवर्ड',
+			'meta.decryptPasswordAGE' => 'AGE डिक्रिप्शन पासवर्ड',
 			'meta.preferOutboundDNS' => 'नोड डोमेन नामों को हल करने के लिए कॉन्फ़िगरेशन में शामिल DNS को प्राथमिकता दें',
 			'meta.required' => 'आवश्यक',
 			'meta.type' => 'प्रकार',
@@ -1494,9 +1496,9 @@ extension on TranslationsHi {
 			'meta.profileExists' => 'प्रोफ़ाइल पहले से मौजूद है, कृपया इसे बार-बार न जोड़ें',
 			'meta.profileUrlOrContent' => 'प्रोफ़ाइल लिंक/सामग्री',
 			'meta.profileUrlOrContentHit' => 'प्रोफ़ाइल लिंक/सामग्री [आवश्यक] (Clash, V2ray (बैच समर्थित), Stash, Karing, Sing-box, Shadowsocks, Sub प्रोफ़ाइल लिंक का समर्थन करता है)',
-			'meta.profileUrlOrContentCannotEmpty' => 'प्रोफ़ाइल लिंक खाली नहीं हो सकता',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'प्रोफ़ाइल लिंक खाली नहीं हो सकता',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'प्रारूप गलत है, कृपया इसे ठीक करें और फिर से जोड़ें:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'जोड़ने में विफल: ${p}, कृपया [UserAgent] को संशोधित करने का प्रयास करें और फिर से प्रयास करें, या कॉन्फ़िगरेशन लिंक खोलने के लिए डिवाइस के अंतर्निहित ब्राउज़र का उपयोग करें और ब्राउज़र द्वारा डाउनलोड की गई कॉन्फ़िगरेशन फ़ाइल को इस एप्लिकेशन में आयात करें',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'जोड़ने में विफल: ${p}, कृपया प्रॉक्सी चालू करें या वर्तमान प्रॉक्सी नोड को संशोधित करें और फिर से प्रयास करें',

@@ -84,8 +84,8 @@ class _MultiheckBoxState extends State<MultiCheckBox> {
     );
   }
 
-  GestureDetector _expandButton() {
-    return GestureDetector(
+  InkWell _expandButton() {
+    return InkWell(
       onTap: () async {
         List<String> selectedData = [];
         for (int i = 0; i < _selectedIndexes.length; ++i) {

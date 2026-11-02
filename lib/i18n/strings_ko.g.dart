@@ -692,7 +692,8 @@ class _Translations$meta$ko implements Translations$meta$en {
 	@override String get user => '사용자';
 	@override String get account => '계정';
 	@override String get password => '비밀번호';
-	@override String get decryptPassword => '복호화 비밀번호';
+	@override String get decryptPasswordAES => 'AES 복호화 비밀번호';
+	@override String get decryptPasswordAGE => 'AGE 복호화 비밀번호';
 	@override String get preferOutboundDNS => '노드 도메인 이름을 확인할 때 구성에 포함된 DNS 우선 사용';
 	@override String get required => '필수';
 	@override String get type => '유형';
@@ -1339,7 +1340,8 @@ extension on TranslationsKo {
 			'meta.user' => '사용자',
 			'meta.account' => '계정',
 			'meta.password' => '비밀번호',
-			'meta.decryptPassword' => '복호화 비밀번호',
+			'meta.decryptPasswordAES' => 'AES 복호화 비밀번호',
+			'meta.decryptPasswordAGE' => 'AGE 복호화 비밀번호',
 			'meta.preferOutboundDNS' => '노드 도메인 이름을 확인할 때 구성에 포함된 DNS 우선 사용',
 			'meta.required' => '필수',
 			'meta.type' => '유형',
@@ -1494,9 +1496,9 @@ extension on TranslationsKo {
 			'meta.profileExists' => '프로필이 이미 존재합니다. 중복해서 추가하지 마십시오',
 			'meta.profileUrlOrContent' => '프로필 링크/내용',
 			'meta.profileUrlOrContentHit' => '프로필 링크/내용 [필수] (Clash, V2ray(일괄 지원), Stash, Karing, Sing-box, Shadowsocks, Sub 프로필 링크 지원)',
-			'meta.profileUrlOrContentCannotEmpty' => '프로필 링크는 비워둘 수 없습니다',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => '프로필 링크는 비워둘 수 없습니다',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '형식이 잘못되었습니다. 수정 후 다시 추가하십시오: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '추가 실패: ${p}. [UserAgent]를 수정하고 다시 시도하거나, 장치 내장 브라우저를 사용하여 구성 링크를 열고 브라우저에서 다운로드한 구성 파일을 이 앱으로 가져오십시오',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '추가 실패: ${p}. 프록시를 켜거나 현재 프록시 노드를 수정하고 다시 시도하십시오',

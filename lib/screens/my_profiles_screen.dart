@@ -790,7 +790,7 @@ class MyProfilesScreenState extends LasyRenderingState<MyProfilesScreen> {
         windowSize.width - leftWidth - rightWidth - padding * 2;
     return Material(
       borderRadius: ThemeDefine.kBorderRadius,
-      child: GestureDetector(
+      child: InkWell(
         onTapDown: (details) {},
         onSecondaryTapUp: (TapUpDetails details) {
           onLongPressServer(provider, server, isTesting, isWaitTesting);

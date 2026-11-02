@@ -692,7 +692,8 @@ class _Translations$meta$no implements Translations$meta$en {
 	@override String get user => 'Bruker';
 	@override String get account => 'Konto';
 	@override String get password => 'Passord';
-	@override String get decryptPassword => 'Dekryptering passord';
+	@override String get decryptPasswordAES => 'Passord for AES-dekryptering';
+	@override String get decryptPasswordAGE => 'Passord for AGE-dekryptering';
 	@override String get preferOutboundDNS => 'Foretrekk DNS fra konfigurasjonen for oppslag av nodenes domenenavn';
 	@override String get required => 'Påkrevd';
 	@override String get type => 'Type';
@@ -1339,7 +1340,8 @@ extension on TranslationsNo {
 			'meta.user' => 'Bruker',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Passord',
-			'meta.decryptPassword' => 'Dekryptering passord',
+			'meta.decryptPasswordAES' => 'Passord for AES-dekryptering',
+			'meta.decryptPasswordAGE' => 'Passord for AGE-dekryptering',
 			'meta.preferOutboundDNS' => 'Foretrekk DNS fra konfigurasjonen for oppslag av nodenes domenenavn',
 			'meta.required' => 'Påkrevd',
 			'meta.type' => 'Type',
@@ -1494,9 +1496,9 @@ extension on TranslationsNo {
 			'meta.profileExists' => 'Profilen eksisterer allerede, vennligst ikke legg den til flere ganger',
 			'meta.profileUrlOrContent' => 'Profilkobling/Innhold',
 			'meta.profileUrlOrContentHit' => 'Profilkobling/Innhold [Påkrevd] (Støtter Clash, V2ray (støttes i grupper), Stash, Karing, Sing-box, Shadowsocks, Sub-profilkoblinger)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profilkobling kan ikke være tomt',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profilkobling kan ikke være tomt',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet er feil, vennligst rett det og legg til på nytt:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Mislyktes i å legge til: ${p}, vennligst prøv å endre [UserAgent] og prøv på nytt, eller bruk enhetens innebygde nettleser for å åpne konfigurasjonskoblingen og importere konfigurasjonsfilen lastet ned av nettleseren til denne appen',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Mislyktes i å legge til: ${p}, vennligst slå på proxy eller endre gjeldende proxynode og prøv på nytt',

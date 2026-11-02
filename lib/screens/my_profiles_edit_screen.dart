@@ -41,7 +41,8 @@ class _MyProfilesEditScreenState
   List<String> _compatible = [];
   bool _xhwid = false;
   String _website = "";
-  String _decryptPassword = "";
+  String _decryptPasswordAES = "";
+  String _decryptPasswordAGE = "";
   ProxyFilter _proxyFilter = ProxyFilter();
   bool _keepDiversionRules = false;
   bool _reloadAfterProfileUpdate = false;
@@ -71,7 +72,8 @@ class _MyProfilesEditScreenState
       _reloadAfterProfileUpdate = item.reloadAfterProfileUpdate;
       _testLatencyAfterProfileUpdate = item.testLatencyAfterProfileUpdate;
       _testLatencyAutoRemove = item.testLatencyAutoRemove;
-      _decryptPassword = item.decryptPassword;
+      _decryptPasswordAES = item.decryptPasswordAES;
+      _decryptPasswordAGE = item.decryptPasswordAGE;
       _preferOutboundDns = item.preferOutboundDns;
     }
   }
@@ -218,7 +220,8 @@ class _MyProfilesEditScreenState
         item.reloadAfterProfileUpdate == _reloadAfterProfileUpdate &&
         item.testLatencyAfterProfileUpdate == _testLatencyAfterProfileUpdate &&
         item.testLatencyAutoRemove == _testLatencyAutoRemove &&
-        item.decryptPassword == _decryptPassword &&
+        item.decryptPasswordAES == _decryptPasswordAES &&
+        item.decryptPasswordAGE == _decryptPasswordAGE &&
         item.preferOutboundDns == _preferOutboundDns) {
       Navigator.pop(context);
       return;
@@ -246,7 +249,8 @@ class _MyProfilesEditScreenState
     item.reloadAfterProfileUpdate = _reloadAfterProfileUpdate;
     item.testLatencyAfterProfileUpdate = _testLatencyAfterProfileUpdate;
     item.testLatencyAutoRemove = _testLatencyAutoRemove;
-    item.decryptPassword = _decryptPassword;
+    item.decryptPasswordAES = _decryptPasswordAES;
+    item.decryptPasswordAGE = _decryptPasswordAGE;
     item.preferOutboundDns = _preferOutboundDns;
     ServerManager.modifyRemark(item.groupid, remarkText);
     ServerManager.modifyUrl(item.groupid, urlText);
@@ -352,11 +356,21 @@ class _MyProfilesEditScreenState
         ),
         GroupItemOptions(
           textFormFieldOptions: GroupItemTextFieldOptions(
-            name: tcontext.meta.decryptPassword,
-            text: _decryptPassword,
+            name: tcontext.meta.decryptPasswordAES,
+            text: _decryptPasswordAES,
             textWidthPercent: 0.6,
             onChanged: (String value) {
-              _decryptPassword = value;
+              _decryptPasswordAES = value;
+            },
+          ),
+        ),
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: tcontext.meta.decryptPasswordAGE,
+            text: _decryptPasswordAGE,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              _decryptPasswordAGE = value;
             },
           ),
         ),

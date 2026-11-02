@@ -692,7 +692,8 @@ class _Translations$meta$ru implements Translations$meta$en {
 	@override String get user => 'Пользователь';
 	@override String get account => 'Аккаунт';
 	@override String get password => 'Пароль';
-	@override String get decryptPassword => 'Пароль расшифровки';
+	@override String get decryptPasswordAES => 'Пароль для расшифровки AES';
+	@override String get decryptPasswordAGE => 'Пароль для расшифровки AGE';
 	@override String get preferOutboundDNS => 'Предпочитать DNS из конфигурации для разрешения доменных имён узлов';
 	@override String get required => 'Необходимо';
 	@override String get type => 'тип';
@@ -1339,7 +1340,8 @@ extension on TranslationsRu {
 			'meta.user' => 'Пользователь',
 			'meta.account' => 'Аккаунт',
 			'meta.password' => 'Пароль',
-			'meta.decryptPassword' => 'Пароль расшифровки',
+			'meta.decryptPasswordAES' => 'Пароль для расшифровки AES',
+			'meta.decryptPasswordAGE' => 'Пароль для расшифровки AGE',
 			'meta.preferOutboundDNS' => 'Предпочитать DNS из конфигурации для разрешения доменных имён узлов',
 			'meta.required' => 'Необходимо',
 			'meta.type' => 'тип',
@@ -1494,9 +1496,9 @@ extension on TranslationsRu {
 			'meta.profileExists' => 'Профиль уже существует. Пожалуйста, не добавляйте его повторно',
 			'meta.profileUrlOrContent' => 'Ссылка на подписку/содержание',
 			'meta.profileUrlOrContentHit' => 'Ссылка на подписку/содержание [обязательно] (Поддерживаются Clash, V2ray(пакетом), Stash, Karing, Sing-box, Shadowsocks, Sub, ссылки на конфигурацию).',
-			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Ссылка на подписку не может быть пустой',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Неправильный формат, исправьте его и добавьте еще раз:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Не удалось добавить: ${p}. Попробуйте изменить [UserAgent] и повторите попытку, либо откройте ссылку в браузере и импортируйте скачанный файл вручную.',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Не удалось добавить: ${p}, Включите прокси или смените текущий прокси-узел и попробуйте снова.',

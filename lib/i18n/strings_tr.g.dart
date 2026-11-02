@@ -692,7 +692,8 @@ class _Translations$meta$tr implements Translations$meta$en {
 	@override String get user => 'Kullanıcı';
 	@override String get account => 'Hesap';
 	@override String get password => 'Şifre';
-	@override String get decryptPassword => 'Şifre Çözme Şifresi';
+	@override String get decryptPasswordAES => 'AES şifre çözme parolası';
+	@override String get decryptPasswordAGE => 'AGE şifre çözme parolası';
 	@override String get preferOutboundDNS => 'Düğüm etki alanı adlarını çözümlemek için yapılandırmadaki DNS\'i tercih et';
 	@override String get required => 'Gerekli';
 	@override String get type => 'Tür';
@@ -1339,7 +1340,8 @@ extension on TranslationsTr {
 			'meta.user' => 'Kullanıcı',
 			'meta.account' => 'Hesap',
 			'meta.password' => 'Şifre',
-			'meta.decryptPassword' => 'Şifre Çözme Şifresi',
+			'meta.decryptPasswordAES' => 'AES şifre çözme parolası',
+			'meta.decryptPasswordAGE' => 'AGE şifre çözme parolası',
 			'meta.preferOutboundDNS' => 'Düğüm etki alanı adlarını çözümlemek için yapılandırmadaki DNS\'i tercih et',
 			'meta.required' => 'Gerekli',
 			'meta.type' => 'Tür',
@@ -1494,9 +1496,9 @@ extension on TranslationsTr {
 			'meta.profileExists' => 'Profil zaten mevcut, lütfen tekrar eklemeyin',
 			'meta.profileUrlOrContent' => 'Profil Bağlantısı/İçeriği',
 			'meta.profileUrlOrContentHit' => 'Profil Bağlantısı/İçeriği [Gerekli] (Clash, V2ray (toplu destekli), Stash, Karing, Sing-box, Shadowsocks, Sub Profil bağlantılarını destekler)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profil Bağlantısı boş olamaz',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profil Bağlantısı boş olamaz',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format yanlış, lütfen düzeltin ve tekrar ekleyin: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen [UserAgent]\'ı değiştirmeyi deneyin ve tekrar deneyin veya yapılandırma bağlantısını açmak ve tarayıcı tarafından indirilen yapılandırma dosyasını bu uygulamaya aktarmak için cihazın yerleşik tarayıcısını kullanın',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Ekleme başarısız oldu: ${p}, lütfen proxy\'yi açın veya mevcut proxy düğümünü değiştirin ve tekrar deneyin',

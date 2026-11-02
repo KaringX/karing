@@ -692,7 +692,8 @@ class _Translations$meta$sv implements Translations$meta$en {
 	@override String get user => 'Användare';
 	@override String get account => 'Konto';
 	@override String get password => 'Lösenord';
-	@override String get decryptPassword => 'Dekrypterringslösenord';
+	@override String get decryptPasswordAES => 'Lösenord för AES-dekryptering';
+	@override String get decryptPasswordAGE => 'Lösenord för AGE-dekryptering';
 	@override String get preferOutboundDNS => 'Föredra DNS från konfigurationen för att slå upp nodernas domännamn';
 	@override String get required => 'Krävs';
 	@override String get type => 'Typ';
@@ -1339,7 +1340,8 @@ extension on TranslationsSv {
 			'meta.user' => 'Användare',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Lösenord',
-			'meta.decryptPassword' => 'Dekrypterringslösenord',
+			'meta.decryptPasswordAES' => 'Lösenord för AES-dekryptering',
+			'meta.decryptPasswordAGE' => 'Lösenord för AGE-dekryptering',
 			'meta.preferOutboundDNS' => 'Föredra DNS från konfigurationen för att slå upp nodernas domännamn',
 			'meta.required' => 'Krävs',
 			'meta.type' => 'Typ',
@@ -1494,9 +1496,9 @@ extension on TranslationsSv {
 			'meta.profileExists' => 'Profilen finns redan, lägg inte till den flera gånger',
 			'meta.profileUrlOrContent' => 'Profillänk/Innehåll',
 			'meta.profileUrlOrContentHit' => 'Profillänk/Innehåll [Krävs] (Stöder Clash, V2ray (batch-stöd), Stash, Karing, Sing-box, Shadowsocks, Sub-profillänkar)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profillänk får inte vara tomt',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profillänk får inte vara tomt',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet är felaktigt, korrigera det och försök lägga till igen:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, försök att ändra [UserAgent] och försök igen, eller använd enhetens inbyggda webbläsare för att öppna konfigurationslänken och importera konfigurationsfilen som laddats ner av webbläsaren till den här appen',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Misslyckades med att lägga till: ${p}, slå på proxyn eller ändra den aktuella proxynoden och försök igen',

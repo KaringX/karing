@@ -692,7 +692,8 @@ class _Translations$meta$ja implements Translations$meta$en {
 	@override String get user => 'ユーザー';
 	@override String get account => 'アカウント';
 	@override String get password => 'パスワード';
-	@override String get decryptPassword => '複号化パスワード';
+	@override String get decryptPasswordAES => 'AES復号用パスワード';
+	@override String get decryptPasswordAGE => 'AGE復号用パスワード';
 	@override String get preferOutboundDNS => 'ノードのドメイン名の解決に、設定に含まれるDNSを優先して使用する';
 	@override String get required => '必須';
 	@override String get type => 'タイプ';
@@ -1339,7 +1340,8 @@ extension on TranslationsJa {
 			'meta.user' => 'ユーザー',
 			'meta.account' => 'アカウント',
 			'meta.password' => 'パスワード',
-			'meta.decryptPassword' => '複号化パスワード',
+			'meta.decryptPasswordAES' => 'AES復号用パスワード',
+			'meta.decryptPasswordAGE' => 'AGE復号用パスワード',
 			'meta.preferOutboundDNS' => 'ノードのドメイン名の解決に、設定に含まれるDNSを優先して使用する',
 			'meta.required' => '必須',
 			'meta.type' => 'タイプ',
@@ -1494,9 +1496,9 @@ extension on TranslationsJa {
 			'meta.profileExists' => 'プロファイルが既に存在します。重複して追加しないでください',
 			'meta.profileUrlOrContent' => 'プロファイルリンク/内容',
 			'meta.profileUrlOrContentHit' => 'プロファイルリンク/内容 [必須] (Clash、V2ray (一括対応)、Stash、Karing、Sing-box、Shadowsocks、サブプロファイルリンクに対応)',
-			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'プロファイルリンクを空にすることはできません',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '形式が正しくありません。修正して再度追加してください: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '追加に失敗しました: ${p}。[UserAgent] を変更して再試行するか、デバイス内蔵のブラウザを使用して設定リンクを開き、ブラウザでダウンロードした設定ファイルをこのアプリにインポートしてください',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '追加に失敗しました: ${p}。プロキシをオンにするか、現在のプロキシノードを変更して再試行してください',

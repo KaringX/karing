@@ -696,9 +696,6 @@ class ServerManager {
 
   static ReturnResult<List<DiversionGroupSetting>> diversionGroupSorted() {
     List<DiversionGroupSetting> newGroups = [];
-    List<DiversionGroupSetting> geositeGroups = [];
-    List<DiversionGroupSetting> geoipGroups = [];
-    List<DiversionGroupSetting> aclGroups = [];
     List<DiversionGroupSetting> customGroups = [];
     List<DiversionGroupSetting> finalGroups = [];
     ServerConfigGroupItem? custom = getCustomGroup();
@@ -1613,7 +1610,8 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
-    String decryptPassword = "",
+    String decryptPasswordAES = "",
+    String decryptPasswordAGE = "",
     List<String> outboundDns = const [],
     bool preferOutboundDns = false,
   }) async {
@@ -1641,7 +1639,8 @@ class ServerManager {
       item.isp!.user = ispUser ?? "";
       item.isp!.id = ispId;
     }
-    item.decryptPassword = decryptPassword;
+    item.decryptPasswordAES = decryptPasswordAES;
+    item.decryptPasswordAGE = decryptPasswordAGE;
     item.outboundDns = outboundDns.toList();
     if (duration != null) {
       item.updateDuration = duration;
@@ -1879,7 +1878,8 @@ class ServerManager {
     String? website,
     String? ispId,
     String? ispUser,
-    String decryptPassword = "",
+    String decryptPasswordAES = "",
+    String decryptPasswordAGE = "",
     List<String> outboundDns = const [],
     bool preferOutboundDns = false,
   }) async {
@@ -1905,7 +1905,8 @@ class ServerManager {
       website: website,
       ispId: ispId,
       ispUser: ispUser,
-      decryptPassword: decryptPassword,
+      decryptPasswordAES: decryptPasswordAES,
+      decryptPasswordAGE: decryptPasswordAGE,
       outboundDns: outboundDns,
       preferOutboundDns: preferOutboundDns,
     );
@@ -1920,8 +1921,7 @@ class ServerManager {
     if (!exists) {
       return;
     }
-    var geositeCodes = await RulesetCodesUtils.siteCodes();
-    var geoipCodes = await RulesetCodesUtils.ipCodes();
+
     bool hasFinal = false;
     ServerConfigGroupItem? custom = getCustomGroup();
     ServerDiversionGroupItem? customDiversion = getDiversionCustomGroup();
@@ -2243,7 +2243,8 @@ class ServerManager {
       website: item.site,
       ispId: item.isp?.id,
       ispUser: item.isp?.user,
-      decryptPassword: item.decryptPassword,
+      decryptPasswordAES: item.decryptPasswordAES,
+      decryptPasswordAGE: item.decryptPasswordAGE,
       outboundDns: item.outboundDns,
       preferOutboundDns: item.preferOutboundDns,
     );

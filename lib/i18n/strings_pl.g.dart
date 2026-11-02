@@ -692,7 +692,8 @@ class _Translations$meta$pl implements Translations$meta$en {
 	@override String get user => 'Użytkownik';
 	@override String get account => 'Konto';
 	@override String get password => 'Hasło';
-	@override String get decryptPassword => 'Hasło deszyfrujące';
+	@override String get decryptPasswordAES => 'Hasło do deszyfrowania AES';
+	@override String get decryptPasswordAGE => 'Hasło do deszyfrowania AGE';
 	@override String get preferOutboundDNS => 'Preferuj DNS zawarty w konfiguracji do rozwiązywania nazw domen węzłów';
 	@override String get required => 'Wymagane';
 	@override String get type => 'Typ';
@@ -1339,7 +1340,8 @@ extension on TranslationsPl {
 			'meta.user' => 'Użytkownik',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Hasło',
-			'meta.decryptPassword' => 'Hasło deszyfrujące',
+			'meta.decryptPasswordAES' => 'Hasło do deszyfrowania AES',
+			'meta.decryptPasswordAGE' => 'Hasło do deszyfrowania AGE',
 			'meta.preferOutboundDNS' => 'Preferuj DNS zawarty w konfiguracji do rozwiązywania nazw domen węzłów',
 			'meta.required' => 'Wymagane',
 			'meta.type' => 'Typ',
@@ -1494,9 +1496,9 @@ extension on TranslationsPl {
 			'meta.profileExists' => 'Profil już istnieje, nie dodawaj go wielokrotnie',
 			'meta.profileUrlOrContent' => 'Link/Zawartość profilu',
 			'meta.profileUrlOrContentHit' => 'Link/Zawartość profilu [Wymagane] (Obsługuje linki do profili Clash, V2ray (obsługiwane seryjnie), Stash, Karing, Sing-box, Shadowsocks, Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Link do profilu nie może być pusty',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Link do profilu nie może być pusty',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Format jest błędny, popraw go i spróbuj dodać ponownie:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, spróbuj zmienić [UserAgent] i spróbuj ponownie, lub użyj wbudowanej przeglądarki urządzenia, aby otworzyć link konfiguracyjny i zaimportuj plik konfiguracyjny pobrany przez przeglądarkę do tej aplikacji',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Dodawanie nie powiodło się: ${p}, włącz proxy lub zmień bieżący węzeł proxy i spróbuj ponownie',

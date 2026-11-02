@@ -692,7 +692,8 @@ class Translations$meta$zh_TW implements Translations$meta$en {
 	@override String get user => '用戶';
 	@override String get account => '帳號';
 	@override String get password => '密碼';
-	@override String get decryptPassword => '解密密碼';
+	@override String get decryptPasswordAES => 'AES 解密密碼';
+	@override String get decryptPasswordAGE => 'AGE 解密密碼';
 	@override String get preferOutboundDNS => '優先使用設定自帶的 DNS 解析節點域名';
 	@override String get required => '必填';
 	@override String get type => '類型';
@@ -1339,7 +1340,8 @@ extension on TranslationsZhTw {
 			'meta.user' => '用戶',
 			'meta.account' => '帳號',
 			'meta.password' => '密碼',
-			'meta.decryptPassword' => '解密密碼',
+			'meta.decryptPasswordAES' => 'AES 解密密碼',
+			'meta.decryptPasswordAGE' => 'AGE 解密密碼',
 			'meta.preferOutboundDNS' => '優先使用設定自帶的 DNS 解析節點域名',
 			'meta.required' => '必填',
 			'meta.type' => '類型',
@@ -1494,9 +1496,9 @@ extension on TranslationsZhTw {
 			'meta.profileExists' => '配置已存在, 請勿重複新增',
 			'meta.profileUrlOrContent' => '配置連結/內容',
 			'meta.profileUrlOrContentHit' => '配置連結/內容 [必填] (支援 Clash, V2ray(支援批量), Stash, Karing, Sing-box, Shadowsocks, Sub, Github 配置連結)',
-			'meta.profileUrlOrContentCannotEmpty' => '配置連結不能為空',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => '配置連結不能為空',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '格式錯誤, 請訂正後重新新增: ${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '新增失敗: ${p}, 請嘗試修改 [UserAgent] 後重試, 或者用設備自帶的瀏覽器開啟配置連結, 並將瀏覽器下載的設定檔匯入到本應用程式',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '新增失敗: ${p}, 請開啟代理或者修改當前代理節點後重試',

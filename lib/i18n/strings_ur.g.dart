@@ -692,7 +692,8 @@ class _Translations$meta$ur implements Translations$meta$en {
 	@override String get user => 'صارف';
 	@override String get account => 'اکاؤنٹ';
 	@override String get password => 'پاس ورڈ';
-	@override String get decryptPassword => 'ڈی کرپٹ پاس ورڈ';
+	@override String get decryptPasswordAES => 'AES ڈکرپشن پاس ورڈ';
+	@override String get decryptPasswordAGE => 'AGE ڈکرپشن پاس ورڈ';
 	@override String get preferOutboundDNS => 'نوڈ کے ڈومین نام حل کرنے کے لیے کنفیگریشن میں موجود DNS کو ترجیح دیں';
 	@override String get required => 'ضروری';
 	@override String get type => 'قسم';
@@ -1339,7 +1340,8 @@ extension on TranslationsUr {
 			'meta.user' => 'صارف',
 			'meta.account' => 'اکاؤنٹ',
 			'meta.password' => 'پاس ورڈ',
-			'meta.decryptPassword' => 'ڈی کرپٹ پاس ورڈ',
+			'meta.decryptPasswordAES' => 'AES ڈکرپشن پاس ورڈ',
+			'meta.decryptPasswordAGE' => 'AGE ڈکرپشن پاس ورڈ',
 			'meta.preferOutboundDNS' => 'نوڈ کے ڈومین نام حل کرنے کے لیے کنفیگریشن میں موجود DNS کو ترجیح دیں',
 			'meta.required' => 'ضروری',
 			'meta.type' => 'قسم',
@@ -1494,9 +1496,9 @@ extension on TranslationsUr {
 			'meta.profileExists' => 'پروفائل پہلے سے موجود ہے، براہ کرم اسے بار بار شامل نہ کریں',
 			'meta.profileUrlOrContent' => 'پروفائل لنک/مواد',
 			'meta.profileUrlOrContentHit' => 'پروفائل لنک/مواد [ضروری] (Clash, V2ray (بیچ سپورٹڈ), Stash, Karing, Sing-box, Shadowsocks, Sub پروفائل لنکس کو سپورٹ کرتا ہے)',
-			'meta.profileUrlOrContentCannotEmpty' => 'پروفائل لنک خالی نہیں ہو سکتا',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'پروفائل لنک خالی نہیں ہو سکتا',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'فارمیٹ غلط ہے، براہ کرم اسے درست کریں اور دوبارہ شامل کریں:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم [UserAgent] کو تبدیل کرنے کی کوشش کریں اور دوبارہ کوشش کریں، یا کنفیگریشن لنک کھولنے کے لیے ڈیوائس کا بلٹ ان براؤزر استعمال کریں اور براؤزر کے ذریعے ڈاؤن لوڈ کی گئی کنفیگریشن فائل کو اس ایپلی کیشن میں درآمد کریں',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'شامل کرنے میں ناکامی: ${p}، براہ کرم پراکسی آن کریں یا موجودہ پراکسی نوڈ کو تبدیل کریں اور دوبارہ کوشش کریں',

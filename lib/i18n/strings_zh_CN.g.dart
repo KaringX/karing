@@ -692,7 +692,8 @@ class Translations$meta$zh_CN implements Translations$meta$en {
 	@override String get user => '用户';
 	@override String get account => '账号';
 	@override String get password => '密码';
-	@override String get decryptPassword => '解密密码';
+	@override String get decryptPasswordAES => 'AES 解密密码';
+	@override String get decryptPasswordAGE => 'AGE 解密密码';
 	@override String get preferOutboundDNS => '优先使用配置自带DNS解析节点域名';
 	@override String get required => '必填';
 	@override String get type => '类型';
@@ -1339,7 +1340,8 @@ extension on TranslationsZhCn {
 			'meta.user' => '用户',
 			'meta.account' => '账号',
 			'meta.password' => '密码',
-			'meta.decryptPassword' => '解密密码',
+			'meta.decryptPasswordAES' => 'AES 解密密码',
+			'meta.decryptPasswordAGE' => 'AGE 解密密码',
 			'meta.preferOutboundDNS' => '优先使用配置自带DNS解析节点域名',
 			'meta.required' => '必填',
 			'meta.type' => '类型',
@@ -1494,9 +1496,9 @@ extension on TranslationsZhCn {
 			'meta.profileExists' => '配置已存在,请勿重复添加',
 			'meta.profileUrlOrContent' => '配置链接/内容',
 			'meta.profileUrlOrContentHit' => '配置链接/内容[必填] (支持Clash,V2ray(支持批量),Stash,Karing,Sing-box,Shadowsocks,Sub,Github配置链接)',
-			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => '配置链接不能为空',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => '格式错误,请订正后重新添加:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => '添加失败:${p}, 请尝试修改[UserAgent]后重试,或者用设备自带的浏览器打开配置链接,并将浏览器下载的配置文件导入到本应用',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => '添加失败:${p}, 请打开代理或者修改当前代理节点后重试',

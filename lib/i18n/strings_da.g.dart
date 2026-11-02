@@ -692,7 +692,8 @@ class _Translations$meta$da implements Translations$meta$en {
 	@override String get user => 'Bruger';
 	@override String get account => 'Konto';
 	@override String get password => 'Adgangskode';
-	@override String get decryptPassword => 'Dekryptering adgangskode';
+	@override String get decryptPasswordAES => 'Adgangskode til AES-dekryptering';
+	@override String get decryptPasswordAGE => 'Adgangskode til AGE-dekryptering';
 	@override String get preferOutboundDNS => 'Foretræk DNS fra konfigurationen til opslag af nodernes domænenavne';
 	@override String get required => 'Påkrævet';
 	@override String get type => 'Type';
@@ -1339,7 +1340,8 @@ extension on TranslationsDa {
 			'meta.user' => 'Bruger',
 			'meta.account' => 'Konto',
 			'meta.password' => 'Adgangskode',
-			'meta.decryptPassword' => 'Dekryptering adgangskode',
+			'meta.decryptPasswordAES' => 'Adgangskode til AES-dekryptering',
+			'meta.decryptPasswordAGE' => 'Adgangskode til AGE-dekryptering',
 			'meta.preferOutboundDNS' => 'Foretræk DNS fra konfigurationen til opslag af nodernes domænenavne',
 			'meta.required' => 'Påkrævet',
 			'meta.type' => 'Type',
@@ -1494,9 +1496,9 @@ extension on TranslationsDa {
 			'meta.profileExists' => 'Profilen findes allerede, tilføj den ikke gentagne gange',
 			'meta.profileUrlOrContent' => 'Profillink/indhold',
 			'meta.profileUrlOrContentHit' => 'Profillink/indhold [Påkrævet] (Understøtter Clash, V2ray (batch understøttet), Stash, Karing, Sing-box, Shadowsocks, Sub-profillinks)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Profillink må ikke være tomt',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Profillink må ikke være tomt',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Formatet er forkert, ret det venligst og tilføj igen:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Kunne ikke tilføje: ${p}, prøv venligst at ændre [UserAgent] og prøv igen, eller brug enhedens indbyggede browser til at åbne konfigurationslinket og importere den konfigurationsfil, der er downloadet af browseren, til denne app',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Kunne ikke tilføje: ${p}, slå venligst proxy til eller skift den aktuelle proxynode og prøv igen',

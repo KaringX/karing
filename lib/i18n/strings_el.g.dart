@@ -692,7 +692,8 @@ class _Translations$meta$el implements Translations$meta$en {
 	@override String get user => 'Χρήστης';
 	@override String get account => 'Λογαριασμός';
 	@override String get password => 'Κωδικός πρόσβασης';
-	@override String get decryptPassword => 'Κωδικός Αποκρυπτογράφησης';
+	@override String get decryptPasswordAES => 'Κωδικός πρόσβασης αποκρυπτογράφησης AES';
+	@override String get decryptPasswordAGE => 'Κωδικός πρόσβασης αποκρυπτογράφησης AGE';
 	@override String get preferOutboundDNS => 'Προτίμηση χρήσης του DNS που περιλαμβάνεται στη ρύθμιση για την επίλυση των ονομάτων τομέα των κόμβων';
 	@override String get required => 'Απαιτείται';
 	@override String get type => 'Τύπος';
@@ -1339,7 +1340,8 @@ extension on TranslationsEl {
 			'meta.user' => 'Χρήστης',
 			'meta.account' => 'Λογαριασμός',
 			'meta.password' => 'Κωδικός πρόσβασης',
-			'meta.decryptPassword' => 'Κωδικός Αποκρυπτογράφησης',
+			'meta.decryptPasswordAES' => 'Κωδικός πρόσβασης αποκρυπτογράφησης AES',
+			'meta.decryptPasswordAGE' => 'Κωδικός πρόσβασης αποκρυπτογράφησης AGE',
 			'meta.preferOutboundDNS' => 'Προτίμηση χρήσης του DNS που περιλαμβάνεται στη ρύθμιση για την επίλυση των ονομάτων τομέα των κόμβων',
 			'meta.required' => 'Απαιτείται',
 			'meta.type' => 'Τύπος',
@@ -1494,9 +1496,9 @@ extension on TranslationsEl {
 			'meta.profileExists' => 'Το προφίλ υπάρχει ήδη, παρακαλούμε μην το προσθέτετε επανειλημμένα',
 			'meta.profileUrlOrContent' => 'Σύνδεσμος/Περιεχόμενο προφίλ',
 			'meta.profileUrlOrContentHit' => 'Σύνδεσμος/Περιεχόμενο προφίλ [Απαιτείται] (Υποστηρίζει συνδέσμους προφίλ Clash, V2ray (υποστήριξη παρτίδας), Stash, Karing, Sing-box, Shadowsocks, Sub)',
-			'meta.profileUrlOrContentCannotEmpty' => 'Ο σύνδεσμος προφίλ δεν μπορεί να είναι κενός',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'Ο σύνδεσμος προφίλ δεν μπορεί να είναι κενός',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'Η μορφή είναι εσφαλμένη, παρακαλούμε διορθώστε την και προσθέστε ξανά:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε δοκιμάστε να τροποποιήσετε το [UserAgent] και δοκιμάστε ξανά, ή χρησιμοποιήστε το ενσωματωμένο πρόγραμμα περιήγησης της συσκευής για να ανοίξετε το σύνδεσμο διαμόρφωσης και να εισαγάγετε το αρχείο διαμόρφωσης που κατέβηκε από το πρόγραμμα περιήγησης σε αυτήν την εφαρμογή',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'Η προσθήκη απέτυχε: ${p}, παρακαλούμε ενεργοποιήστε το proxy ή τροποποιήστε τον τρέχοντα κόμβο proxy και δοκιμάστε ξανά',

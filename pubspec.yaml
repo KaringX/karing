@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.26+2918
+version: 1.2.26+2919
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.44.0"
@@ -114,7 +114,7 @@ dependencies:
   http: 1.6.0
   http_parser: 4.1.2
   icloud_storage: 2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
-  archive: 4.3.0
+  archive: 4.5.2
   #code_text_field: 1.1.0
   #flutter_speed_dial: 7.0.0
   flutter_inapp_notifications: 1.0.0 
@@ -129,6 +129,7 @@ dependencies:
   android_package_manager: 0.7.1
   move_to_background: 1.0.2
   vpn_service: 1.0.0
+  pointycastle: 3.9.1
 
 dev_dependencies:
   source_gen: 4.2.3

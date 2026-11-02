@@ -692,7 +692,8 @@ class _Translations$meta$th implements Translations$meta$en {
 	@override String get user => 'ผู้ใช้';
 	@override String get account => 'บัญชี';
 	@override String get password => 'รหัสผ่าน';
-	@override String get decryptPassword => 'รหัสผ่านถอดรหัส';
+	@override String get decryptPasswordAES => 'รหัสผ่านสำหรับถอดรหัส AES';
+	@override String get decryptPasswordAGE => 'รหัสผ่านสำหรับถอดรหัส AGE';
 	@override String get preferOutboundDNS => 'เลือกใช้ DNS ที่ระบุในค่ากำหนดเพื่อค้นหาชื่อโดเมนของโหนด';
 	@override String get required => 'จำเป็น';
 	@override String get type => 'ประเภท';
@@ -1339,7 +1340,8 @@ extension on TranslationsTh {
 			'meta.user' => 'ผู้ใช้',
 			'meta.account' => 'บัญชี',
 			'meta.password' => 'รหัสผ่าน',
-			'meta.decryptPassword' => 'รหัสผ่านถอดรหัส',
+			'meta.decryptPasswordAES' => 'รหัสผ่านสำหรับถอดรหัส AES',
+			'meta.decryptPasswordAGE' => 'รหัสผ่านสำหรับถอดรหัส AGE',
 			'meta.preferOutboundDNS' => 'เลือกใช้ DNS ที่ระบุในค่ากำหนดเพื่อค้นหาชื่อโดเมนของโหนด',
 			'meta.required' => 'จำเป็น',
 			'meta.type' => 'ประเภท',
@@ -1494,9 +1496,9 @@ extension on TranslationsTh {
 			'meta.profileExists' => 'โปรไฟล์มีอยู่แล้ว โปรดห้ามเพิ่มซ้ำ',
 			'meta.profileUrlOrContent' => 'ลิงก์/เนื้อหาโปรไฟล์',
 			'meta.profileUrlOrContentHit' => 'ลิงก์/เนื้อหาโปรไฟล์ [จำเป็น] (รองรับ Clash,V2ray(สนับสนุนแบบชุด),Stash,Karing,Sing-box,Shadowsocks,ลิงก์โปรไฟล์ย่อย)',
-			'meta.profileUrlOrContentCannotEmpty' => 'ลิงก์โปรไฟล์ไม่สามารถว่างเปล่า',
 			_ => null,
 		} ?? switch (path) {
+			'meta.profileUrlOrContentCannotEmpty' => 'ลิงก์โปรไฟล์ไม่สามารถว่างเปล่า',
 			'meta.profileAddFailedFormatException' => ({required Object p}) => 'รูปแบบไม่ถูกต้อง โปรดแก้ไขและเพิ่มอีกครั้ง:${p}',
 			'meta.profileAddFailedThenDownloadAndImport' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดลองแก้ไข [UserAgent] และลองใหม่ หรือใช้เบราว์เซอร์ในตัวของอุปกรณ์เพื่อเปิดลิงก์การกำหนดค่า และนำเข้าไฟล์การกำหนดค่าที่ดาวน์โหลดโดยเบราว์เซอร์เข้าสู่แอปพลิเคชันนี้',
 			'meta.profileAddFailedHandshakeException' => ({required Object p}) => 'เพิ่มล้มเหลว: ${p} โปรดเปิดพร็อกซีหรือแก้ไขโหนดพร็อกซีปัจจุบันและลองใหม่',

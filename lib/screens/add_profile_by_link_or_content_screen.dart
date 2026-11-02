@@ -66,7 +66,8 @@ class _AddProfileByLinkOrContentScreenState
   bool _preferOutboundDNS = false;
   List<String> outboundDns = [];
   String _website = "";
-  String _decryptPassword = "";
+  String _decryptPasswordAES = "";
+  String _decryptPasswordAGE = "";
   final RemoteContent _remoteContent = RemoteContent();
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
@@ -276,7 +277,8 @@ class _AddProfileByLinkOrContentScreenState
       website: _website,
       ispId: widget.ispId,
       ispUser: widget.ispUser,
-      decryptPassword: _decryptPassword,
+      decryptPasswordAES: _decryptPasswordAES,
+      decryptPasswordAGE: _decryptPasswordAGE,
       outboundDns: outboundDns,
       preferOutboundDns: _preferOutboundDNS,
     );
@@ -537,14 +539,23 @@ class _AddProfileByLinkOrContentScreenState
           },
         ),
       ),
-
       GroupItemOptions(
         textFormFieldOptions: GroupItemTextFieldOptions(
-          name: tcontext.meta.decryptPassword,
-          text: _decryptPassword,
+          name: tcontext.meta.decryptPasswordAES,
+          text: _decryptPasswordAES,
           textWidthPercent: 0.6,
           onChanged: (String value) {
-            _decryptPassword = value;
+            _decryptPasswordAES = value;
+          },
+        ),
+      ),
+      GroupItemOptions(
+        textFormFieldOptions: GroupItemTextFieldOptions(
+          name: tcontext.meta.decryptPasswordAGE,
+          text: _decryptPasswordAGE,
+          textWidthPercent: 0.6,
+          onChanged: (String value) {
+            _decryptPasswordAGE = value;
           },
         ),
       ),
