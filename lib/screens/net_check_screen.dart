@@ -922,6 +922,8 @@ class _NetCheckScreenState extends LasyRenderingState<NetCheckScreen> {
           TextFieldEx(
             controller: _textControllerHost,
             textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.url,
+            autocorrect: false,
             decoration: const InputDecoration(
               labelText: "Domain",
               hintText: "Domain",
