@@ -68,6 +68,10 @@ ios/karingWidget/VpnServiceHandler.swift
 /.sentry-native
 /dist/ios
 /dist/macos
+/lib/generated
+
+/ios/Build
+/macos/Build
 /todo.txt
 /android/app/.cxx
 /android/.kotlin
@@ -85,3 +89,4 @@ TECHNICAL_INVENTORY.md
 build_log.txt
 build_output.txt
 notary_log.json
+/tvos/Build

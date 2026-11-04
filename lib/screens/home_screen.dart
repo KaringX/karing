@@ -2072,6 +2072,7 @@ class _HomeScreenState extends LasyRenderingState<HomeScreen>
             selectedServer: _currentServer,
             showAutoSelect: true,
             showDirect: true,
+            showBlock: true,
             showUrltestGroup: true,
           ),
           multiSelect: null,

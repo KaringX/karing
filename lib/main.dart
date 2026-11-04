@@ -59,8 +59,6 @@ void main(List<String> args) async {
     await ensureSingleInstanceOrExit(args);
   }
 
-  //SemanticsBinding.instance.ensureSemantics(); //showSemanticsDebugger
-
   await run(args);
 }
 
