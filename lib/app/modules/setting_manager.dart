@@ -58,6 +58,26 @@ class SettingConfigItemUICloudflareWarp {
   }
 }
 
+class SettingConfigItemUITailscale {
+  String authKey = "";
+  Map<String, dynamic> toJson() => {'auth_key': authKey};
+  void fromJson(Map<String, dynamic>? map) {
+    if (map == null) {
+      return;
+    }
+
+    authKey = map["auth_key"] ?? "";
+  }
+
+  static SettingConfigItemUITailscale fromJsonStatic(
+    Map<String, dynamic>? map,
+  ) {
+    SettingConfigItemUITailscale config = SettingConfigItemUITailscale();
+    config.fromJson(map);
+    return config;
+  }
+}
+
 class SettingConfigItemAutobackup {
   static const int kMaxCount = 5;
   bool addProfile = true;
@@ -1700,6 +1720,7 @@ class SettingConfig {
   SettingConfigItemPerapp perapp = SettingConfigItemPerapp();
   SettingConfigItemAutoSelect autoSelect = SettingConfigItemAutoSelect();
   SettingConfigItemUICloudflareWarp warp = SettingConfigItemUICloudflareWarp();
+  SettingConfigItemUITailscale tailscale = SettingConfigItemUITailscale();
   SettingConfigItemWebDev webdav = SettingConfigItemWebDev();
   SettingConfigItemAutobackup autoBackup = SettingConfigItemAutobackup();
   SettingConfigItemStatistics statistics = SettingConfigItemStatistics();
@@ -1750,6 +1771,7 @@ class SettingConfig {
     'perapp': perapp,
     'auto_select': autoSelect,
     'warp': warp,
+    'tailscale': tailscale,
     'webdav': webdav,
     'auto_backup': autoBackup,
     'statistics': statistics,
@@ -1822,6 +1844,9 @@ class SettingConfig {
       map["auto_select"] ?? map,
     );
     warp = SettingConfigItemUICloudflareWarp.fromJsonStatic(map["warp"] ?? map);
+    tailscale = SettingConfigItemUITailscale.fromJsonStatic(
+      map["tailscale"] ?? map,
+    );
     webdav = SettingConfigItemWebDev.fromJsonStatic(map["webdav"]);
     autoBackup = SettingConfigItemAutobackup.fromJsonStatic(map["auto_backup"]);
     statistics = SettingConfigItemStatistics.fromJsonStatic(map["statistics"]);

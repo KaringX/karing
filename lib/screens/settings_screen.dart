@@ -781,6 +781,14 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               },
             ),
           ),
+          GroupItemOptions(
+            pushOptions: GroupItemPushOptions(
+              name: "Tailscale",
+              onPush: () async {
+                onTapTailscale();
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -1596,18 +1604,6 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
             },
           ),
         ),
-        /*GroupItemOptions(
-            pushOptions: GroupItemPushOptions(
-                name: "Account",
-                text: "",
-                onPush: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: CloudflareWarpAccountScreen.routeSettings(),
-                          builder: (context) =>
-                              const CloudflareWarpAccountScreen()));
-                })),*/
       ];
 
       return [GroupItem(options: options)];
@@ -1630,6 +1626,50 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
               settingConfig.warp.license = license;
             }
 
+            return true;
+          },
+        ),
+      ),
+    );
+    setState(() {});
+  }
+
+  Future<void> onTapTailscale() async {
+    var settingConfig = SettingManager.getConfig();
+    String authKey = settingConfig.tailscale.authKey;
+    Future<List<GroupItem>> getOptions(
+      BuildContext context,
+      SetStateCallback? setstate,
+    ) async {
+      List<GroupItemOptions> options = [
+        GroupItemOptions(
+          textFormFieldOptions: GroupItemTextFieldOptions(
+            name: "Auth Key",
+            text: authKey,
+            textWidthPercent: 0.6,
+            onChanged: (String value) {
+              authKey = value.trim();
+            },
+          ),
+        ),
+      ];
+
+      return [GroupItem(options: options)];
+    }
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        settings: GroupScreen.routeSettings("Tailscale"),
+        builder: (context) => GroupScreen(
+          title: "Tailscale",
+          getOptions: getOptions,
+          onDone: (BuildContext context, SetStateCallback? setstate) async {
+            if (!mounted) {
+              return false;
+            }
+            settingConfig.tailscale.authKey = authKey;
+            SettingManager.setDirty(true);
             return true;
           },
         ),
