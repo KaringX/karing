@@ -40,10 +40,10 @@ class AboutScreen extends LasyRenderingStatefulWidget {
   const AboutScreen({super.key});
 
   @override
-  State<AboutScreen> createState() => AboutScreenState();
+  State<AboutScreen> createState() => _AboutScreenState();
 }
 
-class AboutScreenState extends LasyRenderingState<AboutScreen> {
+class _AboutScreenState extends LasyRenderingState<AboutScreen> {
   @override
   void initState() {
     super.initState();

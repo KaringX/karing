@@ -34,9 +34,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:vpn_service/vpn_service.dart';
 
-StartFailedReason? startFailedReason;
-String? startFailedReasonDesc;
-
 void main(List<String> args) async {
   /* String dir = "E:\\dev\\KaringX\\karing-ruleset\\geo\\geoip";
   String target = path.join(dir, "geoip_subnets.json");
@@ -63,6 +60,9 @@ void main(List<String> args) async {
 }
 
 Future<void> run(List<String> args) async {
+  StartFailedReason? startFailedReason;
+  String? startFailedReasonDesc;
+
   try {
     do {
       String profileDir = await PathUtils.profileDir();

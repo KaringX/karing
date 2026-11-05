@@ -1,4 +1,3 @@
-/*
 import 'dart:io';
 
 import 'package:karing/app/utils/app_utils.dart';
@@ -8,295 +7,237 @@ import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-class TrayConnected {
+class TrayMenuConnected {
+  Future<void> Function()? onDisconnect;
   Future<void> Function()? onOpen;
   Future<void> Function()? onExit;
-  TrayIcon? _trayIcon;
   Menu? _menu;
 
-  MenuItem? _menuItemDisconnect;
-
-  MenuItem? _menuItemOpen;
-  MenuItem? _menuItemExit;
   void init({
+    bool openExitOnly = false,
     Future<void> Function()? onOpen,
     Future<void> Function()? onExit,
+    Future<void> Function()? onDisconnect,
   }) {
     this.onOpen = onOpen;
     this.onExit = onExit;
-    try {
-      _trayIcon = TrayIcon.create();
-      if (_trayIcon == null) {
-        Log.w(" Tray Icon creation failed");
-        return;
-      }
-      _trayIcon!.icon = ImageAsset.fromAsset(_getIcon());
-
-      _trayIcon!.addListener((event) {
-        if (event is TrayIconClickedEvent) {
-          onOpen?.call();
-        } else if (event is TrayIconRightClickedEvent) {
-          _trayIcon!.closeContextMenu();
-          _updateTrayMenu();
-          _trayIcon!.openContextMenu();
-        }
-      });
-
-      if (!Platform.isLinux) {
-        _trayIcon!.setTooltip(AppUtils.getName());
-      }
-
-      _intiTrayMenu();
-      _updateTrayMenu();
-    } catch (e) {
-      Log.e("Tray Icon initialization exception: $e");
-    }
-  }
-
-  void dispose() {
-    _trayIcon?.dispose();
-    _menu?.dispose();
-    _menuItemDisconnect?.dispose();
-
-    _menuItemOpen?.dispose();
-    _menuItemExit?.dispose();
-  }
-
-  void setIconVisible(bool visible) {
-    _trayIcon?.setVisible(visible);
-  }
-
-  void setIconTitle(String title) {
-    _trayIcon?.setTitle(title);
-  }
-
-  String _getIcon() {
-    if (Platform.isWindows) {
-      return 'assets/images/tray.ico';
-    }
-    return 'assets/images/tray.png';
-  }
-
-  void _intiTrayMenu() {
-    if (_trayIcon == null) {
-      return;
-    }
+    this.onDisconnect = onDisconnect;
     _menu = Menu.create();
-
     if (_menu == null) {
       Log.w("Tray Menu creation failed");
       return;
     }
 
-    _menuItemDisconnect = MenuItem.createWithLabelAndType(
+    final menuItemDisconnect = MenuItem.createWithLabelAndType(
       t.meta.disconnect,
       MenuItemType.normal,
     )!;
 
-    _menuItemOpen = MenuItem.createWithLabelAndType(
+    final menuItemOpen = MenuItem.createWithLabelAndType(
       t.main.tray.menuOpen,
       MenuItemType.normal,
     )!;
-    _menuItemExit = MenuItem.createWithLabelAndType(
+    final menuItemExit = MenuItem.createWithLabelAndType(
       t.main.tray.menuExit,
       MenuItemType.normal,
     )!;
 
-    _menuItemDisconnect!.addListener((event) {
+    menuItemDisconnect.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        VpnActionHandler.vpnDisconnect?.call("menu", false);
+        await onDisconnect?.call();
       }
     });
 
-    _menuItemOpen!.addListener((event) async {
+    menuItemOpen.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onOpen?.call();
       }
     });
-    _menuItemExit!.addListener((event) async {
+    menuItemExit.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onExit?.call();
       }
     });
 
-    _menu!.addItem(_menuItemDisconnect!);
-    _menu!.addSeparator();
+    if (!openExitOnly) {
+      _menu!.addItem(menuItemDisconnect);
+      _menu!.addSeparator();
+    }
 
-    _menu!.addItem(_menuItemOpen!);
-    _menu!.addItem(_menuItemExit!);
-
-    _trayIcon!.setContextMenu(_menu);
+    _menu!.addItem(menuItemOpen);
+    _menu!.addItem(menuItemExit);
   }
 
-  void _updateTrayMenu() {}
+  void uninit() {
+    _menu?.dispose();
+  }
+
+  Menu? getMenu() {
+    return _menu;
+  }
 }
 
-class TrayDisconnected {
+class TrayMenuDisconnected {
+  Future<void> Function()? onConnect;
   Future<void> Function()? onOpen;
   Future<void> Function()? onExit;
-  TrayIcon? _trayIcon;
   Menu? _menu;
 
-  MenuItem? _menuItemConnect;
-
-  MenuItem? _menuItemOpen;
-  MenuItem? _menuItemExit;
   void init({
+    bool openExitOnly = false,
     Future<void> Function()? onOpen,
     Future<void> Function()? onExit,
+    Future<void> Function()? onConnect,
   }) {
     this.onOpen = onOpen;
     this.onExit = onExit;
-    try {
-      _trayIcon = TrayIcon.create();
-      if (_trayIcon == null) {
-        Log.w(" Tray Icon creation failed");
-        return;
-      }
-      _trayIcon!.icon = ImageAsset.fromAsset(_getIcon());
+    this.onConnect = onConnect;
 
-      _trayIcon!.addListener((event) {
-        if (event is TrayIconClickedEvent) {
-          onOpen?.call();
-        } else if (event is TrayIconRightClickedEvent) {
-          _trayIcon!.closeContextMenu();
-          _updateTrayMenu();
-          _trayIcon!.openContextMenu();
-        }
-      });
-
-      if (!Platform.isLinux) {
-        _trayIcon!.setTooltip(AppUtils.getName());
-      }
-
-      _intiTrayMenu();
-      _updateTrayMenu();
-    } catch (e) {
-      Log.e("Tray Icon initialization exception: $e");
-    }
-  }
-
-  void dispose() {
-    _trayIcon?.dispose();
-    _menu?.dispose();
-    _menuItemConnect?.dispose();
-
-    _menuItemOpen?.dispose();
-    _menuItemExit?.dispose();
-  }
-
-  void setIconVisible(bool visible) {
-    _trayIcon?.setVisible(visible);
-  }
-
-  void setIconTitle(String title) {
-    _trayIcon?.setTitle(title);
-  }
-
-  String _getIcon() {
-    if (Platform.isWindows) {
-      return 'assets/images/grey_tray.ico';
-    }
-    return 'assets/images/grey_tray.png';
-  }
-
-  void _intiTrayMenu() {
-    if (_trayIcon == null) {
-      return;
-    }
     _menu = Menu.create();
-
     if (_menu == null) {
       Log.w("Tray Menu creation failed");
       return;
     }
 
-    _menuItemConnect = MenuItem.createWithLabelAndType(
+    final menuItemConnect = MenuItem.createWithLabelAndType(
       t.meta.connect,
       MenuItemType.normal,
     )!;
 
-    _menuItemOpen = MenuItem.createWithLabelAndType(
+    final menuItemOpen = MenuItem.createWithLabelAndType(
       t.main.tray.menuOpen,
       MenuItemType.normal,
     )!;
-    _menuItemExit = MenuItem.createWithLabelAndType(
+    final menuItemExit = MenuItem.createWithLabelAndType(
       t.main.tray.menuExit,
       MenuItemType.normal,
     )!;
 
-    _menuItemConnect!.addListener((event) {
+    menuItemConnect.addListener((event) async {
       if (event is MenuItemClickedEvent) {
-        VpnActionHandler.vpnConnect?.call("menu", false);
+        await onConnect?.call();
       }
     });
 
-    _menuItemOpen!.addListener((event) async {
+    menuItemOpen.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onOpen?.call();
       }
     });
-    _menuItemExit!.addListener((event) async {
+    menuItemExit.addListener((event) async {
       if (event is MenuItemClickedEvent) {
         await onExit?.call();
       }
     });
 
-    _menu!.addItem(_menuItemConnect!);
-    _menu!.addSeparator();
+    if (!openExitOnly) {
+      _menu!.addItem(menuItemConnect);
+      _menu!.addSeparator();
+    }
 
-    _menu!.addItem(_menuItemOpen!);
-    _menu!.addItem(_menuItemExit!);
-
-    _trayIcon!.setContextMenu(_menu);
+    _menu!.addItem(menuItemOpen);
+    _menu!.addItem(menuItemExit);
   }
 
-  void _updateTrayMenu() {}
+  void uninit() {
+    _menu?.dispose();
+  }
+
+  Menu? getMenu() {
+    return _menu;
+  }
 }
 
 class Tray {
-  TrayConnected? trayConnected;
-  TrayDisconnected? trayDisconnected;
+  TrayIcon? _trayIcon;
+  TrayMenuConnected trayConnected = TrayMenuConnected();
+  TrayMenuDisconnected trayDisconnected = TrayMenuDisconnected();
+  bool _isConnected = false;
 
   void init({
+    bool openExitOnly = false,
     Future<void> Function()? onOpen,
     Future<void> Function()? onExit,
   }) {
     if (!PlatformUtils.isPC()) {
       return;
     }
-    trayConnected = TrayConnected();
-    trayDisconnected = TrayDisconnected();
-    trayConnected!.init(onOpen: onOpen, onExit: onExit);
-    trayDisconnected!.init(onOpen: onOpen, onExit: onExit);
 
-    trayConnected!.setIconVisible(false);
-    trayDisconnected!.setIconVisible(true);
+    try {
+      _trayIcon = TrayIcon.create();
+      if (_trayIcon == null) {
+        Log.w(" Tray Icon creation failed");
+        return;
+      }
+      _trayIcon!.addListener((event) {
+        if (event is TrayIconClickedEvent) {
+          onOpen?.call();
+        } else if (event is TrayIconRightClickedEvent) {
+          _trayIcon!.closeContextMenu();
+          _trayIcon!.setContextMenu(
+            _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
+          );
+          _trayIcon!.openContextMenu();
+        }
+      });
+      _trayIcon!.icon = ImageAsset.fromAsset(_getIconDisconnected());
+      _trayIcon!.setVisible(true);
+
+      if (!Platform.isLinux) {
+        _trayIcon!.setTooltip(AppUtils.getName());
+      }
+    } catch (e) {
+      Log.e("Tray Icon initialization exception: $e");
+    }
+
+    trayConnected.init(
+      openExitOnly: openExitOnly,
+      onOpen: onOpen,
+      onExit: onExit,
+      onDisconnect: () async {
+        VpnActionHandler.vpnDisconnect?.call("menu", false);
+      },
+    );
+
+    trayDisconnected.init(
+      openExitOnly: openExitOnly,
+      onOpen: onOpen,
+      onExit: onExit,
+      onConnect: () async {
+        VpnActionHandler.vpnConnect?.call("menu", false);
+      },
+    );
   }
 
   void dispose() {
-    trayConnected?.dispose();
-    trayDisconnected?.dispose();
-    trayConnected = null;
-    trayDisconnected = null;
+    trayConnected.uninit();
+    trayDisconnected.uninit();
   }
 
-  void setIconDisconneted(bool disconnected) {
-    if (disconnected) {
-      trayConnected?.setIconVisible(false);
-      trayDisconnected?.setIconVisible(true);
-    } else {
-      trayConnected?.setIconVisible(true);
-      trayDisconnected?.setIconVisible(false);
+  String _getIconConnected() {
+    if (Platform.isWindows) {
+      return 'assets/images/tray.ico';
     }
+    return 'assets/images/tray.png';
   }
 
-  void setIconTitleForConnected(String title) {
-    trayConnected?.setIconTitle(title);
+  String _getIconDisconnected() {
+    if (Platform.isWindows) {
+      return 'assets/images/grey_tray.ico';
+    }
+    return 'assets/images/grey_tray.png';
   }
 
-  void setIconTitleForDisconnected(String title) {
-    trayDisconnected?.setIconTitle(title);
+  void setConnected(bool connected) {
+    if (_trayIcon == null) {
+      return;
+    }
+    if (connected == _isConnected) {
+      return;
+    }
+    _isConnected = connected;
+    _trayIcon!.icon = ImageAsset.fromAsset(
+      _isConnected ? _getIconConnected() : _getIconDisconnected(),
+    );
   }
 }
-*/

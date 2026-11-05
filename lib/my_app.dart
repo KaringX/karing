@@ -13,25 +13,20 @@ import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/app_args.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
-import 'package:karing/app/utils/app_utils.dart';
-//import 'package:karing/app/utils/geoip_subnet_utils.dart';
-//import 'package:karing/app/utils/file_utils.dart';
-
 import 'package:karing/app/utils/log.dart';
 import 'package:karing/app/utils/move_to_background_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/system_scheme_utils.dart';
-import 'package:karing/app/utils/vpn_action_handler.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/home_screen.dart';
 import 'package:karing/screens/launch_failed_screen.dart';
 import 'package:karing/screens/theme_data_dark.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/routes.dart';
+import 'package:karing/tray.dart';
 import 'package:karing/windows_bounds.dart';
 import 'package:provider/provider.dart';
-import 'package:tray_manager/tray_manager.dart';
 import 'package:vpn_service/vpn_service.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -50,15 +45,10 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp>
-    with WidgetsBindingObserver, WindowListener, TrayListener {
-  static const kMenuConnect = "connect";
-  static const kMenuDisconnect = "disconnect";
-  static const kMenuOpen = "show_window";
-  static const kMenuExit = "exit_app";
+    with WidgetsBindingObserver, WindowListener {
   bool _launchAtStartup = false;
   bool _windowVisibleForMac = false;
-  //Tray? _tray;
-  bool _trayGrey = true;
+  Tray? _tray;
   final Themes _themes = Themes();
   @override
   void initState() {
@@ -67,8 +57,9 @@ class MyAppState extends State<MyApp>
     if (PlatformUtils.isPC()) {
       windowManager.addListener(this);
       windowManager.setPreventClose(true);
-      /*_tray = Tray();
+      _tray = Tray();
       _tray!.init(
+        openExitOnly: widget.startFailedReason != null,
         onOpen: () async {
           if (await windowManager.isMinimized()) {
             await windowManager.restore();
@@ -80,9 +71,7 @@ class MyAppState extends State<MyApp>
         onExit: () async {
           await _quit();
         },
-      );*/
-      trayManager.addListener(this);
-      _setTray(true, false, true);
+      );
     }
     AppLifecycleStateNofity.init();
     //LocaleSettings.getLocaleStream().listen((event) {});
@@ -108,10 +97,8 @@ class MyAppState extends State<MyApp>
     WidgetsBinding.instance.removeObserver(this);
     if (PlatformUtils.isPC()) {
       windowManager.removeListener(this);
-      // _tray?.dispose();
-      //_tray = null;
-      trayManager.removeListener(this);
-      trayManager.destroy();
+      _tray?.dispose();
+      _tray = null;
     }
 
     super.dispose();
@@ -320,11 +307,7 @@ class MyAppState extends State<MyApp>
 
     Biz.onEventVPNStateChanged = ((bool connected) {
       if (PlatformUtils.isPC()) {
-        // _tray?.setIconDisconneted(!connected);
-        if (_trayGrey == !connected) {
-          return;
-        }
-        _setTray(!connected, false, false);
+        _tray?.setConnected(connected);
       }
     });
     if (widget.startFailedReason == null) {
@@ -353,9 +336,6 @@ class MyAppState extends State<MyApp>
     if (widget.startFailedReason == null) {
       await Biz.uninit();
     }
-    if (PlatformUtils.isPC()) {
-      await trayManager.destroy();
-    }
   }
 
   Future<void> _quit() async {
@@ -364,97 +344,5 @@ class MyAppState extends State<MyApp>
       await Log.uninit();
       await ServicesBinding.instance.exitApplication(AppExitType.required);
     });
-  }
-
-  void _setTray(bool grey, bool destroy, bool quitIfFailed) {
-    Future.delayed(const Duration(milliseconds: 300), () async {
-      if (destroy || Platform.isLinux) {
-        await trayManager.destroy();
-      }
-
-      try {
-        if (Platform.isWindows) {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.ico' : 'assets/images/tray.ico',
-            isTemplate: false,
-          );
-        } else {
-          await trayManager.setIcon(
-            grey ? 'assets/images/grey_tray.png' : 'assets/images/tray.png',
-            isTemplate: false,
-          );
-        }
-        _trayGrey = grey;
-      } catch (err, stacktrace) {
-        Log.w("setIcon exception: ${err.toString()}, quit");
-        if (quitIfFailed) {
-          Future.delayed(const Duration(milliseconds: 1000), () async {
-            _quit();
-          });
-        }
-      }
-      if (!Platform.isLinux) {
-        await trayManager.setToolTip(AppUtils.getName());
-      } else {
-        await _setTrayMenu(grey);
-      }
-    });
-  }
-
-  Future<void> _setTrayMenu(bool grey) async {
-    if (!PlatformUtils.isPC()) {
-      return;
-    }
-
-    List<MenuItem> items = [
-      if (grey) ...[
-        MenuItem(key: kMenuConnect, label: "   ${t.meta.connect}   "),
-      ],
-      if (!grey) ...[
-        MenuItem(key: kMenuDisconnect, label: "   ${t.meta.disconnect}   "),
-      ],
-      MenuItem.separator(),
-
-      MenuItem(key: kMenuOpen, label: "   ${t.main.tray.menuOpen}   "),
-      MenuItem(key: kMenuExit, label: "   ${t.main.tray.menuExit}   "),
-    ];
-
-    await trayManager.setContextMenu(Menu(items: items));
-    if (!Platform.isLinux) {
-      await trayManager.popUpContextMenu(bringAppToFront: true);
-    }
-  }
-
-  @override
-  void onTrayIconMouseDown() async {
-    if (await windowManager.isMinimized()) {
-      await windowManager.restore();
-    } else {
-      await windowManager.show();
-      onWindowRestore();
-    }
-  }
-
-  @override
-  void onTrayIconRightMouseDown() async {
-    await _setTrayMenu(_trayGrey);
-  }
-
-  @override
-  void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == kMenuConnect) {
-      VpnActionHandler.vpnConnect?.call("menu", false);
-    } else if (menuItem.key == kMenuDisconnect) {
-      VpnActionHandler.vpnDisconnect?.call("menu", false);
-    } else if (menuItem.key == kMenuExit) {
-      await _quit();
-    } else if (menuItem.key == kMenuOpen) {
-      if (await windowManager.isMinimized()) {
-        await windowManager.restore();
-      } else {
-        await windowManager.show();
-        onWindowRestore();
-      }
-    }
   }
 }

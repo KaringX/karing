@@ -282,6 +282,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.2"
+  cnativeapi:
+    dependency: transitive
+    description:
+      name: cnativeapi
+      sha256: "3c9e30d513cdc8ecb116f3017308f2480828c766e45aa00083c3d15d621e5d57"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.8"
   code_assets:
     dependency: transitive
     description:
@@ -1246,14 +1254,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
-  menu_base:
-    dependency: transitive
-    description:
-      name: menu_base
-      sha256: "820368014a171bd1241030278e6c2617354f492f5c703d7b7d4570a6b8b84405"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.1"
   meta:
     dependency: transitive
     description:
@@ -1287,6 +1287,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.19.5"
+  nativeapi:
+    dependency: transitive
+    description:
+      name: nativeapi
+      sha256: "87b0912bde3c9b7e0649c5e12047baf2bf179d3844a9b984313e897872120267"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.8"
+  nativeapi_flutter:
+    dependency: transitive
+    description:
+      name: nativeapi_flutter
+      sha256: b62a42b8a86538119ba67b8eab8328eb89d69ac4a2142d623d08ac163faa9cd8
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.8"
   nested:
     dependency: transitive
     description:
@@ -1903,14 +1919,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.6"
-  shortid:
-    dependency: transitive
-    description:
-      name: shortid
-      sha256: d0b40e3dbb50497dad107e19c54ca7de0d1a274eb9b4404991e443dadb9ebedb
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -2064,10 +2072,10 @@ packages:
     dependency: "direct main"
     description:
       name: tray_manager
-      sha256: "1a659b08baa6e9b91ef8ce16eda37740de398be1c4cf322b8a1ddfef25c68c5a"
+      sha256: bc433331d714919a8d40b6575c084be78de56dbe2327c11ce995fca4ec51bbff
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.3"
+    version: "0.8.2"
   tuple:
     dependency: "direct main"
     description:
@@ -2318,5 +2326,5 @@ packages:
     source: hosted
     version: "0.2.4"
 sdks:
-  dart: ">=3.12.2 <4.0.0"
-  flutter: ">=3.44.0"
+  dart: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"
