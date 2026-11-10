@@ -137,7 +137,8 @@ class _AddProfileByLinkOrContentScreenState
     if (uri != null &&
         (uri.isScheme(SystemSchemeUtils.getKaringScheme()) ||
             uri.isScheme(SystemSchemeUtils.getClashScheme()) ||
-            uri.isScheme(SystemSchemeUtils.getSingboxScheme()))) {
+            uri.isScheme(SystemSchemeUtils.getSingboxScheme()) ||
+            uri.isScheme("https"))) {
       if (outboundDns.isEmpty) {
         final dns = uri.queryParameters["outbound-dns"];
         if (dns != null && dns.isNotEmpty) {
