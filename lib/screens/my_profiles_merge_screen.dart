@@ -24,6 +24,7 @@ class MyProfilesMergeScreen extends LasyRenderingStatefulWidget {
 
 class MyProfilesMergeScreenState
     extends LasyRenderingState<MyProfilesMergeScreen> {
+  final ScrollController _scrollController = ScrollController();
   ServerConfigGroupItem? _target;
   final List<ServerConfigGroupItem> _sources = [];
   final List<ServerConfigGroupItem> _selectedSources = [];
@@ -34,6 +35,7 @@ class MyProfilesMergeScreenState
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -126,8 +128,11 @@ class MyProfilesMergeScreenState
               ),
               Expanded(
                 child: Scrollbar(
+                  controller: _scrollController,
                   thumbVisibility: true,
                   child: ListView.separated(
+                    controller: _scrollController,
+                    primary: false,
                     itemCount: _sources.length,
                     itemBuilder: (BuildContext context, int index) {
                       ServerConfigGroupItem current = _sources[index];

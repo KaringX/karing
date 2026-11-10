@@ -21,6 +21,7 @@ import 'package:karing/app/utils/system_scheme_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/home_screen.dart';
 import 'package:karing/screens/launch_failed_screen.dart';
+import 'package:karing/screens/scheme_handler.dart';
 import 'package:karing/screens/theme_data_dark.dart';
 import 'package:karing/screens/themes.dart';
 import 'package:karing/screens/widgets/routes.dart';
@@ -164,6 +165,11 @@ class MyAppState extends State<MyApp>
               SingleActivator(LogicalKeyboardKey.select):
                   ActivateIntent(), // for android tv OK/Select button
             },
+            /*shortcuts: {
+                  ...WidgetsApp.defaultShortcuts,
+                  const SingleActivator(LogicalKeyboardKey.select):
+                      const ActivateIntent(),
+                },*/
             child: MaterialApp(
               //showSemanticsDebugger: false,
               debugShowCheckedModeBanner: false,
@@ -174,11 +180,33 @@ class MyAppState extends State<MyApp>
                 GlobalCupertinoLocalizations.delegate,
               ],
               navigatorObservers: observers,
-              /*shortcuts: {
-                  ...WidgetsApp.defaultShortcuts,
-                  const SingleActivator(LogicalKeyboardKey.select):
-                      const ActivateIntent(),
-                },*/
+              // Deep links delivered by the engine arrive as route names; without
+              // this fallback Flutter crashes in _onUnknownRoute. The placeholder
+              // dispatches karing:// URLs to SchemeHandler and is then removed.
+              onUnknownRoute: (settings) => PageRouteBuilder<void>(
+                settings: settings,
+                opaque: false,
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+                pageBuilder: (context, _, _) {
+                  final name = settings.name ?? '';
+                  final route = ModalRoute.of(context);
+                  Log.w('Unknown route: $name\n');
+                  WidgetsBinding.instance.addPostFrameCallback((_) async {
+                    final navigator = Navigator.maybeOf(context);
+                    if (name.startsWith(
+                          SystemSchemeUtils.getKaringSchemeWith(),
+                        ) &&
+                        context.mounted) {
+                      await SchemeHandler.handle(context, name);
+                    }
+                    if (navigator != null && route != null && route.isActive) {
+                      navigator.removeRoute(route);
+                    }
+                  });
+                  return const SizedBox.shrink();
+                },
+              ),
               home: PopScope(
                 canPop: false,
                 onPopInvokedWithResult: (didPop, result) {

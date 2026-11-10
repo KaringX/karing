@@ -35,6 +35,8 @@ class _BackupAndSyncAutoBackupScreenState
 
   List<String> _fileList = [];
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +45,7 @@ class _BackupAndSyncAutoBackupScreenState
   @override
   void dispose() {
     SettingManager.save();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -132,8 +135,11 @@ class _BackupAndSyncAutoBackupScreenState
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
+      controller: _scrollController,
       thumbVisibility: true,
       child: ListView.separated(
+        controller: _scrollController,
+        primary: false,
         shrinkWrap: true,
         itemCount: _fileList.length,
         itemBuilder: (BuildContext context, int index) {

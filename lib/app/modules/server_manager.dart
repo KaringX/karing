@@ -712,7 +712,7 @@ class ServerManager {
         if (!notEmpty) {
           return ReturnResult(
             error: ReturnResultError(
-              "${group.diversionName}: ${t.meta.urlTestCustomGroup} [${group.serverName}] ${t.HomeScreen.invalidServer}",
+              "${group.diversionName}: ${t.meta.urlTestCustomGroup} [${group.serverName}] is invalid or empty",
               report: false,
             ),
           );
@@ -891,13 +891,6 @@ class ServerManager {
         }
       }
     } catch (err, stacktrace) {
-      SentryUtils.captureException(
-        'ServerManager.loadServerConfig.exception',
-        [],
-        err,
-        stacktrace,
-        attachments: {filePath: content},
-      );
       Log.w(
         "ServerManager.loadServerConfig exception $filePath ${err.toString()}",
       );
@@ -945,13 +938,6 @@ class ServerManager {
         }
       }
     } catch (err, stacktrace) {
-      SentryUtils.captureException(
-        'ServerManager.loadDiversionGroupConfig.exception',
-        [],
-        err,
-        stacktrace,
-        attachments: {filePath: content},
-      );
       Log.w(
         "ServerManager.loadDiversionGroupConfig exception $filePath ${err.toString()}",
       );
@@ -1705,6 +1691,10 @@ class ServerManager {
         exist.proxyStrategy = item.proxyStrategy;
         exist.updateTime = item.updateTime;
         exist.isp = item.isp;
+        exist.decryptPasswordAES = item.decryptPasswordAES;
+        exist.decryptPasswordAGE = item.decryptPasswordAGE;
+        exist.preferOutboundDns = preferOutboundDns;
+        exist.outboundDns = item.outboundDns.toList();
         if (duration != null) {
           exist.updateDuration = duration;
         }

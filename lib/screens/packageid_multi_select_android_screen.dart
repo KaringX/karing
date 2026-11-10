@@ -39,6 +39,7 @@ class _PackageIdMultiSelectAndroidScreenState
 
   bool _loading = true;
   final _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   List<PackageInfoEx> _searchedData = [];
   final Map<String, Future<Image?>> _packageIconFutures = {};
   bool _needPermission = false;
@@ -57,6 +58,7 @@ class _PackageIdMultiSelectAndroidScreenState
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
     SettingManager.save();
   }
@@ -299,8 +301,11 @@ class _PackageIdMultiSelectAndroidScreenState
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
+      controller: _scrollController,
       thumbVisibility: true,
       child: ListView.separated(
+        controller: _scrollController,
+        primary: false,
         itemCount: _searchedData.length,
         itemBuilder: (BuildContext context, int index) {
           PackageInfoEx current = _searchedData[index];

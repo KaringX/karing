@@ -286,10 +286,10 @@ packages:
     dependency: transitive
     description:
       name: cnativeapi
-      sha256: "3c9e30d513cdc8ecb116f3017308f2480828c766e45aa00083c3d15d621e5d57"
+      sha256: e9821c3304ec8b20f8a6b75c16fb662b4f24483abad6fb41230e2364dbac6435
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.8"
+    version: "0.5.9"
   code_assets:
     dependency: transitive
     description:
@@ -1291,18 +1291,18 @@ packages:
     dependency: transitive
     description:
       name: nativeapi
-      sha256: "87b0912bde3c9b7e0649c5e12047baf2bf179d3844a9b984313e897872120267"
+      sha256: "793908e7b97ead5aa55b4a9e8c93edebe8fae81715d29dbd87a1a496fadd54a1"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.8"
+    version: "0.5.9"
   nativeapi_flutter:
     dependency: transitive
     description:
       name: nativeapi_flutter
-      sha256: b62a42b8a86538119ba67b8eab8328eb89d69ac4a2142d623d08ac163faa9cd8
+      sha256: "5836964d2804a3cab56c5f4bec048a7e3968a0f331336483ea2a943ae19a0992"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.8"
+    version: "0.5.9"
   nested:
     dependency: transitive
     description:
@@ -2072,10 +2072,10 @@ packages:
     dependency: "direct main"
     description:
       name: tray_manager
-      sha256: bc433331d714919a8d40b6575c084be78de56dbe2327c11ce995fca4ec51bbff
+      sha256: "30c67f4f27a9b2ad56606b369b75256fd9ef25851b66788597d4df3fbbfa536a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.2"
+    version: "0.8.3"
   tuple:
     dependency: "direct main"
     description:

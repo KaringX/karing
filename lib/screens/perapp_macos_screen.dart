@@ -28,6 +28,7 @@ class PerAppMacosScreen extends LasyRenderingStatefulWidget {
 }
 
 class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
+  final ScrollController _scrollController = ScrollController();
   bool _loading = true;
   final List<MacosProcessInfo> _processInfoList = [];
   final _searchController = TextEditingController();
@@ -41,6 +42,7 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
     SettingManager.save();
   }
@@ -225,8 +227,11 @@ class _PerAppMacosScreenState extends LasyRenderingState<PerAppMacosScreen> {
     }
     Size windowSize = MediaQuery.of(context).size;
     return Scrollbar(
+      controller: _scrollController,
       thumbVisibility: true,
       child: ListView.separated(
+        controller: _scrollController,
+        primary: false,
         itemCount: _searchedData.length,
         itemBuilder: (BuildContext context, int index) {
           MacosProcessInfo current = _searchedData[index];

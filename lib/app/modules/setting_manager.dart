@@ -1141,13 +1141,11 @@ class SettingConfigItemTLS {
   static String kFragmentSize = "100-200"; //[1,256]
   static String kFragmentSleep = "10-20"; //[0,1000],0:disable
   static String kPaddingSize = "1-1500";
-  bool enableInsecure = true;
+  bool enableInsecure = false;
   bool enableFragment = false;
   String fragmentSize = SettingConfigItemTLS.kFragmentSize;
   String fragmentSleep = SettingConfigItemTLS.kFragmentSleep;
-
   bool enableMixedCaseSNI = false;
-
   bool enablePadding = false;
   String paddingSize = SettingConfigItemTLS.kPaddingSize;
 
@@ -1169,7 +1167,7 @@ class SettingConfigItemTLS {
       return;
     }
 
-    enableInsecure = map["enable_insecure"] ?? true;
+    enableInsecure = map["enable_insecure"] ?? false;
     enableFragment = map["enable_fragment"] ?? false;
     fragmentSize = map["fragment_size"] ?? SettingConfigItemTLS.kFragmentSize;
     fragmentSleep =
