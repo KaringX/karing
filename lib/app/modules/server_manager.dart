@@ -1627,11 +1627,9 @@ class ServerManager {
     }
     item.decryptPasswordAES = decryptPasswordAES;
     item.decryptPasswordAGE = decryptPasswordAGE;
-    item.outboundDns = outboundDns.toList();
-    if (duration != null) {
-      item.updateDuration = duration;
-    }
+    //item.outboundDns = outboundDns.toList();
     item.preferOutboundDns = preferOutboundDns;
+    item.updateDuration = duration;
 
     diversionGroupItem.groupid = item.groupid;
     ReturnResultError? error = await AutoConfUtils.tryConvert(
@@ -1694,7 +1692,9 @@ class ServerManager {
         exist.decryptPasswordAES = item.decryptPasswordAES;
         exist.decryptPasswordAGE = item.decryptPasswordAGE;
         exist.preferOutboundDns = preferOutboundDns;
-        exist.outboundDns = item.outboundDns.toList();
+        exist.outboundDns = item.outboundDns.isNotEmpty
+            ? item.outboundDns.toList()
+            : outboundDns.toList();
         if (duration != null) {
           exist.updateDuration = duration;
         }
