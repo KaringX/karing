@@ -172,12 +172,6 @@ class Tray {
       _trayIcon!.addListener((event) {
         if (event is TrayIconClickedEvent) {
           onOpen?.call();
-        } else if (event is TrayIconRightClickedEvent) {
-          _trayIcon!.closeContextMenu();
-          _trayIcon!.setContextMenu(
-            _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
-          );
-          _trayIcon!.openContextMenu();
         }
       });
       _trayIcon!.icon = ImageAsset.fromAsset(_getIconDisconnected());
@@ -206,6 +200,19 @@ class Tray {
       onConnect: () async {
         VpnActionHandler.vpnConnect?.call("menu", false);
       },
+    );
+
+    // Attach the menu up front and let a right click open it. On Linux the
+    // panel renders the menu itself: GNOME's AppIndicator extension never
+    // reports a right click, and Wayland cannot pop up a local menu, so
+    // opening it from a TrayIconRightClickedEvent listener does nothing there.
+    _updateContextMenu();
+    _trayIcon?.setContextMenuTrigger(ContextMenuTrigger.rightClicked);
+  }
+
+  void _updateContextMenu() {
+    _trayIcon?.setContextMenu(
+      _isConnected ? trayConnected.getMenu() : trayDisconnected.getMenu(),
     );
   }
 
@@ -239,5 +246,6 @@ class Tray {
     _trayIcon!.icon = ImageAsset.fromAsset(
       _isConnected ? _getIconConnected() : _getIconDisconnected(),
     );
+    _updateContextMenu();
   }
 }
