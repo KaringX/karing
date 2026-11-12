@@ -249,4 +249,11 @@ class Tray {
       _isConnected ? _getIconConnected() : _getIconDisconnected(),
     );
   }
+
+  void setTitle(String title) {
+    if (_trayIcon == null) {
+      return;
+    }
+    _trayIcon!.setTitle(title);
+  }
 }
