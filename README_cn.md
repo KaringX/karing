@@ -76,6 +76,7 @@
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
   - `brew install karing`
+  - Linux 应用内更新失败时，关闭错误提示，点击**暂不更新**即可返回设置。
 
 ### 常见问题
 
