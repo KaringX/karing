@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 
 import 'package:karing/app/utils/app_utils.dart';
@@ -257,3 +258,4 @@ class Tray {
     _trayIcon!.setTitle(title);
   }
 }
+*/
