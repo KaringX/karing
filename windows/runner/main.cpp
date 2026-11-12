@@ -48,6 +48,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance,
   std::vector<std::string> command_line_arguments = GetCommandLineArguments();
 
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
+  project.set_impeller_switch(flutter::ImpellerSwitch::Disabled);
 
   FlutterWindow* window = new FlutterWindow(project);
   // FlutterWindow window(project);

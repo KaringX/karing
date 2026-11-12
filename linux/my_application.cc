@@ -10,7 +10,7 @@ struct _MyApplication {
 };
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
-//#define ICON_PATH "./karing.png"
+// #define ICON_PATH "./karing.png"
 
 static gboolean desktop_uses_gtk_header_bar() {
   const gchar* desktops = g_getenv("XDG_CURRENT_DESKTOP");
@@ -61,6 +61,7 @@ static void my_application_activate(GApplication* application) {
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(
       project, self->dart_entrypoint_arguments);
+  fl_dart_project_set_enable_impeller(project, FALSE);
 
   FlView* view = fl_view_new(project);
   gtk_widget_show(GTK_WIDGET(view));

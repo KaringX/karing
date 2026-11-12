@@ -24,7 +24,6 @@ import 'package:karing/app/utils/path_utils.dart';
 import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/app/utils/proxy_conf_utils.dart';
 import 'package:karing/app/utils/ruleset_codes_utils.dart';
-import 'package:karing/app/utils/sentry_utils.dart';
 import 'package:karing/app/utils/singbox_config_builder.dart';
 import 'package:karing/app/utils/singbox_dns.dart';
 import 'package:karing/app/utils/tag_gen.dart';
