@@ -76,6 +76,7 @@ English | [简体中文](./README_cn.md) | [繁體中文](./README_tw.md) | [日
   - [https://karing.app/download](https://karing.app/download)
   - https://github.com/KaringX/karing/releases/latest
   - `brew install karing`
+  - On Linux, if an in-app update fails, dismiss the error and choose **Not Now** to return to Settings.
 
 ### FAQ
 

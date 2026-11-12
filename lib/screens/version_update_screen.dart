@@ -1,5 +1,5 @@
-// ignore_for_file: unused_catch_stack
-
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
@@ -103,6 +103,17 @@ class _VersionUpdateScreenState
                             : Text(tcontext.VersionUpdateScreen.update),
                       ),
                     ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: _installing
+                          ? null
+                          : () {
+                              if (!_installing) {
+                                Navigator.maybePop(context);
+                              }
+                            },
+                      child: Text(tcontext.VersionUpdateScreen.cancel),
+                    ),
                   ],
                 ),
               ],
@@ -143,21 +154,25 @@ class _VersionUpdateScreenState
   }
 
   Future<void> checkReplace() async {
-    String? installer = await AutoUpdateManager.checkReplace();
-    if (!mounted) {
-      return;
-    }
-    if (installer == null) {
-      Navigator.pop(context);
-      return;
-    }
     if (_installing) {
       return;
     }
+    final route = ModalRoute.of(context);
     _installing = true;
     setState(() {});
     try {
+      final installer = await AutoUpdateManager.checkReplace();
+      if (!mounted || route?.isCurrent == false) {
+        return;
+      }
+      if (installer == null) {
+        Navigator.pop(context);
+        return;
+      }
       await VPNService.stop();
+      if (!mounted || route?.isCurrent == false) {
+        return;
+      }
       if (Platform.isWindows) {
         await launchUrl(Uri(path: installer, scheme: 'file'));
         await ServicesBinding.instance.exitApplication(AppExitType.required);
@@ -167,62 +182,69 @@ class _VersionUpdateScreenState
       } else if (Platform.isAndroid) {
         await AppInstaller.installApk(installer);
       } else if (Platform.isLinux) {
-        if (!mounted) {
+        final channelName = InstallReferrerUtils.getBuildChannelName()
+            .toLowerCase();
+        if (channelName.contains("appimage")) {
+          return;
+        }
+        final password = await DialogUtils.showPasswordInputDialog(context);
+        if (!mounted ||
+            route?.isCurrent == false ||
+            password == null ||
+            password.isEmpty) {
           return;
         }
 
-        String? password = await DialogUtils.showPasswordInputDialog(context);
-        if (password == null || password.isEmpty) {
-          _installing = false;
-          setState(() {});
-          return;
-        }
-        final shell = Platform.environment['SHELL'] ?? 'bash';
-        final arguments = ["-c"];
-        final channelName = InstallReferrerUtils.getBuildChannelName();
-        if (channelName.toLowerCase().contains("deb")) {
-          arguments.add('echo "$password" | sudo -S dpkg -i "$installer"');
-        } else if (channelName.toLowerCase().contains("rpm")) {
-          arguments.add('echo "$password" | sudo -S rpm -i "$installer"');
-        } else if (channelName.toLowerCase().contains("appimage")) {
-          _installing = false;
-          setState(() {});
-          return;
-        } else {
-          arguments.add('echo "$password" | sudo -S dpkg -i "$installer"');
-        }
-        final result = await Process.run(shell, arguments);
-        if (result.exitCode != 0) {
-          if (!mounted) {
-            _installing = false;
-            setState(() {});
+        final isRpm = channelName.contains("rpm");
+        final process = await Process.start("sudo", [
+          "-S",
+          "-p",
+          "",
+          isRpm ? "rpm" : "dpkg",
+          isRpm ? "-U" : "-i",
+          installer,
+        ]);
+        final stdin = process.stdin;
+        stdin.writeln(password);
+        final (exitCode, stderr, _, _) = await (
+          process.exitCode,
+          process.stderr
+              .transform(const Utf8Decoder(allowMalformed: true))
+              .join(),
+          process.stdout.drain<void>(),
+          // sudo may exit without reading stdin; use its exit status.
+          stdin
+              .flush()
+              .whenComplete(stdin.close)
+              .onError<IOException>((_, _) {}),
+        ).wait;
+        if (exitCode != 0) {
+          if (!mounted || route?.isCurrent == false) {
             return;
           }
-          DialogUtils.showAlertDialog(
+          final details = stderr.trim().replaceAll(password, '•••');
+          await DialogUtils.showAlertDialog(
             context,
-            "install $installer failed, exitCode: ${result.exitCode}",
+            "install $installer failed, exitCode: $exitCode"
+            "${details.isEmpty ? '' : '\n\n$details'}",
             showCopy: true,
             showFAQ: true,
             withVersion: true,
           );
-          _installing = false;
-          setState(() {});
           return;
         }
         await ServicesBinding.instance.exitApplication(AppExitType.required);
       }
     } catch (err, stacktrace) {
       Log.w("VersionUpdateScreen.checkReplace exception ${err.toString()}");
-      _installing = false;
-      if (!mounted) {
-        return;
+      if (mounted && route?.isCurrent != false) {
+        await DialogUtils.showExceptionDialog(context, err, stacktrace);
       }
-      DialogUtils.showExceptionDialog(context, err, stacktrace);
-      setState(() {});
-    }
-    _installing = false;
-    if (!mounted) {
-      setState(() {});
+    } finally {
+      _installing = false;
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 }
