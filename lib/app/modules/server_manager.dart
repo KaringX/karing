@@ -608,6 +608,10 @@ class ServerManager {
               website: item.site,
               ispId: item.isp?.id,
               ispUser: item.isp?.user,
+              decryptPasswordAES: item.decryptPasswordAES,
+              decryptPasswordAGE: item.decryptPasswordAGE,
+              outboundDns: item.outboundDns,
+              preferOutboundDns: item.preferOutboundDns,
             );
           } catch (err, _) {
             Log.w(
@@ -2316,6 +2320,10 @@ class ServerManager {
         website: item.site,
         ispId: item.isp?.id,
         ispUser: item.isp?.user,
+        decryptPasswordAES: item.decryptPasswordAES,
+        decryptPasswordAGE: item.decryptPasswordAGE,
+        outboundDns: item.outboundDns,
+        preferOutboundDns: item.preferOutboundDns,
       );
       _remoteReloading.remove(groupid);
       if (result.error != null) {
