@@ -12,6 +12,19 @@ LONG __stdcall UnhandledException(PEXCEPTION_POINTERS pExceptionInfo) {
   TerminateProcess(GetCurrentProcess(), 1);
   return EXCEPTION_EXECUTE_HANDLER;
 }
+
+
+bool IsEnvironmentVariableTrue(const wchar_t* name) {
+    wchar_t value[8];
+    const DWORD value_length =
+        ::GetEnvironmentVariableW(name, value, ARRAYSIZE(value));
+    if (value_length == 0 || value_length >= ARRAYSIZE(value)) {
+        return false;
+    }
+    return _wcsicmp(value, L"1") == 0 || _wcsicmp(value, L"true") == 0 ||
+        _wcsicmp(value, L"yes") == 0;
+}
+
 void uninitializeWindow(FlutterWindow* window) {
   SetUnhandledExceptionFilter(UnhandledException);
   __try {
@@ -48,7 +61,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance,
   std::vector<std::string> command_line_arguments = GetCommandLineArguments();
 
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
-  project.set_impeller_switch(flutter::ImpellerSwitch::Disabled);
+  if (!IsEnvironmentVariableTrue(L"ENABLE_IMPELLER")) {
+    project.set_impeller_switch(flutter::ImpellerSwitch::Disabled);
+  }
 
   FlutterWindow* window = new FlutterWindow(project);
   // FlutterWindow window(project);
