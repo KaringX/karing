@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/server_manager.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
@@ -113,7 +114,9 @@ class _BackupAndSyncLanSyncScreenState
         return;
       }
 
-      if (Platform.isWindows && proxy.autoAddToFirewall) {
+      if (Platform.isWindows &&
+          proxy.autoAddToFirewall &&
+          VPNService.isRunAsAdmin()) {
         FlutterVpnService.firewallAddPorts([
           listenPort,
         ], PathUtils.getExeName());

@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$th implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'โหมด TUN';
 	@override String get tuni4Address => 'ที่อยู่ IP';
 	@override String get tunModeTips => 'โหมด TUN จะเข้าครอบครองปริมาณการใช้ข้อมูลทั้งหมดของระบบ [ในโหมดนี้ คุณสามารถปล่อยให้พร็อกซีของระบบไม่เปิดใช้งาน]';
-	@override String get tunModeRunAsAdmin => 'โหมด TUN ต้องการสิทธิ์ผู้ดูแลระบบ โปรดรีสตาร์ทแอปพลิเคชันเป็นผู้ดูแลระบบ';
+	@override String get needRunAsAdmin => 'ฟีเจอร์นี้ต้องการสิทธิ์ผู้ดูแลระบบ โปรดรีสตาร์ทแอปพลิเคชันเป็นผู้ดูแลระบบ';
 	@override String get tunStack => 'แล้งเข้า';
 	@override String get tunHijackTips => 'หลังจากปิด คำขอ DNS จาก TUN จะถูกส่งต่อโดยตรงไปยังเซิร์ฟเวอร์ DNS ที่ตรงกัน';
 	@override String get launchAtStartup => 'เปิดใช้งานเมื่อเริ่มต้น';
@@ -1196,7 +1196,7 @@ extension on TranslationsTh {
 			'SettingsScreen.tunMode' => 'โหมด TUN',
 			'SettingsScreen.tuni4Address' => 'ที่อยู่ IP',
 			'SettingsScreen.tunModeTips' => 'โหมด TUN จะเข้าครอบครองปริมาณการใช้ข้อมูลทั้งหมดของระบบ [ในโหมดนี้ คุณสามารถปล่อยให้พร็อกซีของระบบไม่เปิดใช้งาน]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'โหมด TUN ต้องการสิทธิ์ผู้ดูแลระบบ โปรดรีสตาร์ทแอปพลิเคชันเป็นผู้ดูแลระบบ',
+			'SettingsScreen.needRunAsAdmin' => 'ฟีเจอร์นี้ต้องการสิทธิ์ผู้ดูแลระบบ โปรดรีสตาร์ทแอปพลิเคชันเป็นผู้ดูแลระบบ',
 			'SettingsScreen.tunStack' => 'แล้งเข้า',
 			'SettingsScreen.tunHijackTips' => 'หลังจากปิด คำขอ DNS จาก TUN จะถูกส่งต่อโดยตรงไปยังเซิร์ฟเวอร์ DNS ที่ตรงกัน',
 			'SettingsScreen.launchAtStartup' => 'เปิดใช้งานเมื่อเริ่มต้น',

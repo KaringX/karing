@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$ja implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN モード';
 	@override String get tuni4Address => 'IP アドレス';
 	@override String get tunModeTips => 'TUN モードはシステムのすべてのトラフィックを引き受けます [このモードでは、システムプロキシを無効のままにできます]';
-	@override String get tunModeRunAsAdmin => 'TUN モードにはシステム管理者権限が必要です。アプリを管理者として再起動してください';
+	@override String get needRunAsAdmin => 'この機能にはシステム管理者権限が必要です。アプリを管理者として再起動してください';
 	@override String get tunStack => 'スタック';
 	@override String get tunHijackTips => '終了後、TUN からの DNS リクエストは対応する DNS サーバーに直接転送されます';
 	@override String get launchAtStartup => '起動時に実行する';
@@ -1196,7 +1196,7 @@ extension on TranslationsJa {
 			'SettingsScreen.tunMode' => 'TUN モード',
 			'SettingsScreen.tuni4Address' => 'IP アドレス',
 			'SettingsScreen.tunModeTips' => 'TUN モードはシステムのすべてのトラフィックを引き受けます [このモードでは、システムプロキシを無効のままにできます]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN モードにはシステム管理者権限が必要です。アプリを管理者として再起動してください',
+			'SettingsScreen.needRunAsAdmin' => 'この機能にはシステム管理者権限が必要です。アプリを管理者として再起動してください',
 			'SettingsScreen.tunStack' => 'スタック',
 			'SettingsScreen.tunHijackTips' => '終了後、TUN からの DNS リクエストは対応する DNS サーバーに直接転送されます',
 			'SettingsScreen.launchAtStartup' => '起動時に実行する',

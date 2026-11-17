@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$sv implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN-läge';
 	@override String get tuni4Address => 'IP-adress';
 	@override String get tunModeTips => 'TUN-läget tar över all trafik från systemet [I det här läget kan du låta systemproxyn vara inaktiverad]';
-	@override String get tunModeRunAsAdmin => 'TUN-läget kräver administratörsbehörighet, starta om appen som administratör';
+	@override String get needRunAsAdmin => 'Den här funktionen kräver administratörsbehörighet, starta om appen som administratör';
 	@override String get tunStack => 'Stack';
 	@override String get tunHijackTips => 'Efter stängning kommer DNS-förfrågningar från TUN att vidarebefordras direkt till motsvarande DNS-server';
 	@override String get launchAtStartup => 'Kör vid start';
@@ -1196,7 +1196,7 @@ extension on TranslationsSv {
 			'SettingsScreen.tunMode' => 'TUN-läge',
 			'SettingsScreen.tuni4Address' => 'IP-adress',
 			'SettingsScreen.tunModeTips' => 'TUN-läget tar över all trafik från systemet [I det här läget kan du låta systemproxyn vara inaktiverad]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN-läget kräver administratörsbehörighet, starta om appen som administratör',
+			'SettingsScreen.needRunAsAdmin' => 'Den här funktionen kräver administratörsbehörighet, starta om appen som administratör',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'Efter stängning kommer DNS-förfrågningar från TUN att vidarebefordras direkt till motsvarande DNS-server',
 			'SettingsScreen.launchAtStartup' => 'Kör vid start',

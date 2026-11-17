@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$vi implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'Chế độ TUN';
 	@override String get tuni4Address => 'Địa chỉ IP';
 	@override String get tunModeTips => 'Chế độ TUN sẽ tiếp nhận toàn bộ lưu lượng của hệ thống [Trong chế độ này, bạn có thể để proxy hệ thống không bật]';
-	@override String get tunModeRunAsAdmin => 'Chế độ TUN yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên';
+	@override String get needRunAsAdmin => 'Tính năng này yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên';
 	@override String get tunStack => 'Ngăn xếp mạng';
 	@override String get tunHijackTips => 'Sau khi đóng, các yêu cầu DNS từ TUN sẽ được chuyển tiếp trực tiếp đến máy chủ DNS tương ứng';
 	@override String get launchAtStartup => 'Khởi chạy cùng hệ thống';
@@ -1196,7 +1196,7 @@ extension on TranslationsVi {
 			'SettingsScreen.tunMode' => 'Chế độ TUN',
 			'SettingsScreen.tuni4Address' => 'Địa chỉ IP',
 			'SettingsScreen.tunModeTips' => 'Chế độ TUN sẽ tiếp nhận toàn bộ lưu lượng của hệ thống [Trong chế độ này, bạn có thể để proxy hệ thống không bật]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'Chế độ TUN yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên',
+			'SettingsScreen.needRunAsAdmin' => 'Tính năng này yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên',
 			'SettingsScreen.tunStack' => 'Ngăn xếp mạng',
 			'SettingsScreen.tunHijackTips' => 'Sau khi đóng, các yêu cầu DNS từ TUN sẽ được chuyển tiếp trực tiếp đến máy chủ DNS tương ứng',
 			'SettingsScreen.launchAtStartup' => 'Khởi chạy cùng hệ thống',

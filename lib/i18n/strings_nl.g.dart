@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$nl implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN-modus';
 	@override String get tuni4Address => 'IP-adres';
 	@override String get tunModeTips => 'De TUN-modus neemt al het verkeer van het systeem over [In deze modus kunt u de systeemproxy uitgeschakeld laten]';
-	@override String get tunModeRunAsAdmin => 'De TUN-modus vereist systeembeheerdersrechten, start de app opnieuw als beheerder';
+	@override String get needRunAsAdmin => 'Deze functie vereist systeembeheerdersrechten, start de app opnieuw als beheerder';
 	@override String get tunStack => 'Stack';
 	@override String get tunHijackTips => 'Na het sluiten worden DNS-verzoeken van TUN rechtstreeks doorgestuurd naar de bijbehorende DNS-server';
 	@override String get launchAtStartup => 'Opstarten bij systeemstart';
@@ -1196,7 +1196,7 @@ extension on TranslationsNl {
 			'SettingsScreen.tunMode' => 'TUN-modus',
 			'SettingsScreen.tuni4Address' => 'IP-adres',
 			'SettingsScreen.tunModeTips' => 'De TUN-modus neemt al het verkeer van het systeem over [In deze modus kunt u de systeemproxy uitgeschakeld laten]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'De TUN-modus vereist systeembeheerdersrechten, start de app opnieuw als beheerder',
+			'SettingsScreen.needRunAsAdmin' => 'Deze functie vereist systeembeheerdersrechten, start de app opnieuw als beheerder',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'Na het sluiten worden DNS-verzoeken van TUN rechtstreeks doorgestuurd naar de bijbehorende DNS-server',
 			'SettingsScreen.launchAtStartup' => 'Opstarten bij systeemstart',

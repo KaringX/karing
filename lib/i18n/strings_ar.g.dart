@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$ar implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'نفق وضع';
 	@override String get tuni4Address => 'عنوان IP';
 	@override String get tunModeTips => 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]';
-	@override String get tunModeRunAsAdmin => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول';
+	@override String get needRunAsAdmin => 'تتطلب هذه الميزة أذونات مسؤول النظام، يرجى إعادة تشغيل التطبيق كمسؤول';
 	@override String get tunStack => 'Stack';
 	@override String get tunHijackTips => 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل';
 	@override String get launchAtStartup => 'إطلاق عند بدء التشغيل';
@@ -1196,7 +1196,7 @@ extension on TranslationsAr {
 			'SettingsScreen.tunMode' => 'نفق وضع',
 			'SettingsScreen.tuni4Address' => 'عنوان IP',
 			'SettingsScreen.tunModeTips' => 'سيتولى وضع TUN كل حركة مرور النظام [في هذا الوضع ، يمكنك ترك وكيل النظام غير مدقلة]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'يتطلب وضع TUN أذونات مسؤول النظام ، يرجى إعادة تشغيل التطبيق كمسؤول',
+			'SettingsScreen.needRunAsAdmin' => 'تتطلب هذه الميزة أذونات مسؤول النظام، يرجى إعادة تشغيل التطبيق كمسؤول',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'بعد الإغلاق، سيتم إعادة توجيه طلبات DNS من TUN مباشرة إلى خادم DNS المقابل',
 			'SettingsScreen.launchAtStartup' => 'إطلاق عند بدء التشغيل',

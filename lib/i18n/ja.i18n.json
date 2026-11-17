@@ -244,7 +244,7 @@
         "tunMode": "TUN モード",
         "tuni4Address": "IP アドレス",
         "tunModeTips": "TUN モードはシステムのすべてのトラフィックを引き受けます [このモードでは、システムプロキシを無効のままにできます]",
-        "tunModeRunAsAdmin": "TUN モードにはシステム管理者権限が必要です。アプリを管理者として再起動してください",
+        "needRunAsAdmin": "この機能にはシステム管理者権限が必要です。アプリを管理者として再起動してください",
         "tunStack": "スタック",
         "tunHijackTips": "終了後、TUN からの DNS リクエストは対応する DNS サーバーに直接転送されます",
         "launchAtStartup": "起動時に実行する",

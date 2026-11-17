@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$hi implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN मोड';
 	@override String get tuni4Address => 'IP पता';
 	@override String get tunModeTips => 'TUN मोड सिस्टम के सभी ट्रैफ़िक को संभाल लेगा [इस मोड में, आप सिस्टम प्रॉक्सी को अक्षम छोड़ सकते हैं]';
-	@override String get tunModeRunAsAdmin => 'TUN मोड के लिए सिस्टम प्रशासक अनुमति की आवश्यकता होती है, कृपया ऐप को प्रशासक के रूप में पुनरारंभ करें';
+	@override String get needRunAsAdmin => 'इस सुविधा के लिए सिस्टम प्रशासक अनुमति की आवश्यकता होती है, कृपया ऐप को प्रशासक के रूप में पुनरारंभ करें';
 	@override String get tunStack => 'स्टैक';
 	@override String get tunHijackTips => 'बंद करने के बाद, TUN से DNS अनुरोध सीधे संबंधित DNS सर्वर पर भेज दिए जाएंगे';
 	@override String get launchAtStartup => 'स्टार्टअप पर लॉन्च करें';
@@ -1196,7 +1196,7 @@ extension on TranslationsHi {
 			'SettingsScreen.tunMode' => 'TUN मोड',
 			'SettingsScreen.tuni4Address' => 'IP पता',
 			'SettingsScreen.tunModeTips' => 'TUN मोड सिस्टम के सभी ट्रैफ़िक को संभाल लेगा [इस मोड में, आप सिस्टम प्रॉक्सी को अक्षम छोड़ सकते हैं]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN मोड के लिए सिस्टम प्रशासक अनुमति की आवश्यकता होती है, कृपया ऐप को प्रशासक के रूप में पुनरारंभ करें',
+			'SettingsScreen.needRunAsAdmin' => 'इस सुविधा के लिए सिस्टम प्रशासक अनुमति की आवश्यकता होती है, कृपया ऐप को प्रशासक के रूप में पुनरारंभ करें',
 			'SettingsScreen.tunStack' => 'स्टैक',
 			'SettingsScreen.tunHijackTips' => 'बंद करने के बाद, TUN से DNS अनुरोध सीधे संबंधित DNS सर्वर पर भेज दिए जाएंगे',
 			'SettingsScreen.launchAtStartup' => 'स्टार्टअप पर लॉन्च करें',

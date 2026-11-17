@@ -244,7 +244,7 @@
         "tunMode": "TUN-läge",
         "tuni4Address": "IP-adress",
         "tunModeTips": "TUN-läget tar över all trafik från systemet [I det här läget kan du låta systemproxyn vara inaktiverad]",
-        "tunModeRunAsAdmin": "TUN-läget kräver administratörsbehörighet, starta om appen som administratör",
+        "needRunAsAdmin": "Den här funktionen kräver administratörsbehörighet, starta om appen som administratör",
         "tunStack": "Stack",
         "tunHijackTips": "Efter stängning kommer DNS-förfrågningar från TUN att vidarebefordras direkt till motsvarande DNS-server",
         "launchAtStartup": "Kör vid start",

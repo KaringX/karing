@@ -244,7 +244,7 @@
         "tunMode": "Modalità TUN",
         "tuni4Address": "Indirizzo IP",
         "tunModeTips": "La modalità TUN prenderà il controllo di tutto il traffico del sistema [In questa modalità, puoi lasciare il proxy di sistema disabilitato]",
-        "tunModeRunAsAdmin": "La modalità TUN richiede i permessi di amministratore del sistema, riavvia l'app come amministratore",
+        "needRunAsAdmin": "Questa funzione richiede i permessi di amministratore del sistema, riavvia l'app come amministratore",
         "tunStack": "Stack",
         "tunHijackTips": "Dopo la chiusura, le richieste DNS dal TUN verranno inoltrate direttamente al server DNS corrispondente",
         "launchAtStartup": "Avvia all'Avvio del Sistema",

@@ -244,7 +244,7 @@
         "tunMode": "Chế độ TUN",
         "tuni4Address": "Địa chỉ IP",
         "tunModeTips": "Chế độ TUN sẽ tiếp nhận toàn bộ lưu lượng của hệ thống [Trong chế độ này, bạn có thể để proxy hệ thống không bật]",
-        "tunModeRunAsAdmin": "Chế độ TUN yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên",
+        "needRunAsAdmin": "Tính năng này yêu cầu quyền quản trị viên hệ thống, vui lòng khởi động lại ứng dụng với tư cách quản trị viên",
         "tunStack": "Ngăn xếp mạng",
         "tunHijackTips": "Sau khi đóng, các yêu cầu DNS từ TUN sẽ được chuyển tiếp trực tiếp đến máy chủ DNS tương ứng",
         "launchAtStartup": "Khởi chạy cùng hệ thống",

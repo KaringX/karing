@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/utils/network_utils.dart';
 import 'package:karing/app/utils/path_utils.dart';
@@ -177,19 +178,20 @@ class ProxyCluster {
     } catch (err) {
       Log.w("ProxyCluster.inboundsAndRulesFrom exception ${err.toString()}");
     }
-
-    List<int> firewallPorts = [];
-    for (var sock in sockets) {
-      firewallPorts.add(sock.port);
-    }
-    if (firewallPorts.isNotEmpty &&
-        Platform.isWindows &&
-        proxy.autoAddToFirewall &&
-        SettingManager.getConfig().proxy.getClusterAllowAllInbounds()) {
-      FlutterVpnService.firewallAddPorts(
-        firewallPorts,
-        PathUtils.serviceExeName(),
-      );
+    if (VPNService.isRunAsAdmin()) {
+      List<int> firewallPorts = [];
+      for (var sock in sockets) {
+        firewallPorts.add(sock.port);
+      }
+      if (firewallPorts.isNotEmpty &&
+          Platform.isWindows &&
+          proxy.autoAddToFirewall &&
+          SettingManager.getConfig().proxy.getClusterAllowAllInbounds()) {
+        FlutterVpnService.firewallAddPorts(
+          firewallPorts,
+          PathUtils.serviceExeName(),
+        );
+      }
     }
 
     for (var sock in sockets) {

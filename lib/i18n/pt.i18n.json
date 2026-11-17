@@ -244,7 +244,7 @@
         "tunMode": "Modo TUN",
         "tuni4Address": "Endereço IP",
         "tunModeTips": "O modo TUN assumirá todo o tráfego do sistema [Neste modo, pode deixar o proxy do sistema desativado]",
-        "tunModeRunAsAdmin": "O modo TUN requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador",
+        "needRunAsAdmin": "Este recurso requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador",
         "tunStack": "Pilha",
         "tunHijackTips": "Após fechar, os pedidos DNS do TUN serão encaminhados diretamente para o servidor DNS correspondente",
         "launchAtStartup": "Lançar no Arranque",

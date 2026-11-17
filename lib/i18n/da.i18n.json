@@ -244,7 +244,7 @@
         "tunMode": "TUN-tilstand",
         "tuni4Address": "IP-adresse",
         "tunModeTips": "TUN-tilstand vil overtage al trafik fra systemet [I denne tilstand kan du lade systemproxyen være deaktiveret]",
-        "tunModeRunAsAdmin": "TUN-tilstand kræver systemadministratorrettigheder, genstart venligst appen som administrator",
+        "needRunAsAdmin": "Denne funktion kræver systemadministratorrettigheder, genstart venligst appen som administrator",
         "tunStack": "Stack",
         "tunHijackTips": "Efter lukning vil DNS-anmodninger fra TUN blive videresendt direkte til den tilsvarende DNS-server",
         "launchAtStartup": "Kør ved start",

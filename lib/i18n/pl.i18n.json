@@ -244,7 +244,7 @@
         "tunMode": "Tryb TUN",
         "tuni4Address": "Adres IP",
         "tunModeTips": "Tryb TUN przejmie cały ruch systemowy [W tym trybie można pozostawić proxy systemowe wyłączone]",
-        "tunModeRunAsAdmin": "Tryb TUN wymaga uprawnień administratora systemu, uruchom aplikację ponownie jako administrator",
+        "needRunAsAdmin": "Ta funkcja wymaga uprawnień administratora systemu, uruchom aplikację ponownie jako administrator",
         "tunStack": "Stos",
         "tunHijackTips": "Po zamknięciu żądania DNS z TUN będą przekazywane bezpośrednio do odpowiedniego serwera DNS",
         "launchAtStartup": "Uruchamiaj przy starcie",

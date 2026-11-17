@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$id implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'Mode TUN';
 	@override String get tuni4Address => 'Alamat IP';
 	@override String get tunModeTips => 'Mode TUN akan mengambil alih semua trafik sistem [dalam mode ini tidak perlu mengaktifkan proxy sistem]';
-	@override String get tunModeRunAsAdmin => 'Mode TUN memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator';
+	@override String get needRunAsAdmin => 'Fitur ini memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator';
 	@override String get tunStack => 'Stack jaringan';
 	@override String get tunHijackTips => 'Setelah dimatikan, permintaan DNS dari TUN akan langsung diteruskan ke server DNS terkait';
 	@override String get launchAtStartup => 'Jalankan saat startup';
@@ -1196,7 +1196,7 @@ extension on TranslationsId {
 			'SettingsScreen.tunMode' => 'Mode TUN',
 			'SettingsScreen.tuni4Address' => 'Alamat IP',
 			'SettingsScreen.tunModeTips' => 'Mode TUN akan mengambil alih semua trafik sistem [dalam mode ini tidak perlu mengaktifkan proxy sistem]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'Mode TUN memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator',
+			'SettingsScreen.needRunAsAdmin' => 'Fitur ini memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator',
 			'SettingsScreen.tunStack' => 'Stack jaringan',
 			'SettingsScreen.tunHijackTips' => 'Setelah dimatikan, permintaan DNS dari TUN akan langsung diteruskan ke server DNS terkait',
 			'SettingsScreen.launchAtStartup' => 'Jalankan saat startup',

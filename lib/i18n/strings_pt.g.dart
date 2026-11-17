@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$pt implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'Modo TUN';
 	@override String get tuni4Address => 'Endereço IP';
 	@override String get tunModeTips => 'O modo TUN assumirá todo o tráfego do sistema [Neste modo, pode deixar o proxy do sistema desativado]';
-	@override String get tunModeRunAsAdmin => 'O modo TUN requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador';
+	@override String get needRunAsAdmin => 'Este recurso requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador';
 	@override String get tunStack => 'Pilha';
 	@override String get tunHijackTips => 'Após fechar, os pedidos DNS do TUN serão encaminhados diretamente para o servidor DNS correspondente';
 	@override String get launchAtStartup => 'Lançar no Arranque';
@@ -1196,7 +1196,7 @@ extension on TranslationsPt {
 			'SettingsScreen.tunMode' => 'Modo TUN',
 			'SettingsScreen.tuni4Address' => 'Endereço IP',
 			'SettingsScreen.tunModeTips' => 'O modo TUN assumirá todo o tráfego do sistema [Neste modo, pode deixar o proxy do sistema desativado]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'O modo TUN requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador',
+			'SettingsScreen.needRunAsAdmin' => 'Este recurso requer permissões de administrador do sistema, por favor reinicie a aplicação como administrador',
 			'SettingsScreen.tunStack' => 'Pilha',
 			'SettingsScreen.tunHijackTips' => 'Após fechar, os pedidos DNS do TUN serão encaminhados diretamente para o servidor DNS correspondente',
 			'SettingsScreen.launchAtStartup' => 'Lançar no Arranque',

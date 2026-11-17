@@ -282,6 +282,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.2"
+  cnativeapi:
+    dependency: transitive
+    description:
+      name: cnativeapi
+      sha256: c43703998995e132b0656d2b8a95ed2bedc6b22ccee2c827bcdc075e0330e319
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.10"
   code_assets:
     dependency: transitive
     description:
@@ -1246,14 +1254,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
-  menu_base:
-    dependency: transitive
-    description:
-      name: menu_base
-      sha256: "820368014a171bd1241030278e6c2617354f492f5c703d7b7d4570a6b8b84405"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.1"
   meta:
     dependency: transitive
     description:
@@ -1287,6 +1287,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.19.5"
+  nativeapi:
+    dependency: transitive
+    description:
+      name: nativeapi
+      sha256: "118045bb549cb6fabad472a3a22a537e7310bbf20097350f5027808b4a5853ce"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.10"
+  nativeapi_flutter:
+    dependency: transitive
+    description:
+      name: nativeapi_flutter
+      sha256: "357a405c69212f5157da1bd3be183a53c2b841d0de0eb51f4a3947913712aec4"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.10"
   nested:
     dependency: transitive
     description:
@@ -1531,10 +1547,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_apple
-      sha256: "066bbbc60031b63b916a3871e7bb4b6a8c5e7cec8146dafec53d1da304eff0a5"
+      sha256: "82d31c9b321c45785ccd73bce9c63af17037116193b4000b998a4363059adb6e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "9.6.2"
+    version: "9.6.5"
   permission_handler_html:
     dependency: transitive
     description:
@@ -1555,10 +1571,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_windows
-      sha256: caeae01858a0a7d2df67a445ac98e1ad95e55a0e77c73044f4e9b1c8c2289cbd
+      sha256: "210031f00c32d61038fb4175d82dd874a426bfbae2c2af774bd4e5abb5cac755"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.4"
   petitparser:
     dependency: transitive
     description:
@@ -1903,14 +1919,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.6"
-  shortid:
-    dependency: transitive
-    description:
-      name: shortid
-      sha256: d0b40e3dbb50497dad107e19c54ca7de0d1a274eb9b4404991e443dadb9ebedb
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -2064,10 +2072,10 @@ packages:
     dependency: "direct main"
     description:
       name: tray_manager
-      sha256: "1a659b08baa6e9b91ef8ce16eda37740de398be1c4cf322b8a1ddfef25c68c5a"
+      sha256: "30c67f4f27a9b2ad56606b369b75256fd9ef25851b66788597d4df3fbbfa536a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.3"
+    version: "0.8.3"
   tuple:
     dependency: "direct main"
     description:
@@ -2318,5 +2326,5 @@ packages:
     source: hosted
     version: "0.2.4"
 sdks:
-  dart: ">=3.12.2 <4.0.0"
-  flutter: ">=3.44.0"
+  dart: ">=3.13.0 <4.0.0"
+  flutter: ">=3.47.0"

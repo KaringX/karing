@@ -244,7 +244,7 @@
         "tunMode": "TUN模式",
         "tuni4Address": "IP地址",
         "tunModeTips": "TUN模式将接管系统所有流量[此模式下无需开启系统代理]",
-        "tunModeRunAsAdmin": "TUN模式需要系统管理员权限,请以管理员身份重新启动应用",
+        "needRunAsAdmin": "本功能需要系统管理员权限,请以管理员身份重新启动应用",
         "tunStack": "网络栈",
         "tunHijackTips": "关闭后,来自TUN的DNS请求将会被直接转发给对应的DNS服务器",
         "launchAtStartup": "开机启动",

@@ -495,7 +495,7 @@ class Translations$SettingsScreen$zh_CN implements Translations$SettingsScreen$e
 	@override String get tunMode => 'TUN模式';
 	@override String get tuni4Address => 'IP地址';
 	@override String get tunModeTips => 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]';
-	@override String get tunModeRunAsAdmin => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用';
+	@override String get needRunAsAdmin => '本功能需要系统管理员权限,请以管理员身份重新启动应用';
 	@override String get tunStack => '网络栈';
 	@override String get tunHijackTips => '关闭后,来自TUN的DNS请求将会被直接转发给对应的DNS服务器';
 	@override String get launchAtStartup => '开机启动';
@@ -1196,7 +1196,7 @@ extension on TranslationsZhCn {
 			'SettingsScreen.tunMode' => 'TUN模式',
 			'SettingsScreen.tuni4Address' => 'IP地址',
 			'SettingsScreen.tunModeTips' => 'TUN模式将接管系统所有流量[此模式下无需开启系统代理]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN模式需要系统管理员权限,请以管理员身份重新启动应用',
+			'SettingsScreen.needRunAsAdmin' => '本功能需要系统管理员权限,请以管理员身份重新启动应用',
 			'SettingsScreen.tunStack' => '网络栈',
 			'SettingsScreen.tunHijackTips' => '关闭后,来自TUN的DNS请求将会被直接转发给对应的DNS服务器',
 			'SettingsScreen.launchAtStartup' => '开机启动',

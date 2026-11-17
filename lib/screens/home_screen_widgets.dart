@@ -1014,7 +1014,7 @@ class TunCard extends FutureSwitchCard {
                  final tcontext = Translations.of(context);
                  await DialogUtils.showAlertDialog(
                    context,
-                   tcontext.SettingsScreen.tunModeRunAsAdmin,
+                   tcontext.SettingsScreen.needRunAsAdmin,
                  );
                  return;
                }

@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$ru implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'Режим TUN';
 	@override String get tuni4Address => 'IP-адрес';
 	@override String get tunModeTips => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]';
-	@override String get tunModeRunAsAdmin => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора';
+	@override String get needRunAsAdmin => 'Для этой функции требуются права администратора. Перезапустите приложение от имени администратора';
 	@override String get tunStack => 'Stack';
 	@override String get tunHijackTips => 'Если отключить, DNS-запросы из TUN будут пересылаться напрямую на соответствующий DNS-сервер.';
 	@override String get launchAtStartup => 'Автозапуск при старте системы';
@@ -1196,7 +1196,7 @@ extension on TranslationsRu {
 			'SettingsScreen.tunMode' => 'Режим TUN',
 			'SettingsScreen.tuni4Address' => 'IP-адрес',
 			'SettingsScreen.tunModeTips' => 'В режиме TUN весь трафик системы будет перенаправлен через соединение [В этом режиме вы можете оставить системный прокси отключенным]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'Для режима TUN требуются права администратора. Перезапустите приложение от имени администратора',
+			'SettingsScreen.needRunAsAdmin' => 'Для этой функции требуются права администратора. Перезапустите приложение от имени администратора',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'Если отключить, DNS-запросы из TUN будут пересылаться напрямую на соответствующий DNS-сервер.',
 			'SettingsScreen.launchAtStartup' => 'Автозапуск при старте системы',

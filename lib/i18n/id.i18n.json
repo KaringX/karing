@@ -244,7 +244,7 @@
         "tunMode": "Mode TUN",
         "tuni4Address": "Alamat IP",
         "tunModeTips": "Mode TUN akan mengambil alih semua trafik sistem [dalam mode ini tidak perlu mengaktifkan proxy sistem]",
-        "tunModeRunAsAdmin": "Mode TUN memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator",
+        "needRunAsAdmin": "Fitur ini memerlukan hak administrator sistem, silakan mulai ulang aplikasi sebagai administrator",
         "tunStack": "Stack jaringan",
         "tunHijackTips": "Setelah dimatikan, permintaan DNS dari TUN akan langsung diteruskan ke server DNS terkait",
         "launchAtStartup": "Jalankan saat startup",

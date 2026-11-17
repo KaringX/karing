@@ -244,7 +244,7 @@
         "tunMode": "TUN Modu",
         "tuni4Address": "IP adresi",
         "tunModeTips": "TUN modu sistemin tüm trafiğini üstlenecektir [Bu modda sistem proxy'sini devre dışı bırakabilirsiniz]",
-        "tunModeRunAsAdmin": "TUN modu sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın",
+        "needRunAsAdmin": "Bu özellik sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın",
         "tunStack": "Ağ Yığını",
         "tunHijackTips": "Kapattıktan sonra TUN'dan gelen DNS istekleri doğrudan ilgili DNS sunucusuna iletilecektir",
         "launchAtStartup": "Başlangıçta Çalıştır",

@@ -325,7 +325,7 @@ class GroupHelper {
                 if (!admin) {
                   await DialogUtils.showAlertDialog(
                     context,
-                    tcontext.SettingsScreen.tunModeRunAsAdmin,
+                    tcontext.SettingsScreen.needRunAsAdmin,
                   );
                   return;
                 }
@@ -2694,7 +2694,7 @@ class GroupHelper {
                 if (!admin) {
                   await DialogUtils.showAlertDialog(
                     context,
-                    tcontext.SettingsScreen.tunModeRunAsAdmin,
+                    tcontext.SettingsScreen.needRunAsAdmin,
                   );
                   return;
                 }

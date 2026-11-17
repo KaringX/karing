@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$ko implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN 모드';
 	@override String get tuni4Address => 'IP 주소';
 	@override String get tunModeTips => 'TUN 모드는 시스템의 모든 트래픽을 처리합니다 [이 모드에서는 시스템 프록시를 끈 상태로 둘 수 있습니다]';
-	@override String get tunModeRunAsAdmin => 'TUN 모드는 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오';
+	@override String get needRunAsAdmin => '이 기능은 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오';
 	@override String get tunStack => '스택';
 	@override String get tunHijackTips => '종료 후 TUN의 DNS 요청은 해당 DNS 서버로 직접 전달됩니다';
 	@override String get launchAtStartup => '시작 시 실행';
@@ -1196,7 +1196,7 @@ extension on TranslationsKo {
 			'SettingsScreen.tunMode' => 'TUN 모드',
 			'SettingsScreen.tuni4Address' => 'IP 주소',
 			'SettingsScreen.tunModeTips' => 'TUN 모드는 시스템의 모든 트래픽을 처리합니다 [이 모드에서는 시스템 프록시를 끈 상태로 둘 수 있습니다]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN 모드는 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오',
+			'SettingsScreen.needRunAsAdmin' => '이 기능은 시스템 관리자 권한이 필요합니다. 관리자 권한으로 앱을 다시 시작하십시오',
 			'SettingsScreen.tunStack' => '스택',
 			'SettingsScreen.tunHijackTips' => '종료 후 TUN의 DNS 요청은 해당 DNS 서버로 직접 전달됩니다',
 			'SettingsScreen.launchAtStartup' => '시작 시 실행',

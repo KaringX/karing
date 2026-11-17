@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$tr implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'TUN Modu';
 	@override String get tuni4Address => 'IP adresi';
 	@override String get tunModeTips => 'TUN modu sistemin tüm trafiğini üstlenecektir [Bu modda sistem proxy\'sini devre dışı bırakabilirsiniz]';
-	@override String get tunModeRunAsAdmin => 'TUN modu sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın';
+	@override String get needRunAsAdmin => 'Bu özellik sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın';
 	@override String get tunStack => 'Ağ Yığını';
 	@override String get tunHijackTips => 'Kapattıktan sonra TUN\'dan gelen DNS istekleri doğrudan ilgili DNS sunucusuna iletilecektir';
 	@override String get launchAtStartup => 'Başlangıçta Çalıştır';
@@ -1196,7 +1196,7 @@ extension on TranslationsTr {
 			'SettingsScreen.tunMode' => 'TUN Modu',
 			'SettingsScreen.tuni4Address' => 'IP adresi',
 			'SettingsScreen.tunModeTips' => 'TUN modu sistemin tüm trafiğini üstlenecektir [Bu modda sistem proxy\'sini devre dışı bırakabilirsiniz]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'TUN modu sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın',
+			'SettingsScreen.needRunAsAdmin' => 'Bu özellik sistem yöneticisi izinleri gerektirir, lütfen uygulamayı yönetici olarak yeniden başlatın',
 			'SettingsScreen.tunStack' => 'Ağ Yığını',
 			'SettingsScreen.tunHijackTips' => 'Kapattıktan sonra TUN\'dan gelen DNS istekleri doğrudan ilgili DNS sunucusuna iletilecektir',
 			'SettingsScreen.launchAtStartup' => 'Başlangıçta Çalıştır',

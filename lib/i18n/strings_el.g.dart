@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$el implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'Λειτουργία TUN';
 	@override String get tuni4Address => 'Διεύθυνση IP';
 	@override String get tunModeTips => 'Η λειτουργία TUN θα αναλάβει όλη την κίνηση του συστήματος [Σε αυτήν τη λειτουργία, μπορείτε να αφήσετε το proxy συστήματος απενεργοποιημένο]';
-	@override String get tunModeRunAsAdmin => 'Η λειτουργία TUN απαιτεί δικαιώματα διαχειριστή συστήματος, παρακαλούμε επανεκκινήστε την εφαρμογή ως διαχειριστής';
+	@override String get needRunAsAdmin => 'Αυτή η λειτουργία απαιτεί δικαιώματα διαχειριστή συστήματος, παρακαλούμε επανεκκινήστε την εφαρμογή ως διαχειριστής';
 	@override String get tunStack => 'Στοίβα';
 	@override String get tunHijackTips => 'Μετά το κλείσιμο, τα αιτήματα DNS από το TUN θα προωθούνται απευθείας στον αντίστοιχο διακομιστή DNS';
 	@override String get launchAtStartup => 'Εκκίνηση κατά την έναρξη';
@@ -1196,7 +1196,7 @@ extension on TranslationsEl {
 			'SettingsScreen.tunMode' => 'Λειτουργία TUN',
 			'SettingsScreen.tuni4Address' => 'Διεύθυνση IP',
 			'SettingsScreen.tunModeTips' => 'Η λειτουργία TUN θα αναλάβει όλη την κίνηση του συστήματος [Σε αυτήν τη λειτουργία, μπορείτε να αφήσετε το proxy συστήματος απενεργοποιημένο]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'Η λειτουργία TUN απαιτεί δικαιώματα διαχειριστή συστήματος, παρακαλούμε επανεκκινήστε την εφαρμογή ως διαχειριστής',
+			'SettingsScreen.needRunAsAdmin' => 'Αυτή η λειτουργία απαιτεί δικαιώματα διαχειριστή συστήματος, παρακαλούμε επανεκκινήστε την εφαρμογή ως διαχειριστής',
 			'SettingsScreen.tunStack' => 'Στοίβα',
 			'SettingsScreen.tunHijackTips' => 'Μετά το κλείσιμο, τα αιτήματα DNS από το TUN θα προωθούνται απευθείας στον αντίστοιχο διακομιστή DNS',
 			'SettingsScreen.launchAtStartup' => 'Εκκίνηση κατά την έναρξη',

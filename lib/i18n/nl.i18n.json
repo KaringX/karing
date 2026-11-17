@@ -244,7 +244,7 @@
         "tunMode": "TUN-modus",
         "tuni4Address": "IP-adres",
         "tunModeTips": "De TUN-modus neemt al het verkeer van het systeem over [In deze modus kunt u de systeemproxy uitgeschakeld laten]",
-        "tunModeRunAsAdmin": "De TUN-modus vereist systeembeheerdersrechten, start de app opnieuw als beheerder",
+        "needRunAsAdmin": "Deze functie vereist systeembeheerdersrechten, start de app opnieuw als beheerder",
         "tunStack": "Stack",
         "tunHijackTips": "Na het sluiten worden DNS-verzoeken van TUN rechtstreeks doorgestuurd naar de bijbehorende DNS-server",
         "launchAtStartup": "Opstarten bij systeemstart",

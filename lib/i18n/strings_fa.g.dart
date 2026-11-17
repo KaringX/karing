@@ -495,7 +495,7 @@ class _Translations$SettingsScreen$fa implements Translations$SettingsScreen$en 
 	@override String get tunMode => 'حالت TUN';
 	@override String get tuni4Address => 'آدرس آی‌پی';
 	@override String get tunModeTips => 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)';
-	@override String get tunModeRunAsAdmin => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
+	@override String get needRunAsAdmin => 'این قابلیت نیازمند مجوز مدیر سیستم می‌باشد، لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید';
 	@override String get tunStack => 'Stack';
 	@override String get tunHijackTips => 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود';
 	@override String get launchAtStartup => 'اجرا در راه‌اندازی';
@@ -1196,7 +1196,7 @@ extension on TranslationsFa {
 			'SettingsScreen.tunMode' => 'حالت TUN',
 			'SettingsScreen.tuni4Address' => 'آدرس آی‌پی',
 			'SettingsScreen.tunModeTips' => 'حالت TUN تمام ترافیک سیستم را تحت کنترل خواهد گرفت [دراین حالت می‌توانید پروکسی سیستم را غیرفعال نگه‌ دارید)',
-			'SettingsScreen.tunModeRunAsAdmin' => 'حالت TUN نیازمند مجوز مدیر سیستم می‌باشد لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید',
+			'SettingsScreen.needRunAsAdmin' => 'این قابلیت نیازمند مجوز مدیر سیستم می‌باشد، لطفا نرم‌افزار را مجدد با حالت مدیر (administrator) راه‌اندازی کنید',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'پس از بسته شدن، درخواست های DNS از TUN مستقیماً به سرور DNS مربوطه ارسال می شود',
 			'SettingsScreen.launchAtStartup' => 'اجرا در راه‌اندازی',

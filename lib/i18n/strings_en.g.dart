@@ -987,8 +987,8 @@ class Translations$SettingsScreen$en {
 	/// en: 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]'
 	String get tunModeTips => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]';
 
-	/// en: 'The TUN mode requires system administrator permissions, please restart the app as an administrator'
-	String get tunModeRunAsAdmin => 'The TUN mode requires system administrator permissions, please restart the app as an administrator';
+	/// en: 'This feature requires system administrator permissions, please restart the app as an administrator'
+	String get needRunAsAdmin => 'This feature requires system administrator permissions, please restart the app as an administrator';
 
 	/// en: 'Stack'
 	String get tunStack => 'Stack';
@@ -2373,7 +2373,7 @@ extension on Translations {
 			'SettingsScreen.tunMode' => 'TUN Mode',
 			'SettingsScreen.tuni4Address' => 'IP address',
 			'SettingsScreen.tunModeTips' => 'The TUN mode will take over all the traffic of the system [In this mode, you can leave the system proxy unenabled]',
-			'SettingsScreen.tunModeRunAsAdmin' => 'The TUN mode requires system administrator permissions, please restart the app as an administrator',
+			'SettingsScreen.needRunAsAdmin' => 'This feature requires system administrator permissions, please restart the app as an administrator',
 			'SettingsScreen.tunStack' => 'Stack',
 			'SettingsScreen.tunHijackTips' => 'After closing, DNS requests from TUN will be forwarded directly to the corresponding DNS server',
 			'SettingsScreen.launchAtStartup' => 'Launch at Startup',

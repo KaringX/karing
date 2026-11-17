@@ -906,6 +906,18 @@ class _SettingScreenState extends LasyRenderingState<SettingsScreen> {
                   name: tcontext.SettingsScreen.autoAddToFirewall,
                   switchValue: settingConfig.proxy.autoAddToFirewall,
                   onSwitch: (bool value) async {
+                    if (value) {
+                      bool admin = VPNService.isRunAsAdmin();
+                      if (!admin) {
+                        final tcontext = Translations.of(context);
+                        await DialogUtils.showAlertDialog(
+                          context,
+                          tcontext.SettingsScreen.needRunAsAdmin,
+                        );
+                        return;
+                      }
+                    }
+
                     settingConfig.proxy.autoAddToFirewall = value;
                     setState(() {});
                   },
