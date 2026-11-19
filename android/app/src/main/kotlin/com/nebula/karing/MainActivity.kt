@@ -10,6 +10,7 @@ import java.util.Locale
 class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
+        flutterEngine.plugins.add(TvTextInputPlugin())
         MainChannelManager.init(flutterEngine)
         MainChannelManager.registerCallback(
                 "getCommand",
