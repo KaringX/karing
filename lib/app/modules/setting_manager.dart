@@ -1954,9 +1954,9 @@ class SettingConfig {
         map["latency_check_resove_ip"] ??
         false;
 
-    autoUpdateChannel = map["auto_update_channel"] ?? "stable";
+    autoUpdateChannel = map["auto_update_channel"] ?? "";
     if (autoUpdateChannel.isEmpty) {
-      autoUpdateChannel = Random().nextInt(10) < 5 ? "beta" : "stable";
+      autoUpdateChannel = Random().nextInt(10) < 3 ? "beta" : "stable";
     }
     checkByProxy =
         map["check_by_proxy"] ?? map["update_when_connected"] ?? false;

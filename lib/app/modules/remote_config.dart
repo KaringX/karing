@@ -74,6 +74,11 @@ class RemoteConfigDonate {
   }
 }
 
+class RemoteConfigLifeline {
+  String playword = "";
+  String version = "";
+}
+
 class RemoteConfig {
   static const String kDefaultSentry = "o4508911573663744.ingest.sentry.io";
   static const String kDefaultHost = "karing.app";
@@ -141,6 +146,8 @@ class RemoteConfig {
   String acl = kDefaultAcl;
   String htmlTools = kDefaultHtmlTools;
   String connect = kDefaultConnect;
+  dynamic lifeline;
+  Map<String, List<String>> lifelineMap = {};
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> ret = {
@@ -209,6 +216,9 @@ class RemoteConfig {
     }
     if (connect != kDefaultConnect) {
       ret["connect"] = connect;
+    }
+    if (lifeline != null) {
+      ret["lifeline"] = lifeline;
     }
     return ret;
   }
@@ -290,6 +300,7 @@ class RemoteConfig {
     if (connect.isEmpty) {
       connect = kDefaultConnect;
     }
+    lifeline = map["lifeline"];
   }
 
   static bool isSelfHost(String url, String host) {

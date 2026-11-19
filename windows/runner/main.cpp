@@ -13,16 +13,15 @@ LONG __stdcall UnhandledException(PEXCEPTION_POINTERS pExceptionInfo) {
   return EXCEPTION_EXECUTE_HANDLER;
 }
 
-
 bool IsEnvironmentVariableTrue(const wchar_t* name) {
-    wchar_t value[8];
-    const DWORD value_length =
-        ::GetEnvironmentVariableW(name, value, ARRAYSIZE(value));
-    if (value_length == 0 || value_length >= ARRAYSIZE(value)) {
-        return false;
-    }
-    return _wcsicmp(value, L"1") == 0 || _wcsicmp(value, L"true") == 0 ||
-        _wcsicmp(value, L"yes") == 0;
+  wchar_t value[8];
+  const DWORD value_length =
+      ::GetEnvironmentVariableW(name, value, ARRAYSIZE(value));
+  if (value_length == 0 || value_length >= ARRAYSIZE(value)) {
+    return false;
+  }
+  return _wcsicmp(value, L"1") == 0 || _wcsicmp(value, L"true") == 0 ||
+         _wcsicmp(value, L"yes") == 0;
 }
 
 void uninitializeWindow(FlutterWindow* window) {
@@ -61,9 +60,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance,
   std::vector<std::string> command_line_arguments = GetCommandLineArguments();
 
   project.set_dart_entrypoint_arguments(std::move(command_line_arguments));
-  if (!IsEnvironmentVariableTrue(L"ENABLE_IMPELLER")) {
-    project.set_impeller_switch(flutter::ImpellerSwitch::Disabled);
-  }
+  project.set_impeller_switch(
+      IsEnvironmentVariableTrue(L"KARING_ENABLE_IMPELLER")
+          ? flutter::ImpellerSwitch::Enabled
+          : flutter::ImpellerSwitch::Disabled);
 
   FlutterWindow* window = new FlutterWindow(project);
   // FlutterWindow window(project);

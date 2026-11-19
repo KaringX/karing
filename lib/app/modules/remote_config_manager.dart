@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:karing/app/local_services/vpn_service.dart';
 import 'package:karing/app/modules/remote_config.dart';
 import 'package:karing/app/modules/setting_manager.dart';
+import 'package:karing/app/private/app_url_utils_private.dart';
 import 'package:karing/app/runtime/return_result.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/app_utils.dart';
@@ -102,6 +103,10 @@ class RemoteConfigManager {
       if (content.isNotEmpty) {
         var config = jsonDecode(content);
         _config.fromJson(config);
+        _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+          AppUtils.getName(),
+          _config.lifeline,
+        );
       }
     } catch (err, stacktrace) {}
   }
@@ -146,6 +151,10 @@ class RemoteConfigManager {
       }
       _duration = const Duration(hours: 1);
       _config = gConfig.data!;
+      _config.lifelineMap = await AppUrlUtilsPrivate.parseLifeline(
+        AppUtils.getName(),
+        _config.lifeline,
+      );
       _config.latestCheck = now.toString();
 
       _saveConfig();
