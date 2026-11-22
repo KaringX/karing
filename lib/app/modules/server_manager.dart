@@ -11,6 +11,7 @@ import 'package:karing/app/modules/board_provider_manager.dart';
 //import 'package:class_to_string/class_to_string.dart';
 import 'package:karing/app/modules/setting_manager.dart';
 import 'package:karing/app/runtime/return_result.dart';
+import 'package:karing/app/subscription/xray_vless_links.dart';
 import 'package:karing/app/utils/app_lifecycle_state_notify.dart';
 import 'package:karing/app/utils/auto_conf_utils.dart';
 import 'package:karing/app/utils/backup_and_sync_utils.dart';
@@ -1635,6 +1636,11 @@ class ServerManager {
     item.updateDuration = duration;
 
     diversionGroupItem.groupid = item.groupid;
+    final source = local ? null : Uri.tryParse(urlOrPath.trim());
+    final isHttpSubscription =
+        source != null && (source.isScheme('http') || source.isScheme('https'));
+    final response =
+        remoteContent ?? (isHttpSubscription ? RemoteContent() : null);
     ReturnResultError? error = await AutoConfUtils.tryConvert(
       urlOrPath,
       local,
@@ -1642,8 +1648,33 @@ class ServerManager {
       item,
       _diversionGroupConfig.ruleSetItems,
       keepDiversionRules ? diversionGroupItem : null,
-      remoteContent,
+      response,
     );
+    if (isHttpSubscription && (error != null || item.servers.isEmpty)) {
+      final links = tryConvertXrayVlessSubscription(response!.text);
+      if (links != null) {
+        final converted = item.clone(includeServers: false);
+        converted.type = SubscriptionLinkType.v2ray;
+        final parseError = await AutoConfUtils.tryConvert(
+          links,
+          false,
+          groupid.isNotEmpty,
+          converted,
+          _diversionGroupConfig.ruleSetItems,
+          null,
+          null,
+        );
+        if (parseError == null && converted.servers.isNotEmpty) {
+          // Keep the subscription source and metadata for subsequent refreshes.
+          converted.urlOrPath = item.urlOrPath.isEmpty
+              ? urlOrPath.trim()
+              : item.urlOrPath;
+          converted.traffic = item.traffic;
+          item = converted;
+          error = null;
+        }
+      }
+    }
     if (error != null) {
       if (groupid.isNotEmpty) {
         //update error
