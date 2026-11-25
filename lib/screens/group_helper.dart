@@ -3176,6 +3176,8 @@ class GroupHelper {
       } else {
         message = tcontext.appleCoreVersionNotMatch(p: "AppleTV - Karing");
       }
+      message +=
+          "\nApple TV Karing core version: $coreVersion\nMy Karing core version: ${SettingConfig.kCoreVersion}";
 
       DialogUtils.showAlertDialog(context, message);
       return ReturnResultError(message);

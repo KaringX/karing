@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:karing/app/modules/server_manager.dart';
+import 'package:karing/app/utils/platform_utils.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/theme_config.dart';
 import 'package:karing/screens/theme_define.dart';
@@ -61,6 +62,7 @@ class MyProfilesReorderScreenState
   @override
   Widget build(BuildContext context) {
     final tcontext = Translations.of(context);
+    final showDragHandle = PlatformUtils.isPC();
     Size windowSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.zero, child: AppBar()),
@@ -101,8 +103,10 @@ class MyProfilesReorderScreenState
               const SizedBox(height: 10),
               Expanded(
                 child: ReorderableListView(
+                  buildDefaultDragHandles: !showDragHandle,
                   header: Container(height: 0),
-                  children: _subAndConfigList.map((item) {
+                  children: _subAndConfigList.asMap().entries.map((entry) {
+                    final item = entry.value;
                     return Material(
                       key: Key(item.item1.toString()),
                       borderRadius: ThemeDefine.kBorderRadius,
@@ -113,12 +117,23 @@ class MyProfilesReorderScreenState
                         child: Row(
                           children: [
                             const SizedBox(width: 10),
-                            Text(
-                              item.item2,
-                              style: TextStyle(
-                                fontSize: ThemeConfig.kFontSizeGroupItem,
+                            Expanded(
+                              child: Text(
+                                item.item2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: ThemeConfig.kFontSizeGroupItem,
+                                ),
                               ),
                             ),
+                            if (showDragHandle)
+                              ReorderableDragStartListener(
+                                index: entry.key,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Icon(Icons.drag_handle),
+                                ),
+                              ),
                           ],
                         ),
                       ),
