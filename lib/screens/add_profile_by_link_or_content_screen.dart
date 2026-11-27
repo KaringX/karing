@@ -68,7 +68,7 @@ class _AddProfileByLinkOrContentScreenState
   String _website = "";
   String _decryptPasswordAES = "";
   String _decryptPasswordAGE = "";
-  final RemoteContent _remoteContent = RemoteContent();
+  RemoteContent _remoteContent = RemoteContent();
   ProxyFilter _proxyFilter = ProxyFilter();
   ProxyStrategy _downloadMode = ProxyStrategy.preferProxy;
   Duration? _updateTimeInterval = const Duration(hours: 12);
@@ -255,6 +255,7 @@ class _AddProfileByLinkOrContentScreenState
       return;
     }
     _loading = true;
+    _remoteContent = RemoteContent();
     setState(() {});
 
     final result = await ServerManager.addRemoteConfig(
