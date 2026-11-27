@@ -234,12 +234,16 @@ Future<void> ensureSingleInstanceOrExit(List<String> args) async {
       }
     }
   };
-
   final singleInstance = FlutterSingleInstance();
-  final isFirst = await singleInstance.isFirstInstance(
-    maxRetries: Platform.isLinux ? 5 : 1,
-    retryInterval: const Duration(milliseconds: 250),
-  );
+  var isFirst = true;
+  try {
+    isFirst = await singleInstance.isFirstInstance(
+      maxRetries: Platform.isLinux ? 5 : 1,
+      retryInterval: const Duration(milliseconds: 250),
+    );
+  } catch (err) {
+    Log.w("FlutterSingleInstance.isFirstInstance exception: ${err.toString()}");
+  }
 
   if (!isFirst) {
     try {

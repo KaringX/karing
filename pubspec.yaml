@@ -2,7 +2,7 @@ name: karing
 description: karing
 
 publish_to: none 
-version: 1.2.27+3000
+version: 1.2.27+3001
 environment:
   sdk: ">=3.12.2 <4.0.0"
   flutter: ">=3.44.0"
@@ -21,13 +21,13 @@ dependencies:
   emoji_regex: 0.0.5
   dash_flags: 0.1.1
   country: 7.0.0
-  sentry_flutter: 9.30.1
+  sentry_flutter: 10.6.0
   device_info_plus: 11.3.0 #13.3.0
   network_info_plus: 7.0.0 #8.2.1
   connectivity_plus: 7.3.1
   package_info_plus: 9.0.0 #10.2.1
-  build_info: 2.0.0
-  build_info_android: 2.0.0
+  build_info: 3.0.0
+  build_info_android: 3.0.0
   #platform_device_id: 1.0.1
   class_to_string: 1.2.0
   ffi: 2.2.0
@@ -35,13 +35,13 @@ dependencies:
 
   web_socket_channel: 3.0.3 #flutter_test
   dio: 5.11.1
-  sqlite_async: 0.14.6
-  sqlite3: 3.7.0
+  sqlite_async: 0.14.8
+  sqlite3: 3.9.2
   path_provider: 2.1.6
   flutter_secure_storage: 10.3.1
   protocol_handler: 0.1.6 #0.2.0 cause windows jam when exit
-  fl_chart: 1.2.0
-  data_table_2: 2.7.2
+  fl_chart: 1.3.1
+  data_table_2: 2.8.0
   extended_wrap: 0.1.5
   infinite_scroll_pagination: 5.1.1
   #dart_json_mapper: 2.2.7
@@ -65,11 +65,11 @@ dependencies:
   launch_at_startup: 0.2.2 #0.5.1 #0.2.2 - 0.3.1 StartupApproved cause reg exceptions
   provider: 6.1.5+1
   zxing2: 0.2.4
-  qr_code_scanner_plus: 2.3.0
+  qr_code_scanner_plus: 2.5.0
   screen_capturer: 0.2.3
   screen_retriever: 0.2.2
   defer_pointer: 0.0.2
-  image: 4.9.2
+  image: 4.13.1
   fast_cached_network_image: 1.3.3+5
   uuid: 4.6.0 #flutter_test 
   slang: 4.19.2
@@ -81,18 +81,18 @@ dependencies:
   scrollview_observer: 1.27.1
   after_layout: 1.2.0
   flutter_typeahead: 6.0.0
-  flutter_install_referrer: 2.1.1
+  flutter_install_referrer: 3.0.1
   flutter_single_instance: 1.7.0
   flutter_plugin_android_lifecycle: 2.0.35 #file_picker image_picker
   file_picker: 11.0.3 #12.2.0
   image_picker: 1.2.4
   board_datetime_picker: 2.8.8
   tray_manager: 0.8.3
-  hotkey_manager: 0.2.3
+  hotkey_manager: 0.3.0
   #accessibility_tools: 2.2.2
   logger: 2.8.0
   tuple: 2.0.2
-  crypto: 3.0.7
+  crypto: 3.0.8
   cryptography: 2.9.0
   encrypt: 5.0.3
   open_dir: 0.0.2+1
@@ -101,11 +101,11 @@ dependencies:
   win32_registry: 1.1.5 #3.0.3 #flutter_test
   csv: 8.0.0
   #home_widget: 0.4.1
-  share_plus: 12.0.2 #13.3.0
+  share_plus: 12.0.2 #13.3.1
   open_file: 4.0.0
   app_installer: 1.3.1
   #flutter_background_service: 5.0.5
-  app_settings: 9.0.0
+  app_settings: 9.0.1
   #duraspeed_checker: 0.0.1
   #timezone_to_country: 2.2.0
   #local_auth: 2.2.0
@@ -114,11 +114,11 @@ dependencies:
   http: 1.6.0
   http_parser: 4.1.2
   icloud_storage: 2.2.0 #https://github.com/lollipopkit/flutter_server_box/blob/d94b2a7805891da3e652a9a65cc0c774a2ec6db4/lib/core/utils/sync/icloud.dart#L32
-  archive: 4.5.2
+  archive: 4.7.1
   #code_text_field: 1.1.0
   #flutter_speed_dial: 7.0.0
   flutter_inapp_notifications: 1.0.0 
-  flutter_local_notifications: 22.3.0
+  flutter_local_notifications: 23.0.3
   convex_bottom_bar: 3.2.0
   animations: 3.0.0
   quick_actions: 1.1.1
@@ -132,16 +132,16 @@ dependencies:
   pointycastle: 3.9.1
 
 dev_dependencies:
-  source_gen: 4.2.3
-  build_runner: 2.15.0
-  sentry_dart_plugin: 3.4.0
+  source_gen: 4.3.1
+  build_runner: 2.17.1
+  sentry_dart_plugin: 3.6.0
   flutter_launcher_icons: 0.14.4
   flutter_test:
     sdk: flutter
 
   flutter_lints: 6.0.0
   ffigen: 23.0.0
-  #json_serializable: 6.11.4 #dart run build_runner clean   dart run build_runner build
+  #json_serializable: 6.15.2 #dart run build_runner build
 
 dependency_overrides:
   path_provider_foundation: 2.3.2

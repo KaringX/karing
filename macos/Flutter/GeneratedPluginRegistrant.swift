@@ -15,7 +15,6 @@ import file_selector_macos
 import flutter_inappwebview_macos
 import flutter_local_notifications
 import flutter_secure_storage_darwin
-import hotkey_manager_macos
 import icloud_storage
 import network_info_plus
 import open_dir_macos
@@ -42,7 +41,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   InAppWebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "InAppWebViewFlutterPlugin"))
   FlutterLocalNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalNotificationsPlugin"))
   FlutterSecureStorageDarwinPlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStorageDarwinPlugin"))
-  HotkeyManagerMacosPlugin.register(with: registry.registrar(forPlugin: "HotkeyManagerMacosPlugin"))
   IcloudStoragePlugin.register(with: registry.registrar(forPlugin: "IcloudStoragePlugin"))
   NetworkInfoPlusPlugin.register(with: registry.registrar(forPlugin: "NetworkInfoPlusPlugin"))
   OpenDirMacosPlugin.register(with: registry.registrar(forPlugin: "OpenDirMacosPlugin"))

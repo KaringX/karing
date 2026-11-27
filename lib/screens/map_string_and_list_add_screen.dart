@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:karing/i18n/strings.g.dart';
 import 'package:karing/screens/dialog_utils.dart';
@@ -13,12 +15,12 @@ class MapStringAndListAddScreen extends LasyRenderingStatefulWidget {
   }
 
   final String title;
-  final List<Tuple2<String, List<String>>> data;
+  List<Tuple2<String, List<String>>> data = [];
   final String dialogTitle1;
   final String dialogTextHit1;
   final String dialogTitle2;
   final String dialogTextHit2;
-  const MapStringAndListAddScreen({
+  MapStringAndListAddScreen({
     super.key,
     required this.title,
     required this.data,

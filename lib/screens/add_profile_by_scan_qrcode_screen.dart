@@ -161,6 +161,13 @@ class _AddProfileByScanQrcodeScanScreenState
                     ),
                     iconSize: 26,
                     onPressed: () async {
+                      if (controller == null) {
+                        DialogUtils.showAlertDialog(
+                          context,
+                          "controller is not initialized",
+                        );
+                        return;
+                      }
                       try {
                         await controller!.toggleFlash();
                       } catch (err, stacktrace) {
